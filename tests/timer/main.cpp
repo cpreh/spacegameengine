@@ -11,6 +11,7 @@
 #include <sge/timer/elapsed.hpp>
 #include <sge/timer/remaining.hpp>
 #include <sge/timer/clocks/delta.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <chrono>
@@ -38,7 +39,9 @@ TEST_CASE(
 
 	timer t1{
 		timer::parameters{
-			clk,
+			fcppt::make_cref(
+				clk
+			),
 			std::chrono::seconds(
 				0
 			)
@@ -126,7 +129,9 @@ TEST_CASE(
 	absolute;
 
 	absolute t1{
-		clk
+		fcppt::make_cref(
+			clk
+		)
 	};
 
 	CHECK(

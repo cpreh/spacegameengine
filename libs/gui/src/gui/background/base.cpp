@@ -6,6 +6,7 @@
 
 #include <sge/gui/background/base.hpp>
 #include <sge/gui/main_area/base.hpp>
+#include <sge/gui/main_area/reference.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -14,7 +15,7 @@
 
 
 sge::gui::background::base::base(
-	sge::gui::main_area::base &_main_area
+	sge::gui::main_area::reference const _main_area
 )
 :
 	main_area_(
@@ -24,8 +25,7 @@ sge::gui::background::base::base(
 }
 
 sge::gui::background::base::~base()
-{
-}
+= default;
 
 void
 sge::gui::background::base::draw(
@@ -44,5 +44,5 @@ sge::gui::widget::base &
 sge::gui::background::base::widget()
 {
 	return
-		main_area_.widget();
+		main_area_.get().widget();
 }

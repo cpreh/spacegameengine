@@ -32,8 +32,7 @@ access_axis(
 		==
 		fcppt::enum_::size<
 			sge::rucksack::axis
-		>::value,
-		""
+		>::value
 	);
 
 	return

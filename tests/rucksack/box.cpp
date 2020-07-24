@@ -14,11 +14,14 @@
 #include <sge/rucksack/padding.hpp>
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/vector.hpp>
+#include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/box.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/rucksack/widget/reference.hpp>
 #include <sge/rucksack/widget/reference_alignment.hpp>
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/comparison.hpp>
@@ -114,7 +117,13 @@ TEST_CASE(
 	};
 
 	box1.push_back_child(
-		child2,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				child2
+			)
+		),
 		sge::rucksack::alignment::center
 	);
 
@@ -363,7 +372,13 @@ TEST_CASE(
 	);
 
 	box1.push_back_child(
-		child_x_2,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				child_x_2
+			)
+		),
 		sge::rucksack::alignment::left_or_top
 	);
 

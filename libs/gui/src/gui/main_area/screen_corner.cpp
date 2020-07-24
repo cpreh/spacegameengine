@@ -12,20 +12,22 @@
 #include <sge/gui/impl/swap_pair.hpp>
 #include <sge/gui/main_area/base.hpp>
 #include <sge/gui/main_area/screen_corner.hpp>
-#include <sge/gui/widget/base_fwd.hpp>
+#include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/reference.hpp>
 #include <sge/gui/widget/reference_alignment_pair.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/axis.hpp>
-#include <sge/viewport/manager_fwd.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 
 
 sge::gui::main_area::screen_corner::screen_corner(
-	sge::renderer::device::core &_renderer,
-	sge::viewport::manager &_viewport_manager,
-	sge::gui::context &_gui_context,
-	sge::gui::widget::base &_widget,
+	sge::renderer::device::core_ref const _renderer,
+	sge::viewport::manager_ref const _viewport_manager,
+	sge::gui::context_ref const _gui_context,
+	sge::gui::widget::reference const _widget,
 	sge::gui::gravity const _gravity
 )
 :
@@ -91,14 +93,19 @@ sge::gui::main_area::screen_corner::screen_corner(
 	viewport_adaptor_(
 		_renderer,
 		_viewport_manager,
-		vertical_container_
+		fcppt::reference_to_base<
+			sge::gui::widget::base
+		>(
+			fcppt::make_ref(
+				vertical_container_
+			)
+		)
 	)
 {
 }
 
 sge::gui::main_area::screen_corner::~screen_corner()
-{
-}
+= default;
 
 void
 sge::gui::main_area::screen_corner::relayout()
@@ -110,5 +117,5 @@ sge::gui::widget::base &
 sge::gui::main_area::screen_corner::widget()
 {
 	return
-		widget_;
+		widget_.get();
 }

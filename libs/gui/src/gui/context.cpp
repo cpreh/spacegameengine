@@ -8,8 +8,8 @@
 #include <sge/gui/focus_change.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
+#include <sge/gui/widget/reference.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_const.hpp>
@@ -32,7 +32,7 @@ sge::gui::context::~context()
 
 void
 sge::gui::context::focus(
-	sge::gui::widget::base &_widget
+	sge::gui::widget::reference const _widget
 )
 {
 	fcppt::optional::maybe_void(
@@ -51,12 +51,10 @@ sge::gui::context::focus(
 
 	focus_ =
 		sge::gui::widget::optional_ref(
-			fcppt::make_ref(
-				_widget
-			)
+			_widget
 		);
 
-	_widget.on_focus_changed(
+	_widget.get().on_focus_changed(
 		sge::gui::focus_change::gained
 	);
 }
@@ -86,8 +84,10 @@ sge::gui::context::destroy(
 					_widget
 				)
 			)
+			{
 				focus_ =
 					sge::gui::widget::optional_ref();
+			}
 		}
 	);
 }

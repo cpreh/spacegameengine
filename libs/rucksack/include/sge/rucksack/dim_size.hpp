@@ -15,11 +15,12 @@ namespace sge
 namespace rucksack
 {
 
-typedef
+using
+dim_size
+=
 fcppt::math::static_size<
 	2
->
-dim_size;
+>;
 
 }
 }

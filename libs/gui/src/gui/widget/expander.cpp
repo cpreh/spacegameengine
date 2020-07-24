@@ -64,8 +64,7 @@ sge::gui::widget::expander::expander(
 }
 
 sge::gui::widget::expander::~expander()
-{
-}
+= default;
 
 sge::rucksack::widget::base &
 sge::gui::widget::expander::layout()

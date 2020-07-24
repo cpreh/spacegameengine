@@ -20,11 +20,12 @@ namespace gui
 namespace widget
 {
 
-typedef
+using
+reference_alignment_vector
+=
 std::vector<
 	sge::gui::widget::reference_alignment_pair
->
-reference_alignment_vector;
+>;
 
 }
 }

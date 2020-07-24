@@ -18,11 +18,12 @@ namespace gui
 namespace widget
 {
 
-typedef
+using
+reference
+=
 fcppt::reference<
 	sge::gui::widget::base
->
-reference;
+>;
 
 }
 }

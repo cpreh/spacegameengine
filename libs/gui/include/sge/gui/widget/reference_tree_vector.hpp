@@ -20,11 +20,12 @@ namespace gui
 namespace widget
 {
 
-typedef
+using
+reference_tree_vector
+=
 std::vector<
 	sge::gui::widget::reference_tree
->
-reference_tree_vector;
+>;
 
 }
 }

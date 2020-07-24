@@ -15,9 +15,10 @@ namespace sge
 namespace gui
 {
 
-typedef
-void
-index_function(
+using
+index_function
+=
+void (
 	sge::gui::index
 );
 

@@ -7,7 +7,7 @@
 #ifndef SGE_GUI_WIDGET_BOX_CONTAINER_HPP_INCLUDED
 #define SGE_GUI_WIDGET_BOX_CONTAINER_HPP_INCLUDED
 
-#include <sge/gui/context_fwd.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/widget/box_container_fwd.hpp>
 #include <sge/gui/widget/container.hpp>
@@ -18,7 +18,7 @@
 #include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/box.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -33,13 +33,13 @@ class box_container
 :
 	public sge::gui::widget::container
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		box_container
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	box_container(
-		sge::gui::context &,
+		sge::gui::context_ref,
 		sge::gui::widget::reference_alignment_vector const &,
 		sge::rucksack::axis
 	);
@@ -79,6 +79,7 @@ public:
 	void
 	clear();
 
+	[[nodiscard]]
 	sge::rucksack::widget::box &
 	box_layout();
 private:

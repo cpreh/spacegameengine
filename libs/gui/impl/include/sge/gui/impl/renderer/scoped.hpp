@@ -8,12 +8,12 @@
 #define SGE_GUI_IMPL_RENDERER_SCOPED_HPP_INCLUDED
 
 #include <sge/gui/impl/renderer/stateless.hpp>
-#include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object_decl.hpp>
 #include <sge/sprite/state/scoped_decl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -29,32 +29,36 @@ class scoped
 :
 	public sge::gui::impl::renderer::stateless
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped
 	);
 public:
 	scoped(
-		sge::renderer::device::ffp &,
-		sge::renderer::context::ffp &
+		sge::renderer::device::ffp_ref,
+		sge::renderer::context::ffp_ref
 	);
 
 	~scoped()
 	override;
 private:
-	typedef
-	sge::sprite::state::all_choices sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state;
+	>;
 
-	typedef
+	using
+	sprite_scoped_state
+	=
 	sge::sprite::state::scoped<
 		sprite_state_choices
-	>
-	sprite_scoped_state;
+	>;
 
 	sprite_state state_;
 

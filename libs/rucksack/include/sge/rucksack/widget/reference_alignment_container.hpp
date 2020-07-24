@@ -20,11 +20,12 @@ namespace rucksack
 namespace widget
 {
 
-typedef
+using
+reference_alignment_container
+=
 std::vector<
 	sge::rucksack::widget::reference_alignment
->
-reference_alignment_container;
+>;
 
 }
 }

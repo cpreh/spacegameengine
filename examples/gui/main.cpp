@@ -21,6 +21,7 @@
 #include <sge/gui/string_container.hpp>
 #include <sge/gui/text_color.hpp>
 #include <sge/gui/background/colored.hpp>
+#include <sge/gui/main_area/base.hpp>
 #include <sge/gui/main_area/viewport_adaptor.hpp>
 #include <sge/gui/style/base.hpp>
 #include <sge/gui/style/base_unique_ptr.hpp>
@@ -89,6 +90,7 @@
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
@@ -108,6 +110,7 @@
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -126,6 +129,7 @@
 #include <metal.hpp>
 #include <chrono>
 #include <exception>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -206,12 +210,18 @@ try
 		sge::gui::style::create()
 	};
 
-	sge::gui::context context;
+	sge::gui::context context{};
 
 	sge::gui::widget::button button(
-		*style,
-		sys.renderer_device_ffp(),
-		*font,
+		fcppt::make_cref(
+			*style
+		),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font
+		),
 		SGE_FONT_LIT("Quit"),
 		sge::gui::optional_needed_width()
 	);
@@ -232,15 +242,23 @@ try
 	);
 
 	sge::gui::widget::edit edit(
-		*style,
-		sys.renderer_device_ffp(),
-		*font,
+		fcppt::make_cref(
+			*style
+		),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font
+		),
 		SGE_FONT_LIT("Test")
 	);
 
 	sge::texture::part_raw_ptr const car_image(
 		sge::gui::create_texture(
-			sys.renderer_device_core(),
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			),
 			sge::image2d::load_exn(
 				fcppt::make_ref(
 					sys.image_system()
@@ -255,8 +273,16 @@ try
 	);
 
 	sge::gui::widget::image image(
-		*style,
-		car_image
+		fcppt::make_cref(
+			*style
+		),
+		fcppt::reference_to_base<
+			sge::texture::part const
+		>(
+			fcppt::make_cref(
+				car_image
+			)
+		)
 	);
 
 	auto const make_tree(
@@ -265,7 +291,7 @@ try
 			&sys,
 			&font
 		](
-			sge::font::string const &_label
+			sge::font::string &&_label
 		)
 		{
 			return
@@ -276,10 +302,18 @@ try
 						fcppt::make_unique_ptr<
 							sge::gui::widget::text
 						>(
-							*style,
-							sys.renderer_device_ffp(),
-							*font,
-							_label,
+							fcppt::make_cref(
+								*style
+							),
+							fcppt::make_ref(
+								sys.renderer_device_ffp()
+							),
+							fcppt::make_ref(
+								*font
+							),
+							std::move(
+								_label
+							),
 							sge::gui::text_color(
 								sge::image::color::any::object{
 									sge::image::color::predef::black()
@@ -298,9 +332,15 @@ try
 								fcppt::make_unique_ptr<
 									sge::gui::widget::button
 								>(
-									*style,
-									sys.renderer_device_ffp(),
-									*font,
+									fcppt::make_cref(
+										*style
+									),
+									fcppt::make_ref(
+										sys.renderer_device_ffp()
+									),
+									fcppt::make_ref(
+										*font
+									),
 									SGE_FONT_LIT("Child 1"),
 									sge::gui::optional_needed_width()
 								)
@@ -313,9 +353,15 @@ try
 								fcppt::make_unique_ptr<
 									sge::gui::widget::button
 								>(
-									*style,
-									sys.renderer_device_ffp(),
-									*font,
+									fcppt::make_cref(
+										*style
+									),
+									fcppt::make_ref(
+										sys.renderer_device_ffp()
+									),
+									fcppt::make_ref(
+										*font
+									),
 									SGE_FONT_LIT("Child 2 asdljasdljasdklasdjklasdjlkasdjaskldjjasdkljasdklasdjlk"),
 									sge::gui::optional_needed_width()
 								)
@@ -337,7 +383,9 @@ try
 				fcppt::make_unique_ptr<
 					sge::gui::widget::tree
 				>(
-					context,
+					fcppt::make_ref(
+						context
+					),
 					sge::gui::widget::reference_tree_vector{
 						fcppt::container::tree::map<
 							sge::gui::widget::reference_tree
@@ -383,10 +431,18 @@ try
 	);
 
 	sge::gui::widget::tab tab(
-		context,
-		*style,
-		sys.renderer_device_ffp(),
-		*font,
+		fcppt::make_ref(
+			context
+		),
+		fcppt::make_cref(
+			*style
+		),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font
+		),
 		sge::gui::widget::reference_name_vector{
 			sge::gui::widget::reference_name_pair(
 				sge::gui::widget::reference(
@@ -404,7 +460,9 @@ try
 	);
 
 	sge::gui::widget::box_container line_widget(
-		context,
+		fcppt::make_ref(
+			context
+		),
 		sge::gui::widget::reference_alignment_vector{
 			sge::gui::widget::reference_alignment_pair(
 				sge::gui::widget::reference(
@@ -428,17 +486,23 @@ try
 		sge::rucksack::axis::x
 	);
 
-	sge::gui::string_container const string_choices{
-		SGE_FONT_LIT("Choices Short"),
-		SGE_FONT_LIT("Choices Loooooooooooooooooooooooooooooooooooong")
-	};
-
 	sge::gui::widget::choices choices(
-		context,
-		*style,
-		sys.renderer_device_ffp(),
-		*font,
-		string_choices,
+		fcppt::make_ref(
+			context
+		),
+		fcppt::make_cref(
+			*style
+		),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			*font
+		),
+		sge::gui::string_container{
+			SGE_FONT_LIT("Choices Short"),
+			SGE_FONT_LIT("Choices Loooooooooooooooooooooooooooooooooooong")
+		},
 		sge::gui::optional_index(
 			sge::gui::index(
 				0u
@@ -447,7 +511,9 @@ try
 	);
 
 	sge::gui::widget::box_container main_widget(
-		context,
+		fcppt::make_ref(
+			context
+		),
 		sge::gui::widget::reference_alignment_vector{
 			sge::gui::widget::reference_alignment_pair(
 				sge::gui::widget::reference(
@@ -472,25 +538,50 @@ try
 	);
 
 	sge::gui::main_area::viewport_adaptor main_area(
-		sys.renderer_device_ffp(),
-		sys.viewport_manager(),
-		main_widget
+		fcppt::make_ref(
+			sys.renderer_device_core()
+		),
+		fcppt::make_ref(
+			sys.viewport_manager()
+		),
+		fcppt::reference_to_base<
+			sge::gui::widget::base
+		>(
+			fcppt::make_ref(
+				main_widget
+			)
+		)
 	);
 
 	sge::gui::master master(
-		context,
-		main_area
+		fcppt::make_ref(
+			context
+		),
+		fcppt::reference_to_base<
+			sge::gui::main_area::base
+		>(
+			fcppt::make_ref(
+				main_area
+			)
+		)
 	);
 
 	sge::gui::background::colored background(
-		main_area
+		fcppt::reference_to_base<
+			sge::gui::main_area::base
+		>(
+			fcppt::make_ref(
+				main_area
+			)
+		)
 	);
 
-	typedef
+	using
+	frame_timer_type
+	=
 	sge::timer::basic<
 		sge::timer::clocks::standard
-	>
-	frame_timer_type;
+	>;
 
 	frame_timer_type frame_timer(
 		frame_timer_type::parameters(

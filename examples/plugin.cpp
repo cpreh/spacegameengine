@@ -83,7 +83,9 @@ try
 		sge::plugin::optional_cache_ref()
 	);
 
-	typedef
+	using
+	plugins
+	=
 	metal::list<
 		sge::audio::loader,
 		sge::audio::player,
@@ -91,8 +93,7 @@ try
 		sge::image2d::system,
 		sge::input::system,
 		sge::renderer::core
-	>
-	plugins;
+	>;
 
 	fcppt::algorithm::loop(
 		plugins{},
@@ -106,13 +107,14 @@ try
 				_tag
 			);
 
-			typedef
+			using
+			type
+			=
 			fcppt::tag_type<
 				decltype(
 					_tag
 				)
-			>
-			type;
+			>;
 
 			fcppt::io::cout()
 				<<

@@ -8,7 +8,7 @@
 #define SGE_TIMER_CLOCKS_DELTA_DECL_HPP_INCLUDED
 
 #include <sge/timer/clocks/delta_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
 #include <fcppt/config/external_end.hpp>
@@ -26,31 +26,36 @@ template<
 >
 class delta
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		delta
 	);
 public:
-	typedef
+	using
+	rep
+	=
 	typename
-	Duration::rep
-	rep;
+	Duration::rep;
 
-	typedef
+	using
+	period
+	=
 	typename
-	Duration::period
-	period;
+	Duration::period;
 
-	typedef
-	Duration
-	duration;
+	using
+	duration
+	=
+	Duration;
 
-	typedef
+	using
+	time_point
+	=
 	std::chrono::time_point<
 		delta
-	>
-	time_point;
+	>;
 
 	static
+	constexpr
 	bool const is_steady =
 		true;
 
@@ -63,6 +68,7 @@ public:
 		duration const &
 	);
 
+	[[nodiscard]]
 	time_point
 	now() const;
 private:

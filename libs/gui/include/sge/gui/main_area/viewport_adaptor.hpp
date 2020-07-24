@@ -10,10 +10,11 @@
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/main_area/base.hpp>
 #include <sge/gui/widget/base_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/gui/widget/reference.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/rucksack/viewport/adaptor.hpp>
-#include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,15 +28,15 @@ class viewport_adaptor
 :
 	public sge::gui::main_area::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		viewport_adaptor
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	viewport_adaptor(
-		sge::renderer::device::core &,
-		sge::viewport::manager &,
-		sge::gui::widget::base &
+		sge::renderer::device::core_ref,
+		sge::viewport::manager_ref,
+		sge::gui::widget::reference
 	);
 
 	SGE_GUI_DETAIL_SYMBOL
@@ -51,7 +52,7 @@ private:
 	widget()
 	override;
 
-	sge::gui::widget::base &widget_;
+	sge::gui::widget::reference const widget_;
 
 	sge::rucksack::viewport::adaptor impl_;
 };

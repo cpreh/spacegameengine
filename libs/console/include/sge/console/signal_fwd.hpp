@@ -17,12 +17,13 @@ namespace sge
 namespace console
 {
 
-typedef
+using
+signal
+=
 fcppt::signal::object<
 	sge::console::callback::function_type,
 	fcppt::signal::unregister::base
->
-signal;
+>;
 
 }
 }

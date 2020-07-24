@@ -17,8 +17,7 @@ sge::gui::widget::dummy::dummy()
 }
 
 sge::gui::widget::dummy::~dummy()
-{
-}
+= default;
 
 void
 sge::gui::widget::dummy::on_draw(

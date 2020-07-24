@@ -36,8 +36,7 @@ update_axis(
 		==
 		fcppt::enum_::size<
 			sge::rucksack::axis
-		>::value,
-		""
+		>::value
 	);
 
 	_result.get_unsafe(

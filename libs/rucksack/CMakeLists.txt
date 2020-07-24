@@ -5,7 +5,6 @@ set(
 	libs/rucksack/impl/include/sge/rucksack/impl/update_axis.hpp
 	libs/rucksack/impl/src/rucksack/impl/extract_size.cpp
 	libs/rucksack/impl/src/rucksack/impl/flip_axis.cpp
-	libs/rucksack/impl/src/rucksack/impl/make_axis_policy.cpp
 	libs/rucksack/include/sge/rucksack/access_axis.hpp
 	libs/rucksack/include/sge/rucksack/alignment.hpp
 	libs/rucksack/include/sge/rucksack/alignment_fwd.hpp
@@ -57,6 +56,7 @@ set(
 	libs/rucksack/src/rucksack/axis_policy2.cpp
 	libs/rucksack/src/rucksack/axis_policy2_comparison.cpp
 	libs/rucksack/src/rucksack/axis_to_index.cpp
+	libs/rucksack/src/rucksack/make_axis_policy.cpp
 	libs/rucksack/src/rucksack/widget/base.cpp
 	libs/rucksack/src/rucksack/widget/box.cpp
 	libs/rucksack/src/rucksack/widget/dummy.cpp

@@ -13,7 +13,6 @@
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/function_impl.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/loop.hpp>
 #include <fcppt/algorithm/loop_break_metal.hpp>
 #include <fcppt/algorithm/loop_break_tuple.hpp>
@@ -83,7 +82,7 @@ public:
 	void
 	operator()(
 		sge::console::arg_list const &_args,
-		sge::console::object &_console
+		sge::console::object_ref const _console
 	) const
 	{
 		using
@@ -122,11 +121,11 @@ public:
 				&_console,
 				this
 			]{
-				_console.emit_error(
+				_console.get().emit_error(
 					SGE_FONT_LIT("Given too few or too many arguments!")
 				);
 
-				_console.emit_error(
+				_console.get().emit_error(
 					this->short_description_
 				);
 			},
@@ -152,9 +151,7 @@ public:
 							sge::console::callback::detail::conversion_visitor<
 								arg_types
 							>{
-								fcppt::make_ref(
-									_console
-								)
+								_console
 							},
 							fcppt::metal::as_tuple<
 								fcppt::metal::interval<

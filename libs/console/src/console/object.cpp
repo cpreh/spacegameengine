@@ -12,6 +12,7 @@
 #include <sge/console/function_map.hpp>
 #include <sge/console/message_callback.hpp>
 #include <sge/console/object.hpp>
+#include <sge/console/object_ref.hpp>
 #include <sge/console/prefix.hpp>
 #include <sge/console/signal.hpp>
 #include <sge/console/callback/function.hpp>
@@ -20,6 +21,7 @@
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/output_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -42,7 +44,6 @@
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/signal/unregister/function.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -65,11 +66,17 @@ sge::console::object::object(
 		this->insert(
 			sge::console::callback::parameters(
 				sge::console::callback::function{
-					std::bind(
-						&sge::console::object::help_callback,
-						this,
-						std::placeholders::_1
+					[
+						this
+					](
+						sge::console::arg_list const &_args,
+						sge::console::object_ref
 					)
+					{
+						this->help_callback(
+							_args
+						);
+					}
 				},
 				sge::console::callback::name(
 					SGE_FONT_LIT("help")
@@ -84,11 +91,17 @@ sge::console::object::object(
 		this->insert(
 			sge::console::callback::parameters(
 				sge::console::callback::function{
-					std::bind(
-						&sge::console::object::man_callback,
-						this,
-						std::placeholders::_1
+					[
+						this
+					](
+						sge::console::arg_list const &_args,
+						sge::console::object_ref
 					)
+					{
+						this->man_callback(
+							_args
+						);
+					}
 				},
 				sge::console::callback::name(
 					SGE_FONT_LIT("man")
@@ -104,8 +117,7 @@ sge::console::object::object(
 FCPPT_PP_POP_WARNING
 
 sge::console::object::~object()
-{
-}
+= default;
 
 fcppt::signal::auto_connection
 sge::console::object::insert(
@@ -139,13 +151,18 @@ sge::console::object::insert(
 				)
 			},
 			fcppt::signal::unregister::function{
-				std::bind(
-					&sge::console::object::remove_function,
+				[
 					this,
-					std::move(
-						_params.name()
-					)
-				)
+					name =
+						std::move(
+							_params.name()
+						)
+				]()
+				{
+					this->remove_function(
+						name
+					);
+				}
 			}
 		);
 }
@@ -296,7 +313,9 @@ sge::console::object::eval(
 				}
 			).get().signal()(
 				_args,
-				*this
+				fcppt::make_ref(
+					*this
+				)
 			);
 		}
 	);
@@ -356,6 +375,7 @@ sge::console::object::help_callback(
 		:
 		funcs_
 	)
+	{
 		this->emit_message(
 			element.first
 			+
@@ -363,6 +383,7 @@ sge::console::object::help_callback(
 			+
 			element.second.short_description().get()
 		);
+	}
 }
 
 void
@@ -373,7 +394,7 @@ sge::console::object::man_callback(
 	fcppt::optional::maybe(
 		fcppt::container::at_optional(
 			_args,
-			1u
+			1U
 		),
 		[
 			this
@@ -445,7 +466,9 @@ sge::console::object::remove_function(
 	if(
 		it->second.signal().empty()
 	)
+	{
 		funcs_.erase(
 			it
 		);
+	}
 }

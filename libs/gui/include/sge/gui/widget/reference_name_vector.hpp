@@ -20,11 +20,12 @@ namespace gui
 namespace widget
 {
 
-typedef
+using
+reference_name_vector
+=
 std::vector<
 	sge::gui::widget::reference_name_pair
->
-reference_name_vector;
+>;
 
 }
 }

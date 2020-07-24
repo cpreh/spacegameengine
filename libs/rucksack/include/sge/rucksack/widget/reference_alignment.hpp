@@ -29,9 +29,11 @@ public:
 		sge::rucksack::alignment
 	);
 
+	[[nodiscard]]
 	sge::rucksack::widget::reference
 	reference() const;
 
+	[[nodiscard]]
 	sge::rucksack::alignment
 	alignment() const;
 private:

@@ -18,11 +18,12 @@ namespace gui
 namespace renderer
 {
 
-typedef
+using
+base_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::gui::renderer::base
->
-base_unique_ptr;
+>;
 
 }
 }

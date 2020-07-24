@@ -18,11 +18,12 @@ namespace rucksack
 namespace widget
 {
 
-typedef
+using
+optional_ref
+=
 fcppt::optional::reference<
 	sge::rucksack::widget::base
->
-optional_ref;
+>;
 
 }
 }

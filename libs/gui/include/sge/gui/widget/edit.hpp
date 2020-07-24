@@ -8,7 +8,7 @@
 #define SGE_GUI_WIDGET_EDIT_HPP_INCLUDED
 
 #include <sge/font/char_type.hpp>
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/gui/duration.hpp>
@@ -18,19 +18,19 @@
 #include <sge/gui/text_function.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
-#include <sge/gui/style/base_fwd.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/edit_fwd.hpp>
-#include <sge/gui/widget/optional_focus_fwd.hpp>
+#include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref_fwd.hpp>
 #include <sge/input/key/code_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/timer/basic_decl.hpp>
 #include <sge/timer/clocks/delta_decl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
@@ -46,32 +46,35 @@ class edit
 :
 	public sge::gui::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		edit
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	edit(
-		sge::gui::style::base const &,
-		sge::renderer::device::ffp &,
-		sge::font::object &,
-		sge::font::string const &
+		sge::gui::style::const_reference,
+		sge::renderer::device::ffp_ref,
+		sge::font::object_ref,
+		sge::font::string &&
 	);
 
 	SGE_GUI_DETAIL_SYMBOL
 	~edit()
 	override;
 
+	[[nodiscard]]
 	SGE_GUI_DETAIL_SYMBOL
 	sge::font::string const &
 	text() const;
 
+	[[nodiscard]]
 	SGE_GUI_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	text_change(
 		sge::gui::text_callback &&
 	);
 
+	[[nodiscard]]
 	SGE_GUI_DETAIL_SYMBOL
 	sge::rucksack::widget::base &
 	layout()
@@ -92,7 +95,7 @@ private:
 
 	sge::gui::get_focus
 	on_click(
-		sge::rucksack::vector
+		sge::rucksack::vector const &
 	)
 	override;
 
@@ -114,23 +117,25 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::gui::widget::optional_ref
 	on_tab(
-		sge::gui::widget::optional_focus &
+		sge::gui::widget::optional_focus_ref
 	)
 	override;
 
 	void
 	text_changed();
 
+	[[nodiscard]]
 	sge::font::draw::static_text
 	make_static_text();
 
-	sge::gui::style::base const &style_;
+	sge::gui::style::const_reference const style_;
 
-	sge::renderer::device::ffp &renderer_;
+	sge::renderer::device::ffp_ref const renderer_;
 
-	sge::font::object &font_;
+	sge::font::object_ref const font_;
 
 	sge::font::string text_;
 
@@ -140,17 +145,19 @@ private:
 
 	sge::font::draw::static_text static_text_;
 
-	typedef
+	using
+	diff_clock
+	=
 	sge::timer::clocks::delta<
 		sge::gui::duration
-	>
-	diff_clock;
+	>;
 
-	typedef
+	using
+	diff_timer
+	=
 	sge::timer::basic<
 		diff_clock
-	>
-	diff_timer;
+	>;
 
 	diff_clock clock_;
 
@@ -160,11 +167,12 @@ private:
 
 	bool show_cursor_;
 
-	typedef
+	using
+	text_signal
+	=
 	fcppt::signal::object<
 		sge::gui::text_function
-	>
-	text_signal;
+	>;
 
 	text_signal text_change_;
 };

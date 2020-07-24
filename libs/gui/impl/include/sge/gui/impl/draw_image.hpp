@@ -22,10 +22,10 @@ namespace impl
 
 void
 draw_image(
-	sge::renderer::device::core &,
-	sge::renderer::context::ffp &,
+	sge::renderer::device::core &, // NOLINT(google-runtime-references)
+	sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
 	sge::texture::part const &,
-	sge::rucksack::vector
+	sge::rucksack::vector const &
 );
 
 }

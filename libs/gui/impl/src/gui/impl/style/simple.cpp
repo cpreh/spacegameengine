@@ -41,21 +41,20 @@ sge::gui::impl::style::simple::simple()
 }
 
 sge::gui::impl::style::simple::~simple()
-{
-}
+= default;
 
 sge::rucksack::dim
 sge::gui::impl::style::simple::button_spacing() const
 {
 	return
-		this->spacing();
+		simple::spacing();
 }
 
 void
 sge::gui::impl::style::simple::draw_button(
 	sge::gui::renderer::base &_renderer,
 	sge::renderer::context::ffp &_context,
-	sge::rucksack::rect const _area
+	sge::rucksack::rect const &_area
 ) const
 {
 	_renderer.fill_rect(
@@ -92,7 +91,7 @@ void
 sge::gui::impl::style::simple::draw_bar(
 	sge::gui::renderer::base &_renderer,
 	sge::renderer::context::ffp &_context,
-	sge::rucksack::rect const _area,
+	sge::rucksack::rect const &_area,
 	sge::rucksack::axis const _axis,
 	sge::gui::fill_level const _fill_level,
 	sge::gui::fill_color const &_fill_color
@@ -117,7 +116,7 @@ sge::gui::impl::style::simple::draw_bar(
 		sge::gui::impl::style::background_color()
 	);
 
-	sge::rucksack::scalar const fill_size(
+	auto const fill_size(
 		fcppt::cast::float_to_int<
 			sge::rucksack::scalar
 		>(
@@ -178,7 +177,7 @@ sge::gui::impl::style::simple::frame_padding() const
 {
 	return
 		sge::rucksack::padding{
-			10
+			10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		};
 }
 
@@ -186,7 +185,7 @@ void
 sge::gui::impl::style::simple::draw_frame(
 	sge::gui::renderer::base &_renderer,
 	sge::renderer::context::ffp &_context,
-	sge::rucksack::rect const _area,
+	sge::rucksack::rect const &_area,
 	sge::rucksack::padding const _padding
 ) const
 {
@@ -267,14 +266,14 @@ sge::rucksack::dim
 sge::gui::impl::style::simple::edit_spacing() const
 {
 	return
-		this->spacing();
+		simple::spacing();
 }
 
 void
 sge::gui::impl::style::simple::draw_edit(
 	sge::gui::renderer::base &_renderer,
 	sge::renderer::context::ffp &_context,
-	sge::rucksack::rect const _area
+	sge::rucksack::rect const &_area
 ) const
 {
 	_renderer.fill_rect(
@@ -320,7 +319,7 @@ void
 sge::gui::impl::style::simple::draw_image(
 	sge::gui::renderer::base &,
 	sge::renderer::context::ffp &,
-	sge::rucksack::rect
+	sge::rucksack::rect const &
 ) const
 {
 }
@@ -338,7 +337,7 @@ void
 sge::gui::impl::style::simple::draw_text(
 	sge::gui::renderer::base &,
 	sge::renderer::context::ffp &,
-	sge::rucksack::rect
+	sge::rucksack::rect const &
 ) const
 {
 }
@@ -353,7 +352,7 @@ sge::gui::impl::style::simple::text_color() const
 }
 
 sge::rucksack::dim
-sge::gui::impl::style::simple::spacing() const
+sge::gui::impl::style::simple::spacing()
 {
 	return
 		fcppt::math::dim::fill<

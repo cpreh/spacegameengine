@@ -11,7 +11,7 @@
 #include <sge/rucksack/testbed/object_impl_fwd.hpp>
 #include <sge/rucksack/testbed/systems_fwd.hpp>
 #include <sge/rucksack/testbed/detail/symbol.hpp>
-#include <sge/rucksack/widget/base_fwd.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
@@ -41,7 +41,7 @@ public:
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL
 	void
 	add_widget(
-		sge::rucksack::widget::base &,
+		sge::rucksack::widget::reference,
 		sge::image::color::any::object const &
 	);
 

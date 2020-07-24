@@ -7,24 +7,27 @@
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/dummy.hpp>
 #include <sge/gui/widget/minimum_size.hpp>
+#include <sge/gui/widget/reference.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/minimum_size.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::gui::widget::minimum_size::minimum_size(
-	sge::gui::widget::base &_widget
+	sge::gui::widget::reference const _widget
 )
 :
 	sge::gui::widget::dummy(),
 	layout_(
-		_widget.layout()
+		fcppt::make_ref(
+			_widget.get().layout()
+		)
 	)
 {
 }
 
 sge::gui::widget::minimum_size::~minimum_size()
-{
-}
+= default;
 
 sge::rucksack::widget::base &
 sge::gui::widget::minimum_size::layout()

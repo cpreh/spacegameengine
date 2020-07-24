@@ -12,7 +12,7 @@
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ class dummy
 :
 	public sge::rucksack::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		dummy
 	);
 public:
@@ -56,16 +56,19 @@ public:
 		sge::rucksack::axis_policy2 const &
 	);
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim
 	size() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector
 	position() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2
 	axis_policy() const

@@ -12,7 +12,7 @@
 #include <sge/rucksack/dim_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ class preferred_size
 :
 	public sge::gui::widget::dummy
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		preferred_size
 	);
 public:
@@ -40,6 +40,7 @@ public:
 	~preferred_size()
 	override;
 
+	[[nodiscard]]
 	sge::rucksack::widget::base &
 	layout()
 	override;

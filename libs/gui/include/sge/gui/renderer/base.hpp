@@ -15,7 +15,7 @@
 #include <sge/rucksack/rect_fwd.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,7 +27,7 @@ namespace renderer
 
 class base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
@@ -41,31 +41,31 @@ public:
 	virtual
 	void
 	fill_rect(
-		sge::renderer::context::ffp &,
-		sge::rucksack::rect,
+		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+		sge::rucksack::rect const &,
 		sge::image::color::any::object const &
 	) = 0;
 
 	virtual
 	void
 	draw_image(
-		sge::renderer::context::ffp &,
+		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
 		sge::texture::part const &,
-		sge::rucksack::vector
+		sge::rucksack::vector const &
 	) = 0;
 
 	virtual
 	void
 	draw_image_repeat(
-		sge::renderer::context::ffp &,
+		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
 		sge::texture::part const &,
-		sge::rucksack::rect
+		sge::rucksack::rect const &
 	) = 0;
 
 	virtual
 	void
 	draw_static_text(
-		sge::renderer::context::ffp &,
+		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
 		sge::font::draw::static_text const &
 	) = 0;
 };

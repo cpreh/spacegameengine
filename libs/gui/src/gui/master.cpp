@@ -5,11 +5,13 @@
 
 
 #include <sge/gui/context.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/draw.hpp>
 #include <sge/gui/duration.hpp>
 #include <sge/gui/master.hpp>
 #include <sge/gui/impl/renderer/scoped.hpp>
 #include <sge/gui/main_area/base.hpp>
+#include <sge/gui/main_area/reference.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/optional_focus.hpp>
@@ -28,6 +30,7 @@
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -41,8 +44,8 @@
 
 
 sge::gui::master::master(
-	sge::gui::context &_context,
-	sge::gui::main_area::base &_main_area
+	sge::gui::context_ref const _context,
+	sge::gui::main_area::reference const _main_area
 )
 :
 	context_{
@@ -55,8 +58,7 @@ sge::gui::master::master(
 }
 
 sge::gui::master::~master()
-{
-}
+= default;
 
 void
 sge::gui::master::draw(
@@ -69,7 +71,7 @@ sge::gui::master::draw(
 		_renderer,
 		_context,
 		_background,
-		main_area_
+		main_area_.get()
 	);
 }
 
@@ -81,15 +83,19 @@ sge::gui::master::draw_with_states(
 )
 {
 	sge::gui::impl::renderer::scoped renderer(
-		_renderer,
-		_context
+		fcppt::make_ref(
+			_renderer
+		),
+		fcppt::make_ref(
+			_context
+		)
 	);
 
 	sge::gui::draw(
 		renderer,
 		_context,
 		_background,
-		main_area_
+		main_area_.get()
 	);
 }
 
@@ -189,9 +195,11 @@ sge::gui::master::key_event(
 	if(
 		_event.pressed()
 	)
+	{
 		this->handle_key(
 			_event.get().code()
 		);
+	}
 }
 
 void
@@ -210,7 +218,7 @@ sge::gui::master::text_event(
 )
 {
 	fcppt::optional::maybe_void(
-		context_.focus(),
+		context_.get().focus(),
 		[
 			&_event
 		](
@@ -224,9 +232,11 @@ sge::gui::master::text_event(
 				:
 				_event.get()
 			)
+			{
 				_focus.get().on_char(
 					element
 				);
+			}
 		}
 	);
 }
@@ -242,7 +252,7 @@ sge::gui::master::button_event(
 			this,
 			&_event
 		](
-			sge::input::cursor::position const _pos
+			sge::input::cursor::position const &_pos
 		)
 		{
 			if(
@@ -252,6 +262,7 @@ sge::gui::master::button_event(
 				==
 				sge::input::cursor::button_code::left
 			)
+			{
 				this->widget().on_click(
 					fcppt::math::vector::structure_cast<
 						sge::rucksack::vector,
@@ -260,6 +271,7 @@ sge::gui::master::button_event(
 						_pos
 					)
 				);
+			}
 		}
 	);
 }
@@ -280,21 +292,23 @@ sge::gui::master::handle_key(
 		if(
 			!this->try_focus(
 				sge::gui::widget::optional_focus(
-					context_.focus()
+					context_.get().focus()
 				)
 			).has_value()
 		)
+		{
 			this->try_focus(
 				sge::gui::widget::optional_focus(
 					sge::gui::widget::optional_ref()
 				)
 			);
+		}
 
 		return;
 	}
 
 	fcppt::optional::maybe_void(
-		context_.focus(),
+		context_.get().focus(),
 		[
 			_key_code
 		](
@@ -317,7 +331,9 @@ sge::gui::master::try_focus(
 {
 	sge::gui::widget::optional_ref const result(
 		this->widget().on_tab(
-			_focus
+			fcppt::make_ref(
+				_focus
+			)
 		)
 	);
 
@@ -331,8 +347,8 @@ sge::gui::master::try_focus(
 			> const _focus_window
 		)
 		{
-			context_.focus(
-				_focus_window.get()
+			context_.get().focus(
+				_focus_window
 			);
 		}
 	);
@@ -345,5 +361,5 @@ sge::gui::widget::base &
 sge::gui::master::widget()
 {
 	return
-		main_area_.widget();
+		main_area_.get().widget();
 }

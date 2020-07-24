@@ -22,8 +22,8 @@ namespace impl
 
 void
 draw_image_repeat(
-	sge::renderer::device::core &,
-	sge::renderer::context::ffp &,
+	sge::renderer::device::core &, // NOLINT(google-runtime-references)
+	sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
 	sge::texture::part const &,
 	sge::rucksack::rect
 );

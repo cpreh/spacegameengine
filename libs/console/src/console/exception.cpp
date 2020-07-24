@@ -31,6 +31,7 @@ sge::console::exception::exception(
 sge::console::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::console::exception::exception(
@@ -42,6 +43,7 @@ sge::console::exception &
 sge::console::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::console::exception &
@@ -50,9 +52,9 @@ sge::console::exception::operator=(
 )
 = default;
 
-sge::console::exception::~exception() noexcept
-{
-}
+sge::console::exception::~exception()
+noexcept
+= default;
 
 sge::font::string const &
 sge::console::exception::console_string() const

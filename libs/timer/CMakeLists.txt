@@ -20,6 +20,8 @@ set(
 	libs/timer/include/sge/timer/clocks/detail/stateless_base.hpp
 	libs/timer/include/sge/timer/clocks/detail/wrapper.hpp
 	libs/timer/include/sge/timer/clocks/is_stateful.hpp
+	libs/timer/include/sge/timer/clocks/parameter.hpp
+	libs/timer/include/sge/timer/clocks/parameter_fwd.hpp
 	libs/timer/include/sge/timer/clocks/standard.hpp
 	libs/timer/include/sge/timer/difference.hpp
 	libs/timer/include/sge/timer/difference_and_reset.hpp

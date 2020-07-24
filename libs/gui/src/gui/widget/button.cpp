@@ -9,6 +9,7 @@
 #include <sge/font/flags_field.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
@@ -24,11 +25,12 @@
 #include <sge/gui/optional_needed_width.hpp>
 #include <sge/gui/renderer/base.hpp>
 #include <sge/gui/style/base.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/button.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
@@ -37,7 +39,6 @@
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -58,9 +59,9 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::button::button(
-	sge::gui::style::base const &_style,
-	sge::renderer::device::ffp &_renderer,
-	sge::font::object &_font,
+	sge::gui::style::const_reference const _style,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::font::object_ref const _font,
 	sge::font::string const &_text,
 	sge::gui::optional_needed_width const _opt_needed_width
 )
@@ -104,14 +105,14 @@ sge::gui::widget::button::button(
 						}
 					)
 					+
-					_style.button_spacing().w()
+					_style.get().button_spacing().w()
 				}
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					_font.metrics().height().get()
+					_font.get().metrics().height().get()
 					+
-					_style.button_spacing().h()
+					_style.get().button_spacing().h()
 				}
 			}
 		}
@@ -123,8 +124,7 @@ sge::gui::widget::button::button(
 FCPPT_PP_POP_WARNING
 
 sge::gui::widget::button::~button()
-{
-}
+= default;
 
 fcppt::signal::auto_connection
 sge::gui::widget::button::click(
@@ -170,7 +170,7 @@ sge::gui::widget::button::on_draw(
 	sge::renderer::context::ffp &_context
 )
 {
-	style_.draw_button(
+	style_.get().draw_button(
 		_renderer,
 		_context,
 		this->layout().area()
@@ -184,7 +184,7 @@ sge::gui::widget::button::on_draw(
 			layout_.position()
 			+
 			(
-				style_.button_spacing()
+				style_.get().button_spacing()
 				/
 				2
 			).get_unsafe()
@@ -193,10 +193,10 @@ sge::gui::widget::button::on_draw(
 		sge::font::vector(
 			0,
 			sge::font::v_center(
-				font_.metrics().height(),
+				font_.get().metrics().height(),
 				layout_.size().h()
 				-
-				style_.button_spacing().h()
+				style_.get().button_spacing().h()
 			)
 		)
 	);
@@ -209,16 +209,18 @@ sge::gui::widget::button::on_draw(
 
 sge::gui::get_focus
 sge::gui::widget::button::on_click(
-	sge::rucksack::vector
+	sge::rucksack::vector const &
 )
 {
 	if(
 		!this->enabled()
 	)
+	{
 		return
 			sge::gui::get_focus(
 				false
 			);
+	}
 
 	click_();
 
@@ -235,12 +237,8 @@ sge::gui::widget::button::make_static_text(
 {
 	return
 		sge::font::draw::static_text(
-			fcppt::make_ref(
-				renderer_
-			),
-			fcppt::make_ref(
-				font_
-			),
+			renderer_,
+			font_,
 			_text,
 			sge::font::text_parameters(
 				sge::font::align_h::variant{
@@ -255,7 +253,7 @@ sge::gui::widget::button::make_static_text(
 			fcppt::math::vector::null<
 				sge::font::vector
 			>(),
-			style_.text_color().get(),
+			style_.get().text_color().get(),
 			sge::renderer::texture::emulate_srgb::no
 		);
 }

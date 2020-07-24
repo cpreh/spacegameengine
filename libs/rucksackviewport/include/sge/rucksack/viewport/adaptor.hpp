@@ -8,7 +8,7 @@
 #define SGE_RUCKSACK_VIEWPORT_ADAPTOR_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/rucksack/axis_policy2_fwd.hpp>
 #include <sge/rucksack/dim_fwd.hpp>
@@ -17,8 +17,9 @@
 #include <sge/rucksack/viewport/detail/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
-#include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/rucksack/widget/reference.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -44,7 +45,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL adaptor
 :
 	public sge::rucksack::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		adaptor
 	);
 public:
@@ -53,8 +54,8 @@ public:
 	// directly.
 	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
 	adaptor(
-		sge::viewport::manager &,
-		sge::renderer::device::core &
+		sge::viewport::manager_ref,
+		sge::renderer::device::core_ref
 	);
 
 	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
@@ -71,16 +72,19 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
 	sge::rucksack::dim
 	size() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
 	sge::rucksack::vector
 	position() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2
 	axis_policy() const
@@ -94,7 +98,7 @@ public:
 	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
 	void
 	child(
-		sge::rucksack::widget::base &
+		sge::rucksack::widget::reference
 	);
 
 	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
@@ -115,7 +119,7 @@ private:
 
 	void
 	child_destroyed(
-		sge::rucksack::widget::base &
+		sge::rucksack::widget::base & // NOLINT(google-runtime-references)
 	)
 	override;
 };

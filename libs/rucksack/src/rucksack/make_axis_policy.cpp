@@ -12,7 +12,7 @@
 
 sge::rucksack::axis_policy2
 sge::rucksack::make_axis_policy(
-	sge::rucksack::axis_policy_function const _function
+	sge::rucksack::axis_policy_function const &_function
 )
 {
 	return

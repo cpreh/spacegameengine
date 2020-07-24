@@ -20,16 +20,17 @@ namespace gui
 namespace impl
 {
 
-typedef
+using
+sprite_type_choices
+=
 sge::sprite::config::type_choices<
 	sge::sprite::config::unit_type<
 		sge::rucksack::scalar
 	>,
 	sge::sprite::config::float_type<
-		float // don't use
+		float
 	>
->
-sprite_type_choices;
+>;
 
 }
 }

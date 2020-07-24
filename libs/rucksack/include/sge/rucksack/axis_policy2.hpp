@@ -27,14 +27,17 @@ public:
 		sge::rucksack::axis_policy const &
 	);
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy const &
 	x() const;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy const &
 	y() const;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy const &
 	operator[](

@@ -9,8 +9,8 @@
 
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_unique_ptr.hpp>
-#include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/context/ffp_ref.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 
 
 namespace sge
@@ -23,8 +23,8 @@ namespace renderer
 SGE_GUI_DETAIL_SYMBOL
 sge::gui::renderer::base_unique_ptr
 create_scoped(
-	sge::renderer::device::ffp &,
-	sge::renderer::context::ffp &
+	sge::renderer::device::ffp_ref,
+	sge::renderer::context::ffp_ref
 );
 
 }

@@ -16,11 +16,12 @@ namespace sge
 namespace gui
 {
 
-typedef
+using
+click_callback
+=
 fcppt::function<
 	sge::gui::click_function
->
-click_callback;
+>;
 
 }
 }

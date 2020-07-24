@@ -18,11 +18,12 @@ namespace gui
 namespace widget
 {
 
-typedef
+using
+unique_ptr_tree
+=
 fcppt::container::tree::object<
 	sge::gui::widget::unique_ptr
->
-unique_ptr_tree;
+>;
 
 }
 }

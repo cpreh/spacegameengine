@@ -20,11 +20,12 @@ namespace gui
 namespace widget
 {
 
-typedef
+using
+unique_ptr_vector
+=
 std::vector<
 	sge::gui::widget::unique_ptr
->
-unique_ptr_vector;
+>;
 
 }
 }

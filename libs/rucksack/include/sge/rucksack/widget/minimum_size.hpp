@@ -13,7 +13,8 @@
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/rucksack/widget/reference.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,14 +28,14 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL minimum_size
 :
 	public sge::rucksack::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		minimum_size
 	);
 public:
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	explicit
 	minimum_size(
-		sge::rucksack::widget::base &
+		sge::rucksack::widget::reference
 	);
 
 	SGE_RUCKSACK_DETAIL_SYMBOL
@@ -51,16 +52,19 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim
 	size() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector
 	position() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2
 	axis_policy() const
@@ -75,7 +79,7 @@ public:
 	~minimum_size()
 	override;
 private:
-	sge::rucksack::widget::base &child_;
+	sge::rucksack::widget::reference const child_;
 };
 
 }

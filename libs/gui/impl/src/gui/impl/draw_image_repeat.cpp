@@ -36,11 +36,12 @@ sge::gui::impl::draw_image_repeat(
 	sge::rucksack::rect const _rect
 )
 {
-	typedef
+	using
+	repetition_type
+	=
 	sge::sprite::types::repetition<
 		sge::gui::impl::sprite_type_choices
-	>
-	repetition_type;
+	>;
 
 	fcppt::optional::maybe_void(
 		fcppt::math::vector::structure_cast<
@@ -66,7 +67,7 @@ sge::gui::impl::draw_image_repeat(
 			&_texture,
 			&_renderer
 		](
-			repetition_type const _repetition
+			repetition_type const &_repetition
 		)
 		{
 			sge::gui::impl::draw_sprite(

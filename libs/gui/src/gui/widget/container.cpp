@@ -5,12 +5,14 @@
 
 
 #include <sge/gui/context.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/duration.hpp>
 #include <sge/gui/get_focus.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/container.hpp>
 #include <sge/gui/widget/optional_focus.hpp>
+#include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/gui/widget/reference.hpp>
 #include <sge/gui/widget/reference_vector.hpp>
@@ -18,6 +20,7 @@
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/reference_to_base.hpp>
@@ -28,13 +31,14 @@
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::gui::widget::container::container(
-	sge::gui::context &_context,
-	sge::gui::widget::reference_vector const &_widgets,
-	sge::rucksack::widget::base &_layout
+	sge::gui::context_ref const _context,
+	sge::gui::widget::reference_vector &&_widgets,
+	sge::rucksack::widget::reference const _layout
 )
 :
 	sge::gui::widget::base(),
@@ -42,7 +46,9 @@ sge::gui::widget::container::container(
 		_context
 	),
 	widgets_(
-		_widgets
+		std::move(
+			_widgets
+		)
 	),
 	layout_(
 		_layout
@@ -86,7 +92,7 @@ sge::gui::widget::container::~container()
 				sge::gui::widget::optional_ref()
 			);
 
-			this->context_.destroy(
+			this->context_.get().destroy(
 				_widget
 			);
 
@@ -100,7 +106,7 @@ sge::rucksack::widget::base &
 sge::gui::widget::container::layout()
 {
 	return
-		layout_;
+		layout_.get();
 }
 
 void
@@ -175,7 +181,8 @@ sge::gui::widget::container::clear_widgets()
 				it
 			)
 	)
-		;
+	{
+	}
 }
 
 void
@@ -266,16 +273,18 @@ sge::gui::widget::container::on_draw(
 
 sge::gui::get_focus
 sge::gui::widget::container::on_click(
-	sge::rucksack::vector const _pos
+	sge::rucksack::vector const &_pos
 )
 {
 	if(
 		!this->enabled()
 	)
+	{
 		return
 			sge::gui::get_focus(
 				false
 			);
+	}
 
 	this->foreach_widget(
 		[
@@ -291,8 +300,10 @@ sge::gui::widget::container::on_click(
 					_pos
 				)
 			)
+			{
 				return
 					sge::gui::widget::container::foreach_result::continue_;
+			}
 
 			if(
 				_widget.on_click(
@@ -303,9 +314,13 @@ sge::gui::widget::container::on_click(
 					true
 				}
 			)
-				this->context_.focus(
-					_widget
+			{
+				this->context_.get().focus(
+					fcppt::make_ref(
+						_widget
+					)
 				);
+			}
 
 			return
 				sge::gui::widget::container::foreach_result::abort;
@@ -320,7 +335,7 @@ sge::gui::widget::container::on_click(
 
 sge::gui::widget::optional_ref
 sge::gui::widget::container::on_tab(
-	sge::gui::widget::optional_focus &_focus
+	sge::gui::widget::optional_focus_ref const _focus
 )
 {
 	for(
@@ -338,23 +353,29 @@ sge::gui::widget::container::on_tab(
 		if(
 			!result.has_value()
 		)
+		{
 			continue;
+		}
 
 		if(
-			!_focus.get().has_value()
+			!_focus.get().get().has_value()
 		)
+		{
 			return
 				result;
+		}
 
 		if(
-			_focus.get()
+			_focus.get().get()
 			==
 			result
 		)
-			_focus =
+		{
+			_focus.get() =
 				sge::gui::widget::optional_focus(
 					sge::gui::widget::optional_ref()
 				);
+		}
 	}
 
 	return
@@ -366,7 +387,7 @@ sge::gui::widget::container::unregister(
 	sge::gui::widget::base const &_widget
 )
 {
-	context_.destroy(
+	this->context_.get().destroy(
 		_widget
 	);
 
@@ -399,6 +420,7 @@ sge::gui::widget::container::foreach_widget(
 		:
 		widgets_
 	)
+	{
 		if(
 			_function(
 				ref.get()
@@ -406,5 +428,8 @@ sge::gui::widget::container::foreach_widget(
 			==
 			sge::gui::widget::container::foreach_result::abort
 		)
+		{
 			return;
+		}
+	}
 }

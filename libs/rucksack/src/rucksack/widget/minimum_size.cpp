@@ -15,12 +15,13 @@
 #include <sge/rucksack/impl/extract_size.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/minimum_size.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
 
 
 sge::rucksack::widget::minimum_size::minimum_size(
-	sge::rucksack::widget::base &_child
+	sge::rucksack::widget::reference const _child
 )
 :
 	sge::rucksack::widget::base(),
@@ -28,7 +29,7 @@ sge::rucksack::widget::minimum_size::minimum_size(
 		_child
 	)
 {
-	child_.parent(
+	child_.get().parent(
 		sge::rucksack::widget::optional_ref(
 			fcppt::reference_to_base<
 				sge::rucksack::widget::base
@@ -53,7 +54,7 @@ sge::rucksack::widget::minimum_size::position(
 	sge::rucksack::vector const &_position
 )
 {
-	child_.position(
+	child_.get().position(
 		_position
 	);
 }
@@ -62,14 +63,14 @@ sge::rucksack::dim
 sge::rucksack::widget::minimum_size::size() const
 {
 	return
-		child_.size();
+		child_.get().size();
 }
 
 sge::rucksack::vector
 sge::rucksack::widget::minimum_size::position() const
 {
 	return
-		child_.position();
+		child_.get().position();
 }
 
 sge::rucksack::axis_policy2
@@ -88,7 +89,7 @@ sge::rucksack::widget::minimum_size::axis_policy() const
 						sge::rucksack::axis_policy{
 							sge::rucksack::preferred_size{
 								sge::rucksack::impl::extract_size(
-									child_.axis_policy()[
+									child_.get().axis_policy()[
 										_axis
 									]
 								)
@@ -103,10 +104,10 @@ void
 sge::rucksack::widget::minimum_size::relayout()
 {
 	sge::rucksack::axis_policy2 const policy(
-		child_.axis_policy()
+		child_.get().axis_policy()
 	);
 
-	child_.size(
+	child_.get().size(
 		sge::rucksack::dim(
 			sge::rucksack::impl::extract_size(
 				policy.x()
@@ -117,9 +118,8 @@ sge::rucksack::widget::minimum_size::relayout()
 		)
 	);
 
-	child_.relayout();
+	child_.get().relayout();
 }
 
 sge::rucksack::widget::minimum_size::~minimum_size()
-{
-}
+= default;

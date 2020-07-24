@@ -9,7 +9,7 @@
 
 #include <sge/gui/main_area/base_fwd.hpp>
 #include <sge/gui/widget/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -21,7 +21,7 @@ namespace main_area
 
 class base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:

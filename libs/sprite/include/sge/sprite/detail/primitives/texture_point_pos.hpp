@@ -26,7 +26,7 @@ namespace detail
 namespace primitives
 {
 
-// TODO: Add a test for this or remove.
+// TODO(philipp): Add a test for this or remove.
 template<
 	typename Choices,
 	typename Levels,
@@ -46,9 +46,10 @@ struct texture_point_pos<
 	>
 >
 {
-	typedef
-	metal::list<>
-	type;
+	using
+	type
+	=
+	metal::list<>;
 };
 
 template<
@@ -80,14 +81,15 @@ private:
 		>
 	>;
 public:
-	typedef
+	using
+	type
+	=
 	sge::sprite::detail::transform_texture_levels_static<
 		metal::lambda<
 			make_role
 		>,
 		Levels
-	>
-	type;
+	>;
 };
 
 }

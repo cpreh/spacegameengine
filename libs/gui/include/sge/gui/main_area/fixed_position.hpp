@@ -11,8 +11,9 @@
 #include <sge/gui/main_area/base.hpp>
 #include <sge/gui/widget/base_fwd.hpp>
 #include <sge/gui/widget/minimum_size.hpp>
+#include <sge/gui/widget/reference.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,14 +27,14 @@ class fixed_position
 :
 	public sge::gui::main_area::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		fixed_position
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	fixed_position(
-		sge::gui::widget::base &,
-		sge::rucksack::vector
+		sge::gui::widget::reference,
+		sge::rucksack::vector const &
 	);
 
 	SGE_GUI_DETAIL_SYMBOL
@@ -49,7 +50,10 @@ private:
 	widget()
 	override;
 
-	sge::gui::widget::base &widget_;
+	void
+	do_relayout();
+
+	sge::gui::widget::reference const widget_;
 
 	sge::gui::widget::minimum_size minimum_size_;
 };

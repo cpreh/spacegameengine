@@ -11,7 +11,8 @@
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/widget/base_fwd.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/gui/widget/reference.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -22,7 +23,7 @@ namespace gui
 
 class context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
@@ -34,7 +35,7 @@ public:
 
 	void
 	focus(
-		sge::gui::widget::base &
+		sge::gui::widget::reference
 	);
 
 	void
@@ -42,6 +43,7 @@ public:
 		sge::gui::widget::base const &
 	);
 
+	[[nodiscard]]
 	sge::gui::widget::optional_ref
 	focus() const;
 private:

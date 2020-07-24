@@ -30,14 +30,13 @@ sge::console::gfx::cursor::cursor()
 :
 	line_(),
 	pos_{
-		0u
+		0U
 	}
 {
 }
 
 sge::console::gfx::cursor::~cursor()
-{
-}
+= default;
 
 sge::font::string
 sge::console::gfx::cursor::edited() const
@@ -107,12 +106,13 @@ sge::console::gfx::cursor::string(
 void
 sge::console::gfx::cursor::erase_word()
 {
-	// TODO: Move this out of here
-	typedef
+	// TODO(philipp): Move this out of here
+	using
+	optional_index
+	=
 	fcppt::optional::object<
 		size_type
-	>
-	optional_index;
+	>;
 
 	auto const rfind(
 		[
@@ -148,9 +148,11 @@ sge::console::gfx::cursor::erase_word()
 	if(
 		pos_
 		==
-		0u
+		0U
 	)
+	{
 		return;
+	}
 
 	size_type const index{
 		fcppt::optional::from(
@@ -158,7 +160,7 @@ sge::console::gfx::cursor::erase_word()
 				SGE_FONT_LIT(' '),
 				pos_
 				-
-				1u
+				1U
 			),
 			[]{
 				return
@@ -187,7 +189,7 @@ sge::console::gfx::cursor::erase_char()
 {
 	line_.erase(
 		pos_,
-		1u
+		1U
 	);
 }
 
@@ -197,9 +199,11 @@ sge::console::gfx::cursor::left()
 	if(
 		pos_
 		!=
-		0u
+		0U
 	)
+	{
 		--pos_;
+	}
 }
 
 void
@@ -210,14 +214,16 @@ sge::console::gfx::cursor::right()
 		!=
 		line_.length()
 	)
+	{
 		++pos_;
+	}
 }
 
 void
 sge::console::gfx::cursor::to_start()
 {
 	pos_ =
-		0u;
+		0U;
 }
 
 void
@@ -241,7 +247,7 @@ sge::console::gfx::cursor::insert(
 {
 	line_.insert(
 		pos_,
-		1u,
+		1U,
 		_char
 	);
 
@@ -277,15 +283,18 @@ sge::console::gfx::cursor::complete_word(
 			}
 		)
 	)
+	{
 		return;
+	}
 
-	typedef
+	using
+	optional_string_ref
+	=
 	fcppt::optional::reference<
 		sge::font::string const
-	>
-	optional_string_ref;
+	>;
 
-	// TODO: Move this out of here
+	// TODO(philipp): Move this out of here
 	auto const upper_bound(
 		[
 			&_map
@@ -318,7 +327,7 @@ sge::console::gfx::cursor::complete_word(
 	);
 
 	constexpr size_type const start_pos{
-		1u
+		1U
 	};
 
 	sge::font::string const search_string(
@@ -359,7 +368,7 @@ sge::console::gfx::cursor::complete_word(
 						_whole.size()
 						&&
 						_whole.substr(
-							0u,
+							0U,
 							_search.size()
 						)
 						==

@@ -17,12 +17,13 @@ namespace sge
 namespace rucksack
 {
 
-typedef
+using
+axis_policy
+=
 fcppt::variant::object<
 	sge::rucksack::minimum_size,
 	sge::rucksack::preferred_size
->
-axis_policy;
+>;
 
 }
 }

@@ -14,6 +14,7 @@
 #include <sge/rucksack/testbed/object.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/viewport/adaptor.hpp>
+#include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/box.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <awl/show_error.hpp>
@@ -22,6 +23,8 @@
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
@@ -42,8 +45,12 @@ try
 	};
 
 	sge::rucksack::viewport::adaptor viewport_box{
-		testbed.systems().viewport_manager(),
-		testbed.systems().renderer_device_core()
+		fcppt::make_ref(
+			testbed.systems().viewport_manager()
+		),
+		fcppt::make_ref(
+			testbed.systems().renderer_device_core()
+		)
 	};
 
 	sge::rucksack::padding const padding{
@@ -56,7 +63,13 @@ try
 	};
 
 	viewport_box.child(
-		outer_box
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				outer_box
+			)
+		)
 	);
 
 	sge::rucksack::widget::box left_box(
@@ -65,7 +78,13 @@ try
 	);
 
 	outer_box.push_back_child(
-		left_box,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				left_box
+			)
+		),
 		sge::rucksack::alignment::left_or_top
 	);
 
@@ -75,7 +94,13 @@ try
 	);
 
 	outer_box.push_back_child(
-		right_box,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				right_box
+			)
+		),
 		sge::rucksack::alignment::center
 	);
 
@@ -95,7 +120,13 @@ try
 	};
 
 	left_box.push_back_child(
-		inner_sprite,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				inner_sprite
+			)
+		),
 		sge::rucksack::alignment::center
 	);
 
@@ -115,26 +146,50 @@ try
 	};
 
 	right_box.push_back_child(
-		inner_sprite2,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				inner_sprite2
+			)
+		),
 		sge::rucksack::alignment::right_or_bottom
 	);
 
 	testbed.add_widget(
-		viewport_box,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				viewport_box
+			)
+		),
 		sge::image::color::any::object{
 			sge::image::color::predef::blue()
 		}
 	);
 
 	testbed.add_widget(
-		inner_sprite,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				inner_sprite
+			)
+		),
 		sge::image::color::any::object{
 			sge::image::color::predef::red()
 		}
 	);
 
 	testbed.add_widget(
-		inner_sprite2,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				inner_sprite2
+			)
+		),
 		sge::image::color::any::object{
 			sge::image::color::predef::green()
 		}

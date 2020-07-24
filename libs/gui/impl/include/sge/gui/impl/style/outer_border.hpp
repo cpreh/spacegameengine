@@ -22,12 +22,13 @@ namespace impl
 namespace style
 {
 
-typedef
+using
+outer_border
+=
 std::integral_constant<
 	sge::rucksack::scalar,
 	4
->
-outer_border;
+>;
 
 }
 }

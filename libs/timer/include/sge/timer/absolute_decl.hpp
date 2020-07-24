@@ -8,20 +8,15 @@
 #define SGE_TIMER_ABSOLUTE_DECL_HPP_INCLUDED
 
 #include <sge/timer/absolute_fwd.hpp>
+#include <sge/timer/clocks/parameter.hpp>
 #include <sge/timer/clocks/detail/wrapper.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
 {
 namespace timer
 {
-
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
 template<
 	typename Clock
@@ -32,40 +27,53 @@ class absolute final
 		Clock
 	>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		absolute
 	);
 
-	typedef
+	using
+	base
+	=
 	sge::timer::clocks::detail::wrapper<
 		Clock
-	>
-	base;
+	>;
 public:
-	typedef
-	Clock
-	clock_type;
+	using
+	clock_type
+	=
+	Clock;
 
-	typedef
+	using
+	time_point
+	=
 	typename
-	clock_type::time_point
-	time_point;
+	clock_type::time_point;
 
-	typedef
+	using
+	duration
+	=
 	typename
-	clock_type::duration
-	duration;
+	clock_type::duration;
+
+	using
+	clock_parameter
+	=
+	sge::timer::clocks::parameter<
+		Clock
+	>;
 
 	absolute();
 
 	explicit
 	absolute(
-		Clock const &
+		clock_parameter
 	);
 
+	[[nodiscard]]
 	time_point
 	now() const;
 
+	[[nodiscard]]
 	time_point
 	last_time() const;
 
@@ -74,8 +82,6 @@ public:
 private:
 	time_point last_time_;
 };
-
-FCPPT_PP_POP_WARNING
 
 }
 }

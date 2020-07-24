@@ -18,12 +18,13 @@
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
-// TODO: Initialize position and size in the ctor?
+// TODO(philipp): Initialize position and size in the ctor?
 
 sge::rucksack::widget::master_and_slaves::master_and_slaves(
 	sge::rucksack::padding const &_padding
@@ -52,7 +53,13 @@ sge::rucksack::widget::master_and_slaves::master_and_slaves(
 	}
 {
 	surrounding_box_.push_back_child(
-		enumeration_,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				enumeration_
+			)
+		),
 		sge::rucksack::alignment::center
 	);
 }
@@ -138,13 +145,15 @@ sge::rucksack::widget::master_and_slaves::relayout()
 
 void
 sge::rucksack::widget::master_and_slaves::master_pane(
-	sge::rucksack::widget::base &_master_pane
+	sge::rucksack::widget::reference const _master_pane
 )
 {
 	if(
 		master_pane_.has_value()
 	)
+	{
 		surrounding_box_.pop_front_child();
+	}
 
 	surrounding_box_.push_front_child(
 		_master_pane,
@@ -153,15 +162,13 @@ sge::rucksack::widget::master_and_slaves::master_pane(
 
 	master_pane_ =
 		sge::rucksack::widget::optional_ref(
-			fcppt::make_ref(
-				_master_pane
-			)
+			_master_pane
 		);
 }
 
 void
 sge::rucksack::widget::master_and_slaves::push_back_child(
-	sge::rucksack::widget::base &_child
+	sge::rucksack::widget::reference const _child
 )
 {
 	enumeration_.push_back_child(
@@ -170,5 +177,4 @@ sge::rucksack::widget::master_and_slaves::push_back_child(
 }
 
 sge::rucksack::widget::master_and_slaves::~master_and_slaves()
-{
-}
+= default;

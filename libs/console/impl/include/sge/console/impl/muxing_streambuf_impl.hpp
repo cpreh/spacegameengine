@@ -98,10 +98,12 @@ sge::console::muxing_streambuf<
 	if(
 		in_progress_
 	)
+	{
 		return
 			streambuf_base::traits_type::not_eof(
 				_char
 			);
+	}
 
 	in_progress_ =
 		true;

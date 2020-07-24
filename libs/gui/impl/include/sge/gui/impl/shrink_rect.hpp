@@ -18,9 +18,10 @@ namespace gui
 namespace impl
 {
 
+[[nodiscard]]
 sge::rucksack::rect
 shrink_rect(
-	sge::rucksack::rect,
+	sge::rucksack::rect const &,
 	sge::rucksack::scalar
 );
 

@@ -16,7 +16,7 @@
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,7 +28,7 @@ namespace widget
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 public:
@@ -56,28 +56,34 @@ public:
 		sge::rucksack::scalar
 	);
 
+	[[nodiscard]]
 	virtual
 	sge::rucksack::dim
 	size() const = 0;
 
+	[[nodiscard]]
 	sge::rucksack::scalar
 	size(
 		sge::rucksack::axis
 	) const;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::rect
 	area() const;
 
+	[[nodiscard]]
 	virtual
 	sge::rucksack::vector
 	position() const = 0;
 
+	[[nodiscard]]
 	sge::rucksack::scalar
 	position(
 		sge::rucksack::axis
 	) const;
 
+	[[nodiscard]]
 	virtual
 	sge::rucksack::axis_policy2
 	axis_policy() const = 0;
@@ -92,6 +98,7 @@ public:
 		sge::rucksack::widget::optional_ref const &
 	);
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::widget::optional_ref
 	parent() const;
@@ -107,11 +114,12 @@ protected:
 	virtual
 	void
 	child_destroyed(
-		base &
-	);
+		base & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 private:
 	sge::rucksack::widget::optional_ref parent_;
 };
+
 }
 }
 }

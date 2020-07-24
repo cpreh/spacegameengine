@@ -8,7 +8,7 @@
 #define SGE_CONSOLE_CALLBACK_FUNCTION_TYPE_HPP_INCLUDED
 
 #include <sge/console/arg_list.hpp>
-#include <sge/console/object_fwd.hpp>
+#include <sge/console/object_ref.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ function_type
 =
 void(
 	sge::console::arg_list const &,
-	sge::console::object &
+	sge::console::object_ref
 );
 
 }

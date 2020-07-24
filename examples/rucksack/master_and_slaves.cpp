@@ -9,6 +9,7 @@
 #include <sge/rucksack/testbed/object.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/viewport/adaptor.hpp>
+#include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/rucksack/widget/master_and_slaves.hpp>
 #include <awl/show_error.hpp>
@@ -17,7 +18,9 @@
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/container/array/init_move.hpp>
@@ -46,8 +49,12 @@ try
 	);
 
 	sge::rucksack::viewport::adaptor viewport_box(
-		testbed.systems().viewport_manager(),
-		testbed.systems().renderer_device_core()
+		fcppt::make_ref(
+			testbed.systems().viewport_manager()
+		),
+		fcppt::make_ref(
+			testbed.systems().renderer_device_core()
+		)
 	);
 
 	sge::rucksack::widget::master_and_slaves mas_box(
@@ -57,7 +64,13 @@ try
 	);
 
 	viewport_box.child(
-		mas_box
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				mas_box
+			)
+		)
 	);
 
 	typedef
@@ -106,7 +119,13 @@ try
 		);
 
 	testbed.add_widget(
-		viewport_box,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				viewport_box
+			)
+		),
 		sge::image::color::any::object{
 			sge::image::color::predef::blue()
 		}
@@ -128,10 +147,23 @@ try
 	};
 
 	mas_box.master_pane(
-		master_dummy);
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				master_dummy
+			)
+		)
+	);
 
 	testbed.add_widget(
-		master_dummy,
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				master_dummy
+			)
+		),
 		sge::image::color::any::object{
 			sge::image::color::predef::cyan()
 		}
@@ -187,11 +219,23 @@ try
 	)
 	{
 		mas_box.push_back_child(
-			*dummy
+			fcppt::reference_to_base<
+				sge::rucksack::widget::base
+			>(
+				fcppt::make_ref(
+					*dummy
+				)
+			)
 		);
 
 		testbed.add_widget(
-			*dummy,
+			fcppt::reference_to_base<
+				sge::rucksack::widget::base
+			>(
+				fcppt::make_ref(
+					*dummy
+				)
+			),
 			sge::image::color::any::object{
 				sge::image::color::predef::red()
 			}

@@ -17,12 +17,13 @@ namespace sge
 namespace rucksack
 {
 
-typedef
+using
+dim
+=
 fcppt::math::dim::static_<
 	sge::rucksack::scalar,
 	sge::rucksack::dim_size::value
->
-dim;
+>;
 
 }
 }

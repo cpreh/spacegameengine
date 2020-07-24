@@ -9,11 +9,11 @@
 
 #include <sge/gui/background/base.hpp>
 #include <sge/gui/detail/symbol.hpp>
-#include <sge/gui/main_area/base_fwd.hpp>
+#include <sge/gui/main_area/reference.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/rect_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,14 +27,14 @@ class colored
 :
 	public sge::gui::background::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		colored
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	explicit
 	colored(
-		sge::gui::main_area::base &
+		sge::gui::main_area::reference
 	);
 
 	SGE_GUI_DETAIL_SYMBOL
@@ -43,9 +43,9 @@ public:
 private:
 	void
 	on_draw(
-		sge::gui::renderer::base &,
-		sge::renderer::context::ffp &,
-		sge::rucksack::rect
+		sge::gui::renderer::base &, // NOLINT(google-runtime-references)
+		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+		sge::rucksack::rect const &
 	)
 	override;
 };

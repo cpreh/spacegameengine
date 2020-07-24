@@ -13,7 +13,7 @@
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/reference.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -35,7 +35,7 @@ class enumeration
 :
 	public sge::rucksack::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		enumeration
 	);
 public:
@@ -59,16 +59,19 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim
 	size() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector
 	position() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2
 	axis_policy() const
@@ -82,18 +85,19 @@ public:
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	push_back_child(
-		sge::rucksack::widget::base &
+		sge::rucksack::widget::reference
 	);
 
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	~enumeration()
 	override;
 private:
-	typedef
+	using
+	child_information
+	=
 	std::vector<
 		sge::rucksack::widget::reference
-	>
-	child_information;
+	>;
 
 	sge::rucksack::padding const padding_;
 
@@ -105,7 +109,7 @@ private:
 
 	void
 	child_destroyed(
-		sge::rucksack::widget::base &
+		sge::rucksack::widget::base & // NOLINT(google-runtime-references)
 	)
 	override;
 };

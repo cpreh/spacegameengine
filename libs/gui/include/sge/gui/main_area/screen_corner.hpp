@@ -7,7 +7,7 @@
 #ifndef SGE_GUI_MAIN_AREA_SCREEN_CORNER_HPP_INCLUDED
 #define SGE_GUI_MAIN_AREA_SCREEN_CORNER_HPP_INCLUDED
 
-#include <sge/gui/context_fwd.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/gravity_fwd.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/main_area/base.hpp>
@@ -16,9 +16,10 @@
 #include <sge/gui/widget/box_container.hpp>
 #include <sge/gui/widget/expander.hpp>
 #include <sge/gui/widget/minimum_size.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
-#include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/gui/widget/reference.hpp>
+#include <sge/renderer/device/core_ref.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -32,16 +33,16 @@ class screen_corner
 :
 	public sge::gui::main_area::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		screen_corner
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	screen_corner(
-		sge::renderer::device::core &,
-		sge::viewport::manager &,
-		sge::gui::context &,
-		sge::gui::widget::base &,
+		sge::renderer::device::core_ref,
+		sge::viewport::manager_ref,
+		sge::gui::context_ref,
+		sge::gui::widget::reference,
 		sge::gui::gravity
 	);
 
@@ -58,7 +59,7 @@ private:
 	widget()
 	override;
 
-	sge::gui::widget::base &widget_;
+	sge::gui::widget::reference const widget_;
 
 	sge::gui::widget::minimum_size minimum_size_;
 

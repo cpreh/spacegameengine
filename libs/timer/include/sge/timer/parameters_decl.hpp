@@ -8,6 +8,7 @@
 #define SGE_TIMER_PARAMETERS_DECL_HPP_INCLUDED
 
 #include <sge/timer/parameters_fwd.hpp>
+#include <sge/timer/clocks/parameter_fwd.hpp>
 #include <sge/timer/clocks/detail/wrapper.hpp>
 
 
@@ -43,13 +44,20 @@ public:
 	typename
 	clock_type::duration;
 
+	using
+	clock_parameter
+	=
+	sge::timer::clocks::parameter<
+		Clock
+	>;
+
 	explicit
 	parameters(
 		duration
 	);
 
 	parameters(
-		clock_type const &,
+		clock_parameter,
 		duration
 	);
 

@@ -7,6 +7,7 @@
 #include <sge/gui/impl/draw_image.hpp>
 #include <sge/gui/renderer/base.hpp>
 #include <sge/gui/style/base.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/image.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -21,6 +22,7 @@
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/cast/size.hpp>
@@ -39,8 +41,8 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::image::image(
-	sge::gui::style::base const &_style,
-	sge::texture::part const &_texture
+	sge::gui::style::const_reference const _style,
+	sge::texture::const_part_ref const _texture
 )
 :
 	style_(
@@ -66,14 +68,14 @@ sge::gui::widget::image::image(
 								>(
 									fcppt::cast::to_signed(
 										sge::rucksack::access_axis(
-											this->texture_.size(),
+											this->texture_.get().size(),
 											_axis
 										)
 									)
 								)
 								+
 								sge::rucksack::access_axis(
-									this->style_.image_spacing(),
+									this->style_.get().image_spacing(),
 									_axis
 								)
 							}
@@ -88,8 +90,7 @@ sge::gui::widget::image::image(
 FCPPT_PP_POP_WARNING
 
 sge::gui::widget::image::~image()
-{
-}
+= default;
 
 sge::rucksack::widget::base &
 sge::gui::widget::image::layout()
@@ -104,7 +105,7 @@ sge::gui::widget::image::on_draw(
 	sge::renderer::context::ffp &_context
 )
 {
-	style_.draw_image(
+	style_.get().draw_image(
 		_renderer,
 		_context,
 		this->layout().area()
@@ -112,7 +113,7 @@ sge::gui::widget::image::on_draw(
 
 	_renderer.draw_image(
 		_context,
-		texture_,
+		texture_.get(),
 		layout_.position()
 		+
 		(
@@ -124,7 +125,7 @@ sge::gui::widget::image::on_draw(
 					fcppt::cast::size_fun
 				>(
 					fcppt::math::dim::to_signed(
-						texture_.area().size()
+						texture_.get().area().size()
 					)
 				)
 			)

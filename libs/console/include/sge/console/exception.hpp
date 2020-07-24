@@ -32,7 +32,8 @@ public:
 	SGE_CONSOLE_DETAIL_SYMBOL
 	exception(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_CONSOLE_DETAIL_SYMBOL
 	exception(
@@ -43,7 +44,8 @@ public:
 	exception &
 	operator=(
 		exception &&
-	);
+	)
+	noexcept;
 
 	SGE_CONSOLE_DETAIL_SYMBOL
 	exception &
@@ -55,6 +57,7 @@ public:
 	~exception() noexcept
 	override;
 
+	[[nodiscard]]
 	SGE_CONSOLE_DETAIL_SYMBOL
 	sge::font::string const &
 	console_string() const;

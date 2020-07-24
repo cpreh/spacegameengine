@@ -8,9 +8,7 @@
 
 
 sge::gui::renderer::base::base()
-{
-}
+= default;
 
 sge::gui::renderer::base::~base()
-{
-}
+= default;

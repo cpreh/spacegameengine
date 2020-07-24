@@ -46,7 +46,7 @@ struct with_texture_point_size<
 >
 {
 	static_assert(
-		TextureLevels >= 1u,
+		TextureLevels >= 1U,
 		"TextureLevels must be at least 1"
 	);
 
@@ -55,27 +55,41 @@ struct with_texture_point_size<
 		"SizeOptions must be a texture point size option"
 	);
 
-	typedef sge::sprite::config::texture_level_count<
+	using
+	texture_levels
+	=
+	sge::sprite::config::texture_level_count<
 		TextureLevels
-	> texture_levels;
+	>;
 
-	typedef sge::sprite::config::custom_texture_point_pos<
+	using
+	point_pos
+	=
+	sge::sprite::config::custom_texture_point_pos<
 		CustomTexturePoint
-	> point_pos;
+	>;
 
-	typedef SizeOptions point_size;
+	using
+	point_size
+	=
+	SizeOptions;
 
-	typedef std::integral_constant<
+	using
+	ownership
+	=
+	std::integral_constant<
 		sge::sprite::config::texture_ownership,
 		Ownership
-	> ownership;
+	>;
 
 	template<
 		typename Choices
 	>
 	struct apply
 	{
-		typedef
+		using
+		type
+		=
 		metal::join<
 			typename
 			sge::sprite::detail::primitives::texture_ptr<
@@ -95,8 +109,7 @@ struct with_texture_point_size<
 				texture_levels,
 				point_size
 			>::type
-		>
-		type;
+		>;
 	};
 };
 

@@ -16,11 +16,12 @@ namespace sge
 namespace gui
 {
 
-typedef
+using
+optional_needed_width
+=
 fcppt::optional::object<
 	sge::gui::needed_width
->
-optional_needed_width;
+>;
 
 }
 }

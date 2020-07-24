@@ -26,17 +26,19 @@
 namespace
 {
 
-typedef
+using
+literal
+=
 fcppt::parse::basic_literal<
 	sge::font::char_type
->
-literal;
+>;
 
-typedef
+using
+char_set
+=
 fcppt::parse::basic_char_set<
 	sge::font::char_type
->
-char_set;
+>;
 
 auto
 space()
@@ -62,12 +64,12 @@ sge::console::impl::eval_grammar::eval_grammar()
 		fcppt::parse::epsilon()
 	},
 	word_{
-		this->make_base(
+		grammar_base::make_base(
 			+~space()
 		)
 	},
 	quoted_string_{
-		this->make_base(
+		grammar_base::make_base(
 			literal{SGE_FONT_LIT('"')}
 			>>
 			+(~char_set{SGE_FONT_LIT('"')})
@@ -76,7 +78,7 @@ sge::console::impl::eval_grammar::eval_grammar()
 		)
 	},
 	argument_{
-		this->make_base(
+		grammar_base::make_base(
 			fcppt::make_cref(
 				this->quoted_string_
 			)
@@ -87,7 +89,7 @@ sge::console::impl::eval_grammar::eval_grammar()
 		)
 	},
 	start_{
-		this->make_base(
+		grammar_base::make_base(
 			fcppt::parse::separator{
 				fcppt::make_cref(
 					this->argument_
@@ -104,5 +106,4 @@ sge::console::impl::eval_grammar::eval_grammar()
 FCPPT_PP_POP_WARNING
 
 sge::console::impl::eval_grammar::~eval_grammar()
-{
-}
+= default;

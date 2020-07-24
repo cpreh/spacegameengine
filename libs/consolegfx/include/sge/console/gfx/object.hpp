@@ -51,9 +51,9 @@ public:
 	object(
 		sge::console::object_ref,
 		sge::renderer::device::ffp_ref,
-		sge::console::gfx::font_color const &,
+		sge::console::gfx::font_color,
 		sge::font::object_ref,
-		sge::font::rect const &,
+		sge::font::rect,
 		sge::console::gfx::output_line_limit
 	);
 
@@ -128,7 +128,7 @@ private:
 	[[nodiscard]]
 	sge::font::unit
 	render_line(
-		sge::renderer::context::ffp &,
+		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
 		sge::font::string const &,
 		sge::font::unit
 	);
@@ -152,11 +152,6 @@ private:
 	key_action(
 		sge::input::focus::shared_ptr const &,
 		sge::input::focus::key const &
-	);
-
-	void
-	tab_complete(
-		sge::font::string &
 	);
 
 	void

@@ -66,11 +66,10 @@ sge::rucksack::widget::base::position(
 {
 	static_assert(
 		sge::rucksack::vector::static_size::value
-		==
+		== // NOLINT(misc-redundant-expression)
 		fcppt::enum_::size<
 			sge::rucksack::axis
-		>::value,
-		""
+		>::value
 	);
 
 	return

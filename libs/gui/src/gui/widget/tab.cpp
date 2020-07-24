@@ -4,13 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/string.hpp>
 #include <sge/gui/click_callback.hpp>
-#include <sge/gui/context_fwd.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/optional_needed_width.hpp>
 #include <sge/gui/impl/relayout_ancestor.hpp>
-#include <sge/gui/style/base_fwd.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/box_container.hpp>
 #include <sge/gui/widget/button.hpp>
@@ -22,11 +22,12 @@
 #include <sge/gui/widget/tab.hpp>
 #include <sge/gui/widget/unique_ptr.hpp>
 #include <sge/gui/widget/unique_ptr_vector.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/axis.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/maybe_front.hpp>
@@ -41,10 +42,10 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::tab::tab(
-	sge::gui::context &_context,
-	sge::gui::style::base const &_style,
-	sge::renderer::device::ffp &_renderer,
-	sge::font::object &_font,
+	sge::gui::context_ref const _context,
+	sge::gui::style::const_reference const _style,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::font::object_ref const _font,
 	sge::gui::widget::reference_name_vector const &_widgets
 )
 :
@@ -71,17 +72,19 @@ sge::gui::widget::tab::tab(
 				:
 					public sge::gui::widget::button
 				{
-					FCPPT_NONCOPYABLE(
+					FCPPT_NONMOVABLE(
 						gui_button
 					);
 				public:
 					gui_button(
-						sge::gui::style::base const &_style_arg,
-						sge::renderer::device::ffp &_renderer_arg,
-						sge::font::object &_font_arg,
+						sge::gui::style::const_reference const _style_arg,
+						sge::renderer::device::ffp_ref const _renderer_arg,
+						sge::font::object_ref const _font_arg,
 						sge::font::string const &_name,
 						sge::gui::widget::reference const _widget,
-						sge::gui::widget::tab &_self
+						fcppt::reference<
+							sge::gui::widget::tab
+						> const _self
 					)
 					:
 						sge::gui::widget::button(
@@ -96,12 +99,12 @@ sge::gui::widget::tab::tab(
 								sge::gui::click_callback{
 									[
 										_widget,
-										&_self
+										_self
 									]
 									()
 									{
-										_self.replace(
-											1u,
+										_self.get().replace(
+											1U,
 											sge::gui::widget::reference_alignment_pair(
 												_widget,
 												sge::rucksack::alignment::left_or_top
@@ -109,7 +112,7 @@ sge::gui::widget::tab::tab(
 										);
 
 										sge::gui::impl::relayout_ancestor(
-											_self
+											_self.get()
 										);
 									}
 								}
@@ -119,8 +122,8 @@ sge::gui::widget::tab::tab(
 					}
 
 					~gui_button()
-					{
-					}
+					override
+					= default;
 				private:
 					fcppt::signal::auto_connection const click_connection_;
 				};
@@ -137,7 +140,9 @@ sge::gui::widget::tab::tab(
 							_font,
 							_pair.name(),
 							_pair.reference(),
-							*this
+							fcppt::make_ref(
+								*this
+							)
 						)
 					);
 			}
@@ -199,5 +204,4 @@ sge::gui::widget::tab::tab(
 FCPPT_PP_POP_WARNING
 
 sge::gui::widget::tab::~tab()
-{
-}
+= default;

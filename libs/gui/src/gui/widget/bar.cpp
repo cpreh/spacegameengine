@@ -8,6 +8,7 @@
 #include <sge/gui/fill_level.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/style/base.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/bar.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -22,13 +23,16 @@
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::gui::widget::bar::bar(
-	sge::gui::style::base const &_style,
-	sge::rucksack::dim const _dim,
+	sge::gui::style::const_reference const _style,
+	sge::rucksack::dim const &_dim,
 	sge::rucksack::axis const _axis,
-	sge::gui::fill_color const &_foreground,
+	sge::gui::fill_color _foreground,
 	sge::gui::fill_level const _value
 )
 :
@@ -40,7 +44,9 @@ sge::gui::widget::bar::bar(
 		_axis
 	},
 	foreground_(
-		_foreground
+		std::move(
+			_foreground
+		)
 	),
 	value_(
 		_value
@@ -87,8 +93,7 @@ sge::gui::widget::bar::bar(
 }
 
 sge::gui::widget::bar::~bar()
-{
-}
+= default;
 
 void
 sge::gui::widget::bar::value(
@@ -105,7 +110,7 @@ sge::gui::widget::bar::on_draw(
 	sge::renderer::context::ffp &_render_context
 )
 {
-	style_.draw_bar(
+	style_.get().draw_bar(
 		_renderer,
 		_render_context,
 		this->layout().area(),

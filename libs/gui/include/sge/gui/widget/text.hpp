@@ -7,21 +7,21 @@
 #ifndef SGE_GUI_WIDGET_TEXT_HPP_INCLUDED
 #define SGE_GUI_WIDGET_TEXT_HPP_INCLUDED
 
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/string.hpp>
 #include <sge/gui/optional_needed_width.hpp>
 #include <sge/gui/text_color.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
-#include <sge/gui/style/base_fwd.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/text_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/rucksack/axis_policy_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -35,17 +35,17 @@ class text
 :
 	public sge::gui::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		text
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	text(
-		sge::gui::style::base const &,
-		sge::renderer::device::ffp &,
-		sge::font::object &,
-		sge::font::string const &,
-		sge::gui::text_color const &,
+		sge::gui::style::const_reference,
+		sge::renderer::device::ffp_ref,
+		sge::font::object_ref,
+		sge::font::string &&,
+		sge::gui::text_color,
 		sge::gui::optional_needed_width
 	);
 
@@ -56,7 +56,7 @@ public:
 	SGE_GUI_DETAIL_SYMBOL
 	void
 	value(
-		sge::font::string const &
+		sge::font::string &&
 	);
 
 	SGE_GUI_DETAIL_SYMBOL
@@ -65,6 +65,7 @@ public:
 		sge::gui::text_color const &
 	);
 
+	[[nodiscard]]
 	SGE_GUI_DETAIL_SYMBOL
 	sge::rucksack::widget::base &
 	layout()
@@ -77,14 +78,15 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::rucksack::axis_policy
 	horizontal_policy() const;
 
-	sge::gui::style::base const &style_;
+	sge::gui::style::const_reference const style_;
 
-	sge::renderer::device::ffp &renderer_;
+	sge::renderer::device::ffp_ref const renderer_;
 
-	sge::font::object &font_;
+	sge::font::object_ref const font_;
 
 	sge::gui::text_color text_color_;
 

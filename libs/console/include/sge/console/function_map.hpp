@@ -19,12 +19,13 @@ namespace sge
 namespace console
 {
 
-typedef
+using
+function_map
+=
 std::map<
 	sge::font::string,
 	sge::console::function
->
-function_map;
+>;
 
 }
 }

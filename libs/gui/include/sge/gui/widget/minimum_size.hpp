@@ -10,9 +10,10 @@
 #include <sge/gui/widget/base_fwd.hpp>
 #include <sge/gui/widget/dummy.hpp>
 #include <sge/gui/widget/minimum_size_fwd.hpp>
+#include <sge/gui/widget/reference.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/minimum_size.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,13 +27,13 @@ class minimum_size
 :
 	public sge::gui::widget::dummy
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		minimum_size
 	);
 public:
 	explicit
 	minimum_size(
-		sge::gui::widget::base &
+		sge::gui::widget::reference
 	);
 
 	~minimum_size()

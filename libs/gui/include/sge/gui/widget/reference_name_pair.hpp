@@ -26,12 +26,14 @@ public:
 	SGE_GUI_DETAIL_SYMBOL
 	reference_name_pair(
 		sge::gui::widget::reference,
-		sge::font::string const &
+		sge::font::string &&
 	);
 
+	[[nodiscard]]
 	sge::gui::widget::reference
 	reference() const;
 
+	[[nodiscard]]
 	sge::font::string const &
 	name() const;
 private:

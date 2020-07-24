@@ -22,14 +22,13 @@ sge::timer::absolute<
 >::absolute()
 :
 	absolute(
-		clock_type()
+		clock_parameter{}
 	)
 {
 	static_assert(
 		!sge::timer::clocks::is_stateful<
 			Clock
-		>::value,
-		"Stateful clocks need to be passed as parameters"
+		>::value
 	);
 }
 
@@ -42,7 +41,7 @@ template<
 sge::timer::absolute<
 	Clock
 >::absolute(
-	Clock const &_clock
+	clock_parameter const _clock
 )
 :
 	base(

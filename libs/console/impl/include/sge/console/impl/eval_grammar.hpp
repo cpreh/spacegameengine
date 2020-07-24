@@ -11,7 +11,7 @@
 #include <sge/console/impl/eval_grammar_fwd.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/string.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/parse/epsilon.hpp>
 #include <fcppt/parse/grammar_decl.hpp>
 
@@ -32,7 +32,7 @@ public
 		fcppt::parse::epsilon
 	>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		eval_grammar
 	);
 public:

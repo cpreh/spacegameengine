@@ -32,36 +32,40 @@ template<
 >
 void
 draw_sprite(
-	sge::renderer::device::core &_renderer,
-	sge::renderer::context::ffp &_context,
+	sge::renderer::device::core &_renderer, // NOLINT(google-runtime-references)
+	sge::renderer::context::ffp &_context, // NOLINT(google-runtime-references)
 	sge::sprite::object<
 		Choices
 	> const &_sprite
 )
 {
-	typedef
+	using
+	sprite_buffers
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			Choices
 		>
-	>
-	sprite_buffers;
+	>;
 
-	typedef
-	sge::sprite::state::no_choices
-	state_choices;
+	using
+	state_choices
+	=
+	sge::sprite::state::no_choices;
 
-	typedef
+	using
+	sprite_state
+	=
 	sge::sprite::state::object<
 		state_choices
-	>
-	sprite_state;
+	>;
 
-	typedef
+	using
+	state_parameters
+	=
 	sge::sprite::state::parameters<
 		state_choices
-	>
-	state_parameters;
+	>;
 
 	sprite_state state(
 		fcppt::make_ref(

@@ -22,12 +22,14 @@ sge::gui::impl::relayout_ancestor(
 		)
 	);
 
-	// TODO: Do this differently!
+	// TODO(philipp): Do this differently!
 	while(
 		layout.get_unsafe().get().parent().has_value()
 	)
+	{
 		layout =
 			layout.get_unsafe().get().parent();
+	}
 
 	layout.get_unsafe().get().relayout();
 }

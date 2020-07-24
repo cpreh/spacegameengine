@@ -21,19 +21,18 @@ sge::console::gfx::detail::pointed_history::pointed_history(
 		_limit
 	),
 	point_(
-		0u
+		0U
 	)
 {
 	FCPPT_ASSERT_PRE(
 		limit_
 		>
-		0u
+		0U
 	);
 }
 
 sge::console::gfx::detail::pointed_history::~pointed_history()
-{
-}
+= default;
 
 void
 sge::console::gfx::detail::pointed_history::push_front(

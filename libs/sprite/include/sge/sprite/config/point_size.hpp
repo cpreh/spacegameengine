@@ -32,16 +32,19 @@ struct point_size
 	sge::sprite::config::size_choice
 {
 public:
-	typedef
-	Index
-	attribute_index;
+	using
+	attribute_index
+	=
+	Index;
 
 	template<
 		typename Choices
 	>
 	struct apply
 	{
-		typedef
+		using
+		type
+		=
 		metal::list<
 			fcppt::record::element<
 				sge::sprite::roles::point_size,
@@ -50,8 +53,7 @@ public:
 					Choices::type_choices
 				>
 			>
-		>
-		type;
+		>;
 	};
 };
 

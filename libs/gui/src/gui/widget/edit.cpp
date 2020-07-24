@@ -11,6 +11,7 @@
 #include <sge/font/index.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -31,13 +32,15 @@
 #include <sge/gui/impl/fill_rect.hpp>
 #include <sge/gui/renderer/base.hpp>
 #include <sge/gui/style/base.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/edit.hpp>
 #include <sge/gui/widget/optional_focus.hpp>
+#include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
@@ -52,6 +55,7 @@
 #include <sge/timer/reset_when_expired.hpp>
 #include <sge/timer/clocks/delta_impl.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/string_conv_locale.hpp>
@@ -79,10 +83,10 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::edit::edit(
-	sge::gui::style::base const &_style,
-	sge::renderer::device::ffp &_renderer,
-	sge::font::object &_font,
-	sge::font::string const &_text
+	sge::gui::style::const_reference const _style,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::font::object_ref const _font,
+	sge::font::string &&_text
 )
 :
 	sge::gui::widget::base(),
@@ -96,23 +100,25 @@ sge::gui::widget::edit::edit(
 		_font
 	),
 	text_(
-		_text
+		std::move(
+			_text
+		)
 	),
 	position_{
-		0u
+		0U
 	},
 	layout_{
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::minimum_size{
-					_style.edit_spacing().w()
+					_style.get().edit_spacing().w()
 				}
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					font_.metrics().height().get()
+					font_.get().metrics().height().get()
 					+
-					_style.edit_spacing().h()
+					_style.get().edit_spacing().h()
 				}
 			}
 		}
@@ -123,9 +129,11 @@ sge::gui::widget::edit::edit(
 	clock_(),
 	cursor_blink_timer_(
 		diff_timer::parameters(
-			clock_,
+			fcppt::make_cref(
+				clock_
+			),
 			std::chrono::milliseconds(
-				500
+				500 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		)
 	),
@@ -142,8 +150,7 @@ sge::gui::widget::edit::edit(
 FCPPT_PP_POP_WARNING
 
 sge::gui::widget::edit::~edit()
-{
-}
+= default;
 
 sge::font::string const &
 sge::gui::widget::edit::text() const
@@ -180,7 +187,9 @@ sge::gui::widget::edit::on_update(
 	if(
 		!has_focus_
 	)
+	{
 		return;
+	}
 
 	clock_.update(
 		_duration
@@ -193,8 +202,10 @@ sge::gui::widget::edit::on_update(
 			)
 		)
 	)
+	{
 		show_cursor_ =
 			!show_cursor_;
+	}
 }
 
 void
@@ -203,11 +214,11 @@ sge::gui::widget::edit::on_draw(
 	sge::renderer::context::ffp &_context
 )
 {
-	// TODO: Add a signal to sge that tells us when a layout changes
+	// TODO(philipp): Add a signal to sge that tells us when a layout changes
 	static_text_ =
 		this->make_static_text();
 
-	style_.draw_edit(
+	style_.get().draw_edit(
 		_renderer,
 		_context,
 		this->layout().area()
@@ -223,7 +234,9 @@ sge::gui::widget::edit::on_draw(
 		||
 		!show_cursor_
 	)
+	{
 		return;
+	}
 
 	sge::font::rect const cursor_rect(
 		static_text_.text().cursor_rect(
@@ -238,18 +251,18 @@ sge::gui::widget::edit::on_draw(
 			+
 			static_text_.pos(),
 			sge::font::dim(
-				// TODO: How do we specify the width?
+				// TODO(philipp): How do we specify the width?
 				2,
 				cursor_rect.size().h()
 			)
 		),
-		style_.text_color().get()
+		style_.get().text_color().get()
 	);
 }
 
 sge::gui::get_focus
 sge::gui::widget::edit::on_click(
-	sge::rucksack::vector const _pos
+	sge::rucksack::vector const &_pos
 )
 {
 	fcppt::optional::maybe(
@@ -274,8 +287,10 @@ sge::gui::widget::edit::on_click(
 				+
 				static_text_.pos().x()
 			)
+			{
 				position_
 					= text_.size();
+			}
 		},
 		[
 			this
@@ -314,16 +329,20 @@ sge::gui::widget::edit::on_key(
 	{
 	case sge::input::key::code::left:
 		if(
-			position_ != 0u
+			position_ != 0U
 		)
+		{
 			--position_;
+		}
 
 		break;
 	case sge::input::key::code::right:
 		if(
 			position_ < text_.size()
 		)
+		{
 			++position_;
+		}
 
 		break;
 	case sge::input::key::code::delete_:
@@ -333,7 +352,7 @@ sge::gui::widget::edit::on_key(
 		{
 			text_.erase(
 				position_,
-				1u
+				1U
 			);
 
 			this->text_changed();
@@ -342,14 +361,14 @@ sge::gui::widget::edit::on_key(
 		break;
 	case sge::input::key::code::backspace:
 		if(
-			position_ - 1u
+			position_ - 1U
 			<
 			text_.size()
 		)
 		{
 			text_.erase(
-				position_ - 1u,
-				1u
+				position_ - 1U,
+				1U
 			);
 
 			--position_;
@@ -376,11 +395,13 @@ sge::gui::widget::edit::on_char(
 			fcppt::string_conv_locale()
 		)
 	)
+	{
 		return;
+	}
 
 	text_.insert(
 		position_,
-		1u,
+		1U,
 		_char
 	);
 
@@ -412,7 +433,7 @@ sge::gui::widget::edit::on_focus_changed(
 
 sge::gui::widget::optional_ref
 sge::gui::widget::edit::on_tab(
-	sge::gui::widget::optional_focus &
+	sge::gui::widget::optional_focus_ref
 )
 {
 	return
@@ -432,12 +453,8 @@ sge::gui::widget::edit::make_static_text()
 {
 	return
 		sge::font::draw::static_text(
-			fcppt::make_ref(
-				renderer_
-			),
-			fcppt::make_ref(
-				font_
-			),
+			renderer_,
+			font_,
 			text_,
 			sge::font::text_parameters(
 				sge::font::align_h::variant{
@@ -446,7 +463,7 @@ sge::gui::widget::edit::make_static_text()
 							std::max(
 								layout_.size().w()
 								-
-								style_.edit_spacing().w(),
+								style_.get().edit_spacing().w(),
 								fcppt::literal<
 									sge::font::unit
 								>(
@@ -471,7 +488,7 @@ sge::gui::widget::edit::make_static_text()
 				fcppt::math::vector::fill<
 					sge::rucksack::vector
 				>(
-					style_.edit_spacing().w()
+					style_.get().edit_spacing().w()
 					/
 					2
 				)
@@ -480,13 +497,13 @@ sge::gui::widget::edit::make_static_text()
 			sge::font::vector(
 				0,
 				sge::font::v_center(
-					font_.metrics().height(),
+					font_.get().metrics().height(),
 					layout_.size().h()
 					-
-					style_.edit_spacing().h()
+					style_.get().edit_spacing().h()
 				)
 			),
-			style_.text_color().get(),
+			style_.get().text_color().get(),
 			sge::renderer::texture::emulate_srgb::no
 		);
 }

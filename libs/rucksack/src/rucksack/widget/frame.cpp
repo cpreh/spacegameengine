@@ -17,6 +17,7 @@
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/frame.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
@@ -29,7 +30,7 @@
 
 
 sge::rucksack::widget::frame::frame(
-	sge::rucksack::widget::base &_child,
+	sge::rucksack::widget::reference const _child,
 	sge::rucksack::padding const _padding
 )
 :
@@ -41,7 +42,7 @@ sge::rucksack::widget::frame::frame(
 		_padding
 	}
 {
-	child_.parent(
+	child_.get().parent(
 		sge::rucksack::widget::optional_ref{
 			fcppt::reference_to_base<
 				sge::rucksack::widget::base
@@ -59,7 +60,7 @@ sge::rucksack::widget::frame::size(
 	sge::rucksack::dim const &_size
 )
 {
-	child_.size(
+	child_.get().size(
 		_size
 		-
 		this->extra_size()
@@ -71,7 +72,7 @@ sge::rucksack::widget::frame::position(
 	sge::rucksack::vector const &_position
 )
 {
-	child_.position(
+	child_.get().position(
 		_position
 		+
 		this->shifted_position()
@@ -82,7 +83,7 @@ sge::rucksack::dim
 sge::rucksack::widget::frame::size() const
 {
 	return
-		child_.size()
+		child_.get().size()
 		+
 		this->extra_size();
 }
@@ -91,7 +92,7 @@ sge::rucksack::vector
 sge::rucksack::widget::frame::position() const
 {
 	return
-		child_.position()
+		child_.get().position()
 		-
 		this->shifted_position();
 }
@@ -115,7 +116,7 @@ sge::rucksack::widget::frame::axis_policy() const
 
 			return
 				fcppt::variant::match(
-					child_.axis_policy()[
+					child_.get().axis_policy()[
 						_axis
 					],
 					[
@@ -166,12 +167,11 @@ sge::rucksack::widget::frame::axis_policy() const
 void
 sge::rucksack::widget::frame::relayout()
 {
-	child_.relayout();
+	child_.get().relayout();
 }
 
 sge::rucksack::widget::frame::~frame()
-{
-}
+= default;
 
 sge::rucksack::vector
 sge::rucksack::widget::frame::shifted_position() const

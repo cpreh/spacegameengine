@@ -13,9 +13,10 @@ namespace sge
 namespace rucksack
 {
 
-typedef
-int
-scalar;
+using
+scalar
+=
+int;
 
 }
 }

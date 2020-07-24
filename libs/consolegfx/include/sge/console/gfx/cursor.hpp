@@ -75,6 +75,7 @@ public:
 	void
 	to_end();
 
+	[[nodiscard]]
 	SGE_CONSOLE_GFX_DETAIL_SYMBOL
 	bool
 	empty() const;

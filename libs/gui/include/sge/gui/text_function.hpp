@@ -15,9 +15,10 @@ namespace sge
 namespace gui
 {
 
-typedef
-void
-text_function(
+using
+text_function
+=
+void (
 	sge::font::string const &
 );
 

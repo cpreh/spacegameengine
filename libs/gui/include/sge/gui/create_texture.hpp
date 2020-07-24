@@ -9,7 +9,7 @@
 
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 
 
@@ -21,7 +21,7 @@ namespace gui
 SGE_GUI_DETAIL_SYMBOL
 sge::renderer::texture::planar_unique_ptr
 create_texture(
-	sge::renderer::device::core &,
+	sge::renderer::device::core_ref,
 	sge::image2d::view::const_object const &
 );
 

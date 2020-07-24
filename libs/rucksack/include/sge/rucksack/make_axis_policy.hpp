@@ -20,7 +20,7 @@ namespace rucksack
 SGE_RUCKSACK_DETAIL_SYMBOL
 sge::rucksack::axis_policy2
 make_axis_policy(
-	sge::rucksack::axis_policy_function
+	sge::rucksack::axis_policy_function const &
 );
 
 }

@@ -27,6 +27,7 @@
 #include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/testbed/impl/object_impl.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
@@ -146,15 +147,13 @@ sge::rucksack::testbed::object_impl::object_impl(
 
 void
 sge::rucksack::testbed::object_impl::add_widget(
-	sge::rucksack::widget::base &_widget,
+	sge::rucksack::widget::reference const _widget,
 	sge::image::color::any::object const &_color
 )
 {
 	sprites_.push_back(
 		std::make_pair(
-			fcppt::make_ref(
-				_widget
-			),
+			_widget,
 			sprite_object(
 				sge::sprite::roles::pos{} =
 					fcppt::math::vector::null<

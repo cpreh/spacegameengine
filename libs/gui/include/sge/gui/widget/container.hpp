@@ -7,21 +7,22 @@
 #ifndef SGE_GUI_WIDGET_CONTAINER_HPP_INCLUDED
 #define SGE_GUI_WIDGET_CONTAINER_HPP_INCLUDED
 
-#include <sge/gui/context_fwd.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/duration.hpp>
 #include <sge/gui/get_focus_fwd.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/container_fwd.hpp>
-#include <sge/gui/widget/optional_focus_fwd.hpp>
+#include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref_fwd.hpp>
 #include <sge/gui/widget/reference_fwd.hpp>
 #include <sge/gui/widget/reference_vector.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/rucksack/widget/reference.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -35,15 +36,15 @@ class container
 :
 	public sge::gui::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		container
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	container(
-		sge::gui::context &,
-		sge::gui::widget::reference_vector const &,
-		sge::rucksack::widget::base &
+		sge::gui::context_ref,
+		sge::gui::widget::reference_vector &&,
+		sge::rucksack::widget::reference
 	);
 
 	SGE_GUI_DETAIL_SYMBOL
@@ -99,20 +100,20 @@ private:
 
 	void
 	on_draw(
-		sge::gui::renderer::base &,
-		sge::renderer::context::ffp &
+		sge::gui::renderer::base &, // NOLINT(google-runtime-references)
+		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
 	)
 	override;
 
 	sge::gui::get_focus
 	on_click(
-		sge::rucksack::vector
+		sge::rucksack::vector const &
 	)
 	override;
 
 	sge::gui::widget::optional_ref
 	on_tab(
-		sge::gui::widget::optional_focus &
+		sge::gui::widget::optional_focus_ref
 	)
 	override;
 
@@ -136,11 +137,11 @@ private:
 		Function const &
 	);
 
-	sge::gui::context &context_;
+	sge::gui::context_ref const context_;
 
 	sge::gui::widget::reference_vector widgets_;
 
-	sge::rucksack::widget::base &layout_;
+	sge::rucksack::widget::reference const layout_;
 };
 
 }

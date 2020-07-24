@@ -9,14 +9,14 @@
 
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
-#include <sge/gui/style/base_fwd.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/image_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
-#include <sge/texture/part_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/texture/const_part_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,20 +30,21 @@ class image
 :
 	public sge::gui::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		image
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	image(
-		sge::gui::style::base const &,
-		sge::texture::part const &
+		sge::gui::style::const_reference,
+		sge::texture::const_part_ref
 	);
 
 	SGE_GUI_DETAIL_SYMBOL
 	~image()
 	override;
 
+	[[nodiscard]]
 	SGE_GUI_DETAIL_SYMBOL
 	sge::rucksack::widget::base &
 	layout()
@@ -56,9 +57,9 @@ private:
 	)
 	override;
 
-	sge::gui::style::base const &style_;
+	sge::gui::style::const_reference const style_;
 
-	sge::texture::part const &texture_;
+	sge::texture::const_part_ref const texture_;
 
 	sge::rucksack::widget::dummy layout_;
 };

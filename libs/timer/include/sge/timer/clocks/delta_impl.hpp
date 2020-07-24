@@ -27,8 +27,7 @@ template<
 sge::timer::clocks::delta<
 	Duration
 >::~delta()
-{
-}
+= default;
 
 template<
 	typename Duration

@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/gui/context_fwd.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/widget/box_container.hpp>
 #include <sge/gui/widget/container.hpp>
 #include <sge/gui/widget/reference_alignment_pair.hpp>
@@ -12,12 +12,15 @@
 #include <sge/gui/widget/reference_vector.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/padding.hpp>
+#include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/box.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
 
 
 sge::gui::widget::box_container::box_container(
-	sge::gui::context &_context,
+	sge::gui::context_ref const _context,
 	sge::gui::widget::reference_alignment_vector const &_widgets,
 	sge::rucksack::axis const _axis
 )
@@ -38,7 +41,13 @@ sge::gui::widget::box_container::box_container(
 		),
 		// This is pretty dangerous but the base class only uses the
 		// reference here
-		layout_
+		fcppt::reference_to_base<
+			sge::rucksack::widget::base
+		>(
+			fcppt::make_ref(
+				layout_
+			)
+		)
 	),
 	layout_(
 		_axis,
@@ -52,15 +61,18 @@ sge::gui::widget::box_container::box_container(
 		:
 		_widgets
 	)
+	{
 		layout_.push_back_child(
-			element.reference().get().layout(),
+			fcppt::make_ref(
+				element.reference().get().layout()
+			),
 			element.alignment()
 		);
+	}
 }
 
 sge::gui::widget::box_container::~box_container()
-{
-}
+= default;
 
 void
 sge::gui::widget::box_container::push_front(
@@ -72,7 +84,9 @@ sge::gui::widget::box_container::push_front(
 	);
 
 	layout_.push_front_child(
-		_pair.reference().get().layout(),
+		fcppt::make_ref(
+			_pair.reference().get().layout()
+		),
 		_pair.alignment()
 	);
 }
@@ -95,7 +109,9 @@ sge::gui::widget::box_container::push_back(
 	);
 
 	layout_.push_back_child(
-		_pair.reference().get().layout(),
+		fcppt::make_ref(
+			_pair.reference().get().layout()
+		),
 		_pair.alignment()
 	);
 }
@@ -115,7 +131,9 @@ sge::gui::widget::box_container::replace(
 		layout_.child_position(
 			_index
 		),
-		_pair.reference().get().layout(),
+		fcppt::make_ref(
+			_pair.reference().get().layout()
+		),
 		_pair.alignment()
 	);
 }

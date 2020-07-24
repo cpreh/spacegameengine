@@ -17,13 +17,14 @@ namespace sge
 namespace rucksack
 {
 
-typedef
+using
+axis_policy_function
+=
 fcppt::function<
 	sge::rucksack::axis_policy (
 		sge::rucksack::axis
 	)
->
-axis_policy_function;
+>;
 
 }
 }

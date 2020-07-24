@@ -178,16 +178,14 @@ sge::rucksack::widget::enumeration::relayout()
 
 void
 sge::rucksack::widget::enumeration::push_back_child(
-	sge::rucksack::widget::base &_child
+	sge::rucksack::widget::reference const _child
 )
 {
 	children_.push_back(
-		fcppt::make_ref(
-			_child
-		)
+		_child
 	);
 
-	_child.parent(
+	_child.get().parent(
 		sge::rucksack::widget::optional_ref{
 			fcppt::reference_to_base<
 				sge::rucksack::widget::base
@@ -207,9 +205,11 @@ sge::rucksack::widget::enumeration::~enumeration()
 		:
 		children_
 	)
+	{
 		child_ptr.get().parent(
 			sge::rucksack::widget::optional_ref()
 		);
+	}
 }
 
 void

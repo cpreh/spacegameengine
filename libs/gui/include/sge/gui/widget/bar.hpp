@@ -11,7 +11,7 @@
 #include <sge/gui/fill_level.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
-#include <sge/gui/style/base_fwd.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/bar_fwd.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
@@ -19,7 +19,7 @@
 #include <sge/rucksack/dim_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -34,16 +34,16 @@ class bar
 :
 	public sge::gui::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		bar
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	bar(
-		sge::gui::style::base const &,
-		sge::rucksack::dim,
+		sge::gui::style::const_reference,
+		sge::rucksack::dim const &,
 		sge::rucksack::axis,
-		sge::gui::fill_color const &,
+		sge::gui::fill_color,
 		sge::gui::fill_level
 	);
 
@@ -64,11 +64,12 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::rucksack::widget::base &
 	layout()
 	override;
 
-	sge::gui::style::base const &style_;
+	sge::gui::style::const_reference const style_;
 
 	sge::rucksack::axis const axis_;
 

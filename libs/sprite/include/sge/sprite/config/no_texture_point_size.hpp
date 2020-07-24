@@ -22,9 +22,10 @@ namespace config
 
 struct no_texture_point_size
 {
-	typedef
-	std::true_type
-	is_texture_point_size;
+	using
+	is_texture_point_size
+	=
+	std::true_type;
 };
 
 }

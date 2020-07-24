@@ -12,7 +12,7 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
-#include <sge/rucksack/widget/base_fwd.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <sge/sprite/object_decl.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
@@ -58,7 +58,7 @@ public:
 
 	void
 	add_widget(
-		sge::rucksack::widget::base &,
+		sge::rucksack::widget::reference,
 		sge::image::color::any::object const &
 	);
 
@@ -139,9 +139,7 @@ private:
 	typedef
 	std::vector<
 		std::pair<
-			fcppt::reference<
-				sge::rucksack::widget::base
-			>,
+			sge::rucksack::widget::reference,
 			sprite_object
 		>
 	>

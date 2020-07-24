@@ -20,11 +20,12 @@ namespace sprite
 namespace state
 {
 
-typedef
+using
+no_choices
+=
 sge::sprite::state::choices<
 	metal::list<>
->
-no_choices;
+>;
 
 }
 }

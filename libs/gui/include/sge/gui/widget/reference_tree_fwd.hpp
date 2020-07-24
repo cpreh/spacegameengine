@@ -18,11 +18,12 @@ namespace gui
 namespace widget
 {
 
-typedef
+using
+reference_tree
+=
 fcppt::container::tree::object<
 	sge::gui::widget::reference
->
-reference_tree;
+>;
 
 }
 }

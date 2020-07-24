@@ -24,7 +24,7 @@ sge::gui::impl::draw_image(
 	sge::renderer::device::core &_renderer,
 	sge::renderer::context::ffp &_context,
 	sge::texture::part const &_texture,
-	sge::rucksack::vector const _pos
+	sge::rucksack::vector const &_pos
 )
 {
 	sge::gui::impl::draw_sprite(

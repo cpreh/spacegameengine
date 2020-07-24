@@ -8,6 +8,7 @@
 #include <sge/font/flags_field.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
@@ -16,17 +17,17 @@
 #include <sge/font/align_h/variant.hpp>
 #include <sge/gui/renderer/base.hpp>
 #include <sge/gui/style/base.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/static_text.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -34,9 +35,9 @@
 
 
 sge::gui::widget::static_text::static_text(
-	sge::gui::style::base const &_style,
-	sge::renderer::device::ffp &_renderer,
-	sge::font::object &_font,
+	sge::gui::style::const_reference const _style,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::font::object_ref const _font,
 	sge::font::string const &_value,
 	sge::gui::text_color const &_text_color
 )
@@ -46,12 +47,8 @@ sge::gui::widget::static_text::static_text(
 		_style
 	),
 	static_text_(
-		fcppt::make_ref(
-			_renderer
-		),
-		fcppt::make_ref(
-			_font
-		),
+		_renderer,
+		_font,
 		_value,
 		sge::font::text_parameters(
 			sge::font::align_h::variant{
@@ -75,14 +72,14 @@ sge::gui::widget::static_text::static_text(
 				sge::rucksack::preferred_size{
 					static_text_.logical_size().w()
 					+
-					style_.text_spacing().w()
+					style_.get().text_spacing().w()
 				}
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					_font.metrics().height().get()
+					_font.get().metrics().height().get()
 					+
-					style_.text_spacing().h()
+					style_.get().text_spacing().h()
 				}
 			}
 		}
@@ -91,8 +88,7 @@ sge::gui::widget::static_text::static_text(
 }
 
 sge::gui::widget::static_text::~static_text()
-{
-}
+= default;
 
 sge::rucksack::widget::base &
 sge::gui::widget::static_text::layout()
@@ -107,7 +103,7 @@ sge::gui::widget::static_text::on_draw(
 	sge::renderer::context::ffp &_context
 )
 {
-	style_.draw_text(
+	style_.get().draw_text(
 		_renderer,
 		_context,
 		this->layout().area()
@@ -121,7 +117,7 @@ sge::gui::widget::static_text::on_draw(
 			this->layout().position()
 			+
 			(
-				style_.text_spacing()
+				style_.get().text_spacing()
 				/
 				2
 			).get_unsafe()

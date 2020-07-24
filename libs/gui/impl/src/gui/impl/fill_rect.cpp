@@ -47,14 +47,19 @@ sge::gui::impl::fill_rect(
 			||
 			size.h() <= 0
 		)
+		{
 			return;
+		}
 	}
 
-	typedef
-	sge::image::color::rgba8_format
-	color_format;
+	using
+	color_format
+	=
+	sge::image::color::rgba8_format;
 
-	typedef
+	using
+	choices
+	=
 	sge::sprite::config::choices<
 		sge::gui::impl::sprite_type_choices,
 		sge::sprite::config::pos<
@@ -68,8 +73,7 @@ sge::gui::impl::fill_rect(
 				color_format
 			>
 		>
-	>
-	choices;
+	>;
 
 	sge::gui::impl::draw_sprite(
 		_renderer,

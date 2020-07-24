@@ -4,9 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/rucksack/testbed/object.hpp>
 #include <sge/rucksack/testbed/systems_fwd.hpp>
 #include <sge/rucksack/testbed/impl/object_impl.hpp>
+#include <sge/rucksack/widget/base.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -33,7 +35,7 @@ sge::rucksack::testbed::object::object(
 
 void
 sge::rucksack::testbed::object::add_widget(
-	sge::rucksack::widget::base &_widget,
+	sge::rucksack::widget::reference const _widget,
 	sge::image::color::any::object const &_color
 )
 {

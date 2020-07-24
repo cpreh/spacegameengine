@@ -14,7 +14,8 @@
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/rucksack/widget/reference.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,13 +29,13 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL frame
 :
 	public sge::rucksack::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		frame
 	);
 public:
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	frame(
-		sge::rucksack::widget::base &,
+		sge::rucksack::widget::reference,
 		sge::rucksack::padding
 	);
 
@@ -52,16 +53,19 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim
 	size() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector
 	position() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2
 	axis_policy() const
@@ -76,17 +80,20 @@ public:
 	~frame()
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::padding
 	padding() const;
 private:
+	[[nodiscard]]
 	sge::rucksack::vector
 	shifted_position() const;
 
+	[[nodiscard]]
 	sge::rucksack::dim
 	extra_size() const;
 
-	sge::rucksack::widget::base &child_;
+	sge::rucksack::widget::reference const child_;
 
 	sge::rucksack::padding const padding_;
 };

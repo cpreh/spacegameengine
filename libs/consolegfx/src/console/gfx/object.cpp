@@ -65,9 +65,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::console::gfx::object::object(
 	sge::console::object_ref const _object,
 	sge::renderer::device::ffp_ref const _renderer,
-	sge::console::gfx::font_color const &_font_color,
+	sge::console::gfx::font_color _font_color,
 	sge::font::object_ref const _font_object,
-	sge::font::rect const &_area,
+	sge::font::rect _area,
 	sge::console::gfx::output_line_limit const _line_limit
 )
 :
@@ -78,7 +78,9 @@ sge::console::gfx::object::object(
 		_renderer
 	},
 	font_color_{
-		_font_color
+		std::move(
+			_font_color
+		)
 	},
 	font_object_{
 		_font_object
@@ -121,7 +123,9 @@ sge::console::gfx::object::object(
 		)
 	),
 	area_{
-		_area
+		std::move(
+			_area
+		)
 	},
 	input_line_(),
 	input_history_(),
@@ -141,8 +145,7 @@ sge::console::gfx::object::object(
 FCPPT_PP_POP_WARNING
 
 sge::console::gfx::object::~object()
-{
-}
+= default;
 
 void
 sge::console::gfx::object::render(
@@ -157,12 +160,14 @@ sge::console::gfx::object::render(
 	if(
 		_input_active.get()
 	)
+	{
 		current_y =
 			this->render_line(
 				_render_context,
 				input_line_.edited(),
 				current_y
 			);
+	}
 
 	for(
 		auto const &element
@@ -183,7 +188,9 @@ sge::console::gfx::object::render(
 		if(
 			current_y < 0
 		)
+		{
 			break;
+		}
 	}
 }
 
@@ -318,7 +325,7 @@ sge::console::gfx::object::render_line(
 		sge::renderer::texture::emulate_srgb::no
 	);
 
-	// TODO: Make this easier
+	// TODO(philipp): Make this easier
 	sge::font::vector const pos(
 		0,
 		_current_y
@@ -348,10 +355,12 @@ sge::console::gfx::object::on_key(
 	if(
 		_event.pressed()
 	)
+	{
 		this->key_action(
 			_event.focus(),
 			_event.get()
 		);
+	}
 }
 
 void
@@ -364,15 +373,19 @@ sge::console::gfx::object::on_text(
 		:
 		_event.get()
 	)
+	{
 		if(
 			std::isprint(
 				element,
 				std::locale()
 			)
 		)
+		{
 			input_line_.insert(
 				element
 			);
+		}
+	}
 }
 
 void
@@ -407,7 +420,9 @@ sge::console::gfx::object::key_action(
 				&
 				sge::input::key::modifier::control
 			)
+			{
 				input_line_.erase_word();
+			}
 		break;
 		case sge::input::key::code::delete_:
 			input_line_.erase_char();
@@ -430,9 +445,13 @@ sge::console::gfx::object::key_action(
 				&
 				sge::input::key::modifier::shift
 			)
+			{
 				output_lines_.to_end();
+			}
 			else
+			{
 				output_lines_.up();
+			}
 		break;
 		case sge::input::key::code::pagedown:
 			if(
@@ -442,24 +461,39 @@ sge::console::gfx::object::key_action(
 				&
 				sge::input::key::modifier::shift
 			)
+			{
 				output_lines_.to_begin();
+			}
 			else
+			{
 				output_lines_.down();
+			}
 		break;
 		case sge::input::key::code::up:
-			if (input_history_.empty())
+			if(
+				input_history_.empty()
+			)
+			{
 				return;
+			}
+
 			input_line_.string(
-				*current_input_);
-			if (current_input_ != --input_history_.end())
+				*current_input_
+			);
+
+			if(current_input_ != --input_history_.end())
+			{
 				++current_input_;
+			}
 		break;
 		case sge::input::key::code::down:
-			if (current_input_ != input_history_.begin())
+			if(current_input_ != input_history_.begin())
 			{
 				--current_input_;
+
 				input_line_.string(
-					*current_input_);
+					*current_input_
+				);
 			}
 		break;
 		case sge::input::key::code::left:
@@ -476,7 +510,9 @@ sge::console::gfx::object::key_action(
 		break;
 		case sge::input::key::code::return_:
 			if (input_line_.empty())
+			{
 				return;
+			}
 
 			try
 			{
@@ -497,7 +533,8 @@ sge::console::gfx::object::key_action(
 
 			// add executed command to each history (at the front)...
 			input_history_.push_front(
-				input_line_.string());
+				input_line_.string()
+			);
 
 			current_input_ =
 				input_history_.begin();

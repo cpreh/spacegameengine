@@ -43,6 +43,7 @@ set(
 	libs/gui/include/sge/gui/click_function.hpp
 	libs/gui/include/sge/gui/context.hpp
 	libs/gui/include/sge/gui/context_fwd.hpp
+	libs/gui/include/sge/gui/context_ref.hpp
 	libs/gui/include/sge/gui/create_texture.hpp
 	libs/gui/include/sge/gui/draw.hpp
 	libs/gui/include/sge/gui/duration.hpp
@@ -63,6 +64,7 @@ set(
 	libs/gui/include/sge/gui/main_area/base.hpp
 	libs/gui/include/sge/gui/main_area/base_fwd.hpp
 	libs/gui/include/sge/gui/main_area/fixed_position.hpp
+	libs/gui/include/sge/gui/main_area/reference.hpp
 	libs/gui/include/sge/gui/main_area/screen_corner.hpp
 	libs/gui/include/sge/gui/main_area/viewport_adaptor.hpp
 	libs/gui/include/sge/gui/master.hpp
@@ -83,6 +85,7 @@ set(
 	libs/gui/include/sge/gui/style/base.hpp
 	libs/gui/include/sge/gui/style/base_fwd.hpp
 	libs/gui/include/sge/gui/style/base_unique_ptr.hpp
+	libs/gui/include/sge/gui/style/const_reference.hpp
 	libs/gui/include/sge/gui/style/create.hpp
 	libs/gui/include/sge/gui/text_callback.hpp
 	libs/gui/include/sge/gui/text_color.hpp
@@ -115,6 +118,7 @@ set(
 	libs/gui/include/sge/gui/widget/minimum_size_fwd.hpp
 	libs/gui/include/sge/gui/widget/optional_focus.hpp
 	libs/gui/include/sge/gui/widget/optional_focus_fwd.hpp
+	libs/gui/include/sge/gui/widget/optional_focus_ref.hpp
 	libs/gui/include/sge/gui/widget/optional_ref.hpp
 	libs/gui/include/sge/gui/widget/optional_ref_fwd.hpp
 	libs/gui/include/sge/gui/widget/preferred_size.hpp

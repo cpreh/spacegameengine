@@ -14,7 +14,7 @@
 
 sge::rucksack::rect
 sge::gui::impl::shrink_rect(
-	sge::rucksack::rect const _rect,
+	sge::rucksack::rect const &_rect,
 	sge::rucksack::scalar const _scalar
 )
 {

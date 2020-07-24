@@ -12,17 +12,18 @@
 #include <sge/gui/get_focus_fwd.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
-#include <sge/gui/style/base_fwd.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/frame_fwd.hpp>
-#include <sge/gui/widget/optional_focus_fwd.hpp>
+#include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref_fwd.hpp>
+#include <sge/gui/widget/reference.hpp>
 #include <sge/input/key/code_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/frame.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -36,20 +37,21 @@ class frame
 :
 	public sge::gui::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		frame
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	frame(
-		sge::gui::style::base const &,
-		sge::gui::widget::base &
+		sge::gui::style::const_reference,
+		sge::gui::widget::reference
 	);
 
 	SGE_GUI_DETAIL_SYMBOL
 	~frame()
 	override;
 
+	[[nodiscard]]
 	SGE_GUI_DETAIL_SYMBOL
 	sge::rucksack::widget::base &
 	layout()
@@ -62,9 +64,10 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::gui::get_focus
 	on_click(
-		sge::rucksack::vector
+		sge::rucksack::vector const &
 	)
 	override;
 
@@ -86,15 +89,16 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::gui::widget::optional_ref
 	on_tab(
-		sge::gui::widget::optional_focus &
+		sge::gui::widget::optional_focus_ref
 	)
 	override;
 
-	sge::gui::style::base const &style_;
+	sge::gui::style::const_reference const style_;
 
-	sge::gui::widget::base &child_;
+	sge::gui::widget::reference const child_;
 
 	sge::rucksack::widget::frame layout_;
 };

@@ -22,8 +22,8 @@ namespace impl
 
 void
 fill_rect(
-	sge::renderer::device::core &,
-	sge::renderer::context::ffp &,
+	sge::renderer::device::core &, // NOLINT(google-runtime-references)
+	sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
 	sge::rucksack::rect const &,
 	sge::image::color::any::object const &
 );

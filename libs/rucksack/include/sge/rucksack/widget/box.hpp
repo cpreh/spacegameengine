@@ -18,7 +18,7 @@
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/reference.hpp>
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <list>
 #include <utility>
@@ -45,22 +45,24 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL box
 	public
 		sge::rucksack::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		box
 	);
 
-	typedef
+	using
+	child_pair
+	=
 	std::pair<
 		sge::rucksack::widget::reference,
 		sge::rucksack::alignment
-	>
-	child_pair;
+	>;
 
-	typedef
+	using
+	child_list
+	=
 	std::list<
 		child_pair
-	>
-	child_list;
+	>;
 public:
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	box(
@@ -97,13 +99,13 @@ public:
 
 	using sge::rucksack::widget::base::position;
 
-	// Nothing fancy, just return the stored size
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim
 	size() const
 	override;
 
-	// Nothing fancy, just return the stored position
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector
 	position() const
@@ -131,6 +133,7 @@ public:
 	//
 	// Also note that currently, box widgets always have a preferred size (which
 	// might be equal to the minimum size).
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2
 	axis_policy() const
@@ -145,14 +148,14 @@ public:
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	push_back_child(
-		sge::rucksack::widget::base &,
+		sge::rucksack::widget::reference,
 		sge::rucksack::alignment
 	);
 
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	push_front_child(
-		sge::rucksack::widget::base &,
+		sge::rucksack::widget::reference,
 		sge::rucksack::alignment
 	);
 
@@ -168,20 +171,24 @@ public:
 	void
 	clear();
 
-	typedef
-	child_list::iterator
-	iterator;
+	using
+	iterator
+	=
+	child_list::iterator;
 
-	typedef
-	child_list::size_type
-	size_type;
+	using
+	size_type
+	=
+	child_list::size_type;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	iterator
 	child_position(
 		size_type
 	);
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	size_type
 	children_size() const;
@@ -190,7 +197,7 @@ public:
 	void
 	replace_children(
 		iterator,
-		sge::rucksack::widget::base &,
+		sge::rucksack::widget::reference,
 		sge::rucksack::alignment
 	);
 
@@ -201,7 +208,7 @@ private:
 	void
 	insert_child(
 		iterator,
-		sge::rucksack::widget::base &,
+		sge::rucksack::widget::reference,
 		sge::rucksack::alignment
 	);
 
@@ -220,15 +227,17 @@ private:
 
 	sge::rucksack::dim size_;
 
+	[[nodiscard]]
 	sge::rucksack::axis
 	major_axis() const;
 
+	[[nodiscard]]
 	sge::rucksack::axis
 	minor_axis() const;
 
 	void
 	child_destroyed(
-		sge::rucksack::widget::base &
+		sge::rucksack::widget::base & // NOLINT(google-runtime-references)
 	)
 	override;
 };

@@ -7,20 +7,20 @@
 #ifndef SGE_GUI_WIDGET_CHOICES_HPP_INCLUDED
 #define SGE_GUI_WIDGET_CHOICES_HPP_INCLUDED
 
-#include <sge/font/object_fwd.hpp>
-#include <sge/gui/context_fwd.hpp>
+#include <sge/font/object_ref.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/index_callback.hpp>
 #include <sge/gui/index_function.hpp>
 #include <sge/gui/optional_index.hpp>
 #include <sge/gui/string_container.hpp>
 #include <sge/gui/detail/symbol.hpp>
-#include <sge/gui/style/base_fwd.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/box_container.hpp>
 #include <sge/gui/widget/button.hpp>
 #include <sge/gui/widget/choices_fwd.hpp>
 #include <sge/gui/widget/text.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -37,17 +37,17 @@ class choices
 :
 	public sge::gui::widget::box_container
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		choices
 	);
 public:
 	SGE_GUI_DETAIL_SYMBOL
 	choices(
-		sge::gui::context &,
-		sge::gui::style::base const &,
-		sge::renderer::device::ffp &,
-		sge::font::object &,
-		sge::gui::string_container const &,
+		sge::gui::context_ref,
+		sge::gui::style::const_reference,
+		sge::renderer::device::ffp_ref,
+		sge::font::object_ref,
+		sge::gui::string_container &&,
 		sge::gui::optional_index
 	);
 
@@ -55,12 +55,14 @@ public:
 	~choices()
 	override;
 
+	[[nodiscard]]
 	SGE_GUI_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	change(
 		sge::gui::index_callback &&
 	);
 
+	[[nodiscard]]
 	SGE_GUI_DETAIL_SYMBOL
 	sge::gui::optional_index
 	index() const;
@@ -93,11 +95,12 @@ private:
 
 	fcppt::signal::auto_connection const right_connection_;
 
-	typedef
+	using
+	index_signal
+	=
 	fcppt::signal::object<
 		sge::gui::index_function
-	>
-	index_signal;
+	>;
 
 	index_signal index_changed_;
 };

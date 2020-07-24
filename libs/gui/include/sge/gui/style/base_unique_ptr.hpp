@@ -18,11 +18,12 @@ namespace gui
 namespace style
 {
 
-typedef
+using
+base_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::gui::style::base
->
-base_unique_ptr;
+>;
 
 }
 }

@@ -95,7 +95,9 @@ FCPPT_RECORD_MAKE_LABEL(
 	log_level_label
 );
 
-typedef
+using
+argument_record
+=
 fcppt::record::object<
 	fcppt::record::element<
 		text_label,
@@ -109,8 +111,7 @@ fcppt::record::object<
 		log_level_label,
 		fcppt::log::level
 	>
->
-argument_record;
+>;
 
 void
 render_text_main(
@@ -150,7 +151,7 @@ render_text_main(
 
 	sge::font::object_unique_ptr const font{
 		sys.font_system().create_font(
-			// TODO: Add options for this
+			// TODO(philipp): Add options for this
 			sge::font::parameters{}
 		)
 	};
@@ -179,7 +180,7 @@ render_text_main(
 		>(
 			text->rect().size()
 		),
-		// TODO: Initialize with something?
+		// TODO(philipp): Initialize with something?
 		fcppt::no_init{}
 	};
 
@@ -266,13 +267,14 @@ try
 		)
 	};
 
-	typedef
+	using
+	result_type
+	=
 	fcppt::options::result_of<
 		decltype(
 			parser
 		)
-	>
-	result_type;
+	>;
 
 	fcppt::options::help_result<
 		result_type

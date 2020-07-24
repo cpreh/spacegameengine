@@ -7,18 +7,23 @@
 #include <sge/font/string.hpp>
 #include <sge/gui/widget/reference.hpp>
 #include <sge/gui/widget/reference_name_pair.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::gui::widget::reference_name_pair::reference_name_pair(
 	sge::gui::widget::reference const _reference,
-	sge::font::string const &_name
+	sge::font::string &&_name
 )
 :
 	reference_(
 		_reference
 	),
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	)
 {
 }

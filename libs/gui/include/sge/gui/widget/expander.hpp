@@ -13,7 +13,7 @@
 #include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,7 +27,7 @@ class expander
 :
 	public sge::gui::widget::dummy
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		expander
 	);
 public:
@@ -41,6 +41,7 @@ public:
 	~expander()
 	override;
 private:
+	[[nodiscard]]
 	sge::rucksack::widget::base &
 	layout()
 	override;

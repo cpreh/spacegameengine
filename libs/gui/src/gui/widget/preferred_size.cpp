@@ -37,8 +37,7 @@ sge::gui::widget::preferred_size::preferred_size(
 }
 
 sge::gui::widget::preferred_size::~preferred_size()
-{
-}
+= default;
 
 sge::rucksack::widget::base &
 sge::gui::widget::preferred_size::layout()

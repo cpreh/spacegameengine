@@ -16,11 +16,12 @@ namespace sge
 namespace gui
 {
 
-typedef
+using
+optional_index
+=
 fcppt::optional::object<
 	sge::gui::index
->
-optional_index;
+>;
 
 }
 }

@@ -19,8 +19,8 @@ namespace impl
 
 void
 relayout_ancestor(
-	sge::gui::widget::base &
-);
+	sge::gui::widget::base & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

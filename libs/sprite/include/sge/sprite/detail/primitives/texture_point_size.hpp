@@ -44,9 +44,10 @@ struct texture_point_size<
 	sge::sprite::config::no_texture_point_size
 >
 {
-	typedef
-	metal::list<>
-	type;
+	using
+	type
+	=
+	metal::list<>;
 };
 
 template<
@@ -88,14 +89,15 @@ private:
 		"The number of attribute names must match the number of texture levels"
 	);
 public:
-	typedef
+	using
+	type
+	=
 	sge::sprite::detail::transform_texture_levels_static<
 		metal::lambda<
 			make_role
 		>,
 		Levels
-	>
-	type;
+	>;
 };
 
 }

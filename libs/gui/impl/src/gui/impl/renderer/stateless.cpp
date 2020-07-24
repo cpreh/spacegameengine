@@ -14,14 +14,14 @@
 #include <sge/gui/renderer/base.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/texture/part_fwd.hpp>
 
 
 sge::gui::impl::renderer::stateless::stateless(
-	sge::renderer::device::core &_renderer
+	sge::renderer::device::core_ref const _renderer
 )
 :
 	sge::gui::renderer::base(),
@@ -32,18 +32,17 @@ sge::gui::impl::renderer::stateless::stateless(
 }
 
 sge::gui::impl::renderer::stateless::~stateless()
-{
-}
+= default;
 
 void
 sge::gui::impl::renderer::stateless::fill_rect(
 	sge::renderer::context::ffp &_context,
-	sge::rucksack::rect const _rect,
+	sge::rucksack::rect const &_rect,
 	sge::image::color::any::object const &_color
 )
 {
 	sge::gui::impl::fill_rect(
-		renderer_,
+		renderer_.get(),
 		_context,
 		_rect,
 		_color
@@ -54,11 +53,11 @@ void
 sge::gui::impl::renderer::stateless::draw_image(
 	sge::renderer::context::ffp &_context,
 	sge::texture::part const &_texture,
-	sge::rucksack::vector const _pos
+	sge::rucksack::vector const &_pos
 )
 {
 	sge::gui::impl::draw_image(
-		renderer_,
+		renderer_.get(),
 		_context,
 		_texture,
 		_pos
@@ -69,11 +68,11 @@ void
 sge::gui::impl::renderer::stateless::draw_image_repeat(
 	sge::renderer::context::ffp &_context,
 	sge::texture::part const &_texture,
-	sge::rucksack::rect const _area
+	sge::rucksack::rect const &_area
 )
 {
 	sge::gui::impl::draw_image_repeat(
-		renderer_,
+		renderer_.get(),
 		_context,
 		_texture,
 		_area

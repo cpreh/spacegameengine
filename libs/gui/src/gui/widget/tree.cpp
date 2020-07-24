@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/gui/context_fwd.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/box_container.hpp>
 #include <sge/gui/widget/reference.hpp>
@@ -21,10 +21,13 @@
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/scalar.hpp>
+#include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_concat.hpp>
@@ -35,7 +38,7 @@
 
 
 sge::gui::widget::tree::tree(
-	sge::gui::context &_context,
+	sge::gui::context_ref const _context,
 	sge::gui::widget::reference_tree_vector const &_widgets
 )
 :
@@ -74,23 +77,21 @@ sge::gui::widget::tree::tree(
 							:
 								public sge::gui::widget::box_container
 							{
-								FCPPT_NONCOPYABLE(
+								FCPPT_NONMOVABLE(
 									indented_widget
 								);
 							public:
 								indented_widget(
 									sge::rucksack::scalar const _indent,
-									sge::gui::context &_new_context,
-									sge::gui::widget::base &_new_widget
+									sge::gui::context_ref const _new_context,
+									sge::gui::widget::reference const _new_widget
 								)
 								:
 									sge::gui::widget::box_container(
 										_new_context,
 										sge::gui::widget::reference_alignment_vector{
 											sge::gui::widget::reference_alignment_pair(
-												sge::gui::widget::reference(
-													_new_widget
-												),
+												_new_widget,
 												sge::rucksack::alignment::left_or_top
 											)
 										},
@@ -116,14 +117,20 @@ sge::gui::widget::tree::tree(
 									}
 								{
 									this->box_layout().push_front_child(
-										padding_,
+										fcppt::reference_to_base<
+											sge::rucksack::widget::base
+										>(
+											fcppt::make_ref(
+												padding_
+											)
+										),
 										sge::rucksack::alignment::left_or_top
 									);
 								}
 
 								~indented_widget()
-								{
-								}
+								override
+								= default;
 							private:
 								sge::rucksack::widget::dummy padding_;
 							};
@@ -148,10 +155,10 @@ sge::gui::widget::tree::tree(
 										fcppt::literal<
 											sge::rucksack::scalar
 										>(
-											20
+											20 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 										),
 										_context,
-										_widget.value().get()
+										_widget.value()
 									)
 								);
 						}
@@ -165,6 +172,7 @@ sge::gui::widget::tree::tree(
 		:
 		boxes_
 	)
+	{
 		this->push_back(
 			sge::gui::widget::reference_alignment_pair(
 				sge::gui::widget::reference(
@@ -173,8 +181,8 @@ sge::gui::widget::tree::tree(
 				sge::rucksack::alignment::left_or_top
 			)
 		);
+	}
 }
 
 sge::gui::widget::tree::~tree()
-{
-}
+= default;

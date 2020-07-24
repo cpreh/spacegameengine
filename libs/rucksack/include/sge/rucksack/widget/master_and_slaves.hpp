@@ -16,7 +16,8 @@
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/box.hpp>
 #include <sge/rucksack/widget/enumeration.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/rucksack/widget/reference.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -39,7 +40,7 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL master_and_slaves
 :
 	public sge::rucksack::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		master_and_slaves
 	);
 public:
@@ -63,16 +64,19 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::dim
 	size() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::vector
 	position() const
 	override;
 
+	[[nodiscard]]
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	sge::rucksack::axis_policy2
 	axis_policy() const
@@ -86,13 +90,13 @@ public:
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	master_pane(
-		sge::rucksack::widget::base &
+		sge::rucksack::widget::reference
 	);
 
 	SGE_RUCKSACK_DETAIL_SYMBOL
 	void
 	push_back_child(
-		sge::rucksack::widget::base &
+		sge::rucksack::widget::reference
 	);
 
 	SGE_RUCKSACK_DETAIL_SYMBOL

@@ -25,9 +25,16 @@ template<
 class stateful_base
 {
 public:
+	using
+	clock_ref
+	=
+	fcppt::reference<
+		Clock const
+	>;
+
 	explicit
 	stateful_base(
-		Clock const &_clock
+		clock_ref const _clock
 	)
 	:
 		clock_(
@@ -36,6 +43,7 @@ public:
 	{
 	}
 
+	[[nodiscard]]
 	Clock const &
 	clock_base() const
 	{
@@ -43,9 +51,7 @@ public:
 			clock_.get();
 	}
 private:
-	fcppt::reference<
-		Clock const
-	> clock_;
+	clock_ref clock_;
 };
 
 }

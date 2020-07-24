@@ -8,6 +8,7 @@
 #include <sge/font/flags_field.hpp>
 #include <sge/font/metrics.hpp>
 #include <sge/font/object.hpp>
+#include <sge/font/object_ref.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
@@ -23,10 +24,11 @@
 #include <sge/gui/impl/relayout_ancestor.hpp>
 #include <sge/gui/renderer/base.hpp>
 #include <sge/gui/style/base.hpp>
+#include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/text.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
@@ -34,7 +36,6 @@
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -42,17 +43,20 @@
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::text::text(
-	sge::gui::style::base const &_style,
-	sge::renderer::device::ffp &_renderer,
-	sge::font::object &_font,
-	sge::font::string const &_value,
-	sge::gui::text_color const &_text_color,
+	sge::gui::style::const_reference const _style,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::font::object_ref const _font,
+	sge::font::string &&_value,
+	sge::gui::text_color _text_color,
 	sge::gui::optional_needed_width const _needed_width
 )
 :
@@ -67,22 +71,26 @@ sge::gui::widget::text::text(
 		_font
 	),
 	text_color_(
-		_text_color
+		std::move(
+			_text_color
+		)
 	),
 	needed_width_(
 		_needed_width
 	),
 	value_(
-		_value
+		std::move(
+			_value
+		)
 	),
 	layout_{
 		sge::rucksack::axis_policy2{
 			this->horizontal_policy(),
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					font_.metrics().height().get()
+					font_.get().metrics().height().get()
 					+
-					style_.text_spacing().h()
+					style_.get().text_spacing().h()
 				}
 			}
 		}
@@ -93,16 +101,17 @@ sge::gui::widget::text::text(
 FCPPT_PP_POP_WARNING
 
 sge::gui::widget::text::~text()
-{
-}
+= default;
 
 void
 sge::gui::widget::text::value(
-	sge::font::string const &_value
+	sge::font::string &&_value
 )
 {
 	value_ =
-		_value;
+		std::move(
+			_value
+		);
 
 	layout_.axis_policy(
 		sge::rucksack::axis_policy2(
@@ -138,19 +147,15 @@ sge::gui::widget::text::on_draw(
 	sge::renderer::context::ffp &_context
 )
 {
-	style_.draw_text(
+	style_.get().draw_text(
 		_renderer,
 		_context,
 		this->layout().area()
 	);
 
 	sge::font::draw::static_text const static_text(
-		fcppt::make_ref(
-			renderer_
-		),
-		fcppt::make_ref(
-			font_
-		),
+		renderer_,
+		font_,
 		value_,
 		sge::font::text_parameters(
 			sge::font::align_h::variant{
@@ -176,7 +181,7 @@ sge::gui::widget::text::on_draw(
 		sge::font::vector(
 			0,
 			sge::font::v_center(
-				font_.metrics().height(),
+				font_.get().metrics().height(),
 				layout_.size().h()
 			)
 		),
@@ -202,7 +207,7 @@ sge::gui::widget::text::horizontal_policy() const
 						this
 					]{
 						return
-							font_.create_text(
+							font_.get().create_text(
 								value_,
 								sge::font::text_parameters(
 									sge::font::align_h::variant{
@@ -220,7 +225,7 @@ sge::gui::widget::text::horizontal_policy() const
 					}
 				)
 				+
-				style_.text_spacing().w()
+				style_.get().text_spacing().w()
 			}
 		};
 }

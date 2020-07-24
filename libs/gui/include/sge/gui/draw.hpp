@@ -22,11 +22,11 @@ namespace gui
 SGE_GUI_DETAIL_SYMBOL
 void
 draw(
-	sge::gui::renderer::base &,
-	sge::renderer::context::ffp &,
-	sge::gui::background::base &,
-	sge::gui::main_area::base &
-);
+	sge::gui::renderer::base &, // NOLINT(google-runtime-references)
+	sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+	sge::gui::background::base &, // NOLINT(google-runtime-references)
+	sge::gui::main_area::base & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

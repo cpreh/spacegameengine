@@ -47,7 +47,7 @@ sge::sprite::config::choices<
 	metal::list<
 		sge::sprite::config::with_texture<
 			sge::sprite::config::texture_level_count<
-				1u
+				1U
 			>,
 			TextureCoordinates,
 			sge::sprite::config::texture_ownership::reference

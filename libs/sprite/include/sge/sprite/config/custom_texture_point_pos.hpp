@@ -25,12 +25,13 @@ template<
 >
 struct custom_texture_point_pos
 {
-	typedef
+	using
+	type
+	=
 	std::integral_constant<
 		bool,
 		CustomTexturePoint
-	>
-	type;
+	>;
 };
 
 }

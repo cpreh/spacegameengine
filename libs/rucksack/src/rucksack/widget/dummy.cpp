@@ -14,7 +14,8 @@
 
 
 sge::rucksack::widget::dummy::dummy(
-	sge::rucksack::axis_policy2 const &_axis_policy)
+	sge::rucksack::axis_policy2 const &_axis_policy
+)
 :
 	sge::rucksack::widget::base(),
 	axis_policy_{
@@ -87,5 +88,4 @@ sge::rucksack::widget::dummy::relayout()
 }
 
 sge::rucksack::widget::dummy::~dummy()
-{
-}
+= default;

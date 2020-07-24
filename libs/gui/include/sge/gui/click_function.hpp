@@ -13,9 +13,10 @@ namespace sge
 namespace gui
 {
 
-typedef
-void
-click_function();
+using
+click_function
+=
+void ();
 
 }
 }

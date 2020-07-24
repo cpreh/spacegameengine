@@ -6,6 +6,7 @@
 
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/rucksack/axis_policy.hpp>
@@ -17,8 +18,10 @@
 #include <sge/rucksack/viewport/adaptor.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/viewport/manager_ref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference.hpp>
 #include <fcppt/reference_to_base.hpp>
@@ -34,31 +37,31 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::rucksack::viewport::adaptor::adaptor(
-	sge::viewport::manager &_viewport,
-	sge::renderer::device::core &_renderer
+	sge::viewport::manager_ref const _viewport_manager,
+	sge::renderer::device::core_ref const _renderer
 )
 :
 	sge::rucksack::widget::base(),
 	target_(
-		_renderer.onscreen_target()
+		_renderer.get().onscreen_target()
 	),
 	child_(),
 	viewport_connection_(
-		_viewport.manage_callback(
+		_viewport_manager.get().manage_callback(
 			sge::viewport::manage_callback{
-				std::bind(
-					&sge::rucksack::viewport::adaptor::manage_callback,
+				[
 					this
-				)
+				](
+					sge::renderer::target::viewport const &
+				){
+					this->sge::rucksack::viewport::adaptor::manage_callback();
+				}
 			}
 		)
 	)
@@ -172,7 +175,7 @@ sge::rucksack::viewport::adaptor::relayout()
 
 void
 sge::rucksack::viewport::adaptor::child(
-	sge::rucksack::widget::base &_new_child
+	sge::rucksack::widget::reference const _new_child
 )
 {
 	fcppt::optional::maybe_void(
@@ -191,12 +194,10 @@ sge::rucksack::viewport::adaptor::child(
 
 	child_ =
 		sge::rucksack::widget::optional_ref(
-			fcppt::make_ref(
-				_new_child
-			)
+			_new_child
 		);
 
-	_new_child.parent(
+	_new_child.get().parent(
 		sge::rucksack::widget::optional_ref(
 			fcppt::reference_to_base<
 				sge::rucksack::widget::base
@@ -235,7 +236,9 @@ sge::rucksack::viewport::adaptor::manage_callback()
 	if(
 		child_.has_value()
 	)
+	{
 		this->resize_child();
+	}
 }
 
 void

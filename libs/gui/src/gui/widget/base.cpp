@@ -9,7 +9,7 @@
 #include <sge/gui/focus_change.hpp>
 #include <sge/gui/get_focus.hpp>
 #include <sge/gui/widget/base.hpp>
-#include <sge/gui/widget/optional_focus.hpp>
+#include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/rucksack/vector.hpp>
@@ -57,7 +57,7 @@ sge::gui::widget::base::on_update(
 
 sge::gui::get_focus
 sge::gui::widget::base::on_click(
-	sge::rucksack::vector
+	sge::rucksack::vector const &
 )
 {
 	return
@@ -89,7 +89,7 @@ sge::gui::widget::base::on_focus_changed(
 
 sge::gui::widget::optional_ref
 sge::gui::widget::base::on_tab(
-	sge::gui::widget::optional_focus &
+	sge::gui::widget::optional_focus_ref
 )
 {
 	return
@@ -104,9 +104,11 @@ sge::gui::widget::base::parent(
 	if(
 		parent_.has_value()
 	)
+	{
 		this->layout().parent(
 			sge::rucksack::widget::optional_ref()
 		);
+	}
 
 	parent_ =
 		_new_parent;

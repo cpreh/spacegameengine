@@ -9,6 +9,7 @@
 
 #include <sge/timer/parameters_decl.hpp>
 #include <sge/timer/clocks/is_stateful.hpp>
+#include <sge/timer/clocks/parameter.hpp>
 
 
 // NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init,hicpp-member-init)
@@ -21,16 +22,15 @@ sge::timer::parameters<
 	duration const _interval
 )
 :
-	parameters(
-		clock_type(),
+	parameters{
+		Clock{},
 		_interval
-	)
+	}
 {
 	static_assert(
 		!sge::timer::clocks::is_stateful<
 			Clock
-		>::value,
-		"Stateful clocks need to be passed as parameters"
+		>::value
 	);
 }
 
@@ -40,7 +40,7 @@ template<
 sge::timer::parameters<
 	Clock
 >::parameters(
-	clock_type const &_clock,
+	clock_parameter _clock,
 	duration const _interval
 )
 :

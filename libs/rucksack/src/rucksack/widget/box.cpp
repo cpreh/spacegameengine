@@ -21,6 +21,7 @@
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/box.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <sge/rucksack/widget/reference_alignment.hpp>
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
 #include <fcppt/make_ref.hpp>
@@ -59,15 +60,16 @@ using
 combine_policies
 =
 std::conditional_t<
-	std::is_same<
-		P1,
-		sge::rucksack::preferred_size
-	>::value
-	&&
-	std::is_same<
-		P2,
-		sge::rucksack::preferred_size
-	>::value,
+	std::conjunction_v<
+		std::is_same<
+			P1,
+			sge::rucksack::preferred_size
+		>,
+		std::is_same<
+			P2,
+			sge::rucksack::preferred_size
+		>
+	>,
 	sge::rucksack::preferred_size,
 	sge::rucksack::minimum_size
 >;
@@ -116,10 +118,12 @@ sge::rucksack::widget::box::box(
 		:
 		_children
 	)
+	{
 		this->push_back_child(
-			element.reference().get(),
+			element.reference(),
 			element.alignment()
 		);
+	}
 }
 
 void
@@ -308,7 +312,9 @@ sge::rucksack::widget::box::relayout()
 	if(
 		children_.empty()
 	)
+	{
 		return;
+	}
 
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		sge::rucksack::scalar,
@@ -346,6 +352,7 @@ sge::rucksack::widget::box::relayout()
 		{
 		}
 
+		[[nodiscard]]
 		sge::rucksack::scalar
 		remaining() const
 		{
@@ -353,6 +360,7 @@ sge::rucksack::widget::box::relayout()
 				remaining_size_.get();
 		}
 
+		[[nodiscard]]
 		bool
 		all_preferred() const
 		{
@@ -360,6 +368,7 @@ sge::rucksack::widget::box::relayout()
 				all_preferred_size_.get();
 		}
 
+		[[nodiscard]]
 		minimum_size_count
 		minimum_sizes() const
 		{
@@ -678,7 +687,7 @@ sge::rucksack::widget::box::relayout()
 
 void
 sge::rucksack::widget::box::push_back_child(
-	sge::rucksack::widget::base &_new_child,
+	sge::rucksack::widget::reference const _new_child,
 	sge::rucksack::alignment const _alignment
 )
 {
@@ -691,7 +700,7 @@ sge::rucksack::widget::box::push_back_child(
 
 void
 sge::rucksack::widget::box::push_front_child(
-	sge::rucksack::widget::base &_new_child,
+	sge::rucksack::widget::reference const _new_child,
 	sge::rucksack::alignment const _alignment
 )
 {
@@ -733,7 +742,8 @@ sge::rucksack::widget::box::clear()
 				it
 			)
 	)
-		;
+	{
+	}
 }
 
 sge::rucksack::widget::box::iterator
@@ -760,7 +770,7 @@ sge::rucksack::widget::box::children_size() const
 void
 sge::rucksack::widget::box::replace_children(
 	iterator const _pos,
-	sge::rucksack::widget::base &_widget,
+	sge::rucksack::widget::reference const _widget,
 	sge::rucksack::alignment const _alignment
 )
 {
@@ -780,29 +790,29 @@ sge::rucksack::widget::box::~box()
 		:
 		children_
 	)
+	{
 		child.first.get().parent(
 			sge::rucksack::widget::optional_ref()
 		);
+	}
 }
 
 void
 sge::rucksack::widget::box::insert_child(
 	iterator const _pos,
-	sge::rucksack::widget::base &_widget,
+	sge::rucksack::widget::reference const _widget,
 	sge::rucksack::alignment const _alignment
 )
 {
 	children_.insert(
 		_pos,
 		std::make_pair(
-			fcppt::make_ref(
-				_widget
-			),
+			_widget,
 			_alignment
 		)
 	);
 
-	_widget.parent(
+	_widget.get().parent(
 		sge::rucksack::widget::optional_ref(
 			fcppt::reference_to_base<
 				sge::rucksack::widget::base

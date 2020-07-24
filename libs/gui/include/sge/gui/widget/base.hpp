@@ -14,13 +14,13 @@
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/widget/base_fwd.hpp>
-#include <sge/gui/widget/optional_focus_fwd.hpp>
+#include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/input/key/code_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/vector_fwd.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -32,7 +32,7 @@ namespace widget
 
 class base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
@@ -51,14 +51,15 @@ public:
 	virtual
 	void
 	on_draw(
-		sge::gui::renderer::base &,
-		sge::renderer::context::ffp &
-	) = 0;
+		sge::gui::renderer::base &, // NOLINT(google-runtime-references)
+		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+	) = 0; // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	virtual
 	sge::gui::get_focus
 	on_click(
-		sge::rucksack::vector
+		sge::rucksack::vector const &
 	);
 
 	virtual
@@ -79,12 +80,14 @@ public:
 		sge::gui::focus_change
 	);
 
+	[[nodiscard]]
 	virtual
 	sge::gui::widget::optional_ref
 	on_tab(
-		sge::gui::widget::optional_focus &
+		sge::gui::widget::optional_focus_ref
 	);
 
+	[[nodiscard]]
 	virtual
 	sge::rucksack::widget::base &
 	layout() = 0;
@@ -100,6 +103,7 @@ public:
 		bool
 	);
 
+	[[nodiscard]]
 	SGE_GUI_DETAIL_SYMBOL
 	bool
 	enabled() const;

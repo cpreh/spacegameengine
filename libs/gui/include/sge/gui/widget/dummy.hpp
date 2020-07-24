@@ -11,7 +11,7 @@
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/dummy_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ class dummy
 :
 	public sge::gui::widget::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		dummy
 	);
 public:
