@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/scenic/render_context/light/directional.hpp>
 #include <sge/scenic/render_context/light/direction.hpp>
+#include <sge/scenic/render_context/light/directional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

@@ -21,8 +21,8 @@
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/set_proxy.hpp>

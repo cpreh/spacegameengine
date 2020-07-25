@@ -37,8 +37,8 @@
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 	/*
 #include <sge/renderer/texture/address_mode.hpp>
@@ -49,8 +49,8 @@
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/shader/context_ref.hpp>
-#include <sge/shader/pixel_program_path.hpp>
 #include <sge/shader/optional_cflags.hpp>
+#include <sge/shader/pixel_program_path.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <sge/shader/vertex_program_path.hpp>
 #include <sge/shader/parameter/name.hpp>

@@ -10,9 +10,9 @@
 #include <sge/scenic/scene/material/diffuse_texture_path.hpp>
 #include <sge/scenic/scene/material/emissive_color.hpp>
 #include <sge/scenic/scene/material/object.hpp>
+#include <sge/scenic/scene/material/shininess.hpp>
 #include <sge/scenic/scene/material/specular_color.hpp>
 #include <sge/scenic/scene/material/specular_texture_path.hpp>
-#include <sge/scenic/scene/material/shininess.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

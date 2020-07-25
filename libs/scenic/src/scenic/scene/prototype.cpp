@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/scenic/scene/camera_properties.hpp>
-#include <sge/scenic/scene/prototype.hpp>
 #include <sge/scenic/render_context/ambient_color.hpp>
 #include <sge/scenic/render_context/fog/optional_properties.hpp>
+#include <sge/scenic/scene/camera_properties.hpp>
+#include <sge/scenic/scene/prototype.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
