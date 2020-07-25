@@ -7,18 +7,21 @@
 #include <sge/cursor/hotspot.hpp>
 #include <sge/cursor/object.hpp>
 #include <sge/cursor/impl/detail/object.hpp>
-#include <sge/input/processor_fwd.hpp>
+#include <sge/input/const_processor_ref.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/texture/part_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
+#include <sge/texture/const_part_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::cursor::object::object(
-	sge::input::processor const &_processor,
-	sge::renderer::device::ffp &_renderer,
-	sge::texture::part const &_texture,
-	sge::cursor::hotspot const _hotspot
+	sge::input::const_processor_ref const _processor,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::texture::const_part_ref const _texture,
+	sge::cursor::hotspot _hotspot
 )
 :
 	impl_{
@@ -28,7 +31,9 @@ sge::cursor::object::object(
 			_processor,
 			_renderer,
 			_texture,
-			_hotspot
+			std::move(
+				_hotspot
+			)
 		)
 	}
 {
@@ -36,16 +41,19 @@ sge::cursor::object::object(
 
 sge::cursor::object::object(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 sge::cursor::object &
 sge::cursor::object::operator=(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 sge::cursor::object::~object()
-{
-}
+= default;
 
 void
 sge::cursor::object::draw(

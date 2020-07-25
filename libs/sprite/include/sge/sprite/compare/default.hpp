@@ -26,9 +26,10 @@ namespace compare
 
 struct default_
 {
-	typedef
-	bool
-	result_type;
+	using
+	result_type
+	=
+	bool;
 
 	template<
 		typename Choices

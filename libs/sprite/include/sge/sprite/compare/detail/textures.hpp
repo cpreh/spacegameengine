@@ -42,9 +42,12 @@ struct textures
 		> const &_right
 	)
 	{
-		typedef sge::sprite::config::texture_level_count<
-			Level - 1u
-		> current_level;
+		using
+		current_level
+		=
+		sge::sprite::config::texture_level_count<
+			Level - 1U
+		>;
 
 		return
 			!sge::sprite::compare::texture_level_equal<
@@ -62,7 +65,7 @@ struct textures
 				)
 			:
 				sge::sprite::compare::detail::textures<
-					Level - 1u
+					Level - 1U
 				>::execute(
 					_left,
 					_right
@@ -73,7 +76,7 @@ struct textures
 
 template<>
 struct textures<
-	0u
+	0U
 >
 {
 	template<

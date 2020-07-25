@@ -68,6 +68,7 @@
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -188,13 +189,19 @@ try
 	);
 
 	sge::cursor::object custom_cursor{
-		sys.input_processor(),
-		sys.renderer_device_ffp(),
-		*texture_part,
+		fcppt::make_cref(
+			sys.input_processor()
+		),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_cref(
+			*texture_part
+		),
 		sge::cursor::hotspot(
 			sge::cursor::hotspot::value_type(
-				10u,
-				10u
+				10U,
+				10U
 			)
 		)
 	};

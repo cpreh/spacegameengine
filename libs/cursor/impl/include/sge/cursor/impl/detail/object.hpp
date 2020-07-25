@@ -9,11 +9,11 @@
 
 #include <sge/cursor/hotspot.hpp>
 #include <sge/cursor/detail/object_fwd.hpp>
-#include <sge/input/processor_fwd.hpp>
+#include <sge/input/const_processor_ref.hpp>
 #include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
@@ -32,8 +32,8 @@
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object_decl.hpp>
 #include <sge/sprite/state/parameters_fwd.hpp>
-#include <sge/texture/part_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/texture/const_part_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
@@ -49,14 +49,14 @@ namespace detail
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	object(
-		sge::input::processor const &,
-		sge::renderer::device::ffp &,
-		sge::texture::part const &,
+		sge::input::const_processor_ref,
+		sge::renderer::device::ffp_ref,
+		sge::texture::const_part_ref,
 		sge::cursor::hotspot
 	);
 
@@ -64,19 +64,22 @@ public:
 
 	void
 	draw(
-		sge::renderer::context::ffp &
-	);
+		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	sge::cursor::hotspot
 	hotspot() const;
 private:
-	sge::input::processor const &processor_;
+	sge::input::const_processor_ref const processor_;
 
-	sge::texture::part const &texture_;
+	sge::texture::const_part_ref const texture_;
 
 	sge::cursor::hotspot const hotspot_;
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -95,58 +98,64 @@ private:
 		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::automatic,
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	>
-	sprite_choices;
+	>;
 
-	typedef
+	using
+	sprite_buffers
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	>
-	sprite_buffers;
+	>;
 
 	sprite_buffers sprite_buffers_;
 
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
 	sprite_state sprite_state_;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
+	using
+	optional_sprite
+	=
 	fcppt::optional::object<
 		sprite_object
-	>
-	optional_sprite;
+	>;
 
+	[[nodiscard]]
 	optional_sprite
 	make_sprite(
-		sge::input::cursor::optional_position
+		sge::input::cursor::optional_position const &
 	) const;
 };
 

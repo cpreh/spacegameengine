@@ -6,6 +6,7 @@
 
 #include <sge/cursor/hotspot.hpp>
 #include <sge/cursor/impl/detail/object.hpp>
+#include <sge/input/const_processor_ref.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
@@ -14,6 +15,7 @@
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single_impl.hpp>
@@ -26,8 +28,6 @@
 #include <sge/sprite/state/object_impl.hpp>
 #include <sge/sprite/state/parameters_impl.hpp>
 #include <sge/texture/const_part_ref.hpp>
-#include <sge/texture/part_fwd.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -37,15 +37,16 @@
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::cursor::detail::object::object(
-	sge::input::processor const &_processor,
-	sge::renderer::device::ffp &_renderer,
-	sge::texture::part const &_texture,
-	sge::cursor::hotspot const _hotspot
+	sge::input::const_processor_ref const _processor,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::texture::const_part_ref const _texture,
+	sge::cursor::hotspot _hotspot
 )
 :
 	processor_{
@@ -55,47 +56,45 @@ sge::cursor::detail::object::object(
 		_texture
 	},
 	hotspot_{
-		_hotspot
+		std::move(
+			_hotspot
+		)
 	},
 	sprite_buffers_{
 		fcppt::reference_to_base<
 			sge::renderer::device::core
 		>(
-			fcppt::make_ref(
-				_renderer
-			)
+			_renderer
 		),
 		sge::sprite::buffers::option::dynamic
 	},
 	sprite_state_{
-		fcppt::make_ref(
-			_renderer
-		),
+		_renderer,
 		sprite_state_parameters()
 	}
 {
 }
 
 sge::cursor::detail::object::~object()
-{
-}
+= default;
 
 void
 sge::cursor::detail::object::draw(
 	sge::renderer::context::ffp &_context
 )
 {
-	typedef
+	using
+	sprite_vector
+	=
 	std::vector<
 		sprite_object
-	>
-	sprite_vector;
+	>;
 
-	sprite_vector sprites(
+	auto sprites(
 		fcppt::algorithm::map_optional<
 			sprite_vector
 		>(
-			processor_.cursors(),
+			processor_.get().cursors(),
 			[
 				this
 			](
@@ -130,7 +129,7 @@ sge::cursor::detail::object::hotspot() const
 
 sge::cursor::detail::object::optional_sprite
 sge::cursor::detail::object::make_sprite(
-	sge::input::cursor::optional_position const _opt_pos
+	sge::input::cursor::optional_position const &_opt_pos
 ) const
 {
 	return
@@ -139,7 +138,7 @@ sge::cursor::detail::object::make_sprite(
 			[
 				this
 			](
-				sge::input::cursor::position const _pos
+				sge::input::cursor::position const &_pos
 			)
 			{
 				return
@@ -156,9 +155,7 @@ sge::cursor::detail::object::make_sprite(
 								)
 							),
 						sge::sprite::roles::texture0{} =
-							sge::texture::const_part_ref{
-								this->texture_
-							}
+							this->texture_
 					};
 			}
 		);

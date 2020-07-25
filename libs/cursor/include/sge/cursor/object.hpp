@@ -11,10 +11,10 @@
 #include <sge/cursor/object_fwd.hpp>
 #include <sge/cursor/detail/object_fwd.hpp>
 #include <sge/cursor/detail/symbol.hpp>
-#include <sge/input/processor_fwd.hpp>
+#include <sge/input/const_processor_ref.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/texture/part_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
+#include <sge/texture/const_part_ref.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
@@ -32,22 +32,24 @@ class object
 public:
 	SGE_CURSOR_DETAIL_SYMBOL
 	object(
-		sge::input::processor const &,
-		sge::renderer::device::ffp &,
-		sge::texture::part const &,
+		sge::input::const_processor_ref,
+		sge::renderer::device::ffp_ref,
+		sge::texture::const_part_ref,
 		sge::cursor::hotspot
 	);
 
 	SGE_CURSOR_DETAIL_SYMBOL
 	object(
 		object &&
-	);
+	)
+	noexcept;
 
 	SGE_CURSOR_DETAIL_SYMBOL
 	object &
 	operator=(
 		object &&
-	);
+	)
+	noexcept;
 
 	SGE_CURSOR_DETAIL_SYMBOL
 	~object();
@@ -55,9 +57,10 @@ public:
 	SGE_CURSOR_DETAIL_SYMBOL
 	void
 	draw(
-		sge::renderer::context::ffp &
-	);
+		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	SGE_CURSOR_DETAIL_SYMBOL
 	sge::cursor::hotspot
 	hotspot() const;

@@ -33,9 +33,10 @@ struct textures
 	=
 	std::false_type;
 
-	typedef
-	bool
-	result_type;
+	using
+	result_type
+	=
+	bool;
 
 	template<
 		typename Choices

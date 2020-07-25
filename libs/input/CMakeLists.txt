@@ -16,6 +16,7 @@ set(
 	libs/input/include/sge/input/capabilities_field_fwd.hpp
 	libs/input/include/sge/input/capabilities_fwd.hpp
 	libs/input/include/sge/input/capabilities_to_string.hpp
+	libs/input/include/sge/input/const_processor_ref.hpp
 	libs/input/include/sge/input/create_multi_system.hpp
 	libs/input/include/sge/input/cursor/button_code.hpp
 	libs/input/include/sge/input/cursor/button_code_fwd.hpp
