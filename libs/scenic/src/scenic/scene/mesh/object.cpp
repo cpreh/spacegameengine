@@ -8,6 +8,7 @@
 #include <sge/model/obj/prototype.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/count.hpp>
@@ -21,7 +22,7 @@
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/iterator.hpp>
 #include <sge/renderer/vf/set_proxy.hpp>
@@ -36,7 +37,6 @@
 #include <sge/scenic/vf/normal.hpp>
 #include <sge/scenic/vf/position.hpp>
 #include <sge/scenic/vf/texcoord.hpp>
-#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,35 +45,45 @@
 
 
 sge::scenic::scene::mesh::object::object(
-	sge::renderer::device::core &_renderer,
-	sge::renderer::vertex::declaration &_vertex_declaration,
-	sge::model::obj::prototype const &_prototype)
+	sge::renderer::device::core_ref const _renderer,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
+	sge::model::obj::prototype const &_prototype
+)
 :
 	vertex_buffer_(
-		_renderer.create_vertex_buffer(
+		_renderer.get().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				fcppt::make_cref(
-					_vertex_declaration
-				),
-				sge::renderer::vf::dynamic::make_part_index
-				<
+				_vertex_declaration,
+				sge::renderer::vf::dynamic::make_part_index<
 					sge::scenic::vf::format,
 					sge::scenic::vf::format_part
 				>(),
 				sge::renderer::vertex::count(
-					static_cast<sge::renderer::size_type>(
-						_prototype.face_vertices().size())),
-				sge::renderer::resource_flags_field::null()))),
+					static_cast<
+						sge::renderer::size_type
+					>(
+						_prototype.face_vertices().size()
+					)
+				),
+				sge::renderer::resource_flags_field::null()
+			)
+		)
+	),
 	index_buffer_(
-		_renderer.create_index_buffer(
+		_renderer.get().create_index_buffer(
 			sge::renderer::index::buffer_parameters(
 				sge::renderer::index::dynamic::format::i32,
 				sge::renderer::index::count(
-					_prototype.face_count() * 3u),
-				sge::renderer::resource_flags_field::null()))),
+					_prototype.face_count() * 3U
+				),
+				sge::renderer::resource_flags_field::null()
+			)
+		)
+	),
 	parts_(),
 	bounding_box_(
-		_prototype.bounding_box())
+		_prototype.bounding_box()
+	)
 {
 	this->fill_vertex_buffer(
 		_prototype);
@@ -84,12 +94,16 @@ sge::scenic::scene::mesh::object::object(
 
 sge::scenic::scene::mesh::object::object(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 sge::scenic::scene::mesh::object &
 sge::scenic::scene::mesh::object::operator=(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 sge::renderer::vertex::buffer &
 sge::scenic::scene::mesh::object::vertex_buffer()
@@ -120,8 +134,7 @@ sge::scenic::scene::mesh::object::bounding_box() const
 }
 
 sge::scenic::scene::mesh::object::~object()
-{
-}
+= default;
 
 void
 sge::scenic::scene::mesh::object::fill_vertex_buffer(
@@ -213,49 +226,51 @@ sge::scenic::scene::mesh::object::fill_index_buffer(
 	);
 
 	sge::renderer::size_type current_index_begin =
-		0u;
+		0U;
 
 	sge::model::obj::material_to_face_sequence const &current_parts(
 		_prototype.parts());
 
 	for(
-		sge::model::obj::material_to_face_sequence::const_iterator current_part =
-			current_parts.begin();
-		current_part != current_parts.end();
-		++current_part)
+		auto const &current_part
+		:
+		current_parts
+	)
 	{
 		sge::model::obj::face_sequence const &current_face_sequence(
-			current_part->second);
+			current_part.second);
 
 		for(
-			sge::model::obj::face_sequence::const_iterator current_face =
-				current_face_sequence.begin();
-			current_face != current_face_sequence.end();
-			++current_face)
+			auto const &current_face
+			:
+			current_face_sequence
+		)
 		{
 			for(
-				sge::model::obj::face::const_iterator current_face_index =
-					current_face->begin();
-				current_face_index != current_face->end();
-				++current_face_index)
+				auto const &current_face_index
+				:
+				current_face
+			)
 			{
 				(*current_index++).set(
 					static_cast<sge::renderer::index::i32>(
-						*current_face_index));
+						current_face_index
+					)
+				);
 			}
 		}
 
 		parts_.insert(
 			std::make_pair(
 				sge::scenic::scene::identifier(
-					current_part->first.get()),
+					current_part.first.get()),
 				sge::scenic::index_buffer_range(
 					sge::renderer::index::first(
 						current_index_begin),
 					sge::renderer::index::count(
-						current_face_sequence.size()*3u))));
+						current_face_sequence.size()*3U))));
 
 		current_index_begin +=
-			current_face_sequence.size() * 3u;
+			current_face_sequence.size() * 3U;
 	}
 }

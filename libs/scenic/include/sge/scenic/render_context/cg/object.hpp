@@ -26,7 +26,8 @@
 #include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/render_context/material/object_fwd.hpp>
 #include <sge/shader/scoped_pair.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/optional/reference.hpp>
 
@@ -44,13 +45,15 @@ class object
 :
 	public sge::scenic::render_context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	object(
-		sge::scenic::render_context::cg::manager &,
+		fcppt::reference<
+			sge::scenic::render_context::cg::manager
+		>,
 		sge::renderer::context::core_ref
 	);
 
@@ -98,6 +101,7 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::target::base &
 	target()
@@ -107,13 +111,16 @@ public:
 	~object()
 	override;
 private:
-	typedef
+	using
+	optional_vertex_buffer
+	=
 	fcppt::optional::reference<
 		sge::renderer::vertex::buffer const
-	>
-	optional_vertex_buffer;
+	>;
 
-	sge::scenic::render_context::cg::manager &manager_;
+	fcppt::reference<
+		sge::scenic::render_context::cg::manager
+	> const manager_;
 	sge::renderer::context::core_ref const context_;
 	sge::renderer::vertex::scoped_declaration scoped_vd_;
 	sge::renderer::state::core::depth_stencil::scoped depth_stencil_state_;

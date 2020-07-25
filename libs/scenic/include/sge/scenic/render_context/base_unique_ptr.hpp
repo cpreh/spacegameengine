@@ -18,11 +18,12 @@ namespace scenic
 namespace render_context
 {
 
-typedef
+using
+base_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::scenic::render_context::base
->
-base_unique_ptr;
+>;
 
 }
 }

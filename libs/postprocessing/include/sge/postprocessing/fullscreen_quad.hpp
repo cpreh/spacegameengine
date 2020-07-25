@@ -8,11 +8,11 @@
 #define SGE_POSTPROCESSING_FULLSCREEN_QUAD_HPP_INCLUDED
 
 #include <sge/renderer/context/core_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
-#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -22,29 +22,29 @@ namespace postprocessing
 
 class fullscreen_quad
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		fullscreen_quad
 	);
 public:
 	fullscreen_quad(
-		sge::renderer::device::core &,
-		sge::renderer::vertex::declaration &
+		sge::renderer::device::core_ref,
+		sge::renderer::vertex::const_declaration_ref
 	);
 
 	void
 	render(
-		sge::renderer::context::core &
-	);
+		sge::renderer::context::core & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	~fullscreen_quad();
 
 	static
 	sge::renderer::vertex::declaration_unique_ptr
 	create_vertex_declaration(
-		sge::renderer::device::core &
+		sge::renderer::device::core_ref
 	);
 private:
-	sge::renderer::vertex::declaration &vertex_declaration_;
+	sge::renderer::vertex::const_declaration_ref const vertex_declaration_;
 
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer_;
 };

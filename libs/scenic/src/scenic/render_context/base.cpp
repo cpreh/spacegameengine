@@ -6,10 +6,9 @@
 
 #include <sge/scenic/render_context/base.hpp>
 
+
 sge::scenic::render_context::base::~base()
-{
-}
+= default;
 
 sge::scenic::render_context::base::base()
-{
-}
+= default;

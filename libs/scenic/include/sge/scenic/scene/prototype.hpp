@@ -14,6 +14,7 @@
 #include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/scene/camera_properties.hpp>
 #include <sge/scenic/scene/entity_sequence.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object.hpp>
 
 
@@ -25,39 +26,48 @@ namespace scene
 {
 class prototype
 {
-FCPPT_NONCOPYABLE(
-	prototype);
+	FCPPT_NONMOVABLE(
+		prototype
+	);
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	prototype(
-		sge::scenic::scene::camera_properties const &,
-		sge::scenic::render_context::fog::optional_properties const &,
-		sge::scenic::render_context::ambient_color const &);
+		sge::scenic::scene::camera_properties,
+		sge::scenic::render_context::fog::optional_properties,
+		sge::scenic::render_context::ambient_color
+	);
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::entity_sequence const &
 	entities() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::entity_sequence &
 	entities();
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::sequence const &
 	lights() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::sequence &
 	lights();
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::camera_properties const &
 	camera() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::fog::optional_properties const &
 	fog() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::ambient_color const &
 	ambient_color() const;

@@ -19,9 +19,14 @@ namespace scenic
 {
 namespace scene
 {
-typedef
-std::vector<sge::scenic::scene::entity>
-entity_sequence;
+
+using
+entity_sequence
+=
+std::vector<
+	sge::scenic::scene::entity
+>;
+
 }
 }
 }

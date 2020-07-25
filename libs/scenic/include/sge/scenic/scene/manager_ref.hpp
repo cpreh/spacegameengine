@@ -4,25 +4,25 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_SCENIC_RENDER_QUEUE_INDEX_TYPE_HPP_INCLUDED
-#define SGE_SCENIC_RENDER_QUEUE_INDEX_TYPE_HPP_INCLUDED
+#ifndef SGE_SCENIC_SCENE_MANAGER_REF_HPP_INCLUDED
+#define SGE_SCENIC_SCENE_MANAGER_REF_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <cstdint>
-#include <fcppt/config/external_end.hpp>
-
+#include <sge/scenic/scene/manager_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 namespace sge
 {
 namespace scenic
 {
-namespace render_queue
+namespace scene
 {
 
 using
-index_type
+manager_ref
 =
-std::int64_t;
+fcppt::reference<
+	sge::scenic::scene::manager
+>;
 
 }
 }

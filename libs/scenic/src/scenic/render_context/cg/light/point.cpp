@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
@@ -32,7 +33,7 @@ param_name(
 }
 
 sge::scenic::render_context::cg::light::point::point(
-	sge::cg::program::object &_program,
+	sge::cg::program::object_ref const _program,
 	sge::scenic::render_context::cg::light::index const &_index)
 :
 	diffuse_color_(
@@ -135,5 +136,4 @@ sge::scenic::render_context::cg::light::point::attenuation(
 }
 
 sge::scenic::render_context::cg::light::point::~point()
-{
-}
+= default;

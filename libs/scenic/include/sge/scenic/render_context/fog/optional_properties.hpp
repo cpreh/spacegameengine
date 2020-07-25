@@ -10,6 +10,7 @@
 #include <sge/scenic/render_context/fog/properties_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace scenic
@@ -18,9 +19,14 @@ namespace render_context
 {
 namespace fog
 {
-typedef
-fcppt::optional::object<sge::scenic::render_context::fog::properties>
-optional_properties;
+
+using
+optional_properties
+=
+fcppt::optional::object<
+	sge::scenic::render_context::fog::properties
+>;
+
 }
 }
 }

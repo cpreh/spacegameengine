@@ -30,6 +30,6 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	INCLUDE_DIRS
+	SYSTEM_INCLUDE_DIRS
 		"${Cg_INCLUDE_DIRS}"
 )

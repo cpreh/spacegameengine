@@ -11,7 +11,7 @@
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,10 +23,11 @@ namespace render_context
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL manager_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		manager_base
 	);
 public:
+	[[nodiscard]]
 	virtual
 	sge::scenic::render_context::base_unique_ptr
 	create_context(

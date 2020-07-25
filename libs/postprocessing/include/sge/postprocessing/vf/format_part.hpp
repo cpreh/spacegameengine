@@ -19,12 +19,13 @@ namespace postprocessing
 namespace vf
 {
 
-typedef
+using
+format_part
+=
 sge::renderer::vf::part<
 	sge::postprocessing::vf::position,
 	sge::postprocessing::vf::texcoord
->
-format_part;
+>;
 
 }
 }

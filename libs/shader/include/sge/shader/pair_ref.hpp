@@ -4,29 +4,25 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_SCENIC_VF_POSITION_HPP_INCLUDED
-#define SGE_SCENIC_VF_POSITION_HPP_INCLUDED
+#ifndef SGE_SHADER_PAIR_REF_HPP_INCLUDED
+#define SGE_SHADER_PAIR_REF_HPP_INCLUDED
 
-#include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vf/pos.hpp>
+#include <sge/shader/pair_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
-namespace scenic
-{
-namespace vf
+namespace shader
 {
 
 using
-position
+pair_ref
 =
-sge::renderer::vf::pos<
-	sge::renderer::scalar,
-	3
+fcppt::reference<
+	sge::shader::pair
 >;
 
-}
 }
 }
 

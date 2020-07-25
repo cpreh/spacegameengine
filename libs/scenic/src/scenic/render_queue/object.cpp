@@ -5,9 +5,11 @@
 
 
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/index/buffer_ref.hpp>
 #include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/buffer_ref.hpp>
 #include <sge/scenic/texture_manager.hpp>
+#include <sge/scenic/texture_manager_ref.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_queue/object.hpp>
@@ -22,42 +24,52 @@
 
 namespace
 {
-template<typename StateSequence>
-void
+
+template<
+	typename StateSequence
+>
+[[nodiscard]]
+sge::scenic::render_queue::index_type
 change_context_state(
-	StateSequence &_states,
-	typename StateSequence::value_type _state,
-	sge::scenic::render_queue::index_type &_current_state)
+	fcppt::reference<
+		StateSequence
+	> const _states,
+	typename StateSequence::value_type _state
+)
 {
-	typename StateSequence::const_iterator it =
+	// TODO(philipp): find_opt
+	auto it =
 		std::find(
-			_states.begin(),
-			_states.end(),
+			_states.get().cbegin(),
+			_states.get().cend(),
 			_state);
 
-	if(it == _states.end())
+	if(it == _states.get().end())
 	{
-		_states.push_back(
+		_states.get().push_back(
 			_state);
 
 		it =
 			std::prev(
-				_states.end());
+				_states.get().end());
 	}
 
-	typename StateSequence::const_iterator begin(
-		_states.begin());
+	auto begin(
+		_states.get().cbegin());
 
-	_current_state =
+	return
 		static_cast<sge::scenic::render_queue::index_type>(
 			std::distance(
 				begin,
-				it));
+				it
+			)
+		);
 }
 }
 
 sge::scenic::render_queue::object::object(
-	sge::scenic::texture_manager &_texture_manager)
+	sge::scenic::texture_manager_ref const _texture_manager
+)
 :
 	texture_manager_(
 		_texture_manager),
@@ -94,7 +106,7 @@ sge::scenic::render_queue::object::current_material(
 		:
 			sge::scenic::render_context::material::diffuse_texture(
 				fcppt::make_ref(
-					texture_manager_.texture_for_path(
+					texture_manager_.get().texture_for_path(
 						_material.diffuse_texture().get()
 					)
 				)
@@ -106,33 +118,40 @@ sge::scenic::render_queue::object::current_material(
 		:
 			sge::scenic::render_context::material::specular_texture(
 				fcppt::make_ref(
-					texture_manager_.texture_for_path(
+					texture_manager_.get().texture_for_path(
 						_material.specular_texture().get()
 					)
 				)
 			)
 	);
 
-	change_context_state(
-		materials_,
-		renderable_material,
-		current_material_);
+	current_material_ =
+		change_context_state(
+			fcppt::make_ref(
+				materials_
+			),
+			renderable_material
+		);
 }
 
 void
 sge::scenic::render_queue::object::current_vertex_buffer(
-	sge::renderer::vertex::buffer &_vertex_buffer)
+	sge::renderer::vertex::buffer_ref const _vertex_buffer
+)
 {
-	change_context_state(
-		vertex_buffers_,
-		&_vertex_buffer,
-		current_vertex_buffer_);
+	current_vertex_buffer_ =
+		change_context_state(
+			fcppt::make_ref(
+				vertex_buffers_
+			),
+			&_vertex_buffer.get()
+		);
 }
 
 void
 sge::scenic::render_queue::object::add_mesh(
 	sge::renderer::matrix4 const &_modelview,
-	sge::renderer::index::buffer &_index_buffer,
+	sge::renderer::index::buffer_ref const _index_buffer,
 	sge::scenic::index_buffer_range const &_index_buffer_range)
 {
 	meshes_.push_back(
@@ -141,7 +160,9 @@ sge::scenic::render_queue::object::add_mesh(
 			current_vertex_buffer_,
 			_modelview,
 			_index_buffer,
-			_index_buffer_range));
+			_index_buffer_range
+		)
+	);
 }
 
 sge::scenic::render_queue::state_change_count
@@ -152,59 +173,61 @@ sge::scenic::render_queue::object::render(
 		meshes_.begin(),
 		meshes_.end());
 
-	index_type const invalid_index =
+	auto const invalid_index =
 		static_cast<index_type>(
 			-1);
 
-	index_type
-		current_render_material =
-			invalid_index,
-		current_render_vertex_buffer =
-			invalid_index;
+	index_type current_render_material{
+		invalid_index
+	};
+
+	index_type current_render_vertex_buffer{
+		invalid_index
+	};
 
 	sge::scenic::render_queue::state_change_count state_changes(
-		0u);
+		0U);
 
 	for(
-		mesh_sequence::const_iterator current_mesh =
-			meshes_.begin();
-		current_mesh != meshes_.end();
-		++current_mesh)
+		auto const &current_mesh
+		:
+		meshes_
+	)
 	{
-		if(current_mesh->material() != current_render_material)
+		if(current_mesh.material() != current_render_material)
 		{
 			state_changes++;
 
 			_context.material(
 				materials_[
 					static_cast<material_sequence::size_type>(
-						current_mesh->material())]);
+						current_mesh.material())]);
 
 			current_render_material =
-				current_mesh->material();
+				current_mesh.material();
 		}
 
-		if(current_mesh->vertex_buffer() != current_render_vertex_buffer)
+		if(current_mesh.vertex_buffer() != current_render_vertex_buffer)
 		{
 			state_changes++;
 
 			_context.vertex_buffer(
 				*vertex_buffers_[
 					static_cast<vertex_buffer_sequence::size_type>(
-						current_mesh->vertex_buffer())]);
+						current_mesh.vertex_buffer())]);
 
 			current_render_vertex_buffer =
-				current_mesh->vertex_buffer();
+				current_mesh.vertex_buffer();
 		}
 
 		state_changes++;
 		_context.transform(
 			sge::scenic::render_context::transform_matrix_type::world,
-			current_mesh->modelview());
+			current_mesh.modelview());
 
 		_context.render(
-			current_mesh->index_buffer(),
-			current_mesh->index_buffer_range());
+			current_mesh.index_buffer(),
+			current_mesh.index_buffer_range());
 	}
 
 	return
@@ -212,5 +235,4 @@ sge::scenic::render_queue::object::render(
 }
 
 sge::scenic::render_queue::object::~object()
-{
-}
+= default;

@@ -20,13 +20,14 @@ namespace scenic
 namespace vf
 {
 
-typedef
+using
+format_part
+=
 sge::renderer::vf::part<
 	sge::scenic::vf::position,
 	sge::scenic::vf::normal,
 	sge::scenic::vf::texcoord
->
-format_part;
+>;
 
 }
 }

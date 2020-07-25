@@ -7,13 +7,14 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_DIRECTIONAL_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_DIRECTIONAL_HPP_INCLUDED
 
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/scenic/render_context/ambient_color.hpp>
 #include <sge/scenic/render_context/diffuse_color.hpp>
 #include <sge/scenic/render_context/specular_color.hpp>
 #include <sge/scenic/render_context/cg/light/index.hpp>
 #include <sge/scenic/render_context/light/direction_fwd.hpp>
 #include <sge/shader/parameter/vector.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,13 +27,15 @@ namespace cg
 {
 namespace light
 {
+
 class directional
 {
-FCPPT_NONCOPYABLE(
-	directional);
+	FCPPT_NONMOVABLE(
+		directional
+	);
 public:
 	directional(
-		sge::cg::program::object &,
+		sge::cg::program::object_ref,
 		sge::scenic::render_context::cg::light::index const &);
 
 	void
@@ -58,6 +61,7 @@ private:
 	sge::shader::parameter::vector<sge::renderer::scalar,4> ambient_color_;
 	sge::shader::parameter::vector<sge::renderer::scalar,3> camera_space_direction_;
 };
+
 }
 }
 }

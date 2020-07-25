@@ -21,9 +21,14 @@ namespace render_context
 {
 namespace light
 {
-typedef
-std::vector<sge::scenic::render_context::light::object>
-sequence;
+
+using
+sequence
+=
+std::vector<
+	sge::scenic::render_context::light::object
+>;
+
 }
 }
 }

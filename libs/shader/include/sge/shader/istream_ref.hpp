@@ -18,11 +18,12 @@ namespace sge
 namespace shader
 {
 
-typedef
+using
+istream_ref
+=
 fcppt::reference<
 	std::istream
->
-istream_ref;
+>;
 
 }
 }

@@ -18,6 +18,7 @@
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
@@ -36,6 +37,7 @@
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 	/*
@@ -46,9 +48,17 @@
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
+#include <sge/shader/context_ref.hpp>
+#include <sge/shader/pixel_program_path.hpp>
+#include <sge/shader/optional_cflags.hpp>
 #include <sge/shader/scoped_pair.hpp>
+#include <sge/shader/vertex_program_path.hpp>
+#include <sge/shader/parameter/name.hpp>
+#include <sge/shader/parameter/planar_texture.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_to_base.hpp>
@@ -65,55 +75,82 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::postprocessing::context::context(
-	sge::renderer::device::core &_renderer,
-	sge::viewport::manager &_viewport_manager,
-	sge::shader::context &_shader_context)
+	sge::renderer::device::core_ref const _renderer,
+	sge::viewport::manager_ref const _viewport_manager,
+	sge::shader::context_ref const _shader_context
+)
 :
 	renderer_(
-		_renderer),
+		_renderer
+	),
 	quad_vertex_declaration_(
 		sge::postprocessing::fullscreen_quad::create_vertex_declaration(
-			renderer_)),
+			renderer_
+		)
+	),
 	point_sampler_(
-		renderer_.create_sampler_state(
+		renderer_.get().create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(
 				sge::renderer::state::core::sampler::address::default_(),
-				sge::renderer::state::core::sampler::filter::point()))),
+				sge::renderer::state::core::sampler::filter::point()
+			)
+		)
+	),
 	fullscreen_quad_(
 		renderer_,
-		*quad_vertex_declaration_),
+		fcppt::make_cref(
+			*quad_vertex_declaration_
+		)
+	),
 	finalize_shader_(
 		_shader_context,
 		*quad_vertex_declaration_,
 		sge::shader::vertex_program_path(
-			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("postprocessing") / FCPPT_TEXT("finalize.cg")),
+			sge::config::media_path()
+			/ FCPPT_TEXT("shaders")
+			/ FCPPT_TEXT("postprocessing")
+			/ FCPPT_TEXT("finalize.cg")
+		),
 		sge::shader::pixel_program_path(
-			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("postprocessing") / FCPPT_TEXT("finalize.cg")),
-		sge::shader::optional_cflags()),
+			sge::config::media_path()
+			/ FCPPT_TEXT("shaders")
+			/ FCPPT_TEXT("postprocessing")
+			/ FCPPT_TEXT("finalize.cg")
+		),
+		sge::shader::optional_cflags()
+	),
 	finalize_input_texture_parameter_(
-		finalize_shader_.pixel_program(),
+		fcppt::make_ref(
+			finalize_shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			sge::cg::string(
-				"input_texture")),
-		finalize_shader_,
+				"input_texture"
+			)
+		),
+		fcppt::make_ref(
+			finalize_shader_
+		),
 		renderer_,
-		sge::shader::parameter::planar_texture::optional_value()),
+		sge::shader::parameter::planar_texture::optional_value()
+	),
 	viewport_connection_(
-		_viewport_manager.manage_callback(
+		_viewport_manager.get().manage_callback(
 			sge::viewport::manage_callback{
-				std::bind(
-					&sge::postprocessing::context::viewport_callback,
+				[
 					this
+				](
+					sge::renderer::target::viewport const &
 				)
+				{
+					this->viewport_callback();
+				}
 			}
 		)
 	),
@@ -132,8 +169,10 @@ sge::renderer::context::scoped_core_unique_ptr
 sge::postprocessing::context::create_render_context()
 {
 	this->switch_target_texture(
-		*FCPPT_ASSERT_OPTIONAL_ERROR(
-			rendering_result_texture_
+		fcppt::make_ref(
+			*FCPPT_ASSERT_OPTIONAL_ERROR(
+				rendering_result_texture_
+			)
 		)
 	);
 
@@ -141,9 +180,7 @@ sge::postprocessing::context::create_render_context()
 		fcppt::make_unique_ptr<
 			sge::renderer::context::scoped_core
 		>(
-			fcppt::make_ref(
-				renderer_
-			),
+			renderer_,
 			fcppt::reference_to_base<
 				sge::renderer::target::base
 			>(
@@ -175,19 +212,18 @@ sge::postprocessing::context::render_and_return_overlay()
 }
 
 sge::postprocessing::context::~context()
-{
-}
+= default;
 
 void
 sge::postprocessing::context::viewport_callback()
 {
-	sge::renderer::dim2 const target_size(
+	auto const target_size(
 		fcppt::math::dim::structure_cast<
 			sge::renderer::dim2,
 			fcppt::cast::size_fun
 		>(
 			sge::renderer::target::viewport_size(
-				renderer_.onscreen_target()
+				renderer_.get().onscreen_target()
 			)
 		)
 	);
@@ -220,7 +256,7 @@ sge::postprocessing::context::viewport_callback()
 	sge::renderer::texture::planar_unique_ptr const &result_texture(
 		fcppt::optional::assign(
 			rendering_result_texture_,
-			renderer_.create_planar_texture(
+			renderer_.get().create_planar_texture(
 				sge::renderer::texture::planar_parameters(
 					target_size,
 					sge::renderer::texture::color_format(
@@ -253,9 +289,7 @@ sge::postprocessing::context::viewport_callback()
 		fcppt::optional::assign(
 			offscreen_target_,
 			sge::renderer::target::from_texture(
-				fcppt::make_ref(
-					renderer_
-				),
+				renderer_,
 				fcppt::make_ref(
 					*result_texture
 				)
@@ -273,7 +307,7 @@ sge::postprocessing::context::viewport_callback()
 	sge::renderer::depth_stencil_buffer::surface_unique_ptr const &depth_stencil_surface(
 		fcppt::optional::assign(
 			depth_stencil_surface_,
-			renderer_.create_depth_stencil_surface(
+			renderer_.get().create_depth_stencil_surface(
 				sge::renderer::depth_stencil_buffer::surface_parameters(
 					target_size,
 					sge::image::ds::format::d32
@@ -300,9 +334,9 @@ sge::postprocessing::context::switch_downsampled_target_texture(
 		sge::renderer::color_buffer::optional_surface_ref(
 			_new_texture.level(
 				sge::renderer::texture::mipmap::level(
-					0u))),
+					0U))),
 		sge::renderer::target::surface_index(
-			0u));
+			0U));
 
 	offscreen_downsampled_target_->viewport(
 		sge::renderer::target::viewport(
@@ -315,7 +349,8 @@ sge::postprocessing::context::switch_downsampled_target_texture(
 
 void
 sge::postprocessing::context::switch_target_texture(
-	sge::renderer::texture::planar &_new_texture)
+	sge::renderer::texture::planar_ref const _new_texture
+)
 {
 	FCPPT_ASSERT_OPTIONAL_ERROR(
 		offscreen_target_
@@ -325,16 +360,16 @@ sge::postprocessing::context::switch_target_texture(
 				sge::renderer::color_buffer::surface
 			>(
 				fcppt::make_ref(
-					_new_texture.level(
+					_new_texture.get().level(
 						sge::renderer::texture::mipmap::level(
-							0u
+							0U
 						)
 					)
 				)
 			)
 		),
 		sge::renderer::target::surface_index(
-			0u
+			0U
 		)
 	);
 
@@ -351,7 +386,7 @@ sge::postprocessing::context::switch_target_texture(
 					fcppt::cast::size_fun
 				>(
 					fcppt::math::dim::to_signed(
-						_new_texture.size()
+						_new_texture.get().size()
 					)
 				)
 			)
@@ -470,22 +505,24 @@ sge::postprocessing::context::finalize()
 		fcppt::make_unique_ptr<
 			sge::renderer::context::scoped_core
 		>(
-			fcppt::make_ref(
-				renderer_
-			),
+			renderer_,
 			fcppt::reference_to_base<
 				sge::renderer::target::base
 			>(
 				fcppt::make_ref(
-					renderer_.onscreen_target()
+					renderer_.get().onscreen_target()
 				)
 			)
 		)
 	);
 
 	sge::shader::scoped_pair scoped_shader(
-		result->get(),
-		finalize_shader_
+		fcppt::make_ref(
+			result->get()
+		),
+		fcppt::make_ref(
+			finalize_shader_
+		)
 	);
 
 	sge::renderer::state::core::sampler::scoped scoped_filter(

@@ -27,13 +27,16 @@ class point
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	point(
-		sge::scenic::render_context::light::position const &,
-		sge::scenic::render_context::light::attenuation const &);
+		sge::scenic::render_context::light::position,
+		sge::scenic::render_context::light::attenuation const &
+	);
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::position const &
 	position() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::attenuation const &
 	attenuation() const;

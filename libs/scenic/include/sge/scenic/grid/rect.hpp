@@ -10,15 +10,22 @@
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/box/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace scenic
 {
 namespace grid
 {
-typedef
-fcppt::math::box::object<sge::renderer::scalar,2>
-rect;
+
+using
+rect
+=
+fcppt::math::box::object<
+	sge::renderer::scalar,
+	2
+>;
+
 }
 }
 }

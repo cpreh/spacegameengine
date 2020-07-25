@@ -4,19 +4,32 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/scenic/render_context/fog/color.hpp>
+#include <sge/scenic/render_context/fog/end.hpp>
 #include <sge/scenic/render_context/fog/properties.hpp>
+#include <sge/scenic/render_context/fog/start.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::scenic::render_context::fog::properties::properties(
 	sge::scenic::render_context::fog::start const &_start,
 	sge::scenic::render_context::fog::end const &_end,
-	sge::scenic::render_context::fog::color const &_color)
+	sge::scenic::render_context::fog::color _color
+)
 :
 	start_(
-		_start),
+		_start
+	),
 	end_(
-		_end),
+		_end
+	),
 	color_(
-		_color)
+		std::move(
+			_color
+		)
+	)
 {
 }
 

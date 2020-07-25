@@ -24,7 +24,7 @@ using vector3_base
 =
 sge::renderer::vf::vector_base<
 	Format,
-	3u
+	3U
 >;
 
 }

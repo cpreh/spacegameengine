@@ -16,18 +16,22 @@ namespace sge
 {
 namespace scenic
 {
+
 class index_buffer_range
 {
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	index_buffer_range(
 		sge::renderer::index::first const &,
-		sge::renderer::index::count const &);
+		sge::renderer::index::count const &
+	);
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::index::first const &
 	first_index() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::renderer::index::count const &
 	index_count() const;
@@ -35,6 +39,7 @@ private:
 	sge::renderer::index::first first_index_;
 	sge::renderer::index::count index_count_;
 };
+
 }
 }
 

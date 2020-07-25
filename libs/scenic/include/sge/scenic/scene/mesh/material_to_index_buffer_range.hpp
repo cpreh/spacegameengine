@@ -22,13 +22,15 @@ namespace scene
 {
 namespace mesh
 {
-typedef
-std::map
-<
+
+using
+material_to_index_buffer_range
+=
+std::map<
 	sge::scenic::scene::identifier,
 	sge::scenic::index_buffer_range
->
-material_to_index_buffer_range;
+>;
+
 }
 }
 }

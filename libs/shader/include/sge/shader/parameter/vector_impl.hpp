@@ -9,50 +9,62 @@
 
 #include <sge/cg/parameter/vector/set.hpp>
 #include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/vector_decl.hpp>
 #include <fcppt/math/size_type.hpp>
 
 
-template
-<
+template<
 	typename ValueType,
 	fcppt::math::size_type N
 >
-sge::shader::parameter::vector<ValueType,N>::vector(
-	sge::cg::program::object &_program,
+sge::shader::parameter::vector<
+	ValueType,
+	N
+>::vector(
+	sge::cg::program::object_ref const _program,
 	sge::shader::parameter::name const &_name,
-	vector_type const &_initial_value)
+	vector_type const &_initial_value
+)
 :
 	parameter_(
-		_program.parameter(
-			_name.get()))
+		_program.get().parameter(
+			_name.get()
+		)
+	)
 {
 	this->set(
-		_initial_value);
+		_initial_value
+	);
 }
 
-template
-<
+template<
 	typename ValueType,
 	fcppt::math::size_type N
 >
 void
-sge::shader::parameter::vector<ValueType,N>::set(
-	vector_type const &_vector)
+sge::shader::parameter::vector<
+	ValueType,
+	N
+>::set(
+	vector_type const &_vector
+)
 {
 	sge::cg::parameter::vector::set(
 		parameter_.object(),
-		_vector);
+		_vector
+	);
 }
 
-template
-<
+template<
 	typename ValueType,
 	fcppt::math::size_type N
 >
-sge::shader::parameter::vector<ValueType,N>::~vector()
-{
-}
+sge::shader::parameter::vector<
+	ValueType,
+	N
+>::~vector()
+= default;
 
 #endif

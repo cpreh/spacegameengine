@@ -18,11 +18,14 @@
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/state/core/sampler/address/default.hpp>
 #include <sge/renderer/state/core/sampler/filter/mipmap.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/shader/context.hpp>
+#include <sge/shader/context_ref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -33,15 +36,17 @@
 
 
 sge::scenic::render_context::cg::manager::manager(
-	sge::shader::context &_shader_context,
-	sge::renderer::vertex::declaration &_vertex_declaration)
+	sge::shader::context_ref const _shader_context,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration
+)
 :
 	sge::scenic::render_context::manager_base(),
-	vertex_declaration_(
-		_vertex_declaration),
+	vertex_declaration_{
+		_vertex_declaration
+	},
 	shader_(
 		_shader_context,
-		_vertex_declaration,
+		_vertex_declaration.get(),
 		sge::shader::vertex_program_path(
 			sge::config::media_path() / FCPPT_TEXT("shaders") / FCPPT_TEXT("ffp.cg")),
 		sge::shader::pixel_program_path(
@@ -54,10 +59,12 @@ sge::scenic::render_context::cg::manager::manager(
 		)
 	),
 	world_matrix_(
-		shader_.vertex_program(),
+		fcppt::make_ref(
+			shader_.vertex_program()
+		),
 		sge::shader::parameter::name(
 			"camera.world"),
-		_shader_context.renderer(),
+		_shader_context.get().renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
 		fcppt::math::matrix::identity<
@@ -65,10 +72,12 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	world_projection_matrix_(
-		shader_.vertex_program(),
+		fcppt::make_ref(
+			shader_.vertex_program()
+		),
 		sge::shader::parameter::name(
 			"camera.world_projection"),
-		_shader_context.renderer(),
+		_shader_context.get().renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			true),
 		fcppt::math::matrix::identity<
@@ -76,10 +85,12 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	world_inverse_transpose_matrix_(
-		shader_.vertex_program(),
+		fcppt::make_ref(
+			shader_.vertex_program()
+		),
 		sge::shader::parameter::name(
 			"camera.world_it"),
-		_shader_context.renderer(),
+		_shader_context.get().renderer(),
 		sge::shader::parameter::is_projection_matrix(
 			false),
 		fcppt::math::matrix::identity<
@@ -87,7 +98,9 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	material_diffuse_color_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"current_material.diffuse_color"),
 		fcppt::math::vector::null<
@@ -95,7 +108,9 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	material_specular_color_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"current_material.specular_color"),
 		fcppt::math::vector::null<
@@ -103,7 +118,9 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	material_ambient_color_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"current_material.ambient_color"),
 		fcppt::math::vector::null<
@@ -111,7 +128,9 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	material_emissive_color_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"current_material.emissive_color"),
 		fcppt::math::vector::null<
@@ -119,61 +138,91 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	material_shininess_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"current_material.shininess"),
 		sge::renderer::scalar()),
 	use_diffuse_texture_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"use_diffuse_texture"),
 		false),
 	diffuse_texture_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"diffuse_texture"),
-		shader_,
-		shader_.context().renderer(),
+		fcppt::make_ref(
+			shader_
+		),
+		fcppt::make_ref(
+			shader_.context().renderer()
+		),
 		sge::shader::parameter::planar_texture::optional_value()),
 	use_specular_texture_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"use_specular_texture"),
 		false),
 	specular_texture_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"specular_texture"),
-		shader_,
-		shader_.context().renderer(),
+		fcppt::make_ref(
+			shader_
+		),
+		fcppt::make_ref(
+			shader_.context().renderer()
+		),
 		sge::shader::parameter::planar_texture::optional_value()),
 	point_light_count_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"point_light_count"),
 		0),
 	directional_light_count_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"directional_light_count"),
 		0),
 	use_fog_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"fog_information.enabled"),
 		false),
 	fog_start_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"fog_information.start"),
 		sge::renderer::scalar()),
 	fog_end_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"fog_information.end"),
 		sge::renderer::scalar()),
 	fog_color_(
-		shader_.pixel_program(),
+		fcppt::make_ref(
+			shader_.pixel_program()
+		),
 		sge::shader::parameter::name(
 			"fog_information.color"),
 		fcppt::math::vector::null<
@@ -194,7 +243,9 @@ sge::scenic::render_context::cg::manager::manager(
 					fcppt::make_unique_ptr<
 						sge::scenic::render_context::cg::light::point
 					>(
-						shader_.pixel_program(),
+						fcppt::make_ref(
+							shader_.pixel_program()
+						),
 						sge::scenic::render_context::cg::light::index(
 							_index
 						)
@@ -216,7 +267,9 @@ sge::scenic::render_context::cg::manager::manager(
 					fcppt::make_unique_ptr<
 						sge::scenic::render_context::cg::light::directional
 					>(
-						shader_.pixel_program(),
+						fcppt::make_ref(
+							shader_.pixel_program()
+						),
 						sge::scenic::render_context::cg::light::index(
 							_index
 						)
@@ -225,7 +278,7 @@ sge::scenic::render_context::cg::manager::manager(
 		)
 	),
 	depth_stencil_state_(
-		_shader_context.renderer().create_depth_stencil_state(
+		_shader_context.get().renderer().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::variant(
 					sge::renderer::state::core::depth_stencil::depth::enabled(
@@ -242,7 +295,7 @@ sge::scenic::render_context::cg::manager::manager(
 		)
 	),
 	blend_state_(
-		_shader_context.renderer().create_blend_state(
+		_shader_context.get().renderer().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
 				sge::renderer::state::core::blend::alpha_variant(
 					sge::renderer::state::core::blend::alpha_off()
@@ -252,7 +305,7 @@ sge::scenic::render_context::cg::manager::manager(
 		)
 	),
 	rasterizer_state_(
-		_shader_context.renderer().create_rasterizer_state(
+		_shader_context.get().renderer().create_rasterizer_state(
 			sge::renderer::state::core::rasterizer::parameters(
 				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
 				sge::renderer::state::core::rasterizer::fill_mode::solid,
@@ -263,7 +316,7 @@ sge::scenic::render_context::cg::manager::manager(
 		)
 	),
 	mipmap_sampler_state_(
-		_shader_context.renderer().create_sampler_state(
+		_shader_context.get().renderer().create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(
 				sge::renderer::state::core::sampler::address::default_(),
 				sge::renderer::state::core::sampler::filter::mipmap()
@@ -285,12 +338,13 @@ sge::scenic::render_context::cg::manager::create_context(
 			fcppt::make_unique_ptr<
 				sge::scenic::render_context::cg::object
 			>(
-				*this,
+				fcppt::make_ref(
+					*this
+				),
 				_context
 			)
 		);
 }
 
 sge::scenic::render_context::cg::manager::~manager()
-{
-}
+= default;

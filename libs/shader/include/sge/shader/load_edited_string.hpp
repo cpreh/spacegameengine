@@ -20,12 +20,15 @@ namespace sge
 {
 namespace shader
 {
+
 SGE_SHADER_DETAIL_SYMBOL
 sge::cg::program::source
 load_edited_string(
-	sge::renderer::device::core &,
+	sge::renderer::device::core &, // NOLINT(google-runtime-references)
 	sge::renderer::vertex::declaration const &,
-	std::istream &);
+	std::istream &
+);
+
 }
 }
 

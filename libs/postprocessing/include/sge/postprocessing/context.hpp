@@ -11,17 +11,18 @@
 #include <sge/postprocessing/detail/symbol.hpp>
 #include <sge/renderer/context/scoped_core_unique_ptr.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
+#include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <sge/shader/context_fwd.hpp>
+#include <sge/shader/context_ref.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <sge/shader/parameter/vector.hpp>
-#include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
@@ -30,16 +31,19 @@ namespace sge
 {
 namespace postprocessing
 {
+
 class context
 {
-FCPPT_NONCOPYABLE(
-	context);
+	FCPPT_NONMOVABLE(
+		context
+	);
 public:
 	SGE_POSTPROCESSING_DETAIL_SYMBOL
 	context(
-		sge::renderer::device::core &,
-		sge::viewport::manager &,
-		sge::shader::context &);
+		sge::renderer::device::core_ref,
+		sge::viewport::manager_ref,
+		sge::shader::context_ref
+	);
 
 	SGE_POSTPROCESSING_DETAIL_SYMBOL
 	sge::renderer::context::scoped_core_unique_ptr
@@ -56,7 +60,7 @@ public:
 	SGE_POSTPROCESSING_DETAIL_SYMBOL
 	~context();
 private:
-	sge::renderer::device::core &renderer_;
+	sge::renderer::device::core_ref const renderer_;
 	sge::renderer::vertex::declaration_unique_ptr const quad_vertex_declaration_;
 	sge::renderer::state::core::sampler::object_unique_ptr const point_sampler_;
 	sge::postprocessing::fullscreen_quad fullscreen_quad_;
@@ -73,27 +77,30 @@ private:
 		//sge::shader::parameter::planar_texture finalize_blurred_texture_parameter_;
 	fcppt::signal::auto_connection const viewport_connection_;
 
-	typedef
+	using
+	optional_planar_texture_ptr
+	=
 	fcppt::optional::object<
 		sge::renderer::texture::planar_unique_ptr
-	>
-	optional_planar_texture_ptr;
+	>;
 
 	optional_planar_texture_ptr rendering_result_texture_;
 
-	typedef
+	using
+	optional_offscreen_target_ptr
+	=
 	fcppt::optional::object<
 		sge::renderer::target::offscreen_unique_ptr
-	>
-	optional_offscreen_target_ptr;
+	>;
 
 	optional_offscreen_target_ptr offscreen_target_;
 
-	typedef
+	using
+	optional_depth_stencil_surface_ptr
+	=
 	fcppt::optional::object<
 		sge::renderer::depth_stencil_buffer::surface_unique_ptr
-	>
-	optional_depth_stencil_surface_ptr;
+	>;
 
 	optional_depth_stencil_surface_ptr depth_stencil_surface_;
 		/*
@@ -107,7 +114,8 @@ private:
 
 	void
 	switch_target_texture(
-		sge::renderer::texture::planar &);
+		sge::renderer::texture::planar_ref
+	);
 
 		/*
 	void
@@ -127,9 +135,11 @@ private:
 	blur();
 		*/
 
+	[[nodiscard]]
 	sge::renderer::context::scoped_core_unique_ptr
 	finalize();
 };
+
 }
 }
 

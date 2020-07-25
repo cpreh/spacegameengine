@@ -5,6 +5,7 @@
 
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/base_ref.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
@@ -20,11 +21,15 @@
 #include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_queue/object.hpp>
 #include <sge/scenic/scene/manager.hpp>
+#include <sge/scenic/scene/manager_ref.hpp>
 #include <sge/scenic/scene/object.hpp>
 #include <sge/scenic/scene/prototype.hpp>
+#include <sge/scenic/scene/prototype_unique_ptr.hpp>
 #include <sge/scenic/scene/material/from_obj_material.hpp>
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/log/context_reference.hpp>
@@ -41,32 +46,35 @@
 
 sge::scenic::scene::object::object(
 	fcppt::log::context_reference const _log_context,
-	sge::scenic::scene::manager &_scene_manager,
-	sge::viewport::manager &_viewport_manager,
-	sge::camera::base &_camera,
-	sge::scenic::scene::prototype_unique_ptr _prototype)
+	sge::scenic::scene::manager_ref const _scene_manager,
+	sge::viewport::manager_ref const _viewport_manager,
+	sge::camera::base_ref const _camera,
+	sge::scenic::scene::prototype_unique_ptr _prototype
+)
 :
 	log_context_{
 		_log_context
 	},
 	scene_manager_(
-		_scene_manager),
+		_scene_manager
+	),
 	camera_(
-		_camera),
+		_camera
+	),
 	prototype_(
 		std::move(
-			_prototype)),
+			_prototype
+		)
+	),
 	camera_viewport_connection_(
 		fcppt::make_ref(
 			dynamic_cast<
 				sge::camera::has_mutable_projection &
 			>(
-				camera_
+				camera_.get()
 			)
 		),
-		fcppt::make_ref(
-			_viewport_manager
-		),
+		_viewport_manager,
 		prototype_->camera().near(),
 		prototype_->camera().far(),
 		prototype_->camera().fov()
@@ -74,7 +82,7 @@ sge::scenic::scene::object::object(
 	mesh_name_to_instance_(),
 	materials_(),
 	state_changes_{
-		0u
+		0U
 	}
 {
 	this->load_entities();
@@ -87,7 +95,8 @@ sge::scenic::scene::object::object(
 
 void
 sge::scenic::scene::object::render(
-	sge::scenic::render_context::base &_context)
+	sge::scenic::render_context::base &_context
+)
 {
 	if(
 		fcppt::math::dim::contents(
@@ -96,12 +105,14 @@ sge::scenic::scene::object::render(
 			)
 		)
 		==
-		0u
+		0U
 	)
+	{
 		return;
+	}
 
 	fcppt::optional::maybe_void(
-		camera_.projection_matrix(),
+		camera_.get().projection_matrix(),
 		[
 			&_context,
 			this
@@ -110,7 +121,7 @@ sge::scenic::scene::object::render(
 		)
 		{
 			state_changes_ =
-				0u;
+				0U;
 
 			_context.transform(
 				sge::scenic::render_context::transform_matrix_type::projection,
@@ -124,28 +135,34 @@ sge::scenic::scene::object::render(
 				prototype_->fog());
 
 			sge::scenic::render_queue::object current_render_queue(
-				scene_manager_.texture_manager());
+				fcppt::make_ref(
+					scene_manager_.get().texture_manager()
+				)
+			);
 
 			for(
-				// TODO: range-based loop
-				sge::scenic::scene::entity_sequence::const_iterator it =
-					prototype_->entities().begin();
-				it != prototype_->entities().end();
-				++it)
+				auto const &entity
+				:
+				prototype_->entities()
+			)
+			{
 				this->render_entity(
-					*it,
-					current_render_queue);
+					entity,
+					current_render_queue
+				);
+			}
 
 			/*sge::scenic::render_queue::state_change_count const state_changes(
 			 */
-			current_render_queue.render(_context)/*)*/;
+			current_render_queue.render(
+				_context
+			)/*)*/;
 		}
 	);
 }
 
 sge::scenic::scene::object::~object()
-{
-}
+= default;
 
 void
 sge::scenic::scene::object::load_entities()
@@ -156,13 +173,15 @@ sge::scenic::scene::object::load_entities()
 		prototype_->entities()
 	)
 	{
-		// TODO: find_opt
-		mesh_map::iterator const mesh_name_and_instance(
+		// TODO(philipp): find_opt
+		auto const mesh_name_and_instance(
 			mesh_name_to_instance_.find(
 				current_entity.mesh_path()));
 
 		if(mesh_name_and_instance != mesh_name_to_instance_.end())
+		{
 			continue;
+		}
 
 		sge::model::obj::prototype const new_prototype(
 			log_context_,
@@ -205,9 +224,16 @@ sge::scenic::scene::object::load_entities()
 			std::make_pair(
 				current_entity.mesh_path(),
 				sge::scenic::scene::mesh::object(
-					scene_manager_.renderer(),
-					scene_manager_.vertex_declaration(),
-					new_prototype)));
+					fcppt::make_ref(
+						scene_manager_.get().renderer()
+					),
+					fcppt::make_cref(
+						scene_manager_.get().vertex_declaration()
+					),
+					new_prototype
+				)
+			)
+		);
 	}
 }
 
@@ -218,10 +244,13 @@ sge::scenic::scene::object::activate_lights(
 	_context.transform(
 		sge::scenic::render_context::transform_matrix_type::world,
 		sge::camera::matrix_conversion::world(
-			camera_.coordinate_system()));
+			camera_.get().coordinate_system()
+		)
+	);
 
 	_context.lights(
-		prototype_->lights());
+		prototype_->lights()
+	);
 }
 
 void
@@ -234,7 +263,10 @@ sge::scenic::scene::object::render_entity(
 			_entity.mesh_path())->second);
 
 	_context.current_vertex_buffer(
-		mesh.vertex_buffer());
+		fcppt::make_ref(
+			mesh.vertex_buffer()
+		)
+	);
 
 	for(
 		auto const &material_name_and_index_buffer_range
@@ -242,7 +274,8 @@ sge::scenic::scene::object::render_entity(
 		mesh.parts()
 	)
 	{
-		material_map::const_iterator const material_name_and_material =
+		// TODO(philipp): find_opt
+		auto const material_name_and_material =
 			materials_.find(
 				material_name_and_index_buffer_range.first);
 
@@ -257,13 +290,17 @@ sge::scenic::scene::object::render_entity(
 
 		_context.add_mesh(
 			sge::camera::matrix_conversion::world(
-				camera_.coordinate_system()) *
+				camera_.get().coordinate_system()) *
 			fcppt::math::matrix::translation(
 				_entity.position().get()) *
 			_entity.rotation().get() *
 			fcppt::math::matrix::scaling(
-				_entity.scale().get()),
-			mesh.index_buffer(),
-			material_name_and_index_buffer_range.second);
+				_entity.scale().get()
+			),
+			fcppt::make_ref(
+				mesh.index_buffer()
+			),
+			material_name_and_index_buffer_range.second
+		);
 	}
 }

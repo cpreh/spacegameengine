@@ -18,9 +18,12 @@ namespace scenic
 {
 namespace render_queue
 {
-typedef
-std::uint64_t
-sort_index;
+
+using
+sort_index
+=
+std::uint64_t;
+
 }
 }
 }

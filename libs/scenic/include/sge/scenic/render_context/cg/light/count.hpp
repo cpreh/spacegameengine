@@ -19,7 +19,10 @@ namespace cg
 namespace light
 {
 
-typedef int count;
+using
+count
+=
+int;
 
 }
 }

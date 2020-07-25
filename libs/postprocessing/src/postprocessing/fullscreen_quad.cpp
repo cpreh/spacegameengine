@@ -11,7 +11,9 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/create_buffer_from_vertices.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
@@ -31,18 +33,19 @@
 namespace
 {
 
-typedef
+using
+vertex
+=
 sge::renderer::vf::vertex<
 	sge::postprocessing::vf::format_part
->
-vertex;
+>;
 
 }
 
 
 sge::postprocessing::fullscreen_quad::fullscreen_quad(
-	sge::renderer::device::core &_renderer,
-	sge::renderer::vertex::declaration &_vertex_declaration
+	sge::renderer::device::core_ref const _renderer,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration
 )
 :
 	vertex_declaration_{
@@ -52,64 +55,60 @@ sge::postprocessing::fullscreen_quad::fullscreen_quad(
 		sge::renderer::vertex::create_buffer_from_vertices<
 			sge::postprocessing::vf::format
 		>(
-			fcppt::make_ref(
-				_renderer
-			),
-			fcppt::make_cref(
-				_vertex_declaration
-			),
+			_renderer,
+			_vertex_declaration,
 			sge::renderer::resource_flags_field::null(),
 			fcppt::container::array::make(
 				// Left top
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						sge::postprocessing::vf::position::packed_type{
-							-1.0f,
-							1.0f
+							-1.0F,
+							1.0F
 						},
 					sge::renderer::vf::labels::texpos<0>{} =
 						sge::postprocessing::vf::texcoord::packed_type{
-							0.0f,
-							0.0f
+							0.0F,
+							0.0F
 						}
 				},
 				// Left bottom
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						sge::postprocessing::vf::position::packed_type{
-							-1.0f,
-							-1.0f
+							-1.0F,
+							-1.0F
 						},
 					sge::renderer::vf::labels::texpos<0>{} =
 						sge::postprocessing::vf::texcoord::packed_type{
-							0.0f,
-							1.0f
+							0.0F,
+							1.0F
 						}
 				},
 				// Right top
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						sge::postprocessing::vf::position::packed_type{
-							1.0f,
-							1.0f
+							1.0F,
+							1.0F
 						},
 					sge::renderer::vf::labels::texpos<0>{} =
 						sge::postprocessing::vf::texcoord::packed_type{
-							1.0f,
-							0.0f
+							1.0F,
+							0.0F
 						}
 				},
 				// Right bottom
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						sge::postprocessing::vf::position::packed_type{
-							1.0f,
-							-1.0f
+							1.0F,
+							-1.0F
 						},
 					sge::renderer::vf::labels::texpos<0>{} =
 						sge::postprocessing::vf::texcoord::packed_type{
-							1.0f,
-							1.0f
+							1.0F,
+							1.0F
 						}
 				}
 			)
@@ -127,9 +126,7 @@ sge::postprocessing::fullscreen_quad::render(
 		fcppt::make_ref(
 			_context
 		),
-		fcppt::make_cref(
-			this->vertex_declaration_
-		)
+		this->vertex_declaration_
 	);
 
 	sge::renderer::vertex::scoped_buffer const scoped_vb(
@@ -143,7 +140,7 @@ sge::postprocessing::fullscreen_quad::render(
 
 	_context.render_nonindexed(
 		sge::renderer::vertex::first{
-			0u
+			0U
 		},
 		sge::renderer::vertex::count{
 			vertex_buffer_->linear_size()
@@ -153,16 +150,15 @@ sge::postprocessing::fullscreen_quad::render(
 }
 
 sge::postprocessing::fullscreen_quad::~fullscreen_quad()
-{
-}
+= default;
 
 sge::renderer::vertex::declaration_unique_ptr
 sge::postprocessing::fullscreen_quad::create_vertex_declaration(
-	sge::renderer::device::core &_renderer
+	sge::renderer::device::core_ref const _renderer
 )
 {
 	return
-		_renderer.create_vertex_declaration(
+		_renderer.get().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
 					sge::postprocessing::vf::format

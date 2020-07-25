@@ -19,6 +19,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <type_traits>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -32,7 +33,7 @@ compare_floats(
 )
 {
 	return
-		std::abs(_a - _b) < 0.001f;
+		std::abs(_a - _b) < 0.001F; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 }
 
 struct compare_channels
@@ -91,28 +92,43 @@ compare_colors(
 }
 
 sge::scenic::render_context::material::object::object(
-	sge::scenic::render_context::diffuse_color const &_diffuse_color,
-	sge::scenic::render_context::ambient_color const &_ambient_color,
-	sge::scenic::render_context::specular_color const &_specular_color,
-	sge::scenic::render_context::emissive_color const &_emissive_color,
+	sge::scenic::render_context::diffuse_color _diffuse_color,
+	sge::scenic::render_context::ambient_color _ambient_color,
+	sge::scenic::render_context::specular_color _specular_color,
+	sge::scenic::render_context::emissive_color _emissive_color,
 	sge::scenic::render_context::material::shininess const &_shininess,
 	sge::scenic::render_context::material::diffuse_texture const &_diffuse_texture,
 	sge::scenic::render_context::material::specular_texture const &_specular_texture)
 :
 	diffuse_color_(
-		_diffuse_color),
+		std::move(
+			_diffuse_color
+		)
+	),
 	ambient_color_(
-		_ambient_color),
+		std::move(
+			_ambient_color
+		)
+	),
 	specular_color_(
-		_specular_color),
+		std::move(
+			_specular_color
+		)
+	),
 	emissive_color_(
-		_emissive_color),
+		std::move(
+			_emissive_color
+		)
+	),
 	shininess_(
-		_shininess),
+		_shininess
+	),
 	diffuse_texture_(
-		_diffuse_texture),
+		_diffuse_texture
+	),
 	specular_texture_(
-		_specular_texture)
+		_specular_texture
+	)
 {
 }
 

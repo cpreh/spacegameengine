@@ -18,11 +18,12 @@ namespace scenic
 namespace render_context
 {
 
-typedef
+using
+optional_planar_texture
+=
 fcppt::optional::reference<
 	sge::renderer::texture::planar
->
-optional_planar_texture;
+>;
 
 }
 }

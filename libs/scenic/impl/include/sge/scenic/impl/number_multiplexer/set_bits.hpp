@@ -23,8 +23,12 @@ set_bits(
 	T const value,
 	T const input)
 {
+	T const one{
+		1U
+	};
+
 	T const part =
-		((1u << begin) - 1u) ^ ((1u << (begin + size)) - 1u);
+		((one << begin) - one) ^ ((one << (begin + size)) - one);
 
 	return
 		(input & ~part) | (value << begin);

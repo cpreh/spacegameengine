@@ -17,9 +17,12 @@ namespace render_context
 {
 namespace material
 {
-typedef
-sge::scenic::render_context::optional_planar_texture
-specular_texture;
+
+using
+specular_texture
+=
+sge::scenic::render_context::optional_planar_texture;
+
 }
 }
 }

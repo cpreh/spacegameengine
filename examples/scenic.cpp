@@ -379,8 +379,12 @@ main_program(
 	);
 
 	sge::scenic::scene::manager scene_manager(
-		sys.renderer_device_core(),
-		sys.image_system(),
+		fcppt::make_ref(
+			sys.renderer_device_core()
+		),
+		fcppt::make_ref(
+			sys.image_system()
+		),
 		sge::scenic::scene::prefer_cg_context(
 			!fcppt::record::get<
 				ffp_label
@@ -392,9 +396,15 @@ main_program(
 
 	sge::scenic::scene::object test_scene(
 		sys.log_context(),
-		scene_manager,
-		sys.viewport_manager(),
-		*camera,
+		fcppt::make_ref(
+			scene_manager
+		),
+		fcppt::make_ref(
+			sys.viewport_manager()
+		),
+		fcppt::make_ref(
+			*camera
+		),
 		sge::scenic::scene::from_blender_file(
 			sge::config::media_path()
 			/
@@ -423,8 +433,12 @@ main_program(
 	);
 
 	sge::scenic::grid::object simple_grid_xz{
-		sys.renderer_device_ffp(),
-		*camera,
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_cref(
+			*camera
+		),
 		sge::scenic::grid::orientation::xz,
 		sge::scenic::grid::rect{
 			sge::scenic::grid::rect::vector{

@@ -18,17 +18,18 @@ namespace postprocessing
 {
 namespace vf
 {
-typedef
-sge::renderer::vf::texpos
-<
+
+using
+texcoord
+=
+sge::renderer::vf::texpos<
 	sge::renderer::scalar,
 	2,
-	sge::renderer::vf::index<0u>
->
-texcoord;
+	sge::renderer::vf::index<0U>
+>;
+
 }
 }
 }
 
 #endif
-

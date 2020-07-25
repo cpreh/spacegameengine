@@ -5,12 +5,21 @@
 
 
 #include <sge/scenic/render_context/light/directional.hpp>
+#include <sge/scenic/render_context/light/direction.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 sge::scenic::render_context::light::directional::directional(
-	sge::scenic::render_context::light::direction const &_direction)
+	sge::scenic::render_context::light::direction _direction
+)
 :
 	direction_(
-		_direction)
+		std::move(
+			_direction
+		)
+	)
 {
 }
 

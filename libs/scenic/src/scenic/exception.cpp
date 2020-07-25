@@ -30,6 +30,7 @@ sge::scenic::exception::exception(
 sge::scenic::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::scenic::exception::exception(
@@ -41,6 +42,7 @@ sge::scenic::exception &
 sge::scenic::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::scenic::exception &
@@ -49,6 +51,6 @@ sge::scenic::exception::operator=(
 )
 = default;
 
-sge::scenic::exception::~exception() noexcept
-{
-}
+sge::scenic::exception::~exception()
+noexcept
+= default;

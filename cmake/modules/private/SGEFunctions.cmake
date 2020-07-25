@@ -472,8 +472,8 @@ function(
 
 	target_include_directories(
 		${SGE_LIB_NAME}
+		SYSTEM
 		INTERFACE
-		${PUBLIC_INCLUDES}
 		${_TRANSITIVE_SYSTEM_INCLUDE_DIRS}
 	)
 

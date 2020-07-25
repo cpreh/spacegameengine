@@ -31,43 +31,52 @@ class object
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	object(
-		sge::scenic::scene::identifier const &,
-		sge::scenic::scene::material::diffuse_color const &,
-		sge::scenic::scene::material::ambient_color const &,
-		sge::scenic::scene::material::specular_color const &,
-		sge::scenic::scene::material::emissive_color const &,
+		sge::scenic::scene::identifier &&,
+		sge::scenic::scene::material::diffuse_color,
+		sge::scenic::scene::material::ambient_color,
+		sge::scenic::scene::material::specular_color,
+		sge::scenic::scene::material::emissive_color,
 		sge::scenic::scene::material::shininess const &,
-		sge::scenic::scene::material::diffuse_texture_path const &,
-		sge::scenic::scene::material::specular_texture_path const &);
+		sge::scenic::scene::material::diffuse_texture_path &&,
+		sge::scenic::scene::material::specular_texture_path &&
+	);
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::identifier const &
 	identifier() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::diffuse_color const &
 	diffuse_color() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::ambient_color const &
 	ambient_color() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::specular_color const &
 	specular_color() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::emissive_color const &
 	emissive_color() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::shininess const &
 	shininess() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::diffuse_texture_path const &
 	diffuse_texture() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::material::specular_texture_path const &
 	specular_texture() const;

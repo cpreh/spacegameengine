@@ -22,39 +22,50 @@ namespace scenic
 {
 namespace scene
 {
+
 class entity
 {
+	FCPPT_NONCOPYABLE(
+		entity
+	);
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	entity(
-		sge::scenic::scene::mesh_path const &,
-		sge::scenic::scene::position const &,
-		sge::scenic::scene::rotation const &,
-		sge::scenic::scene::scale const &);
+		sge::scenic::scene::mesh_path &&,
+		sge::scenic::scene::position,
+		sge::scenic::scene::rotation,
+		sge::scenic::scene::scale
+	);
 
 	SGE_SCENIC_DETAIL_SYMBOL
 	entity(
 		entity &&
-	);
+	)
+	noexcept;
 
 	SGE_SCENIC_DETAIL_SYMBOL
 	entity &
 	operator=(
 		entity &&
-	);
+	)
+	noexcept;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::mesh_path const &
 	mesh_path() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::position const &
 	position() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::rotation const &
 	rotation() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::scene::scale const &
 	scale() const;
@@ -67,6 +78,7 @@ private:
 	sge::scenic::scene::rotation rotation_;
 	sge::scenic::scene::scale scale_;
 };
+
 }
 }
 }

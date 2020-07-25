@@ -4,8 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_context/base_unique_ptr.hpp>
 #include <sge/scenic/render_context/ffp/manager.hpp>
 #include <sge/scenic/render_context/ffp/object.hpp>
 #include <fcppt/make_ref.hpp>
@@ -14,13 +18,16 @@
 
 
 sge::scenic::render_context::ffp::manager::manager(
-	sge::renderer::device::ffp &_renderer,
-	sge::renderer::vertex::declaration &_vertex_declaration)
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration
+)
 :
 	renderer_(
-		_renderer),
+		_renderer
+	),
 	vertex_declaration_(
-		_vertex_declaration)
+		_vertex_declaration
+	)
 {
 }
 
@@ -36,7 +43,9 @@ sge::scenic::render_context::ffp::manager::create_context(
 			fcppt::make_unique_ptr<
 				sge::scenic::render_context::ffp::object
 			>(
-				*this,
+				fcppt::make_ref(
+					*this
+				),
 				fcppt::make_ref(
 					dynamic_cast<
 						sge::renderer::context::ffp &
@@ -49,5 +58,4 @@ sge::scenic::render_context::ffp::manager::create_context(
 }
 
 sge::scenic::render_context::ffp::manager::~manager()
-{
-}
+= default;

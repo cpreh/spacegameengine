@@ -14,7 +14,8 @@
 
 
 sge::shader::exception::exception(
-	fcppt::string &&_what)
+	fcppt::string &&_what
+)
 :
 	sge::core::exception{
 		FCPPT_TEXT("shader: ")
@@ -29,6 +30,7 @@ sge::shader::exception::exception(
 sge::shader::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::shader::exception::exception(
@@ -40,6 +42,7 @@ sge::shader::exception &
 sge::shader::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::shader::exception &
@@ -48,6 +51,6 @@ sge::shader::exception::operator=(
 )
 = default;
 
-sge::shader::exception::~exception() noexcept
-{
-}
+sge::shader::exception::~exception()
+noexcept
+= default;

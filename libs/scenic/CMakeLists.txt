@@ -93,6 +93,7 @@ set(
 	libs/scenic/include/sge/scenic/scene/identifier.hpp
 	libs/scenic/include/sge/scenic/scene/manager.hpp
 	libs/scenic/include/sge/scenic/scene/manager_fwd.hpp
+	libs/scenic/include/sge/scenic/scene/manager_ref.hpp
 	libs/scenic/include/sge/scenic/scene/material/ambient_color.hpp
 	libs/scenic/include/sge/scenic/scene/material/diffuse_color.hpp
 	libs/scenic/include/sge/scenic/scene/material/diffuse_texture_path.hpp
@@ -120,6 +121,7 @@ set(
 	libs/scenic/include/sge/scenic/scene/specular_texture_path.hpp
 	libs/scenic/include/sge/scenic/texture_manager.hpp
 	libs/scenic/include/sge/scenic/texture_manager_fwd.hpp
+	libs/scenic/include/sge/scenic/texture_manager_ref.hpp
 	libs/scenic/include/sge/scenic/vf/format.hpp
 	libs/scenic/include/sge/scenic/vf/format_part.hpp
 	libs/scenic/include/sge/scenic/vf/normal.hpp

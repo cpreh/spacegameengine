@@ -6,6 +6,8 @@ set(
 	libs/camera/impl/src/camera/impl/set_pressed_if_appropriate.cpp
 	libs/camera/include/sge/camera/base.hpp
 	libs/camera/include/sge/camera/base_fwd.hpp
+	libs/camera/include/sge/camera/base_ref.hpp
+	libs/camera/include/sge/camera/const_base_ref.hpp
 	libs/camera/include/sge/camera/coordinate_system/forward.hpp
 	libs/camera/include/sge/camera/coordinate_system/identity.hpp
 	libs/camera/include/sge/camera/coordinate_system/object.hpp

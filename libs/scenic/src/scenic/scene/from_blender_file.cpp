@@ -27,8 +27,10 @@
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/prototype.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/recursive_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -132,19 +134,26 @@ parse_camera_properties(
 	// has some funky values for the different axes.
 	// We multiply each vector with the camera rotation matrix,
 	// resulting in a new orthogonal coordinate system.
-	sge::renderer::vector3 const
-		right(
-			fcppt::math::matrix::transform_direction(
-				camera_rotation,
-				sge::renderer::vector3(1.0f,0.0f,0.0f))),
-		up(
-			fcppt::math::matrix::transform_direction(
-				camera_rotation,
-				sge::renderer::vector3(0.0f,0.0f,1.0f))),
-		forward(
-			fcppt::math::matrix::transform_direction(
-				camera_rotation,
-				sge::renderer::vector3(0.0f,-1.0f,0.0f)));
+	sge::renderer::vector3 const right(
+		fcppt::math::matrix::transform_direction(
+			camera_rotation,
+			sge::renderer::vector3(1.0F,0.0F,0.0F)
+		)
+	);
+
+	sge::renderer::vector3 const up(
+		fcppt::math::matrix::transform_direction(
+			camera_rotation,
+			sge::renderer::vector3(0.0F,0.0F,1.0F)
+		)
+	);
+
+	sge::renderer::vector3 const forward(
+		fcppt::math::matrix::transform_direction(
+			camera_rotation,
+			sge::renderer::vector3(0.0F,-1.0F,0.0F)
+		)
+	);
 
 	// The rest of the properties are simple to extract from the json,
 	// so it's done inline here.
@@ -308,11 +317,13 @@ parse_ambient_color(
 void
 load_entity(
 	std::filesystem::path const &_base_path,
-	sge::scenic::scene::prototype &_scene,
+	fcppt::reference<
+		sge::scenic::scene::prototype
+	> const _scene,
 	sge::parse::json::object const &_json_entity
 )
 {
-	_scene.entities().push_back(
+	_scene.get().entities().push_back(
 		sge::scenic::scene::entity{
 			sge::scenic::scene::mesh_path{
 				_base_path
@@ -384,7 +395,9 @@ load_entity(
 void
 load_entities(
 	std::filesystem::path const &_base_path,
-	sge::scenic::scene::prototype &_scene,
+	fcppt::reference<
+		sge::scenic::scene::prototype
+	> const _scene,
 	sge::parse::json::array const &_json_entities
 )
 {
@@ -395,6 +408,7 @@ load_entities(
 		:
 		_json_entities.elements
 	)
+	{
 		load_entity(
 			_base_path,
 			_scene,
@@ -406,6 +420,7 @@ load_entities(
 				)
 			).get()
 		);
+	}
 }
 
 sge::scenic::render_context::light::attenuation
@@ -477,9 +492,9 @@ parse_light_direction(
 					)
 				),
 				sge::renderer::vector3{
-					0.0f,
-					1.0f,
-					0.0f
+					0.0F,
+					1.0F,
+					0.0F
 				}
 			)
 		);
@@ -509,7 +524,9 @@ parse_light_position(
 
 void
 load_light(
-	sge::scenic::scene::prototype &_scene,
+	fcppt::reference<
+		sge::scenic::scene::prototype
+	> const _scene,
 	sge::parse::json::object const &_json_light
 )
 {
@@ -557,7 +574,7 @@ load_light(
 
 	if(light_type == "directional")
 	{
-		_scene.lights().push_back(
+		_scene.get().lights().push_back(
 			sge::scenic::render_context::light::object(
 				diffuse_color,
 				specular_color,
@@ -574,7 +591,7 @@ load_light(
 	}
 	else if(light_type == "point")
 	{
-		_scene.lights().push_back(
+		_scene.get().lights().push_back(
 			sge::scenic::render_context::light::object(
 				diffuse_color,
 				specular_color,
@@ -639,8 +656,11 @@ load_light(
 
 void
 load_lights(
-	sge::scenic::scene::prototype &_scene,
-	sge::parse::json::array const &_json_lights)
+	fcppt::reference<
+		sge::scenic::scene::prototype
+	> const _scene,
+	sge::parse::json::array const &_json_lights
+)
 {
 	for(
 		fcppt::recursive<
@@ -649,6 +669,7 @@ load_lights(
 		:
 		_json_lights.elements
 	)
+	{
 		load_light(
 			_scene,
 			sge::parse::json::get_exn<
@@ -659,6 +680,7 @@ load_lights(
 				)
 			).get()
 		);
+	}
 }
 }
 
@@ -724,7 +746,9 @@ sge::scenic::scene::from_blender_file(
 
 	load_entities(
 		_path.parent_path(),
-		*result,
+		fcppt::make_ref(
+			*result
+		),
 		sge::parse::json::find_and_convert_member<
 			sge::parse::json::array
 		>(
@@ -738,7 +762,9 @@ sge::scenic::scene::from_blender_file(
 	);
 
 	load_lights(
-		*result,
+		fcppt::make_ref(
+			*result
+		),
 		sge::parse::json::find_and_convert_member<
 			sge::parse::json::array
 		>(

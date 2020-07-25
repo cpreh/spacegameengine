@@ -66,9 +66,10 @@ namespace
 {
 struct light_visitor
 {
-	typedef
-	sge::renderer::state::ffp::lighting::light::variant
-	result_type;
+	using
+	result_type
+	=
+	sge::renderer::state::ffp::lighting::light::variant;
 
 	result_type
 	operator()(
@@ -129,7 +130,9 @@ transform_light(
 }
 
 sge::scenic::render_context::ffp::object::object(
-	sge::scenic::render_context::ffp::manager &_manager,
+	fcppt::reference<
+		sge::scenic::render_context::ffp::manager
+	> const _manager,
 	sge::renderer::context::ffp_ref const _context
 )
 :
@@ -145,19 +148,17 @@ sge::scenic::render_context::ffp::object::object(
 		>(
 			context_
 		),
-		fcppt::make_cref(
-			manager_.vertex_declaration_
-		)
+		manager_.get().vertex_declaration_
 	),
 	projection_transform_(),
 	world_transform_(),
 	current_vertex_buffer_size_(
-		0u
+		0U
 	),
 	current_vertex_buffer_(),
 	current_material_(),
 	diffuse_texture_sampler_(
-		manager_.renderer_.create_sampler_state(
+		manager_.get().renderer_.get().create_sampler_state(
 			sge::renderer::state::core::sampler::parameters(
 				sge::renderer::state::core::sampler::address::parameters(
 					sge::renderer::state::core::sampler::address::mode_all(
@@ -177,7 +178,7 @@ sge::scenic::render_context::ffp::object::object(
 		sge::renderer::state::core::sampler::const_object_ref_map{
 			sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 				sge::renderer::texture::stage{
-					0u
+					0U
 				},
 				fcppt::make_cref(
 					*diffuse_texture_sampler_
@@ -186,7 +187,7 @@ sge::scenic::render_context::ffp::object::object(
 		}
 	},
 	current_lighting_(
-		manager_.renderer_.create_lighting_state(
+		manager_.get().renderer_.get().create_lighting_state(
 			sge::renderer::state::ffp::lighting::parameters(
 				sge::renderer::state::ffp::lighting::variant(
 					sge::renderer::state::ffp::lighting::enabled(
@@ -204,7 +205,7 @@ sge::scenic::render_context::ffp::object::object(
 		)
 	),
 	depth_stencil_state_(
-		manager_.renderer_.create_depth_stencil_state(
+		manager_.get().renderer_.get().create_depth_stencil_state(
 			sge::renderer::state::core::depth_stencil::parameters(
 				sge::renderer::state::core::depth_stencil::depth::variant(
 					sge::renderer::state::core::depth_stencil::depth::enabled(
@@ -221,7 +222,7 @@ sge::scenic::render_context::ffp::object::object(
 		)
 	),
 	blend_state_(
-		manager_.renderer_.create_blend_state(
+		manager_.get().renderer_.get().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
 				sge::renderer::state::core::blend::alpha_variant(
 					sge::renderer::state::core::blend::alpha_off()
@@ -231,7 +232,7 @@ sge::scenic::render_context::ffp::object::object(
 		)
 	),
 	rasterizer_state_(
-		manager_.renderer_.create_rasterizer_state(
+		manager_.get().renderer_.get().create_rasterizer_state(
 			sge::renderer::state::core::rasterizer::parameters(
 				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
 				sge::renderer::state::core::rasterizer::fill_mode::solid,
@@ -295,7 +296,7 @@ sge::scenic::render_context::ffp::object::transform(
 			sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform(
 				fcppt::optional::assign(
 					projection_transform_,
-					manager_.renderer_.create_transform_state(
+					manager_.get().renderer_.get().create_transform_state(
 						sge::renderer::state::ffp::transform::parameters(
 							_matrix
 						)
@@ -319,7 +320,7 @@ sge::scenic::render_context::ffp::object::transform(
 			sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform(
 				fcppt::optional::assign(
 					world_transform_,
-					manager_.renderer_.create_transform_state(
+					manager_.get().renderer_.get().create_transform_state(
 						sge::renderer::state::ffp::transform::parameters(
 							_matrix
 						)
@@ -348,7 +349,7 @@ sge::scenic::render_context::ffp::object::material(
 	sge::renderer::state::ffp::lighting::material::object_unique_ptr const &current_material(
 		fcppt::optional::assign(
 			current_material_,
-			manager_.renderer_.create_material_state(
+			manager_.get().renderer_.get().create_material_state(
 				sge::renderer::state::ffp::lighting::material::parameters(
 					sge::renderer::state::ffp::lighting::diffuse_color(
 						_material.diffuse_color().get()),
@@ -392,7 +393,7 @@ sge::scenic::render_context::ffp::object::material(
 			}
 		),
 		sge::renderer::texture::stage(
-			0u
+			0U
 		)
 	);
 }
@@ -402,7 +403,7 @@ sge::scenic::render_context::ffp::object::lights(
 	sge::scenic::render_context::light::sequence const &_lights)
 {
 	FCPPT_ASSERT_PRE(
-		_lights.size() < manager_.renderer_.caps().light_indices().get());
+		_lights.size() < manager_.get().renderer_.get().caps().light_indices().get());
 
 	context_.get().lights_state(
 		sge::renderer::state::ffp::lighting::light::const_object_ref_vector());
@@ -419,7 +420,7 @@ sge::scenic::render_context::ffp::object::lights(
 			)
 			{
 				return
-					manager_.renderer_.create_light_state(
+					manager_.get().renderer_.get().create_light_state(
 						transform_light(
 							_light
 						)
@@ -488,7 +489,7 @@ sge::scenic::render_context::ffp::object::render(
 	context_.get().render_indexed(
 		_index_buffer,
 		sge::renderer::vertex::first(
-			0u),
+			0U),
 		current_vertex_buffer_size_,
 		sge::renderer::primitive_type::triangle_list,
 		_index_buffer_range.first_index(),
@@ -518,7 +519,7 @@ sge::scenic::render_context::ffp::object::~object()
 	context_.get().texture(
 		sge::renderer::texture::const_optional_base_ref(),
 		sge::renderer::texture::stage(
-			0u));
+			0U));
 
 	context_.get().sampler_state(
 		sge::renderer::state::core::sampler::const_optional_object_ref_map());

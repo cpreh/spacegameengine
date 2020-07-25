@@ -18,7 +18,7 @@
 #include <sge/scenic/render_context/fog/optional_properties.hpp>
 #include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/render_context/material/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,37 +27,50 @@ namespace scenic
 {
 namespace render_context
 {
+
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-FCPPT_NONCOPYABLE(
-	base);
+	FCPPT_NONMOVABLE(
+		base
+	);
 public:
-	virtual void
+	virtual
+	void
 	transform(
 		sge::scenic::render_context::transform_matrix_type,
-		sge::renderer::matrix4 const &) = 0;
+		sge::renderer::matrix4 const &
+	) = 0;
 
-	virtual void
+	virtual
+	void
 	material(
-		sge::scenic::render_context::material::object const &) = 0;
+		sge::scenic::render_context::material::object const &
+	) = 0;
 
-	virtual void
+	virtual
+	void
 	lights(
-		sge::scenic::render_context::light::sequence const &) = 0;
+		sge::scenic::render_context::light::sequence const &
+	) = 0;
 
-	virtual void
+	virtual
+	void
 	vertex_buffer(
-		sge::renderer::vertex::buffer const &) = 0;
+		sge::renderer::vertex::buffer const &
+	) = 0;
 
-	virtual void
+	virtual
+	void
 	fog(
-		sge::scenic::render_context::fog::optional_properties const &) = 0;
+		sge::scenic::render_context::fog::optional_properties const &
+	) = 0;
 
 	virtual
 	void
 	render(
 		sge::renderer::index::buffer const &,
-		sge::scenic::index_buffer_range const &) = 0;
+		sge::scenic::index_buffer_range const &
+	) = 0;
 
 	virtual
 	sge::renderer::target::base &
@@ -68,6 +81,7 @@ public:
 protected:
 	base();
 };
+
 }
 }
 }

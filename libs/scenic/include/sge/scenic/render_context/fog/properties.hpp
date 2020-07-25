@@ -28,16 +28,20 @@ public:
 	properties(
 		sge::scenic::render_context::fog::start const &,
 		sge::scenic::render_context::fog::end const &,
-		sge::scenic::render_context::fog::color const &);
+		sge::scenic::render_context::fog::color
+	);
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::fog::start const &
 	start() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::fog::end const &
 	end() const;
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::fog::color const &
 	color() const;

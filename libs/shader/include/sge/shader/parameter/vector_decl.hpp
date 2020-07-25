@@ -8,10 +8,10 @@
 #define SGE_SHADER_PARAMETER_VECTOR_DECL_HPP_INCLUDED
 
 #include <sge/cg/parameter/named.hpp>
-#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/vector_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/static_fwd.hpp>
 
@@ -22,40 +22,49 @@ namespace shader
 {
 namespace parameter
 {
-template
-<
+
+template<
 	typename ValueType,
 	fcppt::math::size_type N
 >
 class vector
 {
-FCPPT_NONCOPYABLE(
-	vector);
+	FCPPT_NONMOVABLE(
+		vector
+	);
 public:
-	typedef
-	ValueType
-	value_type;
+	using
+	value_type
+	=
+	ValueType;
 
-	typedef
-	fcppt::math::vector::static_<ValueType,N>
-	vector_type;
+	using
+	vector_type
+	=
+	fcppt::math::vector::static_<
+		ValueType,
+		N
+	>;
 
-	static fcppt::math::size_type const size =
+	static constexpr fcppt::math::size_type const size =
 		N;
 
 	vector(
-		sge::cg::program::object &,
+		sge::cg::program::object_ref,
 		sge::shader::parameter::name const &,
-		vector_type const &);
+		vector_type const &
+	);
 
 	void
 	set(
-		vector_type const &);
+		vector_type const &
+	);
 
-	~vector();
+	~vector(); // NOLINT(performance-trivially-destructible)
 private:
 	sge::cg::parameter::named const parameter_;
 };
+
 }
 }
 }

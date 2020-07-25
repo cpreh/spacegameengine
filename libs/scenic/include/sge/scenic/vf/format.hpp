@@ -18,11 +18,12 @@ namespace scenic
 namespace vf
 {
 
-typedef
+using
+format
+=
 sge::renderer::vf::format<
 	sge::scenic::vf::format_part
->
-format;
+>;
 
 }
 }

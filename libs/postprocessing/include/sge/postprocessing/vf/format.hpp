@@ -18,11 +18,12 @@ namespace postprocessing
 namespace vf
 {
 
-typedef
+using
+format
+=
 sge::renderer::vf::format<
 	sge::postprocessing::vf::format_part
->
-format;
+>;
 
 }
 }

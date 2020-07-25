@@ -21,12 +21,13 @@ namespace render_context
 namespace light
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::scenic::render_context::light::directional,
 	sge::scenic::render_context::light::point
->
-variant;
+>;
 
 }
 }

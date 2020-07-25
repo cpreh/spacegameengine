@@ -10,15 +10,19 @@
 #include <sge/scenic/grid/rect.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 
+
 namespace sge
 {
 namespace scenic
 {
 namespace grid
 {
-typedef
-sge::scenic::grid::rect::dim
-dim;
+
+using
+dim
+=
+sge::scenic::grid::rect::dim;
+
 }
 }
 }

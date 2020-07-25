@@ -6,14 +6,18 @@
 
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/shader/pair.hpp>
+#include <sge/shader/pair_ref.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
@@ -28,32 +32,42 @@
 
 
 sge::shader::parameter::planar_texture::planar_texture(
-	sge::cg::program::object &_program,
+	sge::cg::program::object_ref const _program,
 	sge::shader::parameter::name const &_name,
-	sge::shader::pair &_parent,
-	sge::renderer::device::core &_renderer,
-	optional_value const &_value)
+	sge::shader::pair_ref const _parent,
+	sge::renderer::device::core_ref const _renderer,
+	optional_value const &_value
+)
 :
 	parent_(
-		_parent),
+		_parent
+	),
 	renderer_(
-		_renderer),
+		_renderer
+	),
 	parameter_(
-		_program.parameter(
-			_name.get())),
+		_program.get().parameter(
+			_name.get()
+		)
+	),
 	loaded_texture_(),
 	scoped_texture_(),
 	optional_render_context_(),
 	value_(
-		_value)
+		_value
+	)
 {
-	parent_.add_planar_texture(
-		*this);
+	parent_.get().add_planar_texture(
+		fcppt::make_ref(
+			*this
+		)
+	);
 }
 
 void
 sge::shader::parameter::planar_texture::set(
-	optional_value const &_value)
+	optional_value const &_value
+)
 {
 	value_ =
 		_value;
@@ -88,7 +102,7 @@ sge::shader::parameter::planar_texture::set(
 					sge::renderer::cg::loaded_texture_unique_ptr const &cur_loaded_texture(
 						fcppt::optional::assign(
 							loaded_texture_,
-							renderer_.load_cg_texture(
+							renderer_.get().load_cg_texture(
 								parameter_.object(),
 								fcppt::reference_to_base<
 									sge::renderer::texture::base
@@ -118,7 +132,8 @@ sge::shader::parameter::planar_texture::set(
 
 void
 sge::shader::parameter::planar_texture::activate(
-	sge::renderer::context::core &_render_context)
+	sge::renderer::context::core_ref const _render_context
+)
 {
 	FCPPT_ASSERT_PRE(
 		!optional_render_context_.has_value()
@@ -130,20 +145,20 @@ sge::shader::parameter::planar_texture::activate(
 
 	optional_render_context_ =
 		optional_render_context(
-			fcppt::make_ref(
-				_render_context
-			)
+			_render_context
 		);
 
 	this->set(
-		value_);
+		value_
+	);
 }
 
 void
 sge::shader::parameter::planar_texture::deactivate()
 {
 	FCPPT_ASSERT_PRE(
-		optional_render_context_.has_value());
+		optional_render_context_.has_value()
+	);
 
 	scoped_texture_ =
 		optional_scoped_texture_ptr();
@@ -175,6 +190,7 @@ sge::shader::parameter::planar_texture::stage() const
 
 sge::shader::parameter::planar_texture::~planar_texture()
 {
-	parent_.remove_planar_texture(
-		*this);
+	parent_.get().remove_planar_texture(
+		*this
+	);
 }

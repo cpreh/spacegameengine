@@ -4,20 +4,36 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/scenic/scene/camera_properties.hpp>
 #include <sge/scenic/scene/prototype.hpp>
+#include <sge/scenic/render_context/ambient_color.hpp>
+#include <sge/scenic/render_context/fog/optional_properties.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::scene::prototype::prototype(
-	sge::scenic::scene::camera_properties const &_camera,
-	sge::scenic::render_context::fog::optional_properties const &_fog,
-	sge::scenic::render_context::ambient_color const &_ambient_color)
+	sge::scenic::scene::camera_properties _camera,
+	sge::scenic::render_context::fog::optional_properties _fog,
+	sge::scenic::render_context::ambient_color _ambient_color
+)
 :
 	camera_(
-		_camera),
+		std::move(
+			_camera
+		)
+	),
 	fog_(
-		_fog),
+		std::move(
+			_fog
+		)
+	),
 	ambient_color_(
-		_ambient_color),
+		std::move(
+			_ambient_color
+		)
+	),
 	entities_(),
 	lights_()
 {
@@ -26,52 +42,51 @@ sge::scenic::scene::prototype::prototype(
 sge::scenic::scene::entity_sequence const &
 sge::scenic::scene::prototype::entities() const
 {
-		return
-			entities_;
+	return
+		entities_;
 }
 
 sge::scenic::scene::entity_sequence &
 sge::scenic::scene::prototype::entities()
 {
-		return
-			entities_;
+	return
+		entities_;
 }
 
 sge::scenic::render_context::light::sequence const &
 sge::scenic::scene::prototype::lights() const
 {
-		return
-			lights_;
+	return
+		lights_;
 }
 
 sge::scenic::render_context::light::sequence &
 sge::scenic::scene::prototype::lights()
 {
-		return
-			lights_;
+	return
+		lights_;
 }
 
 sge::scenic::scene::camera_properties const &
 sge::scenic::scene::prototype::camera() const
 {
-		return
-			camera_;
+	return
+		camera_;
 }
 
 sge::scenic::render_context::fog::optional_properties const &
 sge::scenic::scene::prototype::fog() const
 {
-		return
-			fog_;
+	return
+		fog_;
 }
 
 sge::scenic::render_context::ambient_color const &
 sge::scenic::scene::prototype::ambient_color() const
 {
-		return
-			ambient_color_;
+	return
+		ambient_color_;
 }
 
 sge::scenic::scene::prototype::~prototype()
-{
-}
+= default;

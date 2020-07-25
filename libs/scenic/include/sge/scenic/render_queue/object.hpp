@@ -7,16 +7,17 @@
 #ifndef SGE_SCENIC_RENDER_QUEUE_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_QUEUE_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/index/buffer_ref.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
-#include <sge/scenic/texture_manager_fwd.hpp>
+#include <sge/renderer/vertex/buffer_ref.hpp>
+#include <sge/scenic/texture_manager_ref.hpp>
 #include <sge/scenic/render_context/base_fwd.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/scenic/render_queue/index_type.hpp>
 #include <sge/scenic/render_queue/mesh.hpp>
 #include <sge/scenic/render_queue/state_change_count.hpp>
 #include <sge/scenic/scene/material/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -31,52 +32,69 @@ namespace render_queue
 {
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
 	explicit
 	object(
-		sge::scenic::texture_manager &);
+		sge::scenic::texture_manager_ref
+	);
 
 	void
 	current_material(
-		sge::scenic::scene::material::object const &);
+		sge::scenic::scene::material::object const &
+	);
 
 	void
 	current_vertex_buffer(
-		sge::renderer::vertex::buffer &);
+		sge::renderer::vertex::buffer_ref
+	);
 
 	void
 	add_mesh(
 		sge::renderer::matrix4 const &,
-		sge::renderer::index::buffer &,
-		sge::scenic::index_buffer_range const &);
+		sge::renderer::index::buffer_ref,
+		sge::scenic::index_buffer_range const &
+	);
 
+	[[nodiscard]]
 	sge::scenic::render_queue::state_change_count
 	render(
-		sge::scenic::render_context::base &);
+		sge::scenic::render_context::base & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	~object();
 private:
-	typedef
-	std::vector<sge::scenic::render_context::material::object>
-	material_sequence;
+	using
+	material_sequence
+	=
+	std::vector<
+		sge::scenic::render_context::material::object
+	>;
 
-	typedef
-	std::vector<sge::renderer::vertex::buffer*>
-	vertex_buffer_sequence;
+	using
+	vertex_buffer_sequence
+	=
+	std::vector<
+		sge::renderer::vertex::buffer*
+	>;
 
-	typedef
-	std::vector<sge::scenic::render_queue::mesh>
-	mesh_sequence;
+	using
+	mesh_sequence
+	=
+	std::vector<
+		sge::scenic::render_queue::mesh
+	>;
 
-	sge::scenic::texture_manager &texture_manager_;
+	sge::scenic::texture_manager_ref const texture_manager_;
 	material_sequence materials_;
 	vertex_buffer_sequence vertex_buffers_;
 	mesh_sequence meshes_;
 	index_type current_material_;
 	index_type current_vertex_buffer_;
 };
+
 }
 }
 }

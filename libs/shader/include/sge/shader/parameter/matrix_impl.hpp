@@ -9,6 +9,7 @@
 
 #include <sge/cg/parameter/matrix/set.hpp>
 #include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -19,50 +20,64 @@
 #include <fcppt/math/matrix/translation.hpp>
 
 
-template
-<
+template<
 	typename ValueType,
 	fcppt::math::size_type M,
 	fcppt::math::size_type N
 >
-sge::shader::parameter::matrix<ValueType,M,N>::matrix(
-	sge::cg::program::object &_program,
+sge::shader::parameter::matrix<
+	ValueType,
+	M,
+	N
+>::matrix(
+	sge::cg::program::object_ref const _program,
 	sge::shader::parameter::name const &_name,
 	sge::renderer::device::core const &_renderer,
 	sge::shader::parameter::is_projection_matrix const &_is_projection_matrix,
-	matrix_type const &_initial_value)
+	matrix_type const &_initial_value
+)
 :
 	parameter_(
-		_program.parameter(
-			_name.get())),
+		_program.get().parameter(
+			_name.get()
+		)
+	),
 	is_projection_matrix_(
-		_is_projection_matrix.get() && _renderer.caps().normalized_cvv().get()
-		?
-			true
-		:
-			false)
+		_is_projection_matrix.get()
+		&&
+		_renderer.caps().normalized_cvv().get()
+	)
 {
 	this->set(
-		_initial_value);
+		_initial_value
+	);
 }
 
-template
-<
+template<
 	typename ValueType,
 	fcppt::math::size_type M,
 	fcppt::math::size_type N
 >
 void
-sge::shader::parameter::matrix<ValueType,M,N>::set(
-	matrix_type const &_matrix)
+sge::shader::parameter::matrix<
+	ValueType,
+	M,
+	N
+>::set(
+	matrix_type const &_matrix
+)
 {
-	sge::renderer::scalar const
-		one(
-			1.f),
-		two(
-			0.5f),
-		zero(
-			0.0f);
+	sge::renderer::scalar const one{
+		1.F
+	};
+
+	sge::renderer::scalar const two{
+		0.5F
+	};
+
+	sge::renderer::scalar const zero{
+		0.0F
+	};
 
 	sge::cg::parameter::matrix::set(
 		parameter_.object(),
@@ -71,26 +86,31 @@ sge::shader::parameter::matrix<ValueType,M,N>::set(
 			fcppt::math::matrix::translation(
 				zero,
 				zero,
-				-one)
+				-one
+			)
 			*
 			fcppt::math::matrix::scaling(
 				one,
 				one,
-				two)
+				two
+			)
 			*
 			_matrix
 		:
-			_matrix);
+			_matrix
+		);
 }
 
-template
-<
+template<
 	typename ValueType,
 	fcppt::math::size_type M,
 	fcppt::math::size_type N
 >
-sge::shader::parameter::matrix<ValueType,M,N>::~matrix()
-{
-}
+sge::shader::parameter::matrix<
+	ValueType,
+	M,
+	N
+>::~matrix()
+= default;
 
 #endif

@@ -20,20 +20,24 @@ namespace render_context
 {
 namespace light
 {
+
 class directional
 {
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	explicit
 	directional(
-		sge::scenic::render_context::light::direction const &);
+		sge::scenic::render_context::light::direction
+	);
 
+	[[nodiscard]]
 	SGE_SCENIC_DETAIL_SYMBOL
 	sge::scenic::render_context::light::direction const &
 	direction() const;
 private:
 	sge::scenic::render_context::light::direction direction_;
 };
+
 }
 }
 }

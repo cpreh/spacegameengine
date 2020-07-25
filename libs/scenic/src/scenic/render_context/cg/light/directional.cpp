@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
@@ -33,7 +34,7 @@ param_name(
 }
 
 sge::scenic::render_context::cg::light::directional::directional(
-	sge::cg::program::object &_program,
+	sge::cg::program::object_ref const _program,
 	sge::scenic::render_context::cg::light::index const &_index)
 :
 	diffuse_color_(
@@ -120,5 +121,4 @@ sge::scenic::render_context::cg::light::directional::camera_space_direction(
 }
 
 sge::scenic::render_context::cg::light::directional::~directional()
-{
-}
+= default;

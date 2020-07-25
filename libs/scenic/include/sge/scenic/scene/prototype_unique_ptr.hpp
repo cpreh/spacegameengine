@@ -18,11 +18,12 @@ namespace scenic
 namespace scene
 {
 
-typedef
+using
+prototype_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::scenic::scene::prototype
->
-prototype_unique_ptr;
+>;
 
 }
 }

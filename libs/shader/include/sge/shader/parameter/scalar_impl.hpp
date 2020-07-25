@@ -9,6 +9,7 @@
 
 #include <sge/cg/parameter/scalar/set.hpp>
 #include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/scalar_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -20,13 +21,13 @@ template<
 	typename ValueType
 >
 sge::shader::parameter::scalar<ValueType>::scalar(
-	sge::cg::program::object &_program,
+	sge::cg::program::object_ref const _program,
 	sge::shader::parameter::name const &_name,
 	value_type const _initial_value
 )
 :
 	parameter_(
-		_program.parameter(
+		_program.get().parameter(
 			_name.get()
 		)
 	)
@@ -44,7 +45,9 @@ sge::shader::parameter::scalar<ValueType>::set(
 	value_type const _scalar
 )
 {
-	typedef
+	using
+	promoted_type
+	=
 	std::conditional_t<
 		std::is_same<
 			value_type,
@@ -52,8 +55,7 @@ sge::shader::parameter::scalar<ValueType>::set(
 		>::value,
 		int,
 		value_type
-	>
-	promoted_type;
+	>;
 
 	sge::cg::parameter::scalar::set(
 		parameter_.object(),
@@ -71,7 +73,6 @@ template<
 sge::shader::parameter::scalar<
 	ValueType
 >::~scalar()
-{
-}
+= default;
 
 #endif

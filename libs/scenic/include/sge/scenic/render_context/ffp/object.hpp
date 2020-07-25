@@ -18,7 +18,6 @@
 #include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
-#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
@@ -28,7 +27,8 @@
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/ffp/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -47,12 +47,14 @@ class object
 :
 	public sge::scenic::render_context::base
 {
-FCPPT_NONCOPYABLE(
+FCPPT_NONMOVABLE(
 	object);
 public:
 	SGE_SCENIC_DETAIL_SYMBOL
 	object(
-		sge::scenic::render_context::ffp::manager &_manager,
+		fcppt::reference<
+			sge::scenic::render_context::ffp::manager
+		>,
 		sge::renderer::context::ffp_ref
 	);
 
@@ -111,17 +113,20 @@ public:
 private:
 	friend class sge::scenic::render_context::ffp::manager;
 
-	sge::scenic::render_context::ffp::manager &manager_;
+	fcppt::reference<
+		sge::scenic::render_context::ffp::manager
+	> const manager_;
 
 	sge::renderer::context::ffp_ref const context_;
 
 	sge::renderer::vertex::scoped_declaration scoped_vertex_declaration_;
 
-	typedef
+	using
+	optional_transform_unique_ptr
+	=
 	fcppt::optional::object<
 		sge::renderer::state::ffp::transform::object_unique_ptr
-	>
-	optional_transform_unique_ptr;
+	>;
 
 	optional_transform_unique_ptr projection_transform_;
 
@@ -129,33 +134,37 @@ private:
 
 	sge::renderer::vertex::count current_vertex_buffer_size_;
 
-	typedef
+	using
+	scoped_vertex_buffer_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::renderer::vertex::scoped_buffer
-	>
-	scoped_vertex_buffer_unique_ptr;
+	>;
 
-	typedef
+	using
+	optional_scoped_vertex_buffer_unique_ptr
+	=
 	fcppt::optional::object<
 		scoped_vertex_buffer_unique_ptr
-	>
-	optional_scoped_vertex_buffer_unique_ptr;
+	>;
 
 	optional_scoped_vertex_buffer_unique_ptr current_vertex_buffer_;
 
-	typedef
+	using
+	optional_material_unique_ptr
+	=
 	fcppt::optional::object<
 		sge::renderer::state::ffp::lighting::material::object_unique_ptr
-	>
-	optional_material_unique_ptr;
+	>;
 
 	optional_material_unique_ptr current_material_;
 
-	typedef
+	using
+	light_ptr_vector
+	=
 	std::vector<
 		sge::renderer::state::ffp::lighting::light::object_unique_ptr
-	>
-	light_ptr_vector;
+	>;
 
 	light_ptr_vector lights_;
 

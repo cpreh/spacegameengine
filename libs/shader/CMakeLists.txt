@@ -2,6 +2,7 @@ set(
 	SGE_SHADER_FILES
 	libs/shader/include/sge/shader/context.hpp
 	libs/shader/include/sge/shader/context_fwd.hpp
+	libs/shader/include/sge/shader/context_ref.hpp
 	libs/shader/include/sge/shader/exception.hpp
 	libs/shader/include/sge/shader/exception_fwd.hpp
 	libs/shader/include/sge/shader/istream_ref.hpp
@@ -10,6 +11,7 @@ set(
 	libs/shader/include/sge/shader/optional_context_ref.hpp
 	libs/shader/include/sge/shader/pair.hpp
 	libs/shader/include/sge/shader/pair_fwd.hpp
+	libs/shader/include/sge/shader/pair_ref.hpp
 	libs/shader/include/sge/shader/parameter/is_projection_matrix.hpp
 	libs/shader/include/sge/shader/parameter/matrix.hpp
 	libs/shader/include/sge/shader/parameter/matrix_decl.hpp
@@ -59,6 +61,6 @@ add_sge_base_library(
 		${fcppt_filesystem_TARGET}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
-	TRANSITIVE_INCLUDE_DIRS
+	TRANSITIVE_SYSTEM_INCLUDE_DIRS
 		${Cg_INCLUDE_DIRS}
 )

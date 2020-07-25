@@ -12,6 +12,7 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace model
@@ -20,9 +21,14 @@ namespace obj
 {
 namespace material
 {
-typedef
-std::vector<std::filesystem::path>
-file_sequence;
+
+using
+file_sequence
+=
+std::vector<
+	std::filesystem::path
+>;
+
 }
 }
 }

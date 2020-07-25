@@ -43,7 +43,9 @@
 
 
 sge::scenic::render_context::cg::object::object(
-	sge::scenic::render_context::cg::manager &_manager,
+	fcppt::reference<
+		sge::scenic::render_context::cg::manager
+	> const _manager,
 	sge::renderer::context::core_ref const _context
 )
 :
@@ -56,31 +58,31 @@ sge::scenic::render_context::cg::object::object(
 	),
 	scoped_vd_(
 		_context,
-		fcppt::make_cref(
-			_manager.vertex_declaration_
-		)
+		_manager.get().vertex_declaration_
 	),
 	depth_stencil_state_(
 		_context,
 		fcppt::make_cref(
-			*manager_.depth_stencil_state_
+			*manager_.get().depth_stencil_state_
 		)
 	),
 	blend_state_(
 		_context,
 		fcppt::make_cref(
-			*manager_.blend_state_
+			*manager_.get().blend_state_
 		)
 	),
 	rasterizer_state_(
 		_context,
 		fcppt::make_cref(
-			*manager_.rasterizer_state_
+			*manager_.get().rasterizer_state_
 		)
 	),
 	scoped_shader_(
-		_context.get(), // TODO
-		manager_.shader_
+		_context,
+		fcppt::make_ref(
+			manager_.get().shader_
+		)
 	),
 	sampler_state_{
 		_context,
@@ -89,20 +91,20 @@ sge::scenic::render_context::cg::object::object(
 				// I'd love to write this, but for this, the texture would have to be scoped, which it isn't yet
 				//manager_.diffuse_texture_.stage(),
 				sge::renderer::texture::stage{
-					0u
+					0U
 				},
 				sge::renderer::state::core::sampler::const_object_ref{
-					*manager_.mipmap_sampler_state_
+					*manager_.get().mipmap_sampler_state_
 				}
 			},
 			sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 				// I'd love to write this, but for this, the texture would have to be scoped, which it isn't yet
 				//manager_.specular_texture_.stage(),
 				sge::renderer::texture::stage{
-					1u
+					1U
 				},
 				sge::renderer::state::core::sampler::const_object_ref{
-					*manager_.mipmap_sampler_state_
+					*manager_.get().mipmap_sampler_state_
 				}
 			}
 		}
@@ -135,10 +137,10 @@ sge::scenic::render_context::cg::object::transform(
 		current_world_ =
 			_matrix;
 
-		manager_.world_matrix_.set(
+		manager_.get().world_matrix_.set(
 			current_world_);
 
-		manager_.world_inverse_transpose_matrix_.set(
+		manager_.get().world_inverse_transpose_matrix_.set(
 			fcppt::math::matrix::inverse(
 				fcppt::math::matrix::transpose(
 					current_world_
@@ -146,7 +148,7 @@ sge::scenic::render_context::cg::object::transform(
 			)
 		);
 
-		manager_.world_projection_matrix_.set(
+		manager_.get().world_projection_matrix_.set(
 			current_projection_ * current_world_
 		);
 		break;
@@ -154,7 +156,7 @@ sge::scenic::render_context::cg::object::transform(
 		current_projection_ =
 			_matrix;
 
-		manager_.world_projection_matrix_.set(
+		manager_.get().world_projection_matrix_.set(
 			current_projection_ * current_world_
 		);
 		break;
@@ -165,29 +167,29 @@ void
 sge::scenic::render_context::cg::object::material(
 	sge::scenic::render_context::material::object const &_material)
 {
-	manager_.material_diffuse_color_.set(
+	manager_.get().material_diffuse_color_.set(
 		sge::scenic::impl::render_context::cg::any_color_to_vector4(
 			_material.diffuse_color().get()));
 
-	manager_.material_specular_color_.set(
+	manager_.get().material_specular_color_.set(
 		sge::scenic::impl::render_context::cg::any_color_to_vector4(
 			_material.specular_color().get()));
 
-	manager_.material_emissive_color_.set(
+	manager_.get().material_emissive_color_.set(
 		sge::scenic::impl::render_context::cg::any_color_to_vector4(
 			_material.emissive_color().get()));
 
-	manager_.material_ambient_color_.set(
+	manager_.get().material_ambient_color_.set(
 		sge::scenic::impl::render_context::cg::any_color_to_vector4(
 			_material.ambient_color().get()));
 
-	manager_.material_shininess_.set(
+	manager_.get().material_shininess_.set(
 		_material.shininess().get());
 
-	manager_.use_diffuse_texture_.set(
+	manager_.get().use_diffuse_texture_.set(
 		_material.diffuse_texture().has_value());
 
-	manager_.diffuse_texture_.set(
+	manager_.get().diffuse_texture_.set(
 		_material.diffuse_texture().has_value()
 		?
 			sge::shader::parameter::planar_texture::optional_value(
@@ -195,10 +197,10 @@ sge::scenic::render_context::cg::object::material(
 		:
 			sge::shader::parameter::planar_texture::optional_value());
 
-	manager_.use_specular_texture_.set(
+	manager_.get().use_specular_texture_.set(
 		_material.specular_texture().has_value());
 
-	manager_.specular_texture_.set(
+	manager_.get().specular_texture_.set(
 		_material.specular_texture().has_value()
 		?
 			sge::shader::parameter::planar_texture::optional_value(
@@ -220,7 +222,7 @@ sge::scenic::render_context::cg::object::lights(
 		_lights
 	)
 	{
-		// TODO: This should be done using a visitor!
+		// TODO(philipp): This should be done using a visitor!
 		fcppt::optional::maybe_void(
 			fcppt::variant::to_optional<
 				sge::scenic::render_context::light::point
@@ -232,11 +234,11 @@ sge::scenic::render_context::cg::object::lights(
 				&point_light_count,
 				this
 			](
-				sge::scenic::render_context::light::point const _point_light
+				sge::scenic::render_context::light::point const &_point_light
 			)
 			{
 				sge::scenic::render_context::cg::light::point &current_light(
-					*manager_.point_lights_[static_cast<std::size_t>(point_light_count++)]);
+					*manager_.get().point_lights_[static_cast<std::size_t>(point_light_count++)]);
 
 				current_light.diffuse_color(
 					light.diffuse_color());
@@ -272,7 +274,7 @@ sge::scenic::render_context::cg::object::lights(
 			)
 			{
 				sge::scenic::render_context::cg::light::directional &current_light(
-					*manager_.directional_lights_[static_cast<std::size_t>(directional_light_count++)]
+					*manager_.get().directional_lights_[static_cast<std::size_t>(directional_light_count++)]
 				);
 
 				current_light.diffuse_color(
@@ -296,10 +298,10 @@ sge::scenic::render_context::cg::object::lights(
 		);
 	}
 
-	manager_.point_light_count_.set(
+	manager_.get().point_light_count_.set(
 		point_light_count);
 
-	manager_.directional_light_count_.set(
+	manager_.get().directional_light_count_.set(
 		directional_light_count);
 }
 
@@ -343,7 +345,7 @@ void
 sge::scenic::render_context::cg::object::fog(
 	sge::scenic::render_context::fog::optional_properties const &_opt_fog)
 {
-	manager_.use_fog_.set(
+	manager_.get().use_fog_.set(
 		_opt_fog.has_value());
 
 	fcppt::optional::maybe_void(
@@ -354,11 +356,11 @@ sge::scenic::render_context::cg::object::fog(
 			sge::scenic::render_context::fog::properties const &_fog
 		)
 		{
-			manager_.fog_start_.set(
+			manager_.get().fog_start_.set(
 				_fog.start().get());
-			manager_.fog_end_.set(
+			manager_.get().fog_end_.set(
 				_fog.end().get());
-			manager_.fog_color_.set(
+			manager_.get().fog_color_.set(
 				sge::scenic::impl::render_context::cg::any_color_to_vector4(
 					_fog.color().get()));
 		}
@@ -373,7 +375,7 @@ sge::scenic::render_context::cg::object::render(
 	context_.get().render_indexed(
 		_index_buffer,
 		sge::renderer::vertex::first(
-			0u
+			0U
 		),
 		sge::renderer::vertex::count(
 			FCPPT_ASSERT_OPTIONAL_ERROR(

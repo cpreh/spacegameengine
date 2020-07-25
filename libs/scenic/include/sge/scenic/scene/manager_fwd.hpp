@@ -7,13 +7,16 @@
 #ifndef SGE_SCENIC_SCENE_MANAGER_FWD_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_MANAGER_FWD_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace scenic
 {
 namespace scene
 {
+
 class manager;
+
 }
 }
 }

@@ -6,10 +6,9 @@
 
 #include <sge/scenic/render_context/manager_base.hpp>
 
+
 sge::scenic::render_context::manager_base::~manager_base()
-{
-}
+= default;
 
 sge::scenic::render_context::manager_base::manager_base()
-{
-}
+= default;

@@ -9,33 +9,47 @@
 
 #include <sge/renderer/cg/scoped_program.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/shader/pair_fwd.hpp>
 #include <sge/shader/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
 namespace shader
 {
+
 class scoped_pair
 {
-	FCPPT_NONCOPYABLE(
-		scoped_pair);
+	FCPPT_NONMOVABLE(
+		scoped_pair
+	);
 public:
+	using
+	pair_ref
+	=
+	fcppt::reference<
+		sge::shader::pair
+	>;
+
 	SGE_SHADER_DETAIL_SYMBOL
 	scoped_pair(
-		sge::renderer::context::core &,
-		sge::shader::pair &);
+		sge::renderer::context::core_ref,
+		pair_ref
+	);
 
 	SGE_SHADER_DETAIL_SYMBOL
 	~scoped_pair();
 private:
-	sge::shader::pair &parent_;
+	pair_ref const parent_;
+
 	sge::renderer::cg::scoped_program scoped_vertex_program_;
+
 	sge::renderer::cg::scoped_program scoped_pixel_program_;
 };
+
 }
 }
 

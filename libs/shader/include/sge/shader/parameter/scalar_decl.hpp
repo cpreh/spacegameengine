@@ -9,10 +9,10 @@
 
 #include <sge/cg/parameter/is_int_float_double.hpp>
 #include <sge/cg/parameter/named.hpp>
-#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/scalar_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -30,7 +30,7 @@ template<
 >
 class scalar
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scalar
 	);
 public:
@@ -46,12 +46,13 @@ public:
 		"Shader parameters must be either bool, int, float or double"
 	);
 
-	typedef
-	ValueType
-	value_type;
+	using
+	value_type
+	=
+	ValueType;
 
 	scalar(
-		sge::cg::program::object &,
+		sge::cg::program::object_ref,
 		sge::shader::parameter::name const &,
 		value_type
 	);
@@ -61,10 +62,11 @@ public:
 		value_type
 	);
 
-	~scalar();
+	~scalar(); // NOLINT(performance-trivially-destructible)
 private:
 	sge::cg::parameter::named const parameter_;
 };
+
 }
 }
 }

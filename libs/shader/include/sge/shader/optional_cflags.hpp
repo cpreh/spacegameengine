@@ -9,13 +9,17 @@
 
 #include <sge/cg/program/compile_options.hpp>
 
+
 namespace sge
 {
 namespace shader
 {
-typedef
-sge::cg::program::compile_options
-optional_cflags;
+
+using
+optional_cflags
+=
+sge::cg::program::compile_options;
+
 }
 }
 

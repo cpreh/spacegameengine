@@ -10,13 +10,20 @@
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/box/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace scenic
 {
-typedef
-fcppt::math::box::object<sge::renderer::scalar,3>
-box;
+
+using
+box
+=
+fcppt::math::box::object<
+	sge::renderer::scalar,
+	3
+>;
+
 }
 }
 

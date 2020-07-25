@@ -5,6 +5,7 @@
 
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/const_base_ref.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
@@ -12,6 +13,7 @@
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
@@ -27,40 +29,58 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <array>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
-fcppt::math::size_type const axis_mappings[3][3] =
-	{
-		{
-			// xz
-			0u,2u,1u
-		},
-		{
-			// xy
-			0u,1u,2u
-		},
-		{
-			// yz
-			2u,0u,1u
-		}
-	};
+
+using
+inner_array
+=
+std::array<
+	fcppt::math::size_type,
+	3
+>;
+
+// TODO(philipp): enum_array
+std::array<
+	inner_array,
+	3
+> const axis_mappings{
+	inner_array{
+		// xz
+		0U,2U,1U
+	},
+	inner_array{
+		// xy
+		0U,1U,2U
+	},
+	inner_array{
+		// yz
+		2U,0U,1U
+	}
+};
 
 sge::renderer::vector3
 permute_vector_according_to_orientation(
 	sge::scenic::grid::orientation const _orientation,
-	sge::renderer::vector3 const &_input)
+	sge::renderer::vector3 const &_input
+)
 {
-	std::size_t const orientation =
-		static_cast<std::size_t>(
-			_orientation);
+	auto const orientation =
+		fcppt::cast::enum_to_int<
+			std::size_t
+		>(
+			_orientation
+		);
 
 	return
 		sge::renderer::vector3(
@@ -72,25 +92,26 @@ permute_vector_according_to_orientation(
 }
 
 sge::scenic::grid::object::object(
-	sge::renderer::device::ffp &_renderer,
-	sge::camera::base const &_camera,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::camera::const_base_ref const _camera,
 	sge::scenic::grid::orientation const _orientation,
 	sge::scenic::grid::rect const &_rect,
 	sge::scenic::grid::spacing const &_spacing,
 	sge::scenic::grid::distance_to_origin const &_distance_to_origin,
-	sge::image::color::any::object const &_color)
+	sge::image::color::any::object const &_color
+)
 :
 	renderer_(
-		_renderer),
+		_renderer
+	),
 	camera_(
-		_camera),
+		_camera
+	),
 	line_drawer_(
 		fcppt::reference_to_base<
 			sge::renderer::device::core
 		>(
-			fcppt::make_ref(
-				_renderer
-			)
+			_renderer
 		)
 	)
 {
@@ -103,7 +124,8 @@ sge::scenic::grid::object::object(
 	for(
 		sge::renderer::scalar y = _rect.pos().y();
 		y <= _rect.pos().y() + _rect.size().h();
-		y += _spacing.get().h())
+		y += _spacing.get().h()
+	)
 	{
 		llock.value().push_back(
 			sge::line_drawer::line(
@@ -126,7 +148,8 @@ sge::scenic::grid::object::object(
 	for(
 		sge::renderer::scalar x = _rect.pos().x();
 		x <= _rect.pos().x() + _rect.size().w();
-		x += _spacing.get().w())
+		x += _spacing.get().w()
+	)
 	{
 		llock.value().push_back(
 			sge::line_drawer::line(
@@ -160,12 +183,14 @@ sge::scenic::grid::object::render(
 			)
 		)
 		==
-		0u
+		0U
 	)
+	{
 		return;
+	}
 
 	fcppt::optional::maybe_void(
-		camera_.projection_matrix(),
+		camera_.get().projection_matrix(),
 		[
 			&_context,
 			&_depth_test,
@@ -175,7 +200,7 @@ sge::scenic::grid::object::render(
 		)
 		{
 			sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_state(
-				renderer_.create_depth_stencil_state(
+				renderer_.get().create_depth_stencil_state(
 					sge::renderer::state::core::depth_stencil::parameters(
 						_depth_test.get()
 						?
@@ -213,7 +238,7 @@ sge::scenic::grid::object::render(
 			);
 
 			sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
-				renderer_.create_transform_state(
+				renderer_.get().create_transform_state(
 					sge::renderer::state::ffp::transform::parameters(
 						_projection.get()
 					)
@@ -221,10 +246,10 @@ sge::scenic::grid::object::render(
 			);
 
 			sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
-				renderer_.create_transform_state(
+				renderer_.get().create_transform_state(
 					sge::renderer::state::ffp::transform::parameters(
 						sge::camera::matrix_conversion::world(
-							camera_.coordinate_system()
+							camera_.get().coordinate_system()
 						)
 					)
 				)
@@ -258,5 +283,4 @@ sge::scenic::grid::object::render(
 }
 
 sge::scenic::grid::object::~object()
-{
-}
+= default;
