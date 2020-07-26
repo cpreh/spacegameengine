@@ -4,12 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_CEGUI_IMPL_OPTIONAL_KEY_SCAN_FWD_HPP_INCLUDED
-#define SGE_CEGUI_IMPL_OPTIONAL_KEY_SCAN_FWD_HPP_INCLUDED
+#ifndef SGE_CEGUI_SCHEME_FILE_HPP_INCLUDED
+#define SGE_CEGUI_SCHEME_FILE_HPP_INCLUDED
 
-#include <fcppt/optional/object_fwd.hpp>
+#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUI/InputEvent.h>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -17,17 +18,12 @@ namespace sge
 {
 namespace cegui
 {
-namespace impl
-{
 
-using
-optional_key_scan
-=
-fcppt::optional::object<
-	CEGUI::Key::Scan
->;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	std::filesystem::path,
+	scheme_file
+);
 
-}
 }
 }
 

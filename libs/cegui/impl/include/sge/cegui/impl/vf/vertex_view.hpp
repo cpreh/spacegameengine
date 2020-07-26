@@ -20,11 +20,12 @@ namespace impl
 namespace vf
 {
 
-typedef
+using
+vertex_view
+=
 sge::renderer::vf::view<
 	sge::cegui::impl::vf::part
->
-vertex_view;
+>;
 
 }
 }

@@ -16,9 +16,10 @@
 #include <sge/renderer/caps/render_target_inverted.hpp>
 #include <sge/renderer/state/ffp/transform/optional_object_unique_ptr.hpp>
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Rect.h>
@@ -44,12 +45,12 @@ class texture_target
 :
 	public CEGUI::TextureTarget
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		texture_target
 	);
 public:
 	texture_target(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::cegui::impl::texture_parameters const &,
 		sge::cegui::impl::optional_render_context_ref const &
 	);
@@ -75,10 +76,12 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	CEGUI::Rectf const &
 	getArea() const
 	override;
 
+	[[nodiscard]]
 	bool
 	isImageryCache() const
 	override;
@@ -103,6 +106,7 @@ private:
 	clear()
 	override;
 
+	[[nodiscard]]
 	CEGUI::Texture &
 	getTexture() const
 	override;
@@ -113,27 +117,30 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	bool
 	isRenderingInverted() const
 	override;
-private:
-	fcppt::log::object &main_log_;
+
+	fcppt::log::object_reference const main_log_;
 
 	fcppt::log::object log_;
 
 	sge::cegui::impl::texture_parameters const texture_parameters_;
 
-	typedef
+	using
+	texture_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::cegui::impl::texture
-	>
-	texture_unique_ptr;
+	>;
 
-	typedef
+	using
+	optional_texture_unique_ptr
+	=
 	fcppt::optional::object<
 		texture_unique_ptr
-	>
-	optional_texture_unique_ptr;
+	>;
 
 	sge::renderer::target::offscreen_unique_ptr const target_;
 

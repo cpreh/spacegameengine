@@ -26,6 +26,7 @@
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
@@ -37,6 +38,7 @@
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
@@ -58,15 +60,15 @@
 
 
 sge::cegui::impl::renderer::renderer(
-	fcppt::log::object &_main_log,
-	sge::cegui::impl::texture_parameters const &_texture_parameters
+	fcppt::log::object_reference const _main_log,
+	sge::cegui::impl::texture_parameters &&_texture_parameters
 )
 :
 	main_log_{
 		_main_log
 	},
 	log_{
-		_main_log,
+		_main_log.get(),
 		sge::log::default_parameters(
 			fcppt::log::name{
 				FCPPT_TEXT("renderer")
@@ -74,14 +76,16 @@ sge::cegui::impl::renderer::renderer(
 		)
 	},
 	texture_parameters_(
-		_texture_parameters
+		std::move(
+			_texture_parameters
+		)
 	),
 	renderer_(
 		texture_parameters_.renderer()
 	),
 	render_context_(),
 	vertex_declaration_(
-		renderer_.create_vertex_declaration(
+		renderer_.get().create_vertex_declaration(
 			sge::renderer::vertex::declaration_parameters(
 				sge::renderer::vf::dynamic::make_format<
 					sge::cegui::impl::vf::format
@@ -91,8 +95,8 @@ sge::cegui::impl::renderer::renderer(
 	),
 	// We initialize that later
 	display_size_(
-		640,
-		480
+		640, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		480 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	),
 	display_dpi_(
 		sge::cegui::impl::to_cegui_vector2(
@@ -105,7 +109,7 @@ sge::cegui::impl::renderer::renderer(
 			>(
 				fcppt::math::dim::to_vector(
 					sge::renderer::display_mode::to_dpi(
-						renderer_.display_mode()
+						renderer_.get().display_mode()
 					)
 				)
 			)
@@ -115,9 +119,11 @@ sge::cegui::impl::renderer::renderer(
 		"sge renderer"
 	),
 	default_target_(
-		_main_log,
+		_main_log.get(),
 		renderer_,
-		render_context_
+		fcppt::make_cref(
+			render_context_
+		)
 	),
 	geometry_buffers_(),
 	texture_targets_(),
@@ -131,8 +137,7 @@ sge::cegui::impl::renderer::renderer(
 }
 
 sge::cegui::impl::renderer::~renderer()
-{
-}
+= default;
 
 void
 sge::cegui::impl::renderer::render_context(
@@ -147,7 +152,7 @@ sge::renderer::device::ffp &
 sge::cegui::impl::renderer::impl() const
 {
 	return
-		renderer_;
+		renderer_.get();
 }
 
 CEGUI::RenderTarget &
@@ -170,10 +175,14 @@ sge::cegui::impl::renderer::createGeometryBuffer()
 		fcppt::make_unique_ptr<
 			sge::cegui::impl::geometry_buffer
 		>(
-			main_log_,
+			main_log_.get(),
 			renderer_,
-			*vertex_declaration_,
-			render_context_
+			fcppt::make_cref(
+				*vertex_declaration_
+			),
+			fcppt::make_cref(
+				render_context_
+			)
 		)
 	);
 
@@ -192,7 +201,7 @@ sge::cegui::impl::renderer::destroyGeometryBuffer(
 			<< FCPPT_TEXT("destroyGeometryBuffer()")
 	)
 
-	sge::cegui::impl::geometry_buffer const &sge_buffer(
+	auto const &sge_buffer(
 		dynamic_cast<
 			sge::cegui::impl::geometry_buffer const &
 		>(
@@ -271,7 +280,7 @@ sge::cegui::impl::renderer::destroyTextureTarget(
 		_texture
 	);
 
-	sge::cegui::impl::texture_target &sge_target(
+	auto &sge_target(
 		dynamic_cast<
 			sge::cegui::impl::texture_target &
 		>(
@@ -327,7 +336,7 @@ sge::cegui::impl::renderer::createTexture(
 			fcppt::make_unique_ptr<
 				sge::cegui::impl::texture
 			>(
-				main_log_,
+				main_log_.get(),
 				texture_parameters_,
 				_name
 			)
@@ -382,7 +391,7 @@ sge::cegui::impl::renderer::createTexture(
 			fcppt::make_unique_ptr<
 				sge::cegui::impl::texture
 			>(
-				main_log_,
+				main_log_.get(),
 				texture_parameters_,
 				_name
 			)
@@ -423,7 +432,7 @@ sge::cegui::impl::renderer::createTexture(
 			fcppt::make_unique_ptr<
 				sge::cegui::impl::texture
 			>(
-				main_log_,
+				main_log_.get(),
 				texture_parameters_,
 				_name,
 				_size,
@@ -437,7 +446,7 @@ sge::cegui::impl::renderer::destroyTexture(
 	CEGUI::Texture &_texture
 )
 {
-	sge::cegui::impl::texture &sge_texture(
+	auto &sge_texture(
 		dynamic_cast<
 			sge::cegui::impl::texture &
 		>(
@@ -499,7 +508,7 @@ sge::cegui::impl::renderer::destroyTexture(
 	FCPPT_ASSERT_ERROR_MESSAGE(
 		textures_.erase(
 			_name
-		) == 1u,
+		) == 1U,
 		FCPPT_TEXT("Tried to destroy a texture by name which was not registered")
 	);
 }
@@ -547,7 +556,7 @@ sge::cegui::impl::renderer::isTextureDefined(
 		textures_.count(
 			_name
 		)
-		== 1u
+		== 1U
 		;
 }
 
@@ -621,7 +630,7 @@ sge::cegui::impl::renderer::setDisplaySize(
 				>,
 				fcppt::cast::int_to_float_fun
 			>(
-				renderer_.onscreen_target().viewport().get()
+				renderer_.get().onscreen_target().viewport().get()
 			)
 		)
 	);
@@ -649,8 +658,8 @@ sge::cegui::impl::renderer::getMaxTextureSize() const
 			CEGUI::uint
 		>(
 			std::min(
-				renderer_.caps().max_texture_size().get().w(),
-				renderer_.caps().max_texture_size().get().h()
+				renderer_.get().caps().max_texture_size().get().w(),
+				renderer_.get().caps().max_texture_size().get().h()
 			)
 		);
 }
@@ -668,12 +677,13 @@ sge::cegui::impl::renderer::insert_texture(
 	sge::cegui::impl::renderer::texture_unique_ptr _ptr
 )
 {
-	typedef
+	using
+	result_type
+	=
 	std::pair<
 		sge::cegui::impl::renderer::texture_map::iterator,
 		bool
-	>
-	result_type;
+	>;
 
 	result_type const result(
 		textures_.insert(

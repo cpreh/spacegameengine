@@ -30,6 +30,7 @@ sge::cegui::exception::exception(
 sge::cegui::exception::exception(
 	exception &&
 )
+noexcept
 = default;
 
 sge::cegui::exception::exception(
@@ -41,6 +42,7 @@ sge::cegui::exception &
 sge::cegui::exception::operator=(
 	exception &&
 )
+noexcept
 = default;
 
 sge::cegui::exception &
@@ -49,6 +51,6 @@ sge::cegui::exception::operator=(
 )
 = default;
 
-sge::cegui::exception::~exception() noexcept
-{
-}
+sge::cegui::exception::~exception()
+noexcept
+= default;

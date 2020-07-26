@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_CEGUI_IMPL_VF_POSITION_HPP_INCLUDED
-#define SGE_CEGUI_IMPL_VF_POSITION_HPP_INCLUDED
+#ifndef SGE_CEGUI_IMPL_RENDERER_REF_HPP_INCLUDED
+#define SGE_CEGUI_IMPL_RENDERER_REF_HPP_INCLUDED
 
-#include <sge/cegui/unit.hpp>
-#include <sge/renderer/vf/pos.hpp>
+#include <sge/cegui/impl/renderer_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -17,18 +17,14 @@ namespace cegui
 {
 namespace impl
 {
-namespace vf
-{
 
 using
-position
+renderer_ref
 =
-sge::renderer::vf::pos<
-	sge::cegui::unit,
-	3
+fcppt::reference<
+	sge::cegui::impl::renderer
 >;
 
-}
 }
 }
 }

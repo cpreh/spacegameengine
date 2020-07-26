@@ -5,29 +5,33 @@
 
 
 #include <sge/cegui/system.hpp>
+#include <sge/cegui/system_ref.hpp>
 #include <sge/cegui/toolbox/scoped_gui_sheet.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GUIContext.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::toolbox::scoped_gui_sheet::scoped_gui_sheet(
-	sge::cegui::system &_system,
-	CEGUI::Window &_window
+	sge::cegui::system_ref const _system,
+	fcppt::reference<
+		CEGUI::Window
+	> const _window
 )
 :
-	system_(
+	system_{
 		_system
-	)
+	}
 {
-	system_.gui_context().setRootWindow(
-		&_window
+	system_.get().gui_context().setRootWindow(
+		&_window.get()
 	);
 }
 
 sge::cegui::toolbox::scoped_gui_sheet::~scoped_gui_sheet()
 {
-	system_.gui_context().setRootWindow(
+	system_.get().gui_context().setRootWindow(
 		nullptr
 	);
 }

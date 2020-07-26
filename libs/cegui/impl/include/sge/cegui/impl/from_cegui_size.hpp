@@ -25,7 +25,7 @@ template<
 >
 fcppt::math::dim::static_<
 	ValueType,
-	2u
+	2U
 >
 from_cegui_size(
 	CEGUI::Size<
@@ -36,7 +36,7 @@ from_cegui_size(
 	return
 		fcppt::math::dim::static_<
 			ValueType,
-			2u
+			2U
 		>{
 			_size.d_width,
 			_size.d_height

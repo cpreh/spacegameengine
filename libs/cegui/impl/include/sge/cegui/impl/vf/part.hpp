@@ -22,13 +22,14 @@ namespace impl
 namespace vf
 {
 
-typedef
+using
+part
+=
 sge::renderer::vf::part<
 	sge::cegui::impl::vf::position,
 	sge::cegui::impl::vf::texcoord,
 	sge::cegui::impl::vf::color
->
-part;
+>;
 
 }
 }

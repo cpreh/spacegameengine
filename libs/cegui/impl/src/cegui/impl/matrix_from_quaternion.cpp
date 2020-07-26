@@ -15,28 +15,27 @@
 
 sge::renderer::matrix4
 sge::cegui::impl::matrix_from_quaternion(
-	CEGUI::Quaternion const _quat
+	CEGUI::Quaternion const &_quat
 )
 {
-	sge::renderer::scalar const
-		s = _quat.d_w,
-		x = _quat.d_x,
-		y = _quat.d_y,
-		z = _quat.d_z;
+	sge::renderer::scalar const s = _quat.d_w;
+	sge::renderer::scalar const x = _quat.d_x;
+	sge::renderer::scalar const y = _quat.d_y;
+	sge::renderer::scalar const z = _quat.d_z;
 
 	return
 		sge::renderer::matrix4(
 			fcppt::math::matrix::row(
-				1-2*(y*y + z*z), 2*x*y-2*s*z, 2*s*y + 2*x*z, 0.f
+				1-2*(y*y + z*z), 2*x*y-2*s*z, 2*s*y + 2*x*z, 0.F
 			),
 			fcppt::math::matrix::row(
-				2*x*y+2*s*z, 1-2*(x*x + z*z),-2*s*x+2*y*z,0.f
+				2*x*y+2*s*z, 1-2*(x*x + z*z),-2*s*x+2*y*z,0.F
 			),
 			fcppt::math::matrix::row(
-				-2*s*y + 2*x*z,2*s*x+2*y*z,1-2*(x*x+y*y),0.f
+				-2*s*y + 2*x*z,2*s*x+2*y*z,1-2*(x*x+y*y),0.F
 			),
 			fcppt::math::matrix::row(
-				0.f,0.f,0.f,1.f
+				0.F,0.F,0.F,1.F
 			)
 		);
 }

@@ -13,9 +13,10 @@ namespace sge
 namespace cegui
 {
 
-typedef
-float
-unit;
+using
+unit
+=
+float;
 
 }
 }

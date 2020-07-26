@@ -9,11 +9,11 @@
 #include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/impl/detail/system_impl.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/viewport/manager_fwd.hpp>
+#include <sge/viewport/manager_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -24,9 +24,9 @@
 sge::cegui::system::system(
 	fcppt::log::context_reference const _log_context,
 	sge::cegui::load_context const &_load_context,
-	sge::renderer::device::ffp &_renderer,
-	sge::image2d::system &_image_system,
-	sge::viewport::manager &_viewport_manager,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::image2d::system_ref const _image_system,
+	sge::viewport::manager_ref const _viewport_manager,
 	sge::cegui::cursor_visibility const _cursor_visibility,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
@@ -48,8 +48,7 @@ sge::cegui::system::system(
 }
 
 sge::cegui::system::~system()
-{
-}
+= default;
 
 void
 sge::cegui::system::update(
@@ -72,14 +71,14 @@ sge::cegui::system::render(
 }
 
 CEGUI::WindowManager &
-sge::cegui::system::window_manager()
+sge::cegui::system::window_manager() // NOLINT(readability-convert-member-functions-to-static)
 {
 	return
 		CEGUI::WindowManager::getSingleton();
 }
 
 CEGUI::WindowManager const &
-sge::cegui::system::window_manager() const
+sge::cegui::system::window_manager() const // NOLINT(readability-convert-member-functions-to-static)
 {
 	return
 		CEGUI::WindowManager::getSingleton();

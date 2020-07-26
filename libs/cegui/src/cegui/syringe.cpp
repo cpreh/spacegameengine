@@ -7,6 +7,7 @@
 #include <sge/cegui/log_location.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
+#include <sge/cegui/system_ref.hpp>
 #include <sge/cegui/unit.hpp>
 #include <sge/cegui/impl/convert_cursor_button.hpp>
 #include <sge/cegui/impl/convert_key.hpp>
@@ -45,7 +46,7 @@ namespace
 
 sge::cegui::impl::optional_key_scan
 process_key_code(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::input::key::code,
 	sge::cegui::impl::optional_key_scan const &
 );
@@ -54,11 +55,11 @@ process_key_code(
 
 sge::cegui::syringe::syringe(
 	fcppt::log::context_reference const _log_context,
-	sge::cegui::system &_system
+	sge::cegui::system_ref const _system
 )
 :
 	gui_context_{
-		_system.gui_context()
+		_system.get().gui_context()
 	},
 	log_{
 		_log_context,
@@ -73,8 +74,7 @@ sge::cegui::syringe::syringe(
 }
 
 sge::cegui::syringe::~syringe()
-{
-}
+= default;
 
 void
 sge::cegui::syringe::inject(
@@ -99,13 +99,17 @@ sge::cegui::syringe::inject(
 			if(
 				_event.pressed()
 			)
+			{
 				gui_context_.injectKeyDown(
 					_scan
 				);
+			}
 			else
+			{
 				gui_context_.injectKeyUp(
 					_scan
 				);
+			}
 		}
 	);
 }
@@ -153,9 +157,11 @@ sge::cegui::syringe::inject(
 			_event.get()
 		)
 	)
+	{
 		gui_context_.injectChar(
 			element
 		);
+	}
 }
 
 void
@@ -193,18 +199,24 @@ sge::cegui::syringe::inject(
 				==
 				CEGUI::NoButton
 			)
+			{
 				return;
+			}
 
 			if(
 				_event.pressed()
 			)
+			{
 				gui_context_.injectMouseButtonDown(
 					_button
 				);
+			}
 			else
+			{
 				gui_context_.injectMouseButtonUp(
 					_button
 				);
+			}
 		}
 	);
 }
@@ -219,7 +231,7 @@ sge::cegui::syringe::inject(
 		[
 			this
 		](
-			sge::input::cursor::position const _position
+			sge::input::cursor::position const &_position
 		)
 		{
 			this->inject(

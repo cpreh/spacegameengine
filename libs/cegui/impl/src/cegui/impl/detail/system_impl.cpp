@@ -11,21 +11,25 @@
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/impl/log_name.hpp>
+#include <sge/cegui/impl/prefix.hpp>
 #include <sge/cegui/impl/scoped_render_context.hpp>
 #include <sge/cegui/impl/texture_parameters.hpp>
 #include <sge/cegui/impl/to_cegui_rect.hpp>
 #include <sge/cegui/impl/detail/system_impl.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/manager.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -56,7 +60,6 @@
 #include <CEGUI/Scheme.h>
 #include <CEGUI/System.h>
 #include <CEGUI/falagard/WidgetLookManager.h>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -66,9 +69,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::cegui::detail::system_impl::system_impl(
 	fcppt::log::context_reference const _log_context,
 	sge::cegui::load_context const &_load_context,
-	sge::renderer::device::ffp &_renderer,
-	sge::image2d::system &_image_system,
-	sge::viewport::manager &_viewport_manager,
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::image2d::system_ref const _image_system,
+	sge::viewport::manager_ref const _viewport_manager,
 	sge::cegui::cursor_visibility const _cursor_visibility,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
@@ -95,9 +98,13 @@ sge::cegui::detail::system_impl::system_impl(
 		main_log_
 	),
 	renderer_{
-		main_log_,
+		fcppt::make_ref(
+			main_log_
+		),
 		sge::cegui::impl::texture_parameters(
-			prefix_,
+			sge::cegui::impl::prefix{
+				prefix_
+			},
 			_image_system,
 			_renderer,
 			_emulate_srgb
@@ -110,21 +117,32 @@ sge::cegui::detail::system_impl::system_impl(
 		main_log_
 	},
 	scoped_system_(
-		renderer_,
-		image_codec_,
-		resource_provider_
+		fcppt::make_ref(
+			renderer_
+		),
+		fcppt::make_ref(
+			image_codec_
+		),
+		fcppt::make_ref(
+			resource_provider_
+		)
 	),
 	gui_context_(
 		renderer_.getDefaultRenderTarget()
 	),
 	viewport_change_connection_(
-		_viewport_manager.manage_callback(
+		_viewport_manager.get().manage_callback(
 			sge::viewport::manage_callback{
-				std::bind(
-					&sge::cegui::detail::system_impl::viewport_change,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					sge::renderer::target::viewport const &_viewport
 				)
+				{
+					this->viewport_change(
+						_viewport
+					);
+				}
 			}
 		)
 	),
@@ -203,7 +221,9 @@ sge::cegui::detail::system_impl::system_impl(
 		==
 		sge::cegui::cursor_visibility::invisible
 	)
+	{
 		gui_context_.getMouseCursor().hide();
+	}
 
 	fcppt::optional::maybe_void(
 		_load_context.default_font(),
@@ -216,7 +236,7 @@ sge::cegui::detail::system_impl::system_impl(
 			gui_context_.setDefaultFont(
 				&CEGUI::FontManager::getSingleton().createFreeTypeFont(
 					"",
-					_default_font.font_size(),
+					_default_font.font_size().get(),
 					true,
 					cegui::to_cegui_string(
 						fcppt::filesystem::path_to_string(
@@ -229,14 +249,13 @@ sge::cegui::detail::system_impl::system_impl(
 	);
 
 	this->viewport_change(
-		_viewport_manager.viewport()
+		_viewport_manager.get().viewport()
 	);
 }
 FCPPT_PP_POP_WARNING
 
 sge::cegui::detail::system_impl::~system_impl()
-{
-}
+= default;
 
 void
 sge::cegui::detail::system_impl::update(
@@ -254,8 +273,12 @@ sge::cegui::detail::system_impl::render(
 )
 {
 	sge::cegui::impl::scoped_render_context const context(
-		renderer_,
-		_context
+		fcppt::make_ref(
+			renderer_
+		),
+		fcppt::make_ref(
+			_context
+		)
 	);
 
 	gui_context_.draw();
@@ -295,7 +318,7 @@ sge::cegui::detail::system_impl::viewport_change(
 					fcppt::math::dim::fill<
 						sge::renderer::pixel_rect::dim
 					>(
-						10u
+						10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 					)
 				)
 			);
@@ -311,7 +334,9 @@ sge::cegui::detail::system_impl::viewport_change(
 		==
 		_viewport
 	)
+	{
 		return;
+	}
 
 	CEGUI::Rectf const new_area_cegui(
 		sge::cegui::impl::to_cegui_rect(
@@ -330,7 +355,7 @@ sge::cegui::detail::system_impl::viewport_change(
 		new_area_cegui.getSize()
 	);
 
-	// TODO:
+	// TODO(philipp):
 	// We have to reset this manually. The cursor does receive its own
 	// "notifyDisplaySizeChanged" but that (deliberately?) doesn't
 	// update the constraint area

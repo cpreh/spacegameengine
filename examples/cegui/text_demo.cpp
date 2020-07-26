@@ -10,6 +10,7 @@
 #include <sge/cegui/duration.hpp>
 #include <sge/cegui/load_context.hpp>
 #include <sge/cegui/log_location.hpp>
+#include <sge/cegui/scheme_file.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/unit.hpp>
@@ -185,35 +186,49 @@ try
 	sge::cegui::system gui_sys(
 		sys.log_context(),
 		sge::cegui::load_context(
-			sge::config::media_path()
-			/
-			FCPPT_TEXT("gui")
-			/
-			FCPPT_TEXT("TaharezLook.scheme")
+			sge::cegui::scheme_file{
+				sge::config::media_path()
+				/
+				FCPPT_TEXT("gui")
+				/
+				FCPPT_TEXT("TaharezLook.scheme")
+			}
 		)
 		.font_directory(
 			sge::config::media_path()
 			/
 			FCPPT_TEXT("fonts")
 		),
-		sys.renderer_device_ffp(),
-		sys.image_system(),
-		sys.viewport_manager(),
+		fcppt::make_ref(
+			sys.renderer_device_ffp()
+		),
+		fcppt::make_ref(
+			sys.image_system()
+		),
+		fcppt::make_ref(
+			sys.viewport_manager()
+		),
 		sge::cegui::cursor_visibility::visible,
 		sge::renderer::texture::emulate_srgb::yes
 	);
 
 	sge::cegui::syringe gui_syringe(
 		sys.log_context(),
-		gui_sys
+		fcppt::make_ref(
+			gui_sys
+		)
 	);
 
 	sge::cegui::default_cursor gui_cursor{
-		gui_syringe
+		fcppt::make_ref(
+			gui_syringe
+		)
 	};
 
 	sge::cegui::default_focus gui_focus{
-		gui_syringe
+		fcppt::make_ref(
+			gui_syringe
+		)
 	};
 
 	sge::timer::basic<
@@ -229,7 +244,9 @@ try
 	);
 
 	sge::cegui::toolbox::scoped_layout scoped_layout(
-		gui_sys,
+		fcppt::make_ref(
+			gui_sys
+		),
 		sge::config::media_path()
 		/
 		FCPPT_TEXT("gui")
@@ -238,8 +255,12 @@ try
 	);
 
 	sge::cegui::toolbox::scoped_gui_sheet const scoped_gui_sheet(
-		gui_sys,
-		scoped_layout.window()
+		fcppt::make_ref(
+			gui_sys
+		),
+		fcppt::make_ref(
+			scoped_layout.window()
+		)
 	);
 
 	auto const draw(

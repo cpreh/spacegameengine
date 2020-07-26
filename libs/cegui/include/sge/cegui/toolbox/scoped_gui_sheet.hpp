@@ -7,9 +7,10 @@
 #ifndef SGE_CEGUI_TOOLBOX_SCOPED_GUI_SHEET_HPP_INCLUDED
 #define SGE_CEGUI_TOOLBOX_SCOPED_GUI_SHEET_HPP_INCLUDED
 
-#include <sge/cegui/system_fwd.hpp>
+#include <sge/cegui/system_ref.hpp>
 #include <sge/cegui/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace CEGUI
@@ -26,20 +27,22 @@ namespace toolbox
 
 class scoped_gui_sheet
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_gui_sheet
 	);
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	scoped_gui_sheet(
-		sge::cegui::system &,
-		CEGUI::Window &
+		sge::cegui::system_ref,
+		fcppt::reference<
+			CEGUI::Window
+		>
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	~scoped_gui_sheet();
 private:
-	sge::cegui::system &system_;
+	sge::cegui::system_ref const system_;
 };
 
 }

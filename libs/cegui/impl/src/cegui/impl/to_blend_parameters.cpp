@@ -39,7 +39,7 @@ sge::cegui::impl::to_blend_parameters(
 			);
 	case CEGUI::BM_NORMAL:
 		return
-			// TODO: Check if this is supported!
+			// TODO(philipp): Check if this is supported!
 			sge::renderer::state::core::blend::alpha_enabled(
 				sge::renderer::state::core::blend::separate(
 					sge::renderer::state::core::blend::color_source(

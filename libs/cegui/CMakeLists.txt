@@ -33,6 +33,7 @@ set(
 	libs/cegui/impl/include/sge/cegui/impl/prefix.hpp
 	libs/cegui/impl/include/sge/cegui/impl/renderer.hpp
 	libs/cegui/impl/include/sge/cegui/impl/renderer_fwd.hpp
+	libs/cegui/impl/include/sge/cegui/impl/renderer_ref.hpp
 	libs/cegui/impl/include/sge/cegui/impl/resource_provider.hpp
 	libs/cegui/impl/include/sge/cegui/impl/resource_provider_fwd.hpp
 	libs/cegui/impl/include/sge/cegui/impl/scoped_render_context.hpp
@@ -85,13 +86,17 @@ set(
 	libs/cegui/include/sge/cegui/detail/system_impl_fwd.hpp
 	libs/cegui/include/sge/cegui/duration.hpp
 	libs/cegui/include/sge/cegui/exception.hpp
+	libs/cegui/include/sge/cegui/font_size.hpp
 	libs/cegui/include/sge/cegui/load_context.hpp
 	libs/cegui/include/sge/cegui/load_context_fwd.hpp
 	libs/cegui/include/sge/cegui/log_location.hpp
+	libs/cegui/include/sge/cegui/scheme_file.hpp
 	libs/cegui/include/sge/cegui/syringe.hpp
 	libs/cegui/include/sge/cegui/syringe_fwd.hpp
+	libs/cegui/include/sge/cegui/syringe_ref.hpp
 	libs/cegui/include/sge/cegui/system.hpp
 	libs/cegui/include/sge/cegui/system_fwd.hpp
+	libs/cegui/include/sge/cegui/system_ref.hpp
 	libs/cegui/include/sge/cegui/to_cegui_color.hpp
 	libs/cegui/include/sge/cegui/to_cegui_string.hpp
 	libs/cegui/include/sge/cegui/to_fcppt_string.hpp

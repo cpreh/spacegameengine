@@ -5,6 +5,7 @@
 
 
 #include <sge/cegui/system.hpp>
+#include <sge/cegui/system_ref.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/toolbox/scoped_layout.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -15,7 +16,7 @@
 
 
 sge::cegui::toolbox::scoped_layout::scoped_layout(
-	sge::cegui::system &_system,
+	sge::cegui::system_ref const _system,
 	std::filesystem::path const &_path
 )
 :
@@ -23,7 +24,7 @@ sge::cegui::toolbox::scoped_layout::scoped_layout(
 		_system
 	),
 	window_(
-		system_.window_manager().loadLayoutFromFile(
+		system_.get().window_manager().loadLayoutFromFile(
 			sge::cegui::to_cegui_string(
 				fcppt::filesystem::path_to_string(
 					_path
@@ -39,7 +40,7 @@ sge::cegui::toolbox::scoped_layout::scoped_layout(
 
 sge::cegui::toolbox::scoped_layout::~scoped_layout()
 {
-	system_.window_manager().destroyWindow(
+	system_.get().window_manager().destroyWindow(
 		window_
 	);
 }

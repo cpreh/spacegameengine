@@ -12,12 +12,15 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
+#include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/filesystem/open.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/from.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <filesystem>
@@ -53,17 +56,17 @@ sge::cegui::impl::resource_provider::loadRawDataContainer(
 	CEGUI::String const &resource_group
 )
 {
-	std::wstring const
-		converted_filename(
-			sge::cegui::to_wstring(
-				filename
-			)
-		),
-		converted_resource_group(
-			sge::cegui::to_wstring(
-				resource_group
-			)
-		);
+	std::wstring const converted_filename(
+		sge::cegui::to_wstring(
+			filename
+		)
+	);
+
+	std::wstring const converted_resource_group(
+		sge::cegui::to_wstring(
+			resource_group
+		)
+	);
 
 	FCPPT_LOG_DEBUG(
 		log_,
@@ -115,47 +118,76 @@ sge::cegui::impl::resource_provider::loadRawDataContainer(
 	);
 
 	std::ifstream file_stream(
-		load_path,
-		std::ios::binary);
-
-	// TODO: filesystem::open
-	if(!file_stream.is_open())
-		throw sge::cegui::exception(
-			FCPPT_TEXT("Coudn't open file \"")+
-			fcppt::filesystem::path_to_string(
-				load_path)+
-			FCPPT_TEXT("\""));
+		fcppt::optional::to_exception(
+			fcppt::filesystem::open<
+				std::ifstream
+			>(
+				load_path,
+				std::ios::binary
+			),
+			[
+				&load_path
+			]{
+				return
+					sge::cegui::exception(
+						FCPPT_TEXT("Coudn't open file \"")
+						+
+						fcppt::filesystem::path_to_string(
+							load_path
+						)
+						+
+						FCPPT_TEXT("\"")
+					);
+			}
+		)
+	);
 
 	file_stream.seekg(
 		0,
-		std::ios_base::end);
+		std::ios_base::end
+	);
 
-	std::streampos const filesize =
-		file_stream.tellg();
+	std::streampos const filesize{
+		file_stream.tellg()
+	};
 
 	// FIXME
-	CEGUI::uint8 *data = new CEGUI::uint8[static_cast<std::size_t>(filesize)];
+	auto *data = new CEGUI::uint8[static_cast<std::size_t>(filesize)];
 
 	file_stream.seekg(
 		0,
-		std::ios_base::beg);
+		std::ios_base::beg
+	);
 
 	file_stream.read(
-		reinterpret_cast<char*>(
-			data),
-		static_cast<std::streamsize>(
-			filesize));
+		fcppt::cast::to_char_ptr<
+			char *
+		>(
+			data
+		),
+		static_cast<
+			std::streamsize
+		>(
+			filesize
+		)
+	);
 
 	output.setData(
-		data);
+		data
+	);
+
 	output.setSize(
-		static_cast<std::size_t>(
-			filesize));
+		static_cast<
+			std::size_t
+		>(
+			filesize
+		)
+	);
 }
 
 void
 sge::cegui::impl::resource_provider::unloadRawDataContainer(
-	CEGUI::RawDataContainer &data
+	CEGUI::RawDataContainer &_data
 )
 {
 	FCPPT_LOG_DEBUG(
@@ -164,26 +196,27 @@ sge::cegui::impl::resource_provider::unloadRawDataContainer(
 			<< FCPPT_TEXT("unloadRawDataContainer()")
 	)
 
-	data.release();
+	_data.release();
 }
 
 size_t
 sge::cegui::impl::resource_provider::getResourceGroupFileNames(
-	std::vector<CEGUI::String>&,
-	CEGUI::String const &file_pattern,
-	CEGUI::String const &resource_group)
+	std::vector<CEGUI::String> &,
+	CEGUI::String const &_file_pattern,
+	CEGUI::String const &_resource_group
+)
 {
-	std::wstring const
-		converted_file_pattern(
-			sge::cegui::to_wstring(
-				file_pattern
-			)
-		),
-		converted_resource_group(
-			sge::cegui::to_wstring(
-				resource_group
-			)
-		);
+	std::wstring const converted_file_pattern(
+		sge::cegui::to_wstring(
+			_file_pattern
+		)
+	);
+
+	std::wstring const converted_resource_group(
+		sge::cegui::to_wstring(
+			_resource_group
+		)
+	);
 
 	FCPPT_LOG_DEBUG(
 		log_,
@@ -226,5 +259,4 @@ sge::cegui::impl::resource_provider::getResourceGroupFileNames(
 }
 
 sge::cegui::impl::resource_provider::~resource_provider()
-{
-}
+= default;

@@ -7,7 +7,7 @@
 #ifndef SGE_CEGUI_IMPL_RESOURCE_PROVIDER_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_RESOURCE_PROVIDER_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/ResourceProvider.h>
@@ -15,7 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace cegui
+namespace CEGUI
 {
 class RawDataContainer;
 class String;
@@ -32,14 +32,14 @@ class resource_provider
 :
 	public CEGUI::ResourceProvider
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		resource_provider
 	);
 public:
 	explicit
 	resource_provider(
-		fcppt::log::object &
-	);
+		fcppt::log::object & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	~resource_provider()
 	override;
@@ -58,9 +58,10 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	size_t
 	getResourceGroupFileNames(
-		std::vector<CEGUI::String>& out_vec,
+		std::vector<CEGUI::String>& out_vec, // NOLINT(google-runtime-references)
 		CEGUI::String const &file_pattern,
 		CEGUI::String const &resource_group
 	)

@@ -16,11 +16,12 @@ template<
 >
 class Rect;
 
-typedef
+using
+Rectf
+=
 CEGUI::Rect<
 	float
->
-Rectf;
+>;
 
 }
 

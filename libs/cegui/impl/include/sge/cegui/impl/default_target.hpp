@@ -9,9 +9,10 @@
 
 #include <sge/cegui/impl/optional_render_context_ref.hpp>
 #include <sge/cegui/impl/fwds/vector2f_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/transform/optional_object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Rect.h>
@@ -36,14 +37,16 @@ class default_target
 :
 	public CEGUI::RenderTarget
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		default_target
 	);
 public:
 	default_target(
-		fcppt::log::object &,
-		sge::renderer::device::ffp &,
-		sge::cegui::impl::optional_render_context_ref const &
+		fcppt::log::object &, // NOLINT)google-runtime-references)
+		sge::renderer::device::ffp_ref,
+		fcppt::reference<
+			sge::cegui::impl::optional_render_context_ref const
+		>
 	);
 
 	~default_target()
@@ -67,10 +70,12 @@ public:
 	)
 	override;
 private:
+	[[nodiscard]]
 	CEGUI::Rectf const &
 	getArea() const
 	override;
 
+	[[nodiscard]]
 	bool
 	isImageryCache() const
 	override;
@@ -93,13 +98,15 @@ private:
 
 	fcppt::log::object log_;
 
-	sge::renderer::device::ffp &renderer_;
+	sge::renderer::device::ffp_ref const renderer_;
 
 	CEGUI::Rectf viewport_;
 
 	sge::renderer::state::ffp::transform::optional_object_unique_ptr transform_;
 
-	sge::cegui::impl::optional_render_context_ref const &render_context_;
+	fcppt::reference<
+		sge::cegui::impl::optional_render_context_ref const
+	> const render_context_;
 };
 
 }

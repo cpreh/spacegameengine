@@ -18,11 +18,12 @@ namespace cegui
 namespace impl
 {
 
-typedef
+using
+optional_render_context_ref
+=
 fcppt::optional::reference<
 	sge::renderer::context::ffp
->
-optional_render_context_ref;
+>;
 
 }
 }

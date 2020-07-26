@@ -16,11 +16,12 @@
 #include <sge/cegui/impl/fwds/vector3f_fwd.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
-#include <sge/renderer/vertex/declaration_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -49,15 +50,17 @@ class geometry_buffer
 :
 	public CEGUI::GeometryBuffer
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		geometry_buffer
 	);
 public:
 	geometry_buffer(
-		fcppt::log::object &,
-		sge::renderer::device::ffp &,
-		sge::renderer::vertex::declaration const &,
-		sge::cegui::impl::optional_render_context_ref const &
+		fcppt::log::object &, // NOLINT(google-runtime-references)
+		sge::renderer::device::ffp_ref,
+		sge::renderer::vertex::const_declaration_ref,
+		fcppt::reference<
+			sge::cegui::impl::optional_render_context_ref const
+		>
 	);
 
 	~geometry_buffer()
@@ -114,14 +117,17 @@ private:
 	reset()
 	override;
 
+	[[nodiscard]]
 	CEGUI::Texture *
 	getActiveTexture() const
 	override;
 
+	[[nodiscard]]
 	CEGUI::uint
 	getVertexCount() const
 	override;
 
+	[[nodiscard]]
 	CEGUI::uint
 	getBatchCount() const
 	override;
@@ -132,6 +138,7 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	CEGUI::RenderEffect *
 	getRenderEffect()
 	override;
@@ -142,29 +149,32 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	bool
 	isClippingActive() const
 	override;
-private:
+
 	mutable fcppt::log::object log_;
 
-	typedef
+	using
+	batch_sequence
+	=
 	std::vector<
 		sge::cegui::impl::batch
-	>
-	batch_sequence;
+	>;
 
 	batch_sequence batches_;
 
-	sge::renderer::device::ffp &renderer_;
+	sge::renderer::device::ffp_ref const renderer_;
 
-	sge::renderer::vertex::declaration const &vertex_declaration_;
+	sge::renderer::vertex::const_declaration_ref const vertex_declaration_;
 
-	typedef
+	using
+	optional_texture_ref
+	=
 	fcppt::optional::reference<
 		sge::cegui::impl::texture
-	>
-	optional_texture_ref;
+	>;
 
 	optional_texture_ref active_texture_;
 
@@ -176,15 +186,18 @@ private:
 
 	sge::renderer::target::scissor_area scissor_area_;
 
-	sge::cegui::impl::optional_render_context_ref const &render_context_;
+	fcppt::reference<
+		sge::cegui::impl::optional_render_context_ref const
+	> const render_context_;
 
 	sge::cegui::impl::clip clip_;
 
-	typedef
+	using
+	optional_render_effect_ref
+	=
 	fcppt::optional::reference<
 		CEGUI::RenderEffect
-	>
-	optional_render_effect_ref;
+	>;
 
 	optional_render_effect_ref render_effect_;
 

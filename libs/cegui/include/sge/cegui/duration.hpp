@@ -18,12 +18,12 @@ namespace sge
 namespace cegui
 {
 
-typedef
-std::chrono::duration
-<
+using
+duration
+=
+std::chrono::duration<
 	sge::cegui::unit
->
-duration;
+>;
 
 }
 }

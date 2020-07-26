@@ -8,7 +8,7 @@
 #define SGE_CEGUI_SYRINGE_HPP_INCLUDED
 
 #include <sge/cegui/syringe_fwd.hpp>
-#include <sge/cegui/system_fwd.hpp>
+#include <sge/cegui/system_ref.hpp>
 #include <sge/cegui/detail/symbol.hpp>
 #include <sge/input/cursor/position_fwd.hpp>
 #include <sge/input/cursor/event/button_fwd.hpp>
@@ -17,7 +17,7 @@
 #include <sge/input/focus/event/key_fwd.hpp>
 #include <sge/input/focus/event/key_repeat_fwd.hpp>
 #include <sge/input/focus/event/text_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
@@ -35,14 +35,14 @@ namespace cegui
 
 class syringe
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		syringe
 	);
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	syringe(
 		fcppt::log::context_reference,
-		sge::cegui::system &
+		sge::cegui::system_ref
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL

@@ -30,7 +30,9 @@
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/blend/object.hpp>
@@ -54,6 +56,7 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
@@ -70,6 +73,7 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_comparison.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
@@ -111,9 +115,11 @@
 
 sge::cegui::impl::geometry_buffer::geometry_buffer(
 	fcppt::log::object &_log,
-	sge::renderer::device::ffp &_renderer,
-	sge::renderer::vertex::declaration const &_vertex_declaration,
-	sge::cegui::impl::optional_render_context_ref const &_render_context
+	sge::renderer::device::ffp_ref const _renderer,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
+	fcppt::reference<
+		sge::cegui::impl::optional_render_context_ref const
+	> const _render_context
 )
 :
 	log_{
@@ -143,10 +149,10 @@ sge::cegui::impl::geometry_buffer::geometry_buffer(
 		>()
 	),
 	rotation_(
-		1.0f,
-		0.0f,
-		0.0f,
-		0.0f
+		1.0F,
+		0.0F,
+		0.0F,
+		0.0F
 	),
 	scissor_area_(
 		fcppt::math::box::null<
@@ -161,7 +167,7 @@ sge::cegui::impl::geometry_buffer::geometry_buffer(
 	),
 	render_effect_{},
 	rasterizer_scissor_on_(
-		renderer_.create_rasterizer_state(
+		renderer_.get().create_rasterizer_state(
 			sge::cegui::impl::make_rasterizer_parameters(
 				sge::renderer::state::core::rasterizer::enable_scissor_test(
 					true
@@ -170,7 +176,7 @@ sge::cegui::impl::geometry_buffer::geometry_buffer(
 		)
 	),
 	rasterizer_scissor_off_(
-		renderer_.create_rasterizer_state(
+		renderer_.get().create_rasterizer_state(
 			sge::cegui::impl::make_rasterizer_parameters(
 				sge::renderer::state::core::rasterizer::enable_scissor_test(
 					false
@@ -189,15 +195,14 @@ sge::cegui::impl::geometry_buffer::geometry_buffer(
 }
 
 sge::cegui::impl::geometry_buffer::~geometry_buffer()
-{
-}
+= default;
 
 void
 sge::cegui::impl::geometry_buffer::draw() const
 {
 	sge::renderer::context::ffp &render_context(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
-			render_context_
+			render_context_.get()
 		).get()
 	);
 
@@ -210,7 +215,7 @@ sge::cegui::impl::geometry_buffer::draw() const
 	)
 
 	sge::renderer::state::ffp::transform::object_unique_ptr const transform_state(
-		renderer_.create_transform_state(
+		renderer_.get().create_transform_state(
 			sge::renderer::state::ffp::transform::parameters(
 				fcppt::math::matrix::translation(
 					translation_
@@ -246,7 +251,7 @@ sge::cegui::impl::geometry_buffer::draw() const
 	);
 
 	sge::renderer::state::core::blend::object_unique_ptr const blend_state(
-		renderer_.create_blend_state(
+		renderer_.get().create_blend_state(
 			sge::renderer::state::core::blend::parameters(
 				sge::renderer::state::core::blend::alpha_variant{
 					sge::cegui::impl::to_blend_parameters(
@@ -290,9 +295,7 @@ sge::cegui::impl::geometry_buffer::draw() const
 				render_context
 			)
 		),
-		fcppt::make_cref(
-			vertex_declaration_
-		)
+		vertex_declaration_
 	);
 
 	int const pass_count(
@@ -374,7 +377,7 @@ sge::cegui::impl::geometry_buffer::draw() const
 					)
 				),
 				sge::renderer::texture::stage(
-					0u
+					0U
 				)
 			);
 
@@ -411,7 +414,7 @@ FCPPT_PP_POP_WARNING
 
 			render_context.render_nonindexed(
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count(
 					batch.vertex_buffer().linear_size()
@@ -474,7 +477,7 @@ sge::cegui::impl::geometry_buffer::setClippingRegion(
 	CEGUI::Rectf const &_rect
 )
 {
-	sge::renderer::pixel_rect const converted(
+	auto const converted(
 		fcppt::math::box::structure_cast<
 			sge::renderer::pixel_rect,
 			fcppt::cast::float_to_int_fun
@@ -508,7 +511,7 @@ sge::cegui::impl::geometry_buffer::appendVertex(
 {
 	this->appendGeometry(
 		&_vertex,
-		1u
+		1U
 	);
 }
 
@@ -526,11 +529,15 @@ sge::cegui::impl::geometry_buffer::appendGeometry(
 
 	batches_.push_back(
 		sge::cegui::impl::batch{
-			renderer_,
+			fcppt::reference_to_base<
+				sge::renderer::device::core
+			>(
+				renderer_
+			),
 			vertex_declaration_,
 			FCPPT_ASSERT_OPTIONAL_ERROR(
 				active_texture.impl()
-			).get(),
+			),
 			sge::renderer::vertex::count(
 				_vertex_count
 			),
@@ -551,7 +558,7 @@ sge::cegui::impl::geometry_buffer::appendGeometry(
 
 	std::transform(
 		_vertices,
-		_vertices + _vertex_count,
+		_vertices + _vertex_count, // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		vertex_view.begin(),
 		[](
 			CEGUI::Vertex const &_vertex

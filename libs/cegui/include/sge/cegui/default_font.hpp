@@ -7,11 +7,11 @@
 #ifndef SGE_CEGUI_DEFAULT_FONT_HPP_INCLUDED
 #define SGE_CEGUI_DEFAULT_FONT_HPP_INCLUDED
 
+#include <sge/cegui/font_size.hpp>
 #include <sge/cegui/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
-
 
 
 namespace sge
@@ -24,19 +24,21 @@ class default_font
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	default_font(
-		std::filesystem::path const &,
-		float font_size
+		std::filesystem::path &&,
+		sge::cegui::font_size
 	);
 
+	[[nodiscard]]
 	std::filesystem::path const &
 	path() const;
 
-	float
+	[[nodiscard]]
+	sge::cegui::font_size
 	font_size() const;
 private:
 	std::filesystem::path path_;
 
-	float font_size_;
+	sge::cegui::font_size font_size_;
 };
 
 }

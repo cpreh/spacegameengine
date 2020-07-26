@@ -21,15 +21,16 @@ namespace impl
 namespace vf
 {
 
-typedef
+using
+texcoord
+=
 sge::renderer::vf::texpos<
 	sge::cegui::unit,
 	2,
 	sge::renderer::vf::index<
-		0u
+		0U
 	>
->
-texcoord;
+>;
 
 }
 }

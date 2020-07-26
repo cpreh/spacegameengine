@@ -12,6 +12,7 @@
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
@@ -22,6 +23,7 @@
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unimplemented_message.hpp>
@@ -50,8 +52,10 @@
 // update the viewport variable when the viewport is requested.
 sge::cegui::impl::default_target::default_target(
 	fcppt::log::object &_log,
-	sge::renderer::device::ffp &_renderer,
-	sge::cegui::impl::optional_render_context_ref const &_render_context
+	sge::renderer::device::ffp_ref const _renderer,
+	fcppt::reference<
+		sge::cegui::impl::optional_render_context_ref const
+	> const _render_context
 )
 :
 	log_{
@@ -74,8 +78,7 @@ sge::cegui::impl::default_target::default_target(
 }
 
 sge::cegui::impl::default_target::~default_target()
-{
-}
+= default;
 
 void
 sge::cegui::impl::default_target::draw(
@@ -134,10 +137,10 @@ sge::cegui::impl::default_target::setArea(
 					)
 				),
 				sge::renderer::projection::near(
-					0.f
+					0.F
 				),
 				sge::renderer::projection::far(
-					10.f
+					10.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			),
 			[
@@ -147,7 +150,7 @@ sge::cegui::impl::default_target::setArea(
 			)
 			{
 				return
-					renderer_.create_transform_state(
+					renderer_.get().create_transform_state(
 						sge::renderer::state::ffp::transform::parameters(
 							_matrix
 						)
@@ -195,7 +198,7 @@ sge::cegui::impl::default_target::activate()
 		)
 		{
 			FCPPT_ASSERT_OPTIONAL_ERROR(
-				render_context_
+				render_context_.get()
 			).get().transform(
 				sge::renderer::state::ffp::transform::mode::projection,
 				sge::renderer::state::ffp::transform::const_optional_object_ref(
@@ -220,7 +223,7 @@ sge::cegui::impl::default_target::deactivate()
 	)
 
 	FCPPT_ASSERT_OPTIONAL_ERROR(
-		render_context_
+		render_context_.get()
 	).get().transform(
 		sge::renderer::state::ffp::transform::mode::projection,
 		sge::renderer::state::ffp::transform::const_optional_object_ref()

@@ -7,7 +7,7 @@
 #ifndef SGE_CEGUI_IMPL_CEGUI_LOGGER_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_CEGUI_LOGGER_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Logger.h>
@@ -30,14 +30,14 @@ class cegui_logger
 :
 	public CEGUI::Logger
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		cegui_logger
 	);
 public:
 	explicit
 	cegui_logger(
-		fcppt::log::object &
-	);
+		fcppt::log::object & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	~cegui_logger()
 	override;

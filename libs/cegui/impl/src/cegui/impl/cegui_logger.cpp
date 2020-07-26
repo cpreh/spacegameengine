@@ -13,6 +13,7 @@
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/log/warning.hpp>
@@ -39,8 +40,7 @@ sge::cegui::impl::cegui_logger::cegui_logger(
 }
 
 sge::cegui::impl::cegui_logger::~cegui_logger()
-{
-}
+= default;
 
 void
 sge::cegui::impl::cegui_logger::logEvent(

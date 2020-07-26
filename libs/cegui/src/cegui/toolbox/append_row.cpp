@@ -38,6 +38,7 @@ sge::cegui::toolbox::append_row(
 
 	CEGUI::uint const index(
 		_list.addRow(
+			 // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 			new CEGUI::ListboxTextItem(
 				_mapper[
 					0
@@ -61,7 +62,9 @@ sge::cegui::toolbox::append_row(
 			_mapper.size()
 		)
 	)
+	{
 		_list.setItem(
+			 // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 			new CEGUI::ListboxTextItem(
 				_mapper[
 					cur
@@ -76,4 +79,5 @@ sge::cegui::toolbox::append_row(
 			),
 			index
 		);
+	}
 }

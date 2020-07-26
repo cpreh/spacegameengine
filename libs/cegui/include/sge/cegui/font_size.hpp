@@ -4,32 +4,23 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_CEGUI_IMPL_VF_POSITION_HPP_INCLUDED
-#define SGE_CEGUI_IMPL_VF_POSITION_HPP_INCLUDED
+#ifndef SGE_CEGUI_FONT_SIZE_HPP_INCLUDED
+#define SGE_CEGUI_FONT_SIZE_HPP_INCLUDED
 
-#include <sge/cegui/unit.hpp>
-#include <sge/renderer/vf/pos.hpp>
+#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
 
 
 namespace sge
 {
 namespace cegui
 {
-namespace impl
-{
-namespace vf
-{
 
-using
-position
-=
-sge::renderer::vf::pos<
-	sge::cegui::unit,
-	3
->;
+FCPPT_MAKE_STRONG_TYPEDEF(
+	float,
+	font_size
+);
 
-}
-}
 }
 }
 

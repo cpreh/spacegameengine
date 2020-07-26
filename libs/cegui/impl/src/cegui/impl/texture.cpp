@@ -203,8 +203,7 @@ sge::cegui::impl::texture::texture(
 }
 
 sge::cegui::impl::texture::~texture()
-{
-}
+= default;
 
 sge::cegui::impl::texture::optional_planar_texture_ref
 sge::cegui::impl::texture::impl()
@@ -503,10 +502,10 @@ sge::cegui::impl::texture::isPixelFormatSupported(
 
 sge::cegui::impl::texture::texture(
 	fcppt::log::object &_log,
-	sge::cegui::impl::texture_parameters const &_texture_parameters,
+	sge::cegui::impl::texture_parameters _texture_parameters,
 	CEGUI::String const &_name,
-	sge::cegui::impl::texture::optional_sizef const &_size,
-	sge::cegui::impl::texture::optional_texel_scaling const _texel_scaling,
+	sge::cegui::impl::texture::optional_sizef _size,
+	sge::cegui::impl::texture::optional_texel_scaling _texel_scaling,
 	sge::cegui::impl::texture::optional_planar_unique_ptr &&_texture
 )
 :
@@ -519,16 +518,22 @@ sge::cegui::impl::texture::texture(
 		)
 	},
 	texture_parameters_{
-		_texture_parameters
+		std::move(
+			_texture_parameters
+		)
 	},
 	name_{
 		_name
 	},
 	size_{
-		_size
+		std::move(
+			_size
+		)
 	},
 	texel_scaling_{
-		_texel_scaling
+		std::move(
+			_texel_scaling
+		)
 	},
 	texture_{
 		std::move(

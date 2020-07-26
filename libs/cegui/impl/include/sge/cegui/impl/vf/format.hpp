@@ -20,11 +20,12 @@ namespace impl
 namespace vf
 {
 
-typedef
+using
+format
+=
 sge::renderer::vf::format<
 	sge::cegui::impl::vf::part
->
-format;
+>;
 
 }
 }

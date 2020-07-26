@@ -50,6 +50,7 @@
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
@@ -71,7 +72,7 @@
 
 
 sge::cegui::impl::texture_target::texture_target(
-	fcppt::log::object &_main_log,
+	fcppt::log::object_reference const _main_log,
 	sge::cegui::impl::texture_parameters const &_texture_parameters,
 	sge::cegui::impl::optional_render_context_ref const &_render_context
 )
@@ -80,7 +81,7 @@ sge::cegui::impl::texture_target::texture_target(
 		_main_log
 	},
 	log_{
-		_main_log,
+		_main_log.get(),
 		sge::log::default_parameters(
 			fcppt::log::name{
 				FCPPT_TEXT("texture_target")
@@ -119,8 +120,7 @@ sge::cegui::impl::texture_target::texture_target(
 }
 
 sge::cegui::impl::texture_target::~texture_target()
-{
-}
+= default;
 
 void
 sge::cegui::impl::texture_target::draw(
@@ -132,7 +132,9 @@ sge::cegui::impl::texture_target::draw(
 			texture_
 		)->impl().has_value()
 	)
+	{
 		return;
+	}
 
 	FCPPT_LOG_DEBUG(
 		log_,
@@ -155,7 +157,9 @@ sge::cegui::impl::texture_target::draw(
 			texture_
 		)->impl().has_value()
 	)
+	{
 		return;
+	}
 
 	FCPPT_LOG_DEBUG(
 		log_,
@@ -209,7 +213,7 @@ sge::cegui::impl::texture_target::setArea(
 		*
 		area_.getHeight()
 		<
-		0.01f
+		0.01F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	)
 	{
 		transform_state_ =
@@ -227,10 +231,10 @@ sge::cegui::impl::texture_target::setArea(
 							area_
 						),
 						sge::renderer::projection::near(
-							0.f
+							0.F
 						),
 						sge::renderer::projection::far(
-							2.f
+							2.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						)
 					)
 				)
@@ -260,7 +264,9 @@ sge::cegui::impl::texture_target::activate()
 			texture_
 		)->impl().has_value()
 	)
+	{
 		return;
+	}
 
 	FCPPT_LOG_DEBUG(
 		log_,
@@ -325,7 +331,9 @@ sge::cegui::impl::texture_target::deactivate()
 			texture_
 		)->impl().has_value()
 	)
+	{
 		return;
+	}
 
 	sge::renderer::context::ffp &render_context(
 		FCPPT_ASSERT_OPTIONAL_ERROR(
@@ -467,14 +475,15 @@ sge::cegui::impl::texture_target::declareRenderSize(
 	// The size here could be (0,0), for example if the viewport hasn't
 	// been initialized yet. If that's the case, create an empty texture.
 
-	typedef
+	using
+	signed_dim
+	=
 	fcppt::math::dim::static_<
-		std::make_signed<
+		std::make_signed_t<
 			sge::renderer::size_type
-		>::type,
+		>,
 		2
-	>
-	signed_dim;
+	>;
 
 	texture_unique_ptr &texture(
 		fcppt::optional::assign(
@@ -495,7 +504,7 @@ sge::cegui::impl::texture_target::declareRenderSize(
 				fcppt::make_unique_ptr<
 					sge::cegui::impl::texture
 				>(
-					main_log_,
+					main_log_.get(),
 					texture_parameters_,
 					texture_name
 				)
@@ -503,7 +512,7 @@ sge::cegui::impl::texture_target::declareRenderSize(
 				fcppt::make_unique_ptr<
 					sge::cegui::impl::texture
 				>(
-					main_log_,
+					main_log_.get(),
 					texture_parameters_,
 					texture_name,
 					_size,
@@ -532,14 +541,14 @@ sge::cegui::impl::texture_target::declareRenderSize(
 						fcppt::make_ref(
 							_texture.get().level(
 								sge::renderer::texture::mipmap::level(
-									0u
+									0U
 								)
 							)
 						)
 					)
 				),
 				sge::renderer::target::surface_index(
-					0u
+					0U
 				)
 			);
 

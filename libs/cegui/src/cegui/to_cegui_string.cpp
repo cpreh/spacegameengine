@@ -24,8 +24,10 @@ sge::cegui::to_cegui_string(
 	if(
 		_string.empty()
 	)
+	{
 		return
 			CEGUI::String();
+	}
 
 	return
 		CEGUI::String(

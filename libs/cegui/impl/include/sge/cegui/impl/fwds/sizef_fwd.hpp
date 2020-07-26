@@ -16,11 +16,12 @@ template<
 >
 class Size;
 
-typedef
+using
+Sizef
+=
 CEGUI::Size<
 	float
->
-Sizef;
+>;
 
 }
 

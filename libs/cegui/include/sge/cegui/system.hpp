@@ -12,12 +12,12 @@
 #include <sge/cegui/load_context_fwd.hpp>
 #include <sge/cegui/detail/symbol.hpp>
 #include <sge/cegui/detail/system_impl_fwd.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
-#include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
@@ -35,7 +35,7 @@ namespace cegui
 
 class system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 public:
@@ -43,9 +43,9 @@ public:
 	system(
 		fcppt::log::context_reference,
 		sge::cegui::load_context const &,
-		sge::renderer::device::ffp &,
-		sge::image2d::system &,
-		sge::viewport::manager &,
+		sge::renderer::device::ffp_ref,
+		sge::image2d::system_ref,
+		sge::viewport::manager_ref,
 		sge::cegui::cursor_visibility,
 		sge::renderer::texture::emulate_srgb
 	);
@@ -64,30 +64,35 @@ public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
 	render(
-		sge::renderer::context::ffp &
-	);
+		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	SGE_CEGUI_DETAIL_SYMBOL
 	CEGUI::WindowManager &
 	window_manager();
 
+	[[nodiscard]]
 	SGE_CEGUI_DETAIL_SYMBOL
 	CEGUI::WindowManager const &
 	window_manager() const;
 
+	[[nodiscard]]
 	SGE_CEGUI_DETAIL_SYMBOL
 	CEGUI::GUIContext &
 	gui_context();
 
+	[[nodiscard]]
 	SGE_CEGUI_DETAIL_SYMBOL
 	CEGUI::GUIContext const &
 	gui_context() const;
 private:
-	typedef
+	using
+	system_impl_ptr
+	=
 	fcppt::unique_ptr<
 		sge::cegui::detail::system_impl
-	>
-	system_impl_ptr;
+	>;
 
 	system_impl_ptr const impl_;
 };

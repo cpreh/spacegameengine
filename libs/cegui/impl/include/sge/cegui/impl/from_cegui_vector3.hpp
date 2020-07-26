@@ -25,7 +25,7 @@ template<
 >
 fcppt::math::vector::static_<
 	ValueType,
-	3u
+	3U
 >
 from_cegui_vector3(
 	CEGUI::Vector3<
@@ -36,7 +36,7 @@ from_cegui_vector3(
 	return
 		fcppt::math::vector::static_<
 			ValueType,
-			3u
+			3U
 		>{
 			_size.d_x,
 			_size.d_y,

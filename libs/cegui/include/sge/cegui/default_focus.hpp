@@ -7,10 +7,10 @@
 #ifndef SGE_CEGUI_DEFAULT_FOCUS_HPP_INCLUDED
 #define SGE_CEGUI_DEFAULT_FOCUS_HPP_INCLUDED
 
-#include <sge/cegui/syringe_fwd.hpp>
+#include <sge/cegui/syringe_ref.hpp>
 #include <sge/cegui/detail/symbol.hpp>
 #include <sge/input/event_base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -20,18 +20,18 @@ namespace cegui
 
 class default_focus
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		default_focus
 	);
 public:
 	SGE_CEGUI_DETAIL_SYMBOL
 	explicit
 	default_focus(
-		sge::cegui::syringe &
+		sge::cegui::syringe_ref
 	);
 
 	SGE_CEGUI_DETAIL_SYMBOL
-	~default_focus();
+	~default_focus(); // NOLINT(performance-trivially-destructible)
 
 	SGE_CEGUI_DETAIL_SYMBOL
 	void
@@ -39,7 +39,7 @@ public:
 		sge::input::event_base const &
 	);
 private:
-	sge::cegui::syringe &syringe_;
+	sge::cegui::syringe_ref const syringe_;
 };
 
 }

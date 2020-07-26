@@ -14,10 +14,12 @@
 #include <sge/cegui/impl/texture_parameters.hpp>
 #include <sge/cegui/impl/texture_target_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/Renderer.h>
@@ -48,13 +50,13 @@ class renderer
 :
 	public CEGUI::Renderer
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		renderer
 	);
 public:
 	renderer(
-		fcppt::log::object &,
-		sge::cegui::impl::texture_parameters const &
+		fcppt::log::object_reference,
+		sge::cegui::impl::texture_parameters &&
 	);
 
 	~renderer()
@@ -65,13 +67,16 @@ public:
 		sge::cegui::impl::optional_render_context_ref const &
 	);
 
+	[[nodiscard]]
 	sge::renderer::device::ffp &
 	impl() const;
 
+	[[nodiscard]]
 	CEGUI::RenderTarget &
 	getDefaultRenderTarget()
 	override;
 private:
+	[[nodiscard]]
 	CEGUI::GeometryBuffer &
 	createGeometryBuffer()
 	override;
@@ -86,6 +91,7 @@ private:
 	destroyAllGeometryBuffers()
 	override;
 
+	[[nodiscard]]
 	CEGUI::TextureTarget *
 	createTextureTarget()
 	override;
@@ -100,12 +106,14 @@ private:
 	destroyAllTextureTargets()
 	override;
 
+	[[nodiscard]]
 	CEGUI::Texture &
 	createTexture(
 		CEGUI::String const &name
 	)
 	override;
 
+	[[nodiscard]]
 	CEGUI::Texture &
 	createTexture(
 		CEGUI::String const &name,
@@ -114,6 +122,7 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	CEGUI::Texture &
 	createTexture(
 		CEGUI::String const &name,
@@ -137,12 +146,14 @@ private:
 	destroyAllTextures()
 	override;
 
+	[[nodiscard]]
 	CEGUI::Texture &
 	getTexture(
 		CEGUI::String const &
 	) const
 	override;
 
+	[[nodiscard]]
 	bool
 	isTextureDefined(
 		CEGUI::String const &
@@ -163,72 +174,83 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	CEGUI::Sizef const &
 	getDisplaySize() const
 	override;
 
+	[[nodiscard]]
 	CEGUI::Vector2f const &
 	getDisplayDPI() const
 	override;
 
+	[[nodiscard]]
 	CEGUI::uint
 	getMaxTextureSize() const
 	override;
 
+	[[nodiscard]]
 	CEGUI::String const &
 	getIdentifierString() const
 	override;
 
-	typedef
+	using
+	texture_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::cegui::impl::texture
-	>
-	texture_unique_ptr;
+	>;
 
+	[[nodiscard]]
 	CEGUI::Texture &
 	insert_texture(
 		CEGUI::String const &name,
 		sge::cegui::impl::renderer::texture_unique_ptr
 	);
 
-	typedef
+	using
+	geometry_buffer_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::cegui::impl::geometry_buffer
-	>
-	geometry_buffer_unique_ptr;
+	>;
 
-	typedef
+	using
+	geometry_buffer_sequence
+	=
 	std::vector<
 		geometry_buffer_unique_ptr
-	>
-	geometry_buffer_sequence;
+	>;
 
-	typedef
+	using
+	texture_target_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::cegui::impl::texture_target
-	>
-	texture_target_unique_ptr;
+	>;
 
-	typedef
+	using
+	texture_target_sequence
+	=
 	std::vector<
 		texture_target_unique_ptr
-	>
-	texture_target_sequence;
+	>;
 
-	typedef
+	using
+	texture_map
+	=
 	std::map<
 		CEGUI::String,
 		texture_unique_ptr
-	>
-	texture_map;
+	>;
 
-	fcppt::log::object &main_log_;
+	fcppt::log::object_reference const main_log_;
 
 	fcppt::log::object log_;
 
 	sge::cegui::impl::texture_parameters const texture_parameters_;
 
-	sge::renderer::device::ffp &renderer_;
+	sge::renderer::device::ffp_ref const renderer_;
 
 	sge::cegui::impl::optional_render_context_ref render_context_;
 

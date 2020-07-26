@@ -6,6 +6,7 @@
 
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/syringe.hpp>
+#include <sge/cegui/syringe_ref.hpp>
 #include <sge/input/event_base.hpp>
 #include <sge/input/cursor/event/button.hpp>
 #include <sge/input/cursor/event/move.hpp>
@@ -21,7 +22,7 @@
 
 
 sge::cegui::default_cursor::default_cursor(
-	sge::cegui::syringe &_syringe
+	sge::cegui::syringe_ref const _syringe
 )
 :
 	syringe_{
@@ -46,8 +47,7 @@ sge::cegui::default_cursor::default_cursor(
 }
 
 sge::cegui::default_cursor::~default_cursor()
-{
-}
+= default;
 
 void
 sge::cegui::default_cursor::process_event(
@@ -81,7 +81,7 @@ sge::cegui::default_cursor::process_event(
 					> const _button_event
 				)
 				{
-					this->syringe_.inject(
+					this->syringe_.get().inject(
 						_button_event.get()
 					);
 				},
@@ -93,7 +93,7 @@ sge::cegui::default_cursor::process_event(
 					> const _move_event
 				)
 				{
-					this->syringe_.inject(
+					this->syringe_.get().inject(
 						_move_event.get()
 					);
 				},
@@ -105,7 +105,7 @@ sge::cegui::default_cursor::process_event(
 					> const _scroll_event
 				)
 				{
-					this->syringe_.inject(
+					this->syringe_.get().inject(
 						_scroll_event.get()
 					);
 				}

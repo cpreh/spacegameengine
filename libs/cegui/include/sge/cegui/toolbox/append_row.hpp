@@ -26,7 +26,7 @@ namespace toolbox
 SGE_CEGUI_DETAIL_SYMBOL
 void
 append_row(
-	CEGUI::MultiColumnList &,
+	CEGUI::MultiColumnList &, // NOLINT(google-runtime-references)
 	sge::cegui::toolbox::row const &
 );
 

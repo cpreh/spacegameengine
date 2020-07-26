@@ -8,11 +8,10 @@
 #include <sge/cegui/impl/texture.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/load_raw_exn.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -22,7 +21,7 @@
 
 
 sge::cegui::impl::image_codec::image_codec(
-	sge::image2d::system &_image_system
+	sge::image2d::system_ref const _image_system
 )
 :
 	CEGUI::ImageCodec(
@@ -35,8 +34,7 @@ sge::cegui::impl::image_codec::image_codec(
 }
 
 sge::cegui::impl::image_codec::~image_codec()
-{
-}
+= default;
 
 CEGUI::Texture *
 sge::cegui::impl::image_codec::load(
@@ -54,23 +52,23 @@ sge::cegui::impl::image_codec::load(
 		*_result_texture
 	).create_from_view(
 		sge::image2d::load_raw_exn(
-			fcppt::make_ref(
-				image_system_
-			),
+			image_system_,
 			sge::media::const_raw_range(
 				_data.getDataPtr(),
-				_data.getDataPtr() + _data.getSize()
+				_data.getDataPtr() + _data.getSize() // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 			),
 			sge::media::optional_extension()
 		)
 		->view()
 	);
 
-	return _result_texture;
+	return
+		_result_texture;
 }
 
 sge::image2d::system &
 sge::cegui::impl::image_codec::image_system() const
 {
-	return image_system_;
+	return
+		image_system_.get();
 }

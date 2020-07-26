@@ -17,13 +17,13 @@
 #include <sge/cegui/impl/renderer.hpp>
 #include <sge/cegui/impl/resource_provider.hpp>
 #include <sge/cegui/impl/scoped_system.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
-#include <sge/viewport/manager_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/viewport/manager_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -41,22 +41,23 @@ namespace detail
 
 class system_impl
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system_impl
 	);
 public:
 	system_impl(
 		fcppt::log::context_reference,
 		sge::cegui::load_context const &,
-		sge::renderer::device::ffp &,
-		sge::image2d::system &,
-		sge::viewport::manager &,
+		sge::renderer::device::ffp_ref,
+		sge::image2d::system_ref,
+		sge::viewport::manager_ref,
 		sge::cegui::cursor_visibility,
 		sge::renderer::texture::emulate_srgb
 	);
 
 	~system_impl();
 
+	static
 	void
 	update(
 		sge::cegui::duration const &
@@ -64,9 +65,10 @@ public:
 
 	void
 	render(
-		sge::renderer::context::ffp &
-	);
+		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	CEGUI::GUIContext &
 	gui_context();
 private:

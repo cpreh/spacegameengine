@@ -8,19 +8,19 @@
 #include <sge/cegui/impl/clip.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
+#include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vertex/declaration_fwd.hpp>
+#include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/make_cref.hpp>
 
 
 sge::cegui::impl::batch::batch(
-	sge::renderer::device::core &_renderer,
-	sge::renderer::vertex::declaration const &_vertex_declaration,
-	sge::renderer::texture::planar &_texture,
+	sge::renderer::device::core_ref const _renderer,
+	sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
+	sge::renderer::texture::planar_ref const _texture,
 	sge::renderer::vertex::count const _vertex_count,
 	sge::cegui::impl::clip const _clip
 )
@@ -29,13 +29,11 @@ sge::cegui::impl::batch::batch(
 		_texture
 	),
 	vertex_buffer_(
-		_renderer.create_vertex_buffer(
+		_renderer.get().create_vertex_buffer(
 			sge::renderer::vertex::buffer_parameters(
-				fcppt::make_cref(
-					_vertex_declaration
-				),
+				_vertex_declaration,
 				sge::renderer::vf::dynamic::part_index(
-					0u
+					0U
 				),
 				_vertex_count,
 				sge::renderer::resource_flags_field::null()
@@ -50,16 +48,19 @@ sge::cegui::impl::batch::batch(
 
 sge::cegui::impl::batch::batch(
 	batch &&
-) = default;
+)
+noexcept
+= default;
 
 sge::cegui::impl::batch &
 sge::cegui::impl::batch::operator=(
 	batch &&
-) = default;
+)
+noexcept
+= default;
 
 sge::cegui::impl::batch::~batch()
-{
-}
+= default;
 
 sge::renderer::texture::planar &
 sge::cegui::impl::batch::texture() const

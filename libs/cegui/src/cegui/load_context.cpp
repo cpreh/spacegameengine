@@ -6,17 +6,21 @@
 
 #include <sge/cegui/default_font.hpp>
 #include <sge/cegui/load_context.hpp>
+#include <sge/cegui/scheme_file.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::load_context::load_context(
-	std::filesystem::path const &_scheme_file
+	sge::cegui::scheme_file &&_scheme_file
 )
 :
 	scheme_file_{
-		_scheme_file
+		std::move(
+			_scheme_file
+		)
 	},
 	font_directory_(),
 	looknfeel_directory_(),
@@ -29,17 +33,19 @@ std::filesystem::path const &
 sge::cegui::load_context::scheme_file() const
 {
 	return
-		scheme_file_;
+		scheme_file_.get();
 }
 
 sge::cegui::load_context &
 sge::cegui::load_context::font_directory(
-	std::filesystem::path const &_font_directory
+	std::filesystem::path &&_font_directory
 )
 {
 	font_directory_ =
 		optional_path{
-			_font_directory
+			std::move(
+				_font_directory
+			)
 		};
 
 	return
@@ -48,12 +54,14 @@ sge::cegui::load_context::font_directory(
 
 sge::cegui::load_context &
 sge::cegui::load_context::looknfeel_directory(
-	std::filesystem::path const &_looknfeel_directory
+	std::filesystem::path &&_looknfeel_directory
 )
 {
 	looknfeel_directory_ =
 		optional_path{
-			_looknfeel_directory
+			std::move(
+				_looknfeel_directory
+			)
 		};
 
 	return
@@ -62,12 +70,14 @@ sge::cegui::load_context::looknfeel_directory(
 
 sge::cegui::load_context &
 sge::cegui::load_context::imageset_directory(
-	std::filesystem::path const &_imageset_directory
+	std::filesystem::path &&_imageset_directory
 )
 {
 	imageset_directory_ =
 		optional_path{
-			_imageset_directory
+			std::move(
+				_imageset_directory
+			)
 		};
 
 	return
@@ -76,12 +86,14 @@ sge::cegui::load_context::imageset_directory(
 
 sge::cegui::load_context &
 sge::cegui::load_context::default_font(
-	sge::cegui::default_font const &_default_font
+	sge::cegui::default_font &&_default_font
 )
 {
 	default_font_ =
 		optional_default_font{
-			_default_font
+			std::move(
+				_default_font
+			)
 		};
 
 	return

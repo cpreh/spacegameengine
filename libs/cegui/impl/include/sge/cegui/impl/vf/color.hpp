@@ -20,11 +20,12 @@ namespace impl
 namespace vf
 {
 
-typedef
+using
+color
+=
 sge::renderer::vf::color<
 	sge::image::color::rgba8_format
->
-color;
+>;
 
 }
 }

@@ -24,7 +24,7 @@ namespace impl
 
 sge::renderer::matrix4
 matrix_from_quaternion(
-	CEGUI::Quaternion
+	CEGUI::Quaternion const &
 );
 
 }

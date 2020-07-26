@@ -16,11 +16,12 @@ template<
 >
 class Vector2;
 
-typedef
+using
+Vector2f
+=
 CEGUI::Vector2<
 	float
->
-Vector2f;
+>;
 
 }
 

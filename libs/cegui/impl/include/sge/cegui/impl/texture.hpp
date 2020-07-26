@@ -16,7 +16,7 @@
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <fcppt/make_strong_typedef.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/object_decl.hpp>
@@ -44,7 +44,7 @@ class texture
 :
 	public CEGUI::Texture
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		texture
 	);
 public:
@@ -52,7 +52,7 @@ public:
 	// loadFromFile or create_from_view. It won't have a valid size or
 	// texture object until then.
 	texture(
-		fcppt::log::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
 		sge::cegui::impl::texture_parameters const &,
 		CEGUI::String const &name
 	);
@@ -61,7 +61,7 @@ public:
 	// This texture might be rendered to or it might get data by
 	// loadFromMemory.
 	texture(
-		fcppt::log::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
 		sge::cegui::impl::texture_parameters const &,
 		CEGUI::String const &name,
 		CEGUI::Sizef const &,
@@ -71,12 +71,14 @@ public:
 	~texture()
 	override;
 
-	typedef
+	using
+	optional_planar_texture_ref
+	=
 	fcppt::optional::reference<
 		sge::renderer::texture::planar
-	>
-	optional_planar_texture_ref;
+	>;
 
+	[[nodiscard]]
 	optional_planar_texture_ref
 	impl();
 
@@ -87,18 +89,22 @@ public:
 		sge::image2d::view::const_object const &
 	);
 private:
+	[[nodiscard]]
 	CEGUI::String const &
 	getName() const
 	override;
 
+	[[nodiscard]]
 	CEGUI::Sizef const &
 	getSize() const
 	override;
 
+	[[nodiscard]]
 	CEGUI::Sizef const &
 	getOriginalDataSize() const
 	override;
 
+	[[nodiscard]]
 	CEGUI::Vector2f const &
 	getTexelScaling() const
 	override;
@@ -131,40 +137,44 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	bool
 	isPixelFormatSupported(
 		CEGUI::Texture::PixelFormat
 	) const
 	override;
 
-	typedef
+	using
+	optional_sizef
+	=
 	fcppt::optional::object<
 		CEGUI::Sizef
-	>
-	optional_sizef;
+	>;
 
-	typedef
+	using
+	optional_vector2f
+	=
 	fcppt::optional::object<
 		CEGUI::Vector2f
-	>
-	optional_vector2f;
+	>;
 
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		optional_vector2f,
 		optional_texel_scaling
 	);
 
-	typedef
+	using
+	optional_planar_unique_ptr
+	=
 	fcppt::optional::object<
 		sge::renderer::texture::planar_unique_ptr
-	>
-	optional_planar_unique_ptr;
+	>;
 
 	texture(
-		fcppt::log::object &,
-		sge::cegui::impl::texture_parameters const &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
+		sge::cegui::impl::texture_parameters,
 		CEGUI::String const &,
-		sge::cegui::impl::texture::optional_sizef const &,
+		sge::cegui::impl::texture::optional_sizef,
 		sge::cegui::impl::texture::optional_texel_scaling,
 		sge::cegui::impl::texture::optional_planar_unique_ptr &&
 	);

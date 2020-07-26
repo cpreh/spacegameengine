@@ -6,20 +6,27 @@
 
 #include <sge/cegui/impl/prefix.hpp>
 #include <sge/cegui/impl/texture_parameters.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::impl::texture_parameters::texture_parameters(
-	sge::cegui::impl::prefix const &_prefix,
-	sge::image2d::system &_image_system,
-	sge::renderer::device::ffp &_renderer,
+	sge::cegui::impl::prefix &&_prefix,
+	sge::image2d::system_ref const _image_system,
+	sge::renderer::device::ffp_ref const _renderer,
 	sge::renderer::texture::emulate_srgb const _emulate_srgb
 )
 :
 	prefix_(
-		_prefix
+		std::move(
+			_prefix
+		)
 	),
 	image_system_(
 		_image_system

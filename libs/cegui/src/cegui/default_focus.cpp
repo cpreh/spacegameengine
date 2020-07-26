@@ -6,6 +6,7 @@
 
 #include <sge/cegui/default_focus.hpp>
 #include <sge/cegui/syringe.hpp>
+#include <sge/cegui/syringe_ref.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
 #include <sge/input/focus/event/text.hpp>
@@ -20,7 +21,7 @@
 
 
 sge::cegui::default_focus::default_focus(
-	sge::cegui::syringe &_syringe
+	sge::cegui::syringe_ref const _syringe
 )
 :
 	syringe_{
@@ -30,8 +31,7 @@ sge::cegui::default_focus::default_focus(
 }
 
 sge::cegui::default_focus::~default_focus()
-{
-}
+= default;
 
 void
 sge::cegui::default_focus::process_event(
@@ -65,7 +65,7 @@ sge::cegui::default_focus::process_event(
 					> const _key_event
 				)
 				{
-					this->syringe_.inject(
+					this->syringe_.get().inject(
 						_key_event.get()
 					);
 				},
@@ -77,7 +77,7 @@ sge::cegui::default_focus::process_event(
 					> const _key_repeat_event
 				)
 				{
-					this->syringe_.inject(
+					this->syringe_.get().inject(
 						_key_repeat_event.get()
 					);
 				},
@@ -89,7 +89,7 @@ sge::cegui::default_focus::process_event(
 					> const _text_event
 				)
 				{
-					this->syringe_.inject(
+					this->syringe_.get().inject(
 						_text_event.get()
 					);
 				}
