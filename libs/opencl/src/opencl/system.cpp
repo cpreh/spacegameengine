@@ -14,10 +14,10 @@
 
 sge::opencl::system::system()
 :
-	// TODO: Direct initialization
+	// TODO(philipp): Direct initialization
 	platforms_()
 {
-	cl_uint number_of_platforms;
+	cl_uint number_of_platforms{};
 
 	// First, query the total number of platforms
 	cl_int error_code =
@@ -32,12 +32,17 @@ sge::opencl::system::system()
 		error_code,
 		FCPPT_TEXT("clGetplatformIDs"));
 
-	if(!number_of_platforms)
+	if(number_of_platforms == 0)
+	{
 		return;
+	}
 
-	typedef
-	fcppt::container::buffer::object<cl_platform_id>
-	platform_id_sequence;
+	using
+	platform_id_sequence
+	=
+	fcppt::container::buffer::object<
+		cl_platform_id
+	>;
 
 	platform_id_sequence platform_ids(
 		static_cast<platform_id_sequence::size_type>(
@@ -59,7 +64,7 @@ sge::opencl::system::system()
 		error_code,
 		FCPPT_TEXT("clGetplatformIDs"));
 
-	// TODO: map
+	// TODO(philipp): map
 	for(
 		auto const &platform
 		:
@@ -85,5 +90,4 @@ sge::opencl::system::platforms() const
 }
 
 sge::opencl::system::~system()
-{
-}
+= default;

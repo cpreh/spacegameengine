@@ -18,12 +18,13 @@ namespace opencl
 namespace memory_object
 {
 
-// TODO: fwd header!
-typedef
+// TODO(philipp): fwd header!
+using
+flags_field
+=
 fcppt::container::bitfield::enum_object<
 	sge::opencl::memory_object::flags
->
-flags_field;
+>;
 
 }
 }

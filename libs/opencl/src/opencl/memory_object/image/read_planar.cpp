@@ -19,24 +19,34 @@
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/opencl/memory_object/image/read_planar.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
 void
 sge::opencl::memory_object::image::read_planar(
-	sge::opencl::command_queue::object &_queue,
+	fcppt::reference<
+		sge::opencl::command_queue::object
+	> const _queue,
 	sge::opencl::memory_object::image::planar const &_image,
 	sge::image2d::view::object const &_view,
 	sge::opencl::memory_object::rect const &_rect)
 {
 	sge::opencl::command_queue::scoped_planar_mapping scoped_map(
 		_queue,
-		const_cast<opencl::memory_object::image::planar &>(
-			_image),
+		fcppt::make_ref(
+			const_cast<
+				sge::opencl::memory_object::image::planar &
+			>(
+				_image
+			)
+		),
 		sge::opencl::command_queue::map_flags::read,
 		_rect,
-		sge::opencl::event::sequence());
+		sge::opencl::event::sequence()
+	);
 
 	sge::image2d::algorithm::copy_and_convert(
 		sge::image2d::view::make_const(

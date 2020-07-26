@@ -8,7 +8,7 @@
 #define SGE_OPENCL_MEMORY_OBJECT_BASE_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -20,10 +20,11 @@ namespace memory_object
 
 class base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 public:
+	[[nodiscard]]
 	virtual
 	cl_mem
 	impl() = 0;

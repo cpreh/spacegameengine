@@ -12,15 +12,21 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace opencl
 {
 namespace program
 {
-typedef
-std::vector<program::source_string>
-source_string_sequence;
+
+using
+source_string_sequence
+=
+std::vector<
+	sge::opencl::program::source_string
+>;
+
 }
 }
 }

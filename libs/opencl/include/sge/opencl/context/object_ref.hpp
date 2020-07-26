@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_OPENCL_CONTEXT_OPTIONAL_ERROR_CALLBACK_HPP_INCLUDED
-#define SGE_OPENCL_CONTEXT_OPTIONAL_ERROR_CALLBACK_HPP_INCLUDED
+#ifndef SGE_OPENCL_CONTEXT_OBJECT_REF_HPP_INCLUDED
+#define SGE_OPENCL_CONTEXT_OBJECT_REF_HPP_INCLUDED
 
-#include <sge/opencl/context/error_callback.hpp>
-#include <fcppt/optional/object.hpp>
+#include <sge/opencl/context/object_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -19,10 +19,10 @@ namespace context
 {
 
 using
-optional_error_callback
+object_ref
 =
-fcppt::optional::object<
-	sge::opencl::context::error_callback
+fcppt::reference<
+	sge::opencl::context::object
 >;
 
 }

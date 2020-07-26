@@ -17,9 +17,14 @@ namespace opencl
 {
 namespace program
 {
-typedef
-fcppt::optional::object<sge::opencl::program::build_parameters>
-optional_build_parameters;
+
+using
+optional_build_parameters
+=
+fcppt::optional::object<
+	sge::opencl::program::build_parameters
+>;
+
 }
 }
 }

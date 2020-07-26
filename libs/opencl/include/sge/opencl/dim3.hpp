@@ -10,13 +10,20 @@
 #include <sge/opencl/size_type.hpp>
 #include <fcppt/math/dim/static.hpp>
 
+
 namespace sge
 {
 namespace opencl
 {
-typedef
-fcppt::math::dim::static_<sge::opencl::size_type,3>
-dim3;
+
+using
+dim3
+=
+fcppt::math::dim::static_<
+	sge::opencl::size_type,
+	3
+>;
+
 }
 }
 

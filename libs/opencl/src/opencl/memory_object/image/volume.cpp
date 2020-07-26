@@ -5,11 +5,13 @@
 
 
 #include <sge/opencl/context/object.hpp>
+#include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <sge/opencl/memory_object/image/volume.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
 #include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/volume_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -19,9 +21,10 @@
 
 
 sge::opencl::memory_object::image::volume::volume(
-	context::object &_context,
+	sge::opencl::context::object_ref const _context,
 	memory_object::flags_field const &_mem_flags,
-	renderer::texture::volume &_renderer_texture)
+	sge::renderer::texture::volume_ref const _renderer_texture
+)
 :
 	impl_(),
 	image_format_(),
@@ -30,22 +33,24 @@ sge::opencl::memory_object::image::volume::volume(
 			sge::opencl::dim3,
 			fcppt::cast::size_fun
 		>(
-			_renderer_texture.size()
+			_renderer_texture.get().size()
 		)
 	)
 {
-	cl_int error_code;
+	cl_int error_code{};
 	impl_ =
 		clCreateFromGLTexture3D(
-			_context.impl(),
+			_context.get().impl(),
 			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_mem_flags),
 			dynamic_cast<renderer::opengl::texture::base &>(
-				_renderer_texture).type().get(),
+				_renderer_texture.get()
+			).type().get(),
 			// mip level
 			0,
 			dynamic_cast<renderer::opengl::texture::base &>(
-				_renderer_texture).id().get(),
+				_renderer_texture.get()
+			).id().get(),
 			&error_code);
 
 	opencl::impl::handle_error(

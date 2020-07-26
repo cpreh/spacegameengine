@@ -29,13 +29,12 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/cast/enum_to_int.hpp>
+#include <fcppt/enum/array_impl.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
-#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,10 +49,9 @@ std::array<
 	3
 >;
 
-// TODO(philipp): enum_array
-std::array<
-	inner_array,
-	3
+fcppt::enum_::array<
+	sge::scenic::grid::orientation,
+	inner_array
 > const axis_mappings{
 	inner_array{
 		// xz
@@ -75,18 +73,11 @@ permute_vector_according_to_orientation(
 	sge::renderer::vector3 const &_input
 )
 {
-	auto const orientation =
-		fcppt::cast::enum_to_int<
-			std::size_t
-		>(
-			_orientation
-		);
-
 	return
 		sge::renderer::vector3(
-			_input.get_unsafe(axis_mappings[orientation][0]),
-			_input.get_unsafe(axis_mappings[orientation][1]),
-			_input.get_unsafe(axis_mappings[orientation][2])
+			_input.get_unsafe(axis_mappings[_orientation][0]),
+			_input.get_unsafe(axis_mappings[_orientation][1]),
+			_input.get_unsafe(axis_mappings[_orientation][2])
 		);
 }
 }

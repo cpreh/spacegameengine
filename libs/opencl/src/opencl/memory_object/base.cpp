@@ -8,9 +8,7 @@
 
 
 sge::opencl::memory_object::base::~base()
-{
-}
+= default;
 
 sge::opencl::memory_object::base::base()
-{
-}
+= default;

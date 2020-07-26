@@ -7,8 +7,7 @@
 #ifndef SGE_OPENCL_DEVICE_OBJECT_REF_SEQUENCE_HPP_INCLUDED
 #define SGE_OPENCL_DEVICE_OBJECT_REF_SEQUENCE_HPP_INCLUDED
 
-#include <sge/opencl/device/object_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <sge/opencl/device/object_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -21,13 +20,12 @@ namespace opencl
 namespace device
 {
 
-typedef
+using
+object_ref_sequence
+=
 std::vector<
-	fcppt::reference<
-		sge::opencl::device::object
-	>
->
-object_ref_sequence;
+	sge::opencl::device::object_ref
+>;
 
 }
 }

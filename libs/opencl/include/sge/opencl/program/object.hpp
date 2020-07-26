@@ -8,14 +8,14 @@
 #define SGE_OPENCL_PROGRAM_OBJECT_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/context/object_fwd.hpp>
+#include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/kernel/object_fwd.hpp>
 #include <sge/opencl/program/build_parameters_fwd.hpp>
 #include <sge/opencl/program/optional_build_parameters.hpp>
 #include <sge/opencl/program/optional_notification_callback.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/container/raw_vector/object_fwd.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
@@ -30,24 +30,31 @@ namespace program
 {
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	object(
 		fcppt::log::context_reference,
-		sge::opencl::context::object &,
+		sge::opencl::context::object_ref,
 		sge::opencl::program::source_string_sequence const &,
-		sge::opencl::program::optional_build_parameters const &);
+		sge::opencl::program::optional_build_parameters const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL cl_program
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	cl_program
 	impl() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL
+	void
 	build(
-		sge::opencl::program::build_parameters const &);
+		sge::opencl::program::build_parameters const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL ~object();
+	SGE_OPENCL_DETAIL_SYMBOL
+	~object();
 private:
 	explicit
 	object(
@@ -56,26 +63,30 @@ private:
 
 	friend class sge::opencl::kernel::object;
 
-	typedef
+	using
+	device_id_vector
+	=
 	fcppt::container::raw_vector::object<
 		cl_device_id
-	>
-	device_id_vector;
+	>;
 
 	fcppt::log::object log_;
 	cl_program program_;
 	sge::opencl::program::optional_notification_callback notification_callback_;
 
+	[[nodiscard]]
 	device_id_vector
 	program_devices() const;
 
 	void
 	check_program_return_values();
 
-	static void
+	static
+	void
 	notification_callback(
 		cl_program,
-		void *);
+		void *
+	);
 };
 }
 }

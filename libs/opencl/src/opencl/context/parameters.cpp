@@ -9,20 +9,25 @@
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
-#include <fcppt/make_ref.hpp>
+#include <sge/opencl/platform/object_ref.hpp>
+#include <sge/renderer/device/core_ref.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opencl::context::parameters::parameters(
-	sge::opencl::platform::object &_platform,
-	sge::opencl::device::object_ref_sequence const &_device_refs
+	sge::opencl::platform::object_ref const _platform,
+	sge::opencl::device::object_ref_sequence &&_device_refs
 )
 :
 	platform_(
 		_platform
 	),
 	device_refs_(
-		_device_refs
+		std::move(
+			_device_refs
+		)
 	),
 	error_callback_(),
 	shared_renderer_()
@@ -31,12 +36,14 @@ sge::opencl::context::parameters::parameters(
 
 sge::opencl::context::parameters &
 sge::opencl::context::parameters::error_callback(
-	sge::opencl::context::error_callback const &_error_callback
+	sge::opencl::context::error_callback &&_error_callback
 )
 {
 	error_callback_ =
 		sge::opencl::context::optional_error_callback(
-			_error_callback
+			std::move(
+				_error_callback
+			)
 		);
 
 	return
@@ -45,14 +52,12 @@ sge::opencl::context::parameters::error_callback(
 
 sge::opencl::context::parameters &
 sge::opencl::context::parameters::share_with(
-	sge::renderer::device::core &_shared_renderer
+	sge::renderer::device::core_ref const _shared_renderer
 )
 {
 	shared_renderer_ =
 		optional_renderer(
-			fcppt::make_ref(
-				_shared_renderer
-			)
+			_shared_renderer
 		);
 
 	return

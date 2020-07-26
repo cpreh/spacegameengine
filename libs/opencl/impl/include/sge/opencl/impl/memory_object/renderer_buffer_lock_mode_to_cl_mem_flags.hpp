@@ -30,13 +30,13 @@ renderer_buffer_lock_mode_to_cl_mem_flags(
 	{
 		case sge::opencl::memory_object::renderer_buffer_lock_mode::read_only:
 			return
-				CL_MEM_READ_ONLY;
+				CL_MEM_READ_ONLY; // NOLINT(hicpp-signed-bitwise)
 		case sge::opencl::memory_object::renderer_buffer_lock_mode::write_only:
 			return
-				CL_MEM_WRITE_ONLY;
+				CL_MEM_WRITE_ONLY; // NOLINT(hicpp-signed-bitwise)
 		case sge::opencl::memory_object::renderer_buffer_lock_mode::read_write:
 			return
-				CL_MEM_READ_WRITE;
+				CL_MEM_READ_WRITE; // NOLINT(hicpp-signed-bitwise)
 	}
 	FCPPT_ASSERT_UNREACHABLE;
 }

@@ -24,30 +24,39 @@ namespace opencl
 {
 namespace device
 {
+
 class object
 {
 public:
-	SGE_OPENCL_DETAIL_SYMBOL cl_device_id
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	cl_device_id
 	impl() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL
+	void
 	output_info(
-		std::ostream &) const;
+		std::ostream &
+	) const;
 
-	SGE_OPENCL_DETAIL_SYMBOL bool
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	bool
 	is_gpu() const;
 private:
-	friend class opencl::platform::object;
-	friend class opencl::context::object;
-	friend class opencl::command_queue::object;
-	friend class opencl::program::object;
+	friend class sge::opencl::platform::object;
+	friend class sge::opencl::context::object;
+	friend class sge::opencl::command_queue::object;
+	friend class sge::opencl::program::object;
 
 	cl_device_id device_id_;
 
 	explicit
 	object(
-		cl_device_id const &);
+		cl_device_id const &
+	);
 };
+
 }
 }
 }

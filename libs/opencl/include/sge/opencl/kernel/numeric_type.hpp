@@ -32,7 +32,9 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wignored-attributes)
 #endif
 
-typedef
+using
+numeric_type
+=
 fcppt::variant::from_list<
 	fcppt::metal::unique<
 		::metal::list<
@@ -49,8 +51,7 @@ fcppt::variant::from_list<
 			cl_double
 		>
 	>
->
-numeric_type;
+>;
 
 FCPPT_PP_POP_WARNING
 

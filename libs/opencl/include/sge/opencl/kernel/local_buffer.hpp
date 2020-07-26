@@ -24,6 +24,7 @@ public:
 	local_buffer(
 		memory_object::byte_size const &);
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL memory_object::byte_size::value_type
 	byte_size() const;
 private:

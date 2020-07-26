@@ -27,6 +27,7 @@
 #error "Don't know what to include for opencl platform code"
 #endif
 #include <fcppt/config/external_begin.hpp>
+#include <array>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -38,18 +39,21 @@ sge::opencl::context::object::object(
 	error_callback_(
 		_params.error_callback())
 {
-	cl_int error_code;
+	cl_int error_code{};
 
-	cl_context_properties props[] =
-	{
+	std::array<cl_context_properties, 9> props{ // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		CL_CONTEXT_PLATFORM,
-		reinterpret_cast<cl_context_properties>(
-			_params.platform().platform_id_),
+		reinterpret_cast<
+			cl_context_properties
+		>(
+			_params.platform().platform_id_
+		),
 		_params.shared_renderer().has_value()
 		?
 			CL_GL_CONTEXT_KHR
 		:
-			static_cast<cl_context_properties>(0),
+			static_cast<cl_context_properties>(0)
+		,
 		_params.shared_renderer().has_value()
 		?
 			reinterpret_cast<cl_context_properties>(
@@ -63,7 +67,8 @@ sge::opencl::context::object::object(
 #endif
 			)
 		:
-			static_cast<cl_context_properties>(0),
+			static_cast<cl_context_properties>(0)
+		,
 #if defined(SGE_OPENCL_HAVE_GLX)
 		CL_GLX_DISPLAY_KHR,
 		_params.shared_renderer().has_value()
@@ -86,13 +91,14 @@ sge::opencl::context::object::object(
 		0
 	};
 
-	typedef
+	using
+	device_id_vector
+	=
 	std::vector<
 		cl_device_id
-	>
-	device_id_vector;
+	>;
 
-	device_id_vector const devices(
+	auto const devices(
 		fcppt::algorithm::map<
 			device_id_vector
 		>(
@@ -109,10 +115,10 @@ sge::opencl::context::object::object(
 		)
 	);
 
-	// TODO: Initialize this directly
+	// TODO(philipp): Initialize this directly
 	context_ =
 		clCreateContext(
-			props,
+			props.data(),
 			fcppt::cast::size<
 				cl_uint
 			>(
@@ -141,7 +147,7 @@ sge::opencl::memory_object::image::format_sequence
 sge::opencl::context::object::supported_planar_image_formats(
 	cl_mem_flags const mem_flags) const
 {
-	cl_uint num_entries;
+	cl_uint num_entries{};
 
 	cl_int error_code =
 		clGetSupportedImageFormats(
@@ -180,7 +186,7 @@ sge::opencl::memory_object::image::format_sequence
 sge::opencl::context::object::supported_volume_image_formats(
 	cl_mem_flags const mem_flags) const
 {
-	cl_uint num_entries;
+	cl_uint num_entries{};
 
 	cl_int error_code =
 		clGetSupportedImageFormats(
@@ -217,8 +223,10 @@ sge::opencl::context::object::supported_volume_image_formats(
 
 sge::opencl::context::object::~object()
 {
-	if(!context_)
+	if(context_ == nullptr)
+	{
 		return;
+	}
 
 	cl_int const error_code =
 		clReleaseContext(

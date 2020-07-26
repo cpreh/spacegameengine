@@ -5,7 +5,6 @@
 
 
 #include <sge/opencl/single_device_system/parameters.hpp>
-#include <fcppt/make_ref.hpp>
 
 
 sge::opencl::single_device_system::parameters::parameters()
@@ -23,13 +22,12 @@ sge::opencl::single_device_system::parameters::parameters()
 
 sge::opencl::single_device_system::parameters &
 sge::opencl::single_device_system::parameters::renderer(
-	sge::renderer::device::core &_renderer)
+	sge::renderer::device::core_ref const _renderer
+)
 {
 	renderer_ =
 		sge::opencl::single_device_system::optional_renderer(
-			fcppt::make_ref(
-				_renderer
-			)
+			_renderer
 		);
 
 	return *this;

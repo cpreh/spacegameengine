@@ -12,6 +12,7 @@
 #include <sge/opencl/context/optional_error_callback.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/single_device_system/optional_renderer.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
 
@@ -30,7 +31,8 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
 	renderer(
-		sge::renderer::device::core &);
+		sge::renderer::device::core_ref
+	);
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
@@ -39,34 +41,42 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
 	context_error_callback(
-		sge::opencl::context::error_callback const &);
+		sge::opencl::context::error_callback const &
+	);
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
 	prefer_gpu(
-		bool);
+		bool
+	);
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	parameters &
 	execution_mode(
-		sge::opencl::command_queue::execution_mode);
+		sge::opencl::command_queue::execution_mode
+	);
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::single_device_system::optional_renderer const &
 	renderer() const;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::context::optional_error_callback const &
 	error_callback() const;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::command_queue::profiling_mode
 	profiling() const;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::command_queue::execution_mode
 	execution_mode() const;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	bool
 	prefers_gpu() const;

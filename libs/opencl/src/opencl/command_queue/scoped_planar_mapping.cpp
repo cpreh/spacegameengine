@@ -11,23 +11,29 @@
 #include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/event/flatten_sequence.hpp>
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
+#include <sge/opencl/memory_object/image/planar_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <array>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
-	sge::opencl::command_queue::object &_queue,
-	sge::opencl::memory_object::image::planar &_image,
+	sge::opencl::command_queue::object_ref const _queue,
+	sge::opencl::memory_object::image::planar_ref const _image,
 	sge::opencl::command_queue::map_flags const _flags,
 	sge::opencl::memory_object::rect const &_rect,
-	sge::opencl::event::sequence const &_events)
+	sge::opencl::event::sequence const &_events
+)
 :
 	queue_(
 		_queue),
@@ -35,29 +41,32 @@ sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 		_rect),
 	sge_image_format_(
 		opencl::memory_object::image::opencl_color_format_to_sge(
-			_image.image_format())),
+			_image.get().image_format()
+		)
+	),
 	image_(
-		_image.impl()),
+		_image.get().impl()
+	),
 	ptr_(
 		nullptr),
 	pitch_()
 {
-	cl_int error_code;
+	cl_int error_code{};
 
 	// We can't use _rect.pos().data() because OpenCL checks if [2] is equal to 0/1
-	std::size_t pos[] = { _rect.pos().x(),_rect.pos().y(),0 };
-	std::size_t size[] = { _rect.size().w(),_rect.size().h(),1 };
+	std::array<std::size_t,3> pos { _rect.pos().x(),_rect.pos().y(),0 };
+	std::array<std::size_t,3> size { _rect.size().w(),_rect.size().h(),1 };
 
 	ptr_ =
 		clEnqueueMapImage(
-			_queue.impl(),
+			_queue.get().impl(),
 			image_,
 			// Blocking: yes
 			CL_TRUE,
 			sge::opencl::command_queue::map_flags_to_native(
 				_flags),
-			pos,
-			size,
+			pos.data(),
+			size.data(),
 			&pitch_,
 			// slice pitch
 			nullptr,
@@ -114,12 +123,14 @@ sge::opencl::command_queue::scoped_planar_mapping::view()
 
 sge::opencl::command_queue::scoped_planar_mapping::~scoped_planar_mapping()
 {
-	if(!ptr_)
+	if(ptr_ == nullptr)
+	{
 		return;
+	}
 
 	cl_int const error_code =
 		clEnqueueUnmapMemObject(
-			queue_.impl(),
+			queue_.get().impl(),
 			image_,
 			this->ptr(),
 			0,

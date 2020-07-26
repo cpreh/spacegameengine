@@ -18,11 +18,12 @@ namespace opencl
 namespace program
 {
 
-typedef
+using
+notification_callback
+=
 fcppt::function<
 	sge::opencl::program::notification_callback_type
->
-notification_callback;
+>;
 
 }
 }

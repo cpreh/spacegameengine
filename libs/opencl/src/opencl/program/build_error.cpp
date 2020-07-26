@@ -28,6 +28,7 @@ sge::opencl::program::build_error::build_error(
 sge::opencl::program::build_error::build_error(
 	build_error &&
 )
+noexcept
 = default;
 
 sge::opencl::program::build_error::build_error(
@@ -39,6 +40,7 @@ sge::opencl::program::build_error &
 sge::opencl::program::build_error::operator=(
 	build_error &&
 )
+noexcept
 = default;
 
 sge::opencl::program::build_error &
@@ -47,9 +49,9 @@ sge::opencl::program::build_error::operator=(
 )
 = default;
 
-sge::opencl::program::build_error::~build_error() noexcept
-{
-}
+sge::opencl::program::build_error::~build_error()
+noexcept
+= default;
 
 fcppt::string const &
 sge::opencl::program::build_error::message() const

@@ -10,7 +10,7 @@
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/platform/object_sequence.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -19,19 +19,25 @@ namespace opencl
 {
 class system
 {
-FCPPT_NONCOPYABLE(
-	system);
+	FCPPT_NONMOVABLE(
+		system
+	);
 public:
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
 	system();
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::platform::object_sequence &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::platform::object_sequence &
 	platforms();
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::platform::object_sequence const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::platform::object_sequence const &
 	platforms() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL ~system();
+	SGE_OPENCL_DETAIL_SYMBOL
+	~system();
 private:
 	opencl::platform::object_sequence platforms_;
 };

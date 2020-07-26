@@ -12,36 +12,48 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace opencl
 {
 namespace platform
 {
+
 class version
 {
 public:
-	typedef
-	unsigned
-	unit;
+	using
+	unit
+	=
+	unsigned;
 
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
+	explicit
 	version(
-		std::string const &);
+		std::string const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL unit
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	unit
 	major_part() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL unit
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	unit
 	minor_part() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL std::string const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	std::string const &
 	platform_specific() const;
 private:
 	unit major_;
 	unit minor_;
 	std::string platform_specific_;
 };
+
 }
 }
 }

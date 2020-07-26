@@ -18,11 +18,11 @@ sge::opencl::command_queue::map_flags_to_native(
 		_flags)
 	{
 		case sge::opencl::command_queue::map_flags::read:
-			return CL_MAP_READ;
+			return CL_MAP_READ; // NOLINT(hicpp-signed-bitwise)
 		case sge::opencl::command_queue::map_flags::write:
-			return CL_MAP_WRITE;
+			return CL_MAP_WRITE; // NOLINT(hicpp-signed-bitwise)
 		case sge::opencl::command_queue::map_flags::read_write:
-			return CL_MAP_READ | CL_MAP_WRITE;
+			return CL_MAP_READ | CL_MAP_WRITE; // NOLINT(hicpp-signed-bitwise)
 
 	}
 

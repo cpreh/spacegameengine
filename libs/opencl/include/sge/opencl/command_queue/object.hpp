@@ -11,10 +11,11 @@
 #include <sge/opencl/command_queue/execution_mode_fwd.hpp>
 #include <sge/opencl/command_queue/profiling_mode_fwd.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
+#include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/device/object_fwd.hpp>
-#include <sge/opencl/kernel/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opencl/device/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,36 +24,48 @@ namespace opencl
 {
 namespace command_queue
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
 	object(
-		opencl::device::object &,
-		opencl::context::object &,
-		command_queue::execution_mode,
-		command_queue::profiling_mode);
+		sge::opencl::device::object_ref,
+		sge::opencl::context::object_ref,
+		sge::opencl::command_queue::execution_mode,
+		sge::opencl::command_queue::profiling_mode
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::context::object &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::context::object &
 	context() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::device::object &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::device::object &
 	device() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL cl_command_queue
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	cl_command_queue
 	impl() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL
+	void
 	finish();
 
-	SGE_OPENCL_DETAIL_SYMBOL ~object();
+	SGE_OPENCL_DETAIL_SYMBOL
+	~object();
 private:
-	opencl::context::object &context_;
-	opencl::device::object &device_;
+	sge::opencl::context::object_ref const context_;
+	sge::opencl::device::object_ref const device_;
 	cl_command_queue queue_;
 };
+
 }
 }
 }

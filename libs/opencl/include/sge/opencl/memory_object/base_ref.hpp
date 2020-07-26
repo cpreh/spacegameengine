@@ -4,13 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_OPENCL_MEMORY_OBJECT_RECT_HPP_INCLUDED
-#define SGE_OPENCL_MEMORY_OBJECT_RECT_HPP_INCLUDED
+#ifndef SGE_OPENCL_MEMORY_OBJECT_BASE_REF_HPP_INCLUDED
+#define SGE_OPENCL_MEMORY_OBJECT_BASE_REF_HPP_INCLUDED
 
-#include <fcppt/math/box/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstddef>
-#include <fcppt/config/external_end.hpp>
+#include <sge/opencl/memory_object/base_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -21,11 +19,10 @@ namespace memory_object
 {
 
 using
-rect
+base_ref
 =
-fcppt::math::box::object<
-	std::size_t,
-	2
+fcppt::reference<
+	sge::opencl::memory_object::base
 >;
 
 }

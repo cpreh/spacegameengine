@@ -16,14 +16,22 @@ sge::opencl::impl::memory_object::to_opencl_mem_flags(
 	cl_mem_flags result = 0;
 
 	if(f & sge::opencl::memory_object::flags::read && f & sge::opencl::memory_object::flags::write)
-		result = CL_MEM_READ_WRITE;
+	{
+		result = CL_MEM_READ_WRITE; // NOLINT(hicpp-signed-bitwise)
+	}
 	else if(f & sge::opencl::memory_object::flags::read)
-		result = CL_MEM_READ_ONLY;
+	{
+		result = CL_MEM_READ_ONLY; // NOLINT(hicpp-signed-bitwise)
+	}
 	else if(f & sge::opencl::memory_object::flags::write)
-		result = CL_MEM_WRITE_ONLY;
+	{
+		result = CL_MEM_WRITE_ONLY; // NOLINT(hicpp-signed-bitwise)
+	}
 
 	if(f & sge::opencl::memory_object::flags::alloc_host_ptr)
-		result |= CL_MEM_ALLOC_HOST_PTR;
+	{
+		result |= CL_MEM_ALLOC_HOST_PTR; // NOLINT(hicpp-signed-bitwise)
+	}
 
 	return result;
 }

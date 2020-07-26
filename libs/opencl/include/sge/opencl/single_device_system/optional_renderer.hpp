@@ -18,11 +18,12 @@ namespace opencl
 namespace single_device_system
 {
 
-typedef
+using
+optional_renderer
+=
 fcppt::optional::reference<
 	sge::renderer::device::core
->
-optional_renderer;
+>;
 
 }
 }

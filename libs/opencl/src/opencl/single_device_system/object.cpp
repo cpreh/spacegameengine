@@ -5,14 +5,18 @@
 
 
 #include <sge/log/default_parameters.hpp>
+#include <sge/opencl/binary_error_data.hpp>
+#include <sge/opencl/error_information_string.hpp>
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/context/parameters.hpp>
+#include <sge/opencl/device/object_ref.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object.hpp>
+#include <sge/opencl/platform/object_ref.hpp>
 #include <sge/opencl/single_device_system/object.hpp>
 #include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
@@ -35,7 +39,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/trim.hpp>
 #include <boost/thread/locks.hpp>
-#include <functional>
 #include <mutex>
 #include <fcppt/config/external_end.hpp>
 
@@ -44,22 +47,23 @@ namespace
 {
 sge::opencl::context::parameters
 construct_context_parameters(
-	sge::opencl::platform::object &_platform,
-	sge::opencl::device::object &_device,
+	sge::opencl::platform::object_ref const _platform,
+	sge::opencl::device::object_ref const _device,
 	sge::opencl::context::error_callback const &_error_callback,
 	sge::opencl::single_device_system::optional_renderer const &_opt_renderer)
 {
 	sge::opencl::context::parameters result(
 		_platform,
 		sge::opencl::device::object_ref_sequence{
-			fcppt::make_ref(
-				_device
-			)
+			_device
 		}
 	);
 
 	result.error_callback(
-		_error_callback);
+		sge::opencl::context::error_callback{
+			_error_callback
+		}
+	);
 
 	fcppt::optional::maybe_void(
 		_opt_renderer,
@@ -72,7 +76,7 @@ construct_context_parameters(
 		)
 		{
 			result.share_with(
-				_renderer.get()
+				_renderer
 			);
 		}
 	);
@@ -82,18 +86,30 @@ construct_context_parameters(
 
 sge::opencl::platform::object &
 choose_platform(
-	fcppt::log::object &_log,
-	sge::opencl::platform::object_sequence &objects,
+	fcppt::log::object &_log, // NOLINT(google-runtime-references)
+	fcppt::reference<
+		sge::opencl::platform::object_sequence
+	> const objects,
 	bool const prefer_gpu)
 {
 	if(!prefer_gpu)
+	{
 		return
-			objects.front();
+			objects.get().front();
+	}
 
 	for(
-		auto &platform : objects)
+		auto &platform
+		:
+		objects.get()
+	)
+	{
 		if(platform.has_gpu())
-			return platform;
+		{
+			return
+				platform;
+		}
+	}
 
 	FCPPT_LOG_WARNING(
 		_log,
@@ -103,7 +119,7 @@ choose_platform(
 	)
 
 	return
-		objects.front();
+		objects.get().front();
 }
 }
 
@@ -127,22 +143,36 @@ sge::opencl::single_device_system::object::object(
 	platform_(
 		&choose_platform(
 			log_,
-			system_->platforms(),
-			_params.prefers_gpu())),
+			fcppt::make_ref(
+				system_->platforms()
+			),
+			_params.prefers_gpu()
+		)
+	),
 	device_(
 		&platform_->devices().front()),
 	context_(
 		fcppt::make_unique_ptr<context::object>(
 			::construct_context_parameters(
-				*platform_,
-				*device_,
+				fcppt::make_ref(
+					*platform_
+				),
+				fcppt::make_ref(
+					*device_
+				),
 				sge::opencl::context::error_callback{
-					std::bind(
-						&object::error_callback,
-						this,
-						std::placeholders::_1,
-						std::placeholders::_2
+					[
+						this
+					](
+						sge::opencl::error_information_string const &_error_information,
+						sge::opencl::binary_error_data const &_error_data
 					)
+					{
+						this->error_callback(
+							_error_information,
+							_error_data
+						);
+					}
 				},
 				_params.renderer()
 			)
@@ -150,10 +180,16 @@ sge::opencl::single_device_system::object::object(
 	),
 	queue_(
 		fcppt::make_unique_ptr<command_queue::object>(
-			*device_,
-			*context_,
+			fcppt::make_ref(
+				*device_
+			),
+			fcppt::make_ref(
+				*context_
+			),
 			command_queue::execution_mode::in_order,
-			_params.profiling())),
+			_params.profiling()
+		)
+	),
 	error_mutex_(),
 	error_occured_(
 		false),
@@ -175,7 +211,9 @@ sge::opencl::single_device_system::object::update()
 		error_mutex_);
 
 	if(!error_occured_)
+	{
 		return;
+	}
 
 	fcppt::optional::to_exception(
 		error_callback_,
@@ -270,8 +308,8 @@ sge::opencl::single_device_system::object::~object()
 
 void
 sge::opencl::single_device_system::object::error_callback(
-	opencl::error_information_string const &_error_information,
-	opencl::binary_error_data const &_error_data)
+	sge::opencl::error_information_string const &_error_information,
+	sge::opencl::binary_error_data const &_error_data)
 {
 	std::lock_guard<std::mutex> l(
 		error_mutex_);

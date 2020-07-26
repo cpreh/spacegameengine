@@ -15,7 +15,7 @@
 #include <sge/opencl/memory_object/image/format_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/opencl/program/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
@@ -27,44 +27,59 @@ namespace opencl
 {
 namespace context
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
+	explicit
 	object(
-		context::parameters const &);
+		sge::opencl::context::parameters const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL cl_context
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	cl_context
 	impl() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::memory_object::image::format_sequence
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::memory_object::image::format_sequence
 	supported_planar_image_formats(
-		cl_mem_flags) const;
+		cl_mem_flags
+	) const;
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::memory_object::image::format_sequence
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::memory_object::image::format_sequence
 	supported_volume_image_formats(
-		cl_mem_flags) const;
+		cl_mem_flags
+	) const;
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	~object();
 private:
-	friend class opencl::platform::object;
-	friend class opencl::command_queue::object;
-	friend class opencl::program::object;
+	friend class sge::opencl::platform::object;
+	friend class sge::opencl::command_queue::object;
+	friend class sge::opencl::program::object;
 
 	cl_context context_;
-	context::optional_error_callback const error_callback_;
+	sge::opencl::context::optional_error_callback const error_callback_;
 
 
-	static void
+	static
+	void
 	error_callback(
 		char const *,
 		void const *,
 		size_t,
-		void *);
+		void *
+	);
 };
+
 }
 }
 }

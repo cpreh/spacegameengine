@@ -12,6 +12,7 @@
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/memory_object/rect.hpp>
 #include <sge/opencl/memory_object/image/planar_fwd.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -22,12 +23,18 @@ namespace memory_object
 {
 namespace image
 {
-SGE_OPENCL_DETAIL_SYMBOL void
+
+SGE_OPENCL_DETAIL_SYMBOL
+void
 read_planar(
-	opencl::command_queue::object &,
-	memory_object::image::planar const &,
+	fcppt::reference<
+		sge::opencl::command_queue::object
+	>,
+	sge::opencl::memory_object::image::planar const &,
 	sge::image2d::view::object const &,
-	opencl::memory_object::rect const &);
+	sge::opencl::memory_object::rect const &
+);
+
 }
 }
 }

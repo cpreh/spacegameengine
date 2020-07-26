@@ -17,25 +17,36 @@
 #include <cstring>
 #include <iterator>
 #include <string>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
 namespace
 {
 
-typedef
+using
+buffer_type
+=
 fcppt::container::buffer::object<
 	char
->
-buffer_type;
+>;
 
-void
+template<
+	typename Dest
+>
+[[nodiscard]]
+std::enable_if_t<
+	std::is_same_v<
+		Dest,
+		std::string
+	>,
+	std::string
+>
 copy_to_result(
-	buffer_type const &_source,
-	std::string &_dest
+	buffer_type const &_source
 )
 {
-	_dest =
+	return
 		std::string(
 			_source.begin(),
 			std::prev(
@@ -47,17 +58,27 @@ copy_to_result(
 template<
 	typename Dest
 >
-void
+[[nodiscard]]
+std::enable_if_t<
+	std::is_fundamental_v<
+		Dest
+	>,
+	Dest
+>
 copy_to_result(
-	buffer_type const &_source,
-	Dest &_dest
+	buffer_type const &_source
 )
 {
+	Dest dest{};
+
 	std::memcpy(
-		&_dest,
+		&dest,
 		_source.read_data(),
 		_source.read_size()
 	);
+
+	return
+		dest;
 }
 
 template<typename Result>
@@ -66,7 +87,7 @@ device_info(
 	cl_device_id const &current_device,
 	cl_device_info const &info)
 {
-	size_t param_value_size;
+	size_t param_value_size{};
 
 	cl_int error_code =
 		clGetDeviceInfo(
@@ -106,15 +127,12 @@ device_info(
 		error_code,
 		FCPPT_TEXT("clGetDeviceInfo(option value)"));
 
-	Result result;
-
-	copy_to_result(
-		result_string,
-		result
-	);
-
 	return
-		result;
+		copy_to_result<
+			Result
+		>(
+			result_string
+		);
 }
 
 
@@ -124,19 +142,14 @@ std::string
 device_type_to_string(
 	cl_device_type const dt)
 {
-	switch(
+	switch( // NOLINT(hicpp-multiway-paths-covered)
 		dt)
 	{
-		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(
-			CL_DEVICE_TYPE_CPU);
-		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(
-			CL_DEVICE_TYPE_GPU);
-		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(
-			CL_DEVICE_TYPE_ACCELERATOR);
-		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(
-			CL_DEVICE_TYPE_DEFAULT);
-		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(
-			CL_DEVICE_TYPE_ALL);
+		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_DEVICE_TYPE_CPU); // NOLINT(hicpp-signed-bitwise)
+		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_DEVICE_TYPE_GPU); // NOLINT(hicpp-signed-bitwise)
+		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_DEVICE_TYPE_ACCELERATOR); // NOLINT(hicpp-signed-bitwise)
+		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_DEVICE_TYPE_DEFAULT); // NOLINT(hicpp-signed-bitwise)
+		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_DEVICE_TYPE_ALL); // NOLINT(hicpp-signed-bitwise)
 	}
 	FCPPT_ASSERT_UNREACHABLE;
 }
@@ -147,32 +160,50 @@ device_fp_config_to_string(
 {
 	std::string result;
 
-	if(dt & CL_FP_DENORM)
+	if((dt & CL_FP_DENORM) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_FP_DENORM";
-	if(dt & CL_FP_DENORM && dt & CL_FP_INF_NAN)
+	}
+	if((dt & CL_FP_DENORM) != 0 && (dt & CL_FP_INF_NAN) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += ", ";
-	if(dt &  CL_FP_INF_NAN)
+	}
+	if((dt &  CL_FP_INF_NAN) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_FP_INF_NAN";
-
-	if(dt & CL_FP_INF_NAN && dt & CL_FP_ROUND_TO_NEAREST)
+	}
+	if((dt & CL_FP_INF_NAN) != 0 && (dt & CL_FP_ROUND_TO_NEAREST) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += ", ";
-	if(dt & CL_FP_ROUND_TO_NEAREST)
+	}
+	if((dt & CL_FP_ROUND_TO_NEAREST) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_FP_ROUND_TO_NEAREST";
-
-	if(dt & CL_FP_ROUND_TO_NEAREST && dt & CL_FP_ROUND_TO_ZERO)
+	}
+	if((dt & CL_FP_ROUND_TO_NEAREST) != 0 && (dt & CL_FP_ROUND_TO_ZERO) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += ", ";
-	if(dt & CL_FP_ROUND_TO_ZERO)
+	}
+	if((dt & CL_FP_ROUND_TO_ZERO) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_FP_ROUND_TO_ZERO";
-
-	if(dt & CL_FP_ROUND_TO_ZERO && dt & CL_FP_ROUND_TO_INF)
+	}
+	if((dt & CL_FP_ROUND_TO_ZERO) != 0 && (dt & CL_FP_ROUND_TO_INF) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += ", ";
-	if(dt & CL_FP_ROUND_TO_INF)
+	}
+	if((dt & CL_FP_ROUND_TO_INF) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_FP_ROUND_TO_INF";
-
-	if(dt & CL_FP_ROUND_TO_INF && dt & CL_FP_FMA)
+	}
+	if((dt & CL_FP_ROUND_TO_INF) != 0 && (dt & CL_FP_FMA) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += ", ";
-	if(dt & CL_FP_FMA)
+	}
+	if((dt & CL_FP_FMA) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_FP_FMA";
+	}
 
 	return result;
 }
@@ -183,14 +214,20 @@ device_exec_capabilities_to_string(
 {
 	std::string result;
 
-	if(dt & CL_EXEC_KERNEL)
+	if((dt & CL_EXEC_KERNEL) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_EXEC_KERNEL";
+	}
 
-	if(dt & CL_EXEC_KERNEL && dt & CL_EXEC_NATIVE_KERNEL)
+	if((dt & CL_EXEC_KERNEL) != 0 && (dt & CL_EXEC_NATIVE_KERNEL) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += ", ";
+	}
 
-	if(dt & CL_EXEC_NATIVE_KERNEL)
+	if((dt & CL_EXEC_NATIVE_KERNEL) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_EXEC_NATIVE_KERNEL";
+	}
 
 	return result;
 }
@@ -199,7 +236,7 @@ std::string
 device_mem_cache_type_to_string(
 	cl_device_mem_cache_type const dt)
 {
-	switch(
+	switch( // NOLINT(hicpp-multiway-paths-covered)
 		dt)
 	{
 		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(
@@ -216,7 +253,7 @@ std::string
 device_local_mem_type_to_string(
 	cl_device_local_mem_type const dt)
 {
-	switch(
+	switch( // NOLINT(hicpp-multiway-paths-covered)
 		dt)
 	{
 		SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(
@@ -233,32 +270,40 @@ command_queue_properties_to_string(
 {
 	std::string result;
 
-	if(dt & CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE)
+	if((dt & CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE";
+	}
 
-	if(dt & CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE && dt & CL_QUEUE_PROFILING_ENABLE)
+	if((dt & CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE) != 0 && (dt & CL_QUEUE_PROFILING_ENABLE) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += ", ";
+	}
 
-	if(dt & CL_QUEUE_PROFILING_ENABLE)
+	if((dt & CL_QUEUE_PROFILING_ENABLE) != 0) // NOLINT(hicpp-signed-bitwise)
+	{
 		result += "CL_QUEUE_PROFILING_ENABLE";
+	}
 
 	return result;
 }
 
 std::string
 max_work_item_sizes_to_string(
-	cl_device_id const device)
+	cl_device_id const device // NOLINT(misc-misplaced-const)
+)
 {
-	cl_uint const max_work_item_dimensions =
+	auto const max_work_item_dimensions =
 		device_info<cl_uint>(
 			device,
 			CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS);
 
-	typedef
+	using
+	size_vector
+	=
 	fcppt::container::buffer::object<
 		std::size_t
-	>
-	size_vector;
+	>;
 
 	size_vector sizes{
 		fcppt::cast::size<
@@ -287,7 +332,7 @@ max_work_item_sizes_to_string(
 		FCPPT_TEXT("clGetDeviceInfo(option value)"));
 
 	std::string result;
-	// TODO: Refactor this
+	// TODO(philipp): Refactor this
 	result += '(';
 	for(size_vector::const_iterator it = sizes.begin(); it != sizes.end(); ++it)
 	{
@@ -296,7 +341,9 @@ max_work_item_sizes_to_string(
 				*it);
 
 		if(it != std::prev(sizes.end()))
+		{
 			result += ", ";
+		}
 	}
 	result += ')';
 
@@ -446,7 +493,7 @@ sge::opencl::device::object::output_info(
 bool
 sge::opencl::device::object::is_gpu() const
 {
-	cl_device_type type;
+	cl_device_type type{};
 
 	cl_int const error_code =
 		clGetDeviceInfo(
@@ -460,7 +507,7 @@ sge::opencl::device::object::is_gpu() const
 		error_code,
 		FCPPT_TEXT("clGetDeviceInfo(option value)"));
 
-	return type == CL_DEVICE_TYPE_GPU;
+	return type == CL_DEVICE_TYPE_GPU; // NOLINT(hicpp-signed-bitwise)
 }
 
 sge::opencl::device::object::object(

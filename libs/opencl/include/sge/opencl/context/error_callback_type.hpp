@@ -17,11 +17,15 @@ namespace opencl
 {
 namespace context
 {
-typedef
-void
-error_callback_type(
-	opencl::error_information_string const &,
-	opencl::binary_error_data const &);
+
+using
+error_callback_type
+=
+void (
+	sge::opencl::error_information_string const &,
+	sge::opencl::binary_error_data const &
+);
+
 }
 }
 }

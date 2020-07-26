@@ -9,7 +9,7 @@
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -18,18 +18,22 @@ namespace opencl
 {
 namespace event
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	object();
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	cl_event &
 	handle();
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	cl_event const &
 	handle() const;
@@ -40,9 +44,9 @@ private:
 	cl_event handle_;
 	mutable bool handle_retrieved_;
 };
+
 }
 }
 }
 
 #endif
-

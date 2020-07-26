@@ -11,13 +11,17 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace opencl
 {
-typedef
-std::string
-error_information_string;
+
+using
+error_information_string
+=
+std::string;
+
 }
 }
 

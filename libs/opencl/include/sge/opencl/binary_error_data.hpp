@@ -15,11 +15,12 @@ namespace sge
 namespace opencl
 {
 
-typedef
+using
+binary_error_data
+=
 fcppt::iterator::range<
 	unsigned char const *
->
-binary_error_data;
+>;
 
 }
 }

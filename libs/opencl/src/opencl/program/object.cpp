@@ -8,6 +8,7 @@
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/context/object.hpp>
+#include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/program/build_error.hpp>
@@ -43,7 +44,7 @@
 
 sge::opencl::program::object::object(
 	fcppt::log::context_reference const _log_context,
-	sge::opencl::context::object &_context,
+	sge::opencl::context::object_ref const _context,
 	sge::opencl::program::source_string_sequence const &_source_strings,
 	sge::opencl::program::optional_build_parameters const &_opt_params)
 :
@@ -51,13 +52,15 @@ sge::opencl::program::object::object(
 		_log_context
 	)
 {
-	typedef
-	std::vector<char const *>
-	string_ptr_vector;
+	using
+	string_ptr_vector
+	=
+	std::vector<char const *>;
 
-	typedef
-	std::vector<size_t>
-	length_vector;
+	using
+	length_vector
+	=
+	std::vector<size_t>;
 
 	string_ptr_vector strings;
 
@@ -71,25 +74,29 @@ sge::opencl::program::object::object(
 		static_cast<length_vector::size_type>(
 			_source_strings.size()));
 
-	// TODO: map
+	// TODO(philipp): map
 	for(
-		program::source_string_sequence::const_iterator source_string =
-			_source_strings.begin();
-		source_string != _source_strings.end();
-		++source_string)
+		auto const &source_string
+		:
+		_source_strings
+	)
 	{
 		strings.push_back(
-			source_string->c_str());
+			source_string.c_str()
+		);
+
 		lengths.push_back(
 			static_cast<size_t>(
-				source_string->length()));
+				source_string.length()
+			)
+		);
 	}
 
-	cl_int error_code;
+	cl_int error_code{};
 
 	program_ =
 		clCreateProgramWithSource(
-			_context.context_,
+			_context.get().context_,
 			static_cast<cl_uint>(
 				_source_strings.size()),
 			strings.data(),
@@ -196,8 +203,10 @@ sge::opencl::program::object::build(
 
 sge::opencl::program::object::~object()
 {
-	if(!program_)
+	if(program_ == nullptr)
+	{
 		return;
+	}
 
 	cl_int const error_code =
 		clReleaseProgram(
@@ -221,7 +230,7 @@ sge::opencl::program::object::object(
 			}
 		)
 	},
-	// TODO: Direct initialization
+	// TODO(philipp): Direct initialization
 	program_(nullptr),
 	notification_callback_()
 {
@@ -233,7 +242,7 @@ sge::opencl::program::object::program_devices() const
 	// We need the device vector anyway when we handle the
 	// errors, so we get it here. Hope it's not too much
 	// of a performance penalty.
-	cl_uint number_of_devices;
+	cl_uint number_of_devices{};
 
 	cl_int const error_code =
 		clGetProgramInfo(
@@ -288,19 +297,18 @@ sge::opencl::program::object::check_program_return_values()
 	device_id_vector const devices =
 		this->program_devices();
 
-	// TODO: Normal loop
 	for(
-		device_id_vector::const_iterator it =
-			devices.begin();
-		it != devices.end();
-		++it)
+		auto const &device
+		:
+		devices
+	)
 	{
-		cl_build_status return_status;
+		cl_build_status return_status{};
 
 		cl_int const error_code4 =
 			clGetProgramBuildInfo(
 				program_,
-				*it,
+				device,
 				CL_PROGRAM_BUILD_STATUS,
 				sizeof(
 					cl_build_status),
@@ -320,13 +328,15 @@ sge::opencl::program::object::check_program_return_values()
 			return_status != CL_BUILD_IN_PROGRESS);
 
 		if(return_status == CL_BUILD_SUCCESS)
+		{
 			continue;
+		}
 
-		std::size_t program_build_log_size;
+		std::size_t program_build_log_size{};
 		cl_int const error_code5 =
 			clGetProgramBuildInfo(
 				program_,
-				*it,
+				device,
 				CL_PROGRAM_BUILD_LOG,
 				0,
 				nullptr,
@@ -344,7 +354,7 @@ sge::opencl::program::object::check_program_return_values()
 		cl_int const error_code6 =
 			clGetProgramBuildInfo(
 				program_,
-				*it,
+				device,
 				CL_PROGRAM_BUILD_LOG,
 				program_build_log_size,
 				fcppt::container::data(
@@ -358,7 +368,7 @@ sge::opencl::program::object::check_program_return_values()
 
 		if(!build_log.empty())
 		{
-			// TODO: error?
+			// TODO(philipp): error?
 			FCPPT_LOG_VERBOSE(
 				log_,
 				fcppt::log::out
@@ -382,7 +392,7 @@ sge::opencl::program::object::notification_callback(
 	cl_program,
 	void *user_data)
 {
-	sge::opencl::program::object * const program =
+	auto *const program =
 		static_cast<sge::opencl::program::object *>(
 			user_data);
 

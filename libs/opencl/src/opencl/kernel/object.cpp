@@ -8,9 +8,12 @@
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/kernel/local_buffer.hpp>
+#include <sge/opencl/kernel/name.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/base.hpp>
+#include <sge/opencl/memory_object/base_ref.hpp>
 #include <sge/opencl/program/object.hpp>
+#include <sge/opencl/program/object_ref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
@@ -18,34 +21,46 @@
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/variant/apply.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opencl::kernel::object::object(
-	program::object &_program,
-	kernel::name const &_name)
+	sge::opencl::program::object_ref const _program,
+	sge::opencl::kernel::name &&_name
+)
 :
-	// TODO: change this to directly construct the elements via free functions
 	name_(
-		_name.get()),
+		std::move(
+			_name
+		)
+	),
+	// TODO(philipp): change this to directly construct the elements via free functions
 	kernel_(
-		nullptr),
+		nullptr
+	),
 	argument_count_()
 {
-	cl_int error_code;
+	cl_int error_code{};
 
 	kernel_ =
 		clCreateKernel(
-			_program.program_,
-			_name.get().c_str(),
-			&error_code);
+			_program.get().program_,
+			this->name_.get().c_str(),
+			&error_code
+		);
 
 	if(error_code == CL_INVALID_KERNEL_NAME)
+	{
 		throw
 			sge::opencl::exception(
 				FCPPT_TEXT("The kernel name \"")+
 				fcppt::from_std_string(
-					_name.get())+
+					this->name_.get()
+				)+
 				FCPPT_TEXT("\" is invalid."));
+	}
 
 	opencl::impl::handle_error(
 		error_code,
@@ -65,28 +80,31 @@ sge::opencl::kernel::object::object(
 		FCPPT_TEXT("clGetKernelInfo(number of arguments)"));
 }
 
-sge::opencl::kernel::name::value_type
+sge::opencl::kernel::name::value_type const &
 sge::opencl::kernel::object::name() const
 {
-	return name_;
+	return
+		name_.get();
 }
 
 cl_kernel
 sge::opencl::kernel::object::impl()
 {
-	return kernel_;
+	return
+		kernel_;
 }
 
 void
 sge::opencl::kernel::object::argument(
 	kernel::argument_index const &index,
-	memory_object::base &o)
+	sge::opencl::memory_object::base_ref const _memory
+)
 {
 	FCPPT_ASSERT_PRE_MESSAGE(
 		index.get() < argument_count_,
 		FCPPT_TEXT("Kernel argument index is out of range"));
 
-	cl_mem mem_ptr = o.impl();
+	cl_mem mem_ptr = _memory.get().impl();
 
 	cl_int const error_code =
 		clSetKernelArg(
@@ -95,7 +113,8 @@ sge::opencl::kernel::object::argument(
 				index.get()),
 			sizeof(
 				cl_mem),
-			&mem_ptr);
+			&mem_ptr
+		);
 
 	opencl::impl::handle_error(
 		error_code,
@@ -133,7 +152,7 @@ sge::opencl::kernel::object::argument(
 				)
 			};
 
-			switch(
+			switch( // NOLINT(hicpp-multiway-paths-covered)
 				error_code
 			)
 			{
@@ -144,7 +163,7 @@ sge::opencl::kernel::object::argument(
 					sge::opencl::exception{
 						FCPPT_TEXT("Kernel \"")+
 						fcppt::from_std_string(
-							name_
+							name_.get()
 						)
 						+
 						FCPPT_TEXT("\": clSetKernelArg for argument ")+
@@ -206,9 +225,10 @@ sge::opencl::kernel::object::argument(
 
 std::size_t
 sge::opencl::kernel::object::work_group_size(
-	opencl::device::object &_device) const
+	sge::opencl::device::object &_device
+) const
 {
-	std::size_t result;
+	std::size_t result{};
 
 	cl_int const error_code =
 		clGetKernelWorkGroupInfo(
@@ -228,8 +248,10 @@ sge::opencl::kernel::object::work_group_size(
 
 sge::opencl::kernel::object::~object()
 {
-	if(!kernel_)
+	if(kernel_ == nullptr)
+	{
 		return;
+	}
 
 	cl_int const error_code =
 		clReleaseKernel(

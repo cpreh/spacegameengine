@@ -23,6 +23,7 @@ set(
 	libs/opencl/include/sge/opencl/command_queue/map_flags_to_native.hpp
 	libs/opencl/include/sge/opencl/command_queue/object.hpp
 	libs/opencl/include/sge/opencl/command_queue/object_fwd.hpp
+	libs/opencl/include/sge/opencl/command_queue/object_ref.hpp
 	libs/opencl/include/sge/opencl/command_queue/profiling_mode.hpp
 	libs/opencl/include/sge/opencl/command_queue/profiling_mode_fwd.hpp
 	libs/opencl/include/sge/opencl/command_queue/scoped.hpp
@@ -32,11 +33,13 @@ set(
 	libs/opencl/include/sge/opencl/context/error_callback_type.hpp
 	libs/opencl/include/sge/opencl/context/object.hpp
 	libs/opencl/include/sge/opencl/context/object_fwd.hpp
+	libs/opencl/include/sge/opencl/context/object_ref.hpp
 	libs/opencl/include/sge/opencl/context/optional_error_callback.hpp
 	libs/opencl/include/sge/opencl/context/parameters.hpp
 	libs/opencl/include/sge/opencl/context/parameters_fwd.hpp
 	libs/opencl/include/sge/opencl/device/object.hpp
 	libs/opencl/include/sge/opencl/device/object_fwd.hpp
+	libs/opencl/include/sge/opencl/device/object_ref.hpp
 	libs/opencl/include/sge/opencl/device/object_ref_sequence.hpp
 	libs/opencl/include/sge/opencl/device/object_sequence.hpp
 	libs/opencl/include/sge/opencl/dim1.hpp
@@ -55,12 +58,15 @@ set(
 	libs/opencl/include/sge/opencl/kernel/numeric_type.hpp
 	libs/opencl/include/sge/opencl/kernel/object.hpp
 	libs/opencl/include/sge/opencl/kernel/object_fwd.hpp
+	libs/opencl/include/sge/opencl/kernel/object_ref.hpp
 	libs/opencl/include/sge/opencl/log_location.hpp
 	libs/opencl/include/sge/opencl/memory_object/base.hpp
 	libs/opencl/include/sge/opencl/memory_object/base_fwd.hpp
+	libs/opencl/include/sge/opencl/memory_object/base_ref.hpp
 	libs/opencl/include/sge/opencl/memory_object/base_ref_sequence.hpp
 	libs/opencl/include/sge/opencl/memory_object/buffer.hpp
 	libs/opencl/include/sge/opencl/memory_object/buffer_fwd.hpp
+	libs/opencl/include/sge/opencl/memory_object/buffer_ref.hpp
 	libs/opencl/include/sge/opencl/memory_object/byte_offset.hpp
 	libs/opencl/include/sge/opencl/memory_object/byte_size.hpp
 	libs/opencl/include/sge/opencl/memory_object/create_image_format.hpp
@@ -73,6 +79,7 @@ set(
 	libs/opencl/include/sge/opencl/memory_object/image/planar.hpp
 	libs/opencl/include/sge/opencl/memory_object/image/planar_fwd.hpp
 	libs/opencl/include/sge/opencl/memory_object/image/planar_pitch.hpp
+	libs/opencl/include/sge/opencl/memory_object/image/planar_ref.hpp
 	libs/opencl/include/sge/opencl/memory_object/image/read_planar.hpp
 	libs/opencl/include/sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp
 	libs/opencl/include/sge/opencl/memory_object/image/volume.hpp
@@ -84,6 +91,7 @@ set(
 	libs/opencl/include/sge/opencl/platform/extension_sequence.hpp
 	libs/opencl/include/sge/opencl/platform/object.hpp
 	libs/opencl/include/sge/opencl/platform/object_fwd.hpp
+	libs/opencl/include/sge/opencl/platform/object_ref.hpp
 	libs/opencl/include/sge/opencl/platform/object_sequence.hpp
 	libs/opencl/include/sge/opencl/platform/profile_type.hpp
 	libs/opencl/include/sge/opencl/platform/profile_type_fwd.hpp
@@ -97,6 +105,7 @@ set(
 	libs/opencl/include/sge/opencl/program/notification_callback_type.hpp
 	libs/opencl/include/sge/opencl/program/object.hpp
 	libs/opencl/include/sge/opencl/program/object_fwd.hpp
+	libs/opencl/include/sge/opencl/program/object_ref.hpp
 	libs/opencl/include/sge/opencl/program/optional_build_parameters.hpp
 	libs/opencl/include/sge/opencl/program/optional_notification_callback.hpp
 	libs/opencl/include/sge/opencl/program/source_string.hpp

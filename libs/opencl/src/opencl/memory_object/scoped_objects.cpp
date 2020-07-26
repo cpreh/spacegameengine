@@ -6,6 +6,7 @@
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/scoped_objects.hpp>
@@ -16,19 +17,23 @@
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opencl::memory_object::scoped_objects::scoped_objects(
-	sge::opencl::command_queue::object &_queue,
-	sge::opencl::memory_object::base_ref_sequence const &_objects)
+	sge::opencl::command_queue::object_ref const _queue,
+	sge::opencl::memory_object::base_ref_sequence &&_objects
+)
 :
 	queue_(
 		_queue
 	),
 	objects_(
-		_objects
+		std::move(
+			_objects
+		)
 	)
 {
 	FCPPT_ASSERT_PRE(
@@ -36,17 +41,18 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
 
 	glFinish();
 
-	typedef
+	using
+	mem_vector
+	=
 	std::vector<
 		cl_mem
-	>
-	mem_vector;
+	>;
 
-	mem_vector const impls(
+	auto const impls(
 		fcppt::algorithm::map<
 			mem_vector
 		>(
-			_objects,
+			this->objects_,
 			[](
 				fcppt::reference<
 					sge::opencl::memory_object::base
@@ -61,7 +67,7 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
 
 	cl_int const error_code{
 		clEnqueueAcquireGLObjects(
-			_queue.impl(),
+			this->queue_.get().impl(),
 			fcppt::cast::size<
 				cl_uint
 			>(
@@ -82,13 +88,14 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
 
 sge::opencl::memory_object::scoped_objects::~scoped_objects()
 {
-	typedef
+	using
+	mem_vector
+	=
 	std::vector<
 		cl_mem
-	>
-	mem_vector;
+	>;
 
-	mem_vector const impls(
+	auto const impls(
 		fcppt::algorithm::map<
 			mem_vector
 		>(
@@ -107,7 +114,7 @@ sge::opencl::memory_object::scoped_objects::~scoped_objects()
 
 	cl_int error_code =
 		clEnqueueReleaseGLObjects(
-			queue_.impl(),
+			queue_.get().impl(),
 			fcppt::cast::size<
 				cl_uint
 			>(
@@ -126,7 +133,7 @@ sge::opencl::memory_object::scoped_objects::~scoped_objects()
 
 	error_code =
 		clFinish(
-			queue_.impl()
+			queue_.get().impl()
 		);
 
 	sge::opencl::impl::handle_error(

@@ -27,40 +27,63 @@ namespace opencl
 {
 namespace platform
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONCOPYABLE(
+		object
+	);
 public:
-	SGE_OPENCL_DETAIL_SYMBOL cl_platform_id
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	cl_platform_id
 	impl() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::device::object_sequence &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::device::object_sequence &
 	devices();
 
-	SGE_OPENCL_DETAIL_SYMBOL opencl::device::object_sequence const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::device::object_sequence const &
 	devices() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::profile_type
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::platform::profile_type
 	profile() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::version
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::platform::version
 	version() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL std::string
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	std::string
 	name() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL std::string
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	std::string
 	vendor() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::extension_sequence
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::platform::extension_sequence
 	extensions() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL bool
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	bool
 	supports_memory_sharing_with(
-		renderer::device::core const &) const;
+		sge::renderer::device::core const &
+	) const;
 
-	SGE_OPENCL_DETAIL_SYMBOL bool
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	bool
 	has_gpu() const;
 
 	SGE_OPENCL_DETAIL_SYMBOL
@@ -68,24 +91,28 @@ public:
 
 	object(
 		object &&
-	);
+	)
+	noexcept;
 
 	object &
 	operator=(
 		object &&
-	);
+	)
+	noexcept;
 private:
-	friend class opencl::system;
-	friend class opencl::context::object;
+	friend class sge::opencl::system;
+	friend class sge::opencl::context::object;
 
 	cl_platform_id platform_id_;
 
-	opencl::device::object_sequence devices_;
+	sge::opencl::device::object_sequence devices_;
 
 	explicit
 	object(
-		cl_platform_id const &);
+		cl_platform_id const &
+	);
 };
+
 }
 }
 }

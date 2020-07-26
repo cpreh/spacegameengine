@@ -7,8 +7,7 @@
 #ifndef SGE_OPENCL_MEMORY_OBJECT_BASE_REF_SEQUENCE_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_BASE_REF_SEQUENCE_HPP_INCLUDED
 
-#include <sge/opencl/memory_object/base_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <sge/opencl/memory_object/base_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -21,13 +20,12 @@ namespace opencl
 namespace memory_object
 {
 
-typedef
+using
+base_ref_sequence
+=
 std::vector<
-	fcppt::reference<
-		sge::opencl::memory_object::base
-	>
->
-base_ref_sequence;
+	sge::opencl::memory_object::base_ref
+>;
 
 }
 }

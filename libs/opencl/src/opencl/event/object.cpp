@@ -40,7 +40,9 @@ sge::opencl::event::object::handle() const
 sge::opencl::event::object::~object()
 {
 	if(!handle_retrieved_)
+	{
 		return;
+	}
 
 	sge::opencl::impl::handle_error(
 		clReleaseEvent(

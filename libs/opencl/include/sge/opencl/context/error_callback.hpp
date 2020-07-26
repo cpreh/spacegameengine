@@ -18,11 +18,12 @@ namespace opencl
 namespace context
 {
 
-typedef
+using
+error_callback
+=
 fcppt::function<
 	sge::opencl::context::error_callback_type
->
-error_callback;
+>;
 
 }
 }

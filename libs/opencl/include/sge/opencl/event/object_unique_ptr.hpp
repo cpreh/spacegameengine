@@ -18,15 +18,15 @@ namespace opencl
 namespace event
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opencl::event::object
->
-object_unique_ptr;
+>;
 
 }
 }
 }
 
 #endif
-

@@ -8,14 +8,14 @@
 #define SGE_OPENCL_MEMORY_OBJECT_BUFFER_HPP_INCLUDED
 
 #include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/context/object_fwd.hpp>
+#include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/renderer_buffer_lock_mode_fwd.hpp>
-#include <sge/renderer/vertex/buffer_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/vertex/buffer_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,38 +24,48 @@ namespace opencl
 {
 namespace memory_object
 {
+
 class buffer
 :
-	public memory_object::base
+	public sge::opencl::memory_object::base
 {
-FCPPT_NONCOPYABLE(
-	buffer);
+	FCPPT_NONMOVABLE(
+		buffer
+	);
 public:
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
 	buffer(
-		opencl::context::object &,
+		sge::opencl::context::object_ref,
 		memory_object::flags_field const &,
-		memory_object::byte_size const &);
+		memory_object::byte_size const &
+	);
 
 	SGE_OPENCL_DETAIL_SYMBOL explicit
 	buffer(
-		opencl::context::object &,
-		sge::renderer::vertex::buffer &,
-		memory_object::renderer_buffer_lock_mode);
+		sge::opencl::context::object_ref,
+		sge::renderer::vertex::buffer_ref,
+		memory_object::renderer_buffer_lock_mode
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL cl_mem
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	cl_mem
 	impl()
 	override;
 
-	SGE_OPENCL_DETAIL_SYMBOL memory_object::byte_size
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::memory_object::byte_size
 	byte_size() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL ~buffer()
+	SGE_OPENCL_DETAIL_SYMBOL
+	~buffer()
 	override;
 private:
 	cl_mem impl_;
-	memory_object::byte_size const byte_size_;
+	sge::opencl::memory_object::byte_size const byte_size_;
 };
+
 }
 }
 }

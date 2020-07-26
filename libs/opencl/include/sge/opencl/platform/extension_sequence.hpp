@@ -19,9 +19,14 @@ namespace opencl
 {
 namespace platform
 {
-typedef
-std::vector<std::string>
-extension_sequence;
+
+using
+extension_sequence
+=
+std::vector<
+	std::string
+>;
+
 }
 }
 }

@@ -21,7 +21,8 @@ enum class orientation
 {
 	xz,
 	xy,
-	yz
+	yz,
+	fcppt_maximum = yz
 };
 
 }

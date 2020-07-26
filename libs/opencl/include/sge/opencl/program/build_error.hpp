@@ -34,7 +34,8 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	build_error(
 		build_error &&
-	);
+	)
+	noexcept;
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	build_error(
@@ -45,7 +46,8 @@ public:
 	build_error &
 	operator=(
 		build_error &&
-	);
+	)
+	noexcept;
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	build_error &
@@ -57,6 +59,7 @@ public:
 	~build_error() noexcept
 	override;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	fcppt::string const &
 	message() const;

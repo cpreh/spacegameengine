@@ -820,6 +820,7 @@ set(
 	libs/renderer/include/sge/renderer/texture/volume_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/volume_parameters.hpp
 	libs/renderer/include/sge/renderer/texture/volume_parameters_fwd.hpp
+	libs/renderer/include/sge/renderer/texture/volume_ref.hpp
 	libs/renderer/include/sge/renderer/texture/volume_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/volume_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/unsupported.hpp

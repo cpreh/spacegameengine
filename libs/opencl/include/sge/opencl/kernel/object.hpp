@@ -14,10 +14,10 @@
 #include <sge/opencl/kernel/local_buffer_fwd.hpp>
 #include <sge/opencl/kernel/name.hpp>
 #include <sge/opencl/kernel/numeric_type.hpp>
-#include <sge/opencl/memory_object/base_fwd.hpp>
+#include <sge/opencl/memory_object/base_ref.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
-#include <sge/opencl/program/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opencl/program/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
@@ -29,53 +29,73 @@ namespace opencl
 {
 namespace kernel
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
 	object(
-		program::object &,
-		kernel::name const &);
+		sge::opencl::program::object_ref,
+		sge::opencl::kernel::name &&
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL
+	void
 	argument(
-		kernel::argument_index const &,
-		memory_object::base &);
+		sge::opencl::kernel::argument_index const &,
+		sge::opencl::memory_object::base_ref
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL
+	void
 	argument(
-		kernel::argument_index const &,
-		kernel::numeric_type const &);
+		sge::opencl::kernel::argument_index const &,
+		sge::opencl::kernel::numeric_type const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL
+	void
 	argument(
-		kernel::argument_index const &,
+		sge::opencl::kernel::argument_index const &,
 		unsigned char const *,
-		memory_object::byte_size const &);
+		sge::opencl::memory_object::byte_size const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL
+	void
 	argument(
-		kernel::argument_index const &,
-		kernel::local_buffer const &);
+		sge::opencl::kernel::argument_index const &,
+		sge::opencl::kernel::local_buffer const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL std::size_t
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	std::size_t
 	work_group_size(
-		opencl::device::object &) const;
+		sge::opencl::device::object & // NOLINT(google-runtime-references)
+	) const; // NOLINT(google-runtime-references)
 
-	SGE_OPENCL_DETAIL_SYMBOL kernel::name::value_type
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::kernel::name::value_type const &
 	name() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL cl_kernel
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	cl_kernel
 	impl();
 
-	SGE_OPENCL_DETAIL_SYMBOL ~object();
+	SGE_OPENCL_DETAIL_SYMBOL
+	~object();
 private:
-	kernel::name::value_type name_;
+	sge::opencl::kernel::name name_;
 	cl_kernel kernel_;
 	cl_uint argument_count_;
 };
+
 }
 }
 }

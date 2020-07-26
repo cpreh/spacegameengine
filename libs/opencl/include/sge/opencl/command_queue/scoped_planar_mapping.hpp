@@ -11,12 +11,12 @@
 #include <sge/image2d/view/object.hpp>
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/map_flags_fwd.hpp>
-#include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/memory_object/rect.hpp>
-#include <sge/opencl/memory_object/image/planar_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opencl/memory_object/image/planar_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -31,30 +31,39 @@ namespace command_queue
 {
 class scoped_planar_mapping
 {
-FCPPT_NONCOPYABLE(
-	scoped_planar_mapping);
+	FCPPT_NONMOVABLE(
+		scoped_planar_mapping
+	);
 public:
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
 	scoped_planar_mapping(
-		sge::opencl::command_queue::object &,
-		sge::opencl::memory_object::image::planar &,
+		sge::opencl::command_queue::object_ref,
+		sge::opencl::memory_object::image::planar_ref,
 		sge::opencl::command_queue::map_flags,
 		sge::opencl::memory_object::rect const &,
-		sge::opencl::event::sequence const &);
+		sge::opencl::event::sequence const &
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL void*
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	void *
 	ptr() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL std::size_t
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	std::size_t
 	pitch() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::image2d::view::object
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::image2d::view::object
 	view();
 
-	SGE_OPENCL_DETAIL_SYMBOL ~scoped_planar_mapping();
+	SGE_OPENCL_DETAIL_SYMBOL
+	~scoped_planar_mapping();
 private:
-	command_queue::object &queue_;
-	opencl::memory_object::rect rect_;
+	sge::opencl::command_queue::object_ref const queue_;
+	sge::opencl::memory_object::rect rect_;
 	sge::image::color::format sge_image_format_;
 	cl_mem image_;
 	void *ptr_;

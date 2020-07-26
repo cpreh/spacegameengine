@@ -18,7 +18,7 @@
 #include <sge/opencl/device/object_fwd.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/opencl/single_device_system/parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
@@ -35,8 +35,9 @@ namespace single_device_system
 {
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	object(
@@ -44,37 +45,58 @@ public:
 		sge::opencl::single_device_system::parameters const &
 	);
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::system &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::system &
 	system();
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::system const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::system const &
 	system() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL void
+	SGE_OPENCL_DETAIL_SYMBOL
+	void
 	update();
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::object &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::platform::object &
 	platform();
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::platform::object const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::platform::object const &
 	platform() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::device::object &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::device::object &
 	device();
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::device::object const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::device::object const &
 	device() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::context::object &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::context::object &
 	context();
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::context::object const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::context::object const &
 	context() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::command_queue::object &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::command_queue::object &
 	command_queue();
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::command_queue::object const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::command_queue::object const &
 	command_queue() const;
 
 	SGE_OPENCL_DETAIL_SYMBOL

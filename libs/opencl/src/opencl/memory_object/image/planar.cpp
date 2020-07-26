@@ -5,31 +5,41 @@
 
 
 #include <sge/opencl/context/object.hpp>
+#include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opencl::memory_object::image::planar::planar(
-	context::object &_context,
+	sge::opencl::context::object_ref const _context,
 	memory_object::flags_field const &_mem_flags,
 	cl_image_format const &_image_format,
-	sge::opencl::dim2 const &_size,
-	image::planar_pitch const &_pitch)
+	sge::opencl::dim2 _size,
+	image::planar_pitch const &_pitch
+)
 :
 	impl_(),
 	image_format_(
-		_image_format),
+		_image_format
+	),
 	size_(
-		_size)
+		std::move(
+			_size
+		)
+	)
 {
 	FCPPT_ASSERT_PRE(
 		_image_format.image_channel_order != CL_RGB ||
@@ -68,19 +78,19 @@ sge::opencl::memory_object::image::planar::planar(
 			_image_format.image_channel_data_type == CL_UNSIGNED_INT8));
 
 
-	cl_int error_code;
+	cl_int error_code{};
 
 #ifndef CL_USE_DEPRECATED_OPENCL_1_1_APIS
 	cl_image_desc image_description;
-	image_description.image_width = _size.w();
-	image_description.image_height = _size.h();
+	image_description.image_width = this->size_.w();
+	image_description.image_height = this->size_.h();
 	image_description.image_row_pitch = _pitch.get();
 	image_description.num_mip_levels = 0;
 	image_description.num_samples = 0;
 
 	impl_ =
 		clCreateImage(
-			_context.impl(),
+			_context.get().impl(),
 			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_mem_flags),
 			&_image_format,
@@ -94,12 +104,12 @@ sge::opencl::memory_object::image::planar::planar(
 #else
 	impl_ =
 		clCreateImage2D(
-			_context.impl(),
+			_context.get().impl(),
 			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_mem_flags),
 			&_image_format,
-			_size.w(),
-			_size.h(),
+			this->size_.w(),
+			this->size_.h(),
 			_pitch.get(),
 			nullptr,
 			&error_code);
@@ -111,9 +121,10 @@ sge::opencl::memory_object::image::planar::planar(
 }
 
 sge::opencl::memory_object::image::planar::planar(
-	context::object &_context,
-	memory_object::flags_field const &_mem_flags,
-	renderer::texture::planar &_renderer_texture)
+	sge::opencl::context::object_ref const _context,
+	sge::opencl::memory_object::flags_field const &_mem_flags,
+	sge::renderer::texture::planar_ref const _renderer_texture
+)
 :
 	impl_(),
 	image_format_(),
@@ -122,21 +133,22 @@ sge::opencl::memory_object::image::planar::planar(
 			sge::opencl::dim2,
 			fcppt::cast::size_fun
 		>(
-			_renderer_texture.size()
+			_renderer_texture.get().size()
 		)
 	)
 {
-	cl_int error_code;
+	cl_int error_code{};
 	impl_ =
 		clCreateFromGLTexture2D(
-			_context.impl(),
+			_context.get().impl(),
 			sge::opencl::impl::memory_object::to_opencl_mem_flags(
 				_mem_flags),
 			GL_TEXTURE_2D,
 			// mip level
 			0,
 			dynamic_cast<renderer::opengl::texture::base &>(
-				_renderer_texture).id().get(),
+				_renderer_texture.get()
+			).id().get(),
 			&error_code);
 
 	opencl::impl::handle_error(

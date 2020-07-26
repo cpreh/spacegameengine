@@ -7,34 +7,39 @@
 #include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/map_flags_to_native.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/command_queue/scoped_buffer_mapping.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/event/flatten_sequence.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
+#include <sge/opencl/memory_object/buffer_ref.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
-	sge::opencl::command_queue::object &_queue,
-	sge::opencl::memory_object::buffer &_buffer,
+	sge::opencl::command_queue::object_ref const _queue,
+	sge::opencl::memory_object::buffer_ref const _buffer,
 	sge::opencl::command_queue::map_flags const _flags,
 	sge::opencl::memory_object::byte_offset const &_offset,
 	sge::opencl::memory_object::byte_size const &_size,
-	sge::opencl::event::sequence const &_events)
+	sge::opencl::event::sequence const &_events
+)
 :
 	queue_(
-		_queue),
+		_queue
+	),
 	buffer_(
-		_buffer.impl()),
+		_buffer.get().impl()
+	),
 	ptr_(
 		nullptr
 	)
 {
-	cl_int error_code;
+	cl_int error_code{};
 
 	ptr_ =
 		clEnqueueMapBuffer(
-			_queue.impl(),
+			_queue.get().impl(),
 			buffer_,
 			// Blocking: yes
 			CL_TRUE,
@@ -67,12 +72,18 @@ sge::opencl::command_queue::scoped_buffer_mapping::ptr() const
 
 sge::opencl::command_queue::scoped_buffer_mapping::~scoped_buffer_mapping()
 {
-	if(!ptr_)
+	if(
+		ptr_
+		==
+		nullptr
+	)
+	{
 		return;
+	}
 
 	cl_int const error_code =
 		clEnqueueUnmapMemObject(
-			queue_.impl(),
+			queue_.get().impl(),
 			buffer_,
 			this->ptr(),
 			0,

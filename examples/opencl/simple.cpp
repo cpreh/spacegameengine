@@ -22,6 +22,7 @@
 #include <sge/opencl/event/object.hpp>
 #include <sge/opencl/kernel/numeric_type.hpp>
 #include <sge/opencl/kernel/object.hpp>
+#include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/base_ref_sequence.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
 #include <sge/opencl/memory_object/renderer_buffer_lock_mode.hpp>
@@ -390,11 +391,18 @@ try
 
 	sge::opencl::context::object main_context(
 		sge::opencl::context::parameters(
-			chosen_platform,
-			device_refs
+			fcppt::make_ref(
+				chosen_platform
+			),
+			sge::opencl::device::object_ref_sequence{
+				device_refs
+			}
 		)
 		.share_with(
-			sys.renderer_device_core())
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			)
+		)
 		.error_callback(
 			sge::opencl::context::error_callback{
 				&opencl_error_callback
@@ -449,7 +457,9 @@ try
 
 	sge::opencl::program::object main_program(
 		sys.log_context(),
-		main_context,
+		fcppt::make_ref(
+			main_context
+		),
 		sge::opencl::program::source_string_sequence{
 			std::string(
 				"__kernel void hello_kernel("
@@ -492,9 +502,13 @@ try
 		<< FCPPT_TEXT("Program built, now creating a kernel...\n");
 
 	sge::opencl::kernel::object main_kernel(
-		main_program,
+		fcppt::make_ref(
+			main_program
+		),
 		sge::opencl::kernel::name(
-			"hello_kernel"));
+			"hello_kernel"
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Kernel created, now creating a vertex buffer...\n");
@@ -523,14 +537,27 @@ try
 		<< FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");
 
 	sge::opencl::memory_object::buffer cl_vb(
-		main_context,
-		*vb,
-		sge::opencl::memory_object::renderer_buffer_lock_mode::write_only);
+		fcppt::make_ref(
+			main_context
+		),
+		fcppt::make_ref(
+			*vb
+		),
+		sge::opencl::memory_object::renderer_buffer_lock_mode::write_only
+	);
 
 	main_kernel.argument(
 		sge::opencl::kernel::argument_index(
-			1u),
-		cl_vb);
+			1u
+		),
+		fcppt::reference_to_base<
+			sge::opencl::memory_object::base
+		>(
+			fcppt::make_ref(
+				cl_vb
+			)
+		)
+	);
 
 	main_kernel.argument(
 		sge::opencl::kernel::argument_index(
@@ -546,8 +573,10 @@ try
 		<< FCPPT_TEXT("Done, now creating a command queue\n");
 
 	sge::opencl::command_queue::object main_queue(
-		device_refs[0].get(),
-		main_context,
+		device_refs[0],
+		fcppt::make_ref(
+			main_context
+		),
 		sge::opencl::command_queue::execution_mode::out_of_order,
 		sge::opencl::command_queue::profiling_mode::disabled);
 
@@ -556,7 +585,9 @@ try
 
 	{
 		sge::opencl::memory_object::scoped_objects scoped_vb(
-			main_queue,
+			fcppt::make_ref(
+				main_queue
+			),
 			sge::opencl::memory_object::base_ref_sequence{
 				fcppt::reference_to_base<
 					sge::opencl::memory_object::base
@@ -569,8 +600,12 @@ try
 		);
 
 		sge::opencl::command_queue::enqueue_kernel(
-			main_queue,
-			main_kernel,
+			fcppt::make_ref(
+				main_queue
+			),
+			fcppt::make_ref(
+				main_kernel
+			),
 			sge::opencl::command_queue::global_dim1(
 				sge::opencl::dim1(
 					vb->linear_size()

@@ -9,11 +9,11 @@
 
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/dim3.hpp>
-#include <sge/opencl/context/object_fwd.hpp>
+#include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
-#include <sge/renderer/texture/volume_fwd.hpp>
+#include <sge/renderer/texture/volume_ref.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 
 
@@ -25,36 +25,47 @@ namespace memory_object
 {
 namespace image
 {
+
 class volume
 :
-	public memory_object::base
+	public sge::opencl::memory_object::base
 {
-FCPPT_NONCOPYABLE(
-	volume);
+	FCPPT_NONMOVABLE(
+		volume
+	);
 public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	volume(
-		context::object &,
-		memory_object::flags_field const &,
-		renderer::texture::volume &);
+		sge::opencl::context::object_ref,
+		sge::opencl::memory_object::flags_field const &,
+		sge::renderer::texture::volume_ref
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL cl_mem
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	cl_mem
 	impl()
 	override;
 
-	SGE_OPENCL_DETAIL_SYMBOL cl_image_format const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	cl_image_format const &
 	image_format() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL sge::opencl::dim3 const &
+	[[nodiscard]]
+	SGE_OPENCL_DETAIL_SYMBOL
+	sge::opencl::dim3 const &
 	size() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL ~volume()
+	SGE_OPENCL_DETAIL_SYMBOL
+	~volume()
 	override;
 private:
 	cl_mem impl_;
 	cl_image_format image_format_;
 	sge::opencl::dim3 size_;
 };
+
 }
 }
 }

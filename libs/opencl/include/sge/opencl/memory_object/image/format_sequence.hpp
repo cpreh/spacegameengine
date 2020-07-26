@@ -12,6 +12,7 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace opencl
@@ -20,9 +21,14 @@ namespace memory_object
 {
 namespace image
 {
-typedef
-std::vector<cl_image_format>
-format_sequence;
+
+using
+format_sequence
+=
+std::vector<
+	cl_image_format
+>;
+
 }
 }
 }

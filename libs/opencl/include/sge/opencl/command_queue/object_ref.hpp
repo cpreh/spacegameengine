@@ -4,8 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_OPENCL_COMMAND_QUEUE_OBJECT_FWD_HPP_INCLUDED
-#define SGE_OPENCL_COMMAND_QUEUE_OBJECT_FWD_HPP_INCLUDED
+#ifndef SGE_OPENCL_COMMAND_QUEUE_OBJECT_REF_HPP_INCLUDED
+#define SGE_OPENCL_COMMAND_QUEUE_OBJECT_REF_HPP_INCLUDED
+
+#include <sge/opencl/command_queue/object_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -15,7 +18,12 @@ namespace opencl
 namespace command_queue
 {
 
-class object;
+using
+object_ref
+=
+fcppt::reference<
+	sge::opencl::command_queue::object
+>;
 
 }
 }

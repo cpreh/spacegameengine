@@ -28,38 +28,45 @@ public:
 	SGE_OPENCL_DETAIL_SYMBOL
 	build_parameters();
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
-	build_parameters &
+	build_parameters
 	devices(
-		sge::opencl::device::object_ref_sequence const &
-	);
+		sge::opencl::device::object_ref_sequence &&
+	) &&;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
-	build_parameters &
+	build_parameters
 	options(
-		sge::opencl::program::build_options const &
-	);
+		sge::opencl::program::build_options &&
+	) &&;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
-	build_parameters &
+	build_parameters
 	notification_callback(
-		sge::opencl::program::notification_callback const &
-	);
+		sge::opencl::program::notification_callback &&
+	) &&;
 
-	typedef
+	using
+	optional_object_ref_sequence
+	=
 	fcppt::optional::object<
 		sge::opencl::device::object_ref_sequence
-	>
-	optional_object_ref_sequence;
+	>;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	optional_object_ref_sequence const &
 	devices() const;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::program::build_options const &
 	build_options() const;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::program::optional_notification_callback const &
 	notification_callback() const;

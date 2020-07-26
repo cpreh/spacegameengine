@@ -7,9 +7,9 @@
 #ifndef SGE_OPENCL_COMMAND_QUEUE_SCOPED_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_SCOPED_HPP_INCLUDED
 
-#include <sge/opencl/command_queue/object_fwd.hpp>
+#include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -18,19 +18,25 @@ namespace opencl
 {
 namespace command_queue
 {
+
 class scoped
 {
-FCPPT_NONCOPYABLE(
-	scoped);
+	FCPPT_NONMOVABLE(
+		scoped
+	);
 public:
-	SGE_OPENCL_DETAIL_SYMBOL explicit
+	SGE_OPENCL_DETAIL_SYMBOL
+	explicit
 	scoped(
-		command_queue::object &);
+		sge::opencl::command_queue::object_ref
+	);
 
-	SGE_OPENCL_DETAIL_SYMBOL ~scoped();
+	SGE_OPENCL_DETAIL_SYMBOL
+	~scoped();
 private:
-	command_queue::object &object_;
+	sge::opencl::command_queue::object_ref const object_;
 };
+
 }
 }
 }

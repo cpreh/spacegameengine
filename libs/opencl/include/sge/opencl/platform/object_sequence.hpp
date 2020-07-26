@@ -12,15 +12,21 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace opencl
 {
 namespace platform
 {
-typedef
-std::vector<platform::object>
-object_sequence;
+
+using
+object_sequence
+=
+std::vector<
+	sge::opencl::platform::object
+>;
+
 }
 }
 }

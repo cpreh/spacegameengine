@@ -24,22 +24,26 @@
 #include <fcppt/config/external_end.hpp>
 
 
-// TODO: Initialize this directly
+// TODO(philipp): Initialize this directly
 sge::opencl::platform::version::version(
-	std::string const &_version_string)
+	std::string const &_version_string
+)
 :
 	major_(),
 	minor_(),
 	platform_specific_()
 {
+	// TODO(philipp): Use fcppt::parse
 
 	namespace qi = boost::spirit::qi;
 
-	std::string::const_iterator
-	begin =
-		_version_string.begin(),
-	end =
-		_version_string.end();
+	std::string::const_iterator begin{
+		_version_string.begin()
+	};
+
+	std::string::const_iterator end{
+		_version_string.end()
+	};
 
 FCPPT_PP_PUSH_WARNING
 #if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
@@ -48,14 +52,14 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
 
 	qi::uint_parser<version::unit> unit_parser;
 
-	typedef
-	boost::fusion::vector3
-	<
+	using
+	output_type
+	=
+	boost::fusion::vector3<
 		version::unit,
 		version::unit,
 		std::vector<char>
-	>
-	output_type;
+	>;
 
 	output_type output;
 

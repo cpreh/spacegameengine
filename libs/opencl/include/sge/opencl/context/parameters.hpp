@@ -13,8 +13,8 @@
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <sge/opencl/platform/object_ref.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <fcppt/optional/reference.hpp>
 
 
@@ -28,49 +28,52 @@ namespace context
 class parameters
 {
 public:
-	typedef
+	using
+	optional_renderer
+	=
 	fcppt::optional::reference<
 		sge::renderer::device::core
-	>
-	optional_renderer;
+	>;
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	parameters(
-		sge::opencl::platform::object &,
-		sge::opencl::device::object_ref_sequence const &
+		sge::opencl::platform::object_ref,
+		sge::opencl::device::object_ref_sequence &&
 	);
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::context::parameters &
 	error_callback(
-		sge::opencl::context::error_callback const &
+		sge::opencl::context::error_callback &&
 	);
 
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::context::parameters &
 	share_with(
-		sge::renderer::device::core &
+		sge::renderer::device::core_ref
 	);
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::device::object_ref_sequence const &
 	device_refs() const;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::context::optional_error_callback const &
 	error_callback() const;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	optional_renderer const &
 	shared_renderer() const;
 
+	[[nodiscard]]
 	SGE_OPENCL_DETAIL_SYMBOL
 	sge::opencl::platform::object &
 	platform() const;
 private:
-	fcppt::reference<
-		sge::opencl::platform::object
-	> platform_;
+	sge::opencl::platform::object_ref platform_;
 
 	sge::opencl::device::object_ref_sequence device_refs_;
 

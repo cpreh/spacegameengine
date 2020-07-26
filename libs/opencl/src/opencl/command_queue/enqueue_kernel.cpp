@@ -8,10 +8,12 @@
 #include <sge/opencl/size_type.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/event/object.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/event/flatten_sequence.hpp>
 #include <sge/opencl/kernel/object.hpp>
+#include <sge/opencl/kernel/object_ref.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -27,13 +29,16 @@
 #include <fcppt/optional/object_impl.hpp>
 
 
+namespace
+{
+
 template<
 	fcppt::math::size_type N
 >
 sge::opencl::event::object_unique_ptr
 enqueue_kernel_internal(
-	sge::opencl::command_queue::object &_queue,
-	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::object_ref const _command_queue,
+	sge::opencl::kernel::object_ref const _kernel,
 	fcppt::math::dim::static_<
 		sge::opencl::size_type,
 		N
@@ -47,19 +52,20 @@ enqueue_kernel_internal(
 	sge::opencl::event::sequence const &_events
 )
 {
-	typedef
+	using
+	dim_type
+	=
 	fcppt::math::dim::static_<
 		sge::opencl::size_type,
 		N
-	>
-	dim_type;
+	>;
 
 	if(
 		fcppt::math::dim::contents(
 			_global_dim
 		)
 		==
-		0u
+		0U
 		||
 		fcppt::optional::maybe(
 			_work_dim,
@@ -75,14 +81,16 @@ enqueue_kernel_internal(
 						_dim
 					)
 					==
-					0u;
+					0U;
 			}
 		)
 	)
+	{
 		throw
 			sge::opencl::exception{
 				FCPPT_TEXT("Neither global nor work dimensions can be zero in any component")
 			};
+	}
 
 	sge::opencl::event::object_unique_ptr result{
 		fcppt::make_unique_ptr<
@@ -92,8 +100,8 @@ enqueue_kernel_internal(
 
 	cl_int const error_code{
 		clEnqueueNDRangeKernel(
-			_queue.impl(),
-			_kernel.impl(),
+			_command_queue.get().impl(),
+			_kernel.get().impl(),
 			fcppt::cast::size<
 				cl_uint
 			>(
@@ -145,7 +153,7 @@ enqueue_kernel_internal(
 				FCPPT_TEXT("Error enqueuing kernel \"")
 				+
 				fcppt::from_std_string(
-					_kernel.name()
+					_kernel.get().name()
 				)
 				+
 				FCPPT_TEXT("\": workgroup size invalid. The global dimension is "
@@ -192,8 +200,8 @@ template<
 >
 sge::opencl::event::object_unique_ptr
 enqueue_kernel_templatized(
-	sge::opencl::command_queue::object &_command_queue,
-	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::object_ref const _command_queue,
+	sge::opencl::kernel::object_ref const _kernel,
 	fcppt::strong_typedef<
 		fcppt::math::dim::static_<
 			sge::opencl::size_type,
@@ -222,13 +230,15 @@ enqueue_kernel_templatized(
 		);
 }
 
+}
+
 template<
 	typename GlobalDim
 >
 sge::opencl::event::object_unique_ptr
 enqueue_kernel_templatized(
-	sge::opencl::command_queue::object &_command_queue,
-	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::object_ref const _command_queue,
+	sge::opencl::kernel::object_ref const _kernel,
 	GlobalDim const &_global_dim,
 	sge::opencl::event::sequence const &_events
 )
@@ -248,8 +258,8 @@ enqueue_kernel_templatized(
 
 sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
-	sge::opencl::command_queue::object &_command_queue,
-	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::object_ref const _command_queue,
+	sge::opencl::kernel::object_ref const _kernel,
 	sge::opencl::command_queue::global_dim1 const &_global_dim,
 	sge::opencl::command_queue::local_dim1 const &_local_dim,
 	sge::opencl::event::sequence const &_events
@@ -267,8 +277,8 @@ sge::opencl::command_queue::enqueue_kernel(
 
 sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
-	sge::opencl::command_queue::object &_command_queue,
-	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::object_ref const _command_queue,
+	sge::opencl::kernel::object_ref const _kernel,
 	sge::opencl::command_queue::global_dim2 const &_global_dim,
 	sge::opencl::command_queue::local_dim2 const &_local_dim,
 	sge::opencl::event::sequence const &_events
@@ -286,8 +296,8 @@ sge::opencl::command_queue::enqueue_kernel(
 
 sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
-	sge::opencl::command_queue::object &_command_queue,
-	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::object_ref const _command_queue,
+	sge::opencl::kernel::object_ref const _kernel,
 	sge::opencl::command_queue::global_dim3 const &_global_dim,
 	sge::opencl::command_queue::local_dim3 const &_local_dim,
 	sge::opencl::event::sequence const &_events
@@ -305,8 +315,8 @@ sge::opencl::command_queue::enqueue_kernel(
 
 sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
-	sge::opencl::command_queue::object &_command_queue,
-	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::object_ref const _command_queue,
+	sge::opencl::kernel::object_ref const _kernel,
 	sge::opencl::command_queue::global_dim1 const &_global_dim,
 	sge::opencl::event::sequence const &_events
 )
@@ -322,8 +332,8 @@ sge::opencl::command_queue::enqueue_kernel(
 
 sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
-	sge::opencl::command_queue::object &_command_queue,
-	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::object_ref const _command_queue,
+	sge::opencl::kernel::object_ref const _kernel,
 	sge::opencl::command_queue::global_dim2 const &_global_dim,
 	sge::opencl::event::sequence const &_events
 )
@@ -339,8 +349,8 @@ sge::opencl::command_queue::enqueue_kernel(
 
 sge::opencl::event::object_unique_ptr
 sge::opencl::command_queue::enqueue_kernel(
-	sge::opencl::command_queue::object &_command_queue,
-	sge::opencl::kernel::object &_kernel,
+	sge::opencl::command_queue::object_ref const _command_queue,
+	sge::opencl::kernel::object_ref const _kernel,
 	sge::opencl::command_queue::global_dim3 const &_global_dim,
 	sge::opencl::event::sequence const &_events
 )

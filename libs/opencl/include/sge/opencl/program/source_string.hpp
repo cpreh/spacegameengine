@@ -11,15 +11,19 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace opencl
 {
 namespace program
 {
-typedef
-std::string
-source_string;
+
+using
+source_string
+=
+std::string;
+
 }
 }
 }

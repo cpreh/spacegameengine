@@ -113,7 +113,9 @@ main_program(
 		fcppt::make_ref(
 			log_context
 		),
-		opencl_system.context(),
+		fcppt::make_ref(
+			opencl_system.context()
+		),
 		sge::opencl::program::source_string_sequence{
 			fcppt::optional::to_exception(
 				fcppt::io::stream_to_string(

@@ -29,7 +29,7 @@ platform_info_string(
 	cl_platform_id const &p,
 	cl_platform_info const &info)
 {
-	std::size_t param_value_size;
+	std::size_t param_value_size{};
 
 	cl_int error_code =
 		clGetPlatformInfo(
@@ -152,8 +152,12 @@ sge::opencl::platform::object::has_gpu() const
 	for(
 		auto const &device : devices_
 	)
+	{
 		if (device.is_gpu())
+		{
 			return true;
+		}
+	}
 
 	return false;
 }
@@ -168,8 +172,7 @@ sge::opencl::platform::object::vendor() const
 }
 
 sge::opencl::platform::object::~object()
-{
-}
+= default;
 
 sge::opencl::platform::object::object(
 	cl_platform_id const &_platform_id)
@@ -178,7 +181,7 @@ sge::opencl::platform::object::object(
 		_platform_id),
 	devices_()
 {
-	cl_uint number_of_devices;
+	cl_uint number_of_devices{};
 
 	cl_int error_code =
 		clGetDeviceIDs(
@@ -226,19 +229,27 @@ sge::opencl::platform::object::object(
 	for(
 		auto const &id : device_ids
 	)
+	{
 		devices_.push_back(
 			sge::opencl::device::object(
-				id));
+				id
+			)
+		);
+	}
 }
 
 sge::opencl::platform::object::object(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 sge::opencl::platform::object &
 sge::opencl::platform::object::operator=(
 	object &&
-) = default;
+)
+noexcept
+= default;
 
 /*
 void

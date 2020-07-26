@@ -18,6 +18,7 @@
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
 #include <sge/opencl/event/object.hpp>
 #include <sge/opencl/kernel/object.hpp>
+#include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
@@ -34,6 +35,8 @@
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/main.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/make.hpp>
@@ -107,7 +110,9 @@ main_program(
 	);
 
 	sge::opencl::memory_object::image::planar image(
-		opencl_system.context(),
+		fcppt::make_ref(
+			opencl_system.context()
+		),
 		sge::opencl::memory_object::flags_field{
 			sge::opencl::memory_object::flags::read,
 			sge::opencl::memory_object::flags::write
@@ -124,7 +129,9 @@ main_program(
 
 	sge::opencl::program::object main_program(
 		sys.log_context(),
-		opencl_system.context(),
+		fcppt::make_ref(
+			opencl_system.context()
+		),
 		sge::opencl::program::file_to_source_string_sequence(
 			sge::config::media_path()
 			/
@@ -146,7 +153,9 @@ main_program(
 		<< FCPPT_TEXT("Program built, now creating a kernel...\n");
 
 	sge::opencl::kernel::object main_kernel(
-		main_program,
+		fcppt::make_ref(
+			main_program
+		),
 		sge::opencl::kernel::name(
 			"hello_kernel"
 		)
@@ -156,14 +165,22 @@ main_program(
 		sge::opencl::kernel::argument_index(
 			0u
 		),
-		image
+		fcppt::reference_to_base<
+			sge::opencl::memory_object::base
+		>(
+			fcppt::make_ref(
+				image
+			)
+		)
 	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Kernel created, executing it\n");
 
 	sge::opencl::command_queue::scoped scoped_queue(
-		opencl_system.command_queue()
+		fcppt::make_ref(
+			opencl_system.command_queue()
+		)
 	);
 
 	sge::opencl::event::sequence events{
@@ -171,8 +188,12 @@ main_program(
 			sge::opencl::event::sequence
 		>(
 			sge::opencl::command_queue::enqueue_kernel(
-				opencl_system.command_queue(),
-				main_kernel,
+				fcppt::make_ref(
+					opencl_system.command_queue()
+				),
+				fcppt::make_ref(
+					main_kernel
+				),
 				sge::opencl::command_queue::global_dim2(
 					image_size
 				),
@@ -185,8 +206,12 @@ main_program(
 		<< FCPPT_TEXT("Done, now creating an image file from the image in memory...\n");
 
 	sge::opencl::command_queue::scoped_planar_mapping scoped_image(
-		opencl_system.command_queue(),
-		image,
+		fcppt::make_ref(
+			opencl_system.command_queue()
+		),
+		fcppt::make_ref(
+			image
+		),
 		sge::opencl::command_queue::map_flags::read,
 		sge::opencl::memory_object::rect(
 			fcppt::math::vector::null<
