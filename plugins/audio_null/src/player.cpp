@@ -7,6 +7,7 @@
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
+#include <sge/audio/file_ref.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base.hpp>
@@ -29,8 +30,7 @@ sge::audio_null::player::player()
 }
 
 sge::audio_null::player::~player()
-{
-}
+= default;
 
 sge::audio::listener &
 sge::audio_null::player::listener()
@@ -77,7 +77,7 @@ sge::audio_null::player::create_buffer(
 
 sge::audio::sound::positional_unique_ptr
 sge::audio_null::player::create_positional_stream(
-	sge::audio::file &,
+	sge::audio::file_ref,
 	sge::audio::sound::positional_parameters const &
 )
 {
@@ -93,7 +93,7 @@ sge::audio_null::player::create_positional_stream(
 
 sge::audio::sound::base_unique_ptr
 sge::audio_null::player::create_nonpositional_stream(
-	sge::audio::file &,
+	sge::audio::file_ref,
 	sge::audio::sound::nonpositional_parameters const &
 )
 {

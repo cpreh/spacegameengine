@@ -12,7 +12,7 @@
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ class buffer
 :
 	public sge::audio::buffer
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		buffer
 	);
 public:
@@ -33,12 +33,14 @@ public:
 	~buffer()
 	override;
 private:
+	[[nodiscard]]
 	sge::audio::sound::positional_unique_ptr
 	create_positional(
 		sge::audio::sound::positional_parameters const &
 	)
 	override;
 
+	[[nodiscard]]
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional(
 		sge::audio::sound::nonpositional_parameters const &

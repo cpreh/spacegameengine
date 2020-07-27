@@ -7,15 +7,19 @@
 #include <sge/openal/context.hpp>
 #include <sge/openal/current_context.hpp>
 #include <sge/openal/funcs/alc_make_context_current.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 
 
 sge::openal::current_context::current_context(
-	fcppt::log::object &_log,
-	sge::openal::context &_context
+	fcppt::log::object_reference const _log,
+	fcppt::reference<
+		sge::openal::context
+	> const _context
 )
 :
 	log_{
@@ -26,18 +30,20 @@ sge::openal::current_context::current_context(
 	)
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("making audio context the current context")
 	)
 
 	sge::openal::funcs::alc_make_context_current(
-		context_.aldevice(),
-		&context_.alcontext()
+		fcppt::make_ref(
+			context_.get().aldevice()
+		),
+		&context_.get().alcontext()
 	);
 
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("made audio context the current context")
 	)
@@ -46,13 +52,15 @@ sge::openal::current_context::current_context(
 sge::openal::current_context::~current_context()
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("resetting current context")
 	)
 
 	sge::openal::funcs::alc_make_context_current(
-		context_.aldevice(),
+		fcppt::make_ref(
+			context_.get().aldevice()
+		),
 		nullptr
 	);
 }

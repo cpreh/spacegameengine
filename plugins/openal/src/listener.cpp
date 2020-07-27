@@ -18,12 +18,10 @@
 
 
 sge::openal::listener::listener()
-{
-}
+= default;
 
 sge::openal::listener::~listener()
-{
-}
+= default;
 
 void
 sge::openal::listener::linear_velocity(
@@ -68,10 +66,13 @@ sge::openal::listener::direction(
 		)
 	);
 
-	typedef std::array<
+	using
+	float6_array
+	=
+	std::array<
 		ALfloat,
-		6
-	> float6_array;
+		6 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+	>;
 
 	float6_array const vec{{
 		forward.x(),

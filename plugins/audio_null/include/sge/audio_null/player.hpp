@@ -9,6 +9,7 @@
 
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
+#include <sge/audio/file_ref.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
@@ -17,7 +18,7 @@
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/audio_null/listener.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -29,7 +30,7 @@ class player
 :
 	public sge::audio::player
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		player
 	);
 public:
@@ -38,6 +39,7 @@ public:
 	~player()
 	override;
 
+	[[nodiscard]]
 	sge::audio::listener &
 	listener()
 	override;
@@ -60,26 +62,30 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::audio::buffer_unique_ptr
 	create_buffer(
 		sge::audio::file &
 	)
 	override;
 
+	[[nodiscard]]
 	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
-		sge::audio::file &,
+		sge::audio::file_ref,
 		sge::audio::sound::positional_parameters const &
 	)
 	override;
 
+	[[nodiscard]]
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
-		sge::audio::file &,
+		sge::audio::file_ref,
 		sge::audio::sound::nonpositional_parameters const &
 	)
 	override;
 
+	[[nodiscard]]
 	bool
 	is_null() const
 	override;

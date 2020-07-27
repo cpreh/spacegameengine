@@ -4,24 +4,23 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_OPENAL_VECTOR3_FWD_HPP_INCLUDED
-#define SGE_OPENAL_VECTOR3_FWD_HPP_INCLUDED
+#ifndef SGE_AUDIO_FILE_REF_HPP_INCLUDED
+#define SGE_AUDIO_FILE_REF_HPP_INCLUDED
 
-#include <sge/openal/al.hpp>
-#include <fcppt/math/vector/static_fwd.hpp>
+#include <sge/audio/file_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
-namespace openal
+namespace audio
 {
 
 using
-vector3
+file_ref
 =
-fcppt::math::vector::static_<
-	ALfloat,
-	3
+fcppt::reference<
+	sge::audio::file
 >;
 
 }

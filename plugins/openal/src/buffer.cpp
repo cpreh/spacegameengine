@@ -31,7 +31,7 @@
 
 
 sge::openal::buffer::buffer(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::audio::file &_file
 )
 :
@@ -43,7 +43,7 @@ sge::openal::buffer::buffer(
 	}
 {
 	FCPPT_LOG_DEBUG(
-		_log,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("Reading a whole file into a buffer")
 	)
@@ -53,7 +53,7 @@ sge::openal::buffer::buffer(
 	);
 
 	FCPPT_LOG_DEBUG(
-		_log,
+		log_.get(),
 		fcppt::log::out
 			<<
 			FCPPT_TEXT("creating buffer of size ")
@@ -74,10 +74,12 @@ sge::openal::buffer::buffer(
 	if(
 		data.empty()
 	)
+	{
 		throw
 			sge::audio::exception{
 				FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!")
 			};
+	}
 
 	sge::openal::funcs::buffer_data(
 		holder_.get(),
@@ -141,5 +143,4 @@ sge::openal::buffer::create_nonpositional(
 }
 
 sge::openal::buffer::~buffer()
-{
-}
+= default;

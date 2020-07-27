@@ -29,14 +29,14 @@
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/from.hpp>
 
 
 sge::openal::source::source(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::audio::sound::nonpositional_parameters const &_parameters,
 	sge::openal::buffer_id const _buffer
 )
@@ -52,7 +52,7 @@ sge::openal::source::source(
 }
 
 sge::openal::source::source(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::audio::sound::positional_parameters const &_parameters,
 	sge::openal::buffer_id const _buffer
 )
@@ -68,7 +68,7 @@ sge::openal::source::source(
 }
 
 sge::openal::source::source(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::audio::sound::nonpositional_parameters const &_parameters
 )
 :
@@ -82,7 +82,7 @@ sge::openal::source::source(
 }
 
 sge::openal::source::source(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::audio::sound::positional_parameters const &_parameters
 )
 :
@@ -96,8 +96,7 @@ sge::openal::source::source(
 }
 
 sge::openal::source::~source()
-{
-}
+= default;
 
 void
 sge::openal::source::play(
@@ -114,9 +113,11 @@ sge::openal::source::play(
 		!=
 		sge::audio::sound::play_status::playing
 	)
+	{
 		sge::openal::funcs::source_play(
 			this->source_id()
 		);
+	}
 }
 
 void
@@ -173,7 +174,9 @@ sge::openal::source::stop()
 		==
 		audio::sound::play_status::stopped
 	)
+	{
 		return;
+	}
 
 	sge::openal::funcs::source_stop(
 		this->source_id()
@@ -397,7 +400,7 @@ sge::openal::source::repeat() const
 }
 
 sge::openal::source::source(
-	fcppt::log::object &_log
+	fcppt::log::object_reference const _log
 )
 :
 	source_(
@@ -410,7 +413,7 @@ sge::openal::source::source(
 }
 
 sge::openal::source::source(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::openal::buffer_id const _buffer
 )
 :
@@ -483,7 +486,7 @@ sge::openal::source::init(
 	sge::audio::sound::nonpositional_parameters const &_parameters
 )
 {
-	// TODO: Is this right?
+	// TODO(philipp): Is this right?
 	this->init(
 		sge::audio::sound::positional_parameters(
 			sge::audio::position{
@@ -502,7 +505,7 @@ sge::openal::source::init(
 		// that the source is nonpositional (as indicated
 		// directly by the OpenAL spec)
 		.rolloff_factor(
-			0.f
+			0.F
 		)
 	);
 }

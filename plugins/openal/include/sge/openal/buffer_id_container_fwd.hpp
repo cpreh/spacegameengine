@@ -16,11 +16,12 @@ namespace sge
 namespace openal
 {
 
-typedef
+using
+buffer_id_container
+=
 fcppt::container::raw_vector::object<
 	ALuint
->
-buffer_id_container;
+>;
 
 }
 }

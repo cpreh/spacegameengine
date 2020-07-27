@@ -7,7 +7,7 @@
 #ifndef SGE_OPENAL_STREAM_SOUND_HPP_INCLUDED
 #define SGE_OPENAL_STREAM_SOUND_HPP_INCLUDED
 
-#include <sge/audio/file_fwd.hpp>
+#include <sge/audio/file_ref.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
@@ -15,8 +15,8 @@
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/multi_buffer_holder.hpp>
 #include <sge/openal/source.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -28,20 +28,20 @@ class stream_sound
 :
 	public sge::openal::source
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		stream_sound
 	);
 public:
 	stream_sound(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::audio::sound::nonpositional_parameters const &,
-		sge::audio::file &
+		sge::audio::file_ref
 	);
 
 	stream_sound(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::audio::sound::positional_parameters const &,
-		sge::audio::file &
+		sge::audio::file_ref
 	);
 
 	~stream_sound()
@@ -55,9 +55,9 @@ public:
 	do_play()
 	override;
 private:
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	sge::audio::file &audio_file_;
+	sge::audio::file_ref const audio_file_;
 
 	sge::audio::sample_count const buffer_samples_;
 
@@ -78,9 +78,9 @@ private:
 		typename Parameters
 	>
 	stream_sound(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		Parameters const &,
-		sge::audio::file &,
+		sge::audio::file_ref,
 		sge::openal::stream_sound::unified_ctor
 	);
 };

@@ -8,8 +8,8 @@
 #define SGE_OPENAL_BUFFER_HOLDER_HPP_INCLUDED
 
 #include <sge/openal/buffer_id.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -19,21 +19,22 @@ namespace openal
 
 class buffer_holder
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		buffer_holder
 	);
 public:
 	explicit
 	buffer_holder(
-		fcppt::log::object &
+		fcppt::log::object_reference
 	);
 
 	~buffer_holder();
 
+	[[nodiscard]]
 	sge::openal::buffer_id
 	get() const;
 private:
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
 	sge::openal::buffer_id const buffer_;
 };

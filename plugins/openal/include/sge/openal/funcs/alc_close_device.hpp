@@ -17,10 +17,11 @@ namespace openal
 namespace funcs
 {
 
+[[nodiscard]]
 bool
 alc_close_device(
-	ALCdevice &
-);
+	ALCdevice & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

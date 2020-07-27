@@ -18,8 +18,8 @@
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/source_holder.hpp>
 #include <sge/openal/source_id.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -31,29 +31,29 @@ class source
 :
 	public sge::audio::sound::positional
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		source
 	);
 public:
 	source(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::audio::sound::nonpositional_parameters const &,
 		sge::openal::buffer_id
 	);
 
 	source(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::audio::sound::positional_parameters const &,
 		sge::openal::buffer_id
 	);
 
 	source(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::audio::sound::nonpositional_parameters const &
 	);
 
 	source(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::audio::sound::positional_parameters const &
 	);
 
@@ -70,6 +70,7 @@ public:
 	toggle_pause()
 	override;
 
+	[[nodiscard]]
 	sge::audio::sound::play_status
 	status() const
 	override;
@@ -152,19 +153,21 @@ protected:
 	void
 	do_play();
 
+	[[nodiscard]]
 	sge::openal::source_id
 	source_id() const;
 
+	[[nodiscard]]
 	sge::audio::sound::repeat
 	repeat() const;
 private:
 	explicit
 	source(
-		fcppt::log::object &
+		fcppt::log::object_reference
 	);
 
 	source(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::openal::buffer_id
 	);
 

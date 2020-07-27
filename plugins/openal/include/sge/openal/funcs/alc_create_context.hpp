@@ -8,6 +8,7 @@
 #define SGE_OPENAL_FUNCS_ALC_CREATE_CONTEXT_HPP_INCLUDED
 
 #include <sge/openal/alc.hpp>
+#include <fcppt/reference_fwd.hpp>
 
 
 namespace sge
@@ -19,7 +20,9 @@ namespace funcs
 
 ALCcontext *
 alc_create_context(
-	ALCdevice &
+	fcppt::reference<
+		ALCdevice
+	>
 );
 
 }

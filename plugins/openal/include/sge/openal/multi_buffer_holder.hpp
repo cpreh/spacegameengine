@@ -8,7 +8,7 @@
 #define SGE_OPENAL_MULTI_BUFFER_HOLDER_HPP_INCLUDED
 
 #include <sge/openal/buffer_id_container.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -18,13 +18,14 @@ namespace openal
 
 class multi_buffer_holder
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		multi_buffer_holder
 	);
 public:
-	typedef
-	sge::openal::buffer_id_container::size_type
-	size_type;
+	using
+	size_type
+	=
+	sge::openal::buffer_id_container::size_type;
 
 	explicit
 	multi_buffer_holder(
@@ -33,6 +34,7 @@ public:
 
 	~multi_buffer_holder();
 
+	[[nodiscard]]
 	sge::openal::buffer_id_container const &
 	container() const;
 private:

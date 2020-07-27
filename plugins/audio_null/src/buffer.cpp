@@ -17,12 +17,10 @@
 
 
 sge::audio_null::buffer::buffer()
-{
-}
+= default;
 
 sge::audio_null::buffer::~buffer()
-{
-}
+= default;
 
 sge::audio::sound::positional_unique_ptr
 sge::audio_null::buffer::create_positional(

@@ -9,7 +9,7 @@
 
 #include <sge/openal/alc.hpp>
 #include <sge/openal/device_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -19,7 +19,7 @@ namespace openal
 
 class device
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		device
 	);
 public:
@@ -28,6 +28,7 @@ public:
 		ALCchar const *
 	);
 
+	[[nodiscard]]
 	ALCdevice &
 	aldevice();
 

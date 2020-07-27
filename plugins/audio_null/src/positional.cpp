@@ -13,12 +13,10 @@
 
 
 sge::audio_null::positional::positional()
-{
-}
+= default;
 
 sge::audio_null::positional::~positional()
-{
-}
+= default;
 
 void
 sge::audio_null::positional::play(

@@ -24,28 +24,28 @@ sge::openal::file_format(
 		_file.bits_per_sample().get()
 	)
 	{
-	case 8u:
+	case 8U: // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		switch(
 			_file.channels().get()
 		)
 		{
-		case 1u:
+		case 1U:
 			return
 				AL_FORMAT_MONO8;
-		case 2u:
+		case 2U:
 			return
 				AL_FORMAT_STEREO8;
 		}
 		break;
-	case 16u:
+	case 16U: // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		switch(
 			_file.channels().get()
 		)
 		{
-		case 1u:
+		case 1U:
 			return
 				AL_FORMAT_MONO16;
-		case 2u:
+		case 2U:
 			return
 				AL_FORMAT_STEREO16;
 		}

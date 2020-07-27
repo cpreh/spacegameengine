@@ -398,7 +398,9 @@ try
 
 	sge::audio::sound::positional_unique_ptr const streaming_positional_sound(
 		sys.audio_player().create_positional_stream(
-			*streaming_file,
+			fcppt::make_ref(
+				*streaming_file
+			),
 			sge::audio::sound::positional_parameters{
 				sge::audio::position{
 					sge::audio::vector{

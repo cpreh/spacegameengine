@@ -10,7 +10,8 @@
 #include <sge/openal/alc.hpp>
 #include <sge/openal/context_fwd.hpp>
 #include <sge/openal/device_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -20,24 +21,30 @@ namespace openal
 
 class context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
 	explicit
 	context(
-		sge::openal::device &
+		fcppt::reference<
+			sge::openal::device
+		>
 	);
 
+	[[nodiscard]]
 	ALCcontext &
 	alcontext();
 
+	[[nodiscard]]
 	ALCdevice &
 	aldevice();
 
 	~context();
 private:
-	sge::openal::device &device_;
+	fcppt::reference<
+		sge::openal::device
+	> const device_;
 
 	ALCcontext *const context_;
 };

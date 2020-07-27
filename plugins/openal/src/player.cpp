@@ -7,6 +7,7 @@
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
+#include <sge/audio/file_ref.hpp>
 #include <sge/audio/listener.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
@@ -29,6 +30,7 @@
 #include <sge/openal/funcs/doppler_factor.hpp>
 #include <sge/openal/funcs/listener_float.hpp>
 #include <sge/openal/funcs/speed_of_sound.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -55,45 +57,51 @@ sge::openal::player::player(
 		nullptr
 	),
 	context_(
-		device_
+		fcppt::make_ref(
+			device_
+		)
 	),
 	current_context_(
-		log_,
-		context_
+		fcppt::make_ref(
+			log_
+		),
+		fcppt::make_ref(
+			context_
+		)
 	),
 	listener_()
 {
 	// set our own speed of sound standard rather than relying on OpenAL
-	this->speed_of_sound(
-		343.f
+	sge::openal::player::set_speed_of_sound(
+		343.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
-	this->listener().position(
+	this->get_listener().position(
 		fcppt::math::vector::null<
 			sge::audio::vector
 		>()
 	);
 
-	this->listener().linear_velocity(
+	this->get_listener().linear_velocity(
 		fcppt::math::vector::null<
 			sge::audio::vector
 		>()
 	);
 
-	this->listener().direction(
+	this->get_listener().direction(
 		sge::audio::direction::object(
 			sge::audio::direction::forward(
 				sge::audio::vector(
-					0.f,
-					0.f,
-					1.f
+					0.F,
+					0.F,
+					1.F
 				)
 			),
 			sge::audio::direction::up(
 				sge::audio::vector(
-					0.f,
-					1.f,
-					0.f
+					0.F,
+					1.F,
+					0.F
 				)
 			)
 		)
@@ -101,14 +109,13 @@ sge::openal::player::player(
 }
 
 sge::openal::player::~player()
-{
-}
+= default;
 
 sge::audio::listener &
 sge::openal::player::listener()
 {
 	return
-		listener_;
+		this->get_listener();
 }
 
 void
@@ -116,12 +123,8 @@ sge::openal::player::speed_of_sound(
 	sge::audio::scalar const _value
 )
 {
-	sge::openal::funcs::speed_of_sound(
-		fcppt::cast::size<
-			ALfloat
-		>(
-			_value
-		)
+	sge::openal::player::set_speed_of_sound(
+		_value
 	);
 }
 
@@ -166,7 +169,9 @@ sge::openal::player::create_buffer(
 			fcppt::make_unique_ptr<
 				sge::openal::buffer
 			>(
-				log_,
+				fcppt::make_ref(
+					log_
+				),
 				_file
 			)
 		);
@@ -174,7 +179,7 @@ sge::openal::player::create_buffer(
 
 sge::audio::sound::positional_unique_ptr
 sge::openal::player::create_positional_stream(
-	sge::audio::file &_file,
+	sge::audio::file_ref const _file,
 	sge::audio::sound::positional_parameters const &_parameters
 )
 {
@@ -185,7 +190,9 @@ sge::openal::player::create_positional_stream(
 			fcppt::make_unique_ptr<
 				sge::openal::stream_sound
 			>(
-				log_,
+				fcppt::make_ref(
+					log_
+				),
 				_parameters,
 				_file
 			)
@@ -194,7 +201,7 @@ sge::openal::player::create_positional_stream(
 
 sge::audio::sound::base_unique_ptr
 sge::openal::player::create_nonpositional_stream(
-	sge::audio::file &_file,
+	sge::audio::file_ref const _file,
 	sge::audio::sound::nonpositional_parameters const &_parameters
 )
 {
@@ -205,7 +212,9 @@ sge::openal::player::create_nonpositional_stream(
 			fcppt::make_unique_ptr<
 				sge::openal::stream_sound
 			>(
-				log_,
+				fcppt::make_ref(
+					log_
+				),
 				_parameters,
 				_file
 			)
@@ -217,4 +226,25 @@ sge::openal::player::is_null() const
 {
 	return
 		false;
+}
+
+sge::audio::listener &
+sge::openal::player::get_listener()
+{
+	return
+		listener_;
+}
+
+void
+sge::openal::player::set_speed_of_sound(
+	sge::audio::scalar const _value
+)
+{
+	sge::openal::funcs::speed_of_sound(
+		fcppt::cast::size<
+			ALfloat
+		>(
+			_value
+		)
+	);
 }

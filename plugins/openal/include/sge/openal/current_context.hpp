@@ -8,8 +8,9 @@
 #define SGE_OPENAL_CURRENT_CONTEXT_HPP_INCLUDED
 
 #include <sge/openal/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -19,20 +20,24 @@ namespace openal
 
 class current_context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		current_context
 	);
 public:
 	current_context(
-		fcppt::log::object &,
-		sge::openal::context &
+		fcppt::log::object_reference,
+		fcppt::reference<
+			sge::openal::context
+		>
 	);
 
 	~current_context();
 private:
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	sge::openal::context &context_;
+	fcppt::reference<
+		sge::openal::context
+	> const context_;
 };
 
 }

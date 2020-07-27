@@ -10,7 +10,7 @@
 #include <sge/audio/listener.hpp>
 #include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/direction/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ class listener
 :
 	public sge::audio::listener
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		listener
 	);
 public:

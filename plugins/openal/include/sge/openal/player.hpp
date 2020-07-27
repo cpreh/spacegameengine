@@ -9,6 +9,7 @@
 
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
+#include <sge/audio/file_ref.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
@@ -19,7 +20,7 @@
 #include <sge/openal/current_context.hpp>
 #include <sge/openal/device.hpp>
 #include <sge/openal/listener.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
@@ -33,7 +34,7 @@ class player
 :
 	public sge::audio::player
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		player
 	);
 public:
@@ -45,6 +46,7 @@ public:
 	~player()
 	override;
 
+	[[nodiscard]]
 	sge::audio::listener &
 	listener()
 	override;
@@ -67,30 +69,44 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::audio::buffer_unique_ptr
 	create_buffer(
 		sge::audio::file &
 	)
 	override;
 
+	[[nodiscard]]
 	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
-		sge::audio::file &,
+		sge::audio::file_ref,
 		sge::audio::sound::positional_parameters const &
 	)
 	override;
 
+	[[nodiscard]]
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
-		sge::audio::file &,
+		sge::audio::file_ref,
 		sge::audio::sound::nonpositional_parameters const &
 	)
 	override;
 
+	[[nodiscard]]
 	bool
 	is_null() const
 	override;
 private:
+	[[nodiscard]]
+	sge::audio::listener &
+	get_listener();
+
+	static
+	void
+	set_speed_of_sound(
+		sge::audio::scalar
+	);
+
 	fcppt::log::object log_;
 
 	sge::openal::device device_;

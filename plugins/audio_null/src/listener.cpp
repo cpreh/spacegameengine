@@ -10,12 +10,10 @@
 
 
 sge::audio_null::listener::listener()
-{
-}
+= default;
 
 sge::audio_null::listener::~listener()
-{
-}
+= default;
 
 void
 sge::audio_null::listener::position(

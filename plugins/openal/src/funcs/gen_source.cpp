@@ -16,7 +16,7 @@
 sge::openal::source_id
 sge::openal::funcs::gen_source()
 {
-	ALuint result;
+	ALuint result{};
 
 	::alGenSources(
 		fcppt::literal<

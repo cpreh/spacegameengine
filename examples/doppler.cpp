@@ -402,7 +402,9 @@ try
 
 	sge::audio::sound::positional_unique_ptr const sound_siren(
 		sys.audio_player().create_positional_stream(
-			*af_siren,
+			fcppt::make_ref(
+				*af_siren
+			),
 			sge::audio::sound::positional_parameters(
 				// TODO: Improve this
 				sge::audio::position{

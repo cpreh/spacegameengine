@@ -14,7 +14,7 @@
 sge::openal::buffer_id
 sge::openal::funcs::gen_buffer()
 {
-	ALuint result;
+	ALuint result{};
 
 	sge::openal::funcs::gen_buffers(
 		&result,

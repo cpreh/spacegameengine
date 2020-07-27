@@ -5,6 +5,7 @@
 
 
 #include <sge/audio/file.hpp>
+#include <sge/audio/file_ref.hpp>
 #include <sge/audio/sample_buffer.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sample_count.hpp>
@@ -36,7 +37,7 @@
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/make.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -45,9 +46,9 @@
 
 
 sge::openal::stream_sound::stream_sound(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::audio::sound::nonpositional_parameters const &_parameters,
-	sge::audio::file &_audio_file
+	sge::audio::file_ref const _audio_file
 )
 :
 	stream_sound(
@@ -60,9 +61,9 @@ sge::openal::stream_sound::stream_sound(
 }
 
 sge::openal::stream_sound::stream_sound(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::audio::sound::positional_parameters const &_parameters,
-	sge::audio::file &_audio_file
+	sge::audio::file_ref const _audio_file
 )
 :
 	stream_sound(
@@ -115,7 +116,7 @@ sge::openal::stream_sound::update()
 	}
 
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< processed
 			<< FCPPT_TEXT(" buffers processed")
@@ -163,8 +164,10 @@ sge::openal::stream_sound::update()
 					buffer
 				)
 			)
+			{
 				return
 					fcppt::loop::break_;
+			}
 
 			// ...and put the newly filled back in
 			sge::openal::funcs::source_queue_buffer(
@@ -188,10 +191,12 @@ sge::openal::stream_sound::update()
 		&&
 		new_data
 	)
+	{
 		// And if an underrun occured, play (again)
 		sge::openal::funcs::source_play(
 			this->source_id()
 		);
+	}
 
 	// Note that this works for paused sources, too, since paused sounds
 	// don't consume any buffers. At least I think so.
@@ -206,20 +211,24 @@ sge::openal::stream_sound::do_play()
 		==
 		sge::audio::sound::play_status::playing
 	)
+	{
 		return;
+	}
 
-	audio_file_.reset();
+	audio_file_.get().reset();
 
 	for(
 		ALuint const id
 		:
 		buffers_.container()
 	)
+	{
 		this->fill_buffer(
 			sge::openal::buffer_id(
 				id
 			)
 		);
+	}
 
 	sge::openal::funcs::source_queue_buffers(
 		this->source_id(),
@@ -234,7 +243,7 @@ sge::openal::stream_sound::do_play()
 	);
 
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("queued ")
 			<< buffers_.container().size()
@@ -261,11 +270,11 @@ sge::openal::stream_sound::fill_buffer(
 		optional_sample_container
 		{
 			sge::audio::sample_buffer data{
-				0u
+				0U
 			};
 
 			sge::audio::sample_count samples_read(
-				audio_file_.read(
+				audio_file_.get().read(
 					buffer_samples_,
 					fcppt::make_ref(
 						data
@@ -274,7 +283,7 @@ sge::openal::stream_sound::fill_buffer(
 			);
 
 			FCPPT_LOG_DEBUG(
-				log_,
+				log_.get(),
 				fcppt::log::out
 					<< FCPPT_TEXT("read ")
 					<< samples_read
@@ -284,11 +293,11 @@ sge::openal::stream_sound::fill_buffer(
 			if(
 				samples_read
 				==
-				0u
+				0U
 			)
 			{
 				FCPPT_LOG_DEBUG(
-					log_,
+					log_.get(),
 					fcppt::log::out
 						<< FCPPT_TEXT("at the end of last buffer")
 				)
@@ -300,13 +309,15 @@ sge::openal::stream_sound::fill_buffer(
 					!=
 					sge::audio::sound::repeat::loop
 				)
+				{
 					return
 						fcppt::optional::nothing{};
+				}
 
-				audio_file_.reset();
+				audio_file_.get().reset();
 
 				samples_read =
-					audio_file_.read(
+					audio_file_.get().read(
 						buffer_samples_,
 						fcppt::make_ref(
 							data
@@ -353,7 +364,7 @@ sge::openal::stream_sound::fill_buffer(
 						ALsizei
 					>(
 						fcppt::cast::to_signed(
-							audio_file_.sample_rate().get()
+							audio_file_.get().sample_rate().get()
 						)
 					)
 				);
@@ -368,9 +379,9 @@ template<
 	typename Parameters
 >
 sge::openal::stream_sound::stream_sound(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	Parameters const &_parameters,
-	sge::audio::file &_audio_file,
+	sge::audio::file_ref const _audio_file,
 	sge::openal::stream_sound::unified_ctor
 )
 :
@@ -385,22 +396,22 @@ sge::openal::stream_sound::stream_sound(
 		_audio_file
 	),
 	buffer_samples_(
-		audio_file_.sample_rate().get()
+		audio_file_.get().sample_rate().get()
 	),
 	format_(
 		sge::openal::file_format(
-			audio_file_
+			audio_file_.get()
 		)
 	),
 	buffers_(
-		audio_file_.expected_package_size()
+		audio_file_.get().expected_package_size()
 		?
 			fcppt::cast::size<
 				sge::openal::multi_buffer_holder::size_type
 			>(
-				audio_file_.sample_rate().get()
+				audio_file_.get().sample_rate().get()
 				/
-				audio_file_.expected_package_size()
+				audio_file_.get().expected_package_size()
 			)
 		:
 			fcppt::literal<
@@ -411,14 +422,14 @@ sge::openal::stream_sound::stream_sound(
 	)
 {
 	FCPPT_LOG_DEBUG(
-		_log,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("Created ")
 			<< buffers_.container().size()
 			<< FCPPT_TEXT(" buffers for this audio file (expected package size ")
-			<< audio_file_.expected_package_size()
+			<< audio_file_.get().expected_package_size()
 			<< FCPPT_TEXT(", sample rate ")
-			<< audio_file_.sample_rate()
+			<< audio_file_.get().sample_rate()
 			<< FCPPT_TEXT(")")
 	)
 }

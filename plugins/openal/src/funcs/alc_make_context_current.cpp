@@ -8,12 +8,15 @@
 #include <sge/openal/alc.hpp>
 #include <sge/openal/check_alc_state.hpp>
 #include <sge/openal/funcs/alc_make_context_current.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 
 
 void
 sge::openal::funcs::alc_make_context_current(
-	ALCdevice &_device,
+	fcppt::reference<
+		ALCdevice
+	> const _device,
 	ALCcontext *const _context
 )
 {
@@ -22,7 +25,7 @@ sge::openal::funcs::alc_make_context_current(
 	);
 
 	SGE_OPENAL_CHECK_ALC_STATE(
-		_device,
+		_device.get(),
 		FCPPT_TEXT("alcMakeContextCurrent failed"),
 		sge::audio::exception
 	)

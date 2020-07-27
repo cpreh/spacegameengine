@@ -8,6 +8,7 @@
 #include <sge/openal/alc.hpp>
 #include <sge/openal/check_alc_state.hpp>
 #include <sge/openal/funcs/alc_create_context.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/post.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -17,25 +18,27 @@
 
 ALCcontext *
 sge::openal::funcs::alc_create_context(
-	ALCdevice &_device
+	fcppt::reference<
+		ALCdevice
+	> const _device
 )
 {
 	std::array<
 		ALCint,
-		1u
+		1U
 	> const attributes = {{
 		0
 	}};
 
 	ALCcontext *const result(
 		::alcCreateContext(
-			&_device,
+			&_device.get(),
 			attributes.data()
 		)
 	);
 
 	SGE_OPENAL_CHECK_ALC_STATE(
-		_device,
+		_device.get(),
 		FCPPT_TEXT("alcCreateContext failed"),
 		sge::audio::exception
 	)

@@ -21,6 +21,7 @@ set(
 	libs/audio/include/sge/audio/file_exception.hpp
 	libs/audio/include/sge/audio/file_exception_fwd.hpp
 	libs/audio/include/sge/audio/file_fwd.hpp
+	libs/audio/include/sge/audio/file_ref.hpp
 	libs/audio/include/sge/audio/file_unique_ptr.hpp
 	libs/audio/include/sge/audio/listener.hpp
 	libs/audio/include/sge/audio/listener_fwd.hpp

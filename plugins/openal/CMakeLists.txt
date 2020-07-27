@@ -115,6 +115,6 @@ add_sge_plugin(
 		${fcppt_core_TARGET}
 		${fcppt_log_TARGET}
 		${OPENAL_LIBRARY}
-	INCLUDE_DIRS
+	SYSTEM_INCLUDE_DIRS
 		${OPENAL_INCLUDE_DIR}
 )

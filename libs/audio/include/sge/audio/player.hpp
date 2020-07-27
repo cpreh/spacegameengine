@@ -9,6 +9,7 @@
 
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
+#include <sge/audio/file_ref.hpp>
 #include <sge/audio/listener_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/scalar.hpp>
@@ -95,7 +96,7 @@ public:
 	virtual
 	sge::audio::sound::positional_unique_ptr
 	create_positional_stream(
-		sge::audio::file &, // NOLINT(google-runtime-references)
+		sge::audio::file_ref,
 		sge::audio::sound::positional_parameters const &
 	) = 0;
 
@@ -104,7 +105,7 @@ public:
 	virtual
 	sge::audio::sound::base_unique_ptr
 	create_nonpositional_stream(
-		sge::audio::file &, // NOLINT(google-runtime-references)
+		sge::audio::file_ref,
 		sge::audio::sound::nonpositional_parameters const &
 	) = 0;
 

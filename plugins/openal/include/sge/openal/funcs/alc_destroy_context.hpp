@@ -19,9 +19,9 @@ namespace funcs
 
 void
 alc_destroy_context(
-	ALCdevice &,
-	ALCcontext &
-);
+	ALCdevice &, // NOLINT(google-runtime-references)
+	ALCcontext & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

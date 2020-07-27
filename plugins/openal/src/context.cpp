@@ -9,10 +9,14 @@
 #include <sge/openal/device.hpp>
 #include <sge/openal/funcs/alc_create_context.hpp>
 #include <sge/openal/funcs/alc_destroy_context.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::openal::context::context(
-	sge::openal::device &_device
+	fcppt::reference<
+		sge::openal::device
+	> const _device
 )
 :
 	device_(
@@ -20,7 +24,9 @@ sge::openal::context::context(
 	),
 	context_(
 		sge::openal::funcs::alc_create_context(
-			device_.aldevice()
+			fcppt::make_ref(
+				device_.get().aldevice()
+			)
 		)
 	)
 {
@@ -37,7 +43,7 @@ ALCdevice &
 sge::openal::context::aldevice()
 {
 	return
-		device_.aldevice();
+		device_.get().aldevice();
 }
 
 sge::openal::context::~context()

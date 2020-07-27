@@ -18,7 +18,7 @@ sge::openal::funcs::get_source_int(
 	ALenum const _what
 )
 {
-	ALint result;
+	ALint result{};
 
 	::alGetSourcei(
 		_source.get(),

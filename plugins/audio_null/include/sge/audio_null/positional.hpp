@@ -13,7 +13,7 @@
 #include <sge/audio/sound/play_status_fwd.hpp>
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/repeat_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ class positional
 :
 	public sge::audio::sound::positional
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		positional
 	);
 public:
@@ -44,6 +44,7 @@ private:
 	toggle_pause()
 	override;
 
+	[[nodiscard]]
 	sge::audio::sound::play_status
 	status() const
 	override;

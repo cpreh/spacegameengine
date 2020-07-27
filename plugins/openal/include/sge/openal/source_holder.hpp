@@ -8,8 +8,8 @@
 #define SGE_OPENAL_SOURCE_HOLDER_HPP_INCLUDED
 
 #include <sge/openal/source_id.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -19,21 +19,22 @@ namespace openal
 
 class source_holder
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		source_holder
 	);
 public:
 	explicit
 	source_holder(
-		fcppt::log::object &
+		fcppt::log::object_reference
 	);
 
 	~source_holder();
 
+	[[nodiscard]]
 	sge::openal::source_id
 	get() const;
 private:
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
 	sge::openal::source_id const value_;
 };

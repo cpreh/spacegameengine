@@ -10,12 +10,12 @@
 #include <sge/openal/funcs/gen_source.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 
 
 sge::openal::source_holder::source_holder(
-	fcppt::log::object &_log
+	fcppt::log::object_reference const _log
 )
 :
 	log_{
@@ -30,7 +30,7 @@ sge::openal::source_holder::source_holder(
 sge::openal::source_holder::~source_holder()
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("Deleting a source")
 	)
