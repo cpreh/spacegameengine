@@ -18,11 +18,12 @@ namespace projectile
 namespace body
 {
 
-typedef
+using
+object_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::projectile::body::object
->
-object_unique_ptr;
+>;
 
 }
 }

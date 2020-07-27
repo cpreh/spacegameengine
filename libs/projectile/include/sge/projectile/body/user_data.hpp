@@ -19,9 +19,10 @@ namespace projectile
 namespace body
 {
 
-typedef
-std::any
-user_data;
+using
+user_data
+=
+std::any;
 
 }
 }

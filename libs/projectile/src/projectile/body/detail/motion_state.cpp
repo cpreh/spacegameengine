@@ -5,6 +5,7 @@
 
 
 #include <sge/projectile/body/object.hpp>
+#include <sge/projectile/body/object_ref.hpp>
 #include <sge/projectile/impl/body/detail/motion_state.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btMotionState.h>
@@ -13,7 +14,7 @@
 
 
 sge::projectile::body::detail::motion_state::motion_state(
-	sge::projectile::body::object &_body
+	sge::projectile::body::object_ref const _body
 )
 :
 	btMotionState(),
@@ -24,15 +25,14 @@ sge::projectile::body::detail::motion_state::motion_state(
 }
 
 sge::projectile::body::detail::motion_state::~motion_state()
-{
-}
+= default;
 
 void
 sge::projectile::body::detail::motion_state::getWorldTransform(
 	btTransform &_transform
 ) const
 {
-	body_.getWorldTransform(
+	body_.get().getWorldTransform(
 		_transform
 	);
 }
@@ -42,7 +42,7 @@ sge::projectile::body::detail::motion_state::setWorldTransform(
 	btTransform const &_transform
 )
 {
-	body_.setWorldTransform(
+	body_.get().setWorldTransform(
 		_transform
 	);
 }

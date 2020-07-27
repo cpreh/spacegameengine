@@ -9,16 +9,21 @@
 
 #include <sge/projectile/body/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace projectile
 {
 namespace ghost
 {
-typedef
-void
-body_exit_fn(
-	body::object const &);
+
+using
+body_exit_fn
+=
+void (
+	sge::projectile::body::object const &
+);
+
 }
 }
 }

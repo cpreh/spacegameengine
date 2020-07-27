@@ -18,11 +18,12 @@ namespace projectile
 namespace body
 {
 
-typedef
+using
+position_change
+=
 fcppt::function<
 	sge::projectile::body::position_change_fn
->
-position_change;
+>;
 
 }
 }

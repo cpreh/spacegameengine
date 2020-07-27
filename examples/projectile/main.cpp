@@ -262,8 +262,12 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			}
 		},
 		body_scope_{
-			_world,
-			body_,
+			fcppt::make_ref(
+				_world
+			),
+			fcppt::make_ref(
+				body_
+			),
 			sge::projectile::group::sequence{
 				fcppt::make_ref(
 					_group
@@ -499,8 +503,12 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			)
 		),
 		ghost_scope_(
-			_world,
-			ghost_,
+			fcppt::make_ref(
+				_world
+			),
+			fcppt::make_ref(
+				ghost_
+			),
 			_groups
 		),
 		body_position_change_connection_(
@@ -669,8 +677,14 @@ try
 
 	sge::projectile::debug_drawer debug_drawer(
 		sys.log_context(),
-		world,
-		sys.renderer_device_ffp());
+		fcppt::make_ref(
+			world
+		),
+		fcppt::make_ref(
+			sys.renderer_device_core()
+		)
+	);
+
 	sge::projectile::group::object
 		first_group(
 			world),

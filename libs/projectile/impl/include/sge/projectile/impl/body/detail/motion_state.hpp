@@ -7,8 +7,8 @@
 #ifndef SGE_PROJECTILE_IMPL_BODY_DETAIL_MOTION_STATE_HPP_INCLUDED
 #define SGE_PROJECTILE_IMPL_BODY_DETAIL_MOTION_STATE_HPP_INCLUDED
 
-#include <sge/projectile/body/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/projectile/body/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btMotionState.h>
 #include <LinearMath/btTransform.h>
@@ -31,28 +31,26 @@ class motion_state
 :
 	public btMotionState
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		motion_state
 	);
 public:
 	explicit
 	motion_state(
-		sge::projectile::body::object &
+		sge::projectile::body::object_ref
 	);
 
 	~motion_state()
 	override;
 private:
-	sge::projectile::body::object &body_;
+	sge::projectile::body::object_ref const body_;
 
-	// @override
 	void
 	getWorldTransform(
 		btTransform &
 	) const
 	override;
 
-	// @override
 	void
 	setWorldTransform(
 		btTransform const &

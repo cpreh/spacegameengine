@@ -6,10 +6,9 @@
 
 #include <sge/projectile/shape/base.hpp>
 
+
 sge::projectile::shape::base::~base()
-{
-}
+= default;
 
 sge::projectile::shape::base::base()
-{
-}
+= default;

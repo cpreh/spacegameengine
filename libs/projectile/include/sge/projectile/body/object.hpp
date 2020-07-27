@@ -17,9 +17,8 @@
 #include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/body/detail/motion_state_fwd.hpp>
 #include <sge/projectile/detail/symbol.hpp>
-#include <sge/projectile/group/object_fwd.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
@@ -38,7 +37,7 @@ namespace body
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -48,6 +47,7 @@ public:
 		sge::projectile::body::parameters const &
 	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	sge::projectile::vector2
 	position() const;
@@ -58,6 +58,7 @@ public:
 		sge::projectile::vector2 const &
 	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	sge::projectile::vector2
 	linear_velocity() const;
@@ -68,6 +69,7 @@ public:
 		sge::projectile::vector2 const &
 	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	sge::projectile::scalar
 	angular_velocity() const;
@@ -78,10 +80,12 @@ public:
 		sge::projectile::scalar
 	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	sge::projectile::shape::shared_base_ptr
 	shape() const;
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	sge::projectile::scalar
 	rotation() const;
@@ -92,18 +96,21 @@ public:
 		sge::projectile::scalar
 	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	position_change(
 		sge::projectile::body::position_change &&
 	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	rotation_change(
 		sge::projectile::body::rotation_change &&
 	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	sge::projectile::body::user_data const &
 	user_data() const;
@@ -116,22 +123,24 @@ private:
 
 	fcppt::log::object &log_;
 	fcppt::unique_ptr<btTransform> const transformation_;
-	fcppt::unique_ptr<detail::motion_state> const motion_state_;
-	fcppt::signal::object<position_change_fn> position_change_;
-	fcppt::signal::object<rotation_change_fn> rotation_change_;
-	shape::shared_base_ptr shape_;
-	fcppt::unique_ptr<btRigidBody >const body_;
+	fcppt::unique_ptr<sge::projectile::body::detail::motion_state> const motion_state_;
+	fcppt::signal::object<sge::projectile::body::position_change_fn> position_change_;
+	fcppt::signal::object<sge::projectile::body::rotation_change_fn> rotation_change_;
+	sge::projectile::shape::shared_base_ptr shape_;
+	fcppt::unique_ptr<btRigidBody>const body_;
 	sge::projectile::body::user_data user_data_;
 
 	// @override
 	void
 	getWorldTransform(
-		btTransform &) const;
+		btTransform & // NOLINT(google-runtime-references)
+	) const; // NOLINT(google-runtime-references)
 
 	// @override
 	void
 	setWorldTransform(
-		btTransform const &);
+		btTransform const &
+	);
 };
 
 }

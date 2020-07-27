@@ -38,22 +38,22 @@ sge::projectile::shape::triangle_mesh::triangle_mesh(
 		>(
 			// number of triangles
 			static_cast<int>(
-				_triangles.size() * 8u),
+				_triangles.size() * 8U), // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			// pointer to index array
 			indices_.data(),
 			// index stride
 			static_cast<int>(
-				3u *
+				3U *
 				sizeof(
 					int)),
 			// number of vertices
 			static_cast<int>(
-				_triangles.size() * 8u * 3u),
+				_triangles.size() * 8U * 3U), // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			// pointer to vertex array
 			scalars_.data(),
 			// vertex stride
 			static_cast<int>(
-				3u *
+				3U *
 				sizeof(
 					btScalar
 				)
@@ -87,5 +87,4 @@ sge::projectile::shape::triangle_mesh::bullet_shape() const
 }
 
 sge::projectile::shape::triangle_mesh::~triangle_mesh()
-{
-}
+= default;

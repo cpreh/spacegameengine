@@ -8,7 +8,7 @@
 #define SGE_PROJECTILE_SHAPE_BASE_HPP_INCLUDED
 
 #include <sge/projectile/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 class btCollisionShape;
@@ -19,15 +19,21 @@ namespace projectile
 {
 namespace shape
 {
+
 class base
 {
-FCPPT_NONCOPYABLE(
-	base);
+	FCPPT_NONMOVABLE(
+		base
+	);
 public:
-	virtual btCollisionShape &
+	[[nodiscard]]
+	virtual
+	btCollisionShape &
 	bullet_shape() = 0;
 
-	virtual btCollisionShape const &
+	[[nodiscard]]
+	virtual
+	btCollisionShape const &
 	bullet_shape() const = 0;
 
 	SGE_PROJECTILE_DETAIL_SYMBOL
@@ -38,6 +44,7 @@ protected:
 	explicit
 	base();
 };
+
 }
 }
 }

@@ -57,7 +57,7 @@ sge::projectile::ghost::object::object(
 	)
 
 	ghost_object_->setCollisionFlags(
-		ghost_object_->getCollisionFlags() |
+		ghost_object_->getCollisionFlags() | // NOLINT(hicpp-signed-bitwise)
 		btCollisionObject::CF_NO_CONTACT_RESPONSE);
 
 	ghost_object_->setUserPointer(
@@ -116,8 +116,7 @@ sge::projectile::ghost::object::body_exit(
 }
 
 sge::projectile::ghost::object::~object()
-{
-}
+= default;
 
 void
 sge::projectile::ghost::object::enter_internal(

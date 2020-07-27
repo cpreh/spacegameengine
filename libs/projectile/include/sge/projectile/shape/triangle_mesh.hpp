@@ -14,7 +14,7 @@
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/shape/detail/index_container.hpp>
 #include <sge/projectile/shape/detail/scalar_container.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
 
@@ -33,7 +33,7 @@ class triangle_mesh
 :
 	public sge::projectile::shape::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		triangle_mesh
 	);
 public:
@@ -43,11 +43,12 @@ public:
 		sge::projectile::shape::triangle_sequence const &
 	);
 
-	// No symbol needed here
+	[[nodiscard]]
 	btCollisionShape &
 	bullet_shape()
 	override;
 
+	[[nodiscard]]
 	btCollisionShape const &
 	bullet_shape() const
 	override;

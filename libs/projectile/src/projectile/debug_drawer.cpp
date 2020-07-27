@@ -5,18 +5,18 @@
 
 
 #include <sge/projectile/debug_drawer.hpp>
-#include <sge/projectile/world_fwd.hpp>
+#include <sge/projectile/world_ref.hpp>
 #include <sge/projectile/impl/detail/debug_drawer_impl.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/log/context_reference.hpp>
 
 
 sge::projectile::debug_drawer::debug_drawer(
 	fcppt::log::context_reference const _log,
-	sge::projectile::world &_world,
-	sge::renderer::device::core &_renderer
+	sge::projectile::world_ref const _world,
+	sge::renderer::device::core_ref const _renderer
 )
 :
 	impl_(
@@ -49,7 +49,8 @@ sge::projectile::debug_drawer::render(
 
 void
 sge::projectile::debug_drawer::active(
-	bool const _active)
+	bool const _active
+)
 {
 	impl_->active(
 		_active
@@ -64,5 +65,4 @@ sge::projectile::debug_drawer::active() const
 }
 
 sge::projectile::debug_drawer::~debug_drawer()
-{
-}
+= default;

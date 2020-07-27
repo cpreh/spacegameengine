@@ -7,15 +7,19 @@
 #ifndef SGE_PROJECTILE_GROUP_ID_HPP_INCLUDED
 #define SGE_PROJECTILE_GROUP_ID_HPP_INCLUDED
 
+
 namespace sge
 {
 namespace projectile
 {
 namespace group
 {
-typedef
-short
-id;
+
+using
+id
+=
+short; // NOLINT(google-runtime-int)
+
 }
 }
 }

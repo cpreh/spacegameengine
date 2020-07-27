@@ -18,11 +18,12 @@ namespace projectile
 namespace ghost
 {
 
-typedef
+using
+body_exit
+=
 fcppt::function<
 	sge::projectile::ghost::body_exit_fn
->
-body_exit;
+>;
 
 }
 }

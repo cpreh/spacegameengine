@@ -9,7 +9,7 @@
 
 #include <sge/projectile/log_fwd.hpp>
 #include <sge/projectile/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
@@ -21,7 +21,7 @@ namespace projectile
 
 class log
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		log
 	);
 public:

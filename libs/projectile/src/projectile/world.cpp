@@ -7,9 +7,11 @@
 #include <sge/projectile/log.hpp>
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/body/object.hpp>
+#include <sge/projectile/body/object_ref.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object.hpp>
+#include <sge/projectile/group/object_ref.hpp>
 #include <sge/projectile/impl/collision_tester.hpp>
 #include <sge/projectile/impl/ghost/detail/pair_callback.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -76,7 +78,7 @@ is_collision_manifold(
 	btPersistentManifold *manifold)
 {
 	return
-		manifold->getNumContacts() &&
+		manifold->getNumContacts() != 0 &&
 		!is_ghost(
 			manifold->getBody0()) &&
 		!is_ghost(
@@ -200,14 +202,18 @@ sge::projectile::world::update_continuous(
 }
 
 void
-sge::projectile::world::make_groups_collide(
-	group::object &a,
-	group::object &b)
+sge::projectile::world::make_groups_collide( // NOLINT(readability-convert-member-functions-to-static)
+	sge::projectile::group::object &_a,
+	sge::projectile::group::object &_b
+)
 {
-	a.collides_with(
-		b);
-	b.collides_with(
-		a);
+	_a.collides_with(
+		_b
+	);
+
+	_b.collides_with(
+		_a
+	);
 }
 
 fcppt::signal::auto_connection
@@ -225,34 +231,34 @@ sge::projectile::world::body_collision(
 
 void
 sge::projectile::world::add_body(
-	body::object &_body,
-	group::sequence const &_groups)
+	sge::projectile::body::object_ref const _body,
+	sge::projectile::group::sequence const &_groups
+)
 {
-	group::id
-		group = static_cast<group::id>(0),
-		mask = group;
+	auto group = static_cast<sge::projectile::group::id>(0);
+	sge::projectile::group::id mask = group;
 
 	for(
-		group::sequence::const_iterator it(
-			_groups.begin()
-		);
-		it != _groups.end();
-		++it
+		auto const &cur
+		:
+		_groups
 	)
 	{
-		group = static_cast<group::id>(group | it->get().category_);
-		mask = static_cast<group::id>(mask | it->get().collides_);
+		group = static_cast<sge::projectile::group::id>(group | cur.get().category_); // NOLINT(hicpp-signed-bitwise)
+		mask = static_cast<sge::projectile::group::id>(mask | cur.get().collides_); // NOLINT(hicpp-signed-bitwise)
 	}
 
 	world_->addRigidBody(
-		_body.body_.get_pointer(),
+		_body.get().body_.get_pointer(),
 		group,
-		mask);
+		mask
+	);
 }
 
 void
 sge::projectile::world::remove_body(
-	body::object &_body)
+	sge::projectile::body::object &_body
+)
 {
 	world_->removeRigidBody(
 		_body.body_.get_pointer());
@@ -260,31 +266,34 @@ sge::projectile::world::remove_body(
 
 void
 sge::projectile::world::add_ghost(
-	ghost::object &_ghost,
-	group::sequence const &_groups)
+	sge::projectile::ghost::object_ref const _ghost,
+	sge::projectile::group::sequence const &_groups
+)
 {
-	group::id
-		group = static_cast<group::id>(0),
-		mask = group;
+	auto group = static_cast<group::id>(0);
+	sge::projectile::group::id mask = group;
 
-	// TODO: unify this with add_body
+	// TODO(philipp): unify this with add_body
 	for(
-		auto const &cur_group : _groups
+		auto const &cur_group
+		:
+		_groups
 	)
 	{
-		group = static_cast<group::id>(group | cur_group.get().category_);
-		mask = static_cast<group::id>(mask | cur_group.get().collides_);
+		group = static_cast<sge::projectile::group::id>(group | cur_group.get().category_); // NOLINT(hicpp-signed-bitwise)
+		mask = static_cast<sge::projectile::group::id>(mask | cur_group.get().collides_); // NOLINT(hicpp-signed-bitwise)
 	}
 
 	world_->addCollisionObject(
-		_ghost.ghost_object_.get_pointer(),
+		_ghost.get().ghost_object_.get_pointer(),
 		group,
 		mask);
 }
 
 void
 sge::projectile::world::remove_ghost(
-	ghost::object &_ghost)
+	sge::projectile::ghost::object &_ghost
+)
 {
 	world_->removeCollisionObject(
 		_ghost.ghost_object_.get_pointer());
@@ -309,8 +318,7 @@ sge::projectile::world::collides(
 }
 
 sge::projectile::world::~world()
-{
-}
+= default;
 
 sge::projectile::group::id
 sge::projectile::world::next_group_id()
@@ -322,7 +330,7 @@ sge::projectile::world::next_group_id()
 	// <<= doesn't work because of -Wconversion
 	next_group_id_ =
 		static_cast<group::id>(
-			next_group_id_ << 1);
+			next_group_id_ << 1); // NOLINT(hicpp-signed-bitwise)
 	return old;
 }
 
@@ -348,11 +356,11 @@ sge::projectile::world::internal_tick_callback(
 			world_->getDispatcher()->getInternalManifoldPointer()
 		,
 		**manifold_end =
-				world_->getDispatcher()->getInternalManifoldPointer() +
+				world_->getDispatcher()->getInternalManifoldPointer() + // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 				world_->getDispatcher()->getNumManifolds()
 		;
 		current_manifold != manifold_end;
-		++current_manifold
+		++current_manifold // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 	)
 	{
 		if(
@@ -360,7 +368,9 @@ sge::projectile::world::internal_tick_callback(
 				*current_manifold
 			)
 		)
+		{
 			continue;
+		}
 
 		FCPPT_LOG_VERBOSE(
 			log_,

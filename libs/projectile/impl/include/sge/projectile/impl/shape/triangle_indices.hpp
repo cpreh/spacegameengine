@@ -23,7 +23,7 @@ namespace shape
 
 sge::projectile::shape::detail::index_container
 triangle_indices(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::projectile::shape::triangle_sequence const &
 );
 

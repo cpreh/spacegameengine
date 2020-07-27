@@ -14,6 +14,7 @@ set(
 	libs/projectile/impl/src/projectile/impl/body/solidity/extract_mass.cpp
 	libs/projectile/impl/src/projectile/impl/body/solidity/is_solid.cpp
 	libs/projectile/impl/src/projectile/impl/bullet_to_vector2.cpp
+	libs/projectile/impl/src/projectile/impl/collision_tester.cpp
 	libs/projectile/impl/src/projectile/impl/detail/debug_drawer_impl.cpp
 	libs/projectile/impl/src/projectile/impl/object_extrusion_depth.cpp
 	libs/projectile/impl/src/projectile/impl/shape/triangle_indices.cpp
@@ -29,6 +30,7 @@ set(
 	libs/projectile/include/sge/projectile/body/mass.hpp
 	libs/projectile/include/sge/projectile/body/object.hpp
 	libs/projectile/include/sge/projectile/body/object_fwd.hpp
+	libs/projectile/include/sge/projectile/body/object_ref.hpp
 	libs/projectile/include/sge/projectile/body/object_unique_ptr.hpp
 	libs/projectile/include/sge/projectile/body/parameters.hpp
 	libs/projectile/include/sge/projectile/body/parameters_fwd.hpp
@@ -63,6 +65,7 @@ set(
 	libs/projectile/include/sge/projectile/ghost/detail/pair_callback_fwd.hpp
 	libs/projectile/include/sge/projectile/ghost/object.hpp
 	libs/projectile/include/sge/projectile/ghost/object_fwd.hpp
+	libs/projectile/include/sge/projectile/ghost/object_ref.hpp
 	libs/projectile/include/sge/projectile/ghost/parameters.hpp
 	libs/projectile/include/sge/projectile/ghost/parameters_fwd.hpp
 	libs/projectile/include/sge/projectile/ghost/position.hpp
@@ -108,12 +111,12 @@ set(
 	libs/projectile/include/sge/projectile/vector3_fwd.hpp
 	libs/projectile/include/sge/projectile/world.hpp
 	libs/projectile/include/sge/projectile/world_fwd.hpp
+	libs/projectile/include/sge/projectile/world_ref.hpp
 	libs/projectile/src/projectile/body/detail/motion_state.cpp
 	libs/projectile/src/projectile/body/object.cpp
 	libs/projectile/src/projectile/body/parameters.cpp
 	libs/projectile/src/projectile/body/scoped.cpp
 	libs/projectile/src/projectile/body/solidity/solid.cpp
-	libs/projectile/src/projectile/collision_tester.cpp
 	libs/projectile/src/projectile/debug_drawer.cpp
 	libs/projectile/src/projectile/ghost/detail/pair_callback.cpp
 	libs/projectile/src/projectile/ghost/object.cpp

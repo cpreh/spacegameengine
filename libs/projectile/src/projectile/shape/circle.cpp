@@ -37,4 +37,5 @@ sge::projectile::shape::circle::bullet_shape() const
 	return *bullet_shape_;
 }
 
-sge::projectile::shape::circle::~circle() {}
+sge::projectile::shape::circle::~circle()
+= default;

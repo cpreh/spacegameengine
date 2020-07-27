@@ -15,13 +15,15 @@ namespace sge
 {
 namespace projectile
 {
-typedef
-fcppt::math::vector::static_
-<
+
+using
+vector2
+=
+fcppt::math::vector::static_<
 	sge::projectile::scalar,
 	2
->
-vector2;
+>;
+
 }
 }
 

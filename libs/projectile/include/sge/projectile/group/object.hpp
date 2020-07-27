@@ -10,7 +10,7 @@
 #include <sge/projectile/world_fwd.hpp>
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/group/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -19,26 +19,34 @@ namespace projectile
 {
 namespace group
 {
+
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	explicit
 	object(
-		world &);
+		sge::projectile::world & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	SGE_PROJECTILE_DETAIL_SYMBOL
-	~object();
+	~object(); // NOLINT(performance-trivially-destructible)
 private:
 	friend class sge::projectile::world;
 
-	id category_,collides_;
+	sge::projectile::group::id category_;
+
+	sge::projectile::group::id collides_;
 
 	void
 	collides_with(
-		object const &);
+		sge::projectile::group::object const &
+	);
 };
+
 }
 }
 }

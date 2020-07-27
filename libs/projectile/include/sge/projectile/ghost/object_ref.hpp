@@ -4,25 +4,26 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_PROJECTILE_BODY_ROTATION_CHANGE_FN_HPP_INCLUDED
-#define SGE_PROJECTILE_BODY_ROTATION_CHANGE_FN_HPP_INCLUDED
+#ifndef SGE_PROJECTILE_GHOST_OBJECT_REF_HPP_INCLUDED
+#define SGE_PROJECTILE_GHOST_OBJECT_REF_HPP_INCLUDED
 
-#include <sge/projectile/body/rotation.hpp>
+#include <sge/projectile/group/object_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
 namespace projectile
 {
-namespace body
+namespace ghost
 {
 
 using
-rotation_change_fn
+object_ref
 =
-void (
-	sge::projectile::body::rotation const &
-);
+fcppt::reference<
+	sge::projectile::ghost::object
+>;
 
 }
 }

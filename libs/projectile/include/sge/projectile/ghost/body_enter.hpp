@@ -18,11 +18,12 @@ namespace projectile
 namespace ghost
 {
 
-typedef
+using
+body_enter
+=
 fcppt::function<
 	sge::projectile::ghost::body_enter_fn
->
-body_enter;
+>;
 
 }
 }

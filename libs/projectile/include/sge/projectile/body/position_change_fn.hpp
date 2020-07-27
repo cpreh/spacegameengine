@@ -9,16 +9,21 @@
 
 #include <sge/projectile/body/position.hpp>
 
+
 namespace sge
 {
 namespace projectile
 {
 namespace body
 {
-typedef
-void
-position_change_fn(
-	position const &);
+
+using
+position_change_fn
+=
+void (
+	sge::projectile::body::position const &
+);
+
 }
 }
 }

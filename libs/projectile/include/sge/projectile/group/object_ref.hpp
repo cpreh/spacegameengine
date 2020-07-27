@@ -18,11 +18,12 @@ namespace projectile
 namespace group
 {
 
-typedef
+using
+object_ref
+=
 fcppt::reference<
 	sge::projectile::group::object
->
-object_ref;
+>;
 
 }
 }

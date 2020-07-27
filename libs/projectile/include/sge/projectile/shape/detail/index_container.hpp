@@ -21,11 +21,12 @@ namespace shape
 namespace detail
 {
 
-typedef
+using
+index_container
+=
 std::vector<
 	int
->
-index_container;
+>;
 
 }
 }

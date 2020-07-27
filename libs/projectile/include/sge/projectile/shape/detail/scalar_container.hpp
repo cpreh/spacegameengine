@@ -22,11 +22,12 @@ namespace shape
 namespace detail
 {
 
-typedef
+using
+scalar_container
+=
 std::vector<
 	sge::projectile::scalar
->
-scalar_container;
+>;
 
 }
 }

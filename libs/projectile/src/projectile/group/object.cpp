@@ -7,27 +7,33 @@
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object.hpp>
+#include <fcppt/literal.hpp>
 
 
 sge::projectile::group::object::object(
-	world &_world)
+	sge::projectile::world &_world
+)
 :
 	category_(
-		_world.next_group_id()),
+		_world.next_group_id()
+	),
 	collides_(
-		// a valid static_cast since id is short! Winning.
-		static_cast<id>(
-			0))
+		fcppt::literal<
+			sge::projectile::group::id
+		>(
+			0
+		)
+	)
 {
 }
 
 sge::projectile::group::object::~object()
-{
-}
+= default;
 
 void
 sge::projectile::group::object::collides_with(
-	object const &other)
+	sge::projectile::group::object const &_other
+)
 {
-	collides_ |= other.category_;
+	collides_ |= _other.category_; // NOLINT(hicpp-signed-bitwise)
 }

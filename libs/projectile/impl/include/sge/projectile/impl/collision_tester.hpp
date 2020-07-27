@@ -7,7 +7,7 @@
 #ifndef SGE_PROJECTILE_IMPL_COLLISION_TESTER_HPP_INCLUDED
 #define SGE_PROJECTILE_IMPL_COLLISION_TESTER_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <fcppt/config/external_end.hpp>
@@ -24,7 +24,7 @@ class collision_tester
 :
 	public btCollisionWorld::ContactResultCallback
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		collision_tester
 	);
 public:
@@ -33,15 +33,18 @@ public:
 	~collision_tester()
 	override;
 
+	[[nodiscard]]
 	bool
 	result() const;
 private:
+	[[nodiscard]]
 	bool
 	needsCollision(
 		btBroadphaseProxy *
 	) const
 	override;
 
+	[[nodiscard]]
 	btScalar
 	addSingleResult(
 		btManifoldPoint &,

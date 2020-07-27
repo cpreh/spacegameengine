@@ -10,7 +10,7 @@
 // The header below isn't self-contained, this is a fix for that
 struct btBroadphaseProxy;
 
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/BroadphaseCollision/btOverlappingPairCallback.h>
 #include <fcppt/config/external_end.hpp>
@@ -29,7 +29,7 @@ class pair_callback
 :
 	public btOverlappingPairCallback
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		pair_callback
 	);
 public:
@@ -38,6 +38,7 @@ public:
 	~pair_callback()
 	override;
 private:
+	[[nodiscard]]
 	btBroadphasePair *
 	addOverlappingPair(
 		btBroadphaseProxy*,
@@ -45,6 +46,7 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	void *
 	removeOverlappingPair(
 		btBroadphaseProxy*,

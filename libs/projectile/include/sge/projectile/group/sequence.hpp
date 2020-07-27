@@ -20,11 +20,12 @@ namespace projectile
 namespace group
 {
 
-typedef
+using
+sequence
+=
 std::vector<
 	sge::projectile::group::object_ref
->
-sequence;
+>;
 
 }
 }

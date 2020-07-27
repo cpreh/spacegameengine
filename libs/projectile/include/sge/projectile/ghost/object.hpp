@@ -17,8 +17,7 @@
 #include <sge/projectile/ghost/body_exit_fn.hpp>
 #include <sge/projectile/ghost/parameters_fwd.hpp>
 #include <sge/projectile/ghost/detail/pair_callback_fwd.hpp>
-#include <sge/projectile/group/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
@@ -36,51 +35,64 @@ namespace ghost
 {
 class object
 {
-FCPPT_NONCOPYABLE(
-	object);
+	FCPPT_NONMOVABLE(
+		object
+	);
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	explicit
 	object(
-		parameters const &);
+		sge::projectile::ghost::parameters const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::vector2
+	[[nodiscard]]
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	sge::projectile::vector2
 	position() const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	position(
-		sge::projectile::vector2 const &);
+		sge::projectile::vector2 const &
+	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	body_enter(
 		sge::projectile::ghost::body_enter &&
 	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	body_exit(
 		sge::projectile::ghost::body_exit &&
 	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL ~object();
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	~object();
 private:
-	friend class detail::pair_callback;
+	friend class sge::projectile::ghost::detail::pair_callback;
 	friend class sge::projectile::world;
 
 	fcppt::log::object &log_;
-	fcppt::signal::object<body_enter_fn> body_enter_;
-	fcppt::signal::object<body_exit_fn> body_exit_;
+	fcppt::signal::object<sge::projectile::ghost::body_enter_fn> body_enter_;
+	fcppt::signal::object<sge::projectile::ghost::body_exit_fn> body_exit_;
 	fcppt::unique_ptr<btCollisionShape> const box_shape_;
 	fcppt::unique_ptr<btPairCachingGhostObject> const ghost_object_;
 
 	void
 	enter_internal(
-		body::object const &);
+		sge::projectile::body::object const &
+	);
 
 	void
 	exit_internal(
-		body::object const &);
+		sge::projectile::body::object const &
+	);
 };
+
 }
 }
 }

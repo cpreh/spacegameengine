@@ -9,10 +9,10 @@
 
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/projectile/world_fwd.hpp>
+#include <sge/projectile/world_ref.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/renderer/device/core_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
@@ -35,14 +35,14 @@ class debug_drawer_impl
 :
 	public btIDebugDraw
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		debug_drawer_impl
 	);
 public:
 	debug_drawer_impl(
 		fcppt::log::context_reference,
-		sge::projectile::world &,
-		sge::renderer::device::core &
+		sge::projectile::world_ref,
+		sge::renderer::device::core_ref
 	);
 
 	void
@@ -50,14 +50,15 @@ public:
 
 	void
 	render(
-		sge::renderer::context::core &
-	);
+		sge::renderer::context::core & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
 	void
 	active(
 		bool
 	);
 
+	[[nodiscard]]
 	bool
 	active() const;
 
@@ -72,17 +73,19 @@ private:
 
 	sge::line_drawer::object line_drawer_;
 
-	typedef
+	using
+	scoped_lock_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::line_drawer::scoped_lock
-	>
-	scoped_lock_unique_ptr;
+	>;
 
-	typedef
+	using
+	optional_scoped_lock_unique_ptr
+	=
 	fcppt::optional::object<
 		scoped_lock_unique_ptr
-	>
-	optional_scoped_lock_unique_ptr;
+	>;
 
 	optional_scoped_lock_unique_ptr scoped_lock_;
 
@@ -132,10 +135,12 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	int
 	getDebugMode() const
 	override;
 };
+
 }
 }
 }

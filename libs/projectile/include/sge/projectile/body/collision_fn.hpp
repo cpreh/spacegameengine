@@ -9,17 +9,22 @@
 
 #include <sge/projectile/body/object_fwd.hpp>
 
+
 namespace sge
 {
 namespace projectile
 {
 namespace body
 {
-typedef
-void
-collision_fn(
-	object const &,
-	object const &);
+
+using
+collision_fn
+=
+void (
+	sge::projectile::body::object const &,
+	sge::projectile::body::object const &
+);
+
 }
 }
 }

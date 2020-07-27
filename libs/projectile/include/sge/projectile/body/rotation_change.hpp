@@ -18,11 +18,12 @@ namespace projectile
 namespace body
 {
 
-typedef
+using
+rotation_change
+=
 fcppt::function<
 	sge::projectile::body::rotation_change_fn
->
-rotation_change;
+>;
 
 }
 }

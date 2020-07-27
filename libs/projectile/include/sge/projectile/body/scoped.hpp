@@ -7,12 +7,12 @@
 #ifndef SGE_PROJECTILE_BODY_SCOPED_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_SCOPED_HPP_INCLUDED
 
-#include <sge/projectile/world_fwd.hpp>
-#include <sge/projectile/body/object_fwd.hpp>
+#include <sge/projectile/world_ref.hpp>
+#include <sge/projectile/body/object_ref.hpp>
 #include <sge/projectile/body/scoped_fwd.hpp>
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/group/sequence.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -21,22 +21,28 @@ namespace projectile
 {
 namespace body
 {
+
 class scoped
 {
-FCPPT_NONCOPYABLE(
-	scoped);
+	FCPPT_NONMOVABLE(
+		scoped
+	);
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL explicit
+	SGE_PROJECTILE_DETAIL_SYMBOL
 	scoped(
-		world &,
-		object &,
-		group::sequence const &);
+		sge::projectile::world_ref,
+		sge::projectile::body::object_ref,
+		sge::projectile::group::sequence const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL ~scoped();
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	~scoped();
 private:
-	world &world_;
-	object &object_;
+	sge::projectile::world_ref const world_;
+
+	sge::projectile::body::object_ref const object_;
 };
+
 }
 }
 }

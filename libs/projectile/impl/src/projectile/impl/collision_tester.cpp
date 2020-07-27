@@ -19,8 +19,7 @@ sge::projectile::impl::collision_tester::collision_tester()
 }
 
 sge::projectile::impl::collision_tester::~collision_tester()
-{
-}
+= default;
 
 bool
 sge::projectile::impl::collision_tester::result() const
@@ -51,5 +50,5 @@ sge::projectile::impl::collision_tester::addSingleResult(
 {
 	result_ = true;
 
-	return 0.f; // wtf?
+	return 0.F; // wtf?
 }

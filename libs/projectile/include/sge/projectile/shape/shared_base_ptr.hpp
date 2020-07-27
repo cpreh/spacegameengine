@@ -17,12 +17,14 @@ namespace projectile
 {
 namespace shape
 {
-typedef
-fcppt::shared_ptr
-<
-	base
->
-shared_base_ptr;
+
+using
+shared_base_ptr
+=
+fcppt::shared_ptr<
+	sge::projectile::shape::base
+>;
+
 }
 }
 }

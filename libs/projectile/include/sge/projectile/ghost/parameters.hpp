@@ -28,16 +28,19 @@ public:
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	parameters(
 		sge::projectile::log const &,
-		sge::projectile::ghost::position const &,
-		sge::projectile::ghost::size const &
+		sge::projectile::ghost::position,
+		sge::projectile::ghost::size
 	);
 
+	[[nodiscard]]
 	fcppt::log::object &
 	log() const;
 
+	[[nodiscard]]
 	sge::projectile::ghost::position const &
 	position() const;
 
+	[[nodiscard]]
 	sge::projectile::ghost::size const &
 	size() const;
 private:

@@ -15,14 +15,16 @@
 #include <sge/projectile/body/collision.hpp>
 #include <sge/projectile/body/collision_fn.hpp>
 #include <sge/projectile/body/object_fwd.hpp>
+#include <sge/projectile/body/object_ref.hpp>
 #include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/ghost/object_fwd.hpp>
+#include <sge/projectile/ghost/object_ref.hpp>
 #include <sge/projectile/ghost/detail/pair_callback_fwd.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object_fwd.hpp>
 #include <sge/projectile/group/sequence.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
@@ -40,10 +42,12 @@ namespace sge
 {
 namespace projectile
 {
+
 class world
 {
-FCPPT_NONCOPYABLE(
-	world);
+	FCPPT_NONMOVABLE(
+		world
+	);
 public:
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	explicit
@@ -51,45 +55,61 @@ public:
 		sge::projectile::log const &
 	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	update_discrete(
 		time_increment const &,
 		fixed_timestep const &,
-		maximum_substeps const &);
+		maximum_substeps const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	update_continuous(
-		time_increment const &);
+		sge::projectile::time_increment const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	make_groups_collide(
-		group::object &,
-		group::object &);
+		sge::projectile::group::object &, // NOLINT(google-runtime-references)
+		sge::projectile::group::object & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	body_collision(
 		sge::projectile::body::collision &&
 	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	add_body(
-		body::object &,
-		group::sequence const &);
+		sge::projectile::body::object_ref,
+		sge::projectile::group::sequence const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	remove_body(
-		body::object &);
+		sge::projectile::body::object & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	add_ghost(
-		ghost::object &,
-		group::sequence const &);
+		sge::projectile::ghost::object_ref,
+		sge::projectile::group::sequence const &
+	);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL void
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	void
 	remove_ghost(
-		ghost::object &);
+		sge::projectile::ghost::object & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	bool
 	collides(
@@ -97,13 +117,14 @@ public:
 		sge::projectile::body::object const &
 	) const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL ~world();
+	SGE_PROJECTILE_DETAIL_SYMBOL
+	~world();
 private:
 	friend class sge::projectile::group::object;
 	friend class sge::projectile::detail::debug_drawer_impl;
 
 	fcppt::log::object &log_;
-	fcppt::signal::object<body::collision_fn> body_collision_;
+	fcppt::signal::object<sge::projectile::body::collision_fn> body_collision_;
 	fcppt::unique_ptr<btCollisionConfiguration> const configuration_;
 	fcppt::unique_ptr<btCollisionDispatcher> const dispatcher_;
 	fcppt::unique_ptr<btBroadphaseInterface> const broadphase_;
@@ -111,22 +132,27 @@ private:
 	// This is not a btDynamicsWorld because btDynamicsWorld doesn't
 	// have addRigidBody with group and mask parameter.
 	fcppt::unique_ptr<btDiscreteDynamicsWorld> const world_;
-	fcppt::unique_ptr<ghost::detail::pair_callback> const ghost_pair_callback_;
-	group::id next_group_id_;
+	fcppt::unique_ptr<sge::projectile::ghost::detail::pair_callback> const ghost_pair_callback_;
+	sge::projectile::group::id next_group_id_;
 
 	// for group
-	group::id
+	[[nodiscard]]
+	sge::projectile::group::id
 	next_group_id();
 
-	static void
+	static
+	void
 	internal_tick_callback_static(
 		btDynamicsWorld *,
-		scalar);
+		sge::projectile::scalar
+	);
 
 	void
 	internal_tick_callback(
-		scalar);
+		sge::projectile::scalar
+	);
 };
+
 }
 }
 

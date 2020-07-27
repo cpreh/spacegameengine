@@ -18,11 +18,12 @@ namespace projectile
 namespace body
 {
 
-typedef
+using
+collision
+=
 fcppt::function<
 	sge::projectile::body::collision_fn
->
-collision;
+>;
 
 }
 }

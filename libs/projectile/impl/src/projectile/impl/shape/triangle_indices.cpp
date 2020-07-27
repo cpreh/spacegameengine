@@ -24,7 +24,7 @@ sge::projectile::impl::shape::triangle_indices(
 		// Since we have to extrude each triangle separately (well,
 		// technically we don't have to but this is a good compromise)
 		// there are 8 output triangles per input triangle.
-		_triangles.size() * 2u * 3u * 4u
+		_triangles.size() * 2U * 3U * 4U
 	);
 
 	FCPPT_LOG_DEBUG(
@@ -33,7 +33,7 @@ sge::projectile::impl::shape::triangle_indices(
 			<< FCPPT_TEXT("filled scalar container, now filling index container")
 	)
 
-	sge::projectile::shape::detail::index_container::iterator current_index_iterator(
+	auto current_index_iterator(
 		indices.begin()
 	);
 
@@ -41,7 +41,7 @@ sge::projectile::impl::shape::triangle_indices(
 		0
 	);
 
-	// TODO: Find a better way to express this
+	// TODO(philipp): Find a better way to express this
 	while(current_index_iterator != indices.end())
 	{
 		// top
@@ -51,7 +51,7 @@ sge::projectile::impl::shape::triangle_indices(
 		// bottom
 		*current_index_iterator++ = current_index+3;
 		*current_index_iterator++ = current_index+4;
-		*current_index_iterator++ = current_index+5;
+		*current_index_iterator++ = current_index+5; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
 		// first side
 		*current_index_iterator++ = current_index+0;
@@ -63,13 +63,13 @@ sge::projectile::impl::shape::triangle_indices(
 		*current_index_iterator++ = current_index+0;
 
 		// second side
-		*current_index_iterator++ = current_index+5;
+		*current_index_iterator++ = current_index+5; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		*current_index_iterator++ = current_index+2;
 		*current_index_iterator++ = current_index+1;
 
 		*current_index_iterator++ = current_index+1;
 		*current_index_iterator++ = current_index+4;
-		*current_index_iterator++ = current_index+5;
+		*current_index_iterator++ = current_index+5; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
 		// third side side
 		*current_index_iterator++ = current_index+3;
@@ -77,10 +77,10 @@ sge::projectile::impl::shape::triangle_indices(
 		*current_index_iterator++ = current_index+2;
 
 		*current_index_iterator++ = current_index+2;
-		*current_index_iterator++ = current_index+5;
+		*current_index_iterator++ = current_index+5; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		*current_index_iterator++ = current_index+3;
 
-		current_index += 6;
+		current_index += 6; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	}
 
 	FCPPT_LOG_DEBUG(

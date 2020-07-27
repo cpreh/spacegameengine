@@ -30,6 +30,7 @@ public:
 		sge::projectile::body::mass const &
 	);
 
+	[[nodiscard]]
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	sge::projectile::body::mass const &
 	mass() const;

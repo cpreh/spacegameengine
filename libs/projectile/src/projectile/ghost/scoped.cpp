@@ -5,26 +5,34 @@
 
 
 #include <sge/projectile/world.hpp>
+#include <sge/projectile/world_ref.hpp>
+#include <sge/projectile/ghost/object_ref.hpp>
 #include <sge/projectile/ghost/scoped.hpp>
+#include <sge/projectile/group/sequence.hpp>
 
 
 sge::projectile::ghost::scoped::scoped(
-	world &_world,
-	object &_object,
-	group::sequence const &_groups)
+	sge::projectile::world_ref const _world,
+	sge::projectile::ghost::object_ref const _object,
+	sge::projectile::group::sequence const &_groups
+)
 :
 	world_(
-		_world),
+		_world
+	),
 	object_(
-		_object)
+		_object
+	)
 {
-	world_.add_ghost(
+	world_.get().add_ghost(
 		object_,
-		_groups);
+		_groups
+	);
 }
 
 sge::projectile::ghost::scoped::~scoped()
 {
-	world_.remove_ghost(
-		object_);
+	world_.get().remove_ghost(
+		object_.get()
+	);
 }

@@ -16,13 +16,13 @@ namespace sge
 namespace projectile
 {
 
-typedef
-fcppt::math::dim::static_
-<
+using
+dim2
+=
+fcppt::math::dim::static_<
 	sge::projectile::scalar,
 	2
->
-dim2;
+>;
 
 }
 }

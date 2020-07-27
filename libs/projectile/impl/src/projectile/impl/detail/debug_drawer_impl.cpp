@@ -16,7 +16,7 @@
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/impl/detail/debug_drawer_impl.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_ref.hpp>
@@ -41,8 +41,9 @@
 
 sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
 	fcppt::log::context_reference const _log_context,
-	sge::projectile::world &_world,
-	sge::renderer::device::core &_renderer)
+	sge::projectile::world_ref const _world,
+	sge::renderer::device::core_ref const _renderer
+)
 :
 	log_{
 		_log_context,
@@ -54,20 +55,23 @@ sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
 		)
 	},
 	world_(
-		*_world.world_),
+		*_world.get().world_
+	),
 	debug_mode_(
-		btIDebugDraw::DBG_NoDebug), // should be zero
+		btIDebugDraw::DBG_NoDebug
+	), // should be zero
 	line_drawer_(
-		fcppt::make_ref(
-			_renderer
-		)
+		_renderer
 	),
 	scoped_lock_()
 {
 	FCPPT_ASSERT_PRE(
-		!world_.getDebugDrawer());
+		!world_.getDebugDrawer()
+	);
+
 	world_.setDebugDrawer(
-		this);
+		this
+	);
 }
 
 void
@@ -97,7 +101,9 @@ sge::projectile::detail::debug_drawer_impl::update()
 		lock->value().clear();
 
 		if (debug_mode_ != btIDebugDraw::DBG_NoDebug)
+		{
 			world_.debugDrawWorld();
+		}
 	}
 
 	scoped_lock_ =
@@ -116,7 +122,9 @@ sge::projectile::detail::debug_drawer_impl::render(
 	sge::renderer::context::core &_render_context)
 {
 	if (debug_mode_ == btIDebugDraw::DBG_NoDebug)
+	{
 		return;
+	}
 
 	line_drawer_.render(
 		_render_context);
@@ -196,11 +204,11 @@ sge::projectile::detail::debug_drawer_impl::drawLine(
 						>(
 							fcppt::math::vector::static_<
 								btScalar,
-								3u
+								3U
 							>{
-								_s[0],
-								_s[1],
-								_s[2]
+								_s.x(),
+								_s.y(),
+								_s.z()
 							}
 						);
 				}

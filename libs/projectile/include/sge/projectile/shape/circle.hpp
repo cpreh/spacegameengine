@@ -11,7 +11,7 @@
 #include <sge/projectile/scalar.hpp>
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
 
@@ -27,19 +27,23 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL circle
 :
 	public sge::projectile::shape::base
 {
-FCPPT_NONCOPYABLE(
-	circle);
+	FCPPT_NONMOVABLE(
+		circle
+	);
 public:
 	SGE_PROJECTILE_DETAIL_SYMBOL
 	explicit
 	circle(
-		sge::projectile::scalar const radius);
+		sge::projectile::scalar radius
+	);
 
+	[[nodiscard]]
 	// No symbol needed here
 	btCollisionShape &
 	bullet_shape()
 	override;
 
+	[[nodiscard]]
 	btCollisionShape const &
 	bullet_shape() const
 	override;

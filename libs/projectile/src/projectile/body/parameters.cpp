@@ -15,32 +15,42 @@
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::projectile::body::parameters::parameters(
 	sge::projectile::log const &_log,
-	sge::projectile::body::position const &_position,
-	sge::projectile::body::linear_velocity const &_linear_velocity,
+	sge::projectile::body::position _position,
+	sge::projectile::body::linear_velocity _linear_velocity,
 	sge::projectile::body::angular_velocity const &_angular_velocity,
-	sge::projectile::shape::shared_base_ptr const &_shape,
+	sge::projectile::shape::shared_base_ptr _shape,
 	sge::projectile::body::rotation const &_rotation,
 	sge::projectile::body::solidity::variant const &_solidity,
-	sge::projectile::body::user_data const &_user_data)
+	sge::projectile::body::user_data _user_data
+)
 :
 	log_{
 		_log.body_log()
 	},
 	position_(
-		_position
+		std::move(
+			_position
+		)
 	),
 	linear_velocity_(
-		_linear_velocity
+		std::move(
+			_linear_velocity
+		)
 	),
 	angular_velocity_(
 		_angular_velocity
 	),
 	shape_(
-		_shape
+		std::move(
+			_shape
+		)
 	),
 	rotation_(
 		_rotation
@@ -49,7 +59,9 @@ sge::projectile::body::parameters::parameters(
 		_solidity
 	),
 	user_data_(
-		_user_data
+		std::move(
+			_user_data
+		)
 	)
 {
 }

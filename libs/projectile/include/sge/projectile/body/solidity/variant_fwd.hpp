@@ -22,13 +22,14 @@ namespace body
 namespace solidity
 {
 
-typedef
+using
+variant
+=
 fcppt::variant::object<
 	sge::projectile::body::solidity::static_,
 	sge::projectile::body::solidity::solid,
 	sge::projectile::body::solidity::nonsolid
->
-variant;
+>;
 
 }
 }

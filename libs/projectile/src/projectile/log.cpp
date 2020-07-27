@@ -57,8 +57,7 @@ sge::projectile::log::log(
 }
 
 sge::projectile::log::~log()
-{
-}
+= default;
 
 fcppt::log::object &
 sge::projectile::log::world_log() const

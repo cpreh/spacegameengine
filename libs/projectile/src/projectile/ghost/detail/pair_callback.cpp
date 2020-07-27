@@ -17,38 +17,45 @@
 
 
 sge::projectile::ghost::detail::pair_callback::pair_callback()
-{
-}
+= default;
 
 sge::projectile::ghost::detail::pair_callback::~pair_callback()
-{
-}
+= default;
 
 btBroadphasePair *
 sge::projectile::ghost::detail::pair_callback::addOverlappingPair(
 	btBroadphaseProxy *proxy0,
-	btBroadphaseProxy *proxy1)
+	btBroadphaseProxy *proxy1
+)
 {
-	btCollisionObject
-		*col_obj0 =
-			static_cast<btCollisionObject*>(
-				proxy0->m_clientObject),
-		*col_obj1 =
-			static_cast<btCollisionObject*>(
-				proxy1->m_clientObject);
+	auto *col_obj0{
+		static_cast<btCollisionObject*>(
+			proxy0->m_clientObject
+		)
+	};
 
-	btGhostObject
-		*ghost0 =
-			btGhostObject::upcast(
-				col_obj0),
-		*ghost1 =
-			btGhostObject::upcast(
-				col_obj1);
+	auto *col_obj1{
+		static_cast<btCollisionObject*>(
+			proxy1->m_clientObject
+		)
+	};
+
+	btGhostObject *ghost0{
+		btGhostObject::upcast(
+			col_obj0
+		)
+	};
+
+	btGhostObject *ghost1{
+		btGhostObject::upcast(
+			col_obj1
+		)
+	};
 
 	// FIXME: ASSERT
-	if (ghost0)
+	if (ghost0 != nullptr)
 	{
-		if(!ghost1)
+		if(ghost1 == nullptr)
 		{
 			FCPPT_ASSERT_ERROR(
 				ghost0->getUserPointer());
@@ -70,9 +77,9 @@ sge::projectile::ghost::detail::pair_callback::addOverlappingPair(
 			proxy0);
 	}
 
-	if (ghost1)
+	if (ghost1 != nullptr)
 	{
-		if(!ghost0)
+		if(ghost0 == nullptr)
 		{
 			FCPPT_ASSERT_ERROR(
 				ghost1->getUserPointer());
@@ -104,25 +111,33 @@ sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
 	btBroadphaseProxy *proxy1,
 	btDispatcher *dispatcher)
 {
-	btCollisionObject
-		*col_obj0 =
-			static_cast<btCollisionObject*>(
-				proxy0->m_clientObject),
-		*col_obj1 =
-			static_cast<btCollisionObject*>(
-				proxy1->m_clientObject);
+	btCollisionObject *col_obj0{
+		static_cast<btCollisionObject*>(
+			proxy0->m_clientObject
+		)
+	};
 
-	btGhostObject
-		*ghost0 =
-			btGhostObject::upcast(
-				col_obj0),
-		*ghost1 =
-			btGhostObject::upcast(
-				col_obj1);
+	btCollisionObject *col_obj1{
+		static_cast<btCollisionObject*>(
+			proxy1->m_clientObject
+		)
+	};
 
-	if (ghost0)
+	btGhostObject *ghost0{
+		btGhostObject::upcast(
+			col_obj0
+		)
+	};
+
+	btGhostObject *ghost1{
+		btGhostObject::upcast(
+			col_obj1
+		)
+	};
+
+	if(ghost0 != nullptr)
 	{
-		if(!ghost1)
+		if(ghost1 == nullptr)
 		{
 			FCPPT_ASSERT_ERROR(
 				ghost0->getUserPointer());
@@ -145,9 +160,9 @@ sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
 			proxy0);
 	}
 
-	if (ghost1)
+	if(ghost1 != nullptr)
 	{
-		if(!ghost0)
+		if(ghost0 == nullptr)
 		{
 			FCPPT_ASSERT_ERROR(
 				ghost1->getUserPointer());

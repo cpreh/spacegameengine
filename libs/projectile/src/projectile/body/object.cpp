@@ -14,6 +14,7 @@
 #include <sge/projectile/impl/body/solidity/extract_mass.hpp>
 #include <sge/projectile/impl/body/solidity/is_solid.hpp>
 #include <sge/projectile/shape/base.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
@@ -36,11 +37,13 @@
 
 namespace
 {
+
 btVector3
 inertia_for_shape(
-	fcppt::log::object &_log,
-	btCollisionShape &shape,
-	sge::projectile::body::solidity::variant const &solidity)
+	fcppt::log::object &_log, // NOLINT(google-runtime-references)
+	btCollisionShape &shape, // NOLINT(google-runtime-references)
+	sge::projectile::body::solidity::variant const &solidity
+)
 {
 	btVector3 inertia(
 		0,
@@ -53,7 +56,7 @@ inertia_for_shape(
 
 	// FIXME: Rather test if the solidity actually implies a mass, then
 	// do an if() on that.
-	if(mass > static_cast<btScalar>(0.000001))
+	if(mass > static_cast<btScalar>(0.000001)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	{
 		FCPPT_LOG_DEBUG(
 			_log,
@@ -102,8 +105,14 @@ sge::projectile::body::object::object(
 			sge::projectile::impl::vector2_to_bullet(
 				p.position().get()))),
 	motion_state_(
-		fcppt::make_unique_ptr<sge::projectile::body::detail::motion_state>(
-			*this)),
+		fcppt::make_unique_ptr<
+			sge::projectile::body::detail::motion_state
+		>(
+			fcppt::make_ref(
+				*this
+			)
+		)
+	),
 	position_change_(),
 	rotation_change_(),
 	shape_(
@@ -160,8 +169,9 @@ sge::projectile::body::object::object(
 		)
 
 		body_->setCollisionFlags(
-			body_->getCollisionFlags() |
-			btCollisionObject::CF_NO_CONTACT_RESPONSE);
+			body_->getCollisionFlags() | // NOLINT(hicpp-signed-bitwise)
+			btCollisionObject::CF_NO_CONTACT_RESPONSE
+		);
 	}
 
 	// Constrain to 2D
@@ -301,7 +311,10 @@ sge::projectile::body::object::shape() const
 sge::projectile::scalar
 sge::projectile::body::object::rotation() const
 {
-	btScalar y,x,z;
+	btScalar y{};
+	btScalar x{};
+	btScalar z{};
+
 	transformation_->getBasis().getEulerYPR(
 		y,x,z);
 	return
@@ -365,10 +378,8 @@ sge::projectile::body::object::user_data() const
 }
 
 sge::projectile::body::object::~object()
-{
-}
+= default;
 
-// @override
 void
 sge::projectile::body::object::getWorldTransform(
 	btTransform &t) const
@@ -376,7 +387,6 @@ sge::projectile::body::object::getWorldTransform(
 	t = *transformation_;
 }
 
-// @override
 void
 sge::projectile::body::object::setWorldTransform(
 	btTransform const &t)

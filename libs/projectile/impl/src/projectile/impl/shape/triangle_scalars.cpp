@@ -27,7 +27,7 @@ sge::projectile::impl::shape::triangle_scalars(
 )
 {
 	sge::projectile::shape::detail::scalar_container scalars(
-		_triangles.size() * 8u * 3u * 3u
+		_triangles.size() * 8U * 3U * 3U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	FCPPT_LOG_DEBUG(
@@ -41,20 +41,24 @@ sge::projectile::impl::shape::triangle_scalars(
 			FCPPT_TEXT(" triangles")
 	)
 
-	sge::projectile::shape::detail::scalar_container::iterator current_scalar =
-		scalars.begin();
+	auto current_scalar{
+		scalars.begin()
+	};
 
-	// TODO: Find a better way to express this
+	// TODO(philipp): Find a better way to express this
 	for(
 		sge::projectile::triangle const &triangle
 		:
 		_triangles
 	)
 	{
-		typedef std::array<
+		using
+		extrusion_array
+		=
+		std::array<
 			btScalar,
 			2
-		> extrusion_array;
+		>;
 
 		extrusion_array const extrusion_depth{{
 			static_cast<btScalar>(-sge::projectile::impl::object_extrusion_depth()/2),
