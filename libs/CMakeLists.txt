@@ -413,10 +413,8 @@ include(
 	FindPkgConfig
 )
 
-pkg_check_modules(
+find_package(
 	BULLET
-	IMPORTED_TARGET
-	bullet
 )
 
 find_package(
