@@ -7,7 +7,7 @@
 #ifndef SGE_PROJECTILE_GHOST_OBJECT_REF_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_OBJECT_REF_HPP_INCLUDED
 
-#include <sge/projectile/group/object_fwd.hpp>
+#include <sge/projectile/ghost/object_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
 
