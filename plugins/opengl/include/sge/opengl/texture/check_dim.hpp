@@ -30,7 +30,7 @@ template<
 >
 void
 check_dim(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::renderer::basic_dim<
 		Size
 	> const &,

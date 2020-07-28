@@ -8,6 +8,7 @@
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/internal_color_format.hpp>
+#include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/renderer/dim2.hpp>
@@ -19,7 +20,7 @@
 
 
 sge::opengl::fbo::render_buffer::render_buffer(
-	sge::opengl::fbo::config const &_context,
+	sge::opengl::fbo::const_config_ref const _context,
 	sge::opengl::internal_color_format const _internal_format,
 	sge::renderer::dim2 const &_dim
 )
@@ -34,8 +35,8 @@ sge::opengl::fbo::render_buffer::render_buffer(
 	this->bind();
 
 	sge::opengl::call_fun_ref(
-		context_.renderbuffer_storage(),
-		context_.renderbuffer_target(),
+		context_.get().renderbuffer_storage(),
+		context_.get().renderbuffer_target(),
 		fcppt::cast::to_unsigned(
 			_internal_format.get()
 		),
@@ -63,8 +64,7 @@ sge::opengl::fbo::render_buffer::render_buffer(
 }
 
 sge::opengl::fbo::render_buffer::~render_buffer()
-{
-}
+= default;
 
 GLuint
 sge::opengl::fbo::render_buffer::id() const
@@ -77,8 +77,8 @@ void
 sge::opengl::fbo::render_buffer::bind() const
 {
 	sge::opengl::call_fun_ref(
-		context_.bind_renderbuffer(),
-		context_.renderbuffer_target(),
+		context_.get().bind_renderbuffer(),
+		context_.get().renderbuffer_target(),
 		this->id()
 	);
 

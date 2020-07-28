@@ -22,7 +22,7 @@ sge::opengl::state::ffp::lighting::light::directional(
 				fcppt::math::vector::push_back(
 					_directional.direction().get(),
 					// special value to make this a directional light
-					0.f
+					0.F
 				)
 			)
 		};

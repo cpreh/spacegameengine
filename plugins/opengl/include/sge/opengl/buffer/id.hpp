@@ -18,7 +18,10 @@ namespace opengl
 namespace buffer
 {
 
-typedef sge::renderer::opengl::buffer::id id;
+using
+id
+=
+sge::renderer::opengl::buffer::id;
 
 }
 }

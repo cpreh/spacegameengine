@@ -7,9 +7,9 @@
 #ifndef SGE_OPENGL_OCCLUSION_QUERY_HOLDER_HPP_INCLUDED
 #define SGE_OPENGL_OCCLUSION_QUERY_HOLDER_HPP_INCLUDED
 
-#include <sge/opengl/occlusion_query/config_fwd.hpp>
+#include <sge/opengl/occlusion_query/const_config_ref.hpp>
 #include <sge/opengl/occlusion_query/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -21,21 +21,22 @@ namespace occlusion_query
 
 class holder
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		holder
 	);
 public:
 	explicit
 	holder(
-		sge::opengl::occlusion_query::config const &
+		sge::opengl::occlusion_query::const_config_ref
 	);
 
 	~holder();
 
+	[[nodiscard]]
 	sge::opengl::occlusion_query::id
 	id() const;
 private:
-	sge::opengl::occlusion_query::config const &config_;
+	sge::opengl::occlusion_query::const_config_ref const config_;
 
 	sge::opengl::occlusion_query::id const id_;
 };

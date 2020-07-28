@@ -7,11 +7,11 @@
 #ifndef SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_SET_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_SET_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/const_config_ref.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -29,9 +29,9 @@ namespace point_sprite
 
 sge::opengl::state::actor_vector
 set_impl(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
-	sge::opengl::state::ffp::misc::point_sprite::config const &,
+	fcppt::log::object_reference,
+	sge::opengl::context::object_ref,
+	sge::opengl::state::ffp::misc::point_sprite::const_config_ref,
 	sge::renderer::state::ffp::misc::enable_point_sprites
 );
 

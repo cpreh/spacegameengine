@@ -20,11 +20,12 @@ namespace opengl
 namespace glx
 {
 
-typedef
-std::remove_pointer<
+using
+proc_address_function
+=
+std::remove_pointer_t<
 	PFNGLXGETPROCADDRESSPROC
->::type
-proc_address_function;
+>;
 
 }
 }

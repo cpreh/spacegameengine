@@ -25,65 +25,75 @@ namespace fbo
 class config
 {
 public:
-	typedef
+	using
+	gl_gen_framebuffers
+	=
 	sge::opengl::fun_ref<
 		PFNGLGENFRAMEBUFFERSPROC
-	>
-	gl_gen_framebuffers;
+	>;
 
-	typedef
+	using
+	gl_delete_framebuffers
+	=
 	sge::opengl::fun_ref<
 		PFNGLDELETEFRAMEBUFFERSPROC
-	>
-	gl_delete_framebuffers;
+	>;
 
-	typedef
+	using
+	gl_bind_framebuffer
+	=
 	sge::opengl::fun_ref<
 		PFNGLBINDFRAMEBUFFERPROC
-	>
-	gl_bind_framebuffer;
+	>;
 
-	typedef
+	using
+	gl_framebuffer_texture_2d
+	=
 	sge::opengl::fun_ref<
 		PFNGLFRAMEBUFFERTEXTURE2DPROC
-	>
-	gl_framebuffer_texture_2d;
+	>;
 
-	typedef
+	using
+	gl_check_framebuffer_status
+	=
 	sge::opengl::fun_ref<
 		PFNGLCHECKFRAMEBUFFERSTATUSPROC
-	>
-	gl_check_framebuffer_status;
+	>;
 
-	typedef
+	using
+	gl_gen_renderbuffers
+	=
 	sge::opengl::fun_ref<
 		PFNGLGENRENDERBUFFERSPROC
-	>
-	gl_gen_renderbuffers;
+	>;
 
-	typedef
+	using
+	gl_delete_renderbuffers
+	=
 	sge::opengl::fun_ref<
 		PFNGLDELETERENDERBUFFERSPROC
-	>
-	gl_delete_renderbuffers;
+	>;
 
-	typedef
+	using
+	gl_bind_renderbuffer
+	=
 	sge::opengl::fun_ref<
 		PFNGLBINDRENDERBUFFERPROC
-	>
-	gl_bind_renderbuffer;
+	>;
 
-	typedef
+	using
+	gl_renderbuffer_storage
+	=
 	sge::opengl::fun_ref<
 		PFNGLRENDERBUFFERSTORAGEPROC
-	>
-	gl_renderbuffer_storage;
+	>;
 
-	typedef
+	using
+	gl_framebuffer_renderbuffer
+	=
 	sge::opengl::fun_ref<
 		PFNGLFRAMEBUFFERRENDERBUFFERPROC
-	>
-	gl_framebuffer_renderbuffer;
+	>;
 
 	config(
 		gl_gen_framebuffers,
@@ -112,54 +122,71 @@ public:
 		sge::opengl::fbo::optional_attachment_type depth_stencil_attachment
 	);
 
+	[[nodiscard]]
 	gl_gen_framebuffers
 	gen_framebuffers() const;
 
+	[[nodiscard]]
 	gl_delete_framebuffers
 	delete_framebuffers() const;
 
+	[[nodiscard]]
 	gl_bind_framebuffer
 	bind_framebuffer() const;
 
+	[[nodiscard]]
 	gl_framebuffer_texture_2d
 	framebuffer_texture_2d() const;
 
+	[[nodiscard]]
 	gl_check_framebuffer_status
 	check_framebuffer_status() const;
 
+	[[nodiscard]]
 	gl_gen_renderbuffers
 	gen_renderbuffers() const;
 
+	[[nodiscard]]
 	gl_delete_renderbuffers
 	delete_renderbuffers() const;
 
+	[[nodiscard]]
 	gl_bind_renderbuffer
 	bind_renderbuffer() const;
 
+	[[nodiscard]]
 	gl_renderbuffer_storage
 	renderbuffer_storage() const;
 
+	[[nodiscard]]
 	gl_framebuffer_renderbuffer
 	framebuffer_renderbuffer() const;
 
+	[[nodiscard]]
 	GLenum
 	framebuffer_target() const;
 
+	[[nodiscard]]
 	sge::opengl::fbo::attachment_type
 	color_attachment() const;
 
+	[[nodiscard]]
 	GLenum
 	framebuffer_complete() const;
 
+	[[nodiscard]]
 	sge::opengl::fbo::error_string_map const &
 	error_strings() const;
 
+	[[nodiscard]]
 	GLenum
 	renderbuffer_target() const;
 
+	[[nodiscard]]
 	sge::opengl::fbo::attachment_type
 	depth_attachment() const;
 
+	[[nodiscard]]
 	sge::opengl::fbo::optional_attachment_type
 	depth_stencil_attachment() const;
 private:

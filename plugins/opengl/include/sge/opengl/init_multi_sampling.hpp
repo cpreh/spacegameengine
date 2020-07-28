@@ -18,7 +18,7 @@ namespace opengl
 
 void
 init_multi_sampling(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::pixel_format::optional_multi_samples const &
 );
 

@@ -32,9 +32,11 @@ public:
 		GLenum max_anisotropy_flag
 	);
 
+	[[nodiscard]]
 	GLenum
 	anisotropy_flag() const;
 
+	[[nodiscard]]
 	GLenum
 	max_anisotropy_flag() const;
 private:

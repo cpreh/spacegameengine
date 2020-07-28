@@ -19,11 +19,15 @@ sge::opengl::enable_bool(
 	if(
 		_enable
 	)
+	{
 		sge::opengl::enable(
 			_what
 		);
+	}
 	else
+	{
 		sge::opengl::disable(
 			_what
 		);
+	}
 }

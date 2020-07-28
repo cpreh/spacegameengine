@@ -20,9 +20,12 @@ namespace opengl
 namespace state
 {
 
-typedef std::vector<
+using
+index_actor_vector
+=
+std::vector<
 	sge::opengl::state::index_actor
-> index_actor_vector;
+>;
 
 }
 }

@@ -5,26 +5,27 @@
 
 
 #include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/base_ref.hpp>
 #include <sge/opengl/buffer/holder.hpp>
 #include <sge/opengl/buffer/id.hpp>
 
 
 sge::opengl::buffer::holder::holder(
-	sge::opengl::buffer::base &_base
+	sge::opengl::buffer::base_ref const _base
 )
 :
 	base_(
 		_base
 	),
 	id_(
-		_base.gen_buffer()
+		_base.get().gen_buffer()
 	)
 {
 }
 
 sge::opengl::buffer::holder::~holder()
 {
-	base_.delete_buffer(
+	base_.get().delete_buffer(
 		id_
 	);
 }

@@ -7,7 +7,7 @@
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/enabled_variant.hpp>
@@ -19,14 +19,11 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask_all.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector
 sge::opengl::state::core::depth_stencil::stencil::make_actors(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::state::core::depth_stencil::stencil::variant const &_variant
 )
 {
@@ -40,10 +37,11 @@ sge::opengl::state::core::depth_stencil::stencil::make_actors(
 				return
 					sge::opengl::state::actor_vector{
 						sge::opengl::state::actor{
-							std::bind(
-								sge::opengl::disable,
-								GL_STENCIL_TEST
-							)
+							[]{
+								sge::opengl::disable(
+									GL_STENCIL_TEST
+								);
+							}
 						},
 						sge::opengl::state::core::depth_stencil::stencil::write_mask(
 							sge::renderer::state::core::depth_stencil::stencil::write_mask_all()
@@ -51,7 +49,7 @@ sge::opengl::state::core::depth_stencil::stencil::make_actors(
 					};
 			},
 			[
-				&_context
+				_context
 			](
 				sge::renderer::state::core::depth_stencil::stencil::enabled const &_enabled
 			)
@@ -60,10 +58,11 @@ sge::opengl::state::core::depth_stencil::stencil::make_actors(
 					fcppt::container::join(
 						sge::opengl::state::actor_vector{
 							sge::opengl::state::actor{
-								std::bind(
-									sge::opengl::enable,
-									GL_STENCIL_TEST
-								)
+								[]{
+									sge::opengl::enable(
+										GL_STENCIL_TEST
+									);
+								}
 							}
 						},
 						sge::opengl::state::core::depth_stencil::stencil::enabled_variant(

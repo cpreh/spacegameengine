@@ -24,7 +24,7 @@ namespace alpha_test
 
 void
 set(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &
 );
 

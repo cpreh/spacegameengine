@@ -11,7 +11,7 @@
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/target/context_fwd.hpp>
 #include <sge/opengl/target/optional_base_ref.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ class context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
@@ -34,6 +34,7 @@ public:
 	~context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::target::optional_base_ref const &
 	last_target();
 
@@ -42,7 +43,10 @@ public:
 		sge::opengl::target::optional_base_ref const &
 	);
 
-	typedef void parameter;
+	using
+	parameter
+	=
+	void;
 
 	static sge::opengl::context::id const static_id;
 private:

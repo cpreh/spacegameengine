@@ -12,7 +12,7 @@
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,14 +26,16 @@ class base
 :
 	public sge::renderer::opengl::texture::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 public:
+	[[nodiscard]]
 	sge::opengl::texture::type
 	type() const
 	override;
 
+	[[nodiscard]]
 	sge::opengl::texture::id
 	id() const
 	override;

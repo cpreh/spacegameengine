@@ -37,8 +37,7 @@ sge::opengl::state::ffp::transform::default_context::default_context(
 }
 
 sge::opengl::state::ffp::transform::default_context::~default_context()
-{
-}
+= default;
 
 sge::opengl::state::ffp::transform::object const &
 sge::opengl::state::ffp::transform::default_context::default_state() const

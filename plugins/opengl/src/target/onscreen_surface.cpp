@@ -24,6 +24,7 @@
 #include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <awl/window/dim.hpp>
 #include <awl/window/object.hpp>
+#include <awl/window/object_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/buffer/object_impl.hpp>
@@ -39,7 +40,7 @@
 
 
 sge::opengl::target::onscreen_surface::onscreen_surface(
-	awl::window::object &_window
+	awl::window::object_ref const _window
 )
 :
 	sge::renderer::color_buffer::readable_surface(),
@@ -51,8 +52,7 @@ sge::opengl::target::onscreen_surface::onscreen_surface(
 }
 
 sge::opengl::target::onscreen_surface::~onscreen_surface()
-{
-}
+= default;
 
 sge::renderer::color_buffer::readable_surface::const_view
 sge::opengl::target::onscreen_surface::lock_c(
@@ -62,10 +62,12 @@ sge::opengl::target::onscreen_surface::lock_c(
 	if(
 		buffer_.has_value()
 	)
+	{
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("renderer::target()::lock(): already locked!")
 			);
+	}
 
 	buffer_type &buffer{
 		fcppt::optional::assign(
@@ -81,7 +83,6 @@ sge::opengl::target::onscreen_surface::lock_c(
 					this->format()
 				),
 				[
-					this,
 					&_dest
 				](
 					buffer_type::pointer const _data,
@@ -104,10 +105,10 @@ sge::opengl::target::onscreen_surface::lock_c(
 							_dest.size()
 						),
 						sge::opengl::convert::color_order(
-							this->gl_format()
+							onscreen_surface::gl_format()
 						),
 						sge::opengl::convert::color_base_type(
-							this->gl_format()
+							onscreen_surface::gl_format()
 						),
 						_data
 					);
@@ -147,7 +148,7 @@ sge::opengl::target::onscreen_surface::size() const
 			dim,
 			fcppt::cast::size_fun
 		>(
-			window_.size()
+			window_.get().size()
 		);
 }
 
@@ -155,7 +156,7 @@ sge::opengl::target::onscreen_surface::size() const
 // read both.
 
 sge::opengl::color_format
-sge::opengl::target::onscreen_surface::gl_format() const
+sge::opengl::target::onscreen_surface::gl_format()
 {
 	return
 		sge::opengl::color_format::rgba8;
@@ -166,6 +167,6 @@ sge::opengl::target::onscreen_surface::format() const
 {
 	return
 		sge::opengl::convert::color_format(
-			this->gl_format()
+			onscreen_surface::gl_format()
 		);
 }

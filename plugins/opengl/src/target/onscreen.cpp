@@ -5,7 +5,8 @@
 
 
 #include <sge/opengl/backend/current.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/backend/current_ref.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/target/basic_impl.hpp>
 #include <sge/opengl/target/onscreen.hpp>
 #include <sge/opengl/target/onscreen_surface.hpp>
@@ -14,7 +15,7 @@
 #include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <awl/window/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
@@ -25,9 +26,9 @@
 
 
 sge::opengl::target::onscreen::onscreen(
-	sge::opengl::context::object &_context,
-	sge::opengl::backend::current &_current,
-	awl::window::object &_window
+	sge::opengl::context::object_ref const _context,
+	sge::opengl::backend::current_ref const _current,
+	awl::window::object_ref const _window
 )
 :
 	base(
@@ -56,8 +57,7 @@ sge::opengl::target::onscreen::onscreen(
 }
 
 sge::opengl::target::onscreen::~onscreen()
-{
-}
+= default;
 
 void
 sge::opengl::target::onscreen::on_bind()
@@ -72,7 +72,7 @@ sge::opengl::target::onscreen::on_unbind()
 void
 sge::opengl::target::onscreen::end_rendering()
 {
-	current_.end_rendering();
+	current_.get().end_rendering();
 }
 
 sge::renderer::color_buffer::readable_surface const &

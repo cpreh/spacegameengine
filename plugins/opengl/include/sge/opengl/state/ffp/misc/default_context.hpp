@@ -11,7 +11,7 @@
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/state/ffp/misc/default_context_parameters_fwd.hpp>
 #include <sge/opengl/state/ffp/misc/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
 
@@ -30,13 +30,14 @@ class default_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		default_context
 	);
 public:
-	typedef
-	sge::opengl::state::ffp::misc::default_context_parameters
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::state::ffp::misc::default_context_parameters;
 
 	explicit
 	default_context(
@@ -46,6 +47,7 @@ public:
 	~default_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::state::ffp::misc::object const &
 	default_state() const;
 
@@ -53,11 +55,12 @@ public:
 	sge::opengl::context::id const
 	static_id;
 private:
-	typedef
+	using
+	object_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::opengl::state::ffp::misc::object
-	>
-	object_unique_ptr;
+	>;
 
 	object_unique_ptr const default_state_;
 };

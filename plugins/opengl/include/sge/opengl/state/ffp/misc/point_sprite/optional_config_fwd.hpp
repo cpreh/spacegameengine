@@ -24,11 +24,12 @@ namespace misc
 namespace point_sprite
 {
 
-typedef
+using
+optional_config
+=
 fcppt::optional::object<
 	sge::opengl::state::ffp::misc::point_sprite::config
->
-optional_config;
+>;
 
 }
 }

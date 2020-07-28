@@ -18,9 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef fcppt::optional::object<
+using
+optional_id
+=
+fcppt::optional::object<
 	sge::opengl::texture::id
-> optional_id;
+>;
 
 }
 }

@@ -8,7 +8,7 @@
 #define SGE_OPENGL_FBO_GET_CONFIG_HPP_INCLUDED
 
 #include <sge/opengl/fbo/config_fwd.hpp>
-#include <sge/opengl/fbo/context_fwd.hpp>
+#include <sge/opengl/fbo/const_context_ref.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace fbo
 
 sge::opengl::fbo::config const &
 get_config(
-	sge::opengl::fbo::context const &
+	sge::opengl::fbo::const_context_ref
 );
 
 }

@@ -8,6 +8,7 @@
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/const_hardware_config_ref.hpp>
 #include <sge/opengl/buffer/hardware.hpp>
 #include <sge/opengl/buffer/hardware_config.hpp>
 #include <sge/opengl/buffer/id.hpp>
@@ -24,7 +25,7 @@
 
 sge::opengl::buffer::hardware::hardware(
 	sge::opengl::buffer::type const _type,
-	sge::opengl::buffer::hardware_config const &_config
+	sge::opengl::buffer::const_hardware_config_ref const _config
 )
 :
 	sge::opengl::buffer::base(),
@@ -39,16 +40,15 @@ sge::opengl::buffer::hardware::hardware(
 }
 
 sge::opengl::buffer::hardware::~hardware()
-{
-}
+= default;
 
 sge::opengl::buffer::id
 sge::opengl::buffer::hardware::gen_buffer()
 {
-	GLuint new_id;
+	GLuint new_id{};
 
 	sge::opengl::call_fun_ref(
-		config_.gen_buffers(),
+		config_.get().gen_buffers(),
 		1,
 		&new_id
 	);
@@ -70,7 +70,7 @@ sge::opengl::buffer::hardware::delete_buffer(
 )
 {
 	sge::opengl::call_fun_ref(
-		config_.delete_buffers(),
+		config_.get().delete_buffers(),
 		1,
 		&_id.get()
 	);
@@ -91,7 +91,9 @@ sge::opengl::buffer::hardware::bind_buffer(
 		==
 		bound_buffer_
 	)
+	{
 		return;
+	}
 
 	bound_buffer_ =
 		_id;
@@ -101,14 +103,14 @@ sge::opengl::buffer::hardware::bind_buffer(
 			_id,
 			fcppt::const_(
 				sge::opengl::buffer::id(
-					0u
+					0U
 				)
 			)
 		)
 	);
 
 	sge::opengl::call_fun_ref(
-		config_.bind_buffer(),
+		config_.get().bind_buffer(),
 		type_.get(),
 		id.get()
 	);
@@ -127,7 +129,7 @@ sge::opengl::buffer::hardware::map_buffer(
 	GLvoid *const ret(
 		fcppt::cast::to_void_ptr(
 			sge::opengl::call_fun_ref(
-				config_.map_buffer(),
+				config_.get().map_buffer(),
 				type_.get(),
 				_flags
 			)
@@ -153,7 +155,7 @@ sge::opengl::buffer::hardware::map_buffer_range(
 	GLvoid *const ret(
 		sge::opengl::call_fun_ref(
 			FCPPT_ASSERT_OPTIONAL_ERROR(
-				this->config_.map_buffer_range()
+				this->config_.get().map_buffer_range()
 			),
 			this->type_.get(),
 			_first,
@@ -175,14 +177,14 @@ bool
 sge::opengl::buffer::hardware::map_buffer_range_supported() const
 {
 	return
-		config_.map_buffer_range().has_value();
+		config_.get().map_buffer_range().has_value();
 }
 
 void
 sge::opengl::buffer::hardware::unmap_buffer()
 {
 	sge::opengl::call_fun_ref(
-		config_.unmap_buffer(),
+		config_.get().unmap_buffer(),
 		type_.get()
 	);
 
@@ -200,7 +202,7 @@ sge::opengl::buffer::hardware::buffer_data(
 )
 {
 	sge::opengl::call_fun_ref(
-		config_.buffer_data(),
+		config_.get().buffer_data(),
 		type_.get(),
 		_size,
 		_data,
@@ -221,7 +223,7 @@ sge::opengl::buffer::hardware::buffer_sub_data(
 )
 {
 	sge::opengl::call_fun_ref(
-		config_.buffer_sub_data(),
+		config_.get().buffer_sub_data(),
 		type_.get(),
 		_first,
 		_size,
@@ -240,6 +242,7 @@ sge::opengl::buffer::hardware::buffer_offset(
 ) const
 {
 	return
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
 		reinterpret_cast<
 			void *
 		>(

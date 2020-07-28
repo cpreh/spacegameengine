@@ -7,9 +7,10 @@
 #ifndef SGE_OPENGL_BUFFER_HOLDER_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_HOLDER_HPP_INCLUDED
 
-#include <sge/opengl/buffer/base_fwd.hpp>
+#include <sge/opengl/buffer/base_ref.hpp>
 #include <sge/opengl/buffer/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+
 
 namespace sge
 {
@@ -20,21 +21,22 @@ namespace buffer
 
 class holder
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		holder
 	);
 public:
 	explicit
 	holder(
-		sge::opengl::buffer::base &
+		sge::opengl::buffer::base_ref
 	);
 
 	~holder();
 
+	[[nodiscard]]
 	sge::opengl::buffer::id
 	id() const;
 private:
-	sge::opengl::buffer::base &base_;
+	sge::opengl::buffer::base_ref const base_;
 
 	sge::opengl::buffer::id const id_;
 };

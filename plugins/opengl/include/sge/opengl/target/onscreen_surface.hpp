@@ -11,8 +11,8 @@
 #include <sge/opengl/color_format_fwd.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
-#include <awl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/container/buffer/object_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
@@ -28,18 +28,19 @@ class onscreen_surface
 :
 	public sge::renderer::color_buffer::readable_surface
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		onscreen_surface
 	);
 public:
 	explicit
 	onscreen_surface(
-		awl::window::object &
+		awl::window::object_ref
 	);
 
 	~onscreen_surface()
 	override;
 private:
+	[[nodiscard]]
 	sge::renderer::color_buffer::readable_surface::const_view
 	lock_c(
 		sge::renderer::color_buffer::readable_surface::lock_area const &
@@ -50,30 +51,36 @@ private:
 	unlock() const
 	override;
 
+	[[nodiscard]]
 	dim
 	size() const
 	override;
 
+	[[nodiscard]]
+	static
 	sge::opengl::color_format
-	gl_format() const;
+	gl_format();
 
+	[[nodiscard]]
 	sge::image::color::format
 	format() const
 	override;
 
-	awl::window::object &window_;
+	awl::window::object_ref const window_;
 
-	typedef
+	using
+	buffer_type
+	=
 	fcppt::container::buffer::object<
 		sge::renderer::raw_value
-	>
-	buffer_type;
+	>;
 
-	typedef
+	using
+	optional_buffer_type
+	=
 	fcppt::optional::object<
 		buffer_type
-	>
-	optional_buffer_type;
+	>;
 
 	mutable optional_buffer_type buffer_;
 };

@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+color_volume
+=
 sge::opengl::texture::basic_buffer<
 	sge::opengl::texture::color_volume_types
->
-color_volume;
+>;
 
 }
 }

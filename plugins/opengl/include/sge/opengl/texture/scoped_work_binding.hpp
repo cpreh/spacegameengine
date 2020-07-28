@@ -16,7 +16,7 @@
 #include <sge/opengl/texture/scoped_work_binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -31,13 +31,13 @@ class scoped_work_binding
 :
 	public sge::opengl::texture::binding
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_work_binding
 	);
 public:
 	scoped_work_binding(
-		fcppt::log::object &,
-		sge::opengl::context::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
+		sge::opengl::context::object &, // NOLINT(google-runtime-references)
 		sge::opengl::texture::type,
 		sge::opengl::texture::id
 	);
@@ -45,10 +45,12 @@ public:
 	~scoped_work_binding()
 	override;
 private:
+	[[nodiscard]]
 	sge::renderer::texture::stage
 	stage() const
 	override;
 
+	[[nodiscard]]
 	sge::opengl::texture::type
 	type() const
 	override;

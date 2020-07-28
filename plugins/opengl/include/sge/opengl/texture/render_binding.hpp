@@ -12,7 +12,7 @@
 #include <sge/opengl/texture/render_binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ class render_binding
 :
 	public sge::opengl::texture::binding
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		render_binding
 	);
 public:
@@ -38,10 +38,12 @@ public:
 	~render_binding()
 	override;
 
+	[[nodiscard]]
 	sge::renderer::texture::stage
 	stage() const
 	override;
 
+	[[nodiscard]]
 	sge::opengl::texture::type
 	type() const
 	override;

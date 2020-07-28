@@ -18,14 +18,13 @@ sge::opengl::state::ffp::sampler::context::context()
 :
 	sge::opengl::context::base(),
 	stages_(
-		0u
+		0U
 	)
 {
 }
 
 sge::opengl::state::ffp::sampler::context::~context()
-{
-}
+= default;
 
 sge::renderer::texture::stage
 sge::opengl::state::ffp::sampler::context::stages() const

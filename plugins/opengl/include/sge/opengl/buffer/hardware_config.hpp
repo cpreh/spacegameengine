@@ -25,61 +25,70 @@ namespace buffer
 class hardware_config
 {
 public:
-	typedef
+	using
+	gl_gen_buffers
+	=
 	sge::opengl::fun_ref<
 		PFNGLGENBUFFERSPROC
-	>
-	gl_gen_buffers;
+	>;
 
-	typedef
+	using
+	gl_delete_buffers
+	=
 	sge::opengl::fun_ref<
 		PFNGLDELETEBUFFERSPROC
-	>
-	gl_delete_buffers;
+	>;
 
-	typedef
+	using
+	gl_bind_buffer
+	=
 	sge::opengl::fun_ref<
 		PFNGLBINDBUFFERPROC
-	>
-	gl_bind_buffer;
+	>;
 
-	typedef
+	using
+	gl_map_buffer
+	=
 	sge::opengl::fun_ref<
 		PFNGLMAPBUFFERPROC
-	>
-	gl_map_buffer;
+	>;
 
-	typedef
+	using
+	gl_unmap_buffer
+	=
 	sge::opengl::fun_ref<
 		PFNGLUNMAPBUFFERPROC
-	>
-	gl_unmap_buffer;
+	>;
 
-	typedef
+	using
+	gl_buffer_data
+	=
 	sge::opengl::fun_ref<
 		PFNGLBUFFERDATAPROC
-	>
-	gl_buffer_data;
+	>;
 
-	typedef
+	using
+	gl_buffer_sub_data
+	=
 	sge::opengl::fun_ref<
 		PFNGLBUFFERSUBDATAPROC
-	>
-	gl_buffer_sub_data;
+	>;
 
-	typedef
+	using
+	gl_map_buffer_range
+	=
 	sge::opengl::fun_ref<
 		PFNGLMAPBUFFERRANGEPROC
-	>
-	gl_map_buffer_range;
+	>;
 
-	typedef
+	using
+	optional_gl_map_buffer_range
+	=
 	fcppt::optional::reference<
 		sge::opengl::fun_ref_value_type<
 			gl_map_buffer_range
 		>
-	>
-	optional_gl_map_buffer_range;
+	>;
 
 	hardware_config(
 		sge::opengl::buffer::is_native,
@@ -93,30 +102,39 @@ public:
 		optional_gl_map_buffer_range
 	);
 
+	[[nodiscard]]
 	sge::opengl::buffer::is_native
 	is_native() const;
 
+	[[nodiscard]]
 	gl_gen_buffers
 	gen_buffers() const;
 
+	[[nodiscard]]
 	gl_delete_buffers
 	delete_buffers() const;
 
+	[[nodiscard]]
 	gl_bind_buffer
 	bind_buffer() const;
 
+	[[nodiscard]]
 	gl_map_buffer
 	map_buffer() const;
 
+	[[nodiscard]]
 	gl_unmap_buffer
 	unmap_buffer() const;
 
+	[[nodiscard]]
 	gl_buffer_data
 	buffer_data() const;
 
+	[[nodiscard]]
 	gl_buffer_sub_data
 	buffer_sub_data() const;
 
+	[[nodiscard]]
 	optional_gl_map_buffer_range
 	map_buffer_range() const;
 private:

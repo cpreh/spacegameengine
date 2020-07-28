@@ -7,11 +7,11 @@
 #ifndef SGE_OPENGL_BACKEND_SCOPED_CURRENT_HPP_INCLUDED
 #define SGE_OPENGL_BACKEND_SCOPED_CURRENT_HPP_INCLUDED
 
-#include <sge/opengl/backend/context_fwd.hpp>
+#include <sge/opengl/backend/context_ref.hpp>
 #include <sge/opengl/backend/current_fwd.hpp>
 #include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/backend/scoped_current_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,21 +23,22 @@ namespace backend
 
 class scoped_current
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_current
 	);
 public:
 	explicit
 	scoped_current(
-		sge::opengl::backend::context &
+		sge::opengl::backend::context_ref
 	);
 
 	~scoped_current();
 
+	[[nodiscard]]
 	sge::opengl::backend::current &
 	get() const;
 private:
-	sge::opengl::backend::context &context_;
+	sge::opengl::backend::context_ref const context_;
 
 	sge::opengl::backend::current_unique_ptr current_;
 };

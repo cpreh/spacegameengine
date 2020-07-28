@@ -9,6 +9,7 @@
 
 #include <sge/opengl/state/error_handler.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -27,17 +28,23 @@ template<
 >
 Result
 wrap_error_handler(
-	Actor const &_actor,
-	// TODO: Pass a function returning a string here
+	Actor &&_actor,
+	// TODO(philipp): Pass a function returning a string here
 	fcppt::string &&_name
 )
 {
 	return
 		Result{
 			sge::opengl::state::error_handler<
-				Actor
+				fcppt::type_traits::remove_cv_ref_t<
+					Actor
+				>
 			>(
-				_actor,
+				std::forward<
+					Actor
+				>(
+					_actor
+				),
 				std::move(
 					_name
 				)

@@ -10,8 +10,8 @@
 #include <sge/opengl/platform/device_state_unique_ptr.hpp>
 #include <sge/opengl/platform/system_fwd.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ namespace platform
 
 class system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 protected:
@@ -32,11 +32,12 @@ public:
 	virtual
 	~system();
 
+	[[nodiscard]]
 	virtual
 	sge::opengl::platform::device_state_unique_ptr
 	create_device_state(
 		sge::renderer::display_mode::optional_fullscreen const &,
-		sge::window::object &
+		sge::window::object_ref
 	) = 0;
 };
 

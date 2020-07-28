@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/fbo/create_target.hpp>
 #include <sge/opengl/fbo/target.hpp>
 #include <sge/renderer/target/offscreen.hpp>
@@ -15,7 +15,7 @@
 
 sge::renderer::target::offscreen_unique_ptr
 sge::opengl::fbo::create_target(
-	sge::opengl::context::object &_context
+	sge::opengl::context::object_ref const _context
 )
 {
 	return

@@ -29,8 +29,7 @@ sge::opengl::texture::active_level::active_level(
 }
 
 sge::opengl::texture::active_level::~active_level()
-{
-}
+= default;
 
 sge::renderer::texture::stage
 sge::opengl::texture::active_level::stage() const

@@ -10,10 +10,11 @@
 
 sge::opengl::context::id
 sge::opengl::context::make_id()
+noexcept
 {
 	static
 	sge::opengl::context::id::type counter{
-		0u
+		0U
 	};
 
 	return

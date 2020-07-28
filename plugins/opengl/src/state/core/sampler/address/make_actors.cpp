@@ -8,11 +8,10 @@
 #include <sge/opengl/state/convert/address_mode_type.hpp>
 #include <sge/opengl/state/core/sampler/actor.hpp>
 #include <sge/opengl/state/core/sampler/address/make_actors.hpp>
+#include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/cast/to_signed.hpp>
 
 
 namespace
@@ -60,16 +59,24 @@ set_one(
 {
 	return
 		sge::opengl::state::core::sampler::actor{
-			std::bind(
-				sge::opengl::texture::funcs::parameter_int,
-				std::placeholders::_1,
-				sge::opengl::state::convert::address_mode_type<
-					Mode
-				>::get(),
-				sge::opengl::state::convert::address_mode(
-					_mode.get()
-				)
+			[
+				_mode
+			](
+				sge::opengl::texture::binding const &_binding
 			)
+			{
+				sge::opengl::texture::funcs::parameter_int(
+					_binding,
+					sge::opengl::state::convert::address_mode_type<
+						Mode
+					>::get(),
+					fcppt::cast::to_signed(
+						sge::opengl::state::convert::address_mode(
+							_mode.get()
+						)
+					)
+				);
+			}
 		};
 }
 

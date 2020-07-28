@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/index/buffer.hpp>
 #include <sge/opengl/index/create_buffer.hpp>
 #include <sge/renderer/index/buffer.hpp>
@@ -16,7 +16,7 @@
 
 sge::renderer::index::buffer_unique_ptr
 sge::opengl::index::create_buffer(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::index::buffer_parameters const &_parameters
 )
 {

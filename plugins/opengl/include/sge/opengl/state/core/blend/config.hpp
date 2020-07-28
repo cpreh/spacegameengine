@@ -26,17 +26,19 @@ namespace blend
 class config
 {
 public:
-	typedef
+	using
+	gl_blend_func_separate
+	=
 	sge::opengl::fun_ref<
 		PFNGLBLENDFUNCSEPARATEPROC
-	>
-	gl_blend_func_separate;
+	>;
 
 	explicit
 	config(
 		gl_blend_func_separate
 	);
 
+	[[nodiscard]]
 	gl_blend_func_separate
 	blend_func_separate() const;
 private:

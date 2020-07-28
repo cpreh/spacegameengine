@@ -16,11 +16,12 @@ namespace sge
 namespace opengl
 {
 
-typedef
+using
+optional_enum
+=
 fcppt::optional::object<
 	GLenum
->
-optional_enum;
+>;
 
 }
 }

@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+lock_base_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::texture::lock_base
->
-lock_base_unique_ptr;
+>;
 
 }
 }

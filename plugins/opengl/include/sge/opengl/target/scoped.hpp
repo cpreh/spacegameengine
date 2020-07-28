@@ -8,8 +8,9 @@
 #define SGE_OPENGL_TARGET_SCOPED_HPP_INCLUDED
 
 #include <sge/opengl/target/base_fwd.hpp>
+#include <sge/opengl/target/base_ref.hpp>
 #include <sge/opengl/target/scoped_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -21,21 +22,22 @@ namespace target
 
 class scoped
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped
 	);
 public:
 	explicit
 	scoped(
-		sge::opengl::target::base &
+		sge::opengl::target::base_ref
 	);
 
 	~scoped();
 
+	[[nodiscard]]
 	sge::opengl::target::base &
 	get() const;
 private:
-	sge::opengl::target::base &target_;
+	sge::opengl::target::base_ref const target_;
 };
 
 }

@@ -8,7 +8,7 @@
 #define SGE_OPENGL_CONTEXT_BASE_HPP_INCLUDED
 
 #include <sge/opengl/context/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace context
 
 class base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:

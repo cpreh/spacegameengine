@@ -12,6 +12,7 @@
 #include <sge/opengl/state/ffp/clip_plane/object.hpp>
 #include <sge/opengl/state/ffp/clip_plane/set.hpp>
 #include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -26,7 +27,9 @@ sge::opengl::state::ffp::clip_plane::set(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::clip_plane::context
 		>(
-			_context
+			fcppt::make_ref(
+				_context
+			)
 		),
 		_planes,
 		sge::opengl::state::convert::clip_plane_index

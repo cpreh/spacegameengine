@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/target/scoped.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/primitive_count.hpp>
@@ -32,6 +32,7 @@
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
 #include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/base_ref.hpp>
 #include <sge/renderer/target/optional_offscreen_ref_fwd.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
@@ -40,9 +41,9 @@
 #include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -64,14 +65,14 @@ class object
 :
 	public sge::renderer::context::ffp
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	object(
-		fcppt::log::object &,
-		sge::opengl::context::object &,
-		sge::renderer::target::base &
+		fcppt::log::object_reference,
+		sge::opengl::context::object_ref,
+		sge::renderer::target::base_ref
 	);
 
 	~object()
@@ -245,25 +246,27 @@ private:
 	override;
 #endif
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	sge::opengl::context::object &context_;
+	sge::opengl::context::object_ref const context_;
 
-	sge::renderer::target::base &target_;
+	sge::renderer::target::base_ref const target_;
 
 	sge::opengl::target::scoped const scoped_target_;
 
-	typedef
+	using
+	scoped_offscreen_target_ptr
+	=
 	fcppt::unique_ptr<
 		sge::opengl::target::scoped
-	>
-	scoped_offscreen_target_ptr;
+	>;
 
-	typedef
+	using
+	optional_scoped_offscreen_target_ptr
+	=
 	fcppt::optional::object<
 		scoped_offscreen_target_ptr
-	>
-	optional_scoped_offscreen_target_ptr;
+	>;
 
 	optional_scoped_offscreen_target_ptr scoped_offscreen_target_;
 };

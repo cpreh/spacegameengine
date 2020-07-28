@@ -10,9 +10,6 @@
 #include <sge/opengl/state/core/depth_stencil/stencil/write_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor
@@ -24,15 +21,17 @@ sge::opengl::state::core::depth_stencil::stencil::write_mask(
 		sge::opengl::state::wrap_error_handler<
 			sge::opengl::state::actor
 		>(
-			std::bind(
-				::glStencilMask,
-				static_cast<
-					GLuint
-				>(
-					_write_mask.get()
-				)
-
-			),
+			[
+				_write_mask
+			]{
+				::glStencilMask(
+					static_cast<
+						GLuint
+					>(
+						_write_mask.get()
+					)
+				);
+			},
 			FCPPT_TEXT("glStencilMask")
 		);
 }

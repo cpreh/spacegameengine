@@ -9,21 +9,24 @@
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/const_binding_ref.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 sge::opengl::texture::basic_buffer_parameters::basic_buffer_parameters(
-	fcppt::log::object &_log,
-	sge::opengl::texture::binding const &_binding,
-	sge::opengl::context::object &_context,
+	fcppt::log::object_reference const _log,
+	sge::opengl::texture::const_binding_ref const _binding,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::texture::mipmap::level const _level,
 	sge::opengl::texture::type const _type,
 	sge::opengl::texture::buffer_type const _buffer_type,

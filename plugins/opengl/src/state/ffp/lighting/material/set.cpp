@@ -11,6 +11,7 @@
 #include <sge/opengl/state/ffp/lighting/material/object.hpp>
 #include <sge/opengl/state/ffp/lighting/material/set.hpp>
 #include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -25,7 +26,9 @@ sge::opengl::state::ffp::lighting::material::set(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::lighting::material::default_context
 		>(
-			_context
+			fcppt::make_ref(
+				_context
+			)
 		),
 		_state
 	);

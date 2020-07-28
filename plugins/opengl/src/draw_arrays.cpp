@@ -32,7 +32,7 @@ sge::opengl::draw_arrays(
 	if(
 		_num_vertices.get()
 		==
-		0u
+		0U
 	)
 	{
 		FCPPT_LOG_WARNING(

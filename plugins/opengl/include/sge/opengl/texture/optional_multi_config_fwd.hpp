@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+optional_multi_config
+=
 fcppt::optional::object<
 	sge::opengl::texture::multi_config
->
-optional_multi_config;
+>;
 
 }
 }

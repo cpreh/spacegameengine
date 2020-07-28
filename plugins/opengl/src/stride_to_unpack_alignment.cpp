@@ -19,12 +19,12 @@ sge::opengl::stride_to_unpack_alignment(
 {
 	for(
 		GLint divisor(
-			8
+			8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		);
 		divisor != 1;
 		divisor /= 2
 	)
-
+	{
 		if(
 			(
 				fcppt::cast::size<
@@ -39,10 +39,13 @@ sge::opengl::stride_to_unpack_alignment(
 			)
 			== 0
 		)
+		{
 			return
 				sge::opengl::unpack_alignment(
 					divisor
 				);
+		}
+	}
 
 	return
 		sge::opengl::unpack_alignment(

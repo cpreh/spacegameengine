@@ -13,7 +13,7 @@
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/reference.hpp>
 
 
@@ -32,13 +32,14 @@ class context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	context(
@@ -48,33 +49,39 @@ public:
 	~context()
 	override;
 
-	typedef
-	// TODO: Mesa hides this typedef
+	// TODO(philipp): Mesa hides this
 	//PFNGLLOADTRANSPOSEMATRIXFPROC
-	PFNGLLOADTRANSPOSEMATRIXFARBPROC
-	gl_load_transpose_matrix_proc;
+	using
+	gl_load_transpose_matrix_proc
+	=
+	PFNGLLOADTRANSPOSEMATRIXFARBPROC;
 
-	typedef
+	using
+	gl_load_transpose_matrix_f
+	=
 	sge::opengl::fun_ref<
 		gl_load_transpose_matrix_proc
-	>
-	gl_load_transpose_matrix_f;
+	>;
 
-	typedef
+	using
+	optional_load_transpose_matrix_f
+	=
 	fcppt::optional::reference<
 		sge::opengl::fun_ref_value_type<
 			gl_load_transpose_matrix_f
 		>
-	>
-	optional_load_transpose_matrix_f;
+	>;
 
-	typedef
-	optional_load_transpose_matrix_f::value_type
-	load_transpose_matrix_f_ref;
+	using
+	load_transpose_matrix_f_ref
+	=
+	optional_load_transpose_matrix_f::value_type;
 
+	[[nodiscard]]
 	optional_load_transpose_matrix_f
 	load_transpose_matrix_f() const;
 
+	[[nodiscard]]
 	bool
 	have_transpose() const;
 

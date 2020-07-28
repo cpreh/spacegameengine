@@ -18,7 +18,10 @@ namespace opengl
 namespace texture
 {
 
-typedef sge::renderer::opengl::texture::type type;
+using
+type
+=
+sge::renderer::opengl::texture::type;
 
 }
 }

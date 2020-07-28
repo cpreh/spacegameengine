@@ -11,7 +11,7 @@
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,19 +23,31 @@ namespace texture
 
 class lock_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		lock_base
 	);
 protected:
 	lock_base();
 public:
-	typedef sge::renderer::size_type size_type;
+	using
+	size_type
+	=
+	sge::renderer::size_type;
 
-	typedef sge::renderer::raw_value value_type;
+	using
+	value_type
+	=
+	sge::renderer::raw_value;
 
-	typedef value_type *pointer;
+	using
+	pointer
+	=
+	value_type *;
 
-	typedef value_type const *const_pointer;
+	using
+	const_pointer
+	=
+	value_type const *;
 
 	virtual
 	~lock_base();
@@ -56,22 +68,27 @@ public:
 	void
 	post_copy() = 0;
 
+	[[nodiscard]]
 	virtual
 	pointer
 	read_pointer() = 0;
 
+	[[nodiscard]]
 	virtual
 	pointer
 	write_pointer() = 0;
 
+	[[nodiscard]]
 	virtual
 	pointer
 	read_view_pointer() = 0;
 
+	[[nodiscard]]
 	virtual
 	pointer
 	write_view_pointer() = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::lock_flags::method
 	method() const = 0;

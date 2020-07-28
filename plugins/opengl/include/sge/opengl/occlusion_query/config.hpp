@@ -22,41 +22,47 @@ namespace occlusion_query
 class config
 {
 public:
-	typedef
+	using
+	gl_gen_queries
+	=
 	sge::opengl::fun_ref<
 		PFNGLGENQUERIESPROC
-	>
-	gl_gen_queries;
+	>;
 
-	typedef
+	using
+	gl_delete_queries
+	=
 	sge::opengl::fun_ref<
 		PFNGLDELETEQUERIESPROC
-	>
-	gl_delete_queries;
+	>;
 
-	typedef
+	using
+	gl_begin_query
+	=
 	sge::opengl::fun_ref<
 		PFNGLBEGINQUERYPROC
-	>
-	gl_begin_query;
+	>;
 
-	typedef
+	using
+	gl_end_query
+	=
 	sge::opengl::fun_ref<
 		PFNGLENDQUERYPROC
-	>
-	gl_end_query;
+	>;
 
-	typedef
+	using
+	gl_get_query_object_iv
+	=
 	sge::opengl::fun_ref<
 		PFNGLGETQUERYOBJECTIVPROC
-	>
-	gl_get_query_object_iv;
+	>;
 
-	typedef
+	using
+	gl_get_query_object_uiv
+	=
 	sge::opengl::fun_ref<
 		PFNGLGETQUERYOBJECTUIVPROC
-	>
-	gl_get_query_object_uiv;
+	>;
 
 	config(
 		gl_gen_queries,
@@ -70,30 +76,39 @@ public:
 		GLenum query_result_
 	);
 
+	[[nodiscard]]
 	gl_gen_queries
 	gen_queries() const;
 
+	[[nodiscard]]
 	gl_delete_queries
 	delete_queries() const;
 
+	[[nodiscard]]
 	gl_begin_query
 	begin_query() const;
 
+	[[nodiscard]]
 	gl_end_query
 	end_query() const;
 
+	[[nodiscard]]
 	gl_get_query_object_iv
 	get_query_object_iv() const;
 
+	[[nodiscard]]
 	gl_get_query_object_uiv
 	get_query_object_uiv() const;
 
+	[[nodiscard]]
 	GLenum
 	samples_target() const;
 
+	[[nodiscard]]
 	GLenum
 	query_result_available() const;
 
+	[[nodiscard]]
 	GLenum
 	query_result() const;
 private:

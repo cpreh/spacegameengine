@@ -22,9 +22,12 @@ namespace core
 namespace depth_stencil
 {
 
-typedef sge::opengl::state::object<
+using
+object
+=
+sge::opengl::state::object<
 	sge::renderer::state::core::depth_stencil::object
-> object;
+>;
 
 }
 }

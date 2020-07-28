@@ -4,22 +4,22 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/object.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
-#include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/target/base_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 sge::renderer::context::ffp_unique_ptr
 sge::opengl::render_context::create(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context,
-	sge::renderer::target::base &_target
+	fcppt::log::object_reference const _log,
+	sge::opengl::context::object_ref const _context,
+	sge::renderer::target::base_ref const _target
 )
 {
 	return

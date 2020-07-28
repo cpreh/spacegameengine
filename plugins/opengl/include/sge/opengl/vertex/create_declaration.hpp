@@ -10,7 +10,7 @@
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -22,8 +22,8 @@ namespace vertex
 
 sge::renderer::vertex::declaration_unique_ptr
 create_declaration(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
+	fcppt::log::object_reference,
+	sge::opengl::context::object_ref,
 	sge::renderer::vertex::declaration_parameters const &
 );
 

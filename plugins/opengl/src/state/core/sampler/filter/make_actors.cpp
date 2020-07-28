@@ -17,7 +17,7 @@
 
 sge::opengl::state::core::sampler::actor_vector
 sge::opengl::state::core::sampler::filter::make_actors(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::state::core::sampler::filter::parameters const &_parameters
 )
 {
@@ -25,7 +25,7 @@ sge::opengl::state::core::sampler::filter::make_actors(
 		fcppt::variant::match(
 			_parameters.variant(),
 			[
-				&_context
+				_context
 			](
 				sge::renderer::state::core::sampler::filter::anisotropic::parameters const &_filter
 			)
@@ -37,7 +37,7 @@ sge::opengl::state::core::sampler::filter::make_actors(
 					);
 			},
 			[
-				&_context
+				_context
 			](
 				sge::renderer::state::core::sampler::filter::normal::parameters const &_filter
 			)

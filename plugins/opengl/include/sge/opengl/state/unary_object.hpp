@@ -9,7 +9,7 @@
 
 #include <sge/opengl/state/unary_object_fwd.hpp>
 #include <fcppt/function_impl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -30,23 +30,25 @@ class unary_object
 :
 	public Base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		unary_object
 	);
 public:
-	typedef
+	using
+	actor_type
+	=
 	fcppt::function<
 		void (
 			Parameter const &
 		)
-	>
-	actor_type;
+	>;
 
-	typedef
+	using
+	actor_vector
+	=
 	std::vector<
 		actor_type
-	>
-	actor_vector;
+	>;
 
 	explicit
 	unary_object(

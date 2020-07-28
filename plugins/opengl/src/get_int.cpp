@@ -14,7 +14,7 @@ sge::opengl::get_int(
 	GLenum const _what
 )
 {
-	GLint ret;
+	GLint ret{};
 
 	sge::opengl::get_ints(
 		_what,

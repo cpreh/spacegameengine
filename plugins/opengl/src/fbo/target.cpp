@@ -7,11 +7,12 @@
 #include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/attachment_unique_ptr.hpp>
+#include <sge/opengl/fbo/const_render_buffer_ref.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
@@ -25,6 +26,7 @@
 #include <sge/opengl/fbo/unbind.hpp>
 #include <sge/opengl/target/basic_impl.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
+#include <sge/opengl/texture/buffer_base_ref.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_unit.hpp>
@@ -39,6 +41,8 @@
 #include <fcppt/const.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
@@ -67,7 +71,7 @@
 
 
 sge::opengl::fbo::target::target(
-	sge::opengl::context::object &_context
+	sge::opengl::context::object_ref const _context
 )
 :
 	base(
@@ -83,12 +87,14 @@ sge::opengl::fbo::target::target(
 			sge::opengl::fbo::context
 		>(
 			_context,
-			_context.info()
+			_context.get().info()
 		)
 	),
 	config_(
 		sge::opengl::fbo::get_config(
-			context_
+			fcppt::make_cref(
+				context_
+			)
 		)
 	),
 	last_context_(
@@ -99,7 +105,9 @@ sge::opengl::fbo::target::target(
 		)
 	),
 	fbo_(
-		config_
+		fcppt::make_ref(
+			config_
+		)
 	),
 	height_(),
 	color_attachments_(),
@@ -110,8 +118,12 @@ sge::opengl::fbo::target::target(
 sge::opengl::fbo::target::~target()
 {
 	sge::opengl::fbo::temporary_bind const scoped_exit(
-		config_,
-		last_context_,
+		fcppt::make_cref(
+			config_
+		),
+		fcppt::make_ref(
+			last_context_
+		),
 		fbo_
 	);
 
@@ -157,8 +169,12 @@ sge::opengl::fbo::target::color_surface(
 )
 {
 	sge::opengl::fbo::temporary_bind const scoped_exit(
-		config_,
-		last_context_,
+		fcppt::make_cref(
+			config_
+		),
+		fcppt::make_ref(
+			last_context_
+		),
 		fbo_
 	);
 
@@ -169,8 +185,9 @@ sge::opengl::fbo::target::color_surface(
 	if(
 		_index.get()
 		==
-		0u
+		0U
 	)
+	{
 		height_ =
 			fcppt::optional::map(
 				_opt_surface,
@@ -188,6 +205,7 @@ sge::opengl::fbo::target::color_surface(
 						);
 				}
 			);
+	}
 
 	fcppt::optional::maybe_void(
 		_opt_surface,
@@ -211,17 +229,21 @@ sge::opengl::fbo::target::color_surface(
 			if(
 				!texture_surface.is_render_target().get()
 			)
+			{
 				throw
 					sge::renderer::exception{
 						FCPPT_TEXT("You tried to use a texture as a render target ")
 						FCPPT_TEXT("which hasn't been created as such!")
 					};
+			}
 
 			color_attachments_.insert(
 				std::make_pair(
 					_index,
 					this->create_texture_binding(
-						texture_surface,
+						fcppt::make_ref(
+							texture_surface
+						),
 						sge::opengl::fbo::attachment_type(
 							config_.color_attachment().get()
 							+
@@ -240,8 +262,12 @@ sge::opengl::fbo::target::depth_stencil_surface(
 )
 {
 	sge::opengl::fbo::temporary_bind const scoped_exit(
-		config_,
-		last_context_,
+		fcppt::make_cref(
+			config_
+		),
+		fcppt::make_ref(
+			last_context_
+		),
 		fbo_
 	);
 
@@ -305,7 +331,9 @@ sge::opengl::fbo::target::depth_stencil_surface(
 					depth_stencil_attachment_ =
 						optional_attachment_unique_ptr(
 							this->create_buffer_binding(
-								_fbo_surface.get().render_buffer(),
+								fcppt::make_ref(
+									_fbo_surface.get().render_buffer()
+								),
 								attachment
 							)
 						);
@@ -322,7 +350,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 					depth_stencil_attachment_ =
 						optional_attachment_unique_ptr(
 							this->create_texture_binding(
-								_texture_surface.get(),
+								_texture_surface,
 								attachment
 							)
 						);
@@ -350,7 +378,7 @@ sge::opengl::fbo::target::height() const
 
 sge::opengl::fbo::attachment_unique_ptr
 sge::opengl::fbo::target::create_texture_binding(
-	sge::opengl::texture::buffer_base &_surface,
+	sge::opengl::texture::buffer_base_ref const _surface,
 	sge::opengl::fbo::attachment_type const _attachment
 )
 {
@@ -361,7 +389,9 @@ sge::opengl::fbo::target::create_texture_binding(
 			fcppt::make_unique_ptr<
 				sge::opengl::fbo::texture_binding
 			>(
-				config_,
+				fcppt::make_cref(
+					config_
+				),
 				_surface,
 				_attachment
 			)
@@ -370,7 +400,7 @@ sge::opengl::fbo::target::create_texture_binding(
 
 sge::opengl::fbo::attachment_unique_ptr
 sge::opengl::fbo::target::create_buffer_binding(
-	sge::opengl::fbo::render_buffer const &_buffer,
+	sge::opengl::fbo::const_render_buffer_ref const _buffer,
 	sge::opengl::fbo::attachment_type const _attachment
 )
 {
@@ -381,7 +411,9 @@ sge::opengl::fbo::target::create_buffer_binding(
 			fcppt::make_unique_ptr<
 				sge::opengl::fbo::render_buffer_binding
 			>(
-				config_,
+				fcppt::make_cref(
+					config_
+				),
 				_buffer,
 				_attachment
 			)
@@ -408,6 +440,7 @@ sge::opengl::fbo::target::check()
 		!=
 		config_.framebuffer_complete()
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("FBO is incomplete! ")
@@ -427,6 +460,7 @@ sge::opengl::fbo::target::check()
 					}
 				)
 			};
+	}
 }
 
 FCPPT_PP_PUSH_WARNING

@@ -20,15 +20,18 @@ namespace context
 class id
 {
 public:
-	typedef
-	unsigned
-	type;
+	using
+	type
+	=
+	unsigned;
 
 	explicit
 	id(
 		type
-	);
+	)
+	noexcept;
 
+	[[nodiscard]]
 	type
 	get() const;
 private:

@@ -58,8 +58,7 @@ template<
 sge::opengl::texture::basic<
 	Types
 >::~basic()
-{
-}
+= default;
 
 template<
 	typename Types
@@ -106,7 +105,7 @@ sge::opengl::texture::basic<
 >::context() const
 {
 	return
-		context_;
+		context_.get();
 }
 
 template<
@@ -118,15 +117,15 @@ sge::opengl::texture::basic<
 >::generate_mipmaps()
 {
 	sge::opengl::texture::scoped_work_binding const binding(
-		log_,
-		context_,
+		log_.get(),
+		context_.get(),
 		this->type(),
 		this->id()
 	);
 
 	sge::opengl::texture::mipmap::generate(
 		binding,
-		context_,
+		context_.get(),
 		this->type()
 	);
 }

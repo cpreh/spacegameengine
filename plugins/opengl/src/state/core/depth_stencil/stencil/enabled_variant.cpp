@@ -7,6 +7,7 @@
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
@@ -34,7 +35,7 @@
 
 sge::opengl::state::actor_vector
 sge::opengl::state::core::depth_stencil::stencil::enabled_variant(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::state::core::depth_stencil::stencil::ref const _ref,
 	sge::renderer::state::core::depth_stencil::stencil::read_mask const _read_mask,
 	sge::renderer::state::core::depth_stencil::stencil::write_mask const _write_mask,
@@ -106,7 +107,7 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_variant(
 					};
 			},
 			[
-				&_context,
+				_context,
 				_ref,
 				_read_mask,
 				_write_mask
@@ -120,7 +121,7 @@ sge::opengl::state::core::depth_stencil::stencil::enabled_variant(
 							sge::opengl::state::core::depth_stencil::stencil::context
 						>(
 							_context,
-							_context.info()
+							_context.get().info()
 						).config(),
 						[]{
 							return

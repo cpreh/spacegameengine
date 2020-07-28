@@ -13,7 +13,7 @@
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/reference.hpp>
 
 
@@ -26,13 +26,14 @@ class draw_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		draw_context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	draw_context(
@@ -42,24 +43,28 @@ public:
 	~draw_context()
 	override;
 
-	typedef
+	using
+	gl_draw_range_elements
+	=
 	sge::opengl::fun_ref<
 		PFNGLDRAWRANGEELEMENTSPROC
-	>
-	gl_draw_range_elements;
+	>;
 
-	typedef
+	using
+	optional_draw_range_elements
+	=
 	fcppt::optional::reference<
 		sge::opengl::fun_ref_value_type<
 			gl_draw_range_elements
 		>
-	>
-	optional_draw_range_elements;
+	>;
 
-	typedef
-	optional_draw_range_elements::value_type
-	draw_range_elements_ref;
+	using
+	draw_range_elements_ref
+	=
+	optional_draw_range_elements::value_type;
 
+	[[nodiscard]]
 	optional_draw_range_elements
 	draw_range_elements() const;
 

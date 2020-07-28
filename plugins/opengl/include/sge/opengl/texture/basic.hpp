@@ -8,6 +8,7 @@
 #define SGE_OPENGL_TEXTURE_BASIC_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/basic_fwd.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
@@ -15,8 +16,8 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -29,21 +30,22 @@ namespace texture
 template<
 	typename Types
 >
-class basic
+class basic // NOLINT(fuchsia-multiple-inheritance)
 :
 	public
 		Types::base,
 	public
 		sge::opengl::texture::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		basic
 	);
 protected:
-	typedef
+	using
+	parameters_type
+	=
 	typename
-	Types::parameters
-	parameters_type;
+	Types::parameters;
 
 	basic(
 		sge::opengl::texture::basic_parameters const &,
@@ -54,23 +56,28 @@ protected:
 	~basic()
 	override;
 
-	typedef
+	using
+	base_type
+	=
 	typename
-	Types::base
-	base_type;
+	Types::base;
 
+	[[nodiscard]]
 	sge::renderer::resource_flags_field
 	resource_flags() const
 	override;
 
+	[[nodiscard]]
 	sge::renderer::texture::capabilities_field
 	capabilities() const
 	override;
 
+	[[nodiscard]]
 	sge::renderer::texture::mipmap::object
 	mipmap() const
 	override;
 
+	[[nodiscard]]
 	sge::opengl::context::object &
 	context() const;
 private:
@@ -78,9 +85,9 @@ private:
 	generate_mipmaps()
 	override;
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	sge::opengl::context::object &context_;
+	sge::opengl::context::object_ref const context_;
 
 	sge::renderer::resource_flags_field const resource_flags_;
 

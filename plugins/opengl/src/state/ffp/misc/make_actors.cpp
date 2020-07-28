@@ -7,7 +7,7 @@
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
@@ -17,13 +17,13 @@
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/join.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 sge::opengl::state::actor_vector
 sge::opengl::state::ffp::misc::make_actors(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context,
+	fcppt::log::object_reference const _log,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::state::ffp::misc::parameters const &_parameters
 )
 {
@@ -47,7 +47,8 @@ sge::opengl::state::ffp::misc::make_actors(
 					sge::opengl::state::actor
 				>(
 					[
-						local_viewer = _parameters.local_viewer()
+						local_viewer =
+							_parameters.local_viewer()
 					]{
 						return
 							sge::opengl::call(

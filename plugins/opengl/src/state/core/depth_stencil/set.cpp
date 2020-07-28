@@ -11,6 +11,7 @@
 #include <sge/opengl/state/core/depth_stencil/object.hpp>
 #include <sge/opengl/state/core/depth_stencil/set.hpp>
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -25,8 +26,12 @@ sge::opengl::state::core::depth_stencil::set(
 		sge::opengl::context::use<
 			sge::opengl::state::core::depth_stencil::default_context
 		>(
-			_context,
-			_context
+			fcppt::make_ref(
+				_context
+			),
+			fcppt::make_ref(
+				_context
+			)
 		),
 		_state
 	);

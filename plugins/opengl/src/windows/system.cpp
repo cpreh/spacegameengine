@@ -10,14 +10,14 @@
 #include <sge/opengl/windows/device_state.hpp>
 #include <sge/opengl/windows/system.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 sge::opengl::windows::system::system(
-	fcppt::log::object &_log
+	fcppt::log::object_reference const _log
 )
 :
 	sge::opengl::platform::system(),
@@ -34,7 +34,7 @@ sge::opengl::windows::system::~system()
 sge::opengl::platform::device_state_unique_ptr
 sge::opengl::windows::system::create_device_state(
 	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
-	sge::window::object &
+	sge::window::object_ref
 )
 {
 	return
@@ -44,7 +44,7 @@ sge::opengl::windows::system::create_device_state(
 			fcppt::make_unique_ptr<
 				sge::opengl::windows::device_state
 			>(
-				log_,
+				log_.get(),
 				_fullscreen
 			)
 		);

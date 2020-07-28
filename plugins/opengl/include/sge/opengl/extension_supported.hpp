@@ -32,7 +32,7 @@ extension_supported(
 			_value
 		)
 		!=
-		0u;
+		0U;
 }
 
 }

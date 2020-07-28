@@ -8,8 +8,8 @@
 #define SGE_OPENGL_EVENT_HANDLER_HPP_INCLUDED
 
 #include <sge/window/system_event_function.hpp>
-#include <awl/timer/object_fwd.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <awl/timer/const_reference.hpp>
+#include <awl/window/object_ref.hpp>
 
 
 namespace sge
@@ -17,10 +17,11 @@ namespace sge
 namespace opengl
 {
 
+[[nodiscard]]
 sge::window::system_event_function
 event_handler(
-	awl::window::object &,
-	awl::timer::object const &
+	awl::window::object_ref,
+	awl::timer::const_reference
 );
 
 }

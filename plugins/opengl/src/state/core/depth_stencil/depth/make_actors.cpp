@@ -38,10 +38,9 @@ sge::opengl::state::core::depth_stencil::depth::make_actors(
 					sge::opengl::state::actor_vector{
 						sge::opengl::state::actor{
 							[]{
-								return
-									sge::opengl::disable(
-										GL_DEPTH_TEST
-									);
+								sge::opengl::disable(
+									GL_DEPTH_TEST
+								);
 							}
 						},
 						sge::opengl::state::core::depth_stencil::depth::write_enable(
@@ -58,10 +57,11 @@ sge::opengl::state::core::depth_stencil::depth::make_actors(
 				return
 					sge::opengl::state::actor_vector{
 						sge::opengl::state::actor{
-							std::bind(
-								sge::opengl::enable,
-								GL_DEPTH_TEST
-							)
+							[]{
+								sge::opengl::enable(
+									GL_DEPTH_TEST
+								);
+							}
 						},
 						sge::opengl::state::wrap_error_handler<
 							sge::opengl::state::actor

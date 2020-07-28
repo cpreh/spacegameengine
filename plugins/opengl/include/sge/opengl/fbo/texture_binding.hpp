@@ -9,10 +9,10 @@
 
 #include <sge/opengl/fbo/attachment.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/config_fwd.hpp>
+#include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/texture_binding_fwd.hpp>
-#include <sge/opengl/texture/buffer_base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/texture/buffer_base_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,24 +24,24 @@ namespace fbo
 
 class texture_binding
 :
-	public fbo::attachment
+	public sge::opengl::fbo::attachment
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		texture_binding
 	);
 public:
 	texture_binding(
-		sge::opengl::fbo::config const &,
-		sge::opengl::texture::buffer_base &,
+		sge::opengl::fbo::const_config_ref,
+		sge::opengl::texture::buffer_base_ref,
 		sge::opengl::fbo::attachment_type
 	);
 
 	~texture_binding()
 	override;
 private:
-	sge::opengl::fbo::config const &context_;
+	sge::opengl::fbo::const_config_ref const context_;
 
-	sge::opengl::texture::buffer_base &buffer_;
+	sge::opengl::texture::buffer_base_ref const buffer_;
 
 	sge::opengl::fbo::attachment_type const attachment_;
 };

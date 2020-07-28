@@ -18,11 +18,12 @@ namespace opengl
 namespace context
 {
 
-typedef
+using
+base_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::context::base
->
-base_unique_ptr;
+>;
 
 }
 }

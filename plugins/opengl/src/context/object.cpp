@@ -9,7 +9,7 @@
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/optional_base_ref.hpp>
-#include <sge/opengl/info/context_fwd.hpp>
+#include <sge/opengl/info/const_context_ref.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 #include <fcppt/optional/deref.hpp>
@@ -20,7 +20,7 @@
 
 
 sge::opengl::context::object::object(
-	sge::opengl::info::context const &_info
+	sge::opengl::info::const_context_ref const _info
 )
 :
 	info_(
@@ -31,8 +31,7 @@ sge::opengl::context::object::object(
 }
 
 sge::opengl::context::object::~object()
-{
-}
+= default;
 
 sge::opengl::context::optional_base_ref
 sge::opengl::context::object::get(
@@ -82,5 +81,5 @@ sge::opengl::info::context const &
 sge::opengl::context::object::info() const
 {
 	return
-		info_;
+		info_.get();
 }

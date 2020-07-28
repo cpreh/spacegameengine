@@ -22,9 +22,6 @@
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector
@@ -95,13 +92,17 @@ sge::opengl::state::ffp::lighting::make_actors(
 							FCPPT_TEXT("glLightModelfv")
 						),
 						sge::opengl::state::actor{
-							std::bind(
-								sge::opengl::enable_bool,
-								sge::opengl::convert::to_gl_enum<
-									GL_COLOR_MATERIAL
-								>(),
-								_enabled.diffuse_from_vertex().get()
-							)
+							[
+								diffuse =
+									_enabled.diffuse_from_vertex().get()
+							]{
+								sge::opengl::enable_bool(
+									sge::opengl::convert::to_gl_enum<
+										GL_COLOR_MATERIAL
+									>(),
+									diffuse
+								);
+							}
 						}
 					};
 			}

@@ -10,6 +10,7 @@
 #include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/make_object.hpp>
 #include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/from.hpp>
@@ -26,9 +27,10 @@ template<
 	typename Type,
 	typename Parameter
 >
+[[nodiscard]]
 Type &
 use_impl(
-	sge::opengl::context::object &_object,
+	sge::opengl::context::object_ref const _object,
 	Parameter &&_parameter
 )
 {
@@ -37,7 +39,7 @@ use_impl(
 			Type &
 		>(
 			fcppt::optional::from(
-				_object.get(
+				_object.get().get(
 					Type::static_id
 				),
 				[
@@ -47,7 +49,7 @@ use_impl(
 				{
 					return
 						fcppt::make_ref(
-							_object.insert(
+							_object.get().insert(
 								Type::static_id,
 								sge::opengl::context::make_object<
 									Type

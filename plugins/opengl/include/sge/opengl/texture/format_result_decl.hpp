@@ -29,9 +29,11 @@ public:
 		GLFormat
 	);
 
+	[[nodiscard]]
 	SGEFormat
 	sge_format() const;
 
+	[[nodiscard]]
 	GLFormat
 	gl_format() const;
 private:

@@ -25,7 +25,7 @@ namespace transform
 
 void
 set(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::state::ffp::transform::mode,
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &
 );

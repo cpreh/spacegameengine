@@ -22,13 +22,14 @@ namespace ffp
 namespace transform
 {
 
-typedef
+using
+actor
+=
 fcppt::function<
 	void(
 		sge::renderer::state::ffp::transform::mode const &
 	)
->
-actor;
+>;
 
 }
 }

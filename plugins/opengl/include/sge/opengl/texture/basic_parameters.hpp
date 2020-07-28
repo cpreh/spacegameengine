@@ -8,9 +8,10 @@
 #define SGE_OPENGL_TEXTURE_BASIC_PARAMETERS_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -24,23 +25,21 @@ class basic_parameters
 {
 public:
 	basic_parameters(
-		fcppt::log::object &,
-		sge::opengl::context::object &
+		fcppt::log::object_reference,
+		sge::opengl::context::object_ref
 	);
 
+	[[nodiscard]]
 	fcppt::log::object &
 	log() const;
 
+	[[nodiscard]]
 	sge::opengl::context::object &
 	context() const;
 private:
-	fcppt::reference<
-		fcppt::log::object
-	> log_;
+	fcppt::log::object_reference log_;
 
-	fcppt::reference<
-		sge::opengl::context::object
-	> context_;
+	sge::opengl::context::object_ref context_;
 };
 
 }

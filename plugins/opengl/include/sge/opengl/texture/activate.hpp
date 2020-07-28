@@ -22,8 +22,8 @@ namespace texture
 
 void
 activate(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::texture::const_optional_base_ref const &,
 	sge::renderer::texture::stage
 );

@@ -12,7 +12,7 @@
 #include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_context_fwd.hpp>
 #include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -32,13 +32,14 @@ class anisotropy_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		anisotropy_context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	anisotropy_context(
@@ -48,6 +49,7 @@ public:
 	~anisotropy_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const &
 	config() const;
 

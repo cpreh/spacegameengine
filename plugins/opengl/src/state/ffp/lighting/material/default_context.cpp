@@ -34,8 +34,7 @@ sge::opengl::state::ffp::lighting::material::default_context::default_context()
 }
 
 sge::opengl::state::ffp::lighting::material::default_context::~default_context()
-{
-}
+= default;
 
 sge::opengl::state::ffp::lighting::material::object const &
 sge::opengl::state::ffp::lighting::material::default_context::default_state() const

@@ -10,12 +10,10 @@
 
 
 sge::opengl::buffer::wrapper::wrapper()
-{
-}
+= default;
 
 sge::opengl::buffer::wrapper::~wrapper()
-{
-}
+= default;
 
 sge::renderer::opengl::buffer::id
 sge::opengl::buffer::wrapper::id() const

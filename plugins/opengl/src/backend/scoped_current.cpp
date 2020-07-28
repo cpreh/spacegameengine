@@ -5,6 +5,7 @@
 
 
 #include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/context_ref.hpp>
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/scoped_current.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -13,21 +14,21 @@
 
 
 sge::opengl::backend::scoped_current::scoped_current(
-	sge::opengl::backend::context &_context
+	sge::opengl::backend::context_ref const _context
 )
 :
 	context_(
 		_context
 	),
 	current_(
-		context_.activate()
+		context_.get().activate()
 	)
 {
 }
 
 sge::opengl::backend::scoped_current::~scoped_current()
 {
-	context_.deactivate(
+	context_.get().deactivate(
 		std::move(
 			current_
 		)

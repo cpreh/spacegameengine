@@ -8,8 +8,8 @@
 #define SGE_OPENGL_BACKEND_CREATE_SYSTEM_HPP_INCLUDED
 
 #include <sge/opengl/backend/system_unique_ptr.hpp>
-#include <awl/system/object_fwd.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <awl/system/object_ref.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -21,8 +21,8 @@ namespace backend
 
 sge::opengl::backend::system_unique_ptr
 create_system(
-	fcppt::log::object &,
-	awl::system::object &
+	fcppt::log::object_reference,
+	awl::system::object_ref
 );
 
 }

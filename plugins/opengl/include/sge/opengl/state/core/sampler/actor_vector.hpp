@@ -24,9 +24,12 @@ namespace core
 namespace sampler
 {
 
-typedef std::vector<
+using
+actor_vector
+=
+std::vector<
 	sge::opengl::state::core::sampler::actor
-> actor_vector;
+>;
 
 }
 }

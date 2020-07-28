@@ -26,7 +26,7 @@ namespace light
 
 void
 set(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
 );
 

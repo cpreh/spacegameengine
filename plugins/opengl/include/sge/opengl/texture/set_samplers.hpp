@@ -21,8 +21,8 @@ namespace texture
 void
 set_samplers(
 	sge::opengl::texture::render_binding const &,
-	sge::opengl::context::object &
-);
+	sge::opengl::context::object & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

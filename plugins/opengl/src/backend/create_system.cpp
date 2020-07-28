@@ -9,9 +9,10 @@
 #include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/backend/system_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <awl/system/object_ref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/function_impl.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -24,7 +25,7 @@
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/either/try_call.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <vector>
@@ -48,20 +49,22 @@
 namespace
 {
 
-typedef
+using
+create_function_exn
+=
 fcppt::function<
 	sge::opengl::backend::system_unique_ptr(
-		fcppt::log::object &,
-		awl::system::object &
+		fcppt::log::object_reference,
+		awl::system::object_ref
 	)
->
-create_function_exn;
+>;
 
-typedef
+using
+create_function_exn_vector
+=
 std::vector<
 	create_function_exn
->
-create_function_exn_vector;
+>;
 
 create_function_exn_vector
 create_functions_exn()
@@ -71,8 +74,8 @@ create_functions_exn()
 #if defined(SGE_OPENGL_HAVE_SDL)
 			create_function_exn{
 				[](
-					fcppt::log::object &,
-					awl::system::object &_awl_system
+					fcppt::log::object_reference,
+					awl::system::object_ref const _awl_system
 				)
 				{
 					return
@@ -82,10 +85,12 @@ create_functions_exn()
 							fcppt::make_unique_ptr<
 								sge::opengl::sdl::backend_system
 							>(
-								fcppt::cast::dynamic_exn<
-									awl::backends::sdl::system::object &
-								>(
-									_awl_system
+								fcppt::make_ref(
+									fcppt::cast::dynamic_exn<
+										awl::backends::sdl::system::object &
+									>(
+										_awl_system.get()
+									)
 								)
 							)
 						);
@@ -95,8 +100,8 @@ create_functions_exn()
 #if defined(SGE_OPENGL_HAVE_EGL)
 			create_function_exn{
 				[](
-					fcppt::log::object &_log,
-					awl::system::object &_awl_system
+					fcppt::log::object_reference const _log,
+					awl::system::object_ref const _awl_system
 				)
 				{
 					return
@@ -116,8 +121,8 @@ create_functions_exn()
 #if defined(SGE_OPENGL_HAVE_GLX)
 			create_function_exn{
 				[](
-					fcppt::log::object &_log,
-					awl::system::object &_awl_system
+					fcppt::log::object_reference const _log,
+					awl::system::object_ref const _awl_system
 				)
 				{
 					return
@@ -128,10 +133,12 @@ create_functions_exn()
 								sge::opengl::glx::system
 							>(
 								_log,
-								fcppt::cast::dynamic_exn<
-									awl::backends::x11::system::object &
-								>(
-									_awl_system
+								fcppt::make_ref(
+									fcppt::cast::dynamic_exn<
+										awl::backends::x11::system::object &
+									>(
+										_awl_system.get()
+									)
 								)
 							)
 						);
@@ -141,8 +148,8 @@ create_functions_exn()
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 			create_function_exn{
 				[](
-					fcppt::log::object &,
-					awl::system::object &_awl_system
+					fcppt::log::object_reference,
+					awl::system::object_ref const _awl_system
 				)
 				{
 					return
@@ -152,7 +159,7 @@ create_functions_exn()
 							fcppt::make_unique_ptr<
 								sge::opengl::wgl::system
 							>(
-								_awl_system
+								_awl_system.get()
 							)
 						);
 				}
@@ -160,8 +167,8 @@ create_functions_exn()
 #endif
 			create_function_exn{
 				[](
-					fcppt::log::object &,
-					awl::system::object &
+					fcppt::log::object_reference,
+					awl::system::object_ref
 				)
 				->
 				sge::opengl::backend::system_unique_ptr
@@ -177,25 +184,27 @@ create_functions_exn()
 		};
 }
 
-typedef
+using
+create_function
+=
 fcppt::function<
 	fcppt::either::object<
 		fcppt::string,
 		sge::opengl::backend::system_unique_ptr
 	>()
->
-create_function;
+>;
 
-typedef
+using
+create_function_vector
+=
 std::vector<
 	create_function
->
-create_function_vector;
+>;
 
 create_function_vector
 create_functions(
-	fcppt::log::object &_log,
-	awl::system::object &_awl_system
+	fcppt::log::object_reference const _log,
+	awl::system::object_ref const _awl_system
 )
 {
 	return
@@ -213,8 +222,8 @@ create_functions(
 				return
 					create_function{
 						[
-							&_log,
-							&_awl_system,
+							_log,
+							_awl_system,
 							function =
 								std::move(
 									_function
@@ -262,8 +271,8 @@ create_functions(
 
 sge::opengl::backend::system_unique_ptr
 sge::opengl::backend::create_system(
-	fcppt::log::object &_log,
-	awl::system::object &_awl_system
+	fcppt::log::object_reference const _log,
+	awl::system::object_ref const _awl_system
 )
 {
 	return

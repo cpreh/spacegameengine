@@ -24,9 +24,12 @@ namespace lighting
 namespace material
 {
 
-typedef sge::opengl::state::object<
+using
+object
+=
+sge::opengl::state::object<
 	sge::renderer::state::ffp::lighting::material::object
-> object;
+>;
 
 }
 }

@@ -18,11 +18,12 @@ namespace opengl
 namespace info
 {
 
-typedef
+using
+extension_set
+=
 sge::opengl::extension_set<
 	sge::opengl::info::extension
->
-extension_set;
+>;
 
 }
 }

@@ -13,6 +13,7 @@
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/config_fwd.hpp>
+#include <sge/opengl/texture/const_binding_ref.hpp>
 #include <sge/opengl/texture/init_function.hpp>
 #include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/parameters_fwd.hpp>
@@ -39,28 +40,38 @@ template<
 class parameters
 {
 public:
-	typedef
+	using
+	dim
+	=
 	sge::renderer::basic_dim<
 		Dim
-	>
-	dim;
+	>;
 
-	typedef
+	using
+	config_type
+	=
 	sge::opengl::texture::config<
 		Dim
-	>
-	config_type;
+	>;
 
-	typedef
+	using
+	const_config_ref
+	=
+	fcppt::reference<
+		config_type const
+	>;
+
+	using
+	init_function_type
+	=
 	sge::opengl::texture::init_function<
 		Dim
-	>
-	init_function_type;
+	>;
 
 	parameters(
-		sge::opengl::texture::binding const &,
+		sge::opengl::texture::const_binding_ref,
 		sge::opengl::texture::buffer_type,
-		config_type const &,
+		const_config_ref,
 		sge::opengl::color_order,
 		sge::opengl::color_base_type,
 		sge::opengl::internal_color_format,
@@ -68,39 +79,43 @@ public:
 		init_function_type
 	);
 
+	[[nodiscard]]
 	sge::opengl::texture::binding const &
 	binding() const;
 
+	[[nodiscard]]
 	sge::opengl::texture::buffer_type
 	buffer_type() const;
 
+	[[nodiscard]]
 	config_type const &
 	config() const;
 
+	[[nodiscard]]
 	sge::opengl::color_order
 	format_order() const;
 
+	[[nodiscard]]
 	sge::opengl::color_base_type
 	format_base_type() const;
 
+	[[nodiscard]]
 	sge::opengl::internal_color_format
 	internal_format() const;
 
+	[[nodiscard]]
 	dim const &
 	size() const;
 
+	[[nodiscard]]
 	init_function_type
 	init_function() const;
 private:
-	fcppt::reference<
-		sge::opengl::texture::binding const
-	> binding_;
+	sge::opengl::texture::const_binding_ref binding_;
 
 	sge::opengl::texture::buffer_type buffer_type_;
 
-	fcppt::reference<
-		config_type const
-	> config_;
+	const_config_ref config_;
 
 	sge::opengl::color_order format_order_;
 

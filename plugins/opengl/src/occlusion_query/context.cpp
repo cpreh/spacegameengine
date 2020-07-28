@@ -24,7 +24,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-// TODO: ARB could be supported if necessary
+// TODO(philipp): ARB could be supported if necessary
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
@@ -38,10 +38,10 @@ sge::opengl::occlusion_query::context::context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				1u
+				1U
 			},
 			sge::opengl::info::minor_version{
-				5u
+				5U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			}
 		)
 		?
@@ -121,8 +121,7 @@ sge::opengl::occlusion_query::context::context(
 FCPPT_PP_POP_WARNING
 
 sge::opengl::occlusion_query::context::~context()
-{
-}
+= default;
 
 sge::opengl::occlusion_query::optional_config const &
 sge::opengl::occlusion_query::context::config() const

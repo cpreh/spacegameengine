@@ -8,7 +8,7 @@
 #define SGE_OPENGL_VERTEX_SET_BUFFER_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
-#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/const_buffer_ref.hpp>
 
 
 namespace sge
@@ -20,8 +20,8 @@ namespace vertex
 
 void
 set_buffer(
-	sge::opengl::context::object &,
-	sge::renderer::vertex::buffer const &
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
+	sge::renderer::vertex::const_buffer_ref
 );
 
 }

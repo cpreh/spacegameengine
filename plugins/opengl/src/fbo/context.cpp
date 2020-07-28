@@ -40,10 +40,10 @@ sge::opengl::fbo::context::context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				3u
+				3U
 			},
 			sge::opengl::info::minor_version{
-				0u
+				0U
 			}
 		)
 		?
@@ -342,8 +342,7 @@ sge::opengl::fbo::context::context(
 FCPPT_PP_POP_WARNING
 
 sge::opengl::fbo::context::~context()
-{
-}
+= default;
 
 sge::opengl::fbo::optional_config const &
 sge::opengl::fbo::context::config() const

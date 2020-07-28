@@ -9,11 +9,11 @@
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
-#include <sge/opengl/buffer/hardware_config_fwd.hpp>
+#include <sge/opengl/buffer/const_hardware_config_ref.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/type.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,18 +27,19 @@ class hardware
 :
 	public sge::opengl::buffer::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		hardware
 	);
 public:
 	hardware(
 		sge::opengl::buffer::type,
-		sge::opengl::buffer::hardware_config const &
+		sge::opengl::buffer::const_hardware_config_ref
 	);
 
 	~hardware()
 	override;
 private:
+	[[nodiscard]]
 	sge::opengl::buffer::id
 	gen_buffer()
 	override;
@@ -55,12 +56,14 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	GLvoid *
 	map_buffer(
 		GLenum flags
 	)
 	override;
 
+	[[nodiscard]]
 	GLvoid *
 	map_buffer_range(
 		GLbitfield flags,
@@ -69,6 +72,7 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	bool
 	map_buffer_range_supported() const
 	override;
@@ -93,19 +97,21 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	void *
 	buffer_offset(
 		GLintptr offset
 	) const
 	override;
 
+	[[nodiscard]]
 	bool
 	native() const
 	override;
 
 	sge::opengl::buffer::type const type_;
 
-	sge::opengl::buffer::hardware_config const &config_;
+	sge::opengl::buffer::const_hardware_config_ref const config_;
 
 	sge::opengl::buffer::optional_id bound_buffer_;
 };

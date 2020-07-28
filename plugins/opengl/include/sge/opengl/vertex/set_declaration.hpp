@@ -20,7 +20,7 @@ namespace vertex
 
 void
 set_declaration(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::vertex::const_optional_declaration_ref const &
 );
 

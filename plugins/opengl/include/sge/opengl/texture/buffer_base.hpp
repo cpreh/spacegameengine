@@ -12,7 +12,7 @@
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ namespace texture
 
 class buffer_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		buffer_base
 	);
 protected:
@@ -38,15 +38,19 @@ public:
 	virtual
 	~buffer_base();
 
+	[[nodiscard]]
 	sge::opengl::texture::buffer_type
 	buffer_type() const;
 
+	[[nodiscard]]
 	sge::opengl::texture::id
 	id() const;
 
+	[[nodiscard]]
 	sge::renderer::texture::mipmap::level
 	level() const;
 
+	[[nodiscard]]
 	sge::opengl::texture::is_render_target
 	is_render_target() const;
 private:

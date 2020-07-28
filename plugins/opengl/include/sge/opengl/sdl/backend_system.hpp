@@ -11,11 +11,11 @@
 #include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/sdl/library.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/system/init.hpp>
-#include <awl/backends/sdl/system/object_fwd.hpp>
+#include <awl/backends/sdl/system/object_ref.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,13 +30,13 @@ class backend_system
 	public
 		sge::opengl::backend::system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		backend_system
 	);
 public:
 	explicit
 	backend_system(
-		awl::backends::sdl::system::object &
+		awl::backends::sdl::system::object_ref
 	);
 
 	~backend_system()
@@ -50,7 +50,7 @@ public:
 
 	sge::opengl::backend::context_unique_ptr
 	create_context(
-		sge::window::object &
+		sge::window::object_ref
 	)
 	override;
 private:

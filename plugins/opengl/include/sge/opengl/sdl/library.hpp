@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_SDL_LIBRARY_HPP_INCLUDED
 #define SGE_OPENGL_SDL_LIBRARY_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -19,7 +19,7 @@ namespace sdl
 
 class library
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		library
 	);
 public:

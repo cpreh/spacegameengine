@@ -10,6 +10,7 @@
 #include <sge/opengl/platform/system_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/system/object.hpp>
+#include <awl/system/object_ref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -25,7 +26,7 @@
 #include <fcppt/either/from_optional.hpp>
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/either/to_exception.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
@@ -63,18 +64,20 @@
 namespace
 {
 
-typedef
+using
+either_type
+=
 fcppt::either::object<
 	fcppt::string,
 	sge::opengl::platform::system_unique_ptr
->
-either_type;
+>;
 
-typedef
+using
+function_type
+=
 fcppt::function<
 	either_type ()
->
-function_type;
+>;
 
 #if defined(SGE_OPENGL_NEED_TRY_CREATE)
 
@@ -101,7 +104,7 @@ template<
 >
 function_type
 try_create(
-	awl::system::object &_awl_system,
+	awl::system::object_ref const _awl_system,
 	create_function<
 		Result,
 		Arg
@@ -112,7 +115,7 @@ try_create(
 		function_type{
 			[
 				&_create,
-				&_awl_system
+				_awl_system
 			]{
 				return
 					fcppt::either::from_optional(
@@ -120,7 +123,7 @@ try_create(
 							fcppt::cast::dynamic<
 								Arg
 							>(
-								_awl_system
+								_awl_system.get()
 							),
 							[
 								&_create
@@ -167,15 +170,15 @@ try_create(
 sge::opengl::platform::system_unique_ptr
 sge::opengl::platform::create_system(
 #if defined(SGE_OPENGL_NEED_LOG)
-	fcppt::log::object &_log
+	fcppt::log::object_reference const _log
 #else
-	fcppt::log::object &
+	fcppt::log::object_reference
 #endif
 	,
 #if defined(SGE_OPENGL_NEED_SYSTEM)
-	awl::system::object &_awl_system
+	awl::system::object_ref const _awl_system
 #else
-	awl::system::object &
+	awl::system::object_ref
 #endif
 )
 {
@@ -203,7 +206,7 @@ sge::opengl::platform::create_system(
 									fcppt::make_unique_ptr<
 										sge::opengl::sdl::platform_system
 									>(
-										_system.get()
+										_system
 									);
 							}
 						}
@@ -217,7 +220,7 @@ sge::opengl::platform::create_system(
 							awl::backends::x11::system::object
 						>{
 							[
-								&_log
+								_log
 							](
 								fcppt::reference<
 									awl::backends::x11::system::object
@@ -229,7 +232,7 @@ sge::opengl::platform::create_system(
 										sge::opengl::x11::system
 									>(
 										_log,
-										_system.get()
+										_system
 									);
 							}
 						}
@@ -255,7 +258,7 @@ sge::opengl::platform::create_system(
 									fcppt::make_unique_ptr<
 										sge::opengl::wayland::system
 									>(
-										_system.get()
+										_system
 									);
 							}
 						}
@@ -264,7 +267,7 @@ sge::opengl::platform::create_system(
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 					function_type{
 						[
-							&_log
+							_log
 						]{
 							return
 								either_type{

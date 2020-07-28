@@ -20,7 +20,7 @@ namespace vertex
 
 void
 unset_buffer(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::vertex::buffer const &
 );
 

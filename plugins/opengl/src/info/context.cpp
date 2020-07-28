@@ -5,6 +5,7 @@
 
 
 #include <sge/opengl/backend/current.hpp>
+#include <sge/opengl/backend/const_current_ref.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/info/context.hpp>
 #include <sge/opengl/info/extension_set.hpp>
@@ -26,7 +27,7 @@
 
 sge::opengl::info::context::context(
 	fcppt::log::object &_log,
-	sge::opengl::backend::current const &_current
+	sge::opengl::backend::const_current_ref const _current
 )
 :
 	current_(
@@ -34,12 +35,12 @@ sge::opengl::info::context::context(
 	),
 	version_(
 		sge::opengl::info::get_version(
-			_current
+			_current.get()
 		)
 	),
 	extensions_(
 		sge::opengl::info::get_extensions(
-			_current
+			_current.get()
 		)
 	)
 {
@@ -54,8 +55,7 @@ sge::opengl::info::context::context(
 }
 
 sge::opengl::info::context::~context()
-{
-}
+= default;
 
 sge::opengl::info::version
 sge::opengl::info::context::version() const
@@ -77,7 +77,7 @@ sge::opengl::info::context::load_function(
 ) const
 {
 	return
-		current_.load_function(
+		current_.get().load_function(
 			_name
 		);
 }

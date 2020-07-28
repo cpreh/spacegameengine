@@ -4,22 +4,22 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/backend/current_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/backend/current_ref.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/target/create_onscreen.hpp>
 #include <sge/opengl/target/onscreen.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/onscreen_unique_ptr.hpp>
-#include <awl/window/object_fwd.hpp>
+#include <awl/window/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::renderer::target::onscreen_unique_ptr
 sge::opengl::target::create_onscreen(
-	sge::opengl::context::object &_context,
-	sge::opengl::backend::current &_current,
-	awl::window::object &_window
+	sge::opengl::context::object_ref const _context,
+	sge::opengl::backend::current_ref const _current,
+	awl::window::object_ref const _window
 )
 {
 	return

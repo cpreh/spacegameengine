@@ -35,12 +35,14 @@ class error_handler
 {
 public:
 	error_handler(
-		Actor const &_actor,
+		Actor &&_actor,
 		fcppt::string &&_name
 	)
 	:
 		actor_{
-			_actor
+			std::move(
+				_actor
+			)
 		},
 		name_{
 			std::move(
@@ -50,14 +52,10 @@ public:
 	{
 	}
 
-	typedef
-	void
-	result_type;
-
 	template<
 		typename... Args
 	>
-	result_type
+	void
 	operator()(
 		Args && ..._args
 	) const

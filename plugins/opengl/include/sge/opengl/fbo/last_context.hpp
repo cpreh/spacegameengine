@@ -24,7 +24,7 @@ class last_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		last_context
 	);
 public:
@@ -33,6 +33,7 @@ public:
 	~last_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::fbo::id
 	last_buffer() const;
 
@@ -41,7 +42,10 @@ public:
 		sge::opengl::fbo::id
 	);
 
-	typedef void parameter;
+	using
+	parameter
+	=
+	void;
 
 	static sge::opengl::context::id const static_id;
 private:

@@ -24,7 +24,7 @@ namespace rasterizer
 
 void
 set(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::state::core::rasterizer::const_optional_object_ref const &
 );
 

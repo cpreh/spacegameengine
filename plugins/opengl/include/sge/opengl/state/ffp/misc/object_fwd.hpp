@@ -22,9 +22,12 @@ namespace ffp
 namespace misc
 {
 
-typedef sge::opengl::state::object<
+using
+object
+=
+sge::opengl::state::object<
 	sge::renderer::state::ffp::misc::object
-> object;
+>;
 
 }
 }

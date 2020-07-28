@@ -11,6 +11,7 @@
 #include <sge/opengl/state/core/blend/object.hpp>
 #include <sge/opengl/state/core/blend/set.hpp>
 #include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -25,8 +26,12 @@ sge::opengl::state::core::blend::set(
 		sge::opengl::context::use<
 			sge::opengl::state::core::blend::default_context
 		>(
-			_context,
-			_context
+			fcppt::make_ref(
+				_context
+			),
+			fcppt::make_ref(
+				_context
+			)
 		),
 		_state
 	);

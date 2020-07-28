@@ -35,10 +35,10 @@ sge::opengl::srgb_context::srgb_context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				3u
+				3U
 			},
 			sge::opengl::info::minor_version{
-				0u
+				0U
 			}
 		)
 		?
@@ -69,8 +69,7 @@ sge::opengl::srgb_context::srgb_context(
 FCPPT_PP_POP_WARNING
 
 sge::opengl::srgb_context::~srgb_context()
-{
-}
+= default;
 
 sge::opengl::optional_enum
 sge::opengl::srgb_context::flag() const

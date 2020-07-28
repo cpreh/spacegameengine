@@ -12,6 +12,7 @@
 #include <sge/opengl/state/ffp/misc/object.hpp>
 #include <sge/opengl/state/ffp/misc/set.hpp>
 #include <sge/renderer/state/ffp/misc/const_optional_object_ref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -28,10 +29,16 @@ sge::opengl::state::ffp::misc::set(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::misc::default_context
 		>(
-			_context,
-			sge::opengl::state::ffp::misc::default_context_parameters{
-				_log,
+			fcppt::make_ref(
 				_context
+			),
+			sge::opengl::state::ffp::misc::default_context_parameters{
+				fcppt::make_ref(
+					_log
+				),
+				fcppt::make_ref(
+					_context
+				)
 			}
 		),
 		_state

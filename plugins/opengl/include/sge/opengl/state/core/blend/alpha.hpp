@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_STATE_CORE_BLEND_ALPHA_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_BLEND_ALPHA_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant_fwd.hpp>
 
@@ -25,7 +25,7 @@ namespace blend
 
 sge::opengl::state::actor_vector
 alpha(
-	sge::opengl::context::object &,
+	sge::opengl::context::object_ref,
 	sge::renderer::state::core::blend::alpha_variant const &
 );
 

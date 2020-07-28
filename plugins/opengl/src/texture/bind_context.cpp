@@ -25,8 +25,7 @@ sge::opengl::texture::bind_context::bind_context()
 }
 
 sge::opengl::texture::bind_context::~bind_context()
-{
-}
+= default;
 
 sge::opengl::texture::const_optional_base_ref
 sge::opengl::texture::bind_context::stage(

@@ -7,10 +7,9 @@
 #ifndef SGE_OPENGL_STATE_FFP_MISC_DEFAULT_CONTEXT_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_MISC_DEFAULT_CONTEXT_PARAMETERS_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/ffp/misc/default_context_parameters_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -28,23 +27,21 @@ class default_context_parameters
 {
 public:
 	default_context_parameters(
-		fcppt::log::object &,
-		sge::opengl::context::object &
+		fcppt::log::object_reference,
+		sge::opengl::context::object_ref
 	);
 
-	fcppt::log::object &
+	[[nodiscard]]
+	fcppt::log::object_reference
 	log() const;
 
-	sge::opengl::context::object &
+	[[nodiscard]]
+	sge::opengl::context::object_ref
 	context() const;
 private:
-	fcppt::reference<
-		fcppt::log::object
-	> log_;
+	fcppt::log::object_reference log_;
 
-	fcppt::reference<
-		sge::opengl::context::object
-	> context_;
+	sge::opengl::context::object_ref context_;
 };
 
 }

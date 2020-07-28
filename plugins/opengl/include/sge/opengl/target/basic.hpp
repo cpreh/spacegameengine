@@ -7,14 +7,14 @@
 #ifndef SGE_OPENGL_TARGET_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_BASIC_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/target/base.hpp>
 #include <sge/opengl/target/context_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/math/box/object_decl.hpp>
 
 
@@ -28,17 +28,17 @@ namespace target
 template<
 	typename Base
 >
-class basic
+class basic // NOLINT(fuchsia-multiple-inheritance)
 :
 	public Base,
 	public sge::opengl::target::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		basic
 	);
 protected:
 	basic(
-		sge::opengl::context::object &,
+		sge::opengl::context::object_ref,
 		sge::renderer::target::viewport const &
 	);
 public:
@@ -59,6 +59,7 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::renderer::target::viewport
 	viewport() const
 	override;
@@ -69,6 +70,7 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::renderer::target::scissor_area
 	scissor_area() const
 	override;
@@ -85,6 +87,7 @@ private:
 	void
 	set_scissor_area();
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::screen_unit
 	height() const = 0;

@@ -8,8 +8,8 @@
 #define SGE_OPENGL_BUFFER_MAKE_HARDWARE_HPP_INCLUDED
 
 #include <sge/opengl/buffer/base_unique_ptr.hpp>
+#include <sge/opengl/buffer/const_hardware_config_ref.hpp>
 #include <sge/opengl/buffer/hardware.hpp>
-#include <sge/opengl/buffer/hardware_config_fwd.hpp>
 #include <sge/opengl/buffer/type.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
@@ -35,7 +35,7 @@ std::array<
 	sizeof...(Args)
 >
 make_hardware(
-	sge::opengl::buffer::hardware_config const &_config,
+	sge::opengl::buffer::const_hardware_config_ref const _config,
 	Args const ..._args
 )
 {

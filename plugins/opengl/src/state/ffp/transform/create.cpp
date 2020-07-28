@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/ffp/transform/create.hpp>
 #include <sge/opengl/state/ffp/transform/make_actors.hpp>
 #include <sge/opengl/state/ffp/transform/object.hpp>
@@ -17,7 +17,7 @@
 
 sge::renderer::state::ffp::transform::object_unique_ptr
 sge::opengl::state::ffp::transform::create(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::state::ffp::transform::parameters const &_parameters
 )
 {

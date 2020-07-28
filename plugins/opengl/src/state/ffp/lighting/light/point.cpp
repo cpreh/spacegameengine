@@ -28,7 +28,7 @@ sge::opengl::state::ffp::lighting::light::point(
 				// special value to make this a point light
 				sge::opengl::state::ffp::lighting::light::cutoff_angle(
 					sge::renderer::state::ffp::lighting::light::cutoff_angle(
-						180.f
+						180.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 					)
 				)
 			},

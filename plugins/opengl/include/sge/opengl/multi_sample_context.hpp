@@ -12,7 +12,7 @@
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,13 +24,14 @@ class multi_sample_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		multi_sample_context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	multi_sample_context(
@@ -40,6 +41,7 @@ public:
 	~multi_sample_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::optional_enum
 	flag() const;
 

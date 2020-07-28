@@ -8,7 +8,7 @@
 #define SGE_OPENGL_TEXTURE_HOLDER_HPP_INCLUDED
 
 #include <sge/opengl/texture/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace texture
 
 class holder
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		holder
 	);
 public:
@@ -28,6 +28,7 @@ public:
 
 	~holder();
 
+	[[nodiscard]]
 	sge::opengl::texture::id
 	id() const;
 private:

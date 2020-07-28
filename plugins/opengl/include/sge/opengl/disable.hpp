@@ -9,6 +9,7 @@
 
 #include <sge/opengl/common.hpp>
 
+
 namespace sge
 {
 namespace opengl

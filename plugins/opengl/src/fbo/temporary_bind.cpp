@@ -5,16 +5,17 @@
 
 
 #include <sge/opengl/fbo/bind.hpp>
-#include <sge/opengl/fbo/config_fwd.hpp>
+#include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/last_context.hpp>
+#include <sge/opengl/fbo/last_context_ref.hpp>
 #include <sge/opengl/fbo/object.hpp>
 #include <sge/opengl/fbo/temporary_bind.hpp>
 #include <fcppt/assert/pre.hpp>
 
 
 sge::opengl::fbo::temporary_bind::temporary_bind(
-	sge::opengl::fbo::config const &_context,
-	sge::opengl::fbo::last_context &_last_context,
+	sge::opengl::fbo::const_config_ref const _context,
+	sge::opengl::fbo::last_context_ref const _last_context,
 	sge::opengl::fbo::object const &_object
 )
 :
@@ -25,7 +26,7 @@ sge::opengl::fbo::temporary_bind::temporary_bind(
 		_last_context
 	),
 	last_buffer_(
-		last_context_.last_buffer()
+		last_context_.get().last_buffer()
 	)
 {
 	FCPPT_ASSERT_PRE(
@@ -40,11 +41,11 @@ sge::opengl::fbo::temporary_bind::temporary_bind(
 sge::opengl::fbo::temporary_bind::~temporary_bind()
 {
 	sge::opengl::fbo::bind(
-		context_,
+		context_.get(),
 		last_buffer_
 	);
 
-	last_context_.last_buffer(
+	last_context_.get().last_buffer(
 		last_buffer_
 	);
 }

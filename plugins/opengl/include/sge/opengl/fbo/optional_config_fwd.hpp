@@ -18,11 +18,12 @@ namespace opengl
 namespace fbo
 {
 
-typedef
+using
+optional_config
+=
 fcppt::optional::object<
 	sge::opengl::fbo::config
->
-optional_config;
+>;
 
 }
 }

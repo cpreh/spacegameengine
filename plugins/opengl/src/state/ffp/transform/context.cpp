@@ -33,10 +33,10 @@ sge::opengl::state::ffp::transform::context::context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				1u
+				1U
 			},
 			sge::opengl::info::minor_version{
-				0u
+				0U
 			}
 		)
 		?
@@ -60,8 +60,7 @@ sge::opengl::state::ffp::transform::context::context(
 FCPPT_PP_POP_WARNING
 
 sge::opengl::state::ffp::transform::context::~context()
-{
-}
+= default;
 
 sge::opengl::state::ffp::transform::context::optional_load_transpose_matrix_f
 sge::opengl::state::ffp::transform::context::load_transpose_matrix_f() const

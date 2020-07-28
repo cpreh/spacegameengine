@@ -17,7 +17,7 @@ sge::opengl::fbo::gen_render_buffer(
 	sge::opengl::fbo::config const &_config
 )
 {
-	GLuint id;
+	GLuint id{};
 
 	sge::opengl::call_fun_ref(
 		_config.gen_renderbuffers(),

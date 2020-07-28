@@ -24,8 +24,7 @@ sge::opengl::pixel_store_context::pixel_store_context()
 }
 
 sge::opengl::pixel_store_context::~pixel_store_context()
-{
-}
+= default;
 
 void
 sge::opengl::pixel_store_context::unpack_alignment(

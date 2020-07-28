@@ -8,7 +8,7 @@
 #define SGE_OPENGL_FBO_ATTACHMENT_HPP_INCLUDED
 
 #include <sge/opengl/fbo/attachment_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace fbo
 
 class attachment
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		attachment
 	);
 protected:

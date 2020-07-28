@@ -32,10 +32,12 @@ sge::opengl::get_string(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("glGetString() failed!")
 			);
+	}
 
 	return
 		std::string(

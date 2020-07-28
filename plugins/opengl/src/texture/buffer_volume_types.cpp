@@ -15,7 +15,7 @@ sge::renderer::size_type
 sge::opengl::texture::buffer_volume_types::min_size()
 {
 	return
-		16u;
+		16U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 }
 
 sge::opengl::texture::buffer_volume_types::init_function_type

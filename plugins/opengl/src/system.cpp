@@ -18,17 +18,18 @@
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <sge/window/object.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <awl/system/object_ref.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 sge::opengl::system::system(
-	fcppt::log::object &_log,
-	awl::system::object &_awl_system
+	fcppt::log::object_reference const _log,
+	awl::system::object_ref const _awl_system
 )
 :
 	sge::renderer::system::system(),
@@ -51,8 +52,7 @@ sge::opengl::system::system(
 }
 
 sge::opengl::system::~system()
-{
-}
+= default;
 
 sge::renderer::device::core_unique_ptr
 sge::opengl::system::create_core_renderer(
@@ -83,9 +83,13 @@ sge::opengl::system::create_ffp_renderer(
 			>(
 				log_,
 				_parameters.display_mode(),
-				_parameters.window().get(),
-				*platform_system_,
-				*backend_system_
+				_parameters.window(),
+				fcppt::make_ref(
+					*platform_system_
+				),
+				fcppt::make_ref(
+					*backend_system_
+				)
 			)
 		);
 }

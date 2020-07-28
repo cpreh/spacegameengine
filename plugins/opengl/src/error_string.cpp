@@ -43,8 +43,8 @@ sge::opengl::error_string(
 	case GL_TABLE_TOO_LARGE:
 		return
 			FCPPT_TEXT("GL_TABLE_TOO_LARGE");
+	default:
+		return
+			FCPPT_TEXT("Unknown");
 	}
-
-	return
-		FCPPT_TEXT("Unknown");
 }

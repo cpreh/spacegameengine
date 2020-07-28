@@ -7,7 +7,7 @@
 #include <sge/opengl/draw_arrays.hpp>
 #include <sge/opengl/draw_elements.hpp>
 #include <sge/opengl/clear/set.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/render_context/object.hpp>
 #include <sge/opengl/state/set_defaults.hpp>
 #include <sge/opengl/state/core/blend/set.hpp>
@@ -52,6 +52,7 @@
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/target/base.hpp>
+#include <sge/renderer/target/base_ref.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/optional_offscreen_ref.hpp>
 #include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
@@ -61,11 +62,12 @@
 #include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
@@ -82,9 +84,9 @@
 
 
 sge::opengl::render_context::object::object(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context,
-	sge::renderer::target::base &_target
+	fcppt::log::object_reference const _log,
+	sge::opengl::context::object_ref const _context,
+	sge::renderer::target::base_ref const _target
 )
 :
 	sge::renderer::context::ffp(),
@@ -98,23 +100,24 @@ sge::opengl::render_context::object::object(
 		_target
 	),
 	scoped_target_(
-		dynamic_cast<
-			sge::opengl::target::base &
-		>(
-			target_
+		fcppt::make_ref(
+			dynamic_cast<
+				sge::opengl::target::base &
+			>(
+				target_.get()
+			)
 		)
 	),
 	scoped_offscreen_target_()
 {
 	sge::opengl::state::set_defaults(
-		log_,
-		_context
+		log_.get(),
+		_context.get()
 	);
 }
 
 sge::opengl::render_context::object::~object()
-{
-}
+= default;
 
 void
 sge::opengl::render_context::object::end_rendering()
@@ -126,7 +129,7 @@ sge::renderer::target::base &
 sge::opengl::render_context::object::target()
 {
 	return
-		target_;
+		target_.get();
 }
 
 void
@@ -177,10 +180,12 @@ sge::opengl::render_context::object::offscreen_target(
 					fcppt::make_unique_ptr<
 						sge::opengl::target::scoped
 					>(
-						dynamic_cast<
-							sge::opengl::target::base &
-						>(
-							_target.get()
+						fcppt::make_ref(
+							dynamic_cast<
+								sge::opengl::target::base &
+							>(
+								_target.get()
+							)
 						)
 					)
 				);
@@ -199,8 +204,8 @@ sge::opengl::render_context::object::render_indexed(
 )
 {
 	sge::opengl::draw_elements(
-		log_,
-		context_,
+		log_.get(),
+		context_.get(),
 		_index_buffer,
 		_first_vertex,
 		_num_vertices,
@@ -218,7 +223,7 @@ sge::opengl::render_context::object::render_nonindexed(
 )
 {
 	sge::opengl::draw_arrays(
-		log_,
+		log_.get(),
 		_first_vertex,
 		_num_vertices,
 		_primitive_type
@@ -231,8 +236,8 @@ sge::opengl::render_context::object::activate_vertex_buffer(
 )
 {
 	sge::opengl::vertex::set_buffer(
-		context_,
-		_vertex_buffer.get()
+		context_.get(),
+		_vertex_buffer
 	);
 }
 
@@ -242,7 +247,7 @@ sge::opengl::render_context::object::deactivate_vertex_buffer(
 )
 {
 	sge::opengl::vertex::unset_buffer(
-		context_,
+		context_.get(),
 		_vertex_buffer
 	);
 }
@@ -253,7 +258,7 @@ sge::opengl::render_context::object::vertex_declaration(
 )
 {
 	sge::opengl::vertex::set_declaration(
-		context_,
+		context_.get(),
 		_vertex_declaration
 	);
 }
@@ -265,8 +270,8 @@ sge::opengl::render_context::object::texture(
 )
 {
 	sge::opengl::texture::activate(
-		log_,
-		context_,
+		log_.get(),
+		context_.get(),
 		_texture,
 		_stage
 	);
@@ -278,7 +283,7 @@ sge::opengl::render_context::object::blend_state(
 )
 {
 	sge::opengl::state::core::blend::set(
-		context_,
+		context_.get(),
 		_state
 	);
 }
@@ -289,7 +294,7 @@ sge::opengl::render_context::object::depth_stencil_state(
 )
 {
 	sge::opengl::state::core::depth_stencil::set(
-		context_,
+		context_.get(),
 		_state
 	);
 }
@@ -300,7 +305,7 @@ sge::opengl::render_context::object::rasterizer_state(
 )
 {
 	sge::opengl::state::core::rasterizer::set(
-		context_,
+		context_.get(),
 		_state
 	);
 }
@@ -311,8 +316,8 @@ sge::opengl::render_context::object::sampler_state(
 )
 {
 	sge::opengl::state::core::sampler::set(
-		log_,
-		context_,
+		log_.get(),
+		context_.get(),
 		_samplers
 	);
 }
@@ -323,7 +328,7 @@ sge::opengl::render_context::object::alpha_test_state(
 )
 {
 	sge::opengl::state::ffp::alpha_test::set(
-		context_,
+		context_.get(),
 		_state
 	);
 }
@@ -334,7 +339,7 @@ sge::opengl::render_context::object::clip_plane_state(
 )
 {
 	sge::opengl::state::ffp::clip_plane::set(
-		context_,
+		context_.get(),
 		_planes
 	);
 }
@@ -345,7 +350,7 @@ sge::opengl::render_context::object::fog_state(
 )
 {
 	sge::opengl::state::ffp::fog::set(
-		context_,
+		context_.get(),
 		_state
 	);
 }
@@ -356,7 +361,7 @@ sge::opengl::render_context::object::lighting_state(
 )
 {
 	sge::opengl::state::ffp::lighting::set(
-		context_,
+		context_.get(),
 		_state
 	);
 }
@@ -367,7 +372,7 @@ sge::opengl::render_context::object::lights_state(
 )
 {
 	sge::opengl::state::ffp::lighting::light::set(
-		context_,
+		context_.get(),
 		_lights
 	);
 }
@@ -378,7 +383,7 @@ sge::opengl::render_context::object::material_state(
 )
 {
 	sge::opengl::state::ffp::lighting::material::set(
-		context_,
+		context_.get(),
 		_state
 	);
 }
@@ -389,8 +394,8 @@ sge::opengl::render_context::object::misc_state(
 )
 {
 	sge::opengl::state::ffp::misc::set(
-		log_,
-		context_,
+		log_.get(),
+		context_.get(),
 		_state
 	);
 }
@@ -401,8 +406,8 @@ sge::opengl::render_context::object::sampler_ffp_state(
 )
 {
 	sge::opengl::state::ffp::sampler::set(
-		log_,
-		context_,
+		log_.get(),
+		context_.get(),
 		_samplers
 	);
 }
@@ -414,7 +419,7 @@ sge::opengl::render_context::object::transform(
 )
 {
 	sge::opengl::state::ffp::transform::set(
-		context_,
+		context_.get(),
 		_mode,
 		_state
 	);

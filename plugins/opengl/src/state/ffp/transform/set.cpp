@@ -13,6 +13,7 @@
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -36,8 +37,12 @@ sge::opengl::state::ffp::transform::set(
 					sge::opengl::context::use<
 						sge::opengl::state::ffp::transform::default_context
 					>(
-						_context,
-						_context
+						fcppt::make_ref(
+							_context
+						),
+						fcppt::make_ref(
+							_context
+						)
 					).default_state()
 				);
 		},

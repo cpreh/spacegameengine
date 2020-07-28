@@ -10,7 +10,7 @@
 #include <sge/opengl/backend/current_fwd.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -25,7 +25,7 @@ namespace backend
 
 class current
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		current
 	);
 protected:
@@ -34,6 +34,7 @@ public:
 	virtual
 	~current();
 
+	[[nodiscard]]
 	virtual
 	sge::opengl::backend::fun_ptr
 	load_function(

@@ -13,9 +13,6 @@
 #include <sge/opengl/state/core/rasterizer/make_actors.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <fcppt/container/join.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <functional>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::state::actor_vector
@@ -33,11 +30,15 @@ sge::opengl::state::core::rasterizer::make_actors(
 					_parameters.fill_mode()
 				),
 				sge::opengl::state::actor{
-					std::bind(
-						sge::opengl::enable_bool,
-						GL_SCISSOR_TEST,
-						_parameters.enable_scissor_test().get()
-					)
+					[
+						enabled =
+							_parameters.enable_scissor_test().get()
+					]{
+						sge::opengl::enable_bool(
+							GL_SCISSOR_TEST,
+							enabled
+						);
+					}
 				}
 			}
 		);

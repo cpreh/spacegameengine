@@ -15,9 +15,10 @@ namespace opengl
 namespace info
 {
 
-typedef
-unsigned
-version_type;
+using
+version_type
+=
+unsigned;
 
 }
 }

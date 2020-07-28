@@ -34,6 +34,7 @@
 #include <sge/renderer/lock_flags/write.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -64,13 +65,13 @@ sge::opengl::texture::basic_lockable_buffer<
 	Types
 >::basic_lockable_buffer(
 	format_type const _format,
-	config_type const &_config,
+	const_config_ref const _config,
 	sge::opengl::texture::basic_buffer_parameters const &_parameters
 )
 :
 	gl_base(
 		_format,
-		_config,
+		_config.get(),
 		_parameters
 	),
 	log_{
@@ -117,8 +118,7 @@ template<
 sge::opengl::texture::basic_lockable_buffer<
 	Types
 >::~basic_lockable_buffer()
-{
-}
+= default;
 
 template<
 	typename Types
@@ -224,14 +224,14 @@ sge::opengl::texture::basic_lockable_buffer<
 		cur_lock->unlock();
 
 		sge::opengl::texture::scoped_work_binding const binding(
-			log_,
-			context_,
+			log_.get(),
+			context_.get(),
 			type_,
 			this->id()
 		);
 
 		sge::opengl::set_unpack_alignment(
-			context_,
+			context_.get(),
 			sge::opengl::stride_to_unpack_alignment(
 				stride_
 			)
@@ -239,8 +239,8 @@ sge::opengl::texture::basic_lockable_buffer<
 
 		Types::dim_types::sub_function().get()(
 			binding,
-			context_,
-			config_,
+			context_.get(),
+			config_.get(),
 			this->buffer_type(),
 			color_order_,
 			color_base_type_,
@@ -286,6 +286,7 @@ sge::opengl::texture::basic_lockable_buffer<
 			_lock_area
 		)
 	)
+	{
 		throw sge::renderer::exception(
 			(
 				fcppt::format(
@@ -295,6 +296,7 @@ sge::opengl::texture::basic_lockable_buffer<
 				% this->size()
 			).str()
 		);
+	}
 
 	lock_unique_ptr const &cur_lock(
 		fcppt::optional::assign(
@@ -321,8 +323,8 @@ sge::opengl::texture::basic_lockable_buffer<
 	)
 	{
 		sge::opengl::texture::scoped_work_binding const binding(
-			log_,
-			context_,
+			log_.get(),
+			context_.get(),
 			type_,
 			this->id()
 		);
@@ -340,7 +342,7 @@ sge::opengl::texture::basic_lockable_buffer<
 	cur_lock->lock();
 
 	lock_area_ =
-		// TODO: Change this
+		// TODO(philipp): Change this
 		_lock_area.size()
 		==
 		this->size()
@@ -447,6 +449,7 @@ sge::opengl::texture::basic_lockable_buffer<
 		sge::image::view::to_const<
 			image_tag
 		>(
+			// NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
 			const_cast<
 				sge::opengl::texture::basic_lockable_buffer<
 					Types

@@ -22,9 +22,9 @@ namespace ffp
 
 void
 set_defaults(
-	fcppt::log::object &,
-	sge::opengl::context::object &
-);
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	sge::opengl::context::object & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

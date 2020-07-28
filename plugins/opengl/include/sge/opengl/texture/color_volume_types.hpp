@@ -23,24 +23,28 @@ namespace texture
 
 struct color_volume_types
 {
-	typedef
-	sge::renderer::color_buffer::writable_volume
-	base;
+	using
+	base
+	=
+	sge::renderer::color_buffer::writable_volume;
 
-	// TODO: Factor this out!
-	typedef
+	// TODO(philipp): Factor this out!
+	using
+	gl_buffer
+	=
 	sge::opengl::texture::basic_lockable_buffer<
 		sge::opengl::texture::color_volume_types
-	>
-	gl_buffer;
+	>;
 
-	typedef
-	sge::opengl::texture::buffer_volume_types
-	dim_types;
+	using
+	dim_types
+	=
+	sge::opengl::texture::buffer_volume_types;
 
-	typedef
-	sge::opengl::texture::color_format_types
-	format_types;
+	using
+	format_types
+	=
+	sge::opengl::texture::color_format_types;
 };
 
 }

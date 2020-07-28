@@ -5,28 +5,29 @@
 
 
 #include <sge/opengl/target/base.hpp>
+#include <sge/opengl/target/base_ref.hpp>
 #include <sge/opengl/target/scoped.hpp>
 
 
 sge::opengl::target::scoped::scoped(
-	sge::opengl::target::base &_target
+	sge::opengl::target::base_ref const _target
 )
 :
 	target_(
 		_target
 	)
 {
-	target_.bind();
+	target_.get().bind();
 }
 
 sge::opengl::target::scoped::~scoped()
 {
-	target_.unbind();
+	target_.get().unbind();
 }
 
 sge::opengl::target::base &
 sge::opengl::target::scoped::get() const
 {
 	return
-		target_;
+		target_.get();
 }

@@ -6,7 +6,7 @@
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/convert/index_format.hpp>
 #include <sge/opengl/index/buffer.hpp>
@@ -23,10 +23,11 @@
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::opengl::index::buffer::buffer(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::index::buffer_parameters const &_parameters
 )
 :
@@ -41,12 +42,14 @@ sge::opengl::index::buffer::buffer(
 		)
 	),
 	buffer_(
-		sge::opengl::context::use<
-			sge::opengl::buffer::vbo_context
-		>(
-			_context,
-			_context
-		).index_buffer(),
+		fcppt::make_ref(
+			sge::opengl::context::use<
+				sge::opengl::buffer::vbo_context
+			>(
+				_context,
+				_context
+			).index_buffer()
+		),
 		_parameters.count().get(),
 		sge::renderer::index::dynamic::format_stride(
 			format_
@@ -58,8 +61,7 @@ sge::opengl::index::buffer::buffer(
 }
 
 sge::opengl::index::buffer::~buffer()
-{
-}
+= default;
 
 GLenum
 sge::opengl::index::buffer::gl_format() const

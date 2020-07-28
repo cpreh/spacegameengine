@@ -25,7 +25,7 @@ namespace transform
 
 void
 set_matrix_and_mode(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::state::ffp::transform::mode,
 	sge::renderer::matrix4 const &
 );

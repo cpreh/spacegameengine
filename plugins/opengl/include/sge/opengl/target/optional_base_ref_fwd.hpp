@@ -18,11 +18,12 @@ namespace opengl
 namespace target
 {
 
-typedef
+using
+optional_base_ref
+=
 fcppt::optional::reference<
 	sge::opengl::target::base
->
-optional_base_ref;
+>;
 
 }
 }

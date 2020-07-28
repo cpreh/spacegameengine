@@ -11,6 +11,7 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
@@ -24,13 +25,17 @@ sge::opengl::init_multi_sampling(
 	if(
 		!_samples.has_value()
 	)
+	{
 		return;
+	}
 
 	sge::opengl::multi_sample_context const &multi_sample_context(
 		sge::opengl::context::use<
 			sge::opengl::multi_sample_context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		)
 	);

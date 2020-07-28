@@ -9,7 +9,7 @@
 
 #include <sge/opengl/backend/context_fwd.hpp>
 #include <sge/opengl/backend/current_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -21,7 +21,7 @@ namespace backend
 
 class context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 protected:
@@ -30,6 +30,7 @@ public:
 	virtual
 	~context();
 
+	[[nodiscard]]
 	virtual
 	sge::opengl::backend::current_unique_ptr
 	activate() = 0;

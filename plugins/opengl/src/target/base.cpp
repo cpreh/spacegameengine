@@ -8,9 +8,7 @@
 
 
 sge::opengl::target::base::base()
-{
-}
+= default;
 
 sge::opengl::target::base::~base()
-{
-}
+= default;

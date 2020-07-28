@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/core/depth_stencil/make_actors.hpp>
 #include <sge/opengl/state/core/depth_stencil/depth/make_actors.hpp>
@@ -15,7 +15,7 @@
 
 sge::opengl::state::actor_vector
 sge::opengl::state::core::depth_stencil::make_actors(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::state::core::depth_stencil::parameters const &_parameters
 )
 {

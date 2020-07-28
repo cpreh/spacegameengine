@@ -13,7 +13,7 @@
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/config_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/math/dim/static_decl.hpp>
 
 
@@ -27,49 +27,55 @@ namespace texture
 template<
 	typename Types
 >
-class basic_buffer
+class basic_buffer // NOLINT(fuchsia-multiple-inheritance)
 :
 	public
 		Types::base,
 	public
 		sge::opengl::texture::buffer_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		basic_buffer
 	);
 public:
-	typedef
+	using
+	base_type
+	=
 	typename
-	Types::base
-	base_type;
+	Types::base;
 
-	typedef
+	using
+	image_tag
+	=
 	typename
-	base_type::image_tag
-	image_tag;
+	base_type::image_tag;
 
-	typedef
+	using
+	color_tag
+	=
 	sge::image::traits::image::color_tag<
 		image_tag
-	>
-	color_tag;
+	>;
 
-	typedef
+	using
+	format_type
+	=
 	sge::image::traits::pixel::format<
 		color_tag
-	>
-	format_type;
+	>;
 
-	typedef
+	using
+	dim
+	=
 	typename
-	base_type::dim
-	dim;
+	base_type::dim;
 
-	typedef
+	using
+	config_type
+	=
 	sge::opengl::texture::config<
 		dim::static_size::value
-	>
-	config_type;
+	>;
 
 	basic_buffer(
 		format_type,
@@ -80,10 +86,12 @@ public:
 	~basic_buffer()
 	override;
 
+	[[nodiscard]]
 	dim
 	size() const
 	override;
 
+	[[nodiscard]]
 	format_type
 	format() const
 	override;

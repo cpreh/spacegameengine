@@ -18,11 +18,12 @@ namespace opengl
 namespace backend
 {
 
-typedef
+using
+context_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::backend::context
->
-context_unique_ptr;
+>;
 
 }
 }

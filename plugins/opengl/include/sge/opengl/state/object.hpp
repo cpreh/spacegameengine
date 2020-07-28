@@ -9,7 +9,7 @@
 
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,13 +26,13 @@ class object
 :
 	public Base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	explicit
 	object(
-		sge::opengl::state::actor_vector const &
+		sge::opengl::state::actor_vector &&
 	);
 
 	~object()

@@ -22,11 +22,12 @@ namespace core
 namespace blend
 {
 
-typedef
+using
+optional_config
+=
 fcppt::optional::object<
 	sge::opengl::state::core::blend::config
->
-optional_config;
+>;
 
 }
 }

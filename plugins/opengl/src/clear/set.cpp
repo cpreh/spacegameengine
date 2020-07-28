@@ -37,7 +37,7 @@ sge::opengl::clear::set(
 			sge::renderer::clear::back_buffer_value const &_back_buffer
 		)
 		{
-			flags |= GL_COLOR_BUFFER_BIT;
+			flags |= GL_COLOR_BUFFER_BIT; // NOLINT(hicpp-signed-bitwise)
 
 			sge::opengl::clear::back_buffer(
 				_back_buffer
@@ -53,7 +53,7 @@ sge::opengl::clear::set(
 			sge::renderer::clear::depth_buffer_value const _depth_buffer
 		)
 		{
-			flags |= GL_DEPTH_BUFFER_BIT;
+			flags |= GL_DEPTH_BUFFER_BIT; // NOLINT(hicpp-signed-bitwise)
 
 			sge::opengl::clear::depth_buffer(
 				_depth_buffer
@@ -69,7 +69,7 @@ sge::opengl::clear::set(
 			sge::renderer::clear::stencil_buffer_value const _stencil_buffer
 		)
 		{
-			flags |= GL_STENCIL_BUFFER_BIT;
+			flags |= GL_STENCIL_BUFFER_BIT; // NOLINT(hicpp-signed-bitwise)
 
 			sge::opengl::clear::stencil_buffer(
 				_stencil_buffer

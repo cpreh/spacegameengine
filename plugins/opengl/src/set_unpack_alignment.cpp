@@ -11,6 +11,7 @@
 #include <sge/opengl/unpack_alignment.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -23,7 +24,9 @@ sge::opengl::set_unpack_alignment(
 		sge::opengl::context::use<
 			sge::opengl::pixel_store_context
 		>(
-			_context
+			fcppt::make_ref(
+				_context
+			)
 		)
 	);
 
@@ -32,7 +35,9 @@ sge::opengl::set_unpack_alignment(
 		==
 		_alignment
 	)
+	{
 		return;
+	}
 
 	sge::opengl::pixel_store_int(
 		GL_UNPACK_ALIGNMENT,

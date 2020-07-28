@@ -8,9 +8,7 @@
 
 
 sge::opengl::fbo::attachment::attachment()
-{
-}
+= default;
 
 sge::opengl::fbo::attachment::~attachment()
-{
-}
+= default;

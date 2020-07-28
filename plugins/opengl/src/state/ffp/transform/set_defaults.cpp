@@ -24,9 +24,11 @@ sge::opengl::state::ffp::transform::set_defaults(
 			sge::renderer::state::ffp::transform::mode
 		>()
 	)
+	{
 		sge::opengl::state::ffp::transform::set(
 			_context,
 			mode,
 			sge::renderer::state::ffp::transform::const_optional_object_ref()
 		);
+	}
 }

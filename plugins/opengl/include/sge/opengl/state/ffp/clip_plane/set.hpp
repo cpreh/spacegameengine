@@ -24,7 +24,7 @@ namespace clip_plane
 
 void
 set(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &
 );
 

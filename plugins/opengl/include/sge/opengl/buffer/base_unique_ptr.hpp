@@ -18,11 +18,12 @@ namespace opengl
 namespace buffer
 {
 
-typedef
+using
+base_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::buffer::base
->
-base_unique_ptr;
+>;
 
 }
 }

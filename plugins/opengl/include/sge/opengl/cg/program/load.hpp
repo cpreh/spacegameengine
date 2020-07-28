@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_CG_PROGRAM_LOAD_HPP_INCLUDED
 #define SGE_OPENGL_CG_PROGRAM_LOAD_HPP_INCLUDED
 
-#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 
 
@@ -22,7 +22,7 @@ namespace program
 
 sge::renderer::cg::loaded_program_unique_ptr
 load(
-	sge::cg::program::object &
+	sge::cg::program::object_ref
 );
 
 }

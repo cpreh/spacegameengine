@@ -11,7 +11,7 @@
 #include <sge/opengl/unpack_alignment.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ class pixel_store_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		pixel_store_context
 	);
 public:
@@ -37,10 +37,14 @@ public:
 		sge::opengl::unpack_alignment
 	);
 
+	[[nodiscard]]
 	sge::opengl::unpack_alignment
 	unpack_alignment() const;
 
-	typedef void parameter;
+	using
+	parameter
+	=
+	void;
 
 	static sge::opengl::context::id const static_id;
 private:

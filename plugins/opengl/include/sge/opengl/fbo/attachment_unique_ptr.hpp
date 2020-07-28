@@ -18,11 +18,12 @@ namespace opengl
 namespace fbo
 {
 
-typedef
+using
+attachment_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::fbo::attachment
->
-attachment_unique_ptr;
+>;
 
 }
 }

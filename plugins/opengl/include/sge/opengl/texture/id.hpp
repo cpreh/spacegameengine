@@ -18,7 +18,10 @@ namespace opengl
 namespace texture
 {
 
-typedef sge::renderer::opengl::texture::id id;
+using
+id
+=
+sge::renderer::opengl::texture::id;
 
 }
 }

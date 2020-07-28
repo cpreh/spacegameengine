@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_MAKE_ACTORS_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_MAKE_ACTORS_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/variant_fwd.hpp>
 
@@ -27,7 +27,7 @@ namespace stencil
 
 sge::opengl::state::actor_vector
 make_actors(
-	sge::opengl::context::object &,
+	sge::opengl::context::object_ref,
 	sge::renderer::state::core::depth_stencil::stencil::variant const &
 );
 

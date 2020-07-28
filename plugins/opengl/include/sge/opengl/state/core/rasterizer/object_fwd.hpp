@@ -22,9 +22,12 @@ namespace core
 namespace rasterizer
 {
 
-typedef sge::opengl::state::object<
+using
+object
+=
+sge::opengl::state::object<
 	sge::renderer::state::core::rasterizer::object
-> object;
+>;
 
 }
 }

@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/core/sampler/actor_vector.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
 
@@ -27,7 +27,7 @@ namespace filter
 
 sge::opengl::state::core::sampler::actor_vector
 anisotropic(
-	sge::opengl::context::object &,
+	sge::opengl::context::object_ref,
 	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &
 );
 

@@ -12,7 +12,7 @@
 #include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/texture/multi_context_fwd.hpp>
 #include <sge/opengl/texture/optional_multi_config.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,13 +26,14 @@ class multi_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		multi_context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	multi_context(
@@ -42,6 +43,7 @@ public:
 	~multi_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::texture::optional_multi_config const &
 	config() const;
 

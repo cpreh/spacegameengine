@@ -22,6 +22,7 @@
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -44,7 +45,9 @@ sge::opengl::texture::activate(
 		sge::opengl::context::use<
 			sge::opengl::texture::bind_context
 		>(
-			_context
+			fcppt::make_ref(
+				_context
+			)
 		)
 	);
 
@@ -98,7 +101,7 @@ sge::opengl::texture::activate(
 			> const _texture
 		)
 		{
-			sge::opengl::texture::base const &base(
+			auto const &base(
 				dynamic_cast<
 					sge::opengl::texture::base const &
 				>(

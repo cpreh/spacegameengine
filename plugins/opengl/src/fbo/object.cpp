@@ -5,7 +5,7 @@
 
 
 #include <sge/opengl/fbo/bind.hpp>
-#include <sge/opengl/fbo/config_fwd.hpp>
+#include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/create_id.hpp>
 #include <sge/opengl/fbo/delete_id.hpp>
 #include <sge/opengl/fbo/id.hpp>
@@ -13,7 +13,7 @@
 
 
 sge::opengl::fbo::object::object(
-	sge::opengl::fbo::config const &_context
+	sge::opengl::fbo::const_config_ref const _context
 )
 :
 	context_(
@@ -21,7 +21,7 @@ sge::opengl::fbo::object::object(
 	),
 	id_(
 		sge::opengl::fbo::create_id(
-			context_
+			context_.get()
 		)
 	)
 {
@@ -30,7 +30,7 @@ sge::opengl::fbo::object::object(
 sge::opengl::fbo::object::~object()
 {
 	sge::opengl::fbo::delete_id(
-		context_,
+		context_.get(),
 		id_
 	);
 }
@@ -39,7 +39,7 @@ void
 sge::opengl::fbo::object::bind() const
 {
 	sge::opengl::fbo::bind(
-		context_,
+		context_.get(),
 		this->id()
 	);
 }

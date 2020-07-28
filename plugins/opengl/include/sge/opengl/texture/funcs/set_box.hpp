@@ -31,7 +31,7 @@ namespace funcs
 void
 set_box(
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::opengl::texture::volume_config const &,
 	sge::opengl::texture::buffer_type,
 	sge::opengl::color_order,

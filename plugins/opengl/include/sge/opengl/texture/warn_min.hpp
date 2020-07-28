@@ -32,7 +32,7 @@ template<
 >
 void
 warn_min(
-	fcppt::log::object &_log,
+	fcppt::log::object &_log, // NOLINT(google-runtime-references)
 	fcppt::math::dim::static_<
 		T,
 		N
@@ -41,12 +41,13 @@ warn_min(
 	fcppt::string const &_what
 )
 {
-	typedef
+	using
+	dim_type
+	=
 	fcppt::math::dim::static_<
 		T,
 		N
-	>
-	dim_type;
+	>;
 
 	for(
 		auto const element
@@ -55,6 +56,7 @@ warn_min(
 			_dim
 		)
 	)
+	{
 		if(
 			element < _min
 		)
@@ -77,6 +79,7 @@ warn_min(
 
 			return;
 		}
+	}
 }
 
 }

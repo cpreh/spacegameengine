@@ -20,9 +20,12 @@ namespace opengl
 namespace state
 {
 
-typedef std::vector<
+using
+actor_vector
+=
+std::vector<
 	sge::opengl::state::actor
-> actor_vector;
+>;
 
 }
 }

@@ -35,10 +35,10 @@ sge::opengl::multi_sample_context::multi_sample_context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				1u
+				1U
 			},
 			sge::opengl::info::minor_version{
-				3u
+				3U
 			}
 		)
 		?
@@ -69,8 +69,7 @@ sge::opengl::multi_sample_context::multi_sample_context(
 FCPPT_PP_POP_WARNING
 
 sge::opengl::multi_sample_context::~multi_sample_context()
-{
-}
+= default;
 
 sge::opengl::optional_enum
 sge::opengl::multi_sample_context::flag() const

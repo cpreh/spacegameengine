@@ -29,10 +29,12 @@ public:
 		sge::opengl::egl::minor_version
 	);
 
-	sge::opengl::egl::major_version const
+	[[nodiscard]]
+	sge::opengl::egl::major_version
 	major() const;
 
-	sge::opengl::egl::minor_version const
+	[[nodiscard]]
+	sge::opengl::egl::minor_version
 	minor() const;
 private:
 	sge::opengl::egl::major_version major_;

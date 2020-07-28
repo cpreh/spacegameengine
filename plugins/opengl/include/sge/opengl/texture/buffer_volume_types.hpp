@@ -23,28 +23,33 @@ namespace texture
 
 struct buffer_volume_types
 {
+	[[nodiscard]]
 	static
 	sge::renderer::size_type
 	min_size();
 
 	static constexpr fcppt::math::size_type const num_dims = 3;
 
-	typedef
+	using
+	init_function_type
+	=
 	sge::opengl::texture::init_function<
 		num_dims
-	>
-	init_function_type;
+	>;
 
+	[[nodiscard]]
 	static
 	init_function_type
 	init_function();
 
-	typedef
+	using
+	sub_function_type
+	=
 	sge::opengl::texture::sub_function<
 		num_dims
-	>
-	sub_function_type;
+	>;
 
+	[[nodiscard]]
 	static
 	sub_function_type
 	sub_function();

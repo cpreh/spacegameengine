@@ -13,6 +13,7 @@
 #include <sge/opengl/windows/visual/create.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/system/object_fwd.hpp>
 #include <awl/visual/object.hpp>
@@ -54,7 +55,7 @@ sge::opengl::wgl::system::create_visual(
 
 sge::opengl::backend::context_unique_ptr
 sge::opengl::wgl::system::create_context(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	return
@@ -67,7 +68,7 @@ sge::opengl::wgl::system::create_context(
 				fcppt::cast::dynamic_exn<
 					awl::backends::windows::window::object &
 				>(
-					_window.awl_object()
+					_window.get().awl_object()
 				)
 			)
 		);

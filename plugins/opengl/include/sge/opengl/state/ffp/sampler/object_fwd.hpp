@@ -23,10 +23,13 @@ namespace ffp
 namespace sampler
 {
 
-typedef sge::opengl::state::unary_object<
+using
+object
+=
+sge::opengl::state::unary_object<
 	sge::renderer::state::ffp::sampler::object,
 	sge::opengl::texture::active_level
-> object;
+>;
 
 }
 }

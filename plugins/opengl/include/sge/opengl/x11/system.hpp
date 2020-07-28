@@ -13,10 +13,10 @@
 #include <sge/opengl/x11/state_atom.hpp>
 #include <sge/opengl/xrandr/optional_system_unique_ptr.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/x11/system/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/x11/system/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -30,13 +30,13 @@ class system
 :
 	public sge::opengl::platform::system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 public:
 	system(
-		fcppt::log::object &,
-		awl::backends::x11::system::object &
+		fcppt::log::object_reference,
+		awl::backends::x11::system::object_ref
 	);
 
 	~system()
@@ -45,11 +45,11 @@ private:
 	sge::opengl::platform::device_state_unique_ptr
 	create_device_state(
 		sge::renderer::display_mode::optional_fullscreen const &,
-		sge::window::object &
+		sge::window::object_ref
 	)
 	override;
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
 	sge::opengl::xrandr::optional_system_unique_ptr const xrandr_system_;
 

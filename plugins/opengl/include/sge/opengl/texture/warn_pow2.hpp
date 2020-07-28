@@ -34,7 +34,7 @@ template<
 >
 void
 warn_pow2(
-	fcppt::log::object &_log,
+	fcppt::log::object &_log, // NOLINT(google-runtime-references)
 	fcppt::math::dim::object<
 		T,
 		N,
@@ -50,6 +50,7 @@ warn_pow2(
 			_dim
 		)
 	)
+	{
 		if(
 			fcppt::not_(
 				fcppt::math::is_power_of_2(
@@ -71,6 +72,7 @@ warn_pow2(
 
 			return;
 		}
+	}
 }
 
 }

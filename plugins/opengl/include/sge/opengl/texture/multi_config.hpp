@@ -23,23 +23,26 @@ namespace texture
 class multi_config
 {
 public:
-	typedef
+	using
+	gl_active_texture
+	=
 	sge::opengl::fun_ref<
 		PFNGLACTIVETEXTUREPROC
-	>
-	gl_active_texture;
+	>;
 
-	// TODO: mesa headers are broken
+	// TODO(philipp): mesa headers are broken
 	//PFNGLCLIENTACTIVETEXTUREPROC
-	typedef
-	PFNGLACTIVETEXTUREPROC
-	gl_client_active_texture_proc;
+	using
+	gl_client_active_texture_proc
+	=
+	PFNGLACTIVETEXTUREPROC;
 
-	typedef
+	using
+	gl_client_active_texture
+	=
 	sge::opengl::fun_ref<
 		gl_client_active_texture_proc
-	>
-	gl_client_active_texture;
+	>;
 
 	multi_config(
 		gl_active_texture,
@@ -47,12 +50,15 @@ public:
 		sge::renderer::caps::texture_stages
 	);
 
+	[[nodiscard]]
 	gl_active_texture
 	active_texture() const;
 
+	[[nodiscard]]
 	gl_client_active_texture
 	client_active_texture() const;
 
+	[[nodiscard]]
 	sge::renderer::caps::texture_stages
 	max_level() const;
 private:

@@ -10,7 +10,7 @@
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/active_level_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -23,18 +23,19 @@ namespace texture
 
 class active_level
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		active_level
 	);
 public:
 	active_level(
-		fcppt::log::object &,
-		sge::opengl::context::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
+		sge::opengl::context::object &, // NOLINT(google-runtime-references)
 		sge::renderer::texture::stage
 	);
 
-	~active_level();
+	~active_level(); // NOLINT(performance-trivially-destructible)
 
+	[[nodiscard]]
 	sge::renderer::texture::stage
 	stage() const;
 private:

@@ -8,9 +8,7 @@
 
 
 sge::opengl::backend::context::context()
-{
-}
+= default;
 
 sge::opengl::backend::context::~context()
-{
-}
+= default;

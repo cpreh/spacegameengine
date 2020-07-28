@@ -32,16 +32,16 @@ sge::opengl::state::ffp::misc::point_sprite::context::context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				2u
+				2U
 			},
 			sge::opengl::info::minor_version{
-				0u
+				0U
 			}
 		)
 		?
 			sge::opengl::state::ffp::misc::point_sprite::optional_config(
 				sge::opengl::state::ffp::misc::point_sprite::config(
-					// TODO: Move all strong typedefs out of the class
+					// TODO(philipp): Move all strong typedefs out of the class
 					sge::opengl::state::ffp::misc::point_sprite::config::point_sprite_flag_type(
 						sge::opengl::convert::to_gl_enum<
 							GL_POINT_SPRITE
@@ -93,8 +93,7 @@ sge::opengl::state::ffp::misc::point_sprite::context::context(
 }
 
 sge::opengl::state::ffp::misc::point_sprite::context::~context()
-{
-}
+= default;
 
 sge::opengl::state::ffp::misc::point_sprite::optional_config const &
 sge::opengl::state::ffp::misc::point_sprite::context::config() const

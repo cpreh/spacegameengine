@@ -7,8 +7,12 @@
 #ifndef SGE_OPENGL_STATE_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_STATE_OBJECT_IMPL_HPP_INCLUDED
 
+#include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -17,11 +21,13 @@ template<
 sge::opengl::state::object<
 	Base
 >::object(
-	sge::opengl::state::actor_vector const &_actors
+	sge::opengl::state::actor_vector &&_actors
 )
 :
 	actors_(
-		_actors
+		std::move(
+			_actors
+		)
 	)
 {
 }
@@ -32,8 +38,7 @@ template<
 sge::opengl::state::object<
 	Base
 >::~object()
-{
-}
+= default;
 
 template<
 	typename Base
@@ -44,13 +49,13 @@ sge::opengl::state::object<
 >::set() const
 {
 	for(
-		sge::opengl::state::actor_vector::const_iterator it(
-			actors_.begin()
-		);
-		it != actors_.end();
-		++it
+		sge::opengl::state::actor const &cur
+		:
+		this->actors_
 	)
-		(*it)();
+	{
+		cur();
+	}
 }
 
 #endif

@@ -8,6 +8,7 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/core/sampler/context.hpp>
 #include <sge/opengl/state/core/sampler/set_defaults.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -18,7 +19,11 @@ sge::opengl::state::core::sampler::set_defaults(
 	sge::opengl::context::use<
 		sge::opengl::state::core::sampler::context
 	>(
-		_context,
-		_context
+		fcppt::make_ref(
+			_context
+		),
+		fcppt::make_ref(
+			_context
+		)
 	).reset();
 }

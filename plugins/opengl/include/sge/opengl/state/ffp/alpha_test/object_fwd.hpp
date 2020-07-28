@@ -22,9 +22,12 @@ namespace ffp
 namespace alpha_test
 {
 
-typedef sge::opengl::state::object<
+using
+object
+=
+sge::opengl::state::object<
 	sge::renderer::state::ffp::alpha_test::object
-> object;
+>;
 
 }
 }

@@ -23,8 +23,8 @@ namespace funcs
 
 void
 set_active_level(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::texture::stage
 );
 

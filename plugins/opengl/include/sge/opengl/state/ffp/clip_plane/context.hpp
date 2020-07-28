@@ -10,7 +10,7 @@
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/renderer/state/index_count.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,17 +28,21 @@ class context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
-	typedef void parameter;
+	using
+	parameter
+	=
+	void;
 
 	context();
 
 	~context()
 	override;
 
+	[[nodiscard]]
 	sge::renderer::state::index_count
 	indices() const;
 

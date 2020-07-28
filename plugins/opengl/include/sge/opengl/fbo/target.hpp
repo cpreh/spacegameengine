@@ -7,24 +7,24 @@
 #ifndef SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 #define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/fbo/attachment_fwd.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/attachment_unique_ptr.hpp>
 #include <sge/opengl/fbo/config_fwd.hpp>
+#include <sge/opengl/fbo/const_render_buffer_ref.hpp>
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/last_context_fwd.hpp>
 #include <sge/opengl/fbo/object.hpp>
-#include <sge/opengl/fbo/render_buffer_fwd.hpp>
 #include <sge/opengl/fbo/target_fwd.hpp>
 #include <sge/opengl/target/basic.hpp>
-#include <sge/opengl/texture/buffer_base_fwd.hpp>
+#include <sge/opengl/texture/buffer_base_ref.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,23 +42,25 @@ namespace fbo
 
 class target
 :
-	public sge::opengl::target::basic<
-		sge::renderer::target::offscreen
-	>
+	public
+		sge::opengl::target::basic<
+			sge::renderer::target::offscreen
+		>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		target
 	);
 public:
-	typedef
+	using
+	base
+	=
 	sge::opengl::target::basic<
 		sge::renderer::target::offscreen
-	>
-	base;
+	>;
 
 	explicit
 	target(
-		sge::opengl::context::object &
+		sge::opengl::context::object_ref
 	);
 
 	~target()
@@ -89,19 +91,22 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::renderer::screen_unit
 	height() const
 	override;
 
+	[[nodiscard]]
 	sge::opengl::fbo::attachment_unique_ptr
 	create_texture_binding(
-		sge::opengl::texture::buffer_base &,
+		sge::opengl::texture::buffer_base_ref,
 		sge::opengl::fbo::attachment_type
 	);
 
+	[[nodiscard]]
 	sge::opengl::fbo::attachment_unique_ptr
 	create_buffer_binding(
-		sge::opengl::fbo::render_buffer const &,
+		sge::opengl::fbo::const_render_buffer_ref,
 		sge::opengl::fbo::attachment_type
 	);
 
@@ -116,26 +121,31 @@ private:
 
 	sge::opengl::fbo::object fbo_;
 
-	typedef fcppt::optional::object<
+	using
+	optional_screen_unit
+	=
+	fcppt::optional::object<
 		sge::renderer::screen_unit
-	> optional_screen_unit;
+	>;
 
 	optional_screen_unit height_;
 
-	typedef
+	using
+	attachment_map
+	=
 	std::unordered_map<
 		sge::renderer::target::surface_index,
 		sge::opengl::fbo::attachment_unique_ptr
-	>
-	attachment_map;
+	>;
 
 	attachment_map color_attachments_;
 
-	typedef
+	using
+	optional_attachment_unique_ptr
+	=
 	fcppt::optional::object<
 		sge::opengl::fbo::attachment_unique_ptr
-	>
-	optional_attachment_unique_ptr;
+	>;
 
 	optional_attachment_unique_ptr depth_stencil_attachment_;
 };

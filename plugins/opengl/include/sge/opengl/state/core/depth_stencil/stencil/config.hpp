@@ -28,26 +28,30 @@ namespace stencil
 class config
 {
 public:
-	typedef
+	using
+	gl_stencil_func_separate
+	=
 	sge::opengl::fun_ref<
 		PFNGLSTENCILFUNCSEPARATEPROC
-	>
-	gl_stencil_func_separate;
+	>;
 
-	typedef
+	using
+	gl_stencil_op_separate
+	=
 	sge::opengl::fun_ref<
 		PFNGLSTENCILOPSEPARATEPROC
-	>
-	gl_stencil_op_separate;
+	>;
 
 	config(
 		gl_stencil_func_separate,
 		gl_stencil_op_separate
 	);
 
+	[[nodiscard]]
 	gl_stencil_func_separate
 	stencil_func_separate() const;
 
+	[[nodiscard]]
 	gl_stencil_op_separate
 	stencil_op_separate() const;
 private:

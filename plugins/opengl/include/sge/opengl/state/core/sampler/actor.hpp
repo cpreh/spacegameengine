@@ -22,13 +22,14 @@ namespace core
 namespace sampler
 {
 
-typedef
+using
+actor
+=
 fcppt::function<
 	void(
 		sge::opengl::texture::binding const &
 	)
->
-actor;
+>;
 
 }
 }

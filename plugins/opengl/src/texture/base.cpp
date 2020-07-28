@@ -24,8 +24,7 @@ sge::opengl::texture::base::id() const
 }
 
 sge::opengl::texture::base::~base()
-{
-}
+= default;
 
 sge::opengl::texture::base::base(
 	sge::opengl::texture::type const _type

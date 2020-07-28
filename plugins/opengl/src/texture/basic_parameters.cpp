@@ -5,13 +5,15 @@
 
 
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 sge::opengl::texture::basic_parameters::basic_parameters(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context
+	fcppt::log::object_reference const _log,
+	sge::opengl::context::object_ref const _context
 )
 :
 	log_{

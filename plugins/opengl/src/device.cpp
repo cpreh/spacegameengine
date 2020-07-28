@@ -12,12 +12,14 @@
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/system.hpp>
+#include <sge/opengl/backend/system_ref.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/create_target.hpp>
 #include <sge/opengl/index/create_buffer.hpp>
 #include <sge/opengl/occlusion_query/create.hpp>
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/platform/system.hpp>
+#include <sge/opengl/platform/system_ref.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
 #include <sge/opengl/state/core/blend/create.hpp>
@@ -123,16 +125,19 @@
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
 #include <awl/timer/object.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/window/object.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_cross.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
@@ -158,36 +163,42 @@
 
 
 sge::opengl::device::device(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::renderer::display_mode::parameters const &_display_mode,
-	sge::window::object &_window,
-	sge::opengl::platform::system &_platform_system,
-	sge::opengl::backend::system &_backend_system
+	sge::window::object_ref const _window,
+	sge::opengl::platform::system_ref const _platform_system,
+	sge::opengl::backend::system_ref const _backend_system
 )
 :
 	log_{
 		_log
 	},
 	device_state_(
-		_platform_system.create_device_state(
+		_platform_system.get().create_device_state(
 			_display_mode.fullscreen(),
 			_window
 		)
 	),
 	backend_context_(
-		_backend_system.create_context(
+		_backend_system.get().create_context(
 			_window
 		)
 	),
 	scoped_current_(
-		*backend_context_
+		fcppt::make_ref(
+			*backend_context_
+		)
 	),
 	info_(
-		_log,
-		scoped_current_.get()
+		_log.get(),
+		fcppt::make_cref(
+			scoped_current_.get()
+		)
 	),
 	context_(
-		info_
+		fcppt::make_cref(
+			info_
+		)
 	),
 	caps_(
 		sge::opengl::get_device_caps(
@@ -196,25 +207,35 @@ sge::opengl::device::device(
 	),
 	onscreen_target_(
 		sge::opengl::target::create_onscreen(
-			context_,
-			scoped_current_.get(),
-			_window.awl_object()
+			fcppt::make_ref(
+				context_
+			),
+			fcppt::make_ref(
+				scoped_current_.get()
+			),
+			fcppt::make_ref(
+				_window.get().awl_object()
+			)
 		)
 	),
 	timer_{
-		// TODO: Wrap this
-		_window.system().awl_system().processor().create_timer(
+		// TODO(philipp): Wrap this
+		_window.get().system().awl_system().processor().create_timer(
 			sge::renderer::display_mode::draw_timer_setting_opt(
-				_log,
+				_log.get(),
 				device_state_->display_mode()
 			)
 		)
 	},
 	event_connection_{
-		_window.system().event_handler(
+		_window.get().system().event_handler(
 			sge::opengl::event_handler(
-				_window.awl_object(),
-				*timer_
+				fcppt::make_ref(
+					_window.get().awl_object()
+				),
+				fcppt::make_cref(
+					*timer_
+				)
 			)
 		)
 	}
@@ -227,7 +248,7 @@ sge::opengl::device::device(
 		fcppt::cast::dynamic_cross<
 			sge::renderer::visual_base const
 		>(
-			_window.awl_object().visual()
+			_window.get().awl_object().visual()
 		),
 		[
 			&_log,
@@ -244,7 +265,7 @@ sge::opengl::device::device(
 			);
 
 			sge::opengl::init_srgb(
-				_log,
+				_log.get(),
 				context_,
 				_visual.get().pixel_format().srgb()
 			);
@@ -253,8 +274,7 @@ sge::opengl::device::device(
 }
 
 sge::opengl::device::~device()
-{
-}
+= default;
 
 sge::renderer::context::core_unique_ptr
 sge::opengl::device::begin_rendering(
@@ -286,7 +306,9 @@ sge::opengl::device::create_target()
 {
 	return
 		sge::opengl::fbo::create_target(
-			context_
+			fcppt::make_ref(
+				context_
+			)
 		);
 }
 
@@ -322,7 +344,9 @@ sge::opengl::device::create_depth_stencil_surface(
 	return
 		sge::renderer::depth_stencil_buffer::surface_unique_ptr(
 			sge::opengl::fbo::create_depth_stencil_surface(
-				context_,
+				fcppt::make_ref(
+					context_
+				),
 				_parameters
 			)
 		);
@@ -360,7 +384,9 @@ sge::opengl::device::create_vertex_declaration(
 	return
 		sge::opengl::vertex::create_declaration(
 			log_,
-			context_,
+			fcppt::make_ref(
+				context_
+			),
 			_parameters
 		);
 }
@@ -372,7 +398,9 @@ sge::opengl::device::create_vertex_buffer(
 {
 	return
 		sge::opengl::vertex::create_buffer(
-			context_,
+			fcppt::make_ref(
+				context_
+			),
 			_parameters
 		);
 }
@@ -384,7 +412,9 @@ sge::opengl::device::create_index_buffer(
 {
 	return
 		sge::opengl::index::create_buffer(
-			context_,
+			fcppt::make_ref(
+				context_
+			),
 			_parameters
 		);
 }
@@ -394,7 +424,9 @@ sge::opengl::device::create_occlusion_query()
 {
 	return
 		sge::opengl::occlusion_query::create(
-			context_
+			fcppt::make_ref(
+				context_
+			)
 		);
 }
 
@@ -405,7 +437,9 @@ sge::opengl::device::create_blend_state(
 {
 	return
 		sge::opengl::state::core::blend::create(
-			context_,
+			fcppt::make_ref(
+				context_
+			),
 			_parameters
 		);
 }
@@ -417,7 +451,9 @@ sge::opengl::device::create_depth_stencil_state(
 {
 	return
 		sge::opengl::state::core::depth_stencil::create(
-			context_,
+			fcppt::make_ref(
+				context_
+			),
 			_parameters
 		);
 }
@@ -440,7 +476,9 @@ sge::opengl::device::create_sampler_state(
 {
 	return
 		sge::opengl::state::core::sampler::create(
-			context_,
+			fcppt::make_ref(
+				context_
+			),
 			_parameters
 		);
 }
@@ -477,7 +515,7 @@ sge::opengl::device::load_cg_program(
 {
 	return
 		sge::opengl::cg::program::load(
-			_program.get()
+			_program
 		);
 }
 
@@ -490,9 +528,11 @@ sge::opengl::device::load_cg_texture(
 	return
 		sge::opengl::cg::texture::load(
 			log_,
-			context_,
+			fcppt::make_ref(
+				context_
+			),
 			_parameter,
-			_texture.get()
+			_texture
 		);
 }
 
@@ -534,8 +574,10 @@ sge::opengl::device::begin_rendering_ffp(
 	return
 		sge::opengl::render_context::create(
 			log_,
-			context_,
-			_target.get()
+			fcppt::make_ref(
+				context_
+			),
+			_target
 		);
 }
 
@@ -623,7 +665,9 @@ sge::opengl::device::create_misc_state(
 	return
 		sge::opengl::state::ffp::misc::create(
 			log_,
-			context_,
+			fcppt::make_ref(
+				context_
+			),
 			_parameters
 		);
 }
@@ -646,7 +690,9 @@ sge::opengl::device::create_transform_state(
 {
 	return
 		sge::opengl::state::ffp::transform::create(
-			context_,
+			fcppt::make_ref(
+				context_
+			),
 			_parameters
 		);
 }
@@ -682,6 +728,8 @@ sge::opengl::device::texture_parameters()
 	return
 		sge::opengl::texture::basic_parameters(
 			log_,
-			context_
+			fcppt::make_ref(
+				context_
+			)
 		);
 }

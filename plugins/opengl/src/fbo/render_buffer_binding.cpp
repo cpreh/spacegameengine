@@ -6,14 +6,15 @@
 
 #include <sge/opengl/fbo/attach_render_buffer.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
-#include <sge/opengl/fbo/config_fwd.hpp>
+#include <sge/opengl/fbo/const_config_ref.hpp>
+#include <sge/opengl/fbo/const_render_buffer_ref.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/opengl/fbo/render_buffer_binding.hpp>
 
 
 sge::opengl::fbo::render_buffer_binding::render_buffer_binding(
-	sge::opengl::fbo::config const &_context,
-	sge::opengl::fbo::render_buffer const &_render_buffer,
+	sge::opengl::fbo::const_config_ref const _context,
+	sge::opengl::fbo::const_render_buffer_ref const _render_buffer,
 	sge::opengl::fbo::attachment_type const _what
 )
 :
@@ -25,16 +26,16 @@ sge::opengl::fbo::render_buffer_binding::render_buffer_binding(
 	)
 {
 	sge::opengl::fbo::attach_render_buffer(
-		_context,
+		_context.get(),
 		_what,
-		_render_buffer.id()
+		_render_buffer.get().id()
 	);
 }
 
 sge::opengl::fbo::render_buffer_binding::~render_buffer_binding()
 {
 	sge::opengl::fbo::attach_render_buffer(
-		context_,
+		context_.get(),
 		what_,
 		0
 	);

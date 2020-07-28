@@ -8,10 +8,10 @@
 #define SGE_OPENGL_CG_TEXTURE_LOAD_HPP_INCLUDED
 
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <sge/renderer/texture/base_ref.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -25,10 +25,10 @@ namespace texture
 
 sge::renderer::cg::loaded_texture_unique_ptr
 load(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
+	fcppt::log::object_reference,
+	sge::opengl::context::object_ref,
 	sge::cg::parameter::object const &,
-	sge::renderer::texture::base &
+	sge::renderer::texture::base_ref
 );
 
 }

@@ -17,11 +17,12 @@ namespace opengl
 namespace state
 {
 
-typedef
+using
+actor
+=
 fcppt::function<
 	void ()
->
-actor;
+>;
 
 }
 }

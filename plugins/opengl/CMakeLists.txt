@@ -1,22 +1,28 @@
 set(
 	SGE_OPENGL_BASE_FILES
 	plugins/opengl/include/sge/opengl/apientry.hpp
+	plugins/opengl/include/sge/opengl/backend/const_current_ref.hpp
 	plugins/opengl/include/sge/opengl/backend/context.hpp
 	plugins/opengl/include/sge/opengl/backend/context_fwd.hpp
+	plugins/opengl/include/sge/opengl/backend/context_ref.hpp
 	plugins/opengl/include/sge/opengl/backend/context_unique_ptr.hpp
 	plugins/opengl/include/sge/opengl/backend/create_system.hpp
 	plugins/opengl/include/sge/opengl/backend/current.hpp
 	plugins/opengl/include/sge/opengl/backend/current_fwd.hpp
+	plugins/opengl/include/sge/opengl/backend/current_ref.hpp
 	plugins/opengl/include/sge/opengl/backend/current_unique_ptr.hpp
 	plugins/opengl/include/sge/opengl/backend/fun_ptr.hpp
 	plugins/opengl/include/sge/opengl/backend/scoped_current.hpp
 	plugins/opengl/include/sge/opengl/backend/scoped_current_fwd.hpp
 	plugins/opengl/include/sge/opengl/backend/system.hpp
 	plugins/opengl/include/sge/opengl/backend/system_fwd.hpp
+	plugins/opengl/include/sge/opengl/backend/system_ref.hpp
 	plugins/opengl/include/sge/opengl/backend/system_unique_ptr.hpp
 	plugins/opengl/include/sge/opengl/buffer/base.hpp
 	plugins/opengl/include/sge/opengl/buffer/base_fwd.hpp
+	plugins/opengl/include/sge/opengl/buffer/base_ref.hpp
 	plugins/opengl/include/sge/opengl/buffer/base_unique_ptr.hpp
+	plugins/opengl/include/sge/opengl/buffer/const_hardware_config_ref.hpp
 	plugins/opengl/include/sge/opengl/buffer/context.hpp
 	plugins/opengl/include/sge/opengl/buffer/hardware.hpp
 	plugins/opengl/include/sge/opengl/buffer/hardware_config.hpp
@@ -66,6 +72,7 @@ set(
 	plugins/opengl/include/sge/opengl/context/make_object.hpp
 	plugins/opengl/include/sge/opengl/context/object.hpp
 	plugins/opengl/include/sge/opengl/context/object_fwd.hpp
+	plugins/opengl/include/sge/opengl/context/object_ref.hpp
 	plugins/opengl/include/sge/opengl/context/optional_base_ref.hpp
 	plugins/opengl/include/sge/opengl/context/optional_base_ref_fwd.hpp
 	plugins/opengl/include/sge/opengl/context/use.hpp
@@ -110,6 +117,9 @@ set(
 	plugins/opengl/include/sge/opengl/fbo/bind.hpp
 	plugins/opengl/include/sge/opengl/fbo/config.hpp
 	plugins/opengl/include/sge/opengl/fbo/config_fwd.hpp
+	plugins/opengl/include/sge/opengl/fbo/const_config_ref.hpp
+	plugins/opengl/include/sge/opengl/fbo/const_context_ref.hpp
+	plugins/opengl/include/sge/opengl/fbo/const_render_buffer_ref.hpp
 	plugins/opengl/include/sge/opengl/fbo/context.hpp
 	plugins/opengl/include/sge/opengl/fbo/context_fwd.hpp
 	plugins/opengl/include/sge/opengl/fbo/create_depth_stencil_surface.hpp
@@ -126,6 +136,7 @@ set(
 	plugins/opengl/include/sge/opengl/fbo/id.hpp
 	plugins/opengl/include/sge/opengl/fbo/last_context.hpp
 	plugins/opengl/include/sge/opengl/fbo/last_context_fwd.hpp
+	plugins/opengl/include/sge/opengl/fbo/last_context_ref.hpp
 	plugins/opengl/include/sge/opengl/fbo/no_buffer.hpp
 	plugins/opengl/include/sge/opengl/fbo/object.hpp
 	plugins/opengl/include/sge/opengl/fbo/object_fwd.hpp
@@ -153,6 +164,7 @@ set(
 	plugins/opengl/include/sge/opengl/index/buffer.hpp
 	plugins/opengl/include/sge/opengl/index/create_buffer.hpp
 	plugins/opengl/include/sge/opengl/info/cast_function.hpp
+	plugins/opengl/include/sge/opengl/info/const_context_ref.hpp
 	plugins/opengl/include/sge/opengl/info/context.hpp
 	plugins/opengl/include/sge/opengl/info/context_fwd.hpp
 	plugins/opengl/include/sge/opengl/info/extension.hpp
@@ -174,6 +186,7 @@ set(
 	plugins/opengl/include/sge/opengl/occlusion_query/begin.hpp
 	plugins/opengl/include/sge/opengl/occlusion_query/config.hpp
 	plugins/opengl/include/sge/opengl/occlusion_query/config_fwd.hpp
+	plugins/opengl/include/sge/opengl/occlusion_query/const_config_ref.hpp
 	plugins/opengl/include/sge/opengl/occlusion_query/context.hpp
 	plugins/opengl/include/sge/opengl/occlusion_query/context_fwd.hpp
 	plugins/opengl/include/sge/opengl/occlusion_query/create.hpp
@@ -199,6 +212,7 @@ set(
 	plugins/opengl/include/sge/opengl/platform/device_state_unique_ptr.hpp
 	plugins/opengl/include/sge/opengl/platform/system.hpp
 	plugins/opengl/include/sge/opengl/platform/system_fwd.hpp
+	plugins/opengl/include/sge/opengl/platform/system_ref.hpp
 	plugins/opengl/include/sge/opengl/platform/system_unique_ptr.hpp
 	plugins/opengl/include/sge/opengl/range_check.hpp
 	plugins/opengl/include/sge/opengl/render_context/create.hpp
@@ -412,6 +426,7 @@ set(
 	plugins/opengl/include/sge/opengl/target/area_function.hpp
 	plugins/opengl/include/sge/opengl/target/base.hpp
 	plugins/opengl/include/sge/opengl/target/base_fwd.hpp
+	plugins/opengl/include/sge/opengl/target/base_ref.hpp
 	plugins/opengl/include/sge/opengl/target/basic.hpp
 	plugins/opengl/include/sge/opengl/target/basic_impl.hpp
 	plugins/opengl/include/sge/opengl/target/context.hpp
@@ -457,6 +472,7 @@ set(
 	plugins/opengl/include/sge/opengl/texture/binding_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/buffer_base.hpp
 	plugins/opengl/include/sge/opengl/texture/buffer_base_fwd.hpp
+	plugins/opengl/include/sge/opengl/texture/buffer_base_ref.hpp
 	plugins/opengl/include/sge/opengl/texture/buffer_surface_types.hpp
 	plugins/opengl/include/sge/opengl/texture/buffer_surface_types_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/buffer_type.hpp

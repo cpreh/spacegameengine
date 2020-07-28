@@ -29,9 +29,11 @@ public:
 		sge::opengl::info::minor_version
 	);
 
+	[[nodiscard]]
 	sge::opengl::info::major_version
 	major() const;
 
+	[[nodiscard]]
 	sge::opengl::info::minor_version
 	minor() const;
 private:

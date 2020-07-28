@@ -13,7 +13,7 @@
 #include <sge/opengl/texture/bind_context_fwd.hpp>
 #include <sge/opengl/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/container/index_map_decl.hpp>
 
 
@@ -28,7 +28,7 @@ class bind_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		bind_context
 	);
 public:
@@ -37,6 +37,7 @@ public:
 	~bind_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::texture::const_optional_base_ref
 	stage(
 		sge::renderer::texture::stage
@@ -48,15 +49,21 @@ public:
 		sge::opengl::texture::const_optional_base_ref const &
 	);
 
-	typedef void parameter;
+	using
+	parameter
+	=
+	void;
 
 	static
 	sge::opengl::context::id const
 	static_id;
 private:
-	typedef fcppt::container::index_map<
+	using
+	texture_map
+	=
+	fcppt::container::index_map<
 		sge::opengl::texture::const_optional_base_ref
-	> texture_map;
+	>;
 
 	mutable texture_map map_;
 };

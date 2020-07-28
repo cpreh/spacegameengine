@@ -34,8 +34,7 @@ sge::opengl::state::ffp::fog::default_context::default_context()
 }
 
 sge::opengl::state::ffp::fog::default_context::~default_context()
-{
-}
+= default;
 
 sge::opengl::state::ffp::fog::object const &
 sge::opengl::state::ffp::fog::default_context::default_state() const

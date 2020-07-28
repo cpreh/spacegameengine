@@ -18,11 +18,12 @@ namespace opengl
 namespace buffer
 {
 
-typedef
+using
+optional_hardware_config
+=
 fcppt::optional::object<
 	sge::opengl::buffer::hardware_config
->
-optional_hardware_config;
+>;
 
 }
 }

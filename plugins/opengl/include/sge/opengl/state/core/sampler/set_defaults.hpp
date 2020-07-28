@@ -23,8 +23,8 @@ namespace sampler
 
 void
 set_defaults(
-	sge::opengl::context::object &
-);
+	sge::opengl::context::object & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

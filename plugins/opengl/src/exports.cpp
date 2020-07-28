@@ -34,6 +34,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
 
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
 sge::plugin::info const info(
 	sge::plugin::name(
 		FCPPT_TEXT("opengl")
@@ -41,8 +42,8 @@ sge::plugin::info const info(
 	sge::plugin::description(
 		FCPPT_TEXT("Implements most of the functionality provided by opengl-2.1 and some by 3+.")
 	),
-	sge::plugin::version(0x1u),
-	sge::plugin::min_core_version(0x1u),
+	sge::plugin::version(0x1U),
+	sge::plugin::min_core_version(0x1U),
 	sge::plugin::capabilities_field{
 		sge::plugin::capabilities::renderer
 	},
@@ -72,6 +73,7 @@ create_renderer_core(
 
 }
 
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
 	(

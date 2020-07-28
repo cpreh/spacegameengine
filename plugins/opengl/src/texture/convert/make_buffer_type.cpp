@@ -15,7 +15,7 @@ sge::opengl::texture::convert::make_buffer_type(
 	int const _type
 )
 {
-	// TODO: Template
+	// TODO(philipp): Template
 	return
 		fcppt::strong_typedef_construct_cast<
 			sge::opengl::texture::buffer_type,

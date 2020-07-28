@@ -37,10 +37,10 @@ sge::opengl::buffer::context::context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				1u
+				1U
 			},
 			sge::opengl::info::minor_version{
-				5u
+				5U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			}
 		)
 		?
@@ -213,8 +213,7 @@ sge::opengl::buffer::context::context(
 FCPPT_PP_POP_WARNING
 
 sge::opengl::buffer::context::~context()
-{
-}
+= default;
 
 sge::opengl::buffer::optional_hardware_config const &
 sge::opengl::buffer::context::hardware_config() const

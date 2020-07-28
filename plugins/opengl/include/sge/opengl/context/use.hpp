@@ -9,7 +9,7 @@
 
 #include <sge/opengl/context/dummy_parameter.hpp>
 #include <sge/opengl/context/has_parameter.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use_impl.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -37,7 +37,7 @@ std::enable_if_t<
 	Type &
 >
 use(
-	sge::opengl::context::object &_object
+	sge::opengl::context::object_ref const _object
 )
 {
 	return
@@ -60,7 +60,7 @@ std::enable_if_t<
 	Type &
 >
 use(
-	sge::opengl::context::object &_object,
+	sge::opengl::context::object_ref const _object,
 	typename
 	Type::parameter _parameter
 )

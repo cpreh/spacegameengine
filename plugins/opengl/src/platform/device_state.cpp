@@ -8,9 +8,7 @@
 
 
 sge::opengl::platform::device_state::device_state()
-{
-}
+= default;
 
 sge::opengl::platform::device_state::~device_state()
-{
-}
+= default;

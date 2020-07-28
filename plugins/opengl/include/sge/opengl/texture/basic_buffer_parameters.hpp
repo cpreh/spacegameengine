@@ -11,16 +11,18 @@
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <sge/opengl/texture/const_binding_ref.hpp>
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
-#include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -34,9 +36,9 @@ class basic_buffer_parameters
 {
 public:
 	basic_buffer_parameters(
-		fcppt::log::object &,
-		sge::opengl::texture::binding const &,
-		sge::opengl::context::object &,
+		fcppt::log::object_reference,
+		sge::opengl::texture::const_binding_ref,
+		sge::opengl::context::object_ref,
 		sge::renderer::texture::mipmap::level,
 		sge::opengl::texture::type,
 		sge::opengl::texture::buffer_type,
@@ -48,53 +50,59 @@ public:
 		sge::opengl::texture::is_render_target
 	);
 
+	[[nodiscard]]
 	fcppt::log::object &
 	log() const;
 
+	[[nodiscard]]
 	sge::opengl::texture::binding const &
 	binding() const;
 
+	[[nodiscard]]
 	sge::opengl::context::object &
 	context() const;
 
+	[[nodiscard]]
 	sge::renderer::texture::mipmap::level
 	level() const;
 
+	[[nodiscard]]
 	sge::opengl::texture::type
 	type() const;
 
+	[[nodiscard]]
 	sge::opengl::texture::buffer_type
 	buffer_type() const;
 
+	[[nodiscard]]
 	sge::opengl::texture::id
 	id() const;
 
+	[[nodiscard]]
 	sge::renderer::resource_flags_field const &
 	resource_flags() const;
 
+	[[nodiscard]]
 	sge::opengl::color_order
 	color_order() const;
 
+	[[nodiscard]]
 	sge::opengl::color_base_type
 	color_base_type() const;
 
+	[[nodiscard]]
 	sge::opengl::internal_color_format
 	internal_color_format() const;
 
+	[[nodiscard]]
 	sge::opengl::texture::is_render_target
 	is_render_target() const;
 private:
-	fcppt::reference<
-		fcppt::log::object
-	> log_;
+	fcppt::log::object_reference log_;
 
-	fcppt::reference<
-		sge::opengl::texture::binding const
-	> binding_;
+	sge::opengl::texture::const_binding_ref binding_;
 
-	fcppt::reference<
-		sge::opengl::context::object
-	> context_;
+	sge::opengl::context::object_ref context_;
 
 	sge::renderer::texture::mipmap::level level_;
 

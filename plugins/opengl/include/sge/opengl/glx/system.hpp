@@ -13,11 +13,11 @@
 #include <sge/opengl/glx/optional_proc_address_function.hpp>
 #include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/x11/system/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/x11/system/object_ref.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -31,13 +31,13 @@ class system
 :
 	public sge::opengl::backend::system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 public:
 	system(
-		fcppt::log::object &,
-		awl::backends::x11::system::object &
+		fcppt::log::object_reference,
+		awl::backends::x11::system::object_ref
 	);
 
 	~system()
@@ -51,13 +51,13 @@ private:
 
 	sge::opengl::backend::context_unique_ptr
 	create_context(
-		sge::window::object &
+		sge::window::object_ref
 	)
 	override;
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	awl::backends::x11::system::object &awl_system_;
+	awl::backends::x11::system::object_ref const awl_system_;
 
 	sge::opengl::glx::optional_proc_address_function const get_proc_address_;
 

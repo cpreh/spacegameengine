@@ -10,9 +10,9 @@
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/system_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ namespace backend
 
 class system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 protected:
@@ -33,16 +33,18 @@ public:
 	virtual
 	~system();
 
+	[[nodiscard]]
 	virtual
 	awl::visual::object_unique_ptr
 	create_visual(
 		sge::renderer::pixel_format::object const &
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::opengl::backend::context_unique_ptr
 	create_context(
-		sge::window::object &
+		sge::window::object_ref
 	) = 0;
 };
 

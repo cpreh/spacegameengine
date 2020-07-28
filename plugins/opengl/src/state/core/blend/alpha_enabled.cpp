@@ -8,7 +8,7 @@
 #include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/fun_ref.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
@@ -27,7 +27,7 @@
 
 sge::opengl::state::actor
 sge::opengl::state::core::blend::alpha_enabled(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::state::core::blend::alpha_enabled const &_variant
 )
 {
@@ -60,7 +60,7 @@ sge::opengl::state::core::blend::alpha_enabled(
 					);
 			},
 			[
-				&_context
+				_context
 			](
 				sge::renderer::state::core::blend::separate const &_separate
 			)
@@ -73,7 +73,7 @@ sge::opengl::state::core::blend::alpha_enabled(
 							sge::opengl::state::core::blend::context
 						>(
 							_context,
-							_context.info()
+							_context.get().info()
 						).config(),
 						[]{
 							return

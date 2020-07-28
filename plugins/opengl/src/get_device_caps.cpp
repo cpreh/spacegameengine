@@ -40,6 +40,7 @@
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
@@ -58,7 +59,9 @@ sge::opengl::get_device_caps(
 		sge::opengl::context::use<
 			sge::opengl::state::core::sampler::filter::anisotropy_context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		).config()
 	);
@@ -67,7 +70,9 @@ sge::opengl::get_device_caps(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		).config()
 	);
@@ -76,7 +81,9 @@ sge::opengl::get_device_caps(
 		sge::opengl::context::use<
 			sge::opengl::texture::volume_context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		).config()
 	);
@@ -85,7 +92,9 @@ sge::opengl::get_device_caps(
 		sge::opengl::context::use<
 			sge::opengl::fbo::context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		).config().has_value()
 	);
@@ -155,7 +164,9 @@ sge::opengl::get_device_caps(
 				sge::opengl::context::use<
 					sge::opengl::texture::npot_context
 				>(
-					_context,
+					fcppt::make_ref(
+						_context
+					),
 					_context.info()
 				).is_supported()
 			),
@@ -203,7 +214,7 @@ sge::opengl::get_device_caps(
 				texture_multi_config,
 				fcppt::const_(
 					sge::renderer::caps::texture_stages{
-						1u
+						1U
 					}
 				),
 				[](
@@ -229,7 +240,9 @@ sge::opengl::get_device_caps(
 				sge::opengl::context::use<
 					sge::opengl::srgb_context
 				>(
-					_context,
+					fcppt::make_ref(
+						_context
+					),
 					_context.info()
 				).flag().has_value()
 			)

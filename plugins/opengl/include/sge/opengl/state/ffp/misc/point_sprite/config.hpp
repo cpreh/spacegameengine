@@ -50,12 +50,15 @@ public:
 		coord_replace_flag_type
 	);
 
+	[[nodiscard]]
 	point_sprite_flag_type
 	point_sprite_flag() const;
 
+	[[nodiscard]]
 	vertex_shader_size_flag_type
 	vertex_shader_size_flag() const;
 
+	[[nodiscard]]
 	coord_replace_flag_type
 	coord_replace_flag() const;
 private:

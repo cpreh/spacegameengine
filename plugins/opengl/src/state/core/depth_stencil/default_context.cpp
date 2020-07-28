@@ -38,8 +38,7 @@ sge::opengl::state::core::depth_stencil::default_context::default_context(
 }
 
 sge::opengl::state::core::depth_stencil::default_context::~default_context()
-{
-}
+= default;
 
 sge::opengl::state::core::depth_stencil::object const &
 sge::opengl::state::core::depth_stencil::default_context::default_state() const

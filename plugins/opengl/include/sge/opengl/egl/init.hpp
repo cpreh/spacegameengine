@@ -9,7 +9,7 @@
 
 #include <sge/opengl/egl/init_fwd.hpp>
 #include <sge/opengl/egl/version.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -24,7 +24,7 @@ namespace egl
 
 class init
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		init
 	);
 public:
@@ -35,10 +35,11 @@ public:
 
 	~init();
 
-	sge::opengl::egl::version const
+	[[nodiscard]]
+	sge::opengl::egl::version
 	version() const;
 private:
-	EGLDisplay const display_;
+	EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 
 	sge::opengl::egl::version const version_;
 };

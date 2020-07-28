@@ -20,7 +20,7 @@
 
 sge::opengl::state::actor_vector
 sge::opengl::state::core::blend::make_actors(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::state::core::blend::parameters const &_parameters
 )
 {

@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+const_optional_base_ref
+=
 fcppt::optional::reference<
 	sge::opengl::texture::base const
->
-const_optional_base_ref;
+>;
 
 }
 }

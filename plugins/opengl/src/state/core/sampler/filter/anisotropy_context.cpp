@@ -50,8 +50,7 @@ sge::opengl::state::core::sampler::filter::anisotropy_context::anisotropy_contex
 }
 
 sge::opengl::state::core::sampler::filter::anisotropy_context::~anisotropy_context()
-{
-}
+= default;
 
 sge::opengl::state::core::sampler::filter::optional_anisotropy_config const &
 sge::opengl::state::core::sampler::filter::anisotropy_context::config() const

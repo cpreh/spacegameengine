@@ -24,7 +24,7 @@ namespace transform
 
 void
 set_matrix(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::matrix4 const &
 );
 

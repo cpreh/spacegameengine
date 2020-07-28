@@ -8,9 +8,7 @@
 
 
 sge::opengl::texture::binding::binding()
-{
-}
+= default;
 
 sge::opengl::texture::binding::~binding()
-{
-}
+= default;

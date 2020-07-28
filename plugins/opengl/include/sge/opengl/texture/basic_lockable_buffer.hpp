@@ -11,7 +11,7 @@
 #include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/basic_buffer.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/basic_fwd.hpp>
@@ -23,9 +23,10 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_decl.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/math/box/object_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
@@ -47,78 +48,97 @@ class basic_lockable_buffer
 			Types
 		>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		basic_lockable_buffer
 	);
 public:
-	typedef
+	using
+	gl_base
+	=
 	sge::opengl::texture::basic_buffer<
 		Types
-	>
-	gl_base;
+	>;
 
-	typedef
+	using
+	image_tag
+	=
 	typename
-	gl_base::image_tag
-	image_tag;
+	gl_base::image_tag;
 
-	typedef
+	using
+	color_tag
+	=
 	typename
-	gl_base::color_tag
-	color_tag;
+	gl_base::color_tag;
 
-	typedef
+	using
+	format_type
+	=
 	typename
-	gl_base::format_type
-	format_type;
+	gl_base::format_type;
 
-	typedef
+	using
+	dim
+	=
 	typename
-	gl_base::dim
-	dim;
+	gl_base::dim;
 
-	typedef
+	using
+	config_type
+	=
 	sge::opengl::texture::config<
 		dim::static_size::value
-	>
-	config_type;
+	>;
+
+	using
+	const_config_ref
+	=
+	fcppt::reference<
+		config_type const
+	>;
 
 	basic_lockable_buffer(
 		format_type,
-		config_type const &,
+		const_config_ref,
 		sge::opengl::texture::basic_buffer_parameters const &
 	);
 
 	~basic_lockable_buffer()
 	override;
 
-	typedef
-	sge::opengl::texture::lock_base::pointer
-	pointer;
+	using
+	pointer
+	=
+	sge::opengl::texture::lock_base::pointer;
 
-	typedef
-	sge::opengl::texture::lock_base::const_pointer
-	const_pointer;
+	using
+	const_pointer
+	=
+	sge::opengl::texture::lock_base::const_pointer;
 
-	typedef
+	using
+	base_type
+	=
 	typename
-	gl_base::base_type
-	base_type;
+	gl_base::base_type;
 
-	typedef
+	using
+	lock_area
+	=
 	typename
-	base_type::lock_area
-	lock_area;
+	base_type::lock_area;
 
-	typedef
+	using
+	view
+	=
 	typename
-	base_type::view
-	view;
+	base_type::view;
 
-	typedef
+	using
+	const_view
+	=
 	typename
-	base_type::const_view
-	const_view;
+	base_type::const_view;
 private:
 	view
 	lock(
@@ -152,11 +172,11 @@ private:
 	dim
 	lock_dim() const;
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	sge::opengl::context::object &context_;
+	sge::opengl::context::object_ref const context_;
 
-	config_type const &config_;
+	const_config_ref const config_;
 
 	sge::opengl::texture::type const type_;
 
@@ -170,33 +190,37 @@ private:
 
 	sge::renderer::size_type const stride_;
 
-	typedef
+	using
+	lock_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::opengl::texture::lock_base
-	>
-	lock_unique_ptr;
+	>;
 
-	typedef
+	using
+	optional_lock_unique_ptr
+	=
 	fcppt::optional::object<
 		lock_unique_ptr
-	>
-	optional_lock_unique_ptr;
+	>;
 
 	mutable optional_lock_unique_ptr lock_;
 
-	typedef
+	using
+	optional_lock_area
+	=
 	fcppt::optional::object<
 		lock_area
-	>
-	optional_lock_area;
+	>;
 
 	mutable optional_lock_area lock_area_;
 
-	typedef
+	using
+	pitch
+	=
 	sge::image::pitch<
 		image_tag
-	>
-	pitch;
+	>;
 };
 
 }

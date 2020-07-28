@@ -11,7 +11,7 @@
 #include <sge/opengl/buffer/object_fwd.hpp>
 #include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/opengl/buffer/id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ class wrapper
 :
 	public sge::renderer::opengl::buffer::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		wrapper
 	);
 protected:
@@ -34,14 +34,17 @@ protected:
 	~wrapper()
 	override = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::opengl::buffer::object const &
 	get() const = 0;
 private:
+	[[nodiscard]]
 	sge::renderer::opengl::buffer::id
 	id() const
 	override;
 
+	[[nodiscard]]
 	bool
 	native() const
 	override;

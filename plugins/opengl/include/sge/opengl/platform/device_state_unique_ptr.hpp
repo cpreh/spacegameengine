@@ -18,11 +18,12 @@ namespace opengl
 namespace platform
 {
 
-typedef
+using
+device_state_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::platform::device_state
->
-device_state_unique_ptr;
+>;
 
 }
 }

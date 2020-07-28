@@ -13,6 +13,7 @@
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -30,15 +31,14 @@ sge::opengl::buffer::software::software()
 	sge::opengl::buffer::base(),
 	bound_buffer_(),
 	nextid_(
-		0u
+		0U
 	),
 	buffers_()
 {
 }
 
 sge::opengl::buffer::software::~software()
-{
-}
+= default;
 
 sge::opengl::buffer::id
 sge::opengl::buffer::software::gen_buffer()
@@ -74,6 +74,7 @@ sge::opengl::buffer::software::delete_buffer(
 		)
 	);
 
+	// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 	delete[] it->second;
 
 	buffers_.erase(
@@ -126,7 +127,9 @@ void
 sge::opengl::buffer::software::unmap_buffer()
 {
 	// For error checking only
-	this->bound_buffer();
+	FCPPT_USE(
+		this->bound_buffer()
+	);
 }
 
 void
@@ -142,8 +145,10 @@ sge::opengl::buffer::software::buffer_data(
 		)
 	);
 
+	// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 	delete[] buffer;
 
+	// NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
 	buffer =
 		new sge::renderer::raw_value[
 			fcppt::cast::to_unsigned(
@@ -153,12 +158,16 @@ sge::opengl::buffer::software::buffer_data(
 
 	if(
 		_data
+		!=
+		nullptr
 	)
+	{
 		this->buffer_sub_data(
 			0,
 			_size,
 			_data
 		);
+	}
 }
 
 void
@@ -169,12 +178,16 @@ sge::opengl::buffer::software::buffer_sub_data(
 )
 {
 	if(
-		!_data
+		_data
+		==
+		nullptr
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("buffer_sub_data(): data may not be 0!")
 			};
+	}
 
 	std::copy_n(
 		fcppt::cast::to_char_ptr<
@@ -197,7 +210,7 @@ sge::opengl::buffer::software::buffer_offset(
 ) const
 {
 	return
-		// TODO: Why is this const?
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
 		const_cast<
 			sge::renderer::raw_pointer
 		>(
@@ -257,6 +270,7 @@ sge::opengl::buffer::software::buffer_object(
 ) const
 {
 	return
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
 		const_cast<
 			sge::opengl::buffer::software &
 		>(

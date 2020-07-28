@@ -25,10 +25,13 @@ namespace lighting
 namespace light
 {
 
-typedef sge::opengl::state::unary_object<
+using
+object
+=
+sge::opengl::state::unary_object<
 	sge::renderer::state::ffp::lighting::light::object,
 	GLenum
-> object;
+>;
 
 }
 }

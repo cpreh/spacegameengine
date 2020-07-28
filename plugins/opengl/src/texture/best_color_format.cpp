@@ -68,7 +68,7 @@ case sge::image::color::format::name: \
 	SGE_OPENGL_CONVERT_FORMAT(
 		srgba8
 	);
-	// TODO: Why?
+	// TODO(philipp): Why?
 	case sge::image::color::format::sbgr8:
 		return
 			sge::opengl::color_format::srgb8;

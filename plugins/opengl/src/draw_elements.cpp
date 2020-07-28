@@ -21,6 +21,7 @@
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/static_downcast.hpp>
@@ -59,7 +60,7 @@ sge::opengl::draw_elements(
 	if(
 		_num_vertices.get()
 		==
-		0u
+		0U
 	)
 	{
 		FCPPT_LOG_WARNING(
@@ -76,7 +77,9 @@ sge::opengl::draw_elements(
 		sge::opengl::context::use<
 			sge::opengl::draw_context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		)
 	);
@@ -97,7 +100,7 @@ sge::opengl::draw_elements(
 		)
 	);
 
-	GLsizei const element_count(
+	auto const element_count(
 		fcppt::cast::size<
 			GLsizei
 		>(
@@ -162,7 +165,7 @@ sge::opengl::draw_elements(
 					_first_vertex.get()
 					+
 					_num_vertices.get()
-					- 1u
+					- 1U
 				),
 				element_count,
 				format,

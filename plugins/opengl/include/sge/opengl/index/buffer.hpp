@@ -10,7 +10,7 @@
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/renderer/dim1_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/lock_segment_fwd.hpp>
@@ -22,7 +22,7 @@
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view_fwd.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -32,26 +32,29 @@ namespace opengl
 namespace index
 {
 
+// NOLINTNEXTLINE(fuchsia-multiple-inheritance)
 class buffer
 :
 	public sge::renderer::index::buffer,
 	public sge::opengl::buffer::wrapper
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		buffer
 	);
 public:
 	buffer(
-		sge::opengl::context::object &,
+		sge::opengl::context::object_ref,
 		sge::renderer::index::buffer_parameters const &
 	);
 
 	~buffer()
 	override;
 
+	[[nodiscard]]
 	GLenum
 	gl_format() const;
 
+	[[nodiscard]]
 	GLvoid *
 	buffer_offset(
 		sge::renderer::index::first
@@ -60,6 +63,7 @@ public:
 	void
 	bind() const;
 private:
+	[[nodiscard]]
 	sge::renderer::index::dynamic::view
 	lock(
 		sge::renderer::lock_segment const &,
@@ -67,6 +71,7 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::renderer::index::dynamic::const_view
 	lock_c(
 		sge::renderer::lock_segment const &
@@ -76,6 +81,7 @@ private:
 	template<
 		typename View
 	>
+	[[nodiscard]]
 	View
 	do_lock(
 		sge::renderer::lock_flags::method,
@@ -86,18 +92,22 @@ private:
 	unlock() const
 	override;
 
+	[[nodiscard]]
 	sge::renderer::dim1
 	size() const
 	override;
 
+	[[nodiscard]]
 	sge::renderer::resource_flags_field
 	resource_flags() const
 	override;
 
+	[[nodiscard]]
 	sge::renderer::index::dynamic::format
 	format() const
 	override;
 
+	[[nodiscard]]
 	sge::opengl::buffer::object const &
 	get() const
 	override;

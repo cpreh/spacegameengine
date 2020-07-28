@@ -32,8 +32,8 @@ template<
 >
 void
 create(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::opengl::texture::mipmap::parameters<
 		Dim
 	> const &,

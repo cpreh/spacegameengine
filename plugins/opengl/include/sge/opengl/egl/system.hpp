@@ -12,11 +12,11 @@
 #include <sge/opengl/egl/display_unique_ptr.hpp>
 #include <sge/opengl/egl/init.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/system/object_ref.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -33,13 +33,13 @@ class system
 :
 	public sge::opengl::backend::system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 public:
 	system(
-		fcppt::log::object &,
-		awl::system::object &
+		fcppt::log::object_reference,
+		awl::system::object_ref
 	);
 
 	~system()
@@ -53,13 +53,13 @@ private:
 
 	sge::opengl::backend::context_unique_ptr
 	create_context(
-		sge::window::object &
+		sge::window::object_ref
 	)
 	override;
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	awl::system::object &awl_system_;
+	awl::system::object_ref const awl_system_;
 
 	sge::opengl::egl::display_unique_ptr const egl_display_;
 

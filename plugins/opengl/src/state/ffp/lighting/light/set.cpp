@@ -12,6 +12,7 @@
 #include <sge/opengl/state/ffp/lighting/light/object.hpp>
 #include <sge/opengl/state/ffp/lighting/light/set.hpp>
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -26,7 +27,9 @@ sge::opengl::state::ffp::lighting::light::set(
 		sge::opengl::context::use<
 			sge::opengl::state::ffp::lighting::light::context
 		>(
-			_context
+			fcppt::make_ref(
+				_context
+			)
 		),
 		_lights,
 		sge::opengl::state::convert::light_index

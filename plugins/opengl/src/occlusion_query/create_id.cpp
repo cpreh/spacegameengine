@@ -19,7 +19,7 @@ sge::opengl::occlusion_query::create_id(
 	sge::opengl::occlusion_query::config const &_config
 )
 {
-	GLuint id;
+	GLuint id{};
 
 	sge::opengl::call_fun_ref(
 		_config.gen_queries(),

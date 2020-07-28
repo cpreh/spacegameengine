@@ -15,6 +15,7 @@
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_ref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -40,8 +41,7 @@ sge::opengl::core::core(
 }
 
 sge::opengl::core::~core()
-{
-}
+= default;
 
 sge::renderer::system_unique_ptr
 sge::opengl::core::create_system(
@@ -55,8 +55,12 @@ sge::opengl::core::create_system(
 			fcppt::make_unique_ptr<
 				sge::opengl::system
 			>(
-				log_,
-				_system.get().awl_system()
+				fcppt::make_ref(
+					log_
+				),
+				fcppt::make_ref(
+					_system.get().awl_system()
+				)
 			)
 		);
 }

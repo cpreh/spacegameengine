@@ -19,8 +19,8 @@ namespace opengl
 
 void
 init_srgb(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::pixel_format::srgb
 );
 

@@ -47,8 +47,7 @@ sge::opengl::state::core::sampler::context::context(
 }
 
 sge::opengl::state::core::sampler::context::~context()
-{
-}
+= default;
 
 void
 sge::opengl::state::core::sampler::context::set(

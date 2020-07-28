@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_BUFFER_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/buffer/base_fwd.hpp>
+#include <sge/opengl/buffer/base_ref.hpp>
 #include <sge/opengl/buffer/holder.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/object_fwd.hpp>
@@ -16,7 +16,7 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -28,22 +28,37 @@ namespace buffer
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
-	typedef sge::renderer::size_type size_type;
+	using
+	size_type
+	=
+	sge::renderer::size_type;
 
-	typedef sge::renderer::raw_value value_type;
+	using
+	value_type
+	=
+	sge::renderer::raw_value;
 
-	typedef value_type *pointer;
+	using
+	pointer
+	=
+	value_type *;
 
-	typedef value_type const *const_pointer;
+	using
+	const_pointer
+	=
+	value_type const *;
 
-	typedef sge::renderer::lock_flags::method lock_flag_type;
+	using
+	lock_flag_type
+	=
+	sge::renderer::lock_flags::method;
 
 	object(
-		sge::opengl::buffer::base &,
+		sge::opengl::buffer::base_ref,
 		size_type size,
 		size_type stride,
 		sge::renderer::resource_flags_field const &,
@@ -52,7 +67,8 @@ public:
 
 	~object();
 
-	static size_type const npos = static_cast<size_type>(-1);
+	static constexpr size_type const npos =
+		static_cast<size_type>(-1);
 
 	void
 	lock(
@@ -71,21 +87,27 @@ public:
 		size_type count
 	);
 
+	[[nodiscard]]
 	size_type
 	size() const;
 
+	[[nodiscard]]
 	size_type
 	stride() const;
 
+	[[nodiscard]]
 	sge::renderer::resource_flags_field const &
 	flags() const;
 
+	[[nodiscard]]
 	pointer
 	data();
 
+	[[nodiscard]]
 	const_pointer
 	data() const;
 
+	[[nodiscard]]
 	size_type
 	lock_size() const;
 
@@ -95,17 +117,21 @@ public:
 	void
 	bind() const;
 
+	[[nodiscard]]
 	pointer
 	buffer_offset(
 		size_type offset
 	) const;
 
+	[[nodiscard]]
 	pointer
 	raw_buffer() const;
 
+	[[nodiscard]]
 	sge::opengl::buffer::id
 	id() const;
 
+	[[nodiscard]]
 	bool
 	native() const;
 private:
@@ -114,11 +140,14 @@ private:
 		sge::opengl::buffer::optional_id const &
 	) const;
 
-	sge::opengl::buffer::base &base_;
+	void
+	do_unlock();
 
-	size_type const
-		size_,
-		stride_;
+	sge::opengl::buffer::base_ref const base_;
+
+	size_type const size_;
+
+	size_type const stride_;
 
 	sge::renderer::resource_flags_field const flags_;
 
@@ -126,9 +155,9 @@ private:
 
 	sge::opengl::buffer::holder const holder_;
 
-	size_type
-		lock_offset_,
-		lock_size_;
+	size_type lock_offset_;
+
+	size_type lock_size_;
 };
 
 }

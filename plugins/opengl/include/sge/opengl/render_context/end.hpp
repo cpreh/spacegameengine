@@ -19,8 +19,8 @@ namespace render_context
 
 void
 end(
-	sge::renderer::context::core &
-);
+	sge::renderer::context::core & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

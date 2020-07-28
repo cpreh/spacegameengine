@@ -12,6 +12,7 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
@@ -31,13 +32,17 @@ sge::opengl::init_srgb(
 		==
 		sge::renderer::pixel_format::srgb::no
 	)
+	{
 		return;
+	}
 
 	sge::opengl::srgb_context const &srgb_context(
 		sge::opengl::context::use<
 			sge::opengl::srgb_context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		)
 	);
@@ -61,12 +66,14 @@ sge::opengl::init_srgb(
 				)
 			}
 			else
+			{
 				throw
 					sge::renderer::unsupported(
 						FCPPT_TEXT("srgb sampling"),
 						FCPPT_TEXT("GL_VERSION_3_0"),
 						FCPPT_TEXT("EXT_framebuffer_sRGB")
 					);
+			}
 		},
 		[](
 			GLenum const _srgb_flag

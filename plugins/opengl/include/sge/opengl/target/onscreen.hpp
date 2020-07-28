@@ -7,15 +7,15 @@
 #ifndef SGE_OPENGL_TARGET_ONSCREEN_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_ONSCREEN_HPP_INCLUDED
 
-#include <sge/opengl/backend/current_fwd.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/backend/current_ref.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/target/basic.hpp>
 #include <sge/opengl/target/onscreen_fwd.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <awl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
 
@@ -33,20 +33,21 @@ class onscreen
 			sge::renderer::target::onscreen
 		>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		onscreen
 	);
 public:
-	typedef
+	using
+	base
+	=
 	sge::opengl::target::basic<
 		sge::renderer::target::onscreen
-	>
-	base;
+	>;
 
 	onscreen(
-		sge::opengl::context::object &,
-		sge::opengl::backend::current &,
-		awl::window::object &
+		sge::opengl::context::object_ref,
+		sge::opengl::backend::current_ref,
+		awl::window::object_ref
 	);
 
 	~onscreen()
@@ -64,21 +65,24 @@ private:
 	end_rendering()
 	override;
 
+	[[nodiscard]]
 	sge::renderer::color_buffer::readable_surface const &
 	surface() const
 	override;
 
+	[[nodiscard]]
 	sge::renderer::screen_unit
 	height() const
 	override;
 
-	typedef
+	using
+	color_surface_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::renderer::color_buffer::readable_surface
-	>
-	color_surface_unique_ptr;
+	>;
 
-	sge::opengl::backend::current &current_;
+	sge::opengl::backend::current_ref const current_;
 
 	color_surface_unique_ptr const main_surface_;
 };

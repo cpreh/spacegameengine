@@ -22,8 +22,7 @@ sge::opengl::target::context::context()
 }
 
 sge::opengl::target::context::~context()
-{
-}
+= default;
 
 sge::opengl::target::optional_base_ref const &
 sge::opengl::target::context::last_target()

@@ -82,7 +82,7 @@ sge::opengl::texture::scoped_work_binding::stage() const
 {
 	return
 		sge::renderer::texture::stage(
-			0u
+			0U
 		);
 }
 

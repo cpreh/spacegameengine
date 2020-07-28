@@ -24,12 +24,12 @@ sge::opengl::buffer::range_lock_method(
 			GL_MAP_READ_BIT;
 	case sge::renderer::lock_flags::method::write:
 		return
-			GL_MAP_WRITE_BIT
+			GL_MAP_WRITE_BIT // NOLINT(hicpp-signed-bitwise)
 			|
 			GL_MAP_INVALIDATE_RANGE_BIT;
 	case sge::renderer::lock_flags::method::readwrite:
 		return
-			GL_MAP_READ_BIT
+			GL_MAP_READ_BIT // NOLINT(hicpp-signed-bitwise)
 			|
 			GL_MAP_WRITE_BIT;
 	}

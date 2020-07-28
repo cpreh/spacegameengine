@@ -7,10 +7,10 @@
 #ifndef SGE_OPENGL_STATE_FFP_MISC_CREATE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_MISC_CREATE_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -26,8 +26,8 @@ namespace misc
 
 sge::renderer::state::ffp::misc::object_unique_ptr
 create(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
+	fcppt::log::object_reference,
+	sge::opengl::context::object_ref,
 	sge::renderer::state::ffp::misc::parameters const &
 );
 

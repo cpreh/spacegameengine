@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/lock_base_unique_ptr.hpp>
@@ -20,7 +20,7 @@
 
 sge::opengl::texture::lock_base_unique_ptr
 sge::opengl::texture::create_lock(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::lock_flags::method const _method,
 	sge::opengl::texture::lock_base::size_type const _read_size,
 	sge::opengl::texture::lock_base::size_type const _write_size,

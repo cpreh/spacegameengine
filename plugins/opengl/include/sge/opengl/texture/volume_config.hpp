@@ -23,17 +23,19 @@ namespace texture
 class volume_config
 {
 public:
-	typedef
+	using
+	gl_tex_image_3d
+	=
 	sge::opengl::fun_ref<
 		PFNGLTEXIMAGE3DPROC
-	>
-	gl_tex_image_3d;
+	>;
 
-	typedef
+	using
+	gl_tex_sub_image_3d
+	=
 	sge::opengl::fun_ref<
 		PFNGLTEXSUBIMAGE3DPROC
-	>
-	gl_tex_sub_image_3d;
+	>;
 
 	volume_config(
 		sge::opengl::texture::type,
@@ -42,15 +44,19 @@ public:
 		GLenum max_extent_flag
 	);
 
+	[[nodiscard]]
 	sge::opengl::texture::type
 	volume_texture_type() const;
 
+	[[nodiscard]]
 	gl_tex_image_3d
 	tex_image_3d() const;
 
+	[[nodiscard]]
 	gl_tex_sub_image_3d
 	tex_sub_image_3d() const;
 
+	[[nodiscard]]
 	GLenum
 	max_extent_flag() const;
 private:

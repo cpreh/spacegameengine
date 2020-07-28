@@ -18,7 +18,8 @@ namespace context
 {
 
 sge::opengl::context::id
-make_id();
+make_id()
+noexcept;
 
 }
 }

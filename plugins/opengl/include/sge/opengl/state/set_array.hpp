@@ -28,12 +28,12 @@ template<
 >
 void
 set_array(
-	Context &_context,
+	Context &_context, // NOLINT(google-runtime-references)
 	States const &_states,
 	ConvertFunction const &_convert_function
 )
 {
-	sge::renderer::state::index_count const count(
+	auto const count(
 		static_cast<
 			sge::renderer::state::index_count
 		>(
@@ -43,7 +43,7 @@ set_array(
 
 	for(
 		sge::renderer::state::index_count index(
-			0u
+			0U
 		);
 		index < count;
 		++index
@@ -77,11 +77,13 @@ set_array(
 		index < _context.indices();
 		++index
 	)
+	{
 		sge::opengl::disable(
 			_convert_function(
 				index
 			)
 		);
+	}
 
 	_context.indices(
 		count

@@ -35,10 +35,10 @@ sge::opengl::draw_context::draw_context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				1u
+				1U
 			},
 			sge::opengl::info::minor_version{
-				2u
+				2U
 			}
 		)
 		?
@@ -81,8 +81,7 @@ sge::opengl::draw_context::draw_context(
 FCPPT_PP_POP_WARNING
 
 sge::opengl::draw_context::~draw_context()
-{
-}
+= default;
 
 sge::opengl::draw_context::optional_draw_range_elements
 sge::opengl::draw_context::draw_range_elements() const

@@ -31,9 +31,9 @@ sge::opengl::info::get_version(
 		)
 	);
 
-	sge::opengl::info::version_type major;
+	sge::opengl::info::version_type major{};
 
-	sge::opengl::info::version_type minor;
+	sge::opengl::info::version_type minor{};
 
 	input >> major;
 
@@ -47,10 +47,12 @@ sge::opengl::info::get_version(
 	if(
 		!input
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("Getting GL_VERSION failed")
 			};
+	}
 
 	return
 		sge::opengl::info::version{

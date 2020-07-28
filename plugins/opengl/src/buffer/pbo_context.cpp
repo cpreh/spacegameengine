@@ -14,6 +14,7 @@
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/info/context.hpp>
 #include <sge/opengl/info/extension.hpp>
@@ -21,6 +22,7 @@
 #include <sge/opengl/info/major_version.hpp>
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -35,17 +37,17 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::buffer::pbo_context::pbo_context(
-	sge::opengl::context::object &_context
+	sge::opengl::context::object_ref const _context
 )
 :
 	sge::opengl::context::base(),
 	buffers_(
-		fcppt::optional::maybe(
+		fcppt::optional::maybe( // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
 			sge::opengl::context::use<
 				sge::opengl::buffer::context
 			>(
 				_context,
-				_context.info()
+				_context.get().info()
 			).hardware_config(),
 			[]{
 				return
@@ -60,27 +62,29 @@ sge::opengl::buffer::pbo_context::pbo_context(
 			)
 			{
 				sge::opengl::info::context const &info(
-					_context.info()
+					_context.get().info()
 				);
 
 				return
-					sge::opengl::info::version_at_least(
+					sge::opengl::info::version_at_least( // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
 						info.version(),
 						sge::opengl::info::major_version{
-							2u
+							2U
 						},
 						sge::opengl::info::minor_version{
-							1u
+							1U
 						}
 					)
 					?
 						sge::opengl::buffer::make_hardware(
-							_config,
+							fcppt::make_cref(
+								_config
+							),
 							GL_PIXEL_PACK_BUFFER,
 							GL_PIXEL_UNPACK_BUFFER
 						)
 					:
-						sge::opengl::info::extension_supported(
+						sge::opengl::info::extension_supported( // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
 							info.extensions(),
 							sge::opengl::info::extension{
 								"GL_ARB_pixel_buffer_object"
@@ -88,7 +92,9 @@ sge::opengl::buffer::pbo_context::pbo_context(
 						)
 						?
 							sge::opengl::buffer::make_hardware(
-								_config,
+								fcppt::make_cref(
+									_config
+								),
 								GL_PIXEL_PACK_BUFFER_ARB,
 								GL_PIXEL_UNPACK_BUFFER_ARB
 							)
@@ -106,8 +112,7 @@ sge::opengl::buffer::pbo_context::pbo_context(
 FCPPT_PP_POP_WARNING
 
 sge::opengl::buffer::pbo_context::~pbo_context()
-{
-}
+= default;
 
 sge::opengl::buffer::base &
 sge::opengl::buffer::pbo_context::pack_buffer() const

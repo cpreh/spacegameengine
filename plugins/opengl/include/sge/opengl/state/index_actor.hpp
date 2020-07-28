@@ -18,13 +18,14 @@ namespace opengl
 namespace state
 {
 
-typedef
+using
+index_actor
+=
 fcppt::function<
 	void (
 		GLenum const &
 	)
->
-index_actor;
+>;
 
 }
 }

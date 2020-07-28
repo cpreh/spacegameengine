@@ -38,8 +38,7 @@ sge::opengl::state::core::blend::default_context::default_context(
 }
 
 sge::opengl::state::core::blend::default_context::~default_context()
-{
-}
+= default;
 
 sge::opengl::state::core::blend::object const &
 sge::opengl::state::core::blend::default_context::default_state() const

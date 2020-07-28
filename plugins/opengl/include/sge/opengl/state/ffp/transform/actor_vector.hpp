@@ -24,9 +24,12 @@ namespace ffp
 namespace transform
 {
 
-typedef std::vector<
+using
+actor_vector
+=
+std::vector<
 	sge::opengl::state::ffp::transform::actor
-> actor_vector;
+>;
 
 }
 }

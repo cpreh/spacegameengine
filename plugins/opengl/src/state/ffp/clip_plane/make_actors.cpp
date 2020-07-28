@@ -10,7 +10,6 @@
 #include <sge/opengl/state/index_actor.hpp>
 #include <sge/opengl/state/index_actor_vector.hpp>
 #include <sge/opengl/state/ffp/clip_plane/make_actors.hpp>
-#include <sge/renderer/state/ffp/clip_plane/area.hpp>
 #include <sge/renderer/state/ffp/clip_plane/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -23,22 +22,20 @@ sge::opengl::state::ffp::clip_plane::make_actors(
 	sge::renderer::state::ffp::clip_plane::parameters const &_parameters
 )
 {
-	typedef
+	using
+	vector4d
+	=
 	fcppt::math::vector::static_<
 		GLdouble,
 		4
-	>
-	vector4d;
-
-	sge::renderer::state::ffp::clip_plane::area const area(
-		_parameters.area()
-	);
+	>;
 
 	return
 		sge::opengl::state::index_actor_vector{
 			sge::opengl::state::index_actor(
 				[
-					area
+					area =
+						_parameters.area()
 				](
 					GLenum const _index
 				)

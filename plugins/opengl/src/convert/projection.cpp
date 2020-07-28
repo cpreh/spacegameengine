@@ -17,29 +17,28 @@ sge::opengl::convert::projection(
 	sge::renderer::matrix4 const &_matrix
 )
 {
-        sge::renderer::scalar const
-                one(
-                        1.f
-                ),
-                two(
-                        0.5f
-                ),
-                zero(
-                        0.0f
-                );
+	sge::renderer::scalar const one{
+		1.0F
+	};
+	sge::renderer::scalar const two{
+		0.5F
+	};
+	sge::renderer::scalar const zero{
+		0.0F
+	};
 
-        return
-                fcppt::math::matrix::translation(
-                        zero,
-                        zero,
-                        -one
-                )
-                *
-                fcppt::math::matrix::scaling(
-                        one,
-                        one,
-                        two
-                )
-                *
-                _matrix;
+	return
+		fcppt::math::matrix::translation(
+			zero,
+			zero,
+			-one
+		)
+		*
+		fcppt::math::matrix::scaling(
+			one,
+			one,
+			two
+		)
+		*
+		_matrix;
 }

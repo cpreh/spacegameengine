@@ -40,8 +40,7 @@ sge::opengl::state::unary_object<
 	Base,
 	Parameter
 >::~unary_object()
-{
-}
+= default;
 
 template<
 	typename Base,
@@ -60,9 +59,11 @@ sge::opengl::state::unary_object<
 		:
 		actors_
 	)
+	{
 		actor(
 			_parameter
 		);
+	}
 }
 
 #endif

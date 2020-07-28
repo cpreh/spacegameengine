@@ -12,8 +12,9 @@
 #include <sge/opengl/context/id_fwd.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/optional_base_ref_fwd.hpp>
+#include <sge/opengl/info/const_context_ref.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
@@ -27,44 +28,49 @@ namespace context
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	explicit
 	object(
-		sge::opengl::info::context const &
+		sge::opengl::info::const_context_ref
 	);
 
 	~object();
 
+	[[nodiscard]]
 	sge::opengl::context::optional_base_ref
 	get(
 		sge::opengl::context::id
 	);
 
+	[[nodiscard]]
 	sge::opengl::context::base &
 	insert(
 		sge::opengl::context::id,
 		sge::opengl::context::base_unique_ptr &&
 	);
 
+	[[nodiscard]]
 	sge::opengl::info::context const &
 	info() const;
 private:
-	sge::opengl::info::context const &info_;
+	sge::opengl::info::const_context_ref const info_;
 
-	typedef
+	using
+	optional_base_unique_ptr
+	=
 	fcppt::optional::object<
 		sge::opengl::context::base_unique_ptr
-	>
-	optional_base_unique_ptr;
+	>;
 
-	typedef
+	using
+	container
+	=
 	fcppt::container::index_map<
 		optional_base_unique_ptr
-	>
-	container;
+	>;
 
 	container elements_;
 };

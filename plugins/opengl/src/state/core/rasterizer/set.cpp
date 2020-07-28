@@ -11,6 +11,7 @@
 #include <sge/opengl/state/core/rasterizer/object.hpp>
 #include <sge/opengl/state/core/rasterizer/set.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -25,7 +26,9 @@ sge::opengl::state::core::rasterizer::set(
 		sge::opengl::context::use<
 			sge::opengl::state::core::rasterizer::default_context
 		>(
-			_context
+			fcppt::make_ref(
+				_context
+			)
 		),
 		_state
 	);

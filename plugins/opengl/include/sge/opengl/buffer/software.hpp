@@ -13,7 +13,7 @@
 #include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
@@ -30,7 +30,7 @@ class software
 :
 	public sge::opengl::buffer::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		software
 	);
 public:
@@ -39,6 +39,7 @@ public:
 	~software()
 	override;
 private:
+	[[nodiscard]]
 	sge::opengl::buffer::id
 	gen_buffer()
 	override;
@@ -55,12 +56,14 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	GLvoid *
 	map_buffer(
 		GLenum flags
 	)
 	override;
 
+	[[nodiscard]]
 	GLvoid *
 	map_buffer_range(
 		GLbitfield flags,
@@ -69,6 +72,7 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	bool
 	map_buffer_range_supported() const
 	override;
@@ -93,31 +97,37 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	void *
 	buffer_offset(
 		GLintptr offset
 	) const
 	override;
 
+	[[nodiscard]]
 	bool
 	native() const
 	override;
 
+	[[nodiscard]]
 	sge::opengl::buffer::id
 	bound_buffer() const;
 
-	typedef
+	using
+	buffer_map
+	=
 	std::unordered_map<
 		sge::opengl::buffer::id,
 		sge::renderer::raw_pointer
-	>
-	buffer_map;
+	>;
 
+	[[nodiscard]]
 	sge::renderer::raw_pointer &
 	buffer_object(
 		sge::opengl::buffer::id
 	);
 
+	[[nodiscard]]
 	sge::renderer::const_raw_pointer
 	buffer_object(
 		sge::opengl::buffer::id

@@ -11,8 +11,8 @@
 #include <sge/opengl/buffer/base_unique_ptr.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/context/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <array>
 #include <fcppt/config/external_end.hpp>
@@ -29,13 +29,14 @@ class vbo_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		vbo_context
 	);
 public:
-	typedef
-	sge::opengl::context::object &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::context::object_ref;
 
 	explicit
 	vbo_context(
@@ -45,20 +46,23 @@ public:
 	~vbo_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::buffer::base &
 	index_buffer() const;
 
+	[[nodiscard]]
 	sge::opengl::buffer::base &
 	vertex_buffer() const;
 
 	static sge::opengl::context::id const static_id;
 private:
-	typedef
+	using
+	buffer_array
+	=
 	std::array<
 		sge::opengl::buffer::base_unique_ptr,
-		2u
-	>
-	buffer_array;
+		2U
+	>;
 
 	buffer_array const buffers_;
 };

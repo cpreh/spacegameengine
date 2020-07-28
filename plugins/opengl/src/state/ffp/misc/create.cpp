@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/ffp/misc/create.hpp>
 #include <sge/opengl/state/ffp/misc/make_actors.hpp>
 #include <sge/opengl/state/ffp/misc/object.hpp>
@@ -13,13 +13,13 @@
 #include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 sge::renderer::state::ffp::misc::object_unique_ptr
 sge::opengl::state::ffp::misc::create(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context,
+	fcppt::log::object_reference const _log,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::state::ffp::misc::parameters const &_parameters
 )
 {

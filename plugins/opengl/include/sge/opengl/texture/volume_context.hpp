@@ -12,7 +12,7 @@
 #include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/texture/optional_volume_config.hpp>
 #include <sge/opengl/texture/volume_context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,13 +26,14 @@ class volume_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		volume_context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	volume_context(
@@ -42,6 +43,7 @@ public:
 	~volume_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::texture::optional_volume_config const &
 	config() const;
 

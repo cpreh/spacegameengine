@@ -12,7 +12,7 @@
 #include <sge/opengl/fbo/context_fwd.hpp>
 #include <sge/opengl/fbo/optional_config.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,13 +26,14 @@ class context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	context(
@@ -42,6 +43,7 @@ public:
 	~context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::fbo::optional_config const &
 	config() const;
 

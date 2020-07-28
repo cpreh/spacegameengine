@@ -19,7 +19,7 @@ sge::opengl::fbo::create_id(
 	sge::opengl::fbo::config const &_context
 )
 {
-	GLuint id;
+	GLuint id{};
 
 	sge::opengl::call_fun_ref(
 		_context.gen_framebuffers(),

@@ -29,8 +29,8 @@ namespace point_sprite
 
 void
 set_texture(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::opengl::state::ffp::misc::point_sprite::config const &,
 	sge::renderer::texture::stage,
 	sge::renderer::state::ffp::misc::enable_point_sprites

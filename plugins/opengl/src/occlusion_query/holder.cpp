@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/occlusion_query/config_fwd.hpp>
+#include <sge/opengl/occlusion_query/const_config_ref.hpp>
 #include <sge/opengl/occlusion_query/create_id.hpp>
 #include <sge/opengl/occlusion_query/delete_id.hpp>
 #include <sge/opengl/occlusion_query/holder.hpp>
@@ -12,7 +12,7 @@
 
 
 sge::opengl::occlusion_query::holder::holder(
-	sge::opengl::occlusion_query::config const &_config
+	sge::opengl::occlusion_query::const_config_ref const _config
 )
 :
 	config_(
@@ -20,7 +20,7 @@ sge::opengl::occlusion_query::holder::holder(
 	),
 	id_(
 		sge::opengl::occlusion_query::create_id(
-			config_
+			config_.get()
 		)
 	)
 {
@@ -29,7 +29,7 @@ sge::opengl::occlusion_query::holder::holder(
 sge::opengl::occlusion_query::holder::~holder()
 {
 	sge::opengl::occlusion_query::delete_id(
-		config_,
+		config_.get(),
 		id_
 	);
 }

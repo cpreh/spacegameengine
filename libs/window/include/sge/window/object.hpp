@@ -41,6 +41,7 @@ public:
 	SGE_WINDOW_DETAIL_SYMBOL
 	~object();
 
+	[[nodiscard]]
 	SGE_WINDOW_DETAIL_SYMBOL
 	sge::window::dim
 	size() const;
@@ -49,16 +50,19 @@ public:
 	void
 	show();
 
+	[[nodiscard]]
 	SGE_WINDOW_DETAIL_SYMBOL
 	awl::window::object &
 	awl_object() const;
 
+	[[nodiscard]]
 	SGE_WINDOW_DETAIL_SYMBOL
 	fcppt::signal::auto_connection
 	event_handler(
 		sge::window::event_function
 	);
 
+	[[nodiscard]]
 	SGE_WINDOW_DETAIL_SYMBOL
 	sge::window::system &
 	system() const;

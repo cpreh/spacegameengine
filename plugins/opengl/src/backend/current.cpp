@@ -8,9 +8,7 @@
 
 
 sge::opengl::backend::current::current()
-{
-}
+= default;
 
 sge::opengl::backend::current::~current()
-{
-}
+= default;

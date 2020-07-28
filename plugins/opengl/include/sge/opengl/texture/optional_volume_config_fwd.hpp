@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+optional_volume_config
+=
 fcppt::optional::object<
 	sge::opengl::texture::volume_config
->
-optional_volume_config;
+>;
 
 }
 }

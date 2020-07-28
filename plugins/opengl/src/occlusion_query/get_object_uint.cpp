@@ -21,7 +21,7 @@ sge::opengl::occlusion_query::get_object_uint(
 	GLenum const _what
 )
 {
-	GLuint result;
+	GLuint result{};
 
 	sge::opengl::call_fun_ref(
 		_config.get_query_object_uiv(),

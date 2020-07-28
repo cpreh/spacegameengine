@@ -31,10 +31,10 @@ sge::opengl::state::core::depth_stencil::stencil::context::context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				2u
+				2U
 			},
 			sge::opengl::info::minor_version{
-				0u
+				0U
 			}
 		)
 		?
@@ -67,8 +67,7 @@ sge::opengl::state::core::depth_stencil::stencil::context::context(
 }
 
 sge::opengl::state::core::depth_stencil::stencil::context::~context()
-{
-}
+= default;
 
 sge::opengl::state::core::depth_stencil::stencil::optional_config const &
 sge::opengl::state::core::depth_stencil::stencil::context::config() const

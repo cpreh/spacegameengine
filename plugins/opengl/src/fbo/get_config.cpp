@@ -5,6 +5,7 @@
 
 
 #include <sge/opengl/fbo/config_fwd.hpp>
+#include <sge/opengl/fbo/const_context_ref.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/get_config.hpp>
 #include <sge/renderer/unsupported.hpp>
@@ -14,12 +15,12 @@
 
 sge::opengl::fbo::config const &
 sge::opengl::fbo::get_config(
-	sge::opengl::fbo::context const &_context
+	sge::opengl::fbo::const_context_ref const _context
 )
 {
 	return
 		fcppt::optional::to_exception(
-			_context.config(),
+			_context.get().config(),
 			[]{
 				return
 					sge::renderer::unsupported(

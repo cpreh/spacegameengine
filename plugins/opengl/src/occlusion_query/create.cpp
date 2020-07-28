@@ -4,7 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/occlusion_query/context.hpp>
 #include <sge/opengl/occlusion_query/create.hpp>
@@ -12,6 +13,7 @@
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -20,7 +22,7 @@
 
 sge::renderer::occlusion_query::object_unique_ptr
 sge::opengl::occlusion_query::create(
-	sge::opengl::context::object &_context
+	sge::opengl::context::object_ref const _context
 )
 {
 	return
@@ -30,21 +32,23 @@ sge::opengl::occlusion_query::create(
 			fcppt::make_unique_ptr<
 				sge::opengl::occlusion_query::object
 			>(
-				fcppt::optional::to_exception(
-					sge::opengl::context::use<
-						sge::opengl::occlusion_query::context
-					>(
-						_context,
-						_context.info()
-					).config(),
-					[]{
-						return
-							sge::renderer::unsupported(
-								FCPPT_TEXT("occlusion queries"),
-								FCPPT_TEXT("1.5"),
-								FCPPT_TEXT("")
-							);
-					}
+				fcppt::make_cref(
+					fcppt::optional::to_exception(
+						sge::opengl::context::use<
+							sge::opengl::occlusion_query::context
+						>(
+							_context,
+							_context.get().info()
+						).config(),
+						[]{
+							return
+								sge::renderer::unsupported(
+									FCPPT_TEXT("occlusion queries"),
+									FCPPT_TEXT("1.5"),
+									FCPPT_TEXT("")
+								);
+						}
+					)
 				)
 			)
 		);

@@ -22,9 +22,12 @@ namespace ffp
 namespace lighting
 {
 
-typedef sge::opengl::state::object<
+using
+object
+=
+sge::opengl::state::object<
 	sge::renderer::state::ffp::lighting::object
-> object;
+>;
 
 }
 }

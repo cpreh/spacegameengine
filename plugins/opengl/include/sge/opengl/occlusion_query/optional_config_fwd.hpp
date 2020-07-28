@@ -18,11 +18,12 @@ namespace opengl
 namespace occlusion_query
 {
 
-typedef
+using
+optional_config
+=
 fcppt::optional::object<
 	sge::opengl::occlusion_query::config
->
-optional_config;
+>;
 
 }
 }

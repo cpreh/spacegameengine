@@ -15,7 +15,7 @@ sge::renderer::size_type
 sge::opengl::texture::buffer_surface_types::min_size()
 {
 	return
-		64u;
+		64U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 }
 
 sge::opengl::texture::buffer_surface_types::init_function_type

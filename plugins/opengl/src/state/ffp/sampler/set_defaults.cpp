@@ -15,6 +15,7 @@
 #include <sge/opengl/texture/multi_context.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -32,7 +33,9 @@ sge::opengl::state::ffp::sampler::set_defaults(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		).config(),
 		[
@@ -46,17 +49,21 @@ sge::opengl::state::ffp::sampler::set_defaults(
 				sge::opengl::context::use<
 					sge::opengl::state::ffp::sampler::default_context
 				>(
-					_context
+					fcppt::make_ref(
+						_context
+					)
 				).default_state()
 			);
 
 			sge::opengl::context::use<
 				sge::opengl::state::ffp::sampler::context
 			>(
-				_context
+				fcppt::make_ref(
+					_context
+				)
 			).stages(
 				sge::renderer::texture::stage(
-					0u
+					0U
 				)
 			);
 

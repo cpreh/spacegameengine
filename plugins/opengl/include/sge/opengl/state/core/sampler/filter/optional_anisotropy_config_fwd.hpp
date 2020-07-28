@@ -24,11 +24,12 @@ namespace sampler
 namespace filter
 {
 
-typedef
+using
+optional_anisotropy_config
+=
 fcppt::optional::object<
 	sge::opengl::state::core::sampler::filter::anisotropy_config
->
-optional_anisotropy_config;
+>;
 
 }
 }

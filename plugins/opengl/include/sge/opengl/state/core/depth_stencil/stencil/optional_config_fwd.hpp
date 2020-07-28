@@ -24,11 +24,12 @@ namespace depth_stencil
 namespace stencil
 {
 
-typedef
+using
+optional_config
+=
 fcppt::optional::object<
 	sge::opengl::state::core::depth_stencil::stencil::config
->
-optional_config;
+>;
 
 }
 }

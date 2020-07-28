@@ -8,9 +8,7 @@
 
 
 sge::opengl::backend::system::system()
-{
-}
+= default;
 
 sge::opengl::backend::system::~system()
-{
-}
+= default;

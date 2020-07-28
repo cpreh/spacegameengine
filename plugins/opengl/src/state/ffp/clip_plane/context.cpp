@@ -18,14 +18,13 @@ sge::opengl::state::ffp::clip_plane::context::context()
 :
 	sge::opengl::context::base(),
 	indices_(
-		0u
+		0U
 	)
 {
 }
 
 sge::opengl::state::ffp::clip_plane::context::~context()
-{
-}
+= default;
 
 sge::renderer::state::index_count
 sge::opengl::state::ffp::clip_plane::context::indices() const

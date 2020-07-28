@@ -16,6 +16,7 @@
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -31,8 +32,12 @@ sge::opengl::state::core::sampler::set(
 	sge::opengl::context::use<
 		sge::opengl::state::core::sampler::context
 	>(
-		_context,
-		_context
+		fcppt::make_ref(
+			_context
+		),
+		fcppt::make_ref(
+			_context
+		)
 	).set(
 		_objects
 	);

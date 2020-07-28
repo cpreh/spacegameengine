@@ -26,6 +26,7 @@ cast_function(
 )
 {
 	return
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
 		reinterpret_cast<
 			Ret
 		>(

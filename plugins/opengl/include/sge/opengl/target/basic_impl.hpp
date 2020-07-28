@@ -8,7 +8,7 @@
 #define SGE_OPENGL_TARGET_BASIC_IMPL_HPP_INCLUDED
 
 #include <sge/opengl/clear/set.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/target/base.hpp>
 #include <sge/opengl/target/basic.hpp>
@@ -31,7 +31,7 @@ template<
 sge::opengl::target::basic<
 	Base
 >::basic(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::target::viewport const &_viewport
 )
 :
@@ -64,8 +64,7 @@ template<
 sge::opengl::target::basic<
 	Base
 >::~basic()
-{
-}
+= default;
 
 template<
 	typename Base
@@ -131,7 +130,9 @@ sge::opengl::target::basic<
 	if(
 		active_
 	)
+	{
 		this->set_viewport();
+	}
 }
 
 template<
@@ -162,7 +163,9 @@ sge::opengl::target::basic<
 	if(
 		active_
 	)
+	{
 		this->set_scissor_area();
+	}
 }
 
 template<
@@ -205,7 +208,13 @@ sge::opengl::target::basic<
 
 	{
 		sge::opengl::target::scoped const scoped(
-			*this
+			fcppt::reference_to_base<
+				sge::opengl::target::base
+			>(
+				fcppt::make_ref(
+					*this
+				)
+			)
 		);
 
 		sge::opengl::clear::set(

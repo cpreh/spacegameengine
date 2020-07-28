@@ -20,11 +20,12 @@ namespace glx
 namespace visual
 {
 
-typedef
+using
+optional_srgb_flag
+=
 fcppt::optional::object<
 	sge::opengl::glx::visual::srgb_flag
->
-optional_srgb_flag;
+>;
 
 }
 }

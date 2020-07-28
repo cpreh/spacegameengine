@@ -12,7 +12,7 @@
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id_fwd.hpp>
 #include <sge/opengl/buffer/type.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ namespace buffer
 
 class base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 protected:
@@ -33,6 +33,7 @@ public:
 	virtual
 	~base();
 
+	[[nodiscard]]
 	virtual
 	sge::opengl::buffer::id
 	gen_buffer() = 0;
@@ -49,12 +50,14 @@ public:
 		sge::opengl::buffer::optional_id const &
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	GLvoid *
 	map_buffer(
 		GLenum flags
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	GLvoid *
 	map_buffer_range(
@@ -63,6 +66,7 @@ public:
 		GLsizeiptr size
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	bool
 	map_buffer_range_supported() const = 0;
@@ -87,12 +91,14 @@ public:
 		GLvoid const *data
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	GLvoid *
 	buffer_offset(
 		GLintptr offset
 	) const = 0;
 
+	[[nodiscard]]
 	virtual
 	bool
 	native() const = 0;

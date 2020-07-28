@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/context.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
@@ -13,13 +13,14 @@
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::renderer::depth_stencil_buffer::surface_unique_ptr
 sge::opengl::fbo::create_depth_stencil_surface(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::depth_stencil_buffer::surface_parameters const &_parameters
 )
 {
@@ -30,12 +31,16 @@ sge::opengl::fbo::create_depth_stencil_surface(
 			fcppt::make_unique_ptr<
 				sge::opengl::fbo::depth_stencil_surface
 			>(
-				sge::opengl::fbo::get_config(
-					sge::opengl::context::use<
-						sge::opengl::fbo::context
-					>(
-						_context,
-						_context.info()
+				fcppt::make_cref(
+					sge::opengl::fbo::get_config(
+						fcppt::make_cref(
+							sge::opengl::context::use<
+								sge::opengl::fbo::context
+							>(
+								_context,
+								_context.get().info()
+							)
+						)
 					)
 				),
 				_parameters

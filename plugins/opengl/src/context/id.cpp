@@ -10,6 +10,7 @@
 sge::opengl::context::id::id(
 	type const _value
 )
+noexcept
 :
 	value_(
 		_value

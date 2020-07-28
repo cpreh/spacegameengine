@@ -18,7 +18,7 @@ namespace opengl
 
 void
 set_unpack_alignment(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::opengl::unpack_alignment
 );
 

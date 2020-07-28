@@ -10,7 +10,7 @@
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ namespace texture
 
 class binding
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		binding
 	);
 protected:
@@ -31,10 +31,12 @@ protected:
 	virtual
 	~binding();
 public:
+	[[nodiscard]]
 	virtual
 	sge::renderer::texture::stage
 	stage() const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::opengl::texture::type
 	type() const = 0;

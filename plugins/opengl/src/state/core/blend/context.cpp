@@ -35,10 +35,10 @@ sge::opengl::state::core::blend::context::context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				1u
+				1U
 			},
 			sge::opengl::info::minor_version{
-				4u
+				4U
 			}
 		)
 		?
@@ -63,10 +63,8 @@ sge::opengl::state::core::blend::context::context(
 
 FCPPT_PP_POP_WARNING
 
-
 sge::opengl::state::core::blend::context::~context()
-{
-}
+= default;
 
 sge::opengl::state::core::blend::optional_config const &
 sge::opengl::state::core::blend::context::config() const

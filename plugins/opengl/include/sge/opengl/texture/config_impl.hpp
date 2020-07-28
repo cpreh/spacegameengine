@@ -26,22 +26,24 @@ struct config_impl;
 
 template<>
 struct config_impl<
-	2u
+	2U
 >
 {
-	typedef
-	sge::opengl::texture::surface_config
-	type;
+	using
+	type
+	=
+	sge::opengl::texture::surface_config;
 };
 
 template<>
 struct config_impl<
-	3u
+	3U
 >
 {
-	typedef
-	sge::opengl::texture::volume_config
-	type;
+	using
+	type
+	=
+	sge::opengl::texture::volume_config;
 };
 
 }

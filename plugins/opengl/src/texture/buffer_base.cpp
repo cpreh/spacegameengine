@@ -34,8 +34,7 @@ sge::opengl::texture::buffer_base::buffer_base(
 }
 
 sge::opengl::texture::buffer_base::~buffer_base()
-{
-}
+= default;
 
 sge::opengl::texture::buffer_type
 sge::opengl::texture::buffer_base::buffer_type() const

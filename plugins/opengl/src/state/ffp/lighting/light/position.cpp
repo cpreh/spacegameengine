@@ -20,7 +20,7 @@ sge::opengl::state::ffp::lighting::light::position(
 		sge::opengl::state::ffp::lighting::light::position_impl(
 			fcppt::math::vector::push_back(
 				_position.get(),
-				1.f
+				1.F
 			)
 		);
 }

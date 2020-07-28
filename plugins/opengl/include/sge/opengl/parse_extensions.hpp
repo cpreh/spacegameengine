@@ -14,7 +14,6 @@
 #include <iterator>
 #include <sstream>
 #include <string>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -37,11 +36,12 @@ parse_extensions(
 		_extensions
 	);
 
-	typedef
+	using
+	iterator
+	=
 	std::istream_iterator<
 		std::string
-	>
-	iterator;
+	>;
 
 	return
 		fcppt::algorithm::map<
@@ -61,9 +61,7 @@ parse_extensions(
 			{
 				return
 					Type(
-						std::move(
-							_element
-						)
+						_element
 					);
 			}
 		);

@@ -25,8 +25,8 @@ namespace sampler
 
 void
 set(
-	fcppt::log::object &,
-	sge::opengl::context::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::state::ffp::sampler::const_object_ref_vector const &
 );
 

@@ -11,7 +11,7 @@
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/texture/npot_context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,13 +25,14 @@ class npot_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		npot_context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	npot_context(
@@ -41,6 +42,7 @@ public:
 	~npot_context()
 	override;
 
+	[[nodiscard]]
 	bool
 	is_supported() const;
 

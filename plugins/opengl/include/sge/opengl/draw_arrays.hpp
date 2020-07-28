@@ -20,7 +20,7 @@ namespace opengl
 
 void
 draw_arrays(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::renderer::vertex::first,
 	sge::renderer::vertex::count,
 	sge::renderer::primitive_type
