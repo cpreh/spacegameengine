@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_VERTEX_CREATE_DECLARATION_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_CREATE_DECLARATION_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/log/object_reference.hpp>
