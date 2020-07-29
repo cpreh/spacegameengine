@@ -9,8 +9,8 @@
 
 #include <sge/openal/context_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/log/object_reference.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge

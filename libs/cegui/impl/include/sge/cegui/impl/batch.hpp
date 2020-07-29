@@ -12,8 +12,8 @@
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
-#include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <sge/renderer/vertex/count.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference.hpp>
 

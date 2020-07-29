@@ -8,8 +8,8 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <awl/event/base.hpp>
-#include <awl/timer/const_reference.hpp>
 #include <awl/event/container.hpp>
+#include <awl/timer/const_reference.hpp>
 #include <awl/timer/match.hpp>
 #include <awl/window/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>

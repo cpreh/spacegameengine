@@ -12,8 +12,8 @@
 #include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
-#include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 
 

@@ -13,8 +13,8 @@
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
-#include <fcppt/use.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>

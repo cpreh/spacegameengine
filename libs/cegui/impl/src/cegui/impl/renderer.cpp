@@ -38,7 +38,6 @@
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/make_cref.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>

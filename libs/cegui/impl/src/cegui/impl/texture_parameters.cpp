@@ -6,8 +6,8 @@
 
 #include <sge/cegui/impl/prefix.hpp>
 #include <sge/cegui/impl/texture_parameters.hpp>
-#include <sge/image2d/system_ref.hpp>
 #include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_ref.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>

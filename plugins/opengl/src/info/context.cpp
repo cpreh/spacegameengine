@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/const_current_ref.hpp>
+#include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/info/context.hpp>
 #include <sge/opengl/info/extension_set.hpp>
