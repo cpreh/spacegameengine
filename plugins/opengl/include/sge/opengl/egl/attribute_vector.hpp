@@ -20,11 +20,12 @@ namespace opengl
 namespace egl
 {
 
-typedef
+using
+attribute_vector
+=
 std::vector<
 	EGLint
->
-attribute_vector;
+>;
 
 }
 }

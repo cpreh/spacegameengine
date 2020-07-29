@@ -8,7 +8,7 @@
 #define SGE_OPENGL_EGL_WINDOW_SURFACE_DECL_HPP_INCLUDED
 
 #include <sge/opengl/egl/window_surface_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -26,24 +26,25 @@ template<
 >
 class window_surface
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		window_surface
 	);
 public:
 	window_surface(
-		EGLDisplay,
-		EGLConfig,
+		EGLDisplay, // NOLINT(misc-misplaced-const)
+		EGLConfig, // NOLINT(misc-misplaced-const)
 		NativeWindowType
 	);
 
 	~window_surface();
 
+	[[nodiscard]]
 	EGLSurface
 	get() const;
 private:
-	EGLDisplay const display_;
+	EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 
-	EGLSurface const surface_;
+	EGLSurface const surface_; // NOLINT(misc-misplaced-const)
 };
 
 }

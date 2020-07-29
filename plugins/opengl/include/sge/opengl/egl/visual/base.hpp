@@ -10,7 +10,7 @@
 #include <sge/opengl/egl/visual/base_fwd.hpp>
 #include <sge/renderer/visual_base.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -30,22 +30,24 @@ class base
 :
 	public sge::renderer::visual_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 public:
 	base(
-		fcppt::log::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
 		EGLDisplay,
 		sge::renderer::pixel_format::object const &
 	);
 
-	virtual
-	~base() = 0;
+	~base()
+	override;
 
+	[[nodiscard]]
 	EGLConfig
 	config() const;
 private:
+	// NOLINTNEXTLINE(misc-misplaced-const)
 	EGLConfig const config_;
 };
 

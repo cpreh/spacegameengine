@@ -10,8 +10,8 @@
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/sdl/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
 #include <string>
@@ -30,18 +30,19 @@ class current
 	public
 		sge::opengl::backend::current
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		current
 	);
 public:
 	current(
-		awl::backends::sdl::window::object &,
+		awl::backends::sdl::window::object_ref,
 		SDL_GLContext
 	);
 
 	~current()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::backend::fun_ptr
 	load_function(
 		std::string const &
@@ -62,9 +63,9 @@ public:
 	)
 	override;
 private:
-	awl::backends::sdl::window::object &window_;
+	awl::backends::sdl::window::object_ref const window_;
 
-	SDL_GLContext const context_;
+	SDL_GLContext const context_; // NOLINT(misc-misplaced-const)
 };
 
 }

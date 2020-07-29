@@ -24,7 +24,7 @@ FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
 
 extern
 template
-class
+class // NOLINT(fuchsia-multiple-inheritance)
 sge::opengl::texture::basic<
 	sge::opengl::texture::depth_stencil_types
 >;

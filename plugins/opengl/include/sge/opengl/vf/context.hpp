@@ -11,8 +11,8 @@
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/opengl/vf/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -26,13 +26,14 @@ class context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
-	typedef
-	fcppt::log::object &
-	parameter;
+	using
+	parameter
+	=
+	fcppt::log::object_reference;
 
 	explicit
 	context(
@@ -42,6 +43,7 @@ public:
 	~context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::vf::client_state const &
 	state() const;
 

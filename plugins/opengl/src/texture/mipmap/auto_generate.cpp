@@ -11,6 +11,7 @@
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -29,7 +30,9 @@ sge::opengl::texture::mipmap::auto_generate(
 		sge::opengl::context::use<
 			sge::opengl::texture::mipmap::context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		).generate_mipmap_flag(),
 		[

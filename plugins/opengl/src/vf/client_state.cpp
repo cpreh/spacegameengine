@@ -7,10 +7,13 @@
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
@@ -25,8 +28,10 @@ template<
 >
 void
 insert_checked(
-	fcppt::log::object &,
-	Set &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	fcppt::reference<
+		Set
+	>,
 	typename Set::value_type
 );
 
@@ -35,15 +40,17 @@ template<
 >
 void
 erase_checked(
-	fcppt::log::object &,
-	Set &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	fcppt::reference<
+		Set
+	>,
 	typename Set::value_type
 );
 
 }
 
 sge::opengl::vf::client_state::client_state(
-	fcppt::log::object &_log
+	fcppt::log::object_reference const _log
 )
 :
 	log_{
@@ -62,7 +69,9 @@ sge::opengl::vf::client_state::enable(
 {
 	::insert_checked(
 		log_.get(),
-		normal_states_,
+		fcppt::make_ref(
+			normal_states_
+		),
 		_value
 	);
 }
@@ -74,7 +83,9 @@ sge::opengl::vf::client_state::disable(
 {
 	::erase_checked(
 		log_.get(),
-		normal_states_,
+		fcppt::make_ref(
+			normal_states_
+		),
 		_value
 	);
 }
@@ -86,7 +97,9 @@ sge::opengl::vf::client_state::enable_texture(
 {
 	::insert_checked(
 		log_.get(),
-		texture_states_,
+		fcppt::make_ref(
+			texture_states_
+		),
 		_value
 	);
 }
@@ -98,7 +111,9 @@ sge::opengl::vf::client_state::disable_texture(
 {
 	::erase_checked(
 		log_.get(),
-		texture_states_,
+		fcppt::make_ref(
+			texture_states_
+		),
 		_value
 	);
 }
@@ -110,7 +125,9 @@ sge::opengl::vf::client_state::enable_attribute(
 {
 	::insert_checked(
 		log_.get(),
-		attribute_states_,
+		fcppt::make_ref(
+			attribute_states_
+		),
 		_value
 	);
 }
@@ -122,7 +139,9 @@ sge::opengl::vf::client_state::disable_attribute(
 {
 	::erase_checked(
 		log_.get(),
-		attribute_states_,
+		fcppt::make_ref(
+			attribute_states_
+		),
 		_value
 	);
 }
@@ -166,15 +185,18 @@ template<
 void
 insert_checked(
 	fcppt::log::object &_log,
-	Set &_set,
+	fcppt::reference<
+		Set
+	> const _set,
 	typename Set::value_type const _value
 )
 {
 	if(
-		!_set.insert(
+		!_set.get().insert(
 			_value
 		).second
 	)
+	{
 		FCPPT_LOG_ERROR(
 			_log,
 			fcppt::log::out
@@ -183,6 +205,7 @@ insert_checked(
 				<<
 				common_error()
 		)
+	}
 }
 
 template<
@@ -191,15 +214,18 @@ template<
 void
 erase_checked(
 	fcppt::log::object &_log,
-	Set &_set,
+	fcppt::reference<
+		Set
+	> const _set,
 	typename Set::value_type const _value
 )
 {
 	if(
-		!_set.erase(
+		!_set.get().erase(
 			_value
 		)
 	)
+	{
 		FCPPT_LOG_ERROR(
 			_log,
 			fcppt::log::out
@@ -208,6 +234,7 @@ erase_checked(
 				<<
 				common_error()
 		)
+	}
 }
 
 }

@@ -23,8 +23,8 @@ template<
 sge::opengl::egl::window_surface<
 	NativeWindow
 >::window_surface(
-	EGLDisplay const _display,
-	EGLConfig const _config,
+	EGLDisplay const _display, // NOLINT(misc-misplaced-const)
+	EGLConfig const _config, // NOLINT(misc-misplaced-const)
 	NativeWindowType const _window
 )
 :
@@ -36,19 +36,21 @@ sge::opengl::egl::window_surface<
 			_display,
 			_config,
 			_window,
-			nullptr // TODO: What do we need here?
+			nullptr // TODO(philipp): What do we need here?
 		)
 	}
 {
 	if(
 		surface_
 		==
-		sge::opengl::egl::no_surface
+		sge::opengl::egl::no_surface()
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("eglCreateWindowSurface failed")
 			};
+	}
 }
 
 template<

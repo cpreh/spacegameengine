@@ -14,9 +14,9 @@
 
 void
 sge::opengl::egl::make_current(
-	EGLDisplay const _display,
-	EGLSurface const _surface,
-	EGLContext const _context
+	EGLDisplay const _display, // NOLINT(misc-misplaced-const)
+	EGLSurface const _surface, // NOLINT(misc-misplaced-const)
+	EGLContext const _context // NOLINT(misc-misplaced-const)
 )
 {
 	if(
@@ -29,8 +29,10 @@ sge::opengl::egl::make_current(
 		!=
 		EGL_TRUE
 	)
+	{
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("eglMakeCurrent failed")
 			);
+	}
 }

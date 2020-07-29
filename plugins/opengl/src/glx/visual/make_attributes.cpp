@@ -150,6 +150,7 @@ sge::opengl::glx::visual::make_attributes(
 		!=
 		sge::renderer::pixel_format::srgb::no
 	)
+	{
 		fcppt::optional::maybe(
 			_srgb_flag,
 			[
@@ -160,11 +161,14 @@ sge::opengl::glx::visual::make_attributes(
 					==
 					sge::renderer::pixel_format::srgb::yes
 				)
-					throw sge::renderer::unsupported(
-						FCPPT_TEXT("sRGB visuals"),
-						FCPPT_TEXT(""),
-						FCPPT_TEXT("GLX_EXT_framebuffer_sRGB, GLX_ARB_framebuffer_sRGB")
-					);
+				{
+					throw
+						sge::renderer::unsupported(
+							FCPPT_TEXT("sRGB visuals"),
+							FCPPT_TEXT(""),
+							FCPPT_TEXT("GLX_EXT_framebuffer_sRGB, GLX_ARB_framebuffer_sRGB")
+						);
+				}
 			},
 			[
 				&ret
@@ -181,6 +185,7 @@ sge::opengl::glx::visual::make_attributes(
 				);
 			}
 		);
+	}
 
 	ret.push_back(
 		None

@@ -28,6 +28,8 @@
 #include <sge/renderer/texture/cube_side.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/enum/array_impl.hpp>
@@ -72,7 +74,9 @@ sge::opengl::texture::cube::cube(
 				sge::opengl::context::use<
 					sge::opengl::texture::surface_context
 				>(
-					_basic_parameters.context()
+					fcppt::make_ref(
+						_basic_parameters.context()
+					)
 				).config()
 			};
 
@@ -98,7 +102,9 @@ sge::opengl::texture::cube::cube(
 								binding,
 								_basic_parameters,
 								_parameters,
-								surface_config,
+								fcppt::make_cref(
+									surface_config
+								),
 								_config.cube_texture_type(),
 								_config.cube_sides()[
 									_side
@@ -115,8 +121,7 @@ sge::opengl::texture::cube::cube(
 FCPPT_PP_POP_WARNING
 
 sge::opengl::texture::cube::~cube()
-{
-}
+= default;
 
 sge::renderer::size_type
 sge::opengl::texture::cube::border_size() const

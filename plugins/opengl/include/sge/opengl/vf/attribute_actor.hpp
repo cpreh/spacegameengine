@@ -11,11 +11,12 @@
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/attribute_config_fwd.hpp>
-#include <sge/opengl/vf/client_state_combiner_fwd.hpp>
+#include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
 #include <sge/renderer/vf/dynamic/extra_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -29,7 +30,7 @@ class attribute_actor
 :
 	public sge::opengl::vf::pointer_actor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		attribute_actor
 	);
 public:
@@ -43,18 +44,20 @@ public:
 private:
 	void
 	operator()(
-		sge::opengl::vf::client_state_combiner &,
+		sge::opengl::vf::client_state_combiner_ref,
 		sge::opengl::vf::pointer
 	) const
 	override;
 
 	void
 	unuse(
-		sge::opengl::vf::client_state_combiner &
+		sge::opengl::vf::client_state_combiner_ref
 	) const
 	override;
 
-	sge::opengl::vf::attribute_config const &attribute_config_;
+	fcppt::reference<
+		sge::opengl::vf::attribute_config const
+	> const attribute_config_;
 
 	GLint const elements_;
 

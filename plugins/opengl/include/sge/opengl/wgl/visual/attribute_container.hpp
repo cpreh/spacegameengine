@@ -21,11 +21,12 @@ namespace wgl
 namespace visual
 {
 
-typedef
+using
+attribute_container
+=
 std::vector<
 	int
->
-attribute_container;
+>;
 
 }
 }

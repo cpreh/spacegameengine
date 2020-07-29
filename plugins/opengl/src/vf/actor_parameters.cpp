@@ -13,7 +13,7 @@
 sge::opengl::vf::actor_parameters::actor_parameters(
 	sge::renderer::vf::dynamic::stride const _stride,
 	sge::renderer::vf::dynamic::offset const _offset,
-	sge::opengl::context::object &_context
+	sge::opengl::context::object_ref const _context
 )
 :
 	stride_(

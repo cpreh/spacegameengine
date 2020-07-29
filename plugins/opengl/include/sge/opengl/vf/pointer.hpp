@@ -17,7 +17,10 @@ namespace opengl
 namespace vf
 {
 
-typedef GLvoid const *pointer;
+using
+pointer
+=
+GLvoid const *;
 
 }
 }

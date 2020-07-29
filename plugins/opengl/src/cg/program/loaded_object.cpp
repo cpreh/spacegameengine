@@ -7,6 +7,7 @@
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/opengl/cg/program/loaded_object.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -16,7 +17,7 @@
 
 
 sge::opengl::cg::program::loaded_object::loaded_object(
-	sge::cg::program::object &_program
+	sge::cg::program::object_ref const _program
 )
 :
 	program_(
@@ -24,7 +25,7 @@ sge::opengl::cg::program::loaded_object::loaded_object(
 	)
 {
 	::cgGLLoadProgram(
-		program_.get()
+		program_.get().get()
 	);
 
 	SGE_CG_CHECK_STATE(
@@ -36,7 +37,7 @@ sge::opengl::cg::program::loaded_object::loaded_object(
 sge::opengl::cg::program::loaded_object::~loaded_object()
 {
 	::cgGLUnloadProgram(
-		program_.get()
+		program_.get().get()
 	);
 }
 
@@ -45,7 +46,7 @@ sge::opengl::cg::program::loaded_object::activate() const
 {
 	{
 		::cgGLBindProgram(
-			program_.get()
+			program_.get().get()
 		);
 
 		SGE_CG_CHECK_STATE(
@@ -56,7 +57,7 @@ sge::opengl::cg::program::loaded_object::activate() const
 
 	{
 		::cgGLEnableProfile(
-			program_.profile().get()
+			program_.get().profile().get()
 		);
 
 		SGE_CG_CHECK_STATE(
@@ -71,7 +72,7 @@ sge::opengl::cg::program::loaded_object::deactivate() const
 {
 	{
 		::cgGLDisableProfile(
-			program_.profile().get()
+			program_.get().profile().get()
 		);
 
 		SGE_CG_CHECK_STATE(
@@ -82,7 +83,7 @@ sge::opengl::cg::program::loaded_object::deactivate() const
 
 	{
 		::cgGLUnbindProgram(
-			program_.profile().get()
+			program_.get().profile().get()
 		);
 
 		SGE_CG_CHECK_STATE(

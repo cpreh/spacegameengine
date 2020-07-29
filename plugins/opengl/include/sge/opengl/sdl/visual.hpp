@@ -9,7 +9,7 @@
 
 #include <sge/renderer/pixel_format/object.hpp>
 #include <awl/backends/sdl/visual/object.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ class visual
 	public
 		awl::backends::sdl::visual::object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		visual
 	);
 public:

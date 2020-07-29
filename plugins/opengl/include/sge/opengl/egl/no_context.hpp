@@ -19,9 +19,8 @@ namespace opengl
 namespace egl
 {
 
-extern
-EGLContext const
-no_context;
+EGLContext
+no_context();
 
 }
 }

@@ -50,10 +50,12 @@ sge::opengl::xrandr::set_resolution(
 				!=
 				0
 			)
+			{
 				throw
 					sge::renderer::exception{
 						FCPPT_TEXT("Cannot change screen mode!")
 					};
+			}
 		},
 		[
 			&_window,
@@ -77,10 +79,12 @@ sge::opengl::xrandr::set_resolution(
 				!=
 				0
 			)
+			{
 				throw
 					sge::renderer::exception{
 						FCPPT_TEXT("Cannot change screen mode with rate!")
 					};
+			}
 		}
 	);
 }

@@ -5,6 +5,7 @@
 
 
 #include <sge/opengl/xrandr/configuration.hpp>
+#include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/sizes.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -13,7 +14,7 @@
 
 
 sge::opengl::xrandr::sizes::sizes(
-	sge::opengl::xrandr::configuration const &_config
+	sge::opengl::xrandr::const_configuration_ref const _config
 )
 :
 	size_{
@@ -21,7 +22,7 @@ sge::opengl::xrandr::sizes::sizes(
 	},
 	sizes_{
 		::XRRConfigSizes(
-			_config.get(),
+			_config.get().get(),
 			&size_
 		)
 	}
@@ -40,7 +41,7 @@ sge::opengl::xrandr::sizes::end() const
 {
 	return
 		sizes_
-		+
+		+ // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		size_;
 }
 

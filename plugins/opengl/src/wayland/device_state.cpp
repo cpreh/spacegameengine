@@ -17,14 +17,13 @@ sge::opengl::wayland::device_state::device_state(
 :
 	sge::opengl::platform::device_state()
 {
-	this->fullscreen(
+	this->do_fullscreen(
 		_fullscreen
 	);
 }
 
 sge::opengl::wayland::device_state::~device_state()
-{
-}
+= default;
 
 sge::renderer::display_mode::optional_object
 sge::opengl::wayland::device_state::display_mode() const
@@ -36,6 +35,16 @@ sge::opengl::wayland::device_state::display_mode() const
 
 void
 sge::opengl::wayland::device_state::fullscreen(
+	sge::renderer::display_mode::optional_fullscreen const &_fullscreen
+)
+{
+	this->do_fullscreen(
+		_fullscreen
+	);
+}
+
+void
+sge::opengl::wayland::device_state::do_fullscreen(
 	sge::renderer::display_mode::optional_fullscreen const &_fullscreen
 )
 {

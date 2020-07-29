@@ -18,6 +18,7 @@
 #include <sge/renderer/display_mode/pixel_size.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
@@ -34,7 +35,7 @@
 
 sge::opengl::sdl::device_state::device_state(
 	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 :
 	sge::opengl::platform::device_state{},
@@ -42,18 +43,17 @@ sge::opengl::sdl::device_state::device_state(
 		fcppt::cast::dynamic_exn<
 			awl::backends::sdl::window::object &
 		>(
-			_window.awl_object()
+			_window.get().awl_object()
 		)
 	}
 {
-	this->fullscreen(
+	this->do_fullscreen(
 		_fullscreen
 	);
 }
 
 sge::opengl::sdl::device_state::~device_state()
-{
-}
+= default;
 
 sge::renderer::display_mode::optional_object
 sge::opengl::sdl::device_state::display_mode() const
@@ -61,7 +61,7 @@ sge::opengl::sdl::device_state::display_mode() const
 	return
 		fcppt::optional::map(
 			sge::opengl::sdl::get_window_display_mode(
-				this->window_
+				this->window_.get()
 			),
 			[](
 				SDL_DisplayMode const &_mode
@@ -105,6 +105,16 @@ sge::opengl::sdl::device_state::fullscreen(
 	sge::renderer::display_mode::optional_fullscreen const &_opt_fullscreen
 )
 {
+	this->do_fullscreen(
+		_opt_fullscreen
+	);
+}
+
+void
+sge::opengl::sdl::device_state::do_fullscreen(
+	sge::renderer::display_mode::optional_fullscreen const &_opt_fullscreen
+)
+{
 	auto const set_fullscreen(
 		[
 			this
@@ -114,17 +124,18 @@ sge::opengl::sdl::device_state::fullscreen(
 		{
 			if(
 				SDL_SetWindowFullscreen(
-					&this->window_.get().get(),
+					&this->window_.get().get().get(),
 					_value
 				)
 				==
 				-1
 			)
+			{
 				throw
 					sge::renderer::exception{
 						FCPPT_TEXT("SDL_SetWindowFullscreen failed!")
 					};
-
+			}
 		}
 	);
 
@@ -161,7 +172,7 @@ sge::opengl::sdl::device_state::fullscreen(
 					sge::renderer::display_mode::object const &_display_mode
 				)
 				{
-					// TODO: Set display_mode
+					// TODO(philipp): Set display_mode
 					set_fullscreen(
 						SDL_WINDOW_FULLSCREEN
 					);

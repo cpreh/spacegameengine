@@ -12,7 +12,7 @@
 #include <sge/opengl/vertex/buffer_fwd.hpp>
 #include <sge/opengl/vertex/declaration_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/optional/reference.hpp>
 
@@ -28,7 +28,7 @@ class context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
@@ -37,11 +37,12 @@ public:
 	~context()
 	override;
 
-	typedef
+	using
+	optional_buffer
+	=
 	fcppt::optional::reference<
 		sge::opengl::vertex::buffer const
-	>
-	optional_buffer;
+	>;
 
 	void
 	vertex_buffer(
@@ -49,34 +50,41 @@ public:
 		optional_buffer
 	);
 
+	[[nodiscard]]
 	optional_buffer
 	vertex_buffer(
 		sge::renderer::vf::dynamic::part_index
 	) const;
 
-	typedef
+	using
+	optional_declaration
+	=
 	fcppt::optional::reference<
 		sge::opengl::vertex::declaration const
-	>
-	optional_declaration;
+	>;
 
 	void
 	vertex_declaration(
 		optional_declaration
 	);
 
+	[[nodiscard]]
 	optional_declaration
 	vertex_declaration() const;
 
-	typedef void parameter;
+	using
+	parameter
+	=
+	void;
 
 	static sge::opengl::context::id const static_id;
 private:
-	typedef
+	using
+	vertex_buffer_map
+	=
 	fcppt::container::index_map<
 		optional_buffer
-	>
-	vertex_buffer_map;
+	>;
 
 	optional_declaration last_declaration_;
 

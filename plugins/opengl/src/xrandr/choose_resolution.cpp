@@ -5,7 +5,7 @@
 
 
 #include <sge/opengl/xrandr/choose_resolution.hpp>
-#include <sge/opengl/xrandr/configuration_fwd.hpp>
+#include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/current_mode.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
@@ -15,7 +15,7 @@
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/display_mode/object.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -36,8 +36,8 @@
 
 sge::opengl::xrandr::resolution_unique_ptr
 sge::opengl::xrandr::choose_resolution(
-	sge::opengl::xrandr::configuration const &_config,
-	awl::backends::x11::window::base const &_window,
+	sge::opengl::xrandr::const_configuration_ref const _config,
+	awl::backends::x11::window::const_base_ref const _window,
 	sge::renderer::display_mode::object const &_mode
 )
 {
@@ -74,11 +74,12 @@ sge::opengl::xrandr::choose_resolution(
 						current.height
 					};
 
-					typedef
+					using
+					optional_result
+					=
 					fcppt::optional::object<
 						sge::opengl::xrandr::resolution_unique_ptr
-					>
-					optional_result;
+					>;
 
 					return
 						fcppt::math::dim::structure_cast<

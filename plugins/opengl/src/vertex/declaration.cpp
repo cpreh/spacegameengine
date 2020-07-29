@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/vertex/declaration.hpp>
 #include <sge/opengl/vf/part.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
@@ -14,12 +14,12 @@
 #include <sge/renderer/vf/dynamic/part_list.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 sge::opengl::vertex::declaration::declaration(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context,
+	fcppt::log::object_reference const _log,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::vertex::declaration_parameters const &_parameters
 )
 :
@@ -33,8 +33,8 @@ sge::opengl::vertex::declaration::declaration(
 		>(
 			format_.parts(),
 			[
-				&_log,
-				&_context
+				_log,
+				_context
 			](
 				sge::renderer::vf::dynamic::part const &_part
 			)
@@ -45,7 +45,9 @@ sge::opengl::vertex::declaration::declaration(
 					>(
 						_log,
 						_context,
-						_part
+						sge::renderer::vf::dynamic::part{
+							_part
+						}
 					);
 
 			}
@@ -55,8 +57,7 @@ sge::opengl::vertex::declaration::declaration(
 }
 
 sge::opengl::vertex::declaration::~declaration()
-{
-}
+= default;
 
 sge::renderer::vf::dynamic::part const &
 sge::opengl::vertex::declaration::format_part(

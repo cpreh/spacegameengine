@@ -34,9 +34,12 @@ sge::opengl::cg::texture::assigned_stage(
 		==
 		GL_INVALID_OPERATION
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("cgGLGetTextureEnum failed")
-		);
+	{
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("cgGLGetTextureEnum failed")
+			);
+	}
 
 	SGE_CG_CHECK_STATE(
 		FCPPT_TEXT("cgGLGetTextureEnum failed"),

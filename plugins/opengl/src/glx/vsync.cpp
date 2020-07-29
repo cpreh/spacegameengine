@@ -56,7 +56,9 @@ sge::opengl::glx::vsync(
 			}
 		)
 	)
+	{
 		return;
+	}
 
 	if(
 		fcppt::optional::maybe(
@@ -82,17 +84,21 @@ sge::opengl::glx::vsync(
 					)
 					!= 0
 				)
+				{
 					throw
 						sge::renderer::exception{
 							FCPPT_TEXT("Setting the swap interval via SGI returned an error!")
 						};
+				}
 
 				return
 					true;
 			}
 		)
 	)
+	{
 		return;
+	}
 
 	FCPPT_LOG_ERROR(
 		_log,

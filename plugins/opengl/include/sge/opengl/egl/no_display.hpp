@@ -19,9 +19,8 @@ namespace opengl
 namespace egl
 {
 
-extern
-EGLDisplay const
-no_display;
+EGLDisplay
+no_display();
 
 }
 }

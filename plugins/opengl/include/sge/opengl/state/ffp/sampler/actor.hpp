@@ -22,13 +22,14 @@ namespace ffp
 namespace sampler
 {
 
-typedef
+using
+actor
+=
 fcppt::function<
 	void(
 		sge::opengl::texture::active_level const &
 	)
->
-actor;
+>;
 
 }
 }

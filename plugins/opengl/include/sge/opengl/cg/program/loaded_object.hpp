@@ -7,9 +7,9 @@
 #ifndef SGE_OPENGL_CG_PROGRAM_LOADED_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_CG_PROGRAM_LOADED_OBJECT_HPP_INCLUDED
 
-#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,13 +25,13 @@ class loaded_object
 :
 	public sge::renderer::cg::loaded_program
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		loaded_object
 	);
 public:
 	explicit
 	loaded_object(
-		sge::cg::program::object &
+		sge::cg::program::object_ref
 	);
 
 	~loaded_object()
@@ -43,7 +43,7 @@ public:
 	void
 	deactivate() const;
 private:
-	sge::cg::program::object &program_;
+	sge::cg::program::object_ref const program_;
 };
 
 }

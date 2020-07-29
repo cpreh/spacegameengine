@@ -14,10 +14,11 @@
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects)
 sge::opengl::texture::id
 const
-sge::opengl::texture::no_id{
-	0u
+sge::opengl::texture::no_id{ // NOLINT(cert-err58-cpp)
+	0U
 };
 
 FCPPT_PP_POP_WARNING

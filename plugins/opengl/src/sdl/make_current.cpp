@@ -16,7 +16,7 @@
 void
 sge::opengl::sdl::make_current(
 	awl::backends::sdl::window::object &_window,
-	SDL_GLContext const _context
+	SDL_GLContext const _context // NOLINT(misc-misplaced-const)
 )
 {
 	if(
@@ -27,8 +27,10 @@ sge::opengl::sdl::make_current(
 		!=
 		0
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("SDL_GL_MakeCurrent failed")
 			};
+	}
 }

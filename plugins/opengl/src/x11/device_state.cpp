@@ -19,12 +19,13 @@
 #include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/log/error.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
@@ -33,10 +34,10 @@
 
 
 sge::opengl::x11::device_state::device_state(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::opengl::xrandr::optional_system_ref const &_xrandr_system,
 	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	sge::opengl::x11::state_atom const _wm_state,
 	sge::opengl::x11::fullscreen_atom const _wm_fullscreen
 )
@@ -73,7 +74,7 @@ sge::opengl::x11::device_state::device_state(
 		fcppt::cast::dynamic_exn<
 			awl::backends::x11::window::base &
 		>(
-			_window.awl_object()
+			_window.get().awl_object()
 		)
 	},
 	resolution_()
@@ -81,14 +82,15 @@ sge::opengl::x11::device_state::device_state(
 	if(
 		_fullscreen.has_value()
 	)
-		this->fullscreen(
+	{
+		this->do_fullscreen(
 			_fullscreen
 		);
+	}
 }
 
 sge::opengl::x11::device_state::~device_state()
-{
-}
+= default;
 
 sge::renderer::display_mode::optional_object
 sge::opengl::x11::device_state::display_mode() const
@@ -111,6 +113,16 @@ sge::opengl::x11::device_state::fullscreen(
 	sge::renderer::display_mode::optional_fullscreen const &_opt_fullscreen
 )
 {
+	this->do_fullscreen(
+		_opt_fullscreen
+	);
+}
+
+void
+sge::opengl::x11::device_state::do_fullscreen(
+	sge::renderer::display_mode::optional_fullscreen const &_opt_fullscreen
+)
+{
 	auto const set_fullscreen(
 		[
 			this
@@ -119,7 +131,7 @@ sge::opengl::x11::device_state::fullscreen(
 		)
 		{
 			sge::opengl::x11::fullscreen(
-				this->window_,
+				this->window_.get(),
 				this->wm_state_,
 				this->wm_fullscreen_,
 				_value
@@ -170,7 +182,7 @@ sge::opengl::x11::device_state::fullscreen(
 									this
 								]{
 									FCPPT_LOG_ERROR(
-										this->log_,
+										this->log_.get(),
 										fcppt::log::out
 											<< FCPPT_TEXT("Xrandr was not found. Can't change the display mode.")
 									)

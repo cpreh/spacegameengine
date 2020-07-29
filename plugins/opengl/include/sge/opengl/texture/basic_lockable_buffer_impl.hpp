@@ -71,7 +71,7 @@ sge::opengl::texture::basic_lockable_buffer<
 :
 	gl_base(
 		_format,
-		_config.get(),
+		_config,
 		_parameters
 	),
 	log_{

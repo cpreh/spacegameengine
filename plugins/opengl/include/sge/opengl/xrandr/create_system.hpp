@@ -8,8 +8,8 @@
 #define SGE_OPENGL_XRANDR_CREATE_SYSTEM_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/optional_system_unique_ptr.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -21,8 +21,8 @@ namespace xrandr
 
 sge::opengl::xrandr::optional_system_unique_ptr
 create_system(
-	fcppt::log::object &,
-	awl::backends::x11::display &
+	fcppt::log::object_reference,
+	awl::backends::x11::display_ref
 );
 
 }

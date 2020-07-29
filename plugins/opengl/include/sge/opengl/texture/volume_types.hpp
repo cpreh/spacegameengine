@@ -23,18 +23,22 @@ namespace texture
 
 struct volume_types
 {
-	typedef
-	sge::renderer::texture::volume
-	base;
+	using
+	base
+	=
+	sge::renderer::texture::volume;
 
-	typedef
-	sge::renderer::texture::volume_parameters
-	parameters;
+	using
+	parameters
+	=
+	sge::renderer::texture::volume_parameters;
 
-	typedef
-	sge::opengl::texture::color_volume_types
-	buffer_types;
+	using
+	buffer_types
+	=
+	sge::opengl::texture::color_volume_types;
 
+	[[nodiscard]]
 	static
 	fcppt::string
 	name();

@@ -22,7 +22,8 @@ namespace convert
 sge::opengl::texture::buffer_type
 make_buffer_type(
 	int type
-);
+)
+noexcept;
 
 }
 }

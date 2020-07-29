@@ -19,6 +19,7 @@
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/x11/default_screen.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/root.hpp>
@@ -27,7 +28,9 @@
 #include <awl/event/container.hpp>
 #include <awl/window/object.hpp>
 #include <awl/window/event/base.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_const.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
@@ -36,13 +39,12 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/randr.h>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::xrandr::state::state(
 	sge::opengl::xrandr::extension const &_extension,
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 :
 	extension_{
@@ -52,41 +54,49 @@ sge::opengl::xrandr::state::state(
 		fcppt::cast::dynamic_exn<
 			awl::backends::x11::window::base &
 		>(
-			_window.awl_object()
+			_window.get().awl_object()
 		)
 	},
 	config_{
-		window_
+		fcppt::reference_to_const(
+			window_
+		)
 	},
 	display_mode_{},
 	display_modes_{},
 	event_connection_{
-		_window.event_handler(
+		_window.get().event_handler(
 			sge::window::event_function{
-				std::bind(
-					&sge::opengl::xrandr::state::on_event,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					awl::window::event::base const &_event
 				)
+				{
+					return
+						this->on_event(
+							_event
+						);
+				}
 			}
 		)
 	}
 {
-	// TODO: Select configure notify?
+	// TODO(philipp): Select configure notify?
 
 	sge::opengl::xrandr::select_input(
-		// TODO: root_window?
+		// TODO(philipp): root_window?
 		*awl::backends::x11::window::root(
-			window_.display(),
+			window_.get().display(),
 			awl::backends::x11::default_screen(
-				window_.display()
+				window_.get().display()
 			)
 		),
 		fcppt::strong_typedef_construct_cast<
 			sge::opengl::xrandr::input_mask,
 			fcppt::cast::size_fun
 		>(
-			RRScreenChangeNotifyMask
+			RRScreenChangeNotifyMask // NOLINT(hicpp-signed-bitwise)
 		)
 	);
 
@@ -94,8 +104,7 @@ sge::opengl::xrandr::state::state(
 }
 
 sge::opengl::xrandr::state::~state()
-{
-}
+= default;
 
 sge::renderer::display_mode::optional_object
 sge::opengl::xrandr::state::display_mode() const
@@ -111,8 +120,12 @@ sge::opengl::xrandr::state::choose_resolution(
 {
 	return
 		sge::opengl::xrandr::choose_resolution(
-			config_,
-			window_,
+			fcppt::make_cref(
+				config_
+			),
+			fcppt::reference_to_const(
+				window_
+			),
 			_display_mode
 		);
 }
@@ -168,12 +181,14 @@ sge::opengl::xrandr::state::on_event(
 						_x11_event.get().event()
 					)
 				)
+				{
 					this->update();
+				}
 			}
 		}
 	);
 
-	// TODO: Return events here?
+	// TODO(philipp): Return events here?
 	return
 		awl::event::container{};
 }
@@ -183,7 +198,7 @@ sge::opengl::xrandr::state::update()
 {
 	display_mode_ =
 		sge::opengl::xrandr::current_display_mode(
-			window_
+			window_.get()
 		);
 
 	display_modes_ =

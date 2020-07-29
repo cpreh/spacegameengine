@@ -10,8 +10,8 @@
 #include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/state_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ namespace xrandr
 
 class system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 public:
@@ -32,11 +32,12 @@ public:
 		sge::opengl::xrandr::extension const &
 	);
 
-	~system();
+	~system(); // NOLINT(performance-trivially-destructible)
 
+	[[nodiscard]]
 	sge::opengl::xrandr::state_unique_ptr
 	create_state(
-		sge::window::object &
+		sge::window::object_ref
 	);
 private:
 	sge::opengl::xrandr::extension const extension_;

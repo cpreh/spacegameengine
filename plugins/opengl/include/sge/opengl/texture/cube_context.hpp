@@ -12,7 +12,7 @@
 #include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/texture/cube_context_fwd.hpp>
 #include <sge/opengl/texture/optional_cube_config.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,13 +26,14 @@ class cube_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		cube_context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	cube_context(
@@ -42,6 +43,7 @@ public:
 	~cube_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::texture::optional_cube_config const &
 	config() const;
 

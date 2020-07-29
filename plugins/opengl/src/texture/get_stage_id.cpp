@@ -11,6 +11,7 @@
 #include <sge/opengl/texture/get_stage_id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/map.hpp>
 
@@ -25,7 +26,9 @@ sge::opengl::texture::get_stage_id(
 		sge::opengl::context::use<
 			sge::opengl::texture::bind_context
 		>(
-			_context
+			fcppt::make_ref(
+				_context
+			)
 		)
 	);
 

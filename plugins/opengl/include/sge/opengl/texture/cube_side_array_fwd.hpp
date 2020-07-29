@@ -19,12 +19,13 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+cube_side_array
+=
 fcppt::enum_::array<
 	sge::renderer::texture::cube_side,
 	sge::opengl::texture::buffer_type
->
-cube_side_array;
+>;
 
 }
 }

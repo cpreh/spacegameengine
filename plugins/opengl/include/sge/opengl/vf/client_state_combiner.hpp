@@ -7,14 +7,15 @@
 #ifndef SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 #define SGE_OPENGL_VF_CLIENT_STATE_COMBINER_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/opengl/vf/client_state_combiner_fwd.hpp>
 #include <sge/opengl/vf/context_fwd.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -26,13 +27,13 @@ namespace vf
 
 class client_state_combiner
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		client_state_combiner
 	);
 public:
 	client_state_combiner(
-		fcppt::log::object &,
-		sge::opengl::context::object &
+		fcppt::log::object_reference,
+		sge::opengl::context::object_ref
 	);
 
 	void
@@ -67,13 +68,17 @@ public:
 
 	~client_state_combiner();
 private:
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	sge::opengl::context::object &context_;
+	sge::opengl::context::object_ref const context_;
 
-	sge::opengl::vf::context &vf_context_;
+	fcppt::reference<
+		sge::opengl::vf::context
+	> const vf_context_;
 
-	sge::opengl::vf::attribute_context &attribute_context_;
+	fcppt::reference<
+		sge::opengl::vf::attribute_context
+	 >const attribute_context_;
 
 	sge::opengl::vf::client_state const old_states_;
 

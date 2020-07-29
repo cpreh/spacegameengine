@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+volume_basic
+=
 sge::opengl::texture::basic_box<
 	sge::opengl::texture::volume_types
->
-volume_basic;
+>;
 
 }
 }

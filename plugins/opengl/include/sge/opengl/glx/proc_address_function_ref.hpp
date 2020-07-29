@@ -18,11 +18,12 @@ namespace opengl
 namespace glx
 {
 
-typedef
+using
+proc_address_function_ref
+=
 fcppt::reference<
 	sge::opengl::glx::proc_address_function
->
-proc_address_function_ref;
+>;
 
 }
 }

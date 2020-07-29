@@ -11,18 +11,17 @@
 #include <sge/opengl/egl/surface.hpp>
 #include <sge/opengl/egl/window_surface_impl.hpp>
 #include <sge/opengl/egl/wayland/surface.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/wayland/window/object.hpp>
-#include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::egl::wayland::surface::surface(
-	EGLDisplay const _display,
-	EGLConfig const _config,
-	sge::window::object &_window
+	EGLDisplay const _display, // NOLINT(misc-misplaced-const)
+	EGLConfig const _config, // NOLINT(misc-misplaced-const)
+	sge::window::object_ref const _window
 )
 :
 	sge::opengl::egl::surface(),
@@ -38,8 +37,7 @@ sge::opengl::egl::wayland::surface::surface(
 }
 
 sge::opengl::egl::wayland::surface::~surface()
-{
-}
+= default;
 
 EGLSurface
 sge::opengl::egl::wayland::surface::get() const

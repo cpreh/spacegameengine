@@ -8,7 +8,7 @@
 #include <sge/opengl/xrandr/state.hpp>
 #include <sge/opengl/xrandr/state_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
 
@@ -23,12 +23,11 @@ sge::opengl::xrandr::system::system(
 }
 
 sge::opengl::xrandr::system::~system()
-{
-}
+= default;
 
 sge::opengl::xrandr::state_unique_ptr
 sge::opengl::xrandr::system::create_state(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	return

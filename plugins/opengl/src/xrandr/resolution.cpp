@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/xrandr/configuration_fwd.hpp>
+#include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/optional_refresh_rate.hpp>
@@ -14,7 +14,7 @@
 #include <sge/opengl/xrandr/set_resolution.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -27,8 +27,8 @@
 
 
 sge::opengl::xrandr::resolution::resolution(
-	awl::backends::x11::window::base const &_window,
-	sge::opengl::xrandr::configuration const &_config,
+	awl::backends::x11::window::const_base_ref const _window,
+	sge::opengl::xrandr::const_configuration_ref const _config,
 	sge::opengl::xrandr::mode_index const _mode_index,
 	sge::renderer::display_mode::optional_refresh_rate const &_opt_rate,
 	sge::opengl::xrandr::mode const &_old_mode
@@ -45,12 +45,12 @@ sge::opengl::xrandr::resolution::resolution(
 	}
 {
 	sge::opengl::xrandr::set_resolution(
-		_window,
-		config_,
+		window_.get(),
+		config_.get(),
 		_mode_index,
 		sge::opengl::xrandr::rotation{
 			fcppt::cast::size<
-				unsigned short
+				unsigned short // NOLINT(google-runtime-int)
 			>(
 				fcppt::cast::to_unsigned(
 					RR_Rotate_0
@@ -80,8 +80,8 @@ sge::opengl::xrandr::resolution::resolution(
 sge::opengl::xrandr::resolution::~resolution()
 {
 	sge::opengl::xrandr::set_resolution(
-		window_,
-		config_,
+		window_.get(),
+		config_.get(),
 		old_mode_.index(),
 		old_mode_.rotation(),
 		sge::opengl::xrandr::optional_refresh_rate(

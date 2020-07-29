@@ -17,7 +17,8 @@
 #include <sge/opengl/egl/visual/to_config.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <sge/window/object.hpp>
-#include <awl/system/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/system/object_ref.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
@@ -25,13 +26,13 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/info.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 
 
 sge::opengl::egl::system::system(
-	fcppt::log::object &_log,
-	awl::system::object &_awl_system
+	fcppt::log::object_reference const _log,
+	awl::system::object_ref const _awl_system
 )
 :
 	sge::opengl::backend::system(),
@@ -52,7 +53,7 @@ sge::opengl::egl::system::system(
 	)
 {
 	FCPPT_LOG_INFO(
-		_log,
+		_log.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("EGL version is ")
 			<< init_.version()
@@ -64,8 +65,7 @@ sge::opengl::egl::system::system(
 }
 
 sge::opengl::egl::system::~system()
-{
-}
+= default;
 
 awl::visual::object_unique_ptr
 sge::opengl::egl::system::create_visual(
@@ -81,14 +81,15 @@ sge::opengl::egl::system::create_visual(
 
 sge::opengl::backend::context_unique_ptr
 sge::opengl::egl::system::create_context(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
+	// NOLINTNEXTLINE(misc-misplaced-const)
 	EGLConfig const config{
 		sge::opengl::egl::visual::to_config(
-			log_,
+			log_.get(),
 			egl_display_->get(),
-			_window.awl_object().visual()
+			_window.get().awl_object().visual()
 		)
 	};
 

@@ -15,14 +15,14 @@
 #include <fcppt/config/external_end.hpp>
 
 
-sge::opengl::egl::version const
+sge::opengl::egl::version
 sge::opengl::egl::initialize(
-	EGLDisplay const _display
+	EGLDisplay const _display // NOLINT(misc-misplaced-const)
 )
 {
-	EGLint major;
+	EGLint major{};
 
-	EGLint minor;
+	EGLint minor{};
 
 	if(
 		::eglInitialize(
@@ -33,10 +33,12 @@ sge::opengl::egl::initialize(
 		!=
 		EGL_TRUE
 	)
+	{
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("Failed to initialize EGL")
 			);
+	}
 
 	return
 		sge::opengl::egl::version(

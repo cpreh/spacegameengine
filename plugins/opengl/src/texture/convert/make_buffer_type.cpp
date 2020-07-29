@@ -14,6 +14,7 @@ sge::opengl::texture::buffer_type
 sge::opengl::texture::convert::make_buffer_type(
 	int const _type
 )
+noexcept
 {
 	// TODO(philipp): Template
 	return

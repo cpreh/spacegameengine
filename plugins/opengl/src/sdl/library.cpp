@@ -21,10 +21,12 @@ sge::opengl::sdl::library::library()
 		!=
 		0
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("Failed to load SDL OpenGL library!")
 			};
+	}
 }
 
 sge::opengl::sdl::library::~library()

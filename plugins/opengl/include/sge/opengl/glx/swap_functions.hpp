@@ -32,45 +32,51 @@ public:
 		sge::opengl::glx::proc_address_function
 	);
 
-	typedef
+	using
+	glx_swap_interval_sgi
+	=
 	int(
-		glx_swap_interval_sgi
-	)(
 		int
 	);
 
-	typedef
+	using
+	optional_glx_swap_interval_sgi
+	=
 	fcppt::optional::reference<
 		glx_swap_interval_sgi
-	>
-	optional_glx_swap_interval_sgi;
+	>;
 
-	typedef
-	optional_glx_swap_interval_sgi::value_type
-	glx_swap_interval_sgi_ref;
+	using
+	glx_swap_interval_sgi_ref
+	=
+	optional_glx_swap_interval_sgi::value_type;
 
-	typedef
-	void(
-		glx_swap_interval_ext
-	)(
+	using
+	glx_swap_interval_ext
+	=
+	void (
 		Display *,
 		GLXDrawable,
 		int
 	);
 
-	typedef
+	using
+	optional_glx_swap_interval_ext
+	=
 	fcppt::optional::reference<
 		glx_swap_interval_ext
-	>
-	optional_glx_swap_interval_ext;
+	>;
 
-	typedef
-	optional_glx_swap_interval_ext::value_type
-	glx_swap_interval_ext_ref;
+	using
+	glx_swap_interval_ext_ref
+	=
+	optional_glx_swap_interval_ext::value_type;
 
+	[[nodiscard]]
 	optional_glx_swap_interval_sgi
 	swap_interval_sgi() const;
 
+	[[nodiscard]]
 	optional_glx_swap_interval_ext
 	swap_interval_ext() const;
 private:

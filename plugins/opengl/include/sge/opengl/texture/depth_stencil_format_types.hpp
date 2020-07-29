@@ -24,51 +24,61 @@ namespace texture
 
 struct depth_stencil_format_types
 {
-	typedef
-	sge::image::ds::format
+	using
+	format
+	=
+	sge::image::ds::format;
+
+	using
+	gl_format
+	=
 	format;
 
-	typedef
-	format
-	gl_format;
-
-	typedef
+	using
+	convert_order_function_type
+	=
 	sge::opengl::texture::convert_order_function<
 		format
-	>
-	convert_order_function_type;
+	>;
 
+	[[nodiscard]]
 	static
 	convert_order_function_type
 	convert_order();
 
-	typedef
+	using
+	convert_base_type_function
+	=
 	sge::opengl::texture::convert_base_type_function<
 		format
-	>
-	convert_base_type_function;
+	>;
 
+	[[nodiscard]]
 	static
 	convert_base_type_function
 	convert_base_type();
 
-	typedef
+	using
+	convert_internal_format_function
+	=
 	sge::opengl::texture::convert_internal_format_function<
 		format
-	>
-	convert_internal_format_function;
+	>;
 
+	[[nodiscard]]
 	static
 	convert_internal_format_function
 	convert_internal_format();
 
-	typedef
+	using
+	format_result
+	=
 	sge::opengl::texture::format_result<
 		format,
 		gl_format
-	>
-	format_result;
+	>;
 
+	[[nodiscard]]
 	static
 	format_result
 	translate_format(

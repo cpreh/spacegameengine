@@ -22,7 +22,7 @@ namespace sdl
 
 void
 make_current(
-	awl::backends::sdl::window::object &,
+	awl::backends::sdl::window::object &, // NOLINT(google-runtime-references)
 	SDL_GLContext
 );
 

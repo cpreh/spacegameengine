@@ -24,7 +24,7 @@ sge::opengl::texture::funcs::level_parameter(
 	GLenum const _what
 )
 {
-	GLint ret;
+	GLint ret{};
 
 	sge::opengl::call(
 		::glGetTexLevelParameteriv,

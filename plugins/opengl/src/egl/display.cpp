@@ -8,9 +8,7 @@
 
 
 sge::opengl::egl::display::display()
-{
-}
+= default;
 
 sge::opengl::egl::display::~display()
-{
-}
+= default;

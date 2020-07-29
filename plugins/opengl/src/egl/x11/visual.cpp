@@ -8,7 +8,7 @@
 #include <sge/opengl/egl/x11/create_visual_info.hpp>
 #include <sge/opengl/egl/x11/visual.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/const_display_ref.hpp>
 #include <awl/backends/x11/visual/wrapped.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -18,8 +18,8 @@
 
 sge::opengl::egl::x11::visual::visual(
 	fcppt::log::object &_log,
-	awl::backends::x11::display const &_display,
-	EGLDisplay const _egl_display,
+	awl::backends::x11::const_display_ref const _display,
+	EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 :
@@ -39,5 +39,4 @@ sge::opengl::egl::x11::visual::visual(
 }
 
 sge::opengl::egl::x11::visual::~visual()
-{
-}
+= default;

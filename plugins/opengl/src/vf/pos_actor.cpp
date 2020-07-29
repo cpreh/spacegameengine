@@ -47,8 +47,7 @@ sge::opengl::vf::pos_actor::pos_actor(
 }
 
 sge::opengl::vf::pos_actor::~pos_actor()
-{
-}
+= default;
 
 void
 sge::opengl::vf::pos_actor::on_use(

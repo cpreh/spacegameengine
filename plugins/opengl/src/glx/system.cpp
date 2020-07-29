@@ -14,16 +14,19 @@
 #include <sge/opengl/glx/visual/get_srgb_flag.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/x11/system/object.hpp>
+#include <awl/backends/x11/system/object_ref.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/alternative.hpp>
 #include <fcppt/optional/from_pointer.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -32,8 +35,8 @@
 
 
 sge::opengl::glx::system::system(
-	fcppt::log::object &_log,
-	awl::backends::x11::system::object &_awl_system
+	fcppt::log::object_reference const _log,
+	awl::backends::x11::system::object_ref const _awl_system
 )
 :
 	sge::opengl::backend::system(),
@@ -57,7 +60,7 @@ sge::opengl::glx::system::system(
 	),
 	extensions_(
 		sge::opengl::glx::get_extensions(
-			_awl_system.display()
+			_awl_system.get().display()
 		)
 	),
 	srgb_flag_(
@@ -69,8 +72,7 @@ sge::opengl::glx::system::system(
 }
 
 sge::opengl::glx::system::~system()
-{
-}
+= default;
 
 awl::visual::object_unique_ptr
 sge::opengl::glx::system::create_visual(
@@ -87,7 +89,7 @@ sge::opengl::glx::system::create_visual(
 
 sge::opengl::backend::context_unique_ptr
 sge::opengl::glx::system::create_context(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	return
@@ -98,10 +100,12 @@ sge::opengl::glx::system::create_context(
 				sge::opengl::glx::context
 			>(
 				log_,
-				fcppt::cast::dynamic_exn<
-					awl::backends::x11::window::base &
-				>(
-					_window.awl_object()
+				fcppt::make_ref(
+					fcppt::cast::dynamic_exn<
+						awl::backends::x11::window::base &
+					>(
+						_window.get().awl_object()
+					)
 				),
 				get_proc_address_
 			)

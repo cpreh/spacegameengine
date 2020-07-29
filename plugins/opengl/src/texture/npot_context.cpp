@@ -29,10 +29,10 @@ sge::opengl::texture::npot_context::npot_context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				2u
+				2U
 			},
 			sge::opengl::info::minor_version{
-				0u
+				0U
 			}
 		)
 		||
@@ -47,8 +47,7 @@ sge::opengl::texture::npot_context::npot_context(
 }
 
 sge::opengl::texture::npot_context::~npot_context()
-{
-}
+= default;
 
 bool
 sge::opengl::texture::npot_context::is_supported() const

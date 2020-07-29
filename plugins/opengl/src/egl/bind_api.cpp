@@ -24,8 +24,10 @@ sge::opengl::egl::bind_api(
 		!=
 		EGL_TRUE
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("eglBindAPI failed")
 			};
+	}
 }

@@ -17,5 +17,5 @@ sge::opengl::vf::extra_index(
 		// ATTR0 is special
 		_index.get()
 		+
-		1u;
+		1U;
 }

@@ -8,9 +8,7 @@
 
 
 sge::opengl::texture::lock_base::lock_base()
-{
-}
+= default;
 
 sge::opengl::texture::lock_base::~lock_base()
-{
-}
+= default;

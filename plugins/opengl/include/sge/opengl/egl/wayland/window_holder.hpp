@@ -7,8 +7,8 @@
 #ifndef SGE_OPENGL_EGL_WAYLAND_WINDOW_HOLDER_HPP_INCLUDED
 #define SGE_OPENGL_EGL_WAYLAND_WINDOW_HOLDER_HPP_INCLUDED
 
-#include <awl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
@@ -25,17 +25,18 @@ namespace wayland
 
 class window_holder
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		window_holder
 	);
 public:
 	explicit
 	window_holder(
-		awl::window::object const &
+		awl::window::object_ref
 	);
 
 	~window_holder();
 
+	[[nodiscard]]
 	wl_egl_window *
 	get() const;
 private:

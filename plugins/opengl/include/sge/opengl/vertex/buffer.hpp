@@ -9,7 +9,7 @@
 
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/vertex/buffer_fwd.hpp>
 #include <sge/opengl/vf/part_fwd.hpp>
 #include <sge/renderer/dim1_fwd.hpp>
@@ -25,7 +25,7 @@
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/view_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -35,17 +35,17 @@ namespace opengl
 namespace vertex
 {
 
-class buffer
+class buffer // NOLINT(fuchsia-multiple-inheritance)
 :
 	public sge::renderer::vertex::buffer,
 	public sge::opengl::buffer::wrapper
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		buffer
 	);
 public:
 	buffer(
-		sge::opengl::context::object &,
+		sge::opengl::context::object_ref,
 		sge::renderer::vf::dynamic::part_index,
 		sge::renderer::vf::dynamic::part const &,
 		sge::renderer::vertex::count,

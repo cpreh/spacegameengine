@@ -11,6 +11,7 @@
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <awl/backends/sdl/window/object.hpp>
+#include <awl/backends/sdl/window/object_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -20,8 +21,8 @@
 
 
 sge::opengl::sdl::current::current(
-	awl::backends::sdl::window::object &_window,
-	SDL_GLContext const _context
+	awl::backends::sdl::window::object_ref const _window,
+	SDL_GLContext const _context // NOLINT(misc-misplaced-const)
 )
 :
 	sge::opengl::backend::current{},
@@ -33,7 +34,7 @@ sge::opengl::sdl::current::current(
 	}
 {
 	sge::opengl::sdl::make_current(
-		this->window_,
+		this->window_.get(),
 		this->context_
 	);
 }
@@ -41,7 +42,7 @@ sge::opengl::sdl::current::current(
 sge::opengl::sdl::current::~current()
 {
 	sge::opengl::sdl::make_current(
-		this->window_,
+		this->window_.get(),
 		nullptr
 	);
 }
@@ -52,6 +53,7 @@ sge::opengl::sdl::current::load_function(
 ) const
 {
 	return
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
 		reinterpret_cast<
 			sge::opengl::backend::fun_ptr
 		>(
@@ -70,7 +72,7 @@ void
 sge::opengl::sdl::current::end_rendering()
 {
 	SDL_GL_SwapWindow(
-		&this->window_.get().get()
+		&this->window_.get().get().get()
 	);
 }
 
@@ -110,8 +112,10 @@ sge::opengl::sdl::current::vsync(
 		!=
 		0
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("SDL_GL_SetSwapInterval failed")
 			};
+	}
 }

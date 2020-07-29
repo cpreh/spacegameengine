@@ -33,10 +33,10 @@ sge::opengl::vf::attribute_context::attribute_context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				2u
+				2U
 			},
 			sge::opengl::info::minor_version{
-				0u
+				0U
 			}
 		)
 		?
@@ -117,8 +117,7 @@ sge::opengl::vf::attribute_context::attribute_context(
 }
 
 sge::opengl::vf::attribute_context::~attribute_context()
-{
-}
+= default;
 
 sge::opengl::vf::optional_attribute_config const &
 sge::opengl::vf::attribute_context::config() const

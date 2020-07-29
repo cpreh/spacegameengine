@@ -23,14 +23,14 @@ sge::opengl::egl::version::version(
 {
 }
 
-sge::opengl::egl::major_version const
+sge::opengl::egl::major_version
 sge::opengl::egl::version::major() const
 {
 	return
 		major_;
 }
 
-sge::opengl::egl::minor_version const
+sge::opengl::egl::minor_version
 sge::opengl::egl::version::minor() const
 {
 	return

@@ -10,7 +10,7 @@
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <string>
@@ -28,7 +28,7 @@ class current
 :
 	public sge::opengl::backend::current
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		current
 	);
 public:
@@ -40,6 +40,7 @@ public:
 	~current()
 	override;
 private:
+	[[nodiscard]]
 	sge::opengl::backend::fun_ptr
 	load_function(
 		std::string const &
@@ -60,9 +61,9 @@ private:
 	)
 	override;
 
-	EGLDisplay const display_;
+	EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 
-	EGLSurface const surface_;
+	EGLSurface const surface_; // NOLINT(misc-misplaced-const)
 };
 
 }

@@ -21,7 +21,7 @@ namespace texture
 
 sge::opengl::texture::optional_id
 get_stage_id(
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::renderer::texture::stage
 );
 

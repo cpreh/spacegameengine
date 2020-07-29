@@ -12,6 +12,7 @@
 #include <sge/renderer/vertex/const_optional_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/map.hpp>
@@ -26,7 +27,9 @@ sge::opengl::vertex::set_declaration(
 	sge::opengl::context::use<
 		sge::opengl::vertex::context
 	>(
-		_context
+		fcppt::make_ref(
+			_context
+		)
 	).vertex_declaration(
 		fcppt::optional::map(
 			_opt_declaration,

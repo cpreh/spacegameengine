@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_EGL_X11_CREATE_VISUAL_INFO_HPP_INCLUDED
 #define SGE_OPENGL_EGL_X11_CREATE_VISUAL_INFO_HPP_INCLUDED
 
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/const_display_ref.hpp>
 #include <awl/backends/x11/visual/info_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -25,7 +25,7 @@ namespace x11
 
 awl::backends::x11::visual::info_unique_ptr
 create_visual_info(
-	awl::backends::x11::display const &,
+	awl::backends::x11::const_display_ref,
 	EGLDisplay,
 	EGLConfig
 );

@@ -13,12 +13,12 @@
 #include <fcppt/config/external_end.hpp>
 
 
+EGLContext
+sge::opengl::egl::no_context()
+{
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
-
-EGLContext const
-sge::opengl::egl::no_context(
-	EGL_NO_CONTEXT
-);
-
+	return
+		EGL_NO_CONTEXT;
 FCPPT_PP_POP_WARNING
+}

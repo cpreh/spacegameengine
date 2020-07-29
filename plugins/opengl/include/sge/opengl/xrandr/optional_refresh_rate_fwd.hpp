@@ -18,11 +18,12 @@ namespace opengl
 namespace xrandr
 {
 
-typedef
+using
+optional_refresh_rate
+=
 fcppt::optional::object<
 	sge::opengl::xrandr::refresh_rate
->
-optional_refresh_rate;
+>;
 
 }
 }

@@ -23,23 +23,27 @@ namespace texture
 
 struct depth_stencil_surface_types
 {
-	typedef
-	sge::renderer::depth_stencil_buffer::surface
-	base;
+	using
+	base
+	=
+	sge::renderer::depth_stencil_buffer::surface;
 
-	typedef
+	using
+	gl_buffer
+	=
 	sge::opengl::texture::basic_buffer<
 		sge::opengl::texture::depth_stencil_surface_types
-	>
-	gl_buffer;
+	>;
 
-	typedef
-	sge::opengl::texture::buffer_surface_types
-	dim_types;
+	using
+	dim_types
+	=
+	sge::opengl::texture::buffer_surface_types;
 
-	typedef
-	sge::opengl::texture::depth_stencil_format_types
-	format_types;
+	using
+	format_types
+	=
+	sge::opengl::texture::depth_stencil_format_types;
 };
 
 }

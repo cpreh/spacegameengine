@@ -40,10 +40,10 @@ sge::opengl::texture::multi_context::multi_context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				1u
+				1U
 			},
 			sge::opengl::info::minor_version{
-				3u
+				3U
 			}
 		)
 		?
@@ -132,8 +132,7 @@ sge::opengl::texture::multi_context::multi_context(
 }
 
 sge::opengl::texture::multi_context::~multi_context()
-{
-}
+= default;
 
 sge::opengl::texture::optional_multi_config const &
 sge::opengl::texture::multi_context::config() const

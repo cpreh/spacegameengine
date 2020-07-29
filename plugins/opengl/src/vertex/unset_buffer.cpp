@@ -12,6 +12,7 @@
 #include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 
@@ -26,7 +27,9 @@ sge::opengl::vertex::unset_buffer(
 		sge::opengl::context::use<
 			sge::opengl::vertex::context
 		>(
-			_context
+			fcppt::make_ref(
+				_context
+			)
 		)
 	);
 

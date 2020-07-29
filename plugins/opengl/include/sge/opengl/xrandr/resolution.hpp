@@ -7,13 +7,13 @@
 #ifndef SGE_OPENGL_XRANDR_RESOLUTION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_RESOLUTION_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/configuration_fwd.hpp>
+#include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/resolution_fwd.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate_fwd.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,13 +25,13 @@ namespace xrandr
 
 class resolution
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		resolution
 	);
 public:
 	resolution(
-		awl::backends::x11::window::base const &,
-		sge::opengl::xrandr::configuration const &,
+		awl::backends::x11::window::const_base_ref,
+		sge::opengl::xrandr::const_configuration_ref,
 		sge::opengl::xrandr::mode_index,
 		sge::renderer::display_mode::optional_refresh_rate const &,
 		sge::opengl::xrandr::mode const &old_mode
@@ -39,9 +39,9 @@ public:
 
 	~resolution();
 private:
-	awl::backends::x11::window::base const &window_;
+	awl::backends::x11::window::const_base_ref const window_;
 
-	sge::opengl::xrandr::configuration const &config_;
+	sge::opengl::xrandr::const_configuration_ref const config_;
 
 	sge::opengl::xrandr::mode const old_mode_;
 };

@@ -9,7 +9,7 @@
 
 #include <sge/opengl/xrandr/extension_fwd.hpp>
 #include <sge/opengl/xrandr/version_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ namespace xrandr
 sge::opengl::xrandr::version
 get_version(
 	sge::opengl::xrandr::extension const &,
-	awl::backends::x11::display &
+	awl::backends::x11::display_ref
 );
 
 }

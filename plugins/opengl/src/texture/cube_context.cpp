@@ -31,6 +31,7 @@ namespace
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 
+// NOLINTNEXTLINE(cert-err58-cpp)
 sge::opengl::texture::cube_side_array const normal_sides{{{
 	sge::opengl::texture::convert::make_buffer_type(
 		GL_TEXTURE_CUBE_MAP_POSITIVE_Z
@@ -52,6 +53,7 @@ sge::opengl::texture::cube_side_array const normal_sides{{{
 	)
 }}};
 
+// NOLINTNEXTLINE(cert-err58-cpp)
 sge::opengl::texture::cube_side_array const arb_sides{{{
 	sge::opengl::texture::convert::make_buffer_type(
 		GL_TEXTURE_CUBE_MAP_POSITIVE_Z_ARB
@@ -85,10 +87,10 @@ sge::opengl::texture::cube_context::cube_context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				1u
+				1U
 			},
 			sge::opengl::info::minor_version{
-				0u
+				0U
 			}
 		)
 		?
@@ -123,8 +125,7 @@ sge::opengl::texture::cube_context::cube_context(
 }
 
 sge::opengl::texture::cube_context::~cube_context()
-{
-}
+= default;
 
 sge::opengl::texture::optional_cube_config const &
 sge::opengl::texture::cube_context::config() const

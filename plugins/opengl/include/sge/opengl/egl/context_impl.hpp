@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_EGL_CONTEXT_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_EGL_CONTEXT_IMPL_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -22,7 +22,7 @@ namespace egl
 
 class context_impl
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context_impl
 	);
 public:
@@ -41,9 +41,9 @@ public:
 	void
 	deactivate();
 private:
-	EGLDisplay const display_;
+	EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 
-	EGLContext const context_;
+	EGLContext const context_; // NOLINT(misc-misplaced-const)
 };
 
 }

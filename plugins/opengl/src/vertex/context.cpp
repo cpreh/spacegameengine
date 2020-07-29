@@ -26,8 +26,7 @@ sge::opengl::vertex::context::context()
 }
 
 sge::opengl::vertex::context::~context()
-{
-}
+= default;
 
 void
 sge::opengl::vertex::context::vertex_buffer(

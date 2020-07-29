@@ -18,11 +18,12 @@ namespace opengl
 namespace xrandr
 {
 
-typedef
+using
+state_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::xrandr::state
->
-state_unique_ptr;
+>;
 
 }
 }

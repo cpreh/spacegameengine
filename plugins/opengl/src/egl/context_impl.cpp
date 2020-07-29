@@ -18,8 +18,8 @@
 
 
 sge::opengl::egl::context_impl::context_impl(
-	EGLDisplay const _display,
-	EGLConfig const _config
+	EGLDisplay const _display, // NOLINT(misc-misplaced-const)
+	EGLConfig const _config // NOLINT(misc-misplaced-const)
 )
 :
 	display_(
@@ -41,12 +41,14 @@ sge::opengl::egl::context_impl::context_impl(
 	if(
 		context_
 		==
-		sge::opengl::egl::no_context
+		sge::opengl::egl::no_context()
 	)
+	{
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("eglCreateContext failed")
 			);
+	}
 }
 
 sge::opengl::egl::context_impl::~context_impl()
@@ -63,7 +65,7 @@ sge::opengl::egl::context_impl::~context_impl()
 
 void
 sge::opengl::egl::context_impl::activate(
-	EGLSurface const _surface
+	EGLSurface const _surface // NOLINT(misc-misplaced-const)
 )
 {
 	sge::opengl::egl::make_current(
@@ -78,7 +80,7 @@ sge::opengl::egl::context_impl::deactivate()
 {
 	sge::opengl::egl::make_current(
 		display_,
-		sge::opengl::egl::no_surface,
-		sge::opengl::egl::no_context
+		sge::opengl::egl::no_surface(),
+		sge::opengl::egl::no_context()
 	);
 }

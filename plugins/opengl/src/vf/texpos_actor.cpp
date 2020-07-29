@@ -14,6 +14,7 @@
 #include <sge/opengl/texture/funcs/set_client_level.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
+#include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/convert_element_type.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/texpos_actor.hpp>
@@ -26,12 +27,12 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
 
 
 sge::opengl::vf::texpos_actor::texpos_actor(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::opengl::vf::actor_parameters const &_param,
 	sge::renderer::vf::dynamic::texpos const &_element
 )
@@ -68,7 +69,7 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 			sge::opengl::texture::multi_context
 		>(
 			context_,
-			context_.info()
+			context_.get().info()
 		).config(),
 		[
 			this
@@ -76,12 +77,14 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 			if(
 				index_.get()
 				!=
-				0u
+				0U
 			)
+			{
 				throw
 					sge::renderer::exception{
 						FCPPT_TEXT("multiple texture coordinates are not supported!")
 					};
+			}
 		},
 		[
 			this
@@ -94,6 +97,7 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 				>=
 				_config.max_level().get()
 			)
+			{
 				throw
 					sge::renderer::exception{
 						(
@@ -104,27 +108,27 @@ sge::opengl::vf::texpos_actor::texpos_actor(
 							_config.max_level()
 						).str()
 					};
+			}
 		}
 	);
 }
 
 sge::opengl::vf::texpos_actor::~texpos_actor()
-{
-}
+= default;
 
 void
 sge::opengl::vf::texpos_actor::operator()(
-	sge::opengl::vf::client_state_combiner &_combiner,
+	sge::opengl::vf::client_state_combiner_ref const _combiner,
 	sge::opengl::vf::pointer const _src
 ) const
 {
-	_combiner.enable_texture(
+	_combiner.get().enable_texture(
 		index_
 	);
 
 	sge::opengl::texture::funcs::set_client_level(
-		log_,
-		context_,
+		log_.get(),
+		context_.get(),
 		index_
 	);
 
@@ -150,10 +154,10 @@ sge::opengl::vf::texpos_actor::operator()(
 
 void
 sge::opengl::vf::texpos_actor::unuse(
-	sge::opengl::vf::client_state_combiner &_combiner
+	sge::opengl::vf::client_state_combiner_ref const _combiner
 ) const
 {
-	_combiner.disable_texture(
+	_combiner.get().disable_texture(
 		index_
 	);
 }

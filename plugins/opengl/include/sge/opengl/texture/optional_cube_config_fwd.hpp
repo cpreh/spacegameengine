@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+optional_cube_config
+=
 fcppt::optional::object<
 	sge::opengl::texture::cube_config
->
-optional_cube_config;
+>;
 
 }
 }

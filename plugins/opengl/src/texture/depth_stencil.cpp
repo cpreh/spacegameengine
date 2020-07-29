@@ -13,6 +13,7 @@
 #include <sge/opengl/texture/convert/make_type.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::opengl::texture::depth_stencil::depth_stencil(
@@ -29,12 +30,13 @@ sge::opengl::texture::depth_stencil::depth_stencil(
 		sge::opengl::context::use<
 			sge::opengl::texture::surface_context
 		>(
-			_basic_parameters.context()
+			fcppt::make_ref(
+				_basic_parameters.context()
+			)
 		).config()
 	)
 {
 }
 
 sge::opengl::texture::depth_stencil::~depth_stencil()
-{
-}
+= default;

@@ -18,11 +18,12 @@ namespace opengl
 namespace glx
 {
 
-typedef
+using
+optional_raw_function
+=
 fcppt::optional::reference<
 	sge::opengl::glx::raw_function
->
-optional_raw_function;
+>;
 
 }
 }

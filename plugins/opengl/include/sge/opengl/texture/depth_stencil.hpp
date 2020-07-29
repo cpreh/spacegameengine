@@ -16,7 +16,7 @@
 #include <sge/opengl/texture/depth_stencil_types.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ class depth_stencil
 :
 	public sge::opengl::texture::depth_stencil_basic
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		depth_stencil
 	);
 public:

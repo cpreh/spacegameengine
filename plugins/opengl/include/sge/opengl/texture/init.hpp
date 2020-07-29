@@ -29,9 +29,12 @@
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
+#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -62,19 +65,22 @@ init(
 	sge::opengl::texture::binding const &_binding,
 	sge::opengl::texture::basic_parameters const &_basic_parameters,
 	typename Types::parameters const &_parameters,
-	sge::opengl::texture::config<
-		Types::buffer_types::dim_types::num_dims
-	> const &_config,
-	sge::opengl::texture::type const _type,
-	sge::opengl::texture::buffer_type const _buffer_type,
-	sge::opengl::texture::id const _id
+	fcppt::reference< // NOLINT(readability-avoid-const-params-in-decls)
+		sge::opengl::texture::config<
+			Types::buffer_types::dim_types::num_dims
+		> const
+	> const _config,
+	sge::opengl::texture::type const _type, // NOLINT(readability-avoid-const-params-in-decls)
+	sge::opengl::texture::buffer_type const _buffer_type, // NOLINT(readability-avoid-const-params-in-decls)
+	sge::opengl::texture::id const _id // NOLINT(readability-avoid-const-params-in-decls)
 )
 {
-	typedef
+	using
+	extended_dim
+	=
 	sge::renderer::basic_dim<
 		Types::buffer_types::dim_types::num_dims
-	>
-	extended_dim;
+	>;
 
 	extended_dim const size(
 		sge::opengl::texture::extend_size(
@@ -89,10 +95,11 @@ init(
 		Types::name()
 	);
 
-	typedef
+	using
+	format_result_type
+	=
 	typename
-	Types::buffer_types::format_types::format_result
-	format_result_type;
+	Types::buffer_types::format_types::format_result;
 
 	format_result_type const format{
 		Types::buffer_types::format_types::translate_format(
@@ -120,13 +127,13 @@ init(
 
 	Types::buffer_types::dim_types::init_function().get()(
 		_binding,
-		_config,
+		_config.get(),
 		_buffer_type,
 		color_order,
 		color_base_type,
 		internal_color_format,
 		sge::renderer::texture::mipmap::level(
-			0u
+			0U
 		),
 		size,
 		nullptr
@@ -138,7 +145,9 @@ init(
 		sge::opengl::texture::mipmap::parameters<
 			extended_dim::dim_wrapper::value
 		>(
-			_binding,
+			fcppt::make_cref(
+				_binding
+			),
 			_buffer_type,
 			_config,
 			color_order,
@@ -163,19 +172,21 @@ init(
 		sge::renderer::texture::capabilities::render_target
 	);
 
-	typedef
+	using
+	gl_buffer
+	=
 	typename
-	Types::buffer_types::gl_buffer
-	gl_buffer;
+	Types::buffer_types::gl_buffer;
 
-	typedef
+	using
+	level_container
+	=
 	std::vector<
 		fcppt::unique_ptr<
 			typename
 			Types::buffer_types::base
 		>
-	>
-	level_container;
+	>;
 
 	return
 		fcppt::algorithm::map<
@@ -189,7 +200,7 @@ init(
 			[
 				&_binding,
 				&_basic_parameters,
-				&_config,
+				_config,
 				_type,
 				_buffer_type,
 				_id,
@@ -214,9 +225,15 @@ init(
 							format.sge_format(),
 							_config,
 							sge::opengl::texture::basic_buffer_parameters(
-								_basic_parameters.log(),
-								_binding,
-								_basic_parameters.context(),
+								fcppt::make_ref(
+									_basic_parameters.log()
+								),
+								fcppt::make_cref(
+									_binding
+								),
+								fcppt::make_ref(
+									_basic_parameters.context()
+								),
 								_index,
 								_type,
 								_buffer_type,

@@ -11,11 +11,11 @@
 #include <sge/opengl/egl/init_fwd.hpp>
 #include <sge/opengl/egl/surface_unique_ptr.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/wayland/system/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/wayland/system/object_ref.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -34,22 +34,24 @@ class display
 :
 	public sge::opengl::egl::display
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		display
 	);
 public:
 	display(
-		fcppt::log::object &,
-		awl::backends::wayland::system::object &
+		fcppt::log::object_reference,
+		awl::backends::wayland::system::object_ref
 	);
 
 	~display()
 	override;
 private:
+	[[nodiscard]]
 	EGLDisplay
 	get() const
 	override;
 
+	[[nodiscard]]
 	awl::visual::object_unique_ptr
 	create_visual(
 		sge::opengl::egl::init const &,
@@ -57,16 +59,17 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::opengl::egl::surface_unique_ptr
 	create_surface(
 		EGLConfig,
-		sge::window::object &
+		sge::window::object_ref
 	)
 	override;
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	EGLDisplay const display_;
+	EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 };
 
 }

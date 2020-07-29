@@ -13,7 +13,7 @@
 #include <sge/opengl/info/context_fwd.hpp>
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
 #include <sge/opengl/vf/optional_attribute_config.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,13 +27,14 @@ class attribute_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		attribute_context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	attribute_context(
@@ -43,6 +44,7 @@ public:
 	~attribute_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::vf::optional_attribute_config const &
 	config() const;
 

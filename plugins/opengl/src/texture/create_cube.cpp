@@ -14,6 +14,7 @@
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -37,7 +38,9 @@ sge::opengl::texture::create_cube(
 					sge::opengl::context::use<
 						sge::opengl::texture::cube_context
 					>(
-						_basic_parameters.context(),
+						fcppt::make_ref(
+							_basic_parameters.context()
+						),
 						_basic_parameters.context().info()
 					).config(),
 					[]{

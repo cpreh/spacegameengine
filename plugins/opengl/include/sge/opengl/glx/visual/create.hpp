@@ -9,7 +9,7 @@
 
 #include <sge/opengl/glx/visual/optional_srgb_flag_fwd.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/backends/x11/system/object_fwd.hpp>
+#include <awl/backends/x11/system/object_ref.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 
 
@@ -25,7 +25,7 @@ namespace visual
 awl::visual::object_unique_ptr
 create(
 	sge::opengl::glx::visual::optional_srgb_flag,
-	awl::backends::x11::system::object &,
+	awl::backends::x11::system::object_ref,
 	sge::renderer::pixel_format::object const &
 );
 

@@ -19,9 +19,8 @@ namespace opengl
 namespace egl
 {
 
-extern
-EGLSurface const
-no_surface;
+EGLSurface
+no_surface();
 
 }
 }

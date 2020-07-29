@@ -11,6 +11,7 @@
 #include <sge/opengl/vf/attribute_config.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
+#include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/extra_elements.hpp>
 #include <sge/opengl/vf/extra_format.hpp>
 #include <sge/opengl/vf/extra_index.hpp>
@@ -19,6 +20,7 @@
 #include <sge/opengl/vf/pointer_actor.hpp>
 #include <sge/opengl/vf/vertex_attrib_pointer.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 
@@ -36,7 +38,9 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 			sge::opengl::context::use<
 				sge::opengl::vf::attribute_context
 			>(
-				_param.context(),
+				fcppt::make_ref(
+					_param.context()
+				),
 				_param.context().info()
 			)
 		)
@@ -64,21 +68,20 @@ sge::opengl::vf::attribute_actor::attribute_actor(
 }
 
 sge::opengl::vf::attribute_actor::~attribute_actor()
-{
-}
+= default;
 
 void
 sge::opengl::vf::attribute_actor::operator()(
-	sge::opengl::vf::client_state_combiner &_combiner,
+	sge::opengl::vf::client_state_combiner_ref const _combiner,
 	sge::opengl::vf::pointer const _src
 ) const
 {
-	_combiner.enable_attribute(
+	_combiner.get().enable_attribute(
 		location_
 	);
 
 	sge::opengl::vf::vertex_attrib_pointer(
-		attribute_config_,
+		attribute_config_.get(),
 		location_,
 		elements_,
 		format_,
@@ -96,10 +99,10 @@ sge::opengl::vf::attribute_actor::operator()(
 
 void
 sge::opengl::vf::attribute_actor::unuse(
-	sge::opengl::vf::client_state_combiner &_combiner
+	sge::opengl::vf::client_state_combiner_ref const _combiner
 ) const
 {
-	_combiner.disable_attribute(
+	_combiner.get().disable_attribute(
 		location_
 	);
 }

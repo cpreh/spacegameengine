@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+planar_basic
+=
 sge::opengl::texture::basic_box<
 	sge::opengl::texture::planar_types
->
-planar_basic;
+>;
 
 }
 }

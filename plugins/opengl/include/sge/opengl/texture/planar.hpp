@@ -16,7 +16,7 @@
 #include <sge/opengl/texture/planar_types.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ class planar
 :
 	public sge::opengl::texture::planar_basic
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		planar
 	);
 public:

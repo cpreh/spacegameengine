@@ -21,12 +21,13 @@ namespace opengl
 namespace fbo
 {
 
-typedef
+using
+error_string_map
+=
 std::map<
 	GLenum,
 	fcppt::string
->
-error_string_map;
+>;
 
 }
 }

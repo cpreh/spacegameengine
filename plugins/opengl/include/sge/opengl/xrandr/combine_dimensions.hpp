@@ -20,8 +20,8 @@ namespace xrandr
 
 sge::renderer::display_mode::optional_dimensions
 combine_dimensions(
-	sge::renderer::display_mode::optional_dimensions,
-	sge::renderer::display_mode::dimensions
+	sge::renderer::display_mode::optional_dimensions const &,
+	sge::renderer::display_mode::dimensions const &
 );
 
 }

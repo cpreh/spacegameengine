@@ -8,7 +8,7 @@
 #define SGE_OPENGL_XRANDR_GET_EXTENSION_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/optional_extension_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace xrandr
 
 sge::opengl::xrandr::optional_extension
 get_extension(
-	awl::backends::x11::display &
+	awl::backends::x11::display_ref
 );
 
 }

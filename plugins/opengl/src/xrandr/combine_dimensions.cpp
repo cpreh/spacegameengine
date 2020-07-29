@@ -11,8 +11,8 @@
 
 sge::renderer::display_mode::optional_dimensions
 sge::opengl::xrandr::combine_dimensions(
-	sge::renderer::display_mode::optional_dimensions const _previous,
-	sge::renderer::display_mode::dimensions const _next
+	sge::renderer::display_mode::optional_dimensions const &_previous,
+	sge::renderer::display_mode::dimensions const &_next
 )
 {
 	return

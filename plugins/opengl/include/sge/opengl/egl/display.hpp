@@ -11,9 +11,9 @@
 #include <sge/opengl/egl/init_fwd.hpp>
 #include <sge/opengl/egl/surface_unique_ptr.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -28,7 +28,7 @@ namespace egl
 
 class display
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		display
 	);
 protected:
@@ -37,10 +37,12 @@ public:
 	virtual
 	~display() = 0;
 
+	[[nodiscard]]
 	virtual
 	EGLDisplay
 	get() const = 0;
 
+	[[nodiscard]]
 	virtual
 	awl::visual::object_unique_ptr
 	create_visual(
@@ -48,11 +50,12 @@ public:
 		sge::renderer::pixel_format::object const &
 	) = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::opengl::egl::surface_unique_ptr
 	create_surface(
 		EGLConfig,
-		sge::window::object &
+		sge::window::object_ref
 	) = 0;
 };
 

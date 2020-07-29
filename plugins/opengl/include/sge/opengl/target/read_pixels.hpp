@@ -23,8 +23,8 @@ namespace target
 
 void
 read_pixels(
-	sge::renderer::pixel_pos,
-	sge::renderer::screen_size,
+	sge::renderer::pixel_pos const &,
+	sge::renderer::screen_size const &,
 	sge::opengl::color_order,
 	sge::opengl::color_base_type,
 	sge::renderer::raw_pointer

@@ -29,12 +29,15 @@ public:
 		sge::opengl::xrandr::refresh_rate
 	);
 
+	[[nodiscard]]
 	sge::opengl::xrandr::mode_index
 	index() const;
 
+	[[nodiscard]]
 	sge::opengl::xrandr::rotation
 	rotation() const;
 
+	[[nodiscard]]
 	sge::opengl::xrandr::refresh_rate
 	rate() const;
 private:

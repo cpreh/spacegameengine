@@ -50,6 +50,10 @@ private:
 	stage() const
 	override;
 
+	static
+	sge::renderer::texture::stage
+	get_stage();
+
 	[[nodiscard]]
 	sge::opengl::texture::type
 	type() const

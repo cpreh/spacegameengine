@@ -7,11 +7,11 @@
 #ifndef SGE_OPENGL_XRANDR_CRTC_INFO_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_CRTC_INFO_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/screen_resources_fwd.hpp>
+#include <sge/opengl/xrandr/const_screen_resources_ref.hpp>
 #include <sge/renderer/display_mode/pixel_size_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <awl/backends/x11/window/rect_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -26,24 +26,27 @@ namespace xrandr
 
 class crtc_info
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		crtc_info
 	);
 public:
 	crtc_info(
-		awl::backends::x11::display &,
-		sge::opengl::xrandr::screen_resources const &,
+		awl::backends::x11::display_ref,
+		sge::opengl::xrandr::const_screen_resources_ref,
 		RRCrtc
 	);
 
 	~crtc_info();
 
+	[[nodiscard]]
 	awl::backends::x11::window::rect
 	rect() const;
 
+	[[nodiscard]]
 	sge::renderer::display_mode::pixel_size
 	pixel_size() const;
 
+	[[nodiscard]]
 	RRMode
 	mode() const;
 private:
@@ -53,6 +56,5 @@ private:
 }
 }
 }
-
 
 #endif

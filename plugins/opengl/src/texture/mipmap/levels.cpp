@@ -56,10 +56,12 @@ sge::opengl::texture::mipmap::levels(
 		);
 	}
 	else
+	{
 		sge::opengl::texture::mipmap::generate_levels(
 			_parameters,
 			_rep.value()
 		);
+	}
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_LEVELS(\

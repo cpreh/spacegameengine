@@ -12,6 +12,7 @@
 #include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/x11/system/object.hpp>
+#include <awl/backends/x11/system/object_ref.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -21,7 +22,7 @@
 awl::visual::object_unique_ptr
 sge::opengl::glx::visual::create(
 	sge::opengl::glx::visual::optional_srgb_flag const _srgb_flag,
-	awl::backends::x11::system::object &_awl_system,
+	awl::backends::x11::system::object_ref const _awl_system,
 	sge::renderer::pixel_format::object const &_format
 )
 {
@@ -33,8 +34,8 @@ sge::opengl::glx::visual::create(
 				sge::opengl::glx::visual::object
 			>(
 				sge::opengl::glx::visual::choose(
-					_awl_system.display().get(),
-					_awl_system.screen(),
+					_awl_system.get().display().get(),
+					_awl_system.get().screen(),
 					sge::opengl::glx::visual::make_attributes(
 						_srgb_flag,
 						_format

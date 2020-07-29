@@ -12,7 +12,7 @@
 #include <sge/opengl/vf/fp_actor.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ class normal_actor
 :
 	public sge::opengl::vf::fp_actor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		normal_actor
 	);
 public:

@@ -10,14 +10,14 @@
 #include <sge/opengl/sdl/device_state.hpp>
 #include <sge/opengl/sdl/platform_system.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/sdl/system/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/sdl/system/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::opengl::sdl::platform_system::platform_system(
-	awl::backends::sdl::system::object &
+	awl::backends::sdl::system::object_ref
 )
 :
 	sge::opengl::platform::system{}
@@ -25,13 +25,12 @@ sge::opengl::sdl::platform_system::platform_system(
 }
 
 sge::opengl::sdl::platform_system::~platform_system()
-{
-}
+= default;
 
 sge::opengl::platform::device_state_unique_ptr
 sge::opengl::sdl::platform_system::create_device_state(
 	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	return

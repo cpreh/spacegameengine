@@ -14,8 +14,8 @@
 
 void
 sge::opengl::egl::swap_buffers(
-	EGLDisplay const _display,
-	EGLSurface const _surface
+	EGLDisplay const _display, // NOLINT(misc-misplaced-const)
+	EGLSurface const _surface // NOLINT(misc-misplaced-const)
 )
 {
 	if(
@@ -26,8 +26,10 @@ sge::opengl::egl::swap_buffers(
 		!=
 		EGL_TRUE
 	)
+	{
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("eglSwapBuffers failed")
 			);
+	}
 }

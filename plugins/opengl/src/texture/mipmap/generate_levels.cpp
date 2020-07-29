@@ -1,4 +1,5 @@
 //          Copyright Carl Philipp Reh 2006 - 2019.
+#include <fcppt/text.hpp>
 // Distributed under the Boost Software License, Version 1.0.
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
@@ -49,12 +50,16 @@ sge::opengl::texture::mipmap::generate_levels(
 	sge::renderer::texture::mipmap::level_count const _levels
 )
 {
-	typedef typename sge::opengl::texture::mipmap::parameters<
+	using
+	dim
+	=
+	typename
+	sge::opengl::texture::mipmap::parameters<
 		Size
-	>::dim dim;
+	>::dim;
 
 	sge::renderer::texture::mipmap::level level(
-		1u
+		1U
 	);
 
 	for(
@@ -69,7 +74,7 @@ sge::opengl::texture::mipmap::generate_levels(
 		fcppt::math::dim::contents(
 			size
 		)
-		!= 1u
+		!= 1U
 		&&
 		level.get() <= _levels.get()
 		;
@@ -82,6 +87,7 @@ sge::opengl::texture::mipmap::generate_levels(
 		,
 		++level
 	)
+	{
 		_parameters.init_function().get()(
 			_parameters.binding(),
 			_parameters.config(),
@@ -93,6 +99,7 @@ sge::opengl::texture::mipmap::generate_levels(
 			size,
 			nullptr
 		);
+	}
 }
 
 namespace
@@ -110,11 +117,12 @@ reduce_dim(
 	> const &_size
 )
 {
-	typedef
+	using
+	dim
+	=
 	sge::renderer::basic_dim<
 		Size
-	>
-	dim;
+	>;
 
 	return
 		fcppt::math::dim::init<
@@ -148,7 +156,7 @@ reduce_dim(
 							typename
 							dim::value_type
 						>(
-							1u
+							1U
 						)
 					);
 			}

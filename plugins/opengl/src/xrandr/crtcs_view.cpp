@@ -4,12 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/opengl/xrandr/const_screen_resources_ref.hpp>
 #include <sge/opengl/xrandr/crtcs_view.hpp>
 #include <sge/opengl/xrandr/screen_resources.hpp>
 
 
 sge::opengl::xrandr::crtcs_view::crtcs_view(
-	sge::opengl::xrandr::screen_resources const &_resources
+	sge::opengl::xrandr::const_screen_resources_ref const _resources
 )
 :
 	resources_(

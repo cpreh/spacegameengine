@@ -9,9 +9,9 @@
 
 #include <sge/opengl/egl/visual/base.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/const_display_ref.hpp>
 #include <awl/backends/x11/visual/wrapped.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -27,18 +27,18 @@ namespace egl
 namespace x11
 {
 
-class visual
+class visual // NOLINT(fuchsia-multiple-inheritance)
 :
 	public sge::opengl::egl::visual::base,
 	public awl::backends::x11::visual::wrapped
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		visual
 	);
 public:
 	visual(
-		fcppt::log::object &,
-		awl::backends::x11::display const &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
+		awl::backends::x11::const_display_ref,
 		EGLDisplay,
 		sge::renderer::pixel_format::object const &
 	);

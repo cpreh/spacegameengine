@@ -20,8 +20,8 @@
 
 
 sge::opengl::egl::context::context(
-	EGLDisplay const _display,
-	EGLConfig const _config,
+	EGLDisplay const _display, // NOLINT(misc-misplaced-const)
+	EGLConfig const _config, // NOLINT(misc-misplaced-const)
 	sge::opengl::egl::surface_unique_ptr &&_surface
 )
 :
@@ -42,8 +42,7 @@ sge::opengl::egl::context::context(
 }
 
 sge::opengl::egl::context::~context()
-{
-}
+= default;
 
 sge::opengl::backend::current_unique_ptr
 sge::opengl::egl::context::activate()

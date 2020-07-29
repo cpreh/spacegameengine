@@ -8,10 +8,10 @@
 #define SGE_OPENGL_VF_ACTOR_PARAMETERS_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -27,15 +27,18 @@ public:
 	actor_parameters(
 		sge::renderer::vf::dynamic::stride,
 		sge::renderer::vf::dynamic::offset,
-		sge::opengl::context::object &
+		sge::opengl::context::object_ref
 	);
 
+	[[nodiscard]]
 	sge::renderer::vf::dynamic::stride
 	stride() const;
 
+	[[nodiscard]]
 	sge::renderer::vf::dynamic::offset
 	offset() const;
 
+	[[nodiscard]]
 	sge::opengl::context::object &
 	context() const;
 private:
@@ -43,9 +46,7 @@ private:
 
 	sge::renderer::vf::dynamic::offset offset_;
 
-	fcppt::reference<
-		sge::opengl::context::object
-	> context_;
+	sge::opengl::context::object_ref context_;
 };
 
 }

@@ -32,6 +32,7 @@ public:
 		event_base_type
 	);
 
+	[[nodiscard]]
 	event_base_type
 	event_base() const;
 private:

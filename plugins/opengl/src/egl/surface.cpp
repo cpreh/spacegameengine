@@ -8,9 +8,7 @@
 
 
 sge::opengl::egl::surface::surface()
-{
-}
+= default;
 
 sge::opengl::egl::surface::~surface()
-{
-}
+= default;

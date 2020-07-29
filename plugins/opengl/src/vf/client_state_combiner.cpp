@@ -8,6 +8,7 @@
 #include <sge/opengl/disable_client_state.hpp>
 #include <sge/opengl/enable_client_state.hpp>
 #include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
@@ -18,12 +19,7 @@
 #include <sge/opengl/vf/enable_vertex_attrib_array.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/container/set_difference.hpp>
-#include <fcppt/log/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <algorithm>
-#include <functional>
-#include <iterator>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace
@@ -45,8 +41,8 @@ apply_difference(
 }
 
 sge::opengl::vf::client_state_combiner::client_state_combiner(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context
+	fcppt::log::object_reference const _log,
+	sge::opengl::context::object_ref const _context
 )
 :
 	log_{
@@ -68,11 +64,11 @@ sge::opengl::vf::client_state_combiner::client_state_combiner(
 			sge::opengl::vf::attribute_context
 		>(
 			_context,
-			_context.info()
+			_context.get().info()
 		)
 	),
 	old_states_(
-		vf_context_.state()
+		vf_context_.get().state()
 	),
 	new_states_(
 		old_states_
@@ -152,48 +148,60 @@ sge::opengl::vf::client_state_combiner::~client_state_combiner()
 	apply_difference(
 		old_states_.texture_states(),
 		new_states_.texture_states(),
-		std::bind(
-			sge::opengl::vf::enable_texcoords,
-			std::ref(
-				log_
-			),
-			std::ref(
-				context_
-			),
-			std::placeholders::_1
-		),
-		std::bind(
-			sge::opengl::vf::disable_texcoords,
-			std::ref(
-				log_
-			),
-			std::ref(
-				context_
-			),
-			std::placeholders::_1
+		[
+			this
+		](
+			sge::renderer::texture::stage const _stage
 		)
+		{
+			sge::opengl::vf::enable_texcoords(
+				this->log_.get(),
+				this->context_.get(),
+				_stage
+			);
+		},
+		[
+			this
+		](
+			sge::renderer::texture::stage const _stage
+		)
+		{
+			sge::opengl::vf::disable_texcoords(
+				this->log_.get(),
+				this->context_.get(),
+				_stage
+			);
+		}
 	);
 
 	apply_difference(
 		old_states_.attribute_states(),
 		new_states_.attribute_states(),
-		std::bind(
-			sge::opengl::vf::enable_vertex_attrib_array,
-			std::ref(
-				attribute_context_
-			),
-			std::placeholders::_1
-		),
-		std::bind(
-			sge::opengl::vf::disable_vertex_attrib_array,
-			std::ref(
-				attribute_context_
-			),
-			std::placeholders::_1
+		[
+			this
+		](
+			GLuint const _index
 		)
+		{
+			sge::opengl::vf::enable_vertex_attrib_array(
+				this->attribute_context_.get(),
+				_index
+			);
+		},
+		[
+			this
+		](
+			GLuint const _index
+		)
+		{
+			sge::opengl::vf::disable_vertex_attrib_array(
+				this->attribute_context_.get(),
+				_index
+			);
+		}
 	);
 
-	vf_context_.state(
+	vf_context_.get().state(
 		new_states_
 	);
 }
@@ -222,9 +230,11 @@ apply_difference(
 			_new_states
 		)
 	)
+	{
 		_disable(
 			element
 		);
+	}
 
 	for(
 		auto const &element
@@ -234,9 +244,11 @@ apply_difference(
 			_old_states
 		)
 	)
+	{
 		_enable(
 			element
 		);
+	}
 }
 
 }

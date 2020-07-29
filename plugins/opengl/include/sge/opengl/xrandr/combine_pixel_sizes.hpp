@@ -20,8 +20,8 @@ namespace xrandr
 
 sge::renderer::display_mode::optional_pixel_size
 combine_pixel_sizes(
-	sge::renderer::display_mode::optional_pixel_size,
-	sge::renderer::display_mode::pixel_size
+	sge::renderer::display_mode::optional_pixel_size const &,
+	sge::renderer::display_mode::pixel_size const &
 );
 
 }

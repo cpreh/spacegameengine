@@ -34,11 +34,12 @@ public:
 	sge::opengl::wgl::visual::optional_pixel_format_types
 	pixel_format_types() const;
 
-	typedef
+	using
+	optional_int
+	=
 	fcppt::optional::object<
 		GLint
-	>
-	optional_int;
+	>;
 
 	optional_int
 	multi_sample_flag() const;

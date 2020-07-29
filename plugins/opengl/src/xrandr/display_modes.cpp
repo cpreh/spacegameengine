@@ -10,8 +10,10 @@
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/rates.hpp>
 #include <sge/opengl/xrandr/refresh_rate.hpp>
+#include <sge/opengl/xrandr/refresh_rate_type.hpp>
 #include <sge/opengl/xrandr/sizes.hpp>
 #include <sge/renderer/display_mode/container.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -28,7 +30,9 @@ sge::opengl::xrandr::display_modes(
 )
 {
 	sge::opengl::xrandr::sizes const sizes{
-		_config
+		fcppt::make_cref(
+			_config
+		)
 	};
 
 	return
@@ -46,7 +50,9 @@ sge::opengl::xrandr::display_modes(
 			)
 			{
 				sge::opengl::xrandr::rates const rates{
-					_config,
+					fcppt::make_cref(
+						_config
+					),
 					_mode_index
 				};
 
@@ -64,7 +70,7 @@ sge::opengl::xrandr::display_modes(
 						[
 							&cur_mode
 						](
-							short const _rate
+							sge::opengl::xrandr::refresh_rate_type const _rate
 						)
 						{
 							return

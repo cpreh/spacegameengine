@@ -9,10 +9,10 @@
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
-#include <sge/opengl/vf/client_state_combiner_fwd.hpp>
+#include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ class fp_actor
 :
 	public sge::opengl::vf::pointer_actor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		fp_actor
 	);
 public:
@@ -40,14 +40,14 @@ protected:
 private:
 	void
 	operator()(
-		sge::opengl::vf::client_state_combiner &,
+		sge::opengl::vf::client_state_combiner_ref,
 		vf::pointer
 	) const
 	override;
 
 	void
 	unuse(
-		sge::opengl::vf::client_state_combiner &
+		sge::opengl::vf::client_state_combiner_ref
 	) const
 	override;
 

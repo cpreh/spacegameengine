@@ -24,9 +24,12 @@ namespace ffp
 namespace sampler
 {
 
-typedef std::vector<
+using
+actor_vector
+=
+std::vector<
 	sge::opengl::state::ffp::sampler::actor
-> actor_vector;
+>;
 
 }
 }

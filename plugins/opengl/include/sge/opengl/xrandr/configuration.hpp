@@ -8,8 +8,8 @@
 #define SGE_OPENGL_XRANDR_CONFIGURATION_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/configuration_fwd.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -24,17 +24,18 @@ namespace xrandr
 
 class configuration
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		configuration
 	);
 public:
 	explicit
 	configuration(
-		awl::backends::x11::window::base const &
+		awl::backends::x11::window::const_base_ref
 	);
 
 	~configuration();
 
+	[[nodiscard]]
 	XRRScreenConfiguration *
 	get() const;
 private:

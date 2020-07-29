@@ -7,14 +7,14 @@
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
+#include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/fp_actor.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
 
 
 sge::opengl::vf::fp_actor::~fp_actor()
-{
-}
+= default;
 
 sge::opengl::vf::fp_actor::fp_actor(
 	sge::opengl::vf::actor_parameters const &_param,
@@ -32,7 +32,7 @@ sge::opengl::vf::fp_actor::fp_actor(
 
 void
 sge::opengl::vf::fp_actor::operator()(
-	sge::opengl::vf::client_state_combiner &_combiner,
+	sge::opengl::vf::client_state_combiner_ref const _combiner,
 	sge::opengl::vf::pointer const _src
 ) const
 {
@@ -40,17 +40,17 @@ sge::opengl::vf::fp_actor::operator()(
 		_src
 	);
 
-	_combiner.enable(
+	_combiner.get().enable(
 		client_state_
 	);
 }
 
 void
 sge::opengl::vf::fp_actor::unuse(
-	sge::opengl::vf::client_state_combiner &_combiner
+	sge::opengl::vf::client_state_combiner_ref const _combiner
 ) const
 {
-	_combiner.disable(
+	_combiner.get().disable(
 		client_state_
 	);
 }

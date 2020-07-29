@@ -36,12 +36,12 @@ sge::opengl::texture::scoped_work_binding::scoped_work_binding(
 	active_level_(
 		_log,
 		_context,
-		this->stage()
+		scoped_work_binding::get_stage()
 	),
 	previous_id_(
 		sge::opengl::texture::get_stage_id(
 			_context,
-			this->stage()
+			scoped_work_binding::get_stage()
 		)
 	),
 	type_(
@@ -50,7 +50,7 @@ sge::opengl::texture::scoped_work_binding::scoped_work_binding(
 	previous_type_(
 		sge::opengl::texture::get_stage_type(
 			_context,
-			this->stage()
+			scoped_work_binding::get_stage()
 		)
 	)
 {
@@ -79,6 +79,13 @@ sge::opengl::texture::scoped_work_binding::~scoped_work_binding()
 
 sge::renderer::texture::stage
 sge::opengl::texture::scoped_work_binding::stage() const
+{
+	return
+		scoped_work_binding::get_stage();
+}
+
+sge::renderer::texture::stage
+sge::opengl::texture::scoped_work_binding::get_stage()
 {
 	return
 		sge::renderer::texture::stage(

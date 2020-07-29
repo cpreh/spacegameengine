@@ -23,18 +23,22 @@ namespace texture
 
 struct cube_types
 {
-	typedef
-	sge::renderer::texture::cube
-	base;
+	using
+	base
+	=
+	sge::renderer::texture::cube;
 
-	typedef
-	sge::renderer::texture::cube_parameters
-	parameters;
+	using
+	parameters
+	=
+	sge::renderer::texture::cube_parameters;
 
-	typedef
-	sge::opengl::texture::color_surface_types
-	buffer_types;
+	using
+	buffer_types
+	=
+	sge::opengl::texture::color_surface_types;
 
+	[[nodiscard]]
 	static
 	fcppt::string
 	name();

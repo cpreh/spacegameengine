@@ -21,10 +21,10 @@ namespace glx
 
 void
 vsync(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::opengl::glx::swap_functions const &,
-	awl::backends::x11::display &
-);
+	awl::backends::x11::display & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

@@ -13,12 +13,12 @@
 #include <fcppt/config/external_end.hpp>
 
 
+EGLDisplay
+sge::opengl::egl::no_display()
+{
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
-
-EGLDisplay const
-sge::opengl::egl::no_display(
-	EGL_NO_DISPLAY
-);
-
+	return
+		EGL_NO_DISPLAY;
 FCPPT_PP_POP_WARNING
+}

@@ -14,7 +14,7 @@
 
 
 sge::opengl::egl::init::init(
-	EGLDisplay const _display
+	EGLDisplay const _display // NOLINT(misc-misplaced-const)
 )
 :
 	display_(
@@ -39,7 +39,7 @@ sge::opengl::egl::init::~init()
 	);
 }
 
-sge::opengl::egl::version const
+sge::opengl::egl::version
 sge::opengl::egl::init::version() const
 {
 	return

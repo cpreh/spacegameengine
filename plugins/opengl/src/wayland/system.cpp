@@ -10,14 +10,14 @@
 #include <sge/opengl/wayland/device_state.hpp>
 #include <sge/opengl/wayland/system.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/wayland/system/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/wayland/system/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
 
 sge::opengl::wayland::system::system(
-	awl::backends::wayland::system::object &_system
+	awl::backends::wayland::system::object_ref const _system
 )
 :
 	sge::opengl::platform::system()
@@ -25,13 +25,12 @@ sge::opengl::wayland::system::system(
 }
 
 sge::opengl::wayland::system::~system()
-{
-}
+= default;
 
 sge::opengl::platform::device_state_unique_ptr
 sge::opengl::wayland::system::create_device_state(
 	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	return

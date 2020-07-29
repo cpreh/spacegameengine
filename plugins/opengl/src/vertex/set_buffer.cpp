@@ -12,8 +12,10 @@
 #include <sge/opengl/vertex/set_buffer.hpp>
 #include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/const_buffer_ref.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/static_downcast.hpp>
@@ -23,19 +25,21 @@
 void
 sge::opengl::vertex::set_buffer(
 	sge::opengl::context::object &_context,
-	sge::renderer::vertex::buffer const &_buffer
+	sge::renderer::vertex::const_buffer_ref const _buffer
 )
 {
 	sge::opengl::vertex::context &context(
 		sge::opengl::context::use<
 			sge::opengl::vertex::context
 		>(
-			_context
+			fcppt::make_ref(
+				_context
+			)
 		)
 	);
 
 	sge::renderer::vf::dynamic::part_index const index(
-		_buffer.format_part_index()
+		_buffer.get().format_part_index()
 	);
 
 	fcppt::optional::maybe_void(
@@ -61,7 +65,7 @@ sge::opengl::vertex::set_buffer(
 		fcppt::cast::static_downcast<
 			sge::opengl::vertex::buffer const &
 		>(
-			_buffer
+			_buffer.get()
 		)
 	);
 

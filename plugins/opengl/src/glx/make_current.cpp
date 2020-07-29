@@ -17,7 +17,7 @@ void
 sge::opengl::glx::make_current(
 	Display *const _display,
 	Window const _window,
-	GLXContext const _context
+	GLXContext const _context // NOLINT(misc-misplaced-const)
 )
 {
 	if(
@@ -29,8 +29,10 @@ sge::opengl::glx::make_current(
 		==
 		False
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("glXMakeCurrent() failed!")
-		);
+	{
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("glXMakeCurrent() failed!")
+			);
+	}
 }
-

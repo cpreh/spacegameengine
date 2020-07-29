@@ -10,6 +10,7 @@
 #include <sge/opengl/sdl/context.hpp>
 #include <sge/opengl/sdl/current.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -20,7 +21,7 @@
 
 
 sge::opengl::sdl::context::context(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 :
 	sge::opengl::backend::context{},
@@ -28,12 +29,12 @@ sge::opengl::sdl::context::context(
 		fcppt::cast::dynamic_exn<
 			awl::backends::sdl::window::object &
 		>(
-			_window.awl_object()
+			_window.get().awl_object()
 		)
 	},
 	context_{
 		SDL_GL_CreateContext(
-			&this->window_.get().get()
+			&this->window_.get().get().get()
 		)
 	}
 {

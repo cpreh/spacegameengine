@@ -4,12 +4,14 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/opengl/xrandr/const_screen_resources_ref.hpp>
 #include <sge/opengl/xrandr/crtc_info.hpp>
 #include <sge/opengl/xrandr/screen_resources.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/display_mode/pixel_size.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <awl/backends/x11/window/rect.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -19,15 +21,15 @@
 
 
 sge::opengl::xrandr::crtc_info::crtc_info(
-	awl::backends::x11::display &_display,
-	sge::opengl::xrandr::screen_resources const &_screen_resources,
+	awl::backends::x11::display_ref const _display,
+	sge::opengl::xrandr::const_screen_resources_ref const _screen_resources,
 	RRCrtc const _crtc
 )
 :
 	info_(
 		::XRRGetCrtcInfo(
-			_display.get(),
-			_screen_resources.get(),
+			_display.get().get(),
+			_screen_resources.get().get(),
 			_crtc
 		)
 	)

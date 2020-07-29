@@ -17,7 +17,7 @@
 
 sge::opengl::egl::visual::base::base(
 	fcppt::log::object &_log,
-	EGLDisplay const _egl_display,
+	EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 :
@@ -37,8 +37,7 @@ sge::opengl::egl::visual::base::base(
 }
 
 sge::opengl::egl::visual::base::~base()
-{
-}
+= default;
 
 EGLConfig
 sge::opengl::egl::visual::base::config() const

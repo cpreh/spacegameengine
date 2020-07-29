@@ -23,6 +23,7 @@
 #include <sge/renderer/display_mode/pixel_size.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/rect.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/math/box/intersects.hpp>
 #include <fcppt/math/dim/comparison.hpp>
@@ -41,30 +42,36 @@ sge::opengl::xrandr::current_display_mode(
 )
 {
 	sge::opengl::xrandr::screen_resources const resources{
-		_window
+		fcppt::make_cref(
+			_window
+		)
 	};
 
 	awl::backends::x11::window::rect const window_rect(
 		_window.rect()
 	);
 
-	sge::renderer::display_mode::optional_pixel_size pixel_size;
+	sge::renderer::display_mode::optional_pixel_size pixel_size{};
 
-	sge::renderer::display_mode::optional_refresh_rate refresh_rate;
+	sge::renderer::display_mode::optional_refresh_rate refresh_rate{};
 
-	sge::renderer::display_mode::optional_dimensions dimensions;
+	sge::renderer::display_mode::optional_dimensions dimensions{};
 
 	for(
 		RRCrtc const crtc
 		:
 		sge::opengl::xrandr::crtcs_view(
-			resources
+			fcppt::make_cref(
+				resources
+			)
 		)
 	)
 	{
 		sge::opengl::xrandr::crtc_info const crtc_info(
-			_window.display().get(),
-			resources,
+			_window.display(),
+			fcppt::make_cref(
+				resources
+			),
 			crtc
 		);
 
@@ -77,7 +84,9 @@ sge::opengl::xrandr::current_display_mode(
 				>()
 			)
 		)
+		{
 			continue;
+		}
 
 		pixel_size =
 			sge::opengl::xrandr::combine_pixel_sizes(
@@ -91,19 +100,25 @@ sge::opengl::xrandr::current_display_mode(
 				window_rect
 			)
 		)
+		{
 			continue;
+		}
 
 		for(
 			RROutput const output
 			:
 			sge::opengl::xrandr::outputs_view(
-				resources
+				fcppt::make_cref(
+					resources
+				)
 			)
 		)
 		{
 			sge::opengl::xrandr::output_info const output_info(
-				_window.display().get(),
-				resources,
+				_window.display(),
+				fcppt::make_cref(
+					resources
+				),
 				output
 			);
 
@@ -112,9 +127,11 @@ sge::opengl::xrandr::current_display_mode(
 					output_info.dimensions().get()
 				)
 				==
-				0u
+				0U
 			)
+			{
 				continue;
+			}
 
 			dimensions =
 				sge::opengl::xrandr::combine_dimensions(
@@ -127,7 +144,9 @@ sge::opengl::xrandr::current_display_mode(
 			XRRModeInfo const &mode
 			:
 			sge::opengl::xrandr::modes_view(
-				resources
+				fcppt::make_cref(
+					resources
+				)
 			)
 		)
 		{
@@ -136,7 +155,9 @@ sge::opengl::xrandr::current_display_mode(
 				!=
 				crtc_info.mode()
 			)
+			{
 				continue;
+			}
 
 			refresh_rate =
 				sge::opengl::xrandr::combine_rates(
@@ -151,7 +172,7 @@ sge::opengl::xrandr::current_display_mode(
 	fcppt::optional::maybe_void(
 		dimensions,
 		[](
-			sge::renderer::display_mode::dimensions const _dim
+			sge::renderer::display_mode::dimensions const &_dim
 		)
 		{
 			FCPPT_ASSERT_ERROR(
@@ -159,7 +180,7 @@ sge::opengl::xrandr::current_display_mode(
 					_dim.get()
 				)
 				!=
-				0u
+				0U
 			);
 		}
 	);
@@ -171,7 +192,7 @@ sge::opengl::xrandr::current_display_mode(
 				dimensions,
 				refresh_rate
 			](
-				sge::renderer::display_mode::pixel_size const _pixel_size
+				sge::renderer::display_mode::pixel_size const &_pixel_size
 			)
 			{
 				return

@@ -27,6 +27,7 @@ sge::opengl::glx::visual::choose(
 		::glXChooseVisual(
 			_display.get(),
 			_screen.get(),
+			// NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
 			const_cast<
 				int *
 			>(
@@ -40,10 +41,12 @@ sge::opengl::glx::visual::choose(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("glXChooseVisual() failed!")
 			};
+	}
 
 	return
 		awl::backends::x11::visual::info_unique_ptr{

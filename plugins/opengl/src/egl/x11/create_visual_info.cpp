@@ -6,7 +6,7 @@
 
 #include <sge/opengl/egl/get_config_attrib.hpp>
 #include <sge/opengl/egl/x11/create_visual_info.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/const_display_ref.hpp>
 #include <awl/backends/x11/visual/get_info.hpp>
 #include <awl/backends/x11/visual/info_unique_ptr.hpp>
 #include <awl/backends/x11/visual/mask.hpp>
@@ -18,9 +18,9 @@
 
 awl::backends::x11::visual::info_unique_ptr
 sge::opengl::egl::x11::create_visual_info(
-	awl::backends::x11::display const &_display,
-	EGLDisplay const _egl_display,
-	EGLConfig const _egl_config
+	awl::backends::x11::const_display_ref const _display,
+	EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
+	EGLConfig const _egl_config // NOLINT(misc-misplaced-const)
 )
 {
 	XVisualInfo info;
@@ -36,7 +36,7 @@ sge::opengl::egl::x11::create_visual_info(
 
 	return
 		awl::backends::x11::visual::get_info(
-			_display,
+			_display.get(),
 			awl::backends::x11::visual::mask{
 				VisualIDMask
 			},

@@ -27,8 +27,7 @@ sge::opengl::texture::render_binding::render_binding(
 }
 
 sge::opengl::texture::render_binding::~render_binding()
-{
-}
+= default;
 
 sge::renderer::texture::stage
 sge::opengl::texture::render_binding::stage() const

@@ -22,23 +22,26 @@ namespace vf
 class attribute_config
 {
 public:
-	typedef
+	using
+	gl_vertex_attrib_pointer
+	=
 	sge::opengl::fun_ref<
 		PFNGLVERTEXATTRIBPOINTERPROC
-	>
-	gl_vertex_attrib_pointer;
+	>;
 
-	typedef
+	using
+	gl_enable_vertex_attrib_array
+	=
 	sge::opengl::fun_ref<
 		PFNGLENABLEVERTEXATTRIBARRAYPROC
-	>
-	gl_enable_vertex_attrib_array;
+	>;
 
-	typedef
+	using
+	gl_disable_vertex_attrib_array
+	=
 	sge::opengl::fun_ref<
 		PFNGLDISABLEVERTEXATTRIBARRAYPROC
-	>
-	gl_disable_vertex_attrib_array;
+	>;
 
 	attribute_config(
 		gl_vertex_attrib_pointer,
@@ -46,12 +49,15 @@ public:
 		gl_disable_vertex_attrib_array
 	);
 
+	[[nodiscard]]
 	gl_vertex_attrib_pointer
 	vertex_attrib_pointer() const;
 
+	[[nodiscard]]
 	gl_enable_vertex_attrib_array
 	enable_vertex_attrib_array() const;
 
+	[[nodiscard]]
 	gl_disable_vertex_attrib_array
 	disable_vertex_attrib_array() const;
 private:

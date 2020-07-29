@@ -11,6 +11,7 @@
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/math/dim/static_impl.hpp>
 
 
@@ -21,7 +22,7 @@ sge::opengl::texture::basic_buffer<
 	Types
 >::basic_buffer(
 	format_type const _format,
-	config_type const &,
+	const_config_ref,
 	sge::opengl::texture::basic_buffer_parameters const &_parameters
 )
 :

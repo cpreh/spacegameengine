@@ -18,11 +18,12 @@ namespace opengl
 namespace wgl
 {
 
-typedef
+using
+extension_set
+=
 sge::opengl::extension_set<
 	sge::opengl::wgl::extension
->
-extension_set;
+>;
 
 }
 }

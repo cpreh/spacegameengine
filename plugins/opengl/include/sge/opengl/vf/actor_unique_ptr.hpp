@@ -18,11 +18,12 @@ namespace opengl
 namespace vf
 {
 
-typedef
+using
+actor_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::vf::actor
->
-actor_unique_ptr;
+>;
 
 }
 }

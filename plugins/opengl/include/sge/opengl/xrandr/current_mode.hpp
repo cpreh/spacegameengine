@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_XRANDR_CURRENT_MODE_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_CURRENT_MODE_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/configuration_fwd.hpp>
+#include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/mode_fwd.hpp>
 
 
@@ -20,7 +20,7 @@ namespace xrandr
 
 sge::opengl::xrandr::mode
 current_mode(
-	sge::opengl::xrandr::configuration const &
+	sge::opengl::xrandr::const_configuration_ref
 );
 
 }

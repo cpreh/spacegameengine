@@ -9,9 +9,9 @@
 
 #include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/current_unique_ptr.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/sdl/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
 #include <fcppt/config/external_end.hpp>
@@ -29,18 +29,19 @@ class context
 	public
 		sge::opengl::backend::context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
 	explicit
 	context(
-		sge::window::object &
+		sge::window::object_ref
 	);
 
 	~context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::backend::current_unique_ptr
 	activate()
 	override;
@@ -51,9 +52,9 @@ public:
 	)
 	override;
 private:
-	awl::backends::sdl::window::object &window_;
+	awl::backends::sdl::window::object_ref const window_;
 
-	SDL_GLContext const context_;
+	SDL_GLContext const context_; // NOLINT(misc-misplaced-const)
 };
 
 }

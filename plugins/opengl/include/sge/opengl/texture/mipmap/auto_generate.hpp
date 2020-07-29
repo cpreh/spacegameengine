@@ -23,10 +23,10 @@ namespace mipmap
 
 void
 auto_generate(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::object &
-);
+	sge::opengl::context::object & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

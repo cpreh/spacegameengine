@@ -11,7 +11,7 @@
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/texture/surface_config.hpp>
 #include <sge/opengl/texture/surface_context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,19 +25,21 @@ class surface_context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		surface_context
 	);
 public:
-	typedef
-	void
-	parameter;
+	using
+	parameter
+	=
+	void;
 
 	surface_context();
 
 	~surface_context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::texture::surface_config const &
 	config() const;
 

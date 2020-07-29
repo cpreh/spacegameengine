@@ -10,6 +10,7 @@
 #include <sge/opengl/state/core/sampler/object.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
 #include <sge/opengl/texture/set_samplers.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 void
@@ -21,8 +22,12 @@ sge::opengl::texture::set_samplers(
 	sge::opengl::context::use<
 		sge::opengl::state::core::sampler::context
 	>(
-		_context,
-		_context
+		fcppt::make_ref(
+			_context
+		),
+		fcppt::make_ref(
+			_context
+		)
 	).get(
 		_render_binding.stage()
 	).set(

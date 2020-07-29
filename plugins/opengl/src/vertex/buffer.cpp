@@ -6,7 +6,7 @@
 
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vertex/buffer.hpp>
 #include <sge/opengl/vf/color_formats.hpp>
@@ -26,10 +26,11 @@
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::opengl::vertex::buffer::buffer(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	sge::renderer::vf::dynamic::part_index const _part_index,
 	sge::renderer::vf::dynamic::part const &_format_part,
 	sge::renderer::vertex::count const _size,
@@ -51,12 +52,14 @@ sge::opengl::vertex::buffer::buffer(
 		sge::opengl::vf::color_formats()
 	),
 	buffer_(
-		sge::opengl::context::use<
-			sge::opengl::buffer::vbo_context
-		>(
-			_context,
-			_context
-		).vertex_buffer(),
+		fcppt::make_ref(
+			sge::opengl::context::use<
+				sge::opengl::buffer::vbo_context
+			>(
+				_context,
+				_context
+			).vertex_buffer()
+		),
 		_size.get(),
 		_format_part.stride().get(),
 		_flags,
@@ -66,8 +69,7 @@ sge::opengl::vertex::buffer::buffer(
 }
 
 sge::opengl::vertex::buffer::~buffer()
-{
-}
+= default;
 
 void
 sge::opengl::vertex::buffer::use(
@@ -84,7 +86,7 @@ sge::opengl::vertex::buffer::use(
 }
 
 void
-sge::opengl::vertex::buffer::unuse(
+sge::opengl::vertex::buffer::unuse( // NOLINT(readability-convert-member-functions-to-static)
 	sge::opengl::vf::part const &_format_part
 ) const
 {

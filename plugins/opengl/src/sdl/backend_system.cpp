@@ -10,8 +10,8 @@
 #include <sge/opengl/sdl/context.hpp>
 #include <sge/opengl/sdl/visual.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/sdl/system/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/sdl/system/object_ref.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -21,7 +21,7 @@
 
 
 sge::opengl::sdl::backend_system::backend_system(
-	awl::backends::sdl::system::object &
+	awl::backends::sdl::system::object_ref
 )
 :
 	sge::opengl::backend::system{},
@@ -32,8 +32,7 @@ sge::opengl::sdl::backend_system::backend_system(
 }
 
 sge::opengl::sdl::backend_system::~backend_system()
-{
-}
+= default;
 
 awl::visual::object_unique_ptr
 sge::opengl::sdl::backend_system::create_visual(
@@ -54,7 +53,7 @@ sge::opengl::sdl::backend_system::create_visual(
 
 sge::opengl::backend::context_unique_ptr
 sge::opengl::sdl::backend_system::create_context(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 {
 	return

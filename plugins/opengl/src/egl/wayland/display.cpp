@@ -17,23 +17,24 @@
 #include <sge/opengl/egl/wayland/surface.hpp>
 #include <sge/opengl/egl/wayland/visual.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/wayland/display.hpp>
 #include <awl/backends/wayland/system/object.hpp>
+#include <awl/backends/wayland/system/object_ref.hpp>
 #include <awl/backends/wayland/window/object.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::egl::wayland::display::display(
-	fcppt::log::object &_log,
-	awl::backends::wayland::system::object &_system
+	fcppt::log::object_reference const _log,
+	awl::backends::wayland::system::object_ref const _system
 )
 :
 	sge::opengl::egl::display(),
@@ -42,15 +43,14 @@ sge::opengl::egl::wayland::display::display(
 	},
 	display_{
 		sge::opengl::egl::get_display(
-			_system.display().get()
+			_system.get().display().get()
 		)
 	}
 {
 }
 
 sge::opengl::egl::wayland::display::~display()
-{
-}
+= default;
 
 EGLDisplay
 sge::opengl::egl::wayland::display::get() const
@@ -72,7 +72,7 @@ sge::opengl::egl::wayland::display::create_visual(
 			fcppt::make_unique_ptr<
 				sge::opengl::egl::wayland::visual
 			>(
-				log_,
+				log_.get(),
 				display_,
 				_pixel_format
 			)
@@ -81,8 +81,8 @@ sge::opengl::egl::wayland::display::create_visual(
 
 sge::opengl::egl::surface_unique_ptr
 sge::opengl::egl::wayland::display::create_surface(
-	EGLConfig const _config,
-	sge::window::object &_window
+	EGLConfig const _config, // NOLINT(misc-misplaced-const)
+	sge::window::object_ref const _window
 )
 {
 	return

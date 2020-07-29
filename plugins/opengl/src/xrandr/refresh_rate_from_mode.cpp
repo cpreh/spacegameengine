@@ -24,9 +24,10 @@ sge::opengl::xrandr::refresh_rate_from_mode(
 	XRRModeInfo const &_info
 )
 {
-	typedef
-	unsigned long long
-	unsigned_type;
+	using
+	unsigned_type
+	=
+	unsigned long long;
 
 	unsigned_type const denom(
 		_info.hTotal
@@ -34,20 +35,22 @@ sge::opengl::xrandr::refresh_rate_from_mode(
 		_info.vTotal
 	);
 
-	typedef
-	double
-	float_type;
+	using
+	float_type
+	=
+	double;
 
-	typedef
-	std::make_signed<
+	using
+	signed_type
+	=
+	std::make_signed_t<
 		unsigned_type
-	>::type
-	signed_type;
+	>;
 
 	return
 		denom
 		==
-		0u
+		0U
 		?
 			sge::renderer::display_mode::optional_refresh_rate()
 		:

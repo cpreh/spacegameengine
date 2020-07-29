@@ -37,6 +37,7 @@ FCPPT_PP_DISABLE_CLANG_WARNING(-Wundefined-reinterpret-cast)
 
 	return
 		fcppt::make_ref(
+			// NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
 			reinterpret_cast<
 				std::add_lvalue_reference_t<
 					Ret

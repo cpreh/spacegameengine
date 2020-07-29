@@ -45,7 +45,7 @@ sge::opengl::texture::mipmap::get_levels(
 			{
 				return
 					sge::renderer::texture::mipmap::level_count(
-						1u
+						1U
 					);
 			},
 			[
@@ -59,10 +59,10 @@ sge::opengl::texture::mipmap::get_levels(
 						sge::renderer::texture::mipmap::level_count,
 						fcppt::cast::size_fun
 					>(
-						1u
+						1U
 						+
 						fcppt::math::log2(
-							// TODO!
+							// TODO(philipp)!
 							*boost::range::max_element(
 								fcppt::math::to_array(
 									_dim

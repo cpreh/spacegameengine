@@ -11,7 +11,7 @@
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/x11/visual/info_unique_ptr.hpp>
 #include <awl/backends/x11/visual/wrapped.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,12 +23,12 @@ namespace glx
 namespace visual
 {
 
-class object
+class object // NOLINT(fuchsia-multiple-inheritance)
 :
 	public awl::backends::x11::visual::wrapped,
 	public sge::renderer::visual_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:

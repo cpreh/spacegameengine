@@ -8,11 +8,13 @@
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/const_binding_ref.hpp>
 #include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -22,13 +24,13 @@ template<
 sge::opengl::texture::mipmap::parameters<
 	Dim
 >::parameters(
-	sge::opengl::texture::binding const &_binding,
+	sge::opengl::texture::const_binding_ref const _binding,
 	sge::opengl::texture::buffer_type const _buffer_type,
-	config_type const &_config,
+	const_config_ref const _config,
 	sge::opengl::color_order const _format_order,
 	sge::opengl::color_base_type const _format_base_type,
 	sge::opengl::internal_color_format const _internal_format,
-	dim const &_size,
+	dim _size,
 	init_function_type _init_function
 )
 :
@@ -51,7 +53,9 @@ sge::opengl::texture::mipmap::parameters<
 		_internal_format
 	),
 	size_(
-		_size
+		std::move(
+			_size
+		)
 	),
 	init_function_(
 		_init_function

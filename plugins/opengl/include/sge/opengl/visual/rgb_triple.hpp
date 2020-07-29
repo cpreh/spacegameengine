@@ -43,12 +43,15 @@ public:
 		sge::opengl::visual::rgb_triple::blue_bits
 	);
 
+	[[nodiscard]]
 	sge::opengl::visual::rgb_triple::red_bits
 	red() const;
 
+	[[nodiscard]]
 	sge::opengl::visual::rgb_triple::green_bits
 	green() const;
 
+	[[nodiscard]]
 	sge::opengl::visual::rgb_triple::blue_bits
 	blue() const;
 private:

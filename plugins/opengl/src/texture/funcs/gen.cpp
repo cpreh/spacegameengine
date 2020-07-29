@@ -16,7 +16,7 @@
 sge::opengl::texture::id
 sge::opengl::texture::funcs::gen()
 {
-	GLuint ret;
+	GLuint ret{};
 
 	sge::opengl::call(
 		::glGenTextures,

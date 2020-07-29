@@ -15,10 +15,11 @@
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/visual/object.hpp>
 #include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/base_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <X11/X.h>
@@ -27,8 +28,8 @@
 
 
 sge::opengl::glx::context::context(
-	fcppt::log::object &_log,
-	awl::backends::x11::window::base &_window,
+	fcppt::log::object_reference const _log,
+	awl::backends::x11::window::base_ref const _window,
 	sge::opengl::glx::optional_proc_address_function const _proc_address
 )
 :
@@ -44,11 +45,12 @@ sge::opengl::glx::context::context(
 	),
 	context_(
 		::glXCreateContext(
-			_window.display().get().get(),
+			window_.get().display().get().get(),
+			// NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
 			const_cast<
 				XVisualInfo *
 			>(
-				window_.x11_visual().info()
+				window_.get().x11_visual().info()
 			),
 			nullptr,
 			True
@@ -60,15 +62,18 @@ sge::opengl::glx::context::context(
 		==
 		nullptr
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("glXCreateContext() failed!")
-		);
+	{
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("glXCreateContext() failed!")
+			);
+	}
 }
 
 sge::opengl::glx::context::~context()
 {
 	::glXDestroyContext(
-		window_.display().get().get(),
+		window_.get().display().get().get(),
 		context_
 	);
 }
@@ -77,8 +82,8 @@ sge::opengl::backend::current_unique_ptr
 sge::opengl::glx::context::activate()
 {
 	sge::opengl::glx::make_current(
-		window_.display().get().get(),
-		window_.get(),
+		window_.get().display().get().get(),
+		window_.get().get(),
 		context_
 	);
 
@@ -102,7 +107,7 @@ sge::opengl::glx::context::deactivate(
 )
 {
 	sge::opengl::glx::make_current(
-		window_.display().get().get(),
+		window_.get().display().get().get(),
 		None,
 		nullptr
 	);

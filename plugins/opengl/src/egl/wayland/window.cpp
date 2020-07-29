@@ -7,8 +7,10 @@
 #include <sge/opengl/egl/wayland/window.hpp>
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/window/event/base.hpp>
 #include <awl/window/event/resize.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -19,14 +21,16 @@
 
 
 sge::opengl::egl::wayland::window::window(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 :
 	holder_{
-		_window.awl_object()
+		fcppt::make_ref(
+			_window.get().awl_object()
+		)
 	},
 	resize_connection_{
-		_window.event_handler(
+		_window.get().event_handler(
 			sge::window::event_function{
 				[
 					this
@@ -71,10 +75,8 @@ sge::opengl::egl::wayland::window::window(
 {
 }
 
-
 sge::opengl::egl::wayland::window::~window()
-{
-}
+= default;
 
 wl_egl_window *
 sge::opengl::egl::wayland::window::get() const

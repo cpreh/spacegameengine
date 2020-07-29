@@ -23,6 +23,7 @@
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -52,16 +53,22 @@ sge::opengl::texture::funcs::set_rect(
 		!sge::opengl::context::use<
 			sge::opengl::buffer::pbo_context
 		>(
-			_context,
-			_context
+			fcppt::make_ref(
+				_context
+			),
+			fcppt::make_ref(
+				_context
+			)
 		)
 		.unpack_buffer()
 		.native()
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("OpenGL: Texture source is 0 although no PBO is bound!")
 			};
+	}
 
 	if(
 		!sge::opengl::range_check(
@@ -69,6 +76,7 @@ sge::opengl::texture::funcs::set_rect(
 			_lock_rect
 		)
 	)
+	{
 		throw
 			sge::renderer::exception{
 				(
@@ -80,6 +88,7 @@ sge::opengl::texture::funcs::set_rect(
 				)
 				.str()
 			};
+	}
 
 	sge::renderer::lock_rect::dim const lock_size(
 		_lock_rect.size()

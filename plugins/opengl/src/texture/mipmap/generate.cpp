@@ -11,6 +11,7 @@
 #include <sge/opengl/texture/mipmap/context.hpp>
 #include <sge/opengl/texture/mipmap/generate.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
@@ -26,7 +27,9 @@ sge::opengl::texture::mipmap::generate(
 		sge::opengl::context::use<
 			sge::opengl::texture::mipmap::context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		).generate_mipmap(),
 		[]{

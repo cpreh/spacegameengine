@@ -21,7 +21,7 @@ namespace x11
 
 void
 fullscreen(
-	awl::backends::x11::window::base &,
+	awl::backends::x11::window::base &, // NOLINT(google-runtime-references)
 	sge::opengl::x11::state_atom,
 	sge::opengl::x11::fullscreen_atom,
 	bool

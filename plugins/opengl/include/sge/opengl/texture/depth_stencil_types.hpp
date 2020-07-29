@@ -23,18 +23,22 @@ namespace texture
 
 struct depth_stencil_types
 {
-	typedef
-	sge::renderer::texture::depth_stencil
-	base;
+	using
+	base
+	=
+	sge::renderer::texture::depth_stencil;
 
-	typedef
-	sge::renderer::texture::depth_stencil_parameters
-	parameters;
+	using
+	parameters
+	=
+	sge::renderer::texture::depth_stencil_parameters;
 
-	typedef
-	sge::opengl::texture::depth_stencil_surface_types
-	buffer_types;
+	using
+	buffer_types
+	=
+	sge::opengl::texture::depth_stencil_surface_types;
 
+	[[nodiscard]]
 	static
 	fcppt::string
 	name();

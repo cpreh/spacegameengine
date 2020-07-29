@@ -12,6 +12,7 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+
 namespace sge
 {
 namespace renderer
@@ -21,9 +22,12 @@ namespace vf
 namespace dynamic
 {
 
-typedef std::vector<
+using
+color_format_vector
+=
+std::vector<
 	sge::image::color::format
-> color_format_vector;
+>;
 
 }
 }

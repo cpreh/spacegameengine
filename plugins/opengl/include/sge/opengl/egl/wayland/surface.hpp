@@ -14,8 +14,8 @@
 #include <sge/opengl/egl/surface.hpp>
 #include <sge/opengl/egl/window_surface_decl.hpp>
 #include <sge/opengl/egl/wayland/window.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -34,19 +34,20 @@ class surface
 :
 	public sge::opengl::egl::surface
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		surface
 	);
 public:
 	surface(
 		EGLDisplay,
 		EGLConfig,
-		sge::window::object &
+		sge::window::object_ref
 	);
 
 	~surface()
 	override;
 private:
+	[[nodiscard]]
 	EGLSurface
 	get() const
 	override;

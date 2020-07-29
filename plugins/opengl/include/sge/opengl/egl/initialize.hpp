@@ -20,7 +20,7 @@ namespace opengl
 namespace egl
 {
 
-sge::opengl::egl::version const
+sge::opengl::egl::version
 initialize(
 	EGLDisplay
 );

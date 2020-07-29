@@ -37,8 +37,7 @@ sge::opengl::vf::normal_actor::normal_actor(
 }
 
 sge::opengl::vf::normal_actor::~normal_actor()
-{
-}
+= default;
 
 void
 sge::opengl::vf::normal_actor::on_use(

@@ -23,26 +23,27 @@ sge::opengl::visual::convert_color(
 		return
 			sge::opengl::visual::rgb_triple(
 				sge::opengl::visual::rgb_triple::red_bits(
-					5
+					5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				),
 				sge::opengl::visual::rgb_triple::green_bits(
-					6 // TODO: is this ok?
+					// TODO(philipp): is this ok?
+					6 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				),
 				sge::opengl::visual::rgb_triple::blue_bits(
-					5
+					5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			);
 	case sge::renderer::pixel_format::color::depth32:
 		return
 			sge::opengl::visual::rgb_triple(
 				sge::opengl::visual::rgb_triple::red_bits(
-					8
+					8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				),
 				sge::opengl::visual::rgb_triple::green_bits(
-					8
+					8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				),
 				sge::opengl::visual::rgb_triple::blue_bits(
-					8
+					8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			);
 	}

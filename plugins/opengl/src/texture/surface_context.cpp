@@ -22,8 +22,7 @@ sge::opengl::texture::surface_context::surface_context()
 }
 
 sge::opengl::texture::surface_context::~surface_context()
-{
-}
+= default;
 
 sge::opengl::texture::surface_config const &
 sge::opengl::texture::surface_context::config() const

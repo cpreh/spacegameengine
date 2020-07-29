@@ -9,8 +9,8 @@
 
 #include <sge/opengl/egl/surface.hpp>
 #include <sge/opengl/egl/window_surface_decl.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -29,19 +29,20 @@ class surface
 :
 	public sge::opengl::egl::surface
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		surface
 	);
 public:
 	surface(
 		EGLDisplay,
 		EGLConfig,
-		awl::backends::x11::window::base const &
+		awl::backends::x11::window::const_base_ref
 	);
 
 	~surface()
 	override;
 private:
+	[[nodiscard]]
 	EGLSurface
 	get() const
 	override;

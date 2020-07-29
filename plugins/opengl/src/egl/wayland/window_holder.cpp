@@ -9,6 +9,7 @@
 #include <awl/backends/wayland/window/object.hpp>
 #include <awl/window/dim.hpp>
 #include <awl/window/object.hpp>
+#include <awl/window/object_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -18,7 +19,7 @@
 
 
 sge::opengl::egl::wayland::window_holder::window_holder(
-	awl::window::object const &_window
+	awl::window::object_ref const _window
 )
 :
 	window_{
@@ -26,13 +27,13 @@ sge::opengl::egl::wayland::window_holder::window_holder(
 			fcppt::cast::dynamic_exn<
 				awl::backends::wayland::window::object const &
 			>(
-				_window
+				_window.get()
 			).surface(),
 			fcppt::cast::to_signed(
-				_window.size().w()
+				_window.get().size().w()
 			),
 			fcppt::cast::to_signed(
-				_window.size().h()
+				_window.get().size().h()
 			)
 		)
 	}
@@ -42,10 +43,12 @@ sge::opengl::egl::wayland::window_holder::window_holder(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::renderer::exception{
 				FCPPT_TEXT("Cannot create wayland egl window")
 			};
+	}
 }
 
 

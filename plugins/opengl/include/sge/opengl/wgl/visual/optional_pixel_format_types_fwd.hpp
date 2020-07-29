@@ -20,9 +20,12 @@ namespace wgl
 namespace visual
 {
 
-typedef fcppt::optional::object<
+using
+optional_pixel_format_types
+=
+fcppt::optional::object<
 	sge::opengl::wgl::visual::pixel_format_types
-> optional_pixel_format_types;
+>;
 
 }
 }

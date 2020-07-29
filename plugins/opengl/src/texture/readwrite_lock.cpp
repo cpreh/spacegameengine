@@ -4,14 +4,14 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/readwrite_lock.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 
 
 sge::opengl::texture::readwrite_lock::readwrite_lock(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	size_type const _read_size,
 	size_type const _write_size,
 	size_type const _stride,
@@ -34,8 +34,7 @@ sge::opengl::texture::readwrite_lock::readwrite_lock(
 }
 
 sge::opengl::texture::readwrite_lock::~readwrite_lock()
-{
-}
+= default;
 
 void
 sge::opengl::texture::readwrite_lock::lock()

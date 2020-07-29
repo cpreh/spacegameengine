@@ -14,12 +14,12 @@
 
 EGLint
 sge::opengl::egl::get_config_attrib(
-	EGLDisplay const _egl_display,
-	EGLConfig const _egl_config,
+	EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
+	EGLConfig const _egl_config, // NOLINT(misc-misplaced-const)
 	EGLint const _attrib
 )
 {
-	EGLint result;
+	EGLint result{};
 
 	if(
 		::eglGetConfigAttrib(
@@ -31,10 +31,12 @@ sge::opengl::egl::get_config_attrib(
 		!=
 		EGL_TRUE
 	)
+	{
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("eglGetConfigAttrib failed")
 			);
+	}
 
 	return
 		result;

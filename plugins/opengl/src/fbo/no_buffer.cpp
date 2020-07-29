@@ -13,6 +13,6 @@ sge::opengl::fbo::no_buffer()
 {
 	return
 		sge::opengl::fbo::id(
-			0u
+			0U
 		);
 }

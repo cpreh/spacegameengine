@@ -57,13 +57,14 @@ range_check(
 					_index
 				);
 
-				typedef
+				using
+				index
+				=
 				fcppt::tag_type<
 					decltype(
 						_index
 					)
-				>
-				index;
+				>;
 
 				return
 					fcppt::math::vector::at<

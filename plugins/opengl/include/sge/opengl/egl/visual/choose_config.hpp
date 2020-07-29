@@ -25,7 +25,7 @@ namespace visual
 
 EGLConfig
 choose_config(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	EGLDisplay,
 	sge::opengl::egl::attribute_vector const &
 );

@@ -14,6 +14,7 @@
 #include <sge/opengl/texture/convert/make_type.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 
 
 sge::opengl::texture::planar::planar(
@@ -30,12 +31,13 @@ sge::opengl::texture::planar::planar(
 		sge::opengl::context::use<
 			sge::opengl::texture::surface_context
 		>(
-			_basic_parameters.context()
+			fcppt::make_ref(
+				_basic_parameters.context()
+			)
 		).config()
 	)
 {
 }
 
 sge::opengl::texture::planar::~planar()
-{
-}
+= default;

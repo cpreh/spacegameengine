@@ -11,7 +11,7 @@
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -25,7 +25,7 @@ class pointer_actor
 :
 	public sge::opengl::vf::actor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		pointer_actor
 	);
 public:
@@ -37,10 +37,12 @@ protected:
 		sge::opengl::vf::actor_parameters const &
 	);
 
+	[[nodiscard]]
 	sge::renderer::vf::dynamic::offset
 	offset() const
 	override;
 
+	[[nodiscard]]
 	sge::renderer::vf::dynamic::stride
 	stride() const;
 private:

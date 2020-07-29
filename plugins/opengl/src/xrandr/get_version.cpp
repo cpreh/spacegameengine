@@ -9,6 +9,7 @@
 #include <sge/opengl/xrandr/version.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
@@ -18,23 +19,28 @@
 sge::opengl::xrandr::version
 sge::opengl::xrandr::get_version(
 	sge::opengl::xrandr::extension const &,
-	awl::backends::x11::display &_display
+	awl::backends::x11::display_ref const _display
 )
 {
-	int major, minor;
+	int major{};
+
+	int minor{};
 
 	if(
 		::XRRQueryVersion(
-			_display.get(),
+			_display.get().get(),
 			&major,
 			&minor
 		)
 		!=
 		1
 	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Querying the xrandr version failed!")
-		);
+	{
+		throw
+			sge::renderer::exception(
+				FCPPT_TEXT("Querying the xrandr version failed!")
+			);
+	}
 
 	return
 		sge::opengl::xrandr::version(

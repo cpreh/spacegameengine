@@ -31,10 +31,10 @@ sge::opengl::texture::mipmap::context::context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				1u
+				1U
 			},
 			sge::opengl::info::minor_version{
-				4u
+				4U
 			}
 		)
 		?
@@ -50,10 +50,10 @@ sge::opengl::texture::mipmap::context::context(
 		sge::opengl::info::version_at_least(
 			_info.version(),
 			sge::opengl::info::major_version{
-				3u
+				3U
 			},
 			sge::opengl::info::minor_version{
-				0u
+				0U
 			}
 		)
 		?
@@ -75,8 +75,7 @@ sge::opengl::texture::mipmap::context::context(
 }
 
 sge::opengl::texture::mipmap::context::~context()
-{
-}
+= default;
 
 sge::opengl::optional_enum
 sge::opengl::texture::mipmap::context::generate_mipmap_flag() const

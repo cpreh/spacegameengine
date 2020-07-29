@@ -5,6 +5,7 @@
 
 
 #include <sge/opengl/xrandr/configuration.hpp>
+#include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/rates.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -14,7 +15,7 @@
 
 
 sge::opengl::xrandr::rates::rates(
-	sge::opengl::xrandr::configuration const &_config,
+	sge::opengl::xrandr::const_configuration_ref const _config,
 	sge::opengl::xrandr::mode_index const _mode
 )
 :
@@ -23,7 +24,7 @@ sge::opengl::xrandr::rates::rates(
 	},
 	rates_{
 		::XRRConfigRates(
-			_config.get(),
+			_config.get().get(),
 			_mode.get(),
 			&size_
 		)
@@ -43,7 +44,7 @@ sge::opengl::xrandr::rates::end() const
 {
 	return
 		rates_
-		+
+		+ // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		size_;
 }
 

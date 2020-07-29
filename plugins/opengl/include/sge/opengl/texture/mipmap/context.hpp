@@ -13,7 +13,7 @@
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/reference.hpp>
 
 
@@ -30,13 +30,14 @@ class context
 :
 	public sge::opengl::context::base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
-	typedef
-	sge::opengl::info::context const &
-	parameter;
+	using
+	parameter
+	=
+	sge::opengl::info::context const &;
 
 	explicit
 	context(
@@ -46,27 +47,32 @@ public:
 	~context()
 	override;
 
+	[[nodiscard]]
 	sge::opengl::optional_enum
 	generate_mipmap_flag() const;
 
-	typedef
+	using
+	gl_generate_mipmap
+	=
 	sge::opengl::fun_ref<
 		PFNGLGENERATEMIPMAPPROC
-	>
-	gl_generate_mipmap;
+	>;
 
-	typedef
+	using
+	optional_gl_generate_mipmap
+	=
 	fcppt::optional::reference<
 		sge::opengl::fun_ref_value_type<
 			gl_generate_mipmap
 		>
-	>
-	optional_gl_generate_mipmap;
+	>;
 
-	typedef
-	optional_gl_generate_mipmap::value_type
-	gl_generate_mipmap_ref;
+	using
+	gl_generate_mipmap_ref
+	=
+	optional_gl_generate_mipmap::value_type;
 
+	[[nodiscard]]
 	optional_gl_generate_mipmap const &
 	generate_mipmap() const;
 

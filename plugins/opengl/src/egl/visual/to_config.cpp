@@ -24,7 +24,7 @@
 EGLConfig
 sge::opengl::egl::visual::to_config(
 	fcppt::log::object &_log,
-	EGLDisplay const _egl_display,
+	EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
 	awl::visual::object const &_visual
 )
 {
@@ -37,7 +37,7 @@ sge::opengl::egl::visual::to_config(
 			),
 			[
 				&_log,
-				_egl_display
+				_egl_display // NOLINT(misc-misplaced-const)
 			]
 			{
 				FCPPT_LOG_WARNING(

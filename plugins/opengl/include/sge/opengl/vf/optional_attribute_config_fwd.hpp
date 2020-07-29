@@ -18,11 +18,12 @@ namespace opengl
 namespace vf
 {
 
-typedef
+using
+optional_attribute_config
+=
 fcppt::optional::object<
 	sge::opengl::vf::attribute_config
->
-optional_attribute_config;
+>;
 
 }
 }

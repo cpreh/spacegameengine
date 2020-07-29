@@ -18,11 +18,12 @@ namespace opengl
 namespace xrandr
 {
 
-typedef
+using
+optional_system_ref
+=
 fcppt::optional::reference<
 	sge::opengl::xrandr::system
->
-optional_system_ref;
+>;
 
 }
 }

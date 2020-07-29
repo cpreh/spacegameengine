@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/cg/program/object_fwd.hpp>
+#include <sge/cg/program/object_ref.hpp>
 #include <sge/opengl/cg/program/load.hpp>
 #include <sge/opengl/cg/program/loaded_object.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
@@ -15,7 +15,7 @@
 
 sge::renderer::cg::loaded_program_unique_ptr
 sge::opengl::cg::program::load(
-	sge::cg::program::object &_program
+	sge::cg::program::object_ref const _program
 )
 {
 	return

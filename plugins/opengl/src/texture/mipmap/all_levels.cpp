@@ -39,12 +39,15 @@ sge::opengl::texture::mipmap::all_levels(
 		==
 		sge::renderer::texture::mipmap::auto_generate::yes
 	)
+	{
 		sge::opengl::texture::mipmap::auto_generate(
 			_log,
 			_parameters.binding(),
 			_context
 		);
+	}
 	else
+	{
 		sge::opengl::texture::mipmap::generate_levels(
 			_parameters,
 			sge::renderer::texture::mipmap::level_count(
@@ -53,6 +56,7 @@ sge::opengl::texture::mipmap::all_levels(
 				>::max()
 			)
 		);
+	}
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_ALL_LEVELS(\

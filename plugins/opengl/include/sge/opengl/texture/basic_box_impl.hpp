@@ -15,6 +15,7 @@
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -66,7 +67,9 @@ sge::opengl::texture::basic_box<
 					binding,
 					_basic_parameters,
 					_parameters,
-					_config,
+					fcppt::make_cref(
+						_config
+					),
 					_type,
 					sge::opengl::texture::buffer_type(
 						_type.get()
@@ -86,8 +89,7 @@ template<
 sge::opengl::texture::basic_box<
 	Types
 >::~basic_box()
-{
-}
+= default;
 
 template<
 	typename Types

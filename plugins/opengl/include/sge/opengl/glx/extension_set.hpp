@@ -18,11 +18,12 @@ namespace opengl
 namespace glx
 {
 
-typedef
+using
+extension_set
+=
 sge::opengl::extension_set<
 	sge::opengl::glx::extension
->
-extension_set;
+>;
 
 }
 }

@@ -8,10 +8,10 @@
 #define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
 
 #include <sge/opengl/vf/actor_fwd.hpp>
-#include <sge/opengl/vf/client_state_combiner_fwd.hpp>
+#include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,7 +23,7 @@ namespace vf
 
 class actor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		actor
 	);
 protected:
@@ -32,10 +32,11 @@ public:
 	virtual
 	void
 	operator()(
-		sge::opengl::vf::client_state_combiner &,
+		sge::opengl::vf::client_state_combiner_ref,
 		sge::opengl::vf::pointer
 	) const = 0;
 
+	[[nodiscard]]
 	virtual
 	sge::renderer::vf::dynamic::offset
 	offset() const = 0;
@@ -43,7 +44,7 @@ public:
 	virtual
 	void
 	unuse(
-		sge::opengl::vf::client_state_combiner &
+		sge::opengl::vf::client_state_combiner_ref
 	) const = 0;
 
 	virtual

@@ -8,15 +8,16 @@
 #define SGE_OPENGL_CG_TEXTURE_LOADED_OBJECT_HPP_INCLUDED
 
 #include <sge/cg/parameter/object.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/base_fwd.hpp>
 #include <sge/opengl/texture/bind_context_fwd.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/texture/base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 namespace sge
@@ -32,35 +33,40 @@ class loaded_object
 :
 	public sge::renderer::cg::loaded_texture
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		loaded_object
 	);
 public:
 	loaded_object(
-		fcppt::log::object &,
-		sge::opengl::context::object &,
+		fcppt::log::object_reference,
+		sge::opengl::context::object_ref,
 		sge::cg::parameter::object const &,
-		sge::renderer::texture::base &
+		sge::renderer::texture::base_ref
 	);
 
 	~loaded_object()
 	override;
 
+	[[nodiscard]]
 	sge::renderer::texture::stage
 	enable() const;
 
 	void
 	disable() const;
 private:
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	sge::opengl::context::object &context_;
+	sge::opengl::context::object_ref const context_;
 
-	sge::opengl::texture::bind_context &bind_context_;
+	fcppt::reference<
+		sge::opengl::texture::bind_context
+	> const bind_context_;
 
 	sge::cg::parameter::object const parameter_;
 
-	sge::opengl::texture::base const &texture_;
+	fcppt::reference<
+		sge::opengl::texture::base const
+	> const texture_;
 
 	sge::renderer::texture::stage const stage_;
 };

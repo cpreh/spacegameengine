@@ -68,11 +68,12 @@ public:
 	);
 
 	// Same signature for ARB and EXT
-	typedef
+	using
+	wgl_choose_pixel_format
+	=
 	sge::opengl::fun_ref<
 		PFNWGLCHOOSEPIXELFORMATARBPROC
-	>
-	wgl_choose_pixel_format;
+	>;
 
 	pixel_format_types(
 		sge::opengl::wgl::visual::pixel_format_types::draw_to_window_flag,

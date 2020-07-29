@@ -10,9 +10,9 @@
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
-#include <sge/window/object_fwd.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/sdl/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,18 +27,19 @@ class device_state
 	public
 		sge::opengl::platform::device_state
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		device_state
 	);
 public:
 	device_state(
 		sge::renderer::display_mode::optional_fullscreen const &,
-		sge::window::object &
+		sge::window::object_ref
 	);
 
 	~device_state()
 	override;
 
+	[[nodiscard]]
 	sge::renderer::display_mode::optional_object
 	display_mode() const
 	override;
@@ -49,7 +50,12 @@ public:
 	)
 	override;
 private:
-	awl::backends::sdl::window::object &window_;
+	void
+	do_fullscreen(
+		sge::renderer::display_mode::optional_fullscreen const &
+	);
+
+	awl::backends::sdl::window::object_ref const window_;
 };
 
 }

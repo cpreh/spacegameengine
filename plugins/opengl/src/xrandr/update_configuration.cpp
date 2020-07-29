@@ -18,6 +18,7 @@ sge::opengl::xrandr::update_configuration(
 {
 	return
 		::XRRUpdateConfiguration(
+			// NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
 			const_cast<
 				XEvent *
 			>(

@@ -27,9 +27,11 @@ public:
 		sge::opengl::texture::cube_side_array const &
 	);
 
+	[[nodiscard]]
 	sge::opengl::texture::type
 	cube_texture_type() const;
 
+	[[nodiscard]]
 	sge::opengl::texture::cube_side_array const &
 	cube_sides() const;
 private:

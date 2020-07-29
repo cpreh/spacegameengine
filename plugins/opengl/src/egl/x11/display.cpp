@@ -16,22 +16,26 @@
 #include <sge/window/object.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/system/object.hpp>
+#include <awl/backends/x11/system/object_ref.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
+#include <awl/window/object_ref.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_to_const.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_exn.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::egl::x11::display::display(
-	fcppt::log::object &_log,
-	awl::backends::x11::system::object &_awl_system
+	fcppt::log::object_reference const _log,
+	awl::backends::x11::system::object_ref const _awl_system
 )
 :
 	sge::opengl::egl::display(),
@@ -39,19 +43,18 @@ sge::opengl::egl::x11::display::display(
 		_log
 	},
 	x11_display_{
-		_awl_system.display().get()
+		_awl_system.get().display()
 	},
 	display_{
 		sge::opengl::egl::get_display(
-			x11_display_.get()
+			x11_display_.get().get()
 		)
 	}
 {
 }
 
 sge::opengl::egl::x11::display::~display()
-{
-}
+= default;
 
 EGLDisplay
 sge::opengl::egl::x11::display::get() const
@@ -73,8 +76,10 @@ sge::opengl::egl::x11::display::create_visual(
 			fcppt::make_unique_ptr<
 				sge::opengl::egl::x11::visual
 			>(
-				log_,
-				x11_display_,
+				log_.get(),
+				fcppt::reference_to_const(
+					x11_display_
+				),
 				display_,
 				_pixel_format
 			)
@@ -83,8 +88,8 @@ sge::opengl::egl::x11::display::create_visual(
 
 sge::opengl::egl::surface_unique_ptr
 sge::opengl::egl::x11::display::create_surface(
-	EGLConfig const _config,
-	sge::window::object &_window
+	EGLConfig const _config, // NOLINT(misc-misplaced-const)
+	sge::window::object_ref const _window
 )
 {
 	return
@@ -96,10 +101,12 @@ sge::opengl::egl::x11::display::create_surface(
 			>(
 				display_,
 				_config,
-				fcppt::cast::dynamic_exn<
-					awl::backends::x11::window::base const &
-				>(
-					_window.awl_object()
+				fcppt::make_cref(
+					fcppt::cast::dynamic_exn<
+						awl::backends::x11::window::base const &
+					>(
+						_window.get().awl_object()
+					)
 				)
 			)
 		);

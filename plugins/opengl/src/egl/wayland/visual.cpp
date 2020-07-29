@@ -16,7 +16,7 @@
 
 sge::opengl::egl::wayland::visual::visual(
 	fcppt::log::object &_log,
-	EGLDisplay const _egl_display,
+	EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
 	sge::renderer::pixel_format::object const &_pixel_format
 )
 :
@@ -30,5 +30,4 @@ sge::opengl::egl::wayland::visual::visual(
 }
 
 sge::opengl::egl::wayland::visual::~visual()
-{
-}
+= default;

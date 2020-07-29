@@ -94,7 +94,7 @@ sge::opengl::egl::visual::make_attributes(
 		}
 	);
 
-	// TODO! Check extensions for srgb support
+	// TODO(philipp): Check extensions for srgb support
 
 	result.push_back(
 		EGL_NONE

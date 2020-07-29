@@ -8,9 +8,7 @@
 
 
 sge::opengl::vf::actor::actor()
-{
-}
+= default;
 
 sge::opengl::vf::actor::~actor()
-{
-}
+= default;

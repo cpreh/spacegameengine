@@ -75,7 +75,7 @@ public:
 		sge::opengl::color_order,
 		sge::opengl::color_base_type,
 		sge::opengl::internal_color_format,
-		dim const &,
+		dim,
 		init_function_type
 	);
 

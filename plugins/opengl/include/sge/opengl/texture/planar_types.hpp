@@ -23,12 +23,22 @@ namespace texture
 
 struct planar_types
 {
-	typedef sge::renderer::texture::planar base;
+	using
+	base
+	=
+	sge::renderer::texture::planar;
 
-	typedef sge::renderer::texture::planar_parameters parameters;
+	using
+	parameters
+	=
+	sge::renderer::texture::planar_parameters;
 
-	typedef sge::opengl::texture::color_surface_types buffer_types;
+	using
+	buffer_types
+	=
+	sge::opengl::texture::color_surface_types;
 
+	[[nodiscard]]
 	static
 	fcppt::string
 	name();

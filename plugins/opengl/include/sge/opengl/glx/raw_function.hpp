@@ -15,10 +15,10 @@ namespace opengl
 namespace glx
 {
 
-typedef
-void(
-	raw_function
-)();
+using
+raw_function
+=
+void ();
 
 }
 }

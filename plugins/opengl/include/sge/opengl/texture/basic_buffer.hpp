@@ -14,6 +14,7 @@
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/config_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_fwd.hpp>
 #include <fcppt/math/dim/static_decl.hpp>
 
 
@@ -77,9 +78,16 @@ public:
 		dim::static_size::value
 	>;
 
+	using
+	const_config_ref
+	=
+	fcppt::reference<
+		config_type const
+	>;
+
 	basic_buffer(
 		format_type,
-		config_type const &,
+		const_config_ref,
 		sge::opengl::texture::basic_buffer_parameters const &
 	);
 

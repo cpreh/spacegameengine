@@ -27,9 +27,10 @@ template<
 >
 EGLDisplay
 get_display(
-	NativeDisplay const _native
+	NativeDisplay const _native // NOLINT(readability-avoid-const-params-in-decls)
 )
 {
+	// NOLINTNEXTLINE(misc-misplaced-const)
 	EGLDisplay const result(
 		::eglGetDisplay(
 			_native
@@ -39,12 +40,15 @@ get_display(
 	if(
 		result
 		==
-		sge::opengl::egl::no_display
+		sge::opengl::egl::no_display()
 	)
+	{
 		throw
 			sge::renderer::exception(
 				FCPPT_TEXT("eglGetDisplay failed")
 			);
+	}
+
 	return
 		result;
 }

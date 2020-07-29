@@ -5,7 +5,7 @@
 
 
 #include <sge/opengl/common.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/vf/actor.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/part.hpp>
@@ -13,15 +13,19 @@
 #include <sge/opengl/vf/to_actor.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::opengl::vf::part::part(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context,
-	sge::renderer::vf::dynamic::part const &_part
+	fcppt::log::object_reference const _log,
+	sge::opengl::context::object_ref const _context,
+	sge::renderer::vf::dynamic::part &&_part
 )
 :
 	log_{
@@ -31,27 +35,27 @@ sge::opengl::vf::part::part(
 		_context
 	),
 	part_(
-		_part
+		std::move(
+			_part
+		)
 	),
 	actors_(
 		fcppt::algorithm::map<
 			actor_container
 		>(
-			_part.elements(),
+			this->part_.elements(),
 			[
-				&_log,
-				&_part,
-				&_context
+				this
 			](
 				sge::renderer::vf::dynamic::ordered_element const &_elem
 			)
 			{
 				return
 					sge::opengl::vf::to_actor(
-						_log,
+						this->log_,
 						_elem,
-						_part.stride(),
-						_context
+						this->part_.stride(),
+						this->context_
 					);
 			}
 		)
@@ -60,8 +64,7 @@ sge::opengl::vf::part::part(
 }
 
 sge::opengl::vf::part::~part()
-{
-}
+= default;
 
 sge::renderer::vf::dynamic::part const &
 sge::opengl::vf::part::get() const
@@ -85,8 +88,11 @@ sge::opengl::vf::part::use_me(
 		:
 		actors_
 	)
+	{
 		(*actor)(
-			states,
+			fcppt::make_ref(
+				states
+			),
 			fcppt::cast::from_void_ptr<
 				unsigned char const *
 			>(
@@ -95,6 +101,7 @@ sge::opengl::vf::part::use_me(
 			+
 			actor->offset().get()
 		);
+	}
 }
 
 void
@@ -106,11 +113,15 @@ sge::opengl::vf::part::unuse_me() const
 	);
 
 	for(
-		auto &actor
+		auto const &actor
 		:
 		actors_
 	)
+	{
 		actor->unuse(
-			states
+			fcppt::make_ref(
+				states
+			)
 		);
+	}
 }

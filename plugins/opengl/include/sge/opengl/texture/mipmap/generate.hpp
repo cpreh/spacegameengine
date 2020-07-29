@@ -24,7 +24,7 @@ namespace mipmap
 void
 generate(
 	sge::opengl::texture::binding const &,
-	sge::opengl::context::object &,
+	sge::opengl::context::object &, // NOLINT(google-runtime-references)
 	sge::opengl::texture::type
 );
 

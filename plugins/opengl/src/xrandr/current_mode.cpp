@@ -5,6 +5,7 @@
 
 
 #include <sge/opengl/xrandr/configuration.hpp>
+#include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/current_mode.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
@@ -17,21 +18,22 @@
 
 sge::opengl::xrandr::mode
 sge::opengl::xrandr::current_mode(
-	sge::opengl::xrandr::configuration const &_config
+	sge::opengl::xrandr::const_configuration_ref const _config
 )
 {
-	Rotation cur_rotation;
+	Rotation cur_rotation{};
 
 	SizeID const cur_size(
 		::XRRConfigCurrentConfiguration(
-			_config.get(),
+			_config.get().get(),
 			&cur_rotation
 		)
 	);
 
+	// NOLINTNEXTLINE(google-runtime-int)
 	short const rate(
 		::XRRConfigCurrentRate(
-			_config.get()
+			_config.get().get()
 		)
 	);
 

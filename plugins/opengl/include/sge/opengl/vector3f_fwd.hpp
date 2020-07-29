@@ -16,10 +16,13 @@ namespace sge
 namespace opengl
 {
 
-typedef fcppt::math::vector::static_<
+using
+vector3f
+=
+fcppt::math::vector::static_<
 	GLfloat,
 	3
-> vector3f;
+>;
 
 }
 }

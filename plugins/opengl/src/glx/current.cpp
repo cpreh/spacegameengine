@@ -15,10 +15,11 @@
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/base_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/log/error.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -30,8 +31,8 @@
 
 
 sge::opengl::glx::current::current(
-	fcppt::log::object &_log,
-	awl::backends::x11::window::base &_window,
+	fcppt::log::object_reference const _log,
+	awl::backends::x11::window::base_ref const _window,
 	sge::opengl::glx::optional_proc_address_function const &_opt_proc_address
 )
 :
@@ -63,9 +64,7 @@ sge::opengl::glx::current::current(
 }
 
 sge::opengl::glx::current::~current()
-{
-}
-
+= default;
 
 void
 sge::opengl::glx::current::begin_rendering()
@@ -77,7 +76,7 @@ sge::opengl::glx::current::load_function(
 	std::string const &_name
 ) const
 {
-	// TODO: Use optionals
+	// TODO(philipp): Use optionals
 	return
 		fcppt::optional::maybe(
 			proc_address_,
@@ -109,12 +108,14 @@ void
 sge::opengl::glx::current::end_rendering()
 {
 	if(
-		!window_.destroyed()
+		!window_.get().destroyed()
 	)
+	{
 		::glXSwapBuffers(
-			window_.display().get().get(),
-			window_.get()
+			window_.get().display().get().get(),
+			window_.get().get()
 		);
+	}
 }
 void
 sge::opengl::glx::current::vsync(
@@ -126,13 +127,14 @@ sge::opengl::glx::current::vsync(
 		==
 		sge::renderer::display_mode::vsync::on
 	)
+	{
 		fcppt::optional::maybe(
 			swap_functions_,
 			[
 				this
 			]{
 				FCPPT_LOG_ERROR(
-					log_,
+					log_.get(),
 					fcppt::log::out
 						<<
 						FCPPT_TEXT("GLX extensions not available.")
@@ -147,10 +149,11 @@ sge::opengl::glx::current::vsync(
 			)
 			{
 				sge::opengl::glx::vsync(
-					log_,
+					log_.get(),
 					_swap_functions,
-					window_.display().get()
+					window_.get().display().get()
 				);
 			}
 		);
+	}
 }

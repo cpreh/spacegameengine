@@ -28,9 +28,11 @@ public:
 		int minor
 	);
 
+	[[nodiscard]]
 	int
 	major() const;
 
+	[[nodiscard]]
 	int
 	minor() const;
 private:

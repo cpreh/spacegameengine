@@ -13,12 +13,12 @@
 #include <fcppt/config/external_end.hpp>
 
 
+EGLSurface
+sge::opengl::egl::no_surface()
+{
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
-
-EGLSurface const
-sge::opengl::egl::no_surface(
-	EGL_NO_SURFACE
-);
-
+	return
+		EGL_NO_SURFACE;
 FCPPT_PP_POP_WARNING
+}

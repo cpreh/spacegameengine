@@ -31,5 +31,4 @@ sge::opengl::glx::visual::object::object(
 }
 
 sge::opengl::glx::visual::object::~object()
-{
-}
+= default;

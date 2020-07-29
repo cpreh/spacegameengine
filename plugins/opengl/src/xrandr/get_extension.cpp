@@ -8,6 +8,7 @@
 #include <sge/opengl/xrandr/get_extension.hpp>
 #include <sge/opengl/xrandr/optional_extension.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -15,14 +16,16 @@
 
 sge::opengl::xrandr::optional_extension
 sge::opengl::xrandr::get_extension(
-	awl::backends::x11::display &_display
+	awl::backends::x11::display_ref const _display
 )
 {
-	int event_base_return, error_base_return;
+	int event_base_return{};
+
+	int error_base_return{};
 
 	return
 		::XRRQueryExtension(
-			_display.get(),
+			_display.get().get(),
 			&event_base_return,
 			&error_base_return
 		)

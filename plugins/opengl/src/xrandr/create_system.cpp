@@ -11,9 +11,10 @@
 #include <sge/opengl/xrandr/optional_system_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system.hpp>
 #include <sge/opengl/xrandr/version.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -21,8 +22,8 @@
 
 sge::opengl::xrandr::optional_system_unique_ptr
 sge::opengl::xrandr::create_system(
-	fcppt::log::object &_log,
-	awl::backends::x11::display &_display
+	fcppt::log::object_reference const _log,
+	awl::backends::x11::display_ref const _display
 )
 {
 	return
@@ -34,7 +35,7 @@ sge::opengl::xrandr::create_system(
 				&_log
 			]{
 				FCPPT_LOG_WARNING(
-					_log,
+					_log.get(),
 					fcppt::log::out
 						<< FCPPT_TEXT("xrandr extension not found")
 				)
@@ -66,7 +67,7 @@ sge::opengl::xrandr::create_system(
 				)
 				{
 					FCPPT_LOG_WARNING(
-						_log,
+						_log.get(),
 						fcppt::log::out
 							<< FCPPT_TEXT("xrandr version ")
 							<< version

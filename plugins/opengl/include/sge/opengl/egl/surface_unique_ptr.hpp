@@ -18,11 +18,12 @@ namespace opengl
 namespace egl
 {
 
-typedef
+using
+surface_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::egl::surface
->
-surface_unique_ptr;
+>;
 
 }
 }

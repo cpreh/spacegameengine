@@ -7,8 +7,7 @@
 #ifndef SGE_OPENGL_XRANDR_OUTPUTS_VIEW_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_OUTPUTS_VIEW_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/screen_resources_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <sge/opengl/xrandr/const_screen_resources_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -26,22 +25,23 @@ class outputs_view
 public:
 	explicit
 	outputs_view(
-		sge::opengl::xrandr::screen_resources const &
+		sge::opengl::xrandr::const_screen_resources_ref
 	);
 
-	typedef
-	RROutput const *
-	const_iterator;
+	using
+	const_iterator
+	=
+	RROutput const *;
 
+	[[nodiscard]]
 	const_iterator
 	begin() const;
 
+	[[nodiscard]]
 	const_iterator
 	end() const;
 private:
-	fcppt::reference<
-		sge::opengl::xrandr::screen_resources const
-	> resources_;
+	sge::opengl::xrandr::const_screen_resources_ref resources_;
 };
 
 }

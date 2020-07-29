@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/vf/actor.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/actor_unique_ptr.hpp>
@@ -23,16 +23,16 @@
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/variant/match.hpp>
 
 
 sge::opengl::vf::actor_unique_ptr
 sge::opengl::vf::to_actor(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::renderer::vf::dynamic::ordered_element const &_element,
 	sge::renderer::vf::dynamic::stride const _stride,
-	sge::opengl::context::object &_context
+	sge::opengl::context::object_ref const _context
 )
 {
 	sge::opengl::vf::actor_parameters const parameters(
@@ -99,7 +99,7 @@ sge::opengl::vf::to_actor(
 					);
 			},
 			[
-				&_log,
+				_log,
 				&parameters
 			](
 				sge::renderer::vf::dynamic::texpos const &_texpos

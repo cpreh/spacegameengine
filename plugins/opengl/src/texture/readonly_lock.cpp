@@ -5,27 +5,30 @@
 
 
 #include <sge/opengl/buffer/pbo_context.hpp>
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 
 sge::opengl::texture::readonly_lock::readonly_lock(
-	sge::opengl::context::object &_context,
+	sge::opengl::context::object_ref const _context,
 	size_type const _whole_size,
 	size_type const _stride,
 	sge::renderer::resource_flags_field const &_flags
 )
 :
 	buffer_(
-		sge::opengl::context::use<
-			sge::opengl::buffer::pbo_context
-		>(
-			_context,
-			_context
-		).pack_buffer(),
+		fcppt::make_ref(
+			sge::opengl::context::use<
+				sge::opengl::buffer::pbo_context
+			>(
+				_context,
+				_context
+			).pack_buffer()
+		),
 		_whole_size,
 		_stride,
 		_flags,
@@ -35,8 +38,7 @@ sge::opengl::texture::readonly_lock::readonly_lock(
 }
 
 sge::opengl::texture::readonly_lock::~readonly_lock()
-{
-}
+= default;
 
 void
 sge::opengl::texture::readonly_lock::lock()

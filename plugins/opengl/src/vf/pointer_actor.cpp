@@ -11,8 +11,7 @@
 
 
 sge::opengl::vf::pointer_actor::~pointer_actor()
-{
-}
+= default;
 
 sge::opengl::vf::pointer_actor::pointer_actor(
 	sge::opengl::vf::actor_parameters const &_param

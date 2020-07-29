@@ -7,6 +7,7 @@
 #ifndef SGE_OPENGL_XRANDR_REFRESH_RATE_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_REFRESH_RATE_HPP_INCLUDED
 
+#include <sge/opengl/xrandr/refresh_rate_type.hpp>
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
@@ -19,7 +20,7 @@ namespace xrandr
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
-	short,
+	sge::opengl::xrandr::refresh_rate_type,
 	refresh_rate
 );
 

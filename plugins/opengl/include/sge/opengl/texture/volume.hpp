@@ -16,7 +16,7 @@
 #include <sge/opengl/texture/volume_types.hpp>
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ class volume
 :
 	public sge::opengl::texture::volume_basic
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		volume
 	);
 public:

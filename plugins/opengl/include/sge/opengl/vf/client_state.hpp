@@ -9,8 +9,7 @@
 
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/reference_impl.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
 #include <fcppt/config/external_end.hpp>
@@ -26,27 +25,30 @@ namespace vf
 class client_state
 {
 public:
-	typedef
+	using
+	normal_state_set
+	=
 	std::set<
 		GLenum
-	>
-	normal_state_set;
+	>;
 
-	typedef
+	using
+	texture_state_set
+	=
 	std::set<
 		sge::renderer::texture::stage
-	>
-	texture_state_set;
+	>;
 
-	typedef
+	using
+	index_state_set
+	=
 	std::set<
 		GLuint
-	>
-	index_state_set;
+	>;
 
 	explicit
 	client_state(
-		fcppt::log::object &
+		fcppt::log::object_reference
 	);
 
 	void
@@ -79,18 +81,19 @@ public:
 		GLuint
 	);
 
+	[[nodiscard]]
 	normal_state_set const &
 	normal_states() const;
 
+	[[nodiscard]]
 	texture_state_set const &
 	texture_states() const;
 
+	[[nodiscard]]
 	index_state_set const &
 	attribute_states() const;
 private:
-	fcppt::reference<
-		fcppt::log::object
-	> log_;
+	fcppt::log::object_reference log_;
 
 	normal_state_set normal_states_;
 

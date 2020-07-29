@@ -34,7 +34,7 @@ struct get_level_size_impl;
 
 template<>
 struct get_level_size_impl<
-	2u
+	2U
 >
 {
 	static
@@ -69,7 +69,7 @@ struct get_level_size_impl<
 
 template<>
 struct get_level_size_impl<
-	3u
+	3U
 >
 {
 	static
@@ -83,7 +83,7 @@ struct get_level_size_impl<
 		return
 			fcppt::math::dim::push_back(
 				get_level_size_impl<
-					2u
+					2U
 				>::execute(
 					_binding,
 					_buffer_type,

@@ -16,6 +16,7 @@
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/format.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
@@ -31,13 +32,15 @@ sge::opengl::texture::funcs::set_client_level(
 	sge::renderer::texture::stage const _stage
 )
 {
-	// TODO: Should we require multi_config as an argument here?
+	// TODO(philipp): Should we require multi_config as an argument here?
 
 	fcppt::optional::maybe(
 		sge::opengl::context::use<
 			sge::opengl::texture::multi_context
 		>(
-			_context,
+			fcppt::make_ref(
+				_context
+			),
 			_context.info()
 		).config(),
 		[
@@ -47,9 +50,11 @@ sge::opengl::texture::funcs::set_client_level(
 			if(
 				_stage.get()
 				==
-				0u
+				0U
 			)
+			{
 				return;
+			}
 
 			FCPPT_LOG_ERROR(
 				_log,

@@ -8,7 +8,7 @@
 #define SGE_OPENGL_EGL_SURFACE_HPP_INCLUDED
 
 #include <sge/opengl/egl/surface_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -23,7 +23,7 @@ namespace egl
 
 class surface
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		surface
 	);
 protected:
@@ -32,6 +32,7 @@ public:
 	virtual
 	~surface() = 0;
 
+	[[nodiscard]]
 	virtual
 	EGLSurface
 	get() const = 0;

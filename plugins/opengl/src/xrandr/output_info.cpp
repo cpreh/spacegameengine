@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/opengl/xrandr/const_screen_resources_ref.hpp>
 #include <sge/opengl/xrandr/output_info.hpp>
 #include <sge/opengl/xrandr/screen_resources.hpp>
 #include <sge/renderer/exception.hpp>
@@ -11,6 +12,7 @@
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/display_mode/dimensions.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/assert/throw.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -19,15 +21,15 @@
 
 
 sge::opengl::xrandr::output_info::output_info(
-	awl::backends::x11::display &_display,
-	sge::opengl::xrandr::screen_resources const &_resources,
+	awl::backends::x11::display_ref const _display,
+	sge::opengl::xrandr::const_screen_resources_ref const _resources,
 	RROutput const _output
 )
 :
 	info_(
 		::XRRGetOutputInfo(
-			_display.get(),
-			_resources.get(),
+			_display.get().get(),
+			_resources.get().get(),
 			_output
 		)
 	)

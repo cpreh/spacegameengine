@@ -18,11 +18,12 @@ namespace opengl
 namespace xrandr
 {
 
-typedef
+using
+resolution_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::opengl::xrandr::resolution
->
-resolution_unique_ptr;
+>;
 
 }
 }

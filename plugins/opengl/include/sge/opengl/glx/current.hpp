@@ -12,9 +12,9 @@
 #include <sge/opengl/glx/optional_proc_address_function.hpp>
 #include <sge/opengl/glx/swap_functions.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <awl/backends/x11/window/base_ref.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -32,19 +32,20 @@ class current
 :
 	public sge::opengl::backend::current
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		current
 	);
 public:
 	current(
-		fcppt::log::object &,
-		awl::backends::x11::window::base &,
+		fcppt::log::object_reference,
+		awl::backends::x11::window::base_ref,
 		sge::opengl::glx::optional_proc_address_function const &
 	);
 
 	~current()
 	override;
 private:
+	[[nodiscard]]
 	sge::opengl::backend::fun_ptr
 	load_function(
 		std::string const &
@@ -65,17 +66,18 @@ private:
 	)
 	override;
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
-	awl::backends::x11::window::base &window_;
+	awl::backends::x11::window::base_ref const window_;
 
 	sge::opengl::glx::optional_proc_address_function const proc_address_;
 
-	typedef
+	using
+	optional_swap_functions
+	=
 	fcppt::optional::object<
 		sge::opengl::glx::swap_functions
-	>
-	optional_swap_functions;
+	>;
 
 	optional_swap_functions const swap_functions_;
 };

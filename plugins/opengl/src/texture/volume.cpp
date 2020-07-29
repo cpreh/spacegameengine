@@ -28,5 +28,4 @@ sge::opengl::texture::volume::volume(
 }
 
 sge::opengl::texture::volume::~volume()
-{
-}
+= default;

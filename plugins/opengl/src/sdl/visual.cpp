@@ -65,8 +65,7 @@ sge::opengl::sdl::visual::visual(
 }
 
 sge::opengl::sdl::visual::~visual()
-{
-}
+= default;
 
 void
 sge::opengl::sdl::visual::apply() const
@@ -85,6 +84,7 @@ sge::opengl::sdl::visual::apply() const
 					)
 				)
 			)
+			{
 				throw
 					sge::renderer::exception{
 						FCPPT_TEXT("Failed to set SDL GL attribute ")
@@ -103,6 +103,7 @@ sge::opengl::sdl::visual::apply() const
 						+
 						FCPPT_TEXT("!")
 					};
+			}
 		}
 	);
 
@@ -212,12 +213,14 @@ sge::opengl::sdl::visual::apply() const
 					set_srgb()
 				)
 			)
+			{
 				throw
 					sge::renderer::unsupported{
 						FCPPT_TEXT("SDL_GL_FRAMEBUFFER_SRGB_CAPABLE"),
 						FCPPT_TEXT(""),
 						FCPPT_TEXT("")
 					};
+			}
 			break;
 		case sge::renderer::pixel_format::srgb::try_:
 			set_srgb();

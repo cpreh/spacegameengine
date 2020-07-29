@@ -7,13 +7,13 @@
 #ifndef SGE_OPENGL_TEXTURE_READWRITE_LOCK_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_READWRITE_LOCK_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
 #include <sge/opengl/texture/writeonly_lock.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,12 +27,12 @@ class readwrite_lock
 :
 	public sge::opengl::texture::lock_base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		readwrite_lock
 	);
 public:
 	readwrite_lock(
-		sge::opengl::context::object &,
+		sge::opengl::context::object_ref,
 		size_type read_size,
 		size_type write_size,
 		size_type stride,
@@ -58,22 +58,27 @@ private:
 	post_copy()
 	override;
 
+	[[nodiscard]]
 	pointer
 	read_pointer()
 	override;
 
+	[[nodiscard]]
 	pointer
 	write_pointer()
 	override;
 
+	[[nodiscard]]
 	pointer
 	read_view_pointer()
 	override;
 
+	[[nodiscard]]
 	pointer
 	write_view_pointer()
 	override;
 
+	[[nodiscard]]
 	sge::renderer::lock_flags::method
 	method() const
 	override;

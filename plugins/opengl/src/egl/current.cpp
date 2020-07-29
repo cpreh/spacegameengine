@@ -15,8 +15,8 @@
 
 
 sge::opengl::egl::current::current(
-	EGLDisplay const _display,
-	EGLSurface const _surface
+	EGLDisplay const _display, // NOLINT(misc-misplaced-const)
+	EGLSurface const _surface // NOLINT(misc-misplaced-const)
 )
 :
 	sge::opengl::backend::current(),
@@ -30,8 +30,7 @@ sge::opengl::egl::current::current(
 }
 
 sge::opengl::egl::current::~current()
-{
-}
+= default;
 
 sge::opengl::backend::fun_ptr
 sge::opengl::egl::current::load_function(

@@ -52,8 +52,7 @@ sge::opengl::vf::color_actor::color_actor(
 }
 
 sge::opengl::vf::color_actor::~color_actor()
-{
-}
+= default;
 
 void
 sge::opengl::vf::color_actor::on_use(

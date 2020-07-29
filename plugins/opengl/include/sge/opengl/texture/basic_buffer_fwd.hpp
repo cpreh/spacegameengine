@@ -18,7 +18,7 @@ namespace texture
 template<
 	typename Types
 >
-class basic_buffer;
+class basic_buffer; // NOLINT(fuchsia-multiple-inheritance)
 
 }
 }

@@ -10,6 +10,7 @@
 #include <sge/opengl/egl/display_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/system/object.hpp>
+#include <awl/system/object_ref.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -25,7 +26,7 @@
 #include <fcppt/either/from_optional.hpp>
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/either/to_exception.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <typeinfo>
@@ -45,19 +46,21 @@
 namespace
 {
 
-// TODO: This code is pretty much the same as in sge::opengl::platform::create_system
-typedef
+// TODO(philipp): This code is pretty much the same as in sge::opengl::platform::create_system
+using
+either_type
+=
 fcppt::either::object<
 	fcppt::string,
 	sge::opengl::egl::display_unique_ptr
->
-either_type;
+>;
 
-typedef
+using
+function_type
+=
 fcppt::function<
 	either_type ()
->
-function_type;
+>;
 
 template<
 	typename Result,
@@ -82,7 +85,7 @@ template<
 >
 function_type
 try_create(
-	awl::system::object &_awl_system,
+	awl::system::object_ref const _awl_system,
 	create_function<
 		Result,
 		Arg
@@ -92,7 +95,7 @@ try_create(
 	return
 		function_type{
 			[
-				&_awl_system,
+				_awl_system,
 				&_create
 			]{
 				return
@@ -101,7 +104,7 @@ try_create(
 							fcppt::cast::dynamic<
 								Arg
 							>(
-								_awl_system
+								_awl_system.get()
 							),
 							[
 								&_create
@@ -144,8 +147,8 @@ try_create(
 
 sge::opengl::egl::display_unique_ptr
 sge::opengl::egl::create_display(
-	fcppt::log::object &_log,
-	awl::system::object &_awl_system
+	fcppt::log::object_reference const _log,
+	awl::system::object_ref const _awl_system
 )
 {
 	return
@@ -160,7 +163,7 @@ sge::opengl::egl::create_display(
 							awl::backends::x11::system::object
 						>{
 							[
-								&_log
+								_log
 							](
 								fcppt::reference<
 									awl::backends::x11::system::object
@@ -172,7 +175,7 @@ sge::opengl::egl::create_display(
 										sge::opengl::egl::x11::display
 									>(
 										_log,
-										_system.get()
+										_system
 									);
 							}
 						}
@@ -186,7 +189,7 @@ sge::opengl::egl::create_display(
 							awl::backends::wayland::system::object
 						>{
 							[
-								&_log
+								_log
 							](
 								fcppt::reference<
 									awl::backends::wayland::system::object
@@ -198,7 +201,7 @@ sge::opengl::egl::create_display(
 										sge::opengl::egl::wayland::display
 									>(
 										_log,
-										_system.get()
+										_system
 									);
 							}
 						}

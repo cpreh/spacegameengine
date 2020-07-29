@@ -22,8 +22,8 @@
 
 void
 sge::opengl::target::read_pixels(
-	sge::renderer::pixel_pos const _pos,
-	sge::renderer::screen_size const _size,
+	sge::renderer::pixel_pos const &_pos,
+	sge::renderer::screen_size const &_size,
 	sge::opengl::color_order const _format,
 	sge::opengl::color_base_type const _format_type,
 	sge::renderer::raw_pointer const _dest

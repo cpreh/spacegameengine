@@ -11,7 +11,7 @@
 #include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/egl/context_impl.hpp>
 #include <sge/opengl/egl/surface_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
@@ -28,7 +28,7 @@ class context
 :
 	public sge::opengl::backend::context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
@@ -41,6 +41,7 @@ public:
 	~context()
 	override;
 private:
+	[[nodiscard]]
 	sge::opengl::backend::current_unique_ptr
 	activate()
 	override;
@@ -51,7 +52,7 @@ private:
 	)
 	override;
 
-	EGLDisplay const display_;
+	EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 
 	sge::opengl::egl::surface_unique_ptr const surface_;
 

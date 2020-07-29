@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+depth_stencil_surface
+=
 sge::opengl::texture::basic_buffer<
 	sge::opengl::texture::depth_stencil_surface_types
->
-depth_stencil_surface;
+>;
 
 }
 }

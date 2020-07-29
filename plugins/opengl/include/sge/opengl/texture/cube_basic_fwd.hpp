@@ -18,11 +18,12 @@ namespace opengl
 namespace texture
 {
 
-typedef
+using
+cube_basic
+=
 sge::opengl::texture::basic<
 	sge::opengl::texture::cube_types
->
-cube_basic;
+>;
 
 }
 }

@@ -10,7 +10,7 @@
 #include <sge/opengl/egl/visual/base.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/backends/wayland/visual/null_object.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
@@ -26,17 +26,17 @@ namespace egl
 namespace wayland
 {
 
-class visual
+class visual // NOLINT(fuchsia-multiple-inheritance)
 :
 	public sge::opengl::egl::visual::base,
 	public awl::backends::wayland::visual::null_object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		visual
 	);
 public:
 	visual(
-		fcppt::log::object &,
+		fcppt::log::object &, // NOLINT(google-runtime-references)
 		EGLDisplay,
 		sge::renderer::pixel_format::object const &
 	);

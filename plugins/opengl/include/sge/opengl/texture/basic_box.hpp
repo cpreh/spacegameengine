@@ -14,7 +14,7 @@
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -38,20 +38,22 @@ class basic_box
 			Types
 		>
 {
-	typedef
+	using
+	base_type
+	=
 	sge::opengl::texture::basic<
 		Types
-	>
-	base_type;
+	>;
 
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		basic_box
 	);
 public:
-	typedef
+	using
+	parameters_type
+	=
 	typename
-	Types::parameters
-	parameters_type;
+	Types::parameters;
 
 	basic_box(
 		sge::opengl::texture::basic_parameters const &,
@@ -65,48 +67,56 @@ public:
 	~basic_box()
 	override;
 private:
-	typedef
+	using
+	nonconst_buffer
+	=
 	typename
-	base_type::nonconst_buffer
-	nonconst_buffer;
+	base_type::nonconst_buffer;
 
-	typedef
+	using
+	const_buffer
+	=
 	typename
-	base_type::const_buffer
-	const_buffer;
+	base_type::const_buffer;
 
-	typedef
+	using
+	dim
+	=
 	typename
-	base_type::dim
-	dim;
+	base_type::dim;
 
+	[[nodiscard]]
 	nonconst_buffer &
 	level(
 		sge::renderer::texture::mipmap::level
 	)
 	override;
 
+	[[nodiscard]]
 	const_buffer const &
 	level(
 		sge::renderer::texture::mipmap::level
 	) const
 	override;
 
+	[[nodiscard]]
 	sge::renderer::texture::mipmap::level_count
 	levels() const
 	override;
 
-	typedef
+	using
+	color_buffer_unique_ptr
+	=
 	fcppt::unique_ptr<
 		nonconst_buffer
-	>
-	color_buffer_unique_ptr;
+	>;
 
-	typedef
+	using
+	buffer_vector
+	=
 	std::vector<
 		color_buffer_unique_ptr
-	>
-	buffer_vector;
+	>;
 
 	buffer_vector const levels_;
 };

@@ -18,11 +18,12 @@ namespace opengl
 namespace xrandr
 {
 
-typedef
+using
+optional_extension
+=
 fcppt::optional::object<
 	sge::opengl::xrandr::extension
->
-optional_extension;
+>;
 
 }
 }

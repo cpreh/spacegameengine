@@ -25,7 +25,7 @@ namespace visual
 
 EGLConfig
 to_config(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	EGLDisplay,
 	awl::visual::object const &
 );
