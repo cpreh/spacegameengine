@@ -20,10 +20,10 @@
 #include <sge/sdlinput/joypad/map.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/object_ref.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
+#include <awl/backends/sdl/window/object_ref.hpp>
 #include <awl/event/base_fwd.hpp>
 #include <awl/event/container.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
@@ -37,7 +37,7 @@ class processor
 :
 	public sge::input::processor
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		processor
 	);
 public:
@@ -49,30 +49,37 @@ public:
 	~processor()
 	override;
 private:
+	[[nodiscard]]
 	sge::window::object &
 	window() const
 	override;
 
+	[[nodiscard]]
 	sge::input::cursor::container
 	cursors() const
 	override;
 
+	[[nodiscard]]
 	sge::input::focus::container
 	foci() const
 	override;
 
+	[[nodiscard]]
 	sge::input::joypad::container
 	joypads() const
 	override;
 
+	[[nodiscard]]
 	sge::input::keyboard::container
 	keyboards() const
 	override;
 
+	[[nodiscard]]
 	sge::input::mouse::container
 	mice() const
 	override;
 
+	[[nodiscard]]
 	awl::event::container
 	on_event(
 		awl::event::base const &
@@ -82,7 +89,7 @@ private:
 
 	fcppt::log::object_reference const log_;
 
-	awl::backends::sdl::window::object &sdl_window_;
+	awl::backends::sdl::window::object_ref const sdl_window_;
 
 	sge::input::cursor::shared_ptr const cursor_;
 

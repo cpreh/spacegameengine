@@ -22,7 +22,7 @@
 #include <sge/sdlinput/translate/mouse_motion_event.hpp>
 #include <sge/sdlinput/translate/mouse_wheel_event.hpp>
 #include <sge/sdlinput/translate/window_event.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/system/event/object.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
 #include <awl/event/base.hpp>
@@ -42,7 +42,7 @@ sge::sdlinput::translate::event(
 	sge::input::focus::shared_ptr const &_focus,
 	sge::input::keyboard::shared_ptr const &_keyboard,
 	sge::input::mouse::shared_ptr const &_mouse,
-	sge::window::object &_sge_window,
+	sge::window::object_ref const _sge_window,
 	awl::backends::sdl::window::object const &_window,
 	awl::backends::sdl::system::event::object const &_event
 )

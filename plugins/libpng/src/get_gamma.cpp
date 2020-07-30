@@ -17,7 +17,7 @@ sge::libpng::get_gamma(
 	sge::libpng::info const &_info
 )
 {
-	sge::libpng::gamma::value_type gamma_raw;
+	sge::libpng::gamma::value_type gamma_raw{};
 
 	return
 		::png_get_gAMA(

@@ -15,17 +15,20 @@
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::libpng::write_context::write_context(
-	sge::media::optional_name const &_name,
+	sge::media::optional_name &&_name,
 	std::ostream &_stream,
 	sge::libpng::write_ptr const &_write_ptr
 )
 :
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	),
 	stream_(
 		_stream
@@ -40,13 +43,12 @@ sge::libpng::write_context::write_context(
 }
 
 sge::libpng::write_context::~write_context()
-{
-}
+= default;
 
 void
 sge::libpng::write_context::handle_write(
-	png_structp const _ptr,
-	png_bytep const _data,
+	png_structp const _ptr, // NOLINT(misc-misplaced-const)
+	png_bytep const _data, // NOLINT(misc-misplaced-const)
 	png_size_t const _length
 )
 {
@@ -60,7 +62,7 @@ sge::libpng::write_context::handle_write(
 
 void
 sge::libpng::write_context::handle_write_impl(
-	png_bytep const _data,
+	png_bytep const _data, // NOLINT(misc-misplaced-const)
 	png_size_t const _length
 )
 {
@@ -78,16 +80,18 @@ sge::libpng::write_context::handle_write_impl(
 	if(
 		!stream_
 	)
+	{
 		throw
 			sge::image2d::file_exception(
 				name_,
 				FCPPT_TEXT("error writing")
 			);
+	}
 }
 
 void
 sge::libpng::write_context::handle_flush(
-	png_structp const _ptr
+	png_structp const _ptr // NOLINT(misc-misplaced-const)
 )
 {
 	sge::libpng::write_context::get_instance(
@@ -103,7 +107,7 @@ sge::libpng::write_context::handle_flush_impl()
 
 sge::libpng::write_context &
 sge::libpng::write_context::get_instance(
-	png_structp const _ptr
+	png_structp const _ptr // NOLINT(misc-misplaced-const)
 )
 {
 	return

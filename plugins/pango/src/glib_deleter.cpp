@@ -13,13 +13,15 @@
 
 void
 sge::pango::glib_deleter::operator()(
-	gpointer const _ptr
+	gpointer const _ptr // NOLINT(misc-misplaced-const)
 )
 {
 	if(
 		_ptr != nullptr
 	)
+	{
 		::g_object_unref(
 			_ptr
 		);
+	}
 }

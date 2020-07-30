@@ -11,8 +11,9 @@
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <awl/backends/sdl/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/sdl/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -27,22 +28,24 @@ class object
 	public
 		sge::input::cursor::object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	object(
-		sge::window::object &,
-		awl::backends::sdl::window::object &
+		sge::window::object_ref,
+		awl::backends::sdl::window::object_ref
 	);
 
 	~object()
 	override;
 
+	[[nodiscard]]
 	sge::window::object &
 	window() const
 	override;
 
+	[[nodiscard]]
 	sge::input::cursor::optional_position
 	position() const
 	override;
@@ -53,9 +56,9 @@ public:
 	)
 	override;
 private:
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 
-	awl::backends::sdl::window::object &sdl_window_;
+	awl::backends::sdl::window::object_ref const sdl_window_;
 };
 
 }

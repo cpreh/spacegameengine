@@ -15,7 +15,7 @@
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
@@ -29,7 +29,7 @@ class system
 :
 	public sge::image2d::system
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		system
 	);
 public:
@@ -41,6 +41,7 @@ public:
 	~system()
 	override;
 
+	[[nodiscard]]
 	sge::image2d::load_stream_result
 	load_stream(
 		sge::media::stream_unique_ptr &&,
@@ -49,6 +50,7 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::image2d::optional_file_unique_ptr
 	create(
 		sge::image2d::view::const_object const &,
@@ -56,6 +58,7 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::media::extension_set
 	extensions() const
 	override;

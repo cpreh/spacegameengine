@@ -10,7 +10,7 @@
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/read_ptr_fwd.hpp>
 #include <sge/media/optional_name.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -23,13 +23,13 @@ namespace libpng
 
 class load_context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		load_context
 	);
 public:
 	load_context(
 		std::istream &,
-		sge::media::optional_name const &,
+		sge::media::optional_name &&,
 		sge::libpng::read_ptr const &
 	);
 

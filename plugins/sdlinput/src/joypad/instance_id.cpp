@@ -28,10 +28,12 @@ sge::sdlinput::joypad::instance_id(
 		==
 		-1
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("SDL_JoystickInstanceID failed!")
 			};
+	}
 
 	return
 		result;

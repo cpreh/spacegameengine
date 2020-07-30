@@ -19,12 +19,13 @@ namespace sge
 namespace pango
 {
 
-typedef
+using
+pango_layout_unique_ptr
+=
 fcppt::unique_ptr<
 	PangoLayout,
 	sge::pango::glib_deleter
->
-pango_layout_unique_ptr;
+>;
 
 }
 }

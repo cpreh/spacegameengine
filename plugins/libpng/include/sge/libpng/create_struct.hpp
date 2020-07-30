@@ -8,6 +8,7 @@
 #define SGE_LIBPNG_CREATE_STRUCT_HPP_INCLUDED
 
 #include <sge/libpng/error_context.hpp>
+#include <sge/libpng/error_context_ref.hpp>
 #include <sge/libpng/png.hpp>
 
 
@@ -22,13 +23,15 @@ template<
 png_structp
 create_struct(
 	Function const _function,
-	sge::libpng::error_context &_error_context
+	fcppt::reference<
+		sge::libpng::error_context
+	> const _error_context
 )
 {
 	return
 		_function(
 			PNG_LIBPNG_VER_STRING,
-			&_error_context,
+			&_error_context.get(),
 			&sge::libpng::error_context::handle_error,
 			&sge::libpng::error_context::handle_warning
 		);

@@ -11,12 +11,13 @@
 #include <sge/input/mouse/info.hpp>
 #include <sge/sdlinput/mouse/device.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::sdlinput::mouse::device::device(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 :
 	sge::input::mouse::device{},
@@ -24,7 +25,7 @@ sge::sdlinput::mouse::device::device(
 		_window
 	},
 	info_{
-		// TODO: Can SDL provide any of this information?
+		// TODO(philipp): Can SDL provide any of this information?
 		sge::input::mouse::axis_info_container{
 			sge::input::mouse::axis_info_container::vector{}
 		},
@@ -41,14 +42,13 @@ sge::sdlinput::mouse::device::device(
 }
 
 sge::sdlinput::mouse::device::~device()
-{
-}
+= default;
 
 sge::window::object &
 sge::sdlinput::mouse::device::window() const
 {
 	return
-		this->window_;
+		this->window_.get();
 }
 
 sge::input::mouse::info const &

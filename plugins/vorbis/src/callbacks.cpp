@@ -52,8 +52,10 @@ ogg_read(
 	if(
 		stream.eof()
 	)
+	{
 		return
 			0;
+	}
 
 	stream.read(
 		fcppt::cast::from_void_ptr<
@@ -73,7 +75,7 @@ ogg_read(
 	);
 
 	if(
-		// TODO: Is this correct?
+		// TODO(philipp): Is this correct?
 		stream.bad()
 	)
 	{
@@ -81,7 +83,7 @@ ogg_read(
 			EBADF;
 
 		return
-			0u;
+			0U;
 	}
 
 	return
@@ -112,7 +114,9 @@ ogg_seek(
 	if(
 		stream.eof()
 	)
+	{
 		stream.clear();
+	}
 
 	stream.seekg(
 		fcppt::cast::size<
@@ -136,6 +140,8 @@ ogg_seek(
 			case SEEK_END:
 				return
 					std::ios_base::end;
+			default:
+				break;
 			}
 
 			FCPPT_ASSERT_UNREACHABLE;
@@ -146,14 +152,14 @@ ogg_seek(
 		0;
 }
 
-long
+long // NOLINT(google-runtime-int)
 ogg_tell(
 	void *const _datasource
 )
 {
 	return
 		fcppt::cast::size<
-			long
+			long // NOLINT(google-runtime-int)
 		>(
 			get_stream(
 				_datasource

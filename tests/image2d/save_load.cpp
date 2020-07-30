@@ -69,14 +69,15 @@ TEST_CASE(
 		sge::log::default_level_streams()
 	};
 
-	typedef
-	sge::image2d::store::rgba8
-	store_type;
+	using
+	store_type
+	=
+	sge::image2d::store::rgba8;
 
 	store_type const store{
 		store_type::dim(
-			1u,
-			1u
+			1U,
+			1U
 		),
 		sge::image::color::rgba8(
 			(sge::image::color::init::red() %= 0.5)

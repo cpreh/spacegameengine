@@ -21,11 +21,12 @@ namespace pango
 namespace freetype
 {
 
-typedef
+using
+optional_pixel_mode
+=
 fcppt::optional::object<
 	FT_Pixel_Mode
->
-optional_pixel_mode;
+>;
 
 }
 }

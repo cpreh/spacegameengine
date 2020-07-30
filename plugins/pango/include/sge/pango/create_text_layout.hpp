@@ -22,7 +22,7 @@ namespace pango
 
 sge::pango::pango_layout_unique_ptr
 create_text_layout(
-	PangoLayout &,
+	PangoLayout &, // NOLINT(google-runtime-references)
 	sge::charconv::utf8_string const &,
 	sge::font::text_parameters const &
 );

@@ -47,8 +47,7 @@ sge::sdlinput::system::system(
 }
 
 sge::sdlinput::system::~system()
-{
-}
+= default;
 
 sge::input::processor_unique_ptr
 sge::sdlinput::system::create_processor(

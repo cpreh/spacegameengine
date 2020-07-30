@@ -27,8 +27,7 @@ sge::pango::system::system()
 }
 
 sge::pango::system::~system()
-{
-}
+= default;
 
 sge::font::object_unique_ptr
 sge::pango::system::create_font(

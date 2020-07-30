@@ -19,7 +19,8 @@
 #include <sge/sdlinput/joypad/hat_direction_fwd.hpp>
 #include <sge/sdlinput/joypad/instance.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
 #include <cstdint>
@@ -38,46 +39,53 @@ class device
 	public
 		sge::input::joypad::device
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		device
 	);
 public:
 	device(
-		sge::window::object &,
+		sge::window::object_ref,
 		sge::sdlinput::joypad::device_id
 	);
 
 	~device()
 	override;
 
+	[[nodiscard]]
 	sge::window::object &
 	window() const
 	override;
 
+	[[nodiscard]]
 	sge::input::joypad::info const &
 	info() const
 	override;
 
+	[[nodiscard]]
 	sge::input::joypad::ff::effect_unique_ptr
 	create_ff_effect(
 		sge::input::joypad::ff::parameters const &
 	)
 	override;
 
+	[[nodiscard]]
 	SDL_JoystickID
 	id() const;
 
+	[[nodiscard]]
 	sge::input::joypad::absolute_axis
 	axis(
 		std::uint8_t
 	) const;
 
+	[[nodiscard]]
 	sge::input::joypad::relative_axis
 	ball_axis(
 		std::uint8_t,
 		sge::sdlinput::joypad::ball_direction
 	) const;
 
+	[[nodiscard]]
 	sge::input::joypad::absolute_axis
 	hat_axis(
 		std::uint8_t,
@@ -86,7 +94,7 @@ public:
 private:
 	sge::sdlinput::joypad::instance const instance_;
 
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 
 	sge::input::joypad::info const info_;
 };

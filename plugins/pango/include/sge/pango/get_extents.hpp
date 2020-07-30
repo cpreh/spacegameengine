@@ -20,8 +20,8 @@ namespace pango
 
 sge::pango::extents
 get_extents(
-	PangoLayout &
-);
+	PangoLayout & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

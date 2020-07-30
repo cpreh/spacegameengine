@@ -25,7 +25,7 @@ sge::libpng::bit_depth_from_format(
 	case sge::libpng::format::srgba8:
 	case sge::libpng::format::sbgra8:
 		return
-			8;
+			8; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -22,8 +22,8 @@ namespace joypad
 
 sge::input::joypad::info
 make_info(
-	SDL_Joystick &
-);
+	SDL_Joystick & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

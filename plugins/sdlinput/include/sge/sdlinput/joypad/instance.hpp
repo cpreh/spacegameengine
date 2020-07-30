@@ -8,7 +8,7 @@
 #define SGE_SDLINPUT_JOYPAD_INSTANCE_HPP_INCLUDED
 
 #include <sge/sdlinput/joypad/device_id.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
 #include <fcppt/config/external_end.hpp>
@@ -23,7 +23,7 @@ namespace joypad
 
 class instance
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		instance
 	);
 public:
@@ -34,6 +34,7 @@ public:
 
 	~instance();
 
+	[[nodiscard]]
 	SDL_Joystick &
 	get() const;
 private:

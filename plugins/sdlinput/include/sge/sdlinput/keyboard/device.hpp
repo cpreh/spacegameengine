@@ -9,7 +9,8 @@
 
 #include <sge/input/keyboard/device.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,23 +25,24 @@ class device
 	public
 		sge::input::keyboard::device
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		device
 	);
 public:
 	explicit
 	device(
-		sge::window::object &
+		sge::window::object_ref
 	);
 
 	~device()
 	override;
 
+	[[nodiscard]]
 	sge::window::object &
 	window() const
 	override;
 private:
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 };
 
 }

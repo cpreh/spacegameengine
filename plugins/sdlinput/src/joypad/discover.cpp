@@ -11,7 +11,7 @@
 #include <sge/sdlinput/joypad/discover.hpp>
 #include <sge/sdlinput/joypad/map.hpp>
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/make_shared_ptr.hpp>
@@ -30,7 +30,7 @@ sge::sdlinput::joypad::discover(
 	fcppt::reference<
 		sge::sdlinput::joypad::map
 	> const _joypads,
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	SDL_JoyDeviceEvent const &_event
 )
 {

@@ -9,7 +9,7 @@
 #include <sge/sdlinput/joypad/device_id.hpp>
 #include <sge/sdlinput/joypad/init.hpp>
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -28,7 +28,7 @@ std::vector<
 	sge::sdlinput::joypad::shared_ptr
 >
 sge::sdlinput::joypad::init(
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	fcppt::log::object &_log
 )
 {
@@ -48,11 +48,12 @@ sge::sdlinput::joypad::init(
 				int const _index
 			)
 			{
-				typedef
+				using
+				result_type
+				=
 				fcppt::optional::object<
 					sge::sdlinput::joypad::shared_ptr
-				>
-				result_type;
+				>;
 
 				try
 				{

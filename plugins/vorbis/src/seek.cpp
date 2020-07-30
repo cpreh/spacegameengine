@@ -35,6 +35,7 @@ sge::vorbis::seek(
 		!=
 		0
 	)
+	{
 		throw
 			sge::audio::file_exception{
 				_name,
@@ -44,4 +45,5 @@ sge::vorbis::seek(
 					error
 				)
 			};
+	}
 }

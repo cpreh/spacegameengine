@@ -41,6 +41,7 @@ sge::sdlinput::mouse::translate_wheel_event(
 				!=
 				0
 			)
+			{
 				result.push_back(
 					fcppt::unique_ptr_to_base<
 						awl::event::base
@@ -56,10 +57,11 @@ sge::sdlinput::mouse::translate_wheel_event(
 						)
 					)
 				);
+			}
 		}
 	);
 
-	// TODO: Add horizontal wheel code!
+	// TODO(philipp): Add horizontal wheel code!
 	make_event(
 		sge::input::mouse::axis_code::wheel,
 		_event.y

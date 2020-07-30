@@ -385,17 +385,19 @@ FCPPT_RECORD_MAKE_LABEL(
 	silent_label
 );
 
-typedef
+using
+silent_switch
+=
 fcppt::options::switch_<
 	silent_label
->
-silent_switch;
+>;
 
-typedef
+using
+options_result
+=
 fcppt::options::result_of<
 	silent_switch
->
-options_result;
+>;
 
 awl::main::exit_code
 input_main(
@@ -404,14 +406,14 @@ input_main(
 
 void
 draw(
-	sge::renderer::device::ffp &,
-	sge::console::gfx::object &
-);
+	sge::renderer::device::ffp &, // NOLINT(google-runtime-references)
+	sge::console::gfx::object & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 void
 handle_events(
-	sge::renderer::device::ffp &,
-	sge::console::gfx::object &,
+	sge::renderer::device::ffp &, // NOLINT(google-runtime-references)
+	sge::console::gfx::object &, // NOLINT(google-runtime-references)
 	awl::event::base const &
 );
 
@@ -613,7 +615,7 @@ input_main(
 			sge::font::rect
 		>(),
 		sge::console::gfx::output_line_limit(
-			200u
+			200U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	);
 
@@ -652,45 +654,55 @@ input_main(
 		:
 		sys.input_processor().cursors()
 	)
+	{
 		cursor_new(
 			*cursor
 		);
+	}
 
 	for(
 		sge::input::focus::shared_ptr const &focus
 		:
 		sys.input_processor().foci()
 	)
+	{
 		focus_new(
 			*focus
 		);
+	}
 
 	for(
 		sge::input::joypad::shared_ptr const &joypad
 		:
 		sys.input_processor().joypads()
 	)
+	{
 		joypad_new(
 			*joypad
 		);
+	}
 
 	for(
 		sge::input::keyboard::shared_ptr const &keyboard
 		:
 		sys.input_processor().keyboards()
 	)
+	{
 		keyboard_new(
 			*keyboard
 		);
+	}
 
 	for(
 		sge::input::mouse::shared_ptr const &mouse
 		:
 		sys.input_processor().mice()
 	)
+	{
 		mouse_new(
 			*mouse
 		);
+	}
 
 	return
 		sge::window::loop(
@@ -880,7 +892,7 @@ output_optional_position(
 					);
 			},
 			[](
-				sge::input::cursor::position const _position
+				sge::input::cursor::position const &_position
 			)
 			{
 				return
@@ -1206,6 +1218,7 @@ joypad_new(
 			:
 			absolute_axes
 		)
+		{
 			fcppt::io::cout()
 				<<
 				FCPPT_TEXT("\t\tname: ")
@@ -1229,6 +1242,7 @@ joypad_new(
 				axis_info.max()
 				<<
 				FCPPT_TEXT('\n');
+		}
 	}
 
 	{
@@ -1249,6 +1263,7 @@ joypad_new(
 			:
 			relative_axes
 		)
+		{
 			fcppt::io::cout()
 				<<
 				FCPPT_TEXT("\t\tname: ")
@@ -1264,6 +1279,7 @@ joypad_new(
 				)
 				<<
 				FCPPT_TEXT('\n');
+		}
 	}
 
 	{
@@ -1284,6 +1300,7 @@ joypad_new(
 			:
 			buttons
 		)
+		{
 			fcppt::io::cout()
 				<<
 				FCPPT_TEXT("\t\tname: ")
@@ -1293,6 +1310,7 @@ joypad_new(
 				)
 				<<
 				FCPPT_TEXT('\n');
+		}
 	}
 
 	{
@@ -1306,11 +1324,13 @@ joypad_new(
 				sge::input::joypad::ff::type
 			>()
 		)
+		{
 			if(
 				info.ff_types()
 				&
 				effect
 			)
+			{
 				fcppt::io::cout()
 					<<
 					FCPPT_TEXT("\t\t ")
@@ -1320,6 +1340,8 @@ joypad_new(
 					)
 					<<
 					FCPPT_TEXT('\n');
+			}
+		}
 	}
 
 }
@@ -1547,6 +1569,7 @@ mouse_new(
 			:
 			axes
 		)
+		{
 			fcppt::io::cout()
 				<<
 				FCPPT_TEXT("\t\tname: ")
@@ -1562,6 +1585,7 @@ mouse_new(
 				)
 				<<
 				FCPPT_TEXT('\n');
+		}
 	}
 
 	{
@@ -1582,6 +1606,7 @@ mouse_new(
 			:
 			buttons
 		)
+		{
 			fcppt::io::cout()
 				<<
 				FCPPT_TEXT("\t\tname: ")
@@ -1597,6 +1622,7 @@ mouse_new(
 				)
 				<<
 				FCPPT_TEXT('\n');
+		}
 	}
 }
 

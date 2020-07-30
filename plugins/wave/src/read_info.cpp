@@ -98,8 +98,10 @@ sge::wave::read_info(
 		&&
 		!big_endian
 	)
+	{
 		return
 			sge::wave::optional_info();
+	}
 
 	fcppt::endianness::format const endianness{
 		little_endian
@@ -127,8 +129,10 @@ sge::wave::read_info(
 			}}
 		)
 	)
+	{
 		return
 			sge::wave::optional_info();
+	}
 
 	if(
 		!sge::wave::ignore_chunks_until(
@@ -140,8 +144,10 @@ sge::wave::read_info(
 			endianness
 		)
 	)
+	{
 		return
 			sge::wave::optional_info();
+	}
 
 	// ignore format chunk size
 	fcppt::io::read<
@@ -182,6 +188,7 @@ sge::wave::read_info(
 				if(
 					unsupported
 				)
+				{
 					FCPPT_LOG_INFO(
 						_log,
 						fcppt::log::out
@@ -195,14 +202,17 @@ sge::wave::read_info(
 							<<
 							_format
 					)
+				}
 
 				return
 					unsupported;
 			}
 		)
 	)
+	{
 		return
 			sge::wave::optional_info();
+	}
 
 	fcppt::optional::object<
 		std::uint16_t
@@ -263,8 +273,10 @@ sge::wave::read_info(
 			endianness
 		)
 	)
+	{
 		return
 			sge::wave::optional_info();
+	}
 
 	fcppt::optional::object<
 		std::uint32_t

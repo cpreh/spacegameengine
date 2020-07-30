@@ -71,8 +71,7 @@ sge::pango::text::text(
 }
 
 sge::pango::text::~text()
-{
-}
+= default;
 
 void
 sge::pango::text::render(

@@ -7,18 +7,25 @@
 #include <sge/pango/extents.hpp>
 #include <sge/pango/ink_rect.hpp>
 #include <sge/pango/logical_rect.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::pango::extents::extents(
-	sge::pango::ink_rect const _ink_rect,
-	sge::pango::logical_rect const _logical_rect
+	sge::pango::ink_rect _ink_rect,
+	sge::pango::logical_rect _logical_rect
 )
 :
 	ink_rect_{
-		_ink_rect
+		std::move(
+			_ink_rect
+		)
 	},
 	logical_rect_{
-		_logical_rect
+		std::move(
+			_logical_rect
+		)
 	}
 {
 }

@@ -21,8 +21,8 @@ namespace pango
 
 sge::pango::optional_index
 xy_to_index(
-	PangoLayout &,
-	sge::font::vector
+	PangoLayout &, // NOLINT(google-runtime-references)
+	sge::font::vector const &
 );
 
 }

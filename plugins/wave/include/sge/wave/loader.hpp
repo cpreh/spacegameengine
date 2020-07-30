@@ -13,7 +13,7 @@
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
@@ -27,7 +27,7 @@ class loader
 :
 	public sge::audio::loader
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		loader
 	);
 public:
@@ -39,6 +39,7 @@ public:
 	~loader()
 	override;
 
+	[[nodiscard]]
 	sge::audio::load_stream_result
 	load_stream(
 		sge::media::stream_unique_ptr &&,
@@ -47,6 +48,7 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::media::extension_set
 	extensions() const
 	override;

@@ -17,7 +17,7 @@ sge::pango::make_metrics(
 	PangoLayout &_layout
 )
 {
-	int height;
+	int height{};
 
 	::pango_layout_get_pixel_size(
 		&_layout,

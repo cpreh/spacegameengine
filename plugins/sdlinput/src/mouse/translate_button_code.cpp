@@ -30,6 +30,8 @@ sge::sdlinput::mouse::translate_button_code(
 	case SDL_BUTTON_RIGHT:
 		return
 			sge::input::mouse::button_code::right;
+	default:
+		break;
 	}
 
 	return

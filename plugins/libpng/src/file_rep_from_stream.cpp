@@ -23,6 +23,7 @@
 #include <sge/libpng/row_vector.hpp>
 #include <sge/media/error_string.hpp>
 #include <sge/media/optional_name_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/promote_int.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -50,13 +51,19 @@ sge::libpng::file_rep_from_stream(
 	sge::media::optional_name const &_name
 )
 {
-	sge::libpng::error_context error_context(
-		_log,
-		_name
-	);
+	sge::libpng::error_context error_context{
+		fcppt::make_ref(
+			_log
+		),
+		sge::media::optional_name{
+			_name
+		}
+	};
 
 	sge::libpng::read_ptr const read_ptr(
-		error_context
+		fcppt::make_ref(
+			error_context
+		)
 	);
 
 	sge::libpng::info const info(
@@ -70,7 +77,9 @@ sge::libpng::file_rep_from_stream(
 
 	sge::libpng::load_context load_context(
 		_stream,
-		_name,
+		sge::media::optional_name{
+			_name
+		},
 		read_ptr
 	);
 
@@ -114,11 +123,13 @@ sge::libpng::file_rep_from_stream(
 	if(
 		(bpp % CHAR_BIT) != 0
 	)
+	{
 		throw
 			sge::image2d::file_exception(
 				_name,
 				FCPPT_TEXT("A png file has a bit depth that's not a multiple of a byte's size!")
 			);
+	}
 
 	FCPPT_LOG_DEBUG(
 		_log,
@@ -145,27 +156,31 @@ sge::libpng::file_rep_from_stream(
 		color_type
 	)
 	{
-		case PNG_COLOR_TYPE_PALETTE:
-			FCPPT_LOG_INFO(
-				_log,
-				fcppt::log::out
-					<<
-					sge::media::error_string(
-						_name,
-						FCPPT_TEXT("Palette images are not supported.")
-					)
-			)
+	case PNG_COLOR_TYPE_PALETTE: // NOLINT(hicpp-signed-bitwise)
+		FCPPT_LOG_INFO(
+			_log,
+			fcppt::log::out
+				<<
+				sge::media::error_string(
+					_name,
+					FCPPT_TEXT("Palette images are not supported.")
+				)
+		)
 
-			return
-				sge::libpng::optional_file_rep();
-		case PNG_COLOR_TYPE_GRAY:
-			if(
-				bpp < 8
-			)
-				::png_set_expand_gray_1_2_4_to_8(
-					read_ptr.ptr()
-				);
-			break;
+		return
+			sge::libpng::optional_file_rep();
+	case PNG_COLOR_TYPE_GRAY:
+		if(
+			bpp < 8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		)
+		{
+			::png_set_expand_gray_1_2_4_to_8(
+				read_ptr.ptr()
+			);
+		}
+		break;
+	default:
+		break;
 	}
 
 	if(
@@ -174,19 +189,25 @@ sge::libpng::file_rep_from_stream(
 			info.get(),
 			PNG_INFO_tRNS
 		)
+		!=
+		0
 	)
+	{
 		::png_set_tRNS_to_alpha(
 			read_ptr.ptr()
 		);
+	}
 
 	if(
 		bpp
 		==
-		16
+		16 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	)
+	{
 		::png_set_strip_16(
 			read_ptr.ptr()
 		);
+	}
 
 	sge::libpng::bytes_per_pixel const bytes_per_pixel(
 		fcppt::cast::to_unsigned(

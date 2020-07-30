@@ -16,11 +16,12 @@ namespace sge
 namespace pango
 {
 
-typedef
+using
+optional_index
+=
 fcppt::optional::object<
 	sge::pango::index
->
-optional_index;
+>;
 
 }
 }

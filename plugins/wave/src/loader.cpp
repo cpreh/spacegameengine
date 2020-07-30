@@ -19,6 +19,7 @@
 #include <sge/wave/info_fwd.hpp>
 #include <sge/wave/loader.hpp>
 #include <sge/wave/read_info.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -66,8 +67,7 @@ sge::wave::loader::loader(
 }
 
 sge::wave::loader::~loader()
-{
-}
+= default;
 
 sge::audio::load_stream_result
 sge::wave::loader::load_stream(
@@ -114,12 +114,16 @@ sge::wave::loader::load_stream(
 								fcppt::make_unique_ptr<
 									sge::wave::file
 								>(
-									log_,
+									fcppt::make_ref(
+										log_
+									),
 									std::move(
 										_stream
 									),
 									_info,
-									_name
+									sge::media::optional_name{
+										_name
+									}
 								)
 							)
 						};

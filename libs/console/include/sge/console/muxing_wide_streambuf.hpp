@@ -19,11 +19,12 @@ namespace sge
 namespace console
 {
 
-typedef
+using
+muxing_wide_streambuf
+=
 sge::console::muxing_streambuf<
 	wchar_t
->
-muxing_wide_streambuf;
+>;
 
 }
 }

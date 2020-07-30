@@ -8,7 +8,7 @@
 #define SGE_VORBIS_STREAM_HPP_INCLUDED
 
 #include <sge/vorbis/stream_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vorbis/vorbisfile.h>
 #include <fcppt/config/external_end.hpp>
@@ -21,7 +21,7 @@ namespace vorbis
 
 class stream
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		stream
 	);
 public:
@@ -32,6 +32,7 @@ public:
 
 	~stream();
 
+	[[nodiscard]]
 	OggVorbis_File *
 	get();
 private:

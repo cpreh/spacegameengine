@@ -7,10 +7,10 @@
 #ifndef SGE_LIBPNG_WRITE_PTR_HPP_INCLUDED
 #define SGE_LIBPNG_WRITE_PTR_HPP_INCLUDED
 
-#include <sge/libpng/error_context_fwd.hpp>
+#include <sge/libpng/error_context_ref.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_ptr_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -20,17 +20,18 @@ namespace libpng
 
 class write_ptr
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		write_ptr
 	);
 public:
 	explicit
 	write_ptr(
-		sge::libpng::error_context &
+		sge::libpng::error_context_ref
 	);
 
 	~write_ptr();
 
+	[[nodiscard]]
 	png_structp
 	ptr() const;
 private:

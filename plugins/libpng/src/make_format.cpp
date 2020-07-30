@@ -55,10 +55,12 @@ sge::libpng::make_format(
 	if(
 		_bit_depth
 		!=
-		8
+		8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	)
+	{
 		return
 			sge::libpng::optional_format();
+	}
 
 	switch(
 		_color_type
@@ -74,18 +76,20 @@ sge::libpng::make_format(
 			sge::libpng::optional_format(
 				sge::libpng::format::la8
 			);
-	case PNG_COLOR_TYPE_PALETTE:
+	case PNG_COLOR_TYPE_PALETTE: // NOLINT(hicpp-signed-bitwise)
 		break;
 	case PNG_COLOR_TYPE_RGB:
 		return
 			sge::libpng::optional_format(
 				sge::libpng::format::srgb8
 			);
-	case PNG_COLOR_TYPE_RGB_ALPHA:
+	case PNG_COLOR_TYPE_RGB_ALPHA: // NOLINT(hicpp-signed-bitwise)
 		return
 			sge::libpng::optional_format(
 				sge::libpng::format::srgba8
 			);
+	default:
+		break;
 	}
 
 	return

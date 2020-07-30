@@ -236,7 +236,7 @@ try
 				[
 					&line_drawer
 				](
-					sge::input::cursor::position const _pos
+					sge::input::cursor::position const &_pos
 				)
 				{
 					// To change the line drawer's geometry, we have to create a lock.
@@ -291,7 +291,9 @@ try
 			if(
 				!_event.pressed()
 			)
+			{
 				return;
+			}
 
 			sge::line_drawer::scoped_lock const lock{
 				fcppt::make_ref(

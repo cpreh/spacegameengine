@@ -16,8 +16,8 @@
 
 sge::libpng::row_vector
 sge::libpng::make_row_vector(
-	sge::image2d::dim const _size,
-	png_bytep const _data,
+	sge::image2d::dim const &_size,
+	png_bytep const _data, // NOLINT(misc-misplaced-const)
 	sge::libpng::bytes_per_pixel const _bytes_per_pixel
 )
 {
@@ -35,7 +35,7 @@ sge::libpng::make_row_vector(
 				_size.h()
 			),
 			[
-				_data,
+				_data, // NOLINT(misc-misplaced-const)
 				stride
 			](
 				sge::image::size_type const _index

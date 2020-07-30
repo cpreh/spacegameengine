@@ -18,7 +18,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -30,7 +30,7 @@
 
 
 sge::libpng::file::file(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::libpng::file_rep &&_rep
 )
 :
@@ -46,8 +46,7 @@ sge::libpng::file::file(
 }
 
 sge::libpng::file::~file()
-{
-}
+= default;
 
 sge::image2d::view::const_object
 sge::libpng::file::view() const
@@ -97,14 +96,16 @@ sge::libpng::file::save(
 	if(
 		!output.is_open()
 	)
+	{
 		throw
 			sge::image2d::file_exception(
 				name,
 				FCPPT_TEXT("couldn't open file")
 			);
+	}
 
 	sge::libpng::write(
-		log_,
+		log_.get(),
 		output,
 		name,
 		rep_
@@ -117,7 +118,7 @@ sge::libpng::file::save_stream(
 ) const
 {
 	sge::libpng::write(
-		log_,
+		log_.get(),
 		_stream,
 		sge::media::optional_name(),
 		rep_

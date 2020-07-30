@@ -18,12 +18,13 @@ namespace sge
 namespace libpng
 {
 
-typedef
+using
+header_bytes
+=
 std::integral_constant<
 	std::size_t,
-	8u
->
-header_bytes;
+	8U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+>;
 
 }
 }

@@ -18,11 +18,12 @@ namespace model
 namespace md3
 {
 
-typedef
+using
+loader_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::model::md3::loader
->
-loader_unique_ptr;
+>;
 
 }
 }

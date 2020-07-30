@@ -19,6 +19,7 @@
 #include <sge/vorbis/open.hpp>
 #include <sge/vorbis/stream.hpp>
 #include <sge/vorbis/stream_unique_ptr.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -66,8 +67,7 @@ sge::vorbis::loader::loader(
 }
 
 sge::vorbis::loader::~loader()
-{
-}
+= default;
 
 sge::audio::load_stream_result
 sge::vorbis::loader::load_stream(
@@ -112,14 +112,18 @@ sge::vorbis::loader::load_stream(
 								fcppt::make_unique_ptr<
 									sge::vorbis::file
 								>(
-									log_,
+									fcppt::make_ref(
+										log_
+									),
 									std::move(
 										_stream
 									),
 									std::move(
 										_vorbis_stream
 									),
-									_name
+									sge::media::optional_name{
+										_name
+									}
 								)
 							)
 						};

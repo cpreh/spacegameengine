@@ -36,9 +36,9 @@ sge::vorbis::read(
 	std::size_t const _size
 )
 {
-	int bitstream;
+	int bitstream{};
 
-	long const result(
+	long const result( // NOLINT(google-runtime-int)
 		::ov_read(
 			_stream.get(),
 			fcppt::cast::to_char_ptr<
@@ -94,12 +94,14 @@ sge::vorbis::read(
 				_name,
 				FCPPT_TEXT("The initial file headers couldn't be read or are corrupt, or the initial open call for vf failed.")
 			};
+	default:
+		break;
 	}
 
 	if(
 		result
 		==
-		0l
+		0L
 	)
 	{
 		FCPPT_LOG_DEBUG(

@@ -373,6 +373,7 @@ set(
 	plugins/opengl/include/sge/opengl/state/ffp/misc/object_fwd.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/config.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp
+	plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/const_config_ref.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/context.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/context_fwd.hpp
 	plugins/opengl/include/sge/opengl/state/ffp/misc/point_sprite/optional_config.hpp
@@ -491,6 +492,7 @@ set(
 	plugins/opengl/include/sge/opengl/texture/color_volume_types_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/config_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/config_impl.hpp
+	plugins/opengl/include/sge/opengl/texture/const_binding_ref.hpp
 	plugins/opengl/include/sge/opengl/texture/const_optional_base_ref.hpp
 	plugins/opengl/include/sge/opengl/texture/const_optional_base_ref_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/convert/level.hpp
@@ -647,6 +649,7 @@ set(
 	plugins/opengl/include/sge/opengl/vf/client_state.hpp
 	plugins/opengl/include/sge/opengl/vf/client_state_combiner.hpp
 	plugins/opengl/include/sge/opengl/vf/client_state_combiner_fwd.hpp
+	plugins/opengl/include/sge/opengl/vf/client_state_combiner_ref.hpp
 	plugins/opengl/include/sge/opengl/vf/color_actor.hpp
 	plugins/opengl/include/sge/opengl/vf/color_formats.hpp
 	plugins/opengl/include/sge/opengl/vf/context.hpp
@@ -1222,6 +1225,8 @@ set(
 	plugins/opengl/include/sge/opengl/xrandr/combine_rates.hpp
 	plugins/opengl/include/sge/opengl/xrandr/configuration.hpp
 	plugins/opengl/include/sge/opengl/xrandr/configuration_fwd.hpp
+	plugins/opengl/include/sge/opengl/xrandr/const_configuration_ref.hpp
+	plugins/opengl/include/sge/opengl/xrandr/const_screen_resources_ref.hpp
 	plugins/opengl/include/sge/opengl/xrandr/create_system.hpp
 	plugins/opengl/include/sge/opengl/xrandr/crtc_info.hpp
 	plugins/opengl/include/sge/opengl/xrandr/crtcs_view.hpp
@@ -1252,6 +1257,7 @@ set(
 	plugins/opengl/include/sge/opengl/xrandr/rates_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/refresh_rate.hpp
 	plugins/opengl/include/sge/opengl/xrandr/refresh_rate_from_mode.hpp
+	plugins/opengl/include/sge/opengl/xrandr/refresh_rate_type.hpp
 	plugins/opengl/include/sge/opengl/xrandr/resolution.hpp
 	plugins/opengl/include/sge/opengl/xrandr/resolution_fwd.hpp
 	plugins/opengl/include/sge/opengl/xrandr/resolution_unique_ptr.hpp

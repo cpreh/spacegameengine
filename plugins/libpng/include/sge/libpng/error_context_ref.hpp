@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_LIBPNG_OPTIONAL_FILE_REP_FWD_HPP_INCLUDED
-#define SGE_LIBPNG_OPTIONAL_FILE_REP_FWD_HPP_INCLUDED
+#ifndef SGE_LIBPNG_ERROR_CONTEXT_REF_HPP_INCLUDED
+#define SGE_LIBPNG_ERROR_CONTEXT_REF_HPP_INCLUDED
 
-#include <sge/libpng/file_rep_fwd.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <sge/libpng/error_context_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -17,10 +17,10 @@ namespace libpng
 {
 
 using
-optional_file_rep
+error_context_ref
 =
-fcppt::optional::object<
-	sge::libpng::file_rep
+fcppt::reference<
+	sge::libpng::error_context
 >;
 
 }

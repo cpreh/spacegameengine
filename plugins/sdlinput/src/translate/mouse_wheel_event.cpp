@@ -36,8 +36,10 @@ sge::sdlinput::translate::mouse_wheel_event(
 			)
 		)
 	)
+	{
 		return
 			awl::event::container{};
+	}
 
 	return
 		fcppt::container::join(

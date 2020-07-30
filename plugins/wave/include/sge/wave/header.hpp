@@ -17,12 +17,13 @@ namespace sge
 namespace wave
 {
 
-typedef
+using
+header
+=
 std::array<
 	char,
 	4
->
-header;
+>;
 
 }
 }

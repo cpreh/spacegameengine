@@ -57,6 +57,7 @@ sge::wave::ignore_chunks_until(
 				if(
 					do_continue
 				)
+				{
 					FCPPT_LOG_INFO(
 						_log,
 						fcppt::log::out
@@ -70,6 +71,7 @@ sge::wave::ignore_chunks_until(
 								)
 							)
 					)
+				}
 
 				return
 					do_continue;
@@ -110,8 +112,10 @@ sge::wave::ignore_chunks_until(
 				}
 			)
 		)
+		{
 			return
 				false;
+		}
 	}
 
 	return

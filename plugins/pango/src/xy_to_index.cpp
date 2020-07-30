@@ -17,12 +17,12 @@
 sge::pango::optional_index
 sge::pango::xy_to_index(
 	PangoLayout &_layout,
-	sge::font::vector const _pos
+	sge::font::vector const &_pos
 )
 {
-	int result;
+	int result{};
 
-	int trailing;
+	int trailing{};
 
 	return
 		::pango_layout_xy_to_index(

@@ -11,8 +11,9 @@
 #include <sge/sdlinput/cursor/get_position.hpp>
 #include <sge/sdlinput/cursor/object.hpp>
 #include <sge/sdlinput/cursor/set_mode.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/window/object.hpp>
+#include <awl/backends/sdl/window/object_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/make_if.hpp>
@@ -22,8 +23,8 @@
 
 
 sge::sdlinput::cursor::object::object(
-	sge::window::object &_window,
-	awl::backends::sdl::window::object &_sdl_window
+	sge::window::object_ref const _window,
+	awl::backends::sdl::window::object_ref const _sdl_window
 )
 :
 	sge::input::cursor::object{},
@@ -37,14 +38,13 @@ sge::sdlinput::cursor::object::object(
 }
 
 sge::sdlinput::cursor::object::~object()
-{
-}
+= default;
 
 sge::window::object &
 sge::sdlinput::cursor::object::window() const
 {
 	return
-		this->window_;
+		this->window_.get();
 }
 
 sge::input::cursor::optional_position
@@ -65,7 +65,7 @@ sge::sdlinput::cursor::object::position() const
 					fcppt::optional::make_if(
 						&_window.get()
 						==
-						&this->sdl_window_.get().get(),
+						&this->sdl_window_.get().get().get(),
 						[]{
 							return
 								sge::sdlinput::cursor::get_position();

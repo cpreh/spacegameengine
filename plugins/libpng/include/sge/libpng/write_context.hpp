@@ -10,7 +10,7 @@
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_ptr_fwd.hpp>
 #include <sge/media/optional_name.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -23,12 +23,12 @@ namespace libpng
 
 class write_context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		write_context
 	);
 public:
 	write_context(
-		sge::media::optional_name const &,
+		sge::media::optional_name &&,
 		std::ostream &,
 		sge::libpng::write_ptr const &
 	);

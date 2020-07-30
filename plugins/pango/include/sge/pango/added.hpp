@@ -8,7 +8,7 @@
 #define SGE_PANGO_ADDED_HPP_INCLUDED
 
 #include <sge/font/added.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -23,7 +23,7 @@ class added
 :
 	public sge::font::added
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		added
 	);
 public:

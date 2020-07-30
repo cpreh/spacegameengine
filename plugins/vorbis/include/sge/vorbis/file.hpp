@@ -17,9 +17,9 @@
 #include <sge/media/optional_name.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/vorbis/stream_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_fwd.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vorbis/codec.h>
 #include <fcppt/config/external_end.hpp>
@@ -34,17 +34,18 @@ class file
 :
 	public sge::audio::file
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		file
 	);
 public:
 	file(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::media::stream_unique_ptr &&,
 		sge::vorbis::stream_unique_ptr &&,
-		sge::media::optional_name const &
+		sge::media::optional_name &&
 	);
 
+	[[nodiscard]]
 	sge::audio::sample_count
 	read(
 		sge::audio::sample_count,
@@ -54,22 +55,27 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::audio::sample_container
 	read_all()
 	override;
 
+	[[nodiscard]]
 	sge::audio::channel_count
 	channels() const
 	override;
 
+	[[nodiscard]]
 	sge::audio::sample_rate
 	sample_rate() const
 	override;
 
+	[[nodiscard]]
 	sge::audio::bits_per_sample
 	bits_per_sample() const
 	override;
 
+	[[nodiscard]]
 	sge::audio::sample_count
 	expected_package_size() const
 	override;
@@ -81,7 +87,7 @@ public:
 	~file()
 	override;
 private:
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
 	sge::media::optional_name const name_;
 

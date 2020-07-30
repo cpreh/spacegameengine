@@ -42,8 +42,10 @@ sge::sdlinput::translate::window_event(
 			)
 		)
 	)
+	{
 		return
 			awl::event::container{};
+	}
 
 	switch(
 		_event.event

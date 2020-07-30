@@ -11,6 +11,7 @@
 #include <sge/pango/font_description.hpp>
 #include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -21,11 +22,13 @@
 
 sge::pango::pango_layout_unique_ptr
 sge::pango::create_layout(
-	PangoContext &_context,
+	fcppt::reference<
+		PangoContext
+	> const _context,
 	sge::font::parameters const &_parameters
 )
 {
-	sge::pango::font_description font_description;
+	sge::pango::font_description font_description{};
 
 	fcppt::optional::maybe_void(
 		_parameters.ttf_size(),
@@ -74,11 +77,13 @@ sge::pango::create_layout(
 	if(
 		_parameters.italic()
 	)
+	{
 		font_description.italic();
+	}
 
 	sge::pango::pango_layout_unique_ptr result(
 		::pango_layout_new(
-			&_context
+			&_context.get()
 		)
 	);
 

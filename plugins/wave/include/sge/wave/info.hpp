@@ -31,18 +31,23 @@ public:
 		sge::audio::sample_count
 	);
 
+	[[nodiscard]]
 	fcppt::endianness::format
 	endianness() const;
 
+	[[nodiscard]]
 	sge::audio::channel_count
 	channels() const;
 
+	[[nodiscard]]
 	sge::audio::sample_rate
 	sample_rate() const;
 
+	[[nodiscard]]
 	sge::audio::bits_per_sample
 	bits_per_sample() const;
 
+	[[nodiscard]]
 	sge::audio::sample_count
 	samples() const;
 private:

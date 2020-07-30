@@ -28,10 +28,12 @@ sge::sdlinput::joypad::instance::instance(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("SDL_JoystickOpen failed!")
 			};
+	}
 }
 
 sge::sdlinput::joypad::instance::~instance()

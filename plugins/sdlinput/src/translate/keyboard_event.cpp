@@ -39,8 +39,10 @@ sge::sdlinput::translate::keyboard_event(
 			)
 		)
 	)
+	{
 		return
 			awl::event::container{};
+	}
 
 	return
 		fcppt::optional::cat<

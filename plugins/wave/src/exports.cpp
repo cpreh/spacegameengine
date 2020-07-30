@@ -33,6 +33,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
 
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
 sge::plugin::info const info(
 	sge::plugin::name(
 		FCPPT_TEXT("wave")
@@ -40,8 +41,8 @@ sge::plugin::info const info(
 	sge::plugin::description(
 		FCPPT_TEXT("Loads wave files.")
 	),
-	sge::plugin::version(0x1u),
-	sge::plugin::min_core_version(0x1u),
+	sge::plugin::version(0x1U),
+	sge::plugin::min_core_version(0x1U),
 	sge::plugin::capabilities_field{
 		sge::plugin::capabilities::audio_loader
 	},
@@ -69,6 +70,7 @@ create_audio_loader(
 
 }
 
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
 	(

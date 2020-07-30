@@ -34,6 +34,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
 
+// NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects)
 sge::plugin::info const info(
 	sge::plugin::name(
 		FCPPT_TEXT("sdlinput")
@@ -41,8 +42,8 @@ sge::plugin::info const info(
 	sge::plugin::description(
 		FCPPT_TEXT("Input plugin for SDL2.")
 	),
-	sge::plugin::version(0x1u),
-	sge::plugin::min_core_version(0x1u),
+	sge::plugin::version(0x1U),
+	sge::plugin::min_core_version(0x1U),
 	sge::plugin::capabilities_field{
 		sge::plugin::capabilities::input
 	},
@@ -70,6 +71,7 @@ create_input_system(
 
 }
 
+// NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects)
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(
 	info,
 	(

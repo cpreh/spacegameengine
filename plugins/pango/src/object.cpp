@@ -20,6 +20,7 @@
 #include <sge/pango/make_metrics.hpp>
 #include <sge/pango/object.hpp>
 #include <sge/pango/text.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -45,7 +46,9 @@ sge::pango::object::object(
 	),
 	layout_(
 		sge::pango::create_layout(
-			*context_,
+			fcppt::make_ref(
+				*context_
+			),
 			_parameters
 		)
 	),
@@ -58,8 +61,7 @@ sge::pango::object::object(
 }
 
 sge::pango::object::~object()
-{
-}
+= default;
 
 sge::font::text_unique_ptr
 sge::pango::object::create_text(
@@ -89,7 +91,7 @@ sge::pango::object::create_text(
 sge::image::color::optional_format
 sge::pango::object::preferred_color_format() const
 {
-	// TODO: This should be extended to all formats
+	// TODO(philipp): This should be extended to all formats
 	return
 		sge::image::color::optional_format(
 			sge::image::color::format::a8

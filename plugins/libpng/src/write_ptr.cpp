@@ -6,14 +6,14 @@
 
 #include <sge/image/exception.hpp>
 #include <sge/libpng/create_struct.hpp>
-#include <sge/libpng/error_context_fwd.hpp>
+#include <sge/libpng/error_context_ref.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/write_ptr.hpp>
 #include <fcppt/text.hpp>
 
 
 sge::libpng::write_ptr::write_ptr(
-	sge::libpng::error_context &_error_context
+	sge::libpng::error_context_ref const _error_context
 )
 :
 	ptr_{
@@ -28,10 +28,12 @@ sge::libpng::write_ptr::write_ptr(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::image::exception{
 				FCPPT_TEXT("couldn't allocate png write structure")
 			};
+	}
 }
 
 sge::libpng::write_ptr::~write_ptr()

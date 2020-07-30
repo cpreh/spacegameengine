@@ -27,7 +27,7 @@
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/buffer/append_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <utility>
@@ -35,10 +35,10 @@
 
 
 sge::vorbis::file::file(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::media::stream_unique_ptr &&_stdstream,
 	sge::vorbis::stream_unique_ptr &&_stream,
-	sge::media::optional_name const &_name
+	sge::media::optional_name &&_name
 )
 :
 	sge::audio::file(),
@@ -46,7 +46,9 @@ sge::vorbis::file::file(
 		_log
 	},
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	),
 	stdstream_(
 		std::move(
@@ -89,7 +91,7 @@ sge::vorbis::file::read(
 		bytes_per_sample
 	};
 
-	// TODO: Make this API less ugly
+	// TODO(philipp): Make this API less ugly
 	sge::audio::sample_buffer::size_type const old_size{
 		_buffer.get().read_size()
 	};
@@ -110,7 +112,7 @@ sge::vorbis::file::read(
 			{
 				std::size_t const bytes_read(
 					sge::vorbis::read(
-						log_,
+						log_.get(),
 						*stream_,
 						name_,
 						_data,
@@ -146,15 +148,15 @@ sge::audio::sample_container
 sge::vorbis::file::read_all()
 {
 	sge::audio::sample_buffer result{
-		0u
+		0U
 	};
 
 	while(
 		this->read(
 			sge::audio::sample_count{
-				16u
+				16U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				*
-				4096u
+				4096U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			},
 			fcppt::make_ref(
 				result
@@ -162,10 +164,11 @@ sge::vorbis::file::read_all()
 		)
 		!=
 		sge::audio::sample_count{
-			0u
+			0U
 		}
 	)
-		;
+	{
+	}
 
 	return
 		fcppt::container::buffer::to_raw_vector(
@@ -202,7 +205,7 @@ sge::vorbis::file::bits_per_sample() const
 {
 	return
 		sge::audio::bits_per_sample{
-			16u
+			16U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		};
 }
 
@@ -212,7 +215,7 @@ sge::vorbis::file::expected_package_size() const
 	// FIXME: How do we determine the correct size? :(
 	return
 		sge::audio::sample_count{
-			2048
+			2048 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		};
 }
 
@@ -227,5 +230,4 @@ sge::vorbis::file::reset()
 }
 
 sge::vorbis::file::~file()
-{
-}
+= default;

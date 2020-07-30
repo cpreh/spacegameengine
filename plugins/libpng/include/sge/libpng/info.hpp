@@ -9,7 +9,7 @@
 
 #include <sge/libpng/info_fwd.hpp>
 #include <sge/libpng/png.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -19,7 +19,7 @@ namespace libpng
 
 class info
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		info
 	);
 public:
@@ -30,10 +30,11 @@ public:
 
 	~info();
 
+	[[nodiscard]]
 	png_infop
 	get() const;
 private:
-	png_structp const ptr_;
+	png_structp const ptr_; // NOLINT(misc-misplaced-const)
 
 	png_infop info_;
 };

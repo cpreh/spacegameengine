@@ -22,7 +22,7 @@ namespace wave
 
 sge::wave::optional_info
 read_info(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	std::istream &,
 	sge::media::optional_name const &
 );

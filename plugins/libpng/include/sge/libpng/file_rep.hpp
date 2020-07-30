@@ -33,21 +33,26 @@ public:
 
 	file_rep(
 		file_rep &&
-	);
+	)
+	noexcept;
 
 	file_rep &
 	operator=(
 		file_rep &&
-	);
+	)
+	noexcept;
 
 	~file_rep();
 
+	[[nodiscard]]
 	sge::image2d::dim
 	size() const;
 
+	[[nodiscard]]
 	sge::libpng::format
 	format() const;
 
+	[[nodiscard]]
 	sge::libpng::byte_vector const &
 	bytes() const;
 private:

@@ -123,6 +123,6 @@ add_sge_plugin(
 		fcppt_core_interface
 		fcppt_log_interface
 		${SDL2_LIBRARIES}
-	INCLUDE_DIRS
+	SYSTEM_INCLUDE_DIRS
 		${SDL2_INCLUDE_DIRS}
 )

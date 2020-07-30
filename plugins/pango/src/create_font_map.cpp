@@ -29,7 +29,7 @@ sge::pango::create_font_map(
 		[
 			&result
 		](
-			sge::font::dpi const _dpi
+			sge::font::dpi const &_dpi
 		)
 		{
 			::pango_ft2_font_map_set_resolution(

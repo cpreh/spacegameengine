@@ -21,8 +21,8 @@ namespace joypad
 
 SDL_JoystickID
 instance_id(
-	SDL_Joystick &
-);
+	SDL_Joystick & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

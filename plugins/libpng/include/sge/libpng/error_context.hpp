@@ -10,8 +10,8 @@
 #include <sge/libpng/error_context_fwd.hpp>
 #include <sge/libpng/png.hpp>
 #include <sge/media/optional_name.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/object.hpp>
 
 
@@ -22,13 +22,13 @@ namespace libpng
 
 class error_context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		error_context
 	);
 public:
 	error_context(
-		fcppt::log::object &,
-		sge::media::optional_name const &
+		fcppt::log::object_reference,
+		sge::media::optional_name &&
 	);
 
 	~error_context();
@@ -47,7 +47,7 @@ public:
 		png_const_charp
 	);
 private:
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
 	sge::media::optional_name const name_;
 

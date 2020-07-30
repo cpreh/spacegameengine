@@ -30,6 +30,8 @@ sge::sdlinput::cursor::translate_button_code(
 	case SDL_BUTTON_RIGHT:
 		return
 			sge::input::cursor::button_code::right;
+	default:
+		break;
 	}
 
 	return

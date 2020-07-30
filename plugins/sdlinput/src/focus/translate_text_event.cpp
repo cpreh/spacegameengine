@@ -18,6 +18,7 @@
 #include <fcppt/container/make.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_events.h>
+#include <array>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -37,8 +38,10 @@ sge::sdlinput::focus::translate_text_event(
 			)
 		)
 	)
+	{
 		return
 			awl::event::container{};
+	}
 
 	return
 		fcppt::container::make<
@@ -53,7 +56,9 @@ sge::sdlinput::focus::translate_text_event(
 					_focus,
 					fcppt::widen(
 						std::string{
-							_event.text
+							std::data(
+								_event.text
+							)
 						}
 					)
 				)

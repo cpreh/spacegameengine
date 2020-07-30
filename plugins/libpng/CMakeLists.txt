@@ -9,6 +9,7 @@ set(
 	plugins/libpng/include/sge/libpng/create_struct.hpp
 	plugins/libpng/include/sge/libpng/error_context.hpp
 	plugins/libpng/include/sge/libpng/error_context_fwd.hpp
+	plugins/libpng/include/sge/libpng/error_context_ref.hpp
 	plugins/libpng/include/sge/libpng/extension.hpp
 	plugins/libpng/include/sge/libpng/file.hpp
 	plugins/libpng/include/sge/libpng/file_rep.hpp

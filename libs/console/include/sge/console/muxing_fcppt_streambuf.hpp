@@ -18,11 +18,12 @@ namespace sge
 namespace console
 {
 
-typedef
+using
+muxing_fcppt_streambuf
+=
 sge::console::muxing_streambuf<
 	fcppt::char_type
->
-muxing_fcppt_streambuf;
+>;
 
 }
 }

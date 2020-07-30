@@ -11,7 +11,7 @@
 
 
 sge::libpng::info::info(
-	png_structp const _ptr
+	png_structp const _ptr // NOLINT(misc-misplaced-const)
 )
 :
 	ptr_(
@@ -24,12 +24,16 @@ sge::libpng::info::info(
 	)
 {
 	if(
-		!info_
+		info_
+		==
+		nullptr
 	)
+	{
 		throw
 			sge::image::exception{
 				FCPPT_TEXT("couldn't generate png info structure")
 			};
+	}
 }
 
 sge::libpng::info::~info()

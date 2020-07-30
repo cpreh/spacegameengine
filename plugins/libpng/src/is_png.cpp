@@ -27,7 +27,7 @@ sge::libpng::is_png(
 		char,
 		sge::libpng::header_bytes::value
 	>
-	buf;
+	buf{};
 
 	std::streamsize const signed_size(
 		fcppt::cast::to_signed(

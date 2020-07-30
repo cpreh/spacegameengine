@@ -20,7 +20,7 @@ namespace libpng
 
 sge::libpng::row_vector
 make_row_vector(
-	sge::image2d::dim,
+	sge::image2d::dim const &,
 	png_bytep,
 	sge::libpng::bytes_per_pixel
 );

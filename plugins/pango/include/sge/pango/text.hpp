@@ -19,7 +19,7 @@
 #include <sge/font/view_fwd.hpp>
 #include <sge/pango/extents.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
@@ -34,12 +34,12 @@ class text
 :
 	public sge::font::text
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		text
 	);
 public:
 	text(
-		PangoLayout &,
+		PangoLayout &, // NOLINT(google-runtime-references)
 		sge::charconv::utf8_string const &,
 		sge::font::text_parameters const &
 	);
@@ -53,20 +53,24 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::font::rect
 	rect() const
 	override;
 
+	[[nodiscard]]
 	sge::font::dim
 	logical_size() const
 	override;
 
+	[[nodiscard]]
 	sge::font::rect
 	cursor_rect(
 		sge::font::index
 	) const
 	override;
 
+	[[nodiscard]]
 	sge::font::optional_index
 	pos_to_index(
 		sge::font::vector

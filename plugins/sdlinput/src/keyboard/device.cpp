@@ -7,10 +7,11 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/sdlinput/keyboard/device.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 
 
 sge::sdlinput::keyboard::device::device(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 :
 	sge::input::keyboard::device{},
@@ -21,12 +22,11 @@ sge::sdlinput::keyboard::device::device(
 }
 
 sge::sdlinput::keyboard::device::~device()
-{
-}
+= default;
 
 sge::window::object &
 sge::sdlinput::keyboard::device::window() const
 {
 	return
-		this->window_;
+		this->window_.get();
 }

@@ -413,8 +413,13 @@ include(
 	FindPkgConfig
 )
 
-find_package(
+include(
+	PkgConfigSGE
+)
+
+pkg_check_modules_sge(
 	BULLET
+	bullet
 )
 
 find_package(

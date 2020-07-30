@@ -29,7 +29,7 @@ sge::libpng::transforms_from_format(
 	case sge::libpng::format::sbgra8:
 		return
 			PNG_TRANSFORM_BGR;
-	// TODO: Do we want srgbx/bgrx?
+	// TODO(philipp): Do we want srgbx/bgrx?
 	//	PNG_TRANSFORM_STRIP_FILLER_AFTER;
 	}
 

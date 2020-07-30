@@ -31,12 +31,13 @@
 namespace
 {
 
-typedef
+using
+axes_direction
+=
 std::pair<
 	sge::input::joypad::axis_value,
 	sge::input::joypad::axis_value
->
-axes_direction;
+>;
 
 axes_direction
 axes_values(
@@ -47,7 +48,7 @@ axes_values(
 		_value
 	)
 	{
-	case SDL_HAT_LEFTUP:
+	case SDL_HAT_LEFTUP: // NOLINT(hicpp-signed-bitwise)
 		return
 			axes_direction{
 				-1,
@@ -59,7 +60,7 @@ axes_values(
 				0,
 				-1
 			};
-	case SDL_HAT_RIGHTUP:
+	case SDL_HAT_RIGHTUP: // NOLINT(hicpp-signed-bitwise)
 		return
 			axes_direction{
 				1,
@@ -83,7 +84,7 @@ axes_values(
 				1,
 				0
 			};
-	case SDL_HAT_LEFTDOWN:
+	case SDL_HAT_LEFTDOWN: // NOLINT(hicpp-signed-bitwise)
 		return
 			axes_direction{
 				-1,
@@ -95,12 +96,14 @@ axes_values(
 				0,
 				1
 			};
-	case SDL_HAT_RIGHTDOWN:
+	case SDL_HAT_RIGHTDOWN: // NOLINT(hicpp-signed-bitwise)
 		return
 			axes_direction{
 				1,
 				1
 			};
+	default:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

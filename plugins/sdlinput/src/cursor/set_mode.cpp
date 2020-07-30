@@ -54,8 +54,10 @@ sge::sdlinput::cursor::set_mode(
 		==
 		-1
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("SDL_SetRelativeMouseMode failed!")
 			};
+	}
 }

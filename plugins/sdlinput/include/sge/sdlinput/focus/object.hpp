@@ -9,7 +9,8 @@
 
 #include <sge/input/focus/object.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,23 +25,24 @@ class object
 	public
 		sge::input::focus::object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	explicit
 	object(
-		sge::window::object &
+		sge::window::object_ref
 	);
 
 	~object()
 	override;
 
+	[[nodiscard]]
 	sge::window::object &
 	window() const
 	override;
 private:
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 };
 
 }

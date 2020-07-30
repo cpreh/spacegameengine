@@ -22,7 +22,7 @@ sge::pango::added::added(
 :
 	sge::font::added()
 {
-	// TODO: Don't use the global fontmap
+	// TODO(philipp): Don't use the global fontmap
 	if(
 		::FcConfigAppFontAddFile(
 			nullptr,
@@ -35,6 +35,7 @@ sge::pango::added::added(
 		!=
 		FcTrue
 	)
+	{
 		throw
 			sge::font::exception{
 				FCPPT_TEXT("Unable to add font ")
@@ -43,9 +44,10 @@ sge::pango::added::added(
 					_path
 				)
 			};
+	}
 }
 
-sge::pango::added::~added()
+sge::pango::added::~added() // NOLINT(hicpp-use-equals-default,modernize-use-equals-default)
 {
-	// TODO: Can we free this custom font?
+	// TODO(philipp): Can we free this custom font?
 }

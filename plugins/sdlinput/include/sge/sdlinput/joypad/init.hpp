@@ -8,7 +8,7 @@
 #define SGE_SDLINPUT_JOYPAD_INIT_HPP_INCLUDED
 
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
@@ -26,9 +26,9 @@ std::vector<
 	sge::sdlinput::joypad::shared_ptr
 >
 init(
-	sge::window::object &,
-	fcppt::log::object &
-);
+	sge::window::object_ref,
+	fcppt::log::object & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

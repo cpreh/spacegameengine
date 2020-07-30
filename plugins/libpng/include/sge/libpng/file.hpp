@@ -11,8 +11,8 @@
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/libpng/file_rep.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -27,22 +27,24 @@ class file
 :
 	public sge::image2d::file
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		file
 	);
 public:
 	file(
-		fcppt::log::object &,
+		fcppt::log::object_reference,
 		sge::libpng::file_rep &&
 	);
 
 	~file()
 	override;
 private:
+	[[nodiscard]]
 	sge::image2d::view::const_object
 	view() const
 	override;
 
+	[[nodiscard]]
 	sge::image2d::dim
 	size() const
 	override;
@@ -59,7 +61,7 @@ private:
 	) const
 	override;
 
-	fcppt::log::object &log_;
+	fcppt::log::object_reference const log_;
 
 	sge::libpng::file_rep const rep_;
 };

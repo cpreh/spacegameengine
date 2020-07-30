@@ -25,9 +25,11 @@ public:
 		sge::pango::logical_rect
 	);
 
+	[[nodiscard]]
 	sge::pango::ink_rect
 	ink_rect() const;
 
+	[[nodiscard]]
 	sge::pango::logical_rect
 	logical_rect() const;
 private:

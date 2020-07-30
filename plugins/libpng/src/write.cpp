@@ -20,6 +20,7 @@
 #include <sge/libpng/write_context.hpp>
 #include <sge/libpng/write_ptr.hpp>
 #include <sge/media/optional_name_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -38,12 +39,18 @@ sge::libpng::write(
 )
 {
 	sge::libpng::error_context error_context{
-		_log,
-		_name
+		fcppt::make_ref(
+			_log
+		),
+		sge::media::optional_name{
+			_name
+		}
 	};
 
 	sge::libpng::write_ptr const write_ptr(
-		error_context
+		fcppt::make_ref(
+			error_context
+		)
 	);
 
 	sge::libpng::info const info(
@@ -51,7 +58,9 @@ sge::libpng::write(
 	);
 
 	sge::libpng::write_context context(
-		_name,
+		sge::media::optional_name{
+			_name
+		},
 		_stream,
 		write_ptr
 	);

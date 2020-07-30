@@ -23,6 +23,7 @@
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -54,8 +55,7 @@ sge::libpng::system::system(
 }
 
 sge::libpng::system::~system()
-{
-}
+= default;
 
 sge::image2d::load_stream_result
 sge::libpng::system::load_stream(
@@ -104,7 +104,9 @@ sge::libpng::system::load_stream(
 								fcppt::make_unique_ptr<
 									sge::libpng::file
 								>(
-									log_,
+									fcppt::make_ref(
+										log_
+									),
 									std::move(
 										_rep
 									)
@@ -150,7 +152,9 @@ sge::libpng::system::create(
 							fcppt::make_unique_ptr<
 								file
 							>(
-								log_,
+								fcppt::make_ref(
+									log_
+								),
 								std::move(
 									_rep
 								)

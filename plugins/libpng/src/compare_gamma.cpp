@@ -25,6 +25,6 @@ sge::libpng::compare_gamma(
 		fcppt::literal<
 			sge::libpng::gamma::value_type
 		>(
-			0.01
+			0.01 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		);
 }

@@ -16,7 +16,7 @@
 #include <sge/image/color/optional_format_fwd.hpp>
 #include <sge/pango/glib_deleter_fwd.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-fontmap.h>
@@ -34,7 +34,7 @@ class object
 :
 	public sge::font::object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -46,6 +46,7 @@ public:
 	~object()
 	override;
 private:
+	[[nodiscard]]
 	sge::font::text_unique_ptr
 	create_text(
 		sge::font::string const &,
@@ -53,29 +54,33 @@ private:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::image::color::optional_format
 	preferred_color_format() const
 	override;
 
+	[[nodiscard]]
 	sge::font::metrics
 	metrics() const
 	override;
 
-	typedef
+	using
+	font_map_unique_ptr
+	=
 	fcppt::unique_ptr<
 		PangoFontMap,
 		sge::pango::glib_deleter
-	>
-	font_map_unique_ptr;
+	>;
 
 	font_map_unique_ptr const font_map_;
 
-	typedef
+	using
+	context_unique_ptr
+	=
 	fcppt::unique_ptr<
 		PangoContext,
 		sge::pango::glib_deleter
-	>
-	context_unique_ptr;
+	>;
 
 	context_unique_ptr const context_;
 

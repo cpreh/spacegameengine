@@ -23,8 +23,8 @@ namespace vorbis
 
 std::size_t
 read(
-	fcppt::log::object &,
-	sge::vorbis::stream &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	sge::vorbis::stream &, // NOLINT(google-runtime-references)
 	sge::media::optional_name const &,
 	sge::audio::raw_pointer,
 	std::size_t

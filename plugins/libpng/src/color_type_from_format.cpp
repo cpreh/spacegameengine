@@ -28,7 +28,7 @@ sge::libpng::color_type_from_format(
 	case sge::libpng::format::srgba8:
 	case sge::libpng::format::sbgra8:
 		return
-			PNG_COLOR_TYPE_RGB_ALPHA;
+			PNG_COLOR_TYPE_RGB_ALPHA; // NOLINT(hicpp-signed-bitwise)
 	case sge::libpng::format::srgb8:
 	case sge::libpng::format::sbgr8:
 		return

@@ -22,7 +22,7 @@ namespace libpng
 
 void
 write(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	std::ostream &,
 	sge::media::optional_name const &,
 	sge::libpng::file_rep const &

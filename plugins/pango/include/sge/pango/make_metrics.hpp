@@ -20,8 +20,8 @@ namespace pango
 
 sge::font::metrics
 make_metrics(
-	PangoLayout &
-);
+	PangoLayout & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

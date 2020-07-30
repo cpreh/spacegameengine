@@ -40,6 +40,7 @@ sge::sdlinput::cursor::translate_wheel_event(
 				!=
 				0
 			)
+			{
 				result.push_back(
 					fcppt::unique_ptr_to_base<
 						awl::event::base
@@ -53,6 +54,7 @@ sge::sdlinput::cursor::translate_wheel_event(
 						)
 					)
 				);
+			}
 		}
 	);
 

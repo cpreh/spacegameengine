@@ -9,7 +9,7 @@
 
 #include <sge/font/ttf_size.hpp>
 #include <sge/font/weight/unit.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-font.h>
@@ -23,7 +23,7 @@ namespace pango
 
 class font_description
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		font_description
 	);
 public:
@@ -49,6 +49,7 @@ public:
 	void
 	italic();
 
+	[[nodiscard]]
 	PangoFontDescription *
 	get();
 private:

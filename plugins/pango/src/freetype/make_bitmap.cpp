@@ -38,7 +38,7 @@ sge::pango::freetype::make_bitmap(
 		)
 	};
 
-	unsigned const width(
+	auto const width(
 		fcppt::cast::size<
 			unsigned
 		>(
@@ -46,7 +46,7 @@ sge::pango::freetype::make_bitmap(
 		)
 	);
 
-	unsigned const height(
+	auto const height(
 		fcppt::cast::size<
 			unsigned
 		>(
@@ -94,7 +94,7 @@ sge::pango::freetype::make_bitmap(
 		);
 
 	bitmap.num_grays =
-		256;
+		256; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
 	sge::image::color::format const format{
 		sge::image2d::view::format(

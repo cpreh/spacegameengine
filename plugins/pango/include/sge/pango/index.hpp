@@ -35,9 +35,11 @@ public:
 		trailing_type
 	);
 
+	[[nodiscard]]
 	result_type
 	result() const;
 
+	[[nodiscard]]
 	trailing_type
 	trailing() const;
 private:

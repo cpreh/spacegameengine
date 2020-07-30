@@ -35,7 +35,7 @@ try
 		fcppt::either::match(
 			sge::parse::json::parse_string(
 				std::string{
-					"{ \"foo\": 42, \"bar\" : { \"inner\" : 5.5, \"booltest\" : true } }"
+					R"({ "foo": 42, "bar" : { "inner" : 5.5, "booltest" : true } })"
 				}
 			),
 			[](

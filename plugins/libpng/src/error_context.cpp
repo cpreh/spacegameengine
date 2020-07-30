@@ -12,35 +12,39 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::libpng::error_context::error_context(
-	fcppt::log::object &_log,
-	sge::media::optional_name const &_name
+	fcppt::log::object_reference const _log,
+	sge::media::optional_name &&_name
 )
 :
 	log_{
 		_log
 	},
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	)
 {
 }
 
 sge::libpng::error_context::~error_context()
-{
-}
+= default;
 
 void
 sge::libpng::error_context::handle_warning(
-	png_structp const _read_ptr,
+	png_structp const _read_ptr, // NOLINT(misc-misplaced-const)
 	png_const_charp const _data
 )
 {
@@ -56,7 +60,7 @@ FCPPT_PP_DISABLE_CLANG_WARNING(-Wmissing-noreturn)
 
 void
 sge::libpng::error_context::handle_error(
-	png_structp const _read_ptr,
+	png_structp const _read_ptr, // NOLINT(misc-misplaced-const)
 	png_const_charp const _data
 )
 {
@@ -75,7 +79,7 @@ sge::libpng::error_context::handle_warning_impl(
 )
 {
 	FCPPT_LOG_WARNING(
-		log_,
+		log_.get(),
 		fcppt::log::out <<
 			sge::media::error_string(
 				name_,
@@ -102,7 +106,7 @@ sge::libpng::error_context::handle_error_impl(
 
 sge::libpng::error_context &
 sge::libpng::error_context::get_instance(
-	png_structp const _read_ptr
+	png_structp const _read_ptr // NOLINT(misc-misplaced-const)
 )
 {
 	return

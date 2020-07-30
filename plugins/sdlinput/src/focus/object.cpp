@@ -7,10 +7,11 @@
 #include <sge/input/focus/object.hpp>
 #include <sge/sdlinput/focus/object.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 
 
 sge::sdlinput::focus::object::object(
-	sge::window::object &_window
+	sge::window::object_ref const _window
 )
 :
 	sge::input::focus::object{},
@@ -21,12 +22,11 @@ sge::sdlinput::focus::object::object(
 }
 
 sge::sdlinput::focus::object::~object()
-{
-}
+= default;
 
 sge::window::object &
 sge::sdlinput::focus::object::window() const
 {
 	return
-		this->window_;
+		this->window_.get();
 }

@@ -9,6 +9,7 @@
 
 #include <sge/font/parameters_fwd.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
+#include <fcppt/reference_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-types.h>
 #include <fcppt/config/external_end.hpp>
@@ -21,7 +22,9 @@ namespace pango
 
 sge::pango::pango_layout_unique_ptr
 create_layout(
-	PangoContext &,
+	fcppt::reference<
+		PangoContext
+	>,
 	sge::font::parameters const &
 );
 

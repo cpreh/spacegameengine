@@ -16,7 +16,7 @@ sge::sdlinput::translate::key_code(
 	SDL_Keycode const _code
 )
 {
-	// TODO: We should distinguish between key codes and scan codes!
+	// TODO(philipp): We should distinguish between key codes and scan codes!
 	switch(
 		_code
 	)
@@ -343,7 +343,7 @@ sge::sdlinput::translate::key_code(
 		return sge::input::key::code::left_shift;
 	case SDLK_LALT:
 		return sge::input::key::code::left_alt;
-	// TODO
+	// TODO(philipp)
 	case SDLK_LGUI:
 		return sge::input::key::code::left_win;
 	case SDLK_RCTRL:
@@ -352,7 +352,7 @@ sge::sdlinput::translate::key_code(
 		return sge::input::key::code::right_shift;
 	case SDLK_RALT:
 		return sge::input::key::code::right_alt;
-	// TODO:
+	// TODO(philipp)
 	case SDLK_RGUI:
 		return sge::input::key::code::right_win;
 
@@ -391,6 +391,8 @@ sge::sdlinput::translate::key_code(
 
 	case SDLK_AUDIOREWIND:
 	case SDLK_AUDIOFASTFORWARD:*/
+	default:
+		break;
 	}
 
 	return

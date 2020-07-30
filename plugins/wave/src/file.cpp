@@ -31,7 +31,7 @@
 #include <fcppt/endianness/reverse_mem.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/info.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -41,10 +41,10 @@
 
 
 sge::wave::file::file(
-	fcppt::log::object &_log,
+	fcppt::log::object_reference const _log,
 	sge::media::stream_unique_ptr &&_file,
 	sge::wave::info const &_info,
-	sge::media::optional_name const &_name
+	sge::media::optional_name &&_name
 )
 :
 	sge::audio::file(),
@@ -52,7 +52,9 @@ sge::wave::file::file(
 		_log
 	},
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	),
 	info_(
 		_info
@@ -70,6 +72,9 @@ sge::wave::file::file(
 	)
 {
 }
+
+sge::wave::file::~file()
+= default;
 
 sge::audio::bits_per_sample
 sge::wave::file::bits_per_sample() const
@@ -107,7 +112,7 @@ void
 sge::wave::file::reset()
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("wave: resetting file")
 	)
@@ -117,7 +122,7 @@ sge::wave::file::reset()
 	);
 
 	samples_read_ =
-		0u;
+		0U;
 }
 
 sge::audio::sample_count
@@ -146,12 +151,14 @@ sge::wave::file::read(
 			0
 		)
 	)
+	{
 		return
 			fcppt::literal<
 				sge::audio::sample_count
 			>(
 				0
 			);
+	}
 
 	sge::audio::sample_count const bytes_per_sample(
 		sge::audio::bytes_per_sample(
@@ -213,6 +220,7 @@ sge::wave::file::read(
 		!=
 		fcppt::endianness::host_format()
 	)
+	{
 		for(
 			sge::audio::sample_container::pointer data(
 				_array.get().write_data()
@@ -221,12 +229,15 @@ sge::wave::file::read(
 			data < _array.get().write_data() + bytes_read;
 			data += bytes_per_sample
 		)
+		{
 			fcppt::endianness::reverse_mem(
 				data,
 				bytes_per_sample
 			);
+		}
+	}
 
-	// TODO: Make this easier!
+	// TODO(philipp): Make this easier!
 	_array.get().written(
 		bytes_read
 	);

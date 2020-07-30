@@ -46,18 +46,20 @@ try
 		string_label
 	);
 
-	typedef
+	using
+	argument
+	=
 	fcppt::options::argument<
 		string_label,
 		fcppt::string
-	>
-	argument;
+	>;
 
-	typedef
+	using
+	result_type
+	=
 	fcppt::options::result_of<
 		argument
-	>
-	result_type;
+	>;
 
 	argument const parser{
 		fcppt::options::long_name{

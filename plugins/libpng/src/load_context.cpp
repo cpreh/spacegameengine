@@ -16,12 +16,13 @@
 #include <fcppt/config/external_begin.hpp>
 #include <ios>
 #include <istream>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::libpng::load_context::load_context(
 	std::istream &_stream,
-	sge::media::optional_name const &_name,
+	sge::media::optional_name &&_name,
 	sge::libpng::read_ptr const &_read_ptr
 )
 :
@@ -29,7 +30,9 @@ sge::libpng::load_context::load_context(
 		_stream
 	),
 	name_(
-		_name
+		std::move(
+			_name
+		)
 	)
 {
 	::png_set_read_fn(
@@ -40,13 +43,12 @@ sge::libpng::load_context::load_context(
 }
 
 sge::libpng::load_context::~load_context()
-{
-}
+= default;
 
 void
 sge::libpng::load_context::handle_read(
-	png_structp const _read_ptr,
-	png_bytep const _data,
+	png_structp const _read_ptr, // NOLINT(misc-misplaced-const)
+	png_bytep const _data, // NOLINT(misc-misplaced-const)
 	png_size_t const _length
 )
 {
@@ -64,7 +66,7 @@ sge::libpng::load_context::handle_read(
 
 void
 sge::libpng::load_context::handle_read_impl(
-	png_bytep const _data,
+	png_bytep const _data, // NOLINT(misc-misplaced-const)
 	png_size_t const _length
 )
 {
@@ -84,20 +86,24 @@ sge::libpng::load_context::handle_read_impl(
 			signed_length
 		)
 	)
+	{
 		throw
 			sge::image2d::file_exception(
 				name_,
 				FCPPT_TEXT("reading failed")
 			);
+	}
 
 	if(
 		stream_.gcount()
 		<
 		signed_length
 	)
+	{
 		throw
 			sge::image2d::file_exception(
 				name_,
 				FCPPT_TEXT("didn't read as many bytes as supposed to")
 			);
+	}
 }

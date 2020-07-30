@@ -30,15 +30,19 @@ elapsed(
 	if(
 		!_timer.active()
 	)
+	{
 		return
 			typename
 			Clock::duration{};
+	}
 
 	if(
 		_timer.expired()
 	)
+	{
 		return
 			_timer.interval();
+	}
 
 	return
 		sge::timer::difference(

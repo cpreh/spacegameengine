@@ -27,6 +27,8 @@ sge::sdlinput::translate::pressed_impl(
 	case SDL_RELEASED:
 		return
 			false;
+	default:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

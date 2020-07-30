@@ -16,11 +16,12 @@ namespace sge
 namespace libpng
 {
 
-typedef
+using
+optional_format
+=
 fcppt::optional::object<
 	sge::libpng::format
->
-optional_format;
+>;
 
 }
 }

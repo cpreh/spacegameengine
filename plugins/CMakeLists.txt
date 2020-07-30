@@ -2,6 +2,10 @@ include(
 	FindPkgConfig
 )
 
+include(
+	PkgConfigSGE
+)
+
 find_package(
 	Cg
 )
@@ -26,9 +30,8 @@ find_package(
 	OpenAL
 )
 
-pkg_check_modules(
+pkg_check_modules_sge(
 	PANGO
-	IMPORTED_TARGET
 	pango
 	pangoft2
 	fontconfig

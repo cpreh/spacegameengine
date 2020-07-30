@@ -19,7 +19,7 @@ namespace pango
 
 PangoRectangle
 get_strong_cursor_pos(
-	PangoLayout &,
+	PangoLayout &, // NOLINT(google-runtime-references)
 	int
 );
 

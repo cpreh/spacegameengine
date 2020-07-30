@@ -45,8 +45,8 @@ fcppt::optional::object<
 	std::string
 >
 get_name(
-	SDL_Joystick &_joystick
-)
+	SDL_Joystick &_joystick // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
 	char const *const result{
 		SDL_JoystickName(
@@ -72,8 +72,8 @@ get_name(
 
 std::string
 get_guid(
-	SDL_Joystick &_joystick
-)
+	SDL_Joystick &_joystick // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
 	SDL_JoystickGUID const guid{
 		SDL_JoystickGetGUID(
@@ -83,7 +83,7 @@ get_guid(
 
 	std::array<
 		char,
-		33
+		33 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	> guid_string{};
 
 	SDL_JoystickGetGUIDString(
@@ -106,8 +106,8 @@ get_guid(
 
 sge::input::joypad::button_info_container::vector::size_type
 num_buttons(
-	SDL_Joystick &_joystick
-)
+	SDL_Joystick &_joystick // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
 	return
 		fcppt::cast::to_unsigned(
@@ -121,8 +121,8 @@ num_buttons(
 
 sge::input::joypad::info
 sge::sdlinput::joypad::make_info(
-	SDL_Joystick &_joystick
-)
+	SDL_Joystick &_joystick // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
 	return
 		sge::input::joypad::info{
@@ -136,10 +136,10 @@ sge::sdlinput::joypad::make_info(
 							sge::input::joypad::axis_code::unknown,
 							fcppt::optional_string{},
 							sge::input::joypad::axis_min{
-								-32768
+								-32768 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 							},
 							sge::input::joypad::axis_max{
-								32767
+								32767 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 							}
 						}
 					},
@@ -207,7 +207,7 @@ sge::sdlinput::joypad::make_info(
 					}
 				)
 			},
-			// TODO
+			// TODO(philipp)
 			sge::input::joypad::ff::type_field::null(),
 			sge::input::info::name{
 				fcppt::optional::maybe(

@@ -14,13 +14,15 @@
 
 
 sge::libpng::file_rep::file_rep(
-	sge::image2d::dim const _size,
+	sge::image2d::dim _size,
 	sge::libpng::format const _format,
 	sge::libpng::byte_vector &&_bytes
 )
 :
 	size_(
-		_size
+		std::move(
+			_size
+		)
 	),
 	format_(
 		_format
@@ -35,16 +37,19 @@ sge::libpng::file_rep::file_rep(
 
 sge::libpng::file_rep::file_rep(
 	file_rep &&
-) = default;
+)
+noexcept
+= default;
 
 sge::libpng::file_rep &
 sge::libpng::file_rep::operator=(
 	file_rep &&
-) = default;
+)
+noexcept
+= default;
 
 sge::libpng::file_rep::~file_rep()
-{
-}
+= default;
 
 sge::image2d::dim
 sge::libpng::file_rep::size() const

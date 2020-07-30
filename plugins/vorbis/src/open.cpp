@@ -27,7 +27,7 @@ sge::vorbis::open(
 			&_stream,
 			&ogg_file,
 			nullptr,
-			0l,
+			0L,
 			sge::vorbis::callbacks()
 		)
 	);

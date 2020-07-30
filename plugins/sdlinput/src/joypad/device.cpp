@@ -25,6 +25,7 @@
 #include <sge/sdlinput/joypad/num_balls.hpp>
 #include <sge/sdlinput/joypad/num_hats.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
@@ -37,7 +38,7 @@
 
 
 sge::sdlinput::joypad::device::device(
-	sge::window::object &_window,
+	sge::window::object_ref const _window,
 	sge::sdlinput::joypad::device_id const _id
 )
 :
@@ -57,14 +58,13 @@ sge::sdlinput::joypad::device::device(
 }
 
 sge::sdlinput::joypad::device::~device()
-{
-}
+= default;
 
 sge::window::object &
 sge::sdlinput::joypad::device::window() const
 {
 	return
-		this->window_;
+		this->window_.get();
 }
 
 sge::input::joypad::info const &

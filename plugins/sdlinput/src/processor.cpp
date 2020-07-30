@@ -55,14 +55,14 @@ sge::sdlinput::processor::processor(
 		fcppt::cast::dynamic_exn<
 			awl::backends::sdl::window::object &
 		>(
-			this->window().awl_object()
+			this->window_.get().awl_object()
 		)
 	},
 	cursor_{
 		fcppt::make_shared_ptr<
 			sge::sdlinput::cursor::object
 		>(
-			this->window(),
+			this->window_,
 			this->sdl_window_
 		)
 	},
@@ -70,21 +70,21 @@ sge::sdlinput::processor::processor(
 		fcppt::make_shared_ptr<
 			sge::sdlinput::focus::object
 		>(
-			this->window()
+			this->window_
 		)
 	},
 	keyboard_{
 		fcppt::make_shared_ptr<
 			sge::sdlinput::keyboard::device
 		>(
-			this->window()
+			this->window_
 		)
 	},
 	mouse_{
 		fcppt::make_shared_ptr<
 			sge::sdlinput::mouse::device
 		>(
-			this->window()
+			this->window_
 		)
 	},
 	joypads_{
@@ -92,7 +92,7 @@ sge::sdlinput::processor::processor(
 			sge::sdlinput::joypad::map
 		>(
 			sge::sdlinput::joypad::init(
-				this->window(),
+				this->window_,
 				this->log_.get()
 			),
 			[](
@@ -108,7 +108,7 @@ sge::sdlinput::processor::processor(
 		)
 	},
 	event_connection_{
-		this->window().system().event_handler(
+		this->window_.get().system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -128,8 +128,7 @@ sge::sdlinput::processor::processor(
 }
 
 sge::sdlinput::processor::~processor()
-{
-}
+= default;
 
 sge::window::object &
 sge::sdlinput::processor::window() const
@@ -227,8 +226,8 @@ sge::sdlinput::processor::on_event(
 						this->focus_,
 						this->keyboard_,
 						this->mouse_,
-						this->window_.get(), // TODO
-						this->sdl_window_,
+						this->window_,
+						this->sdl_window_.get(),
 						_sdl_event.get()
 					);
 			}

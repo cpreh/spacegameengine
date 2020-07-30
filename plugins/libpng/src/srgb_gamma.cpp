@@ -17,7 +17,7 @@ sge::libpng::srgb_gamma()
 			fcppt::literal<
 				sge::libpng::gamma::value_type
 			>(
-				0.45455
+				0.45455 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		);
 }

@@ -16,11 +16,12 @@ namespace sge
 namespace wave
 {
 
-typedef
+using
+optional_info
+=
 fcppt::optional::object<
 	sge::wave::info
->
-optional_info;
+>;
 
 }
 }

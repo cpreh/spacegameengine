@@ -23,7 +23,7 @@ namespace wave
 [[nodiscard]]
 bool
 ignore_chunks_until(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	std::istream &,
 	sge::wave::header const &,
 	fcppt::endianness::format

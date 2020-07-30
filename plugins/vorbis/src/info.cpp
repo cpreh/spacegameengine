@@ -33,11 +33,13 @@ sge::vorbis::info(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::audio::file_exception(
 				_name,
 				FCPPT_TEXT("couldn't read file info from ogg vorbis file")
 			);
+	}
 
 	return
 		*info;

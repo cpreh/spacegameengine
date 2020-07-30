@@ -16,11 +16,12 @@ namespace sge
 namespace vorbis
 {
 
-typedef
+using
+optional_stream_unique_ptr
+=
 fcppt::optional::object<
 	sge::vorbis::stream_unique_ptr
->
-optional_stream_unique_ptr;
+>;
 
 }
 }
