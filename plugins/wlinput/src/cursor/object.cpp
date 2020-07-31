@@ -30,9 +30,9 @@
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstdint>
 #include <wayland-client-protocol.h>
 #include <wayland-util.h>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 

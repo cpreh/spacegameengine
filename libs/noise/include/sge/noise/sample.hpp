@@ -7,8 +7,8 @@
 #ifndef SGE_NOISE_SAMPLE_HPP_INCLUDED
 #define SGE_NOISE_SAMPLE_HPP_INCLUDED
 
-#include <fcppt/reference_impl.hpp>
 #include <sge/noise/sample_parameters.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
