@@ -12,6 +12,8 @@
 #include <sge/x11input/focus/translate_event.hpp>
 #include <sge/x11input/key/translate_sym.hpp>
 #include <sge/x11input/xim/context.hpp>
+#include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
@@ -35,21 +37,27 @@ namespace
 int
 do_lookup(
 	sge::x11input::xim::context const &_input_context,
-	XKeyPressedEvent &_event,
+	fcppt::reference<
+		XKeyPressedEvent
+	> const _event,
 	wchar_t *const _data,
 	int const _size,
-	KeySym &_key_sym,
-	Status &_status
+	fcppt::reference<
+		KeySym
+	> const _key_sym,
+	fcppt::reference<
+		Status
+	> const _status
 )
 {
 	return
 		::XwcLookupString(
 			_input_context.get(),
-			&_event,
+			&_event.get(),
 			_data,
 			_size,
-			&_key_sym,
-			&_status
+			&_key_sym.get(),
+			&_status.get()
 		);
 }
 
@@ -62,7 +70,7 @@ sge::x11input::focus::lookup_string(
 	XIDeviceEvent const &_event
 )
 {
-	// TODO: Refactor this!
+	// TODO(philipp): Refactor this!
 
 	XKeyPressedEvent xev(
 		sge::x11input::focus::translate_event(
@@ -82,7 +90,7 @@ sge::x11input::focus::lookup_string(
 			&xev
 		]
 		{
-			Status status;
+			Status status{};
 
 			KeySym key_sym{
 				NoSymbol
@@ -92,11 +100,17 @@ sge::x11input::focus::lookup_string(
 			int const needed_chars{
 				::do_lookup(
 					_input_context,
-					xev,
+					fcppt::make_ref(
+						xev
+					),
 					nullptr,
 					0,
-					key_sym,
-					status
+					fcppt::make_ref(
+						key_sym
+					),
+					fcppt::make_ref(
+						status
+					)
 				)
 			};
 
@@ -111,11 +125,12 @@ sge::x11input::focus::lookup_string(
 		}
 	);
 
-	typedef
+	using
+	buffer_type
+	=
 	fcppt::container::buffer::object<
 		sge::input::focus::char_type
-	>
-	buffer_type;
+	>;
 
 	int const needed_chars{
 		get_size()
@@ -131,7 +146,7 @@ sge::x11input::focus::lookup_string(
 		)
 	};
 
-	Status status;
+	Status status{};
 
 	KeySym key_sym{
 		NoSymbol
@@ -140,7 +155,9 @@ sge::x11input::focus::lookup_string(
 	int const chars_return(
 		::do_lookup(
 			_input_context,
-			xev,
+			fcppt::make_ref(
+				xev
+			),
 			buffer.write_data(),
 			fcppt::cast::size<
 				int
@@ -149,8 +166,12 @@ sge::x11input::focus::lookup_string(
 					buffer.write_size()
 				)
 			),
-			key_sym,
-			status
+			fcppt::make_ref(
+				key_sym
+			),
+			fcppt::make_ref(
+				status
+			)
 		)
 	);
 
@@ -188,9 +209,10 @@ sge::x11input::focus::lookup_string(
 	)
 	{
 	case XBufferOverflow:
-		throw sge::input::exception(
-			FCPPT_TEXT("XwcLookupString(): XBufferOverflow!")
-		);
+		throw
+			sge::input::exception(
+				FCPPT_TEXT("XwcLookupString(): XBufferOverflow!")
+			);
 	case XLookupChars:
 		return
 			sge::x11input::focus::looked_up_string(
@@ -227,9 +249,12 @@ sge::x11input::focus::lookup_string(
 				sge::x11input::focus::char_vector(),
 				sge::input::key::code::unknown
 			);
+	default:
+		break;
 	}
 
-	throw sge::input::exception(
-		FCPPT_TEXT("XwcLookupString(): Unknown return value!")
-	);
+	throw
+		sge::input::exception(
+			FCPPT_TEXT("XwcLookupString(): Unknown return value!")
+		);
 }

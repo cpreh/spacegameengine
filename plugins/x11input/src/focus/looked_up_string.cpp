@@ -46,8 +46,7 @@ default;
 
 sge::x11input::focus::looked_up_string::~looked_up_string()
 noexcept
-{
-}
+= default;
 
 sge::x11input::focus::char_vector const &
 sge::x11input::focus::looked_up_string::char_codes() const

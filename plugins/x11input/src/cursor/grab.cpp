@@ -10,7 +10,9 @@
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/cursor/object.hpp>
+#include <awl/backends/x11/cursor/object_ref.hpp>
 #include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
@@ -19,9 +21,9 @@
 
 
 sge::x11input::cursor::grab::grab(
-	awl::backends::x11::window::base const &_window,
+	awl::backends::x11::window::const_base_ref const _window,
 	sge::x11input::device::id const _id,
-	awl::backends::x11::cursor::object const &_cursor
+	awl::backends::x11::cursor::object_ref const _cursor
 )
 :
 	window_(
@@ -39,11 +41,11 @@ sge::x11input::cursor::grab::grab(
 
 	Status const ret(
 		::XIGrabDevice(
-			_window.display().get().get(),
+			_window.get().display().get().get(),
 			_id.get(),
-			_window.get(),
+			_window.get().get(),
 			CurrentTime,
-			_cursor.get(),
+			_cursor.get().get(),
 			GrabModeAsync,
 			GrabModeAsync,
 			True,
@@ -57,6 +59,7 @@ sge::x11input::cursor::grab::grab(
 		!=
 		GrabSuccess
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("X11 grab failed with code ")
@@ -65,12 +68,13 @@ sge::x11input::cursor::grab::grab(
 					ret
 				)
 			};
+	}
 }
 
 sge::x11input::cursor::grab::~grab()
 {
 	::XIUngrabDevice(
-		window_.display().get().get(),
+		window_.get().display().get().get(),
 		id_.get(),
 		CurrentTime
 	);

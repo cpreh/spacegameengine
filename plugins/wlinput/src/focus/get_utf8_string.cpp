@@ -41,7 +41,7 @@ sge::wlinput::focus::get_utf8_string(
 			size
 		)
 		+
-		1u
+		1U
 	);
 
 	FCPPT_ASSERT_ERROR(

@@ -8,7 +8,7 @@
 #define SGE_WLINPUT_FOCUS_MMAP_HPP_INCLUDED
 
 #include <awl/backends/posix/fd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <cstdint>
@@ -24,7 +24,7 @@ namespace focus
 
 class mmap
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		mmap
 	);
 public:
@@ -35,6 +35,7 @@ public:
 
 	~mmap();
 
+	[[nodiscard]]
 	char const *
 	string() const;
 private:

@@ -8,8 +8,8 @@
 #define SGE_X11INPUT_DEVICE_INFO_BASE_HPP_INCLUDED
 
 #include <sge/x11input/device/id.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/display_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -26,24 +26,27 @@ namespace info
 
 class base
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		base
 	);
 public:
-	typedef
-	int
-	size_type;
+	using
+	size_type
+	=
+	int;
 
 	base(
-		awl::backends::x11::display &,
+		awl::backends::x11::display_ref,
 		sge::x11input::device::id
 	);
 
 	~base();
 
+	[[nodiscard]]
 	XIDeviceInfo const *
 	get() const;
 
+	[[nodiscard]]
 	size_type
 	size() const;
 private:

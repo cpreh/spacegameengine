@@ -8,7 +8,7 @@
 #define SGE_WLINPUT_FOCUS_SCOPED_FD_HPP_INCLUDED
 
 #include <awl/backends/posix/fd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -20,7 +20,7 @@ namespace focus
 
 class scoped_fd
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_fd
 	);
 public:

@@ -8,7 +8,7 @@
 #define SGE_X11INPUT_XIM_CREATE_METHOD_HPP_INCLUDED
 
 #include <sge/x11input/xim/method_unique_ptr.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -21,8 +21,8 @@ namespace xim
 
 sge::x11input::xim::method_unique_ptr
 create_method(
-	fcppt::log::object &,
-	awl::backends::x11::display const &
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	awl::backends::x11::display_ref
 );
 
 }

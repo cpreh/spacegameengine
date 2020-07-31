@@ -12,7 +12,7 @@
 #include <sge/x11input/xim/method_unique_ptr.hpp>
 #include <sge/x11input/xim/optional_method_unique_ptr.hpp>
 #include <sge/x11input/xim/supported_styles_unique_ptr.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/contains_if.hpp>
 #include <fcppt/bit/mask_c.hpp>
@@ -30,7 +30,7 @@
 sge::x11input::xim::optional_method_unique_ptr
 sge::x11input::xim::create_method_opt(
 	fcppt::log::object &_log,
-	awl::backends::x11::display const &_display
+	awl::backends::x11::display_ref const _display
 )
 try
 {
@@ -52,7 +52,7 @@ try
 			fcppt::iterator::make_range(
 				styles->supported_styles,
 				styles->supported_styles
-				+
+				+ // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 				styles->count_styles
 			),
 			[](
@@ -78,12 +78,14 @@ try
 			}
 		)
 	)
+	{
 		return
 			sge::x11input::xim::optional_method_unique_ptr{
 				std::move(
 					result
 				)
 			};
+	}
 
 	FCPPT_LOG_ERROR(
 		_log,

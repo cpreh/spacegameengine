@@ -46,6 +46,7 @@ sge::x11input::mouse::make_axis_infos(
 							sge::x11input::device::info::class_maybe<
 								XIValuatorClassInfo
 							>(
+								// NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 								*_info.classes[
 									_index
 								]

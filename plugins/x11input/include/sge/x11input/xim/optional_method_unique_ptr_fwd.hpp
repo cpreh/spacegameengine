@@ -18,11 +18,12 @@ namespace x11input
 namespace xim
 {
 
-typedef
+using
+optional_method_unique_ptr
+=
 fcppt::optional::object<
 	sge::x11input::xim::method_unique_ptr
->
-optional_method_unique_ptr;
+>;
 
 }
 }

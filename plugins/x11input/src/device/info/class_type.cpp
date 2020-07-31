@@ -18,7 +18,7 @@ sge::x11input::device::info::class_type(
 )
 {
 	// don't dereference _info because that's not its actual type!
-	int ret;
+	int ret{};
 
 	std::memcpy(
 		&ret,
@@ -32,5 +32,6 @@ sge::x11input::device::info::class_type(
 		)
 	);
 
-	return ret;
+	return
+		ret;
 }

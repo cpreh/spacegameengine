@@ -24,7 +24,9 @@ namespace device
 namespace info
 {
 
-typedef
+using
+class_map
+=
 metal::map<
 	SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(
 		XIButtonClass
@@ -38,8 +40,7 @@ metal::map<
 	SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(
 		XIScrollClass
 	)
->
-class_map;
+>;
 
 }
 }

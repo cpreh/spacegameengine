@@ -6,6 +6,7 @@
 
 #include <sge/input/exception.hpp>
 #include <sge/wlinput/xkb_context.hpp>
+#include <sge/wlinput/xkb_context_ref.hpp>
 #include <sge/wlinput/focus/keymap.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -15,13 +16,13 @@
 
 
 sge::wlinput::focus::keymap::keymap(
-	sge::wlinput::xkb_context const &_context,
+	sge::wlinput::xkb_context_ref const _context,
 	char const *const _string
 )
 :
 	keymap_{
 		::xkb_keymap_new_from_string(
-			_context.get(),
+			_context.get().get(),
 			_string,
 			XKB_KEYMAP_FORMAT_TEXT_V1,
 			XKB_KEYMAP_COMPILE_NO_FLAGS
@@ -33,15 +34,18 @@ sge::wlinput::focus::keymap::keymap(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("Cannot create keymap")
 			};
+	}
 }
 
 sge::wlinput::focus::keymap::keymap(
 	keymap &&_other
 )
+noexcept
 :
 	keymap_{
 		_other.keymap_
@@ -55,6 +59,7 @@ sge::wlinput::focus::keymap &
 sge::wlinput::focus::keymap::operator=(
 	keymap &&_other
 )
+noexcept
 {
 	std::swap(
 		keymap_,

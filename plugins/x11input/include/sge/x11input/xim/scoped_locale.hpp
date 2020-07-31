@@ -7,7 +7,7 @@
 #ifndef SGE_X11INPUT_XIM_SCOPED_LOCALE_HPP_INCLUDED
 #define SGE_X11INPUT_XIM_SCOPED_LOCALE_HPP_INCLUDED
 
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -22,7 +22,7 @@ namespace xim
 
 class scoped_locale
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		scoped_locale
 	);
 public:

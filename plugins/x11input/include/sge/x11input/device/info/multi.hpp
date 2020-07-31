@@ -8,8 +8,8 @@
 #define SGE_X11INPUT_DEVICE_INFO_MULTI_HPP_INCLUDED
 
 #include <sge/x11input/device/info/base.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/display_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -26,28 +26,32 @@ namespace info
 
 class multi
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		multi
 	);
 public:
 	explicit
 	multi(
-		awl::backends::x11::display &
+		awl::backends::x11::display_ref
 	);
 
 	~multi();
 
-	typedef
-	XIDeviceInfo const *
+	using
+	iterator
+	=
+	XIDeviceInfo const *;
+
+	using
+	const_iterator
+	=
 	iterator;
 
-	typedef
-	iterator
-	const_iterator;
-
+	[[nodiscard]]
 	iterator
 	begin() const;
 
+	[[nodiscard]]
 	iterator
 	end() const;
 private:

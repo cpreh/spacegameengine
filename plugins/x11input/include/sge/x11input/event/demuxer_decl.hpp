@@ -10,9 +10,10 @@
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/event/demuxer_fwd.hpp>
 #include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/function_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
@@ -34,7 +35,7 @@ template<
 >
 class demuxer
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		demuxer
 	);
 public:
@@ -45,52 +46,57 @@ public:
 		Event const &
 	);
 
-	typedef
+	using
+	function
+	=
 	fcppt::function<
 		function_type
-	>
-	function;
+	>;
 
 	explicit
 	demuxer(
-		awl::backends::x11::window::base const &
+		awl::backends::x11::window::const_base_ref
 	);
 
 	~demuxer();
 
+	[[nodiscard]]
 	awl::backends::x11::window::base const &
 	window() const;
 
+	[[nodiscard]]
 	fcppt::signal::auto_connection
 	on_event(
 		sge::x11input::device::id,
 		function
 	);
 
+	[[nodiscard]]
 	awl::event::container
 	call(
 		Event const &
 	);
 private:
-	awl::backends::x11::window::base const &window_;
+	awl::backends::x11::window::const_base_ref const window_;
 
-	typedef
+	using
+	signal_type
+	=
 	fcppt::signal::object<
 		function_type,
 		fcppt::signal::unregister::base
-	>
-	signal_type;
+	>;
 
-	typedef
+	using
+	signal_map
+	=
 	std::unordered_map<
 		sge::x11input::device::id,
 		signal_type
-	>
-	signal_map;
+	>;
 
 	signal_map signals_;
 };
-
 
 }
 }

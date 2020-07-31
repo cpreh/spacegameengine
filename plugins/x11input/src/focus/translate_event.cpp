@@ -36,6 +36,8 @@ sge::x11input::focus::translate_event(
 				case XI_KeyRelease:
 					return
 						KeyRelease;
+				default:
+					break;
 				}
 
 				FCPPT_ASSERT_UNREACHABLE;
@@ -70,9 +72,9 @@ sge::x11input::focus::translate_event(
 				_event.root_y
 			),
 			fcppt::cast::to_unsigned(
-				_event.mods.effective
+				_event.mods.effective // NOLINT(hicpp-signed-bitwise)
 				|
-				((_event.group.effective & 0x3) << 13)
+				((_event.group.effective & 0x3) << 13) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers,hicpp-signed-bitwise)
 			),
 			fcppt::cast::to_unsigned(
 				_event.detail

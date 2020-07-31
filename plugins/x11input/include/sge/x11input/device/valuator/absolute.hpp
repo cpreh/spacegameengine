@@ -28,6 +28,7 @@ public:
 		sge::x11input::device::valuator::value
 	);
 
+	[[nodiscard]]
 	sge::x11input::device::valuator::value
 	previous() const;
 private:

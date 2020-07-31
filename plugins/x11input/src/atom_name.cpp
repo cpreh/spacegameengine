@@ -6,6 +6,7 @@
 
 #include <sge/x11input/atom_name.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <awl/backends/x11/free.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -13,13 +14,13 @@
 
 
 sge::x11input::atom_name::atom_name(
-	awl::backends::x11::display &_display,
+	awl::backends::x11::display_ref const _display,
 	Atom const _atom
 )
 :
 	name_(
 		::XGetAtomName(
-			_display.get(),
+			_display.get().get(),
 			_atom
 		)
 	)

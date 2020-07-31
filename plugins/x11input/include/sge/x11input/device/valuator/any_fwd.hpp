@@ -21,12 +21,13 @@ namespace device
 namespace valuator
 {
 
-typedef
+using
+any
+=
 fcppt::variant::object<
 	sge::x11input::device::valuator::absolute,
 	sge::x11input::device::valuator::relative
->
-any;
+>;
 
 }
 }

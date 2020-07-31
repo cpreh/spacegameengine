@@ -27,6 +27,8 @@ sge::x11input::cursor::scroll_code(
 	case XIScrollTypeHorizontal:
 		return
 			sge::input::cursor::scroll_code::horizontal;
+	default:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

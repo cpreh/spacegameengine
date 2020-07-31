@@ -18,8 +18,9 @@ sge::x11input::xim::get_filter_events(
 	sge::x11input::xim::context const &_context
 )
 {
+	// NOLINTNEXTLINE(google-runtime-int)
 	long mask{
-		0l
+		0L
 	};
 
 	sge::x11input::xim::get_ic_values(

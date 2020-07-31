@@ -41,6 +41,7 @@ sge::x11input::mouse::button_infos(
 				fcppt::optional_string const name(
 					sge::x11input::device::info::string_from_atom(
 						_display,
+						// NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 						_info.labels[
 							_button_index
 						]
@@ -52,7 +53,7 @@ sge::x11input::mouse::button_infos(
 						sge::x11input::mouse::button_code(
 							name
 						),
-						// TODO
+						// TODO(philipp)
 						fcppt::optional_string{
 							name
 						}

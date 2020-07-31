@@ -24,7 +24,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 FCPPT_PP_DISABLE_GCC_WARNING(-Wcast-qual)
 	return
-		XIMaskIsSet(
+		XIMaskIsSet( // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic,cppcoreguidelines-pro-type-cstyle-cast,hicpp-signed-bitwise)
 			_ptr,
 			_mask
 		);

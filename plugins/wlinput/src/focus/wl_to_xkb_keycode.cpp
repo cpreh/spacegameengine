@@ -20,6 +20,6 @@ sge::wlinput::focus::wl_to_xkb_keycode(
 		sge::wlinput::focus::xkb_keycode{
 			_key
 			+
-			8u
+			8U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		};
 }

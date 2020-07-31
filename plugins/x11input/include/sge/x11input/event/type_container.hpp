@@ -20,11 +20,12 @@ namespace x11input
 namespace event
 {
 
-typedef
+using
+type_container
+=
 std::vector<
 	sge::x11input::event::type
->
-type_container;
+>;
 
 }
 }

@@ -18,11 +18,12 @@ namespace wlinput
 namespace cursor
 {
 
-typedef
+using
+create_function
+=
 sge::wlinput::create_function<
 	sge::wlinput::cursor::object
->
-create_function;
+>;
 
 }
 }

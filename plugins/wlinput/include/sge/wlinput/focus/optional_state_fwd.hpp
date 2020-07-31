@@ -18,11 +18,12 @@ namespace wlinput
 namespace focus
 {
 
-typedef
+using
+optional_state
+=
 fcppt::optional::object<
 	sge::wlinput::focus::state
->
-optional_state;
+>;
 
 }
 }

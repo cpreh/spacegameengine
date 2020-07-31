@@ -6,14 +6,14 @@
 
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/info/multi.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::device::info::multi::multi(
-	awl::backends::x11::display &_display
+	awl::backends::x11::display_ref const _display
 )
 :
 	info_base_(
@@ -26,8 +26,7 @@ sge::x11input::device::info::multi::multi(
 }
 
 sge::x11input::device::info::multi::~multi()
-{
-}
+= default;
 
 sge::x11input::device::info::multi::iterator
 sge::x11input::device::info::multi::begin() const
@@ -41,6 +40,6 @@ sge::x11input::device::info::multi::end() const
 {
 	return
 		info_base_.get()
-		+
+		+ // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 		info_base_.size();
 }

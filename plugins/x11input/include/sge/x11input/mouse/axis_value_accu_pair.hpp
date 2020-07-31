@@ -21,12 +21,13 @@ namespace x11input
 namespace mouse
 {
 
-typedef
+using
+axis_value_accu_pair
+=
 std::pair<
 	sge::input::mouse::axis_value,
 	sge::x11input::device::valuator::accu
->
-axis_value_accu_pair;
+>;
 
 }
 }

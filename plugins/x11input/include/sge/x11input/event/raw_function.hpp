@@ -18,11 +18,12 @@ namespace x11input
 namespace event
 {
 
-typedef
+using
+raw_function
+=
 fcppt::function<
 	sge::x11input::event::raw_function_type
->
-raw_function;
+>;
 
 }
 }

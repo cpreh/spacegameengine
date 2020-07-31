@@ -7,9 +7,9 @@
 #ifndef SGE_WLINPUT_CURSOR_CREATE_HPP_INCLUDED
 #define SGE_WLINPUT_CURSOR_CREATE_HPP_INCLUDED
 
-#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wlinput/cursor/create_function.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/container_reference.hpp>
 
 
@@ -22,8 +22,8 @@ namespace cursor
 
 sge::wlinput::cursor::create_function
 create(
-	sge::window::object &,
-	awl::backends::wayland::window::object const &,
+	sge::window::object_ref,
+	awl::backends::wayland::window::object_ref,
 	awl::event::container_reference
 );
 

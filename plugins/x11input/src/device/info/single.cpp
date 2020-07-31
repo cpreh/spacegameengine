@@ -8,7 +8,7 @@
 #include <sge/x11input/device/info/const_optional_ref.hpp>
 #include <sge/x11input/device/info/multi.hpp>
 #include <sge/x11input/device/info/single.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -17,7 +17,7 @@
 
 
 sge::x11input::device::info::single::single(
-	awl::backends::x11::display &_display,
+	awl::backends::x11::display_ref const _display,
 	sge::x11input::device::id const _id
 )
 :
@@ -46,8 +46,7 @@ sge::x11input::device::info::single::single(
 }
 
 sge::x11input::device::info::single::~single()
-{
-}
+= default;
 
 sge::x11input::device::info::const_optional_ref
 sge::x11input::device::info::single::get() const

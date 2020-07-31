@@ -32,6 +32,8 @@ sge::wlinput::cursor::button_state(
 			sge::input::cursor::button_pressed{
 				true
 			};
+	default:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

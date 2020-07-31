@@ -29,9 +29,11 @@ public:
 		sge::x11input::device::valuator::value
 	);
 
+	[[nodiscard]]
 	sge::x11input::device::valuator::index
 	index() const;
 
+	[[nodiscard]]
 	sge::x11input::device::valuator::value
 	value() const;
 private:

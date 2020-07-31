@@ -52,11 +52,12 @@ make_handler(
 					awl::backends::x11::system::event::generic const &_event
 				)
 				{
-					typedef
+					using
+					event_type
+					=
 					sge::x11input::event::static_type<
 						Type
-					>
-					event_type;
+					>;
 
 					static_assert(
 						std::is_same<

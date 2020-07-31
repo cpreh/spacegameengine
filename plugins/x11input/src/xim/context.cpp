@@ -7,6 +7,7 @@
 #include <sge/input/exception.hpp>
 #include <sge/x11input/xim/context.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/object_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -14,17 +15,17 @@
 
 
 sge::x11input::xim::context::context(
-	XIM const _xim,
-	awl::backends::x11::window::object const &_window
+	XIM const _xim, // NOLINT(misc-misplaced-const)
+	awl::backends::x11::window::object_ref const _window
 )
 :
 	xic_(
-		::XCreateIC(
+		::XCreateIC( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_xim,
 			XNClientWindow,
-			_window.get(),
+			_window.get().get(),
 			XNInputStyle,
-			XIMPreeditNothing | XIMStatusNothing,
+			XIMPreeditNothing | XIMStatusNothing, // NOLINT(hicpp-signed-bitwise)
 			NULL
 		)
 	)
@@ -34,10 +35,12 @@ sge::x11input::xim::context::context(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("XCreateIC() failed!")
 			};
+	}
 }
 
 sge::x11input::xim::context::~context()

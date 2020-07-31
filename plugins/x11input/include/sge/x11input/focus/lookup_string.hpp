@@ -24,7 +24,7 @@ namespace focus
 
 sge::x11input::focus::looked_up_string
 lookup_string(
-	fcppt::log::object &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
 	sge::x11input::xim::context const &,
 	XIDeviceEvent const &
 );

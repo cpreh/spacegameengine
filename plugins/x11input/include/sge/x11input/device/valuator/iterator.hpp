@@ -38,11 +38,13 @@ public:
 	void
 	increment();
 
+	[[nodiscard]]
 	bool
 	equal(
 		iterator const &
 	) const;
 
+	[[nodiscard]]
 	reference
 	dereference() const;
 private:

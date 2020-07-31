@@ -18,9 +18,10 @@
 #include <sge/input/key/optional_code.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
-#include <sge/wlinput/xkb_context_fwd.hpp>
+#include <sge/wlinput/xkb_context_ref.hpp>
 #include <sge/wlinput/focus/data.hpp>
 #include <sge/wlinput/focus/get_keysym.hpp>
 #include <sge/wlinput/focus/get_utf8_string.hpp>
@@ -36,8 +37,9 @@
 #include <sge/wlinput/focus/wl_to_xkb_keycode.hpp>
 #include <sge/wlinput/focus/xkb_keycode.hpp>
 #include <awl/backends/posix/fd.hpp>
-#include <awl/backends/wayland/seat_fwd.hpp>
+#include <awl/backends/wayland/seat_ref.hpp>
 #include <awl/backends/wayland/window/object.hpp>
+#include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/container_reference.hpp>
@@ -52,11 +54,12 @@
 #include <awl/timer/unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/log/error.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/comparison.hpp>
@@ -67,7 +70,6 @@
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <stdint.h>
 #include <wayland-client-protocol.h>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -80,9 +82,9 @@ void
 keyboard_keymap(
 	void *const _data,
 	wl_keyboard *,
-	uint32_t const _format,
-	int32_t const _fd,
-	uint32_t const _size
+	std::uint32_t const _format,
+	std::int32_t const _fd,
+	std::uint32_t const _size
 )
 {
 	sge::wlinput::focus::data &data(
@@ -145,7 +147,9 @@ keyboard_keymap(
 		data.xkb_state_ =
 			sge::wlinput::focus::optional_state{
 				sge::wlinput::focus::state{
-					xkb_keymap
+					fcppt::make_ref(
+						xkb_keymap
+					)
 				}
 			};
 	}
@@ -154,7 +158,7 @@ keyboard_keymap(
 	)
 	{
 		FCPPT_LOG_ERROR(
-			data.log_,
+			data.log_.get(),
 			fcppt::log::out
 				<<
 				_error.string()
@@ -174,7 +178,7 @@ void
 keyboard_enter(
 	void *const _data,
 	wl_keyboard *,
-	uint32_t,
+	std::uint32_t,
 	wl_surface *const _surface,
 	wl_array *
 )
@@ -190,7 +194,7 @@ keyboard_enter(
 	if(
 		_surface
 		==
-		data.window_.surface()
+		data.window_.get().surface()
 	)
 	{
 		data.entered_ =
@@ -206,7 +210,7 @@ keyboard_enter(
 				fcppt::make_unique_ptr<
 					sge::input::focus::event::in
 				>(
-					data.focus_.get_shared_ptr()
+					data.focus_.get().get_shared_ptr()
 				)
 			)
 		);
@@ -217,7 +221,7 @@ void
 keyboard_leave(
 	void *const _data,
 	wl_keyboard *,
-	uint32_t,
+	std::uint32_t,
 	wl_surface *const _surface
 )
 {
@@ -232,7 +236,7 @@ keyboard_leave(
 	if(
 		_surface
 		==
-		data.window_.surface()
+		data.window_.get().surface()
 	)
 	{
 		data.entered_ =
@@ -248,7 +252,7 @@ keyboard_leave(
 				fcppt::make_unique_ptr<
 					sge::input::focus::event::out
 				>(
-					data.focus_.get_shared_ptr()
+					data.focus_.get().get_shared_ptr()
 				)
 			)
 		);
@@ -259,10 +263,10 @@ void
 keyboard_key(
 	void *const _data,
 	wl_keyboard *,
-	uint32_t,
-	uint32_t,
-	uint32_t const _key,
-	uint32_t const _state
+	std::uint32_t,
+	std::uint32_t,
+	std::uint32_t const _key,
+	std::uint32_t const _state
 )
 {
 	sge::wlinput::focus::data &data(
@@ -307,10 +311,12 @@ keyboard_key(
 			if(
 				pressed.get()
 			)
+			{
 				data.last_pressed_ =
 					sge::input::key::optional_code{
 						key_code
 					};
+			}
 			else if(
 				data.last_pressed_
 				==
@@ -318,9 +324,11 @@ keyboard_key(
 					key_code
 				}
 			)
-				// TODO: Reset key repeat timer here?
+			{
+				// TODO(philipp): Reset key repeat timer here?
 				data.last_pressed_ =
 					sge::input::key::optional_code{};
+			}
 
 			data.events_.get().push_back(
 				fcppt::unique_ptr_to_base<
@@ -329,7 +337,7 @@ keyboard_key(
 					fcppt::make_unique_ptr<
 						sge::input::focus::event::key
 					>(
-						data.focus_.get_shared_ptr(),
+						data.focus_.get().get_shared_ptr(),
 						sge::input::focus::key{
 							key_code
 						},
@@ -345,7 +353,7 @@ keyboard_key(
 					fcppt::make_unique_ptr<
 						sge::input::focus::event::text
 					>(
-						data.focus_.get_shared_ptr(),
+						data.focus_.get().get_shared_ptr(),
 						sge::charconv::convert<
 							sge::charconv::encoding::wchar,
 							sge::charconv::encoding::utf8
@@ -366,11 +374,11 @@ void
 keyboard_modifiers(
 	void *const _data,
 	wl_keyboard *,
-	uint32_t,
-	uint32_t const _mods_depressed,
-	uint32_t const _mods_latched,
-	uint32_t const _mods_locked,
-	uint32_t const _group
+	std::uint32_t,
+	std::uint32_t const _mods_depressed,
+	std::uint32_t const _mods_latched,
+	std::uint32_t const _mods_locked,
+	std::uint32_t const _group
 )
 {
 	sge::wlinput::focus::data &data(
@@ -409,8 +417,8 @@ void
 keyboard_repeat_info(
 	void *const _data,
 	wl_keyboard *,
-	int32_t const _rate,
-	int32_t const _delay
+	std::int32_t const _rate,
+	std::int32_t const _delay
 )
 {
 	sge::wlinput::focus::data &data(
@@ -435,7 +443,7 @@ keyboard_repeat_info(
 
 	data.repeat_timer_ =
 		fcppt::optional::make(
-			data.processor_.create_timer(
+			data.processor_.get().create_timer(
 				awl::timer::setting{
 					awl::timer::delay{
 						convert_duration(
@@ -464,12 +472,12 @@ wl_keyboard_listener const keyboard_listener{
 }
 
 sge::wlinput::focus::object::object(
-	fcppt::log::object &_log,
-	sge::window::object &_sge_window,
-	sge::wlinput::xkb_context const &_xkb_context,
-	awl::backends::wayland::window::object const &_window,
+	fcppt::log::object_reference const _log,
+	sge::window::object_ref const _sge_window,
+	sge::wlinput::xkb_context_ref const _xkb_context,
+	awl::backends::wayland::window::object_ref const _window,
 	awl::event::container_reference const _events,
-	awl::backends::wayland::seat const &_seat
+	awl::backends::wayland::seat_ref const _seat
 )
 :
 	sge::input::focus::object{},
@@ -481,14 +489,18 @@ sge::wlinput::focus::object::object(
 	},
 	data_{
 		_log,
-		*this,
+		fcppt::make_ref(
+			*this
+		),
 		_xkb_context,
-		_sge_window.system().awl_system().processor(),
+		fcppt::make_ref(
+			_sge_window.get().system().awl_system().processor()
+		),
 		_window,
 		_events
 	},
 	event_connection_{
-		_sge_window.system().event_handler(
+		_sge_window.get().system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -535,8 +547,7 @@ sge::wlinput::focus::object::object(
 }
 
 sge::wlinput::focus::object::~object()
-{
-}
+= default;
 
 sge::input::focus::shared_ptr
 sge::wlinput::focus::object::get_shared_ptr()

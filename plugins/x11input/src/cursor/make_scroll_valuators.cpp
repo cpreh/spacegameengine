@@ -45,6 +45,7 @@ sge::x11input::cursor::make_scroll_valuators(
 						sge::x11input::device::info::class_maybe<
 							XIScrollClassInfo
 						>(
+							// NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 							*_info.classes[
 								_index
 							]

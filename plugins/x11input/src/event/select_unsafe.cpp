@@ -34,20 +34,23 @@ sge::x11input::event::select_unsafe(
 	if(
 		_window.destroyed()
 	)
+	{
 		return;
+	}
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 FCPPT_PP_DISABLE_GCC_WARNING(-Wconversion)
-	typedef
+	using
+	mask_type
+	=
 	std::array<
 		unsigned char,
-		XIMaskLen(XI_LASTEVENT)
-	>
-	mask_type;
+		XIMaskLen(XI_LASTEVENT) // NOLINT(hicpp-signed-bitwise)
+	>;
 FCPPT_PP_POP_WARNING
 
-	mask_type mask_data(
+	auto mask_data(
 		fcppt::container::array::init_const<
 			mask_type
 		>(
@@ -64,14 +67,16 @@ FCPPT_PP_POP_WARNING
 		:
 		_types
 	)
+	{
 	FCPPT_PP_PUSH_WARNING
 	FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 	FCPPT_PP_DISABLE_GCC_WARNING(-Wconversion)
-		XISetMask(
+		XISetMask( // NOLINT(hicpp-signed-bitwise, cppcoreguidelines-pro-bounds-pointer-arithmetic)
 			mask_data.data(),
 			event.get()
 		);
 	FCPPT_PP_POP_WARNING
+	}
 
 	XIEventMask mask{
 		_device.get(),
@@ -88,8 +93,10 @@ FCPPT_PP_POP_WARNING
 		)
 		!= 0
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("XISelectEvents failed!")
 			};
+	}
 }

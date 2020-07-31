@@ -6,6 +6,7 @@
 
 #include <sge/wlinput/focus/holder.hpp>
 #include <awl/backends/wayland/seat.hpp>
+#include <awl/backends/wayland/seat_ref.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-client-protocol.h>
@@ -13,12 +14,12 @@
 
 
 sge::wlinput::focus::holder::holder(
-	awl::backends::wayland::seat const &_seat
+	awl::backends::wayland::seat_ref const _seat
 )
 :
 	impl_{
 		::wl_seat_get_keyboard(
-			_seat.get()
+			_seat.get().get()
 		)
 	}
 {

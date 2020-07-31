@@ -18,8 +18,8 @@ namespace x11input
 
 sge::x11input::optional_opcode
 xi_opcode(
-	awl::backends::x11::display &
-);
+	awl::backends::x11::display & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

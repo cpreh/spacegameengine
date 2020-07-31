@@ -42,12 +42,14 @@ sge::wlinput::focus::mmap::mmap(
 	if(
 		string_
 		==
-		MAP_FAILED
+		MAP_FAILED // NOLINT(cppcoreguidelines-pro-type-cstyle-cast)
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("Cannot map keymap")
 			};
+	}
 }
 
 sge::wlinput::focus::mmap::~mmap()

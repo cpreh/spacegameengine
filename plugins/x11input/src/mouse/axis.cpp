@@ -20,7 +20,7 @@ sge::x11input::mouse::axis(
 	sge::input::mouse::axis_info_container const &_info
 )
 {
-	sge::input::mouse::axis_id const id(
+	auto const id(
 		fcppt::strong_typedef_construct_cast<
 			sge::input::mouse::axis_id,
 			fcppt::cast::size_fun

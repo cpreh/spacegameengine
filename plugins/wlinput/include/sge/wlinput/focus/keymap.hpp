@@ -7,7 +7,7 @@
 #ifndef SGE_WLINPUT_FOCUS_KEYMAP_HPP_INCLUDED
 #define SGE_WLINPUT_FOCUS_KEYMAP_HPP_INCLUDED
 
-#include <sge/wlinput/xkb_context_fwd.hpp>
+#include <sge/wlinput/xkb_context_ref.hpp>
 #include <sge/wlinput/focus/keymap_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -29,21 +29,24 @@ class keymap
 	);
 public:
 	keymap(
-		sge::wlinput::xkb_context const &,
+		sge::wlinput::xkb_context_ref,
 		char const *
 	);
 
 	keymap(
 		keymap &&
-	);
+	)
+	noexcept;
 
 	keymap &
 	operator=(
 		keymap &&
-	);
+	)
+	noexcept;
 
 	~keymap();
 
+	[[nodiscard]]
 	xkb_keymap *
 	get() const;
 private:

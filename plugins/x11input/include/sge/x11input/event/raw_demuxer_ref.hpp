@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_X11INPUT_EVENT_DEVICE_FUNCTION_HPP_INCLUDED
-#define SGE_X11INPUT_EVENT_DEVICE_FUNCTION_HPP_INCLUDED
+#ifndef SGE_X11INPUT_EVENT_RAW_DEMUXER_REF_HPP_INCLUDED
+#define SGE_X11INPUT_EVENT_RAW_DEMUXER_REF_HPP_INCLUDED
 
-#include <sge/x11input/event/device_function_type.hpp>
-#include <fcppt/function_impl.hpp>
+#include <sge/x11input/event/raw_demuxer_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -19,10 +19,10 @@ namespace event
 {
 
 using
-device_function
+raw_demuxer_ref
 =
-fcppt::function<
-	sge::x11input::event::device_function_type
+fcppt::reference<
+	sge::x11input::event::raw_demuxer
 >;
 
 }

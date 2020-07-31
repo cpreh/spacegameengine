@@ -15,9 +15,10 @@ namespace sge
 namespace x11input
 {
 
+[[nodiscard]]
 bool
 xi_version(
-	awl::backends::x11::display &,
+	awl::backends::x11::display &, // NOLINT(google-runtime-references)
 	int major,
 	int minor
 );

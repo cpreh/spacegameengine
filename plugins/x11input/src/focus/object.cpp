@@ -16,11 +16,13 @@
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/event/device_function.hpp>
 #include <sge/x11input/event/select.hpp>
 #include <sge/x11input/event/type_c.hpp>
 #include <sge/x11input/event/window_demuxer.hpp>
+#include <sge/x11input/event/window_demuxer_ref.hpp>
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
 #include <sge/x11input/focus/object.hpp>
@@ -33,6 +35,7 @@
 #include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/Xlib.hpp>
 #include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/object_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/connection.hpp>
@@ -41,11 +44,13 @@
 #include <fcppt/identity.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
+#include <fcppt/reference_to_const.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/make.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -55,16 +60,15 @@
 #include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::focus::object::object(
-	sge::window::object &_sge_window,
-	fcppt::log::object &_log,
-	awl::backends::x11::window::object &_window,
+	sge::window::object_ref const _sge_window,
+	fcppt::log::object_reference const _log,
+	awl::backends::x11::window::object_ref const _window,
 	sge::x11input::device::id const _id,
-	sge::x11input::event::window_demuxer &_window_demuxer,
+	sge::x11input::event::window_demuxer_ref const _window_demuxer,
 	sge::x11input::xim::const_optional_method_ref const &_xim_method
 )
 :
@@ -79,7 +83,13 @@ sge::x11input::focus::object::object(
 		_log
 	},
 	window_{
-		_window
+		fcppt::reference_to_const(
+			fcppt::reference_to_base<
+				awl::backends::x11::window::base
+			>(
+				_window
+			)
+		)
 	},
 	xim_context_{
 		fcppt::optional::map(
@@ -112,7 +122,7 @@ sge::x11input::focus::object::object(
 			)
 			{
 				return
-					_window.add_event_mask(
+					_window.get().add_event_mask(
 						sge::x11input::xim::get_filter_events(
 							*_context
 						)
@@ -121,14 +131,20 @@ sge::x11input::focus::object::object(
 		)
 	},
 	event_connection_{
-		_window_demuxer.on_event(
+		_window_demuxer.get().on_event(
 			_id,
 			sge::x11input::event::device_function{
-				std::bind(
-					&sge::x11input::focus::object::on_event,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					XIDeviceEvent const &_event
 				)
+				{
+					return
+						this->on_event(
+							_event
+						);
+				}
 			}
 		)
 	}
@@ -149,20 +165,19 @@ sge::x11input::focus::object::object(
 			>
 		>
 	>(
-		_window_demuxer,
+		_window_demuxer.get(),
 		_id
 	);
 }
 
 sge::x11input::focus::object::~object()
-{
-}
+= default;
 
 sge::window::object &
 sge::x11input::focus::object::window() const
 {
 	return
-		sge_window_;
+		sge_window_.get();
 }
 
 awl::event::container
@@ -234,7 +249,7 @@ sge::x11input::focus::object::on_key_press(
 						this->process_key_down(
 							repeated,
 							sge::x11input::key::event_to_sge_code(
-								window_.display().get(),
+								window_.get().display().get(),
 								_event
 							)
 						)
@@ -250,7 +265,7 @@ sge::x11input::focus::object::on_key_press(
 			{
 				sge::x11input::focus::looked_up_string const lookup(
 					sge::x11input::focus::lookup_string(
-						log_,
+						log_.get(),
 						*_context,
 						_event
 					)
@@ -303,7 +318,7 @@ sge::x11input::focus::object::on_key_release(
 				},
 				sge::input::focus::key{
 					sge::x11input::key::event_to_sge_code(
-						window_.display().get(),
+						window_.get().display().get(),
 						_event
 					)
 				},

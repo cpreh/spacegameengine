@@ -45,11 +45,12 @@ remove_seat(
 	awl::backends::wayland::system::seat::object const &_seat
 )
 {
-	typedef
+	using
+	object_map
+	=
 	sge::wlinput::map<
 		Object
-	>
-	object_map;
+	>;
 
 	FCPPT_PP_PUSH_WARNING
 	FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)

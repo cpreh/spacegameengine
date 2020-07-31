@@ -9,9 +9,9 @@
 
 #include <sge/x11input/cursor/grab_fwd.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <awl/backends/x11/cursor/object_fwd.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/cursor/object_ref.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -23,19 +23,19 @@ namespace cursor
 
 class grab
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		grab
 	);
 public:
 	grab(
-		awl::backends::x11::window::base const &,
+		awl::backends::x11::window::const_base_ref,
 		sge::x11input::device::id,
-		awl::backends::x11::cursor::object const &
+		awl::backends::x11::cursor::object_ref
 	);
 
 	~grab();
 private:
-	awl::backends::x11::window::base const &window_;
+	awl::backends::x11::window::const_base_ref const window_;
 
 	sge::x11input::device::id const id_;
 };

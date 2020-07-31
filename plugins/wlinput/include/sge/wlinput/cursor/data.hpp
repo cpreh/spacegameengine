@@ -9,9 +9,10 @@
 
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/wlinput/cursor/object_fwd.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/container_reference.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -23,25 +24,29 @@ namespace cursor
 
 struct data
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		data
 	);
 
 	data(
-		sge::wlinput::cursor::object &,
-		awl::backends::wayland::window::object const &,
+		fcppt::reference<
+			sge::wlinput::cursor::object
+		>,
+		awl::backends::wayland::window::object_ref,
 		awl::event::container_reference
 	);
 
 	~data();
 
-	sge::wlinput::cursor::object &cursor_;
+	fcppt::reference<
+		sge::wlinput::cursor::object
+	> const cursor_; // NOLINT(misc-non-private-member-variables-in-classes)
 
-	awl::backends::wayland::window::object const &window_;
+	awl::backends::wayland::window::object_ref const window_; // NOLINT(misc-non-private-member-variables-in-classes)
 
-	awl::event::container_reference const events_;
+	awl::event::container_reference const events_; // NOLINT(misc-non-private-member-variables-in-classes)
 
-	sge::input::cursor::optional_position position_;
+	sge::input::cursor::optional_position position_; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 }

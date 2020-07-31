@@ -6,13 +6,16 @@
 
 #include <sge/wlinput/cursor/data.hpp>
 #include <sge/wlinput/cursor/object_fwd.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/container_reference.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 sge::wlinput::cursor::data::data(
-	sge::wlinput::cursor::object &_cursor,
-	awl::backends::wayland::window::object const &_window,
+	fcppt::reference<
+		sge::wlinput::cursor::object
+	> const _cursor,
+	awl::backends::wayland::window::object_ref const _window,
 	awl::event::container_reference const _events
 )
 :
@@ -30,5 +33,4 @@ sge::wlinput::cursor::data::data(
 }
 
 sge::wlinput::cursor::data::~data()
-{
-}
+= default;

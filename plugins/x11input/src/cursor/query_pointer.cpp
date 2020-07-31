@@ -24,21 +24,19 @@ sge::x11input::cursor::query_pointer(
 	sge::x11input::device::id const &_id
 )
 {
-	Window
-		root_return,
-		child_return;
+	Window root_return{};
+	Window child_return{};
 
-	double
-		root_x_return,
-		root_y_return,
-		win_x_return,
-		win_y_return;
+	double root_x_return{};
+	double root_y_return{};
+	double win_x_return{};
+	double win_y_return{};
 
-	XIButtonState buttons_return;
+	XIButtonState buttons_return{};
 
-	XIModifierState modifiers_return;
+	XIModifierState modifiers_return{};
 
-	XIGroupState group_return;
+	XIGroupState group_return{};
 
 	if(
 		::XIQueryPointer(
@@ -57,15 +55,18 @@ sge::x11input::cursor::query_pointer(
 		)
 		== False
 	)
+	{
 		return
 			sge::input::cursor::optional_position();
+	}
 
-	typedef
+	using
+	scoped_mask
+	=
 	fcppt::unique_ptr<
 		unsigned char,
 		awl::backends::x11::deleter
-	>
-	scoped_mask;
+	>;
 
 	scoped_mask const scoped_buttons_mask(
 		buttons_return.mask

@@ -26,7 +26,9 @@ namespace device
 namespace valuator
 {
 
-typedef
+using
+iterator_base
+=
 fcppt::iterator::base<
 	fcppt::iterator::types<
 		sge::x11input::device::valuator::iterator,
@@ -35,8 +37,7 @@ fcppt::iterator::base<
 		std::ptrdiff_t,
 		std::input_iterator_tag
 	>
->
-iterator_base;
+>;
 
 }
 }

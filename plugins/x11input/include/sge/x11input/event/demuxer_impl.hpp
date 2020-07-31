@@ -10,7 +10,7 @@
 #include <sge/window/event_combiner.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/event/demuxer_decl.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/function_impl.hpp>
@@ -38,7 +38,7 @@ template<
 sge::x11input::event::demuxer<
 	Event
 >::demuxer(
-	awl::backends::x11::window::base const &_window
+	awl::backends::x11::window::const_base_ref const _window
 )
 :
 	window_{
@@ -54,8 +54,7 @@ template<
 sge::x11input::event::demuxer<
 	Event
 >::~demuxer()
-{
-}
+= default;
 
 template<
 	typename Event
@@ -66,7 +65,7 @@ sge::x11input::event::demuxer<
 >::window() const
 {
 	return
-		window_;
+		window_.get();
 }
 
 template<
@@ -124,9 +123,11 @@ sge::x11input::event::demuxer<
 							if(
 								_it->second.empty()
 							)
+							{
 								signals_.erase(
 									_it
 								);
+							}
 						}
 					);
 				}

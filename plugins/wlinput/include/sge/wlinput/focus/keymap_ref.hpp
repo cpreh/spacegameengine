@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_WLINPUT_FOCUS_CREATE_FUNCTION_HPP_INCLUDED
-#define SGE_WLINPUT_FOCUS_CREATE_FUNCTION_HPP_INCLUDED
+#ifndef SGE_WLINPUT_FOCUS_KEYMAP_REF_HPP_INCLUDED
+#define SGE_WLINPUT_FOCUS_KEYMAP_REF_HPP_INCLUDED
 
-#include <sge/wlinput/create_function.hpp>
-#include <sge/wlinput/focus/object_fwd.hpp>
+#include <sge/wlinput/focus/keymap_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
@@ -19,10 +19,10 @@ namespace focus
 {
 
 using
-create_function
+keymap_ref
 =
-sge::wlinput::create_function<
-	sge::wlinput::focus::object
+fcppt::reference<
+	sge::wlinput::focus::keymap
 >;
 
 }

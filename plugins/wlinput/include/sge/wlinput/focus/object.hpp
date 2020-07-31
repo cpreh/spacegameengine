@@ -10,17 +10,18 @@
 #include <sge/input/focus/object.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <sge/wlinput/xkb_context_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <sge/wlinput/xkb_context_ref.hpp>
 #include <sge/wlinput/focus/data.hpp>
 #include <sge/wlinput/focus/holder.hpp>
 #include <sge/wlinput/focus/object_fwd.hpp>
-#include <awl/backends/wayland/seat_fwd.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/backends/wayland/seat_ref.hpp>
+#include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/container_reference.hpp>
 #include <fcppt/enable_shared_from_this_decl.hpp>
-#include <fcppt/noncopyable.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
 
@@ -31,7 +32,7 @@ namespace wlinput
 namespace focus
 {
 
-class object
+class object // NOLINT(fuchsia-multiple-inheritance)
 :
 	public
 		sge::input::focus::object,
@@ -40,29 +41,32 @@ class object
 			sge::wlinput::focus::object
 		>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	object(
-		fcppt::log::object &,
-		sge::window::object &,
-		sge::wlinput::xkb_context const &,
-		awl::backends::wayland::window::object const &,
+		fcppt::log::object_reference,
+		sge::window::object_ref,
+		sge::wlinput::xkb_context_ref,
+		awl::backends::wayland::window::object_ref,
 		awl::event::container_reference,
-		awl::backends::wayland::seat const &
+		awl::backends::wayland::seat_ref
 	);
 
 	~object()
 	override;
 
+	[[nodiscard]]
 	sge::window::object &
 	window() const
 	override;
 
+	[[nodiscard]]
 	sge::input::focus::shared_ptr
 	get_shared_ptr();
 private:
+	[[nodiscard]]
 	awl::event::container
 	on_key_repeat();
 

@@ -18,11 +18,12 @@ namespace x11input
 namespace focus
 {
 
-typedef
+using
+char_vector
+=
 fcppt::container::raw_vector::object<
 	sge::input::focus::char_type
->
-char_vector;
+>;
 
 }
 }

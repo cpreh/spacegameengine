@@ -18,11 +18,12 @@ namespace x11input
 namespace cursor
 {
 
-typedef
+using
+grab_unique_ptr
+=
 fcppt::unique_ptr<
 	sge::x11input::cursor::grab
->
-grab_unique_ptr;
+>;
 
 }
 }

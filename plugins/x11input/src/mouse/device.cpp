@@ -13,6 +13,7 @@
 #include <sge/input/mouse/event/axis.hpp>
 #include <sge/input/mouse/event/button.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/valuator/accu.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
@@ -20,10 +21,12 @@
 #include <sge/x11input/device/valuator/range.hpp>
 #include <sge/x11input/event/device_function.hpp>
 #include <sge/x11input/event/raw_demuxer.hpp>
+#include <sge/x11input/event/raw_demuxer_ref.hpp>
 #include <sge/x11input/event/raw_function.hpp>
 #include <sge/x11input/event/select.hpp>
 #include <sge/x11input/event/type_c.hpp>
 #include <sge/x11input/event/window_demuxer.hpp>
+#include <sge/x11input/event/window_demuxer_ref.hpp>
 #include <sge/x11input/mouse/axis.hpp>
 #include <sge/x11input/mouse/axis_value.hpp>
 #include <sge/x11input/mouse/axis_value_accu_pair.hpp>
@@ -31,11 +34,13 @@
 #include <sge/x11input/mouse/device.hpp>
 #include <sge/x11input/mouse/info.hpp>
 #include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -46,16 +51,15 @@
 #include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::mouse::device::device(
-	sge::window::object &_sge_window,
-	awl::backends::x11::window::base const &_window,
+	sge::window::object_ref const _sge_window,
+	awl::backends::x11::window::const_base_ref const _window,
 	XIDeviceInfo const &_info,
-	sge::x11input::event::window_demuxer &_window_demuxer,
-	sge::x11input::event::raw_demuxer &_raw_demuxer
+	sge::x11input::event::window_demuxer_ref const _window_demuxer,
+	sge::x11input::event::raw_demuxer_ref const _raw_demuxer
 )
 :
 	sge::input::mouse::device{},
@@ -68,35 +72,47 @@ sge::x11input::mouse::device::device(
 	accus_{},
 	info_{
 		sge::x11input::mouse::info(
-			_window.display().get(),
+			_window.get().display().get(),
 			_info
 		)
 	},
 	event_connection_{
-		_window_demuxer.on_event(
+		_window_demuxer.get().on_event(
 			sge::x11input::device::id{
 				_info.deviceid
 			},
 			sge::x11input::event::device_function{
-				std::bind(
-					&sge::x11input::mouse::device::on_event,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					XIDeviceEvent const &_event
 				)
+				{
+					return
+						this->on_event(
+							_event
+						);
+				}
 			}
 		)
 	},
 	raw_event_connection_{
-		_raw_demuxer.on_event(
+		_raw_demuxer.get().on_event(
 			sge::x11input::device::id{
 				_info.deviceid
 			},
 			sge::x11input::event::raw_function{
-				std::bind(
-					&sge::x11input::mouse::device::on_raw_event,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					XIRawEvent const &_event
 				)
+				{
+					return
+						this->on_raw_event(
+							_event
+						);
+				}
 			}
 		)
 	}
@@ -115,7 +131,7 @@ sge::x11input::mouse::device::device(
 			>
 		>
 	>(
-		_window_demuxer,
+		_window_demuxer.get(),
 		id
 	);
 
@@ -126,20 +142,19 @@ sge::x11input::mouse::device::device(
 			>
 		>
 	>(
-		_raw_demuxer,
+		_raw_demuxer.get(),
 		id
 	);
 }
 
 sge::x11input::mouse::device::~device()
-{
-}
+= default;
 
 sge::window::object &
 sge::x11input::mouse::device::window() const
 {
 	return
-		sge_window_;
+		sge_window_.get();
 }
 
 sge::input::mouse::info const &
@@ -210,7 +225,9 @@ sge::x11input::mouse::device::on_motion(
 			awl::event::container
 		>(
 			sge::x11input::device::valuator::range(
-				_event.valuators
+				fcppt::make_cref(
+					_event.valuators
+				)
 			),
 			[
 				this
@@ -311,11 +328,13 @@ sge::x11input::mouse::device::button_event(
 {
 	return
 		fcppt::optional::make_if(
-			!(
-				_event.flags
+			(
+				_event.flags // NOLINT(hicpp-signed-bitwise)
 				&
-				XIPointerEmulated
-			),
+				XIPointerEmulated // NOLINT(hicpp-signed-bitwise)
+			)
+			==
+			0,
 			[
 				this,
 				&_event,

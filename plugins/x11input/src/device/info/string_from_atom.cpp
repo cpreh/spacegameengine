@@ -8,6 +8,7 @@
 #include <sge/x11input/device/info/string_from_atom.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -28,7 +29,9 @@ sge::x11input::device::info::string_from_atom(
 			fcppt::optional_string(
 				fcppt::from_std_string(
 					sge::x11input::atom_name(
-						_display,
+						fcppt::make_ref(
+							_display
+						),
 						_atom
 					).get()
 				)

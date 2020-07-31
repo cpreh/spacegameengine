@@ -27,6 +27,7 @@
 #include <sge/input/mouse/event/discover.hpp>
 #include <sge/input/mouse/event/remove.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <sge/x11input/opcode.hpp>
@@ -52,15 +53,19 @@
 #include <awl/backends/x11/cursor/create_invisible.hpp>
 #include <awl/backends/x11/cursor/object.hpp>
 #include <awl/backends/x11/system/event/generic.hpp>
+#include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/backends/x11/window/root.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_to_base.hpp>
+#include <fcppt/reference_to_const.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -72,7 +77,7 @@
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/container/map_values_copy.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/metal/set/to_list.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/cat.hpp>
@@ -91,8 +96,8 @@
 
 
 sge::x11input::processor::processor(
-	fcppt::log::object &_log,
-	sge::window::object &_window,
+	fcppt::log::object_reference const _log,
+	sge::window::object_ref const _window,
 	sge::x11input::opcode const _opcode
 )
 :
@@ -109,31 +114,39 @@ sge::x11input::processor::processor(
 		fcppt::cast::dynamic_exn<
 			awl::backends::x11::window::object &
 		>(
-			_window.awl_object()
+			_window.get().awl_object()
 		)
 	},
 	root_window_{
 		awl::backends::x11::window::root(
-			x11_window_.display(),
-			x11_window_.screen()
+			x11_window_.get().display(),
+			x11_window_.get().screen()
 		)
 	},
 	invisible_cursor_{
 		awl::backends::x11::cursor::create_invisible(
-			x11_window_.display()
+			x11_window_.get().display()
 		)
 	},
 	xim_method_{
 		sge::x11input::xim::create_method_opt(
-			_log,
-			x11_window_.display().get()
+			_log.get(),
+			x11_window_.get().display()
 		)
 	},
 	window_demuxer_{
-		x11_window_
+		fcppt::reference_to_const(
+			fcppt::reference_to_base<
+				awl::backends::x11::window::base
+			>(
+				x11_window_
+			)
+		)
 	},
 	raw_demuxer_{
-		*root_window_
+		fcppt::make_cref(
+			*root_window_
+		)
 	},
 	foci_{},
 	keyboards_{},
@@ -230,7 +243,7 @@ sge::x11input::processor::processor(
 		)
 	),
 	event_connection_{
-		_window.system().event_handler(
+		_window.get().system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -248,7 +261,7 @@ sge::x11input::processor::processor(
 	}
 {
 	sge::x11input::device::info::multi const current_devices(
-		x11_window_.display().get()
+		x11_window_.get().display()
 	);
 
 	for(
@@ -256,20 +269,21 @@ sge::x11input::processor::processor(
 		:
 		current_devices
 	)
+	{
 		this->add_device(
 			device
 		);
+	}
 }
 
 sge::x11input::processor::~processor()
-{
-}
+= default;
 
 sge::window::object &
 sge::x11input::processor::window() const
 {
 	return
-		window_;
+		window_.get();
 }
 
 sge::input::cursor::container
@@ -432,6 +446,7 @@ sge::x11input::processor::hierarchy_event(
 				{
 					return
 						this->hierarchy_info(
+							// NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 							_event.info[
 								_index
 							]
@@ -447,17 +462,13 @@ sge::x11input::processor::hierarchy_info(
 )
 {
 	if(
-		_info.flags
-		&
-		XIMasterAdded
+		(_info.flags & XIMasterAdded) != 0 // NOLINT(hicpp-signed-bitwise)
 		||
-		_info.flags
-		&
-		XISlaveAdded
+		(_info.flags & XISlaveAdded) != 0 // NOLINT(hicpp-signed-bitwise)
 	)
 	{
 		sge::x11input::device::info::single const info{
-			x11_window_.display().get(),
+			x11_window_.get().display(),
 			sge::x11input::device::id{
 				_info.deviceid
 			}
@@ -481,19 +492,18 @@ sge::x11input::processor::hierarchy_info(
 				}
 			);
 	}
-	else if(
-		_info.flags
-		&
-		XIMasterRemoved
+
+	if(
+		(_info.flags & XIMasterRemoved) != 0 // NOLINT(hicpp-signed-bitwise)
 		||
-		_info.flags
-		&
-		XISlaveRemoved
+		(_info.flags & XISlaveRemoved) != 0 // NOLINT(hicpp-signed-bitwise)
 	)
+	{
 		return
 			this->remove_device(
 				_info
 			);
+	}
 
 	return
 		awl::event::optional_base_unique_ptr{};
@@ -597,7 +607,9 @@ sge::x11input::processor::remove_device(
 						sge::input::focus::event::remove
 					>(
 						sge::x11input::device::remove(
-							foci_,
+							fcppt::make_ref(
+								foci_
+							),
 							id
 						)
 					)
@@ -613,7 +625,9 @@ sge::x11input::processor::remove_device(
 						sge::input::keyboard::event::remove
 					>(
 						sge::x11input::device::remove(
-							keyboards_,
+							fcppt::make_ref(
+								keyboards_
+							),
 							id
 						)
 					)
@@ -629,7 +643,9 @@ sge::x11input::processor::remove_device(
 						sge::input::cursor::event::remove
 					>(
 						sge::x11input::device::remove(
-							cursors_,
+							fcppt::make_ref(
+								cursors_
+							),
 							id
 						)
 					)
@@ -645,7 +661,9 @@ sge::x11input::processor::remove_device(
 						sge::input::mouse::event::remove
 					>(
 						sge::x11input::device::remove(
-							mice_,
+							fcppt::make_ref(
+								mice_
+							),
 							id
 						)
 					)
@@ -680,7 +698,9 @@ sge::x11input::processor::add_focus(
 					sge::x11input::device::id{
 						_info.deviceid
 					},
-					window_demuxer_,
+					fcppt::make_ref(
+						window_demuxer_
+					),
 					fcppt::optional::map(
 						fcppt::optional::deref(
 							xim_method_
@@ -723,8 +743,16 @@ sge::x11input::processor::add_keyboard(
 					sge::x11input::device::id{
 						_info.deviceid
 					},
-					x11_window_,
-					window_demuxer_
+					fcppt::reference_to_const(
+						fcppt::reference_to_base<
+							awl::backends::x11::window::base
+						>(
+							x11_window_
+						)
+					),
+					fcppt::make_ref(
+						window_demuxer_
+					)
 				)
 			}
 		);
@@ -749,10 +777,20 @@ sge::x11input::processor::add_cursor(
 				>(
 					window_,
 					log_,
-					x11_window_,
+					fcppt::reference_to_const(
+						fcppt::reference_to_base<
+							awl::backends::x11::window::base
+						>(
+							x11_window_
+						)
+					),
 					_info,
-					window_demuxer_,
-					*invisible_cursor_
+					fcppt::make_ref(
+						window_demuxer_
+					),
+					fcppt::make_ref(
+						*invisible_cursor_
+					)
 				)
 			}
 		);
@@ -776,10 +814,20 @@ sge::x11input::processor::add_mouse(
 					sge::x11input::mouse::device
 				>(
 					window_,
-					x11_window_,
+					fcppt::reference_to_const(
+						fcppt::reference_to_base<
+							awl::backends::x11::window::base
+						>(
+							x11_window_
+						)
+					),
 					_info,
-					window_demuxer_,
-					raw_demuxer_
+					fcppt::make_ref(
+						window_demuxer_
+					),
+					fcppt::make_ref(
+						raw_demuxer_
+					)
 				)
 			}
 		);

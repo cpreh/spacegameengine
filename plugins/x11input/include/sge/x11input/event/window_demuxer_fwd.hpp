@@ -20,11 +20,12 @@ namespace x11input
 namespace event
 {
 
-typedef
+using
+window_demuxer
+=
 sge::x11input::event::demuxer<
 	XIDeviceEvent
->
-window_demuxer;
+>;
 
 }
 }

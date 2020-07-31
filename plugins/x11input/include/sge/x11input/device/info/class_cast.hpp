@@ -52,6 +52,7 @@ class_cast(
 	FCPPT_PP_DISABLE_GCC_WARNING(-Wstrict-aliasing)
 
 	return
+		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
 		reinterpret_cast<
 			Result
 		>(

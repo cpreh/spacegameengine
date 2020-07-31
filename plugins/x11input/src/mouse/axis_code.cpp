@@ -34,24 +34,30 @@ sge::x11input::mouse::axis_code(
 					||
 					_name == FCPPT_TEXT("Abs X")
 				)
+				{
 					return
 						sge::input::mouse::axis_code::x;
+				}
 
 				if(
 					_name == FCPPT_TEXT("Rel Y")
 					||
 					_name == FCPPT_TEXT("Abs Y")
 				)
+				{
 					return
 						sge::input::mouse::axis_code::y;
+				}
 
 				if(
 					_name == FCPPT_TEXT("Rel Z")
 					||
 					_name == FCPPT_TEXT("Abs Z")
 				)
+				{
 					return
 						sge::input::mouse::axis_code::wheel;
+				}
 
 				return
 					sge::input::mouse::axis_code::unknown;

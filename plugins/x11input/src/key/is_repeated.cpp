@@ -25,7 +25,7 @@ sge::x11input::key::is_repeated(
 				_event.flags,
 				fcppt::bit::mask_c<
 					int,
-					XIKeyRepeat
+					XIKeyRepeat // NOLINT(hicpp-signed-bitwise)
 				>()
 			)
 		};

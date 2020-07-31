@@ -4,37 +4,37 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/window/object_fwd.hpp>
-#include <sge/wlinput/xkb_context_fwd.hpp>
+#include <sge/window/object_ref.hpp>
+#include <sge/wlinput/xkb_context_ref.hpp>
 #include <sge/wlinput/focus/create.hpp>
 #include <sge/wlinput/focus/create_function.hpp>
 #include <sge/wlinput/focus/object.hpp>
-#include <awl/backends/wayland/seat_fwd.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/backends/wayland/seat_ref.hpp>
+#include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/container_reference.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 
 
 sge::wlinput::focus::create_function
 sge::wlinput::focus::create(
-	fcppt::log::object &_log,
-	sge::window::object &_sge_window,
-	sge::wlinput::xkb_context const &_context,
-	awl::backends::wayland::window::object const &_window,
+	fcppt::log::object_reference const _log,
+	sge::window::object_ref const _sge_window,
+	sge::wlinput::xkb_context_ref const _context,
+	awl::backends::wayland::window::object_ref const _window,
 	awl::event::container_reference const _events
 )
 {
 	return
 		sge::wlinput::focus::create_function{
 			[
-				&_log,
-				&_sge_window,
-				&_context,
-				&_window,
+				_log,
+				_sge_window,
+				_context,
+				_window,
 				_events
 			](
-				awl::backends::wayland::seat const &_seat
+				awl::backends::wayland::seat_ref const _seat
 			)
 			{
 				return

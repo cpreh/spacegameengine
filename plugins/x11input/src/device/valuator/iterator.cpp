@@ -45,7 +45,7 @@ sge::x11input::device::valuator::iterator::increment()
 {
 	++index_;
 
-	++valuator_;
+	++valuator_; // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 
 	this->index_to_next_valuator();
 
@@ -91,6 +91,8 @@ sge::x11input::device::valuator::iterator::index_to_next_valuator()
 				index_.get()
 			)
 		)
+		{
 			return;
+		}
 	}
 }

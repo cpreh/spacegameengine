@@ -7,7 +7,7 @@
 #ifndef SGE_WLINPUT_FOCUS_STATE_HPP_INCLUDED
 #define SGE_WLINPUT_FOCUS_STATE_HPP_INCLUDED
 
-#include <sge/wlinput/focus/keymap_fwd.hpp>
+#include <sge/wlinput/focus/keymap_ref.hpp>
 #include <sge/wlinput/focus/state_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -30,20 +30,23 @@ class state
 public:
 	explicit
 	state(
-		sge::wlinput::focus::keymap const &
+		sge::wlinput::focus::keymap_ref
 	);
 
 	state(
 		state &&
-	);
+	)
+	noexcept;
 
 	state &
 	operator=(
 		state &&
-	);
+	)
+	noexcept;
 
 	~state();
 
+	[[nodiscard]]
 	xkb_state *
 	get() const;
 private:

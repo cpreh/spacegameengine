@@ -77,6 +77,7 @@ set(
 	plugins/x11input/include/sge/x11input/event/make_handler.hpp
 	plugins/x11input/include/sge/x11input/event/raw_demuxer.hpp
 	plugins/x11input/include/sge/x11input/event/raw_demuxer_fwd.hpp
+	plugins/x11input/include/sge/x11input/event/raw_demuxer_ref.hpp
 	plugins/x11input/include/sge/x11input/event/raw_function.hpp
 	plugins/x11input/include/sge/x11input/event/raw_function_type.hpp
 	plugins/x11input/include/sge/x11input/event/select.hpp
@@ -87,6 +88,7 @@ set(
 	plugins/x11input/include/sge/x11input/event/type_container.hpp
 	plugins/x11input/include/sge/x11input/event/window_demuxer.hpp
 	plugins/x11input/include/sge/x11input/event/window_demuxer_fwd.hpp
+	plugins/x11input/include/sge/x11input/event/window_demuxer_ref.hpp
 	plugins/x11input/include/sge/x11input/focus/char_vector.hpp
 	plugins/x11input/include/sge/x11input/focus/char_vector_fwd.hpp
 	plugins/x11input/include/sge/x11input/focus/looked_up_string.hpp

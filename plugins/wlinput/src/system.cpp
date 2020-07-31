@@ -14,6 +14,7 @@
 #include <sge/window/object_ref.hpp>
 #include <sge/wlinput/processor.hpp>
 #include <sge/wlinput/system.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -39,8 +40,7 @@ sge::wlinput::system::system(
 }
 
 sge::wlinput::system::~system()
-{
-}
+= default;
 
 sge::input::processor_unique_ptr
 sge::wlinput::system::create_processor(
@@ -54,8 +54,10 @@ sge::wlinput::system::create_processor(
 			fcppt::make_unique_ptr<
 				sge::wlinput::processor
 			>(
-				log_,
-				_window.get() // TODO
+				fcppt::make_ref(
+					log_
+				),
+				_window
 			)
 		);
 }

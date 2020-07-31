@@ -8,7 +8,7 @@
 #define SGE_WLINPUT_XKB_CONTEXT_HPP_INCLUDED
 
 #include <sge/wlinput/xkb_context_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <xkbcommon/xkbcommon.h>
 #include <fcppt/config/external_end.hpp>
@@ -21,7 +21,7 @@ namespace wlinput
 
 class xkb_context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		xkb_context
 	);
 public:
@@ -29,6 +29,7 @@ public:
 
 	~xkb_context();
 
+	[[nodiscard]]
 	::xkb_context *
 	get() const;
 private:

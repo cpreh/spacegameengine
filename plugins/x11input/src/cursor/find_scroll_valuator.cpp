@@ -44,6 +44,7 @@ sge::x11input::cursor::find_scroll_valuator(
 							sge::x11input::device::info::class_maybe<
 								XIValuatorClassInfo
 							>(
+								// NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 								*_info.classes[
 									_index
 								]
@@ -56,11 +57,12 @@ sge::x11input::cursor::find_scroll_valuator(
 								> const _valuator_class
 							)
 							{
-								typedef
+								using
+								result_type
+								=
 								fcppt::optional::reference<
 									XIValuatorClassInfo const
-								>
-								result_type;
+								>;
 
 								return
 									_valuator_class.get().number

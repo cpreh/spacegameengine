@@ -20,11 +20,12 @@ namespace x11input
 namespace event
 {
 
-typedef
+using
+raw_demuxer
+=
 sge::x11input::event::demuxer<
 	XIRawEvent
->
-raw_demuxer;
+>;
 
 }
 }

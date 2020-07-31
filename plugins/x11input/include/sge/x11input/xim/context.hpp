@@ -8,8 +8,8 @@
 #define SGE_X11INPUT_XIM_CONTEXT_HPP_INCLUDED
 
 #include <sge/x11input/xim/context_fwd.hpp>
-#include <awl/backends/x11/window/object_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/window/object_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
@@ -24,21 +24,22 @@ namespace xim
 
 class context
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		context
 	);
 public:
 	context(
 		XIM,
-		awl::backends::x11::window::object const &
+		awl::backends::x11::window::object_ref
 	);
 
 	~context();
 
+	[[nodiscard]]
 	XIC
 	get() const;
 private:
-	XIC const xic_;
+	XIC const xic_; // NOLINT(misc-misplaced-const)
 };
 
 }

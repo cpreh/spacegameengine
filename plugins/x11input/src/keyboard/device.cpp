@@ -8,15 +8,19 @@
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/keyboard/event/key.hpp>
+#include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/event/device_function.hpp>
 #include <sge/x11input/event/select.hpp>
 #include <sge/x11input/event/type_c.hpp>
 #include <sge/x11input/event/window_demuxer.hpp>
+#include <sge/x11input/event/window_demuxer_ref.hpp>
 #include <sge/x11input/key/is_repeated.hpp>
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/keyboard/key_from_event.hpp>
 #include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
@@ -31,15 +35,14 @@
 #include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::keyboard::device::device(
-	sge::window::object &_sge_window,
+	sge::window::object_ref const _sge_window,
 	sge::x11input::device::id const _id,
-	awl::backends::x11::window::base const &_window,
-	sge::x11input::event::window_demuxer &_window_demuxer
+	awl::backends::x11::window::const_base_ref const _window,
+	sge::x11input::event::window_demuxer_ref const _window_demuxer
 )
 :
 	sge::input::keyboard::device{},
@@ -53,14 +56,20 @@ sge::x11input::keyboard::device::device(
 		_window
 	},
 	event_connection_{
-		_window_demuxer.on_event(
+		_window_demuxer.get().on_event(
 			_id,
 			sge::x11input::event::device_function{
-				std::bind(
-					&sge::x11input::keyboard::device::on_event,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					XIDeviceEvent const &_event
 				)
+				{
+					return
+						this->on_event(
+							_event
+						);
+				}
 			}
 		)
 	}
@@ -75,20 +84,19 @@ sge::x11input::keyboard::device::device(
 			>
 		>
 	>(
-		_window_demuxer,
+		_window_demuxer.get(),
 		_id
 	);
 }
 
 sge::x11input::keyboard::device::~device()
-{
-}
+= default;
 
 sge::window::object &
 sge::x11input::keyboard::device::window() const
 {
 	return
-		sge_window_;
+		sge_window_.get();
 }
 
 awl::event::container
@@ -184,7 +192,7 @@ sge::x11input::keyboard::device::make_key_event(
 					this->fcppt_shared_from_this()
 				},
 				sge::x11input::keyboard::key_from_event(
-					window_.display().get(),
+					window_.get().display().get(),
 					_event
 				),
 				_pressed

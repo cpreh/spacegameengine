@@ -28,6 +28,8 @@ sge::wlinput::cursor::scroll_code(
 	case WL_POINTER_AXIS_HORIZONTAL_SCROLL:
 		return
 			sge::input::cursor::scroll_code::horizontal;
+	default:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -12,14 +12,15 @@
 #include <sge/input/cursor/optional_position_fwd.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wlinput/cursor/data.hpp>
 #include <sge/wlinput/cursor/holder.hpp>
 #include <sge/wlinput/cursor/object_fwd.hpp>
-#include <awl/backends/wayland/seat_fwd.hpp>
-#include <awl/backends/wayland/window/object_fwd.hpp>
+#include <awl/backends/wayland/seat_ref.hpp>
+#include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/container_reference.hpp>
 #include <fcppt/enable_shared_from_this_decl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -29,7 +30,7 @@ namespace wlinput
 namespace cursor
 {
 
-class object
+class object // NOLINT(fuchsia-multiple-inheritance)
 :
 	public
 		sge::input::cursor::object,
@@ -38,24 +39,26 @@ class object
 			sge::wlinput::cursor::object
 		>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
 	object(
-		sge::window::object &,
-		awl::backends::wayland::window::object const &,
+		sge::window::object_ref,
+		awl::backends::wayland::window::object_ref,
 		awl::event::container_reference,
-		awl::backends::wayland::seat const &
+		awl::backends::wayland::seat_ref
 	);
 
 	~object()
 	override;
 
+	[[nodiscard]]
 	sge::window::object &
 	window() const
 	override;
 
+	[[nodiscard]]
 	sge::input::cursor::optional_position
 	position() const
 	override;
@@ -66,10 +69,11 @@ public:
 	)
 	override;
 
+	[[nodiscard]]
 	sge::input::cursor::shared_ptr
 	get_shared_ptr();
 private:
-	sge::window::object &window_;
+	sge::window::object_ref const window_;
 
 	sge::wlinput::cursor::holder const impl_;
 

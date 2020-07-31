@@ -30,6 +30,7 @@ public:
 		sge::x11input::device::valuator::accu
 	);
 
+	[[nodiscard]]
 	sge::x11input::device::valuator::accu
 	accu() const;
 private:

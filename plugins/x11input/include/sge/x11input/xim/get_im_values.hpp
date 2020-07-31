@@ -34,7 +34,7 @@ get_im_values(
 )
 {
 	char const *const result{
-		::XGetIMValues(
+		::XGetIMValues( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_method.get(),
 			std::forward<
 				Args
@@ -50,6 +50,7 @@ get_im_values(
 		!=
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("XGetIMValues failed with ")
@@ -58,6 +59,7 @@ get_im_values(
 					result
 				)
 			};
+	}
 }
 
 }

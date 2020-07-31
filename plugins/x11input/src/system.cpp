@@ -21,6 +21,7 @@
 #include <sge/x11input/xi_version.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/window/object.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -48,8 +49,7 @@ sge::x11input::system::system(
 }
 
 sge::x11input::system::~system()
-{
-}
+= default;
 
 sge::input::processor_unique_ptr
 sge::x11input::system::create_processor(
@@ -86,10 +86,12 @@ sge::x11input::system::create_processor(
 			1
 		)
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("The X server doesn't support XI2.1!")
 			};
+	}
 
 	return
 		fcppt::unique_ptr_to_base<
@@ -98,8 +100,10 @@ sge::x11input::system::create_processor(
 			fcppt::make_unique_ptr<
 				sge::x11input::processor
 			>(
-				log_,
-				_window.get(), // TODO
+				fcppt::make_ref(
+					log_
+				),
+				_window,
 				opcode
 			)
 		);

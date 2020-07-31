@@ -17,6 +17,7 @@
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/window/object.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <sge/wlinput/change_caps.hpp>
@@ -51,7 +52,7 @@
 #include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/container/join.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
@@ -62,8 +63,8 @@
 
 
 sge::wlinput::processor::processor(
-	fcppt::log::object &_log,
-	sge::window::object &_window
+	fcppt::log::object_reference const _log,
+	sge::window::object_ref const _window
 )
 :
 	sge::input::processor{},
@@ -74,7 +75,7 @@ sge::wlinput::processor::processor(
 		fcppt::cast::dynamic_exn<
 			awl::backends::wayland::system::event::processor &
 		>(
-			_window.system().awl_system().processor()
+			_window.get().system().awl_system().processor()
 		)
 	},
 	sge_window_{
@@ -84,19 +85,19 @@ sge::wlinput::processor::processor(
 		fcppt::cast::dynamic_exn<
 			awl::backends::wayland::window::object &
 		>(
-			_window.awl_object()
+			_window.get().awl_object()
 		)
 	},
 	display_{
 		fcppt::cast::dynamic_exn<
 			awl::backends::wayland::system::object &
 		>(
-			_window.system().awl_system()
+			_window.get().system().awl_system()
 		).display()
 	},
 	fd_{
 		awl::backends::wayland::display_fd(
-			display_
+			display_.get()
 		)
 	},
 	xkb_context_{},
@@ -113,7 +114,7 @@ sge::wlinput::processor::processor(
 					last_events_
 				)
 			),
-			system_processor_.seats()
+			system_processor_.get().seats()
 		)
 	),
 	foci_(
@@ -124,22 +125,24 @@ sge::wlinput::processor::processor(
 			sge::wlinput::focus::create(
 				_log,
 				sge_window_,
-				xkb_context_,
+				fcppt::make_ref(
+					xkb_context_
+				),
 				window_,
 				fcppt::make_ref(
 					last_events_
 				)
 			),
-			system_processor_.seats()
+			system_processor_.get().seats()
 		)
 	),
 	fd_connection_{
-		system_processor_.fd_processor().register_fd(
+		system_processor_.get().fd_processor().register_fd(
 			this->fd_
 		)
 	},
 	event_connection_{
-		_window.system().event_handler(
+		_window.get().system().event_handler(
 			sge::window::system_event_function{
 				[
 					this
@@ -159,14 +162,13 @@ sge::wlinput::processor::processor(
 }
 
 sge::wlinput::processor::~processor()
-{
-}
+= default;
 
 sge::window::object &
 sge::wlinput::processor::window() const
 {
 	return
-		sge_window_;
+		sge_window_.get();
 }
 
 sge::input::cursor::container
@@ -268,7 +270,7 @@ sge::wlinput::processor::on_event(
 							> const _seat_caps
 						){
 							return
-								this->display_
+								this->display_.get()
 								==
 								_seat_caps.get().display()
 								?
@@ -288,7 +290,7 @@ sge::wlinput::processor::on_event(
 						)
 						{
 							return
-								this->display_
+								this->display_.get()
 								==
 								_seat_removed.get().display()
 								?
@@ -336,7 +338,7 @@ sge::wlinput::processor::seat_caps(
 	awl::backends::wayland::system::event::seat_caps const &_event
 )
 {
-	awl::backends::wayland::system::seat::object const &seat{
+	awl::backends::wayland::system::seat::object &seat{
 		*_event.get()
 	};
 
@@ -354,14 +356,20 @@ sge::wlinput::processor::seat_caps(
 					sge::wlinput::focus::create(
 						log_,
 						sge_window_,
-						xkb_context_,
+						fcppt::make_ref(
+							xkb_context_
+						),
 						window_,
 						fcppt::make_ref(
 							last_events_
 						)
 					),
-					foci_,
-					seat
+					fcppt::make_ref(
+						foci_
+					),
+					fcppt::make_ref(
+						seat
+					)
 				)
 			),
 			fcppt::optional::to_container<
@@ -380,8 +388,12 @@ sge::wlinput::processor::seat_caps(
 							last_events_
 						)
 					),
-					cursors_,
-					seat
+					fcppt::make_ref(
+						cursors_
+					),
+					fcppt::make_ref(
+						seat
+					)
 				)
 			)
 		);

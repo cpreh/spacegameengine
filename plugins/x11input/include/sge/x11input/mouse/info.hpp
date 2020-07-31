@@ -23,7 +23,7 @@ namespace mouse
 
 sge::input::mouse::info
 info(
-	awl::backends::x11::display &,
+	awl::backends::x11::display &, // NOLINT(google-runtime-references)
 	XIDeviceInfo const &
 );
 

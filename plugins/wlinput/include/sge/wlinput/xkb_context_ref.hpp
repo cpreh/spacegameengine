@@ -4,23 +4,23 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_X11INPUT_OPTIONAL_OPCODE_FWD_HPP_INCLUDED
-#define SGE_X11INPUT_OPTIONAL_OPCODE_FWD_HPP_INCLUDED
+#ifndef SGE_WLINPUT_XKB_CONTEXT_REF_HPP_INCLUDED
+#define SGE_WLINPUT_XKB_CONTEXT_REF_HPP_INCLUDED
 
-#include <sge/x11input/opcode.hpp>
-#include <fcppt/optional/object_fwd.hpp>
+#include <sge/wlinput/xkb_context_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
-namespace x11input
+namespace wlinput
 {
 
 using
-optional_opcode
+xkb_context_ref
 =
-fcppt::optional::object<
-	sge::x11input::opcode
+fcppt::reference<
+	sge::wlinput::xkb_context
 >;
 
 }

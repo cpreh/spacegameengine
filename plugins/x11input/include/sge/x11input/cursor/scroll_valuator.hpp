@@ -29,9 +29,11 @@ public:
 		sge::input::cursor::scroll_code
 	);
 
+	[[nodiscard]]
 	sge::input::cursor::scroll_code
 	code() const;
 
+	[[nodiscard]]
 	sge::input::cursor::scroll_value
 	update(
 		sge::x11input::device::valuator::value

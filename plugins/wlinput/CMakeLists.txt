@@ -22,6 +22,7 @@ set(
 	plugins/wlinput/include/sge/wlinput/focus/key_pressed.hpp
 	plugins/wlinput/include/sge/wlinput/focus/keymap.hpp
 	plugins/wlinput/include/sge/wlinput/focus/keymap_fwd.hpp
+	plugins/wlinput/include/sge/wlinput/focus/keymap_ref.hpp
 	plugins/wlinput/include/sge/wlinput/focus/mmap.hpp
 	plugins/wlinput/include/sge/wlinput/focus/object.hpp
 	plugins/wlinput/include/sge/wlinput/focus/object_fwd.hpp
@@ -43,6 +44,7 @@ set(
 	plugins/wlinput/include/sge/wlinput/system.hpp
 	plugins/wlinput/include/sge/wlinput/xkb_context.hpp
 	plugins/wlinput/include/sge/wlinput/xkb_context_fwd.hpp
+	plugins/wlinput/include/sge/wlinput/xkb_context_ref.hpp
 	plugins/wlinput/src/cursor/button_code.cpp
 	plugins/wlinput/src/cursor/button_state.cpp
 	plugins/wlinput/src/cursor/create.cpp

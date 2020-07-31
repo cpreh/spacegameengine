@@ -24,8 +24,8 @@ namespace mouse
 sge::input::mouse::button_info_container::vector
 button_infos(
 	XIButtonClassInfo const &,
-	awl::backends::x11::display &
-);
+	awl::backends::x11::display & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

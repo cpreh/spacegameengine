@@ -8,6 +8,7 @@
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/info/base.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -15,7 +16,7 @@
 
 
 sge::x11input::device::info::base::base(
-	awl::backends::x11::display &_display,
+	awl::backends::x11::display_ref const _display,
 	sge::x11input::device::id const _id
 )
 :
@@ -24,7 +25,7 @@ sge::x11input::device::info::base::base(
 	),
 	devices_(
 		::XIQueryDevice(
-			_display.get(),
+			_display.get().get(),
 			_id.get(),
 			&size_
 		)
@@ -35,10 +36,12 @@ sge::x11input::device::info::base::base(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("XIQueryDevice failed!")
 			};
+	}
 }
 
 sge::x11input::device::info::base::~base()

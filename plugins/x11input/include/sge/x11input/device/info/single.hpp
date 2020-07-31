@@ -10,8 +10,8 @@
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/info/const_optional_ref.hpp>
 #include <sge/x11input/device/info/multi.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/display_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -28,17 +28,18 @@ namespace info
 
 class single
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		single
 	);
 public:
 	single(
-		awl::backends::x11::display &,
+		awl::backends::x11::display_ref,
 		sge::x11input::device::id
 	);
 
 	~single();
 
+	[[nodiscard]]
 	sge::x11input::device::info::const_optional_ref
 	get() const;
 private:

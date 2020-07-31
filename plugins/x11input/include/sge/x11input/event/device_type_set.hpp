@@ -21,7 +21,9 @@ namespace x11input
 namespace event
 {
 
-typedef
+using
+device_type_set
+=
 fcppt::metal::set::make<
 	sge::x11input::event::type_c<
 		XI_ButtonPress
@@ -50,8 +52,7 @@ fcppt::metal::set::make<
 	sge::x11input::event::type_c<
 		XI_FocusOut
 	>
->
-device_type_set;
+>;
 
 }
 }

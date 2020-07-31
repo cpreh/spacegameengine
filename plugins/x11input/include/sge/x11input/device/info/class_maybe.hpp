@@ -37,11 +37,12 @@ class_maybe(
 	XIAnyClassInfo const &_info
 )
 {
-	typedef
+	using
+	result_type
+	=
 	fcppt::optional::reference<
 		Class const
-	>
-	result_type;
+	>;
 
 	return
 		sge::x11input::device::info::class_type(

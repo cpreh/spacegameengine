@@ -22,13 +22,14 @@ sge::x11input::xi_version(
 	// server doesn't support XI2 at all.
 	// Otherwise the version the server actually supports is returned.
 
-	int
-		major_ret(
-			_major
-		),
-		minor_ret(
-			_minor
-		);
+	int major_ret{
+		_major
+	};
+
+	int minor_ret{
+		_minor
+	};
+
 	return
 		::XIQueryVersion(
 			_display.get(),

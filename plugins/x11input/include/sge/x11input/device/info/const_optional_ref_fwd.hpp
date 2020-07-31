@@ -22,11 +22,12 @@ namespace device
 namespace info
 {
 
-typedef
+using
+const_optional_ref
+=
 fcppt::optional::reference<
 	XIDeviceInfo const
->
-const_optional_ref;
+>;
 
 }
 }

@@ -7,6 +7,7 @@
 #include <sge/input/exception.hpp>
 #include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
@@ -14,12 +15,12 @@
 
 
 sge::x11input::xim::method::method(
-	awl::backends::x11::display const &_display
+	awl::backends::x11::display_ref const _display
 )
 :
 	xim_(
 		::XOpenIM(
-			_display.get(),
+			_display.get().get(),
 			nullptr,
 			nullptr,
 			nullptr
@@ -31,10 +32,12 @@ sge::x11input::xim::method::method(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("XOpenIM() failed!")
 			};
+	}
 }
 
 sge::x11input::xim::method::~method()

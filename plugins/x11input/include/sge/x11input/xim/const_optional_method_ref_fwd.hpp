@@ -18,11 +18,12 @@ namespace x11input
 namespace xim
 {
 
-typedef
+using
+const_optional_method_ref
+=
 fcppt::optional::reference<
 	sge::x11input::xim::method const
->
-const_optional_method_ref;
+>;
 
 }
 }

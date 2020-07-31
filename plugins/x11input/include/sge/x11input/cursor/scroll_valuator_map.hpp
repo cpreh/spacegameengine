@@ -21,12 +21,13 @@ namespace x11input
 namespace cursor
 {
 
-typedef
+using
+scroll_valuator_map
+=
 std::unordered_map<
 	sge::x11input::device::valuator::index,
 	sge::x11input::cursor::scroll_valuator
->
-scroll_valuator_map;
+>;
 
 }
 }

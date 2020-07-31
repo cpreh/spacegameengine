@@ -18,11 +18,12 @@ namespace wlinput
 namespace focus
 {
 
-typedef
+using
+optional_keymap
+=
 fcppt::optional::object<
 	sge::wlinput::focus::keymap
->
-optional_keymap;
+>;
 
 }
 }

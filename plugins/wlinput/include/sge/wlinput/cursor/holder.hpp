@@ -7,8 +7,8 @@
 #ifndef SGE_WLINPUT_CURSOR_HOLDER_HPP_INCLUDED
 #define SGE_WLINPUT_CURSOR_HOLDER_HPP_INCLUDED
 
-#include <awl/backends/wayland/seat_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/wayland/seat_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-client-protocol.h>
 #include <fcppt/config/external_end.hpp>
@@ -23,17 +23,18 @@ namespace cursor
 
 class holder
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		holder
 	);
 public:
 	explicit
 	holder(
-		awl::backends::wayland::seat const &
+		awl::backends::wayland::seat_ref
 	);
 
 	~holder();
 
+	[[nodiscard]]
 	wl_pointer *
 	get() const;
 private:

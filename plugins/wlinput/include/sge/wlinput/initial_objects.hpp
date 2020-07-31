@@ -13,6 +13,7 @@
 #include <awl/backends/wayland/system/seat/object.hpp>
 #include <awl/backends/wayland/system/seat/set.hpp>
 #include <awl/backends/wayland/system/seat/shared_ptr.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/optional/make_if.hpp>
@@ -36,15 +37,16 @@ sge::wlinput::map<
 initial_objects(
 	sge::wlinput::create_function<
 		Type
-	> const _create_function,
+	> const &_create_function,
 	awl::backends::wayland::system::seat::set const &_seats
 )
 {
-	typedef
+	using
+	result_type
+	=
 	sge::wlinput::map<
 		Type
-	>
-	result_type;
+	>;
 
 	FCPPT_PP_PUSH_WARNING
 	FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
@@ -69,16 +71,19 @@ initial_objects(
 							&_create_function,
 							&_seat
 						]{
-							typedef
+							using
+							value_type
+							=
 							typename
-							result_type::value_type
-							value_type;
+							result_type::value_type;
 
 							return
 								value_type{
 									_seat->name(),
 									_create_function(
-										_seat->get()
+										fcppt::make_ref(
+											_seat->get()
+										)
 									)
 								};
 						}

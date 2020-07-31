@@ -12,10 +12,13 @@
 #include <awl/backends/wayland/system/seat/caps.hpp>
 #include <awl/backends/wayland/system/seat/caps_field.hpp>
 #include <awl/backends/wayland/system/seat/object.hpp>
+#include <awl/backends/wayland/system/seat/object_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
@@ -47,17 +50,20 @@ change_caps(
 	sge::wlinput::create_function<
 		Object
 	> const &_create_function,
-	sge::wlinput::map<
-		Object
-	> &_map,
-	awl::backends::wayland::system::seat::object const &_seat
+	fcppt::reference<
+		sge::wlinput::map<
+			Object
+		>
+	> const _map,
+	awl::backends::wayland::system::seat::object_ref const _seat
 )
 {
-	typedef
+	using
+	object_map
+	=
 	sge::wlinput::map<
 		Object
-	>
-	object_map;
+	>;
 
 	FCPPT_PP_PUSH_WARNING
 	FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
@@ -73,11 +79,11 @@ change_caps(
 		{
 			return
 				fcppt::optional::make_if(
-					_map.count(
-						_seat.name()
+					_map.get().count(
+						_seat.get().name()
 					)
 					==
-					0u,
+					0U,
 					[
 						&_create_function,
 						&_map,
@@ -88,11 +94,13 @@ change_caps(
 							object_map::iterator,
 							bool
 						> const result{
-							_map.insert(
+							_map.get().insert(
 								std::make_pair(
-									_seat.name(),
+									_seat.get().name(),
 									_create_function(
-										_seat.get()
+										fcppt::make_ref(
+											_seat.get().get()
+										)
 									)
 								)
 							)
@@ -130,8 +138,8 @@ change_caps(
 			return
 				fcppt::optional::map(
 					fcppt::container::find_opt_iterator(
-						_map,
-						_seat.name()
+						_map.get(),
+						_seat.get().name()
 					),
 					[
 						&_map
@@ -154,7 +162,7 @@ change_caps(
 							)
 						};
 
-						_map.erase(
+						_map.get().erase(
 							_iterator
 						);
 
@@ -168,7 +176,7 @@ change_caps(
 	FCPPT_PP_POP_WARNING
 
 	return
-		_seat.caps()
+		_seat.get().caps()
 		&
 		Caps
 		?

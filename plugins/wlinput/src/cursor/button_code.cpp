@@ -16,7 +16,7 @@ sge::wlinput::cursor::button_code(
 	std::uint32_t const _button
 )
 {
-	// TODO: How does this work?
+	// TODO(philipp): How does this work?
 	return
 		sge::input::cursor::button_code::unknown;
 }

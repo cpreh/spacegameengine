@@ -18,7 +18,9 @@ sge::x11input::xi_opcode(
 	awl::backends::x11::display &_display
 )
 {
-	int opcode, event, error;
+	int opcode{};
+	int event{};
+	int error{};
 
 	return
 		::XQueryExtension(

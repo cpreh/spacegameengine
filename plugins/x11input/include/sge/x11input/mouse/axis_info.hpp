@@ -24,8 +24,8 @@ namespace mouse
 sge::input::mouse::axis_info
 axis_info(
 	XIValuatorClassInfo const &,
-	awl::backends::x11::display &
-);
+	awl::backends::x11::display & // NOLINT(google-runtime-references)
+); // NOLINT(google-runtime-references)
 
 }
 }

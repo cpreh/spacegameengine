@@ -558,6 +558,8 @@ sge::x11input::key::translate_sym(
 		return sge::input::key::code::y;
 	case XK_z:
 		return sge::input::key::code::z;
+	default:
+		break;
 	}
 
 	return sge::input::key::code::unknown;

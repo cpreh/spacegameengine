@@ -7,7 +7,7 @@
 #ifndef SGE_WLINPUT_CREATE_FUNCTION_HPP_INCLUDED
 #define SGE_WLINPUT_CREATE_FUNCTION_HPP_INCLUDED
 
-#include <awl/backends/wayland/seat_fwd.hpp>
+#include <awl/backends/wayland/seat_ref.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/unique_ptr_fwd.hpp>
 
@@ -27,7 +27,7 @@ fcppt::function<
 	fcppt::unique_ptr<
 		Type
 	>(
-		awl::backends::wayland::seat const &
+		awl::backends::wayland::seat_ref
 	)
 >;
 

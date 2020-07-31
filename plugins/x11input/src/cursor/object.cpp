@@ -13,6 +13,7 @@
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
 #include <sge/x11input/cursor/create_grab.hpp>
 #include <sge/x11input/cursor/grab.hpp>
@@ -31,13 +32,15 @@
 #include <sge/x11input/event/select.hpp>
 #include <sge/x11input/event/type_c.hpp>
 #include <sge/x11input/event/window_demuxer.hpp>
-#include <awl/backends/x11/cursor/object_fwd.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
+#include <sge/x11input/event/window_demuxer_ref.hpp>
+#include <awl/backends/x11/cursor/object_ref.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
+#include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -48,7 +51,7 @@
 #include <fcppt/container/join.hpp>
 #include <fcppt/container/make.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
@@ -59,17 +62,16 @@
 #include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <functional>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::cursor::object::object(
-	sge::window::object &_sge_window,
-	fcppt::log::object &_log,
-	awl::backends::x11::window::base const &_window,
+	sge::window::object_ref const _sge_window,
+	fcppt::log::object_reference const _log,
+	awl::backends::x11::window::const_base_ref const _window,
 	XIDeviceInfo const &_info,
-	sge::x11input::event::window_demuxer &_window_demuxer,
-	awl::backends::x11::cursor::object const &_cursor
+	sge::x11input::event::window_demuxer_ref const _window_demuxer,
+	awl::backends::x11::cursor::object_ref const _cursor
 )
 :
 	sge::input::cursor::object(),
@@ -95,7 +97,7 @@ sge::x11input::cursor::object::object(
 	},
 	position_{
 		sge::x11input::cursor::query_pointer(
-			_window,
+			_window.get(),
 			this->id_
 		)
 	},
@@ -103,28 +105,40 @@ sge::x11input::cursor::object::object(
 		true
 	},
 	event_connection_{
-		_window_demuxer.on_event(
+		_window_demuxer.get().on_event(
 			this->id_,
 			sge::x11input::event::device_function{
-				std::bind(
-					&sge::x11input::cursor::object::on_event,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					XIDeviceEvent const &_event
 				)
+				{
+					return
+						this->on_event(
+							_event
+						);
+				}
 			}
 		)
 	},
 	paired_event_connection_{
-		_window_demuxer.on_event(
+		_window_demuxer.get().on_event(
 			sge::x11input::device::id{
 				_info.attachment
 			},
 			sge::x11input::event::device_function{
-				std::bind(
-					&sge::x11input::cursor::object::on_paired_event,
-					this,
-					std::placeholders::_1
+				[
+					this
+				](
+					XIDeviceEvent const &_event
 				)
+				{
+					return
+						this->on_paired_event(
+							_event
+						);
+				}
 			}
 		)
 	},
@@ -157,20 +171,19 @@ sge::x11input::cursor::object::object(
 			>
 		>
 	>(
-		_window_demuxer,
+		_window_demuxer.get(),
 		this->id_
 	);
 }
 
 sge::x11input::cursor::object::~object()
-{
-}
+= default;
 
 sge::window::object &
 sge::x11input::cursor::object::window() const
 {
 	return
-		sge_window_;
+		sge_window_.get();
 }
 
 sge::input::cursor::optional_position
@@ -193,7 +206,9 @@ sge::x11input::cursor::object::mode(
 		==
 		sge::input::cursor::mode::normal
 	)
+	{
 		this->ungrab();
+	}
 }
 
 awl::event::container
@@ -262,7 +277,9 @@ sge::x11input::cursor::object::on_paired_event(
 		==
 		XI_FocusOut
 	)
+	{
 		this->on_focus_out();
+	}
 
 	return
 		awl::event::container{};
@@ -279,7 +296,9 @@ sge::x11input::cursor::object::on_motion(
 				awl::event::container
 			>(
 				sge::x11input::device::valuator::range(
-					_event.valuators
+					fcppt::make_cref(
+						_event.valuators
+					)
 				),
 				[
 					this
@@ -322,7 +341,7 @@ sge::x11input::cursor::object::on_motion(
 						);
 				}
 			),
-			// TODO: Check if this is necessary!
+			// TODO(philipp): Check if this is necessary!
 			fcppt::container::make<
 				awl::event::container
 			>(
@@ -339,7 +358,7 @@ sge::x11input::cursor::object::on_enter(
 )
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<<
 			FCPPT_TEXT("XIEnter: ")
@@ -373,7 +392,7 @@ sge::x11input::cursor::object::on_leave(
 )
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("XILeave")
 	)
@@ -391,7 +410,7 @@ void
 sge::x11input::cursor::object::on_focus_out()
 {
 	FCPPT_LOG_DEBUG(
-		log_,
+		log_.get(),
 		fcppt::log::out
 			<< FCPPT_TEXT("XIFocusOut")
 	)
@@ -471,11 +490,13 @@ sge::x11input::cursor::object::button_event(
 {
 	return
 		fcppt::optional::make_if(
-			!(
-				_event.flags
+			(
+				_event.flags // NOLINT(hicpp-signed-bitwise)
 				&
-				XIPointerEmulated
-			),
+				XIPointerEmulated // NOLINT(hicpp-signed-bitwise)
+			)
+			==
+			0,
 			[
 				this,
 				&_event,
@@ -515,13 +536,15 @@ sge::x11input::cursor::object::grab()
 		&&
 		!cursor_grab_.has_value()
 	)
+	{
 		cursor_grab_ =
 			sge::x11input::cursor::create_grab(
-				this->log_,
+				this->log_.get(),
 				this->window_,
 				this->id_,
 				this->cursor_
 			);
+	}
 }
 
 void

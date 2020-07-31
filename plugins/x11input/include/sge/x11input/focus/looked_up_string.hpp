@@ -46,10 +46,12 @@ public:
 	~looked_up_string()
 	noexcept;
 
+	[[nodiscard]]
 	sge::x11input::focus::char_vector const &
 	char_codes() const
 	noexcept;
 
+	[[nodiscard]]
 	sge::input::key::code
 	key_code() const
 	noexcept;

@@ -9,8 +9,8 @@
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/optional_grab_unique_ptr.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <awl/backends/x11/cursor/object_fwd.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/backends/x11/cursor/object_ref.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -20,9 +20,9 @@
 sge::x11input::cursor::optional_grab_unique_ptr
 sge::x11input::cursor::create_grab(
 	fcppt::log::object &_log,
-	awl::backends::x11::window::base const &_window,
+	awl::backends::x11::window::const_base_ref const _window,
 	sge::x11input::device::id const _id,
-	awl::backends::x11::cursor::object const &_cursor
+	awl::backends::x11::cursor::object_ref const _cursor
 )
 try
 {

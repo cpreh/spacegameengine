@@ -34,7 +34,7 @@ get_ic_values(
 )
 {
 	char const *const result{
-		::XGetICValues(
+		::XGetICValues( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_context.get(),
 			std::forward<
 				Args
@@ -50,6 +50,7 @@ get_ic_values(
 		!=
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("XGetICValues failed with ")
@@ -58,6 +59,7 @@ get_ic_values(
 					result
 				)
 			};
+	}
 }
 
 }

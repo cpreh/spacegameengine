@@ -19,13 +19,14 @@ namespace x11input
 namespace event
 {
 
-typedef
+using
+handler
+=
 fcppt::function<
 	awl::event::container (
 		awl::backends::x11::system::event::generic const &
 	)
->
-handler;
+>;
 
 }
 }

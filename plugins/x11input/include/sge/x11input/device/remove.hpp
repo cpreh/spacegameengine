@@ -9,6 +9,7 @@
 
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/map.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
@@ -28,23 +29,26 @@ fcppt::shared_ptr<
 	Type
 >
 remove(
-	sge::x11input::device::map<
-		Type
-	> &_map,
+	fcppt::reference<
+		sge::x11input::device::map<
+			Type
+		>
+	> const _map,
 	sge::x11input::device::id const _id
 )
 {
-	typedef
+	using
+	iterator_type
+	=
 	typename
 	sge::x11input::device::map<
 		Type
-	>::iterator
-	iterator_type;
+	>::iterator;
 
 	iterator_type const iterator{
 		FCPPT_ASSERT_OPTIONAL_ERROR(
 			fcppt::container::find_opt_iterator(
-				_map,
+				_map.get(),
 				_id
 			)
 		)
@@ -57,7 +61,7 @@ remove(
 		iterator->second
 	};
 
-	_map.erase(
+	_map.get().erase(
 		iterator
 	);
 

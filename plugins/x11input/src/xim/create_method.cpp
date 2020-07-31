@@ -10,7 +10,7 @@
 #include <sge/x11input/xim/method.hpp>
 #include <sge/x11input/xim/method_unique_ptr.hpp>
 #include <sge/x11input/xim/scoped_locale.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
+#include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -27,7 +27,7 @@
 sge::x11input::xim::method_unique_ptr
 sge::x11input::xim::create_method(
 	fcppt::log::object &_log,
-	awl::backends::x11::display const &_display
+	awl::backends::x11::display_ref const _display
 )
 {
 	return
@@ -66,6 +66,7 @@ sge::x11input::xim::create_method(
 					==
 					False
 				)
+				{
 					throw
 						sge::input::exception{
 							FCPPT_TEXT("X doesn't support the locale ")
@@ -74,6 +75,7 @@ sge::x11input::xim::create_method(
 								_locale_name
 							)
 						};
+				}
 
 				if(
 					::XSetLocaleModifiers(
@@ -82,10 +84,12 @@ sge::x11input::xim::create_method(
 					==
 					nullptr
 				)
+				{
 					throw
 						sge::input::exception{
 							FCPPT_TEXT("XSetLocaleModifiers() failed!")
 						};
+				}
 
 				return
 					fcppt::make_unique_ptr<

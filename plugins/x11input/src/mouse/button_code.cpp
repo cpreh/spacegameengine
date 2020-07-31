@@ -31,20 +31,26 @@ sge::x11input::mouse::button_code(
 				if(
 					_name == FCPPT_TEXT("Button Left")
 				)
+				{
 					return
 						sge::input::mouse::button_code::left;
+				}
 
 				if(
 					_name == FCPPT_TEXT("Button Right")
 				)
+				{
 					return
 						sge::input::mouse::button_code::right;
+				}
 
 				if(
 					_name == FCPPT_TEXT("Button Middle")
 				)
+				{
 					return
 						sge::input::mouse::button_code::middle;
+				}
 
 				return
 					sge::input::mouse::button_code::unknown;

@@ -32,6 +32,8 @@ sge::wlinput::focus::key_pressed(
 			sge::input::key::pressed{
 				true
 			};
+	default:
+		break;
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;

@@ -21,12 +21,13 @@ namespace x11input
 namespace xim
 {
 
-typedef
+using
+supported_styles_unique_ptr
+=
 fcppt::unique_ptr<
 	XIMStyles,
 	awl::backends::x11::deleter
->
-supported_styles_unique_ptr;
+>;
 
 }
 }

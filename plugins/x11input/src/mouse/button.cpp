@@ -32,7 +32,7 @@ sge::x11input::mouse::button(
 		static_cast<
 			sge::input::mouse::button_id::value_type
 		>(
-			detail - 1 // TODO: why?
+			detail - 1 // TODO(philipp): why?
 		)
 	);
 

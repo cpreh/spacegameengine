@@ -9,8 +9,8 @@
 
 #include <sge/x11input/cursor/optional_grab_unique_ptr.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <awl/backends/x11/cursor/object_fwd.hpp>
-#include <awl/backends/x11/window/base_fwd.hpp>
+#include <awl/backends/x11/cursor/object_ref.hpp>
+#include <awl/backends/x11/window/const_base_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
 
@@ -23,10 +23,10 @@ namespace cursor
 
 sge::x11input::cursor::optional_grab_unique_ptr
 create_grab(
-	fcppt::log::object &,
-	awl::backends::x11::window::base const &,
+	fcppt::log::object &, // NOLINT(google-runtime-references)
+	awl::backends::x11::window::const_base_ref,
 	sge::x11input::device::id,
-	awl::backends::x11::cursor::object const &
+	awl::backends::x11::cursor::object_ref
 );
 
 }

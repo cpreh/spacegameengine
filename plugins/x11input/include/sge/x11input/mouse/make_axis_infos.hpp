@@ -23,7 +23,7 @@ namespace mouse
 
 sge::input::mouse::axis_info_container
 make_axis_infos(
-	awl::backends::x11::display &,
+	awl::backends::x11::display &, // NOLINT(google-runtime-references)
 	XIDeviceInfo const &
 );
 

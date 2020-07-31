@@ -6,6 +6,7 @@
 
 #include <sge/input/exception.hpp>
 #include <sge/wlinput/focus/keymap.hpp>
+#include <sge/wlinput/focus/keymap_ref.hpp>
 #include <sge/wlinput/focus/state.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -15,12 +16,12 @@
 
 
 sge::wlinput::focus::state::state(
-	sge::wlinput::focus::keymap const &_keymap
+	sge::wlinput::focus::keymap_ref const _keymap
 )
 :
 	state_{
 		::xkb_state_new(
-			_keymap.get()
+			_keymap.get().get()
 		)
 	}
 {
@@ -29,15 +30,18 @@ sge::wlinput::focus::state::state(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("Failed to create xkb state")
 			};
+	}
 }
 
 sge::wlinput::focus::state::state(
 	state &&_other
 )
+noexcept
 :
 	state_{
 		_other.state_
@@ -51,6 +55,7 @@ sge::wlinput::focus::state &
 sge::wlinput::focus::state::operator=(
 	state &&_other
 )
+noexcept
 {
 	std::swap(
 		state_,

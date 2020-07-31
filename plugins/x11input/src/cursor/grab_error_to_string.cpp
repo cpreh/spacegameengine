@@ -31,6 +31,8 @@ sge::x11input::cursor::grab_error_to_string(
 	case GrabInvalidTime:
 		return
 			FCPPT_TEXT("GrabInvalidTime");
+	default:
+		break;
 	}
 
 	return

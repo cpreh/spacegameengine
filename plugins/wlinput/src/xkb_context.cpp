@@ -25,10 +25,12 @@ sge::wlinput::xkb_context::xkb_context()
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("xkb_context_new failed")
 			};
+	}
 }
 
 sge::wlinput::xkb_context::~xkb_context()

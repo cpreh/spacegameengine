@@ -23,12 +23,13 @@ namespace device
 namespace valuator
 {
 
-typedef
+using
+accu_map
+=
 std::unordered_map<
 	sge::x11input::device::valuator::index,
 	sge::x11input::device::valuator::accu
->
-accu_map;
+>;
 
 }
 }

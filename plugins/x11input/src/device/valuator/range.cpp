@@ -8,13 +8,16 @@
 #include <sge/x11input/device/valuator/iterator.hpp>
 #include <sge/x11input/device/valuator/length.hpp>
 #include <sge/x11input/device/valuator/range.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
 
 sge::x11input::device::valuator::range::range(
-	XIValuatorState const &_state
+	fcppt::reference<
+		XIValuatorState const
+	> const _state
 )
 :
 	state_{

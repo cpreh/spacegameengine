@@ -8,8 +8,8 @@
 #define SGE_X11INPUT_XIM_METHOD_HPP_INCLUDED
 
 #include <sge/x11input/xim/method_fwd.hpp>
-#include <awl/backends/x11/display_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <awl/backends/x11/display_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
@@ -24,21 +24,22 @@ namespace xim
 
 class method
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		method
 	);
 public:
 	explicit
 	method(
-		awl::backends::x11::display const &
+		awl::backends::x11::display_ref
 	);
 
 	~method();
 
+	[[nodiscard]]
 	XIM
 	get() const;
 private:
-	XIM const xim_;
+	XIM const xim_; // NOLINT(misc-misplaced-const)
 };
 
 }

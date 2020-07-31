@@ -31,6 +31,7 @@ sge::x11input::xim::setlocale(
 		==
 		nullptr
 	)
+	{
 		throw
 			sge::input::exception{
 				FCPPT_TEXT("Can't set LC_ALL to ")
@@ -39,6 +40,7 @@ sge::x11input::xim::setlocale(
 					_what
 				)
 			};
+	}
 
 	return
 		ret;

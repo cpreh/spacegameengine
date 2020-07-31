@@ -25,7 +25,7 @@ namespace info
 
 fcppt::optional_string
 string_from_atom(
-	awl::backends::x11::display &,
+	awl::backends::x11::display &, // NOLINT(google-runtime-references)
 	Atom
 );
 

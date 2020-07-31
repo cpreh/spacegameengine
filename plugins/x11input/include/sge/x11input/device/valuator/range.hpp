@@ -29,20 +29,26 @@ class range
 public:
 	explicit
 	range(
-		XIValuatorState const &
+		fcppt::reference<
+			XIValuatorState const
+		>
 	);
 
-	typedef
-	sge::x11input::device::valuator::iterator
+	using
+	iterator
+	=
+	sge::x11input::device::valuator::iterator;
+
+	using
+	const_iterator
+	=
 	iterator;
 
-	typedef
-	iterator
-	const_iterator;
-
+	[[nodiscard]]
 	iterator
 	begin() const;
 
+	[[nodiscard]]
 	iterator
 	end() const;
 private:

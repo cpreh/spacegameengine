@@ -19,17 +19,18 @@
 #include <sge/wlinput/cursor/position.hpp>
 #include <sge/wlinput/cursor/scroll_code.hpp>
 #include <sge/wlinput/cursor/scroll_value.hpp>
-#include <awl/backends/wayland/seat_fwd.hpp>
+#include <awl/backends/wayland/seat_ref.hpp>
 #include <awl/backends/wayland/window/object.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container_reference.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <stdint.h>
+#include <cstdint>
 #include <wayland-client-protocol.h>
 #include <wayland-util.h>
 #include <fcppt/config/external_end.hpp>
@@ -42,7 +43,7 @@ void
 pointer_enter(
 	void *const _data,
 	wl_pointer *,
-	uint32_t,
+	std::uint32_t,
 	wl_surface *const _surface,
 	wl_fixed_t const _surface_x,
 	wl_fixed_t const _surface_y
@@ -57,7 +58,7 @@ pointer_enter(
 	);
 
 	if(
-		data.window_.surface()
+		data.window_.get().surface()
 		==
 		_surface
 	)
@@ -77,7 +78,7 @@ pointer_enter(
 				fcppt::make_unique_ptr<
 					sge::input::cursor::event::move
 				>(
-					data.cursor_.get_shared_ptr(),
+					data.cursor_.get().get_shared_ptr(),
 					data.position_
 				)
 			)
@@ -89,7 +90,7 @@ void
 pointer_leave(
 	void *const _data,
 	wl_pointer *,
-	uint32_t,
+	std::uint32_t,
 	wl_surface *const _surface
 )
 {
@@ -102,7 +103,7 @@ pointer_leave(
 	);
 
 	if(
-		data.window_.surface()
+		data.window_.get().surface()
 		==
 		_surface
 	)
@@ -117,7 +118,7 @@ pointer_leave(
 				fcppt::make_unique_ptr<
 					sge::input::cursor::event::move
 				>(
-					data.cursor_.get_shared_ptr(),
+					data.cursor_.get().get_shared_ptr(),
 					data.position_
 				)
 			)
@@ -129,7 +130,7 @@ void
 pointer_motion(
 	void *const _data,
 	wl_pointer *,
-	uint32_t,
+	std::uint32_t,
 	wl_fixed_t const _surface_x,
 	wl_fixed_t const _surface_y
 )
@@ -161,7 +162,7 @@ pointer_motion(
 				fcppt::make_unique_ptr<
 					sge::input::cursor::event::move
 				>(
-					data.cursor_.get_shared_ptr(),
+					data.cursor_.get().get_shared_ptr(),
 					data.position_
 				)
 			)
@@ -173,10 +174,10 @@ void
 pointer_button(
 	void *const _data,
 	wl_pointer *,
-	uint32_t,
-	uint32_t,
-	uint32_t const _button,
-	uint32_t const _state
+	std::uint32_t,
+	std::uint32_t,
+	std::uint32_t const _button,
+	std::uint32_t const _state
 )
 {
 	sge::wlinput::cursor::data &data(
@@ -194,7 +195,7 @@ pointer_button(
 			_state,
 			&data
 		](
-			sge::input::cursor::position const _position
+			sge::input::cursor::position const &_position
 		)
 		{
 			data.events_.get().push_back(
@@ -204,7 +205,7 @@ pointer_button(
 					fcppt::make_unique_ptr<
 						sge::input::cursor::event::button
 					>(
-						data.cursor_.get_shared_ptr(),
+						data.cursor_.get().get_shared_ptr(),
 						sge::wlinput::cursor::button_code(
 							_button
 						),
@@ -223,8 +224,8 @@ void
 pointer_axis(
 	void *,
 	wl_pointer *,
-	uint32_t,
-	uint32_t,
+	std::uint32_t,
+	std::uint32_t,
 	wl_fixed_t
 )
 {
@@ -242,7 +243,7 @@ void
 pointer_axis_source(
 	void *,
 	wl_pointer *,
-	uint32_t
+	std::uint32_t
 )
 {
 }
@@ -251,8 +252,8 @@ void
 pointer_axis_stop(
 	void *,
 	wl_pointer *,
-	uint32_t,
-	uint32_t
+	std::uint32_t,
+	std::uint32_t
 )
 {
 }
@@ -261,8 +262,8 @@ void
 pointer_axis_discrete(
 	void *const _data,
 	wl_pointer *,
-	uint32_t const _axis,
-	int32_t const _discrete
+	std::uint32_t const _axis,
+	std::int32_t const _discrete
 )
 {
 	sge::wlinput::cursor::data &data(
@@ -276,6 +277,7 @@ pointer_axis_discrete(
 	if(
 		data.position_.has_value()
 	)
+	{
 		data.events_.get().push_back(
 			fcppt::unique_ptr_to_base<
 				awl::event::base
@@ -283,7 +285,7 @@ pointer_axis_discrete(
 				fcppt::make_unique_ptr<
 					sge::input::cursor::event::scroll
 				>(
-					data.cursor_.get_shared_ptr(),
+					data.cursor_.get().get_shared_ptr(),
 					sge::wlinput::cursor::scroll_code(
 						_axis
 					),
@@ -293,6 +295,7 @@ pointer_axis_discrete(
 				)
 			)
 		);
+	}
 }
 
 wl_pointer_listener const pointer_listener{
@@ -310,10 +313,10 @@ wl_pointer_listener const pointer_listener{
 }
 
 sge::wlinput::cursor::object::object(
-	sge::window::object &_sge_window,
-	awl::backends::wayland::window::object const &_window,
+	sge::window::object_ref const _sge_window,
+	awl::backends::wayland::window::object_ref const _window,
 	awl::event::container_reference const _events,
-	awl::backends::wayland::seat const &_seat
+	awl::backends::wayland::seat_ref const _seat
 )
 :
 	sge::input::cursor::object{},
@@ -327,7 +330,9 @@ sge::wlinput::cursor::object::object(
 		_seat
 	},
 	data_{
-		*this,
+		fcppt::make_ref(
+			*this
+		),
 		_window,
 		_events
 	}
@@ -343,12 +348,11 @@ sge::window::object &
 sge::wlinput::cursor::object::window() const
 {
 	return
-		window_;
+		window_.get();
 }
 
 sge::wlinput::cursor::object::~object()
-{
-}
+= default;
 
 sge::input::cursor::optional_position
 sge::wlinput::cursor::object::position() const
@@ -362,7 +366,7 @@ sge::wlinput::cursor::object::mode(
 	sge::input::cursor::mode const _mode
 )
 {
-	// TODO: We need a different API here because this is not implementable in wayland
+	// TODO(philipp): We need a different API here because this is not implementable in wayland
 }
 
 sge::input::cursor::shared_ptr
