@@ -16,12 +16,12 @@ namespace sge
 namespace projectile
 {
 
-typedef
-fcppt::math::box::rect
-<
+using
+rect
+=
+fcppt::math::box::rect<
 	sge::projectile::scalar
->
-rect;
+>;
 
 }
 }

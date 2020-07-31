@@ -289,7 +289,9 @@ try
 		)
 	);
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -308,44 +310,48 @@ try
 		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::automatic,
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	>
-	sprite_choices;
+	>;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
+	using
+	sprite_buffers
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	>
-	sprite_buffers;
+	>;
 
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state_object
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state_object;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
 	sprite_buffers sprite_buf(
 		fcppt::make_ref(
@@ -406,7 +412,7 @@ try
 				*af_siren
 			),
 			sge::audio::sound::positional_parameters(
-				// TODO: Improve this
+				// TODO(philipp): Improve this
 				sge::audio::position{
 					fcppt::math::vector::null<
 						sge::audio::vector
@@ -423,7 +429,7 @@ try
 				fcppt::literal<
 					sge::audio::scalar
 				>(
-					500
+					500 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			)
 		)
@@ -486,7 +492,7 @@ try
 		fcppt::literal<
 			sge::audio::scalar
 		>(
-			500
+			500 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	);
 
@@ -506,7 +512,7 @@ try
 				[
 					&sound_siren
 				](
-					sge::input::cursor::position const _pos
+					sge::input::cursor::position const &_pos
 				)
 				{
 					sound_siren->position(

@@ -40,83 +40,111 @@ class object
 		"Float must be a floating-point type"
 	);
 public:
-	typedef
+	using
+	vector_type
+	=
 	fcppt::math::vector::static_<
 		Float,
 		N
-	>
-	vector_type;
+	>;
 
-	typedef
-	Float
-	value_type;
+	using
+	value_type
+	=
+	Float;
 
 	explicit
 	object(
-		sge::noise::simplex::width const &);
+		sge::noise::simplex::width const &
+	);
 
+	[[nodiscard]]
 	Float
 	sample(
-		vector_type const &);
+		vector_type const &
+	);
 private:
-	typedef
-	fcppt::math::size_type
-	index_type;
+	using
+	index_type
+	=
+	fcppt::math::size_type;
 
-	typedef
+	using
+	index_container
+	=
 	std::vector<
 		index_type
-	> index_container;
+	>;
 
-	typedef
+	using
+	matrix
+	=
 	fcppt::math::matrix::static_<
 		Float,
 		N,
 		N
-	>
-	matrix;
+	>;
 
-	typedef
-	std::array<vector_type,2u*N>
-	gradient_array;
+	using
+	gradient_array
+	=
+	std::array<
+		vector_type,
+		2U*N
+	>;
 
 	index_container perm_;
 	gradient_array gradients_;
 
+	[[nodiscard]]
 	std::size_t
 	mod(
-		long int const &a,
-		std::size_t const &b);
+		long int const &a, // NOLINT(google-runtime-int)
+		std::size_t const &b
+	);
 
+	[[nodiscard]]
 	std::size_t
 	index(
-		vector_type const &vec);
+		vector_type const &vec
+	);
 
-	typedef std::array<
+	using
+	corner_array
+	=
+	std::array<
 		vector_type,
 		N + 1
-	> corner_array;
+	>;
 
+	[[nodiscard]]
 	corner_array
 	corners(
-		vector_type point);
+		vector_type point
+	);
 
+	[[nodiscard]]
 	Float
 	stretch_factor();
 
+	[[nodiscard]]
 	Float
 	inv_factor();
 
+	[[nodiscard]]
 	matrix
 	stretch_m();
 
+	[[nodiscard]]
 	matrix
 	inv_m();
 
+	[[nodiscard]]
 	Float
 	contrib(
 		vector_type const &v,
-		vector_type const &intv);
+		vector_type const &intv
+	);
 };
 
 }

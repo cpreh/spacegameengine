@@ -9,7 +9,7 @@
 
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/intrusive/connection_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -24,19 +24,19 @@ template<
 >
 class connection
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		connection
 	);
 protected:
 	connection()
-	{
-	}
+	= default;
 public:
-	typedef
+	using
+	object
+	=
 	sge::sprite::object<
 		Choices
-	>
-	object;
+	>;
 
 	virtual
 	void
@@ -50,8 +50,7 @@ public:
 
 	virtual
 	~connection()
-	{
-	}
+	= default;
 };
 
 }

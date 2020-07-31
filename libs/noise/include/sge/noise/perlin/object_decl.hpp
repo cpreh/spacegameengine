@@ -38,28 +38,32 @@ class object
 		"Float must be a floating-point type"
 	);
 public:
-	typedef
-	Float
-	value_type;
+	using
+	value_type
+	=
+	Float;
 
-	typedef
+	using
+	grid_type
+	=
 	fcppt::container::grid::object<
 		value_type,
 		N
-	>
-	grid_type;
+	>;
 
-	typedef
+	using
+	vector_type
+	=
 	fcppt::math::vector::static_<
 		value_type,
 		N
-	>
-	vector_type;
+	>;
 
-	typedef
+	using
+	dim
+	=
 	typename
-	grid_type::dim
-	dim;
+	grid_type::dim;
 
 	template<
 		typename Rng
@@ -69,6 +73,7 @@ public:
 		Rng &
 	);
 
+	[[nodiscard]]
 	value_type
 	sample(
 		vector_type

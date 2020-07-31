@@ -305,5 +305,4 @@ sge::rucksack::testbed::object_impl::systems() const
 }
 
 sge::rucksack::testbed::object_impl::~object_impl()
-{
-}
+= default;

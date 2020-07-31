@@ -10,7 +10,8 @@
 #include <sge/resource_tree/path_fwd.hpp>
 #include <sge/resource_tree/path_to_resource_function.hpp>
 #include <sge/resource_tree/detail/element_decl.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/reference_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <vector>
@@ -126,32 +127,26 @@ template<
 >
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
-	/**
-	\brief A typedef for the resource type
-	*/
-	typedef
-	T
-	value_type;
+	using
+	value_type
+	=
+	T;
 
-	/**
-	\brief A typedef for the random generator type
-	*/
-	typedef
-	Rng
-	rng_type;
+	using
+	rng_type
+	=
+	Rng;
 
-	/**
-	\brief A typedef for the <code>path_to_resource</code> function.
-	*/
-	typedef
+	using
+	path_to_resource_function
+	=
 	sge::resource_tree::path_to_resource_function<
 		value_type
-	>
-	path_to_resource_function;
+	>;
 
 	/**
 	\brief Construct a new resource tree
@@ -159,7 +154,9 @@ public:
 	object(
 		std::filesystem::path const &,
 		path_to_resource_function const &,
-		rng_type &
+		fcppt::reference<
+			rng_type
+		>
 	);
 
 	~object();
@@ -167,23 +164,26 @@ public:
 	/**
 	\brief Retrieve a resource
 	*/
+	[[nodiscard]]
 	value_type const &
 	get(
 		sge::resource_tree::path const &
 	) const;
 private:
-	typedef
+	using
+	element_type
+	=
 	sge::resource_tree::detail::element<
 		T,
 		Rng
-	>
-	element_type;
+	>;
 
-	typedef
+	using
+	element_sequence
+	=
 	std::vector<
 		element_type
-	>
-	element_sequence;
+	>;
 
 	element_sequence const elements_;
 };

@@ -32,25 +32,26 @@ template<
 	typename S2,
 	typename Callback
 >
+[[nodiscard]]
 bool
 impl(
 	fcppt::math::vector::object<
 		T,
 		2,
 		S1
-	> const _start,
+	> const &_start,
 	fcppt::math::vector::object<
 		T,
 		2,
 		S2
-	> const _end,
+	> const &_end,
 	Callback const &_callback
 )
 {
 	static_assert(
-		std::is_signed<
+		std::is_signed_v<
 			T
-		>::value,
+		>,
 		"bresenham currently only works on signed types"
 	);
 
@@ -158,15 +159,19 @@ impl(
 				y0
 			)
 		)
+		{
 			return
 				false;
+		}
 
 		if(
 			x0 == x1
 			&&
 			y0 == y1
 		)
+		{
 			break;
+		}
 
 		T const err2{
 			two * err
@@ -193,8 +198,10 @@ impl(
 					y0
 				)
 			)
+			{
 				return
 					false;
+			}
 		}
 
 		if(
@@ -209,8 +216,11 @@ impl(
 					y0
 				)
 			)
+			{
 				return
 					false;
+			}
+
 			break;
 		}
 
@@ -235,8 +245,10 @@ impl(
 					y0 - sy
 				)
 			)
+			{
 				return
 					false;
+			}
 		}
 	}
 

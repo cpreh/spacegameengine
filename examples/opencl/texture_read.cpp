@@ -105,8 +105,8 @@ main_program(
 	image_format.image_channel_data_type = CL_UNORM_INT8;
 
 	sge::opencl::dim2 const image_size(
-		512u,
-		512u
+		512U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		512U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	sge::opencl::memory_object::image::planar image(
@@ -120,7 +120,7 @@ main_program(
 		image_format,
 		image_size,
 		sge::opencl::memory_object::image::planar_pitch(
-			0u
+			0U
 		)
 	);
 
@@ -163,7 +163,7 @@ main_program(
 
 	main_kernel.argument(
 		sge::opencl::kernel::argument_index(
-			0u
+			0U
 		),
 		fcppt::reference_to_base<
 			sge::opencl::memory_object::base

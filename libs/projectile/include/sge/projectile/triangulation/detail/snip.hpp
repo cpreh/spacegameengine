@@ -26,6 +26,7 @@ template<
 	typename PointContainer,
 	typename IndexContainer
 >
+[[nodiscard]]
 bool
 snip(
 	PointContainer const &_contour,
@@ -40,86 +41,93 @@ snip(
 	>::type const _epsilon
 )
 {
-	typedef typename
-	PointContainer::size_type
-	size_type;
+	using
+	size_type
+	=
+	typename
+	PointContainer::size_type;
 
-	typedef typename
-	PointContainer::value_type
-	vertex;
+	using
+	vertex
+	=
+	typename
+	PointContainer::value_type;
 
-	typedef sge::projectile::triangulation::traits::access_element<
+	using
+	access_element
+	=
+	sge::projectile::triangulation::traits::access_element<
 		vertex,
 		Tag
-	> access_element;
+	>;
 
-	typedef typename
+	using
+	scalar
+	=
+	typename
 	sge::projectile::triangulation::traits::scalar<
 		vertex,
 		Tag
-	>::type
-	scalar;
+	>::type;
 
-	vertex const
-		v1(
-			_contour[
-				_indices[
-					_prev_vertex
-				]
+	vertex const v1(
+		_contour[
+			_indices[
+				_prev_vertex
 			]
-		),
-		v2(
-			_contour[
-				_indices[
-					_cur_vertex
-				]
+		]
+	);
+	vertex const v2(
+		_contour[
+			_indices[
+				_cur_vertex
 			]
-		),
-		v3(
-			_contour[
-				_indices[
-					_next_vertex
-				]
+		]
+	);
+	vertex const v3(
+		_contour[
+			_indices[
+				_next_vertex
 			]
-		);
+		]
+	);
 
-	scalar const
-		v10(
-			access_element::execute(
-				v1,
-				0
-			)
-		),
-		v11(
-			access_element::execute(
-				v1,
-				1
-			)
-		),
-		v20(
-			access_element::execute(
-				v2,
-				0
-			)
-		),
-		v21(
-			access_element::execute(
-				v2,
-				1
-			)
-		),
-		v30(
-			access_element::execute(
-				v3,
-				0
-			)
-		),
-		v31(
-			access_element::execute(
-				v3,
-				1
-			)
-		);
+	scalar const v10(
+		access_element::execute(
+			v1,
+			0
+		)
+	);
+	scalar const v11(
+		access_element::execute(
+			v1,
+			1
+		)
+	);
+	scalar const v20(
+		access_element::execute(
+			v2,
+			0
+		)
+	);
+	scalar const v21(
+		access_element::execute(
+			v2,
+			1
+		)
+	);
+	scalar const v30(
+		access_element::execute(
+			v3,
+			0
+		)
+	);
+	scalar const v31(
+		access_element::execute(
+			v3,
+			1
+		)
+	);
 
 	if(
 		_epsilon >
@@ -137,11 +145,13 @@ snip(
 			)
 		)
 	)
+	{
 		return false;
+	}
 
 	for(
 		size_type index(
-			0u
+			0U
 		);
 		index < _num_vertices;
 		++index
@@ -152,7 +162,9 @@ snip(
 			|| (index == _cur_vertex)
 			|| (index == _next_vertex)
 		)
+		{
 			continue;
+		}
 
 		if(
 			sge::projectile::triangulation::detail::point_inside_triangle<
@@ -168,7 +180,9 @@ snip(
 				]
 			)
 		)
+		{
 			return false;
+		}
 	}
 
 	return true;

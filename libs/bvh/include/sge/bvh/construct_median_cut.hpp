@@ -29,7 +29,7 @@ namespace bvh
 namespace detail
 {
 
-// TODO: This is a mess
+// TODO(philipp): This is a mess
 class construct_median_cut_comparator
 {
 public:
@@ -48,9 +48,11 @@ public:
 		LeafWrapper const &_left,
 		LeafWrapper const &_right) const
 	{
-		typedef typename
-		LeafWrapper::leaf
-		leaf;
+		using
+		leaf
+		=
+		typename
+		LeafWrapper::leaf;
 
 		return
 			fcppt::math::box::center(
@@ -66,6 +68,7 @@ public:
 			).get_unsafe(axis_);
 	}
 
+	[[nodiscard]]
 	fcppt::math::size_type
 	axis() const
 	{
@@ -87,7 +90,7 @@ construct_median_cut(
 	FCPPT_ASSERT_PRE(
 		_tree.empty());
 
-	if(_leaves.size() <= 1u)
+	if(_leaves.size() <= 1U)
 	{
 		_tree.value(
 			typename Traits::node_or_leaf_variant(
@@ -138,7 +141,7 @@ construct_median_cut(
 		std::next(
 			_leaves.begin(),
 			static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
-				_leaves.size()/2u)),
+				_leaves.size()/2U)),
 		_leaves.end(),
 		comparator);
 
@@ -146,7 +149,7 @@ construct_median_cut(
 		*std::next(
 			_leaves.begin(),
 			static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
-				_leaves.size()/2u)));
+				_leaves.size()/2U)));
 
 	std::partition(
 		_leaves.begin(),
@@ -169,9 +172,9 @@ construct_median_cut(
 	/*
 	typename Traits::leaf_wrapper_sequence left_side,right_side;
 	left_side.reserve(
-		_leaves.size()/2u);
+		_leaves.size()/2U);
 	right_side.reserve(
-		_leaves.size()/2u);
+		_leaves.size()/2U);
 	for(
 		typename Traits::leaf_wrapper_sequence::iterator it =
 			_leaves.begin();
@@ -239,7 +242,7 @@ construct_median_cut(
 			std::next(
 				_leaves.begin(),
 				static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
-					_leaves.size()/2u))),
+					_leaves.size()/2U))),
 		_tree.front().get_unsafe().get()
 	);
 
@@ -248,7 +251,7 @@ construct_median_cut(
 			std::next(
 				_leaves.begin(),
 				static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
-					_leaves.size()/2u)),
+					_leaves.size()/2U)),
 			_leaves.end()),
 		*std::next(
 			_tree.begin()));

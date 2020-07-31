@@ -118,7 +118,7 @@
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
@@ -147,6 +147,7 @@
 #include <cmath>
 #include <exception>
 #include <numeric>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -155,30 +156,35 @@ namespace
 
 class cursor_speed_tracker
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		cursor_speed_tracker
 	);
 public:
-	typedef
-	float
-	scalar;
+	using
+	scalar
+	=
+	float;
 
-	typedef
+	using
+	modifier
+	=
 	fcppt::function<
 		scalar(
 			scalar
 		)
-	>
-	modifier;
+	>;
 
 	explicit
 	cursor_speed_tracker(
-		modifier const &
+		modifier &&
 	);
+
+	~cursor_speed_tracker();
 
 	void
 	update();
 
+	[[nodiscard]]
 	scalar
 	current_speed() const;
 
@@ -187,11 +193,12 @@ public:
 		sge::input::cursor::relative_movement::event const &
 	);
 private:
-	typedef
+	using
+	speed_ring_buffer
+	=
 	boost::circular_buffer<
 		scalar
-	>
-	speed_ring_buffer;
+	>;
 
 	modifier const modifier_;
 
@@ -212,17 +219,19 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 cursor_speed_tracker::cursor_speed_tracker(
-	modifier const &_modifier
+	modifier &&_modifier
 )
 :
 	modifier_{
-		_modifier
+		std::move(
+			_modifier
+		)
 	},
 	speed_values_{
-		10u
+		10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	},
 	current_speed_{
-		0.0f
+		0.0F
 	},
 	speed_updated_{
 		false
@@ -231,24 +240,28 @@ cursor_speed_tracker::cursor_speed_tracker(
 	// Eliminate nasty / 0 in current_speed
 	speed_values_.push_back(
 		modifier_(
-			0.0f
+			0.0F
 		)
 	);
 }
 
 FCPPT_PP_POP_WARNING
 
+cursor_speed_tracker::~cursor_speed_tracker()
+= default;
+
 void
 cursor_speed_tracker::move_event(
 	sge::input::cursor::relative_movement::event const &_event
 )
 {
-	typedef
+	using
+	vector2
+	=
 	fcppt::math::vector::static_<
 		scalar,
 		2
-	>
-	vector2;
+	>;
 
 	current_speed_ =
 		fcppt::math::vector::length(
@@ -276,7 +289,7 @@ cursor_speed_tracker::update()
 				fcppt::literal<
 					scalar
 				>(
-					0.0f
+					0.0F
 				)
 		)
 	);
@@ -341,20 +354,19 @@ cursor_speed_modifier(
 	cursor_speed_tracker::scalar const _input
 )
 {
-	cursor_speed_tracker::scalar const
-		initial_value{
-			std::pow(
-				_input / 100.0f,
-				0.5f
-			)
-		},
-		final_value{
-			step(
-				initial_value,
-				0.25f
-			) *
-			initial_value
-		};
+	cursor_speed_tracker::scalar const initial_value{
+		std::pow(
+			_input / 100.0F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			0.5F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		)
+	};
+	cursor_speed_tracker::scalar const final_value{
+		step(
+			initial_value,
+			0.25F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		) *
+		initial_value
+	};
 
 	return
 		final_value;
@@ -454,13 +466,13 @@ try
 	sge::graph::object graph(
 		sge::graph::position(
 			sge::renderer::vector2(
-				5.f,
-				5.f
+				5.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				5.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		),
 		sge::image2d::dim(
-			512u,
-			128u
+			512U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		fcppt::make_ref(
 			sys.renderer_device_ffp()
@@ -526,7 +538,9 @@ try
 		)
 	);
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -545,44 +559,48 @@ try
 		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::automatic,
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	>
-	sprite_choices;
+	>;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
+	using
+	sprite_buffers
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	>
-	sprite_buffers;
+	>;
 
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state_object
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state_object;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
 	sprite_buffers sprite_buf(
 		fcppt::make_ref(
@@ -614,7 +632,7 @@ try
 			fcppt::math::vector::fill<
 				sprite_object::vector
 			>(
-				100
+				100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type(

@@ -8,7 +8,7 @@
 #define SGE_BVH_OBJECT_DECL_HPP_INCLUDED
 
 #include <sge/bvh/tree_traits.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -22,29 +22,34 @@ namespace bvh
 template<typename Traits>
 class object
 {
-FCPPT_NONCOPYABLE(
+FCPPT_NONMOVABLE(
 	object);
 public:
-	typedef
-	Traits
-	traits;
+	using
+	traits
+	=
+	Traits;
 
-	typedef
+	using
+	leaf_sequence
+	=
 	typename
-	traits::leaf_sequence
-	leaf_sequence;
+	traits::leaf_sequence;
 
-	typedef
+	using
+	tree_representation
+	=
 	typename
-	traits::tree_representation
-	tree_representation;
+	traits::tree_representation;
 
 	object();
 
 	void
 	insert(
-		leaf_sequence const &);
+		leaf_sequence const &
+	);
 
+	[[nodiscard]]
 	tree_representation const &
 	representation() const;
 

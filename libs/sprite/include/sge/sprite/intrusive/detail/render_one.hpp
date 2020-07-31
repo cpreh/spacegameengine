@@ -42,16 +42,18 @@ render_one(
 	Range const &_range
 )
 {
-	typedef
+	using
+	choices
+	=
 	typename
-	Buffers::choices
-	choices;
+	Buffers::choices;
 
-	typedef
+	using
+	range_type
+	=
 	sge::sprite::render::range<
 		choices
-	>
-	range_type;
+	>;
 
 	range_type const range(
 		sge::sprite::detail::process::geometry<

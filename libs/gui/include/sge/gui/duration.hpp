@@ -17,9 +17,10 @@ namespace sge
 namespace gui
 {
 
-typedef
-std::chrono::milliseconds
-duration;
+using
+duration
+=
+std::chrono::milliseconds;
 
 }
 }

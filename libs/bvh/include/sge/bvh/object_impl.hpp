@@ -71,7 +71,6 @@ sge::bvh::object<Traits>::representation() const
 
 template<typename Traits>
 sge::bvh::object<Traits>::~object()
-{
-}
+= default;
 
 #endif

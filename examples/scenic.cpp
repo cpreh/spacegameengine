@@ -160,7 +160,9 @@ FCPPT_RECORD_MAKE_LABEL(
 	scene_name_label
 );
 
-typedef
+using
+options_record
+=
 fcppt::record::object<
 	fcppt::record::element<
 		record_to_file_label,
@@ -186,8 +188,7 @@ fcppt::record::object<
 		scene_name_label,
 		fcppt::string
 	>
->
-options_record;
+>;
 
 awl::main::exit_code
 main_program(
@@ -217,8 +218,8 @@ main_program(
 	}
 
 	sge::window::dim const window_dim(
-		1024u,
-		768u
+		1024U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		768U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	sge::systems::instance<
@@ -295,7 +296,7 @@ main_program(
 						>(
 							sge::camera::first_person::parameters(
 								sge::camera::first_person::movement_speed(
-									4.0f
+									4.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 								),
 								sge::camera::coordinate_system::identity()
 							)
@@ -330,17 +331,19 @@ main_program(
 		)
 	);
 
-	typedef
+	using
+	exporter_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::camera::tracking::json::interval_exporter
-	>
-	exporter_unique_ptr;
+	>;
 
-	typedef
+	using
+	optional_exporter_unique_ptr
+	=
 	fcppt::optional::object<
 		exporter_unique_ptr
-	>
-	optional_exporter_unique_ptr;
+	>;
 
 	optional_exporter_unique_ptr const exporter(
 		fcppt::optional::map(
@@ -442,22 +445,22 @@ main_program(
 		sge::scenic::grid::orientation::xz,
 		sge::scenic::grid::rect{
 			sge::scenic::grid::rect::vector{
-				-10.0f,
-				-10.0f
+				-10.0F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				-10.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			},
 			sge::scenic::grid::rect::dim{
-				20.0f,
-				20.0f
+				20.0F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				20.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			}
 		},
 		sge::scenic::grid::spacing{
 			sge::scenic::grid::dim{
-				1.0f,
-				1.0f
+				1.0F,
+				1.0F
 			}
 		},
 		sge::scenic::grid::distance_to_origin{
-			0.0f
+			0.0F
 		},
 		sge::image::color::any::object{
 			sge::image::color::predef::white()
@@ -483,13 +486,13 @@ main_program(
 	sge::graph::object graph{
 		sge::graph::position{
 			sge::renderer::vector2{
-				0.0f,
-				0.0f
+				0.0F,
+				0.0F
 			}
 		},
 		sge::renderer::dim2{
-			256u,
-			64u
+			256U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			64U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		},
 		fcppt::make_ref(
 			sys.renderer_device_ffp()
@@ -498,9 +501,9 @@ main_program(
 			fcppt::literal<
 				sge::graph::scalar
 			>(
-				1.f
+				1.F
 				/
-				30.f
+				30.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		},
 		sge::graph::optional_axis_constraint{
@@ -508,12 +511,12 @@ main_program(
 				fcppt::literal<
 					sge::graph::scalar
 				>(
-					0.f
+					0.F
 				),
 				fcppt::literal<
 					sge::graph::scalar
 				>(
-					0.1f
+					0.1F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			}
 		},
@@ -593,7 +596,7 @@ main_program(
 						}
 					)
 					.depth_buffer(
-						1.0f
+						1.0F
 					)
 			);
 
@@ -687,7 +690,6 @@ main_program(
 							);
 						}
 					);
-
 				}
 			}
 		);
@@ -736,7 +738,7 @@ try
 							fcppt::literal<
 								sge::renderer::scalar
 							>(
-								0.25f
+								0.25F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 							)
 						}
 					)
@@ -795,13 +797,14 @@ try
 		)
 	};
 
-	typedef
+	using
+	result_type
+	=
 	fcppt::options::result_of<
 		decltype(
 			argument_parser
 		)
-	>
-	result_type;
+	>;
 
 	return
 		fcppt::variant::match(
@@ -816,7 +819,7 @@ try
 			[](
 				fcppt::options::result<
 					result_type
-				> const _result
+				> const &_result
 			)
 			{
 				return

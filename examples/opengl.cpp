@@ -112,8 +112,8 @@ try
 		sys.renderer_device_core().create_planar_texture(
 			sge::renderer::texture::planar_parameters(
 				sge::renderer::dim2(
-					256u,
-					256u
+					256U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+					256U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				),
 				sge::renderer::texture::color_format(
 					sge::image::color::format::rgba8,
@@ -126,7 +126,7 @@ try
 		)
 	);
 
-	sge::renderer::opengl::texture::base const &opengl_texture(
+	auto const &opengl_texture(
 		dynamic_cast<
 			sge::renderer::opengl::texture::base const &
 		>(
@@ -139,16 +139,22 @@ try
 		<< opengl_texture.id()
 		<< FCPPT_TEXT('\n');
 
-	typedef sge::renderer::vf::part<
+	using
+	vf_part
+	=
+	sge::renderer::vf::part<
 		sge::renderer::vf::pos<
 			float,
 			3
 		>
-	> vf_part;
+	>;
 
-	typedef sge::renderer::vf::format<
+	using
+	vf_format
+	=
+	sge::renderer::vf::format<
 		vf_part
-	> vf_format;
+	>;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
@@ -171,14 +177,14 @@ try
 					vf_part
 				>(),
 				sge::renderer::vertex::count(
-					3u
+					3U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				),
 				sge::renderer::resource_flags_field::null()
 			)
 		)
 	);
 
-	sge::renderer::opengl::buffer::base const &opengl_buffer(
+	auto const &opengl_buffer(
 		dynamic_cast<
 			sge::renderer::opengl::buffer::base const &
 		>(

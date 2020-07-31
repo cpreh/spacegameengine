@@ -17,13 +17,15 @@ namespace sge
 {
 namespace projectile
 {
-typedef
-std::array
-<
+
+using
+triangle
+=
+std::array<
 	sge::projectile::vector2,
 	3
->
-triangle;
+>;
+
 }
 }
 

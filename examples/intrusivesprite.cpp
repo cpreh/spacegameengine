@@ -225,7 +225,9 @@ try
 		)
 	);
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -244,7 +246,7 @@ try
 		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::repetition,
 				sge::sprite::config::texture_ownership::reference
@@ -252,49 +254,55 @@ try
 			sge::sprite::config::with_rotation,
 			sge::sprite::config::intrusive
 		>
-	>
-	sprite_choices;
+	>;
 
-	typedef
+	using
+	sprite_buffers_type
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	>
-	sprite_buffers_type;
+	>;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
-	unsigned
-	order;
+	using
+	order
+	=
+	unsigned;
 
-	typedef
+	using
+	ordered_collection_type
+	=
 	sge::sprite::intrusive::ordered::collection<
 		sprite_choices,
 		order
-	>
-	ordered_collection_type;
+	>;
 
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state_object
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state_object;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
 	sprite_buffers_type sprite_buffers(
 		fcppt::make_ref(
@@ -322,15 +330,15 @@ try
 				*tex1
 			),
 		sge::sprite::roles::rotation{} =
-			1.5f,
+			1.5F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		sge::sprite::roles::connection{} =
 			ordered_collection.connection(
-				2u
+				2U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 		sge::sprite::roles::repetition{} =
 			sprite_object::repetition_type(
-				2.f,
-				2.f
+				2.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				2.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 	);
 
@@ -344,13 +352,13 @@ try
 
 	test2.pos(
 		sprite_object::vector(
-			400,
-			50
+			400, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			50 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	);
 
 	test2.rotation(
-		-0.5f
+		-0.5F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	test2.texture(
@@ -359,11 +367,12 @@ try
 		)
 	);
 
-	typedef
+	using
+	optional_sprite
+	=
 	fcppt::optional::object<
 		sprite_object
-	>
-	optional_sprite;
+	>;
 
 	optional_sprite test3(
 		test2

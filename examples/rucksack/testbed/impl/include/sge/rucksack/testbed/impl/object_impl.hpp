@@ -28,7 +28,7 @@
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -47,7 +47,7 @@ namespace testbed
 
 class object_impl
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object_impl
 	);
 public:
@@ -62,6 +62,7 @@ public:
 		sge::image::color::any::object const &
 	);
 
+	[[nodiscard]]
 	awl::main::exit_code
 	run();
 
@@ -70,19 +71,23 @@ public:
 
 	void
 	render(
-		sge::renderer::context::ffp &
-	);
+		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+	); // NOLINT(google-runtime-references)
 
+	[[nodiscard]]
 	sge::rucksack::testbed::systems const &
 	systems() const;
 
 	~object_impl();
 private:
-	typedef
-	sge::image::color::rgba8_format
-	color_format;
+	using
+	color_format
+	=
+	sge::image::color::rgba8_format;
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -103,47 +108,52 @@ private:
 				color_format
 			>
 		>
-	>
-	sprite_choices;
+	>;
 
-	typedef
+	using
+	sprite_buffers
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	>
-	sprite_buffers;
+	>;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state_object
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state_object;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
-	typedef
+	using
+	sprite_list
+	=
 	std::vector<
 		std::pair<
 			sge::rucksack::widget::reference,
 			sprite_object
 		>
-	>
-	sprite_list;
+	>;
 
 	sge::rucksack::testbed::systems const systems_;
 

@@ -7,33 +7,50 @@
 #ifndef SGE_BVH_NODE_WRAPPER_HPP_INCLUDED
 #define SGE_BVH_NODE_WRAPPER_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
+
 namespace sge
 {
 namespace bvh
 {
-template<typename Node,typename Box>
+
+template<
+	typename Node,
+	typename Box
+>
 class node_wrapper
 {
 public:
-	typedef
-	Node
-	node;
+	using
+	node
+	=
+	Node;
 
-	typedef
-	Box
-	box;
+	using
+	box
+	=
+	Box;
 
 	node_wrapper(
 		node const &_value,
-		box const &_bounding_box)
+		box _bounding_box
+	)
 	:
 		value_(
-			_value),
+			_value
+		),
 		bounding_box_(
-			_bounding_box)
+			std::move(
+				_bounding_box
+			)
+		)
 	{
 	}
 
+	[[nodiscard]]
 	node &
 	value()
 	{
@@ -41,6 +58,7 @@ public:
 			value_;
 	}
 
+	[[nodiscard]]
 	node const &
 	value() const
 	{
@@ -48,6 +66,7 @@ public:
 			value_;
 	}
 
+	[[nodiscard]]
 	box const &
 	bounding_box() const
 	{

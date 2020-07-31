@@ -14,6 +14,7 @@
 #include <sge/resource_tree/detail/element_vector.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/error_code_to_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/assert/throw_message.hpp>
@@ -49,7 +50,9 @@ init(
 	sge::resource_tree::path_to_resource_function<
 		T
 	> const &_path_to_resource,
-	Rng &_random_generator
+	fcppt::reference<
+		Rng
+	> const _random_generator
 )
 {
 	FCPPT_ASSERT_THROW_MESSAGE(

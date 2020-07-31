@@ -183,48 +183,53 @@ try
 		)
 	);
 
-	typedef
+	using
+	pos3_type
+	=
 	sge::renderer::vf::pos<
 		float,
 		3
-	>
-	pos3_type;
+	>;
 
-	typedef
+	using
+	texpos_type
+	=
 	sge::renderer::vf::texpos<
 		float,
 		2,
 		sge::renderer::vf::index<
-			0u
+			0U
 		>
-	>
-	texpos_type;
+	>;
 
-	typedef
+	using
+	point_size_type
+	=
 	sge::renderer::vf::extra<
 		sge::renderer::vf::vector<
 			float,
-			1u
+			1U
 		>,
 		sge::renderer::vf::index<
-			0u
+			0U
 		>
-	>
-	point_size_type;
+	>;
 
-	typedef
+	using
+	format_part
+	=
 	sge::renderer::vf::part<
 		pos3_type,
 		texpos_type,
 		point_size_type
-	>
-	format_part;
+	>;
 
-	typedef
+	using
+	format
+	=
 	sge::renderer::vf::format<
 		format_part
-	>
-	format;
+	>;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
@@ -356,20 +361,20 @@ try
 				>{
 					sge::renderer::vf::labels::pos{} =
 						pos3_type::packed_type(
-							0.f,
-							0.f,
-							0.f
+							0.F,
+							0.F,
+							0.F
 						),
 					sge::renderer::vf::labels::texpos<0>{} =
 						texpos_type::packed_type(
-							0.5f,
-							0.5f
+							0.5F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+							0.5F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						),
 					sge::renderer::vf::labels::extra<
 						point_size_type::index::value
 					>{} =
 						point_size_type::packed_type(
-							200.0f
+							200.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						)
 				}
 			)
@@ -524,7 +529,7 @@ try
 
 			scoped_block.get().render_nonindexed(
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count{
 					vertex_buffer->linear_size()

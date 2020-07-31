@@ -87,7 +87,7 @@ fill_position_rotated(
 		type_choices
 	>;
 
-	float_rect const rbs(
+	auto const rbs(
 		fcppt::math::box::structure_cast<
 			float_rect,
 			fcppt::cast::static_cast_fun

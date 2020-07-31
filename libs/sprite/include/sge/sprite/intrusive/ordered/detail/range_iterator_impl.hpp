@@ -30,22 +30,23 @@ template<
 >
 struct range_iterator_impl
 {
-	typedef
+	using
+	collection_type
+	=
 	sge::sprite::intrusive::collection<
 		Choices
-	>
-	collection_type;
+	>;
 
-	typedef
-	typename
-	std::conditional<
+	using
+	type
+	=
+	std::conditional_t<
 		IsConst,
 		typename
 		collection_type::const_range_type::iterator,
 		typename
 		collection_type::range_type::iterator
-	>::type
-	type;
+	>;
 };
 
 }

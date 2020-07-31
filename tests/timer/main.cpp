@@ -23,19 +23,21 @@ TEST_CASE(
 	"[sge]"
 )
 {
-	typedef
+	using
+	clock
+	=
 	sge::timer::clocks::delta<
 		std::chrono::milliseconds
-	>
-	clock;
+	>;
 
 	clock clk{};
 
-	typedef
+	using
+	timer
+	=
 	sge::timer::basic<
 		clock
-	>
-	timer;
+	>;
 
 	timer t1{
 		timer::parameters{
@@ -105,7 +107,7 @@ TEST_CASE(
 			t1
 		)
 		>=
-		1.9f
+		1.9F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 }
 
@@ -114,19 +116,21 @@ TEST_CASE(
 	"[sge]"
 )
 {
-	typedef
+	using
+	clock
+	=
 	sge::timer::clocks::delta<
 		std::chrono::milliseconds
-	>
-	clock;
+	>;
 
-	clock clk;
+	clock clk{};
 
-	typedef
+	using
+	absolute
+	=
 	sge::timer::absolute<
 		clock
-	>
-	absolute;
+	>;
 
 	absolute t1{
 		fcppt::make_cref(

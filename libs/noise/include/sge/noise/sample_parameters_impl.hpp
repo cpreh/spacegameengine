@@ -8,6 +8,10 @@
 #define SGE_NOISE_SAMPLE_PARAMETERS_IMPL_HPP_INCLUDED
 
 #include <sge/noise/sample_parameters_decl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
+
 
 template<
 	typename Noise
@@ -15,13 +19,16 @@ template<
 sge::noise::sample_parameters<
 	Noise
 >::sample_parameters(
-	position_type const &_position,
+	position_type _position,
 	amplitude_type const &_amplitude,
 	frequency_type const &_frequency,
 	octaves_type const &_octaves)
 :
 	position_(
-		_position),
+		std::move(
+			_position
+		)
+	),
 	amplitude_(
 		_amplitude),
 	frequency_(

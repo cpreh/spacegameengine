@@ -39,8 +39,7 @@ template<
 sge::sprite::intrusive::detail::connection<
 	Choices
 >::~connection()
-{
-}
+= default;
 
 template<
 	typename Choices

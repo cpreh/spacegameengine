@@ -98,7 +98,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
 #include <cstdlib>
-#include <functional>
 #include <ios>
 #include <iostream>
 #include <istream>
@@ -119,7 +118,9 @@ query_value_from_user(
 	while(!(stream >> result))
 	{
 		if(stream.eof())
+		{
 			throw fcppt::exception(FCPPT_TEXT("Couldn't read value, EOF was reached first."));
+		}
 		stream.clear();
 		stream.ignore(
 			std::numeric_limits<std::streamsize>::max(),
@@ -133,24 +134,27 @@ query_value_from_user(
 namespace vf
 {
 
-typedef
+using
+scalar_quantity
+=
 sge::renderer::vf::pos<
 	sge::renderer::scalar,
-	2u
->
-scalar_quantity;
+	2U
+>;
 
-typedef
+using
+part
+=
 sge::renderer::vf::part<
 	vf::scalar_quantity
->
-part;
+>;
 
-typedef
+using
+format
+=
 sge::renderer::vf::format<
 	vf::part
->
-format;
+>;
 
 }
 
@@ -164,7 +168,8 @@ opencl_error_callback(
 
 void
 program_build_finished(
-	volatile bool &finished)
+	volatile bool &finished // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
 	std::cerr << "Program build finished\n";
 	finished = true;
@@ -231,10 +236,12 @@ try
 			<< FCPPT_TEXT("\n");
 
 		if(!current_platform.version().platform_specific().empty())
+		{
 			fcppt::io::cout()
 				<< FCPPT_TEXT("\tPlatform specific version info: ")
 				<< fcppt::from_std_string(current_platform.version().platform_specific())
 				<< FCPPT_TEXT("\n");
+		}
 
 		fcppt::io::cout()
 			<< FCPPT_TEXT("\tExtension list begin:\n")
@@ -252,7 +259,7 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Platform listing end\n");
 
-	sge::opencl::platform::object_sequence::size_type chosen_platform_index;
+	sge::opencl::platform::object_sequence::size_type chosen_platform_index{};
 	if(platforms.size() == 1)
 	{
 		chosen_platform_index = 0;
@@ -262,20 +269,24 @@ try
 		fcppt::io::cout()
 			<< FCPPT_TEXT("Your choice: ");
 		do
+		{
 			chosen_platform_index =
 				query_value_from_user<sge::opencl::platform::object_sequence::size_type>(
 					fcppt::io::cin());
+		}
 		while(chosen_platform_index >= platforms.size());
 	}
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("List devices with properties? [y/n] ");
 
-	fcppt::char_type list_devices;
+	fcppt::char_type list_devices{};
 	do
+	{
 		list_devices =
 			query_value_from_user<fcppt::char_type>(
 				fcppt::io::cin());
+	}
 	while(list_devices != FCPPT_TEXT('y') && list_devices != FCPPT_TEXT('n'));
 
 	sge::opencl::platform::object &chosen_platform =
@@ -311,8 +322,8 @@ try
 		<< FCPPT_TEXT("Creating sge::systems object...\n");
 
 	sge::window::dim const window_dim{
-		1024u,
-		768u
+		1024U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		768U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	};
 
 	sge::systems::instance<
@@ -323,7 +334,6 @@ try
 	> const sys(
 		sge::systems::make_list
 		(
-			// FIXME: Move this higher?
 			sge::systems::config()
 			.log_settings(
 				sge::systems::log_settings{
@@ -372,7 +382,7 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done. Creating a context with all devices on this platform...\n");
 
-	sge::opencl::device::object_ref_sequence const device_refs(
+	auto const device_refs(
 		fcppt::algorithm::map<
 			sge::opencl::device::object_ref_sequence
 		>(
@@ -413,9 +423,11 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Context created, listing available planar image formats (read/write)\n");
 
-	sge::opencl::memory_object::image::format_sequence const planar_image_formats =
+	sge::opencl::memory_object::image::format_sequence const planar_image_formats(
 		main_context.supported_planar_image_formats(
-			CL_MEM_READ_WRITE);
+			CL_MEM_READ_WRITE // NOLINT(hicpp-signed-bitwise)
+		)
+	);
 
 	for(
 		auto const format
@@ -434,9 +446,11 @@ try
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Listing available volume image formats (read/write)...\n");
 
-	sge::opencl::memory_object::image::format_sequence const volume_image_formats =
+	sge::opencl::memory_object::image::format_sequence const volume_image_formats(
 		main_context.supported_volume_image_formats(
-			CL_MEM_READ_WRITE);
+			CL_MEM_READ_WRITE // NOLINT(hicpp-signed-bitwise)
+		)
+	);
 
 	for(
 		auto const format
@@ -484,19 +498,22 @@ try
 		sge::opencl::program::build_parameters()
 		.notification_callback(
 			sge::opencl::program::notification_callback{
-				std::bind(
-					&program_build_finished,
-					std::ref(
+				[
+					&build_finished
+				]{
+					program_build_finished(
 						build_finished
-					)
-				)
+					);
+				}
 			}
 		)
 	);
 
 	std::cout << "Waiting for build completion\n";
 	while(!build_finished)
+	{
 		std::cout << "Build not finished yet\n";
+	}
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Program built, now creating a kernel...\n");
@@ -529,9 +546,14 @@ try
 					vf::part
 				>(),
 				sge::renderer::vertex::count(
-					6u),
+					6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				),
 				sge::renderer::resource_flags_field{
-					sge::renderer::resource_flags::readable})));
+					sge::renderer::resource_flags::readable
+				}
+			)
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Done, now creating OpenCL buffer from it\n");
@@ -548,7 +570,7 @@ try
 
 	main_kernel.argument(
 		sge::opencl::kernel::argument_index(
-			1u
+			1U
 		),
 		fcppt::reference_to_base<
 			sge::opencl::memory_object::base
@@ -561,10 +583,11 @@ try
 
 	main_kernel.argument(
 		sge::opencl::kernel::argument_index(
-			0u),
+			0U
+		),
 		sge::opencl::kernel::numeric_type(
 			static_cast<cl_float>(
-				2.0
+				2.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		)
 	);
@@ -609,12 +632,12 @@ try
 			sge::opencl::command_queue::global_dim1(
 				sge::opencl::dim1(
 					vb->linear_size()
-					* 2u
+					* 2U
 				)
 			),
 			sge::opencl::command_queue::local_dim1(
 				sge::opencl::dim1(
-					2u
+					2U
 				)
 			),
 			sge::opencl::event::sequence()
@@ -631,9 +654,12 @@ try
 			),
 			sge::renderer::lock_mode::readwrite);
 
-		typedef
-		sge::renderer::vf::view<vf::part>
-		vertex_view;
+		using
+		vertex_view
+		=
+		sge::renderer::vf::view<
+			vf::part
+		>;
 
 		vertex_view const vertices(
 			scoped_vb.value());

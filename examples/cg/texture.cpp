@@ -278,35 +278,39 @@ try
 		)
 	);
 
-	typedef
+	using
+	pos3_type
+	=
 	sge::renderer::vf::pos<
 		float,
 		3
-	>
-	pos3_type;
+	>;
 
-	typedef
+	using
+	texpos2_type
+	=
 	sge::renderer::vf::texpos<
 		float,
 		2,
 		sge::renderer::vf::index<
-			0u
+			0U
 		>
-	>
-	texpos2_type;
+	>;
 
-	typedef
+	using
+	format_part
+	=
 	sge::renderer::vf::part<
 		pos3_type,
 		texpos2_type
-	>
-	format_part;
+	>;
 
-	typedef
+	using
+	format
+	=
 	sge::renderer::vf::format<
 		format_part
-	>
-	format;
+	>;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
@@ -318,19 +322,22 @@ try
 		)
 	);
 
-	typedef
-	pos3_type::packed_type
-	pos3;
+	using
+	pos3
+	=
+	pos3_type::packed_type;
 
-	typedef
-	texpos2_type::packed_type
-	texpos2;
+	using
+	texpos2
+	=
+	texpos2_type::packed_type;
 
-	typedef
+	using
+	vertex
+	=
 	sge::renderer::vf::vertex<
 		format_part
-	>
-	vertex;
+	>;
 
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
 		sge::renderer::vertex::create_buffer_from_vertices<
@@ -347,40 +354,40 @@ try
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						pos3(
-							-1.f,
-							1.f,
-							0.f
+							-1.F,
+							1.F,
+							0.F
 						),
 					sge::renderer::vf::labels::texpos<0>{} =
 						texpos2(
-							0.f,
-							0.f
+							0.F,
+							0.F
 						)
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						pos3(
-							-1.f,
-							-1.f,
-							0.f
+							-1.F,
+							-1.F,
+							0.F
 						),
 					sge::renderer::vf::labels::texpos<0>{} =
 						texpos2(
-							0.f,
-							1.f
+							0.F,
+							1.F
 						)
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						pos3(
-							1.f,
-							1.f,
-							0.f
+							1.F,
+							1.F,
+							0.F
 						),
 					sge::renderer::vf::labels::texpos<0>{} =
 						texpos2(
-							1.f,
-							0.f
+							1.F,
+							0.F
 						)
 				}
 			)

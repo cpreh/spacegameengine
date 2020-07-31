@@ -15,25 +15,27 @@
 #include <fcppt/config/external_end.hpp>
 
 
-// TODO: Add a test for bresenham_thick as well
+// TODO(philipp): Add a test for bresenham_thick as well
 
 TEST_CASE(
 	"bresenham",
 	"[sge]"
 )
 {
-	typedef
+	using
+	int2_vector
+	=
 	fcppt::math::vector::static_<
 		int,
 		2
-	>
-	int2_vector;
+	>;
 
-	typedef
+	using
+	int2_vector_sequence
+	=
 	std::vector<
 		int2_vector
-	>
-	int2_vector_sequence;
+	>;
 
 	int2_vector_sequence result{};
 
@@ -43,13 +45,13 @@ TEST_CASE(
 			0
 		),
 		int2_vector(
-			10,
-			4
+			10, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			4 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		[
 			&result
 		](
-			int2_vector const _vec
+			int2_vector const &_vec
 		)
 		{
 			result.push_back(

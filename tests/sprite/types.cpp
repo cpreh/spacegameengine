@@ -52,7 +52,9 @@
 namespace
 {
 
-typedef
+using
+type_choices
+=
 sge::sprite::config::type_choices<
 	sge::sprite::config::unit_type<
 		int
@@ -60,10 +62,11 @@ sge::sprite::config::type_choices<
 	sge::sprite::config::float_type<
 		float
 	>
->
-type_choices;
+>;
 
-typedef
+using
+simple_sprite_choices
+=
 sge::sprite::config::choices<
 	type_choices,
 	sge::sprite::config::pos<
@@ -73,8 +76,7 @@ sge::sprite::config::choices<
 		sge::sprite::config::texture_size_option::never
 	>,
 	metal::list<>
->
-simple_sprite_choices;
+>;
 
 static_assert(
 	fcppt::metal::maps_equal<
@@ -115,11 +117,14 @@ static_assert(
 	>
 );
 
-typedef
-sge::image::color::rgba8_format
-color_format;
+using
+color_format
+=
+sge::image::color::rgba8_format;
 
-typedef
+using
+color_sprite_choices
+=
 sge::sprite::config::choices<
 	type_choices,
 	sge::sprite::config::pos<
@@ -133,8 +138,7 @@ sge::sprite::config::choices<
 			color_format
 		>
 	>
->
-color_sprite_choices;
+>;
 
 static_assert(
 	fcppt::metal::maps_equal<
@@ -184,7 +188,9 @@ static_assert(
 	>
 );
 
-typedef
+using
+texture_sprite_choices
+=
 sge::sprite::config::choices<
 	type_choices,
 	sge::sprite::config::pos<
@@ -196,14 +202,13 @@ sge::sprite::config::choices<
 	metal::list<
 		sge::sprite::config::with_texture<
 			sge::sprite::config::texture_level_count<
-				1u
+				1U
 			>,
 			sge::sprite::config::texture_coordinates::automatic,
 			sge::sprite::config::texture_ownership::shared
 		>
 	>
->
-texture_sprite_choices;
+>;
 
 static_assert(
 	fcppt::metal::maps_equal<
@@ -255,7 +260,9 @@ static_assert(
 	>
 );
 
-typedef
+using
+point_sprite_choices
+=
 sge::sprite::config::choices<
 	type_choices,
 	sge::sprite::config::pos<
@@ -263,12 +270,11 @@ sge::sprite::config::choices<
 	>,
 	sge::sprite::config::point_size<
 		sge::renderer::vf::index<
-			0u
+			0U
 		>
 	>,
 	metal::list<>
->
-point_sprite_choices;
+>;
 
 static_assert(
 	fcppt::metal::maps_equal<
@@ -312,7 +318,9 @@ static_assert(
 	>
 );
 
-typedef
+using
+texture_point_sprite_choices
+=
 sge::sprite::config::choices<
 	type_choices,
 	sge::sprite::config::pos<
@@ -320,13 +328,13 @@ sge::sprite::config::choices<
 	>,
 	sge::sprite::config::point_size<
 		sge::renderer::vf::index<
-			0u
+			0U
 		>
 	>,
 	metal::list<
 		sge::sprite::config::with_texture_point_size<
 			sge::sprite::config::texture_level_count<
-				1u
+				1U
 			>,
 			sge::sprite::config::custom_texture_point_pos<
 				false
@@ -335,8 +343,7 @@ sge::sprite::config::choices<
 			sge::sprite::config::texture_ownership::shared
 		>
 	>
->
-texture_point_sprite_choices;
+>;
 
 static_assert(
 	fcppt::metal::maps_equal<

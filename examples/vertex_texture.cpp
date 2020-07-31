@@ -160,35 +160,39 @@ try
 		)
 	);
 
-	typedef
+	using
+	pos3_type
+	=
 	sge::renderer::vf::pos<
 		float,
 		3
-	>
-	pos3_type;
+	>;
 
-	typedef
+	using
+	texpos2_type
+	=
 	sge::renderer::vf::texpos<
 		float,
 		2,
 		sge::renderer::vf::index<
-			0u
+			0U
 		>
-	>
-	texpos2_type;
+	>;
 
-	typedef
+	using
+	format_part
+	=
 	sge::renderer::vf::part<
 		pos3_type,
 		texpos2_type
-	>
-	format_part;
+	>;
 
-	typedef
+	using
+	format
+	=
 	sge::renderer::vf::format<
 		format_part
-	>
-	format;
+	>;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
@@ -200,19 +204,22 @@ try
 		)
 	);
 
-	typedef
+	using
+	vertex
+	=
 	sge::renderer::vf::vertex<
 		format_part
-	>
-	vertex;
+	>;
 
-	typedef
-	pos3_type::packed_type
-	vec3;
+	using
+	vec3
+	=
+	pos3_type::packed_type;
 
-	typedef
-	texpos2_type::packed_type
-	vec2;
+	using
+	vec2
+	=
+	texpos2_type::packed_type;
 
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer{
 		sge::renderer::vertex::create_buffer_from_vertices<
@@ -228,35 +235,36 @@ try
 			fcppt::container::array::make(
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(-1.f, 1.f, 0.f),
+						vec3(-1.F, 1.F, 0.F),
 					sge::renderer::vf::labels::texpos<0>{} =
-						vec2(0.f, 0.f)
+						vec2(0.F, 0.F)
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(-1.f, -1.f, 0.f),
+						vec3(-1.F, -1.F, 0.F),
 					sge::renderer::vf::labels::texpos<0>{} =
-						vec2(0.f, 1.f)
+						vec2(0.F, 1.F)
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(1.f, 1.f, 0.f),
+						vec3(1.F, 1.F, 0.F),
 					sge::renderer::vf::labels::texpos<0>{} =
-						vec2(1.f, 0.f)
+						vec2(1.F, 0.F)
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(1.f, -1.f, 0.f),
+						vec3(1.F, -1.F, 0.F),
 					sge::renderer::vf::labels::texpos<0>{} =
-						vec2(1.f, 1.f)
+						vec2(1.F, 1.F)
 				}
 			)
 		)
 	};
 
-	typedef
-	sge::renderer::index::i16
-	i16;
+	using
+	i16
+	=
+	sge::renderer::index::i16;
 
 	sge::renderer::index::buffer_unique_ptr const index_buffer{
 		sge::renderer::index::create_buffer_from_indices(
@@ -339,24 +347,24 @@ try
 					)
 				),
 				sge::renderer::texture::stage(
-					0u
+					0U
 				)
 			);
 
 			scoped_block.get().render_indexed(
 				*index_buffer,
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count(
-					4u
+					4U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				),
 				sge::renderer::primitive_type::triangle_list,
 				sge::renderer::index::first(
-					0u
+					0U
 				),
 				sge::renderer::index::count(
-					6u
+					6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			);
 		}

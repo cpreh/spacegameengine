@@ -72,8 +72,10 @@ sge::sprite::intrusive::ordered::iterator<
 		if(
 			!this->is_end()
 		)
+		{
 			inner_iterator_ =
 				outer_iterator_.base()->second->range().begin();
+		}
 	}
 }
 

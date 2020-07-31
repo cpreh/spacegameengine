@@ -19,12 +19,14 @@ namespace projectile
 {
 namespace shape
 {
-typedef
-std::vector
-<
-	projectile::triangle
->
-triangle_sequence;
+
+using
+triangle_sequence
+=
+std::vector<
+	sge::projectile::triangle
+>;
+
 }
 }
 }

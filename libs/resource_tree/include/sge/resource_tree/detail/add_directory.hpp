@@ -16,6 +16,7 @@
 #include <sge/resource_tree/detail/strip_path_prefix.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/error_code_to_string.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/filesystem/make_directory_range.hpp>
@@ -48,22 +49,26 @@ add_directory(
 	sge::resource_tree::path_to_resource_function<
 		T
 	> const &_path_to_resource,
-	Rng &_random_generator
+	fcppt::reference<
+		Rng
+	> const _random_generator
 )
 {
-	typedef
+	using
+	element_type
+	=
 	sge::resource_tree::detail::element<
 		T,
 		Rng
-	>
-	element_type;
+	>;
 
-	typedef
+	using
+	resource_container
+	=
 	typename
-	element_type::resource_container
-	resource_container;
+	element_type::resource_container;
 
-	resource_container resources(
+	auto resources(
 		fcppt::algorithm::map_optional<
 			resource_container
 		>(
@@ -91,17 +96,19 @@ add_directory(
 				std::filesystem::path const &_path
 			)
 			{
-				typedef
+				using
+				path_type
+				=
 				sge::resource_tree::detail::path_with_resource<
 					T
-				>
-				path_type;
+				>;
 
-				typedef
+				using
+				result_type
+				=
 				fcppt::optional::object<
 					path_type
-				>
-				result_type;
+				>;
 
 				return
 					std::filesystem::is_regular_file(

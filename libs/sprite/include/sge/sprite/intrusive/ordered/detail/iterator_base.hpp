@@ -26,7 +26,8 @@ template<
 	typename Order,
 	bool IsConst
 >
-using iterator_base
+using
+iterator_base
 =
 typename
 sge::sprite::intrusive::ordered::detail::iterator_base_impl<

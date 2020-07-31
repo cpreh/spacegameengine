@@ -163,8 +163,8 @@ try
 			)
 		),
 		sge::font::vector(
-			100,
-			100
+			100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		sge::image::color::any::object{
 			sge::image::color::predef::white()

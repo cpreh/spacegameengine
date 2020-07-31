@@ -216,10 +216,10 @@ try
 	sge::camera::ortho_freelook::object camera(
 		sge::camera::ortho_freelook::parameters(
 			sge::renderer::projection::near(
-				0.0f
+				0.0F
 			),
 			sge::renderer::projection::far(
-				10.0f
+				10.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		)
 	);
@@ -287,7 +287,9 @@ try
 		)
 	);
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -306,28 +308,29 @@ try
 		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::automatic,
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	>
-	sprite_choices;
+	>;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
+	using
+	sprite_buffers_type
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	>
-	sprite_buffers_type;
+	>;
 
 	sprite_buffers_type sprite_buffers(
 		fcppt::make_ref(
@@ -336,21 +339,24 @@ try
 		sge::sprite::buffers::option::dynamic
 	);
 
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state_object
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state_object;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
 	sprite_state_object sprite_states(
 		fcppt::make_ref(
@@ -373,8 +379,8 @@ try
 	sprite_object const tux(
 		sge::sprite::roles::pos{} =
 			sprite_object::vector(
-				32,
-				32
+				32, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				32 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 		sge::sprite::roles::texture0{} =
 			sprite_object::texture_type(
@@ -394,11 +400,13 @@ try
 				==
 				sge::input::key::code::g
 			)
+			{
 				for(
 					sge::input::cursor::shared_ptr const &cursor
 					:
 					sys.input_processor().cursors()
 				)
+				{
 					cursor->mode(
 						_event.pressed()
 						?
@@ -406,6 +414,8 @@ try
 						:
 							sge::input::cursor::mode::normal
 					);
+				}
+			}
 		}
 	);
 
@@ -453,7 +463,6 @@ try
 			);
 
 			sge::renderer::state::ffp::transform::scoped const projection_transform(
-				// TODO
 				fcppt::make_ref(
 					_context
 				),
@@ -486,11 +495,12 @@ try
 				sprite_states
 			);
 
-			typedef
+			using
+			sprite_state_options
+			=
 			sge::sprite::state::options<
 				sprite_state_choices
-			>
-			sprite_state_options;
+			>;
 
 			sprite_state_options const state_options(
 				sge::sprite::state::default_options<
@@ -501,11 +511,12 @@ try
 				.no_transform_state()
 			);
 
-			typedef
+			using
+			sprite_options
+			=
 			sge::sprite::process::options<
 				sge::sprite::process::geometry_options::update
-			>
-			sprite_options;
+			>;
 
 			sge::sprite::process::one_with_options<
 				sprite_options

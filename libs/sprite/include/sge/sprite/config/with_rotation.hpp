@@ -30,7 +30,9 @@ struct with_rotation
 	>
 	struct apply
 	{
-		typedef
+		using
+		type
+		=
 		metal::list<
 			fcppt::record::element<
 				sge::sprite::roles::rotation,
@@ -39,8 +41,7 @@ struct with_rotation
 					Choices::type_choices
 				>
 			>
-		>
-		type;
+		>;
 	};
 };
 

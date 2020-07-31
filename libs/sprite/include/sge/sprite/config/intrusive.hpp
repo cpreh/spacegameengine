@@ -30,7 +30,9 @@ struct intrusive
 	>
 	struct apply
 	{
-		typedef
+		using
+		type
+		=
 		metal::list<
 			fcppt::record::element<
 				sge::sprite::roles::connection,
@@ -38,8 +40,7 @@ struct intrusive
 					Choices
 				>
 			>
-		>
-		type;
+		>;
 	};
 };
 

@@ -28,7 +28,11 @@ struct scalar<
 	sge::projectile::triangulation::default_tag
 >
 {
-	typedef typename Vertex::value_type type;
+	using
+	type
+	=
+	typename
+	Vertex::value_type;
 };
 
 }

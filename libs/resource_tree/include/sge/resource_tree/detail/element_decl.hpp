@@ -11,6 +11,7 @@
 #include <sge/resource_tree/detail/element_fwd.hpp>
 #include <sge/resource_tree/detail/path_with_resource_decl.hpp>
 #include <fcppt/noncopyable.hpp>
+#include <fcppt/reference_fwd.hpp>
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/random/variate_decl.hpp>
@@ -60,43 +61,52 @@ class element
 		element
 	);
 public:
-	typedef
+	using
+	resource_container
+	=
 	std::vector<
 		sge::resource_tree::detail::path_with_resource<
 			T
 		>
-	>
-	resource_container;
+	>;
 
 	element(
 		sge::resource_tree::path &&,
 		resource_container &&,
-		Rng &
+		fcppt::reference<
+			Rng
+		>
 	);
 
 	element(
 		element &&
-	);
+	)
+	noexcept;
 
 	element &
 	operator=(
 		element &&
-	);
+	)
+	noexcept;
 
 	~element();
 
+	[[nodiscard]]
 	sge::resource_tree::path const &
 	base_path() const;
 
+	[[nodiscard]]
 	T const &
 	get_random() const;
 
-	typedef
+	using
+	optional_type
+	=
 	fcppt::optional::reference<
 		T const
-	>
-	optional_type;
+	>;
 
+	[[nodiscard]]
 	optional_type
 	get_opt(
 		sge::resource_tree::path const &
@@ -106,18 +116,20 @@ private:
 
 	resource_container resources_;
 
-	typedef
+	using
+	container_distribution
+	=
 	fcppt::random::wrapper::uniform_container<
 		resource_container
-	>
-	container_distribution;
+	>;
 
-	typedef
+	using
+	variate
+	=
 	fcppt::random::variate<
 		Rng,
 		container_distribution
-	>
-	variate;
+	>;
 
 	mutable
 	fcppt::optional::object<

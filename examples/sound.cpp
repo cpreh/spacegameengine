@@ -12,7 +12,7 @@
 #include <sge/audio/listener.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/load_raw_exn.hpp>
-#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/loader_ref.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/position.hpp>
 #include <sge/audio/sound/base.hpp>
@@ -82,7 +82,7 @@ namespace
 sge::audio::file_unique_ptr
 load_raw(
 	std::filesystem::path const &_path,
-	sge::audio::loader &_audio_loader
+	sge::audio::loader_ref const _audio_loader
 )
 {
 	std::ifstream raw_stream(
@@ -90,11 +90,12 @@ load_raw(
 		std::ios::binary
 	);
 
-	typedef
+	using
+	raw_byte_container
+	=
 	std::vector<
 		char
-	>
-	raw_byte_container;
+	>;
 
 	raw_byte_container raw_bytes{
 		std::istreambuf_iterator<
@@ -109,9 +110,7 @@ load_raw(
 
 	return
 		sge::audio::load_raw_exn(
-			fcppt::make_ref(
-				_audio_loader
-			),
+			_audio_loader,
 			sge::media::const_raw_range(
 				fcppt::cast::to_char_ptr<
 					sge::media::const_raw_pointer
@@ -122,7 +121,7 @@ load_raw(
 					sge::media::const_raw_pointer
 				>(
 					raw_bytes.data()
-					+
+					+ // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 					raw_bytes.size()
 				)
 			),
@@ -134,6 +133,7 @@ load_raw(
 
 namespace
 {
+
 void
 wait_for_input()
 {
@@ -148,26 +148,33 @@ wait_for_input()
 
 void
 wait_for_sound(
-	sge::audio::sound::base &_sound)
+	sge::audio::sound::base &_sound // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
-	while (_sound.status() != sge::audio::sound::play_status::stopped)
+	while(
+		_sound.status() != sge::audio::sound::play_status::stopped
+	)
+	{
 		_sound.update();
+	}
 }
+
 }
 
 int
 main()
 try
 {
-	std::filesystem::path const
-		file_name =
-			sge::config::media_path() /
-			FCPPT_TEXT("sounds") /
-			FCPPT_TEXT("ding.wav"),
-		streaming_file_name =
-			sge::config::media_path() /
-			FCPPT_TEXT("sounds") /
-			FCPPT_TEXT("epoq.ogg");
+	std::filesystem::path const file_name{
+		sge::config::media_path() /
+		FCPPT_TEXT("sounds") /
+		FCPPT_TEXT("ding.wav")
+	};
+	std::filesystem::path const streaming_file_name{
+		sge::config::media_path() /
+		FCPPT_TEXT("sounds") /
+		FCPPT_TEXT("epoq.ogg")
+	};
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("This is the sge sound example. We will now try to load the audio loader\n");
@@ -216,7 +223,11 @@ try
 	sge::audio::file_unique_ptr const soundfile(
 		load_raw(
 			file_name,
-			sys.audio_loader()));
+			fcppt::make_ref(
+				sys.audio_loader()
+			)
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Sound file loaded\n")
@@ -226,7 +237,9 @@ try
 
 	sge::audio::buffer_unique_ptr const buf(
 		sys.audio_player().create_buffer(
-			*soundfile));
+			*soundfile
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Buffer created\n")
@@ -236,7 +249,9 @@ try
 
 	sge::audio::sound::base_unique_ptr const sound(
 		buf->create_nonpositional(
-			sge::audio::sound::nonpositional_parameters()));
+			sge::audio::sound::nonpositional_parameters()
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Nonpositional source loaded\n")
@@ -245,10 +260,12 @@ try
 	wait_for_input();
 
 	sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
 
 	wait_for_sound(
-		*sound);
+		*sound
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now we use the same sound, but create a positional source from it.\n");
@@ -278,10 +295,12 @@ try
 	wait_for_input();
 
 	sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
 
 	wait_for_sound(
-		*sound);
+		*sound
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now we reposition and play again\nYou should hear the sound coming from the _left_ now.\n");
@@ -290,17 +309,19 @@ try
 
 	positional_sound->position(
 		sge::audio::vector(
-			-2.f,
-			0.f,
-			0.f
+			-2.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			0.F,
+			0.F
 		)
 	);
 
 	positional_sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
 
 	wait_for_sound(
-		*positional_sound);
+		*positional_sound
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Back to the nonpositional sound. We now try to lower the volume globally. Playing at 100% volume...\n");
@@ -308,9 +329,12 @@ try
 	wait_for_input();
 
 	sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
+
 	wait_for_sound(
-		*sound);
+		*sound
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now 50% volume...\n");
@@ -318,12 +342,20 @@ try
 	wait_for_input();
 
 	sys.audio_player().gain(
-		static_cast<sge::audio::scalar>(0.5));
+		static_cast<
+			sge::audio::scalar
+		>(
+			0.5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		)
+	);
 
 	sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
+
 	wait_for_sound(
-		*sound);
+		*sound
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now 25% volume...\n");
@@ -331,12 +363,20 @@ try
 	wait_for_input();
 
 	sys.audio_player().gain(
-		static_cast<sge::audio::scalar>(0.25));
+		static_cast<
+			sge::audio::scalar
+		>(
+			0.25 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		)
+	);
 
 	sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
+
 	wait_for_sound(
-		*sound);
+		*sound
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("And finally 0% volume...\n");
@@ -344,15 +384,28 @@ try
 	wait_for_input();
 
 	sys.audio_player().gain(
-		static_cast<sge::audio::scalar>(0.0));
+		static_cast<
+			sge::audio::scalar
+		>(
+			0.0
+		)
+	);
 
 	sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
+
 	wait_for_sound(
-		*sound);
+		*sound
+	);
 
 	sys.audio_player().gain(
-		static_cast<sge::audio::scalar>(1.0));
+		static_cast<
+			sge::audio::scalar
+		>(
+			1.0
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Let's try changing the sound pitch now...You'll hear the sound with a 50% pitch now.\n");
@@ -360,13 +413,20 @@ try
 	wait_for_input();
 
 	sound->pitch(
-		static_cast<sge::audio::scalar>(
-			0.5));
+		static_cast<
+			sge::audio::scalar
+		>(
+			0.5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		)
+	);
 
 	sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
+
 	wait_for_sound(
-		*sound);
+		*sound
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Now with 150% pitch...\n");
@@ -374,13 +434,20 @@ try
 	wait_for_input();
 
 	sound->pitch(
-		static_cast<sge::audio::scalar>(
-			1.5));
+		static_cast<
+			sge::audio::scalar
+		>(
+			1.5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		)
+	);
 
 	sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
+
 	wait_for_sound(
-		*sound);
+		*sound
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("On to streaming sounds, we'll now create a positional streaming sound...\n");
@@ -404,9 +471,9 @@ try
 			sge::audio::sound::positional_parameters{
 				sge::audio::position{
 					sge::audio::vector{
-						-2000.f,
-						0.f,
-						0.f
+						-2000.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						0.F,
+						0.F
 					}
 				}
 			}
@@ -424,29 +491,38 @@ try
 	wait_for_input();
 
 	streaming_positional_sound->play(
-		sge::audio::sound::repeat::once);
+		sge::audio::sound::repeat::once
+	);
 
 	streaming_positional_sound->position(
 		sge::audio::vector(
-			-2000.f,
-			0.f,
-			0.f
+			-2000.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			0.F,
+			0.F
 		)
 	);
 
 	sge::timer::basic<sge::timer::clocks::standard> frame_timer(
 		sge::timer::parameters<sge::timer::clocks::standard>(
 			std::chrono::seconds(
-				10)));
+				10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			)
+		)
+	);
 
 	while(
 		streaming_positional_sound->status() != sge::audio::sound::play_status::stopped
-		&& !frame_timer.expired())
+		&& !frame_timer.expired()
+	)
+	{
 		streaming_positional_sound->update();
+	}
+
 	streaming_positional_sound->stop();
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("Finished\n");
+
 	wait_for_input();
 
 }

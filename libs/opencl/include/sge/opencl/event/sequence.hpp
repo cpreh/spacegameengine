@@ -19,15 +19,16 @@ namespace opencl
 {
 namespace event
 {
-typedef
-std::vector
-<
+
+using
+sequence
+=
+std::vector<
 	sge::opencl::event::object_unique_ptr
->
-sequence;
+>;
+
 }
 }
 }
 
 #endif
-

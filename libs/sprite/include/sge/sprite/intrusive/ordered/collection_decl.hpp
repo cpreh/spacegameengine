@@ -12,7 +12,7 @@
 #include <sge/sprite/intrusive/ordered/collection_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/range_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/detail/map.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -30,63 +30,73 @@ template<
 >
 class collection
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		collection
 	);
 public:
-	typedef
-	Order
-	order;
+	using
+	order
+	=
+	Order;
 
-	typedef
+	using
+	collection_base
+	=
 	sge::sprite::intrusive::collection<
 		Choices
-	>
-	collection_base;
+	>;
 
-	typedef
-	Choices
-	choices;
+	using
+	choices
+	=
+	Choices;
 
-	typedef
+	using
+	connection_ref
+	=
 	sge::sprite::intrusive::connection_ref<
 		Choices
-	>
-	connection_ref;
+	>;
 
 	collection();
 
 	~collection();
 
+	[[nodiscard]]
 	collection_base &
 	get(
 		order const &
 	);
 
+	[[nodiscard]]
 	connection_ref
 	connection(
 		order const &
 	);
 
-	typedef
+	using
+	range_type
+	=
 	sge::sprite::intrusive::ordered::range<
 		Choices,
 		order,
 		false
-	>
-	range_type;
+	>;
 
-	typedef
+	using
+	const_range_type
+	=
 	sge::sprite::intrusive::ordered::range<
 		Choices,
 		order,
 		true
-	>
-	const_range_type;
+	>;
 
+	[[nodiscard]]
 	range_type
 	range();
 
+	[[nodiscard]]
 	const_range_type
 	range() const;
 
@@ -98,12 +108,13 @@ public:
 		Function const &
 	);
 private:
-	typedef
+	using
+	order_map
+	=
 	sge::sprite::intrusive::ordered::detail::map<
 		order,
 		Choices
-	>
-	order_map;
+	>;
 
 	order_map collections_;
 };

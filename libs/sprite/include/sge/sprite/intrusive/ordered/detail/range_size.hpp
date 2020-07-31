@@ -40,7 +40,7 @@ range_size(
 		fcppt::algorithm::fold(
 			_ordered_map,
 			sge::sprite::count{
-				0u
+				0U
 			},
 			[](
 				auto const &_element,

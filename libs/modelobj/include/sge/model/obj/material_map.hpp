@@ -20,13 +20,15 @@ namespace model
 {
 namespace obj
 {
-typedef
-std::map
-<
+
+using
+material_map
+=
+std::map<
 	sge::model::obj::identifier,
 	sge::model::obj::material::object
->
-material_map;
+>;
+
 }
 }
 }

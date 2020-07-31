@@ -225,46 +225,51 @@ try
 		)
 	};
 
-	typedef
+	using
+	vf_pos
+	=
 	sge::renderer::vf::pos<
 		float,
 		3
-	>
-	vf_pos;
+	>;
 
-	typedef
+	using
+	vf_texpos0
+	=
 	sge::renderer::vf::texpos<
 		float,
 		2,
 		sge::renderer::vf::index<
 			0
 		>
-	>
-	vf_texpos0;
+	>;
 
-	typedef
+	using
+	vf_texpos1
+	=
 	sge::renderer::vf::texpos<
 		float,
 		2,
 		sge::renderer::vf::index<
 			1
 		>
-	>
-	vf_texpos1;
+	>;
 
-	typedef
+	using
+	vf_format_part
+	=
 	sge::renderer::vf::part<
 		vf_pos,
 		vf_texpos0,
 		vf_texpos1
-	>
-	vf_format_part;
+	>;
 
-	typedef
+	using
+	vf_format
+	=
 	sge::renderer::vf::format<
 		vf_format_part
-	>
-	vf_format;
+	>;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_ffp().create_vertex_declaration(
@@ -276,20 +281,27 @@ try
 		)
 	);
 
-	typedef
+	using
+	vertex
+	=
 	sge::renderer::vf::vertex<
 		vf_format_part
-	>
-	vertex;
+	>;
 
-	typedef
-	vf_pos::packed_type pos;
+	using
+	pos
+	=
+	vf_pos::packed_type;
 
-	typedef
-	vf_texpos0::packed_type texpos0;
+	using
+	texpos0
+	=
+	vf_texpos0::packed_type;
 
-	typedef
-	vf_texpos1::packed_type texpos1;
+	using
+	texpos1
+	=
+	vf_texpos1::packed_type;
 
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer{
 		sge::renderer::vertex::create_buffer_from_vertices<
@@ -306,46 +318,47 @@ try
 				// top left
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						pos(-1.f, 1.f, 0.f),
+						pos(-1.F, 1.F, 0.F),
 					sge::renderer::vf::labels::texpos<0>{} =
-						texpos0(0.f, 0.f),
+						texpos0(0.F, 0.F),
 					sge::renderer::vf::labels::texpos<1>{} =
-						texpos1(0.f, 0.f)
+						texpos1(0.F, 0.F)
 				},
 				// bottom left
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						pos(-1.f, -1.f, 0.f),
+						pos(-1.F, -1.F, 0.F),
 					sge::renderer::vf::labels::texpos<0>{} =
-						texpos0(0.f, 1.f),
+						texpos0(0.F, 1.F),
 					sge::renderer::vf::labels::texpos<1>{} =
-						texpos1(0.f, 1.f)
+						texpos1(0.F, 1.F)
 				},
 				// top right
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						pos(1.f, 1.f, 0.f),
+						pos(1.F, 1.F, 0.F),
 					sge::renderer::vf::labels::texpos<0>{} =
-						texpos0(1.f, 0.f),
+						texpos0(1.F, 0.F),
 					sge::renderer::vf::labels::texpos<1>{} =
-						texpos1(1.f, 0.f)
+						texpos1(1.F, 0.F)
 				},
 				// bottom right
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						pos(1.f, -1.f, 0.f),
+						pos(1.F, -1.F, 0.F),
 					sge::renderer::vf::labels::texpos<0>{} =
-						texpos0(1.f, 1.f),
+						texpos0(1.F, 1.F),
 					sge::renderer::vf::labels::texpos<1>{} =
-						texpos1(1.f, 1.f)
+						texpos1(1.F, 1.F)
 				}
 			)
 		)
 	};
 
-	typedef
-	sge::renderer::index::i16
-	i16;
+	using
+	i16
+	=
+	sge::renderer::index::i16;
 
 	sge::renderer::index::buffer_unique_ptr const index_buffer{
 		sge::renderer::index::create_buffer_from_indices(
@@ -470,7 +483,7 @@ try
 						*texture1
 					)
 				),
-				sge::renderer::texture::stage(0u)
+				sge::renderer::texture::stage(0U)
 			);
 
 			sge::renderer::texture::scoped const tex1_context(
@@ -488,7 +501,7 @@ try
 						*texture2
 					)
 				),
-				sge::renderer::texture::stage(1u)
+				sge::renderer::texture::stage(1U)
 			);
 
 			scoped_block.get().sampler_ffp_state(
@@ -507,14 +520,14 @@ try
 			scoped_block.get().render_indexed(
 				*index_buffer,
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count(
 					vertex_buffer->linear_size()
 				),
 				sge::renderer::primitive_type::triangle_list,
 				sge::renderer::index::first(
-					0u
+					0U
 				),
 				sge::renderer::index::count(
 					index_buffer->linear_size()

@@ -59,7 +59,7 @@ try
 
 	sge::rucksack::widget::enumeration enumeration_box(
 		sge::rucksack::padding(
-			5
+			5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	);
 
@@ -73,9 +73,10 @@ try
 		)
 	);
 
-	typedef
-	fcppt::random::generator::minstd_rand
-	default_generator;
+	using
+	default_generator
+	=
+	fcppt::random::generator::minstd_rand;
 
 	default_generator def_gen(
 		fcppt::random::generator::seed_from_chrono<
@@ -83,40 +84,44 @@ try
 		>()
 	);
 
-	typedef
+	using
+	scalar_distribution
+	=
 	fcppt::random::distribution::basic<
 		fcppt::random::distribution::parameters::uniform_int<
 			sge::rucksack::scalar
 		>
-	>
-	scalar_distribution;
+	>;
 
 	fcppt::random::variate<
 		default_generator,
 		scalar_distribution
-	>
-		size_rng_w(
-			def_gen,
-			scalar_distribution(
-				scalar_distribution::param_type::min(
-					10
-				),
-				scalar_distribution::param_type::max(
-					300
-				)
+	> size_rng_w(
+		def_gen,
+		scalar_distribution(
+			scalar_distribution::param_type::min(
+				10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			),
+			scalar_distribution::param_type::max(
+				300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
-		),
-		size_rng_h(
-			def_gen,
-			scalar_distribution(
-				scalar_distribution::param_type::min(
-					10
-				),
-				scalar_distribution::param_type::max(
-					300
-				)
+		)
+	);
+
+	fcppt::random::variate<
+		default_generator,
+		scalar_distribution
+	> size_rng_h(
+		def_gen,
+		scalar_distribution(
+			scalar_distribution::param_type::min(
+				10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			),
+			scalar_distribution::param_type::max(
+				300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
-		);
+		)
+	);
 
 	testbed.add_widget(
 		fcppt::reference_to_base<
@@ -131,20 +136,22 @@ try
 		}
 	);
 
-	typedef
+	using
+	dummy_unique_ptr
+	=
 	fcppt::unique_ptr<
 		sge::rucksack::widget::dummy
-	>
-	dummy_unique_ptr;
+	>;
 
-	typedef
+	using
+	dummy_sprite_sequence
+	=
 	std::array<
 		dummy_unique_ptr,
-		20
-	>
-	dummy_sprite_sequence;
+		20 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+	>;
 
-	dummy_sprite_sequence sprites(
+	auto sprites(
 		fcppt::container::array::init_move<
 			dummy_sprite_sequence
 		>(

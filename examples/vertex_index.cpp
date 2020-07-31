@@ -145,31 +145,35 @@ try
 		)
 	);
 
-	typedef
+	using
+	pos3_type
+	=
 	sge::renderer::vf::pos<
 		float,
 		3
-	>
-	pos3_type;
+	>;
 
-	typedef
+	using
+	color_type
+	=
 	sge::renderer::vf::color<
 		sge::image::color::bgra8_format
-	>
-	color_type;
+	>;
 
-	typedef
+	using
+	format_part
+	=
 	sge::renderer::vf::part<
 		pos3_type,
 		color_type
-	>
-	format_part;
+	>;
 
-	typedef
+	using
+	format
+	=
 	sge::renderer::vf::format<
 		format_part
-	>
-	format;
+	>;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
@@ -181,11 +185,12 @@ try
 		)
 	);
 
-	typedef
+	using
+	vertex
+	=
 	sge::renderer::vf::vertex<
 		format_part
-	>
-	vertex;
+	>;
 
 	auto const make_color(
 		[](
@@ -201,9 +206,10 @@ try
 		}
 	);
 
-	typedef
-	pos3_type::packed_type
-	vec3;
+	using
+	vec3
+	=
+	pos3_type::packed_type;
 
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer{
 		sge::renderer::vertex::create_buffer_from_vertices<
@@ -219,7 +225,7 @@ try
 			fcppt::container::array::make(
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(-1.f, 1.f, 0.f),
+						vec3(-1.F, 1.F, 0.F),
 					sge::renderer::vf::labels::color{} =
 						make_color(
 							sge::image::color::predef::cyan()
@@ -227,7 +233,7 @@ try
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(-1.f, -1.f, 0.f),
+						vec3(-1.F, -1.F, 0.F),
 					sge::renderer::vf::labels::color{} =
 						make_color(
 							sge::image::color::predef::yellow()
@@ -235,7 +241,7 @@ try
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(1.f, 1.f, 0.f),
+						vec3(1.F, 1.F, 0.F),
 					sge::renderer::vf::labels::color{} =
 						make_color(
 							sge::image::color::predef::magenta()
@@ -243,7 +249,7 @@ try
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(1.f, -1.f, 0.f),
+						vec3(1.F, -1.F, 0.F),
 					sge::renderer::vf::labels::color{} =
 						make_color(
 							sge::image::color::predef::red()
@@ -253,9 +259,10 @@ try
 		)
 	};
 
-	typedef
-	sge::renderer::index::format_16
-	index_format;
+	using
+	index_format
+	=
+	sge::renderer::index::format_16;
 
 	sge::renderer::index::buffer_unique_ptr const index_buffer(
 		sys.renderer_device_core().create_index_buffer(
@@ -264,7 +271,7 @@ try
 					index_format
 				>(),
 				sge::renderer::index::count(
-					6u
+					6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				),
 				sge::renderer::resource_flags_field::null()
 			)
@@ -279,12 +286,13 @@ try
 			sge::renderer::lock_mode::writeonly
 		);
 
-		typedef
+		using
+		index_view
+		=
 		sge::renderer::index::view<
 			index_format,
 			sge::renderer::index::nonconst_tag
-		>
-		index_view;
+		>;
 
 		index_view const view(
 			iblock.value()
@@ -294,9 +302,10 @@ try
 			view.begin()
 		);
 
-		typedef
-		index_view::value_type
-		index_value_type;
+		using
+		index_value_type
+		=
+		index_view::value_type;
 
 		(*it++).set(fcppt::literal<index_value_type>(0));
 		(*it++).set(fcppt::literal<index_value_type>(1));
@@ -343,17 +352,17 @@ try
 			scoped_block.get().render_indexed(
 				*index_buffer,
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count(
-					4u
+					4U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				),
 				sge::renderer::primitive_type::triangle_list,
 				sge::renderer::index::first(
-					0u
+					0U
 				),
 				sge::renderer::index::count(
-					6u
+					6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			);
 		}

@@ -133,27 +133,28 @@ try
 	sge::graph::object graph(
 		sge::graph::position(
 			sge::renderer::vector2(
-				100.f,
-				100.f
+				100.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				100.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		),
 		sge::image2d::dim(
-			512u,
-			128u
+			512U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		fcppt::make_ref(
 			sys.renderer_device_ffp()
 		),
 		sge::graph::baseline(
-			20.0
+			20.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		sge::graph::optional_axis_constraint(),
 		sge::graph::color_schemes::bright()
 	);
 
-	typedef
-	fcppt::random::generator::minstd_rand
-	generator_type;
+	using
+	generator_type
+	=
+	fcppt::random::generator::minstd_rand;
 
 	generator_type generator(
 		fcppt::random::generator::seed_from_chrono<
@@ -161,20 +162,22 @@ try
 		>()
 	);
 
-	typedef
+	using
+	uniform_real
+	=
 	fcppt::random::distribution::basic<
 		fcppt::random::distribution::parameters::uniform_real<
 			double
 		>
-	>
-	uniform_real;
+	>;
 
-	typedef
+	using
+	variate
+	=
 	fcppt::random::variate<
 		generator_type,
 		uniform_real
-	>
-	variate;
+	>;
 
 	variate rng(
 		generator,

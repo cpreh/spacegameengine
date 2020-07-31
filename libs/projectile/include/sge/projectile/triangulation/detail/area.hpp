@@ -32,27 +32,36 @@ area(
 	PointContainer const &_contour
 )
 {
-	typedef typename
-	PointContainer::size_type
-	size_type;
+	using
+	size_type
+	=
+	typename
+	PointContainer::size_type;
 
-	typedef typename
-	PointContainer::value_type vertex;
+	using
+	vertex
+	=
+	typename
+	PointContainer::value_type;
 
-	typedef
+	using
+	access_element
+	=
 	sge::projectile::triangulation::traits::access_element<
 		vertex,
 		Tag
-	> access_element;
+	>;
 
-	typedef typename
+	using
+	scalar
+	=
+	typename
 	sge::projectile::triangulation::traits::scalar<
 		vertex,
 		Tag
-	>::type
-	scalar;
+	>::type;
 
-	scalar result(
+	auto result(
 		static_cast<
 			scalar
 		>(
@@ -61,12 +70,12 @@ area(
 	);
 
 	for(
-		size_type
+		auto
 			p1(
 				static_cast<
 					size_type
 				>(
-					_contour.size() - 1u
+					_contour.size() - 1U
 				)
 			),
 			p2(
@@ -79,6 +88,7 @@ area(
 			p2 < _contour.size();
 			p1 = p2++
 	)
+	{
 		result =
 			static_cast<
 				scalar
@@ -113,6 +123,7 @@ area(
 					1
 				)
 			);
+	}
 
 	return
 		static_cast<

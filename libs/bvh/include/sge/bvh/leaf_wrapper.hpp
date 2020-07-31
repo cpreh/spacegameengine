@@ -18,9 +18,10 @@ template<typename Leaf>
 class leaf_wrapper
 {
 public:
-	typedef
-	Leaf
-	leaf;
+	using
+	leaf
+	=
+	Leaf;
 
 	explicit
 	leaf_wrapper(
@@ -31,6 +32,7 @@ public:
 	{
 	}
 
+	[[nodiscard]]
 	leaf &
 	value() const
 	{

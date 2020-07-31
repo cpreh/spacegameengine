@@ -61,5 +61,4 @@ sge::rucksack::testbed::object::systems() const
 }
 
 sge::rucksack::testbed::object::~object()
-{
-}
+= default;

@@ -142,8 +142,8 @@ main_program(
 				sge::viewport::optional_resize_callback{
 					sge::viewport::center_on_resize(
 						sge::window::dim{
-							1024u,
-							768u
+							1024U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+							768U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						}
 					)
 				}

@@ -25,7 +25,8 @@ template<
 	typename Choices,
 	bool IsConst
 >
-using range_iterator
+using
+range_iterator
 =
 typename
 sge::sprite::intrusive::ordered::detail::range_iterator_impl<

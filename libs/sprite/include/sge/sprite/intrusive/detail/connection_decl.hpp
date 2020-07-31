@@ -11,7 +11,7 @@
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/intrusive/connection_decl.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_decl.hpp>
 
 
@@ -33,27 +33,30 @@ class connection
 		Choices
 	>
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		connection
 	);
 public:
-	typedef
+	using
+	list
+	=
 	sge::sprite::intrusive::detail::list<
 		Choices
-	>
-	list;
+	>;
 
-	typedef
+	using
+	list_ref
+	=
 	fcppt::reference<
 		list
-	>
-	list_ref;
+	>;
 
-	typedef
+	using
+	count_ref
+	=
 	fcppt::reference<
 		sge::sprite::count
-	>
-	count_ref;
+	>;
 
 	connection(
 		list_ref,
@@ -63,16 +66,18 @@ public:
 	~connection()
 	override;
 
-	typedef
+	using
+	base
+	=
 	sge::sprite::intrusive::connection<
 		Choices
-	>
-	base;
+	>;
 
-	typedef
+	using
+	object
+	=
 	typename
-	base::object
-	object;
+	base::object;
 
 	void
 	add(

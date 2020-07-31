@@ -59,7 +59,7 @@ try
 		<<
 		FCPPT_TEXT("Would produce: ")
 		<<
-		(loaded_model.face_count() * 3u)
+		(loaded_model.face_count() * 3U)
 		<<
 		FCPPT_TEXT(" indices\n")
 		<<
@@ -163,10 +163,13 @@ try
 		if(
 			pair.first.get().empty()
 		)
+		{
 			fcppt::io::cout()
 				<<
 				FCPPT_TEXT("\tDefault material\n");
+		}
 		else
+		{
 			fcppt::io::cout()
 				<<
 				FCPPT_TEXT("\tMaterial: ")
@@ -184,6 +187,7 @@ try
 				)
 				<<
 				FCPPT_TEXT('\n');
+		}
 
 		fcppt::io::cout()
 			<<

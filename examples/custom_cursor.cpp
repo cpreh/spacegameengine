@@ -200,8 +200,8 @@ try
 		),
 		sge::cursor::hotspot(
 			sge::cursor::hotspot::value_type(
-				10U,
-				10U
+				10U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		)
 	};

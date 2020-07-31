@@ -141,9 +141,10 @@ namespace
 class jiffies
 {
 public:
-	typedef
-	unsigned long
-	value_type;
+	using
+	value_type
+	=
+	unsigned long; // NOLINT(google-runtime-int)
 
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		value_type,
@@ -169,6 +170,7 @@ public:
 	{
 	}
 
+	[[nodiscard]]
 	total_type
 	total() const
 	{
@@ -176,6 +178,7 @@ public:
 			total_;
 	}
 
+	[[nodiscard]]
 	work_type
 	work() const
 	{
@@ -183,6 +186,7 @@ public:
 			work_;
 	}
 
+	[[nodiscard]]
 	jiffies
 	operator-(
 		jiffies const &_other
@@ -198,6 +202,7 @@ public:
 	template<
 		typename Float
 	>
+	[[nodiscard]]
 	Float
 	work_percentage() const
 	{
@@ -232,7 +237,7 @@ public:
 				fcppt::literal<
 					Float
 				>(
-					100
+					100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			:
 				fcppt::literal<
@@ -263,7 +268,7 @@ count_jiffies()
 		)
 	};
 
-	std::string first_word;
+	std::string first_word{};
 
 	cpuinfo >> first_word;
 
@@ -271,25 +276,30 @@ count_jiffies()
 		first_word == "cpu"
 	);
 
-	typedef
+	using
+	jiffies_array
+	=
 	std::array<
 		jiffies::value_type,
-		7u
-	>
-	jiffies_array;
+		7U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+	>;
 
-	jiffies_array current_jiffies;
+	jiffies_array current_jiffies{};
 
-	// TODO: Use optionals
+	// TODO(philipp): Use optionals
 	for(
 		auto &jiffie
 		:
 		current_jiffies
 	)
+	{
 		if(
 			!(cpuinfo >> jiffie)
 		)
+		{
 			std::terminate();
+		}
+	}
 
 	return
 		jiffies(
@@ -297,14 +307,14 @@ count_jiffies()
 				std::accumulate(
 					current_jiffies.begin(),
 					current_jiffies.end(),
-					0u
+					0UL
 				)
 			),
 			jiffies::work_type(
 				std::accumulate(
 					current_jiffies.begin(),
 					current_jiffies.begin() + 3,
-					0u
+					0UL
 				)
 			)
 		);
@@ -340,17 +350,21 @@ public:
 
 	graph_with_label(
 		graph_with_label &&
-	) = default;
+	)
+	noexcept
+	= default;
 
 	graph_with_label &
 	operator=(
 		graph_with_label &&
-	) = delete;
+	)
+	noexcept
+	= delete;
 
 	~graph_with_label()
-	{
-	}
+	= default;
 
+	[[nodiscard]]
 	sge::graph::object &
 	get_graph() const
 	{
@@ -358,6 +372,7 @@ public:
 			*graph_;
 	}
 
+	[[nodiscard]]
 	sge::font::draw::static_text &
 	get_label() const
 	{
@@ -388,18 +403,18 @@ count_memory()
 		)
 	);
 
-	unsigned
-		total{0},
-		free{0},
-		buffers{0},
-		cached{0},
-		slab{0};
+	unsigned total{0};
+	unsigned free{0};
+	unsigned buffers{0};
+	unsigned cached{0};
+	unsigned slab{0};
 
-	std::string first_word, last_word;
+	std::string first_word{};
+	std::string last_word{};
 
-	unsigned value;
+	unsigned value{};
 
-	// TODO: Use optionals
+	// TODO(philipp): Use optionals
 	while(
 		(
 			meminfo
@@ -418,23 +433,33 @@ count_memory()
 		if(
 			first_word == "MemTotal:"
 		)
+		{
 			total = value;
+		}
 		else if(
 			first_word == "MemFree:"
 		)
+		{
 			free = value;
+		}
 		else if (
 			first_word == "Buffers:"
 		)
+		{
 			buffers = value;
+		}
 		else if(
 			first_word == "Cached:"
 		)
+		{
 			cached = value;
+		}
 		else if(
 			first_word == "Slab:"
 		)
+		{
 			slab = value;
+		}
 	}
 
 	unsigned const used{
@@ -492,13 +517,13 @@ network_devices()
 		'\n'
 	);
 
-	std::string device;
+	std::string device{};
 
 	std::vector<
 		std::string
-	> result;
+	> result{};
 
-	// TODO: Use optionals
+	// TODO(philipp): Use optionals
 	while(
 		(
 			netinfo
@@ -515,16 +540,18 @@ network_devices()
 		if(
 			device != "lo:"
 		)
+		{
 			result.push_back(
 				device
 			);
+		}
 	}
 
 	return
 		result;
 }
 
-unsigned long
+unsigned long // NOLINT(google-runtime-int)
 count_traffic(
 	std::string const &_device
 )
@@ -542,7 +569,7 @@ count_traffic(
 
 	std::vector<
 		std::string
-	> result;
+	> result{};
 
 	// skip the first two lines
 	netinfo.ignore(
@@ -559,11 +586,11 @@ count_traffic(
 		'\n'
 	);
 
-	std::string device;
+	std::string device{};
 
-	unsigned long value;
+	unsigned long value{}; // NOLINT(google-runtime-int)
 
-	// TODO: Use optionals
+	// TODO(philipp): Use optionals
 	while(
 		(
 			netinfo
@@ -584,8 +611,10 @@ count_traffic(
 			==
 			_device + ':'
 		)
+		{
 			return
 				value;
+		}
 	}
 
 	FCPPT_ASSERT_UNREACHABLE;
@@ -599,7 +628,9 @@ FCPPT_RECORD_MAKE_LABEL(
 	height_label
 );
 
-typedef
+using
+arg_type
+=
 fcppt::record::object<
 	fcppt::record::element<
 		width_label,
@@ -609,8 +640,7 @@ fcppt::record::object<
 		height_label,
 		sge::window::dim::value_type
 	>
->
-arg_type;
+>;
 
 awl::main::exit_code
 main_program(
@@ -638,9 +668,9 @@ main_program(
 
 	std::map<
 		std::string,
-		unsigned long
+		unsigned long // NOLINT(google-runtime-int)
 	>
-	device_totals;
+	device_totals{};
 
 	sge::systems::instance<
 		sge::systems::with_window,
@@ -698,7 +728,9 @@ main_program(
 			sge::font::parameters()
 			.family(
 				FCPPT_TEXT(
-					"monospace"))
+					"monospace"
+				)
+			)
 		)
 	);
 
@@ -761,8 +793,8 @@ main_program(
 	sge::graph::object cpugraph(
 		sge::graph::position(
 			sge::renderer::vector2(
-				0.0f,
-				0.0f
+				0.0F,
+				0.0F
 			)
 		),
 		fcppt::math::dim::structure_cast<
@@ -775,12 +807,12 @@ main_program(
 			sys.renderer_device_ffp()
 		),
 		sge::graph::baseline(
-			50.0
+			50.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		sge::graph::optional_axis_constraint(
 			sge::graph::axis_constraint(
 				0.0,
-				100.0
+				100.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		),
 		sge::graph::color_schemes::default_()
@@ -789,7 +821,7 @@ main_program(
 	sge::graph::object memgraph(
 		sge::graph::position(
 			sge::renderer::vector2(
-				0.0f,
+				0.0F,
 				fcppt::cast::int_to_float<
 					sge::renderer::vector2::value_type
 				>(
@@ -807,12 +839,12 @@ main_program(
 			sys.renderer_device_ffp()
 		),
 		sge::graph::baseline(
-			50.0
+			50.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		sge::graph::optional_axis_constraint(
 			sge::graph::axis_constraint(
 				0.0,
-				100.0
+				100.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		),
 		sge::graph::color_schemes::default_()
@@ -822,12 +854,13 @@ main_program(
 		count_jiffies()
 	};
 
-	typedef
+	using
+	device_to_graph
+	=
 	std::map<
 		std::string,
 		graph_with_label
-	>
-	device_to_graph;
+	>;
 
 	device_to_graph device_map;
 
@@ -868,7 +901,7 @@ main_program(
 					>(
 						sge::graph::position(
 							sge::renderer::vector2(
-								0.0f,
+								0.0F,
 								fcppt::cast::int_to_float<
 									sge::renderer::scalar
 								>(
@@ -999,7 +1032,7 @@ main_program(
 				device_map
 			)
 			{
-				unsigned long const traffic{
+				unsigned long const traffic{ // NOLINT(google-runtime-int)
 					::count_traffic(
 						device.first
 					)
@@ -1103,11 +1136,12 @@ try
 		)
 	);
 
-	typedef
+	using
+	parser_type
+	=
 	decltype(
 		parser
-	)
-	parser_type;
+	);
 
 	return
 		fcppt::variant::match(

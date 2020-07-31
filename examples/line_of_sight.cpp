@@ -116,11 +116,14 @@
 namespace
 {
 
-typedef
-sge::image::color::rgba8_format
-color_format;
+using
+color_format
+=
+sge::image::color::rgba8_format;
 
-typedef
+using
+sprite_choices
+=
 sge::sprite::config::choices<
 	sge::sprite::config::type_choices<
 		sge::sprite::config::unit_type<
@@ -141,60 +144,66 @@ sge::sprite::config::choices<
 			color_format
 		>
 	>
->
-sprite_choices;
+>;
 
-typedef
+using
+sprite_buffers_type
+=
 sge::sprite::buffers::with_declaration<
 	sge::sprite::buffers::single<
 		sprite_choices
 	>
->
-sprite_buffers_type;
+>;
 
-typedef
+using
+sprite_object
+=
 sge::sprite::object<
 	sprite_choices
->
-sprite_object;
+>;
 
-typedef
-sge::sprite::state::all_choices
-sprite_state_choices;
+using
+sprite_state_choices
+=
+sge::sprite::state::all_choices;
 
-typedef
+using
+sprite_state_object
+=
 sge::sprite::state::object<
 	sprite_state_choices
->
-sprite_state_object;
+>;
 
-typedef
+using
+sprite_state_parameters
+=
 sge::sprite::state::parameters<
 	sprite_state_choices
->
-sprite_state_parameters;
+>;
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
 
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
 sprite_object::dim const cell_size(
-	32,
-	32
+	32, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+	32 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 );
 
 FCPPT_PP_POP_WARNING
 
-typedef
+using
+sprite_grid
+=
 fcppt::container::grid::object<
 	sprite_object,
 	2
->
-sprite_grid;
+>;
 
 sprite_object
 make_sprite(
-	sprite_grid::pos const _pos
+	sprite_grid::pos const &_pos
 )
 {
 	return
@@ -290,7 +299,7 @@ try
 				sprite_grid::dim,
 				fcppt::cast::size_fun
 			>(
-				// TODO: Use something else here
+				// TODO(philipp): Use something else here
 				sys.window().size()
 			)
 			/
@@ -304,18 +313,20 @@ try
 		make_sprite
 	);
 
-	typedef
-	std::make_signed<
+	using
+	difference_type
+	=
+	std::make_signed_t<
 		sprite_grid::size_type
-	>::type
-	difference_type;
+	>;
 
-	typedef
+	using
+	signed_pos
+	=
 	fcppt::container::grid::pos<
 		difference_type,
 		2
-	>
-	signed_pos;
+	>;
 
 	fcppt::signal::auto_connection const manage_connection(
 		sys.viewport_manager().manage_callback(
@@ -356,7 +367,7 @@ try
 		)
 	);
 
-	sge::input::cursor::optional_position last_position;
+	sge::input::cursor::optional_position last_position{};
 
 	auto const button_event(
 		[
@@ -373,9 +384,11 @@ try
 				!=
 				sge::input::cursor::button_code::left
 			)
+			{
 				return;
+			}
 
-			sprite_grid::dim const cell_size_dim(
+			auto const cell_size_dim(
 				fcppt::math::dim::structure_cast<
 					sprite_grid::dim,
 					fcppt::cast::size_fun
@@ -407,7 +420,9 @@ try
 					cur_grid_position
 				)
 			)
+			{
 				return;
+			}
 
 			fcppt::optional::maybe(
 				last_position,
@@ -426,7 +441,7 @@ try
 					cell_size_dim,
 					cur_grid_position
 				](
-					sge::input::cursor::position const _last_position
+					sge::input::cursor::position const &_last_position
 				)
 				{
 					sprite_grid::pos const last_grid_position(
@@ -463,7 +478,7 @@ try
 						[
 							&sprites
 						](
-							signed_pos const _pos
+							signed_pos const &_pos
 						)
 						{
 							fcppt::optional::maybe_void(
@@ -516,11 +531,13 @@ try
 				==
 				sge::input::key::code::c
 			)
+			{
 				for(
 					auto &element
 					:
 					sprites
 				)
+				{
 					element.color(
 						sge::image::color::convert<
 							color_format
@@ -528,6 +545,8 @@ try
 							sge::image::color::predef::white()
 						)
 					);
+				}
+			}
 		}
 	);
 

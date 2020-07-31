@@ -152,11 +152,14 @@ try
 		)
 	);
 
-	typedef
-	sge::image::color::rgba8_format
-	color_format;
+	using
+	color_format
+	=
+	sge::image::color::rgba8_format;
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -177,39 +180,43 @@ try
 				color_format
 			>
 		>
-	>
-	sprite_choices;
+	>;
 
 	// Use buffers::multi just for testing
-	typedef
+	using
+	sprite_buffers_type
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::multi<
 			sprite_choices
 		>
-	>
-	sprite_buffers_type;
+	>;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state_object
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state_object;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
 	sprite_state_object sprite_state(
 		fcppt::make_ref(

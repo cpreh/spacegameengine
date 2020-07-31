@@ -142,7 +142,9 @@
 namespace
 {
 
-typedef
+using
+sprite_choices
+=
 sge::sprite::config::choices<
 	sge::sprite::config::type_choices<
 		sge::sprite::config::unit_type<
@@ -163,59 +165,66 @@ sge::sprite::config::choices<
 			sge::image::color::rgba8_format
 		>
 	>
->
-sprite_choices;
+>;
 
-typedef
+using
+sprite_buffers_type
+=
 sge::sprite::buffers::with_declaration<
 	sge::sprite::buffers::single<
 		sprite_choices
 	>
->
-sprite_buffers_type;
+>;
 
-typedef
+using
+sprite_object
+=
 sge::sprite::object<
 	sprite_choices
->
-sprite_object;
+>;
 
-typedef
-sge::sprite::state::all_choices
-sprite_state_choices;
+using
+sprite_state_choices
+=
+sge::sprite::state::all_choices;
 
-typedef
+using
+sprite_state_object
+=
 sge::sprite::state::object<
 	sprite_state_choices
->
-sprite_state_object;
+>;
 
-typedef
+using
+sprite_state_parameters
+=
 sge::sprite::state::parameters<
 	sprite_state_choices
->
-sprite_state_parameters;
+>;
 
-typedef
+using
+bvh_box
+=
 fcppt::math::box::object<
 	sge::renderer::scalar,
 	2
->
-bvh_box;
+>;
 
-typedef
+using
+bvh_tree_traits
+=
 sge::bvh::tree_traits<
 	sge::bvh::dummy_node,
 	bvh_box,
 	bvh_box
->
-bvh_tree_traits;
+>;
 
-typedef
+using
+sprite_sequence
+=
 std::vector<
 	sprite_object
->
-sprite_sequence;
+>;
 
 sprite_object
 create_sprite(
@@ -236,7 +245,7 @@ create_sprite(
 
 class bvh_traverser
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		bvh_traverser
 	);
 public:
@@ -257,9 +266,9 @@ public:
 	}
 
 	~bvh_traverser()
-	{
-	}
+	= default;
 
+	[[nodiscard]]
 	sprite_sequence
 	sprites() const
 	{
@@ -269,7 +278,7 @@ public:
 			).get()
 		);
 
-		sprite_sequence result;
+		sprite_sequence result{};
 
 		// First, render the background
 		result.push_back(
@@ -283,7 +292,7 @@ public:
 					std::string(
 						"2e2621"
 					),
-					255
+					255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			)
 		);
@@ -318,7 +327,7 @@ public:
 							std::string(
 								"bee8e0"
 							),
-							255
+							255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						)
 					)
 				);
@@ -355,7 +364,7 @@ public:
 							std::string(
 								"ff5e00"
 							),
-							255
+							255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						)
 					)
 				);
@@ -374,13 +383,15 @@ public:
 			)
 			{
 				this->add_children(
-					result,
+					fcppt::make_ref(
+						result
+					),
 					_front.get(),
 					sge::image::color::rgba8_from_hex_string(
 						std::string(
 							"373c40"
 						),
-						204
+						204 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 					)
 				);
 			}
@@ -398,13 +409,15 @@ public:
 			)
 			{
 				this->add_children(
-					result,
+					fcppt::make_ref(
+						result
+					),
 					_back.get(),
 					sge::image::color::rgba8_from_hex_string(
 						std::string(
 							"73320b"
 						),
-						204
+						204 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 					)
 				);
 			}
@@ -428,7 +441,9 @@ public:
 		if(
 			!_event.pressed()
 		)
+		{
 			return;
+		}
 
 		auto const make_tree(
 			[
@@ -487,7 +502,9 @@ public:
 				}
 			)
 		)
+		{
 			return;
+		}
 
 		current_tree_ =
 			new_tree;
@@ -499,7 +516,9 @@ private:
 
 	void
 	add_children(
-		sprite_sequence &_sprites,
+		fcppt::reference<
+			sprite_sequence
+		> const _sprites,
 		bvh_tree_traits::tree_representation const &_tree,
 		sge::image::color::rgba8 const &_color
 	) const
@@ -513,11 +532,13 @@ private:
 				:
 				_tree
 			)
+			{
 				this->add_children(
 					_sprites,
 					child,
 					_color
 				);
+			}
 		}
 		else
 		{
@@ -530,12 +551,14 @@ private:
 					_tree.value()
 				)
 			)
-				_sprites.push_back(
+			{
+				_sprites.get().push_back(
 					create_sprite(
 						elem.value(),
 						_color
 					)
 				);
+			}
 		}
 	}
 };
@@ -544,14 +567,15 @@ FCPPT_RECORD_MAKE_LABEL(
 	rectangle_count_label
 );
 
-typedef
+using
+arg_type
+=
 fcppt::record::object<
 	fcppt::record::element<
 		rectangle_count_label,
 		unsigned
 	>
->
-arg_type;
+>;
 
 awl::main::exit_code
 main_program(
@@ -566,10 +590,9 @@ main_program(
 		)
 	};
 
-	// TODO: Remove this
 	sge::window::dim const window_dim(
-		1024u,
-		1024u
+		1024U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		1024U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	sge::systems::instance<
@@ -632,9 +655,10 @@ main_program(
 		sprite_state_parameters()
 	);
 
-	typedef
-	fcppt::random::generator::minstd_rand
-	generator_type;
+	using
+	generator_type
+	=
+	fcppt::random::generator::minstd_rand;
 
 	generator_type generator{
 		fcppt::random::generator::seed_from_chrono<
@@ -642,91 +666,91 @@ main_program(
 		>()
 	};
 
-	typedef
+	using
+	real_distribution
+	=
 	fcppt::random::distribution::basic<
 		fcppt::random::distribution::parameters::uniform_real<
 			sge::renderer::scalar
 		>
-	>
-	real_distribution;
+	>;
 
-	typedef
+	using
+	real_variate
+	=
 	fcppt::random::variate<
 		generator_type,
 		real_distribution
-	>
-	real_variate;
+	>;
 
-	real_variate
-		screen_size_rng(
-			generator,
-			real_distribution(
-				real_distribution::param_type::min(
-					fcppt::cast::int_to_float<
-						sge::renderer::scalar
-					>(
-						window_dim.h()
-					)
-					/
-					fcppt::literal<
-						sge::renderer::scalar
-					>(
-						8
-					)
-				),
-				real_distribution::param_type::sup(
-					fcppt::cast::int_to_float<
-						sge::renderer::scalar
-					>(
-						window_dim.h()
-					)
-					-
-					fcppt::cast::int_to_float<
-						sge::renderer::scalar
-					>(
-						window_dim.h()
-					)
-					/
-					fcppt::literal<
-						sge::renderer::scalar
-					>(
-						8
-					)
+	real_variate screen_size_rng(
+		generator,
+		real_distribution(
+			real_distribution::param_type::min(
+				fcppt::cast::int_to_float<
+					sge::renderer::scalar
+				>(
+					window_dim.h()
+				)
+				/
+				fcppt::literal<
+					sge::renderer::scalar
+				>(
+					8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				)
+			),
+			real_distribution::param_type::sup(
+				fcppt::cast::int_to_float<
+					sge::renderer::scalar
+				>(
+					window_dim.h()
+				)
+				-
+				fcppt::cast::int_to_float<
+					sge::renderer::scalar
+				>(
+					window_dim.h()
+				)
+				/
+				fcppt::literal<
+					sge::renderer::scalar
+				>(
+					8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			)
-		),
-		size_rng(
-			generator,
-			real_distribution(
-				real_distribution::param_type::min(
-					fcppt::cast::int_to_float<
-						sge::renderer::scalar
-					>(
-						window_dim.h()
-					)
-					/
-					fcppt::literal<
-						sge::renderer::scalar
-					>(
-						16
-					)
-				),
-				real_distribution::param_type::sup(
-					fcppt::cast::int_to_float<
-						sge::renderer::scalar
-					>(
-						window_dim.h()
-					)
-					/
-					fcppt::literal<
-						sge::renderer::scalar
-					>(
-						4
-					)
+		)
+	);
+	real_variate size_rng(
+		generator,
+		real_distribution(
+			real_distribution::param_type::min(
+				fcppt::cast::int_to_float<
+					sge::renderer::scalar
+				>(
+					window_dim.h()
+				)
+				/
+				fcppt::literal<
+					sge::renderer::scalar
+				>(
+					16 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				)
+			),
+			real_distribution::param_type::sup(
+				fcppt::cast::int_to_float<
+					sge::renderer::scalar
+				>(
+					window_dim.h()
+				)
+				/
+				fcppt::literal<
+					sge::renderer::scalar
+				>(
+					4 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			)
-		);
-
+		)
+	);
 
 	sge::bvh::object<
 		bvh_tree_traits
@@ -763,7 +787,7 @@ main_program(
 						(
 							new_size
 							/
-							2.0f
+							2.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						).get_unsafe(),
 						new_size
 					};
@@ -772,9 +796,10 @@ main_program(
 	};
 
 	{
-		typedef
-		std::chrono::steady_clock
-		clock_type;
+		using
+		clock_type
+		=
+		std::chrono::steady_clock;
 
 		clock_type::time_point const before{
 			clock_type::now()
@@ -936,11 +961,12 @@ try
 		fcppt::options::optional_help_text{}
 	};
 
-	typedef
+	using
+	parser_type
+	=
 	decltype(
 		parser
-	)
-	parser_type;
+	);
 
 	return
 		fcppt::variant::match(

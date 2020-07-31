@@ -34,16 +34,19 @@ template<
 >
 struct iterator_base_impl
 {
-	typedef
+	using
+	range_iterator_traits
+	=
 	std::iterator_traits<
 		sge::sprite::intrusive::ordered::detail::range_iterator<
 			Choices,
 			IsConst
 		>
-	>
-	range_iterator_traits;
+	>;
 
-	typedef
+	using
+	type
+	=
 	boost::iterator_facade<
 		sge::sprite::intrusive::ordered::iterator<
 			Choices,
@@ -57,8 +60,7 @@ struct iterator_base_impl
 		range_iterator_traits::reference,
 		typename
 		range_iterator_traits::difference_type
-	>
-	type;
+	>;
 };
 
 }

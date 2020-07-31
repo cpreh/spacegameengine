@@ -117,7 +117,7 @@ sge::sprite::intrusive::ordered::range<
 	return
 		size_.get()
 		==
-		0u;
+		0U;
 }
 
 template<
@@ -142,9 +142,11 @@ sge::sprite::intrusive::ordered::range<
 		:
 		ordered_map_.get()
 	)
+	{
 		element.second->range().sort(
 			_func
 		);
+	}
 }
 
 #endif

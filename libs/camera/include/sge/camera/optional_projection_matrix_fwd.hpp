@@ -16,11 +16,12 @@ namespace sge
 namespace camera
 {
 
-typedef
+using
+optional_projection_matrix
+=
 fcppt::optional::object<
 	sge::camera::projection_matrix
->
-optional_projection_matrix;
+>;
 
 }
 }

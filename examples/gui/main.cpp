@@ -505,7 +505,7 @@ try
 		},
 		sge::gui::optional_index(
 			sge::gui::index(
-				0u
+				0U
 			)
 		)
 	);

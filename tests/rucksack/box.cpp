@@ -45,7 +45,7 @@ TEST_CASE(
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					10
+					10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}
@@ -68,8 +68,8 @@ TEST_CASE(
 
 	box1.size(
 		sge::rucksack::dim{
-			100,
-			100
+			100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 
@@ -84,7 +84,7 @@ TEST_CASE(
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					10
+					10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}
@@ -96,8 +96,8 @@ TEST_CASE(
 		child1.size()
 		==
 		sge::rucksack::dim{
-			100,
-			10
+			100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 
@@ -105,12 +105,12 @@ TEST_CASE(
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					10
+					10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					10
+					10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}
@@ -135,12 +135,12 @@ TEST_CASE(
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::minimum_size{
-					10
+					10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					10
+					10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}
@@ -150,8 +150,8 @@ TEST_CASE(
 		child1.size()
 		==
 		sge::rucksack::dim{
-			90,
-			10
+			90, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 
@@ -159,8 +159,8 @@ TEST_CASE(
 		child2.size()
 		==
 		sge::rucksack::dim{
-			10,
-			10
+			10, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 }
@@ -179,7 +179,7 @@ TEST_CASE(
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					10
+					10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}
@@ -189,12 +189,12 @@ TEST_CASE(
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					20
+					20 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					20
+					20 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}
@@ -230,7 +230,7 @@ TEST_CASE(
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					10
+					10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}
@@ -280,8 +280,8 @@ TEST_CASE(
 
 	box2.size(
 		sge::rucksack::dim{
-			100,
-			30
+			100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			30 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 
@@ -291,12 +291,12 @@ TEST_CASE(
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::minimum_size{
-					20
+					20 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					30
+					30 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}
@@ -309,7 +309,7 @@ TEST_CASE(
 		==
 		sge::rucksack::vector{
 			0,
-			5
+			5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 
@@ -317,7 +317,7 @@ TEST_CASE(
 		child_x_2.position()
 		==
 		sge::rucksack::vector{
-			80,
+			80, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			0
 		}
 	);
@@ -326,8 +326,8 @@ TEST_CASE(
 		child_x_1.size()
 		==
 		sge::rucksack::dim{
-			80,
-			10
+			80, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 
@@ -335,8 +335,8 @@ TEST_CASE(
 		child_x_2.size()
 		==
 		sge::rucksack::dim{
-			20,
-			20
+			20, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			20 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 
@@ -344,8 +344,8 @@ TEST_CASE(
 		box1.size()
 		==
 		sge::rucksack::dim{
-			100,
-			20
+			100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			20 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 
@@ -353,8 +353,8 @@ TEST_CASE(
 		child_y_1.size()
 		==
 		sge::rucksack::dim{
-			100,
-			10
+			100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		}
 	);
 

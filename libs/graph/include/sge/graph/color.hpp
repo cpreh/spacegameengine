@@ -15,9 +15,10 @@ namespace sge
 namespace graph
 {
 
-typedef
-sge::image::color::rgba8
-color;
+using
+color
+=
+sge::image::color::rgba8;
 
 }
 }

@@ -9,6 +9,7 @@
 #include <sge/resource_tree/path.hpp>
 #include <sge/resource_tree/path_to_resource_function.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/io/cerr.hpp>
@@ -24,7 +25,10 @@
 namespace
 {
 
-typedef std::filesystem::path resource;
+using
+resource
+=
+std::filesystem::path;
 
 resource
 path_to_resource(
@@ -49,7 +53,10 @@ int
 main()
 try
 {
-	typedef fcppt::random::generator::minstd_rand random_generator;
+	using
+	random_generator
+	=
+	fcppt::random::generator::minstd_rand;
 
 	random_generator generator(
 		fcppt::random::generator::seed_from_chrono<
@@ -57,17 +64,22 @@ try
 		>()
 	);
 
-	typedef sge::resource_tree::object<
+	using
+	resource_tree
+	=
+	sge::resource_tree::object<
 		resource,
 		random_generator
-	> resource_tree;
+	>;
 
 	resource_tree tree(
 		sge::config::media_path(),
 		resource_tree::path_to_resource_function(
 			path_to_resource
 		),
-		generator
+		fcppt::make_ref(
+			generator
+		)
 	);
 
 	resource const example(

@@ -18,11 +18,12 @@ namespace sge
 namespace line_drawer
 {
 
-typedef
+using
+line_sequence
+=
 std::vector<
 	sge::line_drawer::line
->
-line_sequence;
+>;
 
 }
 }

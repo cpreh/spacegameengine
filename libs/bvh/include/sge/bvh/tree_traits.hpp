@@ -29,56 +29,65 @@ template<
 >
 struct tree_traits
 {
-	typedef
-	Node
-	node;
+	using
+	node
+	=
+	Node;
 
-	typedef
-	Leaf
-	leaf;
+	using
+	leaf
+	=
+	Leaf;
 
-	typedef
-	Box
-	box;
+	using
+	box
+	=
+	Box;
 
-	typedef
+	using
+	leaf_wrapper
+	=
 	sge::bvh::leaf_wrapper<
 		leaf
-	>
-	leaf_wrapper;
+	>;
 
-	typedef
+	using
+	node_wrapper
+	=
 	sge::bvh::node_wrapper<
 		node,
 		box
-	>
-	node_wrapper;
+	>;
 
-	typedef
+	using
+	leaf_sequence
+	=
 	std::vector<
 		leaf
-	>
-	leaf_sequence;
+	>;
 
-	typedef
+	using
+	leaf_wrapper_sequence
+	=
 	std::vector<
 		leaf_wrapper
-	>
-	leaf_wrapper_sequence;
+	>;
 
-	typedef
+	using
+	node_or_leaf_variant
+	=
 	fcppt::variant::object<
 		node_wrapper,
 		leaf_wrapper_sequence,
 		sge::bvh::empty_node
-	>
-	node_or_leaf_variant;
+	>;
 
-	typedef
+	using
+	tree_representation
+	=
 	fcppt::container::tree::object<
 		node_or_leaf_variant
-	>
-	tree_representation;
+	>;
 };
 
 }

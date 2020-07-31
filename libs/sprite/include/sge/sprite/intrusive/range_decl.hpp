@@ -29,48 +29,53 @@ template<
 >
 class range
 {
-	typedef
+	using
+	list
+	=
 	sge::sprite::intrusive::detail::list<
 		Choices
-	>
-	list;
+	>;
 public:
-	typedef
+	using
+	reference
+	=
 	fcppt::reference<
-		typename
-		std::conditional<
+		std::conditional_t<
 			IsConst,
 			list const,
 			list
-		>::type
-	>
-	reference;
+		>
+	>;
 
-	typedef
-	typename
-	std::conditional<
+	using
+	iterator
+	=
+	std::conditional_t<
 		IsConst,
 		typename
 		list::const_iterator,
 		typename
 		list::iterator
-	>::type
-	iterator;
+	>;
 
 	range(
 		reference,
 		sge::sprite::count
 	);
 
+	[[nodiscard]]
 	iterator
 	begin() const;
 
+	[[nodiscard]]
 	iterator
 	end() const;
 
+	[[nodiscard]]
 	sge::sprite::count
 	size() const;
 
+	[[nodiscard]]
 	bool
 	empty() const;
 

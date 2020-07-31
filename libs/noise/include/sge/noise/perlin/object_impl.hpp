@@ -44,25 +44,28 @@ sge::noise::perlin::object<
 			&_size,
 			&_random_generator
 		]{
-			typedef
+			using
+			uniform_real_distribution
+			=
 			fcppt::random::distribution::basic<
 				fcppt::random::distribution::parameters::uniform_real<
 					value_type
 				>
-			>
-			uniform_real_distribution;
+			>;
 
-			typedef
+			using
+			distribution_parameters
+			=
 			typename
-			uniform_real_distribution::param_type
-			distribution_parameters;
+			uniform_real_distribution::param_type;
 
-			typedef
+			using
+			variate
+			=
 			fcppt::random::variate<
 				Rng,
 				uniform_real_distribution
-			>
-			variate;
+			>;
 
 			variate v{
 				_random_generator,
@@ -140,11 +143,12 @@ sge::noise::perlin::object<
 						_index
 					);
 
-					typedef
+					using
+					index
+					=
 					decltype(
 						_index
-					)
-					index;
+					);
 
 					value_type const current_dimension{
 						fcppt::cast::int_to_float<

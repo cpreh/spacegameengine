@@ -161,7 +161,7 @@ TEST_CASE(
 													fcppt::make_recursive(
 														sge::parse::json::make_value(
 															sge::parse::json::float_type{
-																5.5
+																5.5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 															}
 														)
 													)

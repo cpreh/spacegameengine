@@ -37,14 +37,14 @@ sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
 >::~collection()
-{
-}
+= default;
 
 template<
 	typename Choices,
 	typename Order
 >
-typename sge::sprite::intrusive::ordered::collection<
+typename
+sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
 >::collection_base &
@@ -98,7 +98,8 @@ template<
 	typename Choices,
 	typename Order
 >
-typename sge::sprite::intrusive::ordered::collection<
+typename
+sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
 >::range_type
@@ -119,7 +120,8 @@ template<
 	typename Choices,
 	typename Order
 >
-typename sge::sprite::intrusive::ordered::collection<
+typename
+sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
 >::const_range_type
@@ -156,9 +158,11 @@ sge::sprite::intrusive::ordered::collection<
 		:
 		collections_
 	)
+	{
 		_function(
 			element.second->range()
 		);
+	}
 }
 
 #endif

@@ -101,8 +101,8 @@ try
 						sge::renderer::display_mode::object(
 							sge::renderer::display_mode::pixel_size(
 								sge::renderer::screen_size(
-									800u,
-									600u
+									800U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+									600U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 								)
 							),
 							sge::renderer::display_mode::optional_dimensions(),
@@ -161,9 +161,11 @@ try
 							*timer
 						)
 					)
+					{
 						sys.window_system().quit(
 							awl::main::exit_success()
 						);
+					}
 				}
 			}
 		);

@@ -135,27 +135,39 @@ struct interpolator
 
 void
 fill_texture(
-	sge::image2d::store::l8::view_type _view)
+	sge::image2d::store::l8::view_type _view
+)
 {
-	typedef sge::image2d::store::l8::view_type::dim dim_type;
-	typedef dim_type::value_type dim_value_type;
+	using
+	dim_type
+	=
+	sge::image2d::store::l8::view_type::dim;
+
+	using
+	dim_value_type
+	=
+	dim_type::value_type;
 
 	/*
 	typedef
 	sge::noise::simplex::object<double,2>
 	noise_type;
 	*/
-	typedef
+	using
+	noise_type
+	=
 	sge::noise::perlin::object<
 		double,
 		2,
 		interpolator
-	>
-	noise_type;
+	>;
 
-	typedef
-	sge::noise::sample_parameters<noise_type>
-	param_type;
+	using
+	param_type
+	=
+	sge::noise::sample_parameters<
+		noise_type
+	>;
 
 	fcppt::random::generator::minstd_rand rng(
 		fcppt::random::generator::seed_from_chrono<fcppt::random::generator::minstd_rand::seed>());
@@ -167,12 +179,13 @@ fill_texture(
 			*/
 	noise_type noise_generator(
 		noise_type::dim(
-			_view.size()[0]/100,
-			_view.size()[1]/100),
+			_view.size()[0]/100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			_view.size()[1]/100), // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		rng);
 
-	// TODO: Refactor this
+	// TODO(philipp): Refactor this
 	for (dim_value_type y = 0; y < _view.size()[1]; ++y)
+	{
 		for (dim_value_type x = 0; x < _view.size()[0]; ++x)
 		{
 			_view[
@@ -183,26 +196,36 @@ fill_texture(
 			].set(
 				mizuiro::color::channel::luminance(),
 				static_cast<sge::image::channel8>(
-					256.0 *
-					(0.5 + 0.5 *
-					sge::noise::sample(
-						noise_generator,
-						param_type(
-							param_type::position_type(
-								noise_type::vector_type(
-									static_cast<noise_type::value_type>(
-										x),
-									static_cast<noise_type::value_type>(
-										y))),
-							param_type::amplitude_type(
-								0.8),
-							param_type::frequency_type(
-								.005),
-							param_type::octaves_type(
-								6u))))
+					256.0 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+					(
+						0.5 + 0.5 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						sge::noise::sample(
+							fcppt::make_ref(
+								noise_generator
+							),
+							param_type(
+								param_type::position_type(
+									noise_type::vector_type(
+										static_cast<noise_type::value_type>(
+											x),
+										static_cast<noise_type::value_type>(
+											y))),
+								param_type::amplitude_type(
+									0.8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+								),
+								param_type::frequency_type(
+									.005 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+								),
+								param_type::octaves_type(
+									6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+								)
+							)
+						)
+					)
 				)
 			);
 		}
+	}
 }
 
 }
@@ -213,20 +236,28 @@ example_main(
 )
 try
 {
-	typedef
-	sge::noise::simplex::object<double,2>
-	noise_type;
+	using
+	noise_type
+	=
+	sge::noise::simplex::object<
+		double,
+		2
+	>;
 
 	noise_type noise_generator(
 		sge::noise::simplex::width(
-			128u));
+			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		)
+	);
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT("raw noise generator spit out: ")
 		<< noise_generator.sample(
-				noise_type::vector_type(
-					23.0,
-					42.0))
+			noise_type::vector_type(
+				23.0, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				42.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			)
+		)
 		<< FCPPT_TEXT('\n');
 
 	sge::systems::instance<
@@ -279,7 +310,10 @@ try
 		)
 	);
 
-	typedef sge::sprite::config::choices<
+	using
+	sprite_choices
+	=
+	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
 				int
@@ -297,23 +331,29 @@ try
 		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::automatic,
 				sge::sprite::config::texture_ownership::shared
 			>
 		>
-	> sprite_choices;
+	>;
 
-	typedef sge::sprite::buffers::with_declaration<
+	using
+	sprite_buffers_type
+	=
+	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	> sprite_buffers_type;
+	>;
 
-	typedef sge::sprite::object<
+	using
+	sprite_object
+	=
+	sge::sprite::object<
 		sprite_choices
-	> sprite_object;
+	>;
 
 	sprite_buffers_type sprite_buffers(
 		fcppt::make_ref(
@@ -321,15 +361,24 @@ try
 		),
 		sge::sprite::buffers::option::dynamic);
 
-	typedef sge::sprite::state::all_choices sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef sge::sprite::state::object<
+	using
+	sprite_state_object
+	=
+	sge::sprite::state::object<
 		sprite_state_choices
-	> sprite_state_object;
+	>;
 
-	typedef sge::sprite::state::parameters<
+	using
+	sprite_state_parameters
+	=
+	sge::sprite::state::parameters<
 		sprite_state_choices
-	> sprite_state_parameters;
+	>;
 
 	sprite_state_object sprite_state(
 		fcppt::make_ref(
@@ -338,9 +387,10 @@ try
 		sprite_state_parameters()
 	);
 
-	typedef
-	sge::image2d::store::l8
-	store_type;
+	using
+	store_type
+	=
+	sge::image2d::store::l8;
 
 	store_type const store{
 		fcppt::math::dim::fill<

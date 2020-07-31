@@ -46,21 +46,25 @@ public:
 	);
 
 	sample_parameters(
-		position_type const &,
+		position_type,
 		amplitude_type const &,
 		frequency_type const &,
 		octaves_type const &
 	);
 
+	[[nodiscard]]
 	position_type
 	position() const;
 
+	[[nodiscard]]
 	frequency_type
 	frequency() const;
 
+	[[nodiscard]]
 	amplitude_type
 	amplitude() const;
 
+	[[nodiscard]]
 	octaves_type
 	octaves() const;
 private:

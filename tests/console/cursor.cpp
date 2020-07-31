@@ -25,12 +25,6 @@ TEST_CASE(
 	);
 
 	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("")
-	);
-
-	REQUIRE(
 		c.empty()
 	);
 
@@ -66,9 +60,7 @@ TEST_CASE(
 	);
 
 	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("")
+		c.empty()
 	);
 
 	c.string(
@@ -129,9 +121,7 @@ TEST_CASE(
 	);
 
 	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("")
+		c.empty()
 	);
 
 	c.string(
@@ -282,5 +272,5 @@ TEST_CASE(
 		SGE_FONT_LIT("fa_o")
 	);
 
-	// TODO: Add complete_word tests
+	// TODO(philipp): Add complete_word tests
 }

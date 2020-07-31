@@ -190,7 +190,9 @@ try
 		)
 	);
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -209,28 +211,29 @@ try
 		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::automatic,
 				sge::sprite::config::texture_ownership::reference
 			>
 		>
-	>
-	sprite_choices;
+	>;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
+	using
+	sprite_buffers_type
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	>
-	sprite_buffers_type;
+	>;
 
 	sprite_buffers_type sprite_buffers(
 		fcppt::make_ref(
@@ -239,21 +242,24 @@ try
 		sge::sprite::buffers::option::dynamic
 	);
 
-	typedef
-	sge::sprite::state::all_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::all_choices;
 
-	typedef
+	using
+	sprite_state_object
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state_object;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
 	sprite_state_object sprite_state(
 		fcppt::make_ref(
@@ -349,18 +355,18 @@ try
 								>(
 									my_object.center()
 								),
-								-1.f
+								-1.F
 							)
 						},
 						sge::renderer::state::ffp::lighting::light::attenuation{
 							sge::renderer::state::ffp::lighting::light::constant_attenuation{
-								1.f
+								1.F
 							},
 							sge::renderer::state::ffp::lighting::light::linear_attenuation{
-								0.f
+								0.F
 							},
 							sge::renderer::state::ffp::lighting::light::quadratic_attenuation{
-								0.f
+								0.F
 							}
 						}
 					}

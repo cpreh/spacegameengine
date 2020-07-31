@@ -100,7 +100,7 @@ main_program(
 		sge::opencl::single_device_system::parameters()
 	};
 
-	std::ifstream stream(
+	auto stream(
 		fcppt::filesystem::open_exn<
 			std::ifstream
 		>(
@@ -198,11 +198,12 @@ main_program(
 		sge::opencl::program::build_error const &_error
 	)
 	{
-		typedef
+		using
+		line_sequence
+		=
 		std::vector<
 			fcppt::string
-		>
-		line_sequence;
+		>;
 
 		line_sequence lines;
 
@@ -359,13 +360,14 @@ try
 		)
 	);
 
-	typedef
+	using
+	result_type
+	=
 	fcppt::options::result_of<
 		decltype(
 			parser
 		)
-	>
-	result_type;
+	>;
 
 	auto const handle_options(
 		[](

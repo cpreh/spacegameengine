@@ -47,56 +47,63 @@ class iterator final
 		IsConst
 	>
 {
-	typedef
+	using
+	base
+	=
 	sge::sprite::intrusive::ordered::detail::iterator_base<
 		Choices,
 		Order,
 		IsConst
-	>
-	base;
+	>;
 
-	typedef
+	using
+	ordered_map
+	=
 	sge::sprite::intrusive::ordered::detail::map<
 		Order,
 		Choices
-	>
-	ordered_map;
+	>;
 
-	typedef
-	typename
-	std::conditional<
+	using
+	ordered_map_iterator
+	=
+	std::conditional_t<
 		IsConst,
 		typename
 		ordered_map::const_iterator,
 		typename
 		ordered_map::iterator
-	>::type
-	ordered_map_iterator;
+	>;
 public:
-	typedef
+	using
+	value_type
+	=
 	typename
-	base::value_type
-	value_type;
+	base::value_type;
 
-	typedef
+	using
+	reference
+	=
 	typename
-	base::reference
-	reference;
+	base::reference;
 
-	typedef
+	using
+	pointer
+	=
 	typename
-	base::pointer
-	pointer;
+	base::pointer;
 
-	typedef
+	using
+	difference_type
+	=
 	typename
-	base::difference_type
-	difference_type;
+	base::difference_type;
 
-	typedef
+	using
+	iterator_category
+	=
 	typename
-	base::iterator_category
-	iterator_category;
+	base::iterator_category;
 
 	iterator(
 		ordered_map_iterator current,
@@ -108,32 +115,37 @@ private:
 	void
 	increment();
 
+	[[nodiscard]]
 	reference
 	dereference() const;
 
+	[[nodiscard]]
 	bool
 	equal(
 		iterator const &
 	) const;
 
+	[[nodiscard]]
 	bool
 	is_end() const;
 
-	typedef
+	using
+	filtered_ordered_map_iterator
+	=
 	boost::filter_iterator<
 		sge::sprite::intrusive::ordered::detail::iterator_empty,
 		ordered_map_iterator
-	>
-	filtered_ordered_map_iterator;
+	>;
 
 	filtered_ordered_map_iterator outer_iterator_;
 
-	typedef
+	using
+	range_iterator
+	=
 	sge::sprite::intrusive::ordered::detail::range_iterator<
 		Choices,
 		IsConst
-	>
-	range_iterator;
+	>;
 
 	range_iterator inner_iterator_;
 };

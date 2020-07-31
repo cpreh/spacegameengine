@@ -103,11 +103,13 @@ try
 		:
 		sys.renderer_device_core().display_modes()
 	)
+	{
 		fcppt::io::cout()
 			<<
 			mode
 			<<
 			FCPPT_TEXT('\n');
+	}
 
 	fcppt::io::cout()
 		<< FCPPT_TEXT('\n');

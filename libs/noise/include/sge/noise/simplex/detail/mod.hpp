@@ -24,15 +24,18 @@ namespace detail
 inline
 std::size_t
 mod(
-	long const &a,
-	std::size_t const &b)
+	long const &a, // NOLINT(google-runtime-int)
+	std::size_t const &b
+)
 {
 	if (a >= 0)
+	{
 		return static_cast<std::size_t>(a) %
 			static_cast<std::size_t>(b);
-	else
-		return static_cast<std::size_t>(-a) %
-			static_cast<std::size_t>(b);
+	}
+
+	return static_cast<std::size_t>(-a) %
+		static_cast<std::size_t>(b);
 }
 
 }

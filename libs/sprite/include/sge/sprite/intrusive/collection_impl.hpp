@@ -26,7 +26,7 @@ sge::sprite::intrusive::collection<
 :
 	sprites_(),
 	count_(
-		0u
+		0U
 	),
 	connection_(
 		fcppt::make_ref(
@@ -45,8 +45,7 @@ template<
 sge::sprite::intrusive::collection<
 	Choices
 >::~collection()
-{
-}
+= default;
 
 template<
 	typename Choices
@@ -59,11 +58,12 @@ sge::sprite::intrusive::collection<
 	Choices
 >::connection()
 {
-	typedef
+	using
+	connection_base_ref
+	=
 	sge::sprite::intrusive::connection<
 		Choices
-	> &
-	connection_base_ref;
+	> &;
 
 	return
 		fcppt::make_ref(

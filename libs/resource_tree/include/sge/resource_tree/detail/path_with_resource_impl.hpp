@@ -21,7 +21,7 @@ sge::resource_tree::detail::path_with_resource<
 	T
 >::path_with_resource(
 	sge::resource_tree::path &&_path,
-	T const _resource
+	T _resource
 )
 :
 	path_(
@@ -30,7 +30,9 @@ sge::resource_tree::detail::path_with_resource<
 		)
 	),
 	resource_(
-		_resource
+		std::move(
+			_resource
+		)
 	)
 {
 }

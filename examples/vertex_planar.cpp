@@ -133,41 +133,47 @@ try
 		)
 	);
 
-	typedef
+	using
+	pos3_type
+	=
 	sge::renderer::vf::pos<
 		float,
 		3
-	>
-	pos3_type;
+	>;
 
-	typedef
-	sge::image::color::bgra8_format
-	bgra8_format;
+	using
+	bgra8_format
+	=
+	sge::image::color::bgra8_format;
 
-	typedef
+	using
+	color_type
+	=
 	sge::renderer::vf::color<
 		bgra8_format
-	>
-	color_type;
+	>;
 
-	typedef
+	using
+	pos_format_part
+	=
 	sge::renderer::vf::part<
 		pos3_type
-	>
-	pos_format_part;
+	>;
 
-	typedef
+	using
+	color_format_part
+	=
 	sge::renderer::vf::part<
 		color_type
-	>
-	color_format_part;
+	>;
 
-	typedef
+	using
+	format
+	=
 	sge::renderer::vf::format<
 		pos_format_part,
 		color_format_part
-	>
-	format;
+	>;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
@@ -179,15 +185,17 @@ try
 		)
 	);
 
-	typedef
+	using
+	pos_vertex
+	=
 	sge::renderer::vf::vertex<
 		pos_format_part
-	>
-	pos_vertex;
+	>;
 
-	typedef
-	pos3_type::packed_type
-	vec3;
+	using
+	vec3
+	=
+	pos3_type::packed_type;
 
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer1(
 		sge::renderer::vertex::create_buffer_from_vertices<
@@ -203,15 +211,15 @@ try
 			fcppt::container::array::make(
 				pos_vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(-1.f, 1.f, 0.f)
+						vec3(-1.F, 1.F, 0.F)
 				},
 				pos_vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(-1.f, -1.f, 0.f)
+						vec3(-1.F, -1.F, 0.F)
 				},
 				pos_vertex{
 					sge::renderer::vf::labels::pos{} =
-						vec3(1.f, 1.f, 0.f)
+						vec3(1.F, 1.F, 0.F)
 				}
 			)
 		)
@@ -231,11 +239,12 @@ try
 		}
 	);
 
-	typedef
+	using
+	color_vertex
+	=
 	sge::renderer::vf::vertex<
 		color_format_part
-	>
-	color_vertex;
+	>;
 
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer2{
 		sge::renderer::vertex::create_buffer_from_vertices<
@@ -320,10 +329,10 @@ try
 
 			scoped_block.get().render_nonindexed(
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count{
-					3u
+					3U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				},
 				sge::renderer::primitive_type::triangle_list
 			);

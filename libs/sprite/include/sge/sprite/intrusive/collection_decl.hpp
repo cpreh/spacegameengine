@@ -14,7 +14,7 @@
 #include <sge/sprite/intrusive/range_fwd.hpp>
 #include <sge/sprite/intrusive/detail/connection_decl.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 
 
 namespace sge
@@ -29,56 +29,73 @@ template<
 >
 class collection
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		collection
 	);
 public:
-	typedef sge::sprite::object<
+	using
+	object
+	=
+	sge::sprite::object<
 		Choices
-	> object;
+	>;
 
-	typedef
+	using
+	connection_ref
+	=
 	sge::sprite::intrusive::connection_ref<
 		Choices
-	>
-	connection_ref;
+	>;
 
 	collection();
 
 	~collection();
 
+	[[nodiscard]]
 	connection_ref
 	connection();
 
-	typedef sge::sprite::intrusive::range<
+	using
+	range_type
+	=
+	sge::sprite::intrusive::range<
 		Choices,
 		false
-	> range_type;
+	>;
 
-	typedef sge::sprite::intrusive::range<
+	using
+	const_range_type
+	=
+	sge::sprite::intrusive::range<
 		Choices,
 		true
-	> const_range_type;
+	>;
 
+	[[nodiscard]]
 	range_type
 	range();
 
+	[[nodiscard]]
 	const_range_type
 	range() const;
 private:
-	typedef
+	using
+	list
+	=
 	sge::sprite::intrusive::detail::list<
 		Choices
-	>
-	list;
+	>;
 
 	list sprites_;
 
 	sge::sprite::count count_;
 
-	typedef sge::sprite::intrusive::detail::connection<
+	using
+	connection_impl
+	=
+	sge::sprite::intrusive::detail::connection<
 		Choices
-	> connection_impl;
+	>;
 
 	connection_impl connection_;
 };

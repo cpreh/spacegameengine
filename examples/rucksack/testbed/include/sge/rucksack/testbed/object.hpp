@@ -15,7 +15,7 @@
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
 
@@ -28,7 +28,7 @@ namespace testbed
 
 class object
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		object
 	);
 public:
@@ -45,10 +45,12 @@ public:
 		sge::image::color::any::object const &
 	);
 
+	[[nodiscard]]
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL
 	awl::main::exit_code
 	run();
 
+	[[nodiscard]]
 	SGE_RUCKSACK_TESTBED_DETAIL_SYMBOL
 	sge::rucksack::testbed::systems const &
 	systems() const;

@@ -33,6 +33,7 @@
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
 #include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
@@ -164,183 +165,190 @@
 namespace
 {
 
-typedef
+using
+vf_pos
+=
 sge::renderer::vf::pos<
 	sge::renderer::scalar,
 	3
->
-vf_pos;
+>;
 
-typedef
+using
+vf_texpos0
+=
 sge::renderer::vf::texpos<
 	sge::renderer::scalar,
 	3,
 	sge::renderer::vf::index<
 		0
 	>
->
-vf_texpos0;
+>;
 
-typedef
+using
+vf_texpos1
+=
 sge::renderer::vf::texpos<
 	sge::renderer::scalar,
 	3,
 	sge::renderer::vf::index<
 		1
 	>
->
-vf_texpos1;
+>;
 
-typedef
+using
+vf_part
+=
 sge::renderer::vf::part<
 	vf_pos,
 	vf_texpos0,
 	vf_texpos1
->
-vf_part;
+>;
 
-typedef
+using
+vf_format
+=
 sge::renderer::vf::format<
 	vf_part
->
-vf_format;
+>;
 
-typedef
-vf_pos::packed_type
-pos_vector;
+using
+pos_vector
+=
+vf_pos::packed_type;
 
-typedef
+using
+pos_array
+=
 std::array<
 	pos_vector,
-	2 * 3 * 6
->
-pos_array;
+	2 * 3 * 6 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+>;
 
 void
 fill_geometry(
-	sge::renderer::vertex::buffer &_vertex_buffer
-)
+	sge::renderer::vertex::buffer &_vertex_buffer // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
 	pos_array const positions{{
 		// bottom 1
 		pos_vector(
-			-1.f,-1.f,-1.f
+			-1.F,-1.F,-1.F
 		),
 		pos_vector(
-			-1.f,-1.f,1.f
+			-1.F,-1.F,1.F
 		),
 		pos_vector(
-			1.f,-1.f,1.f
+			1.F,-1.F,1.F
 		),
 		// bottom 2
 		pos_vector(
-			1.f,-1.f,1.f
+			1.F,-1.F,1.F
 		),
 		pos_vector(
-			1.f,-1.f,-1.f
+			1.F,-1.F,-1.F
 		),
 		pos_vector(
-			-1.f,-1.f,-1.f
+			-1.F,-1.F,-1.F
 		),
 		// top 1
 		pos_vector(
-			-1.f,1.f,-1.f
+			-1.F,1.F,-1.F
 		),
 		pos_vector(
-			1.f,1.f,-1.f
+			1.F,1.F,-1.F
 		),
 		pos_vector(
-			1.f,1.f,1.f
+			1.F,1.F,1.F
 		),
 		// top 2
 		pos_vector(
-			1.f,1.f,1.f
+			1.F,1.F,1.F
 		),
 		pos_vector(
-			-1.f,1.f,1.f
+			-1.F,1.F,1.F
 		),
 		pos_vector(
-			-1.f,1.f,-1.f
+			-1.F,1.F,-1.F
 		),
 		// left 1
 		pos_vector(
-			-1.f,-1.f,-1.f
+			-1.F,-1.F,-1.F
 		),
 		pos_vector(
-			-1.f,1.f,-1.f
+			-1.F,1.F,-1.F
 		),
 		pos_vector(
-			-1.f,1.f,1.f
+			-1.F,1.F,1.F
 		),
 		// left 2
 		pos_vector(
-			-1.f,1.f,1.f
+			-1.F,1.F,1.F
 		),
 		pos_vector(
-			-1.f,-1.f,1.f
+			-1.F,-1.F,1.F
 		),
 		pos_vector(
-			-1.f,-1.f,-1.f
+			-1.F,-1.F,-1.F
 		),
 		// right 1
 		pos_vector(
-			1.f,-1.f,-1.f
+			1.F,-1.F,-1.F
 		),
 		pos_vector(
-			1.f,-1.f,1.f
+			1.F,-1.F,1.F
 		),
 		pos_vector(
-			1.f,1.f,1.f
+			1.F,1.F,1.F
 		),
 		// right 2
 		pos_vector(
-			1.f,1.f,1.f
+			1.F,1.F,1.F
 		),
 		pos_vector(
-			1.f,1.f,-1.f
+			1.F,1.F,-1.F
 		),
 		pos_vector(
-			1.f,-1.f,-1.f
+			1.F,-1.F,-1.F
 		),
 		// front 1
 		pos_vector(
-			-1.f,-1.f,1.f
+			-1.F,-1.F,1.F
 		),
 		pos_vector(
-			-1.f,1.f,1.f
+			-1.F,1.F,1.F
 		),
 		pos_vector(
-			1.f,1.f,1.f
+			1.F,1.F,1.F
 		),
 		// front 2
 		pos_vector(
-			1.f,1.f,1.f
+			1.F,1.F,1.F
 		),
 		pos_vector(
-			1.f,-1.f,1.f
+			1.F,-1.F,1.F
 		),
 		pos_vector(
-			-1.f,-1.f,1.f
+			-1.F,-1.F,1.F
 		),
 		// back 1
 		pos_vector(
-			-1.f,-1.f,-1.f
+			-1.F,-1.F,-1.F
 		),
 		pos_vector(
-			1.f,-1.f,-1.f
+			1.F,-1.F,-1.F
 		),
 		pos_vector(
-			1.f,1.f,-1.f
+			1.F,1.F,-1.F
 		),
 		// back 2
 		pos_vector(
-			1.f,1.f,-1.f
+			1.F,1.F,-1.F
 		),
 		pos_vector(
-			-1.f,1.f,-1.f
+			-1.F,1.F,-1.F
 		),
 		pos_vector(
-			-1.f,-1.f,-1.f
+			-1.F,-1.F,-1.F
 		)
 	}};
 
@@ -351,21 +359,27 @@ fill_geometry(
 		sge::renderer::lock_mode::writeonly
 	);
 
-	typedef sge::renderer::vf::view<
+	using
+	vf_view
+	=
+	sge::renderer::vf::view<
 		vf_part
-	> vf_view;
+	>;
 
 	vf_view const view(
 		vb_lock.value()
 	);
 
-	typedef vf_view::iterator vf_iterator;
+	using
+	vf_iterator
+	=
+	vf_view::iterator;
 
 	vf_iterator vb_it(
 		view.begin()
 	);
 
-	// TODO: Use vf::vertex?
+	// TODO(philipp): Use vf::vertex?
 	for(
 		auto const &position
 		:
@@ -389,7 +403,7 @@ fill_geometry(
 						static_cast<
 							sge::renderer::scalar
 						>(
-							(_value + 1.f) / 2.f
+							(_value + 1.F) / 2.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						);
 				}
 			)
@@ -413,28 +427,37 @@ fill_geometry(
 
 sge::renderer::texture::volume_unique_ptr
 create_noise_texture(
-	sge::renderer::device::core &_device
+	sge::renderer::device::core_ref const _device
 )
 {
-	typedef
-	sge::image3d::store::l8
-	store_type;
+	using
+	store_type
+	=
+	sge::image3d::store::l8;
 
-	typedef
-	store_type::view_type
-	view_type;
+	using
+	view_type
+	=
+	store_type::view_type;
 
-	typedef
-	sge::noise::simplex::object<float,3>
-	noise_type;
+	using
+	noise_type
+	=
+	sge::noise::simplex::object<
+		float,
+		3
+	>;
 
-	typedef
-	sge::noise::sample_parameters<noise_type>
-	param_type;
+	using
+	param_type
+	=
+	sge::noise::sample_parameters<
+		noise_type
+	>;
 
 	noise_type noise_generator(
 		sge::noise::simplex::width(
-			128u
+			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	);
 
@@ -450,12 +473,14 @@ create_noise_texture(
 					sge::image::color::init::luminance()
 					=
 					static_cast<sge::image::channel8>(
-						256.0f *
-						(0.5f + 0.5f *
+						256.0F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						(0.5F + 0.5F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						sge::noise::sample(
-							noise_generator,
+							fcppt::make_ref(
+								noise_generator
+							),
 							param_type(
-								// TODO: Simplify this conversion
+								// TODO(philipp): Simplify this conversion
 								param_type::position_type(
 									noise_type::vector_type(
 										fcppt::cast::int_to_float<
@@ -476,13 +501,13 @@ create_noise_texture(
 									)
 								),
 								param_type::amplitude_type(
-									0.8f
+									0.8F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 								),
 								param_type::frequency_type(
-									.005f
+									.005F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 								),
 								param_type::octaves_type(
-									6u
+									6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 								)
 							)
 						))
@@ -493,9 +518,9 @@ create_noise_texture(
 
 	store_type const store{
 		store_type::dim(
-			128u,
-			128u,
-			128u
+			128U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			128U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		store_type::init_function{
 			[
@@ -525,9 +550,7 @@ create_noise_texture(
 
 	return
 		sge::renderer::texture::create_volume_from_view(
-			fcppt::make_ref(
-				_device
-			),
+			_device,
 			sge::image3d::view::const_object(
 				store.const_wrapped_view()
 			),
@@ -592,7 +615,9 @@ try
 
 	sge::renderer::texture::volume_unique_ptr const texture(
 		create_noise_texture(
-			sys.renderer_device_core()
+			fcppt::make_ref(
+				sys.renderer_device_core()
+			)
 		)
 	);
 
@@ -636,7 +661,7 @@ try
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
 			sge::camera::first_person::movement_speed(
-				4.0f
+				4.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			sge::camera::coordinate_system::identity()
 		)
@@ -654,23 +679,24 @@ try
 			sys.viewport_manager()
 		),
 		sge::renderer::projection::near(
-			0.1f
+			0.1F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		sge::renderer::projection::far(
-			1000.f
+			1000.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		sge::renderer::projection::fov(
 			fcppt::math::deg_to_rad(
-				90.f
+				90.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		)
 	);
 
-	typedef
+	using
+	timer
+	=
 	sge::timer::basic<
 		sge::timer::clocks::standard
-	>
-	timer;
+	>;
 
 	timer frame_timer(
 		timer::parameters(
@@ -712,7 +738,7 @@ try
 	sge::renderer::state::core::sampler::const_object_ref_map const samplers{
 		sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 			sge::renderer::texture::stage(
-				0u
+				0U
 			),
 			fcppt::make_cref(
 				*sampler_state
@@ -720,7 +746,7 @@ try
 		},
 		sge::renderer::state::core::sampler::const_object_ref_map::value_type{
 			sge::renderer::texture::stage(
-				1u
+				1U
 			),
 			fcppt::make_cref(
 				*sampler_state
@@ -785,7 +811,7 @@ try
 					)
 				),
 				sge::renderer::texture::stage(
-					0u
+					0U
 				)
 			);
 
@@ -805,7 +831,7 @@ try
 					)
 				),
 				sge::renderer::texture::stage(
-					1u
+					1U
 				)
 			);
 
@@ -813,7 +839,6 @@ try
 				fcppt::reference_to_base<
 					sge::renderer::context::core
 				>(
-					// TODO
 					fcppt::make_ref(
 						_context
 					)
@@ -827,7 +852,6 @@ try
 				fcppt::reference_to_base<
 					sge::renderer::context::core
 				>(
-					// TODO
 					fcppt::make_ref(
 						_context
 					)
@@ -854,7 +878,6 @@ try
 			);
 
 			sge::renderer::state::ffp::transform::scoped const projection_transform(
-				// TODO
 				fcppt::make_ref(
 					_context
 				),
@@ -865,7 +888,6 @@ try
 			);
 
 			sge::renderer::state::ffp::transform::scoped const world_transform(
-				// TODO
 				fcppt::make_ref(
 					_context
 				),
@@ -877,7 +899,7 @@ try
 
 			_context.render_nonindexed(
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count(
 					vertex_buffer->linear_size()
@@ -928,7 +950,7 @@ try
 					}
 				)
 				.depth_buffer(
-					1.f
+					1.F
 				)
 			);
 

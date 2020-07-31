@@ -32,9 +32,11 @@ public:
 		T
 	);
 
+	[[nodiscard]]
 	sge::resource_tree::path const &
 	path() const;
 
+	[[nodiscard]]
 	T const &
 	resource() const;
 private:

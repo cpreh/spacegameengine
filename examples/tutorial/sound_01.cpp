@@ -91,7 +91,9 @@ try
 	);
 
 	for(;;)
+	{
 		sound->update();
+	}
 }
 catch(
 	fcppt::exception const &_error

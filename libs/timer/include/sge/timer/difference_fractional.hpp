@@ -32,18 +32,19 @@ difference_fractional(
 )
 {
 	static_assert(
-		std::is_floating_point<
+		std::is_floating_point_v<
 			Float
-		>::value,
+		>,
 		"Float must be a floating point type"
 	);
 
-	typedef
+	using
+	float_duration
+	=
 	std::chrono::duration<
 		Float,
 		typename Clock::period
-	>
-	float_duration;
+	>;
 
 	return
 		std::chrono::duration_cast<

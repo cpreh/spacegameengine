@@ -39,20 +39,26 @@ triangulate(
 	>::type const _epsilon
 )
 {
-	typedef typename
-	ContourContainer::size_type
-	size_type;
+	using
+	size_type
+	=
+	typename
+	ContourContainer::size_type;
 
-	typedef typename
-	ContourContainer::value_type
-	vertex;
+	using
+	vertex
+	=
+	typename
+	ContourContainer::value_type;
 
-	typedef typename
+	using
+	scalar
+	=
+	typename
 	sge::projectile::triangulation::traits::scalar<
 		vertex,
 		Tag
-	>::type
-	scalar;
+	>::type;
 
 	FCPPT_ASSERT_PRE(
 		_contour.size()
@@ -64,17 +70,18 @@ triangulate(
 		)
 	);
 
-	typedef
+	using
+	index_vector
+	=
 	std::vector<
 		size_type
-	>
-	index_vector;
+	>;
 
 	index_vector indices(
 		_contour.size()
 	);
 
-	// TODO: Initialize this directly
+	// TODO(philipp): Initialize this directly
 	// we want a counter-clockwise polygon in indices
 	if(
 		static_cast<
@@ -89,6 +96,7 @@ triangulate(
 			_contour
 		)
 	)
+	{
 		std::iota(
 			indices.begin(),
 			indices.end(),
@@ -98,12 +106,15 @@ triangulate(
 				0
 			)
 		);
+	}
 	else
+	{
 		for(
 			size_type index = 0;
 			index < indices.size();
 			++index
 		)
+		{
 			indices[
 				index
 			]
@@ -113,27 +124,29 @@ triangulate(
 			>(
 				(
 					_contour.size()
-					-1u
+					- 1U
 				)
 			)
 			- index;
+		}
+	}
 
 	size_type num_vertices(
 		_contour.size()
 	);
 
-	ResultContainer result;
+	ResultContainer result{};
 
 	for(
-		size_type cur_vertex(
+		auto cur_vertex(
 			static_cast<
 				size_type
 			>(
-				num_vertices - 1u
+				num_vertices - 1U
 			)
 		)
 		;
-		num_vertices > 2u
+		num_vertices > 2U
 		;
 		--num_vertices
 	)
@@ -146,23 +159,29 @@ triangulate(
 		if(
 			num_vertices <= prev_vertex
 		)
+		{
 			prev_vertex = 0;
+		}
 
-		cur_vertex = prev_vertex + 1u;
+		cur_vertex = prev_vertex + 1U;
 
 		if(
 			num_vertices <= cur_vertex
 		)
+		{
 			cur_vertex = 0;
+		}
 
 		size_type next_vertex(
-			cur_vertex + 1u
+			cur_vertex + 1U
 		);
 
 		if(
 			num_vertices <= next_vertex
 		)
+		{
 			next_vertex = 0;
+		}
 
 		if(
 			sge::projectile::triangulation::detail::snip<
@@ -204,17 +223,19 @@ triangulate(
 			// remove v from remaining polygon
 			for(
 				size_type cur(
-					cur_vertex +1u
+					cur_vertex + 1U
 				);
 				cur < num_vertices;
 				++cur
 			)
+			{
 				indices[
-					cur - 1u
+					cur - 1U
 				] =
 					indices[
 						cur
 					];
+			}
 		}
 	}
 

@@ -59,14 +59,17 @@ test_conversion(
 	ColorInitDest const &_dest
 )
 {
-	typedef sge::image::store::basic<
+	using
+	source_store
+	=
+	sge::image::store::basic<
 		Source
-	> source_store;
+	>;
 
 	source_store const source{
 		typename source_store::dim(
-			1u,
-			1u
+			1U,
+			1U
 		),
 		sge::image::pixel::mizuiro_type<
 			typename Source::color_format
@@ -75,9 +78,12 @@ test_conversion(
 		)
 	};
 
-	typedef sge::image::store::basic<
+	using
+	dest_store
+	=
+	sge::image::store::basic<
 		Dest
-	> dest_store;
+	>;
 
 	dest_store const dest{
 		source.size(),
@@ -110,8 +116,8 @@ test_conversion(
 		mizuiro::color::compare(
 			dest.view()[
 				typename dest_store::view_type::dim(
-					0u,
-					0u
+					0U,
+					0U
 				)
 			],
 			sge::image::pixel::mizuiro_type<
@@ -164,9 +170,9 @@ TEST_CASE(
 		sge::image2d::bgra8_format
 	>(
 		(sge::image::color::init::red() = channel8(0))
-		(sge::image::color::init::blue() = channel8(37))
-		(sge::image::color::init::green() = channel8(255))
-		(sge::image::color::init::alpha() = channel8(128))
+		(sge::image::color::init::blue() = channel8(37)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		(sge::image::color::init::green() = channel8(255)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		(sge::image::color::init::alpha() = channel8(128)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 }
 
@@ -180,12 +186,12 @@ TEST_CASE(
 		sge::image2d::rgba8_format
 	>(
 		(sge::image::color::init::red() = channel8(0))
-		(sge::image::color::init::blue() = channel8(37))
-		(sge::image::color::init::green() = channel8(255))
+		(sge::image::color::init::blue() = channel8(37)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		(sge::image::color::init::green() = channel8(255)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		,
 		(sge::image::color::init::red() = channel8(0))
-		(sge::image::color::init::blue() = channel8(37))
-		(sge::image::color::init::green() = channel8(255))
-		(sge::image::color::init::alpha() = channel8(255))
+		(sge::image::color::init::blue() = channel8(37)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		(sge::image::color::init::green() = channel8(255)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		(sge::image::color::init::alpha() = channel8(255)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 }

@@ -60,7 +60,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-// TODO
+// TODO(philipp)
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wfloat-equal)
 #include <fcppt/math/vector/comparison.hpp>
@@ -88,29 +88,33 @@ TEST_CASE(
 	"[sge]"
 )
 {
-	typedef
+	using
+	pos3_type
+	=
 	sge::renderer::vf::pos<
 		float,
 		3
-	>
-	pos3_type;
+	>;
 
-	typedef
-	sge::image::color::bgra8_format
-	color_format;
+	using
+	color_format
+	=
+	sge::image::color::bgra8_format;
 
-	typedef
+	using
+	color_type
+	=
 	sge::renderer::vf::color<
 		color_format
-	>
-	color_type;
+	>;
 
-	typedef
+	using
+	format_part
+	=
 	sge::renderer::vf::part<
 		pos3_type,
 		color_type
-	>
-	format_part;
+	>;
 
 	static_assert(
 		std::is_same_v<
@@ -153,11 +157,12 @@ TEST_CASE(
 		>::value
 	);
 
-	typedef
+	using
+	format
+	=
 	sge::renderer::vf::format<
 		format_part
-	>
-	format;
+	>;
 
 	sge::renderer::vf::dynamic::format const dynamic_format{
 		sge::renderer::vf::dynamic::make_format<
@@ -182,12 +187,12 @@ TEST_CASE(
 								sge::renderer::vf::dynamic::pos{
 									sge::renderer::vf::dynamic::vector{
 										sge::renderer::vf::dynamic::element_type::float_,
-										sge::renderer::vf::dynamic::element_count{3u}
+										sge::renderer::vf::dynamic::element_count{3U}
 									}
 								}
 							}
 						},
-						sge::renderer::vf::dynamic::offset{0u}
+						sge::renderer::vf::dynamic::offset{0U}
 					},
 					sge::renderer::vf::dynamic::ordered_element{
 						sge::renderer::vf::dynamic::element{
@@ -207,35 +212,38 @@ TEST_CASE(
 		}
 	);
 
-	typedef
+	using
+	view_type
+	=
 	sge::renderer::vf::view<
 		format_part
-	>
-	view_type;
+	>;
 
 	std::array<
 		sge::renderer::raw_value,
 		3 * format_part::stride::value
 	> test_data{};
 
-	typedef
-	pos3_type::packed_type
-	vec3;
+	using
+	vec3
+	=
+	pos3_type::packed_type;
 
-	typedef
+	using
+	vertex
+	=
 	sge::renderer::vf::vertex<
 		format_part
-	>
-	vertex;
+	>;
 
 	{
 		sge::renderer::vf::dynamic::view const dynamic_view{
 			test_data.data(),
-			sge::renderer::vertex::count{3u},
+			sge::renderer::vertex::count{3U},
 			fcppt::make_cref(
 				dynamic_format.parts().at(0)
 			),
-			sge::renderer::vf::dynamic::part_index{0u}
+			sge::renderer::vf::dynamic::part_index{0U}
 		};
 
 		view_type const view{
@@ -250,7 +258,7 @@ TEST_CASE(
 		(*it).set<
 			sge::renderer::vf::labels::pos
 		>(
-			vec3(-1.f, 1.f, 0.f)
+			vec3(-1.F, 1.F, 0.F)
 		);
 
 		(*it).set<
@@ -269,7 +277,7 @@ TEST_CASE(
 		*it =
 			vertex{
 				sge::renderer::vf::labels::pos{} =
-					vec3(-1.f, -1.f, 0.f),
+					vec3(-1.F, -1.F, 0.F),
 				sge::renderer::vf::labels::color{} =
 					sge::image::color::convert<
 						color_format
@@ -284,7 +292,7 @@ TEST_CASE(
 		sge::renderer::vf::set_proxy(
 			*it,
 			sge::renderer::vf::labels::pos{},
-			vec3(1.f, 1.f, 0.f)
+			vec3(1.F, 1.F, 0.F)
 		);
 
 		sge::renderer::vf::set_proxy(
@@ -298,7 +306,7 @@ TEST_CASE(
 		);
 	}
 
-	// TODO: Test get
+	// TODO(philipp): Test get
 
 	auto const vec3_from(
 		[
@@ -318,7 +326,7 @@ TEST_CASE(
 					result.storage().data()
 				),
 				test_data.data()
-				+
+				+ // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
 				_index,
 				3 * sizeof(float)
 			);
@@ -331,13 +339,13 @@ TEST_CASE(
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wfloat-equal)
 
-	// TODO
+	// TODO(philipp)
 	CHECK(
 		vec3_from(
 			0
 		)
 		==
-		vec3{-1.f,1.f,0.f}
+		vec3{-1.F,1.F,0.F}
 	);
 
 	CHECK(
@@ -345,7 +353,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wfloat-equal)
 			stride.get()
 		)
 		==
-		vec3{-1.f,-1.f,0.f}
+		vec3{-1.F,-1.F,0.F}
 	);
 
 	CHECK(
@@ -353,7 +361,7 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wfloat-equal)
 			2 * stride.get()
 		)
 		==
-		vec3{1.f,1.f,0.f}
+		vec3{1.F,1.F,0.F}
 	);
 
 FCPPT_PP_POP_WARNING

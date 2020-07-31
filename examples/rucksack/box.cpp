@@ -54,7 +54,7 @@ try
 	};
 
 	sge::rucksack::padding const padding{
-		5
+		5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	};
 
 	sge::rucksack::widget::box outer_box{
@@ -108,12 +108,12 @@ try
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					100
+					100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					50
+					50 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}
@@ -134,12 +134,12 @@ try
 		sge::rucksack::axis_policy2{
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					200
+					200 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			},
 			sge::rucksack::axis_policy{
 				sge::rucksack::preferred_size{
-					50
+					50 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				}
 			}
 		}

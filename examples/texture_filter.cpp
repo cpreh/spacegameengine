@@ -251,17 +251,17 @@ try
 	sge::camera::first_person::object camera(
 		sge::camera::first_person::parameters(
 			sge::camera::first_person::movement_speed(
-				4.0f
+				4.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			sge::camera::coordinate_system::identity()
 		)
 	);
 
 	sge::image::size_type const block_element_size(
-		32u
+		32U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
-	sge::image2d::dim const block_size(
+	auto const block_size(
 		fcppt::math::dim::fill<
 			sge::image2d::dim
 		>(
@@ -270,12 +270,13 @@ try
 	);
 
 	sge::image::size_type const num_blocks(
-		2u
+		2U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
-	typedef
-	sge::image2d::store::l8
-	store_type;
+	using
+	store_type
+	=
+	sge::image2d::store::l8;
 
 	store_type const whole_store{
 		block_size
@@ -309,6 +310,7 @@ try
 						num_blocks
 					)
 				)
+				{
 					for(
 						sge::image::size_type const x
 						:
@@ -316,9 +318,10 @@ try
 							num_blocks
 						)
 					)
+					{
 						sge::image2d::algorithm::copy(
 							sge::image2d::view::const_object(
-								(((x + y) % 2u) == 0u)
+								(((x + y) % 2U) == 0U)
 								?
 									white_store.wrapped_view()
 								:
@@ -343,6 +346,8 @@ try
 							sge::image::algorithm::may_overlap::no,
 							sge::image::algorithm::uninitialized::yes
 						);
+					}
+				}
 			}
 		}
 	};
@@ -400,73 +405,74 @@ try
 		}
 	);
 
-	sge::renderer::state::core::sampler::object_unique_ptr const
-		point_sampler(
-			sys.renderer_device_core().create_sampler_state(
-				make_sampler_parameters(
-					sge::renderer::state::core::sampler::filter::point()
-				)
+	sge::renderer::state::core::sampler::object_unique_ptr const point_sampler(
+		sys.renderer_device_core().create_sampler_state(
+			make_sampler_parameters(
+				sge::renderer::state::core::sampler::filter::point()
 			)
-		),
-		linear_sampler(
-			sys.renderer_device_core().create_sampler_state(
-				make_sampler_parameters(
-					sge::renderer::state::core::sampler::filter::linear()
-				)
+		)
+	);
+	sge::renderer::state::core::sampler::object_unique_ptr const linear_sampler(
+		sys.renderer_device_core().create_sampler_state(
+			make_sampler_parameters(
+				sge::renderer::state::core::sampler::filter::linear()
 			)
-		),
-		mipmap_sampler(
-			sys.renderer_device_core().create_sampler_state(
-				make_sampler_parameters(
-					sge::renderer::state::core::sampler::filter::mipmap()
-				)
+		)
+	);
+	sge::renderer::state::core::sampler::object_unique_ptr const mipmap_sampler(
+		sys.renderer_device_core().create_sampler_state(
+			make_sampler_parameters(
+				sge::renderer::state::core::sampler::filter::mipmap()
 			)
-		),
-		trilinear_sampler(
-			sys.renderer_device_core().create_sampler_state(
-				make_sampler_parameters(
-					sge::renderer::state::core::sampler::filter::trilinear()
-				)
+		)
+	);
+	sge::renderer::state::core::sampler::object_unique_ptr const trilinear_sampler(
+		sys.renderer_device_core().create_sampler_state(
+			make_sampler_parameters(
+				sge::renderer::state::core::sampler::filter::trilinear()
 			)
-		),
-		anisotropic_sampler(
-			sys.renderer_device_core().create_sampler_state(
-				make_anisotropic_sampler_parameters(
-					sge::renderer::state::core::sampler::filter::anisotropic::mip::off,
-					anisotropy
-				)
+		)
+	);
+	sge::renderer::state::core::sampler::object_unique_ptr const anisotropic_sampler(
+		sys.renderer_device_core().create_sampler_state(
+			make_anisotropic_sampler_parameters(
+				sge::renderer::state::core::sampler::filter::anisotropic::mip::off,
+				anisotropy
 			)
-		),
-		anisotropic_mipmap_sampler(
-			sys.renderer_device_core().create_sampler_state(
-				make_anisotropic_sampler_parameters(
-					sge::renderer::state::core::sampler::filter::anisotropic::mip::point,
-					anisotropy
-				)
+		)
+	);
+	sge::renderer::state::core::sampler::object_unique_ptr const anisotropic_mipmap_sampler(
+		sys.renderer_device_core().create_sampler_state(
+			make_anisotropic_sampler_parameters(
+				sge::renderer::state::core::sampler::filter::anisotropic::mip::point,
+				anisotropy
 			)
-		),
-		anisotropic_trilinear_sampler(
-			sys.renderer_device_core().create_sampler_state(
-				make_anisotropic_sampler_parameters(
-					sge::renderer::state::core::sampler::filter::anisotropic::mip::linear,
-					anisotropy
-				)
+		)
+	);
+	sge::renderer::state::core::sampler::object_unique_ptr const anisotropic_trilinear_sampler(
+		sys.renderer_device_core().create_sampler_state(
+			make_anisotropic_sampler_parameters(
+				sge::renderer::state::core::sampler::filter::anisotropic::mip::linear,
+				anisotropy
 			)
-		);
+		)
+	);
 
-	typedef
+	using
+	string_filter_pair
+	=
 	std::pair<
 		sge::font::string,
 		sge::renderer::state::core::sampler::const_object_ref
-	>
-	string_filter_pair;
+	>;
 
-	typedef
+	using
+	filter_array
+	=
 	std::array<
 		string_filter_pair,
-		7u
-	>
-	filter_array;
+		7U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+	>;
 
 	filter_array const filters{{
 		std::make_pair(
@@ -523,7 +529,9 @@ try
 		)
 	}};
 
-	typedef
+	using
+	sprite_choices
+	=
 	sge::sprite::config::choices<
 		sge::sprite::config::type_choices<
 			sge::sprite::config::unit_type<
@@ -542,44 +550,48 @@ try
 		metal::list<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
-					1u
+					1U
 				>,
 				sge::sprite::config::texture_coordinates::repetition,
 				sge::sprite::config::texture_ownership::unique
 			>
 		>
-	>
-	sprite_choices;
+	>;
 
-	typedef
+	using
+	sprite_buffers_type
+	=
 	sge::sprite::buffers::with_declaration<
 		sge::sprite::buffers::single<
 			sprite_choices
 		>
-	>
-	sprite_buffers_type;
+	>;
 
-	typedef
+	using
+	sprite_object
+	=
 	sge::sprite::object<
 		sprite_choices
-	>
-	sprite_object;
+	>;
 
-	typedef
-	sge::sprite::state::no_choices
-	sprite_state_choices;
+	using
+	sprite_state_choices
+	=
+	sge::sprite::state::no_choices;
 
-	typedef
+	using
+	sprite_state_object
+	=
 	sge::sprite::state::object<
 		sprite_state_choices
-	>
-	sprite_state_object;
+	>;
 
-	typedef
+	using
+	sprite_state_parameters
+	=
 	sge::sprite::state::parameters<
 		sprite_state_choices
-	>
-	sprite_state_parameters;
+	>;
 
 	sprite_buffers_type sprite_buffers(
 		fcppt::make_ref(
@@ -596,14 +608,14 @@ try
 	);
 
 	sprite_object::unit const sprite_size(
-		2000
+		2000 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
-	sprite_object::repetition_type::value_type const repetition(
+	auto const repetition(
 		fcppt::cast::int_to_float<
 			sprite_object::repetition_type::value_type
 		>(
-			sprite_size / 5
+			sprite_size / 5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		)
 	);
 
@@ -654,11 +666,12 @@ try
 			}
 	);
 
-	typedef
+	using
+	sprite_range_type
+	=
 	sge::sprite::render::range<
 		sprite_choices
-	>
-	sprite_range_type;
+	>;
 
 	sprite_range_type const sprite_range(
 		sge::sprite::geometry::update_one(
@@ -688,7 +701,9 @@ try
 			if(
 				!_event.pressed()
 			)
+			{
 				return;
+			}
 
 			fcppt::optional::maybe_void(
 				sge::input::key::code_to_digit(
@@ -707,7 +722,7 @@ try
 							filter_array::size_type{
 								_digit.get()
 								-
-								1u
+								1U
 							}
 						),
 						[
@@ -739,14 +754,14 @@ try
 			sys.viewport_manager()
 		),
 		sge::renderer::projection::near(
-			0.1f
+			0.1F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		sge::renderer::projection::far(
-			1000.f
+			1000.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		),
 		sge::renderer::projection::fov(
 			fcppt::math::deg_to_rad(
-				90.f
+				90.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		)
 	);
@@ -850,7 +865,7 @@ try
 						)
 					),
 					sge::renderer::texture::stage(
-						0u
+						0U
 					),
 					fcppt::make_cref(
 						current_filter.get().second.get()
@@ -945,7 +960,9 @@ try
 					sys.renderer_device_core().onscreen_target().viewport()
 				)
 			)
+			{
 				return;
+			}
 
 			camera.update(
 				std::chrono::duration_cast<

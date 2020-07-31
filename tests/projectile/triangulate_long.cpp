@@ -19,26 +19,40 @@
 namespace
 {
 
-typedef long unit;
+using
+unit
+=
+long; // NOLINT(google-runtime-int)
 
-typedef fcppt::math::vector::static_<
+using
+vector2
+=
+fcppt::math::vector::static_<
 	unit,
 	2
-> vector2;
+>;
 
-typedef std::array<
+using
+triangle
+=
+std::array<
 	vector2,
 	3
-> triangle;
+>;
 
-typedef std::vector<
+using
+triangle_sequence
+=
+std::vector<
 	triangle
-> triangle_sequence;
+>;
 
-typedef std::vector<
+using
+point_sequence
+=
+std::vector<
 	vector2
-> point_sequence;
-
+>;
 
 void
 test_long(
@@ -59,7 +73,7 @@ test_long(
 	CHECK(
 		result.size()
 		==
-		_points.size() - 2u
+		_points.size() - 2U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 
 	// FIXME
@@ -79,20 +93,20 @@ TEST_CASE(
 				0
 			),
 			vector2(
-				100,
+				100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				0
 			),
 			vector2(
-				100,
-				100
+				100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			vector2(
 				0,
-				100
+				100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		}
 		,
-		0l
+		0L
 	);
 
 	test_long(
@@ -103,18 +117,18 @@ TEST_CASE(
 			),
 			vector2(
 				0,
-				1000
+				1000 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			vector2(
-				2000,
-				2000
+				2000, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				2000 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			vector2(
-				1000,
-				500
+				1000, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				500 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		}
 		,
-		0l
+		0L
 	);
 }

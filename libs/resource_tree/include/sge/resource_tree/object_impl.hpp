@@ -13,6 +13,7 @@
 #include <sge/resource_tree/detail/element_impl.hpp>
 #include <sge/resource_tree/detail/init.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -32,7 +33,9 @@ sge::resource_tree::object<
 >::object(
 	std::filesystem::path const &_path,
 	path_to_resource_function const &_path_to_resource,
-	rng_type &_random_generator
+	fcppt::reference<
+		rng_type
+	> const _random_generator
 )
 :
 	elements_(
@@ -53,8 +56,7 @@ sge::resource_tree::object<
 	T,
 	Rng
 >::~object()
-{
-}
+= default;
 
 template<
 	typename T,

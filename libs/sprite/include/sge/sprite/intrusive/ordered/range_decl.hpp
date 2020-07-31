@@ -33,46 +33,52 @@ template<
 >
 class range
 {
-	typedef
+	using
+	ordered_map
+	=
 	sge::sprite::intrusive::ordered::detail::map<
 		Order,
 		Choices
-	>
-	ordered_map;
+	>;
 public:
-	typedef
+	using
+	ordered_map_reference
+	=
 	fcppt::reference<
-		typename
-		std::conditional<
+		std::conditional_t<
 			IsConst,
 			ordered_map const,
 			ordered_map
-		>::type
-	>
-	ordered_map_reference;
+		>
+	>;
 
-	typedef
+	using
+	iterator
+	=
 	sge::sprite::intrusive::ordered::iterator<
 		Choices,
 		Order,
 		IsConst
-	>
-	iterator;
+	>;
 
 	explicit
 	range(
 		ordered_map_reference
 	);
 
+	[[nodiscard]]
 	iterator
 	begin() const;
 
+	[[nodiscard]]
 	iterator
 	end() const;
 
+	[[nodiscard]]
 	sge::sprite::count
 	size() const;
 
+	[[nodiscard]]
 	bool
 	empty() const;
 

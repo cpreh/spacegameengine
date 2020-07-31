@@ -60,28 +60,31 @@ example_main(
 	rectangle_count const _rectangle_count
 )
 {
-	typedef
+	using
+	bvh_box
+	=
 	fcppt::math::box::rect<
 		float
-	>
-	bvh_box;
+	>;
 
-	typedef
+	using
+	bvh_tree_traits
+	=
 	sge::bvh::tree_traits<
 		sge::bvh::dummy_node,
 		bvh_box,
 		bvh_box
-	>
-	bvh_tree_traits;
+	>;
 
 	bvh_box::dim const total_bounding_box{
-		1024.0f,
-		1024.0f
+		1024.0F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+		1024.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	};
 
-	typedef
-	fcppt::random::generator::minstd_rand
-	generator_type;
+	using
+	generator_type
+	=
+	fcppt::random::generator::minstd_rand;
 
 	generator_type generator{
 		fcppt::random::generator::seed_from_chrono<
@@ -89,62 +92,62 @@ example_main(
 		>()
 	};
 
-	typedef
+	using
+	real_distribution
+	=
 	fcppt::random::distribution::basic<
 		fcppt::random::distribution::parameters::uniform_real<
 			float
 		>
-	>
-	real_distribution;
+	>;
 
-	typedef
+	using
+	real_variate
+	=
 	fcppt::random::variate<
 		generator_type,
 		real_distribution
-	>
-	real_variate;
+	>;
 
-	real_variate
-		screen_size_rng{
-			generator,
-			real_distribution(
-				real_distribution::param_type::min(
-					total_bounding_box.h()
-					/
-					8.0f
-				),
-				real_distribution::param_type::sup(
-					total_bounding_box.h()
-					-
-					total_bounding_box.h()
-					/
-					8.0f
-				)
+	real_variate screen_size_rng{
+		generator,
+		real_distribution(
+			real_distribution::param_type::min(
+				total_bounding_box.h()
+				/
+				8.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			),
+			real_distribution::param_type::sup(
+				total_bounding_box.h()
+				-
+				total_bounding_box.h()
+				/
+				8.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
-		},
-		size_rng{
-			generator,
-			real_distribution(
-				real_distribution::param_type::min(
-					total_bounding_box.h()
-					/
-					16.0f
-				),
-				real_distribution::param_type::sup(
-					total_bounding_box.h()
-					/
-					4.0f
-				)
+		)
+	};
+	real_variate size_rng{
+		generator,
+		real_distribution(
+			real_distribution::param_type::min(
+				total_bounding_box.h()
+				/
+				16.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			),
+			real_distribution::param_type::sup(
+				total_bounding_box.h()
+				/
+				4.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
-		};
-
+		)
+	};
 
 	sge::bvh::object<
 		bvh_tree_traits
 	>
 	bounding_hierarchy;
 
-	bvh_tree_traits::leaf_sequence const nodes(
+	auto const nodes(
 		fcppt::algorithm::map<
 			bvh_tree_traits::leaf_sequence
 		>(
@@ -173,7 +176,7 @@ example_main(
 						(
 							new_size
 							/
-							2.0f
+							2.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 						).get_unsafe(),
 						new_size
 					);
@@ -181,9 +184,10 @@ example_main(
 		)
 	);
 
-	typedef
-	std::chrono::steady_clock
-	clock_type;
+	using
+	clock_type
+	=
+	std::chrono::steady_clock;
 
 	clock_type::time_point const before{
 		clock_type::now()
@@ -241,13 +245,14 @@ try
 		}
 	);
 
-	typedef
+	using
+	result_type
+	=
 	fcppt::options::result_of<
 		decltype(
 			parser
 		)
-	>
-	result_type;
+	>;
 
 	return
 		fcppt::either::match(

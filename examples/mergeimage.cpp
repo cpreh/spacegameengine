@@ -100,7 +100,9 @@ calc_size(
 			* (size / (_dim.h() + 1))
 			>= _image_count
 		)
+		{
 			return size;
+		}
 	}
 
 	throw
@@ -112,8 +114,8 @@ calc_size(
 sge::image2d::dim
 first_dim(
 	std::filesystem::path const &_path,
-	sge::image2d::system &_system
-)
+	sge::image2d::system &_system // NOLINT(google-runtime-references)
+) // NOLINT(google-runtime-references)
 {
 	std::filesystem::directory_iterator const it(
 		_path
@@ -128,11 +130,12 @@ first_dim(
 		)->size();
 }
 
-typedef
+using
+path_vector
+=
 std::vector<
 	std::filesystem::path
->
-path_vector;
+>;
 
 path_vector
 sort_paths(
@@ -181,7 +184,7 @@ program_main(
 		sys.image_system()
 	);
 
-	sge::image::size_type const image_count(
+	auto const image_count(
 		fcppt::cast::size<
 			sge::image::size_type
 		>(
@@ -224,9 +227,10 @@ program_main(
 		)
 	);
 
-	typedef
-	sge::image2d::store::srgba8
-	image_type;
+	using
+	image_type
+	=
+	sge::image2d::store::srgba8;
 
 	image_type dest{
 		fcppt::math::dim::fill<
@@ -369,13 +373,14 @@ try
 		}
 	);
 
-	typedef
+	using
+	result_type
+	=
 	fcppt::options::result_of<
 		decltype(
 			parser
 		)
-	>
-	result_type;
+	>;
 
 	return
 		fcppt::either::match(

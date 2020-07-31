@@ -20,10 +20,12 @@
 #include <sge/projectile/time_increment.hpp>
 #include <sge/projectile/vector2.hpp>
 #include <sge/projectile/world.hpp>
+#include <sge/projectile/world_ref.hpp>
 #include <sge/projectile/body/angular_velocity.hpp>
 #include <sge/projectile/body/collision.hpp>
 #include <sge/projectile/body/linear_velocity.hpp>
 #include <sge/projectile/body/object.hpp>
+#include <sge/projectile/body/object_ref.hpp>
 #include <sge/projectile/body/parameters.hpp>
 #include <sge/projectile/body/position.hpp>
 #include <sge/projectile/body/position_change.hpp>
@@ -41,6 +43,7 @@
 #include <sge/projectile/ghost/scoped.hpp>
 #include <sge/projectile/ghost/size.hpp>
 #include <sge/projectile/group/object.hpp>
+#include <sge/projectile/group/object_ref.hpp>
 #include <sge/projectile/group/sequence.hpp>
 #include <sge/projectile/shape/circle.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
@@ -109,7 +112,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/no_init.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
@@ -131,12 +134,12 @@
 #include <metal.hpp>
 #include <chrono>
 #include <exception>
-#include <functional>
 #include <ios>
 #include <iostream>
 #include <istream>
 #include <ostream>
 #include <sstream>
+#include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -157,7 +160,7 @@ container_from_stream(
 	> &s
 )
 {
-	Ch c;
+	Ch c{};
 
 	s >> c;
 
@@ -195,8 +198,10 @@ container_from_stream(
 		if(
 			!s
 		)
+		{
 			return
 				Container();
+		}
 
 		result.insert(
 			result.end(),
@@ -214,7 +219,7 @@ container_from_stream(
 
 class body
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		body
 	);
 public:
@@ -222,11 +227,11 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 	body(
 		sge::projectile::log const &_log,
-		sge::projectile::world &_world,
-		sge::projectile::group::object &_group,
-		sge::projectile::shape::shared_base_ptr const _shape,
+		sge::projectile::world_ref const _world,
+		sge::projectile::group::object_ref const _group,
+		sge::projectile::shape::shared_base_ptr _shape,
 		sge::projectile::body::solidity::variant const &_solidity,
-		sge::projectile::rect const _rect
+		sge::projectile::rect const &_rect
 	)
 	:
 		body_{
@@ -249,7 +254,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 						0
 					)
 				),
-				_shape,
+				std::move(
+					_shape
+				),
 				sge::projectile::body::rotation(
 					fcppt::literal<
 						sge::projectile::scalar
@@ -262,16 +269,12 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			}
 		},
 		body_scope_{
-			fcppt::make_ref(
-				_world
-			),
+			_world,
 			fcppt::make_ref(
 				body_
 			),
 			sge::projectile::group::sequence{
-				fcppt::make_ref(
-					_group
-				)
+				_group
 			}
 		}
 	{
@@ -279,9 +282,9 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 FCPPT_PP_POP_WARNING
 
 	~body()
-	{
-	}
+	= default;
 
+	[[nodiscard]]
 	sge::projectile::body::object &
 	get()
 	{
@@ -296,29 +299,35 @@ private:
 
 class body_keyboard_mover
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		body_keyboard_mover
 	);
 public:
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 	body_keyboard_mover(
-		sge::projectile::world &_world,
-		sge::projectile::body::object &_body
+		sge::projectile::world_ref const _world,
+		sge::projectile::body::object_ref const _body
 	)
 	:
 		body_(
 			_body
 		),
 		body_collision_connection_(
-			_world.body_collision(
+			_world.get().body_collision(
 				sge::projectile::body::collision{
-					std::bind(
-						&body_keyboard_mover::body_collision,
-						this,
-						std::placeholders::_1,
-						std::placeholders::_2
+					[
+						this
+					](
+						sge::projectile::body::object const &_body1,
+						sge::projectile::body::object const &_body2
 					)
+					{
+						this->body_collision(
+							_body1,
+							_body2
+						);
+					}
 				}
 			)
 		),
@@ -332,8 +341,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 FCPPT_PP_POP_WARNING
 
 	~body_keyboard_mover()
-	{
-	}
+	= default;
 
 	void
 	key_event(
@@ -341,24 +349,24 @@ FCPPT_PP_POP_WARNING
 	)
 	{
 		velocity_ =
-			body_.linear_velocity()
+			body_.get().linear_velocity()
 			+
 			fcppt::literal<
 				sge::projectile::scalar
 			>(
-				30
+				30 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 			*
-			this->key_event_to_vector(
+			body_keyboard_mover::key_event_to_vector(
 				_event
 			);
 
-		body_.linear_velocity(
+		body_.get().linear_velocity(
 			velocity_
 		);
 	}
 private:
-	sge::projectile::body::object &body_;
+	sge::projectile::body::object_ref const body_;
 
 	fcppt::signal::auto_connection const body_collision_connection_;
 
@@ -371,16 +379,16 @@ private:
 	)
 	{
 		if(
-			&_body1 == &body_
+			&_body1 == &body_.get()
 			||
-			&_body2 == &body_
+			&_body2 == &body_.get()
 		)
 		{
-			body_.linear_velocity(
+			body_.get().linear_velocity(
 				velocity_
 			);
 
-			body_.angular_velocity(
+			body_.get().angular_velocity(
 				fcppt::literal<
 					sge::projectile::scalar
 				>(
@@ -406,26 +414,26 @@ private:
 		case sge::input::key::code::left:
 			return
 				sge::projectile::vector2{
-					-1.f,
-					0.f
+					-1.F,
+					0.F
 				};
 		case sge::input::key::code::right:
 			return
 				sge::projectile::vector2{
-					1.f,
-					0.f
+					1.F,
+					0.F
 				};
 		case sge::input::key::code::up:
 			return
 				sge::projectile::vector2{
-					0.f,
-					-1.f
+					0.F,
+					-1.F
 				};
 		case sge::input::key::code::down:
 			return
 				sge::projectile::vector2{
-					0.f,
-					1.f
+					0.F,
+					1.F
 				};
 		default:
 			return
@@ -457,7 +465,6 @@ private:
 				-result
 			;
 	}
-
 };
 
 void
@@ -467,7 +474,7 @@ body_collision(
 )
 {
 	static unsigned ticker{
-		1u
+		1U
 	};
 
 	std::cout
@@ -479,7 +486,7 @@ body_collision(
 
 class body_following_ghost
 {
-	FCPPT_NONCOPYABLE(
+	FCPPT_NONMOVABLE(
 		body_following_ghost
 	);
 public:
@@ -487,8 +494,8 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 	body_following_ghost(
 		sge::projectile::log const &_log,
-		sge::projectile::world &_world,
-		sge::projectile::body::object &_body,
+		sge::projectile::world_ref const _world,
+		sge::projectile::body::object_ref const _body,
 		sge::projectile::ghost::size const &_size,
 		sge::projectile::group::sequence const &_groups
 	)
@@ -497,50 +504,57 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 			sge::projectile::ghost::parameters(
 				_log,
 				sge::projectile::ghost::position(
-					_body.position()
+					_body.get().position()
 				),
 				_size
 			)
 		),
 		ghost_scope_(
-			fcppt::make_ref(
-				_world
-			),
+			_world,
 			fcppt::make_ref(
 				ghost_
 			),
 			_groups
 		),
 		body_position_change_connection_(
-			_body.position_change(
+			_body.get().position_change(
 				sge::projectile::body::position_change{
-					std::bind(
-						&body_following_ghost::body_position_change,
-						this,
-						std::placeholders::_1
+					[
+						this
+					](
+						sge::projectile::body::position const &_pos
 					)
+					{
+						ghost_.position(
+							_pos.get()
+						);
+					}
 				}
 			)
 		),
 		body_enter_connection_(
 			ghost_.body_enter(
 				sge::projectile::ghost::body_enter{
-					std::bind(
-						&body_following_ghost::body_enter,
-						this,
-						std::placeholders::_1
+					[](
+						sge::projectile::body::object const &
 					)
+					{
+						std::cout
+							<< "Body enter!\n";
+					}
 				}
 			)
 		),
 		body_exit_connection_(
 			ghost_.body_exit(
 				sge::projectile::ghost::body_exit{
-					std::bind(
-						&body_following_ghost::body_exit,
-						this,
-						std::placeholders::_1
+					[](
+						sge::projectile::body::object const &
 					)
+					{
+						std::cout
+							<< "Body exit!\n";
+					}
 				}
 			)
 		)
@@ -549,45 +563,15 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 FCPPT_PP_POP_WARNING
 
 	~body_following_ghost()
-	{
-	}
+	= default;
 private:
 	sge::projectile::ghost::object ghost_;
 
 	sge::projectile::ghost::scoped ghost_scope_;
 
-	fcppt::signal::auto_connection const
-		body_position_change_connection_,
-		body_enter_connection_,
-		body_exit_connection_;
-
-	void
-	body_position_change(
-		sge::projectile::body::position const &_pos
-	)
-	{
-		ghost_.position(
-			_pos.get()
-		);
-	}
-
-	void
-	body_enter(
-		sge::projectile::body::object const &
-	)
-	{
-		std::cout
-			<< "Body enter!\n";
-	}
-
-	void
-	body_exit(
-		sge::projectile::body::object const &
-	)
-	{
-		std::cout
-			<< "Body exit!\n";
-	}
+	fcppt::signal::auto_connection const body_position_change_connection_;
+	fcppt::signal::auto_connection const body_enter_connection_;
+	fcppt::signal::auto_connection const body_exit_connection_;
 };
 
 }
@@ -632,8 +616,8 @@ try
 				sge::viewport::optional_resize_callback{
 					sge::viewport::center_on_resize(
 						sge::window::dim{
-							1024u,
-							768u
+							1024U,
+							768U
 						}
 					)
 				}
@@ -685,22 +669,30 @@ try
 		)
 	);
 
-	sge::projectile::group::object
-		first_group(
-			world),
-		second_group(
-			world);
+	sge::projectile::group::object first_group(
+		world
+	);
+	sge::projectile::group::object second_group(
+		world
+	);
+
 	world.make_groups_collide(
 		first_group,
-		second_group);
+		second_group
+	);
 
 	debug_drawer.active(
-		true);
+		true
+	);
 
 	body first_body(
 		log,
-		world,
-		first_group,
+		fcppt::make_ref(
+			world
+		),
+		fcppt::make_ref(
+			first_group
+		),
 		sge::projectile::shape::shared_base_ptr{
 			fcppt::make_shared_ptr<
 				sge::projectile::shape::circle
@@ -708,7 +700,7 @@ try
 				fcppt::literal<
 					sge::projectile::scalar
 				>(
-					5
+					5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 				)
 			)
 		},
@@ -725,23 +717,28 @@ try
 		},
 		sge::projectile::rect(
 			sge::projectile::vector2(
-				10.f,
-				10.f
+				10.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				10.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			sge::projectile::dim2(
-				10.f,
-				10.f
+				10.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				10.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		)
 	);
 
 	std::istringstream polygon_stream(
-		"((42,296),(253,162),(12,23),(420,22),(420,310))");
+		"((42,296),(253,162),(12,23),(420,22),(420,310))"
+	);
 
 	body second_body(
 		log,
-		world,
-		second_group,
+		fcppt::make_ref(
+			world
+		),
+		fcppt::make_ref(
+			second_group
+		),
 		sge::projectile::shape::shared_base_ptr{
 			fcppt::make_shared_ptr<
 				sge::projectile::shape::triangle_mesh
@@ -761,7 +758,7 @@ try
 					fcppt::literal<
 						sge::projectile::scalar
 					>(
-						0.00001
+						0.00001 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 					)
 				)
 			)
@@ -771,24 +768,28 @@ try
 		},
 		sge::projectile::rect(
 			sge::projectile::vector2(
-				100.f,
-				100.f
+				100.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				100.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			),
 			sge::projectile::dim2(
-				20.f,
-				20.f
+				20.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				20.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		)
 	);
 
 	body_following_ghost first_ghost{
 		log,
-		world,
-		first_body.get(),
+		fcppt::make_ref(
+			world
+		),
+		fcppt::make_ref(
+			first_body.get()
+		),
 		sge::projectile::ghost::size(
 			sge::projectile::dim2(
-				100.f,
-				100.f
+				100.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				100.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			)
 		),
 		sge::projectile::group::sequence{
@@ -799,8 +800,12 @@ try
 	};
 
 	body_keyboard_mover keyboard_mover{
-		world,
-		first_body.get()
+		fcppt::make_ref(
+			world
+		),
+		fcppt::make_ref(
+			first_body.get()
+		)
 	};
 
 	sge::timer::basic<
@@ -855,10 +860,10 @@ try
 				sge::renderer::projection::orthogonal_viewport(
 					scoped_block.get().target().viewport(),
 					sge::renderer::projection::near(
-						0.f
+						0.F
 					),
 					sge::renderer::projection::far(
-						10.f
+						10.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 					)
 				),
 				[

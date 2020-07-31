@@ -69,6 +69,8 @@ public:
 		clock_parameter
 	);
 
+	~absolute();
+
 	[[nodiscard]]
 	time_point
 	now() const;

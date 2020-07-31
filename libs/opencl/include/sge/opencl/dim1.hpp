@@ -16,12 +16,13 @@ namespace sge
 namespace opencl
 {
 
-typedef
+using
+dim1
+=
 fcppt::math::dim::static_<
 	sge::opencl::size_type,
 	1
->
-dim1;
+>;
 
 }
 }

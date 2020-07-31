@@ -62,10 +62,14 @@ ordered_with_options(
 		"Options must be a sprite::process::options"
 	);
 
-	typedef typename sge::sprite::intrusive::ordered::collection<
+	using
+	collection
+	=
+	typename
+	sge::sprite::intrusive::ordered::collection<
 		Choices,
 		Order
-	>::collection_base collection;
+	>::collection_base;
 
 	sge::sprite::state::scoped<
 		StateChoices

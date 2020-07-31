@@ -237,24 +237,27 @@ try
 		)
 	);
 
-	typedef
+	using
+	pos3_type
+	=
 	sge::renderer::vf::pos<
 		float,
 		3
-	>
-	pos3_type;
+	>;
 
-	typedef
+	using
+	format_part
+	=
 	sge::renderer::vf::part<
 		pos3_type
-	>
-	format_part;
+	>;
 
-	typedef
+	using
+	format
+	=
 	sge::renderer::vf::format<
 		format_part
-	>
-	format;
+	>;
 
 	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
 		sys.renderer_device_core().create_vertex_declaration(
@@ -266,15 +269,17 @@ try
 		)
 	);
 
-	typedef
-	pos3_type::packed_type
-	vec3;
+	using
+	vec3
+	=
+	pos3_type::packed_type;
 
-	typedef
+	using
+	vertex
+	=
 	sge::renderer::vf::vertex<
 		format_part
-	>
-	vertex;
+	>;
 
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
 		sge::renderer::vertex::create_buffer_from_vertices<
@@ -291,25 +296,25 @@ try
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						vec3(
-							-1.f,
-							1.f,
-							0.f
+							-1.F,
+							1.F,
+							0.F
 						)
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						vec3(
-							-1.f,
-							-1.f,
-							0.f
+							-1.F,
+							-1.F,
+							0.F
 						)
 				},
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						vec3(
-							1.f,
-							1.f,
-							0.f
+							1.F,
+							1.F,
+							0.F
 						)
 				}
 			)
