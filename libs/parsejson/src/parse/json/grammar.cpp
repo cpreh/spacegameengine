@@ -26,6 +26,7 @@
 #include <fcppt/parse/grammar_impl.hpp>
 #include <fcppt/parse/int.hpp>
 #include <fcppt/parse/make_convert_if.hpp>
+#include <fcppt/parse/make_fatal.hpp>
 #include <fcppt/parse/make_lexeme.hpp>
 #include <fcppt/parse/make_recursive.hpp>
 #include <fcppt/parse/separator.hpp>
@@ -143,11 +144,13 @@ sge::parse::json::grammar::grammar()
 					literal{'{'}
 					>>
 					fcppt::parse::separator{
-						fcppt::make_cref(
-							this->quoted_string_
+						fcppt::parse::make_fatal(
+							fcppt::make_cref(
+								this->quoted_string_
+							)
+							>>
+							literal{':'}
 						)
-						>>
-						literal{':'}
 						>>
 						fcppt::parse::make_recursive(
 							fcppt::make_cref(
@@ -165,42 +168,44 @@ sge::parse::json::grammar::grammar()
 	},
 	value_{
 		sge::parse::json::grammar_base::make_base(
-			fcppt::parse::construct<
-				sge::parse::json::value
-			>(
-				fcppt::make_cref(
-					this->object_
-				)
-				|
-				fcppt::make_cref(
-					this->array_
-				)
-				|
-				fcppt::make_cref(
-					this->bool_
-				)
-				|
-				fcppt::make_cref(
-					this->quoted_string_
-				)
-				|
-				(
-					fcppt::parse::int_<
-						sge::parse::json::int_type
+			fcppt::parse::make_fatal(
+				fcppt::parse::construct<
+					sge::parse::json::value
+				>(
+					fcppt::make_cref(
+						this->object_
+					)
+					|
+					fcppt::make_cref(
+						this->array_
+					)
+					|
+					fcppt::make_cref(
+						this->bool_
+					)
+					|
+					fcppt::make_cref(
+						this->quoted_string_
+					)
+					|
+					(
+						fcppt::parse::int_<
+							sge::parse::json::int_type
+						>{}
+						>>
+						!
+						literal{
+							'.'
+						}
+					)
+					|
+					fcppt::parse::float_<
+						sge::parse::json::float_type
 					>{}
-					>>
-					!
-					literal{
-						'.'
-					}
-				)
-				|
-				fcppt::parse::float_<
-					sge::parse::json::float_type
-				>{}
-				|
-				fcppt::make_cref(
-					this->null_
+					|
+					fcppt::make_cref(
+						this->null_
+					)
 				)
 			)
 		)
