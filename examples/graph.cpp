@@ -180,7 +180,9 @@ try
 	>;
 
 	variate rng(
-		generator,
+		fcppt::make_ref(
+			generator
+		),
 		uniform_real(
 			uniform_real::param_type::min(
 				-100.

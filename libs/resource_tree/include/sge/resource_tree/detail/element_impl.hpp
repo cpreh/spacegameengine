@@ -12,6 +12,7 @@
 #include <sge/resource_tree/detail/element_decl.hpp>
 #include <sge/resource_tree/detail/path_with_resource_impl.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
@@ -54,7 +55,9 @@ sge::resource_tree::detail::element<
 	rng_(
 		fcppt::optional::map(
 			fcppt::random::wrapper::make_uniform_container(
-				resources_
+				fcppt::make_ref(
+					resources_
+				)
 			),
 			[
 				&_rng
@@ -66,7 +69,7 @@ sge::resource_tree::detail::element<
 			{
 				return
 					fcppt::random::make_variate(
-						_rng.get(), // TODO(philipp)
+						_rng,
 						_distribution
 					);
 			}

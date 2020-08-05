@@ -97,7 +97,9 @@ try
 		default_generator,
 		scalar_distribution
 	> size_rng_w(
-		def_gen,
+		fcppt::make_ref(
+			def_gen
+		),
 		scalar_distribution(
 			scalar_distribution::param_type::min(
 				10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
@@ -112,7 +114,9 @@ try
 		default_generator,
 		scalar_distribution
 	> size_rng_h(
-		def_gen,
+		fcppt::make_ref(
+			def_gen
+		),
 		scalar_distribution(
 			scalar_distribution::param_type::min(
 				10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)

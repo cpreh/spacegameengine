@@ -12,6 +12,7 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/main.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/strong_typedef_input.hpp>
@@ -110,7 +111,9 @@ example_main(
 	>;
 
 	real_variate screen_size_rng{
-		generator,
+		fcppt::make_ref(
+			generator
+		),
 		real_distribution(
 			real_distribution::param_type::min(
 				total_bounding_box.h()
@@ -127,7 +130,9 @@ example_main(
 		)
 	};
 	real_variate size_rng{
-		generator,
+		fcppt::make_ref(
+			generator
+		),
 		real_distribution(
 			real_distribution::param_type::min(
 				total_bounding_box.h()

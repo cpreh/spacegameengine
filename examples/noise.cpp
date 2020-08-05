@@ -181,7 +181,10 @@ fill_texture(
 		noise_type::dim(
 			_view.size()[0]/100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 			_view.size()[1]/100), // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		rng);
+		fcppt::make_ref(
+			rng
+		)
+	);
 
 	// TODO(philipp): Refactor this
 	for (dim_value_type y = 0; y < _view.size()[1]; ++y)

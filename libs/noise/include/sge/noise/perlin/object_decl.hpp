@@ -8,6 +8,7 @@
 #define SGE_NOISE_PERLIN_OBJECT_DECL_HPP_INCLUDED
 
 #include <sge/noise/perlin/object_fwd.hpp>
+#include <fcppt/reference_fwd.hpp>
 #include <fcppt/container/grid/object_impl.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/static_fwd.hpp>
@@ -70,7 +71,9 @@ public:
 	>
 	object(
 		dim const &,
-		Rng &
+		fcppt::reference<
+			Rng
+		>
 	);
 
 	[[nodiscard]]

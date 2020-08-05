@@ -684,7 +684,9 @@ main_program(
 	>;
 
 	real_variate screen_size_rng(
-		generator,
+		fcppt::make_ref(
+			generator
+		),
 		real_distribution(
 			real_distribution::param_type::min(
 				fcppt::cast::int_to_float<
@@ -721,7 +723,9 @@ main_program(
 		)
 	);
 	real_variate size_rng(
-		generator,
+		fcppt::make_ref(
+			generator
+		),
 		real_distribution(
 			real_distribution::param_type::min(
 				fcppt::cast::int_to_float<

@@ -8,6 +8,7 @@
 #define SGE_NOISE_PERLIN_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/noise/perlin/object_decl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/int_to_float.hpp>
@@ -36,7 +37,9 @@ sge::noise::perlin::object<
 	Interpolator
 >::object(
 	dim const &_size,
-	Rng &_random_generator
+	fcppt::reference<
+		Rng
+	> const _random_generator
 )
 :
 	gradients_(

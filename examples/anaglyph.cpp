@@ -723,7 +723,9 @@ random_model_collection::random_model_collection(
 			>;
 
 			variate position_rng{
-				generator,
+				fcppt::make_ref(
+					generator
+				),
 				distribution{
 					distribution::param_type::min{
 						-position_range
@@ -735,10 +737,12 @@ random_model_collection::random_model_collection(
 			};
 
 			variate angle_rng{
-				generator,
+				fcppt::make_ref(
+					generator
+				),
 				distribution{
 					distribution::param_type::min{
-						0.f
+						0.F
 					},
 					distribution::param_type::sup{
 						fcppt::math::twopi<
