@@ -1581,6 +1581,12 @@ if(
 
 		list(
 			APPEND
+			SGE_OPENGL_ADDITIONAL_DEPS
+			OpenGL::GLX
+		)
+
+		list(
+			APPEND
 			SGE_OPENGL_FILES
 			${SGE_OPENGL_GLX_FILES}
 		)

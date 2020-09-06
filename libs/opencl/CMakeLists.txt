@@ -179,6 +179,11 @@ else()
 		set(
 			SGE_OPENCL_HAVE_GLX TRUE
 		)
+
+		set(
+			SGE_OPENCL_ADDITIONAL_DEPS
+			OpenGL::GLX
+		)
 	endif()
 endif()
 
@@ -212,7 +217,7 @@ add_sge_base_library(
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
 		${OpenCL_LIBRARIES}
-		${OPENGL_gl_LIBRARY}
+		OpenGL::GL
 		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
 	TRANSITIVE_ADDITIONAL_DEPS
 		fcppt_core_interface
