@@ -102,6 +102,11 @@ set(
 	"${SGE_INSTALL_PLUGIN_DIR_BASE}/${PROJECT_NAME}"
 )
 
+set(
+	OpenGL_GL_PREFERENCE
+	GLVND
+)
+
 add_subdirectory(
 	libs
 )
