@@ -10,7 +10,6 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/parse/basic_char_set.hpp>
 #include <fcppt/parse/basic_literal.hpp>
-#include <fcppt/parse/epsilon.hpp>
 #include <fcppt/parse/grammar_impl.hpp>
 #include <fcppt/parse/make_ignore.hpp>
 #include <fcppt/parse/separator.hpp>
@@ -18,6 +17,7 @@
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/repetition_plus.hpp>
 #include <fcppt/parse/operators/sequence.hpp>
+#include <fcppt/parse/skipper/epsilon.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -61,7 +61,7 @@ sge::console::impl::eval_grammar::eval_grammar()
 		fcppt::make_cref(
 			this->start_
 		),
-		fcppt::parse::epsilon()
+		fcppt::parse::skipper::epsilon()
 	},
 	word_{
 		grammar_base::make_base(

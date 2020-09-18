@@ -12,8 +12,8 @@
 #include <sge/font/char_type.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/parse/epsilon.hpp>
 #include <fcppt/parse/grammar_decl.hpp>
+#include <fcppt/parse/skipper/epsilon.hpp>
 
 
 namespace sge
@@ -29,7 +29,7 @@ public
 	fcppt::parse::grammar<
 		sge::console::arg_list,
 		sge::font::char_type,
-		fcppt::parse::epsilon
+		fcppt::parse::skipper::epsilon
 	>
 {
 	FCPPT_NONMOVABLE(

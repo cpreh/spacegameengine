@@ -34,13 +34,13 @@
 #include <fcppt/parse/basic_char.hpp>
 #include <fcppt/parse/basic_char_set.hpp>
 #include <fcppt/parse/basic_literal.hpp>
-#include <fcppt/parse/epsilon.hpp>
 #include <fcppt/parse/error.hpp>
 #include <fcppt/parse/parse_string.hpp>
 #include <fcppt/parse/separator.hpp>
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
 #include <fcppt/parse/operators/sequence.hpp>
+#include <fcppt/parse/skipper/epsilon.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <tuple>
 #include <vector>
@@ -108,7 +108,7 @@ process_option(
 				fcppt::string{
 					_input
 				},
-				fcppt::parse::epsilon{}
+				fcppt::parse::skipper::epsilon{}
 			),
 			[
 				&_input

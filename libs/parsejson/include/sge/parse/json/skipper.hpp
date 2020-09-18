@@ -7,7 +7,7 @@
 #ifndef SGE_PARSE_JSON_SKIPPER_HPP_INCLUDED
 #define SGE_PARSE_JSON_SKIPPER_HPP_INCLUDED
 
-#include <fcppt/parse/space_skipper.hpp>
+#include <fcppt/parse/skipper/space.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ auto
 skipper()
 {
 	return
-		fcppt::parse::space_skipper();
+		fcppt::parse::skipper::space();
 }
 
 }

@@ -7,8 +7,9 @@
 #ifndef SGE_PARSE_INI_SKIPPER_HPP_INCLUDED
 #define SGE_PARSE_INI_SKIPPER_HPP_INCLUDED
 
-#include <fcppt/parse/blank.hpp>
-#include <fcppt/parse/make_skipper.hpp>
+#include <fcppt/parse/blank_set.hpp>
+#include <fcppt/parse/skipper/char_set.hpp>
+#include <fcppt/parse/skipper/operators/repetition.hpp>
 
 
 namespace sge
@@ -23,9 +24,12 @@ auto
 skipper()
 {
 	return
-		fcppt::parse::make_skipper(
-			fcppt::parse::blank()
-		);
+		*
+		fcppt::parse::skipper::char_set{
+			fcppt::parse::blank_set<
+				char
+			>()
+		};
 }
 
 }
