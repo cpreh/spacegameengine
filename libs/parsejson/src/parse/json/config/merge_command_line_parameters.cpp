@@ -40,7 +40,6 @@
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
 #include <fcppt/parse/operators/sequence.hpp>
-#include <fcppt/parse/skipper/epsilon.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <tuple>
 #include <vector>
@@ -107,8 +106,7 @@ process_option(
 				*char_{},
 				fcppt::string{
 					_input
-				},
-				fcppt::parse::skipper::epsilon{}
+				}
 			),
 			[
 				&_input
