@@ -77,7 +77,9 @@ template<
 >
 sge::image::view::object<
 	Tag
->::~object()
+>::~object<
+	Tag
+>()
 = default;
 
 template<

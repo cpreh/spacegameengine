@@ -110,7 +110,11 @@ sge::shader::parameter::matrix<
 	ValueType,
 	M,
 	N
->::~matrix()
+>::~matrix<
+	ValueType,
+	M,
+	N
+>()
 = default;
 
 #endif

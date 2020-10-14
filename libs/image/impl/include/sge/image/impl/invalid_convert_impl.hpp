@@ -98,7 +98,9 @@ template<
 >
 sge::image::invalid_convert<
 	Tag
->::~invalid_convert()
+>::~invalid_convert<
+	Tag
+>()
 noexcept
 = default;
 

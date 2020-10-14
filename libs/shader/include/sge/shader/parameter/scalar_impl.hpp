@@ -72,7 +72,9 @@ template<
 >
 sge::shader::parameter::scalar<
 	ValueType
->::~scalar()
+>::~scalar<
+	ValueType
+>()
 = default;
 
 #endif

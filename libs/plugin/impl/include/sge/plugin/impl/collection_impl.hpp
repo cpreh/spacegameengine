@@ -86,7 +86,9 @@ template<
 >
 sge::plugin::collection<
 	Type
->::~collection()
+>::~collection<
+	Type
+>()
 = default;
 
 template<

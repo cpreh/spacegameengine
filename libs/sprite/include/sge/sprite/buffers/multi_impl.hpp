@@ -52,7 +52,9 @@ template<
 >
 sge::sprite::buffers::multi<
 	Choices
->::~multi()
+>::~multi<
+	Choices
+>()
 = default;
 
 template<

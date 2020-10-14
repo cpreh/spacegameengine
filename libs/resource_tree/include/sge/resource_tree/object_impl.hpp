@@ -55,7 +55,10 @@ template<
 sge::resource_tree::object<
 	T,
 	Rng
->::~object()
+>::~object<
+	T,
+	Rng
+>()
 = default;
 
 template<

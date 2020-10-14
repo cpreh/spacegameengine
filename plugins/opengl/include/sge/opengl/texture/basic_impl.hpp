@@ -57,7 +57,9 @@ template<
 >
 sge::opengl::texture::basic<
 	Types
->::~basic()
+>::~basic<
+	Types
+>()
 = default;
 
 template<

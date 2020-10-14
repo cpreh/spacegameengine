@@ -63,7 +63,9 @@ template<
 >
 sge::opengl::target::basic<
 	Base
->::~basic()
+>::~basic<
+	Base
+>()
 = default;
 
 template<

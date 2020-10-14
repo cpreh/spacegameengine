@@ -57,7 +57,9 @@ template<
 >
 sge::sprite::buffers::single<
 	Choices
->::~single()
+>::~single<
+	Choices
+>()
 = default;
 
 template<

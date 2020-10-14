@@ -80,7 +80,9 @@ template<
 >
 sge::sprite::render::range<
 	Choices
->::~range()
+>::~range<
+	Choices
+>()
 = default;
 
 template<

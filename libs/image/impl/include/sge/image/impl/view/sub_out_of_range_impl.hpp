@@ -125,7 +125,9 @@ template<
 >
 sge::image::view::sub_out_of_range<
 	Tag
->::~sub_out_of_range()
+>::~sub_out_of_range<
+	Tag
+>()
 noexcept
 = default;
 

@@ -64,7 +64,10 @@ template<
 sge::shader::parameter::vector<
 	ValueType,
 	N
->::~vector()
+>::~vector<
+	ValueType,
+	N
+>()
 = default;
 
 #endif

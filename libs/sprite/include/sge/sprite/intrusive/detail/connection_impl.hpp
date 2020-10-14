@@ -38,7 +38,9 @@ template<
 >
 sge::sprite::intrusive::detail::connection<
 	Choices
->::~connection()
+>::~connection<
+	Choices
+>()
 = default;
 
 template<

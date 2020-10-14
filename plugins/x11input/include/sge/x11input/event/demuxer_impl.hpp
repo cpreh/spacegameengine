@@ -53,7 +53,9 @@ template<
 >
 sge::x11input::event::demuxer<
 	Event
->::~demuxer()
+>::~demuxer<
+	Event
+>()
 = default;
 
 template<

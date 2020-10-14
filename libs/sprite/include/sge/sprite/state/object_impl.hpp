@@ -44,7 +44,9 @@ template<
 >
 sge::sprite::state::object<
 	StateChoices
->::~object()
+>::~object<
+	StateChoices
+>()
 = default;
 
 template<

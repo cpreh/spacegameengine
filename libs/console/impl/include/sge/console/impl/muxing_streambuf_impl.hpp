@@ -73,7 +73,10 @@ template<
 sge::console::muxing_streambuf<
 	Char,
 	Traits
->::~muxing_streambuf()
+>::~muxing_streambuf<
+	Char,
+	Traits
+>()
 {
 	stream_.get().rdbuf(
 		old_streambuf_.release_ownership()

@@ -36,7 +36,10 @@ template<
 sge::sprite::intrusive::ordered::collection<
 	Choices,
 	Order
->::~collection()
+>::~collection<
+	Choices,
+	Order
+>()
 = default;
 
 template<

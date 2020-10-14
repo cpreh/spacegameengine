@@ -48,7 +48,11 @@ sge::image::color::impl::dynamic::format::object<
 	Space,
 	BaseType,
 	NumChannels
->::~object()
+>::~object<
+	Space,
+	BaseType,
+	NumChannels
+>()
 = default;
 
 #endif

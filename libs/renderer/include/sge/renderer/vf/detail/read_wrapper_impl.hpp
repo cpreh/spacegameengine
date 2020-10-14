@@ -38,7 +38,10 @@ inline
 sge::renderer::vf::detail::read_wrapper<
 	T,
 	Enable
->::~read_wrapper()
+>::~read_wrapper<
+	T,
+	Enable
+>()
 = default;
 
 template<
@@ -83,7 +86,14 @@ sge::renderer::vf::detail::read_wrapper<
 			T
 		>
 	>
->::~read_wrapper()
+>::~read_wrapper<
+	T,
+	std::enable_if_t<
+		std::is_fundamental_v<
+			T
+		>
+	>
+>()
 = default;
 
 template<

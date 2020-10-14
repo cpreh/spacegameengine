@@ -31,7 +31,9 @@ template<
 >
 sge::renderer::buffer::writable<
 	Tag
->::~writable()
+>::~writable<
+	Tag
+>()
 = default;
 
 template<

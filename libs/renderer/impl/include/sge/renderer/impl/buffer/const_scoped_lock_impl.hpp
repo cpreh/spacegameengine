@@ -69,7 +69,9 @@ template<
 >
 sge::renderer::buffer::const_scoped_lock<
 	Tag
->::~const_scoped_lock()
+>::~const_scoped_lock<
+	Tag
+>()
 {
 	buffer_.get().unlock();
 }

@@ -53,7 +53,9 @@ template<
 >
 sge::sprite::buffers::with_declaration<
 	Buffers
->::~with_declaration()
+>::~with_declaration<
+	Buffers
+>()
 = default;
 
 template<

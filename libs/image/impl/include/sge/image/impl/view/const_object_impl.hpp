@@ -99,7 +99,9 @@ template<
 >
 sge::image::view::const_object<
 	Tag
->::~const_object()
+>::~const_object<
+	Tag
+>()
 = default;
 
 template<

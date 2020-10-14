@@ -44,7 +44,9 @@ template<
 >
 sge::sprite::intrusive::collection<
 	Choices
->::~collection()
+>::~collection<
+	Choices
+>()
 = default;
 
 template<

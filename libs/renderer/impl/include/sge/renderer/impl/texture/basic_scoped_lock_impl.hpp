@@ -85,7 +85,9 @@ template<
 >
 sge::renderer::texture::basic_scoped_lock<
 	Tag
->::~basic_scoped_lock()
+>::~basic_scoped_lock<
+	Tag
+>()
 = default;
 
 #endif

@@ -70,7 +70,9 @@ template<
 >
 sge::systems::instance<
 	Choices...
->::~instance()
+>::~instance<
+	Choices...
+>()
 = default;
 
 template<

@@ -85,7 +85,9 @@ template<
 >
 sge::media::file_exception<
 	Base
->::~file_exception()
+>::~file_exception<
+	Base
+>()
 noexcept
 = default;
 

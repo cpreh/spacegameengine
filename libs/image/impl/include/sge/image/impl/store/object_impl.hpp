@@ -117,7 +117,9 @@ template<
 >
 sge::image::store::object<
 	Tag
->::~object()
+>::~object<
+	Tag
+>()
 = default;
 
 template<

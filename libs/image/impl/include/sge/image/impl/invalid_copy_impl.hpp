@@ -98,7 +98,9 @@ template<
 >
 sge::image::invalid_copy<
 	Tag
->::~invalid_copy()
+>::~invalid_copy<
+	Tag
+>()
 noexcept
 = default;
 

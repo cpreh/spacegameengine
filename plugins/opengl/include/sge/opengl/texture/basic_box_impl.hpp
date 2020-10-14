@@ -88,7 +88,9 @@ template<
 >
 sge::opengl::texture::basic_box<
 	Types
->::~basic_box()
+>::~basic_box<
+	Types
+>()
 = default;
 
 template<

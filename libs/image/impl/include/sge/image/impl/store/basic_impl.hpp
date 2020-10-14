@@ -148,7 +148,9 @@ template<
 >
 sge::image::store::basic<
 	Format
->::~basic()
+>::~basic<
+	Format
+>()
 = default;
 
 template<

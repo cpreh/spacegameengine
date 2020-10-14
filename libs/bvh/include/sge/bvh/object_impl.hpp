@@ -70,7 +70,7 @@ sge::bvh::object<Traits>::representation() const
 }
 
 template<typename Traits>
-sge::bvh::object<Traits>::~object()
+sge::bvh::object<Traits>::~object<Traits>()
 = default;
 
 #endif

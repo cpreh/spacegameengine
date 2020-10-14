@@ -60,7 +60,9 @@ template<
 >
 sge::timer::absolute<
 	Clock
->::~absolute()
+>::~absolute<
+	Clock
+>()
 = default;
 
 template<

@@ -85,7 +85,9 @@ template<
 >
 sge::plugin::context<
 	Type
->::~context()
+>::~context<
+	Type
+>()
 = default;
 
 template<

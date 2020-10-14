@@ -52,7 +52,9 @@ template<
 >
 sge::sprite::state::scoped<
 	StateChoices
->::~scoped()
+>::~scoped<
+	StateChoices
+>()
 {
 	sge::sprite::state::unset(
 		render_context_.get(),

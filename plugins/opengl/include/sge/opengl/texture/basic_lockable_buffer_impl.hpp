@@ -117,7 +117,9 @@ template<
 >
 sge::opengl::texture::basic_lockable_buffer<
 	Types
->::~basic_lockable_buffer()
+>::~basic_lockable_buffer<
+	Types
+>()
 = default;
 
 template<

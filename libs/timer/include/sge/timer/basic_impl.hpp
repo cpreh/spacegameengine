@@ -76,7 +76,9 @@ template<
 >
 sge::timer::basic<
 	Clock
->::~basic()
+>::~basic<
+	Clock
+>()
 = default;
 
 template<

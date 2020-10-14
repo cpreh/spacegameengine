@@ -39,7 +39,10 @@ template<
 sge::opengl::state::unary_object<
 	Base,
 	Parameter
->::~unary_object()
+>::~unary_object<
+	Base,
+	Parameter
+>()
 = default;
 
 template<

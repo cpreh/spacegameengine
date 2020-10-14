@@ -115,7 +115,10 @@ template<
 sge::resource_tree::detail::element<
 	T,
 	Rng
->::~element()
+>::~element<
+	T,
+	Rng
+>()
 = default;
 
 template<

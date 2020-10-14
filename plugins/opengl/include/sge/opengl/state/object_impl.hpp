@@ -37,7 +37,9 @@ template<
 >
 sge::opengl::state::object<
 	Base
->::~object()
+>::~object<
+	Base
+>()
 = default;
 
 template<

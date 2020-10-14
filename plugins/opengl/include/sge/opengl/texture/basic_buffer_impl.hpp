@@ -53,7 +53,9 @@ template<
 >
 sge::opengl::texture::basic_buffer<
 	Types
->::~basic_buffer()
+>::~basic_buffer<
+	Types
+>()
 = default;
 
 template<

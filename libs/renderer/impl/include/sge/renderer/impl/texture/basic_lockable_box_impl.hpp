@@ -30,7 +30,9 @@ template<
 >
 sge::renderer::texture::basic_lockable_box<
 	Tag
->::~basic_lockable_box()
+>::~basic_lockable_box<
+	Tag
+>()
 = default;
 
 template<

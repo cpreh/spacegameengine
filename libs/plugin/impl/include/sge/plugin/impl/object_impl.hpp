@@ -76,7 +76,9 @@ template<
 >
 sge::plugin::object<
 	Type
->::~object()
+>::~object<
+	Type
+>()
 = default;
 
 template<

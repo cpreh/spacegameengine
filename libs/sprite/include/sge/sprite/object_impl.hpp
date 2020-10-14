@@ -183,7 +183,9 @@ template<
 >
 sge::sprite::object<
 	Choices
->::~object()
+>::~object<
+	Choices
+>()
 {
 	sge::sprite::detail::destroy(
 		*this

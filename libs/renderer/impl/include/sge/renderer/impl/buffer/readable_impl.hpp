@@ -30,7 +30,9 @@ template<
 >
 sge::renderer::buffer::readable<
 	Tag
->::~readable()
+>::~readable<
+	Tag
+>()
 = default;
 
 template<

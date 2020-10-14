@@ -66,7 +66,9 @@ template<
 >
 sge::systems::impl::plugin_pair<
 	System
->::~plugin_pair()
+>::~plugin_pair<
+	System
+>()
 = default;
 
 template<

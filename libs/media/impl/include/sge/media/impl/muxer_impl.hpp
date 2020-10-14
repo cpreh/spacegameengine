@@ -48,7 +48,10 @@ template<
 sge::media::muxer<
 	System,
 	File
->::~muxer()
+>::~muxer<
+	System,
+	File
+>()
 = default;
 
 template<

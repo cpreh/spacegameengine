@@ -23,7 +23,9 @@ template<
 >
 sge::renderer::buffer::base<
 	Tag
->::~base()
+>::~base<
+	Tag
+>()
 = default;
 
 #endif
