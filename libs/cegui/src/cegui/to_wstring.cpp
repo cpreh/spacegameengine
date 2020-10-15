@@ -20,11 +20,12 @@ sge::cegui::to_wstring(
 	CEGUI::String const &_string
 )
 {
-	typedef
+	using
+	source_string
+	=
 	sge::charconv::string_type<
 		sge::charconv::encoding::utf32
-	>
-	source_string;
+	>;
 
 	static_assert(
 		sizeof(

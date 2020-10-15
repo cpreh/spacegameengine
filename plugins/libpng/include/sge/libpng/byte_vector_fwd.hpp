@@ -16,11 +16,12 @@ namespace sge
 namespace libpng
 {
 
-typedef
+using
+byte_vector
+=
 fcppt::container::raw_vector::object<
 	png_byte
->
-byte_vector;
+>;
 
 }
 }

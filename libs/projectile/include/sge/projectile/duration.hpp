@@ -18,12 +18,12 @@ namespace sge
 namespace projectile
 {
 
-typedef
-std::chrono::duration
-<
+using
+duration
+=
+std::chrono::duration<
 	sge::projectile::scalar
->
-duration;
+>;
 
 }
 }

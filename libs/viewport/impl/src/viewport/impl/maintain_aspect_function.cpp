@@ -25,11 +25,12 @@
 namespace
 {
 
-typedef
+using
+rational
+=
 boost::rational<
 	sge::viewport::fractional_aspect::value_type
->
-rational;
+>;
 
 rational::int_type
 truncate_rational(

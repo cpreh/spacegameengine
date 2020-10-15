@@ -18,11 +18,12 @@ namespace sge
 namespace charconv
 {
 
-typedef
+using
+index_vector
+=
 std::vector<
 	sge::charconv::index
->
-index_vector;
+>;
 
 }
 }

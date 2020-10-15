@@ -125,13 +125,14 @@ TEST_CASE(
 		)
 	);
 
-	typedef
+	using
+	int_3_2_matrix
+	=
 	fcppt::math::matrix::static_<
 		int,
 		3,
 		2
-	>
-	int_3_2_matrix;
+	>;
 
 	int_3_2_matrix const result(
 		sge::parse::json::convert_from<

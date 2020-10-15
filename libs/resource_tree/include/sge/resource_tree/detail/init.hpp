@@ -79,11 +79,12 @@ init(
 		FCPPT_TEXT(" is not a directory!")
 	);
 
-	typedef
+	using
+	path_vector
+	=
 	std::vector<
 		std::filesystem::path
-	>
-	path_vector;
+	>;
 
 	path_vector const directories(
 		fcppt::container::join(

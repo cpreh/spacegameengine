@@ -24,11 +24,12 @@ namespace vf
 namespace dynamic
 {
 
-typedef
+using
+lock_interval
+=
 boost::icl::interval<
 	sge::renderer::size_type
->::type
-lock_interval;
+>::type;
 
 }
 }

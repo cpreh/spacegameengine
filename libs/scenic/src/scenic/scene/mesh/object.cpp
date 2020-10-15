@@ -147,9 +147,10 @@ sge::scenic::scene::mesh::object::fill_vertex_buffer(
 		sge::renderer::lock_mode::writeonly
 	);
 
-	typedef
-	sge::renderer::vf::view<sge::scenic::vf::format_part>
-	format_part_view;
+	using
+	format_part_view
+	=
+	sge::renderer::vf::view<sge::scenic::vf::format_part>;
 
 	format_part_view const current_vertex_view(
 		vblock.value());

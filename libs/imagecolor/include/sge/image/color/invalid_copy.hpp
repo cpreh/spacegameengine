@@ -23,11 +23,12 @@ namespace image
 namespace color
 {
 
-typedef
+using
+invalid_copy
+=
 sge::image::invalid_copy<
 	sge::image::color::tag
->
-invalid_copy;
+>;
 
 }
 }

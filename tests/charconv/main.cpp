@@ -63,13 +63,14 @@ TEST_CASE(
 				_dest_encoding
 			);
 
-			typedef
+			using
+			dest_encoding
+			=
 			fcppt::tag_type<
 				decltype(
 					_dest_encoding
 				)
-			>
-			dest_encoding;
+			>;
 
 			auto const result(
 				sge::charconv::convert<

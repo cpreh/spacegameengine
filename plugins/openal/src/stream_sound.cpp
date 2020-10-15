@@ -256,11 +256,12 @@ sge::openal::stream_sound::fill_buffer(
 	sge::openal::buffer_id const _buffer
 )
 {
-	typedef
+	using
+	optional_sample_container
+	=
 	fcppt::optional::object<
 		sge::audio::sample_container
-	>
-	optional_sample_container;
+	>;
 
 	auto const next_samples(
 		[

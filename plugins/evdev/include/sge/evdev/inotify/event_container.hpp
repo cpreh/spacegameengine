@@ -20,11 +20,12 @@ namespace evdev
 namespace inotify
 {
 
-typedef
+using
+event_container
+=
 std::vector<
 	sge::evdev::inotify::event
->
-event_container;
+>;
 
 }
 }

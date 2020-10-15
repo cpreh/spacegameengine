@@ -46,14 +46,14 @@ sub_any(
 				auto const &_src
 			)
 			{
-				typedef
-				typename
-				std::decay<
+				using
+				source_type
+				=
+				std::decay_t<
 					decltype(
 						_src
 					)
-				>::type
-				source_type;
+				>;
 
 				return
 					View(

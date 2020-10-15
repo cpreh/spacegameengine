@@ -69,11 +69,12 @@ sge::plugin::impl::load_plugins(
 				std::filesystem::path const &_cur_path
 			)
 			{
-				typedef
+				using
+				optional_result
+				=
 				fcppt::optional::object<
 					sge::plugin::context_base_unique_ptr
-				>
-				optional_result;
+				>;
 
 				if(
 					std::filesystem::is_directory(

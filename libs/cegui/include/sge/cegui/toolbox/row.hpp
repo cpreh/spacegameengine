@@ -20,11 +20,12 @@ namespace cegui
 namespace toolbox
 {
 
-typedef
+using
+row
+=
 std::vector<
 	CEGUI::String
->
-row;
+>;
 
 }
 }

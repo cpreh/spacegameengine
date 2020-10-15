@@ -20,11 +20,12 @@ namespace camera
 namespace tracking
 {
 
-typedef
+using
+keyframe_sequence
+=
 std::vector<
 	sge::camera::tracking::keyframe
->
-keyframe_sequence;
+>;
 
 }
 }

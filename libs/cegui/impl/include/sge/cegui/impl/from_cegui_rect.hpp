@@ -32,11 +32,12 @@ from_cegui_rect(
 	> const &_rect
 )
 {
-	typedef
+	using
+	result_type
+	=
 	fcppt::math::box::rect<
 		ValueType
-	>
-	result_type;
+	>;
 
 	return
 		result_type{

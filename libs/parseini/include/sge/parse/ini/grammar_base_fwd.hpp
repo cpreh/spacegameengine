@@ -19,15 +19,16 @@ namespace parse
 namespace ini
 {
 
-typedef
+using
+grammar_base
+=
 fcppt::parse::grammar<
 	sge::parse::ini::start,
 	char,
 	decltype(
 		sge::parse::ini::skipper()
 	)
->
-grammar_base;
+>;
 
 }
 }

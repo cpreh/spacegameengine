@@ -23,15 +23,11 @@ namespace algorithm
 
 struct compare_visitor
 {
-	typedef
-	bool
-	result_type;
-
 	template<
 		typename View1,
 		typename View2
 	>
-	result_type
+	bool
 	operator()(
 		View1 const &,
 		View2 const &
@@ -44,7 +40,7 @@ struct compare_visitor
 	template<
 		typename View
 	>
-	result_type
+	bool
 	operator()(
 		View const &_view1,
 		View const &_view2

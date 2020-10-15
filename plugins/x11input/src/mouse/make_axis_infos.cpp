@@ -59,11 +59,12 @@ sge::x11input::mouse::make_axis_infos(
 								> const _valuator_class
 							)
 							{
-								typedef
+								using
+								result_type
+								=
 								fcppt::optional::object<
 									sge::input::mouse::axis_info
-								>
-								result_type;
+								>;
 
 								return
 									_valuator_class.get().mode

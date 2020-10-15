@@ -97,11 +97,12 @@ sge::plugin::manager::manager(
 							sge::plugin::context_base_unique_ptr const &_context
 						)
 						{
-							typedef
+							using
+							optional_result
+							=
 							fcppt::optional::object<
 								sge::plugin::context_base_ref
-							>
-							optional_result;
+							>;
 
 							return
 								_context->info().capabilities()

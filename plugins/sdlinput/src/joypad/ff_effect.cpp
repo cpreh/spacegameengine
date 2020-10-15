@@ -23,8 +23,7 @@ sge::sdlinput::joypad::ff_effect::ff_effect(
 }
 
 sge::sdlinput::joypad::ff_effect::~ff_effect()
-{
-}
+= default;
 
 void
 sge::sdlinput::joypad::ff_effect::play(

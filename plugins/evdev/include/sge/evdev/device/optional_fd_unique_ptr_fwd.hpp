@@ -18,11 +18,12 @@ namespace evdev
 namespace device
 {
 
-typedef
+using
+optional_fd_unique_ptr
+=
 fcppt::optional::object<
 	sge::evdev::device::fd_unique_ptr
->
-optional_fd_unique_ptr;
+>;
 
 }
 }

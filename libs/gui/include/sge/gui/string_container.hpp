@@ -18,11 +18,12 @@ namespace sge
 namespace gui
 {
 
-typedef
+using
+string_container
+=
 std::vector<
 	sge::font::string
->
-string_container;
+>;
 
 }
 }

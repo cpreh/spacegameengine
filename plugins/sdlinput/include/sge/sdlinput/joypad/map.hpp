@@ -21,12 +21,13 @@ namespace sdlinput
 namespace joypad
 {
 
-typedef
+using
+map
+=
 std::unordered_map<
 	SDL_JoystickID,
 	sge::sdlinput::joypad::shared_ptr
->
-map;
+>;
 
 }
 }

@@ -24,11 +24,12 @@ namespace dynamic
 namespace detail
 {
 
-typedef
+using
+lock_interval_set
+=
 boost::icl::interval_set<
 	sge::renderer::size_type
->
-lock_interval_set;
+>;
 
 }
 }

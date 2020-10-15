@@ -19,12 +19,13 @@ namespace sge
 namespace pango
 {
 
-typedef
+using
+pango_font_map_unique_ptr
+=
 fcppt::unique_ptr<
 	PangoFontMap,
 	sge::pango::glib_deleter
->
-pango_font_map_unique_ptr;
+>;
 
 }
 }

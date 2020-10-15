@@ -20,11 +20,12 @@ namespace cegui
 namespace impl
 {
 
-typedef
+using
+optional_mouse_button
+=
 fcppt::optional::object<
 	CEGUI::MouseButton
->
-optional_mouse_button;
+>;
 
 }
 }

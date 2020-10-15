@@ -389,14 +389,15 @@ sge::cegui::impl::texture::loadFromMemory(
 			FCPPT_TEXT(')')
 	)
 
-	typedef
+	using
+	signed_dim
+	=
 	fcppt::math::dim::static_<
-		std::make_signed<
+		std::make_signed_t<
 			sge::renderer::size_type
-		>::type,
+		>,
 		2
-	>
-	signed_dim;
+	>;
 
 	FCPPT_ASSERT_PRE((
 		fcppt::math::dim::structure_cast<

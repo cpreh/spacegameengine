@@ -28,9 +28,10 @@ struct box
 	fcppt::math::box::object<T,N>
 >
 {
-	typedef
-	fcppt::math::box::object<T,N>
-	type;
+	using
+	type
+	=
+	fcppt::math::box::object<T,N>;
 
 	static type
 	extract_box(

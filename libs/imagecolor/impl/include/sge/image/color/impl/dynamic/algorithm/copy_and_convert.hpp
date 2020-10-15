@@ -49,11 +49,12 @@ copy_and_convert(
 	sge::image::algorithm::uninitialized const _uninitialized
 )
 {
-	typedef
+	using
+	dim
+	=
 	sge::image::traits::image::dimension<
 		Tag
-	>
-	dim;
+	>;
 
 	fcppt::variant::apply(
 		sge::image::color::impl::dynamic::algorithm::cac::visitor(

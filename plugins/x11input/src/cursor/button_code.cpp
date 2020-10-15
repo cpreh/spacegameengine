@@ -29,6 +29,8 @@ sge::x11input::cursor::button_code(
 	case Button3:
 		return
 			sge::input::cursor::button_code::right;
+	default:
+		break;
 	}
 
 	return

@@ -7,6 +7,7 @@
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_PERMUTATE_COMPARE_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_PERMUTATE_COMPARE_HPP_INCLUDED
 
+#include <fcppt/algorithm/all_of.hpp>
 #include <fcppt/algorithm/contains.hpp>
 
 
@@ -34,27 +35,22 @@ permutate_compare(
 	Layout const &_layout2
 )
 {
-	// TODO(philipp): Algorithm
-	for(
-		auto const &elem
-		:
-		_layout1
-	)
-	{
-		if(
-			!fcppt::algorithm::contains(
-				_layout2,
-				elem
-			)
-		)
-		{
-			return
-				false;
-		}
-	}
-
 	return
-		true;
+		fcppt::algorithm::all_of(
+			_layout1,
+			[
+				&_layout2
+			](
+				auto const &_elem
+			)
+			{
+				return
+					fcppt::algorithm::contains(
+						_layout2,
+						_elem
+					);
+			}
+		);
 }
 
 }

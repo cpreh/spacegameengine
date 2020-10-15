@@ -18,15 +18,14 @@ namespace sge
 namespace camera
 {
 
-typedef
-std::chrono::duration
-<
+using
+update_duration
+=
+std::chrono::duration<
 	sge::renderer::scalar
->
-update_duration;
+>;
 
 }
 }
 
 #endif
-

@@ -23,38 +23,48 @@ namespace impl
 {
 namespace number_multiplexer
 {
-template<typename T>
+
+template<
+	typename T
+>
 class object
 {
-static_assert(
-	std::is_unsigned<T>::value,
-	"number_multiplexer only works on unsigned types");
+	static_assert(
+		std::is_unsigned_v<T>,
+		"number_multiplexer only works on unsigned types"
+	);
 public:
-	typedef
-	T
-	value_type;
+	using
+	value_type
+	=
+	T;
 
 	FCPPT_MAKE_STRONG_TYPEDEF(
 		value_type,
-		bit_count);
+		bit_count
+	);
 
 	object();
 
 	explicit
 	object(
-		value_type);
+		value_type
+	);
 
 	object &
 	append(
 		bit_count const &,
-		value_type);
+		value_type
+	);
 
+	[[nodiscard]]
 	value_type
 	value() const;
 private:
 	value_type value_;
 	value_type last_bit_set_;
 };
+
 }
 }
 }

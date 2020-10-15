@@ -58,7 +58,9 @@ template<
 >
 sge::opengl::egl::window_surface<
 	NativeWindow
->::~window_surface()
+>::~window_surface<
+	NativeWindow
+>()
 {
 	FCPPT_ASSERT_ERROR(
 		::eglDestroySurface(

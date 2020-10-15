@@ -27,10 +27,11 @@ bounding_box(
 	typename Traits::leaf_wrapper_sequence const &_leaves
 )
 {
-	typedef
+	using
+	box_type
+	=
 	typename
-	Traits::box
-	box_type;
+	Traits::box;
 
 	return
 		fcppt::algorithm::fold(

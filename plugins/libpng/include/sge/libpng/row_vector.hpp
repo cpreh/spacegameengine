@@ -18,11 +18,12 @@ namespace sge
 namespace libpng
 {
 
-typedef
+using
+row_vector
+=
 std::vector<
 	png_bytep
->
-row_vector;
+>;
 
 }
 }

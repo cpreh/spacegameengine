@@ -368,13 +368,14 @@ try
 		)
 	);
 
-	typedef
+	using
+	result_type
+	=
 	fcppt::options::result_of<
 		decltype(
 			parser
 		)
-	>
-	result_type;
+	>;
 
 	return
 		fcppt::either::match(

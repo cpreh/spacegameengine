@@ -21,12 +21,13 @@ namespace evdev
 namespace joypad
 {
 
-typedef
+using
+map
+=
 std::unordered_map<
 	awl::backends::posix::fd,
 	sge::evdev::joypad::shared_ptr
->
-map;
+>;
 
 }
 }

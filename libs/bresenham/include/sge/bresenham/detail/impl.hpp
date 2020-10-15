@@ -123,12 +123,13 @@ impl(
 		dy
 	};
 
-	typedef
+	using
+	vector_type
+	=
 	fcppt::math::vector::static_<
 		T,
 		2
-	>
-	vector_type;
+	>;
 
 	auto const plot(
 		[

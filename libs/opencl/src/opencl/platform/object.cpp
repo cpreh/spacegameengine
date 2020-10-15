@@ -11,6 +11,7 @@
 #include <sge/opencl/platform/profile_type.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/contains.hpp>
+#include <fcppt/algorithm/contains_if.hpp>
 #include <fcppt/assert/pre_message.hpp>
 #include <fcppt/container/dynamic_array.hpp>
 #include <fcppt/container/buffer/object.hpp>
@@ -149,17 +150,17 @@ sge::opencl::platform::object::supports_memory_sharing_with(
 bool
 sge::opencl::platform::object::has_gpu() const
 {
-	for(
-		auto const &device : devices_
-	)
-	{
-		if (device.is_gpu())
-		{
-			return true;
-		}
-	}
-
-	return false;
+	return
+		fcppt::algorithm::contains_if(
+			this->devices_,
+			[](
+				auto const &_device
+			)
+			{
+				return
+					_device.is_gpu();
+			}
+		);
 }
 
 std::string
@@ -197,11 +198,12 @@ sge::opencl::platform::object::object(
 		error_code,
 		FCPPT_TEXT("clGetDeviceIDs"));
 
-	typedef
+	using
+	device_id_sequence
+	=
 	fcppt::container::buffer::object<
 		cl_device_id
-	>
-	device_id_sequence;
+	>;
 
 	device_id_sequence device_ids(
 		static_cast<device_id_sequence::size_type>(
