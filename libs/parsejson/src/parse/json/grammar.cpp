@@ -25,11 +25,11 @@
 #include <fcppt/parse/float.hpp>
 #include <fcppt/parse/grammar_impl.hpp>
 #include <fcppt/parse/int.hpp>
+#include <fcppt/parse/list.hpp>
 #include <fcppt/parse/make_convert_if.hpp>
 #include <fcppt/parse/make_fatal.hpp>
 #include <fcppt/parse/make_lexeme.hpp>
 #include <fcppt/parse/make_recursive.hpp>
-#include <fcppt/parse/separator.hpp>
 #include <fcppt/parse/operators/alternative.hpp>
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/not.hpp>
@@ -120,18 +120,16 @@ sge::parse::json::grammar::grammar()
 			fcppt::parse::construct<
 				sge::parse::json::array
 			>(
-				literal('[')
-				>>
-				fcppt::parse::separator{
+				fcppt::parse::list{
+					literal('['),
 					fcppt::parse::make_recursive(
 						fcppt::make_cref(
 							this->value_
 						)
 					),
-					literal{','}
+					literal{','},
+					literal(']')
 				}
-				>>
-				literal(']')
 			)
 		)
 	},
@@ -141,26 +139,24 @@ sge::parse::json::grammar::grammar()
 				sge::parse::json::object
 			>(
 				fcppt::parse::make_convert_if(
-					literal{'{'}
-					>>
-					fcppt::parse::separator{
+					fcppt::parse::list{
+						literal{'{'},
 						fcppt::parse::make_fatal(
 							fcppt::make_cref(
 								this->quoted_string_
 							)
 							>>
 							literal{':'}
-						)
-						>>
-						fcppt::parse::make_recursive(
-							fcppt::make_cref(
-								this->value_
+							>>
+							fcppt::parse::make_recursive(
+								fcppt::make_cref(
+									this->value_
+								)
 							)
 						),
-						literal{','}
-					}
-					>>
-					literal{'}'},
+						literal{','},
+						literal{'}'}
+					},
 					&sge::parse::json::impl::make_members
 				)
 			)

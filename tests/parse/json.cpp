@@ -24,6 +24,7 @@
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/catch/variant.hpp>
 #include <fcppt/either/comparison.hpp>
+#include <fcppt/parse/error_output.hpp>
 #include <fcppt/parse/make_success.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
@@ -226,6 +227,58 @@ TEST_CASE(
 								)
 							)
 						}
+					}
+				}
+			}
+		)
+	);
+}
+
+TEST_CASE(
+	"parse_json empty object",
+	"[sge]"
+)
+{
+	CHECK(
+		sge::parse::json::parse_string(
+			std::string{
+				"{}"
+			}
+		)
+		==
+		fcppt::parse::make_success<
+			char
+		>(
+			sge::parse::json::start{
+				sge::parse::json::array_or_object{
+					sge::parse::json::object{
+						sge::parse::json::member_map{}
+					}
+				}
+			}
+		)
+	);
+}
+
+TEST_CASE(
+	"parse_json empty array",
+	"[sge]"
+)
+{
+	CHECK(
+		sge::parse::json::parse_string(
+			std::string{
+				"[]"
+			}
+		)
+		==
+		fcppt::parse::make_success<
+			char
+		>(
+			sge::parse::json::start{
+				sge::parse::json::array_or_object{
+					sge::parse::json::array{
+						sge::parse::json::element_vector{}
 					}
 				}
 			}
