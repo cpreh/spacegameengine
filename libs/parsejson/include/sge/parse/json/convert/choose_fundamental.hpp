@@ -42,9 +42,10 @@ struct choose_fundamental<
 	>
 >
 {
-	typedef
-	sge::parse::json::int_type
-	type;
+	using
+	type
+	=
+	sge::parse::json::int_type;
 };
 
 template<
@@ -59,9 +60,10 @@ struct choose_fundamental<
 	>
 >
 {
-	typedef
-	sge::parse::json::float_type
-	type;
+	using
+	type
+	=
+	sge::parse::json::float_type;
 };
 
 template<
@@ -77,9 +79,10 @@ struct choose_fundamental<
 	>
 >
 {
-	typedef
-	sge::charconv::utf8_string
-	type;
+	using
+	type
+	=
+	sge::charconv::utf8_string;
 };
 
 }

@@ -36,7 +36,7 @@ to_static_container(
 	sge::parse::json::array const &_array
 )
 {
-	// TODO: array::from_container
+	// TODO(philipp): array::from_container
 	if(
 		_array.elements.size()
 		!=
@@ -46,9 +46,11 @@ to_static_container(
 			Container::dim_wrapper::value
 		)
 	)
+	{
 		throw sge::parse::exception(
 			FCPPT_TEXT("convert::to_static_container: unequal amount of elements!")
 		);
+	}
 
 	Container result{
 		fcppt::no_init()
@@ -61,6 +63,7 @@ to_static_container(
 			_array.elements.size()
 		)
 	)
+	{
 		result.get_unsafe(
 			static_cast<
 				typename
@@ -86,6 +89,7 @@ to_static_container(
 					)
 				).get()
 			);
+	}
 
 	return
 		result;
