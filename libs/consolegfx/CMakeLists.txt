@@ -8,6 +8,7 @@ set(
 	libs/consolegfx/include/sge/console/gfx/input_active.hpp
 	libs/consolegfx/include/sge/console/gfx/object.hpp
 	libs/consolegfx/include/sge/console/gfx/object_fwd.hpp
+	libs/consolegfx/include/sge/console/gfx/object_ref.hpp
 	libs/consolegfx/include/sge/console/gfx/output_line_limit.hpp
 	libs/consolegfx/include/sge/console/gfx/output_line_limit_fwd.hpp
 	libs/consolegfx/src/console/gfx/cursor.cpp

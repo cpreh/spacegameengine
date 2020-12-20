@@ -63,6 +63,7 @@ set(
 	libs/audio/include/sge/audio/player_plugin/object.hpp
 	libs/audio/include/sge/audio/player_plugin/object_fwd.hpp
 	libs/audio/include/sge/audio/player_plugin/traits.hpp
+	libs/audio/include/sge/audio/player_ref.hpp
 	libs/audio/include/sge/audio/player_shared_ptr.hpp
 	libs/audio/include/sge/audio/player_unique_ptr.hpp
 	libs/audio/include/sge/audio/position.hpp
