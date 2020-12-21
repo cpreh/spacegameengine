@@ -6,6 +6,7 @@ set(
 	libs/audio/include/sge/audio/bits_per_sample.hpp
 	libs/audio/include/sge/audio/buffer.hpp
 	libs/audio/include/sge/audio/buffer_fwd.hpp
+	libs/audio/include/sge/audio/buffer_ref.hpp
 	libs/audio/include/sge/audio/buffer_shared_ptr.hpp
 	libs/audio/include/sge/audio/buffer_unique_ptr.hpp
 	libs/audio/include/sge/audio/bytes_per_sample.hpp

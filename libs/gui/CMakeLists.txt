@@ -78,6 +78,7 @@ set(
 	libs/gui/include/sge/gui/optional_needed_width_fwd.hpp
 	libs/gui/include/sge/gui/renderer/base.hpp
 	libs/gui/include/sge/gui/renderer/base_fwd.hpp
+	libs/gui/include/sge/gui/renderer/base_ref.hpp
 	libs/gui/include/sge/gui/renderer/base_unique_ptr.hpp
 	libs/gui/include/sge/gui/renderer/create_scoped.hpp
 	libs/gui/include/sge/gui/renderer/create_stateless.hpp

@@ -114,7 +114,7 @@ get_size(
 				sge::sprite::types::dim<
 					typename
 					Choices::type_choices
-				> const _dim
+				> _dim
 			)
 			{
 				return

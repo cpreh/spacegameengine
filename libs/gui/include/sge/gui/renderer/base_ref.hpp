@@ -4,24 +4,25 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_SPRITE_ROLES_TEXTURE_COORDINATES0_HPP_INCLUDED
-#define SGE_SPRITE_ROLES_TEXTURE_COORDINATES0_HPP_INCLUDED
+#ifndef SGE_GUI_RENDERER_BASE_REF_HPP_INCLUDED
+#define SGE_GUI_RENDERER_BASE_REF_HPP_INCLUDED
 
-#include <sge/sprite/roles/texture_coordinates.hpp>
+#include <sge/gui/renderer/base_fwd.hpp>
+#include <fcppt/reference_impl.hpp>
 
 
 namespace sge
 {
-namespace sprite
+namespace gui
 {
-namespace roles
+namespace renderer
 {
 
 using
-texture_coordinates0
+base_ref
 =
-sge::sprite::roles::texture_coordinates<
-	0
+fcppt::reference<
+	sge::gui::renderer::base
 >;
 
 }
