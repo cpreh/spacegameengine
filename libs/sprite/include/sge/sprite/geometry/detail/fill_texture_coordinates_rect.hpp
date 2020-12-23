@@ -11,6 +11,7 @@
 #include <sge/renderer/vf/labels/texpos.hpp>
 #include <sge/sprite/types/texture_coordinates.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
+#include <fcppt/tuple/get.hpp>
 
 
 namespace sge
@@ -49,12 +50,24 @@ fill_texture_coordinates_rect(
 		Level::value
 	>;
 
+	auto const &first{
+		fcppt::tuple::get<0>(
+			_rt
+		)
+	};
+
+	auto const &second{
+		fcppt::tuple::get<1>(
+			_rt
+		)
+	};
+
 	sge::renderer::vf::set_proxy(
 		*_iterator,
 		label{},
 		tex_pos(
-			_rt.first.x(),
-			_rt.first.y()
+			first.x(),
+			first.y()
 		)
 	);
 
@@ -64,8 +77,8 @@ fill_texture_coordinates_rect(
 		*_iterator,
 		label{},
 		tex_pos(
-			_rt.second.x(),
-			_rt.first.y()
+			second.x(),
+			first.y()
 		)
 	);
 
@@ -75,8 +88,8 @@ fill_texture_coordinates_rect(
 		*_iterator,
 		label{},
 		tex_pos(
-			_rt.second.x(),
-			_rt.second.y()
+			second.x(),
+			second.y()
 		)
 	);
 
@@ -86,8 +99,8 @@ fill_texture_coordinates_rect(
 		*_iterator,
 		label{},
 		tex_pos(
-			_rt.first.x(),
-			_rt.second.y()
+			first.x(),
+			second.y()
 		)
 	);
 }

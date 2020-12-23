@@ -8,6 +8,7 @@
 #define SGE_SPRITE_GEOMETRY_DETAIL_CONVERT_TEXTURE_RECT_HPP_INCLUDED
 
 #include <sge/sprite/types/texture_coordinates.hpp>
+#include <fcppt/tuple/element.hpp>
 
 
 namespace sge
@@ -39,22 +40,22 @@ convert_texture_rect(
 		Choices::type_choices
 	>;
 
-	using
-	element_type
-	=
-	typename
-	return_type::first_type;
-
 	return
 		return_type(
-			element_type(
+			fcppt::tuple::element<
+				0U,
+				return_type
+			>{
 				_rect.left(),
 				_rect.top()
-			),
-			element_type(
+			},
+			fcppt::tuple::element<
+				1U,
+				return_type
+			>{
 				_rect.right(),
 				_rect.bottom()
-			)
+			}
 		);
 }
 

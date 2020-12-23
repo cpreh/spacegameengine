@@ -28,6 +28,7 @@
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/tuple/get.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <utility>
@@ -178,7 +179,9 @@ sge::camera::tracking::object::update(
 		if(
 			current_keyframe_.get()
 			==
-			current_keyframe_.get_boundary().first
+			fcppt::tuple::get<0U>(
+				current_keyframe_.get_boundary()
+			)
 		)
 		{
 			finished_ =

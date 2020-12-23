@@ -8,7 +8,7 @@
 #define SGE_SPRITE_TYPES_BASIC_HOMOGENOUS_PAIR_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/types/basic/homogenous_pair_fwd.hpp>
-#include <fcppt/homogenous_pair_impl.hpp>
+#include <fcppt/tuple/object_impl.hpp>
 
 
 #endif

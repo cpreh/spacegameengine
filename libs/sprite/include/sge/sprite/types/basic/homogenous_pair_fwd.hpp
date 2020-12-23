@@ -7,7 +7,7 @@
 #ifndef SGE_SPRITE_TYPES_BASIC_HOMOGENOUS_PAIR_FWD_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_HOMOGENOUS_PAIR_FWD_HPP_INCLUDED
 
-#include <fcppt/homogenous_pair_fwd.hpp>
+#include <fcppt/tuple/object_fwd.hpp>
 
 
 namespace sge
@@ -24,7 +24,8 @@ template<
 >
 using homogenous_pair
 =
-fcppt::homogenous_pair<
+fcppt::tuple::object<
+	Type,
 	Type
 >;
 
