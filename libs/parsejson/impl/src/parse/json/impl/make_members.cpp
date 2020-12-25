@@ -20,9 +20,10 @@
 #include <fcppt/either/try_call.hpp>
 #include <fcppt/parse/error.hpp>
 #include <fcppt/parse/result.hpp>
+#include <fcppt/tuple/get.hpp>
+#include <fcppt/tuple/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
-#include <tuple>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -49,7 +50,7 @@ make_members_impl(
 			),
 			sge::parse::json::member_map{},
 			[](
-				std::tuple<
+				fcppt::tuple::object<
 					sge::charconv::utf8_string,
 					fcppt::recursive<
 						sge::parse::json::value
@@ -63,13 +64,13 @@ make_members_impl(
 						fcppt::container::insert(
 							_state,
 							sge::parse::json::member{
-								std::get<
+								fcppt::tuple::get<
 									0
 								>(
 									_element
 								),
 								std::move(
-									std::get<
+									fcppt::tuple::get<
 										1
 									>(
 										_element
@@ -83,7 +84,7 @@ make_members_impl(
 					throw // NOLINT(hicpp-exception-baseclass)
 						double_insert{ // NOLINT(hicpp-exception-baseclass)
 							std::move(
-								std::get<
+								fcppt::tuple::get<
 									0
 								>(
 									_element

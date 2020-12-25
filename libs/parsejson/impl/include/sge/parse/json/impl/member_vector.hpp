@@ -10,8 +10,8 @@
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/value_fwd.hpp>
 #include <fcppt/recursive_impl.hpp>
+#include <fcppt/tuple/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <tuple>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -29,7 +29,7 @@ using
 member_vector
 =
 std::vector<
-	std::tuple<
+	fcppt::tuple::object<
 		sge::charconv::utf8_string,
 		fcppt::recursive<
 			sge::parse::json::value

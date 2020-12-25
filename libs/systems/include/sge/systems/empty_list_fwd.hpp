@@ -8,9 +8,7 @@
 #define SGE_SYSTEMS_EMPTY_LIST_FWD_HPP_INCLUDED
 
 #include <sge/systems/list_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <tuple>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/tuple/object_fwd.hpp>
 
 
 namespace sge
@@ -22,7 +20,7 @@ using
 empty_list
 =
 sge::systems::list<
-	std::tuple<>
+	fcppt::tuple::object<>
 >;
 
 }

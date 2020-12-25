@@ -8,8 +8,8 @@
 #define SGE_SYSTEMS_LIST_IMPL_HPP_INCLUDED
 
 #include <sge/systems/list_decl.hpp>
-#include <fcppt/container/tuple/push_back.hpp>
-#include <fcppt/container/tuple/push_back_result.hpp>
+#include <fcppt/tuple/push_back.hpp>
+#include <fcppt/tuple/push_back_result.hpp>
 #include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -40,7 +40,7 @@ template<
 	typename Param
 >
 sge::systems::list<
-	fcppt::container::tuple::push_back_result<
+	fcppt::tuple::push_back_result<
 		Inits,
 		fcppt::type_traits::remove_cv_ref_t<
 			Param
@@ -55,14 +55,14 @@ sge::systems::list<
 {
 	return
 		sge::systems::list<
-			fcppt::container::tuple::push_back_result<
+			fcppt::tuple::push_back_result<
 				Inits,
 				fcppt::type_traits::remove_cv_ref_t<
 					Param
 				>
 			>
 		>(
-			fcppt::container::tuple::push_back(
+			fcppt::tuple::push_back(
 				inits_,
 				std::forward<
 					Param

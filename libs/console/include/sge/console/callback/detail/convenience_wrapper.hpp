@@ -18,8 +18,6 @@
 #include <fcppt/algorithm/loop_break_tuple.hpp>
 #include <fcppt/algorithm/map_tuple.hpp>
 #include <fcppt/container/array/from_range.hpp>
-#include <fcppt/container/tuple/apply.hpp>
-#include <fcppt/container/tuple/from_array.hpp>
 #include <fcppt/metal/as_tuple.hpp>
 #include <fcppt/metal/from_number.hpp>
 #include <fcppt/metal/function_args.hpp>
@@ -27,11 +25,15 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/sequence.hpp>
+#include <fcppt/tuple/apply.hpp>
+#include <fcppt/tuple/from_array.hpp>
+#include <fcppt/tuple/init.hpp>
+#include <fcppt/tuple/invoke.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <array>
 #include <cstddef>
-#include <tuple>
+#include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -143,24 +145,42 @@ public:
 					arg_types
 				>;
 
+				using
+				interval
+				=
+				fcppt::metal::interval<
+					std::size_t,
+					0U,
+					arg_count::value
+				>;
+
 				fcppt::optional::maybe_void(
 					fcppt::optional::sequence<
 						arguments
 					>(
-						fcppt::container::tuple::apply(
+						fcppt::tuple::apply(
 							sge::console::callback::detail::conversion_visitor<
 								arg_types
 							>{
 								_console
 							},
-							fcppt::metal::as_tuple<
-								fcppt::metal::interval<
-									std::size_t,
-									0U,
-									arg_count::value
+							fcppt::tuple::init<
+								fcppt::metal::as_tuple<
+									interval
 								>
-							>{},
-							fcppt::container::tuple::from_array(
+							>(
+								[](
+									auto const _index
+								)
+								{
+									return
+										std::integral_constant<
+											std::size_t,
+											_index()
+										>{};
+								}
+							),
+							fcppt::tuple::from_array(
 								_static_args
 							)
 						)
@@ -171,7 +191,7 @@ public:
 						arguments &&_inner_args
 					)
 					{
-						std::apply(
+						fcppt::tuple::invoke(
 							this->function_,
 							std::move(
 								_inner_args

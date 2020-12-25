@@ -8,7 +8,7 @@
 #define SGE_SYSTEMS_LIST_DECL_HPP_INCLUDED
 
 #include <sge/systems/list_fwd.hpp>
-#include <fcppt/container/tuple/push_back_result.hpp>
+#include <fcppt/tuple/push_back_result.hpp>
 #include <fcppt/type_traits/remove_cv_ref_t.hpp>
 
 
@@ -33,7 +33,7 @@ public:
 	>
 	[[nodiscard]]
 	list<
-		fcppt::container::tuple::push_back_result<
+		fcppt::tuple::push_back_result<
 			Inits,
 			fcppt::type_traits::remove_cv_ref_t<
 				Param

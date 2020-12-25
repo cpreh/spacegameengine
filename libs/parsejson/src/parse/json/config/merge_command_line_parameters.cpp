@@ -40,8 +40,9 @@
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
 #include <fcppt/parse/operators/sequence.hpp>
+#include <fcppt/tuple/get.hpp>
+#include <fcppt/tuple/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <tuple>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -67,7 +68,7 @@ process_option(
 	using
 	result_type
 	=
-	std::tuple<
+	fcppt::tuple::object<
 		string_vector,
 		fcppt::string
 	>;
@@ -133,7 +134,7 @@ process_option(
 	};
 
 	string_vector &first(
-		std::get<
+		fcppt::tuple::get<
 			0
 		>(
 			result
@@ -228,7 +229,7 @@ process_option(
 	).get() =
 		sge::parse::json::string_to_value(
 			sge::charconv::fcppt_string_to_utf8(
-				std::get<
+				fcppt::tuple::get<
 					1
 				>(
 					result

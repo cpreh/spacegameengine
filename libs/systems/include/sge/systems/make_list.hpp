@@ -8,9 +8,9 @@
 #define SGE_SYSTEMS_MAKE_LIST_HPP_INCLUDED
 
 #include <sge/systems/list_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <tuple>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/tuple/make.hpp>
+#include <fcppt/tuple/object_impl.hpp>
+#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 
 
 namespace sge
@@ -23,25 +23,27 @@ template<
 >
 inline
 sge::systems::list<
-	std::tuple<
-		Param
+	fcppt::tuple::object<
+		fcppt::type_traits::remove_cv_ref_t<
+			Param
+		>
 	>
 >
 make_list(
-	Param const &_param
+	Param &&_param
 )
 {
 	return
 		sge::systems::list<
-			std::tuple<
-				Param
+			fcppt::tuple::object<
+				fcppt::type_traits::remove_cv_ref_t<
+					Param
+				>
 			>
 		>{
-			std::tuple<
-				Param
-			>{
+			fcppt::tuple::make(
 				_param
-			}
+			)
 		};
 }
 

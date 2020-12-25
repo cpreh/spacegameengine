@@ -6,9 +6,7 @@
 
 #include <sge/systems/empty_list.hpp>
 #include <sge/systems/make_empty_list.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <tuple>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/tuple/object_impl.hpp>
 
 
 sge::systems::empty_list
@@ -16,6 +14,6 @@ sge::systems::make_empty_list()
 {
 	return
 		sge::systems::empty_list{
-			std::tuple<>{}
+			fcppt::tuple::object<>{}
 		};
 }
