@@ -13,9 +13,7 @@
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/array/object_impl.hpp>
 
 
 namespace sge
@@ -59,7 +57,7 @@ private:
 	using
 	buffer_array
 	=
-	std::array<
+	fcppt::array::object<
 		sge::opengl::buffer::base_unique_ptr,
 		2U
 	>;

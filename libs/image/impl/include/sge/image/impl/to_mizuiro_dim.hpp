@@ -9,7 +9,7 @@
 
 #include <mizuiro/image/dimension.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/container/array/init.hpp>
+#include <fcppt/array/init.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/at.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -49,7 +49,7 @@ to_mizuiro_dim(
 
 	return
 		result_type{
-			fcppt::container::array::init<
+			fcppt::array::init<
 				typename
 				result_type::array_type
 			>(

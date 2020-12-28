@@ -30,7 +30,7 @@
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/container/array/init.hpp>
+#include <fcppt/array/init.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/vector/null.hpp>
 
@@ -230,7 +230,7 @@ sge::scenic::render_context::cg::manager::manager(
 		>()
 	),
 	point_lights_(
-		fcppt::container::array::init<
+		fcppt::array::init<
 			point_light_array
 		>(
 			[
@@ -254,7 +254,7 @@ sge::scenic::render_context::cg::manager::manager(
 		)
 	),
 	directional_lights_(
-		fcppt::container::array::init<
+		fcppt::array::init<
 			directional_light_array
 		>(
 			[

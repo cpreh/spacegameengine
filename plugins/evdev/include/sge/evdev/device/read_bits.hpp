@@ -11,6 +11,7 @@
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/read_bits_result.hpp>
 #include <sge/input/exception.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
@@ -51,7 +52,9 @@ read_bits(
 	typename
 	result_type::array_type;
 
-	array_type result;
+	array_type result{
+		fcppt::no_init{}
+	};
 
 	if(
 		::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)

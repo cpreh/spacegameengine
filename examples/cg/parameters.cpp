@@ -86,8 +86,8 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/make.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/container/array/make.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -285,7 +285,7 @@ try
 				*vertex_declaration
 			),
 			sge::renderer::resource_flags_field::null(),
-			fcppt::container::array::make(
+			fcppt::array::make(
 				vertex{
 					sge::renderer::vf::labels::pos{} =
 						vec3(

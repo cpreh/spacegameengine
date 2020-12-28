@@ -11,7 +11,7 @@
 #include <sge/opengl/buffer/software.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/container/array/init_move.hpp>
+#include <fcppt/array/init.hpp>
 
 
 namespace sge
@@ -28,10 +28,10 @@ Array
 make_software()
 {
 	return
-		fcppt::container::array::init_move<
+		fcppt::array::init<
 			Array
 		>(
-			[]{
+			[](auto){
 				return
 					fcppt::unique_ptr_to_base<
 						sge::opengl::buffer::base

@@ -238,7 +238,7 @@ sge::scenic::render_context::cg::object::lights(
 			)
 			{
 				sge::scenic::render_context::cg::light::point &current_light(
-					*manager_.get().point_lights_[static_cast<std::size_t>(point_light_count++)]);
+					*manager_.get().point_lights_.get_unsafe(static_cast<std::size_t>(point_light_count++)));
 
 				current_light.diffuse_color(
 					light.diffuse_color());
@@ -274,7 +274,7 @@ sge::scenic::render_context::cg::object::lights(
 			)
 			{
 				sge::scenic::render_context::cg::light::directional &current_light(
-					*manager_.get().directional_lights_[static_cast<std::size_t>(directional_light_count++)]
+					*manager_.get().directional_lights_.get_unsafe(static_cast<std::size_t>(directional_light_count++))
 				);
 
 				current_light.diffuse_color(

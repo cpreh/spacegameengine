@@ -21,7 +21,7 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/container/array/make.hpp>
+#include <fcppt/array/make.hpp>
 #include <fcppt/either/first_success.hpp>
 #include <fcppt/either/from_optional.hpp>
 #include <fcppt/either/object_impl.hpp>
@@ -185,7 +185,7 @@ sge::opengl::platform::create_system(
 	return
 		fcppt::either::to_exception(
 			fcppt::either::first_success(
-				fcppt::container::array::make(
+				fcppt::array::make(
 #if defined(SGE_OPENGL_HAVE_SDL)
 					try_create<
 						sge::opengl::sdl::platform_system,

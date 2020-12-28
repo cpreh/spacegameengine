@@ -13,14 +13,16 @@
 #include <awl/backends/x11/window/base.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array/init_const.hpp>
+#include <fcppt/array/init.hpp>
+#include <fcppt/array/object_impl.hpp>
+#include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
-#include <array>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -44,21 +46,25 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wconversion)
 	using
 	mask_type
 	=
-	std::array<
+	fcppt::array::object<
 		unsigned char,
 		XIMaskLen(XI_LASTEVENT) // NOLINT(hicpp-signed-bitwise)
 	>;
 FCPPT_PP_POP_WARNING
 
 	auto mask_data(
-		fcppt::container::array::init_const<
+		fcppt::array::init<
 			mask_type
 		>(
-			fcppt::literal<
-				unsigned char
-			>(
-				0
-			)
+			[](auto)
+			{
+				return
+					fcppt::literal<
+						unsigned char
+					>(
+						0
+					);
+			}
 		)
 	);
 
@@ -80,7 +86,13 @@ FCPPT_PP_POP_WARNING
 
 	XIEventMask mask{
 		_device.get(),
-		mask_data.size(),
+		fcppt::cast::size<
+			int
+		>(
+			fcppt::cast::to_signed(
+				mask_data.size()
+			)
+		),
 		mask_data.data()
 	};
 

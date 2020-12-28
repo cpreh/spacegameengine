@@ -17,7 +17,8 @@
 #include <fcppt/algorithm/loop_break_metal.hpp>
 #include <fcppt/algorithm/loop_break_tuple.hpp>
 #include <fcppt/algorithm/map_tuple.hpp>
-#include <fcppt/container/array/from_range.hpp>
+#include <fcppt/array/from_range.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/metal/as_tuple.hpp>
 #include <fcppt/metal/from_number.hpp>
 #include <fcppt/metal/function_args.hpp>
@@ -31,7 +32,6 @@
 #include <fcppt/tuple/invoke.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
-#include <array>
 #include <cstddef>
 #include <type_traits>
 #include <utility>
@@ -107,13 +107,13 @@ public:
 		using
 		static_args
 		=
-		std::array<
+		fcppt::array::object<
 			sge::font::string,
 			arg_count::value
 		>;
 
 		fcppt::optional::maybe(
-			fcppt::container::array::from_range<
+			fcppt::array::from_range<
 				arg_count::value
 			>(
 				// TODO(philipp): Range from begin + 1 to end?

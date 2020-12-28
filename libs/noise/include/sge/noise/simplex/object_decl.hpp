@@ -9,11 +9,11 @@
 
 #include <sge/noise/simplex/object_fwd.hpp>
 #include <sge/noise/simplex/width.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/static_fwd.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <cstddef>
 #include <type_traits>
 #include <vector>
@@ -88,7 +88,7 @@ private:
 	using
 	gradient_array
 	=
-	std::array<
+	fcppt::array::object<
 		vector_type,
 		2U*N
 	>;
@@ -112,7 +112,7 @@ private:
 	using
 	corner_array
 	=
-	std::array<
+	fcppt::array::object<
 		vector_type,
 		N + 1
 	>;

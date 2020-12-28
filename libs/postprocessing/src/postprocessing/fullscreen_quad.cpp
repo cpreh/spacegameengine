@@ -26,7 +26,7 @@
 #include <sge/renderer/vf/labels/texpos.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/container/array/make.hpp>
+#include <fcppt/array/make.hpp>
 #include <fcppt/math/vector/static.hpp>
 
 
@@ -58,7 +58,7 @@ sge::postprocessing::fullscreen_quad::fullscreen_quad(
 			_renderer,
 			_vertex_declaration,
 			sge::renderer::resource_flags_field::null(),
-			fcppt::container::array::make(
+			fcppt::array::make(
 				// Left top
 				vertex{
 					sge::renderer::vf::labels::pos{} =

@@ -23,14 +23,12 @@
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/array/get.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -118,7 +116,7 @@ sge::opengl::buffer::base &
 sge::opengl::buffer::pbo_context::pack_buffer() const
 {
 	return
-		*std::get<
+		*fcppt::array::get<
 			0
 		>(
 			buffers_
@@ -129,7 +127,7 @@ sge::opengl::buffer::base &
 sge::opengl::buffer::pbo_context::unpack_buffer() const
 {
 	return
-		*std::get<
+		*fcppt::array::get<
 			1
 		>(
 			buffers_

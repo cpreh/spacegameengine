@@ -29,8 +29,8 @@
 #include <sge/shader/parameter/vector.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -90,7 +90,7 @@ private:
 	using
 	point_light_array
 	=
-	std::array<
+	fcppt::array::object<
 		fcppt::unique_ptr<
 			sge::scenic::render_context::cg::light::point
 		>,
@@ -100,7 +100,7 @@ private:
 	using
 	directional_light_array
 	=
-	std::array<
+	fcppt::array::object<
 		fcppt::unique_ptr<
 			sge::scenic::render_context::cg::light::directional
 		>,

@@ -24,14 +24,16 @@
 #include <fcppt/reference.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/array/get.hpp>
+#include <fcppt/array/init.hpp>
+#include <fcppt/array/is_object.hpp>
+#include <fcppt/array/size.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/container/array/init.hpp>
-#include <fcppt/container/array/size.hpp>
 #include <fcppt/math/from_array.hpp>
 #include <fcppt/math/to_array_type.hpp>
 #include <fcppt/math/matrix/init.hpp>
 #include <fcppt/math/matrix/is_matrix.hpp>
-#include <fcppt/type_traits/is_std_array.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <string>
@@ -202,7 +204,7 @@ struct convert_from_impl<
 		using
 		inner_array
 		=
-		std::array<
+		fcppt::array::object<
 			fcppt::reference<
 				sge::parse::json::element_vector const
 			>,
@@ -210,7 +212,7 @@ struct convert_from_impl<
 		>;
 
 		auto const inner(
-			fcppt::container::array::init<
+			fcppt::array::init<
 				inner_array
 			>(
 				[
@@ -266,7 +268,7 @@ struct convert_from_impl<
 							typename
 							Result::value_type
 						>(
-							std::get<
+							fcppt::array::get<
 								_index.row()
 							>(
 								inner
@@ -296,7 +298,7 @@ struct convert_from_impl<
 		>::value
 		&&
 		fcppt::not_(
-			fcppt::type_traits::is_std_array<
+			fcppt::array::is_object<
 				Result
 			>::value
 		)
@@ -349,7 +351,7 @@ template<
 struct convert_from_impl<
 	Result,
 	std::enable_if_t<
-		fcppt::type_traits::is_std_array<
+		fcppt::array::is_object<
 			Result
 		>::value
 	>
@@ -372,7 +374,7 @@ struct convert_from_impl<
 		);
 
 		if(
-			fcppt::container::array::size<
+			fcppt::array::size<
 				Result
 			>::value
 			!=
@@ -384,7 +386,7 @@ struct convert_from_impl<
 					FCPPT_TEXT("Tried to convert into an array, but the dimensions did not match. Target array has dimension ")
 					+
 					fcppt::output_to_fcppt_string(
-						fcppt::container::array::size<
+						fcppt::array::size<
 							Result
 						>::value
 					)
@@ -398,7 +400,7 @@ struct convert_from_impl<
 		}
 
 		return
-			fcppt::container::array::init<
+			fcppt::array::init<
 				Result
 			>(
 				[

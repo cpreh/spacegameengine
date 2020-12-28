@@ -10,7 +10,8 @@
 #include <sge/noise/simplex/object_decl.hpp>
 #include <sge/noise/simplex/detail/mod.hpp>
 #include <fcppt/no_init.hpp>
-#include <fcppt/container/array/init_const.hpp>
+#include <fcppt/array/get.hpp>
+#include <fcppt/array/init.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/to_array.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -45,12 +46,16 @@ sge::noise::simplex::object<
 		_width.get()),
 	// TODO(philipp): Initialize this directly!
 	gradients_(
-		fcppt::container::array::init_const<
+		fcppt::array::init<
 			gradient_array
 		>(
-			fcppt::math::vector::null<
-				vector_type
-			>()
+			[](auto)
+			{
+				return
+					fcppt::math::vector::null<
+						vector_type
+					>();
+			}
 		)
 	)
 {
@@ -91,9 +96,9 @@ sge::noise::simplex::object<
 			>()
 		);
 		tmp.get_unsafe(i) = static_cast<Float>(1);
-		gradients_[2U*i] = tmp;
+		gradients_.get_unsafe(2U*i) = tmp;
 		tmp.get_unsafe(i) = static_cast<Float>(-1);
-		gradients_[2U*i+1U] = tmp;
+		gradients_.get_unsafe(2U*i+1U) = tmp;
 	}
 }
 
@@ -171,12 +176,16 @@ sge::noise::simplex::object<Float,N>::corners(
 {
 	// TODO(philipp): Initialize this directly!
 	auto res(
-		fcppt::container::array::init_const<
+		fcppt::array::init<
 			corner_array
 		>(
-			fcppt::math::vector::null<
-				vector_type
-			>()
+			[](auto)
+			{
+				return
+					fcppt::math::vector::null<
+						vector_type
+					>();
+			}
 		)
 	);
 
@@ -189,7 +198,7 @@ sge::noise::simplex::object<Float,N>::corners(
 	auto max = static_cast<Float>(-1);
 	typename vector_type::size_type max_i = 0;
 
-	res[0] = vector_type(cur);
+	fcppt::array::get<0U>(res) = vector_type(cur);
 
 	for (typename vector_type::size_type j = 0; j < N; ++j)
 	{
@@ -204,7 +213,7 @@ sge::noise::simplex::object<Float,N>::corners(
 		max = static_cast<Float>(-1);
 		point.get_unsafe(max_i) = static_cast<Float>(-2);
 		cur += fcppt::math::vector::unit<vector_type>(max_i);
-		res[j+1] = vector_type(cur); // NOLINT(cppcoreguidelines-pro-bounds-constant-array-index)
+		res.get_unsafe(j+1) = vector_type(cur);
 	}
 
 	return res;
@@ -300,8 +309,9 @@ sge::noise::simplex::object<Float,N>::contrib(
 
 	return
 		t * t * fcppt::math::vector::dot(
-			gradients_[
-				index(intv) % (2U * N)],
+			gradients_.get_unsafe(
+				index(intv) % (2U * N)
+			),
 			v
 		);
 }

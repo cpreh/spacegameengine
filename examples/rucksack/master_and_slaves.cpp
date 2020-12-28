@@ -23,7 +23,8 @@
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/container/array/init_move.hpp>
+#include <fcppt/array/init.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
 #include <fcppt/random/distribution/parameters/uniform_int.hpp>
@@ -31,7 +32,6 @@
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <array>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
@@ -188,19 +188,19 @@ try
 	using
 	dummy_unique_ptr_array
 	=
-	std::array<
+	fcppt::array::object<
 		dummy_unique_ptr,
 		5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	>;
 
 	auto sprites(
-		fcppt::container::array::init_move<
+		fcppt::array::init<
 			dummy_unique_ptr_array
 		>(
 			[
 				&size_rng_w,
 				&size_rng_h
-			]
+			](auto)
 			{
 				return
 					fcppt::make_unique_ptr<

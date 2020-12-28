@@ -19,8 +19,8 @@
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
+#include <fcppt/array/make.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/container/array/make.hpp>
 #undef Success
 #include <fcppt/either/first_success.hpp>
 #include <fcppt/either/from_optional.hpp>
@@ -154,7 +154,7 @@ sge::opengl::egl::create_display(
 	return
 		fcppt::either::to_exception(
 			fcppt::either::first_success(
-				fcppt::container::array::make(
+				fcppt::array::make(
 #if defined(SGE_OPENGL_HAVE_X11)
 					try_create(
 						_awl_system,

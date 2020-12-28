@@ -111,8 +111,8 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/make.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/container/array/make.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -314,7 +314,7 @@ try
 				*vertex_declaration
 			),
 			sge::renderer::resource_flags_field::null(),
-			fcppt::container::array::make(
+			fcppt::array::make(
 				// top left
 				vertex{
 					sge::renderer::vf::labels::pos{} =
@@ -366,7 +366,7 @@ try
 				sys.renderer_device_core()
 			),
 			sge::renderer::resource_flags_field::null(),
-			fcppt::container::array::make(
+			fcppt::array::make(
 				fcppt::literal<i16>(0),
 				fcppt::literal<i16>(1),
 				fcppt::literal<i16>(2),

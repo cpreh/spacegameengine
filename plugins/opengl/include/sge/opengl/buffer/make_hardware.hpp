@@ -14,10 +14,8 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -30,7 +28,7 @@ namespace buffer
 template<
 	typename... Args
 >
-std::array<
+fcppt::array::object<
 	sge::opengl::buffer::base_unique_ptr,
 	sizeof...(Args)
 >
@@ -40,10 +38,10 @@ make_hardware(
 )
 {
 	return
-		std::array<
+		fcppt::array::object<
 			sge::opengl::buffer::base_unique_ptr,
 			sizeof...(Args)
-		>{{
+		>{
 			fcppt::unique_ptr_to_base<
 				sge::opengl::buffer::base
 			>(
@@ -59,7 +57,7 @@ make_hardware(
 					_config
 				)
 			)...
-		}};
+		};
 }
 
 }

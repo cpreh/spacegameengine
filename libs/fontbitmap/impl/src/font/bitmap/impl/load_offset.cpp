@@ -17,12 +17,11 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/recursive_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/container/array/from_range.hpp>
+#include <fcppt/array/from_range.hpp>
+#include <fcppt/array/get.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::font::vector
@@ -33,7 +32,7 @@ sge::font::bitmap::impl::load_offset(
 	return
 		fcppt::optional::to_exception(
 			fcppt::optional::map(
-				fcppt::container::array::from_range<
+				fcppt::array::from_range<
 					2
 				>(
 					sge::parse::json::find_member_exn<
@@ -46,7 +45,7 @@ sge::font::bitmap::impl::load_offset(
 					).get().elements
 				),
 				[](
-					std::array<
+					fcppt::array::object<
 						fcppt::recursive<
 							sge::parse::json::value
 						>,
@@ -59,7 +58,7 @@ sge::font::bitmap::impl::load_offset(
 							sge::parse::json::convert::to_int<
 								sge::font::unit
 							>(
-								std::get<
+								fcppt::array::get<
 									0
 								>(
 									_elements
@@ -68,7 +67,7 @@ sge::font::bitmap::impl::load_offset(
 							sge::parse::json::convert::to_int<
 								sge::font::unit
 							>(
-								std::get<
+								fcppt::array::get<
 									1
 								>(
 									_elements
