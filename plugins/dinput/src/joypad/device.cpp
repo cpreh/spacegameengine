@@ -140,8 +140,8 @@ sge::dinput::joypad::device::on_dispatch(
 							this->fcppt_shared_from_this()
 						},
 						sge::input::joypad::absolute_axis(
-							FCPPT_ASSSERT_OPTIONAL_ERROR(
-								this->info_.input_info().absolute_axes()[
+							FCPPT_ASSERT_OPTIONAL_ERROR(
+								info_.input_info().absolute_axes()[
 									_id
 								]
 							)->code(),
@@ -210,7 +210,7 @@ sge::dinput::joypad::device::on_dispatch(
 							this->fcppt_shared_from_this()
 						},
 						sge::input::joypad::relative_axis(
-							FCPPT_ASSSERT_OPTIONAL_ERROR(
+							FCPPT_ASSERT_OPTIONAL_ERROR(
 								info_.input_info().relative_axes()[
 									_id
 								]
