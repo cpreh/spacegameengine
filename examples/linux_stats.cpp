@@ -81,6 +81,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -89,6 +90,7 @@
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -121,7 +123,6 @@
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <array>
 #include <exception>
 #include <fstream>
 #include <ios>
@@ -279,12 +280,14 @@ count_jiffies()
 	using
 	jiffies_array
 	=
-	std::array<
+	fcppt::array::object<
 		jiffies::value_type,
 		7U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	>;
 
-	jiffies_array current_jiffies{};
+	jiffies_array current_jiffies{
+		fcppt::no_init{}
+	};
 
 	// TODO(philipp): Use optionals
 	for(

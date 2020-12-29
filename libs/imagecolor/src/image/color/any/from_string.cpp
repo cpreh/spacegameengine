@@ -15,10 +15,12 @@
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/get.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <istream>
 #include <sstream>
 #include <string>
@@ -61,12 +63,14 @@ rgb8_from_hex_string(
 	using
 	channel_array
 	=
-	std::array<
+	fcppt::array::object<
 		unsigned,
 		4U
 	>;
 
-	channel_array channels;
+	channel_array channels{
+		fcppt::no_init{}
+	};
 
 	// Start at 1, omitting the #
 	typename string::size_type current_position{
@@ -132,18 +136,18 @@ rgb8_from_hex_string(
 		?
 			sge::image::color::any::object(
 				sge::image::color::rgb8(
-					(sge::image::color::init::red() = static_cast<channel_type>(channels[0]))
-					(sge::image::color::init::green() = static_cast<channel_type>(channels[1]))
-					(sge::image::color::init::blue() = static_cast<channel_type>(channels[2]))
+					(sge::image::color::init::red() = static_cast<channel_type>(fcppt::array::get<0>(channels)))
+					(sge::image::color::init::green() = static_cast<channel_type>(fcppt::array::get<1>(channels)))
+					(sge::image::color::init::blue() = static_cast<channel_type>(fcppt::array::get<2>(channels)))
 				)
 			)
 		:
 			sge::image::color::any::object(
 				sge::image::color::rgba8(
-					(sge::image::color::init::red() = static_cast<channel_type>(channels[0]))
-					(sge::image::color::init::green() = static_cast<channel_type>(channels[1]))
-					(sge::image::color::init::blue() = static_cast<channel_type>(channels[2]))
-					(sge::image::color::init::alpha() = static_cast<channel_type>(channels[3]))
+					(sge::image::color::init::red() = static_cast<channel_type>(fcppt::array::get<0>(channels)))
+					(sge::image::color::init::green() = static_cast<channel_type>(fcppt::array::get<1>(channels)))
+					(sge::image::color::init::blue() = static_cast<channel_type>(fcppt::array::get<2>(channels)))
+					(sge::image::color::init::alpha() = static_cast<channel_type>(fcppt::array::get<3>(channels)))
 				)
 			);
 }
@@ -210,12 +214,14 @@ rgb32f_from_string(
 	using
 	channel_array
 	=
-	std::array<
+	fcppt::array::object<
 		scalar,
 		4U
 	>;
 
-	channel_array channels;
+	channel_array channels{
+		fcppt::no_init{}
+	};
 
 	using
 	stringstream_type
@@ -234,7 +240,7 @@ rgb32f_from_string(
 		_string
 	);
 
-	if(!(ss >> channels[0] >> std::ws) || static_cast<Char>(ss.peek()) != widen_if_necessary(ss,','))
+	if(!(ss >> fcppt::array::get<0>(channels) >> std::ws) || static_cast<Char>(ss.peek()) != widen_if_necessary(ss,','))
 	{
 		throw
 			sge::image::exception{
@@ -244,7 +250,7 @@ rgb32f_from_string(
 
 	ss.ignore();
 
-	if(!(ss >> channels[1] >> std::ws) || static_cast<Char>(ss.peek()) != widen_if_necessary(ss,','))
+	if(!(ss >> fcppt::array::get<1>(channels) >> std::ws) || static_cast<Char>(ss.peek()) != widen_if_necessary(ss,','))
 	{
 		throw
 			sge::image::exception{
@@ -254,7 +260,7 @@ rgb32f_from_string(
 
 	ss.ignore();
 
-	if(!(ss >> channels[2]))
+	if(!(ss >> fcppt::array::get<2>(channels)))
 	{
 		throw
 			sge::image::exception{
@@ -278,9 +284,9 @@ rgb32f_from_string(
 		return
 			sge::image::color::any::object(
 				sge::image::color::rgb32f(
-					(sge::image::color::init::red() %= channels[0])
-					(sge::image::color::init::green() %= channels[1])
-					(sge::image::color::init::blue() %= channels[2])
+					(sge::image::color::init::red() %= fcppt::array::get<0>(channels))
+					(sge::image::color::init::green() %= fcppt::array::get<1>(channels))
+					(sge::image::color::init::blue() %= fcppt::array::get<2>(channels))
 				)
 			);
 	}
@@ -295,7 +301,7 @@ rgb32f_from_string(
 
 	ss.ignore();
 
-	if(!(ss >> channels[3]))
+	if(!(ss >> fcppt::array::get<3>(channels)))
 	{
 		throw
 			sge::image::exception{
@@ -324,10 +330,10 @@ rgb32f_from_string(
 	return
 		sge::image::color::any::object(
 			sge::image::color::rgba32f(
-				(sge::image::color::init::red() %= channels[0])
-				(sge::image::color::init::green() %= channels[1])
-				(sge::image::color::init::blue() %= channels[2])
-				(sge::image::color::init::alpha() %= channels[3])
+				(sge::image::color::init::red() %= fcppt::array::get<0>(channels))
+				(sge::image::color::init::green() %= fcppt::array::get<1>(channels))
+				(sge::image::color::init::blue() %= fcppt::array::get<2>(channels))
+				(sge::image::color::init::alpha() %= fcppt::array::get<3>(channels))
 			)
 		);
 }

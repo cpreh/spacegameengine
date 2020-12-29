@@ -30,7 +30,9 @@
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/alternative.hpp>
 #include <fcppt/optional/copy_value.hpp>
@@ -111,9 +113,11 @@ sge::dinput::mouse::device::on_dispatch(
 							this->fcppt_shared_from_this()
 						},
 						sge::input::mouse::axis(
-							info_.input_info().axes()[
-								_id
-							].code(),
+							FCPPT_ASSERT_OPTIONAL_ERROR(
+								info_.input_info().axes()[
+									_id
+								]
+							)->code(),
 							_id
 						),
 						// TODO: Conversion function
@@ -148,9 +152,11 @@ sge::dinput::mouse::device::on_dispatch(
 							this->fcppt_shared_from_this()
 						},
 						sge::input::mouse::button(
-							info_.input_info().buttons()[
-								_id
-							].code(),
+							FCPPT_ASSERT_OPTIONAL_ERROR(
+								info_.input_info().buttons()[
+									_id
+								]
+							)->code(),
 							_id
 						),
 						sge::input::mouse::button_pressed{

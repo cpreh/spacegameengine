@@ -18,7 +18,7 @@ namespace dinput
 namespace mouse
 {
 
-sge::input::mouse::button_info const
+sge::input::mouse::button_info
 make_button_info(
 	DIDEVICEOBJECTINSTANCE const &
 );

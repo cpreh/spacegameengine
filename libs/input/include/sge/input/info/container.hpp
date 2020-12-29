@@ -9,6 +9,7 @@
 
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/info/container_fwd.hpp>
+#include <fcppt/optional/reference_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -63,7 +64,9 @@ public:
 
 	[[nodiscard]]
 	SGE_INPUT_DETAIL_SYMBOL
-	Obj const &
+	fcppt::optional::reference<
+		Obj const
+	>
 	operator[](
 		Id const &
 	) const;

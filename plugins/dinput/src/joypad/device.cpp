@@ -37,7 +37,9 @@
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/alternative.hpp>
 #include <fcppt/optional/copy_value.hpp>
@@ -138,9 +140,11 @@ sge::dinput::joypad::device::on_dispatch(
 							this->fcppt_shared_from_this()
 						},
 						sge::input::joypad::absolute_axis(
-							this->info_.input_info().absolute_axes()[
-								_id
-							].code(),
+							FCPPT_ASSSERT_OPTIONAL_ERROR(
+								this->info_.input_info().absolute_axes()[
+									_id
+								]
+							)->code(),
 							_id
 						),
 						// TODO: Conversion function
@@ -206,9 +210,11 @@ sge::dinput::joypad::device::on_dispatch(
 							this->fcppt_shared_from_this()
 						},
 						sge::input::joypad::relative_axis(
-							info_.input_info().relative_axes()[
-								_id
-							].code(),
+							FCPPT_ASSSERT_OPTIONAL_ERROR(
+								info_.input_info().relative_axes()[
+									_id
+								]
+							)->code(),
 							_id
 						),
 						// TODO: Conversion function

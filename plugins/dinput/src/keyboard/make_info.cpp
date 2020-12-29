@@ -11,7 +11,7 @@
 #include <sge/dinput/keyboard/make_info.hpp>
 
 
-sge::dinput::keyboard::info const
+sge::dinput::keyboard::info
 sge::dinput::keyboard::make_info(
 	IDirectInputDevice8 &_device
 )

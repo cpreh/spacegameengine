@@ -30,7 +30,6 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/container/at_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
 #include <cstdint>
@@ -113,10 +112,9 @@ sge::sdlinput::joypad::device::axis(
 	return
 		sge::input::joypad::absolute_axis{
 			FCPPT_ASSERT_OPTIONAL_ERROR(
-				fcppt::container::at_optional(
-					this->info().absolute_axes(),
+				this->info().absolute_axes()[
 					axis_id
-				)
+				]
 			).get().code(),
 			axis_id
 		};
@@ -164,10 +162,9 @@ sge::sdlinput::joypad::device::ball_axis(
 	return
 		sge::input::joypad::relative_axis{
 			FCPPT_ASSERT_OPTIONAL_ERROR(
-				fcppt::container::at_optional(
-					this->info().relative_axes(),
+				this->info().relative_axes()[
 					axis_id
-				)
+				]
 			).get().code(),
 			axis_id
 		};
@@ -219,10 +216,9 @@ sge::sdlinput::joypad::device::hat_axis(
 	return
 		sge::input::joypad::absolute_axis{
 			FCPPT_ASSERT_OPTIONAL_ERROR(
-				fcppt::container::at_optional(
-					this->info().absolute_axes(),
+					this->info().absolute_axes()[
 					axis_id
-				)
+				]
 			).get().code(),
 			axis_id
 		};

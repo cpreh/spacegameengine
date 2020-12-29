@@ -54,11 +54,11 @@ sge::model::md3::impl::tag::tag(
 			};
 
 			return
-				sge::model::md3::impl::axis_array{{
+				sge::model::md3::impl::axis_array{
 					axis1,
 					axis2,
 					axis3
-				}};
+				};
 		}()
 	)
 {

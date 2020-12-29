@@ -169,6 +169,8 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
+#include <fcppt/array/get.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/size.hpp>
@@ -189,7 +191,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <metal.hpp>
-#include <array>
 #include <chrono>
 #include <exception>
 #include <utility>
@@ -469,12 +470,12 @@ try
 	using
 	filter_array
 	=
-	std::array<
+	fcppt::array::object<
 		string_filter_pair,
 		7U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	>;
 
-	filter_array const filters{{
+	filter_array const filters{
 		std::make_pair(
 			SGE_FONT_LIT("point"),
 			fcppt::make_cref(
@@ -527,7 +528,7 @@ try
 				*anisotropic_trilinear_sampler
 			)
 		)
-	}};
+	};
 
 	using
 	sprite_choices
@@ -683,7 +684,7 @@ try
 	fcppt::reference<
 		filter_array::value_type const
 	> current_filter{
-		std::get<
+		fcppt::array::get<
 			0
 		>(
 			filters

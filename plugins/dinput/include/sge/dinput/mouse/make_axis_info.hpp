@@ -18,7 +18,7 @@ namespace dinput
 namespace mouse
 {
 
-sge::input::mouse::axis_info const
+sge::input::mouse::axis_info
 make_axis_info(
 	DIDEVICEOBJECTINSTANCE const &
 );

@@ -12,10 +12,12 @@
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/get.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/assert/pre.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <iomanip>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -53,12 +55,14 @@ rgb8_from_hex_string(
 	using
 	channel_array
 	=
-	std::array<
+	fcppt::array::object<
 		unsigned,
 		3U
 	>;
 
-	channel_array channels;
+	channel_array channels{
+		fcppt::no_init{}
+	};
 
 	std::string::size_type current_position{
 		0U
@@ -107,9 +111,9 @@ rgb8_from_hex_string(
 
 	return
 		sge::image::color::rgb8(
-			(sge::image::color::init::red() = static_cast<channel_type>(std::get<0>(channels)))
-			(sge::image::color::init::green() = static_cast<channel_type>(std::get<1>(channels)))
-			(sge::image::color::init::blue() = static_cast<channel_type>(std::get<2>(channels)))
+			(sge::image::color::init::red() = static_cast<channel_type>(fcppt::array::get<0>(channels)))
+			(sge::image::color::init::green() = static_cast<channel_type>(fcppt::array::get<1>(channels)))
+			(sge::image::color::init::blue() = static_cast<channel_type>(fcppt::array::get<2>(channels)))
 		);
 }
 

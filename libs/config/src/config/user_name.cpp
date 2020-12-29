@@ -22,11 +22,12 @@
 #include <sge/config/exception.hpp>
 #include <awl/backends/windows/format_message.hpp>
 #include <fcppt/char_type.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <lmcons.h>
 #include <windows.h>
-#include <array>
 #include <fcppt/config/external_end.hpp>
 #endif
 
@@ -38,12 +39,14 @@ sge::config::user_name()
 	using
 	raw_character_sequence
 	=
-	std::array<
+	fcppt::array::object<
 		fcppt::char_type,
 		UNLEN+1
 	>;
 
-	raw_character_sequence raw_characters{};
+	raw_character_sequence raw_characters{
+		fcppt::no_init{
+	}};
 	// I don't know if the size argument can be NULL.
 	DWORD size{
 		static_cast<DWORD>(
@@ -65,7 +68,8 @@ sge::config::user_name()
 
 	return
 		fcppt::string(
-			raw_characters.data());
+			raw_characters.data()
+		);
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
 	long const bufsize{ // NOLINT(google-runtime-int)
 		sysconf(

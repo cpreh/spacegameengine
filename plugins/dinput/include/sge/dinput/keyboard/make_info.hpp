@@ -18,7 +18,7 @@ namespace dinput
 namespace keyboard
 {
 
-sge::dinput::keyboard::info const
+sge::dinput::keyboard::info
 make_info(
 	IDirectInputDevice8 &
 );

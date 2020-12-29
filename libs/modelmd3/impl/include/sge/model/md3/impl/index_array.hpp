@@ -8,9 +8,7 @@
 #define SGE_MODEL_MD3_IMPL_INDEX_ARRAY_HPP_INCLUDED
 
 #include <sge/model/md3/impl/s32.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/array/object_impl.hpp>
 
 
 namespace sge
@@ -25,7 +23,7 @@ namespace impl
 using
 index_array
 =
-std::array<
+fcppt::array::object<
 	sge::model::md3::impl::s32,
 	3
 >;

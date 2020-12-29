@@ -141,6 +141,8 @@
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
+#include <fcppt/array/size.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
@@ -154,7 +156,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <metal.hpp>
-#include <array>
 #include <chrono>
 #include <exception>
 #include <iostream>
@@ -219,7 +220,7 @@ vf_pos::packed_type;
 using
 pos_array
 =
-std::array<
+fcppt::array::object<
 	pos_vector,
 	2 * 3 * 6 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 >;
@@ -229,7 +230,7 @@ fill_geometry(
 	sge::renderer::vertex::buffer &_vertex_buffer // NOLINT(google-runtime-references)
 ) // NOLINT(google-runtime-references)
 {
-	pos_array const positions{{
+	pos_array const positions{
 		// bottom 1
 		pos_vector(
 			-1.F,-1.F,-1.F
@@ -350,7 +351,7 @@ fill_geometry(
 		pos_vector(
 			-1.F,-1.F,-1.F
 		)
-	}};
+	};
 
 	sge::renderer::vertex::scoped_lock const vb_lock(
 		fcppt::make_ref(
@@ -645,7 +646,7 @@ try
 					sge::renderer::vertex::count,
 					fcppt::cast::static_cast_fun
 				>(
-					std::tuple_size<
+					fcppt::array::size<
 						pos_array
 					>::value
 				),

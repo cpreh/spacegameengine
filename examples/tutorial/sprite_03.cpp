@@ -88,13 +88,13 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <metal.hpp>
-#include <array>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
@@ -273,12 +273,12 @@ try
 	using
 	sprite_array_2
 	=
-	std::array<
+	fcppt::array::object<
 		sprite_object,
 		2U
 	>;
 
-	sprite_array_2 sprites{{
+	sprite_array_2 sprites{
 		sprite_object(
 			sge::sprite::roles::pos{} =
 				fcppt::math::vector::null<
@@ -300,7 +300,7 @@ try
 					*image_texture_part
 				)
 		)
-	}};
+	};
 //! [multi_objects]
 
 //! [process_multi]

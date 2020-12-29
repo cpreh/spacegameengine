@@ -9,6 +9,8 @@
 
 #include <sge/input/info/container.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/container/at_optional.hpp>
+#include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +39,9 @@ template<
 	typename Id,
 	typename Obj
 >
-Obj const &
+fcppt::optional::reference<
+	Obj const
+>
 sge::input::info::container<
 	Id,
 	Obj
@@ -46,9 +50,10 @@ sge::input::info::container<
 ) const
 {
 	return
-		vector_[
+		fcppt::container::at_optional(
+			this->vector_,
 			_id.get()
-		];
+		);
 }
 
 template<

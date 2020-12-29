@@ -7,6 +7,7 @@
 #include <sge/model/md3/impl/index_array.hpp>
 #include <sge/model/md3/impl/read_s32.hpp>
 #include <sge/model/md3/impl/triangle.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -17,7 +18,9 @@ sge::model::md3::impl::triangle::triangle(
 )
 :
 	// TODO(philipp): Direct initialization
-	indices_()
+	indices_(
+		fcppt::no_init{}
+	)
 {
 	for(
 		auto &index

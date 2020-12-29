@@ -12,18 +12,18 @@
 #include <fcppt/optional_string.hpp>
 
 
-sge::input::mouse::button_info const
+sge::input::mouse::button_info
 sge::dinput::mouse::make_button_info(
 	DIDEVICEOBJECTINSTANCE const &_data
 )
 {
 	return
-			sge::input::mouse::button_info(
-				sge::dinput::mouse::button_code(
-					_data.dwOfs
-				),
-				sge::dinput::device::element_name(
-					_data
-				)
-			);
+		sge::input::mouse::button_info(
+			sge::dinput::mouse::button_code(
+				_data.dwOfs
+			),
+			sge::dinput::device::element_name(
+				_data
+			)
+		);
 }

@@ -8,7 +8,8 @@
 #include <sge/input/mouse/button_id.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
 #include <sge/x11input/mouse/button.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -36,15 +37,13 @@ sge::x11input::mouse::button(
 		)
 	);
 
-	FCPPT_ASSERT_PRE(
-		id < _info.size()
-	);
-
 	return
 		sge::input::mouse::button(
-			_info[
-				id
-			].code(),
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				_info[
+					id
+				]
+			)->code(),
 			id
 		);
 }
