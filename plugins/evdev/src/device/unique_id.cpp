@@ -9,11 +9,13 @@
 #include <sge/input/exception.hpp>
 #include <sge/input/info/unique_id.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/get.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <sys/ioctl.h>
-#include <array>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,12 +27,14 @@ sge::evdev::device::unique_id(
 	using
 	buffer_type
 	=
-	std::array<
+	fcppt::array::object<
 		char,
 		1024 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	>;
 
-	buffer_type buffer;
+	buffer_type buffer{
+		fcppt::no_init{}
+	};
 
 	if(
 		::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
@@ -47,7 +51,9 @@ sge::evdev::device::unique_id(
 		// For whatever reason, Linux used to return empty strings as
 		// unique ids. Starting with Linux-4.2, instead of empty
 		// strings, an error is returned.
-		buffer[0]
+		fcppt::array::get<0>(
+			buffer
+		)
 		!=
 		'\0'
 	)

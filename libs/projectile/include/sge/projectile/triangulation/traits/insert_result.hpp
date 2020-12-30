@@ -39,12 +39,11 @@ struct insert_result<
 		Vertex const &_v3
 	)
 	{
-		typename Container::value_type result =
-		{{
+		typename Container::value_type result{
 			_v1,
 			_v2,
 			_v3
-		}};
+		};
 
 		_container.insert(
 			_container.end(),

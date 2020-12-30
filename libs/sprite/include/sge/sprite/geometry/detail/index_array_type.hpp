@@ -8,9 +8,7 @@
 #define SGE_SPRITE_GEOMETRY_DETAIL_INDEX_ARRAY_TYPE_HPP_INCLUDED
 
 #include <sge/sprite/geometry/detail/indices_per_sprite.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/array/object_impl.hpp>
 
 
 namespace sge
@@ -28,7 +26,7 @@ template<
 using
 index_array_type
 =
-std::array<
+fcppt::array::object<
 	unsigned,
 	sge::sprite::geometry::detail::indices_per_sprite<
 		Choices

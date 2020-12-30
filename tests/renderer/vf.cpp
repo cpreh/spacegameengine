@@ -41,6 +41,8 @@
 #include <sge/renderer/vf/labels/pos.hpp>
 #include <mizuiro/color/object_fwd.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/no_init.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
@@ -53,7 +55,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <catch2/catch.hpp>
-#include <array>
 #include <cstddef>
 #include <cstring>
 #include <type_traits>
@@ -219,10 +220,13 @@ TEST_CASE(
 		format_part
 	>;
 
-	std::array<
+	fcppt::array::object<
 		sge::renderer::raw_value,
 		3 * format_part::stride::value
-	> test_data{};
+	>
+	test_data{
+		fcppt::no_init{}
+	};
 
 	using
 	vec3

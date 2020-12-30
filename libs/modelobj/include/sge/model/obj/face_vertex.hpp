@@ -12,9 +12,8 @@
 #include <sge/model/obj/texture_coordinate_index.hpp>
 #include <sge/model/obj/vertex_coordinate_index.hpp>
 #include <sge/model/obj/detail/symbol.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/functional/hash.hpp>
-#include <array>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -51,28 +50,24 @@ public:
 	sge::model::obj::normal_index
 	normal_index() const;
 
+	[[nodiscard]]
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	bool
 	operator==(
-		face_vertex const &_other
-	) const
-	{
-		return
-			indices_ == _other.indices_;
-	}
+		face_vertex const &
+	) const;
 
+	[[nodiscard]]
+	SGE_MODEL_OBJ_DETAIL_SYMBOL
 	bool
 	operator<(
-		face_vertex const &_other
-	) const
-	{
-		return
-			indices_ < _other.indices_;
-	}
+		face_vertex const &
+	) const;
 private:
 	using
 	index_array
 	=
-	std::array<
+	fcppt::array::object<
 		std::size_t,
 		3
 	>;

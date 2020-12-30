@@ -20,14 +20,15 @@
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -70,14 +71,17 @@ sge::dinput::device::object::~object()
 awl::event::container
 sge::dinput::device::object::dispatch()
 {
-	typedef
-	std::array<
+	using
+	input_buffer
+	=
+	fcppt::array::object<
 		DIDEVICEOBJECTDATA,
 		buffer_size
-	>
-	input_buffer;
+	>;
 
-	input_buffer buffer;
+	input_buffer buffer{
+		fcppt::no_init{}
+	};
 
 	DWORD elements(
 		buffer_size
@@ -118,11 +122,12 @@ sge::dinput::device::object::dispatch()
 					elements
 				)
 			)
+			{
 				fcppt::optional::maybe_void(
 					this->on_dispatch(
-						buffer[
+						buffer.get_unsafe(
 							index
-						]
+						)
 					),
 					[
 						&events
@@ -137,6 +142,7 @@ sge::dinput::device::object::dispatch()
 						);
 					}
 				);
+			}
 		}
 
 		auto const do_continue(

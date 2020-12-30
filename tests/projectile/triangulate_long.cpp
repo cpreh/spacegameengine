@@ -9,9 +9,9 @@
 #include <fcppt/math/vector/object.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
-#include <array>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -35,7 +35,7 @@ fcppt::math::vector::static_<
 using
 triangle
 =
-std::array<
+fcppt::array::object<
 	vector2,
 	3
 >;

@@ -7,9 +7,7 @@
 #ifndef SGE_WAVE_HEADER_HPP_INCLUDED
 #define SGE_WAVE_HEADER_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/array/object_impl.hpp>
 
 
 namespace sge
@@ -20,7 +18,7 @@ namespace wave
 using
 header
 =
-std::array<
+fcppt::array::object<
 	char,
 	4
 >;

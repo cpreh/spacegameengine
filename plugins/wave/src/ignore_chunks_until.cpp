@@ -10,6 +10,7 @@
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/comparison.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/endianness/format.hpp>
@@ -49,9 +50,11 @@ sge::wave::ignore_chunks_until(
 			)
 			{
 				bool const do_continue{
-					_header
-					!=
-					_cur
+					!(
+						_header
+						==
+						_cur
+					)
 				};
 
 				if(

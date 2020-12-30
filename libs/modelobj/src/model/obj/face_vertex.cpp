@@ -8,8 +8,10 @@
 #include <sge/model/obj/normal_index.hpp>
 #include <sge/model/obj/texture_coordinate_index.hpp>
 #include <sge/model/obj/vertex_coordinate_index.hpp>
+#include <fcppt/array/comparison.hpp>
+#include <fcppt/array/get.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
+#include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -19,11 +21,11 @@ sge::model::obj::face_vertex::face_vertex(
 	sge::model::obj::normal_index const &_normal_index
 )
 :
-	indices_{{
+	indices_{
 		_vertex_coordinate_index.get(),
 		_texture_coordinate_index.get(),
 		_normal_index.get()
-	}}
+	}
 {
 }
 
@@ -32,7 +34,7 @@ sge::model::obj::face_vertex::vertex_coordinate_index() const
 {
 	return
 		sge::model::obj::vertex_coordinate_index{
-			std::get<0>(
+			fcppt::array::get<0>(
 				indices_
 			)
 		};
@@ -43,7 +45,7 @@ sge::model::obj::face_vertex::texture_coordinate_index() const
 {
 	return
 		sge::model::obj::texture_coordinate_index{
-			std::get<1>(
+			fcppt::array::get<1>(
 				indices_
 			)
 		};
@@ -54,8 +56,31 @@ sge::model::obj::face_vertex::normal_index() const
 {
 	return
 		sge::model::obj::normal_index{
-			std::get<2>(
+			fcppt::array::get<2>(
 				indices_
 			)
 		};
+}
+
+bool
+sge::model::obj::face_vertex::operator==(
+	face_vertex const &_other
+) const
+{
+	return
+		indices_ == _other.indices_;
+}
+
+bool
+sge::model::obj::face_vertex::operator<(
+	face_vertex const &_other
+) const
+{
+	return
+		std::lexicographical_compare(
+			indices_.begin(),
+			indices_.end(),
+			_other.indices_.begin(),
+			_other.indices_.end()
+		);
 }

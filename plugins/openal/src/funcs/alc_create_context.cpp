@@ -10,10 +10,8 @@
 #include <sge/openal/funcs/alc_create_context.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/assert/post.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
 
 
 ALCcontext *
@@ -23,12 +21,12 @@ sge::openal::funcs::alc_create_context(
 	> const _device
 )
 {
-	std::array<
+	fcppt::array::object<
 		ALCint,
 		1U
-	> const attributes = {{
+	> const attributes{
 		0
-	}};
+	};
 
 	ALCcontext *const result(
 		::alcCreateContext(

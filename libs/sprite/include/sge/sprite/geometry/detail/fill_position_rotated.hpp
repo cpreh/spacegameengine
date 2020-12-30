@@ -17,6 +17,7 @@
 #include <sge/sprite/types/rotation.hpp>
 #include <sge/sprite/types/basic/float.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/matrix/row.hpp>
@@ -25,7 +26,6 @@
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
 
@@ -101,14 +101,14 @@ fill_position_rotated(
 	using
 	position_array
 	=
-	std::array<
+	fcppt::array::object<
 		pos2,
 		sge::sprite::geometry::detail::vertices_per_sprite<
 			Choices
 		>::value
 	>;
 
-	position_array const positions{{
+	position_array const positions{
 		pos2(
 			rbs.left(),
 			rbs.top()
@@ -125,7 +125,7 @@ fill_position_rotated(
 			rbs.left(),
 			rbs.bottom()
 		) - centerf
-	}};
+	};
 
 	using
 	rotation_type

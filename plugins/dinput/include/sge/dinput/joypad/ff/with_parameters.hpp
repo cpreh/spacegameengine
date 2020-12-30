@@ -30,6 +30,7 @@
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/deref.hpp>
@@ -41,7 +42,6 @@
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -70,10 +70,10 @@ with_parameters(
 )
 {
 	// TODO: How many axes do we want? evdev can do two.
-	std::array<
+	fcppt::array::object<
 		DWORD,
 		1
-	> axes{{
+	> axes{
 		// TODO: Is this right?
 		fcppt::literal<
 			DWORD
@@ -82,12 +82,12 @@ with_parameters(
 				DIMOFS_Z
 			)
 		)
-	}};
+	};
 
-	std::array<
+	fcppt::array::object<
 		LONG,
 		1
-	> direction{{
+	> direction{
 		fcppt::cast::size<
 			LONG
 		>(
@@ -100,7 +100,7 @@ with_parameters(
 				10
 			)
 		)
-	}};
+	};
 
 	sge::dinput::joypad::ff::optional_envelope envelope{
 		sge::dinput::joypad::ff::envelope_from_variant(

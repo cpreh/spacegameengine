@@ -8,13 +8,14 @@
 #include <sge/model/md3/string.hpp>
 #include <sge/model/md3/impl/max_qpath.hpp>
 #include <sge/model/md3/impl/read_string.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
-#include <array>
 #include <ios>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
@@ -28,11 +29,12 @@ sge::model::md3::impl::read_string(
 	std::istream &_stream
 )
 {
-	// NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init,hicpp-member-init)
-	std::array<
+	fcppt::array::object<
 		sge::model::md3::string::value_type,
 		Max
-	> tmp_name;
+	> tmp_name{
+		fcppt::no_init{}
+	};
 
 	if(
 		!_stream.read(
@@ -72,7 +74,9 @@ sge::model::md3::impl::read_string(
 	}
 
 	return
-		tmp_name.data();
+		sge::model::md3::string{
+			tmp_name.data()
+		};
 }
 
 #define SGE_MODEL_MD3_INSTANTIATE_READ_STRING(\

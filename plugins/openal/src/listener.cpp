@@ -12,9 +12,7 @@
 #include <sge/openal/to_vector3.hpp>
 #include <sge/openal/vector3.hpp>
 #include <sge/openal/funcs/listener_float_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/array/object_impl.hpp>
 
 
 sge::openal::listener::listener()
@@ -69,19 +67,19 @@ sge::openal::listener::direction(
 	using
 	float6_array
 	=
-	std::array<
+	fcppt::array::object<
 		ALfloat,
 		6 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	>;
 
-	float6_array const vec{{
+	float6_array const vec{
 		forward.x(),
 		forward.y(),
 		forward.z(),
 		up.x(),
 		up.y(),
 		up.z()
-	}};
+	};
 
 	sge::openal::funcs::listener_float_ptr(
 		AL_ORIENTATION,

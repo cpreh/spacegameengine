@@ -10,13 +10,13 @@
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/shape/detail/scalar_container.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <LinearMath/btScalar.h>
-#include <array>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -55,15 +55,15 @@ sge::projectile::impl::shape::triangle_scalars(
 		using
 		extrusion_array
 		=
-		std::array<
+		fcppt::array::object<
 			btScalar,
 			2
 		>;
 
-		extrusion_array const extrusion_depth{{
+		extrusion_array const extrusion_depth{
 			static_cast<btScalar>(-sge::projectile::impl::object_extrusion_depth()/2),
 			static_cast<btScalar>(sge::projectile::impl::object_extrusion_depth()/2)
-		}};
+		};
 
 		for(
 			btScalar const current_z

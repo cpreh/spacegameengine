@@ -10,12 +10,13 @@
 #include <sge/evdev/inotify/reader.hpp>
 #include <awl/backends/posix/fd.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/no_init.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unistd.h>
 #include <linux/limits.h>
 #include <sys/inotify.h>
-#include <array>
 #include <cstddef>
 #include <cstring>
 #include <filesystem>
@@ -47,7 +48,7 @@ sge::evdev::inotify::reader::on_event()
 	using
 	buffer_array
 	=
-	std::array<
+	fcppt::array::object<
 		char,
 		sizeof(
 			inotify_event
@@ -58,7 +59,9 @@ sge::evdev::inotify::reader::on_event()
 		1U
 	>;
 
-	buffer_array buffer;
+	buffer_array buffer{
+		fcppt::no_init{}
+	};
 
 	ssize_t ret(
 		::read(

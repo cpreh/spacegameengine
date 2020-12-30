@@ -24,6 +24,8 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/array/init.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -33,7 +35,6 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
-#include <array>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
@@ -81,10 +82,20 @@ get_guid(
 		)
 	};
 
-	std::array<
-		char,
-		33 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-	> guid_string{};
+	auto guid_string{
+		fcppt::array::init<
+			fcppt::array::object<
+				char,
+				33 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+			>
+		>(
+			[](auto)
+			{
+				return
+					'\0';
+			}
+		)
+	};
 
 	SDL_JoystickGetGUIDString(
 		guid,

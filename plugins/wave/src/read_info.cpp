@@ -21,6 +21,7 @@
 #include <fcppt/const.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/comparison.hpp>
 #include <fcppt/endianness/format.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/info.hpp>
@@ -78,18 +79,18 @@ sge::wave::read_info(
 	bool const little_endian(
 		compare_header_opt(
 			riff,
-			sge::wave::header{{
+			sge::wave::header{
 				'R', 'I', 'F', 'F'
-			}}
+			}
 		)
 	);
 
 	bool const big_endian(
 		compare_header_opt(
 			riff,
-			sge::wave::header{{
+			sge::wave::header{
 				'R', 'I', 'F', 'X'
-			}}
+			}
 		)
 	);
 
@@ -124,9 +125,9 @@ sge::wave::read_info(
 			sge::wave::extract_header(
 				_stream
 			),
-			sge::wave::header{{
+			sge::wave::header{
 				'W','A','V','E'
-			}}
+			}
 		)
 	)
 	{
@@ -138,9 +139,9 @@ sge::wave::read_info(
 		!sge::wave::ignore_chunks_until(
 			_log,
 			_stream,
-			sge::wave::header{{
+			sge::wave::header{
 				'f','m','t',' '
-			}},
+			},
 			endianness
 		)
 	)
@@ -267,9 +268,9 @@ sge::wave::read_info(
 		!sge::wave::ignore_chunks_until(
 			_log,
 			_stream,
-			sge::wave::header{{
+			sge::wave::header{
 				'd','a','t','a'
-			}},
+			},
 			endianness
 		)
 	)

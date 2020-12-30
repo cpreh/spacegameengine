@@ -7,6 +7,7 @@
 #include <sge/wave/extract_header.hpp>
 #include <sge/wave/header.hpp>
 #include <sge/wave/optional_header.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
@@ -17,7 +18,9 @@ sge::wave::extract_header(
 	std::istream &_stream
 )
 {
-	sge::wave::header result;
+	sge::wave::header result{
+		fcppt::no_init{}
+	};
 
 	_stream.read(
 		result.data(),

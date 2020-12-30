@@ -8,9 +8,7 @@
 #define SGE_PROJECTILE_TRIANGLE_HPP_INCLUDED
 
 #include <sge/projectile/vector2.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/array/object_impl.hpp>
 
 
 namespace sge
@@ -21,7 +19,7 @@ namespace projectile
 using
 triangle
 =
-std::array<
+fcppt::array::object<
 	sge::projectile::vector2,
 	3
 >;

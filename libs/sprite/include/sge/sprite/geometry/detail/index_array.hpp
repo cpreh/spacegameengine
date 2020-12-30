@@ -49,16 +49,13 @@ sge::sprite::geometry::detail::index_array<
 >::array const
 sge::sprite::geometry::detail::index_array<
 	Choices
->::value =
-{
-{
-	0,
-	1,
-	2,
-	0,
-	2,
-	3
-}
+>::value{
+	0U,
+	1U,
+	2U,
+	0U,
+	2U,
+	3U
 };
 
 #endif

@@ -18,7 +18,6 @@
 #include <fcppt/container/make.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_events.h>
-#include <array>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 

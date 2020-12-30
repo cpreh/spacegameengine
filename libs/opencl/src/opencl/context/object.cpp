@@ -14,6 +14,7 @@
 #include <sge/opencl/platform/object.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -27,7 +28,6 @@
 #error "Don't know what to include for opencl platform code"
 #endif
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -41,7 +41,7 @@ sge::opencl::context::object::object(
 {
 	cl_int error_code{};
 
-	std::array<cl_context_properties, 9> props{ // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+	fcppt::array::object<cl_context_properties, 7> props{ // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 		CL_CONTEXT_PLATFORM,
 		reinterpret_cast<
 			cl_context_properties

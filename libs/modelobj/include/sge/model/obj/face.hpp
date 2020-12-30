@@ -7,8 +7,8 @@
 #ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
 
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -23,7 +23,7 @@ namespace obj
 using
 face
 =
-std::array<
+fcppt::array::object<
 	std::size_t,
 	3U
 >;

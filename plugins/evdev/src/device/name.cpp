@@ -9,11 +9,12 @@
 #include <sge/input/exception.hpp>
 #include <sge/input/info/name.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <sys/ioctl.h>
-#include <array>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -25,12 +26,14 @@ sge::evdev::device::name(
 	using
 	buffer_type
 	=
-	std::array<
+	fcppt::array::object<
 		char,
 		1024 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	>;
 
-	buffer_type buffer;
+	buffer_type buffer{
+		fcppt::no_init{}
+	};
 
 	if(
 		::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)

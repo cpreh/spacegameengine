@@ -18,13 +18,12 @@
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
 #include <sge/opencl/memory_object/image/planar_ref.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
@@ -54,8 +53,8 @@ sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
 	cl_int error_code{};
 
 	// We can't use _rect.pos().data() because OpenCL checks if [2] is equal to 0/1
-	std::array<std::size_t,3> pos { _rect.pos().x(),_rect.pos().y(),0 };
-	std::array<std::size_t,3> size { _rect.size().w(),_rect.size().h(),1 };
+	fcppt::array::object<std::size_t,3> pos { _rect.pos().x(),_rect.pos().y(),fcppt::literal<std::size_t>(0) };
+	fcppt::array::object<std::size_t,3> size { _rect.size().w(),_rect.size().h(),fcppt::literal<std::size_t>(1) };
 
 	ptr_ =
 		clEnqueueMapImage(

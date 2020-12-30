@@ -29,13 +29,11 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/enum/array_impl.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <array>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -44,7 +42,7 @@ namespace
 using
 inner_array
 =
-std::array<
+fcppt::array::object<
 	fcppt::math::size_type,
 	3
 >;
@@ -75,9 +73,9 @@ permute_vector_according_to_orientation(
 {
 	return
 		sge::renderer::vector3(
-			_input.get_unsafe(axis_mappings[_orientation][0]),
-			_input.get_unsafe(axis_mappings[_orientation][1]),
-			_input.get_unsafe(axis_mappings[_orientation][2])
+			_input.get_unsafe(fcppt::array::get<0>(axis_mappings[_orientation])),
+			_input.get_unsafe(fcppt::array::get<1>(axis_mappings[_orientation])),
+			_input.get_unsafe(fcppt::array::get<2>(axis_mappings[_orientation]))
 		);
 }
 }

@@ -16,6 +16,7 @@
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/out.hpp>
@@ -26,7 +27,6 @@
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
-#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>
@@ -340,9 +340,9 @@ sge::model::obj::prototype::prototype(
 			using
 			face_vertex_array
 			=
-			std::array<sge::model::obj::face_vertex,3>;
+			fcppt::array::object<sge::model::obj::face_vertex,3>;
 
-			face_vertex_array const temporary_face_vertices{{
+			face_vertex_array const temporary_face_vertices{
 				parse_face_vertex(
 					line_counter,
 					line_rest),
@@ -352,15 +352,17 @@ sge::model::obj::prototype::prototype(
 				parse_face_vertex(
 					line_counter,
 					line_rest)
-			}};
+			};
 
-			sge::model::obj::face face;
+			sge::model::obj::face face{
+				fcppt::no_init{}
+			};
 
 			for(std::size_t i = 0; i < temporary_face_vertices.size(); ++i)
 			{
 				auto it =
 					face_vertex_to_index.find(
-						temporary_face_vertices[i]);
+						temporary_face_vertices.get_unsafe(i));
 
 				/*
 				sge::model::obj::face_vertex_sequence::iterator it =
@@ -373,18 +375,18 @@ sge::model::obj::prototype::prototype(
 				if(it == face_vertex_to_index.end())
 				{
 					face_vertices_.push_back(
-						temporary_face_vertices[i]);
+						temporary_face_vertices.get_unsafe(i));
 
 					it =
 						face_vertex_to_index.insert(
 							std::make_pair(
-								temporary_face_vertices[i],
+								temporary_face_vertices.get_unsafe(i),
 								static_cast<std::size_t>(
 									face_vertices_.size()-1U))).first;
 				}
 
 				// Flip triangle order
-				face[2U - i] =
+				face.get_unsafe(2U - i) =
 				//face[i] =
 					it->second;
 				/*

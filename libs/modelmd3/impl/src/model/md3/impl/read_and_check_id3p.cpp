@@ -8,11 +8,13 @@
 #include <sge/model/md3/u8.hpp>
 #include <sge/model/md3/impl/endian.hpp>
 #include <sge/model/md3/impl/read_and_check_id3p.hpp>
+#include <fcppt/literal.hpp>
+#include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/array/object.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
@@ -25,17 +27,21 @@ sge::model::md3::impl::read_and_check_id3p(
 	using
 	id3p_array
 	=
-	std::array<
+	fcppt::array::object<
 		sge::model::md3::u8,
 		4
 	>;
 
-	id3p_array const to_check{{
-		0x49, 0x44, 0x50, 0x33
-	}};
+	id3p_array const to_check{
+		fcppt::literal<sge::model::md3::u8>(0x49),
+		fcppt::literal<sge::model::md3::u8>(0x44),
+		fcppt::literal<sge::model::md3::u8>(0x50),
+		fcppt::literal<sge::model::md3::u8>(0x33)
+	};
 
-	// TODO(philipp): Make a function for this!
-	id3p_array id3p;
+	id3p_array id3p{
+		fcppt::no_init{}
+	};
 
 	for(
 		auto &elem

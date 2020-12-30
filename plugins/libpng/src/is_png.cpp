@@ -8,11 +8,12 @@
 #include <sge/libpng/is_png.hpp>
 #include <sge/libpng/png.hpp>
 #include <fcppt/literal.hpp>
+#include <fcppt/no_init.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <array>
 #include <ios>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
@@ -23,11 +24,13 @@ sge::libpng::is_png(
 	std::istream &_stream
 )
 {
-	std::array<
+	fcppt::array::object<
 		char,
 		sge::libpng::header_bytes::value
 	>
-	buf{};
+	buf{
+		fcppt::no_init{}
+	};
 
 	std::streamsize const signed_size(
 		fcppt::cast::to_signed(
