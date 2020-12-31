@@ -37,7 +37,6 @@
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -46,7 +45,7 @@ sge::cursor::detail::object::object(
 	sge::input::const_processor_ref const _processor,
 	sge::renderer::device::ffp_ref const _renderer,
 	sge::texture::const_part_ref const _texture,
-	sge::cursor::hotspot _hotspot
+	sge::cursor::hotspot const _hotspot
 )
 :
 	processor_{
@@ -56,9 +55,7 @@ sge::cursor::detail::object::object(
 		_texture
 	},
 	hotspot_{
-		std::move(
-			_hotspot
-		)
+		_hotspot
 	},
 	sprite_buffers_{
 		fcppt::reference_to_base<
