@@ -8,6 +8,9 @@
 #define SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 
 
@@ -56,10 +59,13 @@ struct init_one_option
 		>
 	) const
 	{
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GNU_GCC_WARNING(-Wmaybe-uninitialized)
 		return
 			fcppt::optional::object<
 				Type
 			>();
+FCPPT_PP_POP_WARNING
 	}
 };
 
