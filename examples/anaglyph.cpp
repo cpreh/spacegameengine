@@ -228,8 +228,6 @@
 #include <chrono>
 #include <cmath>
 #include <exception>
-#include <string>
-#include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -575,7 +573,7 @@ public:
 	sge::renderer::matrix4 const &
 	modelview() const;
 
-	~model_instance();
+	~model_instance(); // NOLINT(performance-trivially-destructible)
 private:
 	fcppt::reference<
 		compiled_model const
@@ -588,16 +586,14 @@ model_instance::model_instance(
 	fcppt::reference<
 		compiled_model const
 	> const _backend,
-	sge::renderer::matrix4 _modelview
+	sge::renderer::matrix4 const _modelview
 )
 :
 	backend_{
 		_backend
 	},
 	modelview_{
-		std::move(
-			_modelview
-		)
+		_modelview
 	}
 {
 }

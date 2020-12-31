@@ -29,7 +29,7 @@ public:
 	SGE_SYSTEMS_DETAIL_SYMBOL
 	renderer(
 		sge::renderer::pixel_format::object const &,
-		sge::renderer::display_mode::parameters &&,
+		sge::renderer::display_mode::parameters,
 		sge::viewport::optional_resize_callback &&
 	);
 

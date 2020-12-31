@@ -88,7 +88,7 @@ lerp_double(
 }
 
 sge::camera::tracking::object::object(
-	sge::camera::optional_projection_matrix _projection_matrix,
+	sge::camera::optional_projection_matrix const _projection_matrix,
 	sge::camera::tracking::keyframe_sequence &&_keyframes,
 	sge::camera::tracking::is_looping const _is_looping
 )
@@ -97,9 +97,7 @@ sge::camera::tracking::object::object(
 	sge::camera::is_dynamic{},
 	sge::camera::has_mutable_projection{},
 	projection_matrix_{
-		std::move(
-			_projection_matrix
-		)
+		_projection_matrix
 	},
 	keyframes_{
 		std::move(

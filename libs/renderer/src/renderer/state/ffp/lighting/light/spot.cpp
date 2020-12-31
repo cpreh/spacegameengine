@@ -9,27 +9,20 @@
 #include <sge/renderer/state/ffp/lighting/light/direction.hpp>
 #include <sge/renderer/state/ffp/lighting/light/position.hpp>
 #include <sge/renderer/state/ffp/lighting/light/spot.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::lighting::light::spot::spot(
-	sge::renderer::state::ffp::lighting::light::position _position,
-	sge::renderer::state::ffp::lighting::light::direction _direction,
+	sge::renderer::state::ffp::lighting::light::position const _position,
+	sge::renderer::state::ffp::lighting::light::direction const _direction,
 	sge::renderer::state::ffp::lighting::light::cutoff_angle const _cutoff_angle,
 	sge::renderer::state::ffp::lighting::light::attenuation const &_attenuation
 )
 :
 	position_(
-		std::move(
-			_position
-		)
+		_position
 	),
 	direction_(
-		std::move(
-			_direction
-		)
+		_direction
 	),
 	cutoff_angle_(
 		_cutoff_angle

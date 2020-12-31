@@ -6,19 +6,14 @@
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::transform::parameters::parameters(
-	sge::renderer::matrix4 _matrix
+	sge::renderer::matrix4 const _matrix
 )
 :
 	matrix_(
-		std::move(
-			_matrix
-		)
+		_matrix
 	)
 {
 }

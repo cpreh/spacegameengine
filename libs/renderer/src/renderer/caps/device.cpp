@@ -28,7 +28,7 @@ sge::renderer::caps::device::device(
 	sge::renderer::caps::driver_name &&_driver_name,
 	sge::renderer::caps::description &&_description,
 	sge::renderer::caps::normalized_cvv const _normalized_cvv,
-	sge::renderer::caps::max_texture_size _max_texture_size,
+	sge::renderer::caps::max_texture_size const _max_texture_size,
 	sge::renderer::caps::max_volume_texture_extent const _max_volume_texture_extent,
 	sge::renderer::caps::non_power_of_2_textures const _non_power_of_2_textures,
 	sge::renderer::caps::max_anisotropy const _max_anisotropy,
@@ -55,9 +55,7 @@ sge::renderer::caps::device::device(
 		_normalized_cvv
 	),
 	max_texture_size_(
-		std::move(
-			_max_texture_size
-		)
+		_max_texture_size
 	),
 	max_volume_texture_extent_(
 		_max_volume_texture_extent

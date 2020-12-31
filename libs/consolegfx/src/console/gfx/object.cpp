@@ -67,7 +67,7 @@ sge::console::gfx::object::object(
 	sge::renderer::device::ffp_ref const _renderer,
 	sge::console::gfx::font_color _font_color,
 	sge::font::object_ref const _font_object,
-	sge::font::rect _area,
+	sge::font::rect const _area,
 	sge::console::gfx::output_line_limit const _line_limit
 )
 :
@@ -123,9 +123,7 @@ sge::console::gfx::object::object(
 		)
 	),
 	area_{
-		std::move(
-			_area
-		)
+		_area
 	},
 	input_line_(),
 	input_history_(),

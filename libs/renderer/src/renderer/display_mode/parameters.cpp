@@ -11,9 +11,6 @@
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <fcppt/optional/map.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::display_mode::parameters::parameters(
@@ -41,16 +38,14 @@ sge::renderer::display_mode::parameters::parameters(
 
 sge::renderer::display_mode::parameters::parameters(
 	sge::renderer::display_mode::vsync const _vsync,
-	sge::renderer::display_mode::optional_fullscreen _fullscreen
+	sge::renderer::display_mode::optional_fullscreen const _fullscreen
 )
 :
 	vsync_(
 		_vsync
 	),
 	fullscreen_(
-		std::move(
-			_fullscreen
-		)
+		_fullscreen
 	)
 {
 }

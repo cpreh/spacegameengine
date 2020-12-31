@@ -9,22 +9,17 @@
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/scenic/scene/camera_properties.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::scene::camera_properties::camera_properties(
-	sge::camera::coordinate_system::object _coordinate_system,
+	sge::camera::coordinate_system::object const _coordinate_system,
 	sge::renderer::projection::fov const &_fov,
 	sge::renderer::projection::near const &_near,
 	sge::renderer::projection::far const &_far
 )
 :
 	coordinate_system_(
-		std::move(
-			_coordinate_system
-		)
+		_coordinate_system
 	),
 	fov_(
 		_fov

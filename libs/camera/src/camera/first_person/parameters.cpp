@@ -11,14 +11,11 @@
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/first_person/action/wasd_mapping.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::camera::first_person::parameters::parameters(
 	sge::camera::first_person::movement_speed const &_movement_speed,
-	sge::camera::coordinate_system::object _coordinate_system
+	sge::camera::coordinate_system::object const _coordinate_system
 )
 :
 	action_mapping_{
@@ -28,9 +25,7 @@ sge::camera::first_person::parameters::parameters(
 		_movement_speed
 	},
 	coordinate_system_{
-		std::move(
-			_coordinate_system
-		)
+		_coordinate_system
 	},
 	mouse_speed_multiplier_{
 		0.0025F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)

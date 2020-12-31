@@ -125,7 +125,6 @@ sge::noise::simplex::object<Float,N>::sample(
 	vector_type floored(tmp);
 	tmp = inv_m() * tmp;
 	tmp = in - tmp;
-	vector_type offset(tmp);
 	tmp = stretch_m() * tmp;
 
 	corner_array c = corners(tmp);

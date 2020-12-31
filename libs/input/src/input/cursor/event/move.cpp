@@ -15,7 +15,7 @@
 
 sge::input::cursor::event::move::move(
 	sge::input::cursor::shared_ptr _cursor,
-	sge::input::cursor::optional_position _position
+	sge::input::cursor::optional_position const _position
 )
 :
 	sge::input::cursor::event::base{
@@ -24,9 +24,7 @@ sge::input::cursor::event::move::move(
 		)
 	},
 	position_{
-		std::move(
-			_position
-		)
+		_position
 	}
 {
 }

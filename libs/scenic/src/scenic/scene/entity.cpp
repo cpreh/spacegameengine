@@ -16,9 +16,9 @@
 
 sge::scenic::scene::entity::entity(
 	sge::scenic::scene::mesh_path &&_mesh_path,
-	sge::scenic::scene::position _position,
-	sge::scenic::scene::rotation _rotation,
-	sge::scenic::scene::scale _scale
+	sge::scenic::scene::position const _position,
+	sge::scenic::scene::rotation const _rotation,
+	sge::scenic::scene::scale const _scale
 )
 :
 	mesh_path_(
@@ -27,19 +27,13 @@ sge::scenic::scene::entity::entity(
 		)
 	),
 	position_(
-		std::move(
-			_position
-		)
+		_position
 	),
 	rotation_(
-		std::move(
-			_rotation
-		)
+		_rotation
 	),
 	scale_(
-		std::move(
-			_scale
-		)
+		_scale
 	)
 {
 }

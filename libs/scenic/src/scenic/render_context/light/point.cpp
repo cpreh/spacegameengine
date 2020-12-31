@@ -7,20 +7,15 @@
 #include <sge/scenic/render_context/light/attenuation.hpp>
 #include <sge/scenic/render_context/light/point.hpp>
 #include <sge/scenic/render_context/light/position.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::scenic::render_context::light::point::point(
-	sge::scenic::render_context::light::position _position,
+	sge::scenic::render_context::light::position const _position,
 	sge::scenic::render_context::light::attenuation const &_attenuation
 )
 :
 	position_(
-		std::move(
-			_position
-		)
+		_position
 	),
 	attenuation_(
 		_attenuation

@@ -18,16 +18,13 @@
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::opencl::memory_object::image::planar::planar(
 	sge::opencl::context::object_ref const _context,
 	memory_object::flags_field const &_mem_flags,
 	cl_image_format const &_image_format,
-	sge::opencl::dim2 _size,
+	sge::opencl::dim2 const _size,
 	image::planar_pitch const &_pitch
 )
 :
@@ -36,9 +33,7 @@ sge::opencl::memory_object::image::planar::planar(
 		_image_format
 	),
 	size_(
-		std::move(
-			_size
-		)
+		_size
 	)
 {
 	FCPPT_ASSERT_PRE(

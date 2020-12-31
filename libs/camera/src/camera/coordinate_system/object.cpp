@@ -9,37 +9,26 @@
 #include <sge/camera/coordinate_system/position.hpp>
 #include <sge/camera/coordinate_system/right.hpp>
 #include <sge/camera/coordinate_system/up.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::camera::coordinate_system::object::object(
-	sge::camera::coordinate_system::right _right,
-	sge::camera::coordinate_system::up _up,
-	sge::camera::coordinate_system::forward _forward,
-	sge::camera::coordinate_system::position _position
+	sge::camera::coordinate_system::right const _right,
+	sge::camera::coordinate_system::up const _up,
+	sge::camera::coordinate_system::forward const _forward,
+	sge::camera::coordinate_system::position const _position
 )
 :
 	right_(
-		std::move(
-			_right
-		)
+		_right
 	),
 	up_(
-		std::move(
-			_up
-		)
+		_up
 	),
 	forward_(
-		std::move(
-			_forward
-		)
+		_forward
 	),
 	position_(
-		std::move(
-			_position
-		)
+		_position
 	)
 {
 }

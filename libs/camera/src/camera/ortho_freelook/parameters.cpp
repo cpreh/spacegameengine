@@ -15,9 +15,6 @@
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/rect.hpp>
 #include <fcppt/math/vector/fill.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::camera::ortho_freelook::parameters::parameters(
@@ -54,13 +51,11 @@ sge::camera::ortho_freelook::parameters::parameters(
 
 sge::camera::ortho_freelook::parameters &
 sge::camera::ortho_freelook::parameters::zoom_speed(
-	sge::camera::ortho_freelook::zoom_speed _zoom_speed
+	sge::camera::ortho_freelook::zoom_speed const _zoom_speed
 )
 {
 	zoom_speed_ =
-		std::move(
-			_zoom_speed
-		);
+		_zoom_speed;
 
 	return
 		*this;
@@ -94,13 +89,11 @@ sge::camera::ortho_freelook::parameters::action_mapping() const
 
 sge::camera::ortho_freelook::parameters &
 sge::camera::ortho_freelook::parameters::pan_speed(
-	sge::camera::ortho_freelook::pan_speed _pan_speed
+	sge::camera::ortho_freelook::pan_speed const _pan_speed
 )
 {
 	pan_speed_ =
-		std::move(
-			_pan_speed
-		);
+		_pan_speed;
 
 	return
 		*this;

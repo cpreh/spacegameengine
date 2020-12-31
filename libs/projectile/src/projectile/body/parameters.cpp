@@ -22,8 +22,8 @@
 
 sge::projectile::body::parameters::parameters(
 	sge::projectile::log const &_log,
-	sge::projectile::body::position _position,
-	sge::projectile::body::linear_velocity _linear_velocity,
+	sge::projectile::body::position const _position,
+	sge::projectile::body::linear_velocity const _linear_velocity,
 	sge::projectile::body::angular_velocity const &_angular_velocity,
 	sge::projectile::shape::shared_base_ptr _shape,
 	sge::projectile::body::rotation const &_rotation,
@@ -35,14 +35,10 @@ sge::projectile::body::parameters::parameters(
 		_log.body_log()
 	},
 	position_(
-		std::move(
-			_position
-		)
+		_position
 	),
 	linear_velocity_(
-		std::move(
-			_linear_velocity
-		)
+		_linear_velocity
 	),
 	angular_velocity_(
 		_angular_velocity

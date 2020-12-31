@@ -18,7 +18,7 @@
 sge::input::cursor::event::button::button(
 	sge::input::cursor::shared_ptr _cursor,
 	sge::input::cursor::button_code const _button_code,
-	sge::input::cursor::position _position,
+	sge::input::cursor::position const _position,
 	sge::input::cursor::button_pressed const _pressed
 )
 :
@@ -31,9 +31,7 @@ sge::input::cursor::event::button::button(
 		_button_code
 	},
 	position_{
-		std::move(
-			_position
-		)
+		_position
 	},
 	pressed_{
 		_pressed

@@ -10,14 +10,11 @@
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::vf::dynamic::locked_part::locked_part(
 	sge::renderer::raw_pointer const _data,
-	sge::renderer::lock_segment _segment,
+	sge::renderer::lock_segment const _segment,
 	sge::renderer::lock_flags::method const _lock_flags
 )
 :
@@ -25,9 +22,7 @@ sge::renderer::vf::dynamic::locked_part::locked_part(
 		_data
 	),
 	segment_(
-		std::move(
-			_segment
-		)
+		_segment
 	),
 	lock_flags_(
 		_lock_flags

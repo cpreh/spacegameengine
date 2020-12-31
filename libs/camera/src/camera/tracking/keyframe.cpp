@@ -7,23 +7,18 @@
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/tracking/keyframe.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::camera::tracking::keyframe::keyframe(
 	sge::camera::update_duration const &_duration,
-	sge::camera::coordinate_system::object _coordinate_system
+	sge::camera::coordinate_system::object const _coordinate_system
 )
 :
 	duration_(
 		_duration
 	),
 	coordinate_system_(
-		std::move(
-			_coordinate_system
-		)
+		_coordinate_system
 	)
 {
 }

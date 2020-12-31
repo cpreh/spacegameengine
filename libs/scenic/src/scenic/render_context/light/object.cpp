@@ -18,7 +18,7 @@ sge::scenic::render_context::light::object::object(
 	sge::scenic::render_context::diffuse_color _diffuse_color,
 	sge::scenic::render_context::specular_color _specular_color,
 	sge::scenic::render_context::ambient_color _ambient_color,
-	sge::scenic::render_context::light::variant _variant
+	sge::scenic::render_context::light::variant const _variant
 )
 :
 	diffuse_color_(
@@ -37,9 +37,7 @@ sge::scenic::render_context::light::object::object(
 		)
 	),
 	variant_(
-		std::move(
-			_variant
-		)
+		_variant
 	)
 {
 }

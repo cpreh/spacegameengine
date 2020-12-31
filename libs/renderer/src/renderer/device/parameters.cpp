@@ -7,20 +7,15 @@
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/window/object_ref.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::device::parameters::parameters(
-	sge::renderer::display_mode::parameters _display_mode,
+	sge::renderer::display_mode::parameters const _display_mode,
 	sge::window::object_ref const _window
 )
 :
 	display_mode_{
-		std::move(
-			_display_mode
-		)
+		_display_mode
 	},
 	window_{
 		_window

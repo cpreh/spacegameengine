@@ -7,20 +7,15 @@
 #include <sge/image/ds/format.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::depth_stencil_buffer::surface_parameters::surface_parameters(
-	sge::renderer::dim2 _size,
+	sge::renderer::dim2 const _size,
 	sge::image::ds::format const _format
 )
 :
 	size_(
-		std::move(
-			_size
-		)
+		_size
 	),
 	format_(
 		_format

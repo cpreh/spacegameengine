@@ -6,19 +6,14 @@
 
 #include <sge/renderer/state/ffp/lighting/light/direction.hpp>
 #include <sge/renderer/state/ffp/lighting/light/directional.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::lighting::light::directional::directional(
-	sge::renderer::state::ffp::lighting::light::direction _direction
+	sge::renderer::state::ffp::lighting::light::direction const _direction
 )
 :
 	direction_(
-		std::move(
-			_direction
-		)
+		_direction
 	)
 {
 }

@@ -9,29 +9,22 @@
 #include <sge/projectile/ghost/position.hpp>
 #include <sge/projectile/ghost/size.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::projectile::ghost::parameters::parameters(
 	sge::projectile::log const &_log,
-	sge::projectile::ghost::position _position,
-	sge::projectile::ghost::size _size
+	sge::projectile::ghost::position const _position,
+	sge::projectile::ghost::size const _size
 )
 :
 	log_{
 		_log.ghost_log()
 	},
 	position_(
-		std::move(
-			_position
-		)
+		_position
 	),
 	size_(
-		std::move(
-			_size
-		)
+		_size
 	)
 {
 }

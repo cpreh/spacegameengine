@@ -6,19 +6,14 @@
 
 #include <sge/renderer/state/ffp/clip_plane/area.hpp>
 #include <sge/renderer/state/ffp/clip_plane/parameters.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::clip_plane::parameters::parameters(
-	sge::renderer::state::ffp::clip_plane::area _area
+	sge::renderer::state::ffp::clip_plane::area const _area
 )
 :
 	area_(
-		std::move(
-			_area
-		)
+		_area
 	)
 {
 }

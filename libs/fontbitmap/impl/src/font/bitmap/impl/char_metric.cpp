@@ -25,9 +25,7 @@ sge::font::bitmap::impl::char_metric::char_metric(
 		)
 	),
 	offset_(
-		std::move(
-			_offset
-		)
+		_offset
 	),
 	x_advance_(
 		_x_advance

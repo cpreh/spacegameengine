@@ -7,20 +7,15 @@
 #include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/point.hpp>
 #include <sge/renderer/state/ffp/lighting/light/position.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::renderer::state::ffp::lighting::light::point::point(
-	sge::renderer::state::ffp::lighting::light::position _position,
+	sge::renderer::state::ffp::lighting::light::position const _position,
 	sge::renderer::state::ffp::lighting::light::attenuation const &_attenuation
 )
 :
 	position_(
-		std::move(
-			_position
-		)
+		_position
 	),
 	attenuation_(
 		_attenuation

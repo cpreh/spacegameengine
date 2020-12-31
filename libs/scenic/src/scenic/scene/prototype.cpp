@@ -14,15 +14,13 @@
 
 
 sge::scenic::scene::prototype::prototype(
-	sge::scenic::scene::camera_properties _camera,
+	sge::scenic::scene::camera_properties const _camera,
 	sge::scenic::render_context::fog::optional_properties _fog,
 	sge::scenic::render_context::ambient_color _ambient_color
 )
 :
 	camera_(
-		std::move(
-			_camera
-		)
+		_camera
 	),
 	fog_(
 		std::move(

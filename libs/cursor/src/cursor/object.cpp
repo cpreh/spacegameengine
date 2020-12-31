@@ -12,16 +12,13 @@
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/texture/const_part_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::cursor::object::object(
 	sge::input::const_processor_ref const _processor,
 	sge::renderer::device::ffp_ref const _renderer,
 	sge::texture::const_part_ref const _texture,
-	sge::cursor::hotspot _hotspot
+	sge::cursor::hotspot const _hotspot
 )
 :
 	impl_{
@@ -31,9 +28,7 @@ sge::cursor::object::object(
 			_processor,
 			_renderer,
 			_texture,
-			std::move(
-				_hotspot
-			)
+			_hotspot
 		)
 	}
 {

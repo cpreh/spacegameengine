@@ -18,7 +18,7 @@ sge::renderer::state::ffp::lighting::light::parameters::parameters(
 	sge::renderer::state::ffp::lighting::diffuse_color _diffuse,
 	sge::renderer::state::ffp::lighting::specular_color _specular,
 	sge::renderer::state::ffp::lighting::ambient_color _ambient,
-	sge::renderer::state::ffp::lighting::light::variant _variant
+	sge::renderer::state::ffp::lighting::light::variant const _variant
 )
 :
 	diffuse_(
@@ -37,9 +37,7 @@ sge::renderer::state::ffp::lighting::light::parameters::parameters(
 		)
 	),
 	variant_(
-		std::move(
-			_variant
-		)
+		_variant
 	)
 {
 }

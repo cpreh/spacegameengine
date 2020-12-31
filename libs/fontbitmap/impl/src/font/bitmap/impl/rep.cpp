@@ -14,7 +14,7 @@
 
 sge::font::bitmap::impl::rep::rep(
 	sge::font::bitmap::impl::line_vector &&_lines,
-	sge::font::rect _rect
+	sge::font::rect const _rect
 )
 :
 	lines_(
@@ -23,9 +23,7 @@ sge::font::bitmap::impl::rep::rep(
 		)
 	),
 	rect_(
-		std::move(
-			_rect
-		)
+		_rect
 	)
 {
 }

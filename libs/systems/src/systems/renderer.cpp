@@ -19,7 +19,7 @@
 
 sge::systems::renderer::renderer(
 	sge::renderer::pixel_format::object const &_pixel_format,
-	sge::renderer::display_mode::parameters &&_display_mode,
+	sge::renderer::display_mode::parameters const _display_mode,
 	sge::viewport::optional_resize_callback &&_resize_callback
 )
 :
@@ -27,9 +27,7 @@ sge::systems::renderer::renderer(
 		_pixel_format
 	),
 	display_mode_(
-		std::move(
-			_display_mode
-		)
+		_display_mode
 	),
 	resize_callback_(
 		std::move(

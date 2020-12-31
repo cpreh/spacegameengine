@@ -6,9 +6,6 @@
 
 #include <sge/scenic/impl/number_multiplexer/object_impl.hpp>
 #include <sge/scenic/render_queue/mesh.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <utility>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -44,7 +41,7 @@ create_sort_index(
 sge::scenic::render_queue::mesh::mesh(
 	sge::scenic::render_queue::index_type const _material,
 	sge::scenic::render_queue::index_type const _vertex_buffer,
-	sge::renderer::matrix4 _modelview,
+	sge::renderer::matrix4 const _modelview,
 	sge::renderer::index::buffer_ref const _index_buffer,
 	sge::scenic::index_buffer_range const &_index_buffer_range)
 :
@@ -57,9 +54,7 @@ sge::scenic::render_queue::mesh::mesh(
 			_material,
 			_vertex_buffer)),
 	modelview_(
-		std::move(
-			_modelview
-		)
+		_modelview
 	),
 	index_buffer_(
 		_index_buffer),
