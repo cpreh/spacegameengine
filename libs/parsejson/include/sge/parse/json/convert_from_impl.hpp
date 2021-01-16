@@ -27,8 +27,8 @@
 #include <fcppt/array/get.hpp>
 #include <fcppt/array/init.hpp>
 #include <fcppt/array/is_object.hpp>
-#include <fcppt/array/size.hpp>
 #include <fcppt/array/object_impl.hpp>
+#include <fcppt/array/size.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/math/from_array.hpp>
 #include <fcppt/math/to_array_type.hpp>

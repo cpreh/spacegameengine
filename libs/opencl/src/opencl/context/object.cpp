@@ -14,8 +14,8 @@
 #include <sge/opencl/platform/object.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/array/object_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #if defined(SGE_OPENCL_HAVE_GLX)

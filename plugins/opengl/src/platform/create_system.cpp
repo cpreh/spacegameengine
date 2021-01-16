@@ -20,8 +20,8 @@
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
-#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/array/make.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/either/first_success.hpp>
 #include <fcppt/either/from_optional.hpp>
 #include <fcppt/either/object_impl.hpp>
