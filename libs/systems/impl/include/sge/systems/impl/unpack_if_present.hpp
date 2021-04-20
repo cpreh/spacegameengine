@@ -11,9 +11,10 @@
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/variant/get_exn.hpp>
+#include <fcppt/variant/to_optional.hpp>
 
 
 namespace sge
@@ -48,10 +49,12 @@ unpack_if_present(
 		)
 		{
 			_function(
-				fcppt::variant::get_exn<
-					Parameter
-				>(
-					_element.get()
+				FCPPT_ASSERT_OPTIONAL_ERROR(
+					fcppt::variant::to_optional<
+						Parameter
+					>(
+						_element.get()
+					)
 				)
 			);
 		}

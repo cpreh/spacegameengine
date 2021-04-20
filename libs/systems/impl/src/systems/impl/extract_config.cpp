@@ -10,9 +10,10 @@
 #include <sge/systems/detail/any_map.hpp>
 #include <sge/systems/impl/extract_config.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/variant/get_exn.hpp>
+#include <fcppt/variant/to_optional.hpp>
 
 
 sge::systems::config
@@ -37,10 +38,12 @@ sge::systems::impl::extract_config(
 			)
 			{
 				return
-					fcppt::variant::get_exn<
-						sge::systems::config
-					>(
-						_config.get()
+					FCPPT_ASSERT_OPTIONAL_ERROR(
+						fcppt::variant::to_optional<
+							sge::systems::config
+						>(
+							_config.get()
+						)
 					);
 			}
 

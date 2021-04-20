@@ -21,9 +21,9 @@
 #include <sge/image/view/object.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 #include <mizuiro/image/algorithm/copy.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/apply.hpp>
-#include <fcppt/variant/get_exn.hpp>
-#include <fcppt/variant/invalid_get.hpp>
+#include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -43,10 +43,10 @@ sge::image::algorithm::copy(
 	sge::image::algorithm::may_overlap const _overlap,
 	sge::image::algorithm::uninitialized const _uninitialized
 )
-try
 {
 	fcppt::variant::apply(
 		[
+			&_src,
 			&_dest,
 			_overlap,
 			_uninitialized
@@ -57,18 +57,42 @@ try
 			return
 				mizuiro::image::algorithm::copy(
 					_src_inner,
-					fcppt::variant::get_exn<
-						sge::image::view::mizuiro_type<
-							typename
-							std::decay<
-								decltype(
-									_src_inner
-								)
-							>::type::format,
-							mizuiro::nonconst_tag
-						>
-					>(
-						_dest.get()
+					fcppt::optional::to_exception(
+						fcppt::variant::to_optional<
+							sge::image::view::mizuiro_type<
+								typename
+								std::decay_t<
+									decltype(
+										_src_inner
+									)
+								>::format,
+								mizuiro::nonconst_tag
+							>
+						>(
+							_dest.get()
+						),
+						[
+							&_src,
+							&_dest
+						]{
+							return
+								sge::image::invalid_copy<
+									sge::image::traits::image::color_tag<
+										Tag
+									>
+								>{
+									sge::image::view::format<
+										Tag
+									>(
+										_src
+									),
+									sge::image::view::format<
+										Tag
+									>(
+										_dest
+									)
+								};
+						}
 					),
 					sge::image::impl::algorithm::convert_may_overlap(
 						_overlap
@@ -80,28 +104,6 @@ try
 		},
 		_src.get()
 	);
-}
-catch(
-	fcppt::variant::invalid_get const &
-)
-{
-	throw
-		sge::image::invalid_copy<
-			sge::image::traits::image::color_tag<
-				Tag
-			>
-		>{
-			sge::image::view::format<
-				Tag
-			>(
-				_src
-			),
-			sge::image::view::format<
-				Tag
-			>(
-				_dest
-			)
-		};
 }
 
 #endif

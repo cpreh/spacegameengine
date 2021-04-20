@@ -124,7 +124,7 @@
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/record/permute.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
-#include <fcppt/variant/get_exn.hpp>
+#include <fcppt/variant/get_unsafe.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/variant/output.hpp>
 #include <fcppt/variant/to_optional.hpp>
@@ -283,7 +283,7 @@ public:
 		// First, render the background
 		result.push_back(
 			create_sprite(
-				fcppt::variant::get_exn<
+				fcppt::variant::get_unsafe<
 					bvh_tree_traits::node_wrapper
 				>(
 					tree.value()
@@ -545,7 +545,7 @@ private:
 			for(
 				auto const &elem
 				:
-				fcppt::variant::get_exn<
+				fcppt::variant::get_unsafe<
 					bvh_tree_traits::leaf_wrapper_sequence
 				>(
 					_tree.value()
