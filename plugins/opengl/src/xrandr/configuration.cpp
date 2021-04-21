@@ -9,7 +9,7 @@
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/const_base_ref.hpp>
-#include <fcppt/assert/post.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -26,12 +26,17 @@ sge::opengl::xrandr::configuration::configuration(
 		)
 	}
 {
-	FCPPT_ASSERT_POST(
+	if(
 		config_
-		!=
-		nullptr,
-		sge::renderer::exception
-	);
+		==
+		nullptr
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("XRRGetScreenInfo failed")
+			};
+	}
 }
 
 ::XRRScreenConfiguration *

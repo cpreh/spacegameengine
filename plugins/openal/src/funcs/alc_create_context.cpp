@@ -11,7 +11,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/array/object_impl.hpp>
-#include <fcppt/assert/post.hpp>
 
 
 ALCcontext *
@@ -41,10 +40,15 @@ sge::openal::funcs::alc_create_context(
 		sge::audio::exception
 	)
 
-	FCPPT_ASSERT_POST(
-		result,
-		sge::audio::exception
-	);
+	if(
+		!result
+	)
+	{
+		throw
+			sge::audio::exception{
+				FCPPT_TEXT("AL context is null")
+			};
+	}
 
 	return
 		result;

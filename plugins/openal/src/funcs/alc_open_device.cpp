@@ -9,7 +9,6 @@
 #include <sge/openal/check_alc_state.hpp>
 #include <sge/openal/funcs/alc_open_device.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/post.hpp>
 
 
 ALCdevice *
@@ -29,10 +28,15 @@ sge::openal::funcs::alc_open_device(
 		sge::audio::exception
 	)
 
-	FCPPT_ASSERT_POST(
-		result != nullptr,
-		sge::audio::exception
-	);
+	if(
+		result == nullptr
+	)
+	{
+		throw
+			sge::audio::exception{
+				FCPPT_TEXT("AL device is null")
+			};
+	}
 
 	return
 		result;

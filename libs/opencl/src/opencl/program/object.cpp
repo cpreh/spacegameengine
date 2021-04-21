@@ -20,7 +20,6 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/post.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
@@ -107,9 +106,15 @@ sge::opencl::program::object::object(
 		error_code,
 		FCPPT_TEXT("clCreateProgramWithSource"));
 
-	FCPPT_ASSERT_POST(
-		program_,
-		sge::opencl::exception);
+	if(
+		!program_
+	)
+	{
+		throw
+			sge::opencl::exception{
+				FCPPT_TEXT("CL program is null")
+			};
+	}
 
 	fcppt::optional::maybe_void(
 		_opt_params,
