@@ -8,7 +8,6 @@
 #include <sge/opengl/cg/profile/get_latest.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/throw.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <Cg/cgGL.h>
@@ -31,12 +30,17 @@ sge::opengl::cg::profile::get_latest(
 		sge::renderer::exception
 	)
 
-	FCPPT_ASSERT_THROW(
+	if(
 		ret
-		!=
-		CG_PROFILE_UNKNOWN,
-		sge::renderer::exception
-	);
+		==
+		CG_PROFILE_UNKNOWN
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("Unknown Cg profile")
+			};
+	}
 
 	return ret;
 }

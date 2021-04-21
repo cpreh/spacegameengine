@@ -9,7 +9,7 @@
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/const_base_ref.hpp>
-#include <fcppt/assert/throw.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -27,12 +27,17 @@ sge::opengl::xrandr::screen_resources::screen_resources(
 
 	)
 {
-	FCPPT_ASSERT_THROW(
+	if(
 		resources_
-		!=
-		nullptr,
-		sge::renderer::exception
-	);
+		==
+		nullptr
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("XRRGetScreenResources failed")
+			};
+	}
 }
 
 sge::opengl::xrandr::screen_resources::~screen_resources()

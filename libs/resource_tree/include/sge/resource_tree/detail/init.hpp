@@ -14,10 +14,10 @@
 #include <sge/resource_tree/detail/element_vector.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/error_code_to_string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/assert/throw_message.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/filesystem/make_directory_range.hpp>
@@ -55,29 +55,37 @@ init(
 	> const _random_generator
 )
 {
-	FCPPT_ASSERT_THROW_MESSAGE(
-		std::filesystem::exists(
-			_path
-		),
-		sge::resource_tree::exception,
-		fcppt::filesystem::path_to_string(
+	if(
+		!std::filesystem::exists(
 			_path
 		)
-		+
-		FCPPT_TEXT(" does not exist!")
-	);
+	)
+	{
+		throw
+			sge::resource_tree::exception{
+				fcppt::filesystem::path_to_string(
+					_path
+				)
+				+
+				FCPPT_TEXT(" does not exist!")
+			};
+	}
 
-	FCPPT_ASSERT_THROW_MESSAGE(
-		std::filesystem::is_directory(
+	if(
+		!std::filesystem::is_directory(
 			_path
-		),
-		sge::resource_tree::exception,
-		fcppt::filesystem::path_to_string(
-			_path.string()
 		)
-		+
-		FCPPT_TEXT(" is not a directory!")
-	);
+	)
+	{
+		throw
+			sge::resource_tree::exception{
+				fcppt::filesystem::path_to_string(
+					_path.string()
+				)
+				+
+				FCPPT_TEXT(" is not a directory!")
+			};
+	}
 
 	using
 	path_vector

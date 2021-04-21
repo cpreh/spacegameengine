@@ -13,7 +13,7 @@
 #include <sge/renderer/display_mode/dimensions.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/display_ref.hpp>
-#include <fcppt/assert/throw.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
@@ -34,12 +34,17 @@ sge::opengl::xrandr::output_info::output_info(
 		)
 	)
 {
-	FCPPT_ASSERT_THROW(
+	if(
 		info_
-		!=
-		nullptr,
-		sge::renderer::exception
-	);
+		==
+		nullptr
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("XRRGetOutputInfo")
+			};
+	}
 }
 
 sge::opengl::xrandr::output_info::~output_info()

@@ -8,7 +8,7 @@
 #include <sge/cg/exception.hpp>
 #include <sge/cg/impl/parameter/get_type.hpp>
 #include <sge/cg/parameter/object.hpp>
-#include <fcppt/assert/throw.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -30,12 +30,17 @@ sge::cg::impl::parameter::get_type(
 		sge::cg::exception
 	)
 
-	FCPPT_ASSERT_THROW(
+	if(
 		ret
-		!=
-		CG_UNKNOWN_TYPE,
-		sge::cg::exception
-	);
+		==
+		CG_UNKNOWN_TYPE
+	)
+	{
+		throw
+			sge::cg::exception{
+				FCPPT_TEXT("Unknown parameter tpye")
+			};
+	}
 
 	return
 		ret;

@@ -13,7 +13,7 @@
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/display_ref.hpp>
 #include <awl/backends/x11/window/rect.hpp>
-#include <fcppt/assert/throw.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
@@ -34,12 +34,17 @@ sge::opengl::xrandr::crtc_info::crtc_info(
 		)
 	)
 {
-	FCPPT_ASSERT_THROW(
+	if(
 		info_
-		!=
-		nullptr,
-		sge::renderer::exception
-	);
+		==
+		nullptr
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("XRRGetCrtcInfo failed")
+			};
+	}
 }
 
 sge::opengl::xrandr::crtc_info::~crtc_info()
