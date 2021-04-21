@@ -41,7 +41,9 @@ sge::openal::funcs::alc_create_context(
 	)
 
 	if(
-		!result
+		result
+		==
+		nullptr
 	)
 	{
 		throw
