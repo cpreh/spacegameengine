@@ -48,6 +48,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -246,27 +247,29 @@ fit_into_scale(
 	static_cast<
 		value_type
 	>(
-		fcppt::math::clamp(
-			static_cast<
-				sge::graph::scalar
-			>
-			(
-				_height - 1
-			) *
-			(
-				1.0 -
-				normalize(
-					_value,
-					_min,
-					_max
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::math::clamp(
+				static_cast<
+					sge::graph::scalar
+				>
+				(
+					_height - 1
+				) *
+				(
+					1.0 -
+					normalize(
+						_value,
+						_min,
+						_max
+					)
+				),
+				0.0,
+				static_cast<
+					sge::graph::scalar
+				>
+				(
+					_height - 1
 				)
-			),
-			0.0,
-			static_cast<
-				sge::graph::scalar
-			>
-			(
-				_height - 1
 			)
 		)
 	);
@@ -542,10 +545,13 @@ sge::graph::object::draw_data(
 
 		value_type const
 		value = fit_into_scale(
-			fcppt::math::clamp(
-				cur,
-				current_axis_constraint.min(),
-				current_axis_constraint.max()),
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				fcppt::math::clamp(
+					cur,
+					current_axis_constraint.min(),
+					current_axis_constraint.max()
+				)
+			),
 			current_axis_constraint.min(),
 			current_axis_constraint.max(),
 			dim_.h());

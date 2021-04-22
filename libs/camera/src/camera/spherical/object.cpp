@@ -18,6 +18,7 @@
 #include <sge/renderer/vector4.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/pi.hpp>
@@ -186,13 +187,15 @@ sge::camera::spherical::object::update(
 
 	coordinate_system_.radius(
 		sge::camera::spherical::coordinate_system::radius(
-			fcppt::math::clamp(
-				coordinate_system_.radius().get() +
-				_time_delta.count() *
-				movement_speed_.get().radius().get() *
-				velocity_.radius().get(),
-				minimum_radius_.get(),
-				maximum_radius_.get()
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				fcppt::math::clamp(
+					coordinate_system_.radius().get() +
+					_time_delta.count() *
+					movement_speed_.get().radius().get() *
+					velocity_.radius().get(),
+					minimum_radius_.get(),
+					maximum_radius_.get()
+				)
 			)
 		)
 	);
@@ -212,13 +215,15 @@ sge::camera::spherical::object::update(
 
 	coordinate_system_.inclination(
 		sge::camera::spherical::coordinate_system::inclination(
-			fcppt::math::clamp(
-				coordinate_system_.inclination().get() +
-				_time_delta.count() *
-				movement_speed_.get().inclination().get() *
-				velocity_.inclination().get(),
-				-fcppt::math::pi<sge::renderer::scalar>() + inclination_epsilon,
-				-inclination_epsilon
+			FCPPT_ASSERT_OPTIONAL_ERROR(
+				fcppt::math::clamp(
+					coordinate_system_.inclination().get() +
+					_time_delta.count() *
+					movement_speed_.get().inclination().get() *
+					velocity_.inclination().get(),
+					-fcppt::math::pi<sge::renderer::scalar>() + inclination_epsilon,
+					-inclination_epsilon
+				)
 			)
 		)
 	);
