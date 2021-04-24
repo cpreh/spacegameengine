@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/input/exception.hpp>
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/focus/container.hpp>
@@ -28,11 +29,11 @@
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -56,11 +57,19 @@ sge::wininput::processor::processor(
 			sge::wininput::cursor::object
 		>(
 			window_,
-			fcppt::cast::dynamic_exn<
-				awl::backends::windows::window::object &
-			>(
-				this->window().awl_object()
-			)
+			fcppt::optional::to_exception(
+				fcppt::cast::dynamic<
+					awl::backends::windows::window::object
+				>(
+					this->window().awl_object()
+				),
+				[]{
+					return
+						sge::input::exception{
+							FCPPT_TEXT("Window passed to wininput::processor is not a Windows window.")
+						};
+				}
+			).get()
 		)
 	},
 	focus_{
@@ -92,8 +101,7 @@ sge::wininput::processor::processor(
 FCPPT_PP_POP_WARNING
 
 sge::wininput::processor::~processor()
-{
-}
+= default;
 
 sge::window::object &
 sge::wininput::processor::window() const

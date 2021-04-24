@@ -25,7 +25,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -57,11 +57,19 @@ sge::x11input::system::create_processor(
 )
 {
 	awl::backends::x11::window::object const &x11_window(
-		fcppt::cast::dynamic_exn<
-			awl::backends::x11::window::object const &
-		>(
-			_window.get().awl_object()
-		)
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::x11::window::object const
+			>(
+				_window.get().awl_object()
+			),
+			[]{
+				return
+					sge::input::exception{
+						FCPPT_TEXT("Window passed to x11input::system is not an X11 window.")
+					};
+			}
+		).get()
 	);
 
 	sge::x11input::opcode const opcode(

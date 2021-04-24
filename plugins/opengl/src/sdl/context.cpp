@@ -9,12 +9,15 @@
 #include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/sdl/context.hpp>
 #include <sge/opengl/sdl/current.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
 #include <fcppt/config/external_end.hpp>
@@ -26,11 +29,19 @@ sge::opengl::sdl::context::context(
 :
 	sge::opengl::backend::context{},
 	window_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::sdl::window::object &
-		>(
-			_window.get().awl_object()
-		)
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::sdl::window::object
+			>(
+				_window.get().awl_object()
+			),
+			[]{
+				return
+					sge::renderer::exception{
+						FCPPT_TEXT("Window passed to sdl::context is not an SDL window.")
+					};
+			}
+		).get()
 	},
 	context_{
 		SDL_GL_CreateContext(

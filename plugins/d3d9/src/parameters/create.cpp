@@ -11,6 +11,7 @@
 #include <sge/d3d9/parameters/convert/depth_stencil_buffer.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample.hpp>
 #include <sge/d3d9/parameters/convert/multi_sample_quality.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/display_mode/fullscreen.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
@@ -22,11 +23,13 @@
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/join.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/to_optional.hpp>
 
 
@@ -78,11 +81,19 @@ sge::d3d9::parameters::create(
 			_pixel_format.multi_samples()
 		),
 		D3DSWAPEFFECT_DISCARD, // SwapEffect
-		fcppt::cast::dynamic_exn<
-			awl::backends::windows::window::object &
-		>(
-			_window
-		).hwnd(), // hDeviceWindow
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::windows::window::object
+			>(
+				_window
+			),
+			[]{
+				return
+					sge::renderer::exception{
+						FCPPT_TEXT("Window passed to d3d9::parameters::create is not a Windows window.")
+					};
+			}
+		)->hwnd(), // hDeviceWindow
 		!_parameters.fullscreen().has_value(), // Windowed
 		has_depth_stencil, // EnableAutoDepthStencil
 		sge::d3d9::parameters::convert::depth_stencil_buffer(

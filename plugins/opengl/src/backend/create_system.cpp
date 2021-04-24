@@ -12,20 +12,20 @@
 #include <awl/system/object_ref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/function_impl.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/either/first_success.hpp>
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/either/try_call.hpp>
 #include <fcppt/log/object_reference.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <vector>
@@ -85,12 +85,18 @@ create_functions_exn()
 							fcppt::make_unique_ptr<
 								sge::opengl::sdl::backend_system
 							>(
-								fcppt::make_ref(
-									fcppt::cast::dynamic_exn<
-										awl::backends::sdl::system::object &
+								fcppt::optional::to_exception(
+									fcppt::cast::dynamic<
+										awl::backends::sdl::system::object
 									>(
 										_awl_system.get()
-									)
+									),
+									[]{
+										return
+											sge::renderer::exception{
+												FCPPT_TEXT("awl::system is not an SDL system.")
+											};
+									}
 								)
 							)
 						);
@@ -133,12 +139,18 @@ create_functions_exn()
 								sge::opengl::glx::system
 							>(
 								_log,
-								fcppt::make_ref(
-									fcppt::cast::dynamic_exn<
-										awl::backends::x11::system::object &
+								fcppt::optional::to_exception(
+									fcppt::cast::dynamic<
+										awl::backends::x11::system::object
 									>(
 										_awl_system.get()
-									)
+									),
+									[]{
+										return
+											sge::renderer::exception{
+												FCPPT_TEXT("Backend system is not an X11 system.")
+											};
+									}
 								)
 							)
 						);

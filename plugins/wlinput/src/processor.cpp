@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/input/exception.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
@@ -47,14 +48,16 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/move_clear.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/to_container.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -72,28 +75,52 @@ sge::wlinput::processor::processor(
 		_log
 	},
 	system_processor_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::wayland::system::event::processor &
-		>(
-			_window.get().system().awl_system().processor()
-		)
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::wayland::system::event::processor
+			>(
+				_window.get().system().awl_system().processor()
+			),
+			[]{
+				return
+					sge::input::exception{
+						FCPPT_TEXT("System processor passed to wlinput::processor is not a Wayland processor.")
+					};
+			}
+		).get()
 	},
 	sge_window_{
 		_window
 	},
 	window_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::wayland::window::object &
-		>(
-			_window.get().awl_object()
-		)
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::wayland::window::object
+			>(
+				_window.get().awl_object()
+			),
+			[]{
+				return
+					sge::input::exception{
+						FCPPT_TEXT("Window passed to wlinput::processor is not a Wayland window.")
+					};
+			}
+		).get()
 	},
 	display_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::wayland::system::object &
-		>(
-			_window.get().system().awl_system()
-		).display()
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::wayland::system::object
+			>(
+				_window.get().system().awl_system()
+			),
+			[]{
+				return
+					sge::input::exception{
+						FCPPT_TEXT("System passed to wlinput::processor is not a Wayland system.")
+					};
+			}
+		)->display()
 	},
 	fd_{
 		awl::backends::wayland::display_fd(

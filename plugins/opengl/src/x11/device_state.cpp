@@ -14,6 +14,7 @@
 #include <sge/opengl/xrandr/state.hpp>
 #include <sge/opengl/xrandr/state_unique_ptr.hpp>
 #include <sge/opengl/xrandr/system.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/display_mode/fullscreen.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen.hpp>
@@ -23,13 +24,14 @@
 #include <awl/backends/x11/window/base.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/to_optional.hpp>
 
 
@@ -71,11 +73,19 @@ sge::opengl::x11::device_state::device_state(
 		_wm_fullscreen
 	},
 	window_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::x11::window::base &
-		>(
-			_window.get().awl_object()
-		)
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::x11::window::base
+			>(
+				_window.get().awl_object()
+			),
+			[]{
+				return
+					sge::renderer::exception{
+						FCPPT_TEXT("Window passed to opengl::x11::device_state is not an X11 window.")
+					};
+			}
+		).get()
 	},
 	resolution_()
 {

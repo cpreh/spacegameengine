@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/input/exception.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/focus/container.hpp>
@@ -32,11 +33,12 @@
 #include <awl/window/object.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 sge::sdlinput::processor::processor(
@@ -52,11 +54,19 @@ sge::sdlinput::processor::processor(
 		_log
 	},
 	sdl_window_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::sdl::window::object &
-		>(
-			this->window_.get().awl_object()
-		)
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::sdl::window::object
+			>(
+				this->window_.get().awl_object()
+			),
+			[]{
+				return
+					sge::input::exception{
+						FCPPT_TEXT("Window passed to sdlinput is not an SDL window.")
+					};
+			}
+		).get()
 	},
 	cursor_{
 		fcppt::make_shared_ptr<

@@ -12,6 +12,7 @@
 #include <sge/opengl/wgl/scoped_current.hpp>
 #include <sge/opengl/wgl/visual/config.hpp>
 #include <sge/opengl/windows/gdi_device.hpp>
+#include <sge/renderer/exception.hpp>
 #include <awl/backends/windows/window/object.hpp>
 #include <awl/system/object.hpp>
 #include <awl/visual/object.hpp>
@@ -20,7 +21,8 @@
 #include <awl/window/object_unique_ptr.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 sge::opengl::wgl::config
@@ -44,11 +46,19 @@ sge::opengl::wgl::get_config(
 	);
 
 	sge::opengl::windows::gdi_device const gdi_device(
-		fcppt::cast::dynamic_exn<
-			awl::backends::windows::window::object &
-		>(
-			*window
-		).hwnd(),
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::windows::window::object
+			>(
+				*window
+			),
+			[]{
+				return
+					sge::renderer::exception{
+						FCPPT_TEXT("Window passed to opengl::wgl::get_config is not a Windows window.")
+					};
+			}
+		)->hwnd(),
 		sge::opengl::windows::gdi_device::get_tag()
 	);
 

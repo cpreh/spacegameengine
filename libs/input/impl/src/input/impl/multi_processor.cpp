@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/input/exception.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
@@ -20,7 +21,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_concat.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
-#include <fcppt/cast/bad_dynamic.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
@@ -66,7 +66,7 @@ sge::input::impl::multi_processor::multi_processor(
 						};
 				}
 				catch(
-					fcppt::cast::bad_dynamic const &_error
+					sge::input::exception const &_error
 				)
 				{
 					FCPPT_LOG_WARNING(

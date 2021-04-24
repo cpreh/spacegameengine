@@ -14,6 +14,7 @@
 #include <sge/dinput/joypad/device.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/mouse/device.hpp>
+#include <sge/input/exception.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/focus/container.hpp>
@@ -51,13 +52,13 @@
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -84,18 +85,34 @@ sge::dinput::processor::processor(
 		sge::dinput::create_dinput()
 	},
 	windows_window_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::windows::window::object &
-		>(
-			this->window().awl_object()
-		)
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::windows::window::object
+			>(
+				this->window().awl_object()
+			),
+			[]{
+				return
+					sge::input::exception{
+						FCPPT_TEXT("Window passed to dinput::processor is not a Windows window.")
+					};
+			}
+		).get()
 	},
 	event_handle_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::windows::system::event::processor &
-		>(
-			this->window().system().awl_system().processor()
-		).create_event_handle()
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::windows::system::event::processor
+			>(
+				this->window().system().awl_system().processor()
+			),
+			[]{
+				return
+					sge::input::exception{
+						FCPPT_TEXT("Event processor passed to dinput::processor is not a Windows event processor.")
+					};
+			}
+		)->create_event_handle()
 	},
 	has_focus_{
 		awl::backends::windows::window::has_focus(
@@ -447,7 +464,7 @@ sge::dinput::processor::on_window_event(
 		>(
 			_event
 		),
-		[	
+		[
 			this
 		](
 			fcppt::reference<

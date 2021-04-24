@@ -21,11 +21,12 @@
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
@@ -40,11 +41,19 @@ sge::opengl::sdl::device_state::device_state(
 :
 	sge::opengl::platform::device_state{},
 	window_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::sdl::window::object &
-		>(
-			_window.get().awl_object()
-		)
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::sdl::window::object
+			>(
+				_window.get().awl_object()
+			),
+			[]{
+				return
+					sge::renderer::exception{
+						FCPPT_TEXT("Widnow passed to sdl::device_state is not an SDL window.")
+					};
+			}
+		).get()
 	}
 {
 	this->do_fullscreen(

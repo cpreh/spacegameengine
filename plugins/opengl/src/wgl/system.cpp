@@ -11,6 +11,7 @@
 #include <sge/opengl/wgl/get_config.hpp>
 #include <sge/opengl/wgl/system.hpp>
 #include <sge/opengl/windows/visual/create.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <sge/window/object.hpp>
 #include <sge/window/object_ref.hpp>
@@ -21,7 +22,9 @@
 #include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/cast/dynamic.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 
 sge::opengl::wgl::system::system(
@@ -38,8 +41,7 @@ sge::opengl::wgl::system::system(
 }
 
 sge::opengl::wgl::system::~system()
-{
-}
+= default;
 
 awl::visual::object_unique_ptr
 sge::opengl::wgl::system::create_visual(
@@ -65,11 +67,19 @@ sge::opengl::wgl::system::create_context(
 			fcppt::make_unique_ptr<
 				sge::opengl::wgl::context
 			>(
-				fcppt::cast::dynamic_exn<
-					awl::backends::windows::window::object &
-				>(
-					_window.get().awl_object()
-				)
+				fcppt::optional::to_exception(
+					fcppt::cast::dynamic<
+						awl::backends::windows::window::object
+					>(
+						_window.get().awl_object()
+					),
+					[]{
+						return
+							sge::renderer::exception{
+								FCPPT_TEXT("Window passed to opengl::wgl::system is not a Windows window.")
+							};
+					}
+				).get()
 			)
 		);
 }

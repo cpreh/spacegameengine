@@ -14,6 +14,7 @@
 #include <sge/opengl/xrandr/select_input.hpp>
 #include <sge/opengl/xrandr/state.hpp>
 #include <sge/opengl/xrandr/update_configuration.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
@@ -32,10 +33,11 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_const.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/randr.h>
@@ -51,11 +53,19 @@ sge::opengl::xrandr::state::state(
 		_extension
 	},
 	window_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::x11::window::base &
-		>(
-			_window.get().awl_object()
-		)
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::x11::window::base
+			>(
+				_window.get().awl_object()
+			),
+			[]{
+				return
+					sge::renderer::exception{
+						FCPPT_TEXT("Window passed to xrandr::state is not an X11 window.")
+					};
+			}
+		).get()
 	},
 	config_{
 		fcppt::reference_to_const(

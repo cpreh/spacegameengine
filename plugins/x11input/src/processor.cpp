@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/input/exception.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/cursor/object.hpp>
@@ -68,12 +69,12 @@
 #include <fcppt/reference_to_const.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/tag_type.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop_break_metal.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/container/map_values_copy.hpp>
@@ -88,6 +89,7 @@
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_container.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
@@ -111,10 +113,18 @@ sge::x11input::processor::processor(
 		_window
 	},
 	x11_window_{
-		fcppt::cast::dynamic_exn<
-			awl::backends::x11::window::object &
-		>(
-			_window.get().awl_object()
+		fcppt::optional::to_exception(
+			fcppt::cast::dynamic<
+				awl::backends::x11::window::object
+			>(
+				_window.get().awl_object()
+			),
+			[]{
+				return
+					sge::input::exception{
+						FCPPT_TEXT("Window passed to x11input::processor is not an X11 window.")
+					};
+			}
 		)
 	},
 	root_window_{

@@ -11,8 +11,9 @@
 #include <awl/window/object.hpp>
 #include <awl/window/object_ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cast/dynamic_exn.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
@@ -24,11 +25,19 @@ sge::opengl::egl::wayland::window_holder::window_holder(
 :
 	window_{
 		::wl_egl_window_create(
-			fcppt::cast::dynamic_exn<
-				awl::backends::wayland::window::object const &
-			>(
-				_window.get()
-			).surface(),
+			fcppt::optional::to_exception(
+				fcppt::cast::dynamic<
+					awl::backends::wayland::window::object const
+				>(
+					_window.get()
+				),
+				[]{
+					return
+						sge::renderer::exception{
+							FCPPT_TEXT("AWL window is not a wayland window.")
+						};
+				}
+			)->surface(),
 			fcppt::cast::to_signed(
 				_window.get().size().w()
 			),
