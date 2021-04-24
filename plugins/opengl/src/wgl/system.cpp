@@ -21,8 +21,8 @@
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
@@ -83,5 +83,3 @@ sge::opengl::wgl::system::create_context(
 			)
 		);
 }
-
-

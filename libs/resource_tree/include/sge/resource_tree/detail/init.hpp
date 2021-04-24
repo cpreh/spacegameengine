@@ -14,8 +14,8 @@
 #include <sge/resource_tree/detail/element_vector.hpp>
 #include <sge/resource_tree/detail/sub_path.hpp>
 #include <fcppt/error_code_to_string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/container/join.hpp>
