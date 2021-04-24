@@ -14,6 +14,7 @@
 #include <sge/evdev/joypad/object.hpp>
 #include <sge/evdev/joypad/remove.hpp>
 #include <sge/evdev/joypad/shared_ptr.hpp>
+#include <sge/input/exception.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/focus/container.hpp>
@@ -36,15 +37,17 @@
 #include <awl/system/event/processor.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic_cross.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/map_values_copy.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <vector>
@@ -68,11 +71,19 @@ sge::evdev::processor::processor(
 	},
 	processor_{
 		fcppt::make_ref(
-			fcppt::cast::dynamic_cross_exn<
-				awl::backends::posix::processor_base &
-			>(
-				window_.get().system().awl_system().processor()
-			).fd_processor()
+			fcppt::optional::to_exception(
+				fcppt::cast::dynamic_cross<
+					awl::backends::posix::processor_base
+				>(
+					window_.get().system().awl_system().processor()
+				),
+				[]{
+					return
+						sge::input::exception{
+							FCPPT_TEXT("System processor is not a POSIX processor.")
+						};
+				}
+			)->fd_processor()
 		)
 	},
 	dev_watch_{

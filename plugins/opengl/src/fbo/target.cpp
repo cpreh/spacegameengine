@@ -49,7 +49,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic_any_fun.hpp>
-#include <fcppt/cast/dynamic_cross_exn.hpp>
+#include <fcppt/cast/dynamic_cross.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/math/box/null.hpp>
@@ -218,13 +218,21 @@ sge::opengl::fbo::target::color_surface(
 			> const _surface
 		)
 		{
-			sge::opengl::texture::buffer_base &texture_surface(
-				fcppt::cast::dynamic_cross_exn<
-					sge::opengl::texture::buffer_base &
-				>(
-					_surface.get()
-				)
-			);
+			sge::opengl::texture::buffer_base &texture_surface{
+				fcppt::optional::to_exception(
+					fcppt::cast::dynamic_cross<
+						sge::opengl::texture::buffer_base
+					>(
+						_surface.get()
+					),
+					[]{
+						return
+							sge::renderer::exception{
+								FCPPT_TEXT("Color buffer does not derive from opengl::texture::buffer_base!")
+							};
+					}
+				).get()
+			};
 
 			if(
 				!texture_surface.is_render_target().get()
