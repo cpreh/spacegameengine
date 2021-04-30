@@ -7,13 +7,14 @@
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/make_info_container.hpp>
 #include <sge/evdev/device/read_bits.hpp>
+#include <sge/evdev/joypad/relative_axis/code.hpp>
 #include <sge/evdev/joypad/relative_axis/info_container.hpp>
 #include <sge/evdev/joypad/relative_axis/make_info.hpp>
 #include <sge/evdev/joypad/relative_axis/make_info_container.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <linux/input.h>
+#include <linux/input-event-codes.h>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -26,10 +27,10 @@ sge::evdev::joypad::relative_axis::make_info_container(
 		sge::evdev::device::make_info_container<
 			sge::input::joypad::relative_axis_id,
 			sge::input::joypad::relative_axis_info,
-			REL_CNT
+			sge::evdev::joypad::relative_axis::code
 		>(
 			sge::evdev::device::read_bits<
-				REL_CNT
+				sge::evdev::joypad::relative_axis::code
 			>(
 				_fd,
 				EV_REL

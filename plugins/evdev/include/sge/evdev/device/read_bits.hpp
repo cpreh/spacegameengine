@@ -7,7 +7,6 @@
 #ifndef SGE_EVDEV_DEVICE_READ_BITS_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_READ_BITS_HPP_INCLUDED
 
-#include <sge/evdev/device/event_type_value.hpp>
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/read_bits_result.hpp>
 #include <sge/input/exception.hpp>
@@ -15,6 +14,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
+#include <fcppt/enum/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <sys/ioctl.h>
@@ -29,10 +29,10 @@ namespace device
 {
 
 template<
-	sge::evdev::device::event_type_value Count
+	typename Enum
 >
 sge::evdev::device::read_bits_result<
-	Count
+	Enum
 >
 read_bits(
 	sge::evdev::device::fd &_fd, // NOLINT(google-runtime-references)
@@ -43,7 +43,7 @@ read_bits(
 	result_type
 	=
 	sge::evdev::device::read_bits_result<
-		Count
+		Enum
 	>;
 
 	using
@@ -64,7 +64,9 @@ read_bits(
 				fcppt::cast::size<
 					unsigned
 				>(
-					Count
+					fcppt::enum_::size<
+						Enum
+					>::value
 				)
 			),
 			result.data()

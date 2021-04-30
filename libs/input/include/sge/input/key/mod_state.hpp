@@ -8,7 +8,7 @@
 #define SGE_INPUT_KEY_MOD_STATE_HPP_INCLUDED
 
 #include <sge/input/key/mod_state_fwd.hpp>
-#include <fcppt/container/bitfield/enum_object.hpp>
+#include <fcppt/container/bitfield/object.hpp>
 
 
 #endif

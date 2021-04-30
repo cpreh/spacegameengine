@@ -8,7 +8,7 @@
 #define SGE_RENDERER_TEXTURE_CAPABILITIES_FIELD_FWD_HPP_INCLUDED
 
 #include <sge/renderer/texture/capabilities.hpp>
-#include <fcppt/container/bitfield/enum_object_fwd.hpp>
+#include <fcppt/container/bitfield/object_fwd.hpp>
 
 
 namespace sge
@@ -21,7 +21,7 @@ namespace texture
 using
 capabilities_field
 =
-fcppt::container::bitfield::enum_object<
+fcppt::container::bitfield::object<
 	sge::renderer::texture::capabilities
 >;
 

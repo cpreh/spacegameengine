@@ -7,7 +7,7 @@
 #ifndef SGE_EVDEV_JOYPAD_BUTTON_MAKE_STRING_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_BUTTON_MAKE_STRING_HPP_INCLUDED
 
-#include <sge/evdev/device/event_type.hpp>
+#include <sge/evdev/joypad/button/code_fwd.hpp>
 #include <fcppt/optional_string_fwd.hpp>
 
 
@@ -22,7 +22,7 @@ namespace button
 
 fcppt::optional_string
 make_string(
-	sge::evdev::device::event_type
+	sge::evdev::joypad::button::code
 );
 
 }

@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/device/fd.hpp>
+#include <sge/evdev/joypad/absolute_axis/code.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_code.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_info.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_string.hpp>
@@ -15,6 +15,7 @@
 #include <sge/input/joypad/axis_min.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <sys/ioctl.h>
@@ -24,7 +25,7 @@
 sge::input::joypad::absolute_axis_info
 sge::evdev::joypad::absolute_axis::make_info(
 	sge::evdev::device::fd &_fd,
-	sge::evdev::device::event_type const _event
+	sge::evdev::joypad::absolute_axis::code const _event
 )
 {
 	input_absinfo ret{};
@@ -33,10 +34,10 @@ sge::evdev::joypad::absolute_axis::make_info(
 		::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
 			_fd.get().get(),
 			EVIOCGABS( // NOLINT(hicpp-signed-bitwise)
-				static_cast<
+				fcppt::cast::enum_to_int<
 					unsigned
 				>(
-					_event.get()
+					_event
 				)
 			),
 			&ret

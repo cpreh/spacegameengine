@@ -7,8 +7,8 @@
 #ifndef SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_INFO_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_INFO_HPP_INCLUDED
 
-#include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/device/fd_fwd.hpp>
+#include <sge/evdev/joypad/absolute_axis/code_fwd.hpp>
 #include <sge/input/joypad/absolute_axis_info_fwd.hpp>
 
 
@@ -24,7 +24,7 @@ namespace absolute_axis
 sge::input::joypad::absolute_axis_info
 make_info(
 	sge::evdev::device::fd &, // NOLINT(google-runtime-references)
-	sge::evdev::device::event_type
+	sge::evdev::joypad::absolute_axis::code
 );
 
 }

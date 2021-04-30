@@ -39,6 +39,8 @@ set(
 	plugins/evdev/include/sge/evdev/inotify/reader_fwd.hpp
 	plugins/evdev/include/sge/evdev/inotify/watch.hpp
 	plugins/evdev/include/sge/evdev/inotify/watch_fwd.hpp
+	plugins/evdev/include/sge/evdev/joypad/absolute_axis/code.hpp
+	plugins/evdev/include/sge/evdev/joypad/absolute_axis/code_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/absolute_axis/info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/absolute_axis/info_container_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_code.hpp
@@ -48,6 +50,8 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/absolute_axis/make_string.hpp
 	plugins/evdev/include/sge/evdev/joypad/add.hpp
 	plugins/evdev/include/sge/evdev/joypad/attrib.hpp
+	plugins/evdev/include/sge/evdev/joypad/button/code.hpp
+	plugins/evdev/include/sge/evdev/joypad/button/code_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/event_map.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/button/info_container_fwd.hpp
@@ -89,6 +93,8 @@ set(
 	plugins/evdev/include/sge/evdev/joypad/optional_iterator_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/optional_shared_ptr.hpp
 	plugins/evdev/include/sge/evdev/joypad/optional_shared_ptr_fwd.hpp
+	plugins/evdev/include/sge/evdev/joypad/relative_axis/code.hpp
+	plugins/evdev/include/sge/evdev/joypad/relative_axis/code_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/info_container.hpp
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/info_container_fwd.hpp
 	plugins/evdev/include/sge/evdev/joypad/relative_axis/make_code.hpp

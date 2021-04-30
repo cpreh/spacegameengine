@@ -12,6 +12,7 @@
 #include <sge/input/joypad/ff/type.hpp>
 #include <sge/input/joypad/ff/type_field.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/cast/int_to_enum.hpp>
 #include <fcppt/container/bitfield/init.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
@@ -68,6 +69,11 @@ to_linux_effect(
 	FCPPT_ASSERT_UNREACHABLE;
 }
 
+enum class ff_type
+{
+	fcppt_maximum = FF_MAX
+};
+
 }
 
 sge::input::joypad::ff::type_field
@@ -76,10 +82,10 @@ sge::evdev::joypad::ff::make_info(
 )
 {
 	sge::evdev::device::read_bits_result<
-		FF_CNT
+		ff_type
 	> const result(
 		sge::evdev::device::read_bits<
-			FF_CNT
+			ff_type
 		>(
 			_fd,
 			EV_FF
@@ -98,8 +104,12 @@ sge::evdev::joypad::ff::make_info(
 			{
 				return
 					result.get(
-						to_linux_effect(
-							_value
+						fcppt::cast::int_to_enum<
+							ff_type
+						>(
+							to_linux_effect(
+								_value
+							)
 						)
 					);
 			}

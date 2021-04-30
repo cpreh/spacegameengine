@@ -5,21 +5,27 @@
 
 
 #include <sge/evdev/device/code_to_string_case.hpp>
-#include <sge/evdev/device/event_type.hpp>
+#include <sge/evdev/device/event_type_value.hpp>
+#include <sge/evdev/joypad/absolute_axis/code.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_string.hpp>
 #include <fcppt/optional_string.hpp>
+#include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <linux/input.h>
+#include <linux/input-event-codes.h>
 #include <fcppt/config/external_end.hpp>
 
 
 fcppt::optional_string
 sge::evdev::joypad::absolute_axis::make_string(
-	sge::evdev::device::event_type const _event
+	sge::evdev::joypad::absolute_axis::code const _event
 )
 {
 	switch(
-		_event.get()
+		fcppt::cast::enum_to_int<
+			sge::evdev::device::event_type_value
+		>(
+			_event
+		)
 	)
 	{
 		SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(

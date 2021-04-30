@@ -8,7 +8,7 @@
 #define SGE_OPENCL_MEMORY_OBJECT_FLAGS_FIELD_HPP_INCLUDED
 
 #include <sge/opencl/memory_object/flags.hpp>
-#include <fcppt/container/bitfield/enum_object_fwd.hpp>
+#include <fcppt/container/bitfield/object_impl.hpp>
 
 
 namespace sge
@@ -22,7 +22,7 @@ namespace memory_object
 using
 flags_field
 =
-fcppt::container::bitfield::enum_object<
+fcppt::container::bitfield::object<
 	sge::opencl::memory_object::flags
 >;
 

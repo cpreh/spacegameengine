@@ -7,7 +7,7 @@
 #ifndef SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_CODE_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_CODE_HPP_INCLUDED
 
-#include <sge/evdev/device/event_type.hpp>
+#include <sge/evdev/joypad/absolute_axis/code_fwd.hpp>
 #include <sge/input/joypad/axis_code_fwd.hpp>
 
 
@@ -22,7 +22,7 @@ namespace absolute_axis
 
 sge::input::joypad::axis_code
 make_code(
-	sge::evdev::device::event_type
+	sge::evdev::joypad::absolute_axis::code
 );
 
 }

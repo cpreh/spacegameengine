@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/evdev/device/event_type.hpp>
+#include <sge/evdev/joypad/button/code.hpp>
 #include <sge/evdev/joypad/button/make_info.hpp>
 #include <sge/evdev/joypad/button/make_string.hpp>
 #include <sge/input/joypad/button_info.hpp>
@@ -12,7 +12,7 @@
 
 sge::input::joypad::button_info
 sge::evdev::joypad::button::make_info(
-	sge::evdev::device::event_type const _event
+	sge::evdev::joypad::button::code const _event
 )
 {
 	return

@@ -14,8 +14,9 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/container/bitfield/operators.hpp>
+#include <fcppt/enum/make_range.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -31,7 +32,7 @@ namespace device
 template<
 	typename Id,
 	typename Info,
-	sge::evdev::device::event_type_value BitCount,
+	typename Enum,
 	typename Function
 >
 sge::evdev::device::basic_info<
@@ -40,7 +41,7 @@ sge::evdev::device::basic_info<
 >
 make_info_container(
 	sge::evdev::device::read_bits_result<
-		BitCount
+		Enum
 	> const &_bits,
 	Function const &_function
 )
@@ -75,32 +76,29 @@ make_info_container(
 
 	result_map event_map{};
 
-	using
-	bit_container
-	=
-	sge::evdev::device::read_bits_result<
-		BitCount
-	>;
-
 	for(
-		sge::evdev::device::event_type const index
+		Enum const index
 		:
-		fcppt::make_int_range_count(
-			sge::evdev::device::event_type{
-				bit_container::static_size::value
-			}
-		)
+		fcppt::enum_::make_range<
+			Enum
+		>()
 	)
 	{
 		if(
-			_bits
-			&
-			index.get()
+			_bits[
+				index
+			]
 		)
 		{
 			event_map.insert(
 				std::make_pair(
-					index,
+					sge::evdev::device::event_type{
+						fcppt::cast::enum_to_int<
+							sge::evdev::device::event_type_value
+						>(
+							index
+						)
+					},
 					fcppt::strong_typedef_construct_cast<
 						typename basic_info::id,
 						fcppt::cast::size_fun

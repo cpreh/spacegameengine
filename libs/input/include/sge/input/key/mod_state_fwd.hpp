@@ -8,7 +8,7 @@
 #define SGE_INPUT_KEY_MOD_STATE_FWD_HPP_INCLUDED
 
 #include <sge/input/key/modifier.hpp>
-#include <fcppt/container/bitfield/enum_object_fwd.hpp>
+#include <fcppt/container/bitfield/object_fwd.hpp>
 
 
 namespace sge
@@ -21,7 +21,7 @@ namespace key
 using
 mod_state
 =
-fcppt::container::bitfield::enum_object<
+fcppt::container::bitfield::object<
 	sge::input::key::modifier
 >;
 

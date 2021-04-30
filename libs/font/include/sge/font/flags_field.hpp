@@ -8,7 +8,7 @@
 #define SGE_FONT_FLAGS_FIELD_HPP_INCLUDED
 
 #include <sge/font/flags_field_fwd.hpp>
-#include <fcppt/container/bitfield/enum_object.hpp>
+#include <fcppt/container/bitfield/object.hpp>
 
 
 #endif
