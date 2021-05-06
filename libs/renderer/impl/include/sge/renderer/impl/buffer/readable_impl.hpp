@@ -25,15 +25,16 @@ sge::renderer::buffer::readable<
 {
 }
 
+namespace sge::renderer::buffer
+{
 template<
 	typename Tag
 >
-sge::renderer::buffer::readable<
+readable<
 	Tag
->::~readable<
-	Tag
->()
+>::~readable()
 = default;
+}
 
 template<
 	typename Tag

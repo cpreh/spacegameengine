@@ -52,15 +52,16 @@ sge::sprite::buffers::single<
 {
 }
 
+namespace sge::sprite::buffers
+{
 template<
 	typename Choices
 >
-sge::sprite::buffers::single<
+single<
 	Choices
->::~single<
-	Choices
->()
+>::~single()
 = default;
+}
 
 template<
 	typename Choices

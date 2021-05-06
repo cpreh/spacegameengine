@@ -71,15 +71,16 @@ sge::plugin::object<
 noexcept
 = default;
 
+namespace sge::plugin
+{
 template<
 	typename Type
 >
-sge::plugin::object<
+object<
 	Type
->::~object<
-	Type
->()
+>::~object()
 = default;
+}
 
 template<
 	typename Type

@@ -65,15 +65,16 @@ sge::systems::instance<
 {
 }
 
+namespace sge::systems
+{
 template<
 	typename... Choices
 >
-sge::systems::instance<
+instance<
 	Choices...
->::~instance<
-	Choices...
->()
+>::~instance()
 = default;
+}
 
 template<
 	typename... Choices

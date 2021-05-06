@@ -80,15 +80,16 @@ sge::plugin::context<
 noexcept
 = default;
 
+namespace sge::plugin
+{
 template<
 	typename Type
 >
-sge::plugin::context<
+context<
 	Type
->::~context<
-	Type
->()
+>::~context()
 = default;
+}
 
 template<
 	typename Type

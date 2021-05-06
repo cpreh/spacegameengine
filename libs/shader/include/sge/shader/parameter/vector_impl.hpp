@@ -57,17 +57,17 @@ sge::shader::parameter::vector<
 	);
 }
 
+namespace sge::shader::parameter
+{
 template<
 	typename ValueType,
 	fcppt::math::size_type N
 >
-sge::shader::parameter::vector<
+vector<
 	ValueType,
 	N
->::~vector<
-	ValueType,
-	N
->()
+>::~vector()
 = default;
+}
 
 #endif

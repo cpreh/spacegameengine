@@ -47,15 +47,16 @@ sge::sprite::buffers::multi<
 {
 }
 
+namespace sge::sprite::buffers
+{
 template<
 	typename Choices
 >
-sge::sprite::buffers::multi<
+multi<
 	Choices
->::~multi<
-	Choices
->()
+>::~multi()
 = default;
+}
 
 template<
 	typename Choices

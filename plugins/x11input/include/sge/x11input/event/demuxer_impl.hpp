@@ -48,15 +48,16 @@ sge::x11input::event::demuxer<
 {
 }
 
+namespace sge::x11input::event
+{
 template<
 	typename Event
 >
-sge::x11input::event::demuxer<
+demuxer<
 	Event
->::~demuxer<
-	Event
->()
+>::~demuxer()
 = default;
+}
 
 template<
 	typename Event

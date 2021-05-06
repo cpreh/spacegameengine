@@ -93,15 +93,16 @@ sge::image::invalid_convert<
 )
 = default;
 
+namespace sge::image
+{
 template<
 	typename Tag
 >
-sge::image::invalid_convert<
+invalid_convert<
 	Tag
->::~invalid_convert<
-	Tag
->()
+>::~invalid_convert()
 noexcept
 = default;
+}
 
 #endif

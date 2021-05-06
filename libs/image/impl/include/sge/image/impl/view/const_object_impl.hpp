@@ -94,15 +94,16 @@ sge::image::view::const_object<
 noexcept
 = default;
 
+namespace sge::image::view
+{
 template<
 	typename Tag
 >
-sge::image::view::const_object<
+const_object<
 	Tag
->::~const_object<
-	Tag
->()
+>::~const_object()
 = default;
+}
 
 template<
 	typename Tag

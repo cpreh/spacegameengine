@@ -93,15 +93,16 @@ sge::image::invalid_copy<
 )
 = default;
 
+namespace sge::image
+{
 template<
 	typename Tag
 >
-sge::image::invalid_copy<
+invalid_copy<
 	Tag
->::~invalid_copy<
-	Tag
->()
+>::~invalid_copy()
 noexcept
 = default;
+}
 
 #endif

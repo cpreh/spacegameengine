@@ -120,15 +120,16 @@ sge::image::view::sub_out_of_range<
 		inner_;
 }
 
+namespace sge::image::view
+{
 template<
 	typename Tag
 >
-sge::image::view::sub_out_of_range<
+sub_out_of_range<
 	Tag
->::~sub_out_of_range<
-	Tag
->()
+>::~sub_out_of_range()
 noexcept
 = default;
+}
 
 #endif

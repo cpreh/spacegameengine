@@ -61,15 +61,16 @@ sge::systems::impl::plugin_pair<
 noexcept
 = default;
 
+namespace sge::systems::impl
+{
 template<
 	typename System
 >
-sge::systems::impl::plugin_pair<
+plugin_pair<
 	System
->::~plugin_pair<
-	System
->()
+>::~plugin_pair()
 = default;
+}
 
 template<
 	typename System

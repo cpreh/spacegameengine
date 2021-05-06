@@ -66,21 +66,21 @@ sge::console::muxing_streambuf<
 }
 FCPPT_PP_POP_WARNING
 
+namespace sge::console
+{
 template<
 	typename Char,
 	typename Traits
 >
-sge::console::muxing_streambuf<
+muxing_streambuf<
 	Char,
 	Traits
->::~muxing_streambuf<
-	Char,
-	Traits
->()
+>::~muxing_streambuf()
 {
 	stream_.get().rdbuf(
 		old_streambuf_.release_ownership()
 	);
+}
 }
 
 template<

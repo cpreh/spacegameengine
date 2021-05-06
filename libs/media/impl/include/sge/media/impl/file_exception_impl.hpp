@@ -80,15 +80,16 @@ sge::media::file_exception<
 )
 = default;
 
+namespace sge::media
+{
 template<
 	typename Base
 >
-sge::media::file_exception<
+file_exception<
 	Base
->::~file_exception<
-	Base
->()
+>::~file_exception()
 noexcept
 = default;
+}
 
 #endif

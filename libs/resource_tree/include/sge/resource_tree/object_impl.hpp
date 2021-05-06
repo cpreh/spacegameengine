@@ -48,18 +48,18 @@ sge::resource_tree::object<
 {
 }
 
+namespace sge::resource_tree
+{
 template<
 	typename T,
 	typename Rng
 >
-sge::resource_tree::object<
+object<
 	T,
 	Rng
->::~object<
-	T,
-	Rng
->()
+>::~object()
 = default;
+}
 
 template<
 	typename T,

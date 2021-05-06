@@ -67,14 +67,15 @@ sge::shader::parameter::scalar<ValueType>::set(
 	);
 }
 
+namespace sge::shader::parameter
+{
 template<
 	typename ValueType
 >
-sge::shader::parameter::scalar<
+scalar<
 	ValueType
->::~scalar<
-	ValueType
->()
+>::~scalar()
 = default;
+}
 
 #endif

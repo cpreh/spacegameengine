@@ -58,15 +58,16 @@ sge::opengl::target::basic<
 {
 }
 
+namespace sge::opengl::target
+{
 template<
 	typename Base
 >
-sge::opengl::target::basic<
+basic<
 	Base
->::~basic<
-	Base
->()
+>::~basic()
 = default;
+}
 
 template<
 	typename Base

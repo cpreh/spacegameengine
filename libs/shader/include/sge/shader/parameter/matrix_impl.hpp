@@ -101,20 +101,19 @@ sge::shader::parameter::matrix<
 		);
 }
 
+namespace sge::shader::parameter
+{
 template<
 	typename ValueType,
 	fcppt::math::size_type M,
 	fcppt::math::size_type N
 >
-sge::shader::parameter::matrix<
+matrix<
 	ValueType,
 	M,
 	N
->::~matrix<
-	ValueType,
-	M,
-	N
->()
+>::~matrix()
 = default;
+}
 
 #endif

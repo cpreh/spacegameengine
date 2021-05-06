@@ -18,14 +18,15 @@ sge::renderer::buffer::base<
 >::base()
 = default;
 
+namespace sge::renderer::buffer
+{
 template<
 	typename Tag
 >
-sge::renderer::buffer::base<
+base<
 	Tag
->::~base<
-	Tag
->()
+>::~base()
 = default;
+}
 
 #endif

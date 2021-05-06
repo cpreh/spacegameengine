@@ -64,16 +64,17 @@ sge::renderer::buffer::const_scoped_lock<
 		view_;
 }
 
+namespace sge::renderer::buffer
+{
 template<
 	typename Tag
 >
-sge::renderer::buffer::const_scoped_lock<
+const_scoped_lock<
 	Tag
->::~const_scoped_lock<
-	Tag
->()
+>::~const_scoped_lock()
 {
 	buffer_.get().unlock();
+}
 }
 
 #endif

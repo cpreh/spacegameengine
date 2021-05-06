@@ -222,18 +222,18 @@ FCPPT_PP_POP_WARNING
 
 FCPPT_PP_POP_WARNING
 
+namespace sge::media::detail
+{
 template<
 	typename System,
 	typename File
 >
-sge::media::detail::muxer<
+muxer<
 	System,
 	File
->::~muxer<
-	System,
-	File
->()
+>::~muxer()
 = default;
+}
 
 template<
 	typename System,

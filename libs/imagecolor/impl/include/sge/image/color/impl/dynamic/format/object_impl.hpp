@@ -39,20 +39,19 @@ noexcept
 {
 }
 
+namespace sge::image::color::impl::dynamic::format
+{
 template<
 	typename Space,
 	typename BaseType,
 	mizuiro::size_type NumChannels
 >
-sge::image::color::impl::dynamic::format::object<
+object<
 	Space,
 	BaseType,
 	NumChannels
->::~object<
-	Space,
-	BaseType,
-	NumChannels
->()
+>::~object()
 = default;
+}
 
 #endif

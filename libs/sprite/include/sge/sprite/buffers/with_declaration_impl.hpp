@@ -48,15 +48,16 @@ sge::sprite::buffers::with_declaration<
 {
 }
 
+namespace sge::sprite::buffers
+{
 template<
 	typename Buffers
 >
-sge::sprite::buffers::with_declaration<
+with_declaration<
 	Buffers
->::~with_declaration<
-	Buffers
->()
+>::~with_declaration()
 = default;
+}
 
 template<
 	typename Buffers

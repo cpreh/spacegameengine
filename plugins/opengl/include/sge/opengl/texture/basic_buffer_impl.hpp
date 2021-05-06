@@ -48,15 +48,16 @@ sge::opengl::texture::basic_buffer<
 {
 }
 
+namespace sge::opengl::texture
+{
 template<
 	typename Types
 >
-sge::opengl::texture::basic_buffer<
+basic_buffer<
 	Types
->::~basic_buffer<
-	Types
->()
+>::~basic_buffer()
 = default;
+}
 
 template<
 	typename Types

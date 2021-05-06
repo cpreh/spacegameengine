@@ -74,14 +74,15 @@ sge::renderer::texture::const_basic_scoped_lock<
 		lock_.value();
 }
 
+namespace sge::renderer::texture
+{
 template<
 	typename Tag
 >
-sge::renderer::texture::const_basic_scoped_lock<
+const_basic_scoped_lock<
 	Tag
->::~const_basic_scoped_lock<
-	Tag
->()
+>::~const_basic_scoped_lock()
 = default;
+}
 
 #endif

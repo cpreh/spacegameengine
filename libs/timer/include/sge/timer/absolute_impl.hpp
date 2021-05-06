@@ -55,15 +55,16 @@ sge::timer::absolute<
 
 FCPPT_PP_POP_WARNING
 
+namespace sge::timer
+{
 template<
 	typename Clock
 >
-sge::timer::absolute<
+absolute<
 	Clock
->::~absolute<
-	Clock
->()
+>::~absolute()
 = default;
+}
 
 template<
 	typename Clock

@@ -76,15 +76,16 @@ sge::texture::basic_part_raw<
 {
 }
 
+namespace sge::texture
+{
 template<
 	typename Ref
 >
-sge::texture::basic_part_raw<
+basic_part_raw<
 	Ref
->::~basic_part_raw<
-	Ref
->()
+>::~basic_part_raw()
 = default;
+}
 
 template<
 	typename Ref

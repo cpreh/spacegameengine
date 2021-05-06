@@ -178,18 +178,19 @@ noexcept
 		*this;
 }
 
+namespace sge::sprite
+{
 template<
 	typename Choices
 >
-sge::sprite::object<
+object<
 	Choices
->::~object<
-	Choices
->()
+>::~object()
 {
 	sge::sprite::detail::destroy(
 		*this
 	);
+}
 }
 
 template<

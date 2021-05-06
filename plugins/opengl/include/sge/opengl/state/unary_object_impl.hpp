@@ -32,18 +32,18 @@ sge::opengl::state::unary_object<
 {
 }
 
+namespace sge::opengl::state
+{
 template<
 	typename Base,
 	typename Parameter
 >
-sge::opengl::state::unary_object<
+unary_object<
 	Base,
 	Parameter
->::~unary_object<
-	Base,
-	Parameter
->()
+>::~unary_object()
 = default;
+}
 
 template<
 	typename Base,

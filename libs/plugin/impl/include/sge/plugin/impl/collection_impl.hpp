@@ -81,15 +81,16 @@ noexcept
 =
 default;
 
+namespace sge::plugin
+{
 template<
 	typename Type
 >
-sge::plugin::collection<
+collection<
 	Type
->::~collection<
-	Type
->()
+>::~collection()
 = default;
+}
 
 template<
 	typename Type

@@ -112,15 +112,16 @@ sge::opengl::texture::basic_lockable_buffer<
 
 FCPPT_PP_POP_WARNING
 
+namespace sge::opengl::texture
+{
 template<
 	typename Types
 >
-sge::opengl::texture::basic_lockable_buffer<
+basic_lockable_buffer<
 	Types
->::~basic_lockable_buffer<
-	Types
->()
+>::~basic_lockable_buffer()
 = default;
+}
 
 template<
 	typename Types

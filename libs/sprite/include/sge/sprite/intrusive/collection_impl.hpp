@@ -39,15 +39,16 @@ sge::sprite::intrusive::collection<
 {
 }
 
+namespace sge::sprite::intrusive
+{
 template<
 	typename Choices
 >
-sge::sprite::intrusive::collection<
+collection<
 	Choices
->::~collection<
-	Choices
->()
+>::~collection()
 = default;
+}
 
 template<
 	typename Choices

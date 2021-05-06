@@ -39,15 +39,16 @@ sge::sprite::state::object<
 {
 }
 
+namespace sge::sprite::state
+{
 template<
 	typename StateChoices
 >
-sge::sprite::state::object<
+object<
 	StateChoices
->::~object<
-	StateChoices
->()
+>::~object()
 = default;
+}
 
 template<
 	typename StateChoices

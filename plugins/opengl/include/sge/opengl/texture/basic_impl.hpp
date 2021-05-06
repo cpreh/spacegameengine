@@ -52,15 +52,16 @@ sge::opengl::texture::basic<
 {
 }
 
+namespace sge::opengl::texture
+{
 template<
 	typename Types
 >
-sge::opengl::texture::basic<
+basic<
 	Types
->::~basic<
-	Types
->()
+>::~basic()
 = default;
+}
 
 template<
 	typename Types

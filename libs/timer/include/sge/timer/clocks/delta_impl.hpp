@@ -21,15 +21,16 @@ sge::timer::clocks::delta<
 {
 }
 
+namespace sge::timer::clocks
+{
 template<
 	typename Duration
 >
-sge::timer::clocks::delta<
+delta<
 	Duration
->::~delta<
-	Duration
->()
+>::~delta()
 = default;
+}
 
 template<
 	typename Duration

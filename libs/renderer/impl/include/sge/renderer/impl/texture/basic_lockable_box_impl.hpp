@@ -25,15 +25,16 @@ sge::renderer::texture::basic_lockable_box<
 {
 }
 
+namespace sge::renderer::texture
+{
 template<
 	typename Tag
 >
-sge::renderer::texture::basic_lockable_box<
+basic_lockable_box<
 	Tag
->::~basic_lockable_box<
-	Tag
->()
+>::~basic_lockable_box()
 = default;
+}
 
 template<
 	typename Tag

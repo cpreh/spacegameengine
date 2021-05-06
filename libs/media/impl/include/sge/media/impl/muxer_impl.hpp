@@ -41,18 +41,18 @@ sge::media::muxer<
 {
 }
 
+namespace sge::media
+{
 template<
 	typename System,
 	typename File
 >
-sge::media::muxer<
+muxer<
 	System,
 	File
->::~muxer<
-	System,
-	File
->()
+>::~muxer()
 = default;
+}
 
 template<
 	typename System,

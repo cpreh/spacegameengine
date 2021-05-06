@@ -26,15 +26,16 @@ sge::renderer::buffer::writable<
 {
 }
 
+namespace sge::renderer::buffer
+{
 template<
 	typename Tag
 >
-sge::renderer::buffer::writable<
+writable<
 	Tag
->::~writable<
-	Tag
->()
+>::~writable()
 = default;
+}
 
 template<
 	typename Tag

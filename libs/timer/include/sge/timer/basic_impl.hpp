@@ -71,15 +71,16 @@ sge::timer::basic<
 noexcept
 = default;
 
+namespace sge::timer
+{
 template<
 	typename Clock
 >
-sge::timer::basic<
+basic<
 	Clock
->::~basic<
-	Clock
->()
+>::~basic()
 = default;
+}
 
 template<
 	typename Clock

@@ -83,15 +83,16 @@ sge::opengl::texture::basic_box<
 
 FCPPT_PP_POP_WARNING
 
+namespace sge::opengl::texture
+{
 template<
 	typename Types
 >
-sge::opengl::texture::basic_box<
+basic_box<
 	Types
->::~basic_box<
-	Types
->()
+>::~basic_box()
 = default;
+}
 
 template<
 	typename Types

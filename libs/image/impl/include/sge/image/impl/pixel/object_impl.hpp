@@ -73,15 +73,16 @@ sge::image::pixel::object<
 noexcept
 = default;
 
+namespace sge::image::pixel
+{
 template<
 	typename Tag
 >
-sge::image::pixel::object<
+object<
 	Tag
->::~object<
-	Tag
->()
+>::~object()
 = default;
+}
 
 template<
 	typename Tag

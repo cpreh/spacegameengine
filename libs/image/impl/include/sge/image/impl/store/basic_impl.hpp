@@ -143,15 +143,16 @@ sge::image::store::basic<
 noexcept
 = default;
 
+namespace sge::image::store
+{
 template<
 	typename Format
 >
-sge::image::store::basic<
+basic<
 	Format
->::~basic<
-	Format
->()
+>::~basic()
 = default;
+}
 
 template<
 	typename Format

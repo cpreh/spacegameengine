@@ -47,19 +47,20 @@ sge::sprite::state::scoped<
 	);
 }
 
+namespace sge::sprite::state
+{
 template<
 	typename StateChoices
 >
-sge::sprite::state::scoped<
+scoped<
 	StateChoices
->::~scoped<
-	StateChoices
->()
+>::~scoped()
 {
 	sge::sprite::state::unset(
 		render_context_.get(),
 		options_
 	);
+}
 }
 
 #endif

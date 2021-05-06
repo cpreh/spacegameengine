@@ -69,8 +69,11 @@ sge::bvh::object<Traits>::representation() const
 		representation_;
 }
 
+namespace sge::bvh
+{
 template<typename Traits>
-sge::bvh::object<Traits>::~object<Traits>()
+object<Traits>::~object()
 = default;
+}
 
 #endif

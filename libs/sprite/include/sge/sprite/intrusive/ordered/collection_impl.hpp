@@ -29,18 +29,18 @@ sge::sprite::intrusive::ordered::collection<
 {
 }
 
+namespace sge::sprite::intrusive::ordered
+{
 template<
 	typename Choices,
 	typename Order
 >
-sge::sprite::intrusive::ordered::collection<
+collection<
 	Choices,
 	Order
->::~collection<
-	Choices,
-	Order
->()
+>::~collection()
 = default;
+}
 
 template<
 	typename Choices,

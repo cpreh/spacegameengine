@@ -72,15 +72,16 @@ sge::image::view::object<
 noexcept
 = default;
 
+namespace sge::image::view
+{
 template<
 	typename Tag
 >
-sge::image::view::object<
+object<
 	Tag
->::~object<
-	Tag
->()
+>::~object()
 = default;
+}
 
 template<
 	typename Tag

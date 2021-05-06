@@ -33,15 +33,16 @@ sge::sprite::intrusive::detail::connection<
 {
 }
 
+namespace sge::sprite::intrusive::detail
+{
 template<
 	typename Choices
 >
-sge::sprite::intrusive::detail::connection<
+connection<
 	Choices
->::~connection<
-	Choices
->()
+>::~connection()
 = default;
+}
 
 template<
 	typename Choices

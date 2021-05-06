@@ -112,15 +112,16 @@ sge::image::store::object<
 noexcept
 = default;
 
+namespace sge::image::store
+{
 template<
 	typename Tag
 >
-sge::image::store::object<
+object<
 	Tag
->::~object<
-	Tag
->()
+>::~object()
 = default;
+}
 
 template<
 	typename Tag

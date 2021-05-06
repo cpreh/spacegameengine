@@ -32,15 +32,16 @@ sge::opengl::state::object<
 {
 }
 
+namespace sge::opengl::state
+{
 template<
 	typename Base
 >
-sge::opengl::state::object<
+object<
 	Base
->::~object<
-	Base
->()
+>::~object()
 = default;
+}
 
 template<
 	typename Base

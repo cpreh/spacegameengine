@@ -108,18 +108,18 @@ sge::resource_tree::detail::element<
 noexcept
 = default;
 
+namespace sge::resource_tree::detail
+{
 template<
 	typename T,
 	typename Rng
 >
-sge::resource_tree::detail::element<
+element<
 	T,
 	Rng
->::~element<
-	T,
-	Rng
->()
+>::~element()
 = default;
+}
 
 template<
 	typename T,
