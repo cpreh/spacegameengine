@@ -75,12 +75,12 @@ sge::sprite::render::range<
 noexcept
 = default;
 
-namespace sge::sprite
+namespace sge::sprite::render
 {
 template<
 	typename Choices
 >
-render::range<
+range<
 	Choices
 >::~range()
 = default;
