@@ -53,14 +53,14 @@ sge::opengl::egl::window_surface<
 	}
 }
 
+namespace sge::opengl::egl
+{
 template<
 	typename NativeWindow
 >
-sge::opengl::egl::window_surface<
+window_surface<
 	NativeWindow
->::~window_surface<
-	NativeWindow
->()
+>::~window_surface()
 {
 	FCPPT_ASSERT_ERROR(
 		::eglDestroySurface(
@@ -70,6 +70,7 @@ sge::opengl::egl::window_surface<
 		==
 		EGL_TRUE
 	);
+}
 }
 
 template<
