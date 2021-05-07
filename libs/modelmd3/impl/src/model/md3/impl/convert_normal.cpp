@@ -8,10 +8,11 @@
 #include <sge/model/md3/impl/convert_normal.hpp>
 #include <sge/model/md3/impl/s16.hpp>
 #include <sge/model/md3/impl/vec3.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/cast/int_to_float.hpp>
-#include <fcppt/math/twopi.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
+#include <numbers>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -20,6 +21,18 @@ sge::model::md3::impl::convert_normal(
 	sge::model::md3::impl::s16 const _normal
 )
 {
+	constexpr sge::model::md3::scalar const twopi{
+		std::numbers::pi_v<
+			sge::model::md3::scalar
+		>
+		*
+		fcppt::literal<
+			sge::model::md3::scalar
+		>(
+			2
+		)
+	};
+
 	sge::model::md3::scalar const lat(
 		fcppt::cast::int_to_float<
 			sge::model::md3::scalar
@@ -28,9 +41,7 @@ sge::model::md3::impl::convert_normal(
 			& 255 // NOLINT(hicpp-signed-bitwise)
 		)
 		*
-		fcppt::math::twopi<
-			sge::model::md3::scalar
-		>()
+		twopi
 		/ 255
 	);
 
@@ -41,9 +52,7 @@ sge::model::md3::impl::convert_normal(
 			_normal & 255 // NOLINT(hicpp-signed-bitwise)
 		)
 		*
-		fcppt::math::twopi<
-			sge::model::md3::scalar
-		>()
+		twopi
 		/ 255
 	);
 

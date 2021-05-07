@@ -184,7 +184,6 @@
 #include <fcppt/either/match.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
-#include <fcppt/math/twopi.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
@@ -228,6 +227,7 @@
 #include <chrono>
 #include <cmath>
 #include <exception>
+#include <numbers>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -741,9 +741,15 @@ random_model_collection::random_model_collection(
 						0.F
 					},
 					distribution::param_type::sup{
-						fcppt::math::twopi<
+						std::numbers::pi_v<
 							sge::renderer::scalar
-						>()
+						>
+						*
+						fcppt::literal<
+							sge::renderer::scalar
+						>(
+							2
+						)
 					}
 				}
 			};

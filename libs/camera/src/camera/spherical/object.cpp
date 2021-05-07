@@ -21,7 +21,6 @@
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/clamp.hpp>
-#include <fcppt/math/pi.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
@@ -33,6 +32,9 @@
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <numbers>
+#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -221,7 +223,7 @@ sge::camera::spherical::object::update(
 					_time_delta.count() *
 					movement_speed_.get().inclination().get() *
 					velocity_.inclination().get(),
-					-fcppt::math::pi<sge::renderer::scalar>() + inclination_epsilon,
+					-std::numbers::pi_v<sge::renderer::scalar> + inclination_epsilon,
 					-inclination_epsilon
 				)
 			)

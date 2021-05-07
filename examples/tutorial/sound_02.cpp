@@ -38,7 +38,6 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
@@ -46,6 +45,7 @@
 #include <cstdlib>
 #include <exception>
 #include <iostream>
+#include <numbers>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
@@ -126,9 +126,15 @@ try
 	);
 
 	sge::audio::scalar const speed(
-		fcppt::math::twopi<
+		std::numbers::pi_v<
 			sge::audio::scalar
-		>()
+		>
+		*
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			2
+		)
 		*
 		rpm
 	);

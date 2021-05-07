@@ -10,7 +10,9 @@
 #include <sge/camera/spherical/coordinate_system/object.hpp>
 #include <sge/camera/spherical/coordinate_system/radius.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/math/pi.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <numbers>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::camera::spherical::coordinate_system::object
@@ -23,10 +25,10 @@ sge::camera::spherical::coordinate_system::look_down_positive_z(
 	return
 		sge::camera::spherical::coordinate_system::object(
 			sge::camera::spherical::coordinate_system::azimuth(
-				-fcppt::math::pi<sge::renderer::scalar>()/two
+				-std::numbers::pi_v<sge::renderer::scalar> / two
 			),
 			sge::camera::spherical::coordinate_system::inclination(
-				-fcppt::math::pi<sge::renderer::scalar>()/two
+				-std::numbers::pi_v<sge::renderer::scalar> / two
 			),
 			_radius
 		);

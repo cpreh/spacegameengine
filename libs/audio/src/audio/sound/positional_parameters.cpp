@@ -10,12 +10,32 @@
 #include <sge/audio/sound/optional_direction.hpp>
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/math/twopi.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
+#include <numbers>
 #include <fcppt/config/external_end.hpp>
 
+
+namespace
+{
+
+sge::audio::scalar
+twopi()
+{
+	return
+		std::numbers::pi_v<
+			sge::audio::scalar
+		>
+		*
+		fcppt::literal<
+			sge::audio::scalar
+		>(
+			2
+		);
+}
+
+}
 
 sge::audio::sound::positional_parameters::positional_parameters(
 	sge::audio::position const _position
@@ -65,14 +85,10 @@ sge::audio::sound::positional_parameters::positional_parameters(
 	direction_(),
 	// These values have been taken from the OpenAL spec's defaults
 	inner_cone_angle_(
-		fcppt::math::twopi<
-			sge::audio::scalar
-		>()
+		twopi()
 	),
 	outer_cone_angle_(
-		fcppt::math::twopi<
-			sge::audio::scalar
-		>()
+		twopi()
 	),
 	outer_cone_gain_(
 		fcppt::literal<

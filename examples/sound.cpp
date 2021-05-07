@@ -54,7 +54,6 @@
 #include <fcppt/io/cin.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/math/pi.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/range/iterator_range.hpp>
