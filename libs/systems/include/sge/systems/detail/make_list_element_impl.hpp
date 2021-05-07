@@ -11,7 +11,6 @@
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/renderer.hpp>
 #include <sge/systems/detail/renderer_caps.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <utility>
@@ -32,7 +31,7 @@ template<
 std::enable_if_t<
 	std::negation_v<
 		std::is_same<
-			fcppt::type_traits::remove_cv_ref_t<
+			std::remove_cvref_t<
 				Type
 			>,
 			sge::systems::renderer
@@ -61,7 +60,7 @@ template<
 inline
 std::enable_if_t<
 	std::is_same_v<
-		fcppt::type_traits::remove_cv_ref_t<
+		std::remove_cvref_t<
 			Type
 		>,
 		sge::systems::renderer

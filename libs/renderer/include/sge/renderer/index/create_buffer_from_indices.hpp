@@ -27,6 +27,7 @@
 #include <fcppt/range/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -50,7 +51,7 @@ create_buffer_from_indices(
 	using
 	index_type
 	=
-	fcppt::type_traits::remove_cv_ref_t<
+	std::remove_cvref_t<
 		fcppt::algorithm::range_element_type<
 			Range
 		>

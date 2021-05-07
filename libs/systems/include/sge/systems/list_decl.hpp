@@ -9,7 +9,9 @@
 
 #include <sge/systems/list_fwd.hpp>
 #include <fcppt/tuple/push_back_result.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -35,7 +37,7 @@ public:
 	list<
 		fcppt::tuple::push_back_result<
 			Inits,
-			fcppt::type_traits::remove_cv_ref_t<
+			std::remove_cvref_t<
 				Param
 			>
 		>

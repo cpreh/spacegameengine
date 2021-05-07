@@ -9,8 +9,8 @@
 
 #include <sge/opengl/state/error_handler.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -36,7 +36,7 @@ wrap_error_handler(
 	return
 		Result{
 			sge::opengl::state::error_handler<
-				fcppt::type_traits::remove_cv_ref_t<
+				std::remove_cvref_t<
 					Actor
 				>
 			>(

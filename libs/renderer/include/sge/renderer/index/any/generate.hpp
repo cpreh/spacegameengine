@@ -11,8 +11,10 @@
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/any/view.hpp>
 #include <fcppt/tag.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/variant/apply.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -50,7 +52,7 @@ generate(
 					_gen(
 						fcppt::tag<
 							typename
-							fcppt::type_traits::remove_cv_ref_t<
+							std::remove_cvref_t<
 								decltype(
 									_inner_view
 								)

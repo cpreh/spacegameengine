@@ -10,7 +10,6 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <X11/extensions/XInput2.h>
@@ -38,7 +37,7 @@ std::enable_if_t<
 			XIKeyClassInfo,
 			XIScrollClassInfo
 		>,
-		fcppt::type_traits::remove_cv_ref_t<
+		std::remove_cvref_t<
 			Result
 		>
 	>::value,

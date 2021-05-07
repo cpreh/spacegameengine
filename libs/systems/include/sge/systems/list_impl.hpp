@@ -10,8 +10,8 @@
 #include <sge/systems/list_decl.hpp>
 #include <fcppt/tuple/push_back.hpp>
 #include <fcppt/tuple/push_back_result.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,7 +42,7 @@ template<
 sge::systems::list<
 	fcppt::tuple::push_back_result<
 		Inits,
-		fcppt::type_traits::remove_cv_ref_t<
+		std::remove_cvref_t<
 			Param
 		>
 	>
@@ -57,7 +57,7 @@ sge::systems::list<
 		sge::systems::list<
 			fcppt::tuple::push_back_result<
 				Inits,
-				fcppt::type_traits::remove_cv_ref_t<
+				std::remove_cvref_t<
 					Param
 				>
 			>

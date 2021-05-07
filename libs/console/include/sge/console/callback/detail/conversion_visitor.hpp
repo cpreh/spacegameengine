@@ -18,7 +18,6 @@
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/metal/to_number.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <cstddef>
@@ -59,7 +58,7 @@ public:
 		std::size_t Index
 	>
 	fcppt::optional::object<
-		fcppt::type_traits::remove_cv_ref_t<
+		std::remove_cvref_t<
 			::metal::at<
 				ParameterTypes,
 				fcppt::metal::to_number<
@@ -82,7 +81,7 @@ public:
 		using
 		result_type
 		=
-		fcppt::type_traits::remove_cv_ref_t<
+		std::remove_cvref_t<
 			::metal::at<
 				ParameterTypes,
 				fcppt::metal::to_number<

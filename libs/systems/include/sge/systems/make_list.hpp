@@ -10,7 +10,9 @@
 #include <sge/systems/list_fwd.hpp>
 #include <fcppt/tuple/make.hpp>
 #include <fcppt/tuple/object_impl.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -24,7 +26,7 @@ template<
 inline
 sge::systems::list<
 	fcppt::tuple::object<
-		fcppt::type_traits::remove_cv_ref_t<
+		std::remove_cvref_t<
 			Param
 		>
 	>
@@ -36,7 +38,7 @@ make_list(
 	return
 		sge::systems::list<
 			fcppt::tuple::object<
-				fcppt::type_traits::remove_cv_ref_t<
+				std::remove_cvref_t<
 					Param
 				>
 			>

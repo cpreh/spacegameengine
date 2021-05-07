@@ -11,7 +11,6 @@
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/extract_parameter_type.hpp>
 #include <sge/systems/detail/make_list_element_impl.hpp>
-#include <fcppt/type_traits/remove_cv_ref_t.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <metal.hpp>
 #include <type_traits>
@@ -40,7 +39,7 @@ make_list_element(
 	// static subsystems
 	static_assert(
 		std::is_same<
-			fcppt::type_traits::remove_cv_ref_t<
+			std::remove_cvref_t<
 				Type
 			>,
 			sge::systems::config
@@ -53,7 +52,7 @@ make_list_element(
 					std::is_same
 				>,
 				metal::always<
-					fcppt::type_traits::remove_cv_ref_t<
+					std::remove_cvref_t<
 						Type
 					>
 				>,
