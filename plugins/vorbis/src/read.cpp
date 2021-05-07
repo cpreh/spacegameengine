@@ -15,7 +15,6 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
-#include <fcppt/endianness/is_little_endian.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
@@ -23,9 +22,21 @@
 #include <fcppt/config/external_begin.hpp>
 #include <vorbis/codec.h>
 #include <vorbis/vorbisfile.h>
+#include <bit>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
+
+namespace
+{
+constexpr int const vorbis_endian{
+	std::endian::native == std::endian::little
+	?
+		0
+	:
+		1
+};
+}
 
 std::size_t
 sge::vorbis::read(
@@ -53,12 +64,7 @@ sge::vorbis::read(
 					_size
 				)
 			),
-			fcppt::endianness::is_little_endian()
-			?
-				0
-			:
-				1
-			,
+			vorbis_endian,
 			2, // 8 or 16 bit samples
 			1, // 0 is unsigned data, 1 is signed
 			&bitstream

@@ -8,9 +8,9 @@
 #define SGE_WAVE_IGNORE_CHUNKS_UNTIL_HPP_INCLUDED
 
 #include <sge/wave/header.hpp>
-#include <fcppt/endianness/format_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <bit>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
@@ -26,7 +26,7 @@ ignore_chunks_until(
 	fcppt::log::object &, // NOLINT(google-runtime-references)
 	std::istream &,
 	sge::wave::header const &,
-	fcppt::endianness::format
+	std::endian
 );
 
 }

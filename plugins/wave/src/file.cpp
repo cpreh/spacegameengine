@@ -27,7 +27,6 @@
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
-#include <fcppt/endianness/host_format.hpp>
 #include <fcppt/endianness/reverse_mem.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/info.hpp>
@@ -35,6 +34,7 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <bit>
 #include <ios>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -218,7 +218,7 @@ sge::wave::file::read(
 		&&
 		info_.endianness()
 		!=
-		fcppt::endianness::host_format()
+		std::endian::native
 	)
 	{
 		for(

@@ -13,13 +13,13 @@
 #include <fcppt/array/comparison.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <bit>
 #include <cstdint>
 #include <ios>
 #include <string>
@@ -31,7 +31,7 @@ sge::wave::ignore_chunks_until(
 	fcppt::log::object &_log,
 	std::istream &_stream,
 	sge::wave::header const &_header,
-	fcppt::endianness::format const _endianness
+	std::endian const _endianness
 )
 {
 	while(

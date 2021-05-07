@@ -9,11 +9,13 @@
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
 #include <sge/wave/info.hpp>
-#include <fcppt/endianness/format.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <bit>
+#include <fcppt/config/external_end.hpp>
 
 
 sge::wave::info::info(
-	fcppt::endianness::format const _endianness,
+	std::endian const _endianness,
 	sge::audio::channel_count const _channels,
 	sge::audio::sample_rate const _sample_rate,
 	sge::audio::bits_per_sample const _bits_per_sample,
@@ -38,7 +40,7 @@ sge::wave::info::info(
 {
 }
 
-fcppt::endianness::format
+std::endian
 sge::wave::info::endianness() const
 {
 	return

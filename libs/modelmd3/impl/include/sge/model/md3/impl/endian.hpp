@@ -7,7 +7,9 @@
 #ifndef SGE_MODEL_MD3_IMPL_ENDIAN_HPP_INCLUDED
 #define SGE_MODEL_MD3_IMPL_ENDIAN_HPP_INCLUDED
 
-#include <fcppt/endianness/format.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <bit>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -20,11 +22,12 @@ namespace impl
 {
 
 inline
-fcppt::endianness::format
+constexpr
+std::endian
 endian()
 {
 	return
-		fcppt::endianness::format::little;
+		std::endian::little;
 }
 
 }

@@ -12,7 +12,9 @@
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
 #include <sge/wave/info_fwd.hpp>
-#include <fcppt/endianness/format.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <bit>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -24,7 +26,7 @@ class info
 {
 public:
 	info(
-		fcppt::endianness::format,
+		std::endian,
 		sge::audio::channel_count,
 		sge::audio::sample_rate,
 		sge::audio::bits_per_sample,
@@ -32,7 +34,7 @@ public:
 	);
 
 	[[nodiscard]]
-	fcppt::endianness::format
+	std::endian
 	endianness() const;
 
 	[[nodiscard]]
@@ -51,7 +53,7 @@ public:
 	sge::audio::sample_count
 	samples() const;
 private:
-	fcppt::endianness::format endianness_;
+	std::endian endianness_;
 
 	sge::audio::channel_count channels_;
 

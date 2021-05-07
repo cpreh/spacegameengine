@@ -22,7 +22,6 @@
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/array/comparison.hpp>
-#include <fcppt/endianness/format.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -31,6 +30,7 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <bit>
 #include <cstdint>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
@@ -104,12 +104,12 @@ sge::wave::read_info(
 			sge::wave::optional_info();
 	}
 
-	fcppt::endianness::format const endianness{
+	std::endian const endianness{
 		little_endian
 		?
-			fcppt::endianness::format::little
+			std::endian::little
 		:
-			fcppt::endianness::format::big
+			std::endian::big
 	};
 
 	// throw away riff size
