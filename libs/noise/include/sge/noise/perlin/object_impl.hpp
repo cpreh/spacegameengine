@@ -9,13 +9,14 @@
 
 #include <sge/noise/perlin/object_decl.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/use.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/grid/interpolate.hpp>
 #include <fcppt/math/mod.hpp>
+#include <fcppt/math/size_constant.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/at.hpp>
+#include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/vector/at.hpp>
 #include <fcppt/math/vector/init.hpp>
 #include <fcppt/random/variate.hpp>
@@ -108,6 +109,13 @@ sge::noise::perlin::object<
 		}()
 	)
 {
+	FCPPT_ASSERT_PRE(
+		fcppt::math::dim::contents(
+			_size
+		)
+		!=
+		0U
+	);
 }
 
 template<
@@ -138,27 +146,22 @@ sge::noise::perlin::object<
 				[
 					&_v,
 					this
-				](
-					auto const _index
+				]
+				<
+					fcppt::math::size_type Index
+				>
+				(
+					fcppt::math::size_constant<
+						Index
+					>
 				)
 				{
-					FCPPT_USE(
-						_index
-					);
-
-					using
-					index
-					=
-					decltype(
-						_index
-					);
-
 					value_type const current_dimension{
 						fcppt::cast::int_to_float<
 							value_type
 						>(
 							fcppt::math::dim::at<
-								index::value
+								Index
 							>(
 								gradients_.size()
 							)
@@ -166,27 +169,23 @@ sge::noise::perlin::object<
 					};
 
 					value_type const temp{
-						FCPPT_ASSERT_OPTIONAL_ERROR(
-							fcppt::math::mod(
-								fcppt::math::vector::at<
-									index::value
-								>(
-									_v
-								),
-								current_dimension
-							)
-						)
+						fcppt::math::mod(
+							fcppt::math::vector::at<
+								Index
+							>(
+								_v
+							),
+							current_dimension
+						).get_unsafe()
 					};
 
 					return
-						FCPPT_ASSERT_OPTIONAL_ERROR(
-							fcppt::math::mod(
-								temp
-								+
-								current_dimension,
-								current_dimension
-							)
-						);
+						fcppt::math::mod(
+							temp
+							+
+							current_dimension,
+							current_dimension
+						).get_unsafe();
 				}
 			),
 			Interpolator()
