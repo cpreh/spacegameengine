@@ -184,7 +184,6 @@
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/null.hpp>
-#include <fcppt/optional/dynamic_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>

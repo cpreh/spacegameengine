@@ -15,7 +15,9 @@
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
+#include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/literal.hpp>
@@ -24,9 +26,10 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 #include <fcppt/math/box/null.hpp>
-#include <fcppt/optional/dynamic_cast.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -62,10 +65,23 @@ sge::d3d9::target::offscreen::color_surface(
 	color_surfaces_[
 		_index.get()
 	] =
-		fcppt::optional::dynamic_cast_<
-			sge::d3d9::surface::color
-		>(
-			_surface
+		fcppt::optional::map(
+			_surface,
+			[](
+				fcppt::reference<
+					sge::renderer::color_buffer::surface
+				> const _inner
+			)
+			{
+				return
+					fcppt::make_ref(
+						fcppt::cast::static_downcast<
+							sge::d3d9::surface::color &
+						>(
+							_inner.get()
+						)
+					);
+			}
 		);
 }
 
@@ -75,10 +91,23 @@ sge::d3d9::target::offscreen::depth_stencil_surface(
 )
 {
 	depth_stencil_surface_ =
-		fcppt::optional::dynamic_cast_<
-			sge::d3d9::surface::depth_stencil_offscreen
-		>(
-			_surface
+		fcppt::optional::map(
+			_surface,
+			[](
+				fcppt::reference<
+					sge::renderer::depth_stencil_buffer::surface
+				> const _inner
+			)
+			{
+				return
+					fcppt::make_ref(
+						fcppt::cast::static_downcast<
+							sge::d3d9::surface::depth_stencil_offscreen &
+						>(
+							_inner.get()
+						)
+					);
+			}
 		);
 }
 
