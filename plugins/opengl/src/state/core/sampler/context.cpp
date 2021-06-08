@@ -10,6 +10,7 @@
 #include <sge/opengl/state/core/sampler/context.hpp>
 #include <sge/opengl/state/core/sampler/make_actors.hpp>
 #include <sge/opengl/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/default.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
@@ -17,11 +18,13 @@
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/join.hpp>
-#include <fcppt/optional/static_cast.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -63,10 +66,25 @@ sge::opengl::state::core::sampler::context::set(
 		objects_[
 			sampler.first
 		] =
-			fcppt::optional::static_cast_<
-				sge::opengl::state::core::sampler::object const
-			>(
-				sampler.second
+			fcppt::optional::map(
+				sampler.second,
+				[](
+					sge::renderer::state::core::sampler::const_object_ref const &_sampler
+				)
+				->
+				fcppt::reference<
+					sge::opengl::state::core::sampler::object const
+				>
+				{
+					return
+						fcppt::make_cref(
+							fcppt::cast::static_downcast<
+								sge::opengl::state::core::sampler::object const &
+							>(
+								_sampler.get()
+							)
+						);
+				}
 			);
 	}
 }
