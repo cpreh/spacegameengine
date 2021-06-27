@@ -6,6 +6,7 @@
 
 #include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/is_valid_float_type.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
@@ -14,7 +15,6 @@
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/static.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -24,7 +24,7 @@ template<
 	typename Ret
 >
 std::enable_if_t<
-	fcppt::type_traits::is_float_or_double<
+	sge::renderer::is_valid_float_type<
 		Ret
 	>::value,
 	fcppt::math::box::rect<
@@ -95,7 +95,7 @@ sge::renderer::lock_rect_to_coords(
 template \
 SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 std::enable_if_t< \
-	fcppt::type_traits::is_float_or_double< \
+	sge::renderer::is_valid_float_type< \
 		floattype \
 	>::value, \
 	fcppt::math::box::rect< \

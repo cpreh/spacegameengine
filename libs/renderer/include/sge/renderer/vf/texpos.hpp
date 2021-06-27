@@ -7,11 +7,11 @@
 #ifndef SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
 #define SGE_RENDERER_VF_TEXPOS_HPP_INCLUDED
 
+#include <sge/renderer/is_valid_float_type.hpp>
 #include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>
 #include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/labels/texpos.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ sge::renderer::vf::vector_base<
 >
 {
 	static_assert(
-		fcppt::type_traits::is_float_or_double<
+		sge::renderer::is_valid_float_type<
 			Format
 		>::value,
 		"Format must be float or double"

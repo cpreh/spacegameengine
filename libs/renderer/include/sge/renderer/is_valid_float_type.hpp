@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#ifndef SGE_CG_PARAMETER_IS_INT_FLOAT_DOUBLE_HPP_INCLUDED
-#define SGE_CG_PARAMETER_IS_INT_FLOAT_DOUBLE_HPP_INCLUDED
+#ifndef SGE_RENDERER_IS_VALID_FLOAT_TYPE_HPP_INCLUDED
+#define SGE_RENDERER_IS_VALID_FLOAT_TYPE_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
@@ -14,33 +14,24 @@
 
 namespace sge
 {
-namespace cg
-{
-namespace parameter
+namespace renderer
 {
 
-template<
-	typename Type
->
+template<typename T>
 using
-is_int_float_double
+is_valid_float_type
 =
 std::disjunction<
 	std::is_same<
-		Type,
-		int
-	>,
-	std::is_same<
-		Type,
+		T,
 		float
 	>,
 	std::is_same<
-		Type,
+		T,
 		double
 	>
 >;
 
-}
 }
 }
 

@@ -5,6 +5,7 @@
 
 
 #include <sge/core/impl/export_function_instantiation.hpp>
+#include <sge/renderer/is_valid_float_type.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/texture/area_texc.hpp>
@@ -20,7 +21,6 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/to_dim.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
 #include <ostream>
@@ -32,7 +32,7 @@ template<
 	typename T
 >
 std::enable_if_t<
-	fcppt::type_traits::is_float_or_double<
+	sge::renderer::is_valid_float_type<
 		T
 	>::value,
 	fcppt::math::box::rect<
@@ -123,7 +123,7 @@ sge::texture::area_texc(
 template \
 SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
 std::enable_if_t< \
-	fcppt::type_traits::is_float_or_double< \
+	sge::renderer::is_valid_float_type< \
 		floattype \
 	>::value, \
 	fcppt::math::box::rect<\

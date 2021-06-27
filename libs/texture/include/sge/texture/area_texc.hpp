@@ -7,11 +7,11 @@
 #ifndef SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 #define SGE_TEXTURE_AREA_TEXC_HPP_INCLUDED
 
+#include <sge/renderer/is_valid_float_type.hpp>
 #include <sge/texture/part_fwd.hpp>
 #include <sge/texture/detail/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/vector/static_fwd.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -27,7 +27,7 @@ template<
 >
 SGE_TEXTURE_DETAIL_SYMBOL
 std::enable_if_t<
-	fcppt::type_traits::is_float_or_double<
+	sge::renderer::is_valid_float_type<
 		T
 	>::value,
 	fcppt::math::box::rect<
@@ -52,7 +52,7 @@ extern \
 template \
 SGE_TEXTURE_DETAIL_SYMBOL \
 std::enable_if_t< \
-	fcppt::type_traits::is_float_or_double< \
+	sge::renderer::is_valid_float_type< \
 		floattype \
 	>::value, \
 	fcppt::math::box::rect<\

@@ -7,10 +7,10 @@
 #ifndef SGE_RENDERER_VF_NORMAL_HPP_INCLUDED
 #define SGE_RENDERER_VF_NORMAL_HPP_INCLUDED
 
+#include <sge/renderer/is_valid_float_type.hpp>
 #include <sge/renderer/vf/normal_fwd.hpp>
 #include <sge/renderer/vf/vector3_base.hpp>
 #include <sge/renderer/vf/labels/normal.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
 
 
 namespace sge
@@ -30,7 +30,7 @@ sge::renderer::vf::vector3_base<
 >
 {
 	static_assert(
-		fcppt::type_traits::is_float_or_double<
+		sge::renderer::is_valid_float_type<
 			Format
 		>::value,
 		"Format needs to be float or double"

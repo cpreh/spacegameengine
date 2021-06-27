@@ -9,9 +9,9 @@
 
 #include <sge/renderer/dim2_fwd.hpp>
 #include <sge/renderer/lock_rect_fwd.hpp>
+#include <sge/renderer/is_valid_float_type.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
-#include <fcppt/type_traits/is_float_or_double.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -42,7 +42,7 @@ template<
 >
 SGE_RENDERER_DETAIL_SYMBOL
 std::enable_if_t<
-	fcppt::type_traits::is_float_or_double<
+	sge::renderer::is_valid_float_type<
 		Ret
 	>::value,
 	fcppt::math::box::rect<
@@ -64,7 +64,7 @@ extern \
 template \
 SGE_RENDERER_DETAIL_SYMBOL \
 std::enable_if_t< \
-	fcppt::type_traits::is_float_or_double< \
+	sge::renderer::is_valid_float_type< \
 		floattype \
 	>::value, \
 	fcppt::math::box::rect< \

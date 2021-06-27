@@ -286,6 +286,7 @@ set(
 	libs/renderer/include/sge/renderer/index/traits/view_fwd.hpp
 	libs/renderer/include/sge/renderer/index/view.hpp
 	libs/renderer/include/sge/renderer/index/view_fwd.hpp
+	libs/renderer/include/sge/renderer/is_valid_float_type.hpp
 	libs/renderer/include/sge/renderer/lock_box.hpp
 	libs/renderer/include/sge/renderer/lock_box_fwd.hpp
 	libs/renderer/include/sge/renderer/lock_flags/from_mode.hpp
