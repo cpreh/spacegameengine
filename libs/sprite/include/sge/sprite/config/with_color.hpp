@@ -10,10 +10,8 @@
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/sprite/config/with_color_fwd.hpp>
 #include <sge/sprite/roles/color.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -41,7 +39,7 @@ struct with_color
 		using
 		type
 		=
-		metal::list<
+		fcppt::mpl::list::object<
 			fcppt::record::element<
 				sge::sprite::roles::color,
 				sge::image::pixel::mizuiro_type<

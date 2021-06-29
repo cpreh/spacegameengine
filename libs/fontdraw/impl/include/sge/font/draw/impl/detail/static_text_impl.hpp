@@ -48,9 +48,7 @@
 #include <sge/sprite/types/vector_fwd.hpp>
 #include <sge/texture/part_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -145,7 +143,7 @@ private:
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::always
 		>,
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::sprite::config::with_color<
 				sge::font::draw::detail::static_text_impl::color_format
 			>,

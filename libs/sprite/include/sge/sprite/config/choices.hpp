@@ -11,9 +11,7 @@
 #include <sge/sprite/config/is_pos_choice.hpp>
 #include <sge/sprite/config/is_size_choice.hpp>
 #include <sge/sprite/config/is_type_choices.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object_concept.hpp>
 
 
 namespace sge
@@ -27,7 +25,7 @@ template<
 	typename TypeChoices,
 	typename PosChoice,
 	typename SizeChoice,
-	typename OptionalElements
+	fcppt::mpl::list::object_concept OptionalElements
 >
 struct choices
 {
@@ -70,13 +68,6 @@ struct choices
 			SizeChoice
 		>::value,
 		"SizeChoice must be one of sprite's size choices"
-	);
-
-	static_assert(
-		metal::is_list<
-			OptionalElements
-		>::value,
-		"OptionalElements must be an mpl sequence"
 	);
 };
 

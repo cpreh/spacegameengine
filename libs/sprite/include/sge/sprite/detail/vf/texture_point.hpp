@@ -11,8 +11,13 @@
 #include <sge/sprite/detail/config/has_custom_texture_point_size.hpp>
 #include <sge/sprite/detail/vf/texture_point_pos.hpp>
 #include <sge/sprite/detail/vf/texture_point_size.hpp>
+#include <fcppt/mpl/apply.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/append.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -32,33 +37,33 @@ template<
 using
 texture_point
 =
-metal::join<
+fcppt::mpl::list::append<
 	std::conditional_t<
 		sge::sprite::detail::config::has_custom_texture_point_pos<
 			Choices
 		>::value,
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::sprite::detail::vf::texture_point_pos<
 				Choices
 			>
 		>,
-		metal::list<>
+		fcppt::mpl::list::object<>
 	>,
-	metal::invoke<
+	fcppt::mpl::apply<
 		std::conditional_t<
 			sge::sprite::detail::config::has_custom_texture_point_size<
 				Choices
 			>::value,
-			metal::bind<
-				metal::lambda<
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
 					sge::sprite::detail::vf::texture_point_size
 				>,
-				metal::always<
+				fcppt::mpl::constant<
 					Choices
 				>
 			>,
-			metal::always<
-				metal::list<>
+			fcppt::mpl::constant<
+				fcppt::mpl::list::object<>
 			>
 		>
 	>

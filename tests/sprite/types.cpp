@@ -42,11 +42,12 @@
 #include <sge/sprite/types/point_size.hpp>
 #include <sge/sprite/types/vector.hpp>
 #include <sge/texture/const_part_shared_ptr.hpp>
-#include <fcppt/metal/maps_equal.hpp>
+#include <fcppt/mpl/list/append.hpp>
+#include <fcppt/mpl/list/object.hpp>
+#include <fcppt/mpl/map/element.hpp>
+#include <fcppt/mpl/map/equal.hpp>
+#include <fcppt/mpl/map/object.hpp>
 #include <fcppt/record/element_map.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace
@@ -75,24 +76,24 @@ sge::sprite::config::choices<
 	sge::sprite::config::normal_size<
 		sge::sprite::config::texture_size_option::never
 	>,
-	metal::list<>
+	fcppt::mpl::list::object<>
 >;
 
 static_assert(
-	fcppt::metal::maps_equal<
+	fcppt::mpl::map::equal<
 		fcppt::record::element_map<
 			sge::sprite::detail::make_class<
 				simple_sprite_choices
 			>
 		>,
-		metal::map<
-			metal::pair<
+		fcppt::mpl::map::object<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::pos,
 				sge::sprite::types::vector<
 					type_choices
 				>
 			>,
-			metal::pair<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::size,
 				sge::sprite::types::dim<
 					type_choices
@@ -133,7 +134,7 @@ sge::sprite::config::choices<
 	sge::sprite::config::normal_size<
 		sge::sprite::config::texture_size_option::never
 	>,
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::sprite::config::with_color<
 			color_format
 		>
@@ -141,26 +142,26 @@ sge::sprite::config::choices<
 >;
 
 static_assert(
-	fcppt::metal::maps_equal<
+	fcppt::mpl::map::equal<
 		fcppt::record::element_map<
 			sge::sprite::detail::make_class<
 				color_sprite_choices
 			>
 		>,
-		metal::map<
-			metal::pair<
+		fcppt::mpl::map::object<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::pos,
 				sge::sprite::types::vector<
 					type_choices
 				>
 			>,
-			metal::pair<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::size,
 				sge::sprite::types::dim<
 					type_choices
 				>
 			>,
-			metal::pair<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::color,
 				sge::image::pixel::mizuiro_type<
 					color_format
@@ -199,7 +200,7 @@ sge::sprite::config::choices<
 	sge::sprite::config::normal_size<
 		sge::sprite::config::texture_size_option::never
 	>,
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::sprite::config::with_texture<
 			sge::sprite::config::texture_level_count<
 				1U
@@ -211,26 +212,26 @@ sge::sprite::config::choices<
 >;
 
 static_assert(
-	fcppt::metal::maps_equal<
+	fcppt::mpl::map::equal<
 		fcppt::record::element_map<
 			sge::sprite::detail::make_class<
 				texture_sprite_choices
 			>
 		>,
-		metal::map<
-			metal::pair<
+		fcppt::mpl::map::object<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::pos,
 				sge::sprite::types::vector<
 					type_choices
 				>
 			>,
-			metal::pair<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::size,
 				sge::sprite::types::dim<
 					type_choices
 				>
 			>,
-			metal::pair<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::texture0,
 				sge::texture::const_part_shared_ptr
 			>
@@ -245,8 +246,8 @@ static_assert(
 		>,
 		sge::renderer::vf::format<
 			sge::renderer::vf::part_from_list<
-				metal::join<
-					metal::list<
+				fcppt::mpl::list::append<
+					fcppt::mpl::list::object<
 						sge::sprite::detail::vf::pos<
 							texture_sprite_choices
 						>
@@ -273,24 +274,24 @@ sge::sprite::config::choices<
 			0U
 		>
 	>,
-	metal::list<>
+	fcppt::mpl::list::object<>
 >;
 
 static_assert(
-	fcppt::metal::maps_equal<
+	fcppt::mpl::map::equal<
 		fcppt::record::element_map<
 			sge::sprite::detail::make_class<
 				point_sprite_choices
 			>
 		>,
-		metal::map<
-			metal::pair<
+		fcppt::mpl::map::object<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::pos,
 				sge::sprite::types::vector<
 					type_choices
 				>
 			>,
-			metal::pair<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::point_size,
 				sge::sprite::types::point_size<
 					type_choices
@@ -331,7 +332,7 @@ sge::sprite::config::choices<
 			0U
 		>
 	>,
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::sprite::config::with_texture_point_size<
 			sge::sprite::config::texture_level_count<
 				1U
@@ -346,26 +347,26 @@ sge::sprite::config::choices<
 >;
 
 static_assert(
-	fcppt::metal::maps_equal<
+	fcppt::mpl::map::equal<
 		fcppt::record::element_map<
 			sge::sprite::detail::make_class<
 				texture_point_sprite_choices
 			>
 		>,
-		metal::map<
-			metal::pair<
+		fcppt::mpl::map::object<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::pos,
 				sge::sprite::types::vector<
 					type_choices
 				>
 			>,
-			metal::pair<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::point_size,
 				sge::sprite::types::point_size<
 					type_choices
 				>
 			>,
-			metal::pair<
+			fcppt::mpl::map::element<
 				sge::sprite::roles::texture0,
 				sge::texture::const_part_shared_ptr
 			>

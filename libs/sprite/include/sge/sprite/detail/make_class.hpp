@@ -9,9 +9,9 @@
 
 #include <sge/sprite/detail/apply_choices.hpp>
 #include <fcppt/record/from_list.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/append.hpp>
+#include <fcppt/mpl/list/join.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -27,14 +27,14 @@ template<
 using make_class
 =
 fcppt::record::from_list<
-	metal::flatten<
+	fcppt::mpl::list::join<
 		typename
 		sge::sprite::detail::apply_choices<
 			Choices,
-			metal::join<
+			fcppt::mpl::list::append<
 				typename
 				Choices::optional_elements,
-				metal::list<
+				fcppt::mpl::list::object<
 					typename
 					Choices::pos_choice,
 					typename

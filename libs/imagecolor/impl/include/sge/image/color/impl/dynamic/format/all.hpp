@@ -17,9 +17,7 @@
 #include <sge/image/color/impl/dynamic/format/rgb_c8_4.hpp>
 #include <sge/image/color/impl/dynamic/format/srgb_c8_3.hpp>
 #include <sge/image/color/impl/dynamic/format/srgb_c8_4.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -38,7 +36,7 @@ namespace format
 using
 all
 =
-metal::list<
+fcppt::mpl::list::object<
 	sge::image::color::impl::dynamic::format::empty_c8_1,
 	sge::image::color::impl::dynamic::format::luminance_c8_1,
 	sge::image::color::impl::dynamic::format::luminance_c8_2,

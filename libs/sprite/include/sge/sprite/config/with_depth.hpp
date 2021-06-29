@@ -9,10 +9,8 @@
 
 #include <sge/sprite/roles/depth.hpp>
 #include <sge/sprite/types/depth.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,7 +30,7 @@ struct with_depth
 		using
 		type
 		=
-		metal::list<
+		fcppt::mpl::list::object<
 			fcppt::record::element<
 				sge::sprite::roles::depth,
 				typename

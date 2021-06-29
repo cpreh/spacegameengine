@@ -51,13 +51,13 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/make.hpp>
 #include <fcppt/log/object_reference.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -150,7 +150,7 @@ sge::x11input::focus::object::object(
 	}
 {
 	sge::x11input::event::select<
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::x11input::event::type_c<
 				XI_KeyPress
 			>,

@@ -24,9 +24,7 @@
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 void
@@ -68,7 +66,7 @@ sge::gui::impl::fill_rect(
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::never
 		>,
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::sprite::config::with_color<
 				color_format
 			>

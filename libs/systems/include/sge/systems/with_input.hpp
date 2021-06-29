@@ -10,8 +10,8 @@
 #include <sge/systems/input_fwd.hpp>
 #include <sge/systems/with_input_fwd.hpp>
 #include <sge/systems/with_window_fwd.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -36,7 +36,7 @@ struct with_input
 	using
 	needs_before
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::systems::with_window
 	>;
 };

@@ -11,8 +11,11 @@
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/extract_parameter_type.hpp>
 #include <sge/systems/detail/make_list_element_impl.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/any_of.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -38,25 +41,25 @@ make_list_element(
 	// Check that the given parameter is actually part of the
 	// static subsystems
 	static_assert(
-		std::is_same<
+		std::is_same_v<
 			std::remove_cvref_t<
 				Type
 			>,
 			sge::systems::config
-		>::value
+		>
 		||
-		metal::any_of<
+		fcppt::mpl::list::any_of<
 			Choices,
-			metal::bind<
-				metal::trait<
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
 					std::is_same
 				>,
-				metal::always<
+				fcppt::mpl::constant<
 					std::remove_cvref_t<
 						Type
 					>
 				>,
-				metal::lambda<
+				fcppt::mpl::lambda<
 					sge::systems::detail::extract_parameter_type
 				>
 			>

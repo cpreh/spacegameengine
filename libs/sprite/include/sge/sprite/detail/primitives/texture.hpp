@@ -12,9 +12,7 @@
 #include <sge/sprite/detail/primitives/texture_coordinates.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
 #include <sge/sprite/detail/primitives/texture_repetition.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/append.hpp>
 
 
 namespace sge
@@ -49,7 +47,7 @@ struct texture<
 	using
 	type
 	=
-	metal::join<
+	fcppt::mpl::list::append<
 		typename
 		sge::sprite::detail::primitives::texture_ptr<
 			Choices,
@@ -79,7 +77,7 @@ struct texture<
 	using
 	type
 	=
-	metal::join<
+	fcppt::mpl::list::append<
 		typename
 		sge::sprite::detail::primitives::texture_ptr<
 			Choices,

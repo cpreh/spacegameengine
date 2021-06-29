@@ -7,10 +7,12 @@
 #ifndef SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_PARAMETERS_CLASS_IMPL_HPP_INCLUDED
 
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/keep_if.hpp>
+#include <fcppt/mpl/list/map.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -60,16 +62,16 @@ public:
 	type
 	=
 	fcppt::record::from_list<
-		metal::transform<
-			metal::lambda<
-				parameter_class_element
-			>,
-			metal::copy_if<
+		fcppt::mpl::list::map<
+			fcppt::mpl::list::keep_if<
 				typename
 				StateChoices::optional_elements,
-				metal::trait<
+				fcppt::mpl::lambda<
 					has_parameter
 				>
+			>,
+			fcppt::mpl::lambda<
+				parameter_class_element
 			>
 		>
 	>;

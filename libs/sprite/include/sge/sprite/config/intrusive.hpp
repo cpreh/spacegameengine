@@ -10,10 +10,8 @@
 #include <sge/sprite/config/intrusive_fwd.hpp>
 #include <sge/sprite/intrusive/connection_ref.hpp>
 #include <sge/sprite/roles/connection.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,7 +31,7 @@ struct intrusive
 		using
 		type
 		=
-		metal::list<
+		fcppt::mpl::list::object<
 			fcppt::record::element<
 				sge::sprite::roles::connection,
 				sge::sprite::intrusive::connection_ref<

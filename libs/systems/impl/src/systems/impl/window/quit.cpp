@@ -16,15 +16,13 @@
 #include <awl/window/event/close.hpp>
 #include <awl/window/event/destroy.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -48,7 +46,7 @@ sge::systems::impl::window::quit::quit(
 				{
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							metal::list<
+							fcppt::mpl::list::object<
 								awl::window::event::destroy const,
 								awl::window::event::close const
 							>,

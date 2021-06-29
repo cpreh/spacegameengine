@@ -90,6 +90,7 @@
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/signal/auto_connection.hpp>
@@ -97,7 +98,6 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <metal.hpp>
 #include <exception>
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
@@ -401,7 +401,7 @@ try
 
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							metal::list<
+							fcppt::mpl::list::object<
 								sge::renderer::event::render const,
 								sge::input::focus::event::base const
 							>,

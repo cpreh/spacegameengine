@@ -878,6 +878,7 @@ set(
 	libs/renderer/include/sge/renderer/vf/detail/element_index.hpp
 	libs/renderer/include/sge/renderer/vf/detail/element_stride.hpp
 	libs/renderer/include/sge/renderer/vf/detail/iterator_base.hpp
+	libs/renderer/include/sge/renderer/vf/detail/partial_sums.hpp
 	libs/renderer/include/sge/renderer/vf/detail/raw_data.hpp
 	libs/renderer/include/sge/renderer/vf/detail/raw_data_type.hpp
 	libs/renderer/include/sge/renderer/vf/detail/read_wrapper_decl.hpp

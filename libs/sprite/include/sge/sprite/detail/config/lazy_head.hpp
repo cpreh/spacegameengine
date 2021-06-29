@@ -7,9 +7,10 @@
 #ifndef SGE_SPRITE_DETAIL_CONFIG_LAZY_HEAD_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_LAZY_HEAD_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/front.hpp>
 
 
 namespace sge
@@ -30,15 +31,15 @@ template<
 using
 lazy_head
 =
-metal::bind<
-	metal::lambda<
+fcppt::mpl::bind<
+	fcppt::mpl::lambda<
 		Function
 	>,
-	metal::bind<
-		metal::lambda<
-			metal::front
+	fcppt::mpl::bind<
+		fcppt::mpl::lambda<
+			fcppt::mpl::list::front
 		>,
-		metal::always<
+		fcppt::mpl::constant<
 			List
 		>
 	>

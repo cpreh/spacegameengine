@@ -27,9 +27,7 @@
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -49,7 +47,7 @@ class instance
 	using
 	choices_list
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		Choices...
 	>;
 

@@ -103,10 +103,10 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <metal.hpp>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
@@ -217,7 +217,7 @@ try
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::always
 		>,
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
 					1U

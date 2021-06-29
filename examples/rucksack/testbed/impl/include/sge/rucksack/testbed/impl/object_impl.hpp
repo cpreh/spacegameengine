@@ -31,8 +31,8 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -103,7 +103,7 @@ private:
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::never
 		>,
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::sprite::config::with_color<
 				color_format
 			>

@@ -10,9 +10,7 @@
 #include <sge/image/ds/d16_format.hpp>
 #include <sge/image/ds/d24s8_format.hpp>
 #include <sge/image/ds/d32_format.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -25,7 +23,7 @@ namespace ds
 using
 static_formats
 =
-metal::list<
+fcppt::mpl::list::object<
 	sge::image::ds::d16_format,
 	sge::image::ds::d32_format,
 	sge::image::ds::d24s8_format

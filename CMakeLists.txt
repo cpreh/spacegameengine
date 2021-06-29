@@ -79,11 +79,6 @@ find_package(
 	REQUIRED
 )
 
-find_package(
-	Metal
-	REQUIRED
-)
-
 set(
 	MEDIA_INSTALL_DIR
 	"${FCPPT_UTILS_INSTALL_DATA_DIR}/media"

@@ -12,10 +12,10 @@
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/roles/texture_point_size.hpp>
 #include <sge/sprite/types/texture_point_size.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/object.hpp>
+#include <fcppt/mpl/list/size.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -47,7 +47,7 @@ struct texture_point_size<
 	using
 	type
 	=
-	metal::list<>;
+	fcppt::mpl::list::object<>;
 };
 
 template<
@@ -81,7 +81,7 @@ private:
 	>;
 
 	static_assert(
-		metal::size<
+		fcppt::mpl::list::size<
 			AttributeNames
 		>::value
 		==
@@ -93,7 +93,7 @@ public:
 	type
 	=
 	sge::sprite::detail::transform_texture_levels_static<
-		metal::lambda<
+		fcppt::mpl::lambda<
 			make_role
 		>,
 		Levels

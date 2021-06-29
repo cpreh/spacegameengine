@@ -12,10 +12,8 @@
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/detail/config/find_with_texture_point_size.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
-#include <fcppt/metal/to_number.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/at.hpp>
 
 
 namespace sge
@@ -65,12 +63,10 @@ private:
 			Choices::type_choices::float_type,
 			1
 		>,
-		metal::at<
+		fcppt::mpl::list::at<
 			typename
 			point_size::attribute_indices,
-			fcppt::metal::to_number<
-				Level
-			>
+			Level
 		>
 	>;
 public:
@@ -78,7 +74,7 @@ public:
 	type
 	=
 	sge::sprite::detail::transform_texture_levels_static<
-		metal::lambda<
+		fcppt::mpl::lambda<
 			make_size
 		>,
 		texture_levels

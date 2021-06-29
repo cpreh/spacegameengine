@@ -17,9 +17,20 @@
 #include <sge/sprite/detail/vf/pos.hpp>
 #include <sge/sprite/detail/vf/texpos.hpp>
 #include <sge/sprite/detail/vf/texture_point.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/apply.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/if.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/size_type.hpp>
+#include <fcppt/mpl/list/append.hpp>
+#include <fcppt/mpl/list/any_of.hpp>
+#include <fcppt/mpl/list/at.hpp>
+#include <fcppt/mpl/list/from.hpp>
+#include <fcppt/mpl/list/join.hpp>
+#include <fcppt/mpl/list/map.hpp>
+#include <fcppt/mpl/list/object.hpp>
+#include <fcppt/mpl/list/remove.hpp>
 
 
 namespace sge
@@ -40,7 +51,7 @@ private:
 	using
 	basic
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::sprite::detail::vf::pos<
 			Choices
 		>
@@ -49,7 +60,7 @@ private:
 	using
 	basic_with_size
 	=
-	metal::join<
+	fcppt::mpl::list::append<
 		basic,
 		typename
 		sge::sprite::detail::vf::point_size_extra<
@@ -57,48 +68,24 @@ private:
 		>::type
 	>;
 
+	template<
+		typename First,
+		typename Second
+	>
+	struct condition_component_pair;
+
+	template<
+		typename Pair
+	>
 	using
-	optional_primitives
+	condition
 	=
-	metal::list<
-		metal::pair<
-			metal::trait<
-				sge::sprite::config::is_with_color
-			>,
-			metal::bind<
-				metal::lambda<
-					sge::sprite::detail::vf::color_types
-				>,
-				metal::always<
-					Choices
-				>
-			>
+	fcppt::mpl::list::at<
+		fcppt::mpl::list::from<
+			Pair
 		>,
-		metal::pair<
-			metal::trait<
-				sge::sprite::config::is_with_texture
-			>,
-			metal::bind<
-				metal::lambda<
-					sge::sprite::detail::vf::texpos
-				>,
-				metal::always<
-					Choices
-				>
-			>
-		>,
-		metal::pair<
-			metal::trait<
-				sge::sprite::config::is_with_texture_point_size
-			>,
-			metal::bind<
-				metal::lambda<
-					sge::sprite::detail::vf::texture_point
-				>,
-				metal::always<
-					Choices
-				>
-			>
+		fcppt::mpl::size_type<
+			0U
 		>
 	>;
 
@@ -106,22 +93,86 @@ private:
 		typename Pair
 	>
 	using
+	component
+	=
+	fcppt::mpl::list::at<
+		fcppt::mpl::list::from<
+			Pair
+		>,
+		fcppt::mpl::size_type<
+			1U
+		>
+	>;
+
+	using
+	optional_primitives
+	=
+	fcppt::mpl::list::object<
+		condition_component_pair<
+			fcppt::mpl::lambda<
+				sge::sprite::config::is_with_color
+			>,
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
+					sge::sprite::detail::vf::color_types
+				>,
+				fcppt::mpl::constant<
+					Choices
+				>
+			>
+		>,
+		condition_component_pair<
+			fcppt::mpl::lambda<
+				sge::sprite::config::is_with_texture
+			>,
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
+					sge::sprite::detail::vf::texpos
+				>,
+				fcppt::mpl::constant<
+					Choices
+				>
+			>
+		>,
+		condition_component_pair<
+			fcppt::mpl::lambda<
+				sge::sprite::config::is_with_texture_point_size
+			>,
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
+					sge::sprite::detail::vf::texture_point
+				>,
+				fcppt::mpl::constant<
+					Choices
+				>
+			>
+		>
+	>;
+
+	struct nothing
+	{
+	};
+
+	template<
+		typename Pair
+	>
+	using
 	make_element
 	=
-	metal::invoke<
-		metal::if_<
-			metal::any_of<
+	fcppt::mpl::apply<
+		fcppt::mpl::if_<
+			fcppt::mpl::list::any_of<
 				typename
 				Choices::optional_elements,
-				metal::first<
+				condition<
 					Pair
 				>
 			>,
-			metal::second<
+			component<
 				Pair
 			>,
-			metal::always<
-				metal::nil
+			fcppt::mpl::constant<
+				nothing
 			>
 		>
 	>;
@@ -130,17 +181,17 @@ public:
 	type
 	=
 	sge::renderer::vf::part_from_list<
-		metal::join<
+		fcppt::mpl::list::append<
 			basic_with_size,
-			metal::flatten<
-				metal::remove<
-					metal::transform<
-						metal::lambda<
+			fcppt::mpl::list::join<
+				fcppt::mpl::list::remove<
+					fcppt::mpl::list::map<
+						optional_primitives,
+						fcppt::mpl::lambda<
 							make_element
-						>,
-						optional_primitives
+						>
 					>,
-					metal::nil
+					nothing
 				>
 			>
 		>

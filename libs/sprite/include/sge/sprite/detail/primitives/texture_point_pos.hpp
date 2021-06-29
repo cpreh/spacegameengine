@@ -12,9 +12,8 @@
 #include <sge/sprite/roles/texture_point_pos.hpp>
 #include <sge/sprite/types/texture_point_pos.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -49,7 +48,7 @@ struct texture_point_pos<
 	using
 	type
 	=
-	metal::list<>;
+	fcppt::mpl::list::object<>;
 };
 
 template<
@@ -85,7 +84,7 @@ public:
 	type
 	=
 	sge::sprite::detail::transform_texture_levels_static<
-		metal::lambda<
+		fcppt::mpl::lambda<
 			make_role
 		>,
 		Levels

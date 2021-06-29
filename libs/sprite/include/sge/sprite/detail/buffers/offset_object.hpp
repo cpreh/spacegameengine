@@ -12,10 +12,10 @@
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -59,11 +59,11 @@ public:
 			sge::sprite::detail::config::needs_index_buffer<
 				Choices
 			>::value,
-			metal::list<
+			fcppt::mpl::list::object<
 				vertex_buffer_role,
 				index_buffer_role
 			>,
-			metal::list<
+			fcppt::mpl::list::object<
 				vertex_buffer_role
 			>
 		>

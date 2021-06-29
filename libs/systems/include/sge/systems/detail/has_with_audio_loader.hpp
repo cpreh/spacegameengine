@@ -8,9 +8,7 @@
 #define SGE_SYSTEMS_DETAIL_HAS_WITH_AUDIO_LOADER_HPP_INCLUDED
 
 #include <sge/systems/with_audio_loader_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/contains.hpp>
 
 
 namespace sge
@@ -26,7 +24,7 @@ template<
 using
 has_with_audio_loader
 =
-metal::contains<
+fcppt::mpl::list::contains<
 	Choices,
 	sge::systems::with_audio_loader
 >;

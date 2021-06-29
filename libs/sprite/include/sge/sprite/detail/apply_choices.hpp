@@ -7,9 +7,7 @@
 #ifndef SGE_SPRITE_DETAIL_APPLY_CHOICES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_APPLY_CHOICES_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -32,7 +30,7 @@ template<
 >
 struct apply_choices<
 	Choices,
-	metal::list<
+	fcppt::mpl::list::object<
 		Functions...
 	>
 >
@@ -40,7 +38,7 @@ struct apply_choices<
 	using
 	type
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		typename
 		Functions :: template apply<
 			Choices

@@ -25,9 +25,7 @@
 #include <sge/image/color/sbgra8_format.hpp>
 #include <sge/image/color/srgb8_format.hpp>
 #include <sge/image/color/srgba8_format.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -40,7 +38,7 @@ namespace color
 using
 static_formats
 =
-metal::list<
+fcppt::mpl::list::object<
 	sge::image::color::a8_format,
 	sge::image::color::l8_format,
 	sge::image::color::r32f_format,

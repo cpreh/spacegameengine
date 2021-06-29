@@ -72,14 +72,14 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/loop_break_metal.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/container/map_values_copy.hpp>
 #include <fcppt/log/object_reference.hpp>
-#include <fcppt/metal/set/to_list.hpp>
+#include <fcppt/mpl/set/to_list.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/cat.hpp>
 #include <fcppt/optional/deref.hpp>
@@ -167,7 +167,7 @@ sge::x11input::processor::processor(
 			fcppt::algorithm::map<
 				handler_map
 			>(
-				fcppt::metal::set::to_list<
+				fcppt::mpl::set::to_list<
 					sge::x11input::event::device_type_set
 				>{},
 				[

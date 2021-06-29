@@ -17,10 +17,11 @@
 #include <sge/sprite/detail/render/make_textures.hpp>
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
+#include <fcppt/mpl/list/append.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -75,7 +76,7 @@ private:
 	using
 	base_types
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		first_vertex_role,
 		vertex_count_role
 	>;
@@ -83,9 +84,9 @@ private:
 	using
 	indexed_types
 	=
-	metal::join<
+	fcppt::mpl::list::append<
 		base_types,
-		metal::list<
+		fcppt::mpl::list::object<
 			first_index_role,
 			index_count_role
 		>
@@ -106,7 +107,7 @@ public:
 	type
 	=
 	fcppt::record::from_list<
-		metal::join<
+		fcppt::mpl::list::append<
 			geometry_types,
 			typename
 			sge::sprite::detail::render::make_textures<

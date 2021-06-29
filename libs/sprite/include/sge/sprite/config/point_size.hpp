@@ -11,10 +11,8 @@
 #include <sge/sprite/config/size_choice.hpp>
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/types/point_size.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -45,7 +43,7 @@ public:
 		using
 		type
 		=
-		metal::list<
+		fcppt::mpl::list::object<
 			fcppt::record::element<
 				sge::sprite::roles::point_size,
 				sge::sprite::types::point_size<

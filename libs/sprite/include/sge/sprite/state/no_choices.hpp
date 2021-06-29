@@ -8,9 +8,7 @@
 #define SGE_SPRITE_STATE_NO_CHOICES_HPP_INCLUDED
 
 #include <sge/sprite/state/choices.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -24,7 +22,7 @@ using
 no_choices
 =
 sge::sprite::state::choices<
-	metal::list<>
+	fcppt::mpl::list::object<>
 >;
 
 }

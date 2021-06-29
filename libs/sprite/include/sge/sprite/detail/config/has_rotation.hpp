@@ -8,9 +8,7 @@
 #define SGE_SPRITE_DETAIL_CONFIG_HAS_ROTATION_HPP_INCLUDED
 
 #include <sge/sprite/config/with_rotation_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/contains.hpp>
 
 
 namespace sge
@@ -27,7 +25,7 @@ template<
 >
 using has_rotation
 =
-metal::contains<
+fcppt::mpl::list::contains<
 	typename
 	Choices::optional_elements,
 	sge::sprite::config::with_rotation

@@ -150,12 +150,12 @@
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/map.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <metal.hpp>
 #include <chrono>
 #include <exception>
 #include <iostream>
@@ -989,7 +989,7 @@ try
 
 			fcppt::optional::maybe_void(
 				fcppt::variant::dynamic_cast_<
-					metal::list<
+					fcppt::mpl::list::object<
 						sge::renderer::event::render const,
 						sge::input::event_base const
 					>,

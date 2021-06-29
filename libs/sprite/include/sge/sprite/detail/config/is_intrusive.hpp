@@ -8,9 +8,7 @@
 #define SGE_SPRITE_DETAIL_CONFIG_IS_INTRUSIVE_HPP_INCLUDED
 
 #include <sge/sprite/config/intrusive_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/contains.hpp>
 
 
 namespace sge
@@ -27,7 +25,7 @@ template<
 >
 using is_intrusive
 =
-metal::contains<
+fcppt::mpl::list::contains<
 	typename
 	Choices::optional_elements,
 	sge::sprite::config::intrusive

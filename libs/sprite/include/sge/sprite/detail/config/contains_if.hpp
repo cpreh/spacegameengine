@@ -7,9 +7,8 @@
 #ifndef SGE_SPRITE_DETAIL_CONFIG_CONTAINS_IF_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_CONTAINS_IF_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/any_of.hpp>
 
 
 namespace sge
@@ -30,9 +29,9 @@ template<
 using
 contains_if
 =
-metal::any_of<
+fcppt::mpl::list::any_of<
 	Elements,
-	metal::trait<
+	fcppt::mpl::lambda<
 		Predicate
 	>
 >;

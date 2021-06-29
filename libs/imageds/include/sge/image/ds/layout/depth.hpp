@@ -10,9 +10,7 @@
 #include <sge/image/ds/channel/depth.hpp>
 #include <sge/image/ds/space/depth.hpp>
 #include <mizuiro/color/layout/make.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -29,7 +27,7 @@ depth
 =
 mizuiro::color::layout::make<
 	sge::image::ds::space::depth,
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::image::ds::channel::depth
 	>
 >;

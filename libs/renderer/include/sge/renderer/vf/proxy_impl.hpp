@@ -17,12 +17,10 @@
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_metal.hpp>
-#include <fcppt/metal/set/to_list.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/mpl/list/at.hpp>
+#include <fcppt/mpl/set/to_list.hpp>
 #include <fcppt/record/label_set.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 template<
@@ -59,7 +57,7 @@ sge::renderer::vf::proxy<
 )
 {
 	fcppt::algorithm::loop(
-		fcppt::metal::set::to_list<
+		fcppt::mpl::set::to_list<
 			fcppt::record::label_set<
 				typename
 				vertex_type::record_type
@@ -128,7 +126,7 @@ sge::renderer::vf::proxy<
 	using
 	element
 	=
-	metal::at<
+	fcppt::mpl::list::at<
 		elements,
 		index
 	>;
@@ -136,7 +134,7 @@ sge::renderer::vf::proxy<
 	using
 	offset
 	=
-	metal::at<
+	fcppt::mpl::list::at<
 		offsets,
 		index
 	>;
@@ -181,7 +179,7 @@ sge::renderer::vf::proxy<
 	using
 	element
 	=
-	metal::at<
+	fcppt::mpl::list::at<
 		elements,
 		index
 	>;
@@ -189,7 +187,7 @@ sge::renderer::vf::proxy<
 	using
 	offset
 	=
-	metal::at<
+	fcppt::mpl::list::at<
 		offsets,
 		index
 	>;

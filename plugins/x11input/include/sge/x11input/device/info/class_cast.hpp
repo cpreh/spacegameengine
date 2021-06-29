@@ -10,8 +10,9 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
+#include <fcppt/mpl/list/contains.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <X11/extensions/XInput2.h>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -30,8 +31,8 @@ template<
 	typename Result
 >
 std::enable_if_t<
-	metal::contains<
-		metal::list<
+	fcppt::mpl::list::contains<
+		fcppt::mpl::list::object<
 			XIButtonClassInfo,
 			XIValuatorClassInfo,
 			XIKeyClassInfo,

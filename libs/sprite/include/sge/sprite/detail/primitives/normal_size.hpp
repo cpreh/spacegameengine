@@ -12,10 +12,8 @@
 #include <sge/sprite/roles/size_or_texture_size.hpp>
 #include <sge/sprite/types/dim_fwd.hpp>
 #include <sge/sprite/types/size_or_texture_size_fwd.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -44,7 +42,7 @@ struct normal_size<
 	using
 	type
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		fcppt::record::element<
 			sge::sprite::roles::size,
 			sge::sprite::types::dim<
@@ -66,7 +64,7 @@ struct normal_size<
 	using
 	type
 	=
-	metal::list<>;
+	fcppt::mpl::list::object<>;
 };
 
 template<
@@ -80,7 +78,7 @@ struct normal_size<
 	using
 	type
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		fcppt::record::element<
 			sge::sprite::roles::size_or_texture_size,
 			sge::sprite::types::size_or_texture_size<

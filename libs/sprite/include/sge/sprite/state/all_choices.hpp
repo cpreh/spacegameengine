@@ -11,9 +11,7 @@
 #include <sge/sprite/state/with_blend.hpp>
 #include <sge/sprite/state/with_rasterizer.hpp>
 #include <sge/sprite/state/with_transform.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -27,7 +25,7 @@ using
 all_choices
 =
 sge::sprite::state::choices<
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::sprite::state::with_blend,
 		sge::sprite::state::with_rasterizer,
 		sge::sprite::state::with_transform

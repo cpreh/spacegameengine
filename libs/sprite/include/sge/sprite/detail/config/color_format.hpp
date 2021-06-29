@@ -10,9 +10,11 @@
 #include <sge/sprite/config/is_with_color.hpp>
 #include <sge/sprite/detail/config/find_if.hpp>
 #include <sge/sprite/detail/config/lazy_head.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unit_fwd.hpp>
+#include <fcppt/mpl/apply.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/if.hpp>
+#include <fcppt/mpl/list/empty.hpp>
 
 
 namespace sge
@@ -52,13 +54,13 @@ public:
 	using
 	type
 	=
-	metal::invoke<
-		metal::if_<
-			metal::empty<
+	fcppt::mpl::apply<
+		fcppt::mpl::if_<
+			fcppt::mpl::list::empty<
 				list
 			>,
-			metal::always<
-				metal::nil
+			fcppt::mpl::constant<
+				fcppt::unit
 			>,
 			sge::sprite::detail::config::lazy_head<
 				get_color_format,

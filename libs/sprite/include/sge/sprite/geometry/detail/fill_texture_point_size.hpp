@@ -11,8 +11,8 @@
 #include <sge/sprite/detail/config/has_custom_texture_point_size.hpp>
 #include <sge/sprite/detail/vf/texture_point_size.hpp>
 #include <fcppt/not.hpp>
+#include <fcppt/mpl/list/at.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -49,7 +49,7 @@ fill_texture_point_size(
 	using
 	texture_point_size
 	=
-	metal::at<
+	fcppt::mpl::list::at<
 		typename
 		sge::sprite::detail::vf::texture_point_size<
 			Choices

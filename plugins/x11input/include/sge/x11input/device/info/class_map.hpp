@@ -8,8 +8,8 @@
 #define SGE_X11INPUT_DEVICE_INFO_CLASS_MAP_HPP_INCLUDED
 
 #include <sge/x11input/device/info/make_class_pair.hpp>
+#include <fcppt/mpl/map/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -27,7 +27,7 @@ namespace info
 using
 class_map
 =
-metal::map<
+fcppt::mpl::map::object<
 	SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(
 		XIButtonClass
 	),

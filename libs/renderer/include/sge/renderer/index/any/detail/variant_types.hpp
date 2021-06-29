@@ -9,10 +9,12 @@
 
 #include <sge/renderer/index/any/detail/make_view_element.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
-#include <fcppt/metal/enum_range.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/arg.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/enum_range.hpp>
+#include <fcppt/mpl/list/map.hpp>
 
 
 namespace sge
@@ -32,18 +34,18 @@ template<
 using
 variant_types
 =
-metal::transform<
-	metal::bind<
-		metal::lambda<
+fcppt::mpl::list::map<
+	fcppt::mpl::list::enum_range<
+		sge::renderer::index::dynamic::format
+	>,
+	fcppt::mpl::bind<
+		fcppt::mpl::lambda<
 			sge::renderer::index::any::detail::make_view_element
 		>,
-		metal::_1,
-		metal::always<
+		fcppt::mpl::arg<1>,
+		fcppt::mpl::constant<
 			Constness
 		>
-	>,
-	fcppt::metal::enum_range<
-		sge::renderer::index::dynamic::format
 	>
 >;
 

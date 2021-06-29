@@ -45,10 +45,10 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/get_or_insert.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -122,7 +122,7 @@ sge::x11input::mouse::device::device(
 	};
 
 	sge::x11input::event::select<
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::x11input::event::type_c<
 				XI_ButtonPress
 			>,
@@ -136,7 +136,7 @@ sge::x11input::mouse::device::device(
 	);
 
 	sge::x11input::event::select<
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::x11input::event::type_c<
 				XI_RawMotion
 			>

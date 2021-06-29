@@ -9,14 +9,12 @@
 
 #include <sge/opencl/clinclude.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
-#include <fcppt/metal/unique.hpp>
+#include <fcppt/mpl/list/unique.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/from_list.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -36,8 +34,8 @@ using
 numeric_type
 =
 fcppt::variant::from_list<
-	fcppt::metal::unique<
-		::metal::list<
+	fcppt::mpl::list::unique<
+		fcppt::mpl::list::object<
 			cl_char,
 			cl_uchar,
 			cl_short,

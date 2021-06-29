@@ -9,9 +9,8 @@
 
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/image/traits/pixel/static_formats.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/map.hpp>
 
 
 namespace sge
@@ -27,12 +26,12 @@ template<
 using
 elements
 =
-metal::transform<
-	metal::lambda<
-		sge::image::pixel::mizuiro_type
-	>,
+fcppt::mpl::list::map<
 	sge::image::traits::pixel::static_formats<
 		Tag
+	>,
+	fcppt::mpl::lambda<
+		sge::image::pixel::mizuiro_type
 	>
 >;
 

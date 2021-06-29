@@ -8,7 +8,10 @@
 #define SGE_SPRITE_DETAIL_MAKE_TEXTURE_LEVELS_HPP_INCLUDED
 
 #include <sge/sprite/texture_level.hpp>
-#include <fcppt/metal/interval.hpp>
+#include <fcppt/mpl/list/interval.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -24,10 +27,15 @@ template<
 using
 make_texture_levels
 =
-fcppt::metal::interval<
-	sge::sprite::texture_level,
-	0U,
-	Levels::value
+fcppt::mpl::list::interval<
+	std::integral_constant<
+		sge::sprite::texture_level,
+		0U
+	>,
+	std::integral_constant<
+		sge::sprite::texture_level,
+		Levels::value
+	>
 >;
 
 }

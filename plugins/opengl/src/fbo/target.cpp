@@ -53,6 +53,7 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/math/box/null.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/map.hpp>
@@ -65,7 +66,6 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -312,7 +312,7 @@ sge::opengl::fbo::target::depth_stencil_surface(
 			fcppt::variant::match(
 				fcppt::optional::to_exception(
 					fcppt::variant::dynamic_cast_<
-						metal::list<
+						fcppt::mpl::list::object<
 							sge::opengl::fbo::depth_stencil_surface,
 							sge::opengl::texture::buffer_base
 						>,

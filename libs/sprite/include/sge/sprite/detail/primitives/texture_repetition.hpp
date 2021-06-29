@@ -9,10 +9,8 @@
 
 #include <sge/sprite/roles/repetition.hpp>
 #include <sge/sprite/types/repetition.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -32,7 +30,7 @@ struct texture_repetition
 	using
 	type
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		fcppt::record::element<
 			sge::sprite::roles::repetition,
 			sge::sprite::types::repetition<

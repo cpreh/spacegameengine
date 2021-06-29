@@ -10,8 +10,8 @@
 #include <sge/sprite/config/is_point_size.hpp>
 #include <sge/sprite/detail/vf/point_size.hpp>
 #include <fcppt/not.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,7 +47,7 @@ struct point_size_extra<
 	using
 	type
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::sprite::detail::vf::point_size<
 			Choices
 		>
@@ -72,7 +72,7 @@ struct point_size_extra<
 	using
 	type
 	=
-	metal::list<>;
+	fcppt::mpl::list::object<>;
 };
 
 }

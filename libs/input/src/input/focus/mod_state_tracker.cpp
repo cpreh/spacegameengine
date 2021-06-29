@@ -26,13 +26,13 @@
 #include <fcppt/enum/array_impl.hpp>
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/enum/make_range.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -53,7 +53,7 @@ sge::input::focus::mod_state_tracker::event(
 {
 	fcppt::optional::maybe_void(
 		fcppt::variant::dynamic_cast_<
-			metal::list<
+			fcppt::mpl::list::object<
 				sge::input::focus::event::discover const,
 				sge::input::focus::event::in const,
 				sge::input::focus::event::out const,

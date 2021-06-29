@@ -11,9 +11,9 @@
 #include <sge/x11input/device/info/class_map.hpp>
 #include <sge/x11input/device/info/class_type.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/mpl/map/at.hpp>
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -49,7 +49,7 @@ class_maybe(
 			_info
 		)
 		==
-		metal::at_key<
+		fcppt::mpl::map::at<
 			sge::x11input::device::info::class_map,
 			Class
 		>::value

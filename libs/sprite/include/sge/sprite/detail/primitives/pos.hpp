@@ -13,10 +13,8 @@
 #include <sge/sprite/roles/pos_or_center.hpp>
 #include <sge/sprite/types/pos_or_center_fwd.hpp>
 #include <sge/sprite/types/vector_fwd.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -45,7 +43,7 @@ struct pos<
 	using
 	type
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		fcppt::record::element<
 			sge::sprite::roles::pos,
 			sge::sprite::types::vector<
@@ -67,7 +65,7 @@ struct pos<
 	using
 	type
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		fcppt::record::element<
 			sge::sprite::roles::center,
 			sge::sprite::types::vector<
@@ -89,7 +87,7 @@ struct pos<
 	using
 	type
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		fcppt::record::element<
 			sge::sprite::roles::pos_or_center,
 			sge::sprite::types::pos_or_center<

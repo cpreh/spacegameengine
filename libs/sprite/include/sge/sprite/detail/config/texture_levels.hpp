@@ -8,9 +8,7 @@
 #define SGE_SPRITE_DETAIL_CONFIG_TEXTURE_LEVELS_HPP_INCLUDED
 
 #include <sge/sprite/detail/config/find_texture_config.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/front.hpp>
 
 
 namespace sge
@@ -29,7 +27,7 @@ using
 texture_levels
 =
 typename
-metal::front<
+fcppt::mpl::list::front<
 	typename
 	sge::sprite::detail::config::find_texture_config<
 		Choices

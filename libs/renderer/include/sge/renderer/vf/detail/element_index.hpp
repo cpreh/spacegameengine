@@ -8,9 +8,11 @@
 #define SGE_RENDERER_VF_DETAIL_ELEMENT_INDEX_HPP_INCLUDED
 
 #include <sge/renderer/vf/to_label.hpp>
-#include <fcppt/metal/index_of_if.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/index_of_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -31,16 +33,16 @@ template<
 using
 element_index
 =
-fcppt::metal::index_of_if<
+fcppt::mpl::list::index_of_if<
 	Elements,
-	metal::bind<
-		metal::trait<
+	fcppt::mpl::bind<
+		fcppt::mpl::lambda<
 			std::is_same
 		>,
-		metal::always<
+		fcppt::mpl::constant<
 			Label
 		>,
-		metal::lambda<
+		fcppt::mpl::lambda<
 			sge::renderer::vf::to_label
 		>
 	>

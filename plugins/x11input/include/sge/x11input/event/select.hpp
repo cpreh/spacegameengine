@@ -14,10 +14,13 @@
 #include <sge/x11input/event/type_container.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/loop_break_metal.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/all_of.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -42,16 +45,16 @@ select(
 )
 {
 	static_assert(
-		metal::all_of<
+		fcppt::mpl::list::all_of<
 			Events,
-			metal::bind<
-				metal::trait<
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
 					std::is_same
 				>,
-				metal::lambda<
+				fcppt::mpl::lambda<
 					sge::x11input::event::static_type
 				>,
-				metal::always<
+				fcppt::mpl::constant<
 					EventType
 				>
 			>

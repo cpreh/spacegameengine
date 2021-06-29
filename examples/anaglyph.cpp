@@ -194,6 +194,7 @@
 #include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/make.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/options/apply.hpp>
@@ -223,7 +224,6 @@
 #include <fcppt/variant/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <metal.hpp>
 #include <chrono>
 #include <cmath>
 #include <exception>
@@ -1450,7 +1450,7 @@ main_program(
 
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							metal::list<
+							fcppt::mpl::list::object<
 								sge::renderer::event::render const,
 								sge::input::event_base const
 							>,

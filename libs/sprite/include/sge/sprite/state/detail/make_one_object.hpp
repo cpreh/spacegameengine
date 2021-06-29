@@ -13,11 +13,16 @@
 #include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/mpl/arg.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/front.hpp>
+#include <fcppt/mpl/list/keep_if.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -86,16 +91,16 @@ private:
 	using
 	state_for_role
 	=
-	metal::front<
-		metal::copy_if<
+	fcppt::mpl::list::front<
+		fcppt::mpl::list::keep_if<
 			typename
 			StateChoices::optional_elements,
-			metal::bind<
-				metal::trait<
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
 					state_has_role
 				>,
-				metal::_1,
-				metal::always<
+				fcppt::mpl::arg<1>,
+				fcppt::mpl::constant<
 					Role
 				>
 			>

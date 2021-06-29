@@ -10,8 +10,8 @@
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_metal.hpp>
-#include <fcppt/metal/enum_range.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/mpl/list/enum_range.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <filesystem>
@@ -50,7 +50,7 @@ TEST_CASE(
 	);
 
 	fcppt::algorithm::loop(
-		fcppt::metal::enum_range<
+		fcppt::mpl::list::enum_range<
 			sge::charconv::encoding
 		>{},
 		[

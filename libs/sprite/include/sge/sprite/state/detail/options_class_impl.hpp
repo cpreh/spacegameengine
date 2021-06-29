@@ -8,10 +8,13 @@
 #define SGE_SPRITE_STATE_DETAIL_OPTIONS_CLASS_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/state/detail/options_class_element.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/append.hpp>
+#include <fcppt/mpl/list/keep_if.hpp>
+#include <fcppt/mpl/list/map.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -63,25 +66,25 @@ public:
 	type
 	=
 	fcppt::record::from_list<
-		metal::join<
-			metal::transform<
-				metal::lambda<
-					option_class_element
-				>,
-				metal::copy_if<
+		fcppt::mpl::list::append<
+			fcppt::mpl::list::map<
+				fcppt::mpl::list::keep_if<
 					typename
 					StateChoices::optional_elements,
-					metal::trait<
+					fcppt::mpl::lambda<
 						has_option
 					>
+				>,
+				fcppt::mpl::lambda<
+					option_class_element
 				>
 			>,
-			metal::transform<
-				metal::lambda<
-					sge::sprite::state::detail::options_class_element
-				>,
+			fcppt::mpl::list::map<
 				typename
-				StateChoices::optional_elements
+				StateChoices::optional_elements,
+				fcppt::mpl::lambda<
+					sge::sprite::state::detail::options_class_element
+				>
 			>
 		>
 	>;

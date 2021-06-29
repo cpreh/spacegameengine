@@ -10,10 +10,8 @@
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/types/texture_coordinates_fwd.hpp>
+#include <fcppt/mpl/lambda.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -52,7 +50,7 @@ public:
 	type
 	=
 	sge::sprite::detail::transform_texture_levels_static<
-		metal::lambda<
+		fcppt::mpl::lambda<
 			make_role
 		>,
 		Levels

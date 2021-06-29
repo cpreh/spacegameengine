@@ -53,13 +53,13 @@
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -153,7 +153,7 @@ sge::x11input::cursor::object::object(
 	cursor_grab_{}
 {
 	sge::x11input::event::select<
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::x11input::event::type_c<
 				XI_Motion
 			>,

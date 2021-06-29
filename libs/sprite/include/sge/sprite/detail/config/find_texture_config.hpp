@@ -10,8 +10,8 @@
 #include <sge/sprite/config/is_with_texture.hpp>
 #include <sge/sprite/config/is_with_texture_point_size.hpp>
 #include <sge/sprite/detail/config/find_if.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -55,7 +55,7 @@ public:
 	std::conditional_t<
 		std::is_same_v<
 			with_texture_list,
-			metal::list<>
+			fcppt::mpl::list::object<>
 		>,
 		with_texture_point_size_list,
 		with_texture_list

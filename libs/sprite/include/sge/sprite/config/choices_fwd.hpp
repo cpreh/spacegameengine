@@ -7,6 +7,7 @@
 #ifndef SGE_SPRITE_CONFIG_CHOICES_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_CHOICES_FWD_HPP_INCLUDED
 
+#include <fcppt/mpl/list/object_concept.hpp>
 
 namespace sge
 {
@@ -19,7 +20,7 @@ template<
 	typename TypeChoices,
 	typename PosChoice,
 	typename SizeChoice,
-	typename OptionalElements
+	fcppt::mpl::list::object_concept OptionalElements
 >
 struct choices;
 

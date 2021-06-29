@@ -10,9 +10,11 @@
 #include <sge/sprite/detail/config/find_texture_config.hpp>
 #include <sge/sprite/detail/config/lazy_head.hpp>
 #include <sge/sprite/detail/primitives/texture_ref_type.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/unit_fwd.hpp>
+#include <fcppt/mpl/apply.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/if.hpp>
+#include <fcppt/mpl/list/empty.hpp>
 
 
 namespace sge
@@ -52,13 +54,13 @@ public:
 	using
 	type
 	=
-	metal::invoke<
-		metal::if_<
-			metal::empty<
+	fcppt::mpl::apply<
+		fcppt::mpl::if_<
+			fcppt::mpl::list::empty<
 				texture_list
 			>,
-			metal::always<
-				metal::nil
+			fcppt::mpl::constant<
+				fcppt::unit
 			>,
 			sge::sprite::detail::config::lazy_head<
 				obtain_ref_type,

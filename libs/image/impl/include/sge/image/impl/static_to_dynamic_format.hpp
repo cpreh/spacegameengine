@@ -8,10 +8,8 @@
 #define SGE_IMAGE_IMPL_STATIC_TO_DYNAMIC_FORMAT_HPP_INCLUDED
 
 #include <sge/image/impl/traits/pixel/format_map.hpp>
-#include <fcppt/metal/flip_map.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/map/at.hpp>
+#include <fcppt/mpl/map/flip.hpp>
 
 
 namespace sge
@@ -28,8 +26,8 @@ template<
 using
 static_to_dynamic_format
 =
-metal::at_key<
-	fcppt::metal::flip_map<
+fcppt::mpl::map::at<
+	fcppt::mpl::map::flip<
 		sge::image::impl::traits::pixel::format_map<
 			ColorTag
 		>

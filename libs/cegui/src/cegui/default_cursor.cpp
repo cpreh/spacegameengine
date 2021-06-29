@@ -13,12 +13,10 @@
 #include <sge/input/cursor/event/scroll.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::cegui::default_cursor::default_cursor(
@@ -56,7 +54,7 @@ sge::cegui::default_cursor::process_event(
 {
 	fcppt::optional::maybe_void(
 		fcppt::variant::dynamic_cast_<
-			metal::list<
+			fcppt::mpl::list::object<
 				sge::input::cursor::event::button const,
 				sge::input::cursor::event::move const,
 				sge::input::cursor::event::scroll const

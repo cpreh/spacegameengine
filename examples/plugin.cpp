@@ -48,14 +48,14 @@
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_metal.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/optional_level.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <cstdlib>
 #include <exception>
 #include <iostream>
@@ -86,7 +86,7 @@ try
 	using
 	plugins
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::audio::loader,
 		sge::audio::player,
 		sge::font::system,

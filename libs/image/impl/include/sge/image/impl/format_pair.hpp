@@ -8,9 +8,7 @@
 #define SGE_IMAGE_IMPL_FORMAT_PAIR_HPP_INCLUDED
 
 #include <sge/image/impl/format_key.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/map/element.hpp>
 
 
 namespace sge
@@ -28,7 +26,7 @@ template<
 using
 format_pair
 =
-metal::pair<
+fcppt::mpl::map::element<
 	sge::image::impl::format_key<
 		Dynamic,
 		DynamicValue

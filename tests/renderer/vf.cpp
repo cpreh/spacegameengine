@@ -46,6 +46,7 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -53,7 +54,6 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <catch2/catch.hpp>
 #include <cstddef>
 #include <cstring>
@@ -120,7 +120,7 @@ TEST_CASE(
 	static_assert(
 		std::is_same_v<
 			format_part::offsets,
-			metal::list<
+			fcppt::mpl::list::object<
 				static_size<
 					0
 				>,

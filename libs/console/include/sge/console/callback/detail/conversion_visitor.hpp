@@ -16,10 +16,10 @@
 #include <fcppt/output_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/type_name_from_info.hpp>
-#include <fcppt/metal/to_number.hpp>
+#include <fcppt/mpl/size_type.hpp>
+#include <fcppt/mpl/list/at.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <cstddef>
 #include <type_traits>
 #include <typeinfo>
@@ -59,13 +59,10 @@ public:
 	>
 	fcppt::optional::object<
 		std::remove_cvref_t<
-			::metal::at<
+			fcppt::mpl::list::at<
 				ParameterTypes,
-				fcppt::metal::to_number<
-					std::integral_constant<
-						std::size_t,
-						Index
-					>
+				fcppt::mpl::size_type<
+					Index
 				>
 			>
 		>
@@ -82,13 +79,10 @@ public:
 		result_type
 		=
 		std::remove_cvref_t<
-			::metal::at<
+			fcppt::mpl::list::at<
 				ParameterTypes,
-				fcppt::metal::to_number<
-					std::integral_constant<
-						std::size_t,
-						Index
-					>
+				fcppt::mpl::size_type<
+					Index
 				>
 			>
 		>;

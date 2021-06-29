@@ -82,10 +82,10 @@
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/fill.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <metal.hpp>
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
@@ -175,7 +175,7 @@ try
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::never
 		>,
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::sprite::config::with_color<
 				color_format
 			>

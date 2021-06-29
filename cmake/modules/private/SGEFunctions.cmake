@@ -377,7 +377,6 @@ function(
 	target_link_libraries(
 		${SGE_LIB_NAME}
 		INTERFACE
-		Metal
 		${TRANSITIVE_SGE_DEPS_RESULT}
 		${_TRANSITIVE_ADDITIONAL_DEPS}
 	)

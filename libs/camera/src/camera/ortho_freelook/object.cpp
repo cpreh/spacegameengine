@@ -30,6 +30,7 @@
 #include <fcppt/math/box/stretch_relative.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -37,9 +38,6 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 FCPPT_PP_PUSH_WARNING
@@ -128,7 +126,7 @@ sge::camera::ortho_freelook::object::process_event(
 {
 	fcppt::optional::maybe_void(
 		fcppt::variant::dynamic_cast_<
-			metal::list<
+			fcppt::mpl::list::object<
 				sge::input::keyboard::event::key const,
 				sge::input::mouse::event::axis const
 			>,

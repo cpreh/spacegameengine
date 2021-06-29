@@ -7,9 +7,8 @@
 #ifndef SGE_SPRITE_DETAIL_CONFIG_FIND_IF_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_FIND_IF_IMPL_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/keep_if.hpp>
 
 
 namespace sge
@@ -32,9 +31,9 @@ struct find_if_impl
 	using
 	type
 	=
-	metal::copy_if<
+	fcppt::mpl::list::keep_if<
 		Elements,
-		metal::trait<
+		fcppt::mpl::lambda<
 			Predicate
 		>
 	>;
@@ -42,7 +41,7 @@ struct find_if_impl
 	// TODO(philipp)
 /*
 	static_assert(
-		metal::size<
+		fcppt::mpl::list::size<
 			type
 		>::value
 		<=

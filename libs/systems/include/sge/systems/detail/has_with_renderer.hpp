@@ -8,9 +8,8 @@
 #define SGE_SYSTEMS_DETAIL_HAS_WITH_RENDERER_HPP_INCLUDED
 
 #include <sge/systems/detail/is_with_renderer.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/any_of.hpp>
 
 
 namespace sge
@@ -26,9 +25,9 @@ template<
 using
 has_with_renderer
 =
-metal::any_of<
+fcppt::mpl::list::any_of<
 	Choices,
-	metal::trait<
+	fcppt::mpl::lambda<
 		sge::systems::detail::is_with_renderer
 	>
 >;

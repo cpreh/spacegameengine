@@ -7,9 +7,7 @@
 #ifndef SGE_IMAGE_IMPL_FORMAT_MAP_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_FORMAT_MAP_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/map/object.hpp>
 
 
 namespace sge
@@ -25,7 +23,7 @@ template<
 using
 format_map
 =
-metal::map<
+fcppt::mpl::map::object<
 	Args...
 >;
 

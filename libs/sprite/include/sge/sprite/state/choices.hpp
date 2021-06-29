@@ -8,9 +8,7 @@
 #define SGE_SPRITE_STATE_CHOICES_HPP_INCLUDED
 
 #include <sge/sprite/state/choices_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object_concept.hpp>
 
 
 namespace sge
@@ -21,7 +19,7 @@ namespace state
 {
 
 template<
-	typename OptionalElements
+	fcppt::mpl::list::object_concept OptionalElements
 >
 struct choices
 {
@@ -29,13 +27,6 @@ struct choices
 	optional_elements
 	=
 	OptionalElements;
-
-	static_assert(
-		metal::is_list<
-			OptionalElements
-		>::value,
-		"OptionalElements must be an mpl sequence"
-	);
 };
 
 }

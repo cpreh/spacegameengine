@@ -9,9 +9,9 @@
 
 #include <sge/renderer/vf/format_fwd.hpp>
 #include <sge/renderer/vf/is_part.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/all_of.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -29,14 +29,14 @@ struct format
 	using
 	parts
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		Parts...
 	>;
 
 	static_assert(
-		metal::all_of<
+		fcppt::mpl::list::all_of<
 			parts,
-			metal::trait<
+			fcppt::mpl::lambda<
 				sge::renderer::vf::is_part
 			>
 		>::value,

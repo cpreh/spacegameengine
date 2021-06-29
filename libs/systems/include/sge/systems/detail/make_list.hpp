@@ -17,9 +17,14 @@
 #include <fcppt/algorithm/loop_break_tuple.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/join.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/all_of.hpp>
+#include <fcppt/mpl/list/contains.hpp>
+#include <fcppt/mpl/list/from.hpp>
 #include <fcppt/type_traits/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -44,25 +49,25 @@ make_list(
 {
 	// Check that every subsystem that needs initialization is initialized
 	static_assert(
-		metal::all_of<
+		fcppt::mpl::list::all_of<
 			Choices,
-			metal::bind<
-				metal::trait<
+			fcppt::mpl::bind<
+				fcppt::mpl::lambda<
 					fcppt::type_traits::implication
 				>,
-				metal::trait<
+				fcppt::mpl::lambda<
 					sge::systems::detail::extract_needs_init
 				>,
-				metal::bind<
-					metal::lambda<
-						metal::contains
+				fcppt::mpl::bind<
+					fcppt::mpl::lambda<
+						fcppt::mpl::list::contains
 					>,
-					metal::always<
-						metal::as_list<
+					fcppt::mpl::constant<
+						fcppt::mpl::list::from<
 							Inits
 						>
 					>,
-					metal::lambda<
+					fcppt::mpl::lambda<
 						sge::systems::detail::extract_parameter_type
 					>
 				>

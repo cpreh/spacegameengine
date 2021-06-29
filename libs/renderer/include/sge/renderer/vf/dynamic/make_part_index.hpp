@@ -10,7 +10,7 @@
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
-#include <fcppt/metal/index_of.hpp>
+#include <fcppt/mpl/list/index_of.hpp>
 
 
 namespace sge
@@ -34,7 +34,7 @@ make_part_index()
 			sge::renderer::vf::dynamic::part_index,
 			fcppt::cast::static_cast_fun
 		>(
-			fcppt::metal::index_of<
+			fcppt::mpl::list::index_of<
 				typename Format::parts,
 				Part
 			>::value

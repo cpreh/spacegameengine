@@ -134,6 +134,7 @@
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -142,7 +143,6 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <metal.hpp>
 #include <boost/circular_buffer.hpp>
 #include <cmath>
 #include <exception>
@@ -556,7 +556,7 @@ try
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::always
 		>,
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
 					1U
@@ -776,7 +776,7 @@ try
 
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							metal::list<
+							fcppt::mpl::list::object<
 								sge::input::cursor::relative_movement::event const,
 								sge::renderer::event::render const
 							>,

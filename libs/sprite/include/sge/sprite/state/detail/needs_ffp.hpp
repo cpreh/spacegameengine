@@ -7,9 +7,8 @@
 #ifndef SGE_SPRITE_STATE_DETAIL_NEEDS_FFP_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_NEEDS_FFP_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/any_of.hpp>
 
 
 namespace sge
@@ -39,10 +38,10 @@ public:
 	using
 	type
 	=
-	metal::any_of<
+	fcppt::mpl::list::any_of<
 		typename
 		StateChoices::optional_elements,
-		metal::trait<
+		fcppt::mpl::lambda<
 			extract
 		>
 	>;

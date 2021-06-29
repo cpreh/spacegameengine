@@ -10,7 +10,7 @@
 #include <sge/image/ds/channel/depth_fwd.hpp>
 #include <sge/image/ds/channel/stencil_fwd.hpp>
 #include <sge/image/ds/space/depth_stencil_fwd.hpp>
-#include <fcppt/metal/set/make.hpp>
+#include <fcppt/mpl/set/object.hpp>
 
 
 namespace sge
@@ -27,7 +27,7 @@ struct depth_stencil
 	using
 	required_channels
 	=
-	fcppt::metal::set::make<
+	fcppt::mpl::set::object<
 		sge::image::ds::channel::depth,
 		sge::image::ds::channel::stencil
 	>;

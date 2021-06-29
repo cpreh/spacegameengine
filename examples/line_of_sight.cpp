@@ -97,6 +97,7 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
@@ -107,7 +108,6 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <metal.hpp>
 #include <exception>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -139,7 +139,7 @@ sge::sprite::config::choices<
 	sge::sprite::config::normal_size<
 		sge::sprite::config::texture_size_option::never
 	>,
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::sprite::config::with_color<
 			color_format
 		>
@@ -611,7 +611,7 @@ try
 
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							metal::list<
+							fcppt::mpl::list::object<
 								sge::renderer::event::render const,
 								sge::input::cursor::event::button const,
 								sge::input::keyboard::event::key const

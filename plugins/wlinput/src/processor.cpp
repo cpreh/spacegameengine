@@ -55,14 +55,12 @@
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/log/object_reference.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 sge::wlinput::processor::processor(
@@ -267,7 +265,7 @@ sge::wlinput::processor::on_event(
 	return
 		fcppt::optional::maybe(
 			fcppt::variant::dynamic_cast_<
-				metal::list<
+				fcppt::mpl::list::object<
 					awl::backends::wayland::system::event::seat_caps const,
 					awl::backends::wayland::system::event::seat_removed const,
 					awl::backends::posix::event const

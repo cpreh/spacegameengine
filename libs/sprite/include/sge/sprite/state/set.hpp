@@ -13,7 +13,7 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_metal.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
 
 
 namespace sge

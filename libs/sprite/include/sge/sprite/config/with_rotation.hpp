@@ -10,10 +10,8 @@
 #include <sge/sprite/config/with_rotation_fwd.hpp>
 #include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/types/rotation.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -33,7 +31,7 @@ struct with_rotation
 		using
 		type
 		=
-		metal::list<
+		fcppt::mpl::list::object<
 			fcppt::record::element<
 				sge::sprite::roles::rotation,
 				sge::sprite::types::rotation<

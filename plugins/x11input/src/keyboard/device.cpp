@@ -29,10 +29,10 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/container/make.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -75,7 +75,7 @@ sge::x11input::keyboard::device::device(
 	}
 {
 	sge::x11input::event::select<
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::x11input::event::type_c<
 				XI_KeyPress
 			>,

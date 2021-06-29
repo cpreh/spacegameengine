@@ -34,10 +34,8 @@
 #include <sge/sprite/state/parameters_fwd.hpp>
 #include <sge/texture/const_part_ref.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
 
 
 namespace sge
@@ -95,7 +93,7 @@ private:
 		sge::sprite::config::normal_size<
 			sge::sprite::config::texture_size_option::always
 		>,
-		metal::list<
+		fcppt::mpl::list::object<
 			sge::sprite::config::with_texture<
 				sge::sprite::config::texture_level_count<
 					1U

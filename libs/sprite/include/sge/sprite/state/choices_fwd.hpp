@@ -7,6 +7,8 @@
 #ifndef SGE_SPRITE_STATE_CHOICES_FWD_HPP_INCLUDED
 #define SGE_SPRITE_STATE_CHOICES_FWD_HPP_INCLUDED
 
+#include <fcppt/mpl/list/object_concept.hpp>
+
 
 namespace sge
 {
@@ -16,7 +18,7 @@ namespace state
 {
 
 template<
-	typename OptionalElements
+	fcppt::mpl::list::object_concept OptionalElements
 >
 struct choices;
 

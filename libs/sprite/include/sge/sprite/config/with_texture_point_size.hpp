@@ -15,8 +15,9 @@
 #include <sge/sprite/detail/primitives/texture_point_pos.hpp>
 #include <sge/sprite/detail/primitives/texture_point_size.hpp>
 #include <sge/sprite/detail/primitives/texture_ptr.hpp>
+#include <fcppt/mpl/list/join.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -90,25 +91,27 @@ struct with_texture_point_size<
 		using
 		type
 		=
-		metal::join<
-			typename
-			sge::sprite::detail::primitives::texture_ptr<
-				Choices,
-				texture_levels,
-				ownership::value
-			>::type,
-			typename
-			sge::sprite::detail::primitives::texture_point_pos<
-				Choices,
-				texture_levels,
-				point_pos
-			>::type,
-			typename
-			sge::sprite::detail::primitives::texture_point_size<
-				Choices,
-				texture_levels,
-				point_size
-			>::type
+		fcppt::mpl::list::join<
+			fcppt::mpl::list::object<
+				typename
+				sge::sprite::detail::primitives::texture_ptr<
+					Choices,
+					texture_levels,
+					ownership::value
+				>::type,
+				typename
+				sge::sprite::detail::primitives::texture_point_pos<
+					Choices,
+					texture_levels,
+					point_pos
+				>::type,
+				typename
+				sge::sprite::detail::primitives::texture_point_size<
+					Choices,
+					texture_levels,
+					point_size
+				>::type
+			>
 		>;
 	};
 };

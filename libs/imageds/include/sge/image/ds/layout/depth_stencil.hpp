@@ -11,9 +11,7 @@
 #include <sge/image/ds/channel/stencil.hpp>
 #include <sge/image/ds/space/depth_stencil.hpp>
 #include <mizuiro/color/layout/make.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -30,7 +28,7 @@ depth_stencil
 =
 mizuiro::color::layout::make<
 	sge::image::ds::space::depth_stencil,
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::image::ds::channel::depth,
 		sge::image::ds::channel::stencil
 	>

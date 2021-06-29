@@ -14,15 +14,15 @@
 #include <sge/font/string.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_metal.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/algorithm/loop_break_tuple.hpp>
 #include <fcppt/algorithm/map_tuple.hpp>
 #include <fcppt/array/from_range.hpp>
 #include <fcppt/array/object_impl.hpp>
-#include <fcppt/metal/as_tuple.hpp>
-#include <fcppt/metal/from_number.hpp>
-#include <fcppt/metal/function_args.hpp>
-#include <fcppt/metal/interval.hpp>
+#include <fcppt/mpl/function_args.hpp>
+#include <fcppt/mpl/list/as_tuple.hpp>
+#include <fcppt/mpl/list/indices.hpp>
+#include <fcppt/mpl/list/size.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/sequence.hpp>
@@ -31,7 +31,6 @@
 #include <fcppt/tuple/init.hpp>
 #include <fcppt/tuple/invoke.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <cstddef>
 #include <type_traits>
 #include <utility>
@@ -90,18 +89,15 @@ public:
 		using
 		arg_types
 		=
-		fcppt::metal::function_args<
+		fcppt::mpl::function_args<
 			function_type
 		>;
 
 		using
 		arg_count
 		=
-		fcppt::metal::from_number<
-			std::size_t,
-			::metal::size<
-				arg_types
-			>
+		fcppt::mpl::list::size<
+			arg_types
 		>;
 
 		using
@@ -141,17 +137,15 @@ public:
 				using
 				arguments
 				=
-				fcppt::metal::as_tuple<
+				fcppt::mpl::list::as_tuple<
 					arg_types
 				>;
 
 				using
 				interval
 				=
-				fcppt::metal::interval<
-					std::size_t,
-					0U,
-					arg_count::value
+				fcppt::mpl::list::indices<
+					arg_types
 				>;
 
 				fcppt::optional::maybe_void(
@@ -165,7 +159,7 @@ public:
 								_console
 							},
 							fcppt::tuple::init<
-								fcppt::metal::as_tuple<
+								fcppt::mpl::list::as_tuple<
 									interval
 								>
 							>(

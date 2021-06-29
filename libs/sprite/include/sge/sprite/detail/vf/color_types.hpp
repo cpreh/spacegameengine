@@ -8,9 +8,7 @@
 #define SGE_SPRITE_DETAIL_VF_COLOR_TYPES_HPP_INCLUDED
 
 #include <sge/sprite/detail/vf/color.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -28,7 +26,7 @@ template<
 using
 color_types
 =
-metal::list<
+fcppt::mpl::list::object<
 	sge::sprite::detail::vf::color<
 		Choices
 	>

@@ -9,7 +9,7 @@
 
 #include <sge/image/ds/channel/depth_fwd.hpp>
 #include <sge/image/ds/space/depth_fwd.hpp>
-#include <fcppt/metal/set/make.hpp>
+#include <fcppt/mpl/set/object.hpp>
 
 
 namespace sge
@@ -26,7 +26,7 @@ struct depth
 	using
 	required_channels
 	=
-	fcppt::metal::set::make<
+	fcppt::mpl::set::object<
 		sge::image::ds::channel::depth
 	>;
 };

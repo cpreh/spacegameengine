@@ -8,8 +8,8 @@
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
 #include <sge/sprite/config/custom_texture_point_size_fwd.hpp>
+#include <fcppt/mpl/list/object_concept.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -22,24 +22,19 @@ namespace config
 {
 
 template<
-	typename AttributeNames
+	fcppt::mpl::list::object_concept AttributeNames
 >
 struct custom_texture_point_size
 {
-	typedef
-	std::true_type
-	is_texture_point_size;
+	using
+	is_texture_point_size
+	=
+	std::true_type;
 
-	static_assert(
-		::metal::is_list<
-			AttributeNames
-		>::value,
-		"AttributeNames must be a metal::list"
-	);
-
-	typedef
-	AttributeNames
-	attribute_indices;
+	using
+	attribute_indices
+	=
+	AttributeNames;
 };
 
 }

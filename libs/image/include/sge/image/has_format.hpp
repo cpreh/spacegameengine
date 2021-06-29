@@ -8,8 +8,12 @@
 #define SGE_IMAGE_HAS_FORMAT_HPP_INCLUDED
 
 #include <sge/image/traits/pixel/static_formats.hpp>
+#include <fcppt/mpl/arg.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/any_of.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -26,18 +30,18 @@ template<
 using
 has_format
 =
-metal::any_of<
+fcppt::mpl::list::any_of<
 	sge::image::traits::pixel::static_formats<
 		Tag
 	>,
-	metal::bind<
-		metal::trait<
+	fcppt::mpl::bind<
+		fcppt::mpl::lambda<
 			std::is_same
 		>,
-		metal::always<
+		fcppt::mpl::constant<
 			Format
 		>,
-		metal::_1
+		fcppt::mpl::arg<1>
 	>
 >;
 

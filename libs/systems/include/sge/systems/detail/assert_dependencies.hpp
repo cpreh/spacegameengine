@@ -8,9 +8,11 @@
 #define SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_HPP_INCLUDED
 
 #include <sge/systems/detail/assert_dependencies_one.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/arg.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/all_of.hpp>
 
 
 namespace sge
@@ -26,16 +28,16 @@ template<
 using
 assert_dependencies
 =
-metal::all_of<
+fcppt::mpl::list::all_of<
 	Choices,
-	metal::bind<
-		metal::lambda<
+	fcppt::mpl::bind<
+		fcppt::mpl::lambda<
 			sge::systems::detail::assert_dependencies_one
 		>,
-		metal::always<
+		fcppt::mpl::constant<
 			Choices
 		>,
-		metal::_1
+		fcppt::mpl::arg<1>
 	>
 >;
 

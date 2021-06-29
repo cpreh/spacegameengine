@@ -8,7 +8,7 @@
 #define SGE_X11INPUT_EVENT_IS_DEVICE_HPP_INCLUDED
 
 #include <sge/x11input/event/device_type_set.hpp>
-#include <fcppt/metal/set/contains.hpp>
+#include <fcppt/mpl/set/contains.hpp>
 
 
 namespace sge
@@ -24,7 +24,7 @@ template<
 using
 is_device
 =
-fcppt::metal::set::contains<
+fcppt::mpl::set::contains<
 	sge::x11input::event::device_type_set,
 	Value
 >;

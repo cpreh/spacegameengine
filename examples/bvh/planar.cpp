@@ -96,6 +96,7 @@
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/tree/depth.hpp>
 #include <fcppt/math/box/output.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -130,7 +131,6 @@
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <metal.hpp>
 #include <chrono>
 #include <exception>
 #include <iostream>
@@ -160,7 +160,7 @@ sge::sprite::config::choices<
 	sge::sprite::config::normal_size<
 		sge::sprite::config::texture_size_option::never
 	>,
-	metal::list<
+	fcppt::mpl::list::object<
 		sge::sprite::config::with_color<
 			sge::image::color::rgba8_format
 		>
@@ -900,7 +900,7 @@ main_program(
 
 					fcppt::optional::maybe_void(
 						fcppt::variant::dynamic_cast_<
-							metal::list<
+							fcppt::mpl::list::object<
 								sge::renderer::event::render const,
 								sge::input::keyboard::event::key const
 							>,

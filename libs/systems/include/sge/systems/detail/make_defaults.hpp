@@ -11,10 +11,16 @@
 #include <sge/systems/detail/extract_needs_init.hpp>
 #include <sge/systems/detail/extract_parameter_type.hpp>
 #include <sge/systems/detail/make_default_element.hpp>
-#include <fcppt/algorithm/loop_break_metal.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/mpl/bind.hpp>
+#include <fcppt/mpl/constant.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/contains.hpp>
+#include <fcppt/mpl/list/from.hpp>
+#include <fcppt/mpl/list/remove_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 
@@ -36,25 +42,25 @@ make_defaults()
 		fcppt::algorithm::map<
 			sge::systems::detail::any_list
 		>(
-			metal::remove_if<
+			fcppt::mpl::list::remove_if<
 				Choices,
-				metal::bind<
-					metal::lambda<
-						metal::or_
+				fcppt::mpl::bind<
+					fcppt::mpl::lambda<
+						std::disjunction
 					>,
-					metal::trait<
+					fcppt::mpl::lambda<
 						sge::systems::detail::extract_needs_init
 					>,
-					metal::bind<
-						metal::lambda<
-							metal::contains
+					fcppt::mpl::bind<
+						fcppt::mpl::lambda<
+							fcppt::mpl::list::contains
 						>,
-						metal::always<
-							metal::as_list<
+						fcppt::mpl::constant<
+							fcppt::mpl::list::from<
 								Inits
 							>
 						>,
-						metal::lambda<
+						fcppt::mpl::lambda<
 							sge::systems::detail::extract_parameter_type
 						>
 					>

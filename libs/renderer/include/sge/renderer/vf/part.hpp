@@ -8,14 +8,12 @@
 #define SGE_RENDERER_VF_PART_HPP_INCLUDED
 
 #include <sge/renderer/vf/part_fwd.hpp>
-#include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/detail/element_stride.hpp>
-#include <fcppt/metal/from_number_list.hpp>
-#include <fcppt/metal/partial_sums.hpp>
-#include <fcppt/metal/to_number_list.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <sge/renderer/vf/detail/partial_sums.hpp>
+#include <fcppt/mpl/lambda.hpp>
+#include <fcppt/mpl/list/back.hpp>
+#include <fcppt/mpl/list/map.hpp>
+#include <fcppt/mpl/list/object.hpp>
 
 
 namespace sge
@@ -33,23 +31,18 @@ struct part
 	using
 	elements
 	=
-	metal::list<
+	fcppt::mpl::list::object<
 		Elements...
 	>;
 
 	using
 	offsets
 	=
-	fcppt::metal::from_number_list<
-		sge::renderer::vf::vertex_size,
-		fcppt::metal::partial_sums<
-			fcppt::metal::to_number_list<
-				metal::transform<
-					metal::lambda<
-						sge::renderer::vf::detail::element_stride
-					>,
-					elements
-				>
+	sge::renderer::vf::detail::partial_sums<
+		fcppt::mpl::list::map<
+			elements,
+			fcppt::mpl::lambda<
+				sge::renderer::vf::detail::element_stride
 			>
 		>
 	>;
@@ -57,7 +50,7 @@ struct part
 	using
 	stride
 	=
-	metal::back<
+	fcppt::mpl::list::back<
 		offsets
 	>;
 };

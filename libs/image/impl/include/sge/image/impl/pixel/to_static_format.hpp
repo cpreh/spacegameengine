@@ -9,9 +9,7 @@
 
 #include <sge/image/impl/format_key.hpp>
 #include <sge/image/impl/traits/pixel/format_map.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/map/at.hpp>
 
 
 namespace sge
@@ -30,7 +28,7 @@ template<
 using
 to_static_format
 =
-metal::at_key<
+fcppt::mpl::map::at<
 	sge::image::impl::traits::pixel::format_map<
 		Tag
 	>,

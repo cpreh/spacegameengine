@@ -9,8 +9,8 @@
 
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/with_audio_player_fwd.hpp>
+#include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -35,7 +35,7 @@ struct with_audio_player
 	using
 	needs_before
 	=
-	metal::list<>;
+	fcppt::mpl::list::object<>;
 };
 
 }

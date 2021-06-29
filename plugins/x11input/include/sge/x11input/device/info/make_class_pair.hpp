@@ -7,8 +7,8 @@
 #ifndef SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR_HPP_INCLUDED
 
+#include <fcppt/mpl/map/element.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -16,7 +16,7 @@
 #define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(\
 	name\
 )\
-metal::pair<\
+fcppt::mpl::map::element<\
 	name ## Info ,\
 	std::integral_constant<\
 		int,\

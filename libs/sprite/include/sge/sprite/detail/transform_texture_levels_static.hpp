@@ -8,9 +8,7 @@
 #define SGE_SPRITE_DETAIL_TRANSFORM_TEXTURE_LEVELS_STATIC_HPP_INCLUDED
 
 #include <sge/sprite/detail/make_texture_levels.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <metal.hpp>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/mpl/list/map.hpp>
 
 
 namespace sge
@@ -27,11 +25,11 @@ template<
 using
 transform_texture_levels_static
 =
-metal::transform<
-	Function,
+fcppt::mpl::list::map<
 	sge::sprite::detail::make_texture_levels<
 		Levels
-	>
+	>,
+	Function
 >;
 
 }
