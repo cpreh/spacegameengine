@@ -8,7 +8,8 @@
 #define SGE_IMAGE_HAS_FORMAT_HPP_INCLUDED
 
 #include <sge/image/traits/pixel/static_formats.hpp>
-#include <fcppt/mpl/list/contains.hpp>
+#include <fcppt/mpl/set/contains.hpp>
+#include <fcppt/mpl/set/from_list.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -26,9 +27,11 @@ template<
 using
 has_format
 =
-fcppt::mpl::list::contains<
-	sge::image::traits::pixel::static_formats<
-		Tag
+fcppt::mpl::set::contains<
+	fcppt::mpl::set::from_list<
+		sge::image::traits::pixel::static_formats<
+			Tag
+		>
 	>,
 	Format
 >;
