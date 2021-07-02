@@ -8,10 +8,10 @@
 #define SGE_SPRITE_DETAIL_MAKE_CLASS_HPP_INCLUDED
 
 #include <sge/sprite/detail/apply_choices.hpp>
-#include <fcppt/record/from_list.hpp>
 #include <fcppt/mpl/list/append.hpp>
 #include <fcppt/mpl/list/join.hpp>
 #include <fcppt/mpl/list/object.hpp>
+#include <fcppt/record/from_list.hpp>
 
 
 namespace sge

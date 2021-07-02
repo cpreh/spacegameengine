@@ -9,8 +9,8 @@
 
 #include <sge/opencl/clinclude.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
-#include <fcppt/mpl/list/unique.hpp>
 #include <fcppt/mpl/list/object.hpp>
+#include <fcppt/mpl/list/unique.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

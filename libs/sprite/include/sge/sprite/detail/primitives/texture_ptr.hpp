@@ -11,8 +11,8 @@
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/detail/primitives/texture_ref_type.hpp>
 #include <sge/sprite/roles/texture.hpp>
-#include <fcppt/record/element.hpp>
 #include <fcppt/mpl/lambda.hpp>
+#include <fcppt/record/element.hpp>
 
 
 namespace sge

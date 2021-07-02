@@ -23,8 +23,8 @@
 #include <fcppt/mpl/if.hpp>
 #include <fcppt/mpl/lambda.hpp>
 #include <fcppt/mpl/size_type.hpp>
-#include <fcppt/mpl/list/append.hpp>
 #include <fcppt/mpl/list/any_of.hpp>
+#include <fcppt/mpl/list/append.hpp>
 #include <fcppt/mpl/list/at.hpp>
 #include <fcppt/mpl/list/from.hpp>
 #include <fcppt/mpl/list/join.hpp>

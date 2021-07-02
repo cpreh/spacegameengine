@@ -11,9 +11,9 @@
 #include <sge/sprite/detail/transform_texture_levels_static.hpp>
 #include <sge/sprite/roles/texture_point_pos.hpp>
 #include <sge/sprite/types/texture_point_pos.hpp>
-#include <fcppt/record/element.hpp>
 #include <fcppt/mpl/lambda.hpp>
 #include <fcppt/mpl/list/object.hpp>
+#include <fcppt/record/element.hpp>
 
 
 namespace sge

@@ -8,8 +8,8 @@
 #define SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 
 #include <sge/renderer/dim2_fwd.hpp>
-#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/is_valid_float_type.hpp>
+#include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/config/external_begin.hpp>
