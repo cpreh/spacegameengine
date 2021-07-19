@@ -64,15 +64,28 @@ pkg_check_modules(
 	x11
 )
 
-find_package(
-	SDL2
+if(
+	NOT DEFINED ENABLE_SDL
 )
+	find_package(
+		SDL2
+	)
+endif()
 
 option(
 	ENABLE_SDL
 	"Enable SDL support in plugins"
 	${SDL2_FOUND}
 )
+
+if(
+	ENABLE_SDL
+)
+	find_package(
+		SDL2
+		REQUIRED
+	)
+endif()
 
 add_sge_lib(
 	audio_null
