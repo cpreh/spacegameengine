@@ -9,41 +9,45 @@
 #include <sge/input/mouse/button_info_container.hpp>
 #include <sge/x11input/mouse/button.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
 
-sge::input::mouse::button
+fcppt::optional::object<
+	sge::input::mouse::button
+>
 sge::x11input::mouse::button(
 	XIDeviceEvent const  &_event,
 	sge::input::mouse::button_info_container const &_info
 )
 {
-	int const detail(
-		_event.detail
-	);
-
-	FCPPT_ASSERT_PRE(
-		detail > 0
-	);
-
-	sge::input::mouse::button_id const id(
-		static_cast<
-			sge::input::mouse::button_id::value_type
-		>(
-			detail - 1 // TODO(philipp): why?
-		)
-	);
-
 	return
-		sge::input::mouse::button(
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				_info[
-					id
-				]
-			)->code(),
-			id
+		fcppt::optional::make_if(
+			_event.detail > 0, // TODO(philipp): why?
+			[
+				&_event,
+				&_info
+			]{
+				sge::input::mouse::button_id const id{
+					fcppt::cast::to_unsigned(
+						_event.detail - 1
+					)
+				};
+
+				return
+					sge::input::mouse::button(
+						FCPPT_ASSERT_OPTIONAL_ERROR(
+							_info[
+								id
+							]
+						)->code(),
+						id
+					);
+			}
 		);
 }

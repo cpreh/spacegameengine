@@ -9,6 +9,7 @@
 
 #include <sge/input/mouse/button_fwd.hpp>
 #include <sge/input/mouse/button_info_container_fwd.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
@@ -21,7 +22,9 @@ namespace x11input
 namespace mouse
 {
 
-sge::input::mouse::button
+fcppt::optional::object<
+	sge::input::mouse::button
+>
 button(
 	XIDeviceEvent const &,
 	sge::input::mouse::button_info_container const &

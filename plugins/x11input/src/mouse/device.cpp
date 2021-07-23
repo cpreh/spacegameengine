@@ -42,11 +42,17 @@
 #include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/get_or_insert.hpp>
+#include <fcppt/log/object_reference.hpp>
+#include <fcppt/log/out.hpp>
+#include <fcppt/log/warning.hpp>
 #include <fcppt/mpl/list/object.hpp>
+#include <fcppt/optional/join.hpp>
 #include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
@@ -56,6 +62,7 @@
 
 sge::x11input::mouse::device::device(
 	sge::window::object_ref const _sge_window,
+	fcppt::log::object_reference const _log,
 	awl::backends::x11::window::const_base_ref const _window,
 	XIDeviceInfo const &_info,
 	sge::x11input::event::window_demuxer_ref const _window_demuxer,
@@ -68,6 +75,9 @@ sge::x11input::mouse::device::device(
 	>{},
 	sge_window_{
 		_sge_window
+	},
+	log_{
+		_log
 	},
 	accus_{},
 	info_{
@@ -327,38 +337,68 @@ sge::x11input::mouse::device::button_event(
 )
 {
 	return
-		fcppt::optional::make_if(
-			(
-				_event.flags // NOLINT(hicpp-signed-bitwise)
-				&
-				XIPointerEmulated // NOLINT(hicpp-signed-bitwise)
-			)
-			==
-			0,
-			[
-				this,
-				&_event,
-				_pressed
-			]{
-				return
-					fcppt::unique_ptr_to_base<
-						awl::event::base
-					>(
-						fcppt::make_unique_ptr<
-							sge::input::mouse::event::button
-						>(
-							sge::input::mouse::shared_ptr{
-								this->fcppt_shared_from_this()
-							},
-							sge::input::mouse::button(
-								sge::x11input::mouse::button(
-									_event,
-									info_.buttons()
-								)
-							),
-							_pressed
+		fcppt::optional::join(
+			fcppt::optional::make_if(
+				(
+					_event.flags // NOLINT(hicpp-signed-bitwise)
+					&
+					XIPointerEmulated // NOLINT(hicpp-signed-bitwise)
+				)
+				==
+				0,
+				[
+					this,
+					&_event,
+					_pressed
+				]{
+					fcppt::optional::object<
+						sge::input::mouse::button
+					> const button(
+						sge::x11input::mouse::button(
+							_event,
+							info_.buttons()
 						)
 					);
-			}
+
+					if(
+						!button.has_value()
+					)
+					{
+						FCPPT_LOG_WARNING(
+							this->log_.get(),
+							fcppt::log::out
+								<< FCPPT_TEXT("Invalid mouse button id ")
+								<< _event.detail
+						)
+					}
+
+					return
+						fcppt::optional::map(
+							button,
+							[
+								this,
+								_pressed
+							](
+								sge::input::mouse::button const &_button
+							)
+							{
+								return
+									fcppt::unique_ptr_to_base<
+										awl::event::base
+									>(
+										fcppt::make_unique_ptr<
+											sge::input::mouse::event::button
+										>(
+											sge::input::mouse::shared_ptr{
+												this->fcppt_shared_from_this()
+											},
+											_button,
+											_pressed
+										)
+									);
+							}
+						);
+				}
+			)
 		);
 }

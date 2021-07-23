@@ -280,8 +280,10 @@ sge::x11input::processor::processor(
 		current_devices
 	)
 	{
-		this->add_device(
-			device
+		FCPPT_USE(
+			this->add_device(
+				device
+			)
 		);
 	}
 }
@@ -824,6 +826,7 @@ sge::x11input::processor::add_mouse(
 					sge::x11input::mouse::device
 				>(
 					window_,
+					log_,
 					fcppt::reference_to_const(
 						fcppt::reference_to_base<
 							awl::backends::x11::window::base

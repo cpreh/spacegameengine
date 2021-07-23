@@ -23,6 +23,7 @@
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_decl.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
@@ -51,6 +52,7 @@ class device // NOLINT(fuchsia-multiple-inheritance)
 public:
 	device(
 		sge::window::object_ref,
+		fcppt::log::object_reference,
 		awl::backends::x11::window::const_base_ref,
 		XIDeviceInfo const &,
 		sge::x11input::event::window_demuxer_ref,
@@ -114,6 +116,8 @@ private:
 	);
 
 	sge::window::object_ref const sge_window_;
+
+	fcppt::log::object_reference const log_;
 
 	sge::x11input::device::valuator::accu_map accus_;
 
