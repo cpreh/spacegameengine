@@ -7,16 +7,18 @@
 #ifndef SGE_IMAGE_COLOR_RGB8_FROM_HEX_STRING_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_RGB8_FROM_HEX_STRING_HPP_INCLUDED
 
-#include <sge/image/exception.hpp>
 #include <sge/image/color/rgb8.hpp>
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
 #include <fcppt/no_init.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/array/get.hpp>
 #include <fcppt/array/object_impl.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/either/make_failure.hpp>
+#include <fcppt/either/make_success.hpp>
+#include <fcppt/either/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iomanip>
 #include <string>
@@ -40,14 +42,27 @@ namespace color
 template<
 	typename String
 >
-sge::image::color::rgb8
+fcppt::either::object<
+	fcppt::string,
+	sge::image::color::rgb8
+>
 rgb8_from_hex_string(
 	String const &_string
 )
 {
-	FCPPT_ASSERT_PRE(
-		_string.length() == 6U
-	);
+	if(
+		_string.length() != 6U
+	)
+	{
+		return
+			fcppt::either::make_failure<
+				sge::image::color::rgb8
+			>(
+				fcppt::string{
+					FCPPT_TEXT("Length is not 6")
+				}
+			);
+	}
 
 	// Store the channels in unsigned instead of uint8_t because it
 	// might be interpreted as a character instead of a number by the
@@ -94,9 +109,13 @@ rgb8_from_hex_string(
 		// conversion, sorry.
 		if(!(ss >> std::hex >> channel) || !ss.eof())
 		{
-			throw
-				sge::image::exception(
-					FCPPT_TEXT("Invalid color component, cannot convert")
+			return
+				fcppt::either::make_failure<
+					sge::image::color::rgb8
+				>(
+					fcppt::string{
+						FCPPT_TEXT("Invalid color component, cannot convert")
+					}
 				);
 		}
 
@@ -110,10 +129,14 @@ rgb8_from_hex_string(
 	sge::image::color::rgb8::format::channel_type;
 
 	return
-		sge::image::color::rgb8(
-			(sge::image::color::init::red() = static_cast<channel_type>(fcppt::array::get<0>(channels)))
-			(sge::image::color::init::green() = static_cast<channel_type>(fcppt::array::get<1>(channels)))
-			(sge::image::color::init::blue() = static_cast<channel_type>(fcppt::array::get<2>(channels)))
+		fcppt::either::make_success<
+			fcppt::string
+		>(
+			sge::image::color::rgb8(
+				(sge::image::color::init::red() = static_cast<channel_type>(fcppt::array::get<0>(channels)))
+				(sge::image::color::init::green() = static_cast<channel_type>(fcppt::array::get<1>(channels)))
+				(sge::image::color::init::blue() = static_cast<channel_type>(fcppt::array::get<2>(channels)))
+			)
 		);
 }
 

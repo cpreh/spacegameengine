@@ -14,6 +14,8 @@
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_from_hex_string.hpp>
+#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/either/success_opt.hpp>
 
 
 namespace
@@ -23,6 +25,24 @@ constexpr
 sge::image::color::rgba8::format::channel_type const full_alpha{
 	255
 };
+
+
+sge::image::color::rgba8
+get_rgba_color(
+	std::string const &_value,
+	sge::image::color::rgba8::format::channel_type const _alpha
+)
+{
+	return
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::either::success_opt(
+				sge::image::color::rgba8_from_hex_string(
+					_value,
+					_alpha
+				)
+			)
+		);
+}
 
 }
 
@@ -55,7 +75,7 @@ sge::graph::color_schemes::bright()
 	return
 		sge::graph::color_scheme(
 			sge::graph::foreground_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"F6F792"
 					),
@@ -63,7 +83,7 @@ sge::graph::color_schemes::bright()
 				)
 			),
 			sge::graph::foreground_alt_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"DAEDE2"
 					),
@@ -71,7 +91,7 @@ sge::graph::color_schemes::bright()
 				)
 			),
 			sge::graph::background_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"333745"
 					),
@@ -79,7 +99,7 @@ sge::graph::color_schemes::bright()
 				)
 			),
 			sge::graph::background_alt_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"77C4D3"
 					),
@@ -87,7 +107,7 @@ sge::graph::color_schemes::bright()
 				)
 			),
 			sge::graph::baseline_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"EA2E49"
 					),
@@ -103,7 +123,7 @@ sge::graph::color_schemes::night()
 	return
 		sge::graph::color_scheme(
 			sge::graph::foreground_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"008000"
 					),
@@ -111,7 +131,7 @@ sge::graph::color_schemes::night()
 				)
 			),
 			sge::graph::foreground_alt_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"77C4D3"
 					),
@@ -119,7 +139,7 @@ sge::graph::color_schemes::night()
 				)
 			),
 			sge::graph::background_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"2E2E2E"
 					),
@@ -127,7 +147,7 @@ sge::graph::color_schemes::night()
 				)
 			),
 			sge::graph::background_alt_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"2E2E2E"
 					),
@@ -135,7 +155,7 @@ sge::graph::color_schemes::night()
 				)
 			),
 			sge::graph::baseline_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"808080"
 					),
@@ -151,7 +171,7 @@ sge::graph::color_schemes::minimal()
 	return
 		sge::graph::color_scheme(
 			sge::graph::foreground_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"808080"
 					),
@@ -159,7 +179,7 @@ sge::graph::color_schemes::minimal()
 				)
 			),
 			sge::graph::foreground_alt_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"808080"
 					),
@@ -167,7 +187,7 @@ sge::graph::color_schemes::minimal()
 				)
 			),
 			sge::graph::background_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"000000"
 					),
@@ -175,7 +195,7 @@ sge::graph::color_schemes::minimal()
 				)
 			),
 			sge::graph::background_alt_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"000000"
 					),
@@ -183,7 +203,7 @@ sge::graph::color_schemes::minimal()
 				)
 			),
 			sge::graph::baseline_color(
-				sge::image::color::rgba8_from_hex_string(
+				get_rgba_color(
 					std::string(
 						"FFFFFF"
 					),

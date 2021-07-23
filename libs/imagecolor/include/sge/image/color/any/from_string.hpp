@@ -9,35 +9,34 @@
 
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/detail/symbol.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/either/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace any
+namespace sge::image::color::any
 {
 
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
-sge::image::color::any::object
+fcppt::either::object<
+	fcppt::string,
+	sge::image::color::any::object
+>
 from_string(
 	std::string const &
 );
 
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
-sge::image::color::any::object
+fcppt::either::object<
+	fcppt::string,
+	sge::image::color::any::object
+>
 from_string(
 	std::wstring const &
 );
 
-}
-}
-}
 }
 
 #endif

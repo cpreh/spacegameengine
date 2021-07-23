@@ -4,11 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
-#include <sge/image/exception.hpp>
 #include <sge/image/color/any/from_string.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image/color/any/print.hpp>
 #include <fcppt/args_char.hpp>
 #include <fcppt/args_from_second.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/main.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -94,25 +95,47 @@ try
 				result_type const &_result
 			)
 			{
-				fcppt::io::cout()
-					<<
-					sge::image::color::any::from_string(
-						fcppt::record::get<
-							string_label
-						>(
-							_result
-						)
-					)
-					<<
-					FCPPT_TEXT('\n');
-
 				return
-					EXIT_SUCCESS;
+					fcppt::either::match(
+						sge::image::color::any::from_string(
+							fcppt::record::get<
+								string_label
+							>(
+								_result
+							)
+						),
+						[](
+							fcppt::string const &_error
+						)
+						{
+							fcppt::io::cerr()
+								<<
+								_error
+								<<
+								FCPPT_TEXT('\n');
+
+							return
+								EXIT_FAILURE;
+						},
+						[](
+							sge::image::color::any::object const &_color
+						)
+						{
+							fcppt::io::cout()
+								<<
+								_color
+								<<
+								FCPPT_TEXT('\n');
+
+							return
+								EXIT_SUCCESS;
+						}
+					);
 			}
 		);
 }
 catch(
-	 sge::image::exception const &_error
+	 fcppt::exception const &_error
 )
 {
 	 fcppt::io::cerr()

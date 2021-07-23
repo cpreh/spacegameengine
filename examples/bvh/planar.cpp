@@ -95,6 +95,7 @@
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/tree/depth.hpp>
+#include <fcppt/either/success_opt.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/bind.hpp>
@@ -288,11 +289,15 @@ public:
 				>(
 					tree.value()
 				).bounding_box(),
-				sge::image::color::rgba8_from_hex_string(
-					std::string(
-						"2e2621"
-					),
-					255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+				FCPPT_ASSERT_OPTIONAL_ERROR(
+					fcppt::either::success_opt(
+						sge::image::color::rgba8_from_hex_string(
+							std::string(
+								"2e2621"
+							),
+							255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						)
+					)
 				)
 			)
 		);
@@ -323,11 +328,15 @@ public:
 				result.push_back(
 					create_sprite(
 						_wrapper.bounding_box(),
-						sge::image::color::rgba8_from_hex_string(
-							std::string(
-								"bee8e0"
-							),
-							255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						FCPPT_ASSERT_OPTIONAL_ERROR(
+							fcppt::either::success_opt(
+								sge::image::color::rgba8_from_hex_string(
+									std::string(
+										"bee8e0"
+									),
+									255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+								)
+							)
 						)
 					)
 				);
@@ -360,11 +369,15 @@ public:
 				result.push_back(
 					create_sprite(
 						_wrapper.bounding_box(),
-						sge::image::color::rgba8_from_hex_string(
-							std::string(
-								"ff5e00"
-							),
-							255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+						FCPPT_ASSERT_OPTIONAL_ERROR(
+							fcppt::either::success_opt(
+								sge::image::color::rgba8_from_hex_string(
+									std::string(
+										"ff5e00"
+									),
+									255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+								)
+							)
 						)
 					)
 				);
@@ -387,11 +400,15 @@ public:
 						result
 					),
 					_front.get(),
-					sge::image::color::rgba8_from_hex_string(
-						std::string(
-							"373c40"
-						),
-						204 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+					FCPPT_ASSERT_OPTIONAL_ERROR(
+						fcppt::either::success_opt(
+							sge::image::color::rgba8_from_hex_string(
+								std::string(
+									"373c40"
+								),
+								204 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+							)
+						)
 					)
 				);
 			}
@@ -413,11 +430,15 @@ public:
 						result
 					),
 					_back.get(),
-					sge::image::color::rgba8_from_hex_string(
-						std::string(
-							"73320b"
-						),
-						204 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+					FCPPT_ASSERT_OPTIONAL_ERROR(
+						fcppt::either::success_opt(
+							sge::image::color::rgba8_from_hex_string(
+								std::string(
+									"73320b"
+								),
+								204 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+							)
+						)
 					)
 				);
 			}
