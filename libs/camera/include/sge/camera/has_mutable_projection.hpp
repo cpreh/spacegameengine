@@ -8,7 +8,7 @@
 #define SGE_CAMERA_HAS_MUTABLE_PROJECTION_HPP_INCLUDED
 
 #include <sge/camera/base.hpp>
-#include <sge/camera/projection_matrix_fwd.hpp>
+#include <sge/camera/optional_projection_matrix_fwd.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/nonmovable.hpp>
@@ -33,7 +33,7 @@ public:
 	virtual
 	void
 	update_projection_matrix(
-		sge::camera::projection_matrix const &
+		sge::camera::optional_projection_matrix const &
 	) = 0;
 
 	SGE_CAMERA_DETAIL_SYMBOL

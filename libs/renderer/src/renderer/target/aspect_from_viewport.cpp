@@ -8,11 +8,14 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/target/aspect_from_viewport.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
 
-sge::renderer::scalar
+fcppt::optional::object<
+	sge::renderer::scalar
+>
 sge::renderer::target::aspect_from_viewport(
 	sge::renderer::target::viewport const &_viewport
 )

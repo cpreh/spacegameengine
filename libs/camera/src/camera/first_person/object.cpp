@@ -118,13 +118,11 @@ sge::camera::first_person::object::projection_matrix() const
 
 void
 sge::camera::first_person::object::update_projection_matrix(
-	sge::camera::projection_matrix const &_projection_matrix
+	sge::camera::optional_projection_matrix const &_projection_matrix
 )
 {
 	projection_matrix_ =
-		sge::camera::optional_projection_matrix(
-			_projection_matrix
-		);
+		_projection_matrix;
 }
 
 void

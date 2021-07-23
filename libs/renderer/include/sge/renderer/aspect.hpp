@@ -10,6 +10,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/screen_size_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace sge
@@ -28,11 +29,11 @@ smaller. The division is done as a floating point division.
 \param size The size to calculate the aspect from
 
 \return <code> size.w > size.h ? size.w / size.h : size.h / size.w </code>
-
-\warning The behaviour is undefined if either width or height is zero.
 */
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::scalar
+fcppt::optional::object<
+	sge::renderer::scalar
+>
 aspect(
 	sge::renderer::screen_size const &size
 );

@@ -7,6 +7,7 @@
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/projection_matrix.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/projection/aspect.hpp>
 #include <sge/renderer/projection/perspective_af.hpp>
 #include <sge/renderer/target/aspect_from_viewport.hpp>
@@ -15,6 +16,7 @@
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/manager_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -76,17 +78,28 @@ sge::camera::perspective_projection_from_viewport::viewport_callback(
 )
 {
 	camera_.get().update_projection_matrix(
-		sge::camera::projection_matrix(
-			sge::renderer::projection::perspective_af(
-				sge::renderer::projection::aspect(
-					sge::renderer::target::aspect_from_viewport(
-						_viewport
-					)
-				),
-				fov_,
-				near_,
-				far_
+		fcppt::optional::map(
+			sge::renderer::target::aspect_from_viewport(
+				_viewport
+			),
+			[
+				this
+			](
+				sge::renderer::scalar const _aspect
 			)
+			{
+				return
+					sge::camera::projection_matrix(
+						sge::renderer::projection::perspective_af(
+							sge::renderer::projection::aspect(
+								_aspect
+							),
+							this->fov_,
+							this->near_,
+							this->far_
+						)
+					);
+			}
 		)
 	);
 }

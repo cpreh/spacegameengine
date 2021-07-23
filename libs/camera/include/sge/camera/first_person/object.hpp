@@ -12,7 +12,6 @@
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
-#include <sge/camera/projection_matrix_fwd.hpp>
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/detail/symbol.hpp>
@@ -76,7 +75,7 @@ public:
 	SGE_CAMERA_DETAIL_SYMBOL
 	void
 	update_projection_matrix(
-		sge::camera::projection_matrix const &
+		sge::camera::optional_projection_matrix const &
 	)
 	override;
 

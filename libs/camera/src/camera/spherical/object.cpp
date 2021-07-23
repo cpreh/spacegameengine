@@ -122,13 +122,11 @@ sge::camera::spherical::object::projection_matrix() const
 
 void
 sge::camera::spherical::object::update_projection_matrix(
-	sge::camera::projection_matrix const &_projection_matrix
+	sge::camera::optional_projection_matrix const &_projection_matrix
 )
 {
 	projection_matrix_ =
-		sge::camera::optional_projection_matrix(
-			_projection_matrix
-		);
+		_projection_matrix;
 }
 
 void

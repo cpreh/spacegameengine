@@ -10,6 +10,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 namespace sge
@@ -20,22 +21,17 @@ namespace target
 {
 
 /**
- * \brief Calculates the aspect from a viewport
- *
- * Calculates the aspect from \a viewport as it would be calculated by
- * sge::renderer::aspect.
- *
- * \param viewport The viewport to calculate the aspect from
- *
- * \return The aspect
- *
- * \see sge::renderer::aspect
- *
- * \warning The behaviour is undefined if the viewport's width or height is
- * zero.
+\brief Calculates the aspect from a viewport
+
+Calculates the aspect from \a viewport as it would be calculated by
+sge::renderer::aspect.
+
+\see sge::renderer::aspect
 */
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::scalar
+fcppt::optional::object<
+	sge::renderer::scalar
+>
 aspect_from_viewport(
 	sge::renderer::target::viewport const &viewport
 );

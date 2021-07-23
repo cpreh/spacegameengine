@@ -10,7 +10,7 @@
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/impl/center.hpp>
 #include <sge/window/dim.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>
@@ -27,7 +27,7 @@ center_position(
 	sge::window::dim::value_type const _window_size
 )
 {
-	FCPPT_ASSERT_PRE(
+	FCPPT_ASSERT_ERROR(
 		_window_size >= _target_size
 	);
 
