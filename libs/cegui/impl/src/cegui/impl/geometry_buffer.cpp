@@ -79,7 +79,6 @@
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
@@ -623,25 +622,28 @@ sge::cegui::impl::geometry_buffer::reset()
 CEGUI::Texture *
 sge::cegui::impl::geometry_buffer::getActiveTexture() const
 {
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("The method is never called by anyone, so it's unimplemented here")
-	);
+	throw
+		sge::cegui::exception{
+			FCPPT_TEXT("The method is never called by anyone, so it's unimplemented here")
+		};
 }
 
 CEGUI::uint
 sge::cegui::impl::geometry_buffer::getVertexCount() const
 {
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("The method is never called by anyone, so it's unimplemented here")
-	);
+	throw
+		sge::cegui::exception{
+			FCPPT_TEXT("The method is never called by anyone, so it's unimplemented here")
+		};
 }
 
 CEGUI::uint
 sge::cegui::impl::geometry_buffer::getBatchCount() const
 {
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("The method is never called by anyone, so it's unimplemented here")
-	);
+	throw
+		sge::cegui::exception{
+			FCPPT_TEXT("The method is never called by anyone, so it's unimplemented here")
+		};
 }
 
 void

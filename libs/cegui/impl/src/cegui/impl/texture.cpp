@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cegui/exception.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/to_fcppt_string.hpp>
 #include <sge/cegui/unit.hpp>
@@ -47,7 +48,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/pre.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
@@ -474,9 +474,10 @@ sge::cegui::impl::texture::blitFromMemory(
 )
 {
 	// Nothing ever calls this
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("texture::blitFromMemory() is not implemented yet")
-	);
+	throw
+		sge::cegui::exception{
+			FCPPT_TEXT("texture::blitFromMemory() is not implemented yet")
+		};
 }
 
 void
@@ -485,9 +486,10 @@ sge::cegui::impl::texture::blitToMemory(
 )
 {
 	// Nothing ever calls this
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("texture::blitToMemory() is not implemented yet")
-	);
+	throw
+		sge::cegui::exception{
+			FCPPT_TEXT("texture::blitToMemory() is not implemented yet")
+		};
 }
 
 bool

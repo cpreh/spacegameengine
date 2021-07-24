@@ -11,7 +11,6 @@
 #include <fcppt/from_std_wstring.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/filesystem/open.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -253,9 +252,10 @@ sge::cegui::impl::resource_provider::getResourceGroupFileNames(
 			FCPPT_TEXT(")")
 	)
 
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("resource_provider::getResourceGroupFilenames not implemented yet!")
-	);
+	throw
+		sge::cegui::exception{
+			FCPPT_TEXT("resource_provider::getResourceGroupFilenames not implemented yet!")
+		};
 }
 
 sge::cegui::impl::resource_provider::~resource_provider()

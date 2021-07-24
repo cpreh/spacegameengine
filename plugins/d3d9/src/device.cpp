@@ -50,6 +50,7 @@
 #include <sge/d3d9/vertex/buffer.hpp>
 #include <sge/d3d9/vertex/declaration.hpp>
 #include <sge/renderer/config.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/core.hpp>
@@ -151,7 +152,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/static_downcast.hpp>
@@ -432,9 +432,10 @@ sge::d3d9::device::create_depth_stencil_texture(
 )
 {
 	// FIXME
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("Depth stencil textures are not implenented.")
-	);
+	throw
+		sge::renderer::exception{
+			FCPPT_TEXT("Depth stencil textures are not implenented.")
+		};
 }
 
 sge::renderer::depth_stencil_buffer::surface_unique_ptr

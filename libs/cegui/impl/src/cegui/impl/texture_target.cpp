@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cegui/exception.hpp>
 #include <sge/cegui/impl/from_cegui_rect.hpp>
 #include <sge/cegui/impl/from_cegui_size.hpp>
 #include <sge/cegui/impl/optional_render_context_ref.hpp>
@@ -43,8 +44,8 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/debug.hpp>
@@ -358,9 +359,10 @@ sge::cegui::impl::texture_target::unprojectPoint(
 	CEGUI::Vector2f &
 ) const
 {
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("texture_target::unprojectPoint not implemented yet")
-	);
+	throw
+		sge::cegui::exception{
+			FCPPT_TEXT("texture_target::unprojectPoint not implemented yet")
+		};
 }
 
 void

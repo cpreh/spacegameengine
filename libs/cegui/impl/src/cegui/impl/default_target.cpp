@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cegui/exception.hpp>
 #include <sge/cegui/impl/default_target.hpp>
 #include <sge/cegui/impl/from_cegui_rect.hpp>
 #include <sge/cegui/impl/optional_render_context_ref.hpp>
@@ -26,7 +27,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/unimplemented_message.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
@@ -237,7 +237,8 @@ sge::cegui::impl::default_target::unprojectPoint(
 	CEGUI::Vector2f &
 ) const
 {
-	FCPPT_ASSERT_UNIMPLEMENTED_MESSAGE(
-		FCPPT_TEXT("default_target::unprojectPoint not implemented yet")
-	);
+	throw
+		sge::cegui::exception{
+			FCPPT_TEXT("default_target::unprojectPoint not implemented yet")
+		};
 }
