@@ -10,7 +10,6 @@
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/optional_base_ref.hpp>
 #include <sge/opengl/info/const_context_ref.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/container/index_map_impl.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -56,10 +55,6 @@ sge::opengl::context::object::insert(
 		elements_[
 			_id.get()
 		]
-	);
-
-	FCPPT_ASSERT_PRE(
-		!dest.has_value()
 	);
 
 	sge::opengl::context::base &result(

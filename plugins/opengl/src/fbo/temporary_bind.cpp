@@ -10,7 +10,6 @@
 #include <sge/opengl/fbo/last_context_ref.hpp>
 #include <sge/opengl/fbo/object.hpp>
 #include <sge/opengl/fbo/temporary_bind.hpp>
-#include <fcppt/assert/pre.hpp>
 
 
 sge::opengl::fbo::temporary_bind::temporary_bind(
@@ -29,12 +28,6 @@ sge::opengl::fbo::temporary_bind::temporary_bind(
 		last_context_.get().last_buffer()
 	)
 {
-	FCPPT_ASSERT_PRE(
-		last_buffer_
-		!=
-		_object.id()
-	);
-
 	_object.bind();
 }
 

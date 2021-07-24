@@ -30,6 +30,7 @@
 #include <sge/opengl/vertex/set_declaration.hpp>
 #include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/config.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
@@ -65,8 +66,8 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -152,10 +153,6 @@ sge::opengl::render_context::object::offscreen_target(
 		[
 			this
 		]{
-			FCPPT_ASSERT_PRE(
-				scoped_offscreen_target_.has_value()
-			);
-
 			scoped_offscreen_target_ =
 				optional_scoped_offscreen_target_ptr();
 
@@ -169,9 +166,15 @@ sge::opengl::render_context::object::offscreen_target(
 			> const _target
 		)
 		{
-			FCPPT_ASSERT_PRE(
-				!scoped_offscreen_target_.has_value()
-			);
+			if(
+				scoped_offscreen_target_.has_value()
+			)
+			{
+				throw
+					sge::renderer::exception{
+						FCPPT_TEXT("opengl: scoped_offscreen_target set")
+					};
+			}
 
 			scoped_target_.get().unbind();
 

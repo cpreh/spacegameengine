@@ -4,8 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/console/gfx/exception.hpp>
 #include <sge/console/gfx/detail/pointed_history.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <utility>
@@ -24,11 +25,17 @@ sge::console::gfx::detail::pointed_history::pointed_history(
 		0U
 	)
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		limit_
-		>
+		==
 		0U
-	);
+	)
+	{
+		throw
+			sge::console::gfx::exception{
+				FCPPT_TEXT("History size must be greater than 0.")
+			};
+	}
 }
 
 sge::console::gfx::detail::pointed_history::~pointed_history()

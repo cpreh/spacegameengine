@@ -5,7 +5,7 @@
 
 
 #include <sge/charconv/utf8_string.hpp>
-#include <sge/parse/exception.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
 #include <sge/parse/json/member.hpp>
@@ -19,7 +19,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/container/get_or_insert_with_result.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/type_info.hpp>
@@ -38,9 +37,15 @@ sge::parse::json::config::modify_user_value(
 	sge::parse::json::value const &new_value
 )
 {
-	FCPPT_ASSERT_PRE(
-		!input_path.get().empty()
-	);
+	if(
+		input_path.get().empty()
+	)
+	{
+		throw
+			sge::parse::json::exception{
+				FCPPT_TEXT("Input path is empty.")
+			};
+	}
 
 	sge::parse::json::value const &old_value{
 		sge::parse::json::find_and_convert_member<
@@ -54,7 +59,7 @@ sge::parse::json::config::modify_user_value(
 	if(old_value.get().type_index() != new_value.get().type_index())
 	{
 		throw
-			sge::parse::exception{
+			sge::parse::json::exception{
 				FCPPT_TEXT("Error trying to update the user configuration node \"")
 				+
 				sge::parse::json::detail::to_fcppt_string(

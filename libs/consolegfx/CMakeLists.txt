@@ -3,6 +3,7 @@ set(
 	libs/consolegfx/include/sge/console/gfx/cursor.hpp
 	libs/consolegfx/include/sge/console/gfx/cursor_fwd.hpp
 	libs/consolegfx/include/sge/console/gfx/detail/pointed_history.hpp
+	libs/consolegfx/include/sge/console/gfx/exception.hpp
 	libs/consolegfx/include/sge/console/gfx/font_color.hpp
 	libs/consolegfx/include/sge/console/gfx/font_color_fwd.hpp
 	libs/consolegfx/include/sge/console/gfx/input_active.hpp
@@ -13,6 +14,7 @@ set(
 	libs/consolegfx/include/sge/console/gfx/output_line_limit_fwd.hpp
 	libs/consolegfx/src/console/gfx/cursor.cpp
 	libs/consolegfx/src/console/gfx/detail/pointed_history.cpp
+	libs/consolegfx/src/console/gfx/exception.cpp
 	libs/consolegfx/src/console/gfx/object.cpp
 )
 

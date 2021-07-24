@@ -15,6 +15,7 @@
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/object.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/impl/vf/dynamic/element_converter.hpp>
 #include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
@@ -22,7 +23,7 @@
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 
 
@@ -46,15 +47,21 @@ sge::renderer::impl::vf::dynamic::element_converter::element_converter(
 		_offset
 	)
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		sge::image::color::format_stride(
 			original_format_.get()
 		)
-		==
+		!=
 		sge::image::color::format_stride(
 			backend_format_.get()
 		)
-	);
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("vf::dynamic::element_converter: Cannot handle different format strides!")
+			};
+	}
 }
 
 void
@@ -75,11 +82,17 @@ sge::renderer::impl::vf::dynamic::element_converter::convert(
 	}
 
 	// pos refers to the beginning of the lock
-	FCPPT_ASSERT_PRE(
+	if(
 		_interval.lower()
-		>=
+		<
 		_pos.get()
-	);
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("vf::dynamic::element_converter: Lock out of range!")
+			};
+	}
 
 	sge::renderer::raw_pointer const begin(
 		_data

@@ -4,8 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cg/exception.hpp>
 #include <sge/cg/parameter/object.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
@@ -19,11 +20,17 @@ sge::cg::parameter::object::object(
 		_parameter
 	)
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		parameter_
-		!=
+		==
 		nullptr
-	);
+	)
+	{
+		throw
+			sge::cg::exception{
+				FCPPT_TEXT("Parameter is null.")
+			};
+	}
 }
 
 CGparameter

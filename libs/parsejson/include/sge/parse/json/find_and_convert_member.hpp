@@ -8,8 +8,8 @@
 #define SGE_PARSE_JSON_FIND_AND_CONVERT_MEMBER_HPP_INCLUDED
 
 #include <sge/charconv/utf8_string.hpp>
-#include <sge/parse/exception.hpp>
 #include <sge/parse/json/convert_from.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_object_exn.hpp>
 #include <sge/parse/json/invalid_get.hpp>
 #include <sge/parse/json/member_map.hpp>
@@ -19,7 +19,6 @@
 #include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
@@ -43,9 +42,15 @@ find_and_convert_member(
 )
 {
 	// TODO(philipp): path split
-	FCPPT_ASSERT_PRE(
-		!_input_path.get().empty()
-	);
+	if(
+		_input_path.get().empty()
+	)
+	{
+		throw
+			sge::parse::json::exception{
+				FCPPT_TEXT("find_and_convert_member: Path is empty!")
+			};
+	}
 
 	sge::parse::json::path const shortened_path{
 		sge::parse::json::path::sequence_type{
@@ -87,7 +92,7 @@ find_and_convert_member(
 						&path_back
 					]{
 						return
-							sge::parse::exception(
+							sge::parse::json::exception(
 								FCPPT_TEXT("Couldn't find member \"")
 								+
 								sge::parse::json::detail::to_fcppt_string(
@@ -113,7 +118,7 @@ find_and_convert_member(
 	)
 	{
 		throw
-			sge::parse::exception(
+			sge::parse::json::exception(
 				FCPPT_TEXT("Unable to parse member \"")
 				+
 				sge::parse::json::detail::to_fcppt_string(

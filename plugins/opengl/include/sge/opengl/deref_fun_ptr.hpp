@@ -8,8 +8,9 @@
 #define SGE_OPENGL_DEREF_FUN_PTR_HPP_INCLUDED
 
 #include <sge/opengl/fun_ref.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 
 
 namespace sge
@@ -27,11 +28,17 @@ deref_fun_ptr(
 	Function const _function
 )
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		_function
-		!=
+		==
 		nullptr
-	);
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("opengl::deref_fun_ptr: Pointer is null!")
+			};
+	}
 
 	return
 		fcppt::make_ref(

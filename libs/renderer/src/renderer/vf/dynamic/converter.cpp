@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
 #include <sge/renderer/impl/vf/dynamic/locked_part_interval.hpp>
 #include <sge/renderer/impl/vf/dynamic/detail/converter_impl.hpp>
@@ -15,8 +16,8 @@
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -51,9 +52,15 @@ sge::renderer::vf::dynamic::converter::lock(
 	sge::renderer::vf::dynamic::locked_part const &_locked_part
 )
 {
-	FCPPT_ASSERT_PRE(
-		!locked_part_.has_value()
-	);
+	if(
+		locked_part_.has_value()
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("vf::dynamic::converter: Already locked!")
+			};
+	}
 
 	if(
 		sge::renderer::lock_flags::read(

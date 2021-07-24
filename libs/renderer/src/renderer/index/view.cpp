@@ -5,6 +5,7 @@
 
 
 #include <sge/core/impl/export_class_instantiation.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/const_tag.hpp>
 #include <sge/renderer/index/iterator.hpp>
@@ -14,7 +15,7 @@
 #include <sge/renderer/index/dynamic/const_view.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
@@ -40,9 +41,17 @@ sge::renderer::index::view<
 		_size
 	}
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		this->data_
-	);
+		==
+		nullptr
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("Data in index::view is null!")
+			};
+	}
 }
 
 template<
@@ -63,13 +72,19 @@ sge::renderer::index::view<
 		_view.size()
 	)
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		_view.format()
-		==
+		!=
 		sge::renderer::index::dynamic::make_format<
 			Format
 		>()
-	);
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("Mismatched formats in index::view!")
+			};
+	}
 }
 
 template<
