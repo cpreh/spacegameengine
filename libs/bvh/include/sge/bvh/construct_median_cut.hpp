@@ -10,7 +10,8 @@
 #include <sge/bvh/bounding_box.hpp>
 #include <sge/bvh/empty_node.hpp>
 #include <sge/bvh/traits/box.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/core/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/to_array.hpp>
 #include <fcppt/math/box/center.hpp>
@@ -87,8 +88,15 @@ construct_median_cut(
 	typename Traits::leaf_wrapper_sequence _leaves,
 	typename Traits::tree_representation &_tree)
 {
-	FCPPT_ASSERT_PRE(
-		_tree.empty());
+	if(
+		!_tree.empty()
+	)
+	{
+		throw
+			sge::core::exception{
+				FCPPT_TEXT("construct_median_cut: Tree not empty!")
+			};
+	}
 
 	if(_leaves.size() <= 1U)
 	{

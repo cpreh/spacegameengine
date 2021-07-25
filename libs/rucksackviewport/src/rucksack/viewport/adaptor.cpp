@@ -26,7 +26,6 @@
 #include <fcppt/reference.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/null.hpp>
@@ -265,19 +264,9 @@ sge::rucksack::viewport::adaptor::resize_child()
 
 void
 sge::rucksack::viewport::adaptor::child_destroyed(
-	sge::rucksack::widget::base &_child
+	sge::rucksack::widget::base &
 )
 {
-	FCPPT_ASSERT_PRE(
-		sge::rucksack::widget::optional_ref(
-			fcppt::make_ref(
-				_child
-			)
-		)
-		==
-		child_
-	);
-
 	child_ =
 		sge::rucksack::widget::optional_ref();
 }

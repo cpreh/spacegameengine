@@ -31,6 +31,7 @@
 #include <sge/d3d9/target/base.hpp>
 #include <sge/d3d9/texture/set.hpp>
 #include <sge/renderer/config.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
@@ -66,8 +67,8 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
@@ -181,9 +182,15 @@ sge::d3d9::render_context::object::offscreen_target(
 			> const _target
 		)
 		{
-			FCPPT_ASSERT_PRE(
-				!offscreen_target_.has_value()
-			);
+			if(
+				offscreen_target_.has_value()
+			)
+			{
+				throw
+					sge::renderer::exception{
+						FCPPT_TEXT("d3d9: Offscreen target already set")
+					};
+			}
 
 			scoped_target_.target().active(
 				false

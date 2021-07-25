@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cegui/exception.hpp>
 #include <sge/cegui/to_fcppt_string.hpp>
 #include <sge/cegui/impl/from_cegui_size.hpp>
 #include <sge/cegui/impl/geometry_buffer.hpp>
@@ -34,7 +35,6 @@
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/error_message.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -275,9 +275,17 @@ sge::cegui::impl::renderer::destroyTextureTarget(
 			<< FCPPT_TEXT(')')
 	)
 
-	FCPPT_ASSERT_PRE(
+	if(
 		_texture
-	);
+		==
+		nullptr
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("renderer::destroyTextureTarget with nullptr")
+			};
+	}
 
 	auto &sge_target(
 		dynamic_cast<
@@ -581,9 +589,15 @@ sge::cegui::impl::renderer::beginRendering()
 			<< FCPPT_TEXT("beginRendering()")
 	)
 
-	FCPPT_ASSERT_PRE(
-		render_context_.has_value()
-	);
+	if(
+		!render_context_.has_value()
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("renderer::beginRendering: No render context set!")
+			};
+	}
 }
 
 void
@@ -595,9 +609,15 @@ sge::cegui::impl::renderer::endRendering()
 			<< FCPPT_TEXT("endRendering()")
 	)
 
-	FCPPT_ASSERT_PRE(
-		render_context_.has_value()
-	);
+	if(
+		!render_context_.has_value()
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("renderer::endRendering: No render context set!")
+			};
+	}
 }
 
 void

@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/core/exception.hpp>
 #include <sge/projectile/log.hpp>
 #include <sge/projectile/world.hpp>
 #include <sge/projectile/body/object.hpp>
@@ -17,8 +18,6 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assert/pre.hpp>
-#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/verbose.hpp>
@@ -41,7 +40,7 @@
 
 
 static_assert(
-	std::is_same<btScalar,float>::value,
+	std::is_same_v<btScalar,float>,
 	"btScalar is expected to be float");
 
 namespace
@@ -50,8 +49,17 @@ sge::projectile::body::object const &
 void_ptr_to_body(
 	btCollisionObject const *co)
 {
-	FCPPT_ASSERT_PRE(
-		co->getUserPointer());
+	if(
+		co->getUserPointer()
+		==
+		nullptr
+	)
+	{
+		throw
+			sge::core::exception{
+				FCPPT_TEXT("void_ptr_to_body: nullptr")
+			};
+	}
 
 	return
 		*static_cast<sge::projectile::body::object const *>(
@@ -163,11 +171,20 @@ void
 sge::projectile::world::update_discrete(
 	time_increment const &delta,
 	fixed_timestep const &fixed,
-	maximum_substeps const &max_substeps)
+	maximum_substeps const &max_substeps
+)
 {
-	FCPPT_ASSERT_PRE_MESSAGE(
-		max_substeps.get(),
-		FCPPT_TEXT("If you want a variable timestep, use the other update function"));
+	if(
+		max_substeps.get()
+		==
+		0U
+	)
+	{
+		throw
+			sge::core::exception{
+				FCPPT_TEXT("If you want a variable timestep, use the other update function")
+			};
+	}
 
 	FCPPT_LOG_VERBOSE(
 		log_,
@@ -323,9 +340,16 @@ sge::projectile::world::~world()
 sge::projectile::group::id
 sge::projectile::world::next_group_id()
 {
-	FCPPT_ASSERT_PRE_MESSAGE(
-		next_group_id_ != std::numeric_limits<group::id>::max(),
-		FCPPT_TEXT("You have created too many groups. Bummer. :/"));
+	if(
+		next_group_id_ == std::numeric_limits<group::id>::max()
+	)
+	{
+		throw
+			sge::core::exception{
+				FCPPT_TEXT("projectile:: You have created too many groups.")
+			};
+	}
+
 	group::id const old = next_group_id_;
 	// <<= doesn't work because of -Wconversion
 	next_group_id_ =
@@ -339,8 +363,17 @@ sge::projectile::world::internal_tick_callback_static(
 	btDynamicsWorld *w,
 	btScalar const time_step)
 {
-	FCPPT_ASSERT_PRE(
-		w->getWorldUserInfo());
+	if(
+		w->getWorldUserInfo()
+		==
+		nullptr
+	)
+	{
+		throw
+			sge::core::exception{
+				FCPPT_TEXT("projectile: No user info")
+			};
+	}
 
 	static_cast<world *>(
 		w->getWorldUserInfo())->internal_tick_callback(

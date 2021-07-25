@@ -8,7 +8,8 @@
 #include <sge/d3d9/queryfuncs/get_data.hpp>
 #include <sge/d3d9/queryfuncs/get_dword.hpp>
 #include <sge/d3d9/queryfuncs/optional_dword.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 
 
@@ -18,8 +19,6 @@ sge::d3d9::queryfuncs::get_dword(
 	DWORD const _flags
 )
 {
-	DWORD result;
-
 	DWORD const size(
 		fcppt::cast::size<
 			DWORD
@@ -30,11 +29,19 @@ sge::d3d9::queryfuncs::get_dword(
 		)
 	);
 
-	FCPPT_ASSERT_PRE(
+	if(
 		_query.GetDataSize()
-		==
+		!=
 		size
-	);
+	)
+	{
+		throw
+			sge::renderer::exception{
+				FCPPT_TEXT("d3d9: Query size mismatch!")
+			};
+	}
+
+	DWORD result{};
 
 	return
 		sge::d3d9::queryfuncs::get_data(

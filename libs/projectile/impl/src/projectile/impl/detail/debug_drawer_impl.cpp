@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/core/exception.hpp>
 #include <sge/image/color/rgb8.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/init/blue.hpp>
@@ -21,7 +22,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/debug.hpp>
@@ -65,9 +66,17 @@ sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
 	),
 	scoped_lock_()
 {
-	FCPPT_ASSERT_PRE(
-		!world_.getDebugDrawer()
-	);
+	if(
+		world_.getDebugDrawer()
+		!=
+		nullptr
+	)
+	{
+		throw
+			sge::core::exception{
+				FCPPT_TEXT("projectile debug drawer already set!")
+			};
+	}
 
 	world_.setDebugDrawer(
 		this

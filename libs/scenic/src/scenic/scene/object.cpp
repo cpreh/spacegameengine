@@ -31,7 +31,7 @@
 #include <sge/viewport/manager_ref.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/assert/error.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -279,7 +279,7 @@ sge::scenic::scene::object::render_entity(
 			materials_.find(
 				material_name_and_index_buffer_range.first);
 
-		FCPPT_ASSERT_PRE(
+		FCPPT_ASSERT_ERROR(
 			material_name_and_material != materials_.end());
 
 		sge::scenic::scene::material::object const &material(

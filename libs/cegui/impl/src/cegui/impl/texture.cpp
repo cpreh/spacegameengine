@@ -47,7 +47,6 @@
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
@@ -219,13 +218,19 @@ sge::cegui::impl::texture::create_from_view(
 	sge::image2d::view::const_object const &_view
 )
 {
-	FCPPT_ASSERT_PRE(
-		!texture_.has_value()
-		&&
-		!size_.has_value()
-		&&
-		!texel_scaling_.get().has_value()
-	);
+	if(
+		texture_.has_value()
+		||
+		size_.has_value()
+		||
+		texel_scaling_.get().has_value()
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("texture::create_from_view called, but texture is already set!")
+			};
+	}
 
 	CEGUI::Sizef const new_size(
 		sge::cegui::impl::to_cegui_size(
@@ -399,7 +404,7 @@ sge::cegui::impl::texture::loadFromMemory(
 		2
 	>;
 
-	FCPPT_ASSERT_PRE((
+	if(
 		fcppt::math::dim::structure_cast<
 			signed_dim,
 			fcppt::cast::float_to_int_fun
@@ -408,7 +413,7 @@ sge::cegui::impl::texture::loadFromMemory(
 				this->getSize()
 			)
 		)
-		==
+		!=
 		fcppt::math::dim::structure_cast<
 			signed_dim,
 			fcppt::cast::float_to_int_fun
@@ -417,7 +422,13 @@ sge::cegui::impl::texture::loadFromMemory(
 				_buffer_size
 			)
 		)
-	));
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("texture::loadFromMemory: Invalid buffer size!")
+			};
+	}
 
 	sge::image::color::optional_format const format(
 		sge::cegui::impl::convert_pixel_format(

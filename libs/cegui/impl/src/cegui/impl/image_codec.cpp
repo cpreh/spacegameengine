@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cegui/exception.hpp>
 #include <sge/cegui/impl/image_codec.hpp>
 #include <sge/cegui/impl/texture.hpp>
 #include <sge/image2d/file.hpp>
@@ -12,7 +13,7 @@
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/ImageCodec.h>
@@ -42,9 +43,17 @@ sge::cegui::impl::image_codec::load(
 	CEGUI::Texture *const _result_texture
 )
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		_result_texture
-	);
+		==
+		nullptr
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("image_codec::load with nullptr")
+			};
+	}
 
 	dynamic_cast<
 		sge::cegui::impl::texture &

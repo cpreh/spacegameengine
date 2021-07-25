@@ -16,6 +16,7 @@
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/shader/exception.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/pair_ref.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
@@ -24,8 +25,8 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/maybe_void.hpp>
@@ -135,13 +136,25 @@ sge::shader::parameter::planar_texture::activate(
 	sge::renderer::context::core_ref const _render_context
 )
 {
-	FCPPT_ASSERT_PRE(
-		!optional_render_context_.has_value()
-	);
+	if(
+		optional_render_context_.has_value()
+	)
+	{
+		throw
+			sge::shader::exception{
+				FCPPT_TEXT("planar_texture::activate: Render context already set!")
+			};
+	}
 
-	FCPPT_ASSERT_PRE(
-		!scoped_texture_.has_value()
-	);
+	if(
+		scoped_texture_.has_value()
+	)
+	{
+		throw
+			sge::shader::exception{
+				FCPPT_TEXT("planar_texture::activate: Texture already set!")
+			};
+	}
 
 	optional_render_context_ =
 		optional_render_context(
@@ -156,9 +169,15 @@ sge::shader::parameter::planar_texture::activate(
 void
 sge::shader::parameter::planar_texture::deactivate()
 {
-	FCPPT_ASSERT_PRE(
-		optional_render_context_.has_value()
-	);
+	if(
+		!optional_render_context_.has_value()
+	)
+	{
+		throw
+			sge::shader::exception{
+				FCPPT_TEXT("planar_texture::deactivate: No render context set!")
+			};
+	}
 
 	scoped_texture_ =
 		optional_scoped_texture_ptr();

@@ -135,11 +135,13 @@ add_sge_base_library(
 	projectile
 	HAS_IMPL_DIR
 	SGE_DEPS
+		sgecore
 		sgeimagecolor
 		sgeline_drawer
 		sgelog
 		sgerenderer
 	TRANSITIVE_SGE_DEPS
+		sgecore
 		sgerenderer_interface
 	ADDITIONAL_DEPS
 		${fcppt_core_TARGET}

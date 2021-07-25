@@ -45,6 +45,7 @@
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
+#include <sge/scenic/exception.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/ffp/manager.hpp>
@@ -55,8 +56,8 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/variant/apply.hpp>
@@ -402,8 +403,15 @@ void
 sge::scenic::render_context::ffp::object::lights(
 	sge::scenic::render_context::light::sequence const &_lights)
 {
-	FCPPT_ASSERT_PRE(
-		_lights.size() < manager_.get().renderer_.get().caps().light_indices().get());
+	if(
+		_lights.size() >= manager_.get().renderer_.get().caps().light_indices().get()
+	)
+	{
+		throw
+			sge::scenic::exception{
+				FCPPT_TEXT("ffp::object: Too many lights!")
+			};
+	}
 
 	context_.get().lights_state(
 		sge::renderer::state::ffp::lighting::light::const_object_ref_vector());

@@ -5,8 +5,9 @@
 
 
 #include <sge/evdev/device/fd.hpp>
+#include <sge/input/exception.hpp>
 #include <awl/backends/posix/fd.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <fcntl.h>
 #include <unistd.h>
@@ -36,7 +37,7 @@ sge::evdev::device::fd::~fd()
 	)
 	{
 		::close(
-			fd_.get()
+			this->fd_.get()
 		);
 	}
 }
@@ -44,12 +45,18 @@ sge::evdev::device::fd::~fd()
 awl::backends::posix::fd
 sge::evdev::device::fd::get()
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		this->valid()
-	);
+	)
+	{
+		throw
+			sge::input::exception{
+				FCPPT_TEXT("evdev: Invalid fd.")
+			};
+	}
 
 	return
-		fd_;
+		this->fd_;
 }
 
 bool

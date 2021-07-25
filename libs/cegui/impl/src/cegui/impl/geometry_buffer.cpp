@@ -78,7 +78,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
@@ -592,11 +591,17 @@ sge::cegui::impl::geometry_buffer::setActiveTexture(
 	CEGUI::Texture *const _tex
 )
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		_tex
-		!=
+		==
 		nullptr
-	);
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("setActiveTexture with nullptr")
+			};
+	}
 
 	active_texture_ =
 		sge::cegui::impl::geometry_buffer::optional_texture_ref{

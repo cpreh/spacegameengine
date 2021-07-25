@@ -7,9 +7,10 @@
 #ifndef SGE_NOISE_PERLIN_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_NOISE_PERLIN_OBJECT_IMPL_HPP_INCLUDED
 
+#include <sge/core/exception.hpp>
 #include <sge/noise/perlin/object_decl.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/grid/interpolate.hpp>
 #include <fcppt/math/mod.hpp>
@@ -109,13 +110,19 @@ sge::noise::perlin::object<
 		}()
 	)
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		fcppt::math::dim::contents(
 			_size
 		)
-		!=
+		==
 		0U
-	);
+	)
+	{
+		throw
+			sge::core::exception{
+				FCPPT_TEXT("noise::perlin: Invalid size of 0!")
+			};
+	}
 }
 
 template<

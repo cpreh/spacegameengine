@@ -7,11 +7,12 @@
 #ifndef SGE_PROJECTILE_TRIANGULATION_TRIANGULATE_HPP_INCLUDED
 #define SGE_PROJECTILE_TRIANGULATION_TRIANGULATE_HPP_INCLUDED
 
+#include <sge/core/exception.hpp>
 #include <sge/projectile/triangulation/detail/area.hpp>
 #include <sge/projectile/triangulation/detail/snip.hpp>
 #include <sge/projectile/triangulation/traits/insert_result.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <numeric>
 #include <vector>
@@ -60,15 +61,21 @@ triangulate(
 		Tag
 	>::type;
 
-	FCPPT_ASSERT_PRE(
+	if(
 		_contour.size()
-		>=
+		<
 		static_cast<
 			size_type
 		>(
 			3
 		)
-	);
+	)
+	{
+		throw
+			sge::core::exception{
+				FCPPT_TEXT("projectile triangulate: Must have at least three points!")
+			};
+	}
 
 	using
 	index_vector

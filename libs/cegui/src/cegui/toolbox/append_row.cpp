@@ -4,11 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cegui/exception.hpp>
 #include <sge/cegui/toolbox/append_row.hpp>
 #include <sge/cegui/toolbox/row.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_int_range.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <CEGUI/widgets/ListboxTextItem.h>
@@ -22,19 +23,31 @@ sge::cegui::toolbox::append_row(
 	sge::cegui::toolbox::row const &_mapper
 )
 {
-	FCPPT_ASSERT_PRE(
+	if(
 		static_cast<
 			sge::cegui::toolbox::row::size_type
 		>(
 			_list.getColumnCount()
 		)
-		==
+		!=
 		_mapper.size()
-	);
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("toolbox::append_row: Invalid size!")
+			};
+	}
 
-	FCPPT_ASSERT_PRE(
-		!_mapper.empty()
-	);
+	if(
+		_mapper.empty()
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("toolbox::append_row: mapper is empty!")
+			};
+	}
 
 	CEGUI::uint const index(
 		_list.addRow(

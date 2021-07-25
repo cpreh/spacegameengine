@@ -21,7 +21,6 @@
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/object.hpp>
@@ -274,9 +273,6 @@ public:
 			this->throw_error_if(
 				!(ss >> dissolve),
 				FCPPT_TEXT("Invalid dissolve"));
-
-			FCPPT_ASSERT_PRE(
-				diffuse_.has_value());
 
 			FCPPT_LOG_WARNING(
 				log_,
