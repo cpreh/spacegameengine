@@ -4,8 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/opencl/exception.hpp>
 #include <sge/opencl/platform/version.hpp>
-#include <fcppt/assert/pre.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -98,8 +99,15 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
 			boost::fusion::at_c<2>(
 				output).end());
 
-	FCPPT_ASSERT_PRE(
-		begin == end && res);
+	if(
+		!(begin == end && res)
+	)
+	{
+		throw
+			sge::opencl::exception{
+				FCPPT_TEXT("Failed to parse version")
+			};
+	}
 
 FCPPT_PP_POP_WARNING
 }

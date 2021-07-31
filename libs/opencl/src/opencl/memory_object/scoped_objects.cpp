@@ -5,6 +5,7 @@
 
 
 #include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/exception.hpp>
 #include <sge/opencl/command_queue/object.hpp>
 #include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
@@ -14,7 +15,6 @@
 #include <fcppt/reference.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -36,8 +36,15 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
 		)
 	)
 {
-	FCPPT_ASSERT_PRE(
-		!_objects.empty());
+	if(
+		_objects.empty()
+	)
+	{
+		throw
+			sge::opencl::exception{
+				FCPPT_TEXT("memory_object::scoped_objects: Empty sequence")
+			};
+	}
 
 	glFinish();
 

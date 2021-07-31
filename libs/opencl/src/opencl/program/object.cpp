@@ -107,7 +107,9 @@ sge::opencl::program::object::object(
 		FCPPT_TEXT("clCreateProgramWithSource"));
 
 	if(
-		!program_
+		program_
+		==
+		nullptr
 	)
 	{
 		throw

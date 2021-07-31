@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/opencl/exception.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
@@ -12,8 +13,8 @@
 #include <sge/renderer/opengl/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_ref.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>
@@ -36,42 +37,80 @@ sge::opencl::memory_object::image::planar::planar(
 		_size
 	)
 {
-	FCPPT_ASSERT_PRE(
-		_image_format.image_channel_order != CL_RGB ||
-		(
-			_image_format.image_channel_data_type != CL_UNORM_SHORT_565 &&
-			_image_format.image_channel_data_type != CL_UNORM_SHORT_555
-			// Nvidia doesn't define this constant
-			/* && _image_format.image_channel_data_type != CL_UNORM_INT101010*/));
+	if(
+		fcppt::not_(
+			_image_format.image_channel_order != CL_RGB ||
+			(
+				_image_format.image_channel_data_type != CL_UNORM_SHORT_565 &&
+				_image_format.image_channel_data_type != CL_UNORM_SHORT_555
+			)
+		)
+	)
+	{
+		throw
+			sge::opencl::exception{
+				FCPPT_TEXT("memory_object::image::planar: CL_RGB is incompatible with UNORM_SHORT_565/555")
+			};
+	}
 
-	FCPPT_ASSERT_PRE(
-		_image_format.image_channel_order != CL_INTENSITY ||
-		(
-			_image_format.image_channel_data_type == CL_UNORM_INT8 ||
-			_image_format.image_channel_data_type == CL_UNORM_INT16 ||
-			_image_format.image_channel_data_type == CL_SNORM_INT8 ||
-			_image_format.image_channel_data_type == CL_SNORM_INT16 ||
-			_image_format.image_channel_data_type == CL_HALF_FLOAT ||
-			_image_format.image_channel_data_type == CL_FLOAT));
+	if(
+		fcppt::not_(
+			_image_format.image_channel_order != CL_INTENSITY ||
+			(
+				_image_format.image_channel_data_type == CL_UNORM_INT8 ||
+				_image_format.image_channel_data_type == CL_UNORM_INT16 ||
+				_image_format.image_channel_data_type == CL_SNORM_INT8 ||
+				_image_format.image_channel_data_type == CL_SNORM_INT16 ||
+				_image_format.image_channel_data_type == CL_HALF_FLOAT ||
+				_image_format.image_channel_data_type == CL_FLOAT
+			)
+		)
+	)
+	{
+		throw
+			sge::opencl::exception{
+				FCPPT_TEXT("memory_object::image::planar: CL_INTENSITY used with incompatible channel type")
+			};
+	}
 
-	FCPPT_ASSERT_PRE(
-		_image_format.image_channel_order != CL_LUMINANCE ||
-		(
-			_image_format.image_channel_data_type == CL_UNORM_INT8 ||
-			_image_format.image_channel_data_type == CL_UNORM_INT16 ||
-			_image_format.image_channel_data_type == CL_SNORM_INT8 ||
-			_image_format.image_channel_data_type == CL_SNORM_INT16 ||
-			_image_format.image_channel_data_type == CL_HALF_FLOAT ||
-			_image_format.image_channel_data_type == CL_FLOAT));
+	if(
+		fcppt::not_(
+			_image_format.image_channel_order != CL_LUMINANCE ||
+			(
+				_image_format.image_channel_data_type == CL_UNORM_INT8 ||
+				_image_format.image_channel_data_type == CL_UNORM_INT16 ||
+				_image_format.image_channel_data_type == CL_SNORM_INT8 ||
+				_image_format.image_channel_data_type == CL_SNORM_INT16 ||
+				_image_format.image_channel_data_type == CL_HALF_FLOAT ||
+				_image_format.image_channel_data_type == CL_FLOAT
+			)
+		)
+	)
+	{
+		throw
+			sge::opencl::exception{
+				FCPPT_TEXT("memory_object::image::planar: CL_LUMINANCE used with incompatible channel type")
+			};
+	}
 
-	FCPPT_ASSERT_PRE(
-		(_image_format.image_channel_order != CL_ARGB && _image_format.image_channel_order != CL_BGRA) ||
-		(
-			_image_format.image_channel_data_type == CL_UNORM_INT8 ||
-			_image_format.image_channel_data_type == CL_SNORM_INT8 ||
-			_image_format.image_channel_data_type == CL_SIGNED_INT8 ||
-			_image_format.image_channel_data_type == CL_UNSIGNED_INT8));
-
+	if(
+		fcppt::not_(
+			(_image_format.image_channel_order != CL_ARGB && _image_format.image_channel_order != CL_BGRA)
+			||
+			(
+				_image_format.image_channel_data_type == CL_UNORM_INT8 ||
+				_image_format.image_channel_data_type == CL_SNORM_INT8 ||
+				_image_format.image_channel_data_type == CL_SIGNED_INT8 ||
+				_image_format.image_channel_data_type == CL_UNSIGNED_INT8
+			)
+		)
+	)
+	{
+		throw
+			sge::opencl::exception{
+				FCPPT_TEXT("memory_object::image::planar: CL_ARGB/BGRA used with incompatible channel type")
+			};
+	}
 
 	cl_int error_code{};
 

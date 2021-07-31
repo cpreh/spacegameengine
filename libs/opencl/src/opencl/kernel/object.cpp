@@ -18,7 +18,6 @@
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -100,9 +99,15 @@ sge::opencl::kernel::object::argument(
 	sge::opencl::memory_object::base_ref const _memory
 )
 {
-	FCPPT_ASSERT_PRE_MESSAGE(
-		index.get() < argument_count_,
-		FCPPT_TEXT("Kernel argument index is out of range"));
+	if(
+		index.get() >= argument_count_
+	)
+	{
+		throw
+			sge::opencl::exception{
+				FCPPT_TEXT("Kernel argument index is out of range")
+			};
+	}
 
 	cl_mem mem_ptr = _memory.get().impl();
 
