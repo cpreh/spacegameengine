@@ -46,7 +46,7 @@ awl::backends::posix::fd
 sge::evdev::device::fd::get()
 {
 	if(
-		this->valid()
+		!this->valid()
 	)
 	{
 		throw
