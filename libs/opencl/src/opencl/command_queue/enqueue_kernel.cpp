@@ -19,7 +19,6 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/output.hpp>

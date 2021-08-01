@@ -31,7 +31,6 @@
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/assert/error.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>

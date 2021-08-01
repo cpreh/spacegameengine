@@ -13,7 +13,6 @@
 #include <sge/renderer/texture/volume.hpp>
 #include <sge/renderer/texture/volume_ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/pre.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/math/box/object_impl.hpp>

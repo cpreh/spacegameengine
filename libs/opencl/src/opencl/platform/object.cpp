@@ -12,7 +12,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/contains_if.hpp>
-#include <fcppt/assert/pre_message.hpp>
 #include <fcppt/container/dynamic_array.hpp>
 #include <fcppt/container/buffer/object.hpp>
 #include <fcppt/config/external_begin.hpp>
