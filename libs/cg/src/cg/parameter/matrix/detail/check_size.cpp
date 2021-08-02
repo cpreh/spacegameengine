@@ -11,8 +11,6 @@
 #include <sge/cg/parameter/matrix/detail/check_size.hpp>
 #include <sge/cg/parameter/matrix/detail/size.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/assert/error_message.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/contents.hpp>
@@ -78,14 +76,19 @@ sge::cg::parameter::matrix::detail::check_size(
 		)
 	};
 
-	FCPPT_ASSERT_ERROR_MESSAGE(
+	if(
 		fcppt::math::dim::contents(
 			result
 		)
-		!=
-		0,
-		FCPPT_TEXT("Parameter is not a matrix")
-	);
+		==
+		0
+	)
+	{
+		throw
+			sge::cg::exception{
+				FCPPT_TEXT("Parameter is not a matrix")
+			};
+	}
 
 	auto const unsigned_result(
 		fcppt::math::dim::structure_cast<
@@ -98,9 +101,15 @@ sge::cg::parameter::matrix::detail::check_size(
 		)
 	);
 
-	FCPPT_ASSERT_ERROR(
+	if(
 		_dim
-		==
+		!=
 		unsigned_result
-	);
+	)
+	{
+		throw
+			sge::cg::exception{
+				FCPPT_TEXT("Unexpected matrix size!")
+			};
+	}
 }

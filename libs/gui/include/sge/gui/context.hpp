@@ -31,7 +31,7 @@ public:
 	context();
 
 	SGE_GUI_DETAIL_SYMBOL
-	~context();
+	~context(); // NOLINT(performance-trivially-destructible)
 
 	void
 	focus(

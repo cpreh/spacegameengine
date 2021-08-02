@@ -13,7 +13,6 @@
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_const.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 
@@ -24,11 +23,7 @@ sge::gui::context::context()
 }
 
 sge::gui::context::~context()
-{
-	FCPPT_ASSERT_ERROR(
-		!focus_.has_value()
-	);
-}
+= default;
 
 void
 sge::gui::context::focus(

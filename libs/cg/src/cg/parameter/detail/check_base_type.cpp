@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cg/exception.hpp>
 #include <sge/cg/impl/parameter/get_type.hpp>
 #include <sge/cg/impl/parameter/get_type_base.hpp>
 #include <sge/cg/impl/parameter/type_base_enum.hpp>
@@ -11,7 +12,7 @@
 #include <sge/cg/parameter/detail/check_base_type.hpp>
 #include <sge/cg/parameter/detail/pp_types.hpp>
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -25,17 +26,23 @@ sge::cg::parameter::detail::check_base_type(
 	sge::cg::parameter::object const &_parameter
 )
 {
-	FCPPT_ASSERT_ERROR(
+	if(
 		sge::cg::impl::parameter::get_type_base(
 			sge::cg::impl::parameter::get_type(
 				_parameter
 			)
 		)
-		==
+		!=
 		sge::cg::impl::parameter::type_base_enum<
 			Type
 		>::value
-	);
+	)
+	{
+		throw
+			sge::cg::exception{
+				FCPPT_TEXT("Unexpected base type.")
+			};
+	}
 }
 
 #define SGE_CG_INSTANTIATE_PARAMETER_DETAIL_CHECK_BASE_TYPE(\

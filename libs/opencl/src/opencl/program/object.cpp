@@ -15,12 +15,11 @@
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/program/object.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
 #include <fcppt/container/data.hpp>
@@ -322,17 +321,34 @@ sge::opencl::program::object::check_program_return_values()
 				&return_status,
 				nullptr);
 
-		opencl::impl::handle_error(
+		sge::opencl::impl::handle_error(
 			error_code4,
 			FCPPT_TEXT("clGetProgramBuildInfo(Build status of a device)"));
 
-		FCPPT_ASSERT_ERROR(
-			return_status != CL_BUILD_NONE);
+		if(
+			return_status == CL_BUILD_NONE
+		)
+		{
+			throw
+				sge::opencl::exception{
+					FCPPT_TEXT("Program build returned none.")
+				};
+		}
 
 		// This will only be sent if we specify a callback
-		FCPPT_ASSERT_ERROR(
-			notification_callback_.has_value() ||
-			return_status != CL_BUILD_IN_PROGRESS);
+		if(
+			fcppt::not_(
+				notification_callback_.has_value()
+				||
+				return_status != CL_BUILD_IN_PROGRESS
+			)
+		)
+		{
+			throw
+				sge::opencl::exception{
+					FCPPT_TEXT("Callback specified but program build not in progress.")
+				};
+		}
 
 		if(return_status == CL_BUILD_SUCCESS)
 		{

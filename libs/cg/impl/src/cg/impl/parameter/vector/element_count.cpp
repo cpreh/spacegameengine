@@ -4,11 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 
+#include <sge/cg/exception.hpp>
 #include <sge/cg/impl/true.hpp>
 #include <sge/cg/impl/parameter/get_type.hpp>
 #include <sge/cg/impl/parameter/vector/element_count.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -42,11 +43,17 @@ sge::cg::impl::parameter::vector::element_count(
 			0;
 	}
 
-	FCPPT_ASSERT_ERROR(
+	if(
 		rows
-		==
+		!=
 		1
-	);
+	)
+	{
+		throw
+			sge::cg::exception{
+				FCPPT_TEXT("Unexpected vector row count!")
+			};
+	}
 
 	return
 		fcppt::cast::size<

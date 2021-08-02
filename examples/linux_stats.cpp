@@ -91,7 +91,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/array/object_impl.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/dynamic.hpp>
@@ -102,6 +101,7 @@
 #include <fcppt/either/match.hpp>
 #include <fcppt/filesystem/open.hpp>
 #include <fcppt/log/level.hpp>
+#include <fcppt/math/div.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/options/apply.hpp>
@@ -273,9 +273,12 @@ count_jiffies()
 
 	cpuinfo >> first_word;
 
-	FCPPT_ASSERT_ERROR(
-		first_word == "cpu"
-	);
+	if(
+		first_word != "cpu"
+	)
+	{
+		std::terminate();
+	}
 
 	using
 	jiffies_array
@@ -469,23 +472,22 @@ count_memory()
 		total - free - buffers - cached - slab
 	};
 
-	FCPPT_ASSERT_ERROR(
-		total > 0
-	);
-
 	return
 		100.0
 		*
-		fcppt::cast::int_to_float<
-			double
-		>(
-			used
-		)
-		/
-		fcppt::cast::int_to_float<
-			double
-		>(
-			total
+		FCPPT_ASSERT_OPTIONAL_ERROR(
+			fcppt::math::div(
+				fcppt::cast::int_to_float<
+					double
+				>(
+					used
+				),
+				fcppt::cast::int_to_float<
+					double
+				>(
+					total
+				)
+			)
 		);
 }
 

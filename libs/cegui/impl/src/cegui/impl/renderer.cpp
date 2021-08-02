@@ -29,6 +29,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
@@ -208,23 +209,30 @@ sge::cegui::impl::renderer::destroyGeometryBuffer(
 		)
 	);
 
-	FCPPT_ASSERT_ERROR_MESSAGE(
-		fcppt::algorithm::remove_if(
-			geometry_buffers_,
-			[
-				&sge_buffer
-			](
-				geometry_buffer_unique_ptr const &_element_buffer
+	if(
+		fcppt::not_(
+			fcppt::algorithm::remove_if(
+				geometry_buffers_,
+				[
+					&sge_buffer
+				](
+					geometry_buffer_unique_ptr const &_element_buffer
+				)
+				{
+					return
+						_element_buffer.get_pointer()
+						==
+						&sge_buffer;
+				}
 			)
-			{
-				return
-					_element_buffer.get_pointer()
-					==
-					&sge_buffer;
-			}
-		),
-		FCPPT_TEXT("Tried to destroy a geometry buffer which was not registered")
-	);
+		)
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("Tried to destroy a geometry buffer which was not registered")
+			};
+	}
 }
 
 void
@@ -295,23 +303,30 @@ sge::cegui::impl::renderer::destroyTextureTarget(
 		)
 	);
 
-	FCPPT_ASSERT_ERROR_MESSAGE(
-		fcppt::algorithm::remove_if(
-			texture_targets_,
-			[
-				&sge_target
-			](
-				texture_target_unique_ptr const &_target
+	if(
+		fcppt::not_(
+			fcppt::algorithm::remove_if(
+				texture_targets_,
+				[
+					&sge_target
+				](
+					texture_target_unique_ptr const &_target
+				)
+				{
+					return
+						_target.get_pointer()
+						==
+						&sge_target;
+				}
 			)
-			{
-				return
-					_target.get_pointer()
-					==
-					&sge_target;
-			}
-		),
-		FCPPT_TEXT("Tried to destroy a texture target which was not registered")
-	);
+		)
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("Tried to destroy a texture target which was not registered")
+			};
+	}
 }
 
 void
@@ -512,12 +527,19 @@ sge::cegui::impl::renderer::destroyTexture(
 			<< FCPPT_TEXT(')')
 	)
 
-	FCPPT_ASSERT_ERROR_MESSAGE(
-		textures_.erase(
+	if(
+		this->textures_.erase(
 			_name
-		) == 1U,
-		FCPPT_TEXT("Tried to destroy a texture by name which was not registered")
-	);
+		)
+		!=
+		1U
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("Tried to destroy a texture by name which was not registered")
+			};
+	}
 }
 
 void
@@ -715,9 +737,15 @@ sge::cegui::impl::renderer::insert_texture(
 		)
 	);
 
-	FCPPT_ASSERT_ERROR(
-		result.second
-	);
+	if(
+		!result.second
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("Double insert of a texture.")
+			};
+	}
 
 	return
 		*result.first->second;

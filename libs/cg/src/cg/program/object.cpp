@@ -20,7 +20,6 @@
 #include <sge/cg/program/object.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
@@ -191,11 +190,17 @@ assert_program(
 		sge::cg::exception
 	)
 
-	FCPPT_ASSERT_ERROR(
+	if(
 		_program
-		!=
+		==
 		nullptr
-	);
+	)
+	{
+		throw
+			sge::cg::exception{
+				FCPPT_TEXT("Program is null!")
+			};
+	}
 }
 
 }

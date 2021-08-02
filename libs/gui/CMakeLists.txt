@@ -47,6 +47,7 @@ set(
 	libs/gui/include/sge/gui/create_texture.hpp
 	libs/gui/include/sge/gui/draw.hpp
 	libs/gui/include/sge/gui/duration.hpp
+	libs/gui/include/sge/gui/exception.hpp
 	libs/gui/include/sge/gui/fill_color.hpp
 	libs/gui/include/sge/gui/fill_color_fwd.hpp
 	libs/gui/include/sge/gui/fill_level.hpp
@@ -155,6 +156,7 @@ set(
 	libs/gui/src/gui/context.cpp
 	libs/gui/src/gui/create_texture.cpp
 	libs/gui/src/gui/draw.cpp
+	libs/gui/src/gui/exception.cpp
 	libs/gui/src/gui/main_area/base.cpp
 	libs/gui/src/gui/main_area/fixed_position.cpp
 	libs/gui/src/gui/main_area/screen_corner.cpp

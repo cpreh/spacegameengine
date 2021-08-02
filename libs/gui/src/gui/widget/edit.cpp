@@ -24,6 +24,7 @@
 #include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/gui/duration.hpp>
+#include <sge/gui/exception.hpp>
 #include <sge/gui/focus_change.hpp>
 #include <sge/gui/get_focus.hpp>
 #include <sge/gui/text_callback.hpp>
@@ -59,7 +60,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/string_conv_locale.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/fill.hpp>
@@ -298,11 +299,17 @@ sge::gui::widget::edit::on_click(
 			sge::font::index const _index
 		)
 		{
-			FCPPT_ASSERT_ERROR(
+			if(
 				_index
-				<=
-				text_.size()
-			);
+				>
+				this->text_.size()
+			)
+			{
+				throw
+					sge::gui::exception{
+						FCPPT_TEXT("edit: Index out of range!")
+					};
+			}
 
 			position_ =
 				_index;

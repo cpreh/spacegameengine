@@ -76,7 +76,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/log/debug.hpp>
@@ -242,11 +241,17 @@ sge::cegui::impl::geometry_buffer::draw() const
 		)
 	);
 
-	FCPPT_ASSERT_ERROR(
+	if(
 		this->getBlendMode()
-		!=
+		==
 		CEGUI::BM_INVALID
-	);
+	)
+	{
+		throw
+			sge::cegui::exception{
+				FCPPT_TEXT("Unexpected blend mode!")
+			};
+	}
 
 	sge::renderer::state::core::blend::object_unique_ptr const blend_state(
 		renderer_.get().create_blend_state(
