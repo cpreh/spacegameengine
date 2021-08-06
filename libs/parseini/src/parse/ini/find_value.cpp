@@ -28,7 +28,9 @@ sge::parse::ini::find_value(
 )
 {
 	return
-		fcppt::algorithm::find_by_opt(
+		fcppt::algorithm::find_by_opt<
+			sge::parse::ini::value
+		>(
 			_start.sections,
 			[
 				&_section_name,
@@ -52,7 +54,9 @@ sge::parse::ini::find_value(
 								&_entry_name
 							]{
 								return
-									fcppt::algorithm::find_by_opt(
+									fcppt::algorithm::find_by_opt<
+										sge::parse::ini::value
+									>(
 										_section.entries,
 										[
 											&_entry_name

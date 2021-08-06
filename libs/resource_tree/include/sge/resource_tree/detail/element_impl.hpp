@@ -178,7 +178,11 @@ sge::resource_tree::detail::element<
 ) const
 {
 	return
-		fcppt::algorithm::find_by_opt(
+		fcppt::algorithm::find_by_opt<
+			fcppt::reference<
+				T const
+			>
+		>(
 			resources_,
 			[
 				&_path,

@@ -81,8 +81,17 @@ find_plugin(
 					sge::plugin::name const &_name
 				)
 				{
+					using
+					return_type
+					=
+					sge::systems::impl::plugin_pair<
+						System
+					>;
+
 					return
-						fcppt::algorithm::find_by_opt(
+						fcppt::algorithm::find_by_opt<
+							return_type
+						>(
 							_collection,
 							[
 								&_log_context,
@@ -94,13 +103,6 @@ find_plugin(
 								> const &_element
 							)
 							{
-								using
-								return_type
-								=
-								sge::systems::impl::plugin_pair<
-									System
-								>;
-
 								using
 								optional_result
 								=

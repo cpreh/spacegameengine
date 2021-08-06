@@ -97,7 +97,9 @@ sge::texture::manager::add(
 
 	return
 		fcppt::optional::from(
-			fcppt::algorithm::find_by_opt(
+			fcppt::algorithm::find_by_opt<
+				sge::texture::part_unique_ptr
+			>(
 				fcppt::range::from_pair(
 					textures_.equal_range(
 						color_format

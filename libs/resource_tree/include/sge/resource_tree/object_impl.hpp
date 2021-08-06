@@ -86,7 +86,11 @@ sge::resource_tree::object<
 	// according prefix.
 	return
 		fcppt::optional::to_exception(
-			fcppt::algorithm::find_by_opt(
+			fcppt::algorithm::find_by_opt<
+				fcppt::reference<
+					value_type const
+				>
+			>(
 				elements_,
 				[
 					&_path

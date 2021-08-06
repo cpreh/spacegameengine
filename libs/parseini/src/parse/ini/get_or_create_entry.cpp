@@ -36,7 +36,11 @@ sge::parse::ini::get_or_create_entry(
 
 	return
 		fcppt::optional::from(
-			fcppt::algorithm::find_by_opt(
+			fcppt::algorithm::find_by_opt<
+				fcppt::reference<
+					sge::parse::ini::entry
+				>
+			>(
 				entries,
 				[
 					&_entry_name

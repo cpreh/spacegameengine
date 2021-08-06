@@ -28,7 +28,11 @@ sge::x11input::cursor::find_scroll_valuator(
 {
 	return
 		fcppt::optional::to_exception(
-			fcppt::algorithm::find_by_opt(
+			fcppt::algorithm::find_by_opt<
+				fcppt::reference<
+					XIValuatorClassInfo const
+				>
+			>(
 				fcppt::make_int_range_count(
 					_info.num_classes
 				),

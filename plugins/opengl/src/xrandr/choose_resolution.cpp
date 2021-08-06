@@ -47,7 +47,9 @@ sge::opengl::xrandr::choose_resolution(
 
 	return
 		fcppt::optional::to_exception(
-			fcppt::algorithm::find_by_opt(
+			fcppt::algorithm::find_by_opt<
+				sge::opengl::xrandr::resolution_unique_ptr
+			>(
 				fcppt::make_int_range_count(
 					sizes.size()
 				),

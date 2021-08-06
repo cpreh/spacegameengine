@@ -35,7 +35,11 @@ sge::parse::ini::get_or_create_section(
 
 	return
 		fcppt::optional::from(
-			fcppt::algorithm::find_by_opt(
+			fcppt::algorithm::find_by_opt<
+				fcppt::reference<
+					sge::parse::ini::section
+				>
+			>(
 				sections,
 				[
 					&_section_name

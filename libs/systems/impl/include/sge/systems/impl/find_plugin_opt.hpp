@@ -48,7 +48,11 @@ find_plugin_opt(
 )
 {
 	return
-		fcppt::algorithm::find_by_opt(
+		fcppt::algorithm::find_by_opt<
+			sge::systems::impl::plugin_pair<
+				System
+			>
+		>(
 			_collection,
 			[
 				&_log_context,
