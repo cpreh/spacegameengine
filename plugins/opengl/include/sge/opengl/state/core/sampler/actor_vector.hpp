@@ -13,15 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::opengl::state::core::sampler
 {
 
 using
@@ -31,10 +23,6 @@ std::vector<
 	sge::opengl::state::core::sampler::actor
 >;
 
-}
-}
-}
-}
 }
 
 #endif

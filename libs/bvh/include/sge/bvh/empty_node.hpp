@@ -7,12 +7,9 @@
 #ifndef SGE_BVH_EMPTY_NODE_HPP_INCLUDED
 #define SGE_BVH_EMPTY_NODE_HPP_INCLUDED
 
-namespace sge
-{
-namespace bvh
+namespace sge::bvh
 {
 struct empty_node {};
-}
 }
 
 #endif

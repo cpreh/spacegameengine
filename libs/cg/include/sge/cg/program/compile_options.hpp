@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 class compile_options
@@ -67,8 +63,6 @@ private:
 	string_sequence value_;
 };
 
-}
-}
 }
 
 #endif

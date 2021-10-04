@@ -13,9 +13,7 @@
 #include <awl/window/reference.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class wrapped_window
@@ -40,7 +38,6 @@ private:
 	awl::window::reference awl_window_;
 };
 
-}
 }
 
 #endif

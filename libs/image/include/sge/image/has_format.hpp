@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -36,7 +34,6 @@ fcppt::mpl::set::contains<
 	Format
 >;
 
-}
 }
 
 #endif

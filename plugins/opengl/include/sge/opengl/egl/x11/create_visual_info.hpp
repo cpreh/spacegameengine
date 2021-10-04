@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-namespace x11
+namespace sge::opengl::egl::x11
 {
 
 awl::backends::x11::visual::info_unique_ptr
@@ -30,9 +24,6 @@ create_visual_info(
 	EGLConfig
 );
 
-}
-}
-}
 }
 
 #endif

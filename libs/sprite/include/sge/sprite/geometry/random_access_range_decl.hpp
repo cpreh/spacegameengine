@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
+namespace sge::sprite::geometry
 {
 
 template<
@@ -75,8 +71,6 @@ private:
 		end_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace caps
+namespace sge::renderer::caps
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::container::bitfield::object<
 	sge::renderer::caps::system
 >;
 
-}
-}
 }
 
 #endif

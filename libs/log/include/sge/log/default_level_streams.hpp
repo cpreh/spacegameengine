@@ -11,16 +11,13 @@
 #include <fcppt/log/level_stream_array.hpp>
 
 
-namespace sge
-{
-namespace log
+namespace sge::log
 {
 
 SGE_LOG_DETAIL_SYMBOL
 fcppt::log::level_stream_array
 default_level_streams();
 
-}
 }
 
 #endif

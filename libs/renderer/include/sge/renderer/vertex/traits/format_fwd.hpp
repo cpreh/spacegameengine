@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-namespace pixel
+namespace sge::image::traits::pixel
 {
 
 template<>
@@ -32,9 +26,6 @@ struct format_tpl<
 	sge::renderer::vf::dynamic::const_part_ref;
 };
 
-}
-}
-}
 }
 
 #endif

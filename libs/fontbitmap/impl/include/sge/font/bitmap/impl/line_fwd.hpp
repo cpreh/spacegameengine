@@ -8,20 +8,11 @@
 #define SGE_FONT_BITMAP_IMPL_LINE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 class line;
 
-}
-}
-}
 }
 
 #endif

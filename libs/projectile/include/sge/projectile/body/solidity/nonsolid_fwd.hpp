@@ -8,20 +8,11 @@
 #define SGE_PROJECTILE_BODY_SOLIDITY_NONSOLID_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
-{
-namespace solidity
+namespace sge::projectile::body::solidity
 {
 
 class nonsolid;
 
-}
-}
-}
 }
 
 #endif

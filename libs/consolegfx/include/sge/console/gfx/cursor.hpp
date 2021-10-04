@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace gfx
+namespace sge::console::gfx
 {
 
 class cursor
@@ -103,8 +99,6 @@ private:
 	size_type pos_;
 };
 
-}
-}
 }
 
 #endif

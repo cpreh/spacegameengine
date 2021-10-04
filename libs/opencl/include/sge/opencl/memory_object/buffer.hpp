@@ -18,11 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 
 class buffer
@@ -66,8 +62,6 @@ private:
 	sge::opencl::memory_object::byte_size const byte_size_;
 };
 
-}
-}
 }
 
 #endif

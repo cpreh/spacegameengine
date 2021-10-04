@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
+namespace sge::cg::parameter
 {
 
 class object
@@ -37,8 +33,6 @@ private:
 	CGparameter parameter_;
 };
 
-}
-}
 }
 
 #endif

@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace timer
-{
-namespace clocks
+namespace sge::timer::clocks
 {
 
 template<
@@ -75,8 +71,6 @@ private:
 	time_point now_;
 };
 
-}
-}
 }
 
 #endif

@@ -10,13 +10,7 @@
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace program
+namespace sge::opengl::cg::program
 {
 
 void
@@ -24,9 +18,6 @@ deactivate(
 	sge::renderer::cg::loaded_program const &
 );
 
-}
-}
-}
 }
 
 #endif

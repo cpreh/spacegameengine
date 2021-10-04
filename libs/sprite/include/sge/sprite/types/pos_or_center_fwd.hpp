@@ -12,11 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
+namespace sge::sprite::types
 {
 
 template<
@@ -34,8 +30,6 @@ fcppt::variant::object<
 	>
 >;
 
-}
-}
 }
 
 #endif

@@ -13,13 +13,7 @@
 #include <sge/renderer/state/ffp/sampler/arg3.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 template<
@@ -57,9 +51,6 @@ struct sampler_alpha_arg_type<
 	get();
 };
 
-}
-}
-}
 }
 
 #endif

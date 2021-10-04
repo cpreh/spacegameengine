@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 sge::renderer::state::core::blend::alpha_enabled
@@ -25,8 +21,6 @@ to_blend_parameters(
 	CEGUI::BlendMode
 );
 
-}
-}
 }
 
 #endif

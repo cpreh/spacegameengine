@@ -13,11 +13,7 @@
 
 class btCollisionShape;
 
-namespace sge
-{
-namespace projectile
-{
-namespace shape
+namespace sge::projectile::shape
 {
 
 class base
@@ -45,8 +41,6 @@ protected:
 	base();
 };
 
-}
-}
 }
 
 #endif

@@ -13,13 +13,7 @@
 #include <sge/texture/const_part_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace primitives
+namespace sge::sprite::detail::primitives
 {
 
 template<
@@ -60,9 +54,6 @@ struct texture_ref_type<
 	sge::texture::const_part_shared_ptr;
 };
 
-}
-}
-}
 }
 
 #endif

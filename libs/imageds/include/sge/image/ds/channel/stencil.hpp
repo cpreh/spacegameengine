@@ -14,13 +14,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
-{
-namespace channel
+namespace sge::image::ds::channel
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -36,9 +30,6 @@ mizuiro::color::channel::tag<
 
 FCPPT_PP_POP_WARNING
 
-}
-}
-}
 }
 
 #endif

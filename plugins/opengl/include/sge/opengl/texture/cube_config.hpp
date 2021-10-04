@@ -12,11 +12,7 @@
 #include <sge/opengl/texture/type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class cube_config
@@ -40,8 +36,6 @@ private:
 	sge::opengl::texture::cube_side_array cube_sides_;
 };
 
-}
-}
 }
 
 #endif

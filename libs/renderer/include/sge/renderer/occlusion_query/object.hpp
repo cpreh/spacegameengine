@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace occlusion_query
+namespace sge::renderer::occlusion_query
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
@@ -78,8 +74,6 @@ public:
 	) const = 0;
 };
 
-}
-}
 }
 
 #endif

@@ -38,11 +38,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace testbed
+namespace sge::rucksack::testbed
 {
 
 class object_impl
@@ -164,8 +160,6 @@ private:
 	sprite_list sprites_;
 };
 
-}
-}
 }
 
 #endif

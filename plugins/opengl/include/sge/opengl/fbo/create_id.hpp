@@ -11,11 +11,7 @@
 #include <sge/opengl/fbo/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 sge::opengl::fbo::id
@@ -23,8 +19,6 @@ create_id(
 	sge::opengl::fbo::config const &
 );
 
-}
-}
 }
 
 #endif

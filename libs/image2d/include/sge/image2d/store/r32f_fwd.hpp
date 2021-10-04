@@ -11,11 +11,7 @@
 #include <sge/image2d/r32f_format.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace store
+namespace sge::image2d::store
 {
 
 using
@@ -25,8 +21,6 @@ sge::image::store::basic<
 	sge::image2d::r32f_format
 >;
 
-}
-}
 }
 
 #endif

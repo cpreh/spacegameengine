@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
+namespace sge::cg::parameter
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::cg::parameter::named
 >;
 
-}
-}
 }
 
 #endif

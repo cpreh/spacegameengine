@@ -15,13 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
-{
-namespace event
+namespace sge::input::mouse::event
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
@@ -50,9 +44,6 @@ private:
 	sge::input::mouse::shared_ptr const mouse_;
 };
 
-}
-}
-}
 }
 
 #endif

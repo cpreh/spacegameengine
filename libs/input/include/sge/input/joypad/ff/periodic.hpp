@@ -17,13 +17,7 @@
 #include <sge/input/joypad/ff/waveform.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 class periodic
@@ -82,9 +76,6 @@ private:
 	sge::input::joypad::ff::envelope envelope_;
 };
 
-}
-}
-}
 }
 
 #endif

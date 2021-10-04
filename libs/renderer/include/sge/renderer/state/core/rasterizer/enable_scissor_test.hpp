@@ -11,15 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::renderer::state::core::rasterizer
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -27,10 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	enable_scissor_test
 );
 
-}
-}
-}
-}
 }
 
 #endif

@@ -16,17 +16,7 @@
 #include <sge/renderer/state/ffp/lighting/material/shininess.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace material
+namespace sge::renderer::state::ffp::lighting::material
 {
 
 /**
@@ -113,11 +103,6 @@ private:
 	sge::renderer::state::ffp::lighting::material::shininess shininess_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <sge/texture/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
@@ -22,7 +20,6 @@ next_power_of_2(
 	sge::renderer::dim2 const &
 );
 
-}
 }
 
 #endif

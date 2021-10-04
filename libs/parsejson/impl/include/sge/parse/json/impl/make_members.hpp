@@ -12,13 +12,7 @@
 #include <fcppt/parse/result.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace impl
+namespace sge::parse::json::impl
 {
 
 fcppt::parse::result<
@@ -29,9 +23,6 @@ make_members(
 	sge::parse::json::impl::member_vector &&
 );
 
-}
-}
-}
 }
 
 #endif

@@ -12,9 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -22,7 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	vertex_program_stream
 );
 
-}
 }
 
 #endif

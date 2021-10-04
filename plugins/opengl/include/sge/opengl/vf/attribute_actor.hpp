@@ -19,11 +19,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class attribute_actor
@@ -66,8 +62,6 @@ private:
 	GLuint const location_;
 };
 
-}
-}
 }
 
 #endif

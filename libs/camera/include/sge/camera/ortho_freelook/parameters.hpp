@@ -17,11 +17,7 @@
 #include <sge/renderer/projection/rect.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace ortho_freelook
+namespace sge::camera::ortho_freelook
 {
 
 class parameters
@@ -100,8 +96,6 @@ private:
 	sge::camera::ortho_freelook::action::mapping action_mapping_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,16 +11,13 @@
 #include <sge/systems/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 SGE_SYSTEMS_DETAIL_SYMBOL
 sge::systems::audio_player
 audio_player_default();
 
-}
 }
 
 #endif

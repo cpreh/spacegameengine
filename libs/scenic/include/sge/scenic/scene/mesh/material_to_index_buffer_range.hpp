@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
-{
-namespace mesh
+namespace sge::scenic::scene::mesh
 {
 
 using
@@ -31,9 +25,6 @@ std::map<
 	sge::scenic::index_buffer_range
 >;
 
-}
-}
-}
 }
 
 #endif

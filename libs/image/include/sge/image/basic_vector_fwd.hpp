@@ -12,9 +12,7 @@
 #include <fcppt/math/vector/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -28,7 +26,6 @@ fcppt::math::vector::static_<
 	Dim
 >;
 
-}
 }
 
 #endif

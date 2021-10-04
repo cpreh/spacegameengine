@@ -20,13 +20,7 @@
 #include <sge/sprite/detail/vf/part_index.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace buffers
+namespace sge::sprite::detail::buffers
 {
 
 template<
@@ -55,9 +49,6 @@ allocate_vertices(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

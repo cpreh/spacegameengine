@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opencl::memory_object::base
 >;
 
-}
-}
 }
 
 #endif

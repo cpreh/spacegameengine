@@ -10,11 +10,7 @@
 #include <sge/sprite/config/texture_size_option_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -22,8 +18,6 @@ template<
 >
 struct normal_size;
 
-}
-}
 }
 
 #endif

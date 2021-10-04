@@ -30,7 +30,7 @@ sge::charconv::utf8_file_to_fcppt_string(
 	)
 	{
 		return
-			fcppt::optional_string();
+			{};
 	}
 
 	using

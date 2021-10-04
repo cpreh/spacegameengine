@@ -10,11 +10,7 @@
 #include <sge/projectile/body/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace ghost
+namespace sge::projectile::ghost
 {
 
 using
@@ -24,8 +20,6 @@ void (
 	sge::projectile::body::object const &
 );
 
-}
-}
 }
 
 #endif

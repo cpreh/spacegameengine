@@ -12,17 +12,7 @@
 #include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::opengl::state::core::sampler::filter
 {
 
 sge::opengl::state::core::sampler::actor_vector
@@ -31,11 +21,6 @@ normal(
 	sge::renderer::state::core::sampler::filter::normal::parameters const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

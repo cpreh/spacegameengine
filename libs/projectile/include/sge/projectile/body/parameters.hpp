@@ -21,11 +21,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
+namespace sge::projectile::body
 {
 
 class parameters
@@ -94,8 +90,6 @@ private:
 	sge::projectile::body::user_data user_data_;
 };
 
-}
-}
 }
 
 #endif

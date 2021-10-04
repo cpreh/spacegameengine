@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 using
@@ -22,7 +20,6 @@ index
 =
 std::size_t;
 
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 class event
@@ -35,8 +31,6 @@ private:
 	input_event event_;
 };
 
-}
-}
 }
 
 #endif

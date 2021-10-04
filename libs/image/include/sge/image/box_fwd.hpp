@@ -11,9 +11,7 @@
 #include <sge/image/traits/image/dimension.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -28,7 +26,6 @@ sge::image::basic_box<
 	>::value
 >;
 
-}
 }
 
 #endif

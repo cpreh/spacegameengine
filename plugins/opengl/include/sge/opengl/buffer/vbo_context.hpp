@@ -16,11 +16,7 @@
 #include <fcppt/array/object_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 class vbo_context
@@ -65,8 +61,6 @@ private:
 	buffer_array const buffers_;
 };
 
-}
-}
 }
 
 #endif

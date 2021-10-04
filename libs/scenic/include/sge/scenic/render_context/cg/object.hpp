@@ -32,13 +32,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace cg
+namespace sge::scenic::render_context::cg
 {
 
 class object
@@ -132,9 +126,6 @@ private:
 	sge::renderer::matrix4 current_projection_;
 	optional_vertex_buffer current_vertex_buffer_;
 };
-}
-}
-}
 }
 
 #endif

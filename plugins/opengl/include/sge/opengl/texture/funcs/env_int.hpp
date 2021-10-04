@@ -13,13 +13,7 @@
 #include <sge/opengl/texture/funcs/env_target.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace sge::opengl::texture::funcs
 {
 
 void
@@ -30,9 +24,6 @@ env_int(
 	sge::opengl::texture::funcs::env_int_value
 );
 
-}
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ axis_code_to_string(
 	sge::input::joypad::axis_code
 );
 
-}
-}
 }
 
 #endif

@@ -12,9 +12,7 @@
 #include <awl/window/object_ref.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 [[nodiscard]]
@@ -24,7 +22,6 @@ event_handler(
 	awl::timer::const_reference
 );
 
-}
 }
 
 #endif

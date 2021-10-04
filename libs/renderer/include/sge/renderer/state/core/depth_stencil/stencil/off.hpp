@@ -10,28 +10,13 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/off_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
 class off
 {
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

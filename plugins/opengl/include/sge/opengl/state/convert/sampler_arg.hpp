@@ -11,13 +11,7 @@
 #include <sge/renderer/state/ffp/sampler/arg_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 GLenum
@@ -25,9 +19,6 @@ sampler_arg(
 	sge::renderer::state::ffp::sampler::arg
 );
 
-}
-}
-}
 }
 
 #endif

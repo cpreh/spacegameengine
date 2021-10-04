@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 class shader
@@ -44,9 +38,6 @@ private:
 	sge::model::md3::impl::s32 shader_index_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -8,14 +8,11 @@
 #define SGE_RESOURCE_TREE_PATH_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace resource_tree
+namespace sge::resource_tree
 {
 
 class path;
 
-}
 }
 
 #endif

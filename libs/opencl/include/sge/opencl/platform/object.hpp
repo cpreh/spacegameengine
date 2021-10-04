@@ -21,11 +21,7 @@
 #include <fcppt/noncopyable.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace platform
+namespace sge::opencl::platform
 {
 
 class object
@@ -113,8 +109,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

@@ -8,13 +8,7 @@
 #define SGE_PROJECTILE_TRIANGULATION_TRAITS_SCALAR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace triangulation
-{
-namespace traits
+namespace sge::projectile::triangulation::traits
 {
 
 template<
@@ -23,9 +17,6 @@ template<
 >
 struct scalar;
 
-}
-}
-}
 }
 
 #endif

@@ -16,13 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace config
+namespace sge::sprite::detail::config
 {
 
 template<
@@ -62,9 +56,6 @@ public:
 	>;
 };
 
-}
-}
-}
 }
 
 #endif

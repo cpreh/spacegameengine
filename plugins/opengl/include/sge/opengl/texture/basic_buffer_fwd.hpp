@@ -8,11 +8,7 @@
 #define SGE_OPENGL_TEXTURE_BASIC_BUFFER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class basic_buffer; // NOLINT(fuchsia-multiple-inheritance)
 
-}
-}
 }
 
 #endif

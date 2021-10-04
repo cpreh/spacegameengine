@@ -15,11 +15,11 @@ sge::renderer::state::core::rasterizer::parameters
 sge::renderer::state::core::rasterizer::default_()
 {
 	return
-		sge::renderer::state::core::rasterizer::parameters(
+		{
 			sge::renderer::state::core::rasterizer::cull_mode::off,
 			sge::renderer::state::core::rasterizer::fill_mode::solid,
 			sge::renderer::state::core::rasterizer::enable_scissor_test(
 				false
 			)
-		);
+		};
 }

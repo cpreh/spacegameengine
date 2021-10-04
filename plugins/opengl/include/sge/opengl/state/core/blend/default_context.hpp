@@ -15,15 +15,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 class default_context
@@ -65,10 +57,6 @@ private:
 	object_unique_ptr const default_state_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

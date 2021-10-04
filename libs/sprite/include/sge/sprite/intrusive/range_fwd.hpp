@@ -7,11 +7,7 @@
 #ifndef SGE_SPRITE_INTRUSIVE_RANGE_FWD_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_RANGE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
+namespace sge::sprite::intrusive
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class range;
 
-}
-}
 }
 
 #endif

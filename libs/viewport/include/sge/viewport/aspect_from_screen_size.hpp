@@ -12,9 +12,7 @@
 #include <sge/viewport/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 SGE_VIEWPORT_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ aspect_from_screen_size(
 	sge::renderer::screen_size const &
 );
 
-}
 }
 
 #endif

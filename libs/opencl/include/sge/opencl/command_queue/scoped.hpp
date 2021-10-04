@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace command_queue
+namespace sge::opencl::command_queue
 {
 
 class scoped
@@ -37,8 +33,6 @@ private:
 	sge::opencl::command_queue::object_ref const object_;
 };
 
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_OPENGL_EGL_SURFACE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 class surface;
 
-}
-}
 }
 
 #endif

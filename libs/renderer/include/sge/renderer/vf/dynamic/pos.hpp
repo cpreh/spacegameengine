@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/dynamic/vector.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class pos
@@ -45,9 +39,6 @@ operator==(
 	sge::renderer::vf::dynamic::pos const &
 );
 
-}
-}
-}
 }
 
 #endif

@@ -10,19 +10,13 @@
 #include <sge/renderer/display_mode/fullscreen_desktop_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 struct fullscreen_desktop
 {
 };
 
-}
-}
 }
 
 #endif

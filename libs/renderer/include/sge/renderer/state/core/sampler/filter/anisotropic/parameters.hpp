@@ -13,19 +13,7 @@
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
-{
-namespace anisotropic
+namespace sge::renderer::state::core::sampler::filter::anisotropic
 {
 
 class parameters
@@ -59,12 +47,6 @@ operator==(
 	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &
 );
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

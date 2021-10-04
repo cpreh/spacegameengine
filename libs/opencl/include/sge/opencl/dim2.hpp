@@ -11,9 +11,7 @@
 #include <fcppt/math/dim/static.hpp>
 
 
-namespace sge
-{
-namespace opencl
+namespace sge::opencl
 {
 
 using
@@ -24,7 +22,6 @@ fcppt::math::dim::static_<
 	2
 >;
 
-}
 }
 
 #endif

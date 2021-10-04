@@ -12,13 +12,7 @@
 #include <sge/image/traits/pixel/static_formats_tpl_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-namespace pixel
+namespace sge::image::traits::pixel
 {
 
 template<>
@@ -32,9 +26,6 @@ struct static_formats_tpl<
 	sge::image::ds::static_formats;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 using
@@ -24,8 +20,6 @@ axis_value
 =
 std::int64_t;
 
-}
-}
 }
 
 #endif

@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
-{
-namespace freetype
+namespace sge::pango::freetype
 {
 
 FT_Bitmap
@@ -26,8 +22,6 @@ make_bitmap(
 	sge::font::view const &
 );
 
-}
-}
 }
 
 #endif

@@ -22,11 +22,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 template<
@@ -93,8 +89,6 @@ private:
 	buffer_vector buffers_;
 };
 
-}
-}
 }
 
 #endif

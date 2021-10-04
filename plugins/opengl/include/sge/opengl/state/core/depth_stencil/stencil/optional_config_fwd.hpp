@@ -11,17 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::opengl::state::core::depth_stencil::stencil
 {
 
 using
@@ -31,11 +21,6 @@ fcppt::optional::object<
 	sge::opengl::state::core::depth_stencil::stencil::config
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

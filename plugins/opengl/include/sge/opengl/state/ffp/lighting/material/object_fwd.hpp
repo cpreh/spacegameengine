@@ -11,17 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/material/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace material
+namespace sge::opengl::state::ffp::lighting::material
 {
 
 using
@@ -31,11 +21,6 @@ sge::opengl::state::object<
 	sge::renderer::state::ffp::lighting::material::object
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

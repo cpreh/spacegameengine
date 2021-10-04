@@ -8,11 +8,7 @@
 #define SGE_RENDERER_TEXTURE_BASIC_SCOPED_LOCK_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class basic_scoped_lock;
 
-}
-}
 }
 
 #endif

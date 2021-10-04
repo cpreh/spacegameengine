@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace inotify
+namespace sge::evdev::inotify
 {
 
 class reader
@@ -50,8 +46,6 @@ private:
 	sge::evdev::inotify::watch const watch_;
 };
 
-}
-}
 }
 
 #endif

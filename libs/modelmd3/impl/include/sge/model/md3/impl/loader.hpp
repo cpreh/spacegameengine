@@ -20,13 +20,7 @@
 
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 class loader
@@ -64,9 +58,6 @@ private:
 	fcppt::log::object log_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/opengl/common.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 using
@@ -22,8 +18,6 @@ pointer
 =
 GLvoid const *;
 
-}
-}
 }
 
 #endif

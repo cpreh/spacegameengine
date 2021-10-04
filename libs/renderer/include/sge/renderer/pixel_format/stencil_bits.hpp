@@ -12,11 +12,7 @@
 #include <sge/renderer/pixel_format/optional_bit_count_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ stencil_bits(
 	sge::renderer::pixel_format::depth_stencil
 );
 
-}
-}
 }
 
 #endif

@@ -8,11 +8,7 @@
 #define SGE_SPRITE_CONFIG_TYPE_CHOICES_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -21,8 +17,6 @@ template<
 >
 struct type_choices;
 
-}
-}
 }
 
 #endif

@@ -8,14 +8,11 @@
 #define SGE_PANGO_GLIB_DELETER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 struct glib_deleter;
 
-}
 }
 
 #endif

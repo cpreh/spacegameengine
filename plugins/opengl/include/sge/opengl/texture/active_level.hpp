@@ -14,11 +14,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class active_level
@@ -42,8 +38,6 @@ private:
 	sge::renderer::texture::stage const stage_;
 };
 
-}
-}
 }
 
 #endif

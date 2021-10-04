@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace keyboard
+namespace sge::input::keyboard
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::input::keyboard::shared_ptr
 >;
 
-}
-}
 }
 
 #endif

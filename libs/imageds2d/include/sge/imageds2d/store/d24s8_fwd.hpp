@@ -11,11 +11,7 @@
 #include <sge/imageds2d/d24s8_format.hpp>
 
 
-namespace sge
-{
-namespace imageds2d
-{
-namespace store
+namespace sge::imageds2d::store
 {
 
 using
@@ -25,8 +21,6 @@ sge::image::store::basic<
 	sge::imageds2d::d24s8_format
 >;
 
-}
-}
 }
 
 #endif

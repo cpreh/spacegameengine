@@ -11,19 +11,13 @@
 #include <fcppt/log/location.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 SGE_MODEL_OBJ_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 
-}
-}
 }
 
 #endif

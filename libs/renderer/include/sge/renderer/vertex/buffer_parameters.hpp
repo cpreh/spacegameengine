@@ -16,11 +16,7 @@
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 class buffer_parameters
@@ -79,8 +75,6 @@ private:
 	sge::renderer::resource_flags_field flags_;
 };
 
-}
-}
 }
 
 #endif

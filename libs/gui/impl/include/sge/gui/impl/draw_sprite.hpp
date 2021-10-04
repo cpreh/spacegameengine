@@ -20,11 +20,7 @@
 #include <fcppt/make_ref.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
+namespace sge::gui::impl
 {
 
 template<
@@ -89,8 +85,6 @@ draw_sprite(
 	);
 }
 
-}
-}
 }
 
 #endif

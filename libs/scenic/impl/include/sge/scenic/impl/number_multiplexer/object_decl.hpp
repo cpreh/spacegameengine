@@ -15,13 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace impl
-{
-namespace number_multiplexer
+namespace sge::scenic::impl::number_multiplexer
 {
 
 template<
@@ -65,9 +59,6 @@ private:
 	value_type last_bit_set_;
 };
 
-}
-}
-}
 }
 
 #endif

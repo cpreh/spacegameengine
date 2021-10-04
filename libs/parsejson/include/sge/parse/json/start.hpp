@@ -15,11 +15,7 @@
 #include <sge/parse/json/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 struct start
@@ -60,8 +56,6 @@ operator==(
 	sge::parse::json::start const &
 );
 
-}
-}
 }
 
 #endif

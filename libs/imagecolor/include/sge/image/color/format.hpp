@@ -13,11 +13,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -48,8 +44,6 @@ enum class format
 
 FCPPT_PP_POP_WARNING
 
-}
-}
 }
 
 #endif

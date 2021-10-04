@@ -12,11 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace key
+namespace sge::input::key
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ code_to_string(
 	sge::input::key::code
 );
 
-}
-}
 }
 
 #endif

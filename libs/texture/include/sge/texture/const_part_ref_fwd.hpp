@@ -11,9 +11,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::texture::part const
 >;
 
-}
 }
 
 #endif

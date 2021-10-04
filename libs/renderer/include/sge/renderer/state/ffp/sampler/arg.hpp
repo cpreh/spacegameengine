@@ -10,15 +10,7 @@
 #include <sge/renderer/state/ffp/sampler/arg_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 enum class arg
@@ -29,10 +21,6 @@ enum class arg
 	vertex_color
 };
 
-}
-}
-}
-}
 }
 
 #endif

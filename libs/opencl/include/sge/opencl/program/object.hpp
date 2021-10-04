@@ -22,11 +22,7 @@
 #include <fcppt/optional/object.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace program
+namespace sge::opencl::program
 {
 class object
 {
@@ -88,8 +84,6 @@ private:
 		void *
 	);
 };
-}
-}
 }
 
 #endif

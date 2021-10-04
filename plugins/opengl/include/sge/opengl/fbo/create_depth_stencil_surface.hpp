@@ -12,11 +12,7 @@
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 sge::renderer::depth_stencil_buffer::surface_unique_ptr
@@ -25,8 +21,6 @@ create_depth_stencil_surface(
 	sge::renderer::depth_stencil_buffer::surface_parameters const &
 );
 
-}
-}
 }
 
 #endif

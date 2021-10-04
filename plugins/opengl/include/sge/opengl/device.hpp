@@ -95,9 +95,7 @@
 #endif
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 class device
@@ -397,7 +395,6 @@ private:
 	fcppt::signal::auto_connection const event_connection_;
 };
 
-}
 }
 
 #endif

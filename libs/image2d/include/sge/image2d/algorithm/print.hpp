@@ -12,11 +12,7 @@
 #include <fcppt/io/ostream_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace algorithm
+namespace sge::image2d::algorithm
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
@@ -26,8 +22,6 @@ print(
 	sge::image2d::view::const_object const &
 );
 
-}
-}
 }
 
 #endif

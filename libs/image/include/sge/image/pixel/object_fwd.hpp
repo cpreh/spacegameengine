@@ -8,11 +8,7 @@
 #define SGE_IMAGE_PIXEL_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace pixel
+namespace sge::image::pixel
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class object;
 
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace visual
+namespace sge::opengl::visual
 {
 
 class rgb_triple
@@ -62,8 +58,6 @@ private:
 	sge::opengl::visual::rgb_triple::blue_bits blue_;
 };
 
-}
-}
 }
 
 #endif

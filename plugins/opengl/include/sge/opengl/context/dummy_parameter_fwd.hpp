@@ -8,17 +8,11 @@
 #define SGE_OPENGL_CONTEXT_DUMMY_PARAMETER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace context
+namespace sge::opengl::context
 {
 
 class dummy_parameter;
 
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <sge/texture/basic_part_raw_fwd.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 using
@@ -23,7 +21,6 @@ sge::texture::basic_part_raw<
 	sge::renderer::texture::planar_unique_ptr &&
 >;
 
-}
 }
 
 #endif

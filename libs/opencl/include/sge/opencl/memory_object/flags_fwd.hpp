@@ -8,17 +8,11 @@
 #define SGE_OPENCL_MEMORY_OBJECT_FLAGS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 
 enum class flags;
 
-}
-}
 }
 
 #endif

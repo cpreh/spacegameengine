@@ -13,15 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::opengl::state::ffp::transform
 {
 
 using
@@ -31,10 +23,6 @@ std::vector<
 	sge::opengl::state::ffp::transform::actor
 >;
 
-}
-}
-}
-}
 }
 
 #endif

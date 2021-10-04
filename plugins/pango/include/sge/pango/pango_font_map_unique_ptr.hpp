@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 using
@@ -27,7 +25,6 @@ fcppt::unique_ptr<
 	sge::pango::glib_deleter
 >;
 
-}
 }
 
 #endif

@@ -15,13 +15,7 @@
 #include <fcppt/cast/size.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 template<
@@ -103,9 +97,6 @@ private:
 	mutable typename index_array_type::const_iterator ptr_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/shared_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
+namespace sge::input::cursor
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::shared_ptr<
 	sge::input::cursor::object
 >;
 
-}
-}
 }
 
 #endif

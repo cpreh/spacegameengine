@@ -20,13 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace any
+namespace sge::image::color::any
 {
 
 template<
@@ -43,9 +37,6 @@ convert(
 	sge::image::color::any::object const &
 );
 
-}
-}
-}
 }
 
 #define SGE_IMAGE_COLOR_ANY_DETAIL_DECLARE_CONVERT(\

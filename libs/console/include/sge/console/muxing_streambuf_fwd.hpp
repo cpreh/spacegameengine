@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 template<
@@ -26,7 +24,6 @@ template<
 >
 class muxing_streambuf;
 
-}
 }
 
 #endif

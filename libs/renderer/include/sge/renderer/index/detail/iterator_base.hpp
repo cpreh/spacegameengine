@@ -20,13 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace detail
+namespace sge::renderer::index::detail
 {
 
 template<
@@ -62,9 +56,6 @@ fcppt::iterator::base<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

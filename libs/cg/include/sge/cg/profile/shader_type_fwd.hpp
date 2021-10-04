@@ -8,17 +8,11 @@
 #define SGE_CG_PROFILE_SHADER_TYPE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cg
-{
-namespace profile
+namespace sge::cg::profile
 {
 
 enum class shader_type;
 
-}
-}
 }
 
 #endif

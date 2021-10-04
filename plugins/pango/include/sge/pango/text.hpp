@@ -25,9 +25,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 class text
@@ -84,7 +82,6 @@ private:
 	sge::charconv::index_vector const indices_;
 };
 
-}
 }
 
 #endif

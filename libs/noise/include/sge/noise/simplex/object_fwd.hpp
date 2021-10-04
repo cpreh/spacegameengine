@@ -10,11 +10,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace noise
-{
-namespace simplex
+namespace sge::noise::simplex
 {
 
 template<
@@ -23,8 +19,6 @@ template<
 >
 class object;
 
-}
-}
 }
 
 #endif

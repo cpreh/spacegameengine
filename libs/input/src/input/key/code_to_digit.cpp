@@ -48,7 +48,7 @@ FCPPT_PP_DISABLE_CLANG_WARNING(-Wswitch-enum)
 	CONVERT_KEYCODE_TO_DIGIT(9);
 	default:
 		return
-			sge::input::key::optional_digit();
+			{};
 	}
 
 FCPPT_PP_POP_WARNING

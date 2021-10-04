@@ -13,11 +13,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 sge::renderer::vertex::declaration_unique_ptr
@@ -27,8 +23,6 @@ create_declaration(
 	sge::renderer::vertex::declaration_parameters const &
 );
 
-}
-}
 }
 
 #endif

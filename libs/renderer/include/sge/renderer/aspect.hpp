@@ -13,9 +13,7 @@
 #include <fcppt/optional/object_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -38,7 +36,6 @@ aspect(
 	sge::renderer::screen_size const &size
 );
 
-}
 }
 
 #endif

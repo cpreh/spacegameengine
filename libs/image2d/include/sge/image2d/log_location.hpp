@@ -11,16 +11,13 @@
 #include <fcppt/log/location.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 
-}
 }
 
 #endif

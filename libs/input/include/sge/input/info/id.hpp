@@ -8,11 +8,7 @@
 #define SGE_INPUT_INFO_ID_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace info
+namespace sge::input::info
 {
 
 using
@@ -20,8 +16,6 @@ id
 =
 unsigned;
 
-}
-}
 }
 
 #endif

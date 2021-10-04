@@ -22,11 +22,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 struct with_transform
@@ -93,8 +89,6 @@ struct with_transform
 	); // NOLINT(google-runtime-references)
 };
 
-}
-}
 }
 
 #endif

@@ -12,9 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 using
@@ -25,7 +23,6 @@ fcppt::variant::object<
 	sge::rucksack::preferred_size
 >;
 
-}
 }
 
 #endif

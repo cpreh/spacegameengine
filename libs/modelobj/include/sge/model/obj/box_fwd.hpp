@@ -11,11 +11,7 @@
 #include <fcppt/math/box/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 using
@@ -26,8 +22,6 @@ fcppt::math::box::object<
 	3
 >;
 
-}
-}
 }
 
 #endif

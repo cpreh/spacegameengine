@@ -11,9 +11,7 @@
 #include <awl/event/container.hpp>
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 SGE_WINDOW_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ event_combiner(
 	awl::event::container &&
 );
 
-}
 }
 
 #endif

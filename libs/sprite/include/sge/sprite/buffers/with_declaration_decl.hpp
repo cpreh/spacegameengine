@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 template<
@@ -79,8 +75,6 @@ private:
 	buffers_type buffers_;
 };
 
-}
-}
 }
 
 #endif

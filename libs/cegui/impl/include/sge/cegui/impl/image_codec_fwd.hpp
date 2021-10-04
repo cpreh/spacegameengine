@@ -8,17 +8,11 @@
 #define SGE_CEGUI_IMPL_IMAGE_CODEC_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class image_codec;
 
-}
-}
 }
 
 #endif

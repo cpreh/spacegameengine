@@ -13,17 +13,7 @@
 #include <sge/renderer/state/ffp/lighting/light/position.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::renderer::state::ffp::lighting::light
 {
 
 class point
@@ -50,11 +40,6 @@ private:
 	sge::renderer::state::ffp::lighting::light::attenuation attenuation_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

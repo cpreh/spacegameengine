@@ -28,11 +28,7 @@
 class btRigidBody;
 class btTransform;
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
+namespace sge::projectile::body
 {
 
 class object
@@ -143,8 +139,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

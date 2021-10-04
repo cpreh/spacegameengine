@@ -13,11 +13,7 @@
 #include <sge/opengl/fbo/last_context_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class last_context
@@ -52,8 +48,6 @@ private:
 	sge::opengl::fbo::id last_buffer_;
 };
 
-}
-}
 }
 
 #endif

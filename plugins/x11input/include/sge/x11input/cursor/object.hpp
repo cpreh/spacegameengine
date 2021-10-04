@@ -32,11 +32,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
@@ -174,8 +170,6 @@ private:
 	sge::x11input::cursor::optional_grab_unique_ptr cursor_grab_;
 };
 
-}
-}
 }
 
 #endif

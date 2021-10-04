@@ -8,11 +8,7 @@
 #define SGE_SPRITE_GEOMETRY_RANDOM_ACCESS_RANGE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
+namespace sge::sprite::geometry
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class random_access_range;
 
-}
-}
 }
 
 #endif

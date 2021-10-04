@@ -14,9 +14,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 using
@@ -26,7 +24,6 @@ sge::console::muxing_streambuf<
 	wchar_t
 >;
 
-}
 }
 
 FCPPT_PP_PUSH_WARNING

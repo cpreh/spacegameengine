@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 using
@@ -29,8 +25,6 @@ std::unordered_map<
 	sge::x11input::cursor::scroll_valuator
 >;
 
-}
-}
 }
 
 #endif

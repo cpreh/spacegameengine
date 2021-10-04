@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::renderer::state::core::rasterizer
 {
 
 class parameters;
 
-}
-}
-}
-}
 }
 
 #endif

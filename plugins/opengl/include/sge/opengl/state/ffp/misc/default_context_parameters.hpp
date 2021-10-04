@@ -12,15 +12,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
+namespace sge::opengl::state::ffp::misc
 {
 
 class default_context_parameters
@@ -44,10 +36,6 @@ private:
 	sge::opengl::context::object_ref context_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

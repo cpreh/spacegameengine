@@ -14,13 +14,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace audio
+namespace sge::systems::impl::audio
 {
 
 sge::systems::impl::audio::player_pair
@@ -31,9 +25,6 @@ find_player_plugin(
 	sge::systems::audio_player const &
 );
 
-}
-}
-}
 }
 
 #endif

@@ -12,9 +12,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace log
+namespace sge::log
 {
 
 SGE_LOG_DETAIL_SYMBOL
@@ -24,7 +22,6 @@ apply_options(
 	sge::log::option_container const &
 );
 
-}
 }
 
 #endif

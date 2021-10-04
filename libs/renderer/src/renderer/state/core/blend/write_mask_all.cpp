@@ -16,7 +16,7 @@ sge::renderer::state::core::blend::write_mask
 sge::renderer::state::core::blend::write_mask_all()
 {
 	return
-		sge::renderer::state::core::blend::write_mask(
+		{
 			sge::renderer::state::core::blend::write_red(
 				true
 			),
@@ -29,5 +29,5 @@ sge::renderer::state::core::blend::write_mask_all()
 			sge::renderer::state::core::blend::write_alpha(
 				true
 			)
-		);
+		};
 }

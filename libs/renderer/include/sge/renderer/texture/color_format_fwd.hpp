@@ -8,17 +8,11 @@
 #define SGE_RENDERER_TEXTURE_COLOR_FORMAT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 class color_format;
 
-}
-}
 }
 
 #endif

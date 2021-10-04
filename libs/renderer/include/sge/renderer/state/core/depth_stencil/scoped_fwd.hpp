@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_SCOPED_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
+namespace sge::renderer::state::core::depth_stencil
 {
 
 class scoped;
 
-}
-}
-}
-}
 }
 
 #endif

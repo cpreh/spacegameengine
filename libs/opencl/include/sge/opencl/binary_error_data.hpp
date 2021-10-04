@@ -10,9 +10,7 @@
 #include <fcppt/iterator/range_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
+namespace sge::opencl
 {
 
 using
@@ -22,7 +20,6 @@ fcppt::iterator::range<
 	unsigned char const *
 >;
 
-}
 }
 
 #endif

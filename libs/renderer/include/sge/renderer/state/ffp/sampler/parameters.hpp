@@ -13,15 +13,7 @@
 #include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 class parameters
@@ -48,10 +40,6 @@ private:
 	sge::renderer::state::ffp::sampler::alpha_op alpha_op_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

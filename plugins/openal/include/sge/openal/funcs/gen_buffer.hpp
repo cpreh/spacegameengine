@@ -10,18 +10,12 @@
 #include <sge/openal/buffer_id.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 sge::openal::buffer_id
 gen_buffer();
 
-}
-}
 }
 
 #endif

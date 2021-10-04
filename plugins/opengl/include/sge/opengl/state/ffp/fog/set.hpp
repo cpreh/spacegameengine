@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/fog/const_optional_object_ref_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::opengl::state::ffp::fog
 {
 
 void
@@ -28,10 +20,6 @@ set(
 	sge::renderer::state::ffp::fog::const_optional_object_ref const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

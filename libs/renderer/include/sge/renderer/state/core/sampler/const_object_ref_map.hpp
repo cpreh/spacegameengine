@@ -14,15 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::renderer::state::core::sampler
 {
 
 using
@@ -33,10 +25,6 @@ std::map<
 	sge::renderer::state::core::sampler::const_object_ref
 >;
 
-}
-}
-}
-}
 }
 
 #endif

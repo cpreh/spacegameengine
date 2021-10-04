@@ -15,15 +15,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
+namespace sge::renderer::state::ffp::misc
 {
 
 class scoped
@@ -46,10 +38,6 @@ private:
 	sge::renderer::context::ffp_ref const context_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

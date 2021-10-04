@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opengl::texture::binding const
 >;
 
-}
-}
 }
 
 #endif

@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -26,8 +22,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	extension
 );
 
-}
-}
 }
 
 #endif

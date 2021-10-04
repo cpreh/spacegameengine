@@ -11,11 +11,7 @@
 #include <sge/renderer/opengl/texture/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 using
@@ -23,8 +19,6 @@ id
 =
 sge::renderer::opengl::texture::id;
 
-}
-}
 }
 
 #endif

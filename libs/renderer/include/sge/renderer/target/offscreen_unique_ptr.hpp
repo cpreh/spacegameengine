@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace target
+namespace sge::renderer::target
 {
 
 /**
@@ -28,8 +24,6 @@ fcppt::unique_ptr<
 	sge::renderer::target::offscreen
 >;
 
-}
-}
 }
 
 #endif

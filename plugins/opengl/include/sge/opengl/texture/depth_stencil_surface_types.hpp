@@ -14,11 +14,7 @@
 #include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct depth_stencil_surface_types
@@ -46,8 +42,6 @@ struct depth_stencil_surface_types
 	sge::opengl::texture::depth_stencil_format_types;
 };
 
-}
-}
 }
 
 #endif

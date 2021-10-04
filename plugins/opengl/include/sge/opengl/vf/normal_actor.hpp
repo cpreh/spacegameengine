@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class normal_actor
@@ -47,8 +43,6 @@ private:
 	GLenum const format_;
 };
 
-}
-}
 }
 
 #endif

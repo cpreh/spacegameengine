@@ -11,11 +11,7 @@
 #include <sge/renderer/vf/normal.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace vf
+namespace sge::scenic::vf
 {
 
 using
@@ -25,8 +21,6 @@ sge::renderer::vf::normal<
 	sge::renderer::scalar
 >;
 
-}
-}
 }
 
 #endif

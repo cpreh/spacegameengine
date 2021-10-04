@@ -16,9 +16,7 @@ namespace CEGUI
 class Colour;
 }
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 SGE_CEGUI_DETAIL_SYMBOL
@@ -27,7 +25,6 @@ to_cegui_color(
 	sge::image::color::any::object const &
 );
 
-}
 }
 
 #endif

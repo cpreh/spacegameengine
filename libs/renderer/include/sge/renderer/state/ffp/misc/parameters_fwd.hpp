@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_FFP_MISC_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
+namespace sge::renderer::state::ffp::misc
 {
 
 class parameters;
 
-}
-}
-}
-}
 }
 
 #endif

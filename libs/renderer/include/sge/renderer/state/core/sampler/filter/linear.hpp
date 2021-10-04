@@ -11,28 +11,13 @@
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::renderer::state::core::sampler::filter
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::core::sampler::filter::parameters
 linear();
 
-}
-}
-}
-}
-}
 }
 
 #endif

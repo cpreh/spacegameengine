@@ -13,9 +13,7 @@
 #include <sge/texture/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL image_too_big
@@ -58,7 +56,6 @@ public:
 	override;
 };
 
-}
 }
 
 #endif

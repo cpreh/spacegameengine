@@ -17,11 +17,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL device
@@ -55,8 +51,6 @@ public:
 	) = 0;
 };
 
-}
-}
 }
 
 #endif

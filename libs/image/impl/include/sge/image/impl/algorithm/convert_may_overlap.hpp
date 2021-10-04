@@ -12,13 +12,7 @@
 #include <mizuiro/image/algorithm/may_overlap.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace algorithm
+namespace sge::image::impl::algorithm
 {
 
 SGE_IMAGE_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ convert_may_overlap(
 	sge::image::algorithm::may_overlap
 );
 
-}
-}
-}
 }
 
 #endif

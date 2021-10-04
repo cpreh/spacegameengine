@@ -11,13 +11,7 @@
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 using
@@ -27,9 +21,6 @@ sge::renderer::vf::dynamic::basic_view<
 	sge::renderer::raw_pointer
 >;
 
-}
-}
-}
 }
 
 #endif

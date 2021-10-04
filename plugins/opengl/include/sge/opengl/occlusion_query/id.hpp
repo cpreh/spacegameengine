@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,8 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	id
 );
 
-}
-}
 }
 
 #endif

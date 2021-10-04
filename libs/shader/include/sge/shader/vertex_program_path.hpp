@@ -13,14 +13,11 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	std::filesystem::path,
 	vertex_program_path);
-}
 }
 
 #endif

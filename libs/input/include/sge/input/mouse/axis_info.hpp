@@ -13,11 +13,7 @@
 #include <fcppt/optional_string.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 class axis_info
@@ -44,8 +40,6 @@ private:
 	fcppt::optional_string name_;
 };
 
-}
-}
 }
 
 #endif

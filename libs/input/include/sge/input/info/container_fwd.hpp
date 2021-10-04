@@ -8,11 +8,7 @@
 #define SGE_INPUT_INFO_CONTAINER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace info
+namespace sge::input::info
 {
 
 template<
@@ -21,8 +17,6 @@ template<
 >
 class container;
 
-}
-}
 }
 
 #endif

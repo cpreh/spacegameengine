@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 class instance
@@ -41,8 +37,6 @@ private:
 	SDL_Joystick *const impl_;
 };
 
-}
-}
 }
 
 #endif

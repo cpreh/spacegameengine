@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/part.hpp>
 
 
-namespace sge
-{
-namespace line_drawer
-{
-namespace impl
-{
-namespace vf
+namespace sge::line_drawer::impl::vf
 {
 
 using
@@ -29,9 +23,6 @@ sge::renderer::vf::part<
 	sge::line_drawer::impl::vf::color
 >;
 
-}
-}
-}
 }
 
 #endif

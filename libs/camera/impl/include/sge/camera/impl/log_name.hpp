@@ -10,18 +10,12 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace impl
+namespace sge::camera::impl
 {
 
 fcppt::log::name
 log_name();
 
-}
-}
 }
 
 #endif

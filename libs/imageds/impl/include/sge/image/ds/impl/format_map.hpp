@@ -14,13 +14,7 @@
 #include <sge/image/impl/format_map.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
-{
-namespace impl
+namespace sge::image::ds::impl
 {
 
 using
@@ -38,9 +32,6 @@ sge::image::impl::format_map<
 	)
 >;
 
-}
-}
-}
 }
 
 #endif

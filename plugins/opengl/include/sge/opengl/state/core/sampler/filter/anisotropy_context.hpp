@@ -15,17 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::opengl::state::core::sampler::filter
 {
 
 class anisotropy_context
@@ -60,11 +50,6 @@ private:
 	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const config_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

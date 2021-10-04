@@ -10,11 +10,7 @@
 #include <sge/systems/detail/any_key_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 enum class any_key
@@ -30,8 +26,6 @@ enum class any_key
 	fcppt_maximum = font
 };
 
-}
-}
 }
 
 #endif

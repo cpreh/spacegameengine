@@ -14,13 +14,7 @@
 #include <sge/sprite/types/basic/float_vector.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 template<
@@ -68,9 +62,6 @@ fill_position_points(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

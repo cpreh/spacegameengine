@@ -11,11 +11,7 @@
 #include <sge/opengl/vf/attribute_config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 void
@@ -29,8 +25,6 @@ vertex_attrib_pointer(
 	void const *pointer
 );
 
-}
-}
 }
 
 #endif

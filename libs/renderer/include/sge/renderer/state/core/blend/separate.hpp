@@ -15,15 +15,7 @@
 #include <sge/renderer/state/core/blend/separate_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 class separate
@@ -66,10 +58,6 @@ private:
 	sge::renderer::state::core::blend::alpha_dest alpha_dest_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

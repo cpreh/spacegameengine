@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 template<
@@ -31,7 +29,6 @@ std::basic_string<
 	>
 >;
 
-}
 }
 
 #endif

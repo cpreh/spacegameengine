@@ -18,13 +18,7 @@
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace sge::opengl::texture::funcs
 {
 
 void
@@ -40,9 +34,6 @@ set_2d(
 	sge::renderer::const_raw_pointer src
 );
 
-}
-}
-}
 }
 
 #endif

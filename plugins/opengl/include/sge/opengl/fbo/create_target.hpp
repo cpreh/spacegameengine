@@ -11,11 +11,7 @@
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 sge::renderer::target::offscreen_unique_ptr
@@ -23,8 +19,6 @@ create_target(
 	sge::opengl::context::object_ref
 );
 
-}
-}
 }
 
 #endif

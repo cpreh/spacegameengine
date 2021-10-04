@@ -10,9 +10,7 @@
 #include <sge/libpng/format_fwd.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 int
@@ -20,7 +18,6 @@ color_type_from_format(
 	sge::libpng::format
 );
 
-}
 }
 
 #endif

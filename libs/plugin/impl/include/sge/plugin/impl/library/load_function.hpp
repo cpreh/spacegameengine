@@ -14,13 +14,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
-{
-namespace library
+namespace sge::plugin::impl::library
 {
 
 template<
@@ -45,9 +39,6 @@ load_function(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

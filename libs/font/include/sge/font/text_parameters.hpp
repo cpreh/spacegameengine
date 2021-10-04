@@ -14,9 +14,7 @@
 #include <sge/font/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 class text_parameters
@@ -51,7 +49,6 @@ private:
 	sge::font::flags_field flags_;
 };
 
-}
 }
 
 #endif

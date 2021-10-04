@@ -8,14 +8,11 @@
 #define SGE_IMAGE3D_TAG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image3d
+namespace sge::image3d
 {
 
 struct tag;
 
-}
 }
 
 #endif

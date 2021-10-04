@@ -11,9 +11,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 fcppt::string
@@ -21,7 +19,6 @@ error_string(
 	GLenum
 );
 
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace impl
+namespace sge::opencl::impl
 {
 
 void
@@ -24,8 +20,6 @@ handle_error(
 	fcppt::string const &
 );
 
-}
-}
 }
 
 #endif

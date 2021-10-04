@@ -11,11 +11,7 @@
 #include <sge/parse/json/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 struct null
@@ -29,8 +25,6 @@ operator==(
 	sge::parse::json::null const &
 );
 
-}
-}
 }
 
 #endif

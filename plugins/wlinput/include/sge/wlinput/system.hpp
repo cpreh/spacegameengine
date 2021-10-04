@@ -16,9 +16,7 @@
 #include <fcppt/log/object.hpp>
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 class system
@@ -52,7 +50,6 @@ private:
 	fcppt::log::object log_;
 };
 
-}
 }
 
 #endif

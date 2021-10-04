@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace group
+namespace sge::projectile::group
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::projectile::group::object_ref
 >;
 
-}
-}
 }
 
 #endif

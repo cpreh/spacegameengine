@@ -15,11 +15,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 sge::wlinput::focus::create_function
@@ -31,8 +27,6 @@ create(
 	awl::event::container_reference
 );
 
-}
-}
 }
 
 #endif

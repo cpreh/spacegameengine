@@ -11,15 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::opengl::state::ffp::transform
 {
 
 using
@@ -31,10 +23,6 @@ fcppt::function<
 	)
 >;
 
-}
-}
-}
-}
 }
 
 #endif

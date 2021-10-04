@@ -14,13 +14,7 @@
 #include <awl/event/base_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace button
+namespace sge::evdev::joypad::button
 {
 
 awl::event::base_unique_ptr
@@ -31,9 +25,6 @@ make_event(
 	sge::evdev::device::event
 );
 
-}
-}
-}
 }
 
 #endif

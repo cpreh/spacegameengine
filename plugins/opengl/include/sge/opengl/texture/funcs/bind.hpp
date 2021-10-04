@@ -11,13 +11,7 @@
 #include <sge/opengl/texture/type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace sge::opengl::texture::funcs
 {
 
 void
@@ -26,9 +20,6 @@ bind(
 	sge::opengl::texture::optional_id const &
 );
 
-}
-}
-}
 }
 
 #endif

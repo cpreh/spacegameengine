@@ -17,15 +17,7 @@
 #include <fcppt/mpl/list/map.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace any
-{
-namespace detail
+namespace sge::renderer::index::any::detail
 {
 
 template<
@@ -49,10 +41,6 @@ fcppt::mpl::list::map<
 	>
 >;
 
-}
-}
-}
-}
 }
 
 #endif

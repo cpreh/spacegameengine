@@ -15,11 +15,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
@@ -40,8 +36,6 @@ find_object(
 	sge::parse::json::path const &
 );
 
-}
-}
 }
 
 #endif

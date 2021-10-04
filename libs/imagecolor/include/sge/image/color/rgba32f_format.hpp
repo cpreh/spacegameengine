@@ -12,11 +12,7 @@
 #include <mizuiro/color/layout/rgba.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 using
@@ -27,8 +23,6 @@ sge::image::homogenous_format<
 	mizuiro::color::layout::rgba
 >;
 
-}
-}
 }
 
 #endif

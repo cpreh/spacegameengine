@@ -8,11 +8,7 @@
 #define SGE_IMAGE_VIEW_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class object;
 
-}
-}
 }
 
 #endif

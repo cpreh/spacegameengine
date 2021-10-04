@@ -20,11 +20,7 @@
 #include <sge/image3d/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace view
+namespace sge::image3d::view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
@@ -36,8 +32,6 @@ make(
 	sge::image3d::pitch const &
 );
 
-}
-}
 }
 
 SGE_IMAGE_VIEW_DECLARE_MAKE(

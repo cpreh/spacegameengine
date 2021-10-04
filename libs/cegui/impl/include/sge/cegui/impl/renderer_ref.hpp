@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::cegui::impl::renderer
 >;
 
-}
-}
 }
 
 #endif

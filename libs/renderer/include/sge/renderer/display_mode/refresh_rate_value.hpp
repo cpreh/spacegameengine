@@ -8,11 +8,7 @@
 #define SGE_RENDERER_DISPLAY_MODE_REFRESH_RATE_VALUE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 using
@@ -20,8 +16,6 @@ refresh_rate_value
 =
 unsigned;
 
-}
-}
 }
 
 #endif

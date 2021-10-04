@@ -10,11 +10,7 @@
 #include <sge/sdlinput/joypad/hat_direction_fwd.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 enum class hat_direction
@@ -23,8 +19,6 @@ enum class hat_direction
 	y
 };
 
-}
-}
 }
 
 #endif

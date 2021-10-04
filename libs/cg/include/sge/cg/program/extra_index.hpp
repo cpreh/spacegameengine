@@ -11,11 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -23,8 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	extra_index
 );
 
-}
-}
 }
 
 #endif

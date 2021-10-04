@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::cegui::syringe
 >;
 
-}
 }
 
 #endif

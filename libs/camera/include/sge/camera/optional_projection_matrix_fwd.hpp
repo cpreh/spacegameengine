@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace camera
+namespace sge::camera
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::camera::projection_matrix
 >;
 
-}
 }
 
 #endif

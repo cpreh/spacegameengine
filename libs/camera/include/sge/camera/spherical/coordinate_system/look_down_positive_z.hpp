@@ -12,13 +12,7 @@
 #include <sge/camera/spherical/coordinate_system/radius.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
-{
-namespace coordinate_system
+namespace sge::camera::spherical::coordinate_system
 {
 
 SGE_CAMERA_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ look_down_positive_z(
 	sge::camera::spherical::coordinate_system::radius const &
 );
 
-}
-}
-}
 }
 
 #endif

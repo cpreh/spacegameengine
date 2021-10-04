@@ -11,13 +11,7 @@
 #include <fcppt/variant/from_list_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace any
+namespace sge::renderer::index::any
 {
 
 template<
@@ -32,9 +26,6 @@ fcppt::variant::from_list<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

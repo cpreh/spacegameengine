@@ -8,17 +8,11 @@
 #define SGE_WLINPUT_FOCUS_KEYMAP_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 class keymap;
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace style
+namespace sge::gui::style
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::gui::style::base const
 >;
 
-}
-}
 }
 
 #endif

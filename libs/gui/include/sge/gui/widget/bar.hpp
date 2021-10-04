@@ -23,11 +23,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class bar
@@ -80,8 +76,6 @@ private:
 	sge::rucksack::widget::dummy layout_;
 };
 
-}
-}
 }
 
 #endif

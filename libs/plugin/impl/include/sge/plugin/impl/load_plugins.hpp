@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
+namespace sge::plugin::impl
 {
 
 sge::plugin::detail::context_base_vector
@@ -29,8 +25,6 @@ load_plugins(
 	sge::plugin::optional_cache_ref const &
 );
 
-}
-}
 }
 
 #endif

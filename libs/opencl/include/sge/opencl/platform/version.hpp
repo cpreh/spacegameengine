@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace platform
+namespace sge::opencl::platform
 {
 
 class version
@@ -54,8 +50,6 @@ private:
 	std::string platform_specific_;
 };
 
-}
-}
 }
 
 #endif

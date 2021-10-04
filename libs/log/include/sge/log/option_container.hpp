@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace log
+namespace sge::log
 {
 
 using
@@ -25,7 +23,6 @@ std::vector<
 	sge::log::option
 >;
 
-}
 }
 
 #endif

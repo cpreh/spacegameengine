@@ -7,17 +7,11 @@
 #ifndef SGE_OPENGL_GLX_CONTEXT_FWD_HPP_INCLUDED
 #define SGE_OPENGL_GLX_CONTEXT_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 class context;
 
-}
-}
 }
 
 #endif

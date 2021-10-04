@@ -11,13 +11,7 @@
 #include <sge/renderer/index/any/basic_view_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace any
+namespace sge::renderer::index::any
 {
 
 using
@@ -27,9 +21,6 @@ sge::renderer::index::any::basic_view<
 	sge::renderer::index::nonconst_tag
 >;
 
-}
-}
-}
 }
 
 #endif

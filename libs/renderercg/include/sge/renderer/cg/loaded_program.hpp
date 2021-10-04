@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace cg
+namespace sge::renderer::cg
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL loaded_program
@@ -34,8 +30,6 @@ public:
 	~loaded_program();
 };
 
-}
-}
 }
 
 #endif

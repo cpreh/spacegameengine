@@ -8,9 +8,7 @@
 #define SGE_MEDIA_RAW_VALUE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 using
@@ -18,7 +16,6 @@ raw_value
 =
 unsigned char;
 
-}
 }
 
 #endif

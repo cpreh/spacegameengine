@@ -8,26 +8,11 @@
 #define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONFIG_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::opengl::state::core::sampler::filter
 {
 
 class anisotropy_config;
 
-}
-}
-}
-}
-}
 }
 
 #endif

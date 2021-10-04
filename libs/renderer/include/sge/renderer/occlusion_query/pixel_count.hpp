@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace occlusion_query
+namespace sge::renderer::occlusion_query
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,8 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	pixel_count
 );
 
-}
-}
 }
 
 #endif

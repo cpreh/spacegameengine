@@ -11,11 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -23,8 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	is_native
 );
 
-}
-}
 }
 
 #endif

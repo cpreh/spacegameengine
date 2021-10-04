@@ -8,11 +8,7 @@
 #define SGE_SYSTEMS_IMPL_PLUGIN_PAIR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class plugin_pair;
 
-}
-}
 }
 
 #endif

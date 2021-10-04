@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace impl
-{
-namespace parameter
+namespace sge::cg::impl::parameter
 {
 
 CGtype
@@ -27,9 +21,6 @@ convert_element_type(
 	sge::cg::parameter::element_type
 );
 
-}
-}
-}
 }
 
 #endif

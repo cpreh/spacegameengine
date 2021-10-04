@@ -12,13 +12,7 @@
 #include <mizuiro/choose_const.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace view
+namespace sge::image::impl::view
 {
 
 template<
@@ -38,9 +32,6 @@ mizuiro::choose_const<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

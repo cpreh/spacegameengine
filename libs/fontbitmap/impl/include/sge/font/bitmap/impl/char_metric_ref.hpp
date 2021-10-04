@@ -11,13 +11,7 @@
 #include <fcppt/reference.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 using
@@ -27,9 +21,6 @@ fcppt::reference<
 	sge::font::bitmap::impl::char_metric const
 >;
 
-}
-}
-}
 }
 
 #endif

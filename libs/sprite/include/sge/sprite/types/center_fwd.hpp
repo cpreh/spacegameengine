@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
+namespace sge::sprite::types
 {
 
 template<
@@ -31,8 +27,6 @@ fcppt::strong_typedef<
 	sge::sprite::types::detail::center_tag
 >;
 
-}
-}
 }
 
 #endif

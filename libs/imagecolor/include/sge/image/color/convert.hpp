@@ -13,11 +13,7 @@
 #include <fcppt/tag.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 template<
@@ -48,8 +44,6 @@ convert(
 		);
 }
 
-}
-}
 }
 
 #endif

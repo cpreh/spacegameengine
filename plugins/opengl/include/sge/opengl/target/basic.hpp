@@ -18,11 +18,7 @@
 #include <fcppt/math/box/object_decl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 template<
@@ -109,8 +105,6 @@ private:
 	sge::renderer::target::scissor_area scissor_area_;
 };
 
-}
-}
 }
 
 #endif

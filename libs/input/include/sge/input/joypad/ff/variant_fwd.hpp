@@ -14,13 +14,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 using
@@ -33,9 +27,6 @@ fcppt::variant::object<
 	sge::input::joypad::ff::condition
 >;
 
-}
-}
-}
 }
 
 #endif

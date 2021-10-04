@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_CORE_BLEND_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 class object;
 
-}
-}
-}
-}
 }
 
 #endif

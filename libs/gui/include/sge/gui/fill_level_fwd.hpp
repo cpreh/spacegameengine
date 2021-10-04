@@ -10,9 +10,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -20,7 +18,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	fill_level
 );
 
-}
 }
 
 #endif

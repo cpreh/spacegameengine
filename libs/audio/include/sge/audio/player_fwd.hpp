@@ -7,14 +7,11 @@
 #ifndef SGE_AUDIO_PLAYER_FWD_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 class player;
 
-}
 }
 
 #endif

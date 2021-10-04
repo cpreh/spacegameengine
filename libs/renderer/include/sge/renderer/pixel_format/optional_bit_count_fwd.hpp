@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::renderer::pixel_format::bit_count
 >;
 
-}
-}
 }
 
 #endif

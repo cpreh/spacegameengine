@@ -15,13 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace detail
+namespace sge::parse::json::detail
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -55,9 +49,6 @@ std::true_type
 
 FCPPT_PP_POP_WARNING
 
-}
-}
-}
 }
 
 #endif

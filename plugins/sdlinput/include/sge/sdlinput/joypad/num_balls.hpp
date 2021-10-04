@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 sge::input::info::id
@@ -25,8 +21,6 @@ num_balls(
 	SDL_Joystick & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

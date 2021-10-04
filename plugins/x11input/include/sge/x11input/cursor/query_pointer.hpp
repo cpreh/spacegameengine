@@ -12,11 +12,7 @@
 #include <awl/backends/x11/window/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 sge::input::cursor::optional_position
@@ -25,8 +21,6 @@ query_pointer(
 	sge::x11input::device::id const &
 );
 
-}
-}
 }
 
 #endif

@@ -23,9 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace bvh
+namespace sge::bvh
 {
 namespace detail
 {
@@ -263,7 +261,6 @@ construct_median_cut(
 			_leaves.end()),
 		*std::next(
 			_tree.begin()));
-}
 }
 }
 

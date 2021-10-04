@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace focus
+namespace sge::input::focus
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
@@ -40,8 +36,6 @@ public:
 	window() const = 0;
 };
 
-}
-}
 }
 
 #endif

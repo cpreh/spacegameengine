@@ -8,20 +8,11 @@
 #define SGE_OPENGL_EGL_VISUAL_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-namespace visual
+namespace sge::opengl::egl::visual
 {
 
 class base;
 
-}
-}
-}
 }
 
 #endif

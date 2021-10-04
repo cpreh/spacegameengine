@@ -10,9 +10,7 @@
 #include <sge/systems/renderer_caps_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 template<
@@ -20,7 +18,6 @@ template<
 >
 struct with_renderer;
 
-}
 }
 
 #endif

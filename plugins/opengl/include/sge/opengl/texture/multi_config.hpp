@@ -13,11 +13,7 @@
 #include <sge/renderer/caps/texture_stages.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class multi_config
@@ -69,8 +65,6 @@ private:
 	sge::renderer::caps::texture_stages max_level_;
 };
 
-}
-}
 }
 
 #endif

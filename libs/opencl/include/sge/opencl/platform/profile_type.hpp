@@ -10,11 +10,7 @@
 #include <sge/opencl/platform/profile_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace platform
+namespace sge::opencl::platform
 {
 
 enum class profile_type
@@ -23,8 +19,6 @@ enum class profile_type
 	embedded
 };
 
-}
-}
 }
 
 #endif

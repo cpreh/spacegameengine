@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 class keymap
@@ -53,8 +49,6 @@ private:
 	xkb_keymap *keymap_;
 };
 
-}
-}
 }
 
 #endif

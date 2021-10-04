@@ -8,17 +8,11 @@
 #define SGE_OPENGL_FBO_TEXTURE_BINDING_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class texture_binding;
 
-}
-}
 }
 
 #endif

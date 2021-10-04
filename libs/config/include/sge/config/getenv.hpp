@@ -12,9 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace config
+namespace sge::config
 {
 
 SGE_CONFIG_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ getenv(
 	fcppt::string const &
 );
 
-}
 }
 
 #endif

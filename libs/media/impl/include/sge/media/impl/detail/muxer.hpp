@@ -26,11 +26,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace media
-{
-namespace detail
+namespace sge::media::detail
 {
 
 template<
@@ -156,8 +152,6 @@ private:
 	sge::media::extension_set const extensions_;
 };
 
-}
-}
 }
 
 #endif

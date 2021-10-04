@@ -11,11 +11,7 @@
 #include <fcppt/shared_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace keyboard
+namespace sge::input::keyboard
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::shared_ptr<
 	sge::input::keyboard::device
 >;
 
-}
-}
 }
 
 #endif

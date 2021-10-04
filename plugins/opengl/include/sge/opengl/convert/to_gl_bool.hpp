@@ -10,11 +10,7 @@
 #include <sge/opengl/common.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 GLboolean
@@ -22,8 +18,6 @@ to_gl_bool(
 	bool
 );
 
-}
-}
 }
 
 #endif

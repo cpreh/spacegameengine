@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class attribute_context
@@ -53,8 +49,6 @@ private:
 	sge::opengl::vf::optional_attribute_config const config_;
 };
 
-}
-}
 }
 
 #endif

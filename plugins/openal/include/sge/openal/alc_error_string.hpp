@@ -11,9 +11,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 fcppt::string
@@ -21,7 +19,6 @@ alc_error_string(
 	ALenum error
 );
 
-}
 }
 
 #endif

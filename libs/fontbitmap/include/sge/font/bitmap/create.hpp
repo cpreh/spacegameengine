@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
+namespace sge::font::bitmap
 {
 
 SGE_FONT_BITMAP_DETAIL_SYMBOL
@@ -31,8 +27,6 @@ create(
 	sge::image2d::system_ref
 );
 
-}
-}
 }
 
 #endif

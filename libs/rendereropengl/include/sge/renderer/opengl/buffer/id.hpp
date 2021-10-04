@@ -12,13 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::renderer::opengl::buffer
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -26,9 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	id
 );
 
-}
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <sge/charconv/detail/char_type.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 template<
@@ -27,7 +25,6 @@ sge::charconv::detail::char_type<
 	Encoding
 >::type;
 
-}
 }
 
 #endif

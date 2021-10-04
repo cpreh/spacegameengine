@@ -12,11 +12,7 @@
 #include <awl/backends/x11/display_ref.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::opengl::xrandr::version
@@ -25,8 +21,6 @@ get_version(
 	awl::backends::x11::display_ref
 );
 
-}
-}
 }
 
 #endif

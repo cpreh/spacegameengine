@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace profile
+namespace sge::opengl::cg::profile
 {
 
 CGGLenum
@@ -27,9 +21,6 @@ convert_shader_type(
 	sge::cg::profile::shader_type
 );
 
-}
-}
-}
 }
 
 #endif

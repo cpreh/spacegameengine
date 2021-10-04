@@ -8,19 +8,13 @@
 #define SGE_RENDERER_VF_NONCONST_TAG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 struct nonconst_tag
 {
 };
 
-}
-}
 }
 
 #endif

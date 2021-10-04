@@ -16,13 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 template<
@@ -75,9 +69,6 @@ struct point_size_extra<
 	fcppt::mpl::list::object<>;
 };
 
-}
-}
-}
 }
 
 #endif

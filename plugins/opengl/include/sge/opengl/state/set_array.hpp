@@ -13,11 +13,7 @@
 #include <sge/renderer/state/index_count.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
+namespace sge::opengl::state
 {
 
 template<
@@ -90,8 +86,6 @@ set_array(
 	);
 }
 
-}
-}
 }
 
 #endif

@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 using
@@ -29,9 +23,6 @@ std::vector<
 	sge::model::md3::impl::frame
 >;
 
-}
-}
-}
 }
 
 #endif

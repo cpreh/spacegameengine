@@ -11,17 +11,7 @@
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace depth
+namespace sge::opengl::state::core::depth_stencil::depth
 {
 
 sge::opengl::state::actor
@@ -29,11 +19,6 @@ write_enable(
 	sge::renderer::state::core::depth_stencil::depth::write_enable
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

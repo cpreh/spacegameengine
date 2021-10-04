@@ -11,13 +11,7 @@
 #include <fcppt/optional_string.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace relative_axis
+namespace sge::evdev::joypad::relative_axis
 {
 
 fcppt::optional_string
@@ -25,9 +19,6 @@ make_string(
 	sge::evdev::joypad::relative_axis::code
 );
 
-}
-}
-}
 }
 
 #endif

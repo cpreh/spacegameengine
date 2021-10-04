@@ -12,9 +12,7 @@
 #include <sge/graph/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace graph
+namespace sge::graph
 {
 
 class axis_constraint
@@ -40,7 +38,6 @@ private:
 	sge::graph::scalar max_;
 };
 
-}
 }
 
 #endif

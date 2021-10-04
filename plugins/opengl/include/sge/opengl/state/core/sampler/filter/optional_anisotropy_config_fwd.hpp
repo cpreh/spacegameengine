@@ -11,17 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::opengl::state::core::sampler::filter
 {
 
 using
@@ -31,11 +21,6 @@ fcppt::optional::object<
 	sge::opengl::state::core::sampler::filter::anisotropy_config
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

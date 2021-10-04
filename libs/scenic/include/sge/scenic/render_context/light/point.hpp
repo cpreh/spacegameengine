@@ -14,13 +14,7 @@
 #include <fcppt/math/vector/object_impl.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace light
+namespace sge::scenic::render_context::light
 {
 class point
 {
@@ -44,9 +38,6 @@ private:
 	sge::scenic::render_context::light::position position_;
 	sge::scenic::render_context::light::attenuation attenuation_;
 };
-}
-}
-}
 }
 
 #endif

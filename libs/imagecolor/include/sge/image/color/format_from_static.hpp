@@ -20,11 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 template<
@@ -37,8 +33,6 @@ sge::image::color::enable_if_has_format<
 >
 format_from_static();
 
-}
-}
 }
 
 #define SGE_IMAGE_COLOR_DETAIL_DECLARE_FORMAT_FROM_STATIC(\

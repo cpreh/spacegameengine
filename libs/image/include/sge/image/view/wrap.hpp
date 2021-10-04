@@ -10,11 +10,7 @@
 #include <sge/image/view/to_wrapped_type.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -36,8 +32,6 @@ wrap(
 		);
 }
 
-}
-}
 }
 
 #endif

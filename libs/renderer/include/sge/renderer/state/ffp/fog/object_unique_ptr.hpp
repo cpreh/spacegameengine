@@ -11,15 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::renderer::state::ffp::fog
 {
 
 using
@@ -29,10 +21,6 @@ fcppt::unique_ptr<
 	sge::renderer::state::ffp::fog::object
 >;
 
-}
-}
-}
-}
 }
 
 #endif

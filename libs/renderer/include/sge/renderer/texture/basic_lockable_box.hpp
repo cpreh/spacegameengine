@@ -18,11 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 template<
@@ -84,8 +80,6 @@ public:
 	) const = 0;
 };
 
-}
-}
 }
 
 #endif

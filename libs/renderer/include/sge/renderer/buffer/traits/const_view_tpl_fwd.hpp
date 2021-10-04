@@ -10,13 +10,7 @@
 #include <sge/image/view/const_object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace buffer
-{
-namespace traits
+namespace sge::renderer::buffer::traits
 {
 
 template<
@@ -32,9 +26,6 @@ struct const_view_tpl
 	>;
 };
 
-}
-}
-}
 }
 
 #endif

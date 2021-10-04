@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 template<
@@ -33,7 +31,6 @@ fun_ref_value_type
 typename
 Ref::type;
 
-}
 }
 
 #endif

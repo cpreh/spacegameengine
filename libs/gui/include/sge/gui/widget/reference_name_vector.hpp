@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::gui::widget::reference_name_pair
 >;
 
-}
-}
 }
 
 #endif

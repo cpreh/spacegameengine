@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 class context
@@ -53,8 +49,6 @@ private:
 	sge::opengl::target::optional_base_ref last_target_;
 };
 
-}
-}
 }
 
 #endif

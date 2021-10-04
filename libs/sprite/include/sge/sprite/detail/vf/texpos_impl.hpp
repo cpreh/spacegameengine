@@ -14,13 +14,7 @@
 #include <fcppt/mpl/lambda.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 template<
@@ -57,9 +51,6 @@ public:
 	>;
 };
 
-}
-}
-}
 }
 
 #endif

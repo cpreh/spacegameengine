@@ -8,13 +8,7 @@
 #define SGE_INPUT_JOYPAD_FF_SIGNED_VALUE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 using
@@ -22,9 +16,6 @@ signed_value
 =
 int;
 
-}
-}
-}
 }
 
 #endif

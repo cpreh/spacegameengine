@@ -11,25 +11,13 @@
 #include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
+namespace sge::renderer::state::ffp::lighting
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::ffp::lighting::parameters
 default_();
 
-}
-}
-}
-}
 }
 
 #endif

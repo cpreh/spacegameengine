@@ -8,20 +8,11 @@
 #define SGE_RENDERER_OPENGL_TEXTURE_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace opengl
-{
-namespace texture
+namespace sge::renderer::opengl::texture
 {
 
 class base;
 
-}
-}
-}
 }
 
 #endif

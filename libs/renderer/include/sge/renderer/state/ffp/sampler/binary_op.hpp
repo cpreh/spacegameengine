@@ -14,15 +14,7 @@
 #include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 class binary_op
@@ -57,10 +49,6 @@ private:
 	sge::renderer::state::ffp::sampler::arg2 arg2_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

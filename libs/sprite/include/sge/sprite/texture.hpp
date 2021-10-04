@@ -10,9 +10,7 @@
 #include <sge/sprite/detail/config/texture_ref.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 template<
@@ -25,7 +23,6 @@ sge::sprite::detail::config::texture_ref<
 	Choices
 >::type;
 
-}
 }
 
 #endif

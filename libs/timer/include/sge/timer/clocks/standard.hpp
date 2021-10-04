@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace timer
-{
-namespace clocks
+namespace sge::timer::clocks
 {
 
 using
@@ -29,8 +25,6 @@ std::conditional_t<
 	std::chrono::steady_clock
 >;
 
-}
-}
 }
 
 #endif

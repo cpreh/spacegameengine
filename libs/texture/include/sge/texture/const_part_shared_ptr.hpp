@@ -11,9 +11,7 @@
 #include <fcppt/shared_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::shared_ptr<
 	sge::texture::part const
 >;
 
-}
 }
 
 #endif

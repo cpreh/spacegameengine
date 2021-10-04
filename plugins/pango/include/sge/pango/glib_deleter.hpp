@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 struct glib_deleter
@@ -26,7 +24,6 @@ struct glib_deleter
 	);
 };
 
-}
 }
 
 #endif

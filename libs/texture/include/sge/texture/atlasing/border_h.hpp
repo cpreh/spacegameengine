@@ -14,11 +14,7 @@
 #include <sge/texture/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace texture
-{
-namespace atlasing
+namespace sge::texture::atlasing
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
@@ -30,8 +26,6 @@ border_h(
 	sge::image::algorithm::uninitialized
 );
 
-}
-}
 }
 
 #endif

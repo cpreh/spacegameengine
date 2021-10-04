@@ -12,9 +12,7 @@
 #include <sge/sprite/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 SGE_SPRITE_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ projection_matrix_fixed(
 	sge::sprite::projection_dim const &
 );
 
-}
 }
 
 #endif

@@ -14,15 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 class scoped
@@ -43,10 +35,6 @@ private:
 	sge::renderer::context::ffp_ref const context_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -21,11 +21,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 class object
@@ -73,8 +69,6 @@ private:
 	std::filesystem::path const path_;
 };
 
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 using
@@ -27,8 +23,6 @@ fcppt::variant::object<
 	sge::parse::json::object
 >;
 
-}
-}
 }
 
 #endif

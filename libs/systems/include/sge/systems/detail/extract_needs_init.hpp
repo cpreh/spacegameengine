@@ -8,11 +8,7 @@
 #define SGE_SYSTEMS_DETAIL_EXTRACT_NEEDS_INIT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 template<
@@ -24,8 +20,6 @@ extract_needs_init
 typename
 Type::needs_init;
 
-}
-}
 }
 
 #endif

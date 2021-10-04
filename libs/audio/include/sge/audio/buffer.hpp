@@ -16,9 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 /// Interface class for buffers (nonstreaming sound factories)
@@ -64,7 +62,6 @@ protected:
 	buffer();
 };
 
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/cast/to_unsigned.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 template<
@@ -31,8 +27,6 @@ to_gl_enum()
 		);
 }
 
-}
-}
 }
 
 #endif

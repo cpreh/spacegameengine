@@ -8,17 +8,11 @@
 #define SGE_SPRITE_STATE_WITH_RASTERIZER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 struct with_rasterizer;
 
-}
-}
 }
 
 #endif

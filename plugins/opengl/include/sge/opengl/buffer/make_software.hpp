@@ -14,11 +14,7 @@
 #include <fcppt/array/init.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 template<
@@ -44,8 +40,6 @@ make_software()
 		);
 }
 
-}
-}
 }
 
 #endif

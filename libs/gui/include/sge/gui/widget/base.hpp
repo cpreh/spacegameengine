@@ -23,11 +23,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class base
@@ -119,8 +115,6 @@ private:
 	bool enabled_;
 };
 
-}
-}
 }
 
 #endif

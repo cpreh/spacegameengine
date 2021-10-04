@@ -12,11 +12,7 @@
 #include <sge/renderer/texture/color_format_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ translate_srgb_emulation(
 	sge::renderer::texture::color_format const &
 );
 
-}
-}
 }
 
 #endif

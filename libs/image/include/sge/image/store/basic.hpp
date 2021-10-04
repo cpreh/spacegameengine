@@ -20,11 +20,7 @@
 #include <fcppt/no_init_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace store
+namespace sge::image::store
 {
 
 template<
@@ -197,8 +193,6 @@ private:
 	internal_type internal_;
 };
 
-}
-}
 }
 
 #endif

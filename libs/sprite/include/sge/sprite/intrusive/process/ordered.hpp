@@ -16,13 +16,7 @@
 #include <sge/sprite/state/vertex_options.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace process
+namespace sge::sprite::intrusive::process
 {
 
 template<
@@ -65,9 +59,6 @@ ordered(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

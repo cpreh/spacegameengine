@@ -12,9 +12,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL conversion_failed
@@ -54,7 +52,6 @@ public:
 	override;
 };
 
-}
 }
 
 #endif

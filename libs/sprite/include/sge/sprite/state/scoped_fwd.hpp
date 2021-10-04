@@ -8,11 +8,7 @@
 #define SGE_SPRITE_STATE_SCOPED_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class scoped;
 
-}
-}
 }
 
 #endif

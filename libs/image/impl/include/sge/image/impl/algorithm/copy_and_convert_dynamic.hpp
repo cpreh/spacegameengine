@@ -15,13 +15,7 @@
 #include <sge/image/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace algorithm
+namespace sge::image::impl::algorithm
 {
 
 template<
@@ -54,9 +48,6 @@ copy_and_convert_dynamic(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

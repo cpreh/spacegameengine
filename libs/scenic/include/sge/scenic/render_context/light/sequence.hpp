@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace light
+namespace sge::scenic::render_context::light
 {
 
 using
@@ -29,9 +23,6 @@ std::vector<
 	sge::scenic::render_context::light::object
 >;
 
-}
-}
-}
 }
 
 #endif

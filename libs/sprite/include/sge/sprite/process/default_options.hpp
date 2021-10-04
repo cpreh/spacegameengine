@@ -11,11 +11,7 @@
 #include <sge/sprite/process/options.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace process
+namespace sge::sprite::process
 {
 
 template<
@@ -31,8 +27,6 @@ sge::sprite::process::options<
 	>::value
 >;
 
-}
-}
 }
 
 #endif

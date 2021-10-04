@@ -7,15 +7,9 @@
 #ifndef SGE_AUDIO_DIRECTION_OBJECT_FWD_HPP_INCLUDED
 #define SGE_AUDIO_DIRECTION_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace audio
-{
-namespace direction
+namespace sge::audio::direction
 {
 class object;
-}
-}
 }
 
 #endif

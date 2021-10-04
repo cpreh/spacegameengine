@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::wlinput::focus::keymap
 >;
 
-}
-}
 }
 
 #endif

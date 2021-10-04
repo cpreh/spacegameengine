@@ -12,11 +12,7 @@
 #include <awl/timer/setting.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ draw_timer_setting(
 	sge::renderer::display_mode::refresh_rate
 );
 
-}
-}
 }
 
 #endif

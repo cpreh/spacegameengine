@@ -10,18 +10,12 @@
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 sge::renderer::vf::dynamic::color_format_vector
 color_formats();
 
-}
-}
 }
 
 #endif

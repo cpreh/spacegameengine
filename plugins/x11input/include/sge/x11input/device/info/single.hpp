@@ -17,13 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace info
+namespace sge::x11input::device::info
 {
 
 class single
@@ -48,9 +42,6 @@ private:
 	sge::x11input::device::info::const_optional_ref const info_;
 };
 
-}
-}
-}
 }
 
 #endif

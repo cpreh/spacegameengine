@@ -10,11 +10,7 @@
 #include <sge/sprite/config/pos_option_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 enum class pos_option
@@ -24,8 +20,6 @@ enum class pos_option
 	pos_or_center
 };
 
-}
-}
 }
 
 #endif

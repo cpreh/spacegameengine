@@ -12,11 +12,7 @@
 #include <sge/opengl/texture/type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 void
@@ -26,8 +22,6 @@ bind_level(
 	sge::opengl::texture::optional_id const &
 );
 
-}
-}
 }
 
 #endif

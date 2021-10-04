@@ -10,9 +10,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 fcppt::string
@@ -20,7 +18,6 @@ error_string(
 	int
 );
 
-}
 }
 
 #endif

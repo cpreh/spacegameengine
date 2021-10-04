@@ -14,9 +14,7 @@
 #include <sge/renderer/vector3.hpp>
 
 
-namespace sge
-{
-namespace line_drawer
+namespace sge::line_drawer
 {
 
 class line
@@ -65,7 +63,6 @@ private:
 	sge::line_drawer::color end_color_;
 };
 
-}
 }
 
 #endif

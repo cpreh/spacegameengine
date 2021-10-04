@@ -13,13 +13,7 @@
 #include <sge/renderer/texture/mipmap/levels_rep_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::renderer::texture::mipmap
 {
 
 class levels_rep
@@ -45,9 +39,6 @@ private:
 	sge::renderer::texture::mipmap::auto_generate auto_generate_;
 };
 
-}
-}
-}
 }
 
 #endif

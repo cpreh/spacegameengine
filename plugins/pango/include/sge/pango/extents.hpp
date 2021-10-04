@@ -12,9 +12,7 @@
 #include <sge/pango/logical_rect.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 class extents
@@ -38,7 +36,6 @@ private:
 	sge::pango::logical_rect logical_rect_;
 };
 
-}
 }
 
 #endif

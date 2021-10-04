@@ -24,11 +24,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace detail
+namespace sge::projectile::detail
 {
 
 class debug_drawer_impl
@@ -141,8 +137,6 @@ private:
 	override;
 };
 
-}
-}
 }
 
 #endif

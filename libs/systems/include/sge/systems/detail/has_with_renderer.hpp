@@ -12,11 +12,7 @@
 #include <fcppt/mpl/list/any_of.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 template<
@@ -32,8 +28,6 @@ fcppt::mpl::list::any_of<
 	>
 >;
 
-}
-}
 }
 
 #endif

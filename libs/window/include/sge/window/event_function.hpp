@@ -11,9 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::function<
 	sge::window::event_function_type
 >;
 
-}
 }
 
 #endif

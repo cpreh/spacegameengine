@@ -18,9 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class file
@@ -66,7 +64,6 @@ private:
 	sge::libpng::file_rep const rep_;
 };
 
-}
 }
 
 #endif

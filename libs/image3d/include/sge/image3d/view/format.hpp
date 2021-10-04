@@ -17,11 +17,7 @@
 #include <sge/image3d/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace view
+namespace sge::image3d::view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
@@ -36,8 +32,6 @@ format(
 	sge::image3d::view::const_object const &
 );
 
-}
-}
 }
 
 SGE_IMAGE_VIEW_DECLARE_FORMAT(

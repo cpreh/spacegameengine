@@ -11,11 +11,7 @@
 #include <sge/renderer/opengl/buffer/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 using
@@ -23,8 +19,6 @@ id
 =
 sge::renderer::opengl::buffer::id;
 
-}
-}
 }
 
 #endif

@@ -28,11 +28,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace first_person
+namespace sge::camera::first_person
 {
 
 // NOLINTNEXTLINE(fuchsia-multiple-inheritance)
@@ -136,8 +132,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

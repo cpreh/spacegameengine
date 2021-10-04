@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -48,8 +44,6 @@ std::true_type
 {
 };
 
-}
-}
 }
 
 #endif

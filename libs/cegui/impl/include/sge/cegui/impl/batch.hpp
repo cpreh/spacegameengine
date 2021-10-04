@@ -18,11 +18,7 @@
 #include <fcppt/reference.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class batch
@@ -71,8 +67,6 @@ private:
 	sge::cegui::impl::clip clip_;
 };
 
-}
-}
 }
 
 #endif

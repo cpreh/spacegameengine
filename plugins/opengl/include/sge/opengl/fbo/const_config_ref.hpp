@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opengl::fbo::config const
 >;
 
-}
-}
 }
 
 #endif

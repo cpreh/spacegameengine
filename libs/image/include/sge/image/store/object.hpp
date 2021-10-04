@@ -23,11 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace store
+namespace sge::image::store
 {
 
 template<
@@ -141,8 +137,6 @@ private:
 	variant variant_;
 };
 
-}
-}
 }
 
 #endif

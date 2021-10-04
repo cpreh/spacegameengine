@@ -28,9 +28,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 class master
@@ -116,7 +114,6 @@ private:
 	sge::gui::main_area::reference const main_area_;
 };
 
-}
 }
 
 #endif

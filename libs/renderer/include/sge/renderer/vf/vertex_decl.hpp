@@ -14,11 +14,7 @@
 #include <fcppt/record/object_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -76,8 +72,6 @@ private:
 	record_type elements_;
 };
 
-}
-}
 }
 
 #endif

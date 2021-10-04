@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class system
@@ -43,8 +39,6 @@ private:
 	sge::opengl::xrandr::extension const extension_;
 };
 
-}
-}
 }
 
 #endif

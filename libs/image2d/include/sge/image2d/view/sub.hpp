@@ -16,11 +16,7 @@
 #include <sge/image2d/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace view
+namespace sge::image2d::view
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
@@ -37,8 +33,6 @@ sub(
 	sge::image2d::rect const &
 );
 
-}
-}
 }
 
 SGE_IMAGE_VIEW_DECLARE_SUB(

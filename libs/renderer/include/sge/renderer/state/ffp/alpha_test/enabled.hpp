@@ -13,15 +13,7 @@
 #include <sge/renderer/state/ffp/alpha_test/ref.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace alpha_test
+namespace sge::renderer::state::ffp::alpha_test
 {
 
 class enabled
@@ -48,10 +40,6 @@ private:
 	sge::renderer::state::ffp::alpha_test::ref ref_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

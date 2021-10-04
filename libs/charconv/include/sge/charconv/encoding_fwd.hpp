@@ -8,14 +8,11 @@
 #define SGE_CHARCONV_ENCODING_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 enum class encoding;
 
-}
 }
 
 #endif

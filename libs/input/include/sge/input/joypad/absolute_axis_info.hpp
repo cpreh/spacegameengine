@@ -15,11 +15,7 @@
 #include <fcppt/optional_string.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 class absolute_axis_info
@@ -62,8 +58,6 @@ private:
 	sge::input::joypad::axis_max max_;
 };
 
-}
-}
 }
 
 #endif

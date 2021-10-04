@@ -8,17 +8,11 @@
 #define SGE_INPUT_KEY_CODE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace key
+namespace sge::input::key
 {
 
 enum class code;
 
-}
-}
 }
 
 #endif

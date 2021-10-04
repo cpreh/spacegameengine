@@ -10,13 +10,7 @@
 #include <sge/sprite/types/basic/rect_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
-{
-namespace basic
+namespace sge::sprite::types::basic
 {
 
 template<
@@ -28,9 +22,6 @@ sge::sprite::types::basic::rect<
 	typename TypeChoices::unit_type
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace main_area
+namespace sge::gui::main_area
 {
 
 class base
@@ -39,8 +35,6 @@ public:
 	relayout() = 0;
 };
 
-}
-}
 }
 
 #endif

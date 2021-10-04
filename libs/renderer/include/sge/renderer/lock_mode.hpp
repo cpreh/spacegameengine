@@ -10,9 +10,7 @@
 #include <sge/renderer/lock_mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -40,7 +38,6 @@ enum class lock_mode
 	readwrite
 };
 
-}
 }
 
 #endif

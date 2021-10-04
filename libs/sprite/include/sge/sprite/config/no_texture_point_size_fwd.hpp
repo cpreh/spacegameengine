@@ -7,17 +7,11 @@
 #ifndef SGE_SPRITE_CONFIG_NO_TEXTURE_POINT_SIZE_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_NO_TEXTURE_POINT_SIZE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 struct no_texture_point_size;
 
-}
-}
 }
 
 #endif

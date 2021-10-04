@@ -8,17 +8,11 @@
 #define SGE_X11INPUT_KEYBOARD_DEVICE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace keyboard
+namespace sge::x11input::keyboard
 {
 
 class device;
 
-}
-}
 }
 
 #endif

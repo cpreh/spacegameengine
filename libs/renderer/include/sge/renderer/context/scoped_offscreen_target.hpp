@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace context
+namespace sge::renderer::context
 {
 
 class scoped_offscreen_target
@@ -39,8 +35,6 @@ private:
 	sge::renderer::context::core_ref const context_;
 };
 
-}
-}
 }
 
 #endif

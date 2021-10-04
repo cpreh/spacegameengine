@@ -15,13 +15,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
-{
-namespace library
+namespace sge::plugin::impl::library
 {
 
 template<
@@ -63,9 +57,6 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wcast-function-type)
 FCPPT_PP_POP_WARNING
 }
 
-}
-}
-}
 }
 
 #endif

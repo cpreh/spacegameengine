@@ -12,15 +12,12 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 ov_callbacks
 callbacks();
 
-}
 }
 
 #endif

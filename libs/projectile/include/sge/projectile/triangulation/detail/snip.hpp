@@ -12,13 +12,7 @@
 #include <sge/projectile/triangulation/traits/scalar.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace triangulation
-{
-namespace detail
+namespace sge::projectile::triangulation::detail
 {
 
 template<
@@ -188,9 +182,6 @@ snip(
 	return true;
 }
 
-}
-}
-}
 }
 
 #endif

@@ -19,11 +19,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 template<
@@ -88,8 +84,6 @@ private:
 	optional_buffers_object buffers_object_;
 };
 
-}
-}
 }
 
 #endif

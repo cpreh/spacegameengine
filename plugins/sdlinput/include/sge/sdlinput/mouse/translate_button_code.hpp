@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace mouse
+namespace sge::sdlinput::mouse
 {
 
 sge::input::mouse::button_code
@@ -25,8 +21,6 @@ translate_button_code(
 	std::uint8_t
 );
 
-}
-}
 }
 
 #endif

@@ -14,13 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 class wrapped
@@ -47,9 +41,6 @@ private:
 	mutable sge::window::object window_;
 };
 
-}
-}
-}
 }
 
 #endif

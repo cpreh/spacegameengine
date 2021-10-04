@@ -10,11 +10,7 @@
 #include <sge/openal/alc.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 [[nodiscard]]
@@ -23,8 +19,6 @@ alc_close_device(
 	ALCdevice & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

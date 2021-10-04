@@ -14,17 +14,11 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace program
+namespace sge::opencl::program
 {
 SGE_OPENCL_DETAIL_SYMBOL program::source_string_sequence
 file_to_source_string_sequence(
 	std::filesystem::path const &);
-}
-}
 }
 
 #endif

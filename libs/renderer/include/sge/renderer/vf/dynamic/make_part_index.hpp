@@ -13,13 +13,7 @@
 #include <fcppt/mpl/list/index_of.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 template<
@@ -41,9 +35,6 @@ make_part_index()
 		);
 }
 
-}
-}
-}
 }
 
 #endif

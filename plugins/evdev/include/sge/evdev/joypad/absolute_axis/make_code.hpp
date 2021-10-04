@@ -11,13 +11,7 @@
 #include <sge/input/joypad/axis_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace absolute_axis
+namespace sge::evdev::joypad::absolute_axis
 {
 
 sge::input::joypad::axis_code
@@ -25,9 +19,6 @@ make_code(
 	sge::evdev::joypad::absolute_axis::code
 );
 
-}
-}
-}
 }
 
 #endif

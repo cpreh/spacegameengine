@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace focus
+namespace sge::sdlinput::focus
 {
 
 class object
@@ -45,8 +41,6 @@ private:
 	sge::window::object_ref const window_;
 };
 
-}
-}
 }
 
 #endif

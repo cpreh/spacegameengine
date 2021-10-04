@@ -18,11 +18,7 @@
 #include <fcppt/cast/static_cast_fun.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 template<
@@ -60,8 +56,6 @@ make_hardware(
 		};
 }
 
-}
-}
 }
 
 #endif

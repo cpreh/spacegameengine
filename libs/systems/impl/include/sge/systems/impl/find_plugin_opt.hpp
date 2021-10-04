@@ -23,11 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 template<
@@ -123,8 +119,6 @@ find_plugin_opt(
 		);
 }
 
-}
-}
 }
 
 #endif

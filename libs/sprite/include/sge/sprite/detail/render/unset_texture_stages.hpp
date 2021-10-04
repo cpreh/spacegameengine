@@ -13,13 +13,7 @@
 #include <fcppt/make_ref.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace render
+namespace sge::sprite::detail::render
 {
 
 template<
@@ -41,9 +35,6 @@ unset_texture_stages(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

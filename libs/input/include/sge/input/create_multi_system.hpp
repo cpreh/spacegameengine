@@ -13,9 +13,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
+namespace sge::input
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -25,7 +23,6 @@ create_multi_system(
 	sge::input::plugin::collection const &
 );
 
-}
 }
 
 #endif

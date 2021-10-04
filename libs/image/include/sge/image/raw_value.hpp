@@ -10,9 +10,7 @@
 #include <mizuiro/raw_value.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 using
@@ -20,7 +18,6 @@ raw_value
 =
 mizuiro::raw_value;
 
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/io/ostream_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace algorithm
+namespace sge::image::algorithm
 {
 
 template<
@@ -31,8 +27,6 @@ print(
 	> const &
 );
 
-}
-}
 }
 
 #endif

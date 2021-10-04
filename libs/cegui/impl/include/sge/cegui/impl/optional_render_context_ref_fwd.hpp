@@ -11,11 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::reference<
 	sge::renderer::context::ffp
 >;
 
-}
-}
 }
 
 #endif

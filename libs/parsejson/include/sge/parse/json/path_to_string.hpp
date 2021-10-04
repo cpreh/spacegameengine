@@ -12,11 +12,7 @@
 #include <sge/parse/json/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ path_to_string(
 	sge::parse::json::path const &
 );
 
-}
-}
 }
 
 #endif

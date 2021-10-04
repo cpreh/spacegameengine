@@ -12,17 +12,7 @@
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::opengl::state::core::sampler::filter
 {
 
 sge::opengl::state::core::sampler::actor_vector
@@ -31,11 +21,6 @@ anisotropic(
 	sge::renderer::state::core::sampler::filter::anisotropic::parameters const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

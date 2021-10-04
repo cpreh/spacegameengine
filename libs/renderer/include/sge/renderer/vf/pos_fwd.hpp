@@ -10,11 +10,7 @@
 #include <sge/renderer/vf/element_count_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -23,8 +19,6 @@ template<
 >
 struct pos;
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace xim
+namespace sge::x11input::xim
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::x11input::xim::method
 >;
 
-}
-}
 }
 
 #endif

@@ -10,9 +10,7 @@
 #include <awl/backends/x11/display_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
+namespace sge::x11input
 {
 
 [[nodiscard]]
@@ -23,7 +21,6 @@ xi_version(
 	int minor
 );
 
-}
 }
 
 #endif

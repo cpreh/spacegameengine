@@ -21,11 +21,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 class object
@@ -78,8 +74,6 @@ private:
 	CGprogram const program_; // NOLINT(misc-misplaced-const)
 };
 
-}
-}
 }
 
 #endif

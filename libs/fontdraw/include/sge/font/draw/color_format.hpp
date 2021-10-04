@@ -12,11 +12,7 @@
 #include <sge/image/color/optional_format_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace draw
+namespace sge::font::draw
 {
 
 SGE_FONT_DRAW_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ color_format(
 	sge::image::color::optional_format const &
 );
 
-}
-}
 }
 
 #endif

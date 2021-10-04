@@ -11,13 +11,7 @@
 #include <sge/plugin/library/function_base.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
-{
-namespace library
+namespace sge::plugin::impl::library
 {
 
 template<
@@ -37,9 +31,6 @@ from_function_base_unsafe(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

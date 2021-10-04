@@ -13,11 +13,7 @@
 #include <sge/opengl/texture/volume_config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class volume_config
@@ -69,8 +65,6 @@ private:
 	GLenum max_extent_flag_;
 };
 
-}
-}
 }
 
 #endif

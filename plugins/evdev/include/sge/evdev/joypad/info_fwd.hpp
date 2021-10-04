@@ -8,17 +8,11 @@
 #define SGE_EVDEV_JOYPAD_INFO_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 class info;
 
-}
-}
 }
 
 #endif

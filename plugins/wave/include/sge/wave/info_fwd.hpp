@@ -8,14 +8,11 @@
 #define SGE_WAVE_INFO_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace wave
+namespace sge::wave
 {
 
 class info;
 
-}
 }
 
 #endif

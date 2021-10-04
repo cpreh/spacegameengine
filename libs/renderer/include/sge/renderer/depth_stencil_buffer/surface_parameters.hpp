@@ -13,11 +13,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace depth_stencil_buffer
+namespace sge::renderer::depth_stencil_buffer
 {
 
 class surface_parameters
@@ -44,8 +40,6 @@ private:
 	sge::image::ds::format format_;
 };
 
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/renderer/matrix4.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 sge::renderer::matrix4
@@ -22,8 +18,6 @@ projection(
 	sge::renderer::matrix4 const &
 );
 
-}
-}
 }
 
 #endif

@@ -17,11 +17,7 @@
 #include <fcppt/variant/to_optional.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 template<
@@ -59,9 +55,6 @@ unpack_if_present(
 			);
 		}
 	);
-}
-}
-
 }
 }
 

@@ -14,9 +14,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class log_settings
@@ -48,7 +46,6 @@ private:
 	sge::systems::optional_log_context_ref log_context_;
 };
 
-}
 }
 
 #endif

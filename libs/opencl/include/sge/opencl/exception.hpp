@@ -14,9 +14,7 @@
 #include <fcppt/assert/information_fwd.hpp>
 
 
-namespace sge
-{
-namespace opencl
+namespace sge::opencl
 {
 
 /**
@@ -70,7 +68,6 @@ public:
 	override;
 };
 
-}
 }
 
 #endif

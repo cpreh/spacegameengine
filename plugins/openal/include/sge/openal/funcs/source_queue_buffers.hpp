@@ -11,11 +11,7 @@
 #include <sge/openal/source_id.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 void
@@ -25,8 +21,6 @@ source_queue_buffers(
 	ALsizei
 );
 
-}
-}
 }
 
 #endif

@@ -18,11 +18,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 template<
@@ -98,8 +94,6 @@ private:
 	buffer_lock const lock_;
 };
 
-}
-}
 }
 
 #endif

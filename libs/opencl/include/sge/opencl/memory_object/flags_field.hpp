@@ -11,11 +11,7 @@
 #include <fcppt/container/bitfield/object_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 
 // TODO(philipp): fwd header!
@@ -26,8 +22,6 @@ fcppt::container::bitfield::object<
 	sge::opencl::memory_object::flags
 >;
 
-}
-}
 }
 
 #endif

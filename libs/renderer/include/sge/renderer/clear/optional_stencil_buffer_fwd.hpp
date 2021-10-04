@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace clear
+namespace sge::renderer::clear
 {
 
 /**
@@ -30,8 +26,6 @@ fcppt::optional::object<
 	sge::renderer::clear::stencil_buffer_value
 >;
 
-}
-}
 }
 
 #endif

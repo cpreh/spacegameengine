@@ -14,11 +14,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
@@ -32,8 +28,6 @@ get_or_create_section(
 	sge::parse::ini::section_name const &
 );
 
-}
-}
 }
 
 #endif

@@ -10,9 +10,7 @@
 #include <sge/libpng/gamma.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 bool
@@ -21,7 +19,6 @@ compare_gamma(
 	sge::libpng::gamma
 );
 
-}
 }
 
 #endif

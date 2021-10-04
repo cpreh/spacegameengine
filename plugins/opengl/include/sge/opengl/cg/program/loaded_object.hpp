@@ -12,13 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace program
+namespace sge::opengl::cg::program
 {
 
 class loaded_object
@@ -46,9 +40,6 @@ private:
 	sge::cg::program::object_ref const program_;
 };
 
-}
-}
-}
 }
 
 #endif

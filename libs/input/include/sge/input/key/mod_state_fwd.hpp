@@ -11,11 +11,7 @@
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace key
+namespace sge::input::key
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::container::bitfield::object<
 	sge::input::key::modifier
 >;
 
-}
-}
 }
 
 #endif

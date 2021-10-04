@@ -8,14 +8,11 @@
 #define SGE_OPENGL_SRGB_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 class srgb_context;
 
-}
 }
 
 #endif

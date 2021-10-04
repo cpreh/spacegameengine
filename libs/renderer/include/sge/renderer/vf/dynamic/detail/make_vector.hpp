@@ -13,15 +13,7 @@
 #include <sge/renderer/vf/dynamic/detail/format_to_element.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
-{
-namespace detail
+namespace sge::renderer::vf::dynamic::detail
 {
 
 template<
@@ -42,10 +34,6 @@ make_vector()
 		);
 }
 
-}
-}
-}
-}
 }
 
 #endif

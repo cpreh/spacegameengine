@@ -11,11 +11,7 @@
 #include <sge/cegui/impl/fwds/vector2f_fwd.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 CEGUI::Vector2f
@@ -23,8 +19,6 @@ texel_scaling(
 	CEGUI::Sizef const &
 );
 
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::renderer::display_mode::optional_refresh_rate
@@ -25,8 +21,6 @@ refresh_rate_from_mode(
 	XRRModeInfo const &
 );
 
-}
-}
 }
 
 #endif

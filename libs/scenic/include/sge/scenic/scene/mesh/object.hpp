@@ -20,13 +20,7 @@
 #include <fcppt/math/box/object_impl.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
-{
-namespace mesh
+namespace sge::scenic::scene::mesh
 {
 
 class object
@@ -94,9 +88,6 @@ private:
 	);
 };
 
-}
-}
-}
 }
 
 #endif

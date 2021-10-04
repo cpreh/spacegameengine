@@ -14,11 +14,7 @@
 #include <sge/renderer/index/pointer.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 template<
@@ -57,8 +53,6 @@ private:
 	pointer data_;
 };
 
-}
-}
 }
 
 #endif

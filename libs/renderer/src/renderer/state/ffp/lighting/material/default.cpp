@@ -23,7 +23,7 @@ sge::renderer::state::ffp::lighting::material::parameters
 sge::renderer::state::ffp::lighting::material::default_()
 {
 	return
-		sge::renderer::state::ffp::lighting::material::parameters(
+		{
 			sge::renderer::state::ffp::lighting::diffuse_color(
 				sge::image::color::any::object(
 					sge::image::color::rgba8
@@ -71,5 +71,5 @@ sge::renderer::state::ffp::lighting::material::default_()
 			sge::renderer::state::ffp::lighting::material::shininess(
 				0.0F
 			)
-		);
+		};
 }

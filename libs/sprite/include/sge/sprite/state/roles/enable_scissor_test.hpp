@@ -10,22 +10,13 @@
 #include <fcppt/record/make_label.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
-{
-namespace roles
+namespace sge::sprite::state::roles
 {
 
 FCPPT_RECORD_MAKE_LABEL(
 	enable_scissor_test
 );
 
-}
-}
-}
 }
 
 #endif

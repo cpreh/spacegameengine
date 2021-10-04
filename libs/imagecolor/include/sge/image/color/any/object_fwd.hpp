@@ -11,13 +11,7 @@
 #include <sge/image/pixel/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace any
+namespace sge::image::color::any
 {
 
 using
@@ -27,9 +21,6 @@ sge::image::pixel::object<
 	sge::image::color::tag
 >;
 
-}
-}
-}
 }
 
 #endif

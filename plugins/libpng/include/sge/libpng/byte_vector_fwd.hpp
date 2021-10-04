@@ -11,9 +11,7 @@
 #include <fcppt/container/raw_vector/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::container::raw_vector::object<
 	png_byte
 >;
 
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace graph
-{
-namespace detail
+namespace sge::graph::detail
 {
 
 class draw_visitor
@@ -52,8 +48,6 @@ private:
 	> graph_;
 };
 
-}
-}
 }
 
 #endif

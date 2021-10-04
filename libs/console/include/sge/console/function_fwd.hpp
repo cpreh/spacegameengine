@@ -8,14 +8,11 @@
 #define SGE_CONSOLE_FUNCTION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 class function;
 
-}
 }
 
 #endif

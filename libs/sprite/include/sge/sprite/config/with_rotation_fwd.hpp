@@ -8,17 +8,11 @@
 #define SGE_SPRITE_CONFIG_WITH_ROTATION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 struct with_rotation;
 
-}
-}
 }
 
 #endif

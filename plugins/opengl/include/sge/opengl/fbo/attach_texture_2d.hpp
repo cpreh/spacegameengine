@@ -14,11 +14,7 @@
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 void
@@ -30,8 +26,6 @@ attach_texture_2d(
 	sge::renderer::texture::mipmap::level
 );
 
-}
-}
 }
 
 #endif

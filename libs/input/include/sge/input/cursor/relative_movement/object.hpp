@@ -15,13 +15,7 @@
 #include <fcppt/unique_ptr_decl.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
-{
-namespace relative_movement
+namespace sge::input::cursor::relative_movement
 {
 
 class object
@@ -49,9 +43,6 @@ private:
 	impl const impl_;
 };
 
-}
-}
-}
 }
 
 #endif

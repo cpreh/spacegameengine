@@ -19,9 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL system
@@ -54,7 +52,6 @@ public:
 	= 0;
 };
 
-}
 }
 
 #endif

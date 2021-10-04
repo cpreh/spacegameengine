@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace mouse
+namespace sge::x11input::mouse
 {
 
 fcppt::optional::object<
@@ -30,8 +26,6 @@ button(
 	sge::input::mouse::button_info_container const &
 );
 
-}
-}
 }
 
 #endif

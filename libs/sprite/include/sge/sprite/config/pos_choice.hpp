@@ -8,19 +8,13 @@
 #define SGE_SPRITE_CONFIG_POS_CHOICE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 struct pos_choice
 {
 };
 
-}
-}
 }
 
 #endif

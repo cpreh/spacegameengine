@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opengl::xrandr::screen_resources const
 >;
 
-}
-}
 }
 
 #endif

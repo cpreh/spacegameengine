@@ -12,15 +12,7 @@
 #include <sge/renderer/state/core/blend/alpha_enabled_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 sge::opengl::state::actor
@@ -29,10 +21,6 @@ alpha_enabled(
 	sge::renderer::state::core::blend::alpha_enabled const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

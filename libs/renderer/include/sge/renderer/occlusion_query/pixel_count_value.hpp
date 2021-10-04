@@ -10,11 +10,7 @@
 #include <sge/renderer/size_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace occlusion_query
+namespace sge::renderer::occlusion_query
 {
 
 using
@@ -22,8 +18,6 @@ pixel_count_value
 =
 sge::renderer::size_type;
 
-}
-}
 }
 
 #endif

@@ -11,13 +11,7 @@
 #include <sge/image/impl/format_pair.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
+namespace sge::image::color::impl
 {
 
 template<
@@ -33,9 +27,6 @@ sge::image::impl::format_pair<
 	Format
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/renderer/clear/stencil_buffer_value.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace clear
+namespace sge::opengl::clear
 {
 
 void
@@ -22,8 +18,6 @@ stencil_buffer(
 	sge::renderer::clear::stencil_buffer_value const &
 );
 
-}
-}
 }
 
 #endif

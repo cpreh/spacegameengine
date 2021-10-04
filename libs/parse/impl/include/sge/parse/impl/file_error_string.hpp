@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace impl
+namespace sge::parse::impl
 {
 
 SGE_PARSE_DETAIL_SYMBOL
@@ -40,8 +36,6 @@ file_error_string(
 	> &&
 );
 
-}
-}
 }
 
 #endif

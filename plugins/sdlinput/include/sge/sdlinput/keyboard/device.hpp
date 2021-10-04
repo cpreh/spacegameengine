@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace keyboard
+namespace sge::sdlinput::keyboard
 {
 
 class device
@@ -45,8 +41,6 @@ private:
 	sge::window::object_ref const window_;
 };
 
-}
-}
 }
 
 #endif

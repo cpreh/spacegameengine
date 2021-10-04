@@ -18,11 +18,7 @@
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace draw
+namespace sge::font::draw
 {
 
 SGE_FONT_DRAW_DETAIL_SYMBOL
@@ -38,8 +34,6 @@ simple(
 	sge::renderer::texture::emulate_srgb
 );
 
-}
-}
 }
 
 #endif

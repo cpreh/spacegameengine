@@ -19,11 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 class context
@@ -63,8 +59,6 @@ private:
 	GLXContext const context_; // NOLINT(misc-misplaced-const)
 };
 
-}
-}
 }
 
 #endif

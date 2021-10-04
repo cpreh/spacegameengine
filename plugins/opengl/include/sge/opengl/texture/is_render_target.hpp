@@ -11,11 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -23,8 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	is_render_target
 );
 
-}
-}
 }
 
 #endif

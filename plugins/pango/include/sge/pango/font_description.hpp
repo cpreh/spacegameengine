@@ -16,9 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 class font_description
@@ -56,7 +54,6 @@ private:
 	PangoFontDescription *const impl_;
 };
 
-}
 }
 
 #endif

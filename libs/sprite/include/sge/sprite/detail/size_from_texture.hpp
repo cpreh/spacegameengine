@@ -17,11 +17,7 @@
 #include <fcppt/record/get.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
+namespace sge::sprite::detail
 {
 
 template<
@@ -55,8 +51,6 @@ size_from_texture(
 		);
 }
 
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 class holder
@@ -41,8 +37,6 @@ private:
 	sge::opengl::occlusion_query::id const id_;
 };
 
-}
-}
 }
 
 #endif

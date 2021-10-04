@@ -12,13 +12,7 @@
 #include <sge/renderer/index/dynamic/format.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace dynamic
+namespace sge::renderer::index::dynamic
 {
 
 template<
@@ -48,9 +42,6 @@ struct format_element<
 	sge::renderer::index::i32;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_X11INPUT_XIM_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace xim
+namespace sge::x11input::xim
 {
 
 class context;
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 sge::renderer::state::core::rasterizer::parameters
@@ -23,8 +19,6 @@ make_rasterizer_parameters(
 	sge::renderer::state::core::rasterizer::enable_scissor_test
 );
 
-}
-}
 }
 
 #endif

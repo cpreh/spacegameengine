@@ -12,9 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -22,7 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	internal_color_format
 );
 
-}
 }
 
 #endif

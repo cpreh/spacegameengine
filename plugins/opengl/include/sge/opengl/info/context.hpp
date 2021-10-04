@@ -19,11 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace info
+namespace sge::opengl::info
 {
 
 class context
@@ -60,8 +56,6 @@ private:
 	sge::opengl::info::extension_set const extensions_;
 };
 
-}
-}
 }
 
 #endif

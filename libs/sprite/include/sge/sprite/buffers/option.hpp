@@ -10,11 +10,7 @@
 #include <sge/sprite/buffers/option_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 enum class option
@@ -23,8 +19,6 @@ enum class option
 	static_
 };
 
-}
-}
 }
 
 #endif

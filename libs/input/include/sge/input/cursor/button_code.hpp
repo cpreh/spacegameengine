@@ -10,11 +10,7 @@
 #include <sge/input/cursor/button_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
+namespace sge::input::cursor
 {
 
 enum class button_code
@@ -25,8 +21,6 @@ enum class button_code
 	unknown
 };
 
-}
-}
 }
 
 #endif

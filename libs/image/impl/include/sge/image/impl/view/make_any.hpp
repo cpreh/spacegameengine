@@ -25,13 +25,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace view
+namespace sge::image::impl::view
 {
 
 template<
@@ -116,9 +110,6 @@ make_any(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

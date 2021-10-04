@@ -19,11 +19,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 class onscreen
@@ -87,8 +83,6 @@ private:
 	color_surface_unique_ptr const main_surface_;
 };
 
-}
-}
 }
 
 #endif

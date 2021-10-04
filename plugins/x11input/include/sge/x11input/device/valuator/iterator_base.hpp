@@ -17,13 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace valuator
+namespace sge::x11input::device::valuator
 {
 
 using
@@ -39,9 +33,6 @@ fcppt::iterator::base<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

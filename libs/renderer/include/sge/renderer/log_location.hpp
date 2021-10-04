@@ -11,9 +11,7 @@
 #include <fcppt/log/location.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -25,7 +23,6 @@ SGE_RENDERER_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 
-}
 }
 
 #endif

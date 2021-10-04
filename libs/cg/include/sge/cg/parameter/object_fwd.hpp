@@ -8,17 +8,11 @@
 #define SGE_CG_PARAMETER_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
+namespace sge::cg::parameter
 {
 
 class object;
 
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <sge/renderer/matrix4.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace matrix_conversion
+namespace sge::camera::matrix_conversion
 {
 
 SGE_CAMERA_DETAIL_SYMBOL
@@ -27,8 +23,6 @@ world_projection(
 	sge::camera::projection_matrix const &
 );
 
-}
-}
 }
 
 #endif

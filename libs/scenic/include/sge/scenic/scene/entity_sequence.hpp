@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::scenic::scene::entity
 >;
 
-}
-}
 }
 
 #endif

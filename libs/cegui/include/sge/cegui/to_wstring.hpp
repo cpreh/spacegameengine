@@ -18,9 +18,7 @@ namespace CEGUI
 class String;
 }
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 SGE_CEGUI_DETAIL_SYMBOL
@@ -29,7 +27,6 @@ to_wstring(
 	CEGUI::String const &
 );
 
-}
 }
 
 #endif

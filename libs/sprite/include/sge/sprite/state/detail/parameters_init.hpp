@@ -11,13 +11,7 @@
 #include <fcppt/record/element.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
-{
-namespace detail
+namespace sge::sprite::state::detail
 {
 
 struct parameters_init
@@ -45,9 +39,6 @@ struct parameters_init
 	}
 };
 
-}
-}
-}
 }
 
 #endif

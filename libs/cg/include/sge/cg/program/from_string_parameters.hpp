@@ -18,11 +18,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 class from_string_parameters
@@ -79,8 +75,6 @@ private:
 	sge::cg::program::compile_options compile_options_;
 };
 
-}
-}
 }
 
 #endif

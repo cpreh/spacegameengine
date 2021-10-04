@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace sdl
+namespace sge::opengl::sdl
 {
 
 class visual
@@ -43,8 +39,6 @@ private:
 	sge::renderer::pixel_format::object const pixel_format_;
 };
 
-}
-}
 }
 
 #endif

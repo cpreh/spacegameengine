@@ -19,9 +19,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace line_drawer
+namespace sge::line_drawer
 {
 
 class object
@@ -71,7 +69,6 @@ private:
 	unlock();
 };
 
-}
 }
 
 #endif

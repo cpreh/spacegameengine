@@ -11,13 +11,7 @@
 #include <sge/model/md3/impl/vec3.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 sge::model::md3::impl::vec3
@@ -25,9 +19,6 @@ convert_normal(
 	sge::model::md3::impl::s16
 );
 
-}
-}
-}
 }
 
 #endif

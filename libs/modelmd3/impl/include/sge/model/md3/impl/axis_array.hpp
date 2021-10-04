@@ -11,13 +11,7 @@
 #include <fcppt/array/object_impl.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 using
@@ -28,9 +22,6 @@ fcppt::array::object<
 	3
 >;
 
-}
-}
-}
 }
 
 #endif

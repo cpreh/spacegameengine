@@ -16,11 +16,7 @@
 #include <fcppt/math/vector/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace shader
-{
-namespace parameter
+namespace sge::shader::parameter
 {
 
 template<
@@ -65,8 +61,6 @@ private:
 	sge::cg::parameter::named const parameter_;
 };
 
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace buffer
-{
-namespace traits
+namespace sge::renderer::buffer::traits
 {
 
 template<>
@@ -32,9 +26,6 @@ struct const_view_tpl<
 	sge::renderer::vf::dynamic::const_view;
 };
 
-}
-}
-}
 }
 
 #endif

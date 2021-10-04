@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace shader
-{
-namespace parameter
+namespace sge::shader::parameter
 {
 
 template<
@@ -67,8 +63,6 @@ private:
 	sge::cg::parameter::named const parameter_;
 };
 
-}
-}
 }
 
 #endif

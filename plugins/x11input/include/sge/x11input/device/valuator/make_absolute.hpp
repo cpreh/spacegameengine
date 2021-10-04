@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace valuator
+namespace sge::x11input::device::valuator
 {
 
 sge::x11input::device::valuator::absolute
@@ -27,9 +21,6 @@ make_absolute(
 	XIValuatorClassInfo const &
 );
 
-}
-}
-}
 }
 
 #endif

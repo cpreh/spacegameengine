@@ -13,15 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
@@ -38,10 +30,6 @@ public:
 	~object();
 };
 
-}
-}
-}
-}
 }
 
 #endif

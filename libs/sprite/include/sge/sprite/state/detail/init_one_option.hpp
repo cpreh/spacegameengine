@@ -14,13 +14,7 @@
 #include <fcppt/record/element.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
-{
-namespace detail
+namespace sge::sprite::state::detail
 {
 
 template<
@@ -69,9 +63,6 @@ FCPPT_PP_POP_WARNING
 	}
 };
 
-}
-}
-}
 }
 
 #endif

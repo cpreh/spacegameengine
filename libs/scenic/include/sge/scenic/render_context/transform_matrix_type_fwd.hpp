@@ -8,17 +8,11 @@
 #define SGE_SCENIC_RENDER_CONTEXT_TRANSFORM_MATRIX_TYPE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
+namespace sge::scenic::render_context
 {
 
 enum class transform_matrix_type;
 
-}
-}
 }
 
 #endif

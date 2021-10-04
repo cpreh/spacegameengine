@@ -12,11 +12,7 @@
 #include <sge/parse/ini/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 struct start
@@ -37,8 +33,6 @@ operator==(
 	sge::parse::ini::start const &
 );
 
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace graph
+namespace sge::graph
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::graph::axis_constraint
 >;
 
-}
 }
 
 #endif

@@ -15,13 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace detail
+namespace sge::cg::parameter::detail
 {
 
 template<
@@ -33,9 +27,6 @@ check_base_type(
 	sge::cg::parameter::object const &
 );
 
-}
-}
-}
 }
 
 #define SGE_CG_PARAMETER_DETAIL_DECLARE_CHECK_BASE_TYPE(\

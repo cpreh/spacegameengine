@@ -11,13 +11,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
+namespace sge::opengl::state::ffp
 {
 
 void
@@ -26,9 +20,6 @@ set_defaults(
 	sge::opengl::context::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
-}
 }
 
 #endif

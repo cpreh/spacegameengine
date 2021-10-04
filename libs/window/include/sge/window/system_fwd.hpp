@@ -8,14 +8,11 @@
 #define SGE_WINDOW_SYSTEM_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 class system;
 
-}
 }
 
 #endif

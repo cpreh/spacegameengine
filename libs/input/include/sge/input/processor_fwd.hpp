@@ -8,14 +8,11 @@
 #define SGE_INPUT_PROCESSOR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
+namespace sge::input
 {
 
 class processor;
 
-}
 }
 
 #endif

@@ -8,20 +8,11 @@
 #define SGE_IMAGE_DS_CHANNEL_STENCIL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
-{
-namespace channel
+namespace sge::image::ds::channel
 {
 
 struct stencil;
 
-}
-}
-}
 }
 
 #endif

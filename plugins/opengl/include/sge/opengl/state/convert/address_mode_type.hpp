@@ -13,13 +13,7 @@
 #include <sge/renderer/state/core/sampler/address/mode_u.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 template<
@@ -57,9 +51,6 @@ struct address_mode_type<
 	get();
 };
 
-}
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::audio::file_unique_ptr
 >;
 
-}
 }
 
 #endif

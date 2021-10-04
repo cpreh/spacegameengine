@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
-{
-namespace output
+namespace sge::parse::ini::output
 {
 
 [[nodiscard]]
@@ -31,9 +25,6 @@ to_file(
 	sge::parse::ini::start const &
 );
 
-}
-}
-}
 }
 
 #endif

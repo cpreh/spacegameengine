@@ -10,9 +10,7 @@
 #include <sge/renderer/primitive_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -65,7 +63,6 @@ enum class primitive_type
 	triangle_fan
 };
 
-}
 }
 
 #endif

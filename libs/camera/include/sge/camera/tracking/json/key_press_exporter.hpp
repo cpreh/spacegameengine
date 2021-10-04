@@ -24,13 +24,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace tracking
-{
-namespace json
+namespace sge::camera::tracking::json
 {
 
 class key_press_exporter
@@ -88,9 +82,6 @@ private:
 	);
 };
 
-}
-}
-}
 }
 
 #endif

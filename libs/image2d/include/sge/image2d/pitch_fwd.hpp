@@ -10,9 +10,7 @@
 #include <sge/image/basic_pitch_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 using
@@ -22,7 +20,6 @@ sge::image::basic_pitch<
 	2
 >;
 
-}
 }
 
 #endif

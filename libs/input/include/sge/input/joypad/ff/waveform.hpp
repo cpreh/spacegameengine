@@ -10,13 +10,7 @@
 #include <sge/input/joypad/ff/waveform_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 enum class waveform
@@ -28,9 +22,6 @@ enum class waveform
 	saw_down
 };
 
-}
-}
-}
 }
 
 #endif

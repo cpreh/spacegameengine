@@ -8,11 +8,7 @@
 #define SGE_RENDERER_PIXEL_FORMAT_MULTI_SAMPLES_VALUE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 using
@@ -20,8 +16,6 @@ multi_samples_value
 =
 unsigned;
 
-}
-}
 }
 
 #endif

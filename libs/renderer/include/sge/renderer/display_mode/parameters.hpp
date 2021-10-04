@@ -14,11 +14,7 @@
 #include <sge/renderer/display_mode/vsync.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 /**
@@ -57,8 +53,6 @@ private:
 	sge::renderer::display_mode::optional_fullscreen fullscreen_;
 };
 
-}
-}
 }
 
 #endif

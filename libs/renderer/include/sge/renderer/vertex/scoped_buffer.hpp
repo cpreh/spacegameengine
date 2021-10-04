@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 /**
@@ -66,8 +62,6 @@ private:
 	sge::renderer::vertex::const_buffer_ref const vertex_buffer_;
 };
 
-}
-}
 }
 
 #endif

@@ -15,13 +15,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace renderer
+namespace sge::systems::impl::renderer
 {
 
 sge::systems::impl::renderer::plugin_core_pair
@@ -33,9 +27,6 @@ find_plugin(
 	sge::systems::renderer_caps
 );
 
-}
-}
-}
 }
 
 #endif

@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace bresenham
-{
-namespace detail
+namespace sge::bresenham::detail
 {
 
 template<
@@ -257,8 +253,6 @@ impl(
 		true;
 }
 
-}
-}
 }
 
 #endif

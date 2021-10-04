@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 class holder
@@ -41,8 +37,6 @@ private:
 	wl_keyboard *const impl_;
 };
 
-}
-}
 }
 
 #endif

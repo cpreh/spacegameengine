@@ -8,14 +8,11 @@
 #define SGE_OPENAL_DEVICE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class device;
 
-}
 }
 
 #endif

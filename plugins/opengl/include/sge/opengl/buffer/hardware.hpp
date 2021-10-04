@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 class hardware
@@ -116,8 +112,6 @@ private:
 	sge::opengl::buffer::optional_id bound_buffer_;
 };
 
-}
-}
 }
 
 #endif

@@ -8,11 +8,7 @@
 #define SGE_OPENCL_PROGRAM_NOTIFICATION_CALLBACK_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace program
+namespace sge::opencl::program
 {
 
 using
@@ -20,8 +16,6 @@ notification_callback_type
 =
 void ();
 
-}
-}
 }
 
 #endif

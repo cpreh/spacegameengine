@@ -12,18 +12,12 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 EGLContext
 no_context();
 
-}
-}
 }
 
 #endif

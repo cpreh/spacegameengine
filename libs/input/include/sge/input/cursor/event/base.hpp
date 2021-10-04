@@ -15,13 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
-{
-namespace event
+namespace sge::input::cursor::event
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
@@ -50,9 +44,6 @@ private:
 	sge::input::cursor::shared_ptr const cursor_;
 };
 
-}
-}
-}
 }
 
 #endif

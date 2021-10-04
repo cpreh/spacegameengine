@@ -13,9 +13,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -94,7 +92,6 @@ private:
 		possible_extensions_;
 };
 
-}
 }
 
 #endif

@@ -10,13 +10,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
-namespace visual
+namespace sge::opengl::glx::visual
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,9 +18,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	srgb_flag
 );
 
-}
-}
-}
 }
 
 #endif

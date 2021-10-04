@@ -10,15 +10,7 @@
 #include <sge/opengl/context/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::opengl::state::ffp::transform
 {
 
 void
@@ -26,10 +18,6 @@ set_defaults(
 	sge::opengl::context::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
-}
-}
 }
 
 #endif

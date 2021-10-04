@@ -8,20 +8,11 @@
 #define SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_EVENT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
-{
-namespace relative_movement
+namespace sge::input::cursor::relative_movement
 {
 
 class event;
 
-}
-}
-}
 }
 
 #endif

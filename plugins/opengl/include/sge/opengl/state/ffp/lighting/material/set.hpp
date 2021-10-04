@@ -11,17 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace material
+namespace sge::opengl::state::ffp::lighting::material
 {
 
 void
@@ -30,11 +20,6 @@ set(
 	sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

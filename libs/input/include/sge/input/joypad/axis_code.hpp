@@ -10,11 +10,7 @@
 #include <sge/input/joypad/axis_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 enum class axis_code
@@ -26,8 +22,6 @@ enum class axis_code
 	unknown
 };
 
-}
-}
 }
 
 #endif

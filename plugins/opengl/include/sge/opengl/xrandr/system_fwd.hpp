@@ -8,17 +8,11 @@
 #define SGE_OPENGL_XRANDR_SYSTEM_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class system;
 
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
+namespace sge::image::impl
 {
 
 template<
@@ -31,8 +27,6 @@ std::integral_constant<
 	DynamicValue
 >;
 
-}
-}
 }
 
 #endif

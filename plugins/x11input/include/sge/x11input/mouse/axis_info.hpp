@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace mouse
+namespace sge::x11input::mouse
 {
 
 sge::input::mouse::axis_info
@@ -27,8 +23,6 @@ axis_info(
 	awl::backends::x11::display & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

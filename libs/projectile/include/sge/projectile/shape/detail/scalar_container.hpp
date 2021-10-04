@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace shape
-{
-namespace detail
+namespace sge::projectile::shape::detail
 {
 
 using
@@ -29,9 +23,6 @@ std::vector<
 	sge::projectile::scalar
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -12,15 +12,7 @@
 #include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::opengl::state::core::sampler
 {
 
 sge::renderer::state::core::sampler::object_unique_ptr
@@ -29,10 +21,6 @@ create(
 	sge::renderer::state::core::sampler::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

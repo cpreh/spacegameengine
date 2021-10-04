@@ -10,18 +10,12 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace impl
+namespace sge::image2d::impl
 {
 
 fcppt::log::name
 log_name();
 
-}
-}
 }
 
 #endif

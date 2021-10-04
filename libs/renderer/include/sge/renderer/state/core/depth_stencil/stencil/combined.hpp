@@ -12,17 +12,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
 class combined
@@ -42,11 +32,6 @@ private:
 	sge::renderer::state::core::depth_stencil::stencil::desc desc_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

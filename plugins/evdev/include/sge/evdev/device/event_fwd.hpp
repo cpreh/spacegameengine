@@ -8,17 +8,11 @@
 #define SGE_EVDEV_DEVICE_EVENT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 class event;
 
-}
-}
 }
 
 #endif

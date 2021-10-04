@@ -7,14 +7,11 @@
 #ifndef SGE_IMAGE2D_SYSTEM_FWD_HPP_INCLUDED
 #define SGE_IMAGE2D_SYSTEM_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 class system;
 
-}
 }
 
 #endif

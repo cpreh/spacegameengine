@@ -8,14 +8,11 @@
 #define SGE_LIBPNG_FORMAT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 enum class format;
 
-}
 }
 
 #endif

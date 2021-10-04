@@ -10,9 +10,7 @@
 #include <sge/image/raw_value.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 using
@@ -20,7 +18,6 @@ raw_pointer
 =
 sge::image::raw_value *;
 
-}
 }
 
 #endif

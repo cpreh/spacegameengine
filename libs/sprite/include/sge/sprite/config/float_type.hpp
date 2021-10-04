@@ -10,11 +10,7 @@
 #include <sge/sprite/config/float_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -28,8 +24,6 @@ struct float_type
 	Type;
 };
 
-}
-}
 }
 
 #endif

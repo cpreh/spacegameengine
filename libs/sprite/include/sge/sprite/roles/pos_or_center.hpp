@@ -10,19 +10,13 @@
 #include <fcppt/record/make_label.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace roles
+namespace sge::sprite::roles
 {
 
 FCPPT_RECORD_MAKE_LABEL(
 	pos_or_center
 );
 
-}
-}
 }
 
 #endif

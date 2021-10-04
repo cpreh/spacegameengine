@@ -11,25 +11,13 @@
 #include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::renderer::state::ffp::fog
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::ffp::fog::parameters
 default_();
 
-}
-}
-}
-}
 }
 
 #endif

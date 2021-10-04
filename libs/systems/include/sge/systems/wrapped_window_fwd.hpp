@@ -8,14 +8,11 @@
 #define SGE_SYSTEMS_WRAPPED_WINDOW_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class wrapped_window;
 
-}
 }
 
 #endif

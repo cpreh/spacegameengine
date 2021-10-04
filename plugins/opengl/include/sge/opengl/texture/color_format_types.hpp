@@ -17,11 +17,7 @@
 #include <sge/renderer/texture/color_format_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct color_format_types
@@ -88,8 +84,6 @@ struct color_format_types
 	);
 };
 
-}
-}
 }
 
 #endif

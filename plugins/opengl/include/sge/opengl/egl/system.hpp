@@ -22,11 +22,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 class system
@@ -66,8 +62,6 @@ private:
 	sge::opengl::egl::init const init_;
 };
 
-}
-}
 }
 
 #endif

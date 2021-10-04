@@ -11,13 +11,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 template<
@@ -32,9 +26,6 @@ fcppt::mpl::list::object<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

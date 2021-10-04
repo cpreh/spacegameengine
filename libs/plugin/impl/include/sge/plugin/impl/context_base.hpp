@@ -20,9 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 class context_base
@@ -69,7 +67,6 @@ private:
 	library_weak_ptr library_ptr_;
 };
 
-}
 }
 
 #endif

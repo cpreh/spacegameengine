@@ -11,15 +11,7 @@
 #include <sge/renderer/state/core/rasterizer/fill_mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::opengl::state::core::rasterizer
 {
 
 sge::opengl::state::actor
@@ -27,10 +19,6 @@ fill_mode(
 	sge::renderer::state::core::rasterizer::fill_mode
 );
 
-}
-}
-}
-}
 }
 
 #endif

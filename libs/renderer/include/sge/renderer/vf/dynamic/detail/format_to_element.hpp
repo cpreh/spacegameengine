@@ -11,15 +11,7 @@
 #include <sge/renderer/vf/dynamic/detail/element_c.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
-{
-namespace detail
+namespace sge::renderer::vf::dynamic::detail
 {
 
 template<
@@ -84,10 +76,6 @@ SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT(
 
 #undef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_FORMAT_TO_ELEMENT
 
-}
-}
-}
-}
 }
 
 #endif

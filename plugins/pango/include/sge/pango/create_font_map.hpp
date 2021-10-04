@@ -11,9 +11,7 @@
 #include <sge/pango/pango_font_map_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 sge::pango::pango_font_map_unique_ptr
@@ -21,7 +19,6 @@ create_font_map(
 	sge::font::parameters const &
 );
 
-}
 }
 
 #endif

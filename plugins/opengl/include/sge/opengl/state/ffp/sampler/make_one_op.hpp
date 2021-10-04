@@ -14,15 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::opengl::state::ffp::sampler
 {
 
 template<
@@ -33,10 +25,6 @@ make_one_op(
 	OpType const &
 );
 
-}
-}
-}
-}
 }
 
 #define SGE_OPENGL_STATE_FFP_SAMPLER_DECLARE_MAKE_ONE_OP(\

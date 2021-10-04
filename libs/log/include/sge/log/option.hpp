@@ -13,9 +13,7 @@
 #include <fcppt/log/location.hpp>
 
 
-namespace sge
-{
-namespace log
+namespace sge::log
 {
 
 class option
@@ -40,7 +38,6 @@ private:
 	fcppt::log::level level_;
 };
 
-}
 }
 
 #endif

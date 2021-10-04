@@ -7,15 +7,9 @@
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_PARAMETERS_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace camera
-{
-namespace ortho_freelook
+namespace sge::camera::ortho_freelook
 {
 class parameters;
-}
-}
 }
 
 #endif

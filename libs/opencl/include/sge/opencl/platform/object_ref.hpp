@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace platform
+namespace sge::opencl::platform
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opencl::platform::object
 >;
 
-}
-}
 }
 
 #endif

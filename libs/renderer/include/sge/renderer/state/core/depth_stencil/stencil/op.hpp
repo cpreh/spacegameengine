@@ -10,17 +10,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/op_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
 enum class op
@@ -35,11 +25,6 @@ enum class op
 	invert
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

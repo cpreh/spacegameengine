@@ -13,9 +13,7 @@
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 template<
@@ -91,7 +89,6 @@ private:
 	sge::plugin::category_array::const_iterator it_;
 };
 
-}
 }
 
 #endif

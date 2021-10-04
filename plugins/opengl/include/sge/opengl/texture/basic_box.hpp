@@ -21,11 +21,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -121,8 +117,6 @@ private:
 	buffer_vector const levels_;
 };
 
-}
-}
 }
 
 #endif

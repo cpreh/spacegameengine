@@ -29,11 +29,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 class instance
@@ -136,8 +132,6 @@ private:
 	impl_ptr const impl_;
 };
 
-}
-}
 }
 
 #endif

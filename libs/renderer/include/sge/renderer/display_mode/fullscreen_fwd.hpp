@@ -12,11 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 using
@@ -27,8 +23,6 @@ fcppt::variant::object<
 	sge::renderer::display_mode::object
 >;
 
-}
-}
 }
 
 #endif

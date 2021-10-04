@@ -10,13 +10,7 @@
 #include <sge/opengl/texture/buffer_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace convert
+namespace sge::opengl::texture::convert
 {
 
 sge::opengl::texture::buffer_type
@@ -25,9 +19,6 @@ make_buffer_type(
 )
 noexcept;
 
-}
-}
-}
 }
 
 #endif

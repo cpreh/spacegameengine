@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 sge::input::cursor::position
@@ -25,8 +21,6 @@ position(
 	XIDeviceEvent const &
 );
 
-}
-}
 }
 
 #endif

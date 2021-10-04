@@ -8,20 +8,11 @@
 #define SGE_SYSTEMS_IMPL_IMAGE2D_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace image2d
+namespace sge::systems::impl::image2d
 {
 
 class object;
 
-}
-}
-}
 }
 
 #endif

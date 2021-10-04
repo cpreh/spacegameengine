@@ -7,15 +7,9 @@
 #ifndef SGE_CAMERA_TRACKING_KEYFRAME_FWD_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_KEYFRAME_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace camera
-{
-namespace tracking
+namespace sge::camera::tracking
 {
 class keyframe;
-}
-}
 }
 
 #endif

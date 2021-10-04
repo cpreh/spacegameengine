@@ -12,13 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace detail
+namespace sge::parse::json::detail
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ to_fcppt_string(
 	sge::charconv::utf8_string const &
 );
 
-}
-}
-}
 }
 
 #endif

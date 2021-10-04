@@ -14,15 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace ordered
-{
-namespace detail
+namespace sge::sprite::intrusive::ordered::detail
 {
 
 template<
@@ -41,10 +33,6 @@ std::map<
 	>
 >;
 
-}
-}
-}
-}
 }
 
 #endif

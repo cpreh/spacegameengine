@@ -11,13 +11,7 @@
 #include <sge/renderer/vf/view.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
-{
-namespace vf
+namespace sge::cegui::impl::vf
 {
 
 using
@@ -27,9 +21,6 @@ sge::renderer::vf::view<
 	sge::cegui::impl::vf::part
 >;
 
-}
-}
-}
 }
 
 #endif

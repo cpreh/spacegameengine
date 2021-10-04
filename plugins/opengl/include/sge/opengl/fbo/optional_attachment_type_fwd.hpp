@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::opengl::fbo::attachment_type
 >;
 
-}
-}
 }
 
 #endif

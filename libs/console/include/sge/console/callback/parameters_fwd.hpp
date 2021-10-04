@@ -7,15 +7,9 @@
 #ifndef SGE_CONSOLE_CALLBACK_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_CONSOLE_CALLBACK_PARAMETERS_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace console
-{
-namespace callback
+namespace sge::console::callback
 {
 class parameters;
-}
-}
 }
 
 #endif

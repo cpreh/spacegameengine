@@ -14,11 +14,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 using
@@ -32,8 +28,6 @@ sge::sprite::state::choices<
 	>
 >;
 
-}
-}
 }
 
 #endif

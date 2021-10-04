@@ -11,15 +11,7 @@
 #include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace impl
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::impl::vf::dynamic
 {
 
 sge::renderer::impl::vf::dynamic::lock_interval
@@ -27,10 +19,6 @@ locked_part_interval(
 	sge::renderer::vf::dynamic::locked_part const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

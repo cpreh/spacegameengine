@@ -13,9 +13,7 @@
 #include <sge/font/string.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL exception
@@ -65,7 +63,6 @@ private:
 	sge::font::string console_string_;
 };
 
-}
 }
 
 #endif

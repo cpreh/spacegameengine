@@ -8,14 +8,11 @@
 #define SGE_AUDIO_LOADER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 class loader;
 
-}
 }
 
 #endif

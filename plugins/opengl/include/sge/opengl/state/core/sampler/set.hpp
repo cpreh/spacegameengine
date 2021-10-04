@@ -12,15 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::opengl::state::core::sampler
 {
 
 void
@@ -30,10 +22,6 @@ set(
 	sge::renderer::state::core::sampler::const_optional_object_ref_map const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

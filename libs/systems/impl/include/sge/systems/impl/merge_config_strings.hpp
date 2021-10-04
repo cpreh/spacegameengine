@@ -12,11 +12,7 @@
 #include <sge/systems/optional_name_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 sge::systems::optional_name
@@ -26,8 +22,6 @@ merge_config_strings(
 	sge::parse::ini::entry_name const &
 );
 
-}
-}
 }
 
 #endif

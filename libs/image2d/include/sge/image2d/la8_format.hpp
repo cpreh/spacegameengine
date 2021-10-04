@@ -11,9 +11,7 @@
 #include <sge/image/view/basic_format.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 using
@@ -24,7 +22,6 @@ sge::image::view::basic_format<
 	sge::image::color::la8_format
 >;
 
-}
 }
 
 #endif

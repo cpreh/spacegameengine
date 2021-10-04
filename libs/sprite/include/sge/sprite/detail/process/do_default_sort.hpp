@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace process
+namespace sge::sprite::detail::process
 {
 
 template<
@@ -39,9 +33,6 @@ std::conjunction<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <sge/font/bitmap/impl/rep_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 class rep
@@ -42,9 +36,6 @@ private:
 	sge::font::rect rect_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -12,15 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -28,10 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	arg1
 );
 
-}
-}
-}
-}
 }
 
 #endif

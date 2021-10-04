@@ -12,9 +12,7 @@
 #include <fcppt/optional_string.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 SGE_FONT_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ to_fcppt_string(
 	sge::font::string const &
 );
 
-}
 }
 
 #endif

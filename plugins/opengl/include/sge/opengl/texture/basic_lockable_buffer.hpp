@@ -31,11 +31,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -223,8 +219,6 @@ private:
 	>;
 };
 
-}
-}
 }
 
 #endif

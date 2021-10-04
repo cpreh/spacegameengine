@@ -10,9 +10,7 @@
 #include <sge/cegui/cursor_visibility_fwd.hpp>
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 enum class cursor_visibility
@@ -21,7 +19,6 @@ enum class cursor_visibility
 	invisible
 };
 
-}
 }
 
 #endif

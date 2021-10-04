@@ -22,9 +22,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 /// The "main" class for outputting audio
@@ -119,7 +117,6 @@ public:
 	~player();
 };
 
-}
 }
 
 #endif

@@ -12,9 +12,7 @@
 #include <fcppt/parse/error_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
+namespace sge::parse
 {
 
 template<
@@ -32,7 +30,6 @@ fcppt::either::object<
 	Result
 >;
 
-}
 }
 
 #endif

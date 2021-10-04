@@ -15,9 +15,7 @@
 #include <fcppt/optional/object.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class error_context
@@ -69,7 +67,6 @@ private:
 	);
 };
 
-}
 }
 
 #endif

@@ -8,9 +8,7 @@
 #define SGE_MEDIA_MUXER_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 template<
@@ -18,7 +16,6 @@ template<
 >
 class muxer_parameters;
 
-}
 }
 
 #endif

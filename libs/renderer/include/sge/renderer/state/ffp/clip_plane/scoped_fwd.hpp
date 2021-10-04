@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_FFP_CLIP_PLANE_SCOPED_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::renderer::state::ffp::clip_plane
 {
 
 class scoped;
 
-}
-}
-}
-}
 }
 
 #endif

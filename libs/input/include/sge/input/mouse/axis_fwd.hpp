@@ -7,17 +7,11 @@
 #ifndef SGE_INPUT_MOUSE_AXIS_FWD_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_AXIS_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 class axis;
 
-}
-}
 }
 
 #endif

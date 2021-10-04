@@ -10,11 +10,7 @@
 #include <sge/gui/widget/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
+namespace sge::gui::impl
 {
 
 void
@@ -22,8 +18,6 @@ relayout_ancestor(
 	sge::gui::widget::base & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_GUI_WIDGET_TAB_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class tab;
 
-}
-}
 }
 
 #endif

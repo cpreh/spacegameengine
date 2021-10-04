@@ -12,11 +12,7 @@
 #include <sge/sprite/config/unit_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -49,8 +45,6 @@ struct type_choices<
 	>::type;
 };
 
-}
-}
 }
 
 #endif

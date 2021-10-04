@@ -12,15 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::renderer::state::ffp::fog
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -28,10 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	density
 );
 
-}
-}
-}
-}
 }
 
 #endif

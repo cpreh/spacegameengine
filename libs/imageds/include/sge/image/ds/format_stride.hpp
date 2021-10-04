@@ -12,11 +12,7 @@
 #include <sge/image/ds/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
+namespace sge::image::ds
 {
 
 SGE_IMAGE_DS_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ format_stride(
 	sge::image::ds::format
 );
 
-}
-}
 }
 
 #endif

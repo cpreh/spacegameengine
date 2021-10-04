@@ -14,13 +14,7 @@
 #include <fcppt/tag_type.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace render
+namespace sge::sprite::detail::render
 {
 
 class unset_texture_stage
@@ -58,9 +52,6 @@ private:
 	sge::renderer::context::core_ref render_context_;
 };
 
-}
-}
-}
 }
 
 #endif

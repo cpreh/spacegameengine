@@ -11,9 +11,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace cursor
+namespace sge::cursor
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -21,7 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	hotspot
 );
 
-}
 }
 
 #endif

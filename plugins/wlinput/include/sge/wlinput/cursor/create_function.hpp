@@ -11,11 +11,7 @@
 #include <sge/wlinput/cursor/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace cursor
+namespace sge::wlinput::cursor
 {
 
 using
@@ -25,8 +21,6 @@ sge::wlinput::create_function<
 	sge::wlinput::cursor::object
 >;
 
-}
-}
 }
 
 #endif

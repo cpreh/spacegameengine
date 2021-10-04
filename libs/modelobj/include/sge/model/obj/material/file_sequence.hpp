@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
-namespace material
+namespace sge::model::obj::material
 {
 
 using
@@ -29,9 +23,6 @@ std::vector<
 	std::filesystem::path
 >;
 
-}
-}
-}
 }
 
 #endif

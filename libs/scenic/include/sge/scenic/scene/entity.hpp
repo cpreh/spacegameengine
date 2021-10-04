@@ -16,11 +16,7 @@
 #include <fcppt/math/vector/object_impl.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 
 class entity
@@ -79,8 +75,6 @@ private:
 	sge::scenic::scene::scale scale_;
 };
 
-}
-}
 }
 
 #endif

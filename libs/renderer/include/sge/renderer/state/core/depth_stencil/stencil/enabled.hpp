@@ -15,17 +15,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
 class enabled
@@ -68,11 +58,6 @@ private:
 	sge::renderer::state::core::depth_stencil::stencil::write_mask write_mask_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

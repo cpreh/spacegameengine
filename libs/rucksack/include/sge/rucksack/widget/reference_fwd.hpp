@@ -11,11 +11,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace widget
+namespace sge::rucksack::widget
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::rucksack::widget::base
 >;
 
-}
-}
 }
 
 #endif

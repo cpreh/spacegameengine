@@ -11,9 +11,7 @@
 #include <sge/plugin/detail/traits.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 template<
@@ -29,7 +27,6 @@ sge::plugin::detail::loader_function<
 	>::loader_function
 > *;
 
-}
 }
 
 #endif

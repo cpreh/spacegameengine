@@ -10,9 +10,7 @@
 #include <sge/systems/cursor_option_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 enum class cursor_option
@@ -21,7 +19,6 @@ enum class cursor_option
 	fcppt_maximum = exclusive
 };
 
-}
 }
 
 #endif

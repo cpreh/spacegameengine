@@ -10,11 +10,7 @@
 #include <sge/renderer/context/core_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace render_context
+namespace sge::opengl::render_context
 {
 
 void
@@ -22,8 +18,6 @@ end(
 	sge::renderer::context::core & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

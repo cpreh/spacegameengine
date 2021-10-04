@@ -8,17 +8,11 @@
 #define SGE_SPRITE_CONFIG_POS_OPTION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 enum class pos_option;
 
-}
-}
 }
 
 #endif

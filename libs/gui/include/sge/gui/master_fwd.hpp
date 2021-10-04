@@ -8,14 +8,11 @@
 #define SGE_GUI_MASTER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 class master;
 
-}
 }
 
 #endif

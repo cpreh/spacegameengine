@@ -11,11 +11,7 @@
 #include <mizuiro/color/object_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -41,8 +37,6 @@ struct color_base
 		= Format::element_count;
 };
 
-}
-}
 }
 
 #endif

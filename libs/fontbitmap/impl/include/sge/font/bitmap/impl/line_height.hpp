@@ -12,13 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -26,9 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	line_height
 );
 
-}
-}
-}
 }
 
 #endif

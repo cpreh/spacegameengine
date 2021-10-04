@@ -10,11 +10,7 @@
 #include <sge/renderer/pixel_format/depth_stencil_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 enum class depth_stencil
@@ -41,8 +37,6 @@ enum class depth_stencil
 	d24s8
 };
 
-}
-}
 }
 
 #endif

@@ -11,25 +11,13 @@
 #include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::renderer::state::core::rasterizer
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::core::rasterizer::parameters
 default_();
 
-}
-}
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace caps
+namespace sge::renderer::caps
 {
 
 /**
@@ -28,8 +24,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	render_target_supported
 );
 
-}
-}
 }
 
 #endif

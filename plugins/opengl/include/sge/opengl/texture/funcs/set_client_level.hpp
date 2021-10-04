@@ -12,13 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace sge::opengl::texture::funcs
 {
 
 void
@@ -28,9 +22,6 @@ set_client_level(
 	sge::renderer::texture::stage
 );
 
-}
-}
-}
 }
 
 #endif

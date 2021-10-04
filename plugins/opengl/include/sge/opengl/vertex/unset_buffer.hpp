@@ -11,11 +11,7 @@
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 void
@@ -24,8 +20,6 @@ unset_buffer(
 	sge::renderer::vertex::buffer const &
 );
 
-}
-}
 }
 
 #endif

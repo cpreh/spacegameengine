@@ -11,11 +11,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::gui::widget::base
 >;
 
-}
-}
 }
 
 #endif

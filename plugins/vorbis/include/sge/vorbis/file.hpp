@@ -25,9 +25,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 class file
@@ -98,7 +96,6 @@ private:
 	vorbis_info const info_;
 };
 
-}
 }
 
 #endif

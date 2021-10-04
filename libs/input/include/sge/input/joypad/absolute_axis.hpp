@@ -13,11 +13,7 @@
 #include <sge/input/joypad/axis_code.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 class absolute_axis
@@ -44,8 +40,6 @@ private:
 	sge::input::joypad::absolute_axis_id id_;
 };
 
-}
-}
 }
 
 #endif

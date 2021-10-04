@@ -10,18 +10,12 @@
 #include <sge/opengl/fbo/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 sge::opengl::fbo::id
 no_buffer();
 
-}
-}
 }
 
 #endif

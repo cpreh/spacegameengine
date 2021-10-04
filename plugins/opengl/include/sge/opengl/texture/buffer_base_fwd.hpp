@@ -8,17 +8,11 @@
 #define SGE_OPENGL_TEXTURE_BUFFER_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class buffer_base;
 
-}
-}
 }
 
 #endif

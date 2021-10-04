@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 template<
@@ -35,7 +33,6 @@ call_fun_ref(
 		);
 }
 
-}
 }
 
 #endif

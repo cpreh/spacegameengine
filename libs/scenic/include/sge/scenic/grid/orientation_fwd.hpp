@@ -8,17 +8,11 @@
 #define SGE_SCENIC_GRID_ORIENTATION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace grid
+namespace sge::scenic::grid
 {
 
 enum class orientation;
 
-}
-}
 }
 
 #endif

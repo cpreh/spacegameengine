@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_FFP_FOG_SCOPED_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::renderer::state::ffp::fog
 {
 
 class scoped;
 
-}
-}
-}
-}
 }
 
 #endif

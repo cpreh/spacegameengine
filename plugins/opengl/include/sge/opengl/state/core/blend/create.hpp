@@ -12,15 +12,7 @@
 #include <sge/renderer/state/core/blend/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 sge::renderer::state::core::blend::object_unique_ptr
@@ -29,10 +21,6 @@ create(
 	sge::renderer::state::core::blend::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

@@ -38,9 +38,7 @@ class btConstraintSolver;
 class btDiscreteDynamicsWorld;
 class btDynamicsWorld;
 
-namespace sge
-{
-namespace projectile
+namespace sge::projectile
 {
 
 class world
@@ -153,7 +151,6 @@ private:
 	);
 };
 
-}
 }
 
 #endif

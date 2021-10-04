@@ -12,9 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -27,7 +25,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	primitive_count
 );
 
-}
 }
 
 #endif

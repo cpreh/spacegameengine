@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 using
@@ -27,8 +23,6 @@ fcppt::optional::object<
 	CEGUI::Key::Scan
 >;
 
-}
-}
 }
 
 #endif

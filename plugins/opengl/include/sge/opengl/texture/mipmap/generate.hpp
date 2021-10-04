@@ -12,13 +12,7 @@
 #include <sge/opengl/texture/type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::opengl::texture::mipmap
 {
 
 void
@@ -28,9 +22,6 @@ generate(
 	sge::opengl::texture::type
 );
 
-}
-}
-}
 }
 
 #endif

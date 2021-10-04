@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 template<
@@ -31,9 +25,6 @@ read_string(
 	std::istream &
 );
 
-}
-}
-}
 }
 
 #define SGE_MODEL_MD3_IMPL_DECLARE_READ_STRING(\

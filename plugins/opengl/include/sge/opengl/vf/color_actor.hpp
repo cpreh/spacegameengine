@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class color_actor
@@ -50,8 +46,6 @@ private:
 	sge::opengl::color_base_type const format_;
 };
 
-}
-}
 }
 
 #endif

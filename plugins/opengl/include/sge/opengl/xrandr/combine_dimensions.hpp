@@ -11,11 +11,7 @@
 #include <sge/renderer/display_mode/optional_dimensions_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::renderer::display_mode::optional_dimensions
@@ -24,8 +20,6 @@ combine_dimensions(
 	sge::renderer::display_mode::dimensions const &
 );
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/openal/source_id.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 sge::openal::buffer_id
@@ -23,8 +19,6 @@ source_unqueue_buffer(
 	sge::openal::source_id
 );
 
-}
-}
 }
 
 #endif

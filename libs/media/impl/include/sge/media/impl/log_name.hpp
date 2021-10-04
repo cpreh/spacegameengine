@@ -11,19 +11,13 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace media
-{
-namespace impl
+namespace sge::media::impl
 {
 
 SGE_MEDIA_DETAIL_SYMBOL
 fcppt::log::name
 log_name();
 
-}
-}
 }
 
 #endif

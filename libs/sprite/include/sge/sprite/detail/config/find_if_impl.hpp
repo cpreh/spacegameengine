@@ -11,13 +11,7 @@
 #include <fcppt/mpl/list/keep_if.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace config
+namespace sge::sprite::detail::config
 {
 
 template<
@@ -50,9 +44,6 @@ struct find_if_impl
 	);*/
 };
 
-}
-}
-}
 }
 
 #endif

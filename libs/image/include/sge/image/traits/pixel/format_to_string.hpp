@@ -12,13 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-namespace pixel
+namespace sge::image::traits::pixel
 {
 
 template<
@@ -40,9 +34,6 @@ format_to_string(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

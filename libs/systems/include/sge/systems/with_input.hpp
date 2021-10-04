@@ -16,9 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 struct with_input
@@ -41,7 +39,6 @@ struct with_input
 	>;
 };
 
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace info
+namespace sge::input::info
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,8 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	unique_id
 );
 
-}
-}
 }
 
 #endif

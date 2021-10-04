@@ -10,9 +10,7 @@
 #include <sge/opengl/color_format_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 enum class color_format
@@ -36,7 +34,6 @@ enum class color_format
 	fcppt_maximum = sbgra8
 };
 
-}
 }
 
 #endif

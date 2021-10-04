@@ -10,11 +10,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
+namespace sge::sprite::detail
 {
 
 template<
@@ -46,8 +42,6 @@ struct apply_choices<
 	>;
 };
 
-}
-}
 }
 
 #endif

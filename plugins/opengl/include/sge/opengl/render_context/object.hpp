@@ -54,11 +54,7 @@
 #endif
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace render_context
+namespace sge::opengl::render_context
 {
 
 class object
@@ -271,8 +267,6 @@ private:
 	optional_scoped_offscreen_target_ptr scoped_offscreen_target_;
 };
 
-}
-}
 }
 
 #endif

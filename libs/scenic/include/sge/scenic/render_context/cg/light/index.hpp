@@ -13,23 +13,11 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace cg
-{
-namespace light
+namespace sge::scenic::render_context::cg::light
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	std::size_t,
 	index);
-}
-}
-}
-}
 }
 
 #endif

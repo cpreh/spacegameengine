@@ -12,15 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
+namespace sge::opengl::state::ffp::misc
 {
 
 void
@@ -30,10 +22,6 @@ set(
 	sge::renderer::state::ffp::misc::const_optional_object_ref const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

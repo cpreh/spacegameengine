@@ -11,11 +11,7 @@
 #include <fcppt/math/box/object.hpp>
 
 
-namespace sge
-{
-namespace bvh
-{
-namespace traits
+namespace sge::bvh::traits
 {
 template<typename Box>
 struct box
@@ -41,8 +37,6 @@ struct box
 			b;
 	}
 };
-}
-}
 }
 
 #endif

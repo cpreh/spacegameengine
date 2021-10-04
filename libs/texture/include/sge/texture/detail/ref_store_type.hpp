@@ -10,11 +10,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace texture
-{
-namespace detail
+namespace sge::texture::detail
 {
 
 template<
@@ -52,8 +48,6 @@ struct ref_store_type<
 	> const;
 };
 
-}
-}
 }
 
 #endif

@@ -8,20 +8,11 @@
 #define SGE_SYSTEMS_IMPL_RENDERER_DEVICE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace renderer
+namespace sge::systems::impl::renderer
 {
 
 class device;
 
-}
-}
-}
 }
 
 #endif

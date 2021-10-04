@@ -11,11 +11,7 @@
 #include <sge/plugin/iterator_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace plugin
+namespace sge::font::plugin
 {
 
 using
@@ -25,8 +21,6 @@ sge::plugin::iterator<
 	sge::font::system
 >;
 
-}
-}
 }
 
 #endif

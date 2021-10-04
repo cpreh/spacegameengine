@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace event
+namespace sge::x11input::event
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -43,8 +39,6 @@ std::is_same<
 
 FCPPT_PP_POP_WARNING
 
-}
-}
 }
 
 #endif

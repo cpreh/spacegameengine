@@ -11,11 +11,7 @@
 #include <fcppt/mpl/map/element.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
+namespace sge::image::impl
 {
 
 template<
@@ -34,8 +30,6 @@ fcppt::mpl::map::element<
 	Static
 >;
 
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <sge/image/view/basic_format.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
-{
-namespace view
+namespace sge::image::ds::view
 {
 
 template<
@@ -31,9 +25,6 @@ sge::image::view::basic_format<
 	sge::image::ds::d32_format
 >;
 
-}
-}
-}
 }
 
 #endif

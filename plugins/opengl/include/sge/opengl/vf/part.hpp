@@ -20,11 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class part
@@ -76,8 +72,6 @@ private:
 	actor_container const actors_;
 };
 
-}
-}
 }
 
 #endif

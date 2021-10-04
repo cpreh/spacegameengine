@@ -12,11 +12,7 @@
 #include <fcppt/io/ostream_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 /**
@@ -33,8 +29,6 @@ operator<<(
 	sge::renderer::display_mode::object const &mode
 );
 
-}
-}
 }
 
 #endif

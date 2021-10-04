@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class minimum_size
@@ -46,8 +42,6 @@ private:
 	sge::rucksack::widget::minimum_size layout_;
 };
 
-}
-}
 }
 
 #endif

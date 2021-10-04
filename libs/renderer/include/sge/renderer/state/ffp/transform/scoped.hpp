@@ -16,15 +16,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::renderer::state::ffp::transform
 {
 
 /**
@@ -56,10 +48,6 @@ private:
 	sge::renderer::state::ffp::transform::mode const mode_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

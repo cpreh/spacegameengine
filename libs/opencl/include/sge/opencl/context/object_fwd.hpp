@@ -8,17 +8,11 @@
 #define SGE_OPENCL_CONTEXT_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace context
+namespace sge::opencl::context
 {
 
 class object;
 
-}
-}
 }
 
 #endif

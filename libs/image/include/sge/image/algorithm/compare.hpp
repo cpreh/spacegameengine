@@ -11,11 +11,7 @@
 #include <sge/image/view/const_object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace algorithm
+namespace sge::image::algorithm
 {
 
 template<
@@ -32,8 +28,6 @@ compare(
 	> const &
 );
 
-}
-}
 }
 
 #endif

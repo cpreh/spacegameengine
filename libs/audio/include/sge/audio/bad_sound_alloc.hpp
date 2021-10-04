@@ -13,9 +13,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 /// Exception thrown when sound resource limits are reached.
@@ -65,7 +63,6 @@ public:
 	override;
 };
 
-}
 }
 
 #endif

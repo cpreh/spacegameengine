@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 struct with_audio_player
@@ -38,7 +36,6 @@ struct with_audio_player
 	fcppt::mpl::list::object<>;
 };
 
-}
 }
 
 #endif

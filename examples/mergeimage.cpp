@@ -82,7 +82,7 @@ calc_size(
 		sge::image::size_type const index
 		:
 		fcppt::make_int_range_count(
-			11u
+			11U
 		)
 	)
 	{

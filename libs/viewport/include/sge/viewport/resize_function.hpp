@@ -11,9 +11,7 @@
 #include <awl/window/event/resize_fwd.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 using
@@ -23,7 +21,6 @@ sge::renderer::target::viewport(
 	awl::window::event::resize const &
 );
 
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_OPENGL_FBO_RENDER_BUFFER_BINDING_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class render_buffer_binding;
 
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace camera
+namespace sge::camera
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::camera::base
 >;
 
-}
 }
 
 #endif

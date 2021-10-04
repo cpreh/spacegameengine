@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace bvh
+namespace sge::bvh
 {
 
 template<typename Traits>
@@ -60,7 +58,6 @@ private:
 	tree_representation representation_;
 };
 
-}
 }
 
 #endif

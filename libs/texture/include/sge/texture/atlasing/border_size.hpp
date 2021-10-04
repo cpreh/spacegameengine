@@ -11,11 +11,7 @@
 #include <sge/texture/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace texture
-{
-namespace atlasing
+namespace sge::texture::atlasing
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
@@ -24,8 +20,6 @@ border_size(
 	sge::renderer::size_type
 );
 
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace sdl
+namespace sge::opengl::sdl
 {
 
 class platform_system
@@ -46,8 +42,6 @@ private:
 	override;
 };
 
-}
-}
 }
 
 #endif

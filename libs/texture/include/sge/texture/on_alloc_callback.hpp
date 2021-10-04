@@ -11,9 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::function<
 	sge::texture::on_alloc_function
 >;
 
-}
 }
 
 #endif

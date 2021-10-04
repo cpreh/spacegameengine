@@ -10,9 +10,7 @@
 #include <sge/gui/gravity_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 enum class gravity
@@ -23,7 +21,6 @@ enum class gravity
 	north_east
 };
 
-}
 }
 
 #endif

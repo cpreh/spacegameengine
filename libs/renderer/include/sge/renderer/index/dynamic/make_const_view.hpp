@@ -12,13 +12,7 @@
 #include <sge/renderer/index/dynamic/view_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace dynamic
+namespace sge::renderer::index::dynamic
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ make_const_view(
 	sge::renderer::index::dynamic::view const &
 );
 
-}
-}
-}
 }
 
 #endif

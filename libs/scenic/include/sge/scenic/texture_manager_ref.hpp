@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace scenic
+namespace sge::scenic
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::scenic::texture_manager
 >;
 
-}
 }
 
 #endif

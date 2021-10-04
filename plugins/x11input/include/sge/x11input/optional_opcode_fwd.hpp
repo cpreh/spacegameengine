@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
+namespace sge::x11input
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::x11input::opcode
 >;
 
-}
 }
 
 #endif

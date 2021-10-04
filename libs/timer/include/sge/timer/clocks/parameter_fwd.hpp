@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace timer
-{
-namespace clocks
+namespace sge::timer::clocks
 {
 
 template<
@@ -37,8 +33,6 @@ std::conditional_t<
 	Clock const &
 >;
 
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 std::vector<
@@ -30,8 +26,6 @@ init(
 	fcppt::log::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

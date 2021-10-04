@@ -13,15 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 using
@@ -31,10 +23,6 @@ std::vector<
 	sge::renderer::state::ffp::sampler::const_object_ref
 >;
 
-}
-}
-}
-}
 }
 
 #endif

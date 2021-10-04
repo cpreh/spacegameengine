@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/texpos.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
-{
-namespace vf
+namespace sge::cegui::impl::vf
 {
 
 using
@@ -32,9 +26,6 @@ sge::renderer::vf::texpos<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

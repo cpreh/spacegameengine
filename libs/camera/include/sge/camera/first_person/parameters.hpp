@@ -16,11 +16,7 @@
 #include <sge/camera/first_person/action/mapping.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace first_person
+namespace sge::camera::first_person
 {
 
 class parameters
@@ -88,8 +84,6 @@ private:
 	sge::camera::optional_projection_matrix projection_matrix_;
 };
 
-}
-}
 }
 
 #endif

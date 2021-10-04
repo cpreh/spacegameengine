@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 SGE_FONT_DETAIL_SYMBOL
@@ -25,7 +23,6 @@ from_std_wstring(
 	std::wstring const &
 );
 
-}
 }
 
 #endif

@@ -11,13 +11,7 @@
 #include <sge/model/md3/impl/vertex_fwd.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 class transformed_vertex
@@ -41,9 +35,6 @@ private:
 	sge::model::md3::impl::vec3 normal_;
 };
 
-}
-}
-}
 }
 
 #endif

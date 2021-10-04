@@ -13,15 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::renderer::state::ffp::clip_plane
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
@@ -38,10 +30,6 @@ public:
 	~object();
 };
 
-}
-}
-}
-}
 }
 
 #endif

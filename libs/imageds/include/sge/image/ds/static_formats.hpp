@@ -13,11 +13,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
+namespace sge::image::ds
 {
 
 using
@@ -29,8 +25,6 @@ fcppt::mpl::list::object<
 	sge::image::ds::d24s8_format
 >;
 
-}
-}
 }
 
 #endif

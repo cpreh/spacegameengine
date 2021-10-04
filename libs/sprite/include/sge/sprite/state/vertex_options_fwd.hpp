@@ -8,17 +8,11 @@
 #define SGE_SPRITE_STATE_VERTEX_OPTIONS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 enum class vertex_options;
 
-}
-}
 }
 
 #endif

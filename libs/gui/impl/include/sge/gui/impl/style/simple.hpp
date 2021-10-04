@@ -20,13 +20,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
-{
-namespace style
+namespace sge::gui::impl::style
 {
 
 class simple
@@ -130,9 +124,6 @@ private:
 	spacing();
 };
 
-}
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/audio/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 /// Holds all the data necessary to construct a nonpositional sound
@@ -60,8 +56,6 @@ private:
 	sge::audio::scalar pitch_;
 };
 
-}
-}
 }
 
 #endif

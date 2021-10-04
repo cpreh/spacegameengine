@@ -11,15 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::renderer::state::core::rasterizer
 {
 
 using
@@ -29,10 +21,6 @@ fcppt::optional::reference<
 	sge::renderer::state::core::rasterizer::object const
 >;
 
-}
-}
-}
-}
 }
 
 #endif

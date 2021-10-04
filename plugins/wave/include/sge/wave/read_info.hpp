@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wave
+namespace sge::wave
 {
 
 sge::wave::optional_info
@@ -27,7 +25,6 @@ read_info(
 	sge::media::optional_name const &
 );
 
-}
 }
 
 #endif

@@ -10,25 +10,13 @@
 #include <sge/renderer/state/ffp/fog/off_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::renderer::state::ffp::fog
 {
 
 class off
 {
 };
 
-}
-}
-}
-}
 }
 
 #endif

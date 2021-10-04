@@ -11,11 +11,7 @@
 #include <sge/renderer/target/viewport_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace target
+namespace sge::renderer::target
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -24,8 +20,6 @@ viewport_is_null(
 	sge::renderer::target::viewport const &
 );
 
-}
-}
 }
 
 #endif

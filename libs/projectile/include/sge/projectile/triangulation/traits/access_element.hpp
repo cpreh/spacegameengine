@@ -11,13 +11,7 @@
 #include <sge/projectile/triangulation/traits/access_element_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace triangulation
-{
-namespace traits
+namespace sge::projectile::triangulation::traits
 {
 
 template<
@@ -42,9 +36,6 @@ struct access_element<
 	}
 };
 
-}
-}
-}
 }
 
 #endif

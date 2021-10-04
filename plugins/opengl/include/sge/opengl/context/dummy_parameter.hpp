@@ -10,19 +10,13 @@
 #include <sge/opengl/context/dummy_parameter_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace context
+namespace sge::opengl::context
 {
 
 class dummy_parameter
 {
 };
 
-}
-}
 }
 
 #endif

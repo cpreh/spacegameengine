@@ -16,13 +16,7 @@
 #include <fcppt/record/init.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 template<
@@ -65,9 +59,6 @@ make_render_part(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

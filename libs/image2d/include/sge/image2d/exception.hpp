@@ -15,9 +15,7 @@
 #include <fcppt/assert/information_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL exception
@@ -66,7 +64,6 @@ public:
 	override;
 };
 
-}
 }
 
 #endif

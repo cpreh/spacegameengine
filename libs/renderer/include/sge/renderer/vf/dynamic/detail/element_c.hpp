@@ -13,15 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
-{
-namespace detail
+namespace sge::renderer::vf::dynamic::detail
 {
 
 template<
@@ -34,10 +26,6 @@ std::integral_constant<
 	Elem
 >;
 
-}
-}
-}
-}
 }
 
 #endif

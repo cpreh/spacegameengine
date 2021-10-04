@@ -10,13 +10,7 @@
 #include <sge/sprite/config/is_normal_size.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace config
+namespace sge::sprite::detail::config
 {
 
 template<
@@ -28,9 +22,6 @@ sge::sprite::config::is_normal_size<
 	typename Choices::size_choice
 >;
 
-}
-}
-}
 }
 
 #endif

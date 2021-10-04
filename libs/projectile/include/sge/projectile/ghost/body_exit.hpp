@@ -11,11 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace ghost
+namespace sge::projectile::ghost
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::function<
 	sge::projectile::ghost::body_exit_fn
 >;
 
-}
-}
 }
 
 #endif

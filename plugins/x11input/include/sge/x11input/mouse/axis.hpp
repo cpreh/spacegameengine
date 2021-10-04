@@ -12,11 +12,7 @@
 #include <sge/x11input/device/valuator/index.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace mouse
+namespace sge::x11input::mouse
 {
 
 sge::input::mouse::axis
@@ -25,8 +21,6 @@ axis(
 	sge::input::mouse::axis_info_container const &
 );
 
-}
-}
 }
 
 #endif

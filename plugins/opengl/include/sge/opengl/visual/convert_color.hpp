@@ -11,11 +11,7 @@
 #include <sge/renderer/pixel_format/color_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace visual
+namespace sge::opengl::visual
 {
 
 sge::opengl::visual::rgb_triple
@@ -23,8 +19,6 @@ convert_color(
 	sge::renderer::pixel_format::color
 );
 
-}
-}
 }
 
 #endif

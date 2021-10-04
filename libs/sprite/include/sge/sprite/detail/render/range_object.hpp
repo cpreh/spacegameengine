@@ -10,13 +10,7 @@
 #include <sge/sprite/buffers/object.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace render
+namespace sge::sprite::detail::render
 {
 
 template<
@@ -28,9 +22,6 @@ sge::sprite::buffers::object<
 	Choices
 >;
 
-}
-}
-}
 }
 
 #endif

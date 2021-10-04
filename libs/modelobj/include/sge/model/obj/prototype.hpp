@@ -24,11 +24,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 class prototype
 {
@@ -94,8 +90,6 @@ private:
 	sge::model::obj::material::file_sequence material_files_;
 	sge::model::obj::box bounding_box_;
 };
-}
-}
 }
 
 #endif

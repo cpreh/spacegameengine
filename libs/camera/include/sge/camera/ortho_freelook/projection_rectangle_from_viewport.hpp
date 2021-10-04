@@ -16,11 +16,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace ortho_freelook
+namespace sge::camera::ortho_freelook
 {
 
 class projection_rectangle_from_viewport
@@ -52,8 +48,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

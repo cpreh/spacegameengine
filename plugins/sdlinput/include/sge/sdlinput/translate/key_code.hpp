@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace translate
+namespace sge::sdlinput::translate
 {
 
 sge::input::key::code
@@ -25,8 +21,6 @@ key_code(
 	SDL_Keycode
 );
 
-}
-}
 }
 
 #endif

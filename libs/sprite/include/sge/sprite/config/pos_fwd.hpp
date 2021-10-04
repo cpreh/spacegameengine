@@ -10,11 +10,7 @@
 #include <sge/sprite/config/pos_option_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -22,8 +18,6 @@ template<
 >
 struct pos;
 
-}
-}
 }
 
 #endif

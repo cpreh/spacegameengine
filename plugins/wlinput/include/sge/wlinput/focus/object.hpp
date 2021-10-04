@@ -25,11 +25,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
@@ -77,8 +73,6 @@ private:
 	fcppt::signal::auto_connection const event_connection_;
 };
 
-}
-}
 }
 
 #endif

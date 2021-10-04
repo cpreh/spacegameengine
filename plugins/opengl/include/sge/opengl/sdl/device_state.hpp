@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace sdl
+namespace sge::opengl::sdl
 {
 
 class device_state
@@ -58,8 +54,6 @@ private:
 	awl::backends::sdl::window::object_ref const window_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::reference<
 	sge::opengl::xrandr::system
 >;
 
-}
-}
 }
 
 #endif

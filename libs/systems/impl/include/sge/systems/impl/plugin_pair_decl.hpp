@@ -13,11 +13,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 template<
@@ -70,8 +66,6 @@ private:
 	system_unique_ptr system_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/renderer/texture/basic_lockable_box_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 using
@@ -25,8 +21,6 @@ sge::renderer::texture::basic_lockable_box<
 	sge::image2d::tag
 >;
 
-}
-}
 }
 
 #endif

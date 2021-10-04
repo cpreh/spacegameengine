@@ -13,13 +13,7 @@
 #include <sge/camera/spherical/coordinate_system/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
-{
-namespace coordinate_system
+namespace sge::camera::spherical::coordinate_system
 {
 
 SGE_CAMERA_DETAIL_SYMBOL
@@ -29,9 +23,6 @@ to_camera_coordinate_system(
 	sge::camera::spherical::origin const &
 );
 
-}
-}
-}
 }
 
 #endif

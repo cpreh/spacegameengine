@@ -18,11 +18,7 @@ namespace CEGUI
 class Window;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace toolbox
+namespace sge::cegui::toolbox
 {
 
 class scoped_gui_sheet
@@ -45,8 +41,6 @@ private:
 	sge::cegui::system_ref const system_;
 };
 
-}
-}
 }
 
 #endif

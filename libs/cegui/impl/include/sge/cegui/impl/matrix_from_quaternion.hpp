@@ -15,11 +15,7 @@ namespace CEGUI
 class Quaternion;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 sge::renderer::matrix4
@@ -27,8 +23,6 @@ matrix_from_quaternion(
 	CEGUI::Quaternion const &
 );
 
-}
-}
 }
 
 #endif

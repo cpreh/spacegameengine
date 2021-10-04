@@ -16,9 +16,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class original_window
@@ -74,7 +72,6 @@ private:
 	bool hide_cursor_;
 };
 
-}
 }
 
 #endif

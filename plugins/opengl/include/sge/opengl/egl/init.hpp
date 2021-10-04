@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 class init
@@ -44,8 +40,6 @@ private:
 	sge::opengl::egl::version const version_;
 };
 
-}
-}
 }
 
 #endif

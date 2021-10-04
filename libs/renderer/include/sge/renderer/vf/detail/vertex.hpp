@@ -18,13 +18,7 @@
 #include <fcppt/record/from_list_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace detail
+namespace sge::renderer::vf::detail
 {
 
 template<
@@ -64,9 +58,6 @@ struct vertex<
 	>;
 };
 
-}
-}
-}
 }
 
 #endif

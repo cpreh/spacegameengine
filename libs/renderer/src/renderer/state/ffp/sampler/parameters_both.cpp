@@ -17,12 +17,12 @@ sge::renderer::state::ffp::sampler::parameters_both(
 )
 {
 	return
-		sge::renderer::state::ffp::sampler::parameters(
+		{
 			sge::renderer::state::ffp::sampler::color_op(
 				_op
 			),
 			sge::renderer::state::ffp::sampler::alpha_op(
 				_op
 			)
-		);
+		};
 }

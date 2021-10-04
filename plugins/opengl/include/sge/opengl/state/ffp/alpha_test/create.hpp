@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace alpha_test
+namespace sge::opengl::state::ffp::alpha_test
 {
 
 sge::renderer::state::ffp::alpha_test::object_unique_ptr
@@ -27,10 +19,6 @@ create(
 	sge::renderer::state::ffp::alpha_test::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

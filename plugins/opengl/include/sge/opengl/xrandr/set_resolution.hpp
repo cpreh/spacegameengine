@@ -14,11 +14,7 @@
 #include <awl/backends/x11/window/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 void
@@ -30,8 +26,6 @@ set_resolution(
 	sge::opengl::xrandr::optional_refresh_rate const &
 );
 
-}
-}
 }
 
 #endif

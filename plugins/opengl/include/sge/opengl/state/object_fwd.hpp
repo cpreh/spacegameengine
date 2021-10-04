@@ -8,11 +8,7 @@
 #define SGE_OPENGL_STATE_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
+namespace sge::opengl::state
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class object;
 
-}
-}
 }
 
 #endif

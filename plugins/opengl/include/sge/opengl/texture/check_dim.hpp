@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -38,8 +34,6 @@ check_dim(
 	fcppt::string const &what
 );
 
-}
-}
 }
 
 #define SGE_OPENGL_TEXTURE_DECLARE_CHECK_DIM(\

@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace occlusion_query
+namespace sge::renderer::occlusion_query
 {
 
 class scoped
@@ -44,8 +40,6 @@ private:
 	sge::renderer::occlusion_query::object_ref const query_;
 };
 
-}
-}
 }
 
 #endif

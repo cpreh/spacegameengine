@@ -11,11 +11,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace context
+namespace sge::opengl::context
 {
 
 class base
@@ -30,8 +26,6 @@ public:
 	~base();
 };
 
-}
-}
 }
 
 #endif

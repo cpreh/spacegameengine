@@ -10,19 +10,13 @@
 #include <sge/sprite/types/texture_size_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
+namespace sge::sprite::types
 {
 
 struct texture_size
 {
 };
 
-}
-}
 }
 
 #endif

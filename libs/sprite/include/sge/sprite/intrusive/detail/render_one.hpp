@@ -18,13 +18,7 @@
 #include <fcppt/record/get.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace detail
+namespace sge::sprite::intrusive::detail
 {
 
 template<
@@ -97,9 +91,6 @@ render_one(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

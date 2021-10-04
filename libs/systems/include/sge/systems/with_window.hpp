@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 struct with_window
@@ -38,7 +36,6 @@ struct with_window
 	fcppt::mpl::list::object<>;
 };
 
-}
 }
 
 #endif

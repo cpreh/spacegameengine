@@ -13,13 +13,7 @@
 #include <sge/cg/parameter/scalar/detail/set.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace scalar
+namespace sge::cg::parameter::scalar
 {
 
 template<
@@ -50,9 +44,6 @@ set(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

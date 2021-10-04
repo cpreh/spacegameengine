@@ -10,11 +10,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace draw
+namespace sge::font::draw
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -22,8 +18,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	set_matrices
 );
 
-}
-}
 }
 
 #endif

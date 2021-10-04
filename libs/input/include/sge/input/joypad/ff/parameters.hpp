@@ -16,13 +16,7 @@
 #include <sge/input/joypad/ff/variant.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 class parameters
@@ -73,9 +67,6 @@ private:
 	sge::input::joypad::ff::variant variant_;
 };
 
-}
-}
-}
 }
 
 #endif

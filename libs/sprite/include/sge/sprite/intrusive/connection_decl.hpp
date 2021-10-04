@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
+namespace sge::sprite::intrusive
 {
 
 template<
@@ -53,8 +49,6 @@ public:
 	= default;
 };
 
-}
-}
 }
 
 #endif

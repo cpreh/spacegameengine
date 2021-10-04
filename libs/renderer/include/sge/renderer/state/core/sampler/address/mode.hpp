@@ -10,17 +10,7 @@
 #include <sge/renderer/state/core/sampler/address/mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace address
+namespace sge::renderer::state::core::sampler::address
 {
 
 enum class mode
@@ -30,11 +20,6 @@ enum class mode
 	repeat
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -19,11 +19,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace x11
+namespace sge::opengl::x11
 {
 
 class system
@@ -58,8 +54,6 @@ private:
 	sge::opengl::x11::fullscreen_atom const wm_fullscreen_;
 };
 
-}
-}
 }
 
 #endif

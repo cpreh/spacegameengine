@@ -8,11 +8,7 @@
 #define SGE_PARSE_JSON_FLOAT_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 using
@@ -20,8 +16,6 @@ float_type
 =
 double;
 
-}
-}
 }
 
 #endif

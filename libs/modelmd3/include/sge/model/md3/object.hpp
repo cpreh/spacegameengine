@@ -21,11 +21,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
@@ -75,8 +71,6 @@ public:
 	~object();
 };
 
-}
-}
 }
 
 #endif

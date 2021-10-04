@@ -13,9 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace camera
+namespace sge::camera
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL has_mutable_coordinate_system
@@ -40,7 +38,6 @@ public:
 	override ;
 };
 
-}
 }
 
 #endif

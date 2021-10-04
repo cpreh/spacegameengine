@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 using
@@ -29,8 +25,6 @@ std::map<
 	sge::model::obj::material::object
 >;
 
-}
-}
 }
 
 #endif

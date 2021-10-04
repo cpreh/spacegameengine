@@ -14,11 +14,7 @@
 #include <sge/systems/with_window_fwd.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace testbed
+namespace sge::rucksack::testbed
 {
 
 using
@@ -32,8 +28,6 @@ sge::systems::instance<
 	sge::systems::with_input
 >;
 
-}
-}
 }
 
 #endif

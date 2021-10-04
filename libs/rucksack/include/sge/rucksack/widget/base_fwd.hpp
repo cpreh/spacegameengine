@@ -8,17 +8,11 @@
 #define SGE_RUCKSACK_WIDGET_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace widget
+namespace sge::rucksack::widget
 {
 
 class base;
 
-}
-}
 }
 
 #endif

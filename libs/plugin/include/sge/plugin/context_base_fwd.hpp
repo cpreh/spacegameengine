@@ -8,14 +8,11 @@
 #define SGE_PLUGIN_CONTEXT_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 class context_base;
 
-}
 }
 
 #endif

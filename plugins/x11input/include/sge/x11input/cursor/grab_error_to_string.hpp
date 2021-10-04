@@ -10,11 +10,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 fcppt::string
@@ -22,8 +18,6 @@ grab_error_to_string(
 	int
 );
 
-}
-}
 }
 
 #endif

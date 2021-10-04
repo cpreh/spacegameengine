@@ -35,13 +35,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace cg
+namespace sge::scenic::render_context::cg
 {
 
 class manager
@@ -135,9 +129,6 @@ private:
 	sge::renderer::state::core::sampler::object_unique_ptr const mipmap_sampler_state_;
 };
 
-}
-}
-}
 }
 
 #endif

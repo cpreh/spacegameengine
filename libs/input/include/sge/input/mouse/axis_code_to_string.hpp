@@ -12,11 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ axis_code_to_string(
 	sge::input::mouse::axis_code
 );
 
-}
-}
 }
 
 #endif

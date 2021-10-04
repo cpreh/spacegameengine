@@ -17,11 +17,7 @@
 #include <fcppt/math/matrix/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace shader
-{
-namespace parameter
+namespace sge::shader::parameter
 {
 
 template<
@@ -75,8 +71,6 @@ private:
 	sge::shader::parameter::is_projection_matrix const is_projection_matrix_;
 };
 
-}
-}
 }
 
 #endif

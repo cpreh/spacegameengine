@@ -11,9 +11,7 @@
 #include <sge/sprite/detail/vf/format_part.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 template<
@@ -29,7 +27,6 @@ sge::renderer::vf::format<
 	>::type
 >;
 
-}
 }
 
 #endif

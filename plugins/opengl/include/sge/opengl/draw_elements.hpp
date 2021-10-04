@@ -17,9 +17,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 void
@@ -34,7 +32,6 @@ draw_elements(
 	sge::renderer::index::count
 );
 
-}
 }
 
 #endif

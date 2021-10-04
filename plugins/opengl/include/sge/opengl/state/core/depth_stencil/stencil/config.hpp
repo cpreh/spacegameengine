@@ -12,17 +12,7 @@
 #include <sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::opengl::state::core::depth_stencil::stencil
 {
 
 class config
@@ -60,11 +50,6 @@ private:
 	gl_stencil_op_separate stencil_op_separate_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

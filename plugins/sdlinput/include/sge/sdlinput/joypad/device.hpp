@@ -27,11 +27,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 class device
@@ -99,8 +95,6 @@ private:
 	sge::input::joypad::info const info_;
 };
 
-}
-}
 }
 
 #endif

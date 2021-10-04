@@ -13,13 +13,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace config
+namespace sge::parse::json::config
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL help_needed_exception
@@ -62,9 +56,6 @@ public:
 	override;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -12,15 +12,7 @@
 #include <sge/renderer/state/core/sampler/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::opengl::state::core::sampler
 {
 
 using
@@ -31,10 +23,6 @@ sge::opengl::state::unary_object<
 	sge::opengl::texture::binding
 >;
 
-}
-}
-}
-}
 }
 
 #endif

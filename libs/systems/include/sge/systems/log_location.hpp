@@ -11,16 +11,13 @@
 #include <fcppt/log/location.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 SGE_SYSTEMS_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 
-}
 }
 
 #endif

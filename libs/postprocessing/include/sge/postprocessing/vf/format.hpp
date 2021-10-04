@@ -11,11 +11,7 @@
 #include <sge/renderer/vf/format.hpp>
 
 
-namespace sge
-{
-namespace postprocessing
-{
-namespace vf
+namespace sge::postprocessing::vf
 {
 
 using
@@ -25,8 +21,6 @@ sge::renderer::vf::format<
 	sge::postprocessing::vf::format_part
 >;
 
-}
-}
 }
 
 #endif

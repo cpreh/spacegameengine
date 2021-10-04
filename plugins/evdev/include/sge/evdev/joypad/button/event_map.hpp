@@ -11,13 +11,7 @@
 #include <sge/input/joypad/button_id.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace button
+namespace sge::evdev::joypad::button
 {
 
 using
@@ -27,9 +21,6 @@ sge::evdev::device::event_map<
 	sge::input::joypad::button_id
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 /**
@@ -44,8 +40,6 @@ public:
 	~declaration();
 };
 
-}
-}
 }
 
 #endif

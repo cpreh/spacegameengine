@@ -26,11 +26,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 template<
@@ -130,8 +126,6 @@ private:
 	size_type size_;
 };
 
-}
-}
 }
 
 #define SGE_RENDERER_INDEX_DETAIL_DECLARE_VIEW_BASE(\

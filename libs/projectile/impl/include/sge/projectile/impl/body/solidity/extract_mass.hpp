@@ -13,15 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace impl
-{
-namespace body
-{
-namespace solidity
+namespace sge::projectile::impl::body::solidity
 {
 
 btScalar
@@ -29,10 +21,6 @@ extract_mass(
 	sge::projectile::body::solidity::variant const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

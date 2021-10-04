@@ -14,11 +14,7 @@
 #include <fcppt/record/element.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 struct with_rotation
@@ -43,8 +39,6 @@ struct with_rotation
 	};
 };
 
-}
-}
 }
 
 #endif

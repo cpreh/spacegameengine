@@ -13,11 +13,7 @@
 #include <sge/input/joypad/relative_axis_id.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 class relative_axis
@@ -44,8 +40,6 @@ private:
 	sge::input::joypad::relative_axis_id id_;
 };
 
-}
-}
 }
 
 #endif

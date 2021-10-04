@@ -23,11 +23,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace cursor
+namespace sge::wlinput::cursor
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
@@ -80,8 +76,6 @@ private:
 	sge::wlinput::cursor::data data_;
 };
 
-}
-}
 }
 
 #endif

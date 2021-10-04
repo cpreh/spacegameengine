@@ -12,15 +12,7 @@
 #include <sge/opengl/state/core/blend/config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 class config
@@ -45,10 +37,6 @@ private:
 	gl_blend_func_separate blend_func_separate_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -8,9 +8,7 @@
 #define SGE_GUI_CLICK_FUNCTION_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 using
@@ -18,7 +16,6 @@ click_function
 =
 void ();
 
-}
 }
 
 #endif

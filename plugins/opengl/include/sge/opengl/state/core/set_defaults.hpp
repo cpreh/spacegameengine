@@ -10,13 +10,7 @@
 #include <sge/opengl/context/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
+namespace sge::opengl::state::core
 {
 
 void
@@ -24,9 +18,6 @@ set_defaults(
 	sge::opengl::context::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
-}
 }
 
 #endif

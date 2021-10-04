@@ -17,9 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class config
@@ -53,7 +51,6 @@ private:
 	sge::systems::optional_log_settings log_settings_;
 };
 
-}
 }
 
 #endif

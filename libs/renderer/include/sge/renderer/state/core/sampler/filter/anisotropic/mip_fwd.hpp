@@ -8,29 +8,11 @@
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_MIP_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
-{
-namespace anisotropic
+namespace sge::renderer::state::core::sampler::filter::anisotropic
 {
 
 enum class mip;
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

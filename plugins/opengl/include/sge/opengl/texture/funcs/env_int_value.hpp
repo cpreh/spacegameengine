@@ -12,13 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace sge::opengl::texture::funcs
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -26,9 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	env_int_value
 );
 
-}
-}
-}
 }
 
 #endif

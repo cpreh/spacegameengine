@@ -18,11 +18,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace buffer
+namespace sge::renderer::buffer
 {
 
 /**
@@ -131,8 +127,6 @@ private:
 	view const view_;
 };
 
-}
-}
 }
 
 #endif

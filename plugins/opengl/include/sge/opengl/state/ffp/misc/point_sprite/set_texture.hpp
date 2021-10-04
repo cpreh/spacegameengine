@@ -14,17 +14,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
-{
-namespace point_sprite
+namespace sge::opengl::state::ffp::misc::point_sprite
 {
 
 void
@@ -36,11 +26,6 @@ set_texture(
 	sge::renderer::state::ffp::misc::enable_point_sprites
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

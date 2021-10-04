@@ -11,19 +11,13 @@
 #include <sge/gui/style/base_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace style
+namespace sge::gui::style
 {
 
 SGE_GUI_DETAIL_SYMBOL
 sge::gui::style::base_unique_ptr
 create();
 
-}
-}
 }
 
 #endif

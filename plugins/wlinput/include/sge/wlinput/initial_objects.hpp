@@ -22,9 +22,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 template<
@@ -94,7 +92,6 @@ initial_objects(
 	FCPPT_PP_POP_WARNING
 }
 
-}
 }
 
 #endif

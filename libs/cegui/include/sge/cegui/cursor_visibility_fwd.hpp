@@ -8,14 +8,11 @@
 #define SGE_CEGUI_CURSOR_VISIBILITY_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 enum class cursor_visibility;
 
-}
 }
 
 #endif

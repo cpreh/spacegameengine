@@ -7,18 +7,9 @@
 #ifndef SGE_CAMERA_SPHERICAL_COORDINATE_SYSTEM_OBJECT_FWD_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_COORDINATE_SYSTEM_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
-{
-namespace coordinate_system
+namespace sge::camera::spherical::coordinate_system
 {
 class object;
-}
-}
-}
 }
 
 #endif

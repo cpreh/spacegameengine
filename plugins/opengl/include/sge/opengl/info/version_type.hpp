@@ -8,11 +8,7 @@
 #define SGE_OPENGL_INFO_VERSION_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace info
+namespace sge::opengl::info
 {
 
 using
@@ -20,8 +16,6 @@ version_type
 =
 unsigned;
 
-}
-}
 }
 
 #endif

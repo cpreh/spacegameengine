@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace cursor
+namespace sge::sdlinput::cursor
 {
 
 awl::event::container
@@ -27,8 +23,6 @@ translate_wheel_event(
 	SDL_MouseWheelEvent const &
 );
 
-}
-}
 }
 
 #endif

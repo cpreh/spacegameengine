@@ -22,11 +22,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace style
+namespace sge::gui::style
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
@@ -125,8 +121,6 @@ public:
 	text_color() const = 0;
 };
 
-}
-}
 }
 
 #endif

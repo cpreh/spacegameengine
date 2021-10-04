@@ -12,11 +12,7 @@
 #include <fcppt/mpl/map/flip.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
+namespace sge::image::impl
 {
 
 template<
@@ -35,8 +31,6 @@ fcppt::mpl::map::at<
 	StaticFormat
 >;
 
-}
-}
 }
 
 #endif

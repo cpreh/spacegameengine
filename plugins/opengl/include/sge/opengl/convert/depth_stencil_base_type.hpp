@@ -11,11 +11,7 @@
 #include <sge/opengl/color_base_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 sge::opengl::color_base_type
@@ -23,8 +19,6 @@ depth_stencil_base_type(
 	sge::image::ds::format
 );
 
-}
-}
 }
 
 #endif

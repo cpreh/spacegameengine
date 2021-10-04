@@ -12,13 +12,7 @@
 #include <mizuiro/image/algorithm/compare.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace algorithm
+namespace sge::image::impl::algorithm
 {
 
 struct compare_visitor
@@ -57,9 +51,6 @@ struct compare_visitor
 	}
 };
 
-}
-}
-}
 }
 
 #endif

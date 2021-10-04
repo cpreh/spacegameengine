@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::opengl::state::ffp::transform
 {
 
 sge::opengl::state::ffp::transform::actor_vector
@@ -29,10 +21,6 @@ make_actors(
 	sge::renderer::state::ffp::transform::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
+namespace sge::opencl
 {
 
 using
@@ -22,7 +20,6 @@ error_information_string
 =
 std::string;
 
-}
 }
 
 #endif

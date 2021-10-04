@@ -10,21 +10,12 @@
 #include <sge/image/color/any/object.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
-{
-namespace style
+namespace sge::gui::impl::style
 {
 
 sge::image::color::any::object
 text_color();
 
-}
-}
-}
 }
 
 #endif

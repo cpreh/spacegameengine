@@ -21,11 +21,7 @@ class RawDataContainer;
 class String;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class resource_provider
@@ -70,8 +66,6 @@ private:
 	fcppt::log::object log_;
 };
 
-}
-}
 }
 
 #endif

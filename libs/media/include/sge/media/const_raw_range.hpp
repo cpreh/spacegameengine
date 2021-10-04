@@ -11,9 +11,7 @@
 #include <fcppt/iterator/range_impl.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::iterator::range<
 	sge::media::const_raw_pointer
 >;
 
-}
 }
 
 #endif

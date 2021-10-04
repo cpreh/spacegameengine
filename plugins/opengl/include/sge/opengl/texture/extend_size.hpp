@@ -11,11 +11,7 @@
 #include <sge/renderer/size_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -36,8 +32,6 @@ extend_size(
 	sge::renderer::size_type
 );
 
-}
-}
 }
 
 #endif

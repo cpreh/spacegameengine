@@ -14,11 +14,7 @@
 #include <sge/input/mouse/info_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 class info
@@ -53,8 +49,6 @@ private:
 	sge::input::info::name name_;
 };
 
-}
-}
 }
 
 #endif

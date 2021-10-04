@@ -11,13 +11,7 @@
 #include <fcppt/mpl/list/contains.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace config
+namespace sge::sprite::detail::config
 {
 
 template<
@@ -31,9 +25,6 @@ fcppt::mpl::list::contains<
 	sge::sprite::config::with_rotation
 >;
 
-}
-}
-}
 }
 
 #endif

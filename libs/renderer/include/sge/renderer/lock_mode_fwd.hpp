@@ -8,14 +8,11 @@
 #define SGE_RENDERER_LOCK_MODE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 enum class lock_mode;
 
-}
 }
 
 #endif

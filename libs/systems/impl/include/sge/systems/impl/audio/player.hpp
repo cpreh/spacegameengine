@@ -17,13 +17,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace audio
+namespace sge::systems::impl::audio
 {
 
 class player
@@ -48,9 +42,6 @@ private:
 	sge::systems::impl::audio::player_pair const player_pair_;
 };
 
-}
-}
-}
 }
 
 #endif

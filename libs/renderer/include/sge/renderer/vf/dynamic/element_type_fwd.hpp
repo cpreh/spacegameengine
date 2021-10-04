@@ -8,20 +8,11 @@
 #define SGE_RENDERER_VF_DYNAMIC_ELEMENT_TYPE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 enum class element_type;
 
-}
-}
-}
 }
 
 #endif

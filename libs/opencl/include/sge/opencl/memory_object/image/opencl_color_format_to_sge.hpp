@@ -10,20 +10,11 @@
 #include <sge/image/color/format_fwd.hpp>
 #include <sge/opencl/clinclude.hpp>
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
-{
-namespace image
+namespace sge::opencl::memory_object::image
 {
 sge::image::color::format
 opencl_color_format_to_sge(
 	cl_image_format const &);
-}
-}
-}
 }
 
 #endif

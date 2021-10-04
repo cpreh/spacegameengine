@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/clip_plane/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::opengl::state::ffp::clip_plane
 {
 
 using
@@ -31,10 +23,6 @@ sge::opengl::state::unary_object<
 	GLenum
 >;
 
-}
-}
-}
-}
 }
 
 #endif

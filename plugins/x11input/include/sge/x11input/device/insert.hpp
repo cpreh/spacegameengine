@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
+namespace sge::x11input::device
 {
 
 template<
@@ -52,8 +48,6 @@ insert(
 		_ptr;
 }
 
-}
-}
 }
 
 #endif

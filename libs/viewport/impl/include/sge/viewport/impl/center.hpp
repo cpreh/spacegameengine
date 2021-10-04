@@ -11,11 +11,7 @@
 #include <sge/window/dim.hpp>
 
 
-namespace sge
-{
-namespace viewport
-{
-namespace impl
+namespace sge::viewport::impl
 {
 
 sge::renderer::target::viewport
@@ -24,8 +20,6 @@ center(
 	sge::window::dim const &window_dim
 );
 
-}
-}
 }
 
 #endif

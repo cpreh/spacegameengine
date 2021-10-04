@@ -8,11 +8,7 @@
 #define SGE_RENDERER_BUFFER_WRITABLE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace buffer
+namespace sge::renderer::buffer
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class writable;
 
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 enum class emulate_srgb
@@ -36,8 +32,6 @@ enum class emulate_srgb
 	yes
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/renderer/vf/pos.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace vf
+namespace sge::scenic::vf
 {
 
 using
@@ -26,8 +22,6 @@ sge::renderer::vf::pos<
 	3
 >;
 
-}
-}
 }
 
 #endif

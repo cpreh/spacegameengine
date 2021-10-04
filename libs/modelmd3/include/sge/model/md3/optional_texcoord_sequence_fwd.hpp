@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::model::md3::texcoord_sequence
 >;
 
-}
-}
 }
 
 #endif

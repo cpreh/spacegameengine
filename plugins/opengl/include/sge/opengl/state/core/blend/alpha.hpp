@@ -12,15 +12,7 @@
 #include <sge/renderer/state/core/blend/alpha_variant_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 sge::opengl::state::actor_vector
@@ -29,10 +21,6 @@ alpha(
 	sge::renderer::state::core::blend::alpha_variant const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

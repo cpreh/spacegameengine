@@ -7,11 +7,7 @@
 #ifndef SGE_SPRITE_RENDER_RANGE_FWD_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace sprite
-{
-namespace render
+namespace sge::sprite::render
 {
 
 template<
@@ -19,8 +15,6 @@ template<
 >
 class range;
 
-}
-}
 }
 
 #endif

@@ -20,11 +20,7 @@
 #include <sge/camera/spherical/coordinate_system/object.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
+namespace sge::camera::spherical
 {
 
 class parameters
@@ -144,8 +140,6 @@ private:
 	sge::camera::optional_projection_matrix projection_matrix_;
 };
 
-}
-}
 }
 
 #endif

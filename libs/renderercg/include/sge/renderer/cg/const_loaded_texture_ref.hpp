@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace cg
+namespace sge::renderer::cg
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::renderer::cg::loaded_texture const
 >;
 
-}
-}
 }
 
 #endif

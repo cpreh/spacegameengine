@@ -11,9 +11,7 @@
 #include <fcppt/array/object_impl.hpp>
 
 
-namespace sge
-{
-namespace projectile
+namespace sge::projectile
 {
 
 using
@@ -24,7 +22,6 @@ fcppt::array::object<
 	3
 >;
 
-}
 }
 
 #endif

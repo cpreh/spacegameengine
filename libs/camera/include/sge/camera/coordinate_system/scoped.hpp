@@ -14,11 +14,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace coordinate_system
+namespace sge::camera::coordinate_system
 {
 
 class scoped
@@ -45,8 +41,6 @@ private:
 	sge::camera::coordinate_system::object const old_coordinates_;
 };
 
-}
-}
 }
 
 #endif

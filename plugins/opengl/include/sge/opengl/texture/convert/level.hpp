@@ -10,13 +10,7 @@
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace convert
+namespace sge::opengl::texture::convert
 {
 
 GLenum
@@ -24,9 +18,6 @@ level(
 	renderer::texture::stage
 );
 
-}
-}
-}
 }
 
 #endif

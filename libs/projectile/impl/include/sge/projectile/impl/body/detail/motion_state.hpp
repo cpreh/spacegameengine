@@ -15,13 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
-{
-namespace detail
+namespace sge::projectile::body::detail
 {
 
 // This is just a trampoline class because I couldn't derive
@@ -58,9 +52,6 @@ private:
 	override;
 };
 
-}
-}
-}
 }
 
 #endif

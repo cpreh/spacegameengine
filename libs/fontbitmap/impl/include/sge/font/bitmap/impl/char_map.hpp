@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 using
@@ -31,9 +25,6 @@ std::unordered_map<
 	sge::font::bitmap::impl::char_metric
 >;
 
-}
-}
-}
 }
 
 #endif

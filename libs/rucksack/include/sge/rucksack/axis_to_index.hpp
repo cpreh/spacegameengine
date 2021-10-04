@@ -12,9 +12,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 SGE_RUCKSACK_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ axis_to_index(
 	sge::rucksack::axis
 );
 
-}
 }
 
 #endif

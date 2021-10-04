@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 void
@@ -28,7 +26,6 @@ write(
 	sge::libpng::file_rep const &
 );
 
-}
 }
 
 #endif

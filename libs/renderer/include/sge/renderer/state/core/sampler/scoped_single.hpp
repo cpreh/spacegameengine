@@ -15,15 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::renderer::state::core::sampler
 {
 
 class scoped_single
@@ -47,10 +39,6 @@ private:
 	sge::renderer::texture::stage const stage_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

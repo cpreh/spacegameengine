@@ -21,9 +21,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 /**
 \brief Multiplex the output of an ostream to the console and to the original target
@@ -115,7 +113,6 @@ private:
 	override;
 };
 
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 EGLint
@@ -26,8 +22,6 @@ get_config_attrib(
 	EGLint
 );
 
-}
-}
 }
 
 #endif

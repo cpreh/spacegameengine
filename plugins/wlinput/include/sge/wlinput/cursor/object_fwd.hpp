@@ -8,17 +8,11 @@
 #define SGE_WLINPUT_CURSOR_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace cursor
+namespace sge::wlinput::cursor
 {
 
 class object;
 
-}
-}
 }
 
 #endif

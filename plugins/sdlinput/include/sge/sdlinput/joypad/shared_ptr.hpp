@@ -11,11 +11,7 @@
 #include <fcppt/shared_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::shared_ptr<
 	sge::sdlinput::joypad::device
 >;
 
-}
-}
 }
 
 #endif

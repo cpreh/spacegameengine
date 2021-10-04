@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace keyboard
+namespace sge::sdlinput::keyboard
 {
 
 awl::event::optional_base_unique_ptr
@@ -27,8 +23,6 @@ translate_event(
 	SDL_KeyboardEvent const &
 );
 
-}
-}
 }
 
 #endif

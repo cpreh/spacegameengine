@@ -12,11 +12,7 @@
 #include <awl/window/event/resize_fwd.hpp>
 
 
-namespace sge
-{
-namespace viewport
-{
-namespace impl
+namespace sge::viewport::impl
 {
 
 sge::renderer::target::viewport
@@ -25,8 +21,6 @@ maintain_aspect_function(
 	sge::viewport::fractional_aspect
 );
 
-}
-}
 }
 
 #endif

@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 
 using
@@ -25,7 +23,6 @@ fcppt::reference<
 	std::istream
 >;
 
-}
 }
 
 #endif

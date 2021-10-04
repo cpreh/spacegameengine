@@ -29,11 +29,7 @@
 #include <fcppt/signal/object_decl.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class button
@@ -123,8 +119,6 @@ private:
 	click_signal click_;
 };
 
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace timer
-{
-namespace clocks
+namespace sge::timer::clocks
 {
 
 template<
@@ -57,8 +53,6 @@ std::false_type
 {
 };
 
-}
-}
 }
 
 #endif

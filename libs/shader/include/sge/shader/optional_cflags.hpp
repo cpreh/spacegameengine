@@ -10,9 +10,7 @@
 #include <sge/cg/program/compile_options.hpp>
 
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 
 using
@@ -20,7 +18,6 @@ optional_cflags
 =
 sge::cg::program::compile_options;
 
-}
 }
 
 #endif

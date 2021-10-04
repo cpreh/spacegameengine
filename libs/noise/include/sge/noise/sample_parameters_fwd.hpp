@@ -7,9 +7,7 @@
 #ifndef SGE_NOISE_SAMPLE_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_NOISE_SAMPLE_PARAMETERS_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace noise
+namespace sge::noise
 {
 
 template<
@@ -17,7 +15,6 @@ template<
 >
 class sample_parameters;
 
-}
 }
 
 #endif

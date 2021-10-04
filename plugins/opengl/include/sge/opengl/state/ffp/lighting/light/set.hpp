@@ -11,17 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::opengl::state::ffp::lighting::light
 {
 
 void
@@ -30,11 +20,6 @@ set(
 	sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

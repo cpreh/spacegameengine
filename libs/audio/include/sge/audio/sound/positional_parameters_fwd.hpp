@@ -7,17 +7,11 @@
 #ifndef SGE_AUDIO_SOUND_POSITIONAL_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_POSITIONAL_PARAMETERS_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 class positional_parameters;
 
-}
-}
 }
 
 #endif

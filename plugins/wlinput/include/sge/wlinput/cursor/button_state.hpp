@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace cursor
+namespace sge::wlinput::cursor
 {
 
 sge::input::cursor::button_pressed
@@ -25,8 +21,6 @@ button_state(
 	std::uint32_t
 );
 
-}
-}
 }
 
 #endif

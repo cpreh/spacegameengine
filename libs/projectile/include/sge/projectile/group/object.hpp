@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace group
+namespace sge::projectile::group
 {
 
 class object
@@ -47,8 +43,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

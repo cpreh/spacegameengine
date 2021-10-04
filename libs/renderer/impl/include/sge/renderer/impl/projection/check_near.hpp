@@ -10,13 +10,7 @@
 #include <sge/renderer/projection/near.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace impl
-{
-namespace projection
+namespace sge::renderer::impl::projection
 {
 
 void
@@ -24,9 +18,6 @@ check_near(
 	sge::renderer::projection::near
 );
 
-}
-}
-}
 }
 
 #endif

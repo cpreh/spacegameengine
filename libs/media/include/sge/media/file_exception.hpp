@@ -14,9 +14,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 template<
@@ -62,7 +60,6 @@ public:
 	override;
 };
 
-}
 }
 
 #endif

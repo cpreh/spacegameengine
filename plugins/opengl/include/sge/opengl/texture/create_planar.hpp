@@ -12,11 +12,7 @@
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 sge::renderer::texture::planar_unique_ptr
@@ -25,8 +21,6 @@ create_planar(
 	sge::renderer::texture::planar_parameters const &
 );
 
-}
-}
 }
 
 #endif

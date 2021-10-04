@@ -14,18 +14,12 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 SGE_SCENIC_DETAIL_SYMBOL
 sge::scenic::scene::prototype_unique_ptr
 from_blender_file(
 	std::filesystem::path const &);
-}
-}
 }
 
 #endif

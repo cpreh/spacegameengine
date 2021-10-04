@@ -8,13 +8,7 @@
 #define SGE_RENDERER_VF_DYNAMIC_BASIC_VIEW_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 template<
@@ -22,9 +16,6 @@ template<
 >
 class basic_view;
 
-}
-}
-}
 }
 
 #endif

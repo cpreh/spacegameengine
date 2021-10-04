@@ -17,17 +17,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -81,11 +71,6 @@ public:
 
 FCPPT_PP_POP_WARNING
 
-}
-}
-}
-}
-}
 }
 
 #endif

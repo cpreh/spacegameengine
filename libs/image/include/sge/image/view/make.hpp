@@ -16,11 +16,7 @@
 #include <sge/image/view/object.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -45,8 +41,6 @@ make(
 	> const &
 );
 
-}
-}
 }
 
 #endif

@@ -17,13 +17,7 @@
 #include <fcppt/math/matrix/object_impl.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace matrix
+namespace sge::cg::parameter::matrix
 {
 
 template<
@@ -70,9 +64,6 @@ set(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

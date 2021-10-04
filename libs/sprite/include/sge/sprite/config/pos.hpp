@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -51,8 +47,6 @@ struct pos final
 	};
 };
 
-}
-}
 }
 
 #endif

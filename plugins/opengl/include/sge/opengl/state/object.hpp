@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
+namespace sge::opengl::state
 {
 
 template<
@@ -44,8 +40,6 @@ private:
 	sge::opengl::state::actor_vector const actors_;
 };
 
-}
-}
 }
 
 #endif

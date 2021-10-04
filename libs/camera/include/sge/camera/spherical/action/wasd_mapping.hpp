@@ -11,22 +11,13 @@
 #include <sge/camera/spherical/action/mapping.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
-{
-namespace action
+namespace sge::camera::spherical::action
 {
 
 SGE_CAMERA_DETAIL_SYMBOL
 sge::camera::spherical::action::mapping
 wasd_mapping();
 
-}
-}
-}
 }
 
 #endif

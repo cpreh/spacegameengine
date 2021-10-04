@@ -7,15 +7,9 @@
 #ifndef SGE_CAMERA_SPHERICAL_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_PARAMETERS_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
+namespace sge::camera::spherical
 {
 class parameters;
-}
-}
 }
 
 #endif

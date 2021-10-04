@@ -13,9 +13,7 @@
 #include <sge/rucksack/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 class axis_policy2
@@ -49,7 +47,6 @@ private:
 		y_;
 };
 
-}
 }
 
 #endif

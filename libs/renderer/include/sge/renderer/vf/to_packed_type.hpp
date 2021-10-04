@@ -8,11 +8,7 @@
 #define SGE_RENDERER_VF_TO_PACKED_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -24,8 +20,6 @@ to_packed_type
 typename
 Type::packed_type;
 
-}
-}
 }
 
 #endif

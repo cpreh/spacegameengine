@@ -8,11 +8,7 @@
 #define SGE_PROJECTILE_GROUP_ID_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace group
+namespace sge::projectile::group
 {
 
 using
@@ -20,8 +16,6 @@ id
 =
 short; // NOLINT(google-runtime-int)
 
-}
-}
 }
 
 #endif

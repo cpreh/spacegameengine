@@ -8,9 +8,7 @@
 #define SGE_FONT_TTF_SIZE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 using
@@ -18,7 +16,6 @@ ttf_size
 =
 unsigned;
 
-}
 }
 
 #endif

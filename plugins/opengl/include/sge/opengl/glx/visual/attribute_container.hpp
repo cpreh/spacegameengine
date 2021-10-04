@@ -12,13 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
-namespace visual
+namespace sge::opengl::glx::visual
 {
 
 using
@@ -28,9 +22,6 @@ std::vector<
 	int
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/input/key/code_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace key
+namespace sge::input::key
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -24,8 +20,6 @@ is_control(
 	sge::input::key::code
 );
 
-}
-}
 }
 
 #endif

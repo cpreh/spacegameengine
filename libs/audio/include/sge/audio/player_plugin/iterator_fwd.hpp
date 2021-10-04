@@ -11,11 +11,7 @@
 #include <sge/plugin/iterator_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace player_plugin
+namespace sge::audio::player_plugin
 {
 
 using
@@ -25,8 +21,6 @@ sge::plugin::iterator<
 	sge::audio::player
 >;
 
-}
-}
 }
 
 #endif

@@ -8,13 +8,7 @@
 #define SGE_RENDERER_TEXTURE_MIPMAP_LEVEL_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::renderer::texture::mipmap
 {
 
 using
@@ -22,9 +16,6 @@ level_type
 =
 unsigned;
 
-}
-}
-}
 }
 
 #endif

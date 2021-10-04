@@ -8,9 +8,7 @@
 #define SGE_SPRITE_TEXTURE_LEVEL_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 using
@@ -18,7 +16,6 @@ texture_level
 =
 unsigned;
 
-}
 }
 
 #endif

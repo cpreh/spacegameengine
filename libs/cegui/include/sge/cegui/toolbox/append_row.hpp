@@ -16,11 +16,7 @@ namespace CEGUI
 class MultiColumnList;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace toolbox
+namespace sge::cegui::toolbox
 {
 
 SGE_CEGUI_DETAIL_SYMBOL
@@ -30,8 +26,6 @@ append_row(
 	sge::cegui::toolbox::row const &
 );
 
-}
-}
 }
 
 #endif

@@ -10,9 +10,7 @@
 #include <mizuiro/size_type.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 using
@@ -20,7 +18,6 @@ size_type
 =
 mizuiro::size_type;
 
-}
 }
 
 #endif

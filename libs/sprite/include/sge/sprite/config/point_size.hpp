@@ -15,11 +15,7 @@
 #include <fcppt/record/element.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -55,8 +51,6 @@ public:
 	};
 };
 
-}
-}
 }
 
 #endif

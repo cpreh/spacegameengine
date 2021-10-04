@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 template<
@@ -45,8 +41,6 @@ fcppt::iterator::base<
 	>
 >;
 
-}
-}
 }
 
 #endif

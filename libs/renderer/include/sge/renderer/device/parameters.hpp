@@ -13,11 +13,7 @@
 #include <sge/window/object_ref.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace device
+namespace sge::renderer::device
 {
 
 class parameters
@@ -44,8 +40,6 @@ private:
 	sge::window::object_ref window_;
 };
 
-}
-}
 }
 
 #endif

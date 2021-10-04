@@ -11,11 +11,7 @@
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 template<
@@ -28,8 +24,6 @@ fcppt::container::bitfield::object<
 	sge::evdev::device::read_bits_value
 >;
 
-}
-}
 }
 
 #endif

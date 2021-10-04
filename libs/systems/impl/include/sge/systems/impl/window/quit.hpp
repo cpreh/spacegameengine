@@ -14,13 +14,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 class quit
@@ -41,9 +35,6 @@ private:
 	fcppt::signal::auto_connection const destroy_connection_;
 };
 
-}
-}
-}
 }
 
 #endif

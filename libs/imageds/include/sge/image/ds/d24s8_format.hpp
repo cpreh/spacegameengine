@@ -12,11 +12,7 @@
 #include <mizuiro/size_list.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
+namespace sge::image::ds
 {
 
 using
@@ -30,8 +26,6 @@ sge::image::heterogenous_format<
 	sge::image::ds::layout::depth_stencil
 >;
 
-}
-}
 }
 
 #endif

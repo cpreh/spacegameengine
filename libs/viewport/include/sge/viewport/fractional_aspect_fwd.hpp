@@ -8,14 +8,11 @@
 #define SGE_VIEWPORT_FRACTIONAL_ASPECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 class fractional_aspect;
 
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/renderer/device/core_ref.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace renderer
+namespace sge::gui::renderer
 {
 
 SGE_GUI_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ create_stateless(
 	sge::renderer::device::core_ref
 );
 
-}
-}
 }
 
 #endif

@@ -8,20 +8,11 @@
 #define SGE_RENDERER_OPENGL_BUFFER_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::renderer::opengl::buffer
 {
 
 class base;
 
-}
-}
-}
 }
 
 #endif

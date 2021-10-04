@@ -293,7 +293,7 @@ sge::scenic::render_context::cg::object::lights(
 							fcppt::math::vector::push_back(
 								_directional_light.direction().get(),
 								static_cast<sge::renderer::scalar>(
-									0.0f)))));
+									0.0F)))));
 			}
 		);
 	}

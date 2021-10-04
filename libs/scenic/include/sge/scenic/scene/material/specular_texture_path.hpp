@@ -13,20 +13,11 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
-{
-namespace material
+namespace sge::scenic::scene::material
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	std::filesystem::path,
 	specular_texture_path);
-}
-}
-}
 }
 
 #endif

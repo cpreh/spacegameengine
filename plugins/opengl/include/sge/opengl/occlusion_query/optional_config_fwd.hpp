@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::opengl::occlusion_query::config
 >;
 
-}
-}
 }
 
 #endif

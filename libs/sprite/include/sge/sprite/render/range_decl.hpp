@@ -15,11 +15,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace render
+namespace sge::sprite::render
 {
 
 template<
@@ -92,8 +88,6 @@ private:
 	range_part_vector range_parts_;
 };
 
-}
-}
 }
 
 #endif

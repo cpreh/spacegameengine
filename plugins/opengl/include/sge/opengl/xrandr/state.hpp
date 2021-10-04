@@ -22,11 +22,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class state
@@ -78,8 +74,6 @@ private:
 	fcppt::signal::auto_connection const event_connection_;
 };
 
-}
-}
 }
 
 #endif

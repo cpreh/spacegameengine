@@ -11,13 +11,7 @@
 #include <sge/renderer/state/ffp/fog/mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 GLint
@@ -25,9 +19,6 @@ fog_mode(
 	sge::renderer::state::ffp::fog::mode
 );
 
-}
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
-{
-namespace image
+namespace sge::opencl::memory_object::image
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -26,9 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	planar_pitch
 );
 
-}
-}
-}
 }
 
 #endif

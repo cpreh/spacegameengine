@@ -8,17 +8,11 @@
 #define SGE_OPENGL_TEXTURE_PLANAR_TYPES_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct planar_types;
 
-}
-}
 }
 
 #endif

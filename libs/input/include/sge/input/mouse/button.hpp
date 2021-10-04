@@ -13,11 +13,7 @@
 #include <sge/input/mouse/button_id.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 class button
@@ -44,8 +40,6 @@ private:
 	sge::input::mouse::button_id id_;
 };
 
-}
-}
 }
 
 #endif

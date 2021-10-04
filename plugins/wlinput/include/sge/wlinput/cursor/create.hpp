@@ -13,11 +13,7 @@
 #include <awl/event/container_reference.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace cursor
+namespace sge::wlinput::cursor
 {
 
 sge::wlinput::cursor::create_function
@@ -27,8 +23,6 @@ create(
 	awl::event::container_reference
 );
 
-}
-}
 }
 
 #endif

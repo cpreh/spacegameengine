@@ -18,13 +18,7 @@
 #include <sge/model/obj/material/specular_texture_path.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
-namespace material
+namespace sge::model::obj::material
 {
 
 class object
@@ -92,9 +86,6 @@ private:
 	sge::model::obj::material::specular_texture_path specular_texture_;
 };
 
-}
-}
-}
 }
 
 #endif

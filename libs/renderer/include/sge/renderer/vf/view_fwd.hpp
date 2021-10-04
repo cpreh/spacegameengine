@@ -10,11 +10,7 @@
 #include <sge/renderer/vf/nonconst_tag.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -23,8 +19,6 @@ template<
 >
 class view;
 
-}
-}
 }
 
 #endif

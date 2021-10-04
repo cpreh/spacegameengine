@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 using
@@ -25,7 +23,6 @@ std::vector<
 	sge::plugin::context_base_ref
 >;
 
-}
 }
 
 #endif

@@ -28,11 +28,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace ortho_freelook
+namespace sge::camera::ortho_freelook
 {
 
 /**
@@ -129,8 +125,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

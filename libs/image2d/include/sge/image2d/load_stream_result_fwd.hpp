@@ -11,9 +11,7 @@
 #include <sge/media/load_stream_result_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 using
@@ -23,7 +21,6 @@ sge::media::load_stream_result<
 	sge::image2d::file
 >;
 
-}
 }
 
 #endif

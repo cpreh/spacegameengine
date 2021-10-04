@@ -26,9 +26,7 @@
 #include <fcppt/signal/object_decl.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
@@ -142,7 +140,6 @@ private:
 	);
 };
 
-}
 }
 
 #endif

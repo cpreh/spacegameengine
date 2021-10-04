@@ -15,9 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace postprocessing
+namespace sge::postprocessing
 {
 
 class fullscreen_quad
@@ -49,7 +47,6 @@ private:
 	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer_;
 };
 
-}
 }
 
 #endif

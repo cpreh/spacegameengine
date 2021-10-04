@@ -8,14 +8,11 @@
 #define SGE_SYSTEMS_CURSOR_OPTION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 enum class cursor_option;
 
-}
 }
 
 #endif

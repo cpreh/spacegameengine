@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::image2d::system
 >;
 
-}
 }
 
 #endif

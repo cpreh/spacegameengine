@@ -51,13 +51,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace draw
-{
-namespace detail
+namespace sge::font::draw::detail
 {
 
 class static_text_impl
@@ -232,9 +226,6 @@ private:
 	sprite_range sprite_range_;
 };
 
-}
-}
-}
 }
 
 #endif

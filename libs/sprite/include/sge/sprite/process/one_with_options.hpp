@@ -17,11 +17,7 @@
 #include <sge/sprite/state/options_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace process
+namespace sge::sprite::process
 {
 
 template<
@@ -75,8 +71,6 @@ one_with_options(
 	);
 }
 
-}
-}
 }
 
 #endif

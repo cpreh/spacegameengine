@@ -8,20 +8,11 @@
 #define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace dynamic
+namespace sge::renderer::index::dynamic
 {
 
 enum class format;
 
-}
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <mizuiro/access/raw.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 using
@@ -22,8 +18,6 @@ mizuiro_access
 =
 mizuiro::access::raw;
 
-}
-}
 }
 
 #endif

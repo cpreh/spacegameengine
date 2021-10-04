@@ -11,15 +11,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::renderer::state::ffp::clip_plane
 {
 
 /**
@@ -32,10 +24,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	area
 );
 
-}
-}
-}
-}
 }
 
 #endif

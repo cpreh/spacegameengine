@@ -13,15 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace impl
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::impl::vf::dynamic
 {
 
 using
@@ -31,10 +23,6 @@ boost::icl::interval<
 	sge::renderer::size_type
 >::type;
 
-}
-}
-}
-}
 }
 
 #endif

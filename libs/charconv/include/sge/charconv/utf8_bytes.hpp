@@ -11,9 +11,7 @@
 #include <sge/charconv/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 SGE_CHARCONV_DETAIL_SYMBOL
@@ -22,7 +20,6 @@ utf8_bytes(
 	sge::charconv::utf8_char
 );
 
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_SDLINPUT_JOYPAD_DEVICE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 class device;
 
-}
-}
 }
 
 #endif

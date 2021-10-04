@@ -23,11 +23,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace viewport
+namespace sge::rucksack::viewport
 {
 /**
  * The viewport adaptor has just one single child. It synchronizes the size and
@@ -124,8 +120,6 @@ private:
 	override;
 };
 
-}
-}
 }
 
 #endif

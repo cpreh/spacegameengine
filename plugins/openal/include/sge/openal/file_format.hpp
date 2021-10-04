@@ -11,9 +11,7 @@
 #include <sge/openal/al.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 ALenum
@@ -21,7 +19,6 @@ file_format(
 	sge::audio::file const &
 );
 
-}
 }
 
 #endif

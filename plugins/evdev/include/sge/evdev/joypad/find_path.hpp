@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 sge::evdev::joypad::optional_iterator
@@ -27,8 +23,6 @@ find_path(
 	std::filesystem::path const &
 );
 
-}
-}
 }
 
 #endif

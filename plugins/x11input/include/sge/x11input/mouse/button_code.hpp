@@ -11,11 +11,7 @@
 #include <fcppt/optional_string_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace mouse
+namespace sge::x11input::mouse
 {
 
 sge::input::mouse::button_code
@@ -23,8 +19,6 @@ button_code(
 	fcppt::optional_string const &
 );
 
-}
-}
 }
 
 #endif

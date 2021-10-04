@@ -12,11 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 void
@@ -26,8 +22,6 @@ vsync(
 	awl::backends::x11::display & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

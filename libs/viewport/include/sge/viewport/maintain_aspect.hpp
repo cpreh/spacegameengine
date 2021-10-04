@@ -12,9 +12,7 @@
 #include <sge/viewport/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 SGE_VIEWPORT_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ maintain_aspect(
 	sge::viewport::fractional_aspect const &
 );
 
-}
 }
 
 #endif

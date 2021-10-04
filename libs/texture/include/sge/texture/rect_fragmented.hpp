@@ -21,9 +21,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL rect_fragmented
@@ -90,7 +88,6 @@ private:
 	sge::renderer::size_type texture_count_;
 };
 
-}
 }
 
 #endif

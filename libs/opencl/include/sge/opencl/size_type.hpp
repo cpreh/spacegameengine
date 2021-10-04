@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
+namespace sge::opencl
 {
 
 using
@@ -23,7 +21,6 @@ size_type
 =
 std::size_t;
 
-}
 }
 
 #endif

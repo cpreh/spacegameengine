@@ -8,15 +8,7 @@
 #define SGE_SPRITE_INTRUSIVE_ORDERED_DETAIL_ITERATOR_EMPTY_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace ordered
-{
-namespace detail
+namespace sge::sprite::intrusive::ordered::detail
 {
 
 struct iterator_empty
@@ -34,10 +26,6 @@ struct iterator_empty
 	}
 };
 
-}
-}
-}
-}
 }
 
 #endif

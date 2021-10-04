@@ -17,13 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace any
+namespace sge::renderer::index::any
 {
 
 template<
@@ -66,9 +60,6 @@ generate(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

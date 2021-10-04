@@ -10,9 +10,7 @@
 #include <sge/renderer/target/viewport_fwd.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 using
@@ -22,7 +20,6 @@ void (
 	sge::renderer::target::viewport const &
 );
 
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 class scoped
@@ -40,8 +36,6 @@ private:
 	sge::opengl::target::base_ref const target_;
 };
 
-}
-}
 }
 
 #endif

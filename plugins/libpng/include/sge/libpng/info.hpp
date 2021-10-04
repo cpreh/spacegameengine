@@ -12,9 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class info
@@ -39,7 +37,6 @@ private:
 	png_infop info_;
 };
 
-}
 }
 
 #endif

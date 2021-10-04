@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace resource_tree
-{
-namespace detail
+namespace sge::resource_tree::detail
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -26,8 +22,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	sub_path
 );
 
-}
-}
 }
 
 #endif

@@ -10,18 +10,12 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 fcppt::log::name
 log_name();
 
-}
-}
 }
 
 #endif

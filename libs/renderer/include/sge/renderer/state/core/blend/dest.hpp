@@ -10,15 +10,7 @@
 #include <sge/renderer/state/core/blend/dest_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 enum class dest
@@ -33,10 +25,6 @@ enum class dest
 	inv_dest_alpha
 };
 
-}
-}
-}
-}
 }
 
 #endif

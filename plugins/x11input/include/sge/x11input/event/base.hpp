@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace event
+namespace sge::x11input::event
 {
 
 XIEvent
@@ -25,8 +21,6 @@ base(
 	awl::backends::x11::system::event::generic const &
 );
 
-}
-}
 }
 
 #endif

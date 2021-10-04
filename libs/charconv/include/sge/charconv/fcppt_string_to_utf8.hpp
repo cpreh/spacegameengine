@@ -12,9 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 SGE_CHARCONV_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ fcppt_string_to_utf8(
 	fcppt::string const &
 );
 
-}
 }
 
 #endif

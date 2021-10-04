@@ -11,17 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/light/cutoff_angle.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::opengl::state::ffp::lighting::light
 {
 
 sge::opengl::state::index_actor
@@ -29,11 +19,6 @@ cutoff_angle(
 	sge::renderer::state::ffp::lighting::light::cutoff_angle
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

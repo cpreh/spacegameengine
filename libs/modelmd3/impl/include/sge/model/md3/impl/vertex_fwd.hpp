@@ -8,20 +8,11 @@
 #define SGE_MODEL_MD3_IMPL_VERTEX_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 class vertex;
 
-}
-}
-}
 }
 
 #endif

@@ -12,9 +12,7 @@
 #include <sge/scenic/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace scenic
+namespace sge::scenic
 {
 
 class index_buffer_range
@@ -40,7 +38,6 @@ private:
 	sge::renderer::index::count index_count_;
 };
 
-}
 }
 
 #endif

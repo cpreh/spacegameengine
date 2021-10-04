@@ -13,11 +13,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 class section_name_equal
@@ -42,8 +38,6 @@ private:
 	> name_;
 };
 
-}
-}
 }
 
 #endif

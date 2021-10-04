@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class preferred_size
@@ -48,8 +44,6 @@ private:
 	sge::rucksack::widget::dummy layout_;
 };
 
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/math/dim/object_impl.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
+namespace sge::image::impl
 {
 
 template<
@@ -76,8 +72,6 @@ to_mizuiro_dim(
 		};
 }
 
-}
-}
 }
 
 #endif

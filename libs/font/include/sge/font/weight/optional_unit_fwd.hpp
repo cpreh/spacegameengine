@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace weight
+namespace sge::font::weight
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::font::weight::unit
 >;
 
-}
-}
 }
 
 #endif

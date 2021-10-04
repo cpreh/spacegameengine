@@ -13,11 +13,7 @@
 #include <awl/backends/x11/window/const_base_ref.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::opengl::xrandr::resolution_unique_ptr
@@ -27,8 +23,6 @@ choose_resolution(
 	sge::renderer::display_mode::object const &
 );
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::image::color::format
 >;
 
-}
-}
 }
 
 #endif

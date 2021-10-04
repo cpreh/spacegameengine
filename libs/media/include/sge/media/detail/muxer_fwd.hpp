@@ -8,11 +8,7 @@
 #define SGE_MEDIA_DETAIL_MUXER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace media
-{
-namespace detail
+namespace sge::media::detail
 {
 
 template<
@@ -21,8 +17,6 @@ template<
 >
 class muxer;
 
-}
-}
 }
 
 #endif

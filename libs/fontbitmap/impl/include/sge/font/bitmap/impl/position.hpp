@@ -13,13 +13,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 class position
@@ -47,9 +41,6 @@ private:
 	> metric_;
 };
 
-}
-}
-}
 }
 
 #endif

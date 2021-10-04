@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace translate
+namespace sge::sdlinput::translate
 {
 
 awl::event::container
@@ -31,8 +27,6 @@ window_event(
 	SDL_WindowEvent const &
 );
 
-}
-}
 }
 
 #endif

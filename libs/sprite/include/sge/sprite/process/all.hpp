@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace process
+namespace sge::sprite::process
 {
 
 template<
@@ -62,8 +58,6 @@ all(
 	);
 }
 
-}
-}
 }
 
 #endif

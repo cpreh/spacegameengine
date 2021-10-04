@@ -8,17 +8,11 @@
 #define SGE_MODEL_OBJ_FACE_VERTEX_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 class face_vertex;
 
-}
-}
 }
 
 #endif

@@ -22,13 +22,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 template<
@@ -163,9 +157,6 @@ fill_texture_coordinates(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

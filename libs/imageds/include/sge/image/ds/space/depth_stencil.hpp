@@ -13,13 +13,7 @@
 #include <fcppt/mpl/set/object.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
-{
-namespace space
+namespace sge::image::ds::space
 {
 
 struct depth_stencil
@@ -33,9 +27,6 @@ struct depth_stencil
 	>;
 };
 
-}
-}
-}
 }
 
 #endif

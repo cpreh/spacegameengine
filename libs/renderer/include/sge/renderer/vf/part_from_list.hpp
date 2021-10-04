@@ -11,11 +11,7 @@
 #include <fcppt/mpl/list/as.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -29,8 +25,6 @@ fcppt::mpl::list::as<
 	List
 >;
 
-}
-}
 }
 
 #endif

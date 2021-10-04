@@ -8,9 +8,7 @@
 #define SGE_X11INPUT_MASK_IS_SET_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace x11input
+namespace sge::x11input
 {
 
 bool
@@ -19,7 +17,6 @@ mask_is_set(
 	int
 );
 
-}
 }
 
 #endif

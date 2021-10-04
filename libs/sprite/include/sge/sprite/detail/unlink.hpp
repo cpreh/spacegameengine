@@ -12,11 +12,7 @@
 #include <sge/sprite/detail/config/is_intrusive.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
+namespace sge::sprite::detail
 {
 
 template<
@@ -43,8 +39,6 @@ unlink(
 	_this.unlink();
 }
 
-}
-}
 }
 
 #endif

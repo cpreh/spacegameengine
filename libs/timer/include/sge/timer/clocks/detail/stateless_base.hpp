@@ -8,13 +8,7 @@
 #define SGE_TIMER_CLOCKS_DETAIL_STATELESS_BASE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace timer
-{
-namespace clocks
-{
-namespace detail
+namespace sge::timer::clocks::detail
 {
 
 template<
@@ -39,9 +33,6 @@ public:
 	}
 };
 
-}
-}
-}
 }
 
 #endif

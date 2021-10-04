@@ -12,11 +12,7 @@
 #include <fcppt/io/ostream_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace caps
+namespace sge::renderer::caps
 {
 
 /**
@@ -39,8 +35,6 @@ operator<<(
 	sge::renderer::caps::device const &caps
 );
 
-}
-}
 }
 
 #endif

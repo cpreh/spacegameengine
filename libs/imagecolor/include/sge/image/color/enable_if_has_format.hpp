@@ -12,11 +12,7 @@
 #include <sge/image/color/traits/static_formats.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 template<
@@ -32,8 +28,6 @@ sge::image::enable_if_has_format<
 	Result
 >;
 
-}
-}
 }
 
 #endif

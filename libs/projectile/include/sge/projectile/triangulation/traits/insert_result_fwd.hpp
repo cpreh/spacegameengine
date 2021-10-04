@@ -8,13 +8,7 @@
 #define SGE_PROJECTILE_TRIANGULATION_TRAITS_INSERT_RESULT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace triangulation
-{
-namespace traits
+namespace sge::projectile::triangulation::traits
 {
 
 template<
@@ -24,9 +18,6 @@ template<
 >
 struct insert_result;
 
-}
-}
-}
 }
 
 #endif

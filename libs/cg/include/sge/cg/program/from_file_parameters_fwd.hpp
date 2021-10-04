@@ -8,17 +8,11 @@
 #define SGE_CG_PROGRAM_FROM_FILE_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 class from_file_parameters;
 
-}
-}
 }
 
 #endif

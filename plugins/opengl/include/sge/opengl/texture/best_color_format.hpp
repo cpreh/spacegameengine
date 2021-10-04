@@ -11,11 +11,7 @@
 #include <sge/opengl/color_format.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 sge::opengl::color_format
@@ -23,8 +19,6 @@ best_color_format(
 	sge::image::color::format
 );
 
-}
-}
 }
 
 #endif

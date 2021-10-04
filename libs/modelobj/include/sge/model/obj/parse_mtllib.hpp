@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 SGE_MODEL_OBJ_DETAIL_SYMBOL
@@ -29,8 +25,6 @@ parse_mtllib(
 	std::filesystem::path const &
 );
 
-}
-}
 }
 
 #endif

@@ -11,13 +11,7 @@
 #include <sge/font/exception.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 sge::font::exception
@@ -25,9 +19,6 @@ double_insert(
 	sge::font::char_type
 );
 
-}
-}
-}
 }
 
 #endif

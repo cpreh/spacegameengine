@@ -11,25 +11,13 @@
 #include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
+namespace sge::renderer::state::core::depth_stencil
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::core::depth_stencil::parameters
 default_();
 
-}
-}
-}
-}
 }
 
 #endif

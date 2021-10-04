@@ -8,20 +8,11 @@
 #define SGE_PROJECTILE_GHOST_DETAIL_PAIR_CALLBACK_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace ghost
-{
-namespace detail
+namespace sge::projectile::ghost::detail
 {
 
 class pair_callback;
 
-}
-}
-}
 }
 
 #endif

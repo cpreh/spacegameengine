@@ -11,11 +11,7 @@
 #include <sge/renderer/target/viewport_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 void
@@ -24,8 +20,6 @@ viewport(
 	sge::renderer::screen_unit height
 );
 
-}
-}
 }
 
 #endif

@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
+namespace sge::sprite::intrusive
 {
 
 template<
@@ -92,8 +88,6 @@ private:
 	sge::sprite::count size_;
 };
 
-}
-}
 }
 
 #endif

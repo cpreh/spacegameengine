@@ -17,13 +17,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-namespace wayland
+namespace sge::opengl::egl::wayland
 {
 
 class window
@@ -48,9 +42,6 @@ private:
 	fcppt::signal::auto_connection const resize_connection_;
 };
 
-}
-}
-}
 }
 
 #endif

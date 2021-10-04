@@ -13,11 +13,7 @@
 #include <sge/opengl/xrandr/rotation.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class mode
@@ -48,8 +44,6 @@ private:
 	sge::opengl::xrandr::refresh_rate rate_;
 };
 
-}
-}
 }
 
 #endif

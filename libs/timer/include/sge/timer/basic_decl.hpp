@@ -16,9 +16,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -135,7 +133,6 @@ private:
 
 FCPPT_PP_POP_WARNING
 
-}
 }
 
 #endif

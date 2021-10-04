@@ -16,9 +16,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 
 class scoped_pair
@@ -50,7 +48,6 @@ private:
 	sge::renderer::cg::scoped_program scoped_pixel_program_;
 };
 
-}
 }
 
 #endif

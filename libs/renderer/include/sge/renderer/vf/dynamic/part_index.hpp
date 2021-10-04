@@ -11,13 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -25,9 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	part_index
 );
 
-}
-}
-}
 }
 
 #endif

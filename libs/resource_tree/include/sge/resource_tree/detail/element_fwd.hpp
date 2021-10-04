@@ -8,11 +8,7 @@
 #define SGE_RESOURCE_TREE_DETAIL_ELEMENT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace resource_tree
-{
-namespace detail
+namespace sge::resource_tree::detail
 {
 
 template<
@@ -21,8 +17,6 @@ template<
 >
 class element;
 
-}
-}
 }
 
 #endif

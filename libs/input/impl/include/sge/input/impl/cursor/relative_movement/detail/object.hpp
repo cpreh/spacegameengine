@@ -24,15 +24,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
-{
-namespace relative_movement
-{
-namespace detail
+namespace sge::input::cursor::relative_movement::detail
 {
 
 class object
@@ -78,10 +70,6 @@ private:
 	fcppt::signal::auto_connection const connection_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

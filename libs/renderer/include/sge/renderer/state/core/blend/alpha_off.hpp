@@ -10,25 +10,13 @@
 #include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 class alpha_off
 {
 };
 
-}
-}
-}
-}
 }
 
 #endif

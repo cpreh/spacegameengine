@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,8 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	identifier
 );
 
-}
-}
 }
 
 #endif

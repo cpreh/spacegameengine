@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 /// The base class for positional (3D) sounds (streaming, nonstreaming)
@@ -109,8 +105,6 @@ public:
 	) = 0;
 };
 
-}
-}
 }
 
 #endif

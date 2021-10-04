@@ -19,9 +19,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 class part_fragmented
@@ -73,7 +71,6 @@ private:
 	sge::texture::atlasing::inner_rect const inner_area_;
 };
 
-}
 }
 
 #endif

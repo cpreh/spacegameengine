@@ -8,14 +8,11 @@
 #define SGE_WLINPUT_XKB_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 class xkb_context;
 
-}
 }
 
 #endif

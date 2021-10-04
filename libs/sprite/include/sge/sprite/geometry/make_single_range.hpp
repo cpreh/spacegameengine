@@ -11,11 +11,7 @@
 #include <sge/sprite/geometry/random_access_range_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
+namespace sge::sprite::geometry
 {
 
 template<
@@ -68,8 +64,6 @@ make_single_range(
 		);
 }
 
-}
-}
 }
 
 #endif

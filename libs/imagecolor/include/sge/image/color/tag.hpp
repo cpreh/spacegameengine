@@ -8,17 +8,11 @@
 #define SGE_IMAGE_COLOR_TAG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 struct tag;
 
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ emulate_srgb_from_caps(
 	sge::renderer::caps::device const &
 );
 
-}
-}
 }
 
 #endif

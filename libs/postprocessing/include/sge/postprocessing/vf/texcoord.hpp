@@ -12,11 +12,7 @@
 #include <sge/renderer/vf/texpos.hpp>
 
 
-namespace sge
-{
-namespace postprocessing
-{
-namespace vf
+namespace sge::postprocessing::vf
 {
 
 using
@@ -28,8 +24,6 @@ sge::renderer::vf::texpos<
 	sge::renderer::vf::index<0U>
 >;
 
-}
-}
 }
 
 #endif

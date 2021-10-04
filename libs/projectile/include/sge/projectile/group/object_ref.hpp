@@ -11,11 +11,7 @@
 #include <fcppt/reference.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace group
+namespace sge::projectile::group
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::projectile::group::object
 >;
 
-}
-}
 }
 
 #endif

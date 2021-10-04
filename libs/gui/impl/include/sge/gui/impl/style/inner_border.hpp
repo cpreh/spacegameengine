@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
-{
-namespace style
+namespace sge::gui::impl::style
 {
 
 using
@@ -30,9 +24,6 @@ std::integral_constant<
 	2
 >;
 
-}
-}
-}
 }
 
 #endif

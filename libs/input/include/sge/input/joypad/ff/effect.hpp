@@ -14,13 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL effect
@@ -47,9 +41,6 @@ public:
 	stop() = 0;
 };
 
-}
-}
-}
 }
 
 #endif

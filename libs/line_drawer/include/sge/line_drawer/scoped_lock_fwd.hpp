@@ -8,14 +8,11 @@
 #define SGE_LINE_DRAWER_SCOPED_LOCK_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace line_drawer
+namespace sge::line_drawer
 {
 
 class scoped_lock;
 
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/input/info/container.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 template<
@@ -72,8 +68,6 @@ private:
 	event_map_type event_map_;
 };
 
-}
-}
 }
 
 #endif

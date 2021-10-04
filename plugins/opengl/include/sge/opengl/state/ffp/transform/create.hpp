@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::opengl::state::ffp::transform
 {
 
 sge::renderer::state::ffp::transform::object_unique_ptr
@@ -29,10 +21,6 @@ create(
 	sge::renderer::state::ffp::transform::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

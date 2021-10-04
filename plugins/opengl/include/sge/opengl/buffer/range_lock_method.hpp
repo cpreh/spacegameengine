@@ -11,11 +11,7 @@
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 GLenum
@@ -23,8 +19,6 @@ range_lock_method(
 	sge::renderer::lock_flags::method
 );
 
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace cursor
+namespace sge::wlinput::cursor
 {
 
 sge::input::cursor::position
@@ -26,8 +22,6 @@ position(
 	wl_fixed_t
 );
 
-}
-}
 }
 
 #endif

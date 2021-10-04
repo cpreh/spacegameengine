@@ -11,11 +11,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace single_device_system
+namespace sge::opencl::single_device_system
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::reference<
 	sge::renderer::device::core
 >;
 
-}
-}
 }
 
 #endif

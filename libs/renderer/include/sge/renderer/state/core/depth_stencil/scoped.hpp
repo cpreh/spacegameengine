@@ -15,15 +15,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
+namespace sge::renderer::state::core::depth_stencil
 {
 
 class scoped
@@ -46,10 +38,6 @@ private:
 	sge::renderer::context::core_ref const context_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_CORE_SAMPLER_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::renderer::state::core::sampler
 {
 
 class parameters;
 
-}
-}
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <sge/image/view/sub.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace view
+namespace sge::image::impl::view
 {
 
 template<
@@ -49,9 +43,6 @@ checked_sub_any(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

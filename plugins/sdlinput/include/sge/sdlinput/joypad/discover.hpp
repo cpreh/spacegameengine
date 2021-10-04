@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 awl::event::container
@@ -32,8 +28,6 @@ discover(
 	SDL_JoyDeviceEvent const &
 );
 
-}
-}
 }
 
 #endif

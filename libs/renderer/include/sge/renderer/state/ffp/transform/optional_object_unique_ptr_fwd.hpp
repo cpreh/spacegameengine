@@ -11,15 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::renderer::state::ffp::transform
 {
 
 using
@@ -29,10 +21,6 @@ fcppt::optional::object<
 	sge::renderer::state::ffp::transform::object_unique_ptr
 >;
 
-}
-}
-}
-}
 }
 
 #endif

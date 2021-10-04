@@ -17,13 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-namespace visual
+namespace sge::opengl::egl::visual
 {
 
 class base
@@ -51,9 +45,6 @@ private:
 	EGLConfig const config_;
 };
 
-}
-}
-}
 }
 
 #endif

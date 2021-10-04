@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::opengl::texture::lock_base
 >;
 
-}
-}
 }
 
 #endif

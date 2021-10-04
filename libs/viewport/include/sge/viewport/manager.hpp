@@ -21,9 +21,7 @@
 #include <fcppt/signal/auto_connection_fwd.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL manager
@@ -70,7 +68,6 @@ private:
 	impl_ptr const impl_;
 };
 
-}
 }
 
 #endif

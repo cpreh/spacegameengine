@@ -8,14 +8,11 @@
 #define SGE_TIMER_FRAMES_COUNTER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 class frames_counter;
 
-}
 }
 
 #endif

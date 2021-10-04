@@ -17,9 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 template<
@@ -86,7 +84,6 @@ private:
 	sge::plugin::context_base_ref context_base_;
 };
 
-}
 }
 
 #endif

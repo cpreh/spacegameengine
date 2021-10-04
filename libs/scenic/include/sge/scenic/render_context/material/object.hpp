@@ -17,13 +17,7 @@
 #include <sge/scenic/render_context/material/specular_texture.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace material
+namespace sge::scenic::render_context::material
 {
 class object
 {
@@ -88,9 +82,6 @@ private:
 	sge::scenic::render_context::material::diffuse_texture diffuse_texture_;
 	sge::scenic::render_context::material::specular_texture specular_texture_;
 };
-}
-}
-}
 }
 
 #endif

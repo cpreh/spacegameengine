@@ -14,11 +14,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 sge::opengl::vf::actor_unique_ptr
@@ -29,8 +25,6 @@ to_actor(
 	sge::opengl::context::object_ref
 );
 
-}
-}
 }
 
 #endif

@@ -10,9 +10,7 @@
 #include <sge/renderer/basic_dim_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -27,7 +25,6 @@ sge::renderer::basic_dim<
 	3
 >;
 
-}
 }
 
 #endif

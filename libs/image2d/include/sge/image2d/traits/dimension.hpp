@@ -12,13 +12,7 @@
 #include <sge/image2d/tag.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-namespace image
+namespace sge::image::traits::image
 {
 
 template<>
@@ -34,9 +28,6 @@ struct dimension_tpl<
 	>;
 };
 
-}
-}
-}
 }
 
 #endif

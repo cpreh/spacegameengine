@@ -14,11 +14,7 @@
 #include <sge/image/view/sub_out_of_range_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -85,8 +81,6 @@ private:
 		inner_;
 };
 
-}
-}
 }
 
 #endif

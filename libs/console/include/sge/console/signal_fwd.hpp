@@ -12,9 +12,7 @@
 #include <fcppt/signal/unregister/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 using
@@ -25,7 +23,6 @@ fcppt::signal::object<
 	fcppt::signal::unregister::base
 >;
 
-}
 }
 
 #endif

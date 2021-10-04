@@ -11,11 +11,7 @@
 #include <sge/opengl/texture/cube_types_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 using
@@ -25,8 +21,6 @@ sge::opengl::texture::basic<
 	sge::opengl::texture::cube_types
 >;
 
-}
-}
 }
 
 #endif

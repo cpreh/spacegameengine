@@ -13,15 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::opengl::state::ffp::clip_plane
 {
 
 class context
@@ -58,10 +50,6 @@ private:
 	sge::renderer::state::index_count indices_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

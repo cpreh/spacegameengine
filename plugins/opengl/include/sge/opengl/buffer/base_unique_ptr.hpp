@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::opengl::buffer::base
 >;
 
-}
-}
 }
 
 #endif

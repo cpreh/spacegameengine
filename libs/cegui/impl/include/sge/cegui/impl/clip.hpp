@@ -11,11 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -23,8 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	clip
 );
 
-}
-}
 }
 
 #endif

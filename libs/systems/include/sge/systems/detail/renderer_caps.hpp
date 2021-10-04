@@ -13,11 +13,7 @@
 #include <fcppt/mpl/list/index_of_if.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 template<
@@ -37,8 +33,6 @@ fcppt::mpl::list::at<
 	>
 >::caps;
 
-}
-}
 }
 
 #endif

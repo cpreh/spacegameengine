@@ -8,11 +8,7 @@
 #define SGE_IMAGE_STORE_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace store
+namespace sge::image::store
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class object;
 
-}
-}
 }
 
 #endif

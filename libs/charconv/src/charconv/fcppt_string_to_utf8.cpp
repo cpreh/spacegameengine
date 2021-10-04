@@ -22,10 +22,10 @@ sge::charconv::fcppt_string_to_utf8(
 {
 	return
 #if defined(SGE_CHARCONV_IMPL_FCPPT_IS_UTF8)
-		sge::charconv::utf8_string(
+		{
 			_string.begin(),
 			_string.end()
-		);
+		};
 #else
 		sge::charconv::convert<
 			sge::charconv::encoding::utf8,

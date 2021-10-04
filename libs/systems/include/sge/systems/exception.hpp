@@ -13,9 +13,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL exception
@@ -58,7 +56,6 @@ public:
 	override;
 };
 
-}
 }
 
 #endif

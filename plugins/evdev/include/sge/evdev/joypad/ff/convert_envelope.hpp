@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace ff
+namespace sge::evdev::joypad::ff
 {
 
 ff_envelope
@@ -27,9 +21,6 @@ convert_envelope(
 	sge::input::joypad::ff::envelope const &
 );
 
-}
-}
-}
 }
 
 #endif

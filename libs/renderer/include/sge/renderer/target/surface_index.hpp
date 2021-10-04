@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace target
+namespace sge::renderer::target
 {
 
 /**
@@ -27,8 +23,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	surface_index
 );
 
-}
-}
 }
 
 #endif

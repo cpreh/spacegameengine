@@ -11,11 +11,7 @@
 #include <sge/opengl/info/version.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace info
+namespace sge::opengl::info
 {
 
 sge::opengl::info::version
@@ -23,8 +19,6 @@ get_version(
 	sge::opengl::backend::current const &
 );
 
-}
-}
 }
 
 #endif

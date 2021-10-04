@@ -14,11 +14,7 @@
 #include <sge/renderer/index/proxy_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 template<
@@ -68,8 +64,6 @@ private:
 	pointer data_;
 };
 
-}
-}
 }
 
 #endif

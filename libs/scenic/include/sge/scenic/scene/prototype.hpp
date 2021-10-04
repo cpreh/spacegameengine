@@ -18,11 +18,7 @@
 #include <fcppt/optional/object.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 class prototype
 {
@@ -81,8 +77,6 @@ private:
 	sge::scenic::scene::entity_sequence entities_;
 	sge::scenic::render_context::light::sequence lights_;
 };
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace xim
+namespace sge::x11input::xim
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::reference<
 	sge::x11input::xim::method const
 >;
 
-}
-}
 }
 
 #endif

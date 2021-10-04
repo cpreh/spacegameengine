@@ -12,9 +12,7 @@
 #include <sge/systems/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class input
@@ -33,7 +31,6 @@ private:
 	sge::systems::cursor_option_field cursor_options_;
 };
 
-}
 }
 
 #endif

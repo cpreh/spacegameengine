@@ -8,14 +8,11 @@
 #define SGE_RENDERER_CORE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 class core;
 
-}
 }
 
 #endif

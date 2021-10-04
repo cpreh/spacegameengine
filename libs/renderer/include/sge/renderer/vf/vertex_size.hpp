@@ -10,11 +10,7 @@
 #include <sge/renderer/size_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 using
@@ -22,8 +18,6 @@ vertex_size
 =
 sge::renderer::size_type;
 
-}
-}
 }
 
 #endif

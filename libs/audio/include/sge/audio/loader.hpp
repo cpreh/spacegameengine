@@ -18,9 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 /**
@@ -56,7 +54,6 @@ public:
 	~loader();
 };
 
-}
 }
 
 #endif

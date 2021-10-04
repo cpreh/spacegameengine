@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace backend
+namespace sge::opengl::backend
 {
 
 class scoped_current
@@ -43,8 +39,6 @@ private:
 	sge::opengl::backend::current_unique_ptr current_;
 };
 
-}
-}
 }
 
 #endif

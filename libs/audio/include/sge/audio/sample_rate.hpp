@@ -12,9 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -22,7 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	sample_rate
 );
 
-}
 }
 
 #endif

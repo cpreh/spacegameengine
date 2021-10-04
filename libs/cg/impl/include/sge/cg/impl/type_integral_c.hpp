@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace impl
+namespace sge::cg::impl
 {
 
 template<
@@ -31,8 +27,6 @@ std::integral_constant<
 	Type
 >;
 
-}
-}
 }
 
 #endif

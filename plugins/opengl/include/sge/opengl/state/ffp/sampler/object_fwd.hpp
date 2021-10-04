@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/sampler/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::opengl::state::ffp::sampler
 {
 
 using
@@ -31,10 +23,6 @@ sge::opengl::state::unary_object<
 	sge::opengl::texture::active_level
 >;
 
-}
-}
-}
-}
 }
 
 #endif

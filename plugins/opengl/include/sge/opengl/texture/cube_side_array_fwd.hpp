@@ -12,11 +12,7 @@
 #include <fcppt/enum/array_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 using
@@ -27,8 +23,6 @@ fcppt::enum_::array<
 	sge::opengl::texture::buffer_type
 >;
 
-}
-}
 }
 
 #endif

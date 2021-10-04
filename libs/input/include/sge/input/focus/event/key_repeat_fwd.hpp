@@ -8,20 +8,11 @@
 #define SGE_INPUT_FOCUS_EVENT_KEY_REPEAT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace focus
-{
-namespace event
+namespace sge::input::focus::event
 {
 
 class key_repeat;
 
-}
-}
-}
 }
 
 #endif

@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace alpha_test
+namespace sge::opengl::state::ffp::alpha_test
 {
 
 void
@@ -28,10 +20,6 @@ set(
 	sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

@@ -13,9 +13,7 @@
 #include <sge/font/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 SGE_FONT_DETAIL_SYMBOL
@@ -25,7 +23,6 @@ v_center(
 	sge::font::unit
 );
 
-}
 }
 
 #endif

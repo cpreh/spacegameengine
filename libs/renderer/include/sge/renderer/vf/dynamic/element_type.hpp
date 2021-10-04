@@ -10,13 +10,7 @@
 #include <sge/renderer/vf/dynamic/element_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 enum class element_type
@@ -31,9 +25,6 @@ enum class element_type
 	uint
 };
 
-}
-}
-}
 }
 
 #endif

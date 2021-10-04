@@ -12,11 +12,7 @@
 #include <fcppt/io/ostream_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace pixel
+namespace sge::image::pixel
 {
 
 template<
@@ -31,8 +27,6 @@ operator<<(
 	> const &
 );
 
-}
-}
 }
 
 #endif

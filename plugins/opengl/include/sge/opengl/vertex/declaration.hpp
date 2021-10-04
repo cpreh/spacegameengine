@@ -23,11 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 class declaration
@@ -79,8 +75,6 @@ private:
 	part_container const parts_;
 };
 
-}
-}
 }
 
 #endif

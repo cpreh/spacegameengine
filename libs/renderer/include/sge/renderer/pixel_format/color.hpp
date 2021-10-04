@@ -10,11 +10,7 @@
 #include <sge/renderer/pixel_format/color_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 enum class color
@@ -34,8 +30,6 @@ enum class color
 	depth32
 };
 
-}
-}
 }
 
 #endif

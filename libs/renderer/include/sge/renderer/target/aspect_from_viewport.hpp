@@ -13,11 +13,7 @@
 #include <fcppt/optional/object_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace target
+namespace sge::renderer::target
 {
 
 /**
@@ -36,8 +32,6 @@ aspect_from_viewport(
 	sge::renderer::target::viewport const &viewport
 );
 
-}
-}
 }
 
 #endif

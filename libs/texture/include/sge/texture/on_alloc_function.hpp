@@ -11,9 +11,7 @@
 #include <sge/texture/fragmented_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 using
@@ -23,7 +21,6 @@ sge::texture::fragmented_unique_ptr(
 	sge::image::color::format
 );
 
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/plugin/iterator_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace plugin
+namespace sge::input::plugin
 {
 
 using
@@ -25,8 +21,6 @@ sge::plugin::iterator<
 	sge::input::system
 >;
 
-}
-}
 }
 
 #endif

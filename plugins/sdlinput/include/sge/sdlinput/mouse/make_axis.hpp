@@ -11,11 +11,7 @@
 #include <sge/input/mouse/axis_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace mouse
+namespace sge::sdlinput::mouse
 {
 
 sge::input::mouse::axis
@@ -23,8 +19,6 @@ make_axis(
 	sge::input::mouse::axis_code
 );
 
-}
-}
 }
 
 #endif

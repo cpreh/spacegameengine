@@ -14,19 +14,7 @@
 #include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
-{
-namespace normal
+namespace sge::renderer::state::core::sampler::filter::normal
 {
 
 class parameters
@@ -68,12 +56,6 @@ operator==(
 	sge::renderer::state::core::sampler::filter::normal::parameters const &
 );
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

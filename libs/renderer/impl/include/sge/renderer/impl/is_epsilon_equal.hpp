@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace impl
+namespace sge::renderer::impl
 {
 
 inline
@@ -36,8 +32,6 @@ is_epsilon_equal(
 		sge::renderer::impl::epsilon();
 }
 
-}
-}
 }
 
 #endif

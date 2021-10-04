@@ -17,9 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace bvh
+namespace sge::bvh
 {
 
 template<
@@ -90,7 +88,6 @@ struct tree_traits
 	>;
 };
 
-}
 }
 
 #endif

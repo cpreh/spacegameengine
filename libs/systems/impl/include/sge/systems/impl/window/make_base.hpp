@@ -13,13 +13,7 @@
 #include <sge/window/system_ref.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 sge::systems::impl::window::base_unique_ptr
@@ -29,9 +23,6 @@ make_base(
 	sge::systems::impl::renderer::optional_system_ref const &
 );
 
-}
-}
-}
 }
 
 #endif

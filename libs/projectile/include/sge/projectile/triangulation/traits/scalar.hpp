@@ -11,13 +11,7 @@
 #include <sge/projectile/triangulation/traits/scalar_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace triangulation
-{
-namespace traits
+namespace sge::projectile::triangulation::traits
 {
 
 template<
@@ -35,9 +29,6 @@ struct scalar<
 	Vertex::value_type;
 };
 
-}
-}
-}
 }
 
 #endif

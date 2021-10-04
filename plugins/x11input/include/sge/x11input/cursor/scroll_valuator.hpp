@@ -14,11 +14,7 @@
 #include <sge/x11input/device/valuator/value.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 class scroll_valuator
@@ -44,8 +40,6 @@ private:
 	sge::input::cursor::scroll_code code_;
 };
 
-}
-}
 }
 
 #endif

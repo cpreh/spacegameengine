@@ -15,19 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace algorithm
-{
-namespace cac
+namespace sge::image::color::impl::dynamic::algorithm::cac
 {
 
 // TODO(philipp): Simplify this?
@@ -55,12 +43,6 @@ std::conjunction<
 	>
 >;
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -12,9 +12,7 @@
 #include <sge/window/unit.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 class fractional_aspect
@@ -46,7 +44,6 @@ private:
 	value_type denom_;
 };
 
-}
 }
 
 #endif

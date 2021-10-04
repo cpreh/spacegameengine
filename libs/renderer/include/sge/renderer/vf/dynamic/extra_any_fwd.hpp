@@ -12,13 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 using
@@ -29,9 +23,6 @@ fcppt::variant::object<
 	sge::renderer::vf::dynamic::color
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -14,8 +14,8 @@
 
 
 sge::sdlinput::joypad::ff_effect::ff_effect(
-	SDL_Joystick &_joypad,
-	sge::input::joypad::ff::parameters const &_parameters
+	SDL_Joystick & /*_joypad*/,
+	sge::input::joypad::ff::parameters const & /*_parameters*/
 )
 :
 	sge::input::joypad::ff::effect{}

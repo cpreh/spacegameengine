@@ -10,21 +10,12 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 fcppt::log::name
 log_name();
 
-}
-}
-}
 }
 
 #endif

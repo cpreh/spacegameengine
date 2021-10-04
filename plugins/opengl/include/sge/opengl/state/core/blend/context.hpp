@@ -15,15 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 class context
@@ -56,10 +48,6 @@ private:
 	sge::opengl::state::core::blend::optional_config config_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/container/tree/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::container::tree::object<
 	sge::gui::widget::unique_ptr
 >;
 
-}
-}
 }
 
 #endif

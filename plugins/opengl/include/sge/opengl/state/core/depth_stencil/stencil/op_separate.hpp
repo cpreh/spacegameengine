@@ -15,17 +15,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::opengl::state::core::depth_stencil::stencil
 {
 
 sge::opengl::state::actor
@@ -37,11 +27,6 @@ op_separate(
 	sge::renderer::state::core::depth_stencil::stencil::pass_op
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

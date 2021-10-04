@@ -13,9 +13,7 @@
 #include <awl/main/exit_code.hpp>
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 SGE_WINDOW_DETAIL_SYMBOL
@@ -25,7 +23,6 @@ loop(
 	sge::window::loop_function const &
 );
 
-}
 }
 
 #endif

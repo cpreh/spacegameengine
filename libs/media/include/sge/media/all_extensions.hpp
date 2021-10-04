@@ -11,16 +11,13 @@
 #include <sge/media/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 SGE_MEDIA_DETAIL_SYMBOL
 sge::media::optional_extension_set
 all_extensions();
 
-}
 }
 
 #endif

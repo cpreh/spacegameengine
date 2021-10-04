@@ -15,17 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::opengl::state::core::depth_stencil::stencil
 {
 
 class context
@@ -59,11 +49,6 @@ private:
 };
 
 
-}
-}
-}
-}
-}
 }
 
 #endif

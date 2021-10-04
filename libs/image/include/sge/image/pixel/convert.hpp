@@ -13,11 +13,7 @@
 #include <sge/image/pixel/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace pixel
+namespace sge::image::pixel
 {
 
 template<
@@ -38,8 +34,6 @@ convert(
 	> const &
 );
 
-}
-}
 }
 
 #endif

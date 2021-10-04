@@ -8,17 +8,11 @@
 #define SGE_OPENGL_BACKEND_SCOPED_CURRENT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace backend
+namespace sge::opengl::backend
 {
 
 class scoped_current;
 
-}
-}
 }
 
 #endif

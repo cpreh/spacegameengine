@@ -8,9 +8,7 @@
 #define SGE_CG_CHAR_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cg
+namespace sge::cg
 {
 
 using
@@ -18,7 +16,6 @@ char_type
 =
 char;
 
-}
 }
 
 #endif

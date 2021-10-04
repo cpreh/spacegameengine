@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
+namespace sge::plugin::impl
 {
 
 sge::plugin::info
@@ -25,8 +21,6 @@ load_info(
 	std::filesystem::path const &
 );
 
-}
-}
 }
 
 #endif

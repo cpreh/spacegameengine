@@ -25,11 +25,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class container
@@ -144,8 +140,6 @@ private:
 	sge::rucksack::widget::reference const layout_;
 };
 
-}
-}
 }
 
 #endif

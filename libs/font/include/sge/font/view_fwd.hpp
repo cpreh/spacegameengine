@@ -10,9 +10,7 @@
 #include <sge/image2d/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 using
@@ -20,7 +18,6 @@ view
 =
 sge::image2d::view::object;
 
-}
 }
 
 #endif

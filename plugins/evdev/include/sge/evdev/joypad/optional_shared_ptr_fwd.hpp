@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::evdev::joypad::shared_ptr
 >;
 
-}
-}
 }
 
 #endif

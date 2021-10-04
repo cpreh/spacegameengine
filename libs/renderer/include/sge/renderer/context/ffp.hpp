@@ -23,11 +23,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace context
+namespace sge::renderer::context
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL ffp
@@ -101,8 +97,6 @@ public:
 	) = 0;
 };
 
-}
-}
 }
 
 #endif

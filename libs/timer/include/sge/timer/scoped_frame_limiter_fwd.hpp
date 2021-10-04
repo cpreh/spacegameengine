@@ -8,14 +8,11 @@
 #define SGE_TIMER_SCOPED_FRAME_LIMITER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 class scoped_frame_limiter;
 
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class render_binding
@@ -53,8 +49,6 @@ private:
 	sge::opengl::texture::type const type_;
 };
 
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_OPENGL_XRANDR_SCREEN_RESOURCES_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class screen_resources;
 
-}
-}
 }
 
 #endif

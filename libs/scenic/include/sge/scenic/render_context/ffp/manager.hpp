@@ -16,13 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace ffp
+namespace sge::scenic::render_context::ffp
 {
 
 class manager
@@ -58,9 +52,6 @@ private:
 	sge::renderer::vertex::const_declaration_ref const vertex_declaration_;
 };
 
-}
-}
-}
 }
 
 #endif

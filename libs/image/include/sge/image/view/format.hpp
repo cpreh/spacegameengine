@@ -14,11 +14,7 @@
 #include <sge/image/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -51,8 +47,6 @@ format(
 	> const &
 );
 
-}
-}
 }
 
 #endif

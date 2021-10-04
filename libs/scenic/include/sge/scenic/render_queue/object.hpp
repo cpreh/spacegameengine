@@ -24,11 +24,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_queue
+namespace sge::scenic::render_queue
 {
 class object
 {
@@ -95,8 +91,6 @@ private:
 	index_type current_vertex_buffer_;
 };
 
-}
-}
 }
 
 #endif

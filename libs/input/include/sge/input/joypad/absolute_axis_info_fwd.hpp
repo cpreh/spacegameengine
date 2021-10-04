@@ -8,17 +8,11 @@
 #define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 class absolute_axis_info;
 
-}
-}
 }
 
 #endif

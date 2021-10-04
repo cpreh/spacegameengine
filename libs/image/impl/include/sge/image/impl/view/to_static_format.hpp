@@ -13,13 +13,7 @@
 #include <sge/image/view/basic_format.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace view
+namespace sge::image::impl::view
 {
 
 template<
@@ -41,9 +35,6 @@ sge::image::view::basic_format<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

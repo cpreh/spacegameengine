@@ -12,13 +12,7 @@
 #include <sge/evdev/joypad/ff/id.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace ff
+namespace sge::evdev::joypad::ff
 {
 
 void
@@ -28,9 +22,6 @@ write_event(
 	sge::evdev::device::event_value
 );
 
-}
-}
-}
 }
 
 #endif

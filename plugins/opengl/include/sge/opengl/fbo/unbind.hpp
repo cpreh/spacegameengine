@@ -11,11 +11,7 @@
 #include <sge/opengl/fbo/config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 void
@@ -23,8 +19,6 @@ unbind(
 	sge::opengl::fbo::config const &
 );
 
-}
-}
 }
 
 #endif

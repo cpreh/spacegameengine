@@ -11,11 +11,7 @@
 #include <sge/renderer/index/dynamic/format_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 GLenum
@@ -23,8 +19,6 @@ index_format(
 	sge::renderer::index::dynamic::format
 );
 
-}
-}
 }
 
 #endif

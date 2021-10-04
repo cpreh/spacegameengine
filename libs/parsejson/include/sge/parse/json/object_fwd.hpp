@@ -8,17 +8,11 @@
 #define SGE_PARSE_JSON_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 struct object;
 
-}
-}
 }
 
 #endif

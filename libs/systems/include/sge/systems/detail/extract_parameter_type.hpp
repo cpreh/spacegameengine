@@ -8,11 +8,7 @@
 #define SGE_SYSTEMS_DETAIL_EXTRACT_PARAMETER_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 template<
@@ -24,8 +20,6 @@ extract_parameter_type
 typename
 Type::parameter_type;
 
-}
-}
 }
 
 #endif

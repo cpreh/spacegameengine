@@ -11,17 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/light/position_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::opengl::state::ffp::lighting::light
 {
 
 sge::opengl::state::index_actor
@@ -29,11 +19,6 @@ position(
 	sge::renderer::state::ffp::lighting::light::position const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

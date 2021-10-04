@@ -11,11 +11,7 @@
 #include <sge/image2d/view/const_object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace algorithm
+namespace sge::image2d::algorithm
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ compare(
 	sge::image2d::view::const_object const &
 );
 
-}
-}
 }
 
 #endif

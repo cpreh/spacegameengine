@@ -16,9 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 
 SGE_SHADER_DETAIL_SYMBOL
@@ -29,7 +27,6 @@ load_edited_string(
 	std::istream &
 );
 
-}
 }
 
 #endif

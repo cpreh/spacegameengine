@@ -11,11 +11,7 @@
 #include <sge/opengl/glx/extension_set.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 bool
@@ -24,8 +20,6 @@ extension_supported(
 	sge::opengl::glx::extension const &
 );
 
-}
-}
 }
 
 #endif

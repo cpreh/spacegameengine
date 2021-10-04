@@ -7,14 +7,11 @@
 #ifndef SGE_TEXTURE_FRAGMENTED_FWD_HPP_INCLUDED
 #define SGE_TEXTURE_FRAGMENTED_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 class fragmented;
 
-}
 }
 
 #endif

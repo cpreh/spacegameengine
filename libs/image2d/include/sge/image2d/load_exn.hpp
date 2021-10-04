@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
@@ -27,7 +25,6 @@ load_exn(
 	std::filesystem::path const &
 );
 
-}
 }
 
 #endif

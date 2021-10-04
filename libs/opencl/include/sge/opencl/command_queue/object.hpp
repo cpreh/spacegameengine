@@ -18,11 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace command_queue
+namespace sge::opencl::command_queue
 {
 
 class object
@@ -66,8 +62,6 @@ private:
 	cl_command_queue queue_;
 };
 
-}
-}
 }
 
 #endif

@@ -10,9 +10,7 @@
 #include <sge/libpng/format_fwd.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 enum class format
@@ -25,7 +23,6 @@ enum class format
 	sbgra8
 };
 
-}
 }
 
 #endif

@@ -11,13 +11,7 @@
 #include <sge/camera/first_person/action/mapping.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace first_person
-{
-namespace action
+namespace sge::camera::first_person::action
 {
 
 /**
@@ -30,9 +24,6 @@ SGE_CAMERA_DETAIL_SYMBOL
 sge::camera::first_person::action::mapping
 wasd_mapping();
 
-}
-}
-}
 }
 
 #endif

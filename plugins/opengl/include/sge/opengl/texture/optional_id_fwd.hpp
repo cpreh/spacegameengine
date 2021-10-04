@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::opengl::texture::id
 >;
 
-}
-}
 }
 
 #endif

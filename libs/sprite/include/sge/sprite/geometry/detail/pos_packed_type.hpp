@@ -10,13 +10,7 @@
 #include <sge/sprite/detail/vf/pos.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 template<
@@ -30,9 +24,6 @@ sge::sprite::detail::vf::pos<
 	Choices
 >::packed_type;
 
-}
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/math/box/object_impl.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace grid
+namespace sge::scenic::grid
 {
 
 using
@@ -23,8 +19,6 @@ dim
 =
 sge::scenic::grid::rect::dim;
 
-}
-}
 }
 
 #endif

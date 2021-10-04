@@ -22,13 +22,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace renderer
+namespace sge::systems::impl::renderer
 {
 
 class system
@@ -66,9 +60,6 @@ private:
 	sge::renderer::system_unique_ptr const renderer_system_;
 };
 
-}
-}
-}
 }
 
 #endif

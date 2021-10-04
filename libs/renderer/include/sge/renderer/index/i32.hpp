@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 using
@@ -24,8 +20,6 @@ i32
 =
 std::uint32_t;
 
-}
-}
 }
 
 #endif

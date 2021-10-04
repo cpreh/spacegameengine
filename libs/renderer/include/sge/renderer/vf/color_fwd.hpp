@@ -8,11 +8,7 @@
 #define SGE_RENDERER_VF_COLOR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 struct color;
 
-}
-}
 }
 
 #endif

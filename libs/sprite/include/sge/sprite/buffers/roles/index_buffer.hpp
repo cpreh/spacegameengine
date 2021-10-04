@@ -10,22 +10,13 @@
 #include <fcppt/record/make_label.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
-{
-namespace roles
+namespace sge::sprite::buffers::roles
 {
 
 FCPPT_RECORD_MAKE_LABEL(
 	index_buffer
 );
 
-}
-}
-}
 }
 
 #endif

@@ -13,13 +13,7 @@
 #include <sge/renderer/vf/dynamic/vector.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class texpos
@@ -53,9 +47,6 @@ operator==(
 	sge::renderer::vf::dynamic::texpos const &
 );
 
-}
-}
-}
 }
 
 #endif

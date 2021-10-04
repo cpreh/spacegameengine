@@ -12,13 +12,7 @@
 #include <sge/renderer/texture/mipmap/object.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::renderer::texture::mipmap
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ all_levels(
 	sge::renderer::texture::mipmap::auto_generate
 );
 
-}
-}
-}
 }
 
 #endif

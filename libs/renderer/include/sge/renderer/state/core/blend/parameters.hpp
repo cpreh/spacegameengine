@@ -13,15 +13,7 @@
 #include <sge/renderer/state/core/blend/write_mask.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 class parameters
@@ -48,10 +40,6 @@ private:
 	sge::renderer::state::core::blend::write_mask write_mask_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

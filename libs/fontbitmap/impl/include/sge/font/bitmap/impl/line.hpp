@@ -13,13 +13,7 @@
 #include <fcppt/noncopyable.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 class line
@@ -59,9 +53,6 @@ private:
 	sge::font::unit width_;
 };
 
-}
-}
-}
 }
 
 #endif

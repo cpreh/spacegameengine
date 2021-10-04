@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 [[nodiscard]]
@@ -27,7 +25,6 @@ fcppt_string_to_utf8_file(
 	std::filesystem::path const &
 );
 
-}
 }
 
 #endif

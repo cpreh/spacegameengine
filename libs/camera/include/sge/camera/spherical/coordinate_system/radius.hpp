@@ -12,13 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
-{
-namespace coordinate_system
+namespace sge::camera::spherical::coordinate_system
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -26,9 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	radius
 );
 
-}
-}
-}
 }
 
 #endif

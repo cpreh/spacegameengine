@@ -13,15 +13,7 @@
 #include <sge/renderer/state/core/blend/source.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 class combined
@@ -48,10 +40,6 @@ private:
 	sge::renderer::state::core::blend::dest dest_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

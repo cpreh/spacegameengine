@@ -10,9 +10,7 @@
 #include <sge/systems/renderer_caps_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 enum class renderer_caps
@@ -21,7 +19,6 @@ enum class renderer_caps
 	ffp
 };
 
-}
 }
 
 #endif

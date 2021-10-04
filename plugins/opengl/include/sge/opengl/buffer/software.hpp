@@ -19,11 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 class software
@@ -140,8 +136,6 @@ private:
 	buffer_map buffers_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/opengl/color_base_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 sge::opengl::color_base_type
@@ -23,8 +19,6 @@ color_base_type_sge(
 	sge::image::color::format
 );
 
-}
-}
 }
 
 #endif

@@ -11,15 +11,7 @@
 #include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 void
@@ -28,10 +20,6 @@ set(
 	sge::renderer::state::core::blend::const_optional_object_ref const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

@@ -8,11 +8,7 @@
 #define SGE_PLUGIN_DETAIL_TRAITS_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 struct traits;
 
-}
-}
 }
 
 #endif

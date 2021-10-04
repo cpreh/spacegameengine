@@ -19,9 +19,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 template<
@@ -102,7 +100,6 @@ private:
 	optional_rect const area_;
 };
 
-}
 }
 
 #endif

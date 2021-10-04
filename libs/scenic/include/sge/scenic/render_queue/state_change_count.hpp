@@ -10,17 +10,11 @@
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_queue
+namespace sge::scenic::render_queue
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	unsigned,
 	state_change_count);
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
+namespace sge::plugin::library
 {
 
 class function_map
@@ -54,8 +50,6 @@ private:
 	container functions_;
 };
 
-}
-}
 }
 
 #endif

@@ -17,11 +17,7 @@
 #include <fcppt/container/index_map_decl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class bind_context
@@ -68,8 +64,6 @@ private:
 	mutable texture_map map_;
 };
 
-}
-}
 }
 
 #endif

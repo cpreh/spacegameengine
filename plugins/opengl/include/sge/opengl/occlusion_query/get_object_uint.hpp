@@ -12,11 +12,7 @@
 #include <sge/opengl/occlusion_query/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 GLuint
@@ -26,8 +22,6 @@ get_object_uint(
 	GLenum what
 );
 
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/parse/grammar_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 using
@@ -30,8 +26,6 @@ fcppt::parse::grammar<
 	)
 >;
 
-}
-}
 }
 
 #endif

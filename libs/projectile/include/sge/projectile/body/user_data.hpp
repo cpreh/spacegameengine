@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
+namespace sge::projectile::body
 {
 
 using
@@ -24,8 +20,6 @@ user_data
 =
 std::any;
 
-}
-}
 }
 
 #endif

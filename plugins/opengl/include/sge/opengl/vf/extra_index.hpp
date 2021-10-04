@@ -10,11 +10,7 @@
 #include <sge/renderer/vf/dynamic/index.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 sge::renderer::vf::dynamic::index::value_type
@@ -22,8 +18,6 @@ extra_index(
 	sge::renderer::vf::dynamic::index
 );
 
-}
-}
 }
 
 #endif

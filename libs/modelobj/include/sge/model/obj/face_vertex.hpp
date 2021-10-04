@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 class face_vertex
@@ -75,8 +71,6 @@ private:
 	index_array indices_;
 };
 
-}
-}
 }
 
 #endif

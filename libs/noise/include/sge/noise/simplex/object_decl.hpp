@@ -20,11 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace noise
-{
-namespace simplex
+namespace sge::noise::simplex
 {
 
 template<
@@ -147,8 +143,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

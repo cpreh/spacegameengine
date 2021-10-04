@@ -20,11 +20,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class scoped_work_binding
@@ -74,8 +70,6 @@ private:
 	sge::opengl::texture::optional_type const previous_type_;
 };
 
-}
-}
 }
 
 #endif

@@ -22,11 +22,7 @@ class btCollisionShape;
 class btTriangleIndexVertexArray;
 class btBvhTriangleMeshShape;
 
-namespace sge
-{
-namespace projectile
-{
-namespace shape
+namespace sge::projectile::shape
 {
 
 class triangle_mesh
@@ -70,8 +66,6 @@ private:
 	> const bullet_shape_;
 };
 
-}
-}
 }
 
 #endif

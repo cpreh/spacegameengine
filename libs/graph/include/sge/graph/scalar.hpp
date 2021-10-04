@@ -8,9 +8,7 @@
 #define SGE_GRAPH_SCALAR_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace graph
+namespace sge::graph
 {
 
 using
@@ -18,7 +16,6 @@ scalar
 =
 double;
 
-}
 }
 
 #endif

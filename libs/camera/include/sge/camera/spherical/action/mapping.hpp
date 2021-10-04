@@ -16,13 +16,7 @@
 #include <sge/camera/spherical/action/increase_radius.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
-{
-namespace action
+namespace sge::camera::spherical::action
 {
 
 /**
@@ -80,9 +74,6 @@ private:
 	sge::camera::spherical::action::decrease_radius decrease_radius_;
 };
 
-}
-}
-}
 }
 
 #endif

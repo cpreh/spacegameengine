@@ -12,9 +12,7 @@
 #include <fcppt/math/box/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -28,7 +26,6 @@ fcppt::math::box::object<
 	Dim
 >;
 
-}
 }
 
 #endif

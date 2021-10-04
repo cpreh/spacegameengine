@@ -11,11 +11,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
+namespace sge::scenic::render_context
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::reference<
 	sge::renderer::texture::planar
 >;
 
-}
-}
 }
 
 #endif

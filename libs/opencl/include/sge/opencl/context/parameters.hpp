@@ -18,11 +18,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace context
+namespace sge::opencl::context
 {
 
 class parameters
@@ -82,8 +78,6 @@ private:
 	optional_renderer shared_renderer_;
 };
 
-}
-}
 }
 
 #endif

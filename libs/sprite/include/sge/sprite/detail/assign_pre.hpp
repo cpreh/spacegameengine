@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
+namespace sge::sprite::detail
 {
 
 template<
@@ -73,8 +69,6 @@ assign_pre(
 {
 }
 
-}
-}
 }
 
 #endif

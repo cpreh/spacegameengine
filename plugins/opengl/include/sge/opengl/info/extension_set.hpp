@@ -11,11 +11,7 @@
 #include <sge/opengl/info/extension.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace info
+namespace sge::opengl::info
 {
 
 using
@@ -25,8 +21,6 @@ sge::opengl::extension_set<
 	sge::opengl::info::extension
 >;
 
-}
-}
 }
 
 #endif

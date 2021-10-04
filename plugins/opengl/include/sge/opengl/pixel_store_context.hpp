@@ -14,9 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 class pixel_store_context
@@ -51,7 +49,6 @@ private:
 	sge::opengl::unpack_alignment unpack_alignment_;
 };
 
-}
 }
 
 #endif

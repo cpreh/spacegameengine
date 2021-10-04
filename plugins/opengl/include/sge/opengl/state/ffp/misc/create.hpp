@@ -13,15 +13,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
+namespace sge::opengl::state::ffp::misc
 {
 
 sge::renderer::state::ffp::misc::object_unique_ptr
@@ -31,10 +23,6 @@ create(
 	sge::renderer::state::ffp::misc::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

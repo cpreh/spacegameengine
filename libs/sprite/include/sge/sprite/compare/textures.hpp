@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace compare
+namespace sge::sprite::compare
 {
 
 struct textures
@@ -69,8 +65,6 @@ struct textures
 	}
 };
 
-}
-}
 }
 
 #endif

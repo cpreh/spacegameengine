@@ -14,11 +14,7 @@
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 sge::opengl::texture::lock_base_unique_ptr
@@ -31,8 +27,6 @@ create_lock(
 	sge::renderer::resource_flags_field const &
 );
 
-}
-}
 }
 
 #endif

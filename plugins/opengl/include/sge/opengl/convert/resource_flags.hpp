@@ -11,11 +11,7 @@
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 GLuint
@@ -23,8 +19,6 @@ resource_flags(
 	sge::renderer::resource_flags_field const &
 );
 
-}
-}
 }
 
 #endif

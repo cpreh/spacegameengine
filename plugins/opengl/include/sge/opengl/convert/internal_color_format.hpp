@@ -11,11 +11,7 @@
 #include <sge/opengl/internal_color_format.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 sge::opengl::internal_color_format
@@ -23,8 +19,6 @@ internal_color_format(
 	sge::opengl::color_format
 );
 
-}
-}
 }
 
 #endif

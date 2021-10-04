@@ -11,11 +11,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 ALCcontext *
@@ -25,8 +21,6 @@ alc_create_context(
 	>
 );
 
-}
-}
 }
 
 #endif

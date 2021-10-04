@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace sdl
+namespace sge::opengl::sdl
 {
 
 fcppt::optional::object<
@@ -28,8 +24,6 @@ get_window_display_mode(
 	awl::backends::sdl::window::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

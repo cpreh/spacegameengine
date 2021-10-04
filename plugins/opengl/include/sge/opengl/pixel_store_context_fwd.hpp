@@ -8,14 +8,11 @@
 #define SGE_OPENGL_PIXEL_STORE_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 class pixel_store_context;
 
-}
 }
 
 #endif

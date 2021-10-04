@@ -14,9 +14,7 @@
 #include <sge/texture/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
@@ -28,7 +26,6 @@ sub_data(
 	sge::image::algorithm::uninitialized
 );
 
-}
 }
 
 #endif

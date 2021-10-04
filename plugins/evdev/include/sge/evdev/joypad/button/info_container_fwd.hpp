@@ -12,13 +12,7 @@
 #include <sge/input/joypad/button_info_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace button
+namespace sge::evdev::joypad::button
 {
 
 using
@@ -29,9 +23,6 @@ sge::evdev::device::basic_info<
 	sge::input::joypad::button_info
 >;
 
-}
-}
-}
 }
 
 #endif

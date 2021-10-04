@@ -11,11 +11,7 @@
 #include <sge/renderer/vertex/tag.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 using
@@ -25,8 +21,6 @@ sge::renderer::buffer::writable<
 	sge::renderer::vertex::tag
 >;
 
-}
-}
 }
 
 #endif

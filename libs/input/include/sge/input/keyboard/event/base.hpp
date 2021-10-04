@@ -15,13 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace keyboard
-{
-namespace event
+namespace sge::input::keyboard::event
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
@@ -50,9 +44,6 @@ private:
 	sge::input::keyboard::shared_ptr const keyboard_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace tracking
+namespace sge::camera::tracking
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::camera::tracking::keyframe
 >;
 
-}
-}
 }
 
 #endif

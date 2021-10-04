@@ -15,13 +15,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 sge::font::bitmap::impl::rep
@@ -33,9 +27,6 @@ make_rep(
 	sge::font::text_parameters const &
 );
 
-}
-}
-}
 }
 
 #endif

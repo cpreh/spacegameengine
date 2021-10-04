@@ -11,11 +11,7 @@
 #include <sge/plugin/collection_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace plugin
+namespace sge::image2d::plugin
 {
 
 using
@@ -25,8 +21,6 @@ sge::plugin::collection<
 	sge::image2d::system
 >;
 
-}
-}
 }
 
 #endif

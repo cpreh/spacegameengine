@@ -10,27 +10,12 @@
 #include <sge/renderer/state/core/sampler/address/mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace address
+namespace sge::opengl::state::core::sampler::address
 {
 
 sge::renderer::state::core::sampler::address::mode
 default_();
 
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -23,11 +23,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace x11
+namespace sge::opengl::x11
 {
 
 class device_state
@@ -107,8 +103,6 @@ private:
 	optional_resolution_unique_ptr resolution_;
 };
 
-}
-}
 }
 
 #endif

@@ -14,9 +14,7 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 SGE_GUI_DETAIL_SYMBOL
@@ -28,7 +26,6 @@ draw(
 	sge::gui::main_area::base & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
 }
 
 #endif

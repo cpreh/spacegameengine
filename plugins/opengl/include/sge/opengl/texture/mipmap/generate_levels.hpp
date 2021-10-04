@@ -16,13 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::opengl::texture::mipmap
 {
 
 template<
@@ -36,9 +30,6 @@ generate_levels(
 	sge::renderer::texture::mipmap::level_count
 );
 
-}
-}
-}
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_DECLARE_GENERATE_LEVELS(\

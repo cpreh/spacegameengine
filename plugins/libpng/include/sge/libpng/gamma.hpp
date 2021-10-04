@@ -11,9 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -21,7 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	gamma
 );
 
-}
 }
 
 #endif

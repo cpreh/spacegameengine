@@ -11,13 +11,7 @@
 #include <sge/opengl/texture/binding_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace sge::opengl::texture::funcs
 {
 
 void
@@ -27,9 +21,6 @@ parameter_int(
 	GLint value
 );
 
-}
-}
-}
 }
 
 #endif

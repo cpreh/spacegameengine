@@ -15,13 +15,7 @@
 #include <fcppt/mpl/list/append.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace primitives
+namespace sge::sprite::detail::primitives
 {
 
 template<
@@ -114,9 +108,6 @@ struct texture<
 	>::type;
 };
 
-}
-}
-}
 }
 
 #endif

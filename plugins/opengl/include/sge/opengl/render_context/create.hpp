@@ -13,11 +13,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace render_context
+namespace sge::opengl::render_context
 {
 
 sge::renderer::context::ffp_unique_ptr
@@ -27,8 +23,6 @@ create(
 	sge::renderer::target::base_ref
 );
 
-}
-}
 }
 
 #endif

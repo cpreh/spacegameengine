@@ -8,14 +8,11 @@
 #define SGE_SCENIC_TEXTURE_MANAGER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace scenic
+namespace sge::scenic
 {
 
 class texture_manager;
 
-}
 }
 
 #endif

@@ -13,13 +13,7 @@
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace sge::opengl::texture::funcs
 {
 
 GLint
@@ -30,9 +24,6 @@ level_parameter(
 	GLenum what
 );
 
-}
-}
-}
 }
 
 #endif

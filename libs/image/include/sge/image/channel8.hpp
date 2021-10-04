@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 using
@@ -22,7 +20,6 @@ channel8
 =
 std::uint8_t;
 
-}
 }
 
 #endif

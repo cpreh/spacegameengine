@@ -13,11 +13,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -27,8 +23,6 @@ draw_timer_setting_opt(
 	sge::renderer::display_mode::optional_object const &
 );
 
-}
-}
 }
 
 #endif

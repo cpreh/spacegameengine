@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 class xkb_context
@@ -36,7 +34,6 @@ private:
 	::xkb_context *context_;
 };
 
-}
 }
 
 #endif

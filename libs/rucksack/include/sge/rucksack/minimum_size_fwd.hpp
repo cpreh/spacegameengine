@@ -11,9 +11,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -21,7 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	minimum_size
 );
 
-}
 }
 
 #endif

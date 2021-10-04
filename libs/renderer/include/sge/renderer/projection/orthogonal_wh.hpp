@@ -14,11 +14,7 @@
 #include <sge/renderer/projection/near.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace projection
+namespace sge::renderer::projection
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -29,8 +25,6 @@ orthogonal_wh(
 	sge::renderer::projection::far
 );
 
-}
-}
 }
 
 #endif

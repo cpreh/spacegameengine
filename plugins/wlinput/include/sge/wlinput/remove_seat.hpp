@@ -26,9 +26,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 template<
@@ -111,7 +109,6 @@ remove_seat(
 		);
 }
 
-}
 }
 
 #endif

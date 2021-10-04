@@ -12,11 +12,7 @@
 #include <fcppt/tag.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 template<
@@ -38,8 +34,6 @@ make_default_element(
 		};
 }
 
-}
-}
 }
 
 #endif

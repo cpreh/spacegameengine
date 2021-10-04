@@ -15,13 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace event
+namespace sge::input::joypad::event
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL remove
@@ -43,9 +37,6 @@ public:
 	override;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -16,9 +16,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 class context
@@ -50,7 +48,6 @@ private:
 	sge::gui::widget::optional_ref focus_;
 };
 
-}
 }
 
 #endif

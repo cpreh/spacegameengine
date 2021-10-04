@@ -16,13 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
-{
-namespace renderer
+namespace sge::gui::impl::renderer
 {
 
 class scoped
@@ -65,9 +59,6 @@ private:
 	sprite_scoped_state const scoped_state_;
 };
 
-}
-}
-}
 }
 
 #endif

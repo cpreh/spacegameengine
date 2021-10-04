@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 using
@@ -24,8 +20,6 @@ event_type_value
 =
 std::uint16_t;
 
-}
-}
 }
 
 #endif

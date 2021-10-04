@@ -13,11 +13,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL creation_failed
@@ -60,8 +56,6 @@ public:
 	override;
 };
 
-}
-}
 }
 
 #endif

@@ -10,18 +10,12 @@
 #include <sge/input/cursor/position.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace cursor
+namespace sge::sdlinput::cursor
 {
 
 sge::input::cursor::position
 get_position();
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace render
+namespace sge::sprite::render
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::renderer::texture::planar const
 >;
 
-}
-}
 }
 
 #endif

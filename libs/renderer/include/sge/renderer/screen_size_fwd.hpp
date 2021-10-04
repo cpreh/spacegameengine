@@ -11,9 +11,7 @@
 #include <fcppt/math/dim/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -29,7 +27,6 @@ fcppt::math::dim::static_<
 	2
 >;
 
-}
 }
 
 #endif

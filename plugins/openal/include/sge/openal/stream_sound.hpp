@@ -19,9 +19,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class stream_sound
@@ -85,7 +83,6 @@ private:
 	);
 };
 
-}
 }
 
 #endif

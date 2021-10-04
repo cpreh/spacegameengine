@@ -10,21 +10,12 @@
 #include <sge/opengl/texture/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace sge::opengl::texture::funcs
 {
 
 sge::opengl::texture::id
 gen();
 
-}
-}
-}
 }
 
 #endif

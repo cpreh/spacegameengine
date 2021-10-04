@@ -26,11 +26,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 
 class object
@@ -97,8 +93,6 @@ private:
 	); // NOLINT(google-runtime-references)
 };
 
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_X11INPUT_CURSOR_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 class object;
 
-}
-}
 }
 
 #endif

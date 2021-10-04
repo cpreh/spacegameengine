@@ -11,13 +11,7 @@
 #include <sge/opencl/memory_object/flags_field.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace impl
-{
-namespace memory_object
+namespace sge::opencl::impl::memory_object
 {
 
 cl_mem_flags
@@ -25,9 +19,6 @@ to_opencl_mem_flags(
 	sge::opencl::memory_object::flags_field const &
 );
 
-}
-}
-}
 }
 
 #endif

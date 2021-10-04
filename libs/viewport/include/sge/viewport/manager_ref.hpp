@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::viewport::manager
 >;
 
-}
 }
 
 #endif

@@ -14,11 +14,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class basic_parameters
@@ -42,8 +38,6 @@ private:
 	sge::opengl::context::object_ref context_;
 };
 
-}
-}
 }
 
 #endif

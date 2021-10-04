@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace sdl
+namespace sge::opengl::sdl
 {
 
 class current
@@ -68,8 +64,6 @@ private:
 	SDL_GLContext const context_; // NOLINT(misc-misplaced-const)
 };
 
-}
-}
 }
 
 #endif

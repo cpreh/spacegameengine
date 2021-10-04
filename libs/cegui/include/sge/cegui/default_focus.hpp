@@ -13,9 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 class default_focus
@@ -42,7 +40,6 @@ private:
 	sge::cegui::syringe_ref const syringe_;
 };
 
-}
 }
 
 #endif

@@ -12,15 +12,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace vector
-{
-namespace detail
+namespace sge::cg::parameter::vector::detail
 {
 
 SGE_CG_DETAIL_SYMBOL
@@ -31,10 +23,6 @@ set_float(
 	fcppt::math::size_type
 );
 
-}
-}
-}
-}
 }
 
 #endif

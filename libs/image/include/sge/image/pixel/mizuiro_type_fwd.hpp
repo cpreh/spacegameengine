@@ -10,11 +10,7 @@
 #include <mizuiro/color/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace pixel
+namespace sge::image::pixel
 {
 
 template<
@@ -27,8 +23,6 @@ mizuiro::color::object<
 	Format
 >;
 
-}
-}
 }
 
 #endif

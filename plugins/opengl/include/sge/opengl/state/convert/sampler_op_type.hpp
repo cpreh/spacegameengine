@@ -12,13 +12,7 @@
 #include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 template<
@@ -46,9 +40,6 @@ struct sampler_op_type<
 	get();
 };
 
-}
-}
-}
 }
 
 #endif

@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 SGE_AUDIO_DETAIL_SYMBOL
@@ -27,7 +25,6 @@ load(
 	std::filesystem::path const &
 );
 
-}
 }
 
 #endif

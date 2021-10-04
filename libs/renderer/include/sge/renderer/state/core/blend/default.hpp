@@ -11,25 +11,13 @@
 #include <sge/renderer/state/core/blend/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::core::blend::parameters
 default_();
 
-}
-}
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace inotify
+namespace sge::evdev::inotify
 {
 
 sge::evdev::inotify::event_type
@@ -25,8 +21,6 @@ convert_event_type(
 	std::uint32_t mask
 );
 
-}
-}
 }
 
 #endif

@@ -13,17 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::renderer::state::ffp::lighting::light
 {
 
 using
@@ -33,11 +23,6 @@ std::vector<
 	sge::renderer::state::ffp::lighting::light::const_object_ref
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

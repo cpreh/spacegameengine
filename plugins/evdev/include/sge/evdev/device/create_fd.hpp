@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 sge::evdev::device::optional_fd_unique_ptr
@@ -27,8 +23,6 @@ create_fd(
 	std::filesystem::path const &
 );
 
-}
-}
 }
 
 #endif

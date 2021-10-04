@@ -12,9 +12,7 @@
 #include <sge/audio/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 SGE_AUDIO_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ bytes_per_sample(
 	sge::audio::bits_per_sample
 );
 
-}
 }
 
 #endif

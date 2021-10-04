@@ -11,11 +11,7 @@
 #include <sge/systems/detail/any_key_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 sge::systems::detail::any_key
@@ -23,8 +19,6 @@ make_any_key(
 	sge::systems::detail::any const &
 );
 
-}
-}
 }
 
 #endif

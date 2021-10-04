@@ -10,13 +10,7 @@
 #include <fcppt/tuple/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
-{
-namespace basic
+namespace sge::sprite::types::basic
 {
 
 template<
@@ -29,9 +23,6 @@ fcppt::tuple::object<
 	Type
 >;
 
-}
-}
-}
 }
 
 #endif

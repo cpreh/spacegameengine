@@ -16,13 +16,7 @@
 #include <fcppt/mpl/list/at.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 template<
@@ -81,9 +75,6 @@ public:
 	>;
 };
 
-}
-}
-}
 }
 
 #endif

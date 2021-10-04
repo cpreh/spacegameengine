@@ -11,13 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
-namespace visual
+namespace sge::opengl::glx::visual
 {
 
 using
@@ -27,9 +21,6 @@ fcppt::optional::object<
 	sge::opengl::glx::visual::srgb_flag
 >;
 
-}
-}
-}
 }
 
 #endif

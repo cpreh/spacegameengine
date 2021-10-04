@@ -13,13 +13,7 @@
 #include <sge/renderer/vf/dynamic/vector_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class vector
@@ -53,9 +47,6 @@ operator==(
 	sge::renderer::vf::dynamic::vector const &
 );
 
-}
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/wlinput/focus/xkb_keycode.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 sge::charconv::utf8_string
@@ -25,8 +21,6 @@ get_utf8_string(
 	sge::wlinput::focus::xkb_keycode
 );
 
-}
-}
 }
 
 #endif

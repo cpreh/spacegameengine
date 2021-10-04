@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 using
@@ -26,7 +24,6 @@ std::integral_constant<
 	8U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 >;
 
-}
 }
 
 #endif

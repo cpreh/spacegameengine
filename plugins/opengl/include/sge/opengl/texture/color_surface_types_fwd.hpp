@@ -8,17 +8,11 @@
 #define SGE_OPENGL_TEXTURE_COLOR_SURFACE_TYPES_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct color_surface_types;
 
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/renderer/texture/stage.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 sge::opengl::texture::optional_type
@@ -25,8 +21,6 @@ get_stage_type(
 	sge::renderer::texture::stage
 );
 
-}
-}
 }
 
 #endif

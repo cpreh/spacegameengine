@@ -10,9 +10,7 @@
 #include <sge/image/basic_box_fwd.hpp>
 
 
-namespace sge
-{
-namespace image3d
+namespace sge::image3d
 {
 
 using
@@ -22,7 +20,6 @@ sge::image::basic_box<
 	3
 >;
 
-}
 }
 
 #endif

@@ -13,15 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::renderer::state::ffp::clip_plane
 {
 
 using
@@ -31,10 +23,6 @@ std::vector<
 	sge::renderer::state::ffp::clip_plane::const_object_ref
 >;
 
-}
-}
-}
-}
 }
 
 #endif

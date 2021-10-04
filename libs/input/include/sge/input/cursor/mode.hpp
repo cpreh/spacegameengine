@@ -10,11 +10,7 @@
 #include <sge/input/cursor/mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
+namespace sge::input::cursor
 {
 
 enum class mode
@@ -23,8 +19,6 @@ enum class mode
 	normal
 };
 
-}
-}
 }
 
 #endif

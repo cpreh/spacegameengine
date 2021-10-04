@@ -10,22 +10,13 @@
 #include <fcppt/record/make_label.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace roles
+namespace sge::sprite::detail::roles
 {
 
 FCPPT_RECORD_MAKE_LABEL(
 	vertex_count
 );
 
-}
-}
-}
 }
 
 #endif

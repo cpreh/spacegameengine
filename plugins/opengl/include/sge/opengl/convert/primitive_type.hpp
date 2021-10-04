@@ -11,11 +11,7 @@
 #include <sge/renderer/primitive_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 GLenum
@@ -23,8 +19,6 @@ primitive_type(
 	sge::renderer::primitive_type
 );
 
-}
-}
 }
 
 #endif

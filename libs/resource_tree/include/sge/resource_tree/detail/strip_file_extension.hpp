@@ -11,11 +11,7 @@
 #include <sge/resource_tree/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace resource_tree
-{
-namespace detail
+namespace sge::resource_tree::detail
 {
 
 /**
@@ -26,8 +22,6 @@ sge::resource_tree::path
 strip_file_extension(
 	sge::resource_tree::path const &);
 
-}
-}
 }
 
 #endif

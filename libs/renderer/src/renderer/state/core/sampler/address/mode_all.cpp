@@ -18,7 +18,7 @@ sge::renderer::state::core::sampler::address::mode_all(
 )
 {
 	return
-		sge::renderer::state::core::sampler::address::parameters(
+		{
 			sge::renderer::state::core::sampler::address::mode_s(
 				_mode
 			),
@@ -28,5 +28,5 @@ sge::renderer::state::core::sampler::address::mode_all(
 			sge::renderer::state::core::sampler::address::mode_u(
 				_mode
 			)
-		);
+		};
 }

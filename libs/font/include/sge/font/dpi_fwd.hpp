@@ -11,9 +11,7 @@
 #include <fcppt/math/dim/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 using
@@ -24,7 +22,6 @@ fcppt::math::dim::static_<
 	2
 >;
 
-}
 }
 
 #endif

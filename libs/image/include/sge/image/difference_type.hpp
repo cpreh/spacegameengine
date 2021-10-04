@@ -10,9 +10,7 @@
 #include <mizuiro/difference_type.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 using
@@ -20,7 +18,6 @@ difference_type
 =
 mizuiro::difference_type;
 
-}
 }
 
 #endif

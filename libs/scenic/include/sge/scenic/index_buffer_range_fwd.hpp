@@ -7,12 +7,9 @@
 #ifndef SGE_SCENIC_INDEX_BUFFER_RANGE_FWD_HPP_INCLUDED
 #define SGE_SCENIC_INDEX_BUFFER_RANGE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace scenic
+namespace sge::scenic
 {
 class index_buffer_range;
-}
 }
 
 #endif

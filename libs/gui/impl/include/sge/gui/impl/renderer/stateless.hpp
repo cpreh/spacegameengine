@@ -18,13 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
-{
-namespace renderer
+namespace sge::gui::impl::renderer
 {
 
 class stateless
@@ -77,9 +71,6 @@ private:
 	sge::renderer::device::core_ref const renderer_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -8,11 +8,7 @@
 #define SGE_FONT_WEIGHT_UNIT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace font
-{
-namespace weight
+namespace sge::font::weight
 {
 
 using
@@ -20,8 +16,6 @@ unit
 =
 unsigned;
 
-}
-}
 }
 
 #endif

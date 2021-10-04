@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 using
@@ -25,7 +23,6 @@ std::vector<
 	sge::font::string
 >;
 
-}
 }
 
 #endif

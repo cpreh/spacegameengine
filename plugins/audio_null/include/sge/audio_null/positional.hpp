@@ -16,9 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace audio_null
+namespace sge::audio_null
 {
 
 class positional
@@ -124,7 +122,6 @@ private:
 	override;
 };
 
-}
 }
 
 #endif

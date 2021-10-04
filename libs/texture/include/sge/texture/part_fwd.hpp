@@ -8,14 +8,11 @@
 #define SGE_TEXTURE_PART_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 class part;
 
-}
 }
 
 #endif

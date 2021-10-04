@@ -8,17 +8,11 @@
 #define SGE_RENDERER_OCCLUSION_QUERY_SCOPED_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace occlusion_query
+namespace sge::renderer::occlusion_query
 {
 
 class scoped;
 
-}
-}
 }
 
 #endif

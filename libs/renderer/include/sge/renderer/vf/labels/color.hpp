@@ -10,22 +10,13 @@
 #include <fcppt/record/make_label.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace labels
+namespace sge::renderer::vf::labels
 {
 
 FCPPT_RECORD_MAKE_LABEL(
 	color
 );
 
-}
-}
-}
 }
 
 #endif

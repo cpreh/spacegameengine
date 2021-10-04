@@ -8,17 +8,11 @@
 #define SGE_RENDERER_TEXTURE_CUBE_SIDE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 enum class cube_side;
 
-}
-}
 }
 
 #endif

@@ -11,13 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace valuator
+namespace sge::x11input::device::valuator
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -25,9 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	value
 );
 
-}
-}
-}
 }
 
 #endif

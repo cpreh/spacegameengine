@@ -12,13 +12,7 @@
 #include <sge/plugin/library/detail/version_function.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
-{
-namespace detail
+namespace sge::plugin::library::detail
 {
 
 SGE_PLUGIN_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ make_version_function(
 	sge::plugin::library::detail::version_function
 );
 
-}
-}
-}
 }
 
 #endif

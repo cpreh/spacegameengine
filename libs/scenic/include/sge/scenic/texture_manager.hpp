@@ -19,9 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
+namespace sge::scenic
 {
 class texture_manager
 {
@@ -60,7 +58,6 @@ private:
 	path_to_texture_map path_to_texture_;
 };
 
-}
 }
 
 #endif

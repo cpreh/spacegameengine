@@ -11,11 +11,7 @@
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 sge::renderer::occlusion_query::object_unique_ptr
@@ -23,8 +19,6 @@ create(
 	sge::opengl::context::object_ref
 );
 
-}
-}
 }
 
 #endif

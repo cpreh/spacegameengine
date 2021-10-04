@@ -11,11 +11,7 @@
 #include <fcppt/math/box/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace grid
+namespace sge::scenic::grid
 {
 
 using
@@ -26,8 +22,6 @@ fcppt::math::box::object<
 	2
 >;
 
-}
-}
 }
 
 #endif

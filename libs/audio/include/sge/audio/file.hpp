@@ -20,9 +20,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 /**
@@ -112,7 +110,6 @@ public:
 	~file();
 };
 
-}
 }
 
 #endif

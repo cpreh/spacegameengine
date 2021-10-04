@@ -20,11 +20,7 @@
 #include <sge/opencl/kernel/object_ref.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace command_queue
+namespace sge::opencl::command_queue
 {
 
 SGE_OPENCL_DETAIL_SYMBOL
@@ -84,8 +80,6 @@ enqueue_kernel(
 	sge::opencl::event::sequence const &
 );
 
-}
-}
 }
 
 #endif

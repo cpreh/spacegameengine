@@ -14,11 +14,7 @@
 #undef major
 #undef minor
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 class version
@@ -42,8 +38,6 @@ private:
 	sge::opengl::egl::minor_version minor_;
 };
 
-}
-}
 }
 
 #endif

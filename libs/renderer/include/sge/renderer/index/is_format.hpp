@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 template<
@@ -42,8 +38,6 @@ std::true_type
 {
 };
 
-}
-}
 }
 
 #endif

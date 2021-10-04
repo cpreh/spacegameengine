@@ -22,9 +22,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class source
@@ -186,7 +184,6 @@ private:
 	);
 };
 
-}
 }
 
 #endif

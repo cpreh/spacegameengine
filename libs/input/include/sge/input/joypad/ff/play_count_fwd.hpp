@@ -10,13 +10,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,9 +18,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	play_count
 );
 
-}
-}
-}
 }
 
 #endif

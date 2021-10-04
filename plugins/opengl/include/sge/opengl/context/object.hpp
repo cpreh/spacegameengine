@@ -19,11 +19,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace context
+namespace sge::opengl::context
 {
 
 class object
@@ -75,8 +71,6 @@ private:
 	container elements_;
 };
 
-}
-}
 }
 
 #endif

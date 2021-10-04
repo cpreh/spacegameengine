@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
+namespace sge::sdlinput
 {
 
 bool
@@ -24,7 +22,6 @@ same_windows_impl(
 	std::uint32_t
 );
 
-}
 }
 
 #endif

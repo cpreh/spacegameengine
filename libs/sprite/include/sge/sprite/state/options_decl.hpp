@@ -14,11 +14,7 @@
 #include <fcppt/record/label_value_type.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 template<
@@ -76,8 +72,6 @@ private:
 	elements_type elements_;
 };
 
-}
-}
 }
 
 #endif

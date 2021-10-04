@@ -16,9 +16,7 @@
 #include <fcppt/log/object.hpp>
 
 
-namespace sge
-{
-namespace x11input
+namespace sge::x11input
 {
 
 class system
@@ -52,7 +50,6 @@ private:
 	fcppt::log::object log_;
 };
 
-}
 }
 
 #endif

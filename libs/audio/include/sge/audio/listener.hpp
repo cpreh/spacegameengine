@@ -15,9 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 /// The player's listener
@@ -72,7 +70,6 @@ public:
 	~listener();
 };
 
-}
 }
 
 #endif

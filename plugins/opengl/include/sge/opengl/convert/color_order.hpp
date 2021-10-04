@@ -11,11 +11,7 @@
 #include <sge/opengl/color_order.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 sge::opengl::color_order
@@ -23,8 +19,6 @@ color_order(
 	sge::opengl::color_format
 );
 
-}
-}
 }
 
 #endif

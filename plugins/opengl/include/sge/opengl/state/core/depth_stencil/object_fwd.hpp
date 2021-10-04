@@ -11,15 +11,7 @@
 #include <sge/renderer/state/core/depth_stencil/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
+namespace sge::opengl::state::core::depth_stencil
 {
 
 using
@@ -29,10 +21,6 @@ sge::opengl::state::object<
 	sge::renderer::state::core::depth_stencil::object
 >;
 
-}
-}
-}
-}
 }
 
 #endif

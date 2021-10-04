@@ -13,11 +13,7 @@
 #include <sge/rucksack/alignment.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class reference_alignment_pair
@@ -42,8 +38,6 @@ private:
 	sge::rucksack::alignment alignment_;
 };
 
-}
-}
 }
 
 #endif

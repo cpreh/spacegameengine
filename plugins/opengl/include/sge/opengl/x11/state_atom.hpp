@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace x11
+namespace sge::opengl::x11
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,8 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	state_atom
 );
 
-}
-}
 }
 
 #endif

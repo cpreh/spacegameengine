@@ -15,11 +15,7 @@
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 /**
@@ -217,8 +213,6 @@ private:
 	sge::audio::scalar outer_cone_gain_;
 };
 
-}
-}
 }
 
 #endif

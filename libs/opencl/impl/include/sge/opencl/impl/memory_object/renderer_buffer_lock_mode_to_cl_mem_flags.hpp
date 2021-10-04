@@ -12,13 +12,7 @@
 #include <fcppt/assert/unreachable.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace impl
-{
-namespace memory_object
+namespace sge::opencl::impl::memory_object
 {
 
 inline
@@ -41,9 +35,6 @@ renderer_buffer_lock_mode_to_cl_mem_flags(
 	FCPPT_ASSERT_UNREACHABLE;
 }
 
-}
-}
-}
 }
 
 #endif

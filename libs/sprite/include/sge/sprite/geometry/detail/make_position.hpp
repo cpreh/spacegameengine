@@ -13,13 +13,7 @@
 #include <fcppt/math/vector/push_back.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 template<
@@ -46,9 +40,6 @@ make_position(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

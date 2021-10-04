@@ -23,13 +23,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace input
+namespace sge::systems::impl::input
 {
 
 class object
@@ -77,9 +71,6 @@ private:
 	optional_cursor_modifier_unique_ptr const cursor_modifier_;
 };
 
-}
-}
-}
 }
 
 #endif

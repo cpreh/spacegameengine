@@ -16,11 +16,7 @@
 #include <fcppt/optional/object_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace single_device_system
+namespace sge::opencl::single_device_system
 {
 class parameters
 {
@@ -87,8 +83,6 @@ private:
 	sge::opencl::command_queue::execution_mode execution_mode_;
 	bool prefers_gpu_;
 };
-}
-}
 }
 
 #endif

@@ -21,11 +21,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 class current
@@ -82,8 +78,6 @@ private:
 	optional_swap_functions const swap_functions_;
 };
 
-}
-}
 }
 
 #endif

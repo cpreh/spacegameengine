@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
+namespace sge::projectile::body
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::projectile::body::object
 >;
 
-}
-}
 }
 
 #endif

@@ -21,11 +21,7 @@
 #include <sge/shader/context.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 
 class manager
@@ -78,8 +74,6 @@ private:
 	sge::scenic::render_context::manager_base_unique_ptr render_context_manager_;
 };
 
-}
-}
 }
 
 #endif

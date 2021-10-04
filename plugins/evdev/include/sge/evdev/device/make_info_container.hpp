@@ -22,11 +22,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 template<
@@ -129,8 +125,6 @@ make_info_container(
 		);
 }
 
-}
-}
 }
 
 #endif

@@ -20,17 +20,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 using
@@ -49,11 +39,6 @@ fcppt::mpl::list::object<
 	sge::image::color::impl::dynamic::format::srgb_c8_4
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

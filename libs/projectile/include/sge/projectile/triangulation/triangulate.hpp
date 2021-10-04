@@ -19,11 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace triangulation
+namespace sge::projectile::triangulation
 {
 
 template<
@@ -249,8 +245,6 @@ triangulate(
 	return result;
 }
 
-}
-}
 }
 
 #endif

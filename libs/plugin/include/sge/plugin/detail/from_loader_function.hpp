@@ -12,11 +12,7 @@
 #include <sge/plugin/library/function_base.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 template<
@@ -30,8 +26,6 @@ from_loader_function(
 	>
 );
 
-}
-}
 }
 
 #endif

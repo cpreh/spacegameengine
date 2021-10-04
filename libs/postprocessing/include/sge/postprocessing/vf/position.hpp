@@ -11,11 +11,7 @@
 #include <sge/renderer/vf/pos.hpp>
 
 
-namespace sge
-{
-namespace postprocessing
-{
-namespace vf
+namespace sge::postprocessing::vf
 {
 
 using
@@ -26,8 +22,6 @@ sge::renderer::vf::pos<
 	2
 >;
 
-}
-}
 }
 
 #endif

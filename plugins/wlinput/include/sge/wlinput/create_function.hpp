@@ -12,9 +12,7 @@
 #include <fcppt/unique_ptr_fwd.hpp>
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 template<
@@ -30,8 +28,6 @@ fcppt::function<
 		awl::backends::wayland::seat_ref
 	)
 >;
-
-}
 
 }
 

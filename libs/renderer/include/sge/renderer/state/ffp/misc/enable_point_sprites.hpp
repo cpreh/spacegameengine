@@ -11,15 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
+namespace sge::renderer::state::ffp::misc
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -27,10 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	enable_point_sprites
 );
 
-}
-}
-}
-}
 }
 
 #endif

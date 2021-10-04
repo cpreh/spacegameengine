@@ -15,13 +15,7 @@
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 template<
@@ -77,9 +71,6 @@ private:
 	sge::renderer::vf::dynamic::part_index part_index_;
 };
 
-}
-}
-}
 }
 
 #endif

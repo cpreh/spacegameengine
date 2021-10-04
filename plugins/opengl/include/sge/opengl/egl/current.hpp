@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 class current
@@ -66,8 +62,6 @@ private:
 	EGLSurface const surface_; // NOLINT(misc-misplaced-const)
 };
 
-}
-}
 }
 
 #endif

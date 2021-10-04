@@ -11,11 +11,7 @@
 #include <sge/opengl/fbo/config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 GLuint
@@ -23,8 +19,6 @@ gen_render_buffer(
 	sge::opengl::fbo::config const &
 );
 
-}
-}
 }
 
 #endif

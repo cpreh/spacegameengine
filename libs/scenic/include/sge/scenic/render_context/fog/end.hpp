@@ -11,20 +11,11 @@
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace fog
+namespace sge::scenic::render_context::fog
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::scalar,
 	end);
-}
-}
-}
 }
 
 #endif

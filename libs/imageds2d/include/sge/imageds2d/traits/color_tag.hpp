@@ -12,13 +12,7 @@
 #include <sge/imageds2d/tag.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-namespace image
+namespace sge::image::traits::image
 {
 
 template<>
@@ -32,9 +26,6 @@ struct color_tag_tpl<
 	sge::image::ds::tag;
 };
 
-}
-}
-}
 }
 
 #endif

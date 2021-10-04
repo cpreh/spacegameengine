@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
+namespace sge::x11input
 {
 
 class atom_name
@@ -39,7 +37,6 @@ private:
 	char *const name_;
 };
 
-}
 }
 
 #endif

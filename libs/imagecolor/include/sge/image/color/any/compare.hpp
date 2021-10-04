@@ -12,13 +12,7 @@
 #include <fcppt/variant/compare.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace any
+namespace sge::image::color::any
 {
 
 template<
@@ -52,9 +46,6 @@ compare(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

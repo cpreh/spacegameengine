@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opengl::vf::client_state_combiner
 >;
 
-}
-}
 }
 
 #endif

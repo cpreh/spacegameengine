@@ -11,15 +11,7 @@
 #include <sge/renderer/state/core/blend/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 using
@@ -29,10 +21,6 @@ sge::opengl::state::object<
 	sge::renderer::state::core::blend::object
 >;
 
-}
-}
-}
-}
 }
 
 #endif

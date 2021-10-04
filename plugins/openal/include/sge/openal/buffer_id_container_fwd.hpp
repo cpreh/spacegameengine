@@ -11,9 +11,7 @@
 #include <fcppt/container/raw_vector/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::container::raw_vector::object<
 	ALuint
 >;
 
-}
 }
 
 #endif

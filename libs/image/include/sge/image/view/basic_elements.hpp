@@ -19,11 +19,7 @@
 #include <fcppt/mpl/list/map.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -60,8 +56,6 @@ fcppt::mpl::list::map<
 	>
 >;
 
-}
-}
 }
 
 #endif

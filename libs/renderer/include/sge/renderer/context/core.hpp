@@ -39,11 +39,7 @@
 #endif
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace context
+namespace sge::renderer::context
 {
 
 /**
@@ -359,8 +355,6 @@ public:
 #endif
 };
 
-}
-}
 }
 
 #endif

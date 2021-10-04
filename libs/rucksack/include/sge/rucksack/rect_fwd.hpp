@@ -11,9 +11,7 @@
 #include <fcppt/math/box/rect_fwd.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::math::box::rect<
 	sge::rucksack::scalar
 >;
 
-}
 }
 
 #endif

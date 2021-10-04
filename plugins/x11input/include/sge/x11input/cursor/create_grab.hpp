@@ -14,11 +14,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 sge::x11input::cursor::optional_grab_unique_ptr
@@ -29,8 +25,6 @@ create_grab(
 	awl::backends::x11::cursor::object_ref
 );
 
-}
-}
 }
 
 #endif

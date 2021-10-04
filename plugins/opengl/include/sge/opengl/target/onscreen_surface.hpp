@@ -17,11 +17,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 class onscreen_surface
@@ -85,8 +81,6 @@ private:
 	mutable optional_buffer_type buffer_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/scenic/vf/format_part.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace vf
+namespace sge::scenic::vf
 {
 
 using
@@ -25,8 +21,6 @@ sge::renderer::vf::format<
 	sge::scenic::vf::format_part
 >;
 
-}
-}
 }
 
 #endif

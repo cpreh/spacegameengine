@@ -11,11 +11,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 class base
@@ -42,8 +38,6 @@ public:
 	end_rendering() = 0;
 };
 
-}
-}
 }
 
 #endif

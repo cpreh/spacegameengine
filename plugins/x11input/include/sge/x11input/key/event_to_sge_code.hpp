@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace key
+namespace sge::x11input::key
 {
 
 sge::input::key::code
@@ -27,8 +23,6 @@ event_to_sge_code(
 	XIDeviceEvent const &
 );
 
-}
-}
 }
 
 #endif

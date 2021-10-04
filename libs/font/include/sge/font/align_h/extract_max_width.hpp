@@ -12,11 +12,7 @@
 #include <sge/font/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace align_h
+namespace sge::font::align_h
 {
 
 SGE_FONT_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ extract_max_width(
 	sge::font::align_h::variant const &
 );
 
-}
-}
 }
 
 #endif

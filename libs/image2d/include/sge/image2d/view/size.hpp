@@ -16,11 +16,7 @@
 #include <sge/image2d/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace view
+namespace sge::image2d::view
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
@@ -35,8 +31,6 @@ size(
 	sge::image2d::view::const_object const &
 );
 
-}
-}
 }
 
 SGE_IMAGE_VIEW_DECLARE_SIZE(

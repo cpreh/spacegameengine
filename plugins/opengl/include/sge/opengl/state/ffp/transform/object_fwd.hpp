@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/transform/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::opengl::state::ffp::transform
 {
 
 using
@@ -31,10 +23,6 @@ sge::opengl::state::unary_object<
 	sge::renderer::state::ffp::transform::mode
 >;
 
-}
-}
-}
-}
 }
 
 #endif

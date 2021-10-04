@@ -8,17 +8,11 @@
 #define SGE_RENDERER_VERTEX_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 class const_scoped_lock;
 
-}
-}
 }
 
 #endif

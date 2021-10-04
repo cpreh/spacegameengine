@@ -10,11 +10,7 @@
 #include <sge/image/view/mizuiro_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -30,8 +26,6 @@ sge::image::view::mizuiro_type<
 	View::constness
 >;
 
-}
-}
 }
 
 #endif

@@ -17,9 +17,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 class draw_context
@@ -73,7 +71,6 @@ private:
 	optional_draw_range_elements const draw_range_elements_;
 };
 
-}
 }
 
 #endif

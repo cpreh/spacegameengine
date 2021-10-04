@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::renderer::index::buffer
 >;
 
-}
-}
 }
 
 #endif

@@ -10,19 +10,13 @@
 #include <sge/opengl/context/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace context
+namespace sge::opengl::context
 {
 
 sge::opengl::context::id
 make_id()
 noexcept;
 
-}
-}
 }
 
 #endif

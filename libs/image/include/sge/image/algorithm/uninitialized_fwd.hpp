@@ -10,17 +10,11 @@
 #include <sge/image/algorithm/uninitialized_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace algorithm
+namespace sge::image::algorithm
 {
 
 enum class uninitialized;
 
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
-namespace visual
+namespace sge::opengl::glx::visual
 {
 
 sge::opengl::glx::visual::attribute_container
@@ -27,9 +21,6 @@ make_attributes(
 	sge::renderer::pixel_format::object const &
 );
 
-}
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/opengl/color_order.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -29,8 +25,6 @@ sge::opengl::color_order
 	Format
 );
 
-}
-}
 }
 
 #endif

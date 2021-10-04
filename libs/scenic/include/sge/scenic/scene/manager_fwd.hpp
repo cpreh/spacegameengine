@@ -8,17 +8,11 @@
 #define SGE_SCENIC_SCENE_MANAGER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 
 class manager;
 
-}
-}
 }
 
 #endif

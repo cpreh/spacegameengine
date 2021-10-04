@@ -11,9 +11,7 @@
 #include <sge/media/muxer_parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 using
@@ -23,7 +21,6 @@ sge::media::muxer_parameters<
 	sge::image2d::system
 >;
 
-}
 }
 
 #endif

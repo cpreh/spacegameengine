@@ -12,9 +12,7 @@
 #include <fcppt/math/vector/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -37,7 +35,6 @@ fcppt::math::vector::static_<
 	Size
 >;
 
-}
 }
 
 #endif

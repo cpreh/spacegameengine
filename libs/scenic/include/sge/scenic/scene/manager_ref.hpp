@@ -10,11 +10,7 @@
 #include <sge/scenic/scene/manager_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 
 using
@@ -24,8 +20,6 @@ fcppt::reference<
 	sge::scenic::scene::manager
 >;
 
-}
-}
 }
 
 #endif

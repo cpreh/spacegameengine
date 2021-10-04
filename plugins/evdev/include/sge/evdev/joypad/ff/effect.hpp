@@ -16,13 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace ff
+namespace sge::evdev::joypad::ff
 {
 
 class effect
@@ -58,9 +52,6 @@ private:
 	sge::evdev::joypad::ff::uploaded_effect const uploaded_effect_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -19,13 +19,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 class object
@@ -70,9 +64,6 @@ private:
 	optional_quit_unique_ptr const quit_;
 };
 
-}
-}
-}
 }
 
 #endif

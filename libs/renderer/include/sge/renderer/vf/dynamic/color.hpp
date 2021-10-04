@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class color
@@ -45,9 +39,6 @@ operator==(
 	sge::renderer::vf::dynamic::color const &
 );
 
-}
-}
-}
 }
 
 #endif

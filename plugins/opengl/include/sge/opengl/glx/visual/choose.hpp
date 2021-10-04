@@ -13,13 +13,7 @@
 #include <awl/backends/x11/visual/info_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
-namespace visual
+namespace sge::opengl::glx::visual
 {
 
 awl::backends::x11::visual::info_unique_ptr
@@ -29,9 +23,6 @@ choose(
 	sge::opengl::glx::visual::attribute_container const &
 );
 
-}
-}
-}
 }
 
 #endif

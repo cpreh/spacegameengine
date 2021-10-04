@@ -17,13 +17,7 @@
 #include <fcppt/math/dim/object_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
-{
-namespace image
+namespace sge::opencl::memory_object::image
 {
 
 class volume
@@ -66,9 +60,6 @@ private:
 	sge::opencl::dim3 size_;
 };
 
-}
-}
-}
 }
 
 #endif

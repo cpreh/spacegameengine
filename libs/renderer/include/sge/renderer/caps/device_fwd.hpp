@@ -8,17 +8,11 @@
 #define SGE_RENDERER_CAPS_DEVICE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace caps
+namespace sge::renderer::caps
 {
 
 class device;
 
-}
-}
 }
 
 #endif

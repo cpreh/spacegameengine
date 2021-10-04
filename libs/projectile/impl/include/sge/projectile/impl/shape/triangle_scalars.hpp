@@ -12,13 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace impl
-{
-namespace shape
+namespace sge::projectile::impl::shape
 {
 
 sge::projectile::shape::detail::scalar_container
@@ -27,9 +21,6 @@ triangle_scalars(
 	sge::projectile::shape::triangle_sequence const &
 );
 
-}
-}
-}
 }
 
 #endif

@@ -15,15 +15,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::renderer::state::core::rasterizer
 {
 
 class scoped
@@ -46,10 +38,6 @@ private:
 	sge::renderer::context::core_ref const context_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

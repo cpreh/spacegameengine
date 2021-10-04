@@ -8,14 +8,11 @@
 #define SGE_SYSTEMS_WITH_FONT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 struct with_font;
 
-}
 }
 
 #endif

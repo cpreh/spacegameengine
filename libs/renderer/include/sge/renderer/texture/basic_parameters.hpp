@@ -14,11 +14,7 @@
 #include <sge/renderer/texture/mipmap/object.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 template<
@@ -73,8 +69,6 @@ private:
 	sge::renderer::texture::capabilities_field capabilities_;
 };
 
-}
-}
 }
 
 #endif

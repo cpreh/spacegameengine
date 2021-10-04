@@ -20,11 +20,7 @@
 #include <sge/image2d/view/const_object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace view
+namespace sge::image2d::view
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
@@ -36,8 +32,6 @@ make_const(
 	sge::image2d::pitch const &
 );
 
-}
-}
 }
 
 SGE_IMAGE_VIEW_DECLARE_MAKE_CONST(

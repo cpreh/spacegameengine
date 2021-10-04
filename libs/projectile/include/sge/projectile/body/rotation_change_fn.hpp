@@ -10,11 +10,7 @@
 #include <sge/projectile/body/rotation.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
+namespace sge::projectile::body
 {
 
 using
@@ -24,8 +20,6 @@ void (
 	sge::projectile::body::rotation const &
 );
 
-}
-}
 }
 
 #endif

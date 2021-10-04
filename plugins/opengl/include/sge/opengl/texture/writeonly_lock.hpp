@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class writeonly_lock
@@ -84,8 +80,6 @@ private:
 	sge::opengl::buffer::object buffer_;
 };
 
-}
-}
 }
 
 #endif

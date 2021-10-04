@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_FFP_SAMPLER_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 class object;
 
-}
-}
-}
-}
 }
 
 #endif

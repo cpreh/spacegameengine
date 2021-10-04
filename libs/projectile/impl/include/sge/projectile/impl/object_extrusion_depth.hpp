@@ -12,18 +12,12 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace impl
+namespace sge::projectile::impl
 {
 
 btScalar
 object_extrusion_depth();
 
-}
-}
 }
 
 #endif

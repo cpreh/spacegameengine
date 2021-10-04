@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace inotify
+namespace sge::evdev::inotify
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::evdev::inotify::object
 >;
 
-}
-}
 }
 
 #endif

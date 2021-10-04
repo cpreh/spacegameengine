@@ -15,13 +15,7 @@
 #include <fcppt/reference_decl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace detail
+namespace sge::sprite::intrusive::detail
 {
 
 template<
@@ -94,9 +88,6 @@ private:
 	count_ref count_;
 };
 
-}
-}
-}
 }
 
 #endif

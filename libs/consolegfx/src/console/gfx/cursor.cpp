@@ -167,7 +167,7 @@ sge::console::gfx::cursor::erase_word()
 					fcppt::literal<
 						size_type
 					>(
-						0u
+						0U
 					);
 			}
 		)

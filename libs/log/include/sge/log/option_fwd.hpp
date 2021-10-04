@@ -8,14 +8,11 @@
 #define SGE_LOG_OPTION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace log
+namespace sge::log
 {
 
 class option;
 
-}
 }
 
 #endif

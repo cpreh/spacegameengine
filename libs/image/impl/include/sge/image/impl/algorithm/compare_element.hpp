@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace algorithm
+namespace sge::image::algorithm
 {
 
 struct compare_element
@@ -108,8 +104,6 @@ struct compare_element
 	}
 };
 
-}
-}
 }
 
 #endif

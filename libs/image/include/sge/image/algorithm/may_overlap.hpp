@@ -10,11 +10,7 @@
 #include <sge/image/algorithm/may_overlap_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace algorithm
+namespace sge::image::algorithm
 {
 
 enum class may_overlap
@@ -23,8 +19,6 @@ enum class may_overlap
 	yes
 };
 
-}
-}
 }
 
 #endif

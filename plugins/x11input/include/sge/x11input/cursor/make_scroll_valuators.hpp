@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 sge::x11input::cursor::scroll_valuator_map
@@ -25,8 +21,6 @@ make_scroll_valuators(
 	XIDeviceInfo const &
 );
 
-}
-}
 }
 
 #endif

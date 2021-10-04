@@ -12,20 +12,11 @@
 #include <sge/opencl/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
-{
-namespace image
+namespace sge::opencl::memory_object::image
 {
 SGE_OPENCL_DETAIL_SYMBOL cl_image_format
 sge_color_format_to_opencl(
 	sge::image::color::format);
-}
-}
-}
 }
 
 #endif

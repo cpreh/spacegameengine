@@ -10,11 +10,7 @@
 #include <sge/input/cursor/scroll_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 sge::input::cursor::scroll_code
@@ -22,8 +18,6 @@ scroll_code(
 	int
 );
 
-}
-}
 }
 
 #endif

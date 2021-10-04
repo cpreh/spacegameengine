@@ -17,9 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 template<
@@ -42,7 +40,6 @@ area_texc(
 	> const &repeat
 );
 
-}
 }
 
 #define SGE_TEXTURE_DETAIL_DECLARE_AREA_TEXC(\

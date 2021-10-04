@@ -14,11 +14,7 @@
 #include <sge/plugin/detail/traits.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 /// The loader plugin
@@ -47,8 +43,6 @@ public:
 	sge::audio::loader_unique_ptr ();
 };
 
-}
-}
 }
 
 #endif

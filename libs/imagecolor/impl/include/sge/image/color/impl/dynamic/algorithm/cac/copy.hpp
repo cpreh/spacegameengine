@@ -19,19 +19,7 @@
 #include <mizuiro/image/algorithm/uninitialized.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace algorithm
-{
-namespace cac
+namespace sge::image::color::impl::dynamic::algorithm::cac
 {
 
 template<
@@ -87,12 +75,6 @@ copy(
 	}
 }
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

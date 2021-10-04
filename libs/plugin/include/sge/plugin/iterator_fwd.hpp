@@ -8,9 +8,7 @@
 #define SGE_PLUGIN_ITERATOR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 template<
@@ -18,7 +16,6 @@ template<
 >
 class iterator;
 
-}
 }
 
 #endif

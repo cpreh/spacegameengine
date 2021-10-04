@@ -16,11 +16,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 using
@@ -30,8 +26,6 @@ sge::image::invalid_copy<
 	sge::image::color::tag
 >;
 
-}
-}
 }
 
 FCPPT_PP_PUSH_WARNING

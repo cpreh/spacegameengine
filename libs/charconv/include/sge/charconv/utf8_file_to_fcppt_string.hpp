@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 SGE_CHARCONV_DETAIL_SYMBOL
@@ -25,7 +23,6 @@ utf8_file_to_fcppt_string(
 	std::filesystem::path const &
 );
 
-}
 }
 
 #endif

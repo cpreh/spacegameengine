@@ -11,13 +11,7 @@
 #include <fcppt/record/make_label_arg.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace labels
+namespace sge::renderer::vf::labels
 {
 
 FCPPT_RECORD_MAKE_LABEL_ARG(
@@ -25,9 +19,6 @@ FCPPT_RECORD_MAKE_LABEL_ARG(
 	sge::renderer::vf::index_type
 );
 
-}
-}
-}
 }
 
 #endif

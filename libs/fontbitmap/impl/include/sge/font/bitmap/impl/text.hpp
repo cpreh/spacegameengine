@@ -24,13 +24,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 class text
@@ -97,9 +91,6 @@ private:
 	sge::font::bitmap::impl::rep const rep_;
 };
 
-}
-}
-}
 }
 
 #endif

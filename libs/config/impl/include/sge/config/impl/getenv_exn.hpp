@@ -10,11 +10,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace config
-{
-namespace impl
+namespace sge::config::impl
 {
 
 fcppt::string
@@ -22,8 +18,6 @@ getenv_exn(
 	fcppt::string const &
 );
 
-}
-}
 }
 
 #endif

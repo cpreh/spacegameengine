@@ -14,11 +14,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct buffer_surface_types
@@ -55,8 +51,6 @@ struct buffer_surface_types
 	sub_function();
 };
 
-}
-}
 }
 
 #endif

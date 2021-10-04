@@ -12,11 +12,7 @@
 #include <sge/sprite/state/detail/choose_ffp.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 template<
@@ -30,8 +26,6 @@ sge::sprite::state::detail::choose_ffp<
 	sge::renderer::device::core
 >;
 
-}
-}
 }
 
 #endif

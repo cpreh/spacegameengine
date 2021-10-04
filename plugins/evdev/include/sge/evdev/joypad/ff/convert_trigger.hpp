@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace ff
+namespace sge::evdev::joypad::ff
 {
 
 ff_trigger
@@ -29,9 +23,6 @@ convert_trigger(
 	sge::input::joypad::ff::optional_trigger const &
 );
 
-}
-}
-}
 }
 
 #endif

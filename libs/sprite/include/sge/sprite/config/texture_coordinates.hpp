@@ -10,11 +10,7 @@
 #include <sge/sprite/config/texture_coordinates_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 enum class texture_coordinates
@@ -24,8 +20,6 @@ enum class texture_coordinates
 	custom
 };
 
-}
-}
 }
 
 #endif

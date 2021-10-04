@@ -11,11 +11,7 @@
 #include <fcppt/shared_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace shape
+namespace sge::projectile::shape
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::shared_ptr<
 	sge::projectile::shape::base
 >;
 
-}
-}
 }
 
 #endif

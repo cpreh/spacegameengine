@@ -10,11 +10,7 @@
 #include <sge/evdev/inotify/event_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace inotify
+namespace sge::evdev::inotify
 {
 
 enum class event_type
@@ -24,8 +20,6 @@ enum class event_type
 	attrib
 };
 
-}
-}
 }
 
 #endif

@@ -21,9 +21,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 class system
@@ -84,7 +82,6 @@ private:
 	backend_system_unique_ptr const backend_system_;
 };
 
-}
 }
 
 #endif

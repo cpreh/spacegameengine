@@ -38,17 +38,7 @@
 #include <sge/image/color/impl/dynamic/format/srgb_c8_4.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
@@ -159,11 +149,6 @@ from_static(
 	sge::image::color::srgba8_format const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

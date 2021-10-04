@@ -12,13 +12,7 @@
 #include <sge/image/impl/traits/static_converter_tpl_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace traits
+namespace sge::image::impl::traits
 {
 
 template<>
@@ -32,9 +26,6 @@ struct static_converter_tpl<
 	sge::image::color::impl::converter;
 };
 
-}
-}
-}
 }
 
 #endif

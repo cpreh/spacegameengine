@@ -14,11 +14,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct depth_stencil_types
@@ -44,8 +40,6 @@ struct depth_stencil_types
 	name();
 };
 
-}
-}
 }
 
 #endif

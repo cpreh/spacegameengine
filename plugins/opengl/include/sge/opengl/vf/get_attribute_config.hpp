@@ -11,11 +11,7 @@
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 sge::opengl::vf::attribute_config const &
@@ -23,8 +19,6 @@ get_attribute_config(
 	sge::opengl::vf::attribute_context const &
 );
 
-}
-}
 }
 
 #endif

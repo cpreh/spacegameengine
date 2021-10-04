@@ -12,13 +12,7 @@
 #include <fcppt/args_vector.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace config
+namespace sge::parse::json::config
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
@@ -28,9 +22,6 @@ merge_command_line_parameters(
 	fcppt::args_vector const &
 );
 
-}
-}
-}
 }
 
 #endif

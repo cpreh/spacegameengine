@@ -18,13 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace renderer
+namespace sge::systems::impl::renderer
 {
 
 class device
@@ -58,9 +52,6 @@ private:
 	sge::viewport::manager viewport_manager_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -28,9 +28,7 @@ class GUIContext;
 class WindowManager;
 }
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 class system
@@ -97,7 +95,6 @@ private:
 	system_impl_ptr const impl_;
 };
 
-}
 }
 
 #endif

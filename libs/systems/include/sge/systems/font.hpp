@@ -13,9 +13,7 @@
 #include <sge/systems/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class font
@@ -38,7 +36,6 @@ private:
 	sge::systems::optional_name name_;
 };
 
-}
 }
 
 #endif

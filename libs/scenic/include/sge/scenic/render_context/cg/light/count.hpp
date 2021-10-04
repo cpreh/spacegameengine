@@ -8,15 +8,7 @@
 #define SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_COUNT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace cg
-{
-namespace light
+namespace sge::scenic::render_context::cg::light
 {
 
 using
@@ -24,10 +16,6 @@ count
 =
 int;
 
-}
-}
-}
-}
 }
 
 #endif

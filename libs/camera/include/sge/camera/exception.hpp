@@ -13,9 +13,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace camera
+namespace sge::camera
 {
 
 /**
@@ -63,7 +61,6 @@ public:
 	override;
 };
 
-}
 }
 
 #endif

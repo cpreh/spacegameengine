@@ -21,9 +21,7 @@
 #include <fcppt/signal/object_decl.hpp>
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 class object
@@ -83,7 +81,6 @@ private:
 	fcppt::signal::auto_connection const connection_;
 };
 
-}
 }
 
 #endif

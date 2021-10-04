@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace context
+namespace sge::renderer::context
 {
 
 class scoped_ffp
@@ -48,8 +44,6 @@ private:
 	sge::renderer::context::ffp_unique_ptr const context_;
 };
 
-}
-}
 }
 
 #endif

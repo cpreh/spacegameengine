@@ -12,15 +12,7 @@
 #include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::opengl::state::core::sampler
 {
 
 sge::opengl::state::core::sampler::actor_vector
@@ -29,10 +21,6 @@ make_actors(
 	sge::renderer::state::core::sampler::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

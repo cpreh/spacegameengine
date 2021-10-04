@@ -12,11 +12,7 @@
 #include <sge/image/ds/layout/depth.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
+namespace sge::image::ds
 {
 
 using
@@ -27,8 +23,6 @@ sge::image::homogenous_format<
 	sge::image::ds::layout::depth
 >;
 
-}
-}
 }
 
 #endif

@@ -8,20 +8,11 @@
 #define SGE_INPUT_MOUSE_EVENT_DISCOVER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
-{
-namespace event
+namespace sge::input::mouse::event
 {
 
 class discover;
 
-}
-}
-}
 }
 
 #endif

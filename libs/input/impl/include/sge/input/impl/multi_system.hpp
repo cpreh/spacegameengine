@@ -23,11 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace impl
+namespace sge::input::impl
 {
 
 class multi_system
@@ -74,8 +70,6 @@ private:
 	sge::input::capabilities_field capabilities_;
 };
 
-}
-}
 }
 
 #endif

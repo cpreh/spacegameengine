@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 SGE_MEDIA_DETAIL_SYMBOL
@@ -25,7 +23,6 @@ path_to_extension(
 	std::filesystem::path const &
 );
 
-}
 }
 
 #endif

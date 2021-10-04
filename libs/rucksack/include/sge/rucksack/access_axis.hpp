@@ -12,9 +12,7 @@
 #include <fcppt/enum/size.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 template<
@@ -43,7 +41,6 @@ access_axis(
 		);
 }
 
-}
 }
 
 #endif

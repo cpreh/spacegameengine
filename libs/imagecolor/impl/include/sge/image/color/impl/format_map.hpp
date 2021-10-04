@@ -33,13 +33,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
+namespace sge::image::color::impl
 {
 
 using
@@ -53,9 +47,6 @@ sge::image::impl::format_map<
 	)
 >;
 
-}
-}
-}
 }
 
 #endif

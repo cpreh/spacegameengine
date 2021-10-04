@@ -11,9 +11,7 @@
 #include <sge/renderer/pixel_format/optional_multi_samples_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 void
@@ -22,7 +20,6 @@ init_multi_sampling(
 	sge::renderer::pixel_format::optional_multi_samples const &
 );
 
-}
 }
 
 #endif

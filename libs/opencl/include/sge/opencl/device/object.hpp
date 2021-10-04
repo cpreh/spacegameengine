@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace device
+namespace sge::opencl::device
 {
 
 class object
@@ -57,8 +53,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

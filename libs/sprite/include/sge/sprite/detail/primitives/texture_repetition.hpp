@@ -13,13 +13,7 @@
 #include <fcppt/record/element.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace primitives
+namespace sge::sprite::detail::primitives
 {
 
 template<
@@ -41,9 +35,6 @@ struct texture_repetition
 	>;
 };
 
-}
-}
-}
 }
 
 #endif

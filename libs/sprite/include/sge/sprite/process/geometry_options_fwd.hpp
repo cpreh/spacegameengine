@@ -8,17 +8,11 @@
 #define SGE_SPRITE_PROCESS_GEOMETRY_OPTIONS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace process
+namespace sge::sprite::process
 {
 
 enum class geometry_options;
 
-}
-}
 }
 
 #endif

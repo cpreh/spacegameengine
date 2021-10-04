@@ -11,11 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace event
+namespace sge::x11input::event
 {
 
 template<
@@ -30,8 +26,6 @@ fcppt::function<
 	)
 >;
 
-}
-}
 }
 
 #endif

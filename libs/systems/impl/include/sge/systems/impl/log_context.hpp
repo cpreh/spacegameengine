@@ -15,11 +15,7 @@
 #include <fcppt/variant/object_impl.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 class log_context
@@ -54,8 +50,6 @@ private:
 	variant const impl_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <sge/media/file_exception_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 using
@@ -23,7 +21,6 @@ sge::media::file_exception<
 	sge::audio::exception
 >;
 
-}
 }
 
 #endif

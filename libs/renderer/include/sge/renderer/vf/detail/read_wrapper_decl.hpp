@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace detail
+namespace sge::renderer::vf::detail
 {
 
 template<
@@ -69,9 +63,6 @@ private:
 
 };
 
-}
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_OPENGL_TEXTURE_NPOT_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class npot_context;
 
-}
-}
 }
 
 #endif

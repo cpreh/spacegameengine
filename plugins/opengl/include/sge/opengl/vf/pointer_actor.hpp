@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class pointer_actor
@@ -51,8 +47,6 @@ private:
 	sge::renderer::vf::dynamic::stride const stride_;
 };
 
-}
-}
 }
 
 #endif

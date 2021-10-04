@@ -32,11 +32,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace detail
+namespace sge::cegui::detail
 {
 
 class system_impl
@@ -102,8 +98,6 @@ private:
 	sge::renderer::target::viewport old_viewport_;
 };
 
-}
-}
 }
 
 #endif

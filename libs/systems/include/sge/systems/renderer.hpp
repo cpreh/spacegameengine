@@ -18,9 +18,7 @@
 #include <sge/viewport/optional_resize_callback.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class renderer
@@ -78,7 +76,6 @@ private:
 	sge::systems::optional_name name_;
 };
 
-}
 }
 
 #endif

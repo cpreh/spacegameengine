@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::renderer::display_mode::object
 >;
 
-}
-}
 }
 
 #endif

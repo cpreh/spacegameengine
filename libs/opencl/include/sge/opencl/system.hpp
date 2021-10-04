@@ -13,9 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opencl
+namespace sge::opencl
 {
 class system
 {
@@ -41,7 +39,6 @@ public:
 private:
 	opencl::platform::object_sequence platforms_;
 };
-}
 }
 
 #endif

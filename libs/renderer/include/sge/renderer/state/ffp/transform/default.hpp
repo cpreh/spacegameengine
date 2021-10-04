@@ -11,25 +11,13 @@
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::renderer::state::ffp::transform
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::ffp::transform::parameters
 default_();
 
-}
-}
-}
-}
 }
 
 #endif

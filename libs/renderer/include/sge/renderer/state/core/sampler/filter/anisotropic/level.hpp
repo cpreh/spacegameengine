@@ -12,19 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
-{
-namespace anisotropic
+namespace sge::renderer::state::core::sampler::filter::anisotropic
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -32,12 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	level
 );
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

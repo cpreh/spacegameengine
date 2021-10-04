@@ -17,13 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-namespace wayland
+namespace sge::opengl::egl::wayland
 {
 
 class visual // NOLINT(fuchsia-multiple-inheritance)
@@ -45,9 +39,6 @@ public:
 	override;
 };
 
-}
-}
-}
 }
 
 #endif

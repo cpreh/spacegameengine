@@ -12,11 +12,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 SGE_MODEL_MD3_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ create(
 	fcppt::log::context_reference
 );
 
-}
-}
 }
 
 #endif

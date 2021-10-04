@@ -8,17 +8,11 @@
 #define SGE_RENDERER_CG_SCOPED_TEXTURE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace cg
+namespace sge::renderer::cg
 {
 
 class scoped_texture;
 
-}
-}
 }
 
 #endif

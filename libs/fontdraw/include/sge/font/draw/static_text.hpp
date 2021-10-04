@@ -27,11 +27,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace draw
+namespace sge::font::draw
 {
 
 class static_text
@@ -123,8 +119,6 @@ private:
 	impl_ptr impl_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
+namespace sge::sprite::intrusive
 {
 
 template<
@@ -30,8 +26,6 @@ fcppt::reference<
 	>
 >;
 
-}
-}
 }
 
 #endif

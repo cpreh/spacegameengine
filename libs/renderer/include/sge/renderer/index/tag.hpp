@@ -8,17 +8,11 @@
 #define SGE_RENDERER_INDEX_TAG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 struct tag;
 
-}
-}
 }
 
 #endif

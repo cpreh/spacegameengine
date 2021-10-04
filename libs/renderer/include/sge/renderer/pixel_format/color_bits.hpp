@@ -12,11 +12,7 @@
 #include <sge/renderer/pixel_format/color_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 /**
@@ -32,8 +28,6 @@ color_bits(
 	sge::renderer::pixel_format::color color
 );
 
-}
-}
 }
 
 #endif

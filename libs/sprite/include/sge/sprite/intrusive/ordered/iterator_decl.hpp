@@ -22,13 +22,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace ordered
+namespace sge::sprite::intrusive::ordered
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -152,9 +146,6 @@ private:
 
 FCPPT_PP_POP_WARNING
 
-}
-}
-}
 }
 
 #endif

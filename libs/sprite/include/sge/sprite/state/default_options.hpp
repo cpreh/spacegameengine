@@ -11,11 +11,7 @@
 #include <sge/sprite/state/vertex_options.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 template<
@@ -34,8 +30,6 @@ default_options()
 		);
 }
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/mpl/set/contains.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace event
+namespace sge::x11input::event
 {
 
 template<
@@ -29,8 +25,6 @@ fcppt::mpl::set::contains<
 	Value
 >;
 
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -34,7 +32,6 @@ sge::image::basic_box<
 	Size
 >;
 
-}
 }
 
 #endif

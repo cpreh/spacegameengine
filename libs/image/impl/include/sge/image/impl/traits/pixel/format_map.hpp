@@ -10,15 +10,7 @@
 #include <sge/image/impl/traits/pixel/format_map_tpl_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace traits
-{
-namespace pixel
+namespace sge::image::impl::traits::pixel
 {
 
 template<
@@ -32,10 +24,6 @@ sge::image::impl::traits::pixel::format_map_tpl<
 	Tag
 >::type;
 
-}
-}
-}
-}
 }
 
 #endif

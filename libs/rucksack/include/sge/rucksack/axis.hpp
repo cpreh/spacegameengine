@@ -10,9 +10,7 @@
 #include <sge/rucksack/axis_fwd.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 enum class axis
@@ -22,7 +20,6 @@ enum class axis
 	fcppt_maximum = y
 };
 
-}
 }
 
 #endif

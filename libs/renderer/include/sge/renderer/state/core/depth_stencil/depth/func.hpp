@@ -10,17 +10,7 @@
 #include <sge/renderer/state/core/depth_stencil/depth/func_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace depth
+namespace sge::renderer::state::core::depth_stencil::depth
 {
 
 enum class func
@@ -35,11 +25,6 @@ enum class func
 	always
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

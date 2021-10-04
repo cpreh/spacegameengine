@@ -11,13 +11,7 @@
 #include <fcppt/record/make_label_arg.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace roles
+namespace sge::sprite::detail::roles
 {
 
 FCPPT_RECORD_MAKE_LABEL_ARG(
@@ -25,9 +19,6 @@ FCPPT_RECORD_MAKE_LABEL_ARG(
 	sge::sprite::texture_level
 );
 
-}
-}
-}
 }
 
 #endif

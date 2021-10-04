@@ -19,11 +19,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL cube
@@ -73,8 +69,6 @@ public:
 	) const = 0;
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/literal.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace impl
+namespace sge::renderer::impl
 {
 
 inline
@@ -31,8 +27,6 @@ epsilon()
 		);
 }
 
-}
-}
 }
 
 #endif

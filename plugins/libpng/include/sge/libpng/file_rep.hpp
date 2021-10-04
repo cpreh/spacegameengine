@@ -14,9 +14,7 @@
 #include <fcppt/noncopyable.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class file_rep
@@ -63,7 +61,6 @@ private:
 	sge::libpng::byte_vector bytes_;
 };
 
-}
 }
 
 #endif

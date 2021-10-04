@@ -14,9 +14,7 @@
 #include <sge/media/optional_extension_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 SGE_AUDIO_DETAIL_SYMBOL
@@ -27,7 +25,6 @@ load_raw_exn(
 	sge::media::optional_extension const &
 );
 
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/openal/buffer_id.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 void
@@ -22,8 +18,6 @@ delete_buffer(
 	sge::openal::buffer_id
 );
 
-}
-}
 }
 
 #endif

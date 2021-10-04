@@ -11,9 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace noise
+namespace sge::noise
 {
 
 template<
@@ -77,7 +75,6 @@ private:
 	octaves_type octaves_;
 };
 
-}
 }
 
 #endif

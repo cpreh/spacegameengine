@@ -19,9 +19,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
+namespace sge::input
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL processor
@@ -68,7 +66,6 @@ public:
 	mice() const = 0;
 };
 
-}
 }
 
 #endif

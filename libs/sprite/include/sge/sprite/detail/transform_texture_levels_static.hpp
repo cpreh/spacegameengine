@@ -11,11 +11,7 @@
 #include <fcppt/mpl/list/map.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
+namespace sge::sprite::detail
 {
 
 template<
@@ -32,8 +28,6 @@ fcppt::mpl::list::map<
 	Function
 >;
 
-}
-}
 }
 
 #endif

@@ -126,7 +126,7 @@ sge::vorbis::file::read(
 					%
 					bytes_per_sample
 					==
-					0u
+					0U
 				);
 
 				return

@@ -7,20 +7,11 @@
 #ifndef SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class locked_part;
 
-}
-}
-}
 }
 
 #endif

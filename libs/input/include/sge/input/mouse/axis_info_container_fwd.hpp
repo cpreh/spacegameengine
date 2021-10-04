@@ -12,11 +12,7 @@
 #include <sge/input/mouse/axis_info_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 using
@@ -27,8 +23,6 @@ sge::input::info::container<
 	sge::input::mouse::axis_info
 >;
 
-}
-}
 }
 
 #endif

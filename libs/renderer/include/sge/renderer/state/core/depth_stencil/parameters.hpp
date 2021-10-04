@@ -13,15 +13,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
+namespace sge::renderer::state::core::depth_stencil
 {
 
 class parameters
@@ -48,10 +40,6 @@ private:
 	sge::renderer::state::core::depth_stencil::stencil::variant stencil_variant_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

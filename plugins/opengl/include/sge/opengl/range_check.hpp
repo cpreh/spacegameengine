@@ -18,9 +18,7 @@
 #include <fcppt/math/vector/at.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 template<
@@ -82,7 +80,6 @@ range_check(
 		);
 }
 
-}
 }
 
 #endif

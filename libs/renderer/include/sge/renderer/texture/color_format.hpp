@@ -13,11 +13,7 @@
 #include <sge/renderer/texture/emulate_srgb.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 class color_format
@@ -44,8 +40,6 @@ private:
 	sge::renderer::texture::emulate_srgb emulate_srgb_;
 };
 
-}
-}
 }
 
 #endif

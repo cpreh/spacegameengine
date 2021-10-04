@@ -10,22 +10,13 @@
 #include <sge/projectile/body/solidity/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
-{
-namespace solidity
+namespace sge::projectile::body::solidity
 {
 
 class static_
 {
 };
 
-}
-}
-}
 }
 
 #endif

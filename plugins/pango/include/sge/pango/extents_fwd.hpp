@@ -8,14 +8,11 @@
 #define SGE_PANGO_EXTENTS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 class extents;
 
-}
 }
 
 #endif

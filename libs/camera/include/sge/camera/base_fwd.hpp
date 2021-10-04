@@ -8,14 +8,11 @@
 #define SGE_CAMERA_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace camera
+namespace sge::camera
 {
 
 class base;
 
-}
 }
 
 #endif

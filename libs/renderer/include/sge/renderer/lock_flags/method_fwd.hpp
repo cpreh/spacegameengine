@@ -8,17 +8,11 @@
 #define SGE_RENDERER_LOCK_FLAGS_METHOD_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace lock_flags
+namespace sge::renderer::lock_flags
 {
 
 enum class method;
 
-}
-}
 }
 
 #endif

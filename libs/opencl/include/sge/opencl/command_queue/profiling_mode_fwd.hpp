@@ -8,17 +8,11 @@
 #define SGE_OPENCL_COMMAND_QUEUE_PROFILING_MODE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace command_queue
+namespace sge::opencl::command_queue
 {
 
 enum class profiling_mode;
 
-}
-}
 }
 
 #endif

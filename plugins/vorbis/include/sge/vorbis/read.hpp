@@ -16,9 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 std::size_t
@@ -30,7 +28,6 @@ read(
 	std::size_t
 );
 
-}
 }
 
 #endif

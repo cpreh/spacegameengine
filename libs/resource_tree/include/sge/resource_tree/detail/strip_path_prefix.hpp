@@ -13,11 +13,7 @@
 #include <sge/resource_tree/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace resource_tree
-{
-namespace detail
+namespace sge::resource_tree::detail
 {
 
 SGE_RESOURCE_TREE_DETAIL_SYMBOL
@@ -27,8 +23,6 @@ strip_path_prefix(
 	sge::resource_tree::detail::sub_path const &
 );
 
-}
-}
 }
 
 #endif

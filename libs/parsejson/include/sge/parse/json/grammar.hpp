@@ -18,11 +18,7 @@
 #include <fcppt/parse/grammar_decl.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 class grammar
@@ -74,8 +70,6 @@ private:
 	start_;
 };
 
-}
-}
 }
 
 #endif

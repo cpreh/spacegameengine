@@ -7,11 +7,7 @@
 #ifndef SGE_SPRITE_CONFIG_UNIT_TYPE_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_UNIT_TYPE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -19,8 +15,6 @@ template<
 >
 struct unit_type;
 
-}
-}
 }
 
 #endif

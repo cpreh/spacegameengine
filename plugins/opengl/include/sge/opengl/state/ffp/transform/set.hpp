@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::opengl::state::ffp::transform
 {
 
 void
@@ -30,10 +22,6 @@ set(
 	sge::renderer::state::ffp::transform::const_optional_object_ref const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

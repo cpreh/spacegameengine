@@ -12,17 +12,7 @@
 #include <mizuiro/color/space/luminance.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 using
@@ -34,11 +24,6 @@ sge::image::color::impl::dynamic::format::object<
 	1
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

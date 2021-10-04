@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -45,7 +43,6 @@ screenshot(
 	std::filesystem::path const &path
 );
 
-}
 }
 
 #endif

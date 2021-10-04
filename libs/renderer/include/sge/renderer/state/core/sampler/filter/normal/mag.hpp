@@ -10,19 +10,7 @@
 #include <sge/renderer/state/core/sampler/filter/normal/mag_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
-{
-namespace normal
+namespace sge::renderer::state::core::sampler::filter::normal
 {
 
 enum class mag
@@ -31,12 +19,6 @@ enum class mag
 	linear
 };
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

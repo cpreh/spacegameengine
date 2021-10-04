@@ -19,11 +19,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace translate
+namespace sge::sdlinput::translate
 {
 
 awl::event::container
@@ -40,8 +36,6 @@ event(
 	awl::backends::sdl::system::event::object const &
 );
 
-}
-}
 }
 
 #endif

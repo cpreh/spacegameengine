@@ -12,11 +12,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace backend
+namespace sge::opengl::backend
 {
 
 sge::opengl::backend::system_unique_ptr
@@ -25,8 +21,6 @@ create_system(
 	awl::system::object_ref
 );
 
-}
-}
 }
 
 #endif

@@ -8,14 +8,11 @@
 #define SGE_FONT_ADDED_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 class added;
 
-}
 }
 
 #endif

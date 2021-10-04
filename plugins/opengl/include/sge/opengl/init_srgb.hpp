@@ -12,9 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 void
@@ -24,7 +22,6 @@ init_srgb(
 	sge::renderer::pixel_format::srgb
 );
 
-}
 }
 
 #endif

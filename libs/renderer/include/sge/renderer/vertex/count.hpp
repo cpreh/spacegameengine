@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 /**
@@ -28,8 +24,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	count
 );
 
-}
-}
 }
 
 #endif

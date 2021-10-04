@@ -16,11 +16,7 @@
 #include <fcppt/optional/map.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 // TODO(philipp): Better typing
@@ -69,8 +65,6 @@ conditional_event(
 		);
 }
 
-}
-}
 }
 
 #endif

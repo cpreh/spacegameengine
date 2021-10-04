@@ -15,15 +15,7 @@
 #include <sge/renderer/state/ffp/sampler/ternary_op_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 class ternary_op
@@ -66,10 +58,6 @@ private:
 	sge::renderer::state::ffp::sampler::arg3 arg3_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace gfx
-{
-namespace detail
+namespace sge::console::gfx::detail
 {
 
 class pointed_history
@@ -90,9 +84,6 @@ private:
 	size_type point_;
 };
 
-}
-}
-}
 }
 
 #endif

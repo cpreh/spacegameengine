@@ -11,11 +11,7 @@
 #include <sge/opengl/occlusion_query/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 sge::opengl::occlusion_query::id
@@ -23,8 +19,6 @@ create_id(
 	sge::opengl::occlusion_query::config const &
 );
 
-}
-}
 }
 
 #endif

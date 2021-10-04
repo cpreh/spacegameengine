@@ -8,9 +8,7 @@
 #define SGE_TIMER_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 template<
@@ -18,7 +16,6 @@ template<
 >
 class parameters;
 
-}
 }
 
 #endif

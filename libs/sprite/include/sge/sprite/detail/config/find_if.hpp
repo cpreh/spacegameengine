@@ -10,13 +10,7 @@
 #include <sge/sprite/detail/config/find_if_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace config
+namespace sge::sprite::detail::config
 {
 
 template<
@@ -34,9 +28,6 @@ sge::sprite::detail::config::find_if_impl<
 	Predicate
 >::type;
 
-}
-}
-}
 }
 
 #endif

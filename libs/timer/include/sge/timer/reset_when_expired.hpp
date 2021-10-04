@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 template<
@@ -43,7 +41,6 @@ reset_when_expired(
 		true;
 }
 
-}
 }
 
 #endif

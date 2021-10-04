@@ -14,13 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::renderer::opengl::buffer
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
@@ -47,9 +41,6 @@ public:
 	native() const = 0;
 };
 
-}
-}
-}
 }
 
 #endif

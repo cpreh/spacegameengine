@@ -11,15 +11,7 @@
 #include <sge/renderer/state/core/rasterizer/cull_mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::opengl::state::core::rasterizer
 {
 
 sge::opengl::state::actor_vector
@@ -27,10 +19,6 @@ cull_mode(
 	sge::renderer::state::core::rasterizer::cull_mode
 );
 
-}
-}
-}
-}
 }
 
 #endif

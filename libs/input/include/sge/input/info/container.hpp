@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace info
+namespace sge::input::info
 {
 
 template<
@@ -89,8 +85,6 @@ private:
 	vector vector_;
 };
 
-}
-}
 }
 
 #endif

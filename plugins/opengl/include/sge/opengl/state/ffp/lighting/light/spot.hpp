@@ -11,17 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/light/spot_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::opengl::state::ffp::lighting::light
 {
 
 sge::opengl::state::index_actor_vector
@@ -29,11 +19,6 @@ spot(
 	sge::renderer::state::ffp::lighting::light::spot const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

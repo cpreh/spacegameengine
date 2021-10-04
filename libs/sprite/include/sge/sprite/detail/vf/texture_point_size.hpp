@@ -10,13 +10,7 @@
 #include <sge/sprite/detail/vf/texture_point_size_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 template<
@@ -30,9 +24,6 @@ sge::sprite::detail::vf::texture_point_size_impl<
 	Choices
 >::type;
 
-}
-}
-}
 }
 
 #endif

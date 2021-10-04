@@ -8,11 +8,7 @@
 #define SGE_PLUGIN_LIBRARY_FUNCTION_BASE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
+namespace sge::plugin::library
 {
 
 using
@@ -20,8 +16,6 @@ function_base
 =
 void (*)();
 
-}
-}
 }
 
 #endif

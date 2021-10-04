@@ -11,13 +11,7 @@
 #include <sge/sprite/geometry/detail/index_array_type.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 template<
@@ -35,9 +29,6 @@ struct index_array
 	static array const value;
 };
 
-}
-}
-}
 }
 
 template<

@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace target
+namespace sge::renderer::target
 {
 
 /**
@@ -60,8 +56,6 @@ private:
 	sge::renderer::target::scissor_area const old_area_;
 };
 
-}
-}
 }
 
 #endif

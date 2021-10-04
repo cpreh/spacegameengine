@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
+namespace sge::opengl::state::ffp::lighting
 {
 
 sge::renderer::state::ffp::lighting::object_unique_ptr
@@ -27,10 +19,6 @@ create(
 	sge::renderer::state::ffp::lighting::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

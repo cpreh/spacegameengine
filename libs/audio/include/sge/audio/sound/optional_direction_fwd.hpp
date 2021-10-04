@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::audio::vector
 >;
 
-}
-}
 }
 
 #endif

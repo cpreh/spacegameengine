@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::libpng::file_rep
 >;
 
-}
 }
 
 #endif

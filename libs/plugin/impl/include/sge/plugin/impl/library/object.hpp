@@ -23,11 +23,7 @@
 #endif
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
+namespace sge::plugin::library
 {
 
 class object
@@ -72,8 +68,6 @@ private:
 #endif
 };
 
-}
-}
 }
 
 #endif

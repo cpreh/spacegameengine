@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 struct no_texture_point_size
@@ -28,8 +24,6 @@ struct no_texture_point_size
 	std::true_type;
 };
 
-}
-}
 }
 
 #endif

@@ -22,11 +22,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace tracking
+namespace sge::camera::tracking
 {
 
 // NOLINTNEXTLINE(fuchsia-multiple-inheritance)
@@ -111,8 +107,6 @@ private:
 	bool finished_;
 };
 
-}
-}
 }
 
 #endif

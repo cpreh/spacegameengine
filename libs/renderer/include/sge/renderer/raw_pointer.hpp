@@ -10,9 +10,7 @@
 #include <sge/renderer/raw_value.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -27,7 +25,6 @@ raw_pointer
 =
 sge::renderer::raw_value *;
 
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_PARSE_JSON_PATH_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 class path;
 
-}
-}
 }
 
 #endif

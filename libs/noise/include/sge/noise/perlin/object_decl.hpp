@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace noise
-{
-namespace perlin
+namespace sge::noise::perlin
 {
 
 template<
@@ -86,8 +82,6 @@ private:
 	grid_type gradients_;
 };
 
-}
-}
 }
 
 #endif

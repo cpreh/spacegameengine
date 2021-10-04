@@ -12,11 +12,7 @@
 #include <sge/font/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace align_h
+namespace sge::font::align_h
 {
 
 class right
@@ -36,8 +32,6 @@ private:
 	sge::font::align_h::max_width max_width_;
 };
 
-}
-}
 }
 
 #endif

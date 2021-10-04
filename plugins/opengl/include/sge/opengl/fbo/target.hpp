@@ -33,11 +33,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class target
@@ -150,8 +146,6 @@ private:
 	optional_attachment_unique_ptr depth_stencil_attachment_;
 };
 
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <sge/sprite/detail/buffers/allocate.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 template<
@@ -47,8 +43,6 @@ allocate(
 		);
 }
 
-}
-}
 }
 
 #endif

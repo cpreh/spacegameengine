@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace buffer
+namespace sge::renderer::buffer
 {
 
 template<
@@ -76,8 +72,6 @@ public:
 	format() const = 0;
 };
 
-}
-}
 }
 
 #endif

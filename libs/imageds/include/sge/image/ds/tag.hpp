@@ -8,17 +8,11 @@
 #define SGE_IMAGE_DS_TAG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
+namespace sge::image::ds
 {
 
 struct tag;
 
-}
-}
 }
 
 #endif

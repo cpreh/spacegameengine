@@ -8,14 +8,11 @@
 #define SGE_RUCKSACK_AXIS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 enum class axis;
 
-}
 }
 
 #endif

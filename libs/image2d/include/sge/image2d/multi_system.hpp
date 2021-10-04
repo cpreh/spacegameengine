@@ -24,9 +24,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 class multi_system
@@ -83,7 +81,6 @@ private:
 	muxer muxer_;
 };
 
-}
 }
 
 #endif

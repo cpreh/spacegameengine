@@ -11,13 +11,7 @@
 #include <sge/cg/profile/shader_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace profile
+namespace sge::opengl::cg::profile
 {
 
 sge::cg::profile::object
@@ -25,9 +19,6 @@ create(
 	sge::cg::profile::shader_type
 );
 
-}
-}
-}
 }
 
 #endif

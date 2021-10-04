@@ -10,11 +10,7 @@
 #include <sge/input/key/code_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace key
+namespace sge::input::key
 {
 
 // TODO(philipp): Split this into focus/keyboard
@@ -148,8 +144,6 @@ enum class code
 	unknown
 };
 
-}
-}
 }
 
 #endif

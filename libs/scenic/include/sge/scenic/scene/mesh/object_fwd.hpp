@@ -7,18 +7,9 @@
 #ifndef SGE_SCENIC_SCENE_MESH_OBJECT_FWD_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_MESH_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
-{
-namespace mesh
+namespace sge::scenic::scene::mesh
 {
 class object;
-}
-}
-}
 }
 
 #endif

@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace alpha_test
+namespace sge::opengl::state::ffp::alpha_test
 {
 
 sge::opengl::state::actor_vector
@@ -27,10 +19,6 @@ make_actors(
 	sge::renderer::state::ffp::alpha_test::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

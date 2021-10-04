@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace platform
+namespace sge::opengl::platform
 {
 
 class device_state
@@ -43,8 +39,6 @@ public:
 	) = 0;
 };
 
-}
-}
 }
 
 #endif

@@ -17,9 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -54,7 +52,6 @@ lock_rect_to_coords(
 	sge::renderer::dim2 const &size
 );
 
-}
 }
 
 #define SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(\

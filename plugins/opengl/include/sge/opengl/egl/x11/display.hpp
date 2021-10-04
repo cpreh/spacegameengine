@@ -22,13 +22,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-namespace x11
+namespace sge::opengl::egl::x11
 {
 
 class display
@@ -75,9 +69,6 @@ private:
 	EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 };
 
-}
-}
-}
 }
 
 #endif

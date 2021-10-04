@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
-{
-namespace convert
+namespace sge::pango::convert
 {
 
 PangoAlignment
@@ -25,8 +21,6 @@ alignment(
 	sge::font::align_h::variant const &
 );
 
-}
-}
 }
 
 #endif

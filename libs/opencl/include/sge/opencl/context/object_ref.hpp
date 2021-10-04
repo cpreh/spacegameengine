@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace context
+namespace sge::opencl::context
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opencl::context::object
 >;
 
-}
-}
 }
 
 #endif

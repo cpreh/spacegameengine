@@ -8,9 +8,7 @@
 #define SGE_TIMER_DIFFERENCE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 template<
@@ -29,7 +27,6 @@ difference(
 		_timer.last_time();
 }
 
-}
 }
 
 #endif

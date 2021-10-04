@@ -13,13 +13,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
-{
-namespace solidity
+namespace sge::projectile::body::solidity
 {
 
 using
@@ -31,9 +25,6 @@ fcppt::variant::object<
 	sge::projectile::body::solidity::nonsolid
 >;
 
-}
-}
-}
 }
 
 #endif

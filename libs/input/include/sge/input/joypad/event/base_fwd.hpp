@@ -8,20 +8,11 @@
 #define SGE_INPUT_JOYPAD_EVENT_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace event
+namespace sge::input::joypad::event
 {
 
 class base;
 
-}
-}
-}
 }
 
 #endif

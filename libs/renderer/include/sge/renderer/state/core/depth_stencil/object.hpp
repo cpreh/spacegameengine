@@ -13,15 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
+namespace sge::renderer::state::core::depth_stencil
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
@@ -38,10 +30,6 @@ public:
 	~object();
 };
 
-}
-}
-}
-}
 }
 
 #endif

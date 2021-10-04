@@ -12,9 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace cg
+namespace sge::cg
 {
 
 SGE_CG_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ error_listing(
 	sge::cg::context::object const &
 );
 
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_X11INPUT_FOCUS_LOOKED_UP_STRING_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace focus
+namespace sge::x11input::focus
 {
 
 class looked_up_string;
 
-}
-}
 }
 
 #endif

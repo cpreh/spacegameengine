@@ -8,14 +8,11 @@
 #define SGE_RENDERER_SYSTEM_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 class system;
 
-}
 }
 
 #endif

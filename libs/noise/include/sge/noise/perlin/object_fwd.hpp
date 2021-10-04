@@ -10,11 +10,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace noise
-{
-namespace perlin
+namespace sge::noise::perlin
 {
 template
 <
@@ -23,8 +19,6 @@ template
 	typename Interpolator
 >
 class object;
-}
-}
 }
 
 #endif

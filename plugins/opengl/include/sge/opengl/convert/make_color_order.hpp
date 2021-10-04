@@ -11,11 +11,7 @@
 #include <fcppt/cast/to_unsigned.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 template<
@@ -32,8 +28,6 @@ make_color_order()
 		};
 }
 
-}
-}
 }
 
 #endif

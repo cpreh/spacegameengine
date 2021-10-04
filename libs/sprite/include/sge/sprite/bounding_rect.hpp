@@ -13,9 +13,7 @@
 #include <sge/sprite/types/vector.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 template<
@@ -39,7 +37,6 @@ bounding_rect(
 		);
 }
 
-}
 }
 
 #endif

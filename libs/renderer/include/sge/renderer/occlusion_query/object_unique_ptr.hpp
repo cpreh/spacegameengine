@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace occlusion_query
+namespace sge::renderer::occlusion_query
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::renderer::occlusion_query::object
 >;
 
-}
-}
 }
 
 #endif

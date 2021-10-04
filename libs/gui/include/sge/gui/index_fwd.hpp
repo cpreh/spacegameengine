@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -23,7 +21,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	index
 );
 
-}
 }
 
 #endif

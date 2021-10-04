@@ -11,16 +11,13 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 SGE_PLUGIN_DETAIL_SYMBOL
 fcppt::string
 file_extension();
 
-}
 }
 
 #endif

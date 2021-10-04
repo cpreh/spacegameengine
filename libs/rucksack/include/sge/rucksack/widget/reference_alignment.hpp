@@ -13,11 +13,7 @@
 #include <sge/rucksack/widget/reference_alignment_fwd.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace widget
+namespace sge::rucksack::widget
 {
 
 class reference_alignment
@@ -42,8 +38,6 @@ private:
 	sge::rucksack::alignment alignment_;
 };
 
-}
-}
 }
 
 #endif

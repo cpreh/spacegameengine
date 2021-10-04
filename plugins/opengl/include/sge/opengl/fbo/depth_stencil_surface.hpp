@@ -18,11 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class depth_stencil_surface
@@ -62,8 +58,6 @@ private:
 	sge::image::ds::format const format_;
 };
 
-}
-}
 }
 
 #endif

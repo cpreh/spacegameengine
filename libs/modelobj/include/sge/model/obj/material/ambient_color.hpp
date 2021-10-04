@@ -12,13 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
-namespace material
+namespace sge::model::obj::material
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -26,9 +20,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	ambient_color
 );
 
-}
-}
-}
 }
 
 #endif

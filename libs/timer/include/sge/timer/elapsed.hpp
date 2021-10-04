@@ -11,9 +11,7 @@
 #include <sge/timer/difference.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 template<
@@ -50,7 +48,6 @@ elapsed(
 		);
 }
 
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/parse/json/value_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 template<
@@ -27,8 +23,6 @@ convert_from(
 	sge::parse::json::value const &
 );
 
-}
-}
 }
 
 #endif

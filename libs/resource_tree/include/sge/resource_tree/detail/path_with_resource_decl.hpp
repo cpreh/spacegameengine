@@ -11,11 +11,7 @@
 #include <sge/resource_tree/detail/path_with_resource_fwd.hpp>
 
 
-namespace sge
-{
-namespace resource_tree
-{
-namespace detail
+namespace sge::resource_tree::detail
 {
 
 /**
@@ -45,8 +41,6 @@ private:
 	T resource_;
 };
 
-}
-}
 }
 
 #endif

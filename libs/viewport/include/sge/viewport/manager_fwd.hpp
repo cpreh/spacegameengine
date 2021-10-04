@@ -8,14 +8,11 @@
 #define SGE_VIEWPORT_MANAGER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 class manager;
 
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_GUI_BACKGROUND_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace gui
-{
-namespace background
+namespace sge::gui::background
 {
 
 class base;
 
-}
-}
 }
 
 #endif

@@ -12,17 +12,7 @@
 #include <sge/renderer/state/ffp/lighting/light/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::opengl::state::ffp::lighting::light
 {
 
 using
@@ -33,11 +23,6 @@ sge::opengl::state::unary_object<
 	GLenum
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

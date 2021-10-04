@@ -8,23 +8,11 @@
 #define SGE_OPENGL_STATE_CORE_BLEND_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 class context;
 
-}
-}
-}
-}
 }
 
 #endif

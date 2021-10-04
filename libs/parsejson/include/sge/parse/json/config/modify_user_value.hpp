@@ -14,13 +14,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace config
+namespace sge::parse::json::config
 {
 /*
 	This is a more specific function. It takes as arguments:
@@ -44,9 +38,6 @@ modify_user_value(
 	sge::parse::json::value const &new_value
 );
 
-}
-}
-}
 }
 
 #endif

@@ -10,15 +10,7 @@
 #include <sge/renderer/state/core/rasterizer/fill_mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::renderer::state::core::rasterizer
 {
 
 enum class fill_mode
@@ -27,10 +19,6 @@ enum class fill_mode
 	solid
 };
 
-}
-}
-}
-}
 }
 
 #endif

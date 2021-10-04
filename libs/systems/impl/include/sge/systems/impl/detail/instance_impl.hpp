@@ -49,11 +49,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 class instance_impl
@@ -275,8 +271,6 @@ private:
 	optional_font font_;
 };
 
-}
-}
 }
 
 #endif

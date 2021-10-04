@@ -14,11 +14,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
+namespace sge::opengl::state
 {
 
 template<
@@ -63,8 +59,6 @@ set_or_default_single(
 	).get().set();
 }
 
-}
-}
 }
 
 #endif

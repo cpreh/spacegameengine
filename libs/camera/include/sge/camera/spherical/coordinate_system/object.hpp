@@ -13,13 +13,7 @@
 #include <sge/camera/spherical/coordinate_system/radius.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
-{
-namespace coordinate_system
+namespace sge::camera::spherical::coordinate_system
 {
 
 class object
@@ -72,9 +66,6 @@ private:
 	sge::camera::spherical::coordinate_system::radius radius_;
 };
 
-}
-}
-}
 }
 
 #endif

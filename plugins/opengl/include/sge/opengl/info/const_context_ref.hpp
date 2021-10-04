@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace info
+namespace sge::opengl::info
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opengl::info::context const
 >;
 
-}
-}
 }
 
 #endif

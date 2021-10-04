@@ -17,11 +17,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
@@ -62,8 +58,6 @@ public:
 	generate_mipmaps() = 0;
 };
 
-}
-}
 }
 
 #endif

@@ -20,11 +20,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -96,8 +92,6 @@ private:
 	sge::renderer::texture::mipmap::object const mipmap_;
 };
 
-}
-}
 }
 
 #endif

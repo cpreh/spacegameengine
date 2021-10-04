@@ -8,17 +8,11 @@
 #define SGE_SPRITE_CONFIG_TEXTURE_COORDINATES_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 enum class texture_coordinates;
 
-}
-}
 }
 
 #endif

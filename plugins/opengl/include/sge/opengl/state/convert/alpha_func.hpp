@@ -11,13 +11,7 @@
 #include <sge/renderer/state/ffp/alpha_test/func_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 GLenum
@@ -25,9 +19,6 @@ alpha_func(
 	sge::renderer::state::ffp::alpha_test::func
 );
 
-}
-}
-}
 }
 
 #endif

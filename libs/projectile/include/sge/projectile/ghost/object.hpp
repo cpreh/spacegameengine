@@ -27,11 +27,7 @@
 class btCollisionShape;
 class btPairCachingGhostObject;
 
-namespace sge
-{
-namespace projectile
-{
-namespace ghost
+namespace sge::projectile::ghost
 {
 class object
 {
@@ -93,8 +89,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

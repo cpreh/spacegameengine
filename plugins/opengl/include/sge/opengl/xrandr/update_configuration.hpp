@@ -10,11 +10,7 @@
 #include <awl/backends/x11/window/event/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 [[nodiscard]]
@@ -23,8 +19,6 @@ update_configuration(
 	awl::backends::x11::window::event::object const &
 );
 
-}
-}
 }
 
 #endif

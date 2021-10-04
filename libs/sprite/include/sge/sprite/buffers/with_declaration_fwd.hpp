@@ -7,11 +7,7 @@
 #ifndef SGE_SPRITE_BUFFERS_WITH_DECLARATION_FWD_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 template<
@@ -19,8 +15,6 @@ template<
 >
 class with_declaration;
 
-}
-}
 }
 
 #endif

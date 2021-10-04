@@ -26,11 +26,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class cube
@@ -103,8 +99,6 @@ private:
 	side_array const sides_;
 };
 
-}
-}
 }
 
 #endif

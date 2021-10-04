@@ -12,11 +12,7 @@
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 sge::opengl::fbo::optional_attachment_type
@@ -25,8 +21,6 @@ depth_stencil_format_to_attachment(
 	sge::image::ds::format
 );
 
-}
-}
 }
 
 #endif

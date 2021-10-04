@@ -10,17 +10,11 @@
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-namespace sge
-{
-namespace scenic
-{
-namespace grid
+namespace sge::scenic::grid
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	bool,
 	depth_test);
-}
-}
 }
 
 #endif

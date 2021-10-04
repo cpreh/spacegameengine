@@ -8,17 +8,11 @@
 #define SGE_OPENGL_VERTEX_BUFFER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 class buffer;
 
-}
-}
 }
 
 #endif

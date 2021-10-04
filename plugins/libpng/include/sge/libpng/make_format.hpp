@@ -13,9 +13,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 sge::libpng::optional_format
@@ -26,7 +24,6 @@ make_format(
 	sge::libpng::gamma
 );
 
-}
 }
 
 #endif

@@ -10,15 +10,7 @@
 #include <sge/projectile/body/solidity/variant_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace impl
-{
-namespace body
-{
-namespace solidity
+namespace sge::projectile::impl::body::solidity
 {
 
 bool
@@ -26,10 +18,6 @@ is_solid(
 	sge::projectile::body::solidity::variant const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

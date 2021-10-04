@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	EGLint
 >;
 
-}
-}
 }
 
 #endif

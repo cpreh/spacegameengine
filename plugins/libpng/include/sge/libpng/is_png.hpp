@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 bool
@@ -22,7 +20,6 @@ is_png(
 	std::istream &
 );
 
-}
 }
 
 #endif

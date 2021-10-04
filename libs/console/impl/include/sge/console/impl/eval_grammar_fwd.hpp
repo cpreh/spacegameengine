@@ -8,17 +8,11 @@
 #define SGE_CONSOLE_IMPL_EVAL_GRAMMAR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace console
-{
-namespace impl
+namespace sge::console::impl
 {
 
 class eval_grammar;
 
-}
-}
 }
 
 #endif

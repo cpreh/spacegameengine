@@ -10,11 +10,7 @@
 #include <sge/renderer/vf/vector_base.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -27,8 +23,6 @@ sge::renderer::vf::vector_base<
 	3U
 >;
 
-}
-}
 }
 
 #endif

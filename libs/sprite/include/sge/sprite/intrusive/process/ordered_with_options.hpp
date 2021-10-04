@@ -20,13 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace process
+namespace sge::sprite::intrusive::process
 {
 
 template<
@@ -111,9 +105,6 @@ ordered_with_options(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

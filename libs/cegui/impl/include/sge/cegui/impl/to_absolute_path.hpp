@@ -18,11 +18,7 @@ namespace CEGUI
 class String;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 std::filesystem::path
@@ -31,8 +27,6 @@ to_absolute_path(
 	CEGUI::String const &filename
 );
 
-}
-}
 }
 
 #endif

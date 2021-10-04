@@ -11,11 +11,7 @@
 #include <sge/opengl/color_order.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 sge::opengl::color_order
@@ -23,8 +19,6 @@ depth_stencil_order(
 	sge::image::ds::format
 );
 
-}
-}
 }
 
 #endif

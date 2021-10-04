@@ -8,17 +8,11 @@
 #define SGE_OPENGL_VF_ACTOR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class actor;
 
-}
-}
 }
 
 #endif

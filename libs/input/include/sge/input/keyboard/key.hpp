@@ -13,11 +13,7 @@
 #include <sge/input/keyboard/key_id.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace keyboard
+namespace sge::input::keyboard
 {
 
 class key
@@ -58,8 +54,6 @@ operator!=(
 	sge::input::keyboard::key const &
 );
 
-}
-}
 }
 
 #endif

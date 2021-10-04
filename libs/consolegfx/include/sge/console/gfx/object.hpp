@@ -34,11 +34,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace gfx
+namespace sge::console::gfx
 {
 
 class object
@@ -160,8 +156,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

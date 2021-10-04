@@ -8,11 +8,7 @@
 #define SGE_OPENGL_XRANDR_REFRESH_RATE_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 using
@@ -21,8 +17,6 @@ refresh_rate_type
 short // NOLINT(google-runtime-int)
 ;
 
-}
-}
 }
 
 #endif

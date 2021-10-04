@@ -8,11 +8,7 @@
 #define SGE_X11INPUT_EVENT_DEMUXER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace event
+namespace sge::x11input::event
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class demuxer;
 
-}
-}
 }
 
 #endif

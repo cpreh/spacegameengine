@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace inotify
+namespace sge::evdev::inotify
 {
 
 class object
@@ -36,8 +32,6 @@ private:
 	awl::backends::posix::fd fd_;
 };
 
-}
-}
 }
 
 #endif

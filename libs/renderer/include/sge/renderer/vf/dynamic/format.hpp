@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/dynamic/part_list.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class format
@@ -38,9 +32,6 @@ private:
 	sge::renderer::vf::dynamic::part_list parts_;
 };
 
-}
-}
-}
 }
 
 #endif

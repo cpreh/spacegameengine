@@ -10,9 +10,7 @@
 #include <sge/charconv/encoding_fwd.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 enum class encoding
@@ -24,7 +22,6 @@ enum class encoding
 	fcppt_maximum = wchar
 };
 
-}
 }
 
 #endif

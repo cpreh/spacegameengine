@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::evdev::device::fd_unique_ptr
 >;
 
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <sge/image3d/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace view
+namespace sge::image3d::view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
@@ -34,8 +30,6 @@ checked_sub(
 	sge::image3d::box const &
 );
 
-}
-}
 }
 
 #endif

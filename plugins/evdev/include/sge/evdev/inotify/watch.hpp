@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace inotify
+namespace sge::evdev::inotify
 {
 
 class watch
@@ -41,8 +37,6 @@ private:
 	awl::backends::posix::fd const fd_;
 };
 
-}
-}
 }
 
 #endif

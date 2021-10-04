@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace toolbox
+namespace sge::cegui::toolbox
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	CEGUI::String
 >;
 
-}
-}
 }
 
 #endif

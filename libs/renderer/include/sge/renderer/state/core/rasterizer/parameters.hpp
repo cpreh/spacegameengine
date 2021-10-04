@@ -14,15 +14,7 @@
 #include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::renderer::state::core::rasterizer
 {
 
 class parameters
@@ -57,10 +49,6 @@ private:
 	sge::renderer::state::core::rasterizer::enable_scissor_test enable_scissor_test_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

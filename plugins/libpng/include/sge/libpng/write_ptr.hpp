@@ -13,9 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class write_ptr
@@ -38,7 +36,6 @@ private:
 	png_structp ptr_;
 };
 
-}
 }
 
 #endif

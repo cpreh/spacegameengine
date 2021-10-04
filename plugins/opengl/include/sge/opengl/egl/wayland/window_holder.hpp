@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-namespace wayland
+namespace sge::opengl::egl::wayland
 {
 
 class window_holder
@@ -43,9 +37,6 @@ private:
 	wl_egl_window *const window_;
 };
 
-}
-}
-}
 }
 
 #endif

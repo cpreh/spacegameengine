@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace detail
+namespace sge::renderer::vf::detail
 {
 
 template<
@@ -34,9 +28,6 @@ std::integral_constant<
 	* T::num_subelements
 >;
 
-}
-}
-}
 }
 
 #endif

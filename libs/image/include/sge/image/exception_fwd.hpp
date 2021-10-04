@@ -8,14 +8,11 @@
 #define SGE_IMAGE_EXCEPTION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 class exception;
 
-}
 }
 
 #endif

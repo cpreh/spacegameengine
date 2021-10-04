@@ -11,13 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 using
@@ -27,9 +21,6 @@ fcppt::unique_ptr<
 	sge::systems::impl::window::object
 >;
 
-}
-}
-}
 }
 
 #endif

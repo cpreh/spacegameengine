@@ -14,13 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
-namespace visual
+namespace sge::opengl::glx::visual
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
@@ -41,9 +35,6 @@ public:
 	override;
 };
 
-}
-}
-}
 }
 
 #endif

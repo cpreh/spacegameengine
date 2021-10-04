@@ -11,15 +11,7 @@
 #include <sge/opengl/state/actor.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::opengl::state::ffp::fog
 {
 
 sge::opengl::state::actor
@@ -28,10 +20,6 @@ float_(
 	GLfloat
 );
 
-}
-}
-}
-}
 }
 
 #endif

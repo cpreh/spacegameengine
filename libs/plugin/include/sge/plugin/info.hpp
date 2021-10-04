@@ -17,9 +17,7 @@
 #include <sge/plugin/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 class info
@@ -78,7 +76,6 @@ private:
 	sge::plugin::flags_field flags_;
 };
 
-}
 }
 
 #endif

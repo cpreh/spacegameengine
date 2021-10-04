@@ -20,11 +20,7 @@
 
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -38,8 +34,6 @@ create_planar_from_path(
 	sge::renderer::texture::emulate_srgb
 );
 
-}
-}
 }
 
 #endif

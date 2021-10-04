@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wave
+namespace sge::wave
 {
 
 sge::wave::optional_header
@@ -23,7 +21,6 @@ extract_header(
 	std::istream &
 );
 
-}
 }
 
 #endif

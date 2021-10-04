@@ -12,11 +12,7 @@
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace index
+namespace sge::opengl::index
 {
 
 sge::renderer::index::buffer_unique_ptr
@@ -25,8 +21,6 @@ create_buffer(
 	sge::renderer::index::buffer_parameters const &
 );
 
-}
-}
 }
 
 #endif

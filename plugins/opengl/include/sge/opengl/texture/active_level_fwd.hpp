@@ -8,17 +8,11 @@
 #define SGE_OPENGL_TEXTURE_ACTIVE_LEVEL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class active_level;
 
-}
-}
 }
 
 #endif

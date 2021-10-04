@@ -13,11 +13,7 @@
 #include <sge/sprite/config/unit_type.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
+namespace sge::gui::impl
 {
 
 using
@@ -32,8 +28,6 @@ sge::sprite::config::type_choices<
 	>
 >;
 
-}
-}
 }
 
 #endif

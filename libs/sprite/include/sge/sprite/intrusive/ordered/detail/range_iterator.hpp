@@ -10,15 +10,7 @@
 #include <sge/sprite/intrusive/ordered/detail/range_iterator_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace ordered
-{
-namespace detail
+namespace sge::sprite::intrusive::ordered::detail
 {
 
 template<
@@ -34,10 +26,6 @@ sge::sprite::intrusive::ordered::detail::range_iterator_impl<
 	IsConst
 >::type;
 
-}
-}
-}
-}
 }
 
 #endif

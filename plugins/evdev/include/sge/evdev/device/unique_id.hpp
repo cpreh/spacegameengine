@@ -11,11 +11,7 @@
 #include <sge/input/info/unique_id.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 sge::input::info::unique_id
@@ -23,8 +19,6 @@ unique_id(
 	sge::evdev::device::fd & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
-{
-namespace convert
+namespace sge::pango::convert
 {
 
 sge::font::rect
@@ -25,8 +21,6 @@ from_rect(
 	PangoRectangle const &
 );
 
-}
-}
 }
 
 #endif

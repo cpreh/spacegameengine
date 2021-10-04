@@ -13,11 +13,7 @@
 #include <sge/gui/widget/reference_name_pair_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class reference_name_pair
@@ -42,8 +38,6 @@ private:
 	sge::font::string name_;
 };
 
-}
-}
 }
 
 #endif

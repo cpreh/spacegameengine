@@ -10,11 +10,7 @@
 #include <sge/opengl/color_base_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -28,8 +24,6 @@ sge::opengl::color_base_type
 	Format
 );
 
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class multi_buffer_holder
@@ -41,7 +39,6 @@ private:
 	sge::openal::buffer_id_container const container_;
 };
 
-}
 }
 
 #endif

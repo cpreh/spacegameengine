@@ -16,13 +16,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace audio
+namespace sge::systems::impl::audio
 {
 
 class loader
@@ -53,9 +47,6 @@ private:
 	audio_multi_loader_ptr const audio_multi_loader_;
 };
 
-}
-}
-}
 }
 
 #endif

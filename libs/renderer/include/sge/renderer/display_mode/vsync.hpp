@@ -10,11 +10,7 @@
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 enum class vsync
@@ -23,8 +19,6 @@ enum class vsync
 	on
 };
 
-}
-}
 }
 
 #endif

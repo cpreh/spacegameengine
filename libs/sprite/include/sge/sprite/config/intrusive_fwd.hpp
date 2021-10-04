@@ -8,17 +8,11 @@
 #define SGE_SPRITE_CONFIG_INTRUSIVE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 struct intrusive;
 
-}
-}
 }
 
 #endif

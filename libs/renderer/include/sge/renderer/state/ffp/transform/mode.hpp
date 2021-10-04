@@ -10,15 +10,7 @@
 #include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::renderer::state::ffp::transform
 {
 
 enum class mode
@@ -48,10 +40,6 @@ enum class mode
 	fcppt_maximum = texture
 };
 
-}
-}
-}
-}
 }
 
 #endif

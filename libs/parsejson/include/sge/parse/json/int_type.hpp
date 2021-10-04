@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 using
@@ -24,8 +20,6 @@ int_type
 =
 std::int64_t;
 
-}
-}
 }
 
 #endif

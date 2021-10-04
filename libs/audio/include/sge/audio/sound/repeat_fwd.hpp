@@ -8,17 +8,11 @@
 #define SGE_AUDIO_SOUND_REPEAT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 enum class repeat;
 
-}
-}
 }
 
 #endif

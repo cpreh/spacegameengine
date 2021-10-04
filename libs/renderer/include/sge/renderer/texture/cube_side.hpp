@@ -10,11 +10,7 @@
 #include <sge/renderer/texture/cube_side_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 enum class cube_side
@@ -28,8 +24,6 @@ enum class cube_side
 	fcppt_maximum = bottom
 };
 
-}
-}
 }
 
 #endif

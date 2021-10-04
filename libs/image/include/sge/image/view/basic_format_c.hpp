@@ -10,11 +10,7 @@
 #include <sge/image/view/basic_format.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -29,8 +25,6 @@ sge::image::view::basic_format<
 	ColorFormat
 >;
 
-}
-}
 }
 
 #endif

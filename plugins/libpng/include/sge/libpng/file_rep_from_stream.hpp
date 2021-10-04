@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 sge::libpng::optional_file_rep
@@ -27,7 +25,6 @@ file_rep_from_stream(
 	sge::media::optional_name const &
 );
 
-}
 }
 
 #endif

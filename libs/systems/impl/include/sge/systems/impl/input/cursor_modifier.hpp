@@ -17,13 +17,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace input
+namespace sge::systems::impl::input
 {
 
 class cursor_modifier
@@ -51,9 +45,6 @@ private:
 	fcppt::signal::auto_connection const connection_;
 };
 
-}
-}
-}
 }
 
 #endif

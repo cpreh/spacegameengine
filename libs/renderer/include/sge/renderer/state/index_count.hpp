@@ -8,11 +8,7 @@
 #define SGE_RENDERER_STATE_INDEX_COUNT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
+namespace sge::renderer::state
 {
 
 using
@@ -20,8 +16,6 @@ index_count
 =
 unsigned;
 
-}
-}
 }
 
 #endif

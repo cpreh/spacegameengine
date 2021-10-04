@@ -10,11 +10,7 @@
 #include <sge/rucksack/axis.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace impl
+namespace sge::rucksack::impl
 {
 
 sge::rucksack::axis
@@ -22,8 +18,6 @@ flip_axis(
 	sge::rucksack::axis
 );
 
-}
-}
 }
 
 #endif

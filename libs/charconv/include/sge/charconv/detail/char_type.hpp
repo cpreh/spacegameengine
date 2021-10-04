@@ -10,11 +10,7 @@
 #include <sge/charconv/encoding.hpp>
 
 
-namespace sge
-{
-namespace charconv
-{
-namespace detail
+namespace sge::charconv::detail
 {
 
 template<
@@ -66,8 +62,6 @@ struct char_type<
 	wchar_t;
 };
 
-}
-}
 }
 
 #endif

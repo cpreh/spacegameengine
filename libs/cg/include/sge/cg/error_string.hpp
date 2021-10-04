@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
+namespace sge::cg
 {
 
 SGE_CG_DETAIL_SYMBOL
@@ -25,7 +23,6 @@ error_string(
 	CGerror
 );
 
-}
 }
 
 #endif

@@ -13,9 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL added
@@ -32,7 +30,6 @@ public:
 	~added();
 };
 
-}
 }
 
 #endif

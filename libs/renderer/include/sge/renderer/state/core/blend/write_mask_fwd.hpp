@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_CORE_BLEND_WRITE_MASK_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 class write_mask;
 
-}
-}
-}
-}
 }
 
 #endif

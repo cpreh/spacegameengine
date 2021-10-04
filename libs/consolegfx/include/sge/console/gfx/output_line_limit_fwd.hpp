@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace gfx
+namespace sge::console::gfx
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -25,8 +21,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	output_line_limit
 );
 
-}
-}
 }
 
 #endif

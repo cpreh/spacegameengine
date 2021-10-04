@@ -12,11 +12,7 @@
 #include <sge/renderer/texture/color_format_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 using
@@ -27,8 +23,6 @@ sge::renderer::texture::basic_parameters<
 	sge::renderer::texture::color_format
 >;
 
-}
-}
 }
 
 #endif

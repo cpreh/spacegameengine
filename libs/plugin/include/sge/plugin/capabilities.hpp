@@ -10,9 +10,7 @@
 #include <sge/plugin/capabilities_fwd.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 enum class capabilities
@@ -26,7 +24,6 @@ enum class capabilities
 	fcppt_maximum = audio_loader
 };
 
-}
 }
 
 #endif

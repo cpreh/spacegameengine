@@ -11,11 +11,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace gfx
+namespace sge::console::gfx
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -23,8 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	font_color
 );
 
-}
-}
 }
 
 #endif

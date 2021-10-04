@@ -8,20 +8,11 @@
 #define SGE_RENDERER_VF_DYNAMIC_ORDERED_ELEMENT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class ordered_element;
 
-}
-}
-}
 }
 
 #endif

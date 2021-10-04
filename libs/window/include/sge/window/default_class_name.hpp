@@ -11,16 +11,13 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 SGE_WINDOW_DETAIL_SYMBOL
 fcppt::string
 default_class_name();
 
-}
 }
 
 #endif

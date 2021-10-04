@@ -13,15 +13,7 @@
 #include <sge/renderer/state/ffp/lighting/enabled_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
+namespace sge::renderer::state::ffp::lighting
 {
 
 class enabled
@@ -48,10 +40,6 @@ private:
 	sge::renderer::state::ffp::lighting::diffuse_from_vertex diffuse_from_vertex_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -18,9 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace resource_tree
+namespace sge::resource_tree
 {
 /**
 \brief Represents a hierarchy of (homogenous) resources
@@ -188,7 +186,6 @@ private:
 	element_sequence const elements_;
 };
 
-}
 }
 
 #endif

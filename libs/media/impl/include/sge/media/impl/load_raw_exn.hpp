@@ -15,11 +15,7 @@
 #include <fcppt/optional/to_exception.hpp>
 
 
-namespace sge
-{
-namespace media
-{
-namespace impl
+namespace sge::media::impl
 {
 
 template<
@@ -54,8 +50,6 @@ load_raw_exn(
 		);
 }
 
-}
-}
 }
 
 #endif

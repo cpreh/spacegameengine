@@ -12,21 +12,12 @@
 #include <sge/scenic/scene/material/object.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
-{
-namespace material
+namespace sge::scenic::scene::material
 {
 SGE_SCENIC_DETAIL_SYMBOL
 sge::scenic::scene::material::object
 from_obj_material(
 	sge::model::obj::material::object const &);
-}
-}
-}
 }
 
 #endif

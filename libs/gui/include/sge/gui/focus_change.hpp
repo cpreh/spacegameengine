@@ -10,9 +10,7 @@
 #include <sge/gui/focus_change_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 enum class focus_change
@@ -21,7 +19,6 @@ enum class focus_change
 	lost
 };
 
-}
 }
 
 #endif

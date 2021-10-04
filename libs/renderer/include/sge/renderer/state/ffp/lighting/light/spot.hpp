@@ -15,17 +15,7 @@
 #include <sge/renderer/state/ffp/lighting/light/spot_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::renderer::state::ffp::lighting::light
 {
 
 class spot
@@ -68,11 +58,6 @@ private:
 	sge::renderer::state::ffp::lighting::light::attenuation attenuation_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

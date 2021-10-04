@@ -7,16 +7,13 @@
 #ifndef SGE_RESOURCE_TREE_OBJECT_FWD_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace resource_tree
+namespace sge::resource_tree
 {
 template<
 	typename T,
 	typename Rng
 >
 class object;
-}
 }
 
 #endif

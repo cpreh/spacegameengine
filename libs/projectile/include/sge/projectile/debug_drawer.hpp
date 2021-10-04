@@ -17,9 +17,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
+namespace sge::projectile
 {
 /// bullet offers registering a debug drawer to draw contact points or
 /// just shapes. This class implements this interface, caching all the
@@ -66,7 +64,6 @@ public:
 private:
 	fcppt::unique_ptr<sge::projectile::detail::debug_drawer_impl> const impl_;
 };
-}
 }
 
 #endif

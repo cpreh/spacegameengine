@@ -17,11 +17,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 template<
@@ -81,8 +77,6 @@ private:
 	offset_object offsets_;
 };
 
-}
-}
 }
 
 #endif

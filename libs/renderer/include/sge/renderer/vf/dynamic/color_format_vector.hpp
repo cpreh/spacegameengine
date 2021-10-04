@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 using
@@ -29,9 +23,6 @@ std::vector<
 	sge::image::color::format
 >;
 
-}
-}
-}
 }
 
 #endif

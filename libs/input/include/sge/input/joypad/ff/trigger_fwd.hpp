@@ -8,20 +8,11 @@
 #define SGE_INPUT_JOYPAD_FF_TRIGGER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 class trigger;
 
-}
-}
-}
 }
 
 #endif

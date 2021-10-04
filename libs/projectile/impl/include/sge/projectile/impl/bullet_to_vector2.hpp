@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace impl
+namespace sge::projectile::impl
 {
 
 sge::projectile::vector2
@@ -25,8 +21,6 @@ bullet_to_vector2(
 	btVector3 const &
 );
 
-}
-}
 }
 
 #endif

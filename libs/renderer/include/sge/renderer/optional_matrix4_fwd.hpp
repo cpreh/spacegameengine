@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -28,7 +26,6 @@ fcppt::optional::object<
 	sge::renderer::matrix4
 >;
 
-}
 }
 
 #endif

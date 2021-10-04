@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace program
+namespace sge::opencl::program
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::opencl::program::build_parameters
 >;
 
-}
-}
 }
 
 #endif

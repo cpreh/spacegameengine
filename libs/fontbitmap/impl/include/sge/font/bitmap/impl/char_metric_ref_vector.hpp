@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 using
@@ -29,9 +23,6 @@ std::vector<
 	sge::font::bitmap::impl::char_metric_ref
 >;
 
-}
-}
-}
 }
 
 #endif

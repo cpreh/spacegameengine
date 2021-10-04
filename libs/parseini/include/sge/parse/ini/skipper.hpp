@@ -12,11 +12,7 @@
 #include <fcppt/parse/skipper/operators/repetition.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 inline
@@ -32,8 +28,6 @@ skipper()
 		};
 }
 
-}
-}
 }
 
 #endif

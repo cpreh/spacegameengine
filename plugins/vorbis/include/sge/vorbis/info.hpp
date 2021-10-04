@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 vorbis_info
@@ -25,7 +23,6 @@ info(
 	sge::media::optional_name const &
 );
 
-}
 }
 
 #endif

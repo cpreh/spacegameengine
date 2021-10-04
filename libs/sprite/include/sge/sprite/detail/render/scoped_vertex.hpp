@@ -16,13 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace render
+namespace sge::sprite::detail::render
 {
 
 class scoped_vertex
@@ -51,9 +45,6 @@ private:
 	bool const set_buffer_;
 };
 
-}
-}
-}
 }
 
 #endif

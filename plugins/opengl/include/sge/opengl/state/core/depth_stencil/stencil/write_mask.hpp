@@ -11,17 +11,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::opengl::state::core::depth_stencil::stencil
 {
 
 sge::opengl::state::actor
@@ -29,11 +19,6 @@ write_mask(
 	sge::renderer::state::core::depth_stencil::stencil::write_mask
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

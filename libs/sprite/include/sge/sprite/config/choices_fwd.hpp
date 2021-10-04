@@ -9,11 +9,7 @@
 
 #include <fcppt/mpl/list/object_concept.hpp>
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -24,8 +20,6 @@ template<
 >
 struct choices;
 
-}
-}
 }
 
 #endif

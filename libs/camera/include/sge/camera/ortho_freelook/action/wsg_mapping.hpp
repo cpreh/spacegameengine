@@ -11,13 +11,7 @@
 #include <sge/camera/ortho_freelook/action/mapping.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace ortho_freelook
-{
-namespace action
+namespace sge::camera::ortho_freelook::action
 {
 
 /**
@@ -28,9 +22,6 @@ SGE_CAMERA_DETAIL_SYMBOL
 sge::camera::ortho_freelook::action::mapping
 wsg_mapping();
 
-}
-}
-}
 }
 
 #endif

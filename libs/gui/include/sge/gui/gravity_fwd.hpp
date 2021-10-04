@@ -8,14 +8,11 @@
 #define SGE_GUI_GRAVITY_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 enum class gravity;
 
-}
 }
 
 #endif

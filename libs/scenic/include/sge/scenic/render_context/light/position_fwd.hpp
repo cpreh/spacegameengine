@@ -11,20 +11,11 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace light
+namespace sge::scenic::render_context::light
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::vector3,
 	position);
-}
-}
-}
 }
 
 #endif

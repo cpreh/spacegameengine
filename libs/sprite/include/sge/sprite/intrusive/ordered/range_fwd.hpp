@@ -7,13 +7,7 @@
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_FWD_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace ordered
+namespace sge::sprite::intrusive::ordered
 {
 
 template<
@@ -23,9 +17,6 @@ template<
 >
 class range;
 
-}
-}
-}
 }
 
 #endif

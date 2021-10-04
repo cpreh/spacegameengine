@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
+namespace sge::cg::parameter
 {
 
 template<
@@ -40,8 +36,6 @@ std::disjunction<
 	>
 >;
 
-}
-}
 }
 
 #endif

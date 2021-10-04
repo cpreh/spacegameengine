@@ -19,15 +19,7 @@
 #include <fcppt/algorithm/map.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
-{
-namespace detail
+namespace sge::renderer::vf::dynamic::detail
 {
 
 template<
@@ -87,10 +79,6 @@ make_part()
 		};
 }
 
-}
-}
-}
-}
 }
 
 #endif

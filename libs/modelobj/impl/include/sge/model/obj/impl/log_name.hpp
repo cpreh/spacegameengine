@@ -10,21 +10,12 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
-{
-namespace impl
+namespace sge::model::obj::impl
 {
 
 fcppt::log::name
 log_name();
 
-}
-}
-}
 }
 
 #endif

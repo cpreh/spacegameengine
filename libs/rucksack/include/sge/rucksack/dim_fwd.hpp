@@ -12,9 +12,7 @@
 #include <fcppt/math/dim/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 using
@@ -25,7 +23,6 @@ fcppt::math::dim::static_<
 	sge::rucksack::dim_size::value
 >;
 
-}
 }
 
 #endif

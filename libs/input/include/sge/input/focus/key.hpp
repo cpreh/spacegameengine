@@ -12,11 +12,7 @@
 #include <sge/input/key/code.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace focus
+namespace sge::input::focus
 {
 
 class key
@@ -50,8 +46,6 @@ operator!=(
 	sge::input::focus::key const &
 );
 
-}
-}
 }
 
 #endif

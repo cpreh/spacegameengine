@@ -13,11 +13,7 @@
 #include <sge/systems/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 class renderer
@@ -42,8 +38,6 @@ private:
 	sge::systems::renderer_caps caps_;
 };
 
-}
-}
 }
 
 #endif

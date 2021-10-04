@@ -27,11 +27,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace single_device_system
+namespace sge::opencl::single_device_system
 {
 class object
 {
@@ -119,8 +115,6 @@ private:
 		sge::opencl::error_information_string const &,
 		sge::opencl::binary_error_data const &);
 };
-}
-}
 }
 
 #endif

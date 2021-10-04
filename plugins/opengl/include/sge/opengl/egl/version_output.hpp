@@ -11,11 +11,7 @@
 #include <fcppt/io/ostream_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 fcppt::io::ostream &
@@ -24,8 +20,6 @@ operator<<(
 	sge::opengl::egl::version const &
 );
 
-}
-}
 }
 
 #endif

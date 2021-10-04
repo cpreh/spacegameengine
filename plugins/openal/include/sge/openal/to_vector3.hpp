@@ -11,9 +11,7 @@
 #include <sge/openal/vector3_fwd.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 sge::openal::vector3
@@ -21,7 +19,6 @@ to_vector3(
 	sge::audio::vector const &
 );
 
-}
 }
 
 #endif

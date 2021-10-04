@@ -12,17 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::renderer::state::core::sampler::filter
 {
 
 using
@@ -33,11 +23,6 @@ fcppt::variant::object<
 	sge::renderer::state::core::sampler::filter::normal::parameters
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

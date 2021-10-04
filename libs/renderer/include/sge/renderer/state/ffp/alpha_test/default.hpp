@@ -11,25 +11,13 @@
 #include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace alpha_test
+namespace sge::renderer::state::ffp::alpha_test
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::ffp::alpha_test::parameters
 default_();
 
-}
-}
-}
-}
 }
 
 #endif

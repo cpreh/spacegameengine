@@ -22,11 +22,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 struct data
@@ -76,8 +72,6 @@ struct data
 	repeat_timer_; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
-}
-}
 }
 
 #endif

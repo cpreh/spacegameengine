@@ -8,17 +8,11 @@
 #define SGE_FONT_ALIGN_H_RIGHT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace font
-{
-namespace align_h
+namespace sge::font::align_h
 {
 
 class right;
 
-}
-}
 }
 
 #endif

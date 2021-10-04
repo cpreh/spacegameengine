@@ -10,11 +10,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 template<
@@ -41,8 +37,6 @@ struct loader_function_tpl<
 	);
 };
 
-}
-}
 }
 
 #endif

@@ -10,9 +10,7 @@
 #include <sge/gui/index_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 using
@@ -22,7 +20,6 @@ void (
 	sge::gui::index
 );
 
-}
 }
 
 #endif

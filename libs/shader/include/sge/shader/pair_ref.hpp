@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::shader::pair
 >;
 
-}
 }
 
 #endif

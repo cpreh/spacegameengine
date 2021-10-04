@@ -10,11 +10,7 @@
 #include <sge/image/ds/invalid_copy.hpp>
 
 
-namespace sge
-{
-namespace imageds2d
-{
-namespace algorithm
+namespace sge::imageds2d::algorithm
 {
 
 using
@@ -22,8 +18,6 @@ invalid_copy
 =
 sge::image::ds::invalid_copy;
 
-}
-}
 }
 
 #endif

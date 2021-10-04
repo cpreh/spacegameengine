@@ -14,11 +14,7 @@
 #include <sge/scenic/render_queue/sort_index.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_queue
+namespace sge::scenic::render_queue
 {
 
 class mesh
@@ -70,8 +66,6 @@ private:
 	sge::scenic::index_buffer_range index_buffer_range_;
 };
 
-}
-}
 }
 
 #endif

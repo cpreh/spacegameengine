@@ -15,11 +15,7 @@
 #include <sge/texture/part_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace draw
+namespace sge::font::draw
 {
 
 SGE_FONT_DRAW_DETAIL_SYMBOL
@@ -31,8 +27,6 @@ create_texture(
 	sge::renderer::texture::emulate_srgb
 );
 
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::reference<
 	sge::plugin::cache
 >;
 
-}
 }
 
 #endif

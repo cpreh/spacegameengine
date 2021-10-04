@@ -14,11 +14,7 @@
 #include <sge/plugin/detail/traits.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 template<>
@@ -43,8 +39,6 @@ public:
 	sge::audio::player_unique_ptr ();
 };
 
-}
-}
 }
 
 #endif

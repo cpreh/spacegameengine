@@ -50,9 +50,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
+namespace sge::x11input
 {
 
 class processor
@@ -236,7 +234,6 @@ private:
 	fcppt::signal::auto_connection const event_connection_;
 };
 
-}
 }
 
 #endif

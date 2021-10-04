@@ -8,11 +8,7 @@
 #define SGE_TIMER_CLOCKS_DELTA_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace timer
-{
-namespace clocks
+namespace sge::timer::clocks
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class delta;
 
-}
-}
 }
 
 #endif

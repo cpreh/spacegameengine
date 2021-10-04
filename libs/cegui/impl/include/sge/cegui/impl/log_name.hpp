@@ -10,18 +10,12 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 fcppt::log::name
 log_name();
 
-}
-}
 }
 
 #endif

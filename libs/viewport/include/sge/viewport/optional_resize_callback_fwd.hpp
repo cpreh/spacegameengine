@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::viewport::resize_callback
 >;
 
-}
 }
 
 #endif

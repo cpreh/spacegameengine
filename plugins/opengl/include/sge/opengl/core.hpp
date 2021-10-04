@@ -16,9 +16,7 @@
 #include <fcppt/log/object.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 class core
@@ -52,7 +50,6 @@ private:
 	fcppt::log::object log_;
 };
 
-}
 }
 
 #endif

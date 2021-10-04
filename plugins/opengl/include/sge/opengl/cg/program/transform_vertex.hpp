@@ -11,13 +11,7 @@
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace program
+namespace sge::opengl::cg::program
 {
 
 sge::cg::program::source
@@ -26,9 +20,6 @@ transform_vertex(
 	sge::cg::program::source const &
 );
 
-}
-}
-}
 }
 
 #endif

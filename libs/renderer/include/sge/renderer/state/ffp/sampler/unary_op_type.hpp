@@ -10,15 +10,7 @@
 #include <sge/renderer/state/ffp/sampler/unary_op_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 enum class unary_op_type
@@ -26,10 +18,6 @@ enum class unary_op_type
 	arg
 };
 
-}
-}
-}
-}
 }
 
 #endif

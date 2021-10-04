@@ -8,9 +8,7 @@
 #define SGE_RENDERER_RAW_VALUE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -27,7 +25,6 @@ raw_value
 =
 unsigned char;
 
-}
 }
 
 #endif

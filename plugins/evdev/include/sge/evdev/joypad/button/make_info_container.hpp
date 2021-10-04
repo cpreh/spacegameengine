@@ -11,13 +11,7 @@
 #include <sge/evdev/joypad/button/info_container_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace button
+namespace sge::evdev::joypad::button
 {
 
 sge::evdev::joypad::button::info_container
@@ -25,9 +19,6 @@ make_info_container(
 	sge::evdev::device::fd & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
-}
 }
 
 #endif

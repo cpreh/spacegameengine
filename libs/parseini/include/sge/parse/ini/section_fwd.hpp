@@ -8,17 +8,11 @@
 #define SGE_PARSE_INI_SECTION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 struct section;
 
-}
-}
 }
 
 #endif

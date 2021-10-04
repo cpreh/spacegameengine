@@ -17,15 +17,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::opengl::state::ffp::transform
 {
 
 class context
@@ -90,10 +82,6 @@ private:
 	optional_load_transpose_matrix_f const load_transpose_matrix_f_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/parse/json/start_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 using
@@ -26,8 +22,6 @@ sge::parse::file_result<
 	sge::parse::json::start
 >;
 
-}
-}
 }
 
 #endif

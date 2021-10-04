@@ -11,11 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::reference<
 	sge::opengl::glx::proc_address_function
 >;
 
-}
-}
 }
 
 #endif

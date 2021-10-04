@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class texture_binding
@@ -46,8 +42,6 @@ private:
 	sge::opengl::fbo::attachment_type const attachment_;
 };
 
-}
-}
 }
 
 #endif

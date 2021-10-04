@@ -8,17 +8,11 @@
 #define SGE_RENDERER_CONTEXT_SCOPED_CORE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace context
+namespace sge::renderer::context
 {
 
 class scoped_core;
 
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 class holder
@@ -41,8 +37,6 @@ private:
 	sge::opengl::buffer::id const id_;
 };
 
-}
-}
 }
 
 #endif

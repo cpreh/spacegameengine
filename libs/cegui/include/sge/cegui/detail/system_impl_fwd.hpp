@@ -8,17 +8,11 @@
 #define SGE_CEGUI_DETAIL_SYSTEM_IMPL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace detail
+namespace sge::cegui::detail
 {
 
 class system_impl;
 
-}
-}
 }
 
 #endif

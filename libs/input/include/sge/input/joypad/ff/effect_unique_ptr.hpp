@@ -11,13 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 using
@@ -27,9 +21,6 @@ fcppt::unique_ptr<
 	sge::input::joypad::ff::effect
 >;
 
-}
-}
-}
 }
 
 #endif

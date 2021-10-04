@@ -23,13 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace buffers
+namespace sge::sprite::detail::buffers
 {
 
 template<
@@ -112,9 +106,6 @@ allocate(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

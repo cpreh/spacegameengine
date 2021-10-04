@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 /**
@@ -27,8 +23,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	first
 );
 
-}
-}
 }
 
 #endif

@@ -11,17 +11,7 @@
 #include <sge/image/color/impl/dynamic/view/image_format.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace view
+namespace sge::image::color::impl::dynamic::view
 {
 
 template<
@@ -41,11 +31,6 @@ color_layout(
 		).channels;
 }
 
-}
-}
-}
-}
-}
 }
 
 #endif

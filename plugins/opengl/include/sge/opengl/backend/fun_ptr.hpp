@@ -10,11 +10,7 @@
 #include <sge/opengl/apientry.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace backend
+namespace sge::opengl::backend
 {
 
 using
@@ -22,8 +18,6 @@ fun_ptr
 =
 void (SGE_OPENGL_APIENTRY *)();
 
-}
-}
 }
 
 #endif

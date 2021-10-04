@@ -14,9 +14,7 @@
 #include <fcppt/log/object.hpp>
 
 
-namespace sge
-{
-namespace projectile
+namespace sge::projectile
 {
 
 class log
@@ -55,7 +53,6 @@ private:
 	mutable fcppt::log::object triangle_log_;
 };
 
-}
 }
 
 #endif

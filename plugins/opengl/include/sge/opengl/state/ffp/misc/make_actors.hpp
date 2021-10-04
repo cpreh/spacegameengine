@@ -13,15 +13,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
+namespace sge::opengl::state::ffp::misc
 {
 
 sge::opengl::state::actor_vector
@@ -31,10 +23,6 @@ make_actors(
 	sge::renderer::state::ffp::misc::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

@@ -15,13 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace dynamic
+namespace sge::renderer::index::dynamic
 {
 
 template<
@@ -31,9 +25,6 @@ SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::index::dynamic::format
 make_format();
 
-}
-}
-}
 }
 
 #define SGE_RENDERER_INDEX_DYNAMIC_DETAIL_DECLARE_MAKE_FORMAT(\

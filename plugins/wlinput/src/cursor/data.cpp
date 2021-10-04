@@ -32,5 +32,4 @@ sge::wlinput::cursor::data::data(
 {
 }
 
-sge::wlinput::cursor::data::~data()
-= default;
+

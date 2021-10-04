@@ -26,11 +26,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace keyboard
+namespace sge::x11input::keyboard
 {
 
 class device // NOLINT(fuchsia-multiple-inheritance)
@@ -93,8 +89,6 @@ private:
 	fcppt::signal::auto_connection const event_connection_;
 };
 
-}
-}
 }
 
 #endif

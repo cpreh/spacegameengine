@@ -17,13 +17,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::opengl::texture::mipmap
 {
 
 class context
@@ -85,9 +79,6 @@ private:
 	optional_gl_generate_mipmap const generate_mipmap_;
 };
 
-}
-}
-}
 }
 
 #endif

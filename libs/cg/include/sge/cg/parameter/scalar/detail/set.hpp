@@ -18,15 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace scalar
-{
-namespace detail
+namespace sge::cg::parameter::scalar::detail
 {
 
 #define SGE_CG_PARAMETER_SCALAR_DETAIL_SET(\
@@ -53,10 +45,6 @@ BOOST_PP_SEQ_FOR_EACH(
 	SGE_CG_PARAMETER_DETAIL_PP_TYPES
 )
 
-}
-}
-}
-}
 }
 
 #endif

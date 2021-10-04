@@ -11,13 +11,7 @@
 #include <fcppt/array/object_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 template<
@@ -33,9 +27,6 @@ fcppt::array::object<
 	>::value
 >;
 
-}
-}
-}
 }
 
 #endif

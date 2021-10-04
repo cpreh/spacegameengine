@@ -15,13 +15,7 @@
 #include <sge/renderer/texture/mipmap/level.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace funcs
+namespace sge::opengl::texture::funcs
 {
 
 void
@@ -34,9 +28,6 @@ get_image(
 	sge::renderer::texture::mipmap::level
 );
 
-}
-}
-}
 }
 
 #endif

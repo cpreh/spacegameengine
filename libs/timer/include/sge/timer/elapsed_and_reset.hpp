@@ -11,9 +11,7 @@
 #include <sge/timer/elapsed.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 template<
@@ -40,7 +38,6 @@ elapsed_and_reset(
 		ret;
 }
 
-}
 }
 
 #endif

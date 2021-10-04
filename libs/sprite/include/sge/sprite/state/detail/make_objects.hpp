@@ -15,13 +15,7 @@
 #include <fcppt/record/init.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
-{
-namespace detail
+namespace sge::sprite::state::detail
 {
 
 template<
@@ -57,9 +51,6 @@ make_objects(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

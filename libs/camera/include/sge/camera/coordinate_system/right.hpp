@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace coordinate_system
+namespace sge::camera::coordinate_system
 {
 
 /**
@@ -28,8 +24,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	right
 );
 
-}
-}
 }
 
 #endif

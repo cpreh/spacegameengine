@@ -12,13 +12,7 @@
 #include <sge/projectile/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
-{
-namespace solidity
+namespace sge::projectile::body::solidity
 {
 
 class solid
@@ -38,9 +32,6 @@ private:
 	sge::projectile::body::mass mass_;
 };
 
-}
-}
-}
 }
 
 #endif

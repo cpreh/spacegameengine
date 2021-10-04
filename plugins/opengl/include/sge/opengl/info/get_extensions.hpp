@@ -11,11 +11,7 @@
 #include <sge/opengl/info/extension_set.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace info
+namespace sge::opengl::info
 {
 
 sge::opengl::info::extension_set
@@ -23,8 +19,6 @@ get_extensions(
 	sge::opengl::backend::current const &
 );
 
-}
-}
 }
 
 #endif

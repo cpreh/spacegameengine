@@ -8,17 +8,11 @@
 #define SGE_OPENGL_PLATFORM_SYSTEM_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace platform
+namespace sge::opengl::platform
 {
 
 class system;
 
-}
-}
 }
 
 #endif

@@ -39,11 +39,7 @@ class Texture;
 class TextureTarget;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class renderer
@@ -271,8 +267,6 @@ private:
 	texture_map textures_;
 };
 
-}
-}
 }
 
 #endif

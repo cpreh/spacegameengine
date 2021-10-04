@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/alpha_test/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace alpha_test
+namespace sge::opengl::state::ffp::alpha_test
 {
 
 using
@@ -29,10 +21,6 @@ sge::opengl::state::object<
 	sge::renderer::state::ffp::alpha_test::object
 >;
 
-}
-}
-}
-}
 }
 
 #endif

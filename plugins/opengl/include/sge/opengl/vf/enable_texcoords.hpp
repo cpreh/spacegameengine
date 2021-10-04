@@ -12,11 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 void
@@ -26,8 +22,6 @@ enable_texcoords(
 	sge::renderer::texture::stage
 );
 
-}
-}
 }
 
 #endif

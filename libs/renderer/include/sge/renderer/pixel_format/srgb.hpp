@@ -10,11 +10,7 @@
 #include <sge/renderer/pixel_format/srgb_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 enum class srgb
@@ -33,8 +29,6 @@ enum class srgb
 	try_
 };
 
-}
-}
 }
 
 #endif

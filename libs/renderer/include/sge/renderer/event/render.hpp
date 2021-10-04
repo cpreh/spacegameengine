@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace event
+namespace sge::renderer::event
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL render
@@ -42,8 +38,6 @@ public:
 	override;
 };
 
-}
-}
 }
 
 #endif

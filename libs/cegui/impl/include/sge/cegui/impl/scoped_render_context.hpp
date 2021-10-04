@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class scoped_render_context
@@ -35,8 +31,6 @@ private:
 	sge::cegui::impl::renderer_ref const renderer_;
 };
 
-}
-}
 }
 
 #endif

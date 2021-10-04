@@ -16,11 +16,7 @@
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -97,8 +93,6 @@ private:
 	size_type size_;
 };
 
-}
-}
 }
 
 #endif

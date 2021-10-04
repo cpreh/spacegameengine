@@ -12,9 +12,7 @@
 #include <sge/timer/clocks/detail/wrapper.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 template<
@@ -94,7 +92,6 @@ private:
 	bool expired_;
 };
 
-}
 }
 
 #endif

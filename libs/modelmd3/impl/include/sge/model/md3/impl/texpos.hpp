@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 class texpos
@@ -39,9 +33,6 @@ private:
 	sge::model::md3::scalar y_;
 };
 
-}
-}
-}
 }
 
 #endif

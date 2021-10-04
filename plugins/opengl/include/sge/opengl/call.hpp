@@ -10,9 +10,7 @@
 #include <sge/opengl/apientry.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 template<
@@ -32,7 +30,6 @@ call(
 		);
 }
 
-}
 }
 
 #endif

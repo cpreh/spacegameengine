@@ -8,11 +8,7 @@
 #define SGE_RENDERER_VF_ITERATOR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -21,8 +17,6 @@ template<
 >
 class iterator;
 
-}
-}
 }
 
 #endif

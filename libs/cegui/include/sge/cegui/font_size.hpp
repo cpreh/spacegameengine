@@ -11,9 +11,7 @@
 #include <fcppt/strong_typedef_impl.hpp>
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -21,7 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	font_size
 );
 
-}
 }
 
 #endif

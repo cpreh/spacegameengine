@@ -13,15 +13,7 @@
 #include <sge/renderer/texture/stage.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::renderer::state::core::sampler
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -32,10 +24,6 @@ single(
 	sge::renderer::state::core::sampler::const_optional_object_ref const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

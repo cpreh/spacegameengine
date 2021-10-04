@@ -12,11 +12,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::opengl::xrandr::optional_system_unique_ptr
@@ -25,8 +21,6 @@ create_system(
 	awl::backends::x11::display_ref
 );
 
-}
-}
 }
 
 #endif

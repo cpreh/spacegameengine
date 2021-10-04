@@ -10,11 +10,7 @@
 #include <sge/renderer/vector3.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 using
@@ -22,8 +18,6 @@ normal
 =
 sge::renderer::vector3;
 
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class cube_context
@@ -52,8 +48,6 @@ private:
 	sge::opengl::texture::optional_cube_config const config_;
 };
 
-}
-}
 }
 
 #endif

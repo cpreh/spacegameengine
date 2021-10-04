@@ -9,9 +9,7 @@
 
 #include <sge/opengl/common.hpp>
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 void
@@ -19,7 +17,6 @@ disable_client_state(
 	GLenum
 );
 
-}
 }
 
 #endif

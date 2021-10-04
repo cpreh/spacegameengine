@@ -11,17 +11,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace depth
+namespace sge::renderer::state::core::depth_stencil::depth
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -29,11 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	write_enable
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

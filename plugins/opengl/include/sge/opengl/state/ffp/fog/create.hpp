@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::opengl::state::ffp::fog
 {
 
 sge::renderer::state::ffp::fog::object_unique_ptr
@@ -27,10 +19,6 @@ create(
 	sge::renderer::state::ffp::fog::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

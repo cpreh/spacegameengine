@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
+namespace sge::opengl::egl
 {
 
 class context
@@ -59,8 +55,6 @@ private:
 	sge::opengl::egl::context_impl context_;
 };
 
-}
-}
 }
 
 #endif

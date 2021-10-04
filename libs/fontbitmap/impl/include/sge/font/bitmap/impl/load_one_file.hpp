@@ -18,13 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 std::pair<
@@ -38,9 +32,6 @@ load_one_file(
 	sge::image2d::system_ref
 );
 
-}
-}
-}
 }
 
 #endif

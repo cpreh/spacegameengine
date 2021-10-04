@@ -10,11 +10,7 @@
 #include <sge/input/cursor/button_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 sge::input::cursor::button_code
@@ -22,8 +18,6 @@ button_code(
 	int detail
 );
 
-}
-}
 }
 
 #endif

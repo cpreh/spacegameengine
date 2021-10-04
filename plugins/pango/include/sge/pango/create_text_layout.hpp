@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 sge::pango::pango_layout_unique_ptr
@@ -27,7 +25,6 @@ create_text_layout(
 	sge::font::text_parameters const &
 );
 
-}
 }
 
 #endif

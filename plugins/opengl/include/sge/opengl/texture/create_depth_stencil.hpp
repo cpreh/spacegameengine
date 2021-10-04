@@ -12,11 +12,7 @@
 #include <sge/renderer/texture/depth_stencil_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 sge::renderer::texture::depth_stencil_unique_ptr
@@ -25,8 +21,6 @@ create_depth_stencil(
 	sge::renderer::texture::depth_stencil_parameters const &
 );
 
-}
-}
 }
 
 #endif

@@ -11,15 +11,7 @@
 #include <sge/renderer/vector4.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace impl
-{
-namespace render_context
-{
-namespace cg
+namespace sge::scenic::impl::render_context::cg
 {
 
 sge::renderer::vector4
@@ -27,10 +19,6 @@ any_color_to_vector4(
 	sge::image::color::any::object const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

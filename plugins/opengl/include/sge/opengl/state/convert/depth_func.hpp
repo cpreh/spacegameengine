@@ -11,13 +11,7 @@
 #include <sge/renderer/state/core/depth_stencil/depth/func_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 GLenum
@@ -25,9 +19,6 @@ depth_func(
 	sge::renderer::state::core::depth_stencil::depth::func
 );
 
-}
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::font::ttf_size
 >;
 
-}
 }
 
 #endif

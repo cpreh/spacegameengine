@@ -10,17 +10,11 @@
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-namespace sge
-{
-namespace shader
-{
-namespace parameter
+namespace sge::shader::parameter
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	bool,
 	is_projection_matrix);
-}
-}
 }
 
 #endif

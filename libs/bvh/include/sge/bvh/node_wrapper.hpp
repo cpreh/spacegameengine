@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace bvh
+namespace sge::bvh
 {
 
 template<
@@ -77,7 +75,6 @@ private:
 	node value_;
 	box bounding_box_;
 };
-}
 }
 
 #endif

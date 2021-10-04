@@ -16,15 +16,7 @@
 #include <sge/renderer/state/ffp/fog/start.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::renderer::state::ffp::fog
 {
 
 class enabled
@@ -75,10 +67,6 @@ private:
 	sge::renderer::state::ffp::fog::color color_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

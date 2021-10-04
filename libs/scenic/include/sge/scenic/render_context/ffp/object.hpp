@@ -35,13 +35,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace ffp
+namespace sge::scenic::render_context::ffp
 {
 class object
 :
@@ -187,9 +181,6 @@ private:
 	sge::renderer::state::core::rasterizer::scoped scoped_rasterizer_state_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -7,17 +7,11 @@
 #ifndef SGE_OPENGL_BUFFER_BASE_FWD_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_BASE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 class base;
 
-}
-}
 }
 
 #endif

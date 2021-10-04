@@ -11,17 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
-{
-namespace point_sprite
+namespace sge::opengl::state::ffp::misc::point_sprite
 {
 
 using
@@ -31,11 +21,6 @@ fcppt::optional::object<
 	sge::opengl::state::ffp::misc::point_sprite::config
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

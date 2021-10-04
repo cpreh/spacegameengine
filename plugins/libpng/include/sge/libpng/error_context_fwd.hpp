@@ -8,14 +8,11 @@
 #define SGE_LIBPNG_ERROR_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class error_context;
 
-}
 }
 
 #endif

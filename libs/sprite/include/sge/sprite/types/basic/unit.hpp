@@ -8,13 +8,7 @@
 #define SGE_SPRITE_TYPES_BASIC_UNIT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
-{
-namespace basic
+namespace sge::sprite::types::basic
 {
 
 template<
@@ -24,9 +18,6 @@ using unit
 =
 typename TypeChoices::unit_type;
 
-}
-}
-}
 }
 
 #endif

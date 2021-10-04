@@ -12,11 +12,7 @@
 #include <sge/texture/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace texture
-{
-namespace atlasing
+namespace sge::texture::atlasing
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ make_inner_rect(
 	sge::texture::atlasing::outer_rect const &
 );
 
-}
-}
 }
 
 #endif

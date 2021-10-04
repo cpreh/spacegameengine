@@ -8,17 +8,11 @@
 #define SGE_RENDERER_CONTEXT_SCOPED_OFFSCREEN_TARGET_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace context
+namespace sge::renderer::context
 {
 
 class scoped_offscreen_target;
 
-}
-}
 }
 
 #endif

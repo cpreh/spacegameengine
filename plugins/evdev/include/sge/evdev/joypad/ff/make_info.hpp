@@ -11,13 +11,7 @@
 #include <sge/input/joypad/ff/type_field.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace ff
+namespace sge::evdev::joypad::ff
 {
 
 sge::input::joypad::ff::type_field
@@ -25,9 +19,6 @@ make_info(
 	sge::evdev::device::fd & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
-}
 }
 
 #endif

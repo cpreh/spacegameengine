@@ -17,9 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 template<
@@ -36,7 +34,6 @@ convert(
 	> const &
 );
 
-}
 }
 
 #define SGE_CHARCONV_DETAIL_DECLARE_CONVERT(\

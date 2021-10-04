@@ -8,17 +8,11 @@
 #define SGE_OPENGL_TEXTURE_CUBE_TYPES_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct cube_types;
 
-}
-}
 }
 
 #endif

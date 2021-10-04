@@ -12,11 +12,7 @@
 #include <fcppt/io/ostream_fwd.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace algorithm
+namespace sge::image3d::algorithm
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
@@ -26,8 +22,6 @@ print(
 	sge::image3d::view::const_object const &
 );
 
-}
-}
 }
 
 #endif

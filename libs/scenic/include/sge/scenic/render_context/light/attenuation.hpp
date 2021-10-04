@@ -14,13 +14,7 @@
 #include <sge/scenic/render_context/light/quadratic_attenuation.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace light
+namespace sge::scenic::render_context::light
 {
 class attenuation
 {
@@ -51,9 +45,6 @@ private:
 	sge::scenic::render_context::light::linear_attenuation linear_attenuation_;
 	sge::scenic::render_context::light::quadratic_attenuation quadratic_attenuation_;
 };
-}
-}
-}
 }
 
 #endif

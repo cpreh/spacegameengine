@@ -8,9 +8,7 @@
 #define SGE_TEXTURE_BASIC_PART_RAW_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 template<
@@ -18,7 +16,6 @@ template<
 >
 class basic_part_raw;
 
-}
 }
 
 #endif

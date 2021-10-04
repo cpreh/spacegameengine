@@ -8,9 +8,7 @@
 #define SGE_AUDIO_SCALAR_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 /// A floating point type that's used almost everywhere (positions, gain, ...)
@@ -19,7 +17,6 @@ scalar
 =
 float;
 
-}
 }
 
 #endif

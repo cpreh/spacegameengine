@@ -10,11 +10,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace texture
-{
-namespace impl
+namespace sge::texture::impl
 {
 
 template<
@@ -45,8 +41,6 @@ dereference_basic_part(
 		*_ptr;
 }
 
-}
-}
 }
 
 #endif

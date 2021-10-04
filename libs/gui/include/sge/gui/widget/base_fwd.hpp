@@ -8,17 +8,11 @@
 #define SGE_GUI_WIDGET_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class base;
 
-}
-}
 }
 
 #endif

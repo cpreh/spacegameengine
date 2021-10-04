@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/dynamic/element_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class element
@@ -45,9 +39,6 @@ operator==(
 	sge::renderer::vf::dynamic::element const &
 );
 
-}
-}
-}
 }
 
 #endif

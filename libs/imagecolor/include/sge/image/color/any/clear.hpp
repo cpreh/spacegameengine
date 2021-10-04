@@ -12,13 +12,7 @@
 #include <sge/image/color/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace any
+namespace sge::image::color::any
 {
 
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ clear(
 	sge::image::color::format
 );
 
-}
-}
-}
 }
 
 #endif

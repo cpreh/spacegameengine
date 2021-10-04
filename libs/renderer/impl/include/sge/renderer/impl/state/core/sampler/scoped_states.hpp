@@ -11,17 +11,7 @@
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace impl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::renderer::impl::state::core::sampler
 {
 
 sge::renderer::state::core::sampler::const_optional_object_ref_map
@@ -29,11 +19,6 @@ scoped_states(
 	sge::renderer::state::core::sampler::const_object_ref_map const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

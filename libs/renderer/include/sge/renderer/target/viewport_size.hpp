@@ -12,11 +12,7 @@
 #include <sge/renderer/target/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace target
+namespace sge::renderer::target
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ viewport_size(
 	sge::renderer::target::base const &
 );
 
-}
-}
 }
 
 #endif

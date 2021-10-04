@@ -8,14 +8,11 @@
 #define SGE_LIBPNG_WRITE_PTR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class write_ptr;
 
-}
 }
 
 #endif

@@ -8,14 +8,11 @@
 #define SGE_IMAGEDS2D_TAG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace imageds2d
+namespace sge::imageds2d
 {
 
 struct tag;
 
-}
 }
 
 #endif

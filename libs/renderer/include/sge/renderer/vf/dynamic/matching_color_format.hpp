@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -28,9 +22,6 @@ matching_color_format(
 	sge::renderer::vf::dynamic::color_format_vector const &
 );
 
-}
-}
-}
 }
 
 #endif

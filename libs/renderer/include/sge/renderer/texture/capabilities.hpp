@@ -10,11 +10,7 @@
 #include <sge/renderer/texture/capabilities_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 enum class capabilities
@@ -23,8 +19,6 @@ enum class capabilities
 	fcppt_maximum = render_target
 };
 
-}
-}
 }
 
 #endif

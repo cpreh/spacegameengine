@@ -10,11 +10,7 @@
 #include <sge/input/cursor/scroll_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
+namespace sge::input::cursor
 {
 
 enum class scroll_code
@@ -23,8 +19,6 @@ enum class scroll_code
 	horizontal
 };
 
-}
-}
 }
 
 #endif

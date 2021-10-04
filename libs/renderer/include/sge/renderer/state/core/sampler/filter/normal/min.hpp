@@ -10,19 +10,7 @@
 #include <sge/renderer/state/core/sampler/filter/normal/min_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
-{
-namespace normal
+namespace sge::renderer::state::core::sampler::filter::normal
 {
 
 enum class min
@@ -31,12 +19,6 @@ enum class min
 	linear
 };
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace body
+namespace sge::projectile::body
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::function<
 	sge::projectile::body::rotation_change_fn
 >;
 
-}
-}
 }
 
 #endif

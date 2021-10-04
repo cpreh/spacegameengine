@@ -8,14 +8,11 @@
 #define SGE_PLUGIN_INFO_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 class info;
 
-}
 }
 
 #endif

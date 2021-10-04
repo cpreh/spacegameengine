@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL device
@@ -46,8 +42,6 @@ public:
 	info() const = 0;
 };
 
-}
-}
 }
 
 #endif

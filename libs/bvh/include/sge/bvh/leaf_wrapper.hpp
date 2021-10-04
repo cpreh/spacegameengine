@@ -10,9 +10,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace bvh
+namespace sge::bvh
 {
 template<typename Leaf>
 class leaf_wrapper
@@ -44,7 +42,6 @@ private:
 		leaf
 	> value_;
 };
-}
 }
 
 #endif

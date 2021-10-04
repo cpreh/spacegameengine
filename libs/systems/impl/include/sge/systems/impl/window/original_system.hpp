@@ -14,13 +14,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 class original_system
@@ -49,9 +43,6 @@ private:
 	sge::window::system system_;
 };
 
-}
-}
-}
 }
 
 #endif

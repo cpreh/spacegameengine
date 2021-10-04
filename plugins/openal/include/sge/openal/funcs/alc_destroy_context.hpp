@@ -10,11 +10,7 @@
 #include <sge/openal/alc.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 void
@@ -23,8 +19,6 @@ alc_destroy_context(
 	ALCcontext & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

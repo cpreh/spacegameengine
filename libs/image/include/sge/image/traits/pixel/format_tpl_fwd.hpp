@@ -8,13 +8,7 @@
 #define SGE_IMAGE_TRAITS_PIXEL_FORMAT_TPL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-namespace pixel
+namespace sge::image::traits::pixel
 {
 
 template<
@@ -22,9 +16,6 @@ template<
 >
 struct format_tpl;
 
-}
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_RUCKSACK_VIEWPORT_ADAPTOR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace viewport
+namespace sge::rucksack::viewport
 {
 
 class adaptor;
 
-}
-}
 }
 
 #endif

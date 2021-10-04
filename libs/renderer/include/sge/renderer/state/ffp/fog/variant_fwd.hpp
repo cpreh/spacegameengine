@@ -12,15 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::renderer::state::ffp::fog
 {
 
 using
@@ -31,10 +23,6 @@ fcppt::variant::object<
 	sge::renderer::state::ffp::fog::enabled
 >;
 
-}
-}
-}
-}
 }
 
 #endif

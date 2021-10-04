@@ -12,13 +12,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 sge::systems::impl::window::system_base_unique_ptr
@@ -27,9 +21,6 @@ make_system_base(
 	sge::systems::window const &
 );
 
-}
-}
-}
 }
 
 #endif

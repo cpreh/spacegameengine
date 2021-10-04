@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace backend
+namespace sge::opengl::backend
 {
 
 class current
@@ -56,8 +52,6 @@ public:
 	) = 0;
 };
 
-}
-}
 }
 
 #endif

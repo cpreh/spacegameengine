@@ -8,11 +8,7 @@
 #define SGE_OPENGL_GLX_RAW_FUNCTION_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 using
@@ -20,8 +16,6 @@ raw_function
 =
 void ();
 
-}
-}
 }
 
 #endif

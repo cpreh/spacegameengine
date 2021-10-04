@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 class base
@@ -104,8 +100,6 @@ public:
 	native() const = 0;
 };
 
-}
-}
 }
 
 #endif

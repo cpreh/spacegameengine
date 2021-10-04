@@ -19,17 +19,7 @@
 #include <fcppt/mpl/list/map.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace view
+namespace sge::image::color::impl::dynamic::view
 {
 
 template<
@@ -62,11 +52,6 @@ fcppt::mpl::list::map<
 	>
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

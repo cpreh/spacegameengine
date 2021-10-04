@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 template<
@@ -32,7 +30,6 @@ std::unordered_map<
 	>
 >;
 
-}
 }
 
 #endif

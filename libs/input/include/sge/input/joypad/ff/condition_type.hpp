@@ -10,13 +10,7 @@
 #include <sge/input/joypad/ff/condition_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 enum class condition_type
@@ -28,9 +22,6 @@ enum class condition_type
 	friction
 };
 
-}
-}
-}
 }
 
 #endif

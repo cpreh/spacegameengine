@@ -17,15 +17,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace cg
-{
-namespace light
+namespace sge::scenic::render_context::cg::light
 {
 
 class directional
@@ -62,10 +54,6 @@ private:
 	sge::shader::parameter::vector<sge::renderer::scalar,3> camera_space_direction_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

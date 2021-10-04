@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace mouse
+namespace sge::x11input::mouse
 {
 
 sge::input::mouse::axis_info_container
@@ -27,8 +23,6 @@ make_axis_infos(
 	XIDeviceInfo const &
 );
 
-}
-}
 }
 
 #endif

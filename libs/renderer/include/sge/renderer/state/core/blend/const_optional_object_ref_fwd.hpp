@@ -11,15 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 using
@@ -29,10 +21,6 @@ fcppt::optional::reference<
 	sge::renderer::state::core::blend::object const
 >;
 
-}
-}
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/sprite/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 SGE_SPRITE_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ option_to_resource_flags(
 	sge::sprite::buffers::option
 );
 
-}
-}
 }
 
 #endif

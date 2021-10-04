@@ -17,13 +17,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace font
+namespace sge::systems::impl::font
 {
 
 class object
@@ -49,9 +43,6 @@ private:
 	sge::font::system_unique_ptr const font_system_;
 };
 
-}
-}
-}
 }
 
 #endif

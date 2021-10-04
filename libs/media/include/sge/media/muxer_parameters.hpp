@@ -14,9 +14,7 @@
 #include <fcppt/log/context_reference.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 template<
@@ -61,7 +59,6 @@ private:
 	sge::media::optional_extension_set extensions_;
 };
 
-}
 }
 
 #endif

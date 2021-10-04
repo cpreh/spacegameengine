@@ -20,13 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace tracking
-{
-namespace json
+namespace sge::camera::tracking::json
 {
 
 class interval_exporter
@@ -67,9 +61,6 @@ private:
 	sge::camera::tracking::keyframe_sequence keyframes_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -16,11 +16,7 @@
 #include <fcppt/optional/from.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace context
+namespace sge::opengl::context
 {
 
 template<
@@ -63,8 +59,6 @@ use_impl(
 		);
 }
 
-}
-}
 }
 
 #endif

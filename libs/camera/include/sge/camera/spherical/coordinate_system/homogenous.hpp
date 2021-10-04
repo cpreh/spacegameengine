@@ -12,13 +12,7 @@
 #include <sge/renderer/scalar.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
-{
-namespace coordinate_system
+namespace sge::camera::spherical::coordinate_system
 {
 
 SGE_CAMERA_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ homogenous(
 	sge::renderer::scalar
 );
 
-}
-}
-}
 }
 
 #endif

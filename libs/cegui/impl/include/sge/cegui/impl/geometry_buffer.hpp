@@ -39,11 +39,7 @@ struct Vertex;
 class Texture;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class geometry_buffer
@@ -206,8 +202,6 @@ private:
 	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_scissor_off_;
 };
 
-}
-}
 }
 
 #endif

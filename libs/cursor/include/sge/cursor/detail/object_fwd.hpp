@@ -8,17 +8,11 @@
 #define SGE_CURSOR_DETAIL_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cursor
-{
-namespace detail
+namespace sge::cursor::detail
 {
 
 class object;
 
-}
-}
 }
 
 #endif

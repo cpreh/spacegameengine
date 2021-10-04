@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace ortho_freelook
+namespace sge::camera::ortho_freelook
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::renderer::projection::rect
 >;
 
-}
-}
 }
 
 #endif

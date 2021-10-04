@@ -14,11 +14,7 @@
 #include <sge/renderer/vf/dynamic/stride.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class actor_parameters
@@ -49,8 +45,6 @@ private:
 	sge::opengl::context::object_ref context_;
 };
 
-}
-}
 }
 
 #endif

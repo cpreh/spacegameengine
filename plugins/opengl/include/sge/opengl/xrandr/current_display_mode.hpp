@@ -11,11 +11,7 @@
 #include <awl/backends/x11/window/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::renderer::display_mode::optional_object
@@ -23,8 +19,6 @@ current_display_mode(
 	awl::backends::x11::window::base const &
 );
 
-}
-}
 }
 
 #endif

@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
-{
-namespace output
+namespace sge::parse::ini::output
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
@@ -30,9 +24,6 @@ to_stream(
 	sge::parse::ini::start const &
 );
 
-}
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
+namespace sge::input::cursor
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::input::cursor::shared_ptr
 >;
 
-}
-}
 }
 
 #endif

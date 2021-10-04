@@ -12,9 +12,7 @@
 #include <fcppt/log/parameters.hpp>
 
 
-namespace sge
-{
-namespace log
+namespace sge::log
 {
 
 SGE_LOG_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ default_parameters(
 	fcppt::log::name const &
 );
 
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/renderer/vertex/const_optional_declaration_ref_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 void
@@ -24,8 +20,6 @@ set_declaration(
 	sge::renderer::vertex::const_optional_declaration_ref const &
 );
 
-}
-}
 }
 
 #endif

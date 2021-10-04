@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::opencl::memory_object::base_ref
 >;
 
-}
-}
 }
 
 #endif

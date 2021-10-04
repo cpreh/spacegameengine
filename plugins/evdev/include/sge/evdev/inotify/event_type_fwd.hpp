@@ -8,17 +8,11 @@
 #define SGE_EVDEV_INOTIFY_EVENT_TYPE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace inotify
+namespace sge::evdev::inotify
 {
 
 enum class event_type;
 
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <sge/renderer/device/ffp_ref.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace renderer
+namespace sge::gui::renderer
 {
 
 SGE_GUI_DETAIL_SYMBOL
@@ -27,8 +23,6 @@ create_scoped(
 	sge::renderer::context::ffp_ref
 );
 
-}
-}
 }
 
 #endif

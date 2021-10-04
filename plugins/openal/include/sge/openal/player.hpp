@@ -25,9 +25,7 @@
 #include <fcppt/log/object.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class player
@@ -118,7 +116,6 @@ private:
 	sge::openal::listener listener_;
 };
 
-}
 }
 
 #endif

@@ -10,9 +10,7 @@
 #include <sge/input/capabilities_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
+namespace sge::input
 {
 
 enum class capabilities
@@ -25,7 +23,6 @@ enum class capabilities
 	fcppt_maximum = mouse
 };
 
-}
 }
 
 #endif

@@ -8,11 +8,7 @@
 #define SGE_RENDERER_TARGET_SURFACE_INDEX_VALUE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace target
+namespace sge::renderer::target
 {
 
 using
@@ -20,8 +16,6 @@ surface_index_value
 =
 unsigned;
 
-}
-}
 }
 
 #endif

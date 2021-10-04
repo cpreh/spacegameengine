@@ -20,11 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 /**
@@ -84,8 +80,6 @@ private:
 	scoped_buffer_vector const scoped_buffers_;
 };
 
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_CEGUI_IMPL_RESOURCE_PROVIDER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class resource_provider;
 
-}
-}
 }
 
 #endif

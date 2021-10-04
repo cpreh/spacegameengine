@@ -16,11 +16,7 @@
 #include <fcppt/parse/skipper/epsilon.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace impl
+namespace sge::console::impl
 {
 
 class eval_grammar final
@@ -57,8 +53,6 @@ private:
 	> start_;
 };
 
-}
-}
 }
 
 #endif

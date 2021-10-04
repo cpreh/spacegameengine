@@ -13,11 +13,7 @@
 #include <fcppt/optional_string.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 class relative_axis_info
@@ -44,8 +40,6 @@ private:
 	fcppt::optional_string name_;
 };
 
-}
-}
 }
 
 #endif

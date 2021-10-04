@@ -11,11 +11,7 @@
 #include <sge/audio/sound/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 SGE_AUDIO_DETAIL_SYMBOL
@@ -24,8 +20,6 @@ pause(
 	sge::audio::sound::base & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

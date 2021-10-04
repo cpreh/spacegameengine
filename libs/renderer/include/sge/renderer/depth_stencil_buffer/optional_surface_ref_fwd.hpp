@@ -11,11 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace depth_stencil_buffer
+namespace sge::renderer::depth_stencil_buffer
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::reference<
 	sge::renderer::depth_stencil_buffer::surface
 >;
 
-}
-}
 }
 
 #endif

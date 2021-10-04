@@ -14,13 +14,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
-{
-namespace layout
+namespace sge::image::ds::layout
 {
 
 using
@@ -34,9 +28,6 @@ mizuiro::color::layout::make<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

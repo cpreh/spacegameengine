@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/misc/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
+namespace sge::opengl::state::ffp::misc
 {
 
 using
@@ -29,10 +21,6 @@ sge::opengl::state::object<
 	sge::renderer::state::ffp::misc::object
 >;
 
-}
-}
-}
-}
 }
 
 #endif

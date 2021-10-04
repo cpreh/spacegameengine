@@ -10,9 +10,7 @@
 #include <sge/image/ds/view/d24s8_format.hpp>
 
 
-namespace sge
-{
-namespace imageds2d
+namespace sge::imageds2d
 {
 
 using
@@ -22,7 +20,6 @@ sge::image::ds::view::d24s8_format<
 	2
 >;
 
-}
 }
 
 #endif

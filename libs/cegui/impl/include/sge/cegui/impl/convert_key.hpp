@@ -11,11 +11,7 @@
 #include <sge/input/key/code_fwd.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 sge::cegui::impl::optional_key_scan
@@ -23,8 +19,6 @@ convert_key(
 	sge::input::key::code
 );
 
-}
-}
 }
 
 #endif

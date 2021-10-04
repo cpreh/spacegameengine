@@ -70,7 +70,7 @@ sge::cegui::toolbox::append_row(
 			fcppt::literal<
 				sge::cegui::toolbox::row::size_type
 			>(
-				1u
+				1U
 			),
 			_mapper.size()
 		)

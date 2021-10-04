@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace focus
+namespace sge::x11input::focus
 {
 
 sge::x11input::focus::looked_up_string
@@ -29,8 +25,6 @@ lookup_string(
 	XIDeviceEvent const &
 );
 
-}
-}
 }
 
 #endif

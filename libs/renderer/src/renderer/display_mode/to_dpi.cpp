@@ -77,7 +77,7 @@ sge::renderer::display_mode::to_dpi(
 					fcppt::literal<
 						sge::renderer::display_mode::dpi_unit
 					>(
-						96.f
+						96.F
 					)
 				};
 

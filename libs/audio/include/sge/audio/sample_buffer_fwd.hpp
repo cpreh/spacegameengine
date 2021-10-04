@@ -11,9 +11,7 @@
 #include <fcppt/container/buffer/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::container::buffer::object<
 	sge::audio::raw_data
 >;
 
-}
 }
 
 #endif

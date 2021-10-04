@@ -11,11 +11,7 @@
 #include <sge/sprite/detail/buffers/zero_offset.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 template<
@@ -33,8 +29,6 @@ zero_offset()
 		>();
 }
 
-}
-}
 }
 
 #endif

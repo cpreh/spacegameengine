@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::wlinput::xkb_context
 >;
 
-}
 }
 
 #endif

@@ -11,13 +11,7 @@
 #include <sge/renderer/state/index_count.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 GLenum
@@ -25,9 +19,6 @@ light_index(
 	sge::renderer::state::index_count
 );
 
-}
-}
-}
 }
 
 #endif

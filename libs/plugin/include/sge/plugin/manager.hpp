@@ -24,9 +24,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 class manager
@@ -69,7 +67,6 @@ private:
 	plugin_map const categories_;
 };
 
-}
 }
 
 #endif

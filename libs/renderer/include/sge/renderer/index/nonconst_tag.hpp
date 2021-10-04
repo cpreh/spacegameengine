@@ -8,17 +8,11 @@
 #define SGE_RENDERER_INDEX_NONCONST_TAG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 struct nonconst_tag;
 
-}
-}
 }
 
 #endif

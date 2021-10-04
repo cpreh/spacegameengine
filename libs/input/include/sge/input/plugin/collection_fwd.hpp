@@ -11,11 +11,7 @@
 #include <sge/plugin/collection_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace plugin
+namespace sge::input::plugin
 {
 
 using
@@ -25,8 +21,6 @@ sge::plugin::collection<
 	sge::input::system
 >;
 
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_MODEL_MD3_LOADER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 class loader;
 
-}
-}
 }
 
 #endif

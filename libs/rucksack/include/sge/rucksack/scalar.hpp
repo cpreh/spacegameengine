@@ -8,9 +8,7 @@
 #define SGE_RUCKSACK_SCALAR_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 using
@@ -18,7 +16,6 @@ scalar
 =
 int;
 
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/sprite/roles/texture.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace roles
+namespace sge::sprite::roles
 {
 
 using
@@ -24,8 +20,6 @@ sge::sprite::roles::texture<
 	0
 >;
 
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/math/box/rect_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -28,7 +26,6 @@ fcppt::math::box::rect<
 	sge::renderer::pixel_unit
 >;
 
-}
 }
 
 #endif

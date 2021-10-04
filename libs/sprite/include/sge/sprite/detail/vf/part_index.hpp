@@ -10,13 +10,7 @@
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 inline
@@ -29,9 +23,6 @@ part_index()
 		);
 }
 
-}
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace kernel
+namespace sge::opencl::kernel
 {
 
 using
@@ -26,8 +22,6 @@ fcppt::reference<
 	sge::opencl::kernel::object
 >;
 
-}
-}
 }
 
 #endif

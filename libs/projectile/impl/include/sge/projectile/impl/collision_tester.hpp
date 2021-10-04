@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace impl
+namespace sge::projectile::impl
 {
 
 class collision_tester
@@ -60,8 +56,6 @@ private:
 	bool result_;
 };
 
-}
-}
 }
 
 #endif

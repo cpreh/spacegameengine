@@ -10,11 +10,7 @@
 #include <sge/opengl/texture/format_result_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -42,8 +38,6 @@ private:
 	GLFormat gl_format_;
 };
 
-}
-}
 }
 
 #endif

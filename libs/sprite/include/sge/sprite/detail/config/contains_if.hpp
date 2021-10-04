@@ -11,13 +11,7 @@
 #include <fcppt/mpl/list/any_of.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace config
+namespace sge::sprite::detail::config
 {
 
 template<
@@ -36,9 +30,6 @@ fcppt::mpl::list::any_of<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

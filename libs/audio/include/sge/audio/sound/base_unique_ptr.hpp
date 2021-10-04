@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::audio::sound::base
 >;
 
-}
-}
 }
 
 #endif

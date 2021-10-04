@@ -16,13 +16,7 @@
 #include <sge/image/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace traits
+namespace sge::image::impl::traits
 {
 
 template<>
@@ -57,9 +51,6 @@ struct dynamic_copy_and_convert<
 	}
 };
 
-}
-}
-}
 }
 
 #endif

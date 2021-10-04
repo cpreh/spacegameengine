@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::window::dim
 >;
 
-}
 }
 
 #endif

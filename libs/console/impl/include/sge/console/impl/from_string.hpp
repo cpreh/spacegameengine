@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace impl
+namespace sge::console::impl
 {
 
 sge::font::string
@@ -30,8 +26,6 @@ from_string(
 	std::wstring const &
 );
 
-}
-}
 }
 
 #endif

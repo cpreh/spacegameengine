@@ -12,13 +12,7 @@
 #include <sge/cg/program/compile_options.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace program
+namespace sge::opengl::cg::program
 {
 
 sge::cg::program::compile_options
@@ -27,9 +21,6 @@ optimal_options(
 	sge::cg::profile::object const &
 );
 
-}
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::pango::index
 >;
 
-}
 }
 
 #endif

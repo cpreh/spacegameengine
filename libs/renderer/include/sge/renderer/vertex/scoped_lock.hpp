@@ -23,11 +23,7 @@ SGE_RENDERER_BUFFER_DETAIL_DECLARE_SCOPED_LOCK(
 	sge::renderer::vertex::tag
 );
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 class scoped_lock
@@ -77,8 +73,6 @@ private:
 	impl impl_;
 };
 
-}
-}
 }
 
 #endif

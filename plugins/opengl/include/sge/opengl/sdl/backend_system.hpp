@@ -18,11 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace sdl
+namespace sge::opengl::sdl
 {
 
 class backend_system
@@ -59,8 +55,6 @@ private:
 	sge::opengl::sdl::library const library_;
 };
 
-}
-}
 }
 
 #endif

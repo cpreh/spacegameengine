@@ -21,9 +21,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL system
@@ -62,7 +60,6 @@ public:
 	~system();
 };
 
-}
 }
 
 #endif

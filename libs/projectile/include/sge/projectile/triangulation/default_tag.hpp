@@ -7,19 +7,13 @@
 #ifndef SGE_PROJECTILE_TRIANGULATION_DEFAULT_TAG_HPP_INCLUDED
 #define SGE_PROJECTILE_TRIANGULATION_DEFAULT_TAG_HPP_INCLUDED
 
-namespace sge
-{
-namespace projectile
-{
-namespace triangulation
+namespace sge::projectile::triangulation
 {
 
 struct default_tag
 {
 };
 
-}
-}
 }
 
 #endif

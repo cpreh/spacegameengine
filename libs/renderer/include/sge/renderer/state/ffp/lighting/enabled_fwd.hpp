@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_FFP_LIGHTING_ENABLED_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
+namespace sge::renderer::state::ffp::lighting
 {
 
 class enabled;
 
-}
-}
-}
-}
 }
 
 #endif

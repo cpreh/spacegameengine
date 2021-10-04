@@ -15,15 +15,7 @@
 #include <sge/renderer/state/core/blend/write_red.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 class write_mask
@@ -66,10 +58,6 @@ private:
 	sge::renderer::state::core::blend::write_alpha write_alpha_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

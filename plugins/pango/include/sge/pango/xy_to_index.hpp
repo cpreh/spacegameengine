@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 sge::pango::optional_index
@@ -25,7 +23,6 @@ xy_to_index(
 	sge::font::vector const &
 );
 
-}
 }
 
 #endif

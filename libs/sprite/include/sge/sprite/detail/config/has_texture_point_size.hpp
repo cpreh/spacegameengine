@@ -11,13 +11,7 @@
 #include <sge/sprite/detail/config/contains_if.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace config
+namespace sge::sprite::detail::config
 {
 
 template<
@@ -31,9 +25,6 @@ sge::sprite::detail::config::contains_if<
 	sge::sprite::config::is_with_texture_point_size
 >::type;
 
-}
-}
-}
 }
 
 #endif

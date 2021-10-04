@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace buffer
+namespace sge::renderer::buffer
 {
 
 template<
@@ -145,8 +141,6 @@ public:
 	unlock() const = 0;
 };
 
-}
-}
 }
 
 #endif

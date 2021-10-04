@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class modes_view
@@ -45,8 +41,6 @@ private:
 	sge::opengl::xrandr::const_screen_resources_ref resources_;
 };
 
-}
-}
 }
 
 #endif

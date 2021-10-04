@@ -26,13 +26,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace callback
-{
-namespace detail
+namespace sge::console::callback::detail
 {
 
 template<
@@ -133,9 +127,6 @@ private:
 	> console_;
 };
 
-}
-}
-}
 }
 
 #endif

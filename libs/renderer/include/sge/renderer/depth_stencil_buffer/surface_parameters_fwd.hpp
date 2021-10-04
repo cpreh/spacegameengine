@@ -8,17 +8,11 @@
 #define SGE_RENDERER_DEPTH_STENCIL_BUFFER_SURFACE_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace depth_stencil_buffer
+namespace sge::renderer::depth_stencil_buffer
 {
 
 class surface_parameters;
 
-}
-}
 }
 
 #endif

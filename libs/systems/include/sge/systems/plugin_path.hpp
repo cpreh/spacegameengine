@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -24,7 +22,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	plugin_path
 );
 
-}
 }
 
 #endif

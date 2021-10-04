@@ -11,11 +11,7 @@
 #include <sge/image3d/tag.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace store
+namespace sge::image3d::store
 {
 
 using
@@ -25,8 +21,6 @@ sge::image::store::object<
 	sge::image3d::tag
 >;
 
-}
-}
 }
 
 #endif

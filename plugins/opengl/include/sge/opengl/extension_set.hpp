@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 template<
@@ -27,7 +25,6 @@ std::unordered_set<
 	Type
 >;
 
-}
 }
 
 #endif

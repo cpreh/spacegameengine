@@ -20,13 +20,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace texture
+namespace sge::opengl::cg::texture
 {
 
 class loaded_object
@@ -71,9 +65,6 @@ private:
 	sge::renderer::texture::stage const stage_;
 };
 
-}
-}
-}
 }
 
 #endif

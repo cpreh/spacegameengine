@@ -10,15 +10,7 @@
 #include <sge/opengl/common.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::opengl::state::ffp::transform
 {
 
 void
@@ -26,10 +18,6 @@ matrix_mode(
 	GLenum
 );
 
-}
-}
-}
-}
 }
 
 #endif

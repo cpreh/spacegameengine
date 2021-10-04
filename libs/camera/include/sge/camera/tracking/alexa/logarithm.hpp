@@ -14,13 +14,7 @@
 #include <fcppt/math/matrix/static.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace tracking
-{
-namespace alexa
+namespace sge::camera::tracking::alexa
 {
 
 template<
@@ -63,9 +57,6 @@ logarithm(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

@@ -11,20 +11,11 @@
 #include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
-{
-namespace material
+namespace sge::scenic::scene::material
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::scalar,
 	shininess);
-}
-}
-}
 }
 
 #endif

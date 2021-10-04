@@ -12,9 +12,7 @@
 #include <fcppt/unique_ptr_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 template<
@@ -64,7 +62,6 @@ deref_texture(
 		_value.get();
 }
 
-}
 }
 
 #endif

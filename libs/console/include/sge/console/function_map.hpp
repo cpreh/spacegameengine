@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 using
@@ -27,7 +25,6 @@ std::map<
 	sge::console::function
 >;
 
-}
 }
 
 #endif

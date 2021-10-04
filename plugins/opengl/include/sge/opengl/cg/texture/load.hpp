@@ -14,13 +14,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace texture
+namespace sge::opengl::cg::texture
 {
 
 sge::renderer::cg::loaded_texture_unique_ptr
@@ -31,9 +25,6 @@ load(
 	sge::renderer::texture::base_ref
 );
 
-}
-}
-}
 }
 
 #endif

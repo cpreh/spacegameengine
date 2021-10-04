@@ -15,13 +15,7 @@
 #include <sge/renderer/vf/dynamic/stride.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class part
@@ -61,9 +55,6 @@ operator==(
 	sge::renderer::vf::dynamic::part const &
 );
 
-}
-}
-}
 }
 
 #endif

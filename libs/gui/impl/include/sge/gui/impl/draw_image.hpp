@@ -13,11 +13,7 @@
 #include <sge/texture/part_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
+namespace sge::gui::impl
 {
 
 void
@@ -28,8 +24,6 @@ draw_image(
 	sge::rucksack::vector const &
 );
 
-}
-}
 }
 
 #endif

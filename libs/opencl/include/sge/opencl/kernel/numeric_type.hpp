@@ -17,11 +17,7 @@
 #include <fcppt/variant/from_list.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace kernel
+namespace sge::opencl::kernel
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -53,8 +49,6 @@ fcppt::variant::from_list<
 
 FCPPT_PP_POP_WARNING
 
-}
-}
 }
 
 #endif

@@ -13,17 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 template<
@@ -41,11 +31,6 @@ std::remove_cvref_t<
 	)
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -17,13 +17,7 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace image2d
+namespace sge::systems::impl::image2d
 {
 
 class object
@@ -54,9 +48,6 @@ private:
 	image_multi_unique_ptr const image_multi_system_;
 };
 
-}
-}
-}
 }
 
 #endif

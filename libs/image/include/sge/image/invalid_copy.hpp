@@ -14,9 +14,7 @@
 #include <sge/image/traits/pixel/format_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -69,7 +67,6 @@ public:
 	override;
 };
 
-}
 }
 
 #endif

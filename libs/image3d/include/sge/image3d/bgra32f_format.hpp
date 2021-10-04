@@ -11,9 +11,7 @@
 #include <sge/image/view/basic_format.hpp>
 
 
-namespace sge
-{
-namespace image3d
+namespace sge::image3d
 {
 
 using
@@ -24,7 +22,6 @@ sge::image::view::basic_format<
 	sge::image::color::bgra32f_format
 >;
 
-}
 }
 
 #endif

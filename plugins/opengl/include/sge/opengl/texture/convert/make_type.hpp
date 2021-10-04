@@ -10,13 +10,7 @@
 #include <sge/opengl/texture/type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace convert
+namespace sge::opengl::texture::convert
 {
 
 sge::opengl::texture::type
@@ -24,9 +18,6 @@ make_type(
 	int type
 );
 
-}
-}
-}
 }
 
 #endif

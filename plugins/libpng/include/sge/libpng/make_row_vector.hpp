@@ -13,9 +13,7 @@
 #include <sge/libpng/row_vector.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 sge::libpng::row_vector
@@ -25,7 +23,6 @@ make_row_vector(
 	sge::libpng::bytes_per_pixel
 );
 
-}
 }
 
 #endif

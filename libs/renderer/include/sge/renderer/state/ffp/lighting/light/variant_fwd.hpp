@@ -13,17 +13,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::renderer::state::ffp::lighting::light
 {
 
 using
@@ -35,11 +25,6 @@ fcppt::variant::object<
 	sge::renderer::state::ffp::lighting::light::spot
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

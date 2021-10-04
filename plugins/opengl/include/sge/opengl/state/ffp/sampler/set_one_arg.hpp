@@ -17,15 +17,7 @@
 #include <fcppt/cast/static_cast_fun.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::opengl::state::ffp::sampler
 {
 
 template<
@@ -56,10 +48,6 @@ set_one_arg(
 		);
 }
 
-}
-}
-}
-}
 }
 
 #endif

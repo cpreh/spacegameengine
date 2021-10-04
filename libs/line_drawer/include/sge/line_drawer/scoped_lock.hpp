@@ -15,9 +15,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace line_drawer
+namespace sge::line_drawer
 {
 
 class scoped_lock
@@ -47,7 +45,6 @@ private:
 	> const object_;
 };
 
-}
 }
 
 #endif

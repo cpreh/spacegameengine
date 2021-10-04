@@ -11,11 +11,7 @@
 #include <fcppt/mpl/list/contains.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 template<
@@ -29,8 +25,6 @@ fcppt::mpl::list::contains<
 	sge::systems::with_audio_player
 >;
 
-}
-}
 }
 
 #endif

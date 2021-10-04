@@ -13,13 +13,7 @@
 #include <sge/camera/ortho_freelook/action/zoom_out.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace ortho_freelook
-{
-namespace action
+namespace sge::camera::ortho_freelook::action
 {
 
 /**
@@ -56,9 +50,6 @@ private:
 	sge::camera::ortho_freelook::action::activate_pan activate_pan_;
 };
 
-}
-}
-}
 }
 
 #endif

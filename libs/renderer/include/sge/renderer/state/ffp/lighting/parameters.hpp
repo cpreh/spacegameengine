@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/lighting/variant.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
+namespace sge::renderer::state::ffp::lighting
 {
 
 class parameters
@@ -40,10 +32,6 @@ private:
 	sge::renderer::state::ffp::lighting::variant variant_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

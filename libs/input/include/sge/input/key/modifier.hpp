@@ -10,11 +10,7 @@
 #include <sge/input/key/modifier_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace key
+namespace sge::input::key
 {
 
 enum class modifier
@@ -25,8 +21,6 @@ enum class modifier
 	fcppt_maximum = shift
 };
 
-}
-}
 }
 
 #endif

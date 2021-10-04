@@ -12,17 +12,11 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
+namespace sge::scenic::render_context
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::image::color::any::object,
 	specular_color);
-}
-}
 }
 
 #endif

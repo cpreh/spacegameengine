@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::renderer::display_mode::object
 >;
 
-}
-}
 }
 
 #endif

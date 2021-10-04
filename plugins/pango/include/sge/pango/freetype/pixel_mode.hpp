@@ -11,11 +11,7 @@
 #include <sge/pango/freetype/optional_pixel_mode.hpp>
 
 
-namespace sge
-{
-namespace pango
-{
-namespace freetype
+namespace sge::pango::freetype
 {
 
 sge::pango::freetype::optional_pixel_mode
@@ -23,8 +19,6 @@ pixel_mode(
 	sge::image::color::format
 );
 
-}
-}
 }
 
 #endif

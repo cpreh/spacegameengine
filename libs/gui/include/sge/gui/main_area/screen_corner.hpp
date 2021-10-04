@@ -22,11 +22,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace main_area
+namespace sge::gui::main_area
 {
 
 class screen_corner
@@ -74,8 +70,6 @@ private:
 	sge::gui::main_area::viewport_adaptor viewport_adaptor_;
 };
 
-}
-}
 }
 
 #endif

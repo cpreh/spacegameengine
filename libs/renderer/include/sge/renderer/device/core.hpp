@@ -62,11 +62,7 @@
 #endif
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace device
+namespace sge::renderer::device
 {
 
 /**
@@ -435,8 +431,6 @@ public:
 	~core();
 };
 
-}
-}
 }
 
 #endif

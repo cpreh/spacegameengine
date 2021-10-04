@@ -11,19 +11,13 @@
 #include <sge/font/weight/unit.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace weight
+namespace sge::font::weight
 {
 
 SGE_FONT_DETAIL_SYMBOL
 sge::font::weight::unit
 ultra_light();
 
-}
-}
 }
 
 #endif

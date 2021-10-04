@@ -10,28 +10,13 @@
 #include <sge/image/color/impl/dynamic/format/rgb_c32f_4.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 extern
 sge::image::color::impl::dynamic::format::rgb_c32f_4 const
 bgra32f;
 
-}
-}
-}
-}
-}
 }
 
 #endif

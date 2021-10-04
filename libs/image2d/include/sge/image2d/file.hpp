@@ -19,9 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL file
@@ -60,7 +58,6 @@ public:
 	~file();
 };
 
-}
 }
 
 #endif

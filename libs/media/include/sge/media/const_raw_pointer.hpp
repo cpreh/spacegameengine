@@ -10,9 +10,7 @@
 #include <sge/media/raw_value.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 using
@@ -20,7 +18,6 @@ const_raw_pointer
 =
 sge::media::raw_value const *;
 
-}
 }
 
 #endif

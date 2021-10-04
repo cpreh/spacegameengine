@@ -18,9 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -84,7 +82,6 @@ public:
 	~system();
 };
 
-}
 }
 
 #endif

@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::opengl::state::ffp::sampler
 {
 
 sge::opengl::state::ffp::sampler::actor_vector
@@ -27,10 +19,6 @@ make_actors(
 	sge::renderer::state::ffp::sampler::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

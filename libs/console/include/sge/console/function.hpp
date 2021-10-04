@@ -17,9 +17,7 @@
 #include <fcppt/signal/unregister/base_decl.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 class function
@@ -69,7 +67,6 @@ private:
 	sge::console::long_description long_description_;
 };
 
-}
 }
 
 #endif

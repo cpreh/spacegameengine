@@ -19,11 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace widget
+namespace sge::rucksack::widget
 {
 
 /**
@@ -114,8 +110,6 @@ private:
 	override;
 };
 
-}
-}
 }
 
 #endif

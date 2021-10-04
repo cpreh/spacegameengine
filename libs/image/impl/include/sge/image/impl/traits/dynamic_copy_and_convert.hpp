@@ -8,13 +8,7 @@
 #define SGE_IMAGE_IMPL_TRAITS_DYNAMIC_COPY_AND_CONVERT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace traits
+namespace sge::image::impl::traits
 {
 
 template<
@@ -22,9 +16,6 @@ template<
 >
 struct dynamic_copy_and_convert;
 
-}
-}
-}
 }
 
 #endif

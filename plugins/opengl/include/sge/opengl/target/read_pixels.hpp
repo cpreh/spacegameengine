@@ -14,11 +14,7 @@
 #include <sge/renderer/screen_size_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 void
@@ -30,8 +26,6 @@ read_pixels(
 	sge::renderer::raw_pointer
 );
 
-}
-}
 }
 
 #endif

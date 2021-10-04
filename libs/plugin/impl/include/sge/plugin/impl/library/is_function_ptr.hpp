@@ -12,13 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
-{
-namespace library
+namespace sge::plugin::impl::library
 {
 
 template<
@@ -34,9 +28,6 @@ std::is_function<
 	>::type
 >;
 
-}
-}
-}
 }
 
 #endif

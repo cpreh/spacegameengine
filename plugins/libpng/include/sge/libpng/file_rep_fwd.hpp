@@ -8,14 +8,11 @@
 #define SGE_LIBPNG_FILE_REP_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class file_rep;
 
-}
 }
 
 #endif

@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 // TODO(philipp): Remove this
@@ -65,8 +61,6 @@ std::disjunction<
 	>
 >;
 
-}
-}
 }
 
 #endif

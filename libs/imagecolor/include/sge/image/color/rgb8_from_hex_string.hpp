@@ -25,11 +25,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 // NOTES
@@ -140,8 +136,6 @@ rgb8_from_hex_string(
 		);
 }
 
-}
-}
 }
 
 #endif

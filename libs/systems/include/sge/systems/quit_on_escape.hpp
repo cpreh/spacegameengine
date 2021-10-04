@@ -12,9 +12,7 @@
 #include <awl/event/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 template<
@@ -35,7 +33,6 @@ quit_on_escape(
 		);
 }
 
-}
 }
 
 #endif

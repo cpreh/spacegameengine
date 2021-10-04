@@ -8,14 +8,11 @@
 #define SGE_OPENAL_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class context;
 
-}
 }
 
 #endif

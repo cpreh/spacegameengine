@@ -8,14 +8,11 @@
 #define SGE_OPENGL_MULTI_SAMPLE_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 class multi_sample_context;
 
-}
 }
 
 #endif

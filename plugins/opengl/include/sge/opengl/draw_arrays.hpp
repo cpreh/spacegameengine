@@ -13,9 +13,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 void
@@ -26,7 +24,6 @@ draw_arrays(
 	sge::renderer::primitive_type
 );
 
-}
 }
 
 #endif

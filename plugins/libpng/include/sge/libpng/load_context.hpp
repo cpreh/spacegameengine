@@ -16,9 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class load_context
@@ -54,7 +52,6 @@ private:
 	);
 };
 
-}
 }
 
 #endif

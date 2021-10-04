@@ -11,11 +11,7 @@
 #include <sge/sprite/config/texture_ownership_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -25,8 +21,6 @@ template<
 >
 struct with_texture;
 
-}
-}
 }
 
 #endif

@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 sge::vorbis::optional_stream_unique_ptr
@@ -23,7 +21,6 @@ open(
 	std::istream &
 );
 
-}
 }
 
 #endif

@@ -34,9 +34,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 class processor
@@ -148,7 +146,6 @@ private:
 	fcppt::signal::auto_connection const event_connection_;
 };
 
-}
 }
 
 #endif

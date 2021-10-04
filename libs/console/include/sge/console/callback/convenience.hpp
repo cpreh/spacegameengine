@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace callback
+namespace sge::console::callback
 {
 
 template<
@@ -64,8 +60,6 @@ convenience(
 		);
 }
 
-}
-}
 }
 
 #endif

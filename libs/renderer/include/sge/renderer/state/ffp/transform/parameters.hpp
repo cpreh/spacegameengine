@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::renderer::state::ffp::transform
 {
 
 class parameters
@@ -40,10 +32,6 @@ private:
 	sge::renderer::matrix4 matrix_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

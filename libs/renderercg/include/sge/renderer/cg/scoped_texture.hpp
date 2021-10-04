@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace cg
+namespace sge::renderer::cg
 {
 
 class scoped_texture
@@ -49,8 +45,6 @@ private:
 	sge::renderer::texture::stage const stage_;
 };
 
-}
-}
 }
 
 #endif

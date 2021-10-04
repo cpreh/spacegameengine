@@ -21,11 +21,7 @@
 #include <fcppt/either/object_impl.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 template<
@@ -62,8 +58,6 @@ rgba8_from_hex_string(
 		);
 }
 
-}
-}
 }
 
 #endif

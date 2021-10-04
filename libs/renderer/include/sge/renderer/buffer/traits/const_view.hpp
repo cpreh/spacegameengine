@@ -10,13 +10,7 @@
 #include <sge/renderer/buffer/traits/const_view_tpl_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace buffer
-{
-namespace traits
+namespace sge::renderer::buffer::traits
 {
 
 template<
@@ -30,9 +24,6 @@ sge::renderer::buffer::traits::const_view_tpl<
 	Tag
 >::type;
 
-}
-}
-}
 }
 
 #endif

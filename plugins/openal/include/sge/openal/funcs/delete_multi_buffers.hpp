@@ -10,11 +10,7 @@
 #include <sge/openal/buffer_id_container_fwd.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 void
@@ -22,8 +18,6 @@ delete_multi_buffers(
 	sge::openal::buffer_id_container const &
 );
 
-}
-}
 }
 
 #endif

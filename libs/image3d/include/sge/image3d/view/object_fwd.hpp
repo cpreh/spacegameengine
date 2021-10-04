@@ -11,11 +11,7 @@
 #include <sge/image3d/tag.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace view
+namespace sge::image3d::view
 {
 
 using
@@ -25,8 +21,6 @@ sge::image::view::object<
 	sge::image3d::tag
 >;
 
-}
-}
 }
 
 #endif

@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 class triangle
@@ -37,9 +31,6 @@ private:
 	sge::model::md3::impl::index_array indices_;
 };
 
-}
-}
-}
 }
 
 #endif

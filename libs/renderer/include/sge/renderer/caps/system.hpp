@@ -10,11 +10,7 @@
 #include <sge/renderer/caps/system_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace caps
+namespace sge::renderer::caps
 {
 
 /**
@@ -40,8 +36,6 @@ enum class system
 	fcppt_maximum = opengl
 };
 
-}
-}
 }
 
 #endif

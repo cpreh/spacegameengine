@@ -10,15 +10,7 @@
 #include <sge/renderer/state/core/blend/source_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 enum class source
@@ -34,10 +26,6 @@ enum class source
 	src_alpha_sat
 };
 
-}
-}
-}
-}
 }
 
 #endif

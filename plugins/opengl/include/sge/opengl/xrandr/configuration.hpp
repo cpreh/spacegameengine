@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class configuration
@@ -42,8 +38,6 @@ private:
 	XRRScreenConfiguration *const config_;
 };
 
-}
-}
 }
 
 #endif

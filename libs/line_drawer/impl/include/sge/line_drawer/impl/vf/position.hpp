@@ -11,13 +11,7 @@
 #include <sge/renderer/vf/pos.hpp>
 
 
-namespace sge
-{
-namespace line_drawer
-{
-namespace impl
-{
-namespace vf
+namespace sge::line_drawer::impl::vf
 {
 
 using
@@ -28,9 +22,6 @@ sge::renderer::vf::pos<
 	3
 >;
 
-}
-}
-}
 }
 
 #endif

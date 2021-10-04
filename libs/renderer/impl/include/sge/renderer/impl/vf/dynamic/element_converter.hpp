@@ -19,15 +19,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace impl
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::impl::vf::dynamic
 {
 
 class element_converter
@@ -67,10 +59,6 @@ private:
 	sge::renderer::vf::dynamic::offset offset_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

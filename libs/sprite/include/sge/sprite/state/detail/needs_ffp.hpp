@@ -11,13 +11,7 @@
 #include <fcppt/mpl/list/any_of.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
-{
-namespace detail
+namespace sge::sprite::state::detail
 {
 
 template<
@@ -47,9 +41,6 @@ public:
 	>;
 };
 
-}
-}
-}
 }
 
 #endif

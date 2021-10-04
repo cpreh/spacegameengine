@@ -13,11 +13,7 @@
 #include <sge/input/mouse/axis_id.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 class axis
@@ -44,8 +40,6 @@ private:
 	sge::input::mouse::axis_id id_;
 };
 
-}
-}
 }
 
 #endif

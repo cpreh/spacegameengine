@@ -14,11 +14,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
+namespace sge::plugin::library
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL symbol_not_found
@@ -75,8 +71,6 @@ private:
 	sge::plugin::library::symbol_string symbol_;
 };
 
-}
-}
 }
 
 #endif

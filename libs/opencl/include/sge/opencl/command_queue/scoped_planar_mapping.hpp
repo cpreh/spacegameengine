@@ -23,11 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace command_queue
+namespace sge::opencl::command_queue
 {
 class scoped_planar_mapping
 {
@@ -69,8 +65,6 @@ private:
 	void *ptr_;
 	std::size_t pitch_;
 };
-}
-}
 }
 
 #endif

@@ -8,23 +8,11 @@
 #define SGE_OPENGL_STATE_FFP_MISC_DEFAULT_CONTEXT_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
+namespace sge::opengl::state::ffp::misc
 {
 
 class default_context_parameters;
 
-}
-}
-}
-}
 }
 
 #endif

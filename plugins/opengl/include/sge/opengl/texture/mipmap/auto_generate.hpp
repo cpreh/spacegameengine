@@ -12,13 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::opengl::texture::mipmap
 {
 
 void
@@ -28,9 +22,6 @@ auto_generate(
 	sge::opengl::context::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_OPENGL_FBO_ATTACHMENT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class attachment;
 
-}
-}
 }
 
 #endif

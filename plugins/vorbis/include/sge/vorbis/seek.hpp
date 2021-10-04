@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 void
@@ -26,7 +24,6 @@ seek(
 	ogg_int64_t
 );
 
-}
 }
 
 #endif

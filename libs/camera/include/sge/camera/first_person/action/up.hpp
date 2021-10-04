@@ -12,13 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace first_person
-{
-namespace action
+namespace sge::camera::first_person::action
 {
 
 /**
@@ -30,9 +24,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	up
 );
 
-}
-}
-}
 }
 
 #endif

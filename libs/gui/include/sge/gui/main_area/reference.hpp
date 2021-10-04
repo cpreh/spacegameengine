@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace main_area
+namespace sge::gui::main_area
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::gui::main_area::base
 >;
 
-}
-}
 }
 
 #endif

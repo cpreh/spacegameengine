@@ -20,15 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace matrix
-{
-namespace detail
+namespace sge::cg::parameter::matrix::detail
 {
 
 #define SGE_CG_PARAMETER_MATRIX_DETAIL_SET(\
@@ -64,10 +56,6 @@ BOOST_PP_SEQ_FOR_EACH(
 	SGE_CG_PARAMETER_DETAIL_PP_TYPES
 )
 
-}
-}
-}
-}
 }
 
 #endif

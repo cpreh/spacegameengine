@@ -11,13 +11,7 @@
 #include <fcppt/variant/apply.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace store
+namespace sge::image::impl::store
 {
 
 template<
@@ -46,9 +40,6 @@ view_any(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

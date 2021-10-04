@@ -11,11 +11,7 @@
 #include <sge/renderer/buffer/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace depth_stencil_buffer
+namespace sge::renderer::depth_stencil_buffer
 {
 
 using
@@ -25,8 +21,6 @@ sge::renderer::buffer::base<
 	sge::imageds2d::tag
 >;
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/parse/json/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL bool
@@ -23,8 +19,6 @@ is_null(
 	sge::parse::json::value const &
 );
 
-}
-}
 }
 
 #endif

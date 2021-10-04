@@ -11,11 +11,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class holder
@@ -35,8 +31,6 @@ private:
 	sge::opengl::texture::id const id_;
 };
 
-}
-}
 }
 
 #endif

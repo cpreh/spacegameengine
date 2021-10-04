@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class resolution
@@ -46,8 +42,6 @@ private:
 	sge::opengl::xrandr::mode const old_mode_;
 };
 
-}
-}
 }
 
 #endif

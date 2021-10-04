@@ -8,13 +8,7 @@
 #define SGE_IMAGE_TRAITS_IMAGE_COLOR_TAG_TPL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-namespace image
+namespace sge::image::traits::image
 {
 
 template<
@@ -22,9 +16,6 @@ template<
 >
 struct color_tag_tpl;
 
-}
-}
-}
 }
 
 #endif

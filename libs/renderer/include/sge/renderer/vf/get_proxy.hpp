@@ -11,11 +11,7 @@
 #include <sge/renderer/vf/proxy.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -41,8 +37,6 @@ get_proxy(
 		>();
 }
 
-}
-}
 }
 
 #endif

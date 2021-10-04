@@ -11,17 +11,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::renderer::state::ffp::lighting::light
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -29,11 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	position
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

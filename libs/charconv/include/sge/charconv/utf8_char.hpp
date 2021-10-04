@@ -11,9 +11,7 @@
 #include <sge/charconv/encoding.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 using
@@ -23,7 +21,6 @@ sge::charconv::char_type<
 	sge::charconv::encoding::utf8
 >;
 
-}
 }
 
 #endif

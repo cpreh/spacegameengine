@@ -8,17 +8,11 @@
 #define SGE_SYSTEMS_DETAIL_INSTANCE_IMPL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 class instance_impl;
 
-}
-}
 }
 
 #endif

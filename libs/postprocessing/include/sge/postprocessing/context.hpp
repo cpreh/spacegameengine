@@ -27,9 +27,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace postprocessing
+namespace sge::postprocessing
 {
 
 class context
@@ -140,7 +138,6 @@ private:
 	finalize();
 };
 
-}
 }
 
 #endif

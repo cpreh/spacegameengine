@@ -11,17 +11,7 @@
 #include <sge/renderer/state/core/sampler/filter/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::renderer::state::core::sampler::filter
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -30,11 +20,6 @@ need_mipmap(
 	sge::renderer::state::core::sampler::filter::parameters const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

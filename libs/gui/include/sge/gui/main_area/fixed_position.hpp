@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace main_area
+namespace sge::gui::main_area
 {
 
 class fixed_position
@@ -58,8 +54,6 @@ private:
 	sge::gui::widget::minimum_size minimum_size_;
 };
 
-}
-}
 }
 
 #endif

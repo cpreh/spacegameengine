@@ -11,13 +11,7 @@
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 using
@@ -27,9 +21,6 @@ fcppt::container::bitfield::object<
 	sge::input::joypad::ff::type
 >;
 
-}
-}
-}
 }
 
 #endif

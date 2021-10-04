@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/fog/color.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::opengl::state::ffp::fog
 {
 
 sge::opengl::state::actor
@@ -27,10 +19,6 @@ color(
 	sge::renderer::state::ffp::fog::color const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

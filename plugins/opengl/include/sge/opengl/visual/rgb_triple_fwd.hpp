@@ -8,17 +8,11 @@
 #define SGE_OPENGL_VISUAL_RGB_TRIPLE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace visual
+namespace sge::opengl::visual
 {
 
 class rgb_triple;
 
-}
-}
 }
 
 #endif

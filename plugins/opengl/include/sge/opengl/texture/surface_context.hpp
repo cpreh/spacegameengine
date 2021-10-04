@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class surface_context
@@ -48,8 +44,6 @@ private:
 	sge::opengl::texture::surface_config const config_;
 };
 
-}
-}
 }
 
 #endif

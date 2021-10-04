@@ -30,11 +30,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace mouse
+namespace sge::x11input::mouse
 {
 
 class device // NOLINT(fuchsia-multiple-inheritance)
@@ -128,8 +124,6 @@ private:
 	fcppt::signal::auto_connection const raw_event_connection_;
 };
 
-}
-}
 }
 
 #endif

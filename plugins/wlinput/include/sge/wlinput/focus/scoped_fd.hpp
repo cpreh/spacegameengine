@@ -11,11 +11,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 class scoped_fd
@@ -34,8 +30,6 @@ private:
 	awl::backends::posix::fd const fd_;
 };
 
-}
-}
 }
 
 #endif

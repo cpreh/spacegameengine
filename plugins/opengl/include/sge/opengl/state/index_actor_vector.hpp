@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
+namespace sge::opengl::state
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::opengl::state::index_actor
 >;
 
-}
-}
 }
 
 #endif

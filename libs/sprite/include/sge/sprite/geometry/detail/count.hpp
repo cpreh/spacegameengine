@@ -8,13 +8,7 @@
 #define SGE_SPRITE_GEOMETRY_DETAIL_COUNT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 using
@@ -22,9 +16,6 @@ count
 =
 unsigned;
 
-}
-}
-}
 }
 
 #endif

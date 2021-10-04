@@ -15,11 +15,7 @@
 #include <sge/plugin/detail/traits.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 template<>
@@ -43,8 +39,6 @@ struct traits<
 	sge::image2d::system_unique_ptr ();
 };
 
-}
-}
 }
 
 #endif

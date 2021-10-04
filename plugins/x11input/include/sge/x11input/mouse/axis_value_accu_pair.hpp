@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace mouse
+namespace sge::x11input::mouse
 {
 
 using
@@ -29,8 +25,6 @@ std::pair<
 	sge::x11input::device::valuator::accu
 >;
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/opengl/common.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 using
@@ -30,8 +26,6 @@ void
 	GLsizei
 );
 
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 using
@@ -22,8 +18,6 @@ element_count_type
 =
 fcppt::math::size_type;
 
-}
-}
 }
 
 #endif

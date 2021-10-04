@@ -15,11 +15,7 @@
 #include <sge/font/string.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace callback
+namespace sge::console::callback
 {
 
 class parameters
@@ -94,8 +90,6 @@ private:
 	sge::console::long_description long_description_;
 };
 
-}
-}
 }
 
 #endif

@@ -12,20 +12,11 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace light
+namespace sge::scenic::render_context::light
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::renderer::scalar,
 	quadratic_attenuation);
-}
-}
-}
 }
 
 #endif

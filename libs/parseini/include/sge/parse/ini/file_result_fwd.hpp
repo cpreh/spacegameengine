@@ -11,11 +11,7 @@
 #include <sge/parse/ini/start_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 using
@@ -26,8 +22,6 @@ sge::parse::file_result<
 	sge::parse::ini::start
 >;
 
-}
-}
 }
 
 #endif

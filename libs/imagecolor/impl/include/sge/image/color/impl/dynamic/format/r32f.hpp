@@ -10,28 +10,13 @@
 #include <sge/image/color/impl/dynamic/format/r_c32f_1.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 extern
 sge::image::color::impl::dynamic::format::r_c32f_1 const
 r32f;
 
-}
-}
-}
-}
-}
 }
 
 #endif

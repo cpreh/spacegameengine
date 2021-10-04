@@ -8,13 +8,7 @@
 #define SGE_IMAGE_IMPL_TRAITS_STATIC_CONVERTER_TPL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace traits
+namespace sge::image::impl::traits
 {
 
 template<
@@ -22,9 +16,6 @@ template<
 >
 struct static_converter_tpl;
 
-}
-}
-}
 }
 
 #endif

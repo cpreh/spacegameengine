@@ -10,11 +10,7 @@
 #include <sge/scenic/grid/orientation_fwd.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace grid
+namespace sge::scenic::grid
 {
 
 enum class orientation
@@ -25,8 +21,6 @@ enum class orientation
 	fcppt_maximum = yz
 };
 
-}
-}
 }
 
 #endif

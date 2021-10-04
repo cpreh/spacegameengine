@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace ff
+namespace sge::evdev::joypad::ff
 {
 
 ff_constant_effect
@@ -27,9 +21,6 @@ convert_constant(
 	sge::input::joypad::ff::constant const &
 );
 
-}
-}
-}
 }
 
 #endif

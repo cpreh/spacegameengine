@@ -11,17 +11,7 @@
 #include <fcppt/reference.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::renderer::state::ffp::lighting::light
 {
 
 using
@@ -31,11 +21,6 @@ fcppt::reference<
 	sge::renderer::state::ffp::lighting::light::object const
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

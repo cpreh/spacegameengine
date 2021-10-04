@@ -55,5 +55,5 @@ sge::input::key::to_modifier(
 	}
 
 	return
-		sge::input::key::optional_modifier();
+		{};
 }

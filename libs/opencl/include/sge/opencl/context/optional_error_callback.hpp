@@ -11,11 +11,7 @@
 #include <fcppt/optional/object.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace context
+namespace sge::opencl::context
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::opencl::context::error_callback
 >;
 
-}
-}
 }
 
 #endif

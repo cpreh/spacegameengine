@@ -10,11 +10,7 @@
 #include <sge/audio/sound/play_status_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 enum class play_status
@@ -24,8 +20,6 @@ enum class play_status
 	paused
 };
 
-}
-}
 }
 
 #endif

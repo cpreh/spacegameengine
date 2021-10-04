@@ -16,11 +16,7 @@
 #include <sge/sprite/state/render_context.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace process
+namespace sge::sprite::process
 {
 
 template<
@@ -57,8 +53,6 @@ one(
 	);
 }
 
-}
-}
 }
 
 #endif

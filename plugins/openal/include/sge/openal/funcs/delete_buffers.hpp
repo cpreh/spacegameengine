@@ -10,11 +10,7 @@
 #include <sge/openal/al.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 void
@@ -23,8 +19,6 @@ delete_buffers(
 	ALsizei size
 );
 
-}
-}
 }
 
 #endif

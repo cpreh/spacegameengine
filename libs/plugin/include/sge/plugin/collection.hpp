@@ -15,9 +15,7 @@
 #include <fcppt/reference_decl.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 template<
@@ -108,7 +106,6 @@ private:
 	> plugins_;
 };
 
-}
 }
 
 #endif

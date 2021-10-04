@@ -11,16 +11,13 @@
 #include <sge/config/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace config
+namespace sge::config
 {
 
 SGE_CONFIG_DETAIL_SYMBOL
 sge::config::app_name
 own_app_name();
 
-}
 }
 
 #endif

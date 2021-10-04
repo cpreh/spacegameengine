@@ -13,11 +13,7 @@
 #include <sge/renderer/vertex/count.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 /**
@@ -40,8 +36,6 @@ to_primitive_count(
 	sge::renderer::primitive_type type
 );
 
-}
-}
 }
 
 #endif

@@ -11,13 +11,7 @@
 #include <sge/systems/impl/plugin_pair_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace audio
+namespace sge::systems::impl::audio
 {
 
 using
@@ -27,9 +21,6 @@ sge::systems::impl::plugin_pair<
 	sge::audio::player
 >;
 
-}
-}
-}
 }
 
 #endif

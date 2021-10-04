@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace event
+namespace sge::opencl::event
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::opencl::event::object
 >;
 
-}
-}
 }
 
 #endif

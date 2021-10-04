@@ -10,13 +10,7 @@
 #include <sge/sprite/types/basic/rect_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
-{
-namespace detail
+namespace sge::sprite::geometry::detail
 {
 
 template<
@@ -28,9 +22,6 @@ sge::sprite::types::basic::rect<
 	typename TypeChoices::float_type
 >;
 
-}
-}
-}
 }
 
 #endif

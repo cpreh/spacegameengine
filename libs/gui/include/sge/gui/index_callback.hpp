@@ -11,9 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::function<
 	sge::gui::index_function
 >;
 
-}
 }
 
 #endif

@@ -8,11 +8,7 @@
 #define SGE_PLUGIN_DETAIL_ADDRESS_NAME_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 using
@@ -20,8 +16,6 @@ address_name
 =
 char const *;
 
-}
-}
 }
 
 #endif

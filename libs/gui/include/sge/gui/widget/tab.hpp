@@ -19,11 +19,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class tab
@@ -52,8 +48,6 @@ private:
 	sge::gui::widget::box_container top_buttons_box_;
 };
 
-}
-}
 }
 
 #endif

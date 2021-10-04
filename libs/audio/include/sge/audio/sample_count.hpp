@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 /// An unsigned integral value which is used in all calculations involving samples
@@ -23,7 +21,6 @@ sample_count
 =
 std::size_t;
 
-}
 }
 
 #endif

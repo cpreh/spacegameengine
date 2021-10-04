@@ -8,20 +8,11 @@
 #define SGE_SYSTEMS_IMPL_INPUT_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace input
+namespace sge::systems::impl::input
 {
 
 class object;
 
-}
-}
-}
 }
 
 #endif

@@ -8,20 +8,11 @@
 #define SGE_INPUT_CURSOR_EVENT_REMOVE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
-{
-namespace event
+namespace sge::input::cursor::event
 {
 
 class remove;
 
-}
-}
-}
 }
 
 #endif

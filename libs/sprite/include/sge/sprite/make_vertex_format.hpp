@@ -13,9 +13,7 @@
 #include <sge/sprite/config/is_choices.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 template<
@@ -40,7 +38,6 @@ make_vertex_format()
 		>();
 }
 
-}
 }
 
 #endif

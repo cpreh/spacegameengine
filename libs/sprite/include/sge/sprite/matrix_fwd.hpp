@@ -10,9 +10,7 @@
 #include <sge/renderer/matrix4_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 using
@@ -20,7 +18,6 @@ matrix
 =
 sge::renderer::matrix4;
 
-}
 }
 
 #endif

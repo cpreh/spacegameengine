@@ -11,17 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace material
+namespace sge::opengl::state::ffp::lighting::material
 {
 
 sge::opengl::state::actor_vector
@@ -29,11 +19,6 @@ make_actors(
 	sge::renderer::state::ffp::lighting::material::parameters const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

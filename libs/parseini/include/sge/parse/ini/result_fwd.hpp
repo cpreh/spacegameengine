@@ -11,11 +11,7 @@
 #include <fcppt/parse/result_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 using
@@ -26,8 +22,6 @@ fcppt::parse::result<
 	sge::parse::ini::start
 >;
 
-}
-}
 }
 
 #endif

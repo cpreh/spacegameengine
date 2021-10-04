@@ -16,11 +16,7 @@
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -33,8 +29,6 @@ create_volume_from_view(
 	sge::renderer::texture::emulate_srgb
 );
 
-}
-}
 }
 
 #endif

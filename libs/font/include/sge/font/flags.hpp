@@ -10,9 +10,7 @@
 #include <sge/font/flags_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 enum class flags
@@ -22,7 +20,6 @@ enum class flags
 	fcppt_maximum = no_word_wrap
 };
 
-}
 }
 
 #endif

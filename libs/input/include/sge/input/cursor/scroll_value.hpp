@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
+namespace sge::input::cursor
 {
 
 using
@@ -24,8 +20,6 @@ scroll_value
 =
 std::int64_t;
 
-}
-}
 }
 
 #endif

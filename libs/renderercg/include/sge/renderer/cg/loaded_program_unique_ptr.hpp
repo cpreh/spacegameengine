@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace cg
+namespace sge::renderer::cg
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::renderer::cg::loaded_program
 >;
 
-}
-}
 }
 
 #endif

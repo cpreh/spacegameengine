@@ -13,11 +13,7 @@
 #include <sge/renderer/vf/labels/normal.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -42,8 +38,6 @@ sge::renderer::vf::vector3_base<
 	sge::renderer::vf::labels::normal;
 };
 
-}
-}
 }
 
 #endif

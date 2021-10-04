@@ -13,11 +13,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 class exception
@@ -60,8 +56,6 @@ public:
 	override;
 };
 
-}
-}
 }
 
 #endif

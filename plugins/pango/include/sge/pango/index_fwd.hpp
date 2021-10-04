@@ -8,14 +8,11 @@
 #define SGE_PANGO_INDEX_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 class index;
 
-}
 }
 
 #endif

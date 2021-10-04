@@ -10,11 +10,7 @@
 #include <sge/openal/alc.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 ALCdevice *
@@ -22,8 +18,6 @@ alc_open_device(
 	ALCchar const *
 );
 
-}
-}
 }
 
 #endif

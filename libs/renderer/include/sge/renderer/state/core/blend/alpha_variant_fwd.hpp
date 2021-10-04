@@ -12,15 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 using
@@ -31,10 +23,6 @@ fcppt::variant::object<
 	sge::renderer::state::core::blend::alpha_enabled
 >;
 
-}
-}
-}
-}
 }
 
 #endif

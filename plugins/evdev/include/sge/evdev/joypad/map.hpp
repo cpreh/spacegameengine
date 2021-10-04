@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 using
@@ -29,8 +25,6 @@ std::unordered_map<
 	sge::evdev::joypad::shared_ptr
 >;
 
-}
-}
 }
 
 #endif

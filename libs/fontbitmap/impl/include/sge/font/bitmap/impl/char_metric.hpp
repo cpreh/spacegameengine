@@ -13,13 +13,7 @@
 #include <sge/font/bitmap/impl/const_view.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 class char_metric
@@ -50,9 +44,6 @@ private:
 	sge::font::unit x_advance_;
 };
 
-}
-}
-}
 }
 
 #endif

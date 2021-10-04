@@ -8,17 +8,11 @@
 #define SGE_RENDERER_INDEX_CONST_SCOPED_LOCK_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 class const_scoped_lock;
 
-}
-}
 }
 
 #endif

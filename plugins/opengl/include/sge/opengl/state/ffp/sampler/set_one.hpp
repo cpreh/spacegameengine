@@ -12,15 +12,7 @@
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::opengl::state::ffp::sampler
 {
 
 sge::opengl::state::ffp::sampler::actor
@@ -29,10 +21,6 @@ set_one(
 	sge::opengl::texture::funcs::env_int_value
 );
 
-}
-}
-}
-}
 }
 
 #endif

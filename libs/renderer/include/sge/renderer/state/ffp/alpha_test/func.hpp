@@ -10,15 +10,7 @@
 #include <sge/renderer/state/ffp/alpha_test/func_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace alpha_test
+namespace sge::renderer::state::ffp::alpha_test
 {
 
 enum class func
@@ -33,10 +25,6 @@ enum class func
 	always
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <awl/event/container.hpp>
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 using
@@ -23,7 +21,6 @@ awl::event::container (
 	awl::event::base const &
 );
 
-}
 }
 
 #endif

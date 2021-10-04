@@ -14,11 +14,7 @@
 #include <fcppt/record/from_list.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
+namespace sge::sprite::detail
 {
 
 template<
@@ -45,8 +41,6 @@ fcppt::record::from_list<
 	>
 >;
 
-}
-}
 }
 
 #endif

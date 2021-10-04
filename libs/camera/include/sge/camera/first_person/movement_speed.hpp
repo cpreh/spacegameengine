@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace first_person
+namespace sge::camera::first_person
 {
 
 /**
@@ -28,8 +24,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	movement_speed
 );
 
-}
-}
 }
 
 #endif

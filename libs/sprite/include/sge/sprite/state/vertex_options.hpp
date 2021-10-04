@@ -10,11 +10,7 @@
 #include <sge/sprite/state/vertex_options_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 enum class vertex_options
@@ -25,8 +21,6 @@ enum class vertex_options
 	nothing
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/renderer/core_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace plugin
+namespace sge::renderer::plugin
 {
 
 using
@@ -25,8 +21,6 @@ sge::plugin::object<
 	sge::renderer::core
 >;
 
-}
-}
 }
 
 #endif

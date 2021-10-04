@@ -10,28 +10,13 @@
 #include <sge/image/color/impl/dynamic/format/empty_c8_1.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 extern
 sge::image::color::impl::dynamic::format::empty_c8_1 const
 a8;
 
-}
-}
-}
-}
-}
 }
 
 #endif

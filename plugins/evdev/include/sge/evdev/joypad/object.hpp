@@ -27,11 +27,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
@@ -85,8 +81,6 @@ private:
 	sge::evdev::joypad::info const info_;
 };
 
-}
-}
 }
 
 #endif

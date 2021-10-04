@@ -8,17 +8,7 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_VALUE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
 using
@@ -26,11 +16,6 @@ value
 =
 unsigned;
 
-}
-}
-}
-}
-}
 }
 
 #endif

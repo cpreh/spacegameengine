@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class fp_actor
@@ -60,8 +56,6 @@ private:
 	GLenum const client_state_;
 };
 
-}
-}
 }
 
 #endif

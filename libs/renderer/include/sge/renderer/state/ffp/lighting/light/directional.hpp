@@ -12,17 +12,7 @@
 #include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::renderer::state::ffp::lighting::light
 {
 
 class directional
@@ -42,11 +32,6 @@ private:
 	sge::renderer::state::ffp::lighting::light::direction direction_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

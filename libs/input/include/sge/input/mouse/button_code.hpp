@@ -10,11 +10,7 @@
 #include <sge/input/mouse/button_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 enum class button_code
@@ -25,8 +21,6 @@ enum class button_code
 	unknown
 };
 
-}
-}
 }
 
 #endif

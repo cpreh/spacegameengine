@@ -13,13 +13,7 @@
 #include <sge/scenic/render_context/fog/start.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace fog
+namespace sge::scenic::render_context::fog
 {
 class properties
 {
@@ -50,9 +44,6 @@ private:
 	sge::scenic::render_context::fog::end end_;
 	sge::scenic::render_context::fog::color color_;
 };
-}
-}
-}
 }
 
 #endif

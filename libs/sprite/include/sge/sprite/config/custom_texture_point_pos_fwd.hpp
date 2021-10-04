@@ -8,11 +8,7 @@
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_POS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 struct custom_texture_point_pos;
 
-}
-}
 }
 
 #endif

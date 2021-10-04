@@ -10,9 +10,7 @@
 #include <sge/opengl/common.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 void
@@ -20,7 +18,6 @@ disable(
 	GLenum
 );
 
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <sge/scenic/vf/texcoord.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace vf
+namespace sge::scenic::vf
 {
 
 using
@@ -29,8 +25,6 @@ sge::renderer::vf::part<
 	sge::scenic::vf::texcoord
 >;
 
-}
-}
 }
 
 #endif

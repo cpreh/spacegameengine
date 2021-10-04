@@ -8,9 +8,7 @@
 #define SGE_FONT_CHAR_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 using
@@ -18,7 +16,6 @@ char_type
 =
 wchar_t;
 
-}
 }
 
 #endif

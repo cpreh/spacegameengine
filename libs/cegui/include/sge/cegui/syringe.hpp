@@ -28,9 +28,7 @@ class GUIContext;
 }
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 class syringe
@@ -95,7 +93,6 @@ private:
 	fcppt::log::object log_;
 };
 
-}
 }
 
 #endif

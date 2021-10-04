@@ -17,7 +17,7 @@
 
 
 sge::opengl::wayland::system::system(
-	awl::backends::wayland::system::object_ref const _system
+	awl::backends::wayland::system::object_ref const  /*_system*/
 )
 :
 	sge::opengl::platform::system()
@@ -30,7 +30,7 @@ sge::opengl::wayland::system::~system()
 sge::opengl::platform::device_state_unique_ptr
 sge::opengl::wayland::system::create_device_state(
 	sge::renderer::display_mode::optional_fullscreen const &_fullscreen,
-	sge::window::object_ref const _window
+	sge::window::object_ref const  /*_window*/
 )
 {
 	return

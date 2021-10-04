@@ -8,14 +8,11 @@
 #define SGE_GRAPH_AXIS_CONSTRAINT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace graph
+namespace sge::graph
 {
 
 class axis_constraint;
 
-}
 }
 
 #endif

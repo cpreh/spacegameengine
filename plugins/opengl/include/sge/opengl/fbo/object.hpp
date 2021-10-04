@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class object
@@ -45,8 +41,6 @@ private:
 	sge::opengl::fbo::id const id_;
 };
 
-}
-}
 }
 
 #endif

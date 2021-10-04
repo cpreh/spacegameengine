@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace profile
+namespace sge::cg::profile
 {
 
 class object
@@ -38,8 +34,6 @@ private:
 	CGprofile profile_;
 };
 
-}
-}
 }
 
 #endif

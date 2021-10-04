@@ -16,13 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace impl
-{
-namespace output
+namespace sge::parse::impl::output
 {
 
 template<
@@ -61,9 +55,6 @@ to_file(
 		ofs.good();
 }
 
-}
-}
-}
 }
 
 #endif

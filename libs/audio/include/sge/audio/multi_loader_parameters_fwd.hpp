@@ -11,9 +11,7 @@
 #include <sge/media/muxer_parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 using
@@ -23,7 +21,6 @@ sge::media::muxer_parameters<
 	sge::audio::loader
 >;
 
-}
 }
 
 #endif

@@ -7,9 +7,7 @@
 #ifndef SGE_BVH_DUMMY_NODE_HPP_INCLUDED
 #define SGE_BVH_DUMMY_NODE_HPP_INCLUDED
 
-namespace sge
-{
-namespace bvh
+namespace sge::bvh
 {
 class dummy_node
 {
@@ -21,7 +19,6 @@ public:
 	{
 	}
 };
-}
 }
 
 #endif

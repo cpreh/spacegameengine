@@ -14,17 +14,7 @@
 #include <sge/renderer/state/core/sampler/address/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace address
+namespace sge::renderer::state::core::sampler::address
 {
 
 class parameters
@@ -65,11 +55,6 @@ operator==(
 	sge::renderer::state::core::sampler::address::parameters const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

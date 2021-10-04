@@ -13,17 +13,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/separate_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
 class separate
@@ -50,11 +40,6 @@ private:
 	sge::renderer::state::core::depth_stencil::stencil::back back_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 template<
@@ -54,8 +50,6 @@ from_cegui_rect(
 		};
 }
 
-}
-}
 }
 
 #endif

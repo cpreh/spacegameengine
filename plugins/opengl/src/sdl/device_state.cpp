@@ -178,7 +178,7 @@ sge::opengl::sdl::device_state::do_fullscreen(
 				[
 					&set_fullscreen
 				](
-					sge::renderer::display_mode::object const &_display_mode
+					sge::renderer::display_mode::object const & /*_display_mode*/
 				)
 				{
 					// TODO(philipp): Set display_mode

@@ -34,11 +34,7 @@ class RenderQueue;
 class Texture;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class texture_target
@@ -155,8 +151,6 @@ private:
 	sge::renderer::state::ffp::transform::optional_object_unique_ptr transform_state_;
 };
 
-}
-}
 }
 
 #endif

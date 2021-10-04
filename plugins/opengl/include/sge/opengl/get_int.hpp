@@ -10,9 +10,7 @@
 #include <sge/opengl/common.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 GLint
@@ -20,7 +18,6 @@ get_int(
 	GLenum
 );
 
-}
 }
 
 #endif

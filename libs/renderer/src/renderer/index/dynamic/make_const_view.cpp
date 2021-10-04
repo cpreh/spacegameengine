@@ -15,9 +15,9 @@ sge::renderer::index::dynamic::make_const_view(
 )
 {
 	return
-		sge::renderer::index::dynamic::const_view(
+		{
 			_view.data(),
 			_view.size(),
 			_view.format()
-		);
+		};
 }

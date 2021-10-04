@@ -19,11 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
+namespace sge::cg::parameter
 {
 
 class created
@@ -61,8 +57,6 @@ private:
 	CGparameter const parameter_; // NOLINT(misc-misplaced-const)
 };
 
-}
-}
 }
 
 #endif

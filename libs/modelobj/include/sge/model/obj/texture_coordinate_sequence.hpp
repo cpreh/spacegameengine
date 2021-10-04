@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::model::obj::texture_coordinate
 >;
 
-}
-}
 }
 
 #endif

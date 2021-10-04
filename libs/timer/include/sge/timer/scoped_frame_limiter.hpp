@@ -13,9 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 /**
@@ -65,7 +63,6 @@ private:
 	clock_type::duration minimum_frame_length_;
 };
 
-}
 }
 
 #endif

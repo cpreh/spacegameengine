@@ -8,17 +8,11 @@
 #define SGE_OPENGL_BUFFER_HARDWARE_CONFIG_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 class hardware_config;
 
-}
-}
 }
 
 #endif

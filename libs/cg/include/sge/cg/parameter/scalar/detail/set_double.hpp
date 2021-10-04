@@ -11,15 +11,7 @@
 #include <sge/cg/parameter/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace scalar
-{
-namespace detail
+namespace sge::cg::parameter::scalar::detail
 {
 
 SGE_CG_DETAIL_SYMBOL
@@ -29,10 +21,6 @@ set_double(
 	double
 );
 
-}
-}
-}
-}
 }
 
 #endif

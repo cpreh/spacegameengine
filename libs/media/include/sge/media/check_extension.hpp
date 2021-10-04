@@ -12,9 +12,7 @@
 #include <sge/media/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 SGE_MEDIA_DETAIL_SYMBOL
@@ -24,7 +22,6 @@ check_extension(
 	sge::media::optional_extension const &
 );
 
-}
 }
 
 #endif

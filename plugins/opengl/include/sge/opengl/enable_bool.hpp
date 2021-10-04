@@ -10,9 +10,7 @@
 #include <sge/opengl/common.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 void
@@ -21,7 +19,6 @@ enable_bool(
 	bool
 );
 
-}
 }
 
 #endif

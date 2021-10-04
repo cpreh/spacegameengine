@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace cg
+namespace sge::renderer::cg
 {
 
 class scoped_program
@@ -41,8 +37,6 @@ private:
 	sge::renderer::cg::const_loaded_program_ref const program_;
 };
 
-}
-}
 }
 
 #endif

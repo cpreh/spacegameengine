@@ -16,11 +16,7 @@
 #include <fcppt/variant/from_list.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace pixel
+namespace sge::image::pixel
 {
 
 template<
@@ -109,8 +105,6 @@ private:
 	variant variant_;
 };
 
-}
-}
 }
 
 #endif

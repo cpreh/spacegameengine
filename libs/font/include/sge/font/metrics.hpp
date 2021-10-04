@@ -12,9 +12,7 @@
 #include <sge/font/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 class metrics
@@ -34,7 +32,6 @@ private:
 	sge::font::height height_;
 };
 
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/systems/detail/any_map.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 sge::systems::plugin_path
@@ -23,8 +19,6 @@ extract_plugin_path(
 	sge::systems::detail::any_map const &
 );
 
-}
-}
 }
 
 #endif

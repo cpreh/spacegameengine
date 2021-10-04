@@ -11,15 +11,7 @@
 #include <fcppt/math/dim/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace matrix
-{
-namespace detail
+namespace sge::cg::parameter::matrix::detail
 {
 
 using
@@ -30,10 +22,6 @@ fcppt::math::dim::static_<
 	2
 >;
 
-}
-}
-}
-}
 }
 
 #endif

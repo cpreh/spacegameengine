@@ -15,13 +15,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
-{
-namespace image
+namespace sge::opencl::memory_object::image
 {
 
 SGE_OPENCL_DETAIL_SYMBOL
@@ -35,9 +29,6 @@ read_planar(
 	sge::opencl::memory_object::rect const &
 );
 
-}
-}
-}
 }
 
 #endif

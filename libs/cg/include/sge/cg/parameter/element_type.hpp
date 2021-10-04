@@ -10,11 +10,7 @@
 #include <sge/cg/parameter/element_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
+namespace sge::cg::parameter
 {
 
 enum class element_type
@@ -84,8 +80,6 @@ enum class element_type
 	int4x4
 };
 
-}
-}
 }
 
 #endif

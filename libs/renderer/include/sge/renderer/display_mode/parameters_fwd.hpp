@@ -8,17 +8,11 @@
 #define SGE_RENDERER_DISPLAY_MODE_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 class parameters;
 
-}
-}
 }
 
 #endif

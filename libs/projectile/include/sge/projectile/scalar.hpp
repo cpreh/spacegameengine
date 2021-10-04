@@ -8,9 +8,7 @@
 #define SGE_PROJECTILE_SCALAR_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace projectile
+namespace sge::projectile
 {
 
 // FIXME(philipp): We probably should use btScalar here
@@ -19,7 +17,6 @@ scalar
 =
 float;
 
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_SYSTEMS_DETAIL_ANY_KEY_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 enum class any_key;
 
-}
-}
 }
 
 #endif

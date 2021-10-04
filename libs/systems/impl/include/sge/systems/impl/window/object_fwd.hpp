@@ -8,20 +8,11 @@
 #define SGE_SYSTEMS_IMPL_WINDOW_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 class object;
 
-}
-}
-}
 }
 
 #endif

@@ -8,19 +8,13 @@
 #define SGE_OPENGL_TEXTURE_SURFACE_CONFIG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class surface_config
 {
 };
 
-}
-}
 }
 
 #endif

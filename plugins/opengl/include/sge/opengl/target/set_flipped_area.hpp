@@ -12,11 +12,7 @@
 #include <sge/renderer/screen_unit.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 void
@@ -26,8 +22,6 @@ set_flipped_area(
 	sge::renderer::screen_unit
 );
 
-}
-}
 }
 
 #endif

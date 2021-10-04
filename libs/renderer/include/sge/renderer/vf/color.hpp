@@ -12,11 +12,7 @@
 #include <sge/renderer/vf/labels/color.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -34,8 +30,6 @@ sge::renderer::vf::color_base<
 	sge::renderer::vf::labels::color;
 };
 
-}
-}
 }
 
 #endif

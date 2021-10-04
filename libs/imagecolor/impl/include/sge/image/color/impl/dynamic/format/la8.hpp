@@ -10,28 +10,13 @@
 #include <sge/image/color/impl/dynamic/format/luminance_c8_2.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 extern
 sge::image::color::impl::dynamic::format::luminance_c8_2 const
 la8;
 
-}
-}
-}
-}
-}
 }
 
 #endif

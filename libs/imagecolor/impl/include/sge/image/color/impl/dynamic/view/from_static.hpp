@@ -16,17 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace view
+namespace sge::image::color::impl::dynamic::view
 {
 
 template<
@@ -90,11 +80,6 @@ from_static(
 		);
 }
 
-}
-}
-}
-}
-}
 }
 
 #endif

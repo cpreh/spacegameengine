@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 template<
@@ -49,7 +47,6 @@ make_list(
 		};
 }
 
-}
 }
 
 #endif

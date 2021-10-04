@@ -8,17 +8,11 @@
 #define SGE_OPENGL_TEXTURE_BASIC_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class basic_parameters;
 
-}
-}
 }
 
 #endif

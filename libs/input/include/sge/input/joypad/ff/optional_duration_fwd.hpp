@@ -11,13 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 using
@@ -27,9 +21,6 @@ fcppt::optional::object<
 	sge::input::joypad::ff::duration
 >;
 
-}
-}
-}
 }
 
 #endif

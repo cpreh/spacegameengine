@@ -11,13 +11,7 @@
 #include <sge/x11input/device/valuator/relative_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace valuator
+namespace sge::x11input::device::valuator
 {
 
 class relative
@@ -37,9 +31,6 @@ private:
 	sge::x11input::device::valuator::accu accu_;
 };
 
-}
-}
-}
 }
 
 #endif

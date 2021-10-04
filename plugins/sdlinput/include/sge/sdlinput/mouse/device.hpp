@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace mouse
+namespace sge::sdlinput::mouse
 {
 
 class device
@@ -53,8 +49,6 @@ private:
 	sge::input::mouse::info const info_;
 };
 
-}
-}
 }
 
 #endif

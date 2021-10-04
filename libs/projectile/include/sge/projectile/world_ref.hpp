@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace projectile
+namespace sge::projectile
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::projectile::world
 >;
 
-}
 }
 
 #endif

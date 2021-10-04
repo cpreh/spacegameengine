@@ -15,11 +15,7 @@
 #include <sge/renderer/vf/detail/iterator_base.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -132,8 +128,6 @@ private:
 	sge::renderer::vf::view;
 };
 
-}
-}
 }
 
 #endif

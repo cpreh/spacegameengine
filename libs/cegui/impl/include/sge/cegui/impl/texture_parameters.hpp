@@ -16,11 +16,7 @@
 #include <sge/renderer/texture/emulate_srgb.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class texture_parameters
@@ -58,8 +54,6 @@ private:
 	sge::renderer::texture::emulate_srgb emulate_srgb_;
 };
 
-}
-}
 }
 
 #endif

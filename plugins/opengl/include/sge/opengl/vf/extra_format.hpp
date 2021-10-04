@@ -11,11 +11,7 @@
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 GLenum
@@ -23,8 +19,6 @@ extra_format(
 	sge::renderer::vf::dynamic::extra_any const &
 );
 
-}
-}
 }
 
 #endif

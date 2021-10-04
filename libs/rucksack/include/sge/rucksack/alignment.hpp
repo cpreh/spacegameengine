@@ -10,9 +10,7 @@
 #include <sge/rucksack/alignment_fwd.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 enum class alignment
@@ -23,7 +21,6 @@ enum class alignment
 	fcppt_maximum = right_or_bottom
 };
 
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/opengl/vf/attribute_config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class attribute_config
@@ -68,8 +64,6 @@ private:
 	gl_disable_vertex_attrib_array disable_vertex_attrib_array_;
 };
 
-}
-}
 }
 
 #endif

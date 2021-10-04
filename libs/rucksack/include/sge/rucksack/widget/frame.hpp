@@ -18,11 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace widget
+namespace sge::rucksack::widget
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL frame
@@ -98,8 +94,6 @@ private:
 	sge::rucksack::padding const padding_;
 };
 
-}
-}
 }
 
 #endif

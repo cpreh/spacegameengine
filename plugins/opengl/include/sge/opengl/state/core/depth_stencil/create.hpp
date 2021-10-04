@@ -12,15 +12,7 @@
 #include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
+namespace sge::opengl::state::core::depth_stencil
 {
 
 sge::renderer::state::core::depth_stencil::object_unique_ptr
@@ -29,10 +21,6 @@ create(
 	sge::renderer::state::core::depth_stencil::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

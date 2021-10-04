@@ -10,11 +10,7 @@
 #include <sge/image/color/any/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace clear
+namespace sge::renderer::clear
 {
 
 /**
@@ -29,8 +25,6 @@ back_buffer_value
 =
 sge::image::color::any::object;
 
-}
-}
 }
 
 #endif

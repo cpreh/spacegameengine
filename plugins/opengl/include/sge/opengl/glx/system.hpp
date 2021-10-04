@@ -20,11 +20,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 class system
@@ -66,8 +62,6 @@ private:
 	sge::opengl::glx::visual::optional_srgb_flag const srgb_flag_;
 };
 
-}
-}
 }
 
 #endif

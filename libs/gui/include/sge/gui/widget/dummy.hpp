@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class dummy
@@ -42,8 +38,6 @@ private:
 	override;
 };
 
-}
-}
 }
 
 #endif

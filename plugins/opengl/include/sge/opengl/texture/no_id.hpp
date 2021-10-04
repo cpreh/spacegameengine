@@ -10,11 +10,7 @@
 #include <sge/opengl/texture/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 extern
@@ -22,8 +18,6 @@ sge::opengl::texture::id
 const
 no_id;
 
-}
-}
 }
 
 #endif

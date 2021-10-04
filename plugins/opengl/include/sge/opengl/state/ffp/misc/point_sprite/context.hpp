@@ -15,17 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
-{
-namespace point_sprite
+namespace sge::opengl::state::ffp::misc::point_sprite
 {
 
 class context
@@ -60,11 +50,6 @@ private:
 	sge::opengl::state::ffp::misc::point_sprite::optional_config const config_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

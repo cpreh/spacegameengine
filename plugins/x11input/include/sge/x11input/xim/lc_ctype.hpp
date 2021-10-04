@@ -10,18 +10,12 @@
 #include <fcppt/optional_std_string.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace xim
+namespace sge::x11input::xim
 {
 
 fcppt::optional_std_string
 lc_ctype();
 
-}
-}
 }
 
 #endif

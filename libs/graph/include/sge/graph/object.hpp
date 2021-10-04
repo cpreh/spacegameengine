@@ -44,9 +44,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace graph
+namespace sge::graph
 {
 
 class object
@@ -204,7 +202,6 @@ private:
 	);
 };
 
-}
 }
 
 #endif

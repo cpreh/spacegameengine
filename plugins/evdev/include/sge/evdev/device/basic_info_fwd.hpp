@@ -8,11 +8,7 @@
 #define SGE_EVDEV_DEVICE_BASIC_INFO_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 template<
@@ -21,8 +17,6 @@ template<
 >
 class basic_info;
 
-}
-}
 }
 
 #endif

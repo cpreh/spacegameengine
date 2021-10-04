@@ -19,11 +19,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class texpos_actor
@@ -67,8 +63,6 @@ private:
 	sge::renderer::texture::stage const index_;
 };
 
-}
-}
 }
 
 #endif

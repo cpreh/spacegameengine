@@ -17,11 +17,7 @@
 
 class btCollisionShape;
 
-namespace sge
-{
-namespace projectile
-{
-namespace shape
+namespace sge::projectile::shape
 {
 class SGE_CORE_DETAIL_CLASS_SYMBOL circle
 :
@@ -54,8 +50,6 @@ public:
 private:
 	fcppt::unique_ptr<btCollisionShape> const bullet_shape_;
 };
-}
-}
 }
 
 #endif

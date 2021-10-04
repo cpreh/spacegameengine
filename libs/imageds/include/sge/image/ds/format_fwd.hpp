@@ -8,17 +8,11 @@
 #define SGE_IMAGE_DS_FORMAT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
+namespace sge::image::ds
 {
 
 enum class format;
 
-}
-}
 }
 
 #endif

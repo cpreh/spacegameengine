@@ -12,11 +12,7 @@
 #include <sge/input/joypad/info.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 class info
@@ -40,8 +36,6 @@ private:
 	sge::evdev::joypad::event_map event_map_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,15 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::renderer::state::core::blend
 {
 
 using
@@ -29,10 +21,6 @@ fcppt::unique_ptr<
 	sge::renderer::state::core::blend::object
 >;
 
-}
-}
-}
-}
 }
 
 #endif

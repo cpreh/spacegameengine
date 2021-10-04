@@ -12,11 +12,7 @@
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 sge::renderer::vertex::buffer_unique_ptr
@@ -25,8 +21,6 @@ create_buffer(
 	sge::renderer::vertex::buffer_parameters const &
 );
 
-}
-}
 }
 
 #endif

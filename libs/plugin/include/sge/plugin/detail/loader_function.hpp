@@ -10,11 +10,7 @@
 #include <sge/plugin/detail/loader_function_tpl.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 template<
@@ -28,8 +24,6 @@ sge::plugin::detail::loader_function_tpl<
 	Type
 >::type;
 
-}
-}
 }
 
 #endif

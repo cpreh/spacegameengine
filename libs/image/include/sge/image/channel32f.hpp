@@ -8,9 +8,7 @@
 #define SGE_IMAGE_CHANNEL32F_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 using
@@ -18,7 +16,6 @@ channel32f
 =
 float;
 
-}
 }
 
 #endif

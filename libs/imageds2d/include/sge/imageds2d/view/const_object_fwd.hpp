@@ -11,11 +11,7 @@
 #include <sge/imageds2d/tag.hpp>
 
 
-namespace sge
-{
-namespace imageds2d
-{
-namespace view
+namespace sge::imageds2d::view
 {
 
 using
@@ -25,8 +21,6 @@ sge::image::view::const_object<
 	sge::imageds2d::tag
 >;
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/container/raw_vector/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace focus
+namespace sge::x11input::focus
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::container::raw_vector::object<
 	sge::input::focus::char_type
 >;
 
-}
-}
 }
 
 #endif

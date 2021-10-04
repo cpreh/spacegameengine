@@ -7,15 +7,9 @@
 #ifndef SGE_AUDIO_SOUND_NONPOSITIONAL_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_NONPOSITIONAL_PARAMETERS_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 class nonpositional_parameters;
-}
-}
 }
 
 #endif

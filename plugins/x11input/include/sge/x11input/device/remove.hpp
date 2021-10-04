@@ -15,11 +15,7 @@
 #include <fcppt/container/find_opt_iterator.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
+namespace sge::x11input::device
 {
 
 template<
@@ -69,8 +65,6 @@ remove(
 		result;
 }
 
-}
-}
 }
 
 #endif

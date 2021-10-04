@@ -11,11 +11,7 @@
 #include <sge/renderer/target/scissor_area_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 void
@@ -24,8 +20,6 @@ set_scissor_area(
 	sge::renderer::screen_unit
 );
 
-}
-}
 }
 
 #endif

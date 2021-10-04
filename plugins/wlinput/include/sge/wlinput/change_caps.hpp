@@ -33,9 +33,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
+namespace sge::wlinput
 {
 
 template<
@@ -186,7 +184,6 @@ change_caps(
 		;
 }
 
-}
 }
 
 #endif

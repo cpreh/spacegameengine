@@ -11,11 +11,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 
 class base
@@ -35,8 +31,6 @@ protected:
 	base();
 };
 
-}
-}
 }
 
 #endif

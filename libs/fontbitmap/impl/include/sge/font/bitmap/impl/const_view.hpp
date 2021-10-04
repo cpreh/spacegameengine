@@ -10,13 +10,7 @@
 #include <sge/image2d/view/const_object.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 using
@@ -24,9 +18,6 @@ const_view
 =
 sge::image2d::view::const_object;
 
-}
-}
-}
 }
 
 #endif

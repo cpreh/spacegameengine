@@ -21,15 +21,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::opengl::state::core::sampler
 {
 
 class context
@@ -99,10 +91,6 @@ private:
 	optional_object_ref_map objects_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

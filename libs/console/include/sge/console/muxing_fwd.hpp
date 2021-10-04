@@ -8,14 +8,11 @@
 #define SGE_CONSOLE_MUXING_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 enum class muxing;
 
-}
 }
 
 #endif

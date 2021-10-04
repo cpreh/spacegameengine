@@ -13,13 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 class wrapped_system
@@ -46,9 +40,6 @@ private:
 	sge::window::system system_;
 };
 
-}
-}
-}
 }
 
 #endif

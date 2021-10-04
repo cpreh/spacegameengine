@@ -20,9 +20,7 @@
 #include <fcppt/log/object.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class system
@@ -66,7 +64,6 @@ private:
 	fcppt::log::object log_;
 };
 
-}
 }
 
 #endif

@@ -13,13 +13,7 @@
 #include <awl/visual/object_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
-namespace visual
+namespace sge::opengl::glx::visual
 {
 
 awl::visual::object_unique_ptr
@@ -29,9 +23,6 @@ create(
 	sge::renderer::pixel_format::object const &
 );
 
-}
-}
-}
 }
 
 #endif

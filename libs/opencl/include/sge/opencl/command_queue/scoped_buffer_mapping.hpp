@@ -18,11 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace command_queue
+namespace sge::opencl::command_queue
 {
 
 class scoped_buffer_mapping
@@ -54,8 +50,6 @@ private:
 	void *ptr_;
 };
 
-}
-}
 }
 
 #endif

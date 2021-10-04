@@ -8,14 +8,11 @@
 #define SGE_VORBIS_STREAM_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 class stream;
 
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <fcppt/mpl/list/front.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace config
+namespace sge::sprite::detail::config
 {
 
 template<
@@ -35,9 +29,6 @@ fcppt::mpl::list::front<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

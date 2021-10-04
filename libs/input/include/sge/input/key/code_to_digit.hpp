@@ -12,11 +12,7 @@
 #include <sge/input/key/optional_digit_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace key
+namespace sge::input::key
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ code_to_digit(
 	sge::input::key::code
 );
 
-}
-}
 }
 
 #endif

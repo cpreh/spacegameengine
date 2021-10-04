@@ -13,9 +13,7 @@
 #include <sge/gui/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 SGE_GUI_DETAIL_SYMBOL
@@ -25,7 +23,6 @@ needed_width_from_strings(
 	sge::gui::string_container const &
 );
 
-}
 }
 
 #endif

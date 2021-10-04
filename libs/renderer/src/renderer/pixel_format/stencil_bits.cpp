@@ -25,7 +25,7 @@ sge::renderer::pixel_format::stencil_bits(
 	case sge::renderer::pixel_format::depth_stencil::d24:
 	case sge::renderer::pixel_format::depth_stencil::d32:
 		return
-			sge::renderer::pixel_format::optional_bit_count();
+			{};
 	case sge::renderer::pixel_format::depth_stencil::d24s8:
 		return
 			sge::renderer::pixel_format::optional_bit_count(

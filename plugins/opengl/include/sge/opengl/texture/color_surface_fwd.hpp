@@ -11,11 +11,7 @@
 #include <sge/opengl/texture/color_surface_types_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 using
@@ -25,8 +21,6 @@ sge::opengl::texture::basic_buffer<
 	sge::opengl::texture::color_surface_types
 >;
 
-}
-}
 }
 
 #endif

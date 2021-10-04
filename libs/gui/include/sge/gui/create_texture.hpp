@@ -13,9 +13,7 @@
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace gui
+namespace sge::gui
 {
 
 SGE_GUI_DETAIL_SYMBOL
@@ -25,7 +23,6 @@ create_texture(
 	sge::image2d::view::const_object const &
 );
 
-}
 }
 
 #endif

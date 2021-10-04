@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class pos_actor
@@ -49,8 +45,6 @@ private:
 	GLint const elements_;
 };
 
-}
-}
 }
 
 #endif

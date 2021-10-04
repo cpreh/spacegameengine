@@ -15,11 +15,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 class hardware_config
@@ -157,8 +153,6 @@ private:
 	optional_gl_map_buffer_range map_buffer_range_;
 };
 
-}
-}
 }
 
 #endif

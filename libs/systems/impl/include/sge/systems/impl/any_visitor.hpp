@@ -19,11 +19,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 class any_visitor
@@ -81,8 +77,6 @@ private:
 	> impl_;
 };
 
-}
-}
 }
 
 #endif

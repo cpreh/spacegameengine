@@ -8,17 +8,11 @@
 #define SGE_CG_CONTEXT_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cg
-{
-namespace context
+namespace sge::cg::context
 {
 
 class object;
 
-}
-}
 }
 
 #endif

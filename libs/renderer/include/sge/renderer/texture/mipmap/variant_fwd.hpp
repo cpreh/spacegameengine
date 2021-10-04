@@ -13,13 +13,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::renderer::texture::mipmap
 {
 
 using
@@ -31,9 +25,6 @@ fcppt::variant::object<
 	sge::renderer::texture::mipmap::levels_rep
 >;
 
-}
-}
-}
 }
 
 #endif

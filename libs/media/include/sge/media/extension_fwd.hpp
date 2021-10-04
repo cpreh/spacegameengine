@@ -11,9 +11,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -21,7 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	extension
 );
 
-}
 }
 
 #endif

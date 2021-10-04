@@ -11,11 +11,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace target
+namespace sge::renderer::target
 {
 
 /**
@@ -26,8 +22,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	scissor_area
 );
 
-}
-}
 }
 
 #endif

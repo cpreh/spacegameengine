@@ -11,11 +11,7 @@
 #include <sge/renderer/display_mode/container.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::renderer::display_mode::container
@@ -23,8 +19,6 @@ display_modes(
 	sge::opengl::xrandr::configuration const &
 );
 
-}
-}
 }
 
 #endif

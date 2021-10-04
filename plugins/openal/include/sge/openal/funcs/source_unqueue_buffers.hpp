@@ -12,11 +12,7 @@
 #include <sge/openal/source_id.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 sge::openal::buffer_id_container
@@ -25,8 +21,6 @@ source_unqueue_buffers(
 	ALsizei
 );
 
-}
-}
 }
 
 #endif

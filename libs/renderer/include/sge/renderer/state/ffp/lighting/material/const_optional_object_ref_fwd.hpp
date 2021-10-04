@@ -11,17 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace material
+namespace sge::renderer::state::ffp::lighting::material
 {
 
 using
@@ -31,11 +21,6 @@ fcppt::optional::reference<
 	sge::renderer::state::ffp::lighting::material::object const
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

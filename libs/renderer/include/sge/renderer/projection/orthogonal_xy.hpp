@@ -11,19 +11,13 @@
 #include <sge/renderer/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace projection
+namespace sge::renderer::projection
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::matrix4
 orthogonal_xy();
 
-}
-}
 }
 
 #endif

@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 class context
@@ -51,8 +47,6 @@ private:
 	sge::opengl::buffer::optional_hardware_config const hardware_config_;
 };
 
-}
-}
 }
 
 #endif

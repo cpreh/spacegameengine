@@ -15,11 +15,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
@@ -33,8 +29,6 @@ set_or_create(
 	sge::parse::ini::value const &
 );
 
-}
-}
 }
 
 #endif

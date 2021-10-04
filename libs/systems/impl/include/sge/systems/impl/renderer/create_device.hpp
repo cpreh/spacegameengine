@@ -13,13 +13,7 @@
 #include <sge/systems/impl/window/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace renderer
+namespace sge::systems::impl::renderer
 {
 
 sge::renderer::device::core_unique_ptr
@@ -29,9 +23,6 @@ create_device(
 	sge::systems::impl::window::object const &
 );
 
-}
-}
-}
 }
 
 #endif

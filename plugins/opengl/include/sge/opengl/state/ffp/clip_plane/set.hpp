@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::opengl::state::ffp::clip_plane
 {
 
 void
@@ -28,10 +20,6 @@ set(
 	sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

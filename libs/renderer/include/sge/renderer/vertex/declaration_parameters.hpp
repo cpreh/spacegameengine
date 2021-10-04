@@ -13,11 +13,7 @@
 
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 class declaration_parameters
@@ -37,8 +33,6 @@ private:
 	sge::renderer::vf::dynamic::format format_;
 };
 
-}
-}
 }
 
 #endif

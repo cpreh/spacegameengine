@@ -13,13 +13,7 @@
 #endif
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
-{
-namespace library
+namespace sge::plugin::impl::library
 {
 
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
@@ -36,9 +30,6 @@ FARPROC;
 #error "Don't know what a library's symbol is!"
 #endif
 
-}
-}
-}
 }
 
 #endif

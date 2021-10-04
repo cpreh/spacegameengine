@@ -11,11 +11,7 @@
 #include <sge/opencl/command_queue/map_flags_fwd.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace command_queue
+namespace sge::opencl::command_queue
 {
 // There's no DETAIL_SYMBOL missing here, this header is private. However, I didn't
 // want to add a src/ and include/ directory to the implementation, so I put it
@@ -23,8 +19,6 @@ namespace command_queue
 cl_map_flags
 map_flags_to_native(
 	sge::opencl::command_queue::map_flags);
-}
-}
 }
 
 #endif

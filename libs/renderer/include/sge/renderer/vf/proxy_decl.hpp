@@ -15,11 +15,7 @@
 #include <sge/renderer/vf/vertex_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -101,8 +97,6 @@ private:
 	pointer data_;
 };
 
-}
-}
 }
 
 #endif

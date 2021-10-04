@@ -23,11 +23,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace shader
-{
-namespace parameter
+namespace sge::shader::parameter
 {
 
 class planar_texture
@@ -131,8 +127,6 @@ private:
 	optional_value value_;
 };
 
-}
-}
 }
 
 #endif

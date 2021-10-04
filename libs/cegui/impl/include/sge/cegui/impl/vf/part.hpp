@@ -13,13 +13,7 @@
 #include <sge/renderer/vf/part.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
-{
-namespace vf
+namespace sge::cegui::impl::vf
 {
 
 using
@@ -31,9 +25,6 @@ sge::renderer::vf::part<
 	sge::cegui::impl::vf::color
 >;
 
-}
-}
-}
 }
 
 #endif

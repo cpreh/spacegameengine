@@ -11,11 +11,7 @@
 #include <sge/cg/program/extra_index.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 using
@@ -25,8 +21,6 @@ sge::cg::string(
 	sge::cg::program::extra_index
 );
 
-}
-}
 }
 
 #endif

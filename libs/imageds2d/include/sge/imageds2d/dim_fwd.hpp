@@ -10,9 +10,7 @@
 #include <sge/image/basic_dim_fwd.hpp>
 
 
-namespace sge
-{
-namespace imageds2d
+namespace sge::imageds2d
 {
 
 using
@@ -22,7 +20,6 @@ sge::image::basic_dim<
 	2
 >;
 
-}
 }
 
 #endif

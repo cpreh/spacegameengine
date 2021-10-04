@@ -14,13 +14,7 @@
 #include <sge/sprite/config/texture_level_count.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace compare
-{
-namespace detail
+namespace sge::sprite::compare::detail
 {
 
 template<
@@ -97,9 +91,6 @@ struct textures<
 	}
 };
 
-}
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/renderer/display_mode/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 /**
@@ -46,8 +42,6 @@ operator!=(
 	sge::renderer::display_mode::object const &mode2
 );
 
-}
-}
 }
 
 #endif

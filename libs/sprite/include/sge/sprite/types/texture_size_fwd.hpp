@@ -8,17 +8,11 @@
 #define SGE_SPRITE_TYPES_TEXTURE_SIZE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
+namespace sge::sprite::types
 {
 
 struct texture_size;
 
-}
-}
 }
 
 #endif

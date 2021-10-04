@@ -10,9 +10,7 @@
 #include <sge/audio/raw_data.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 using
@@ -20,7 +18,6 @@ raw_pointer
 =
 sge::audio::raw_data *;
 
-}
 }
 
 #endif

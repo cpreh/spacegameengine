@@ -16,11 +16,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 template<
@@ -78,8 +74,6 @@ private:
 	state_options const options_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/opengl/texture/type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 void
@@ -24,8 +20,6 @@ disable(
 	sge::opengl::texture::type
 );
 
-}
-}
 }
 
 #endif

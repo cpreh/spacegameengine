@@ -11,13 +11,7 @@
 #include <sge/input/joypad/ff/variant_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace ff
+namespace sge::evdev::joypad::ff
 {
 
 sge::evdev::joypad::ff::variant
@@ -25,9 +19,6 @@ convert_variant(
 	sge::input::joypad::ff::variant const &
 );
 
-}
-}
-}
 }
 
 #endif

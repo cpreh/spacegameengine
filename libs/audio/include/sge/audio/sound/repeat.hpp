@@ -10,11 +10,7 @@
 #include <sge/audio/sound/repeat_fwd.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 enum class repeat
@@ -23,8 +19,6 @@ enum class repeat
 	loop
 };
 
-}
-}
 }
 
 #endif

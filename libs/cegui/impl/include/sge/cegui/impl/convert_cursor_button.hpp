@@ -11,11 +11,7 @@
 #include <sge/input/cursor/button_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 sge::cegui::impl::optional_mouse_button
@@ -23,8 +19,6 @@ convert_cursor_button(
 	sge::input::cursor::button_code
 );
 
-}
-}
 }
 
 #endif

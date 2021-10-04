@@ -11,11 +11,7 @@
 #include <sge/opengl/fbo/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 void
@@ -24,8 +20,6 @@ delete_id(
 	sge::opengl::fbo::id
 );
 
-}
-}
 }
 
 #endif

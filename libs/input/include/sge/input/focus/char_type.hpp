@@ -8,11 +8,7 @@
 #define SGE_INPUT_FOCUS_CHAR_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace focus
+namespace sge::input::focus
 {
 
 using
@@ -20,8 +16,6 @@ char_type
 =
 wchar_t;
 
-}
-}
 }
 
 #endif

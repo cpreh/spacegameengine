@@ -13,13 +13,7 @@
 #include <awl/window/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 awl::window::parameters
@@ -29,9 +23,6 @@ to_awl_parameters(
 	sge::systems::original_window const &
 );
 
-}
-}
-}
 }
 
 #endif

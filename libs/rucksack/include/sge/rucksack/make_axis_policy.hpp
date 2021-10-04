@@ -12,9 +12,7 @@
 #include <sge/rucksack/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 SGE_RUCKSACK_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ make_axis_policy(
 	sge::rucksack::axis_policy_function const &
 );
 
-}
 }
 
 #endif

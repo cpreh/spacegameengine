@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace cursor
+namespace sge::sdlinput::cursor
 {
 
 fcppt::optional::reference<
@@ -25,8 +21,6 @@ fcppt::optional::reference<
 >
 get_focus();
 
-}
-}
 }
 
 #endif

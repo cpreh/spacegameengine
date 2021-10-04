@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::vorbis::stream_unique_ptr
 >;
 
-}
 }
 
 #endif

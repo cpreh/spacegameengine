@@ -14,11 +14,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace store
+namespace sge::image3d::store
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
@@ -37,8 +33,6 @@ view(
 	>
 );
 
-}
-}
 }
 
 #endif

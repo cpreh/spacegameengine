@@ -10,11 +10,7 @@
 #include <sge/sprite/detail/buffers/offset_object.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 template<
@@ -27,8 +23,6 @@ sge::sprite::detail::buffers::offset_object<
 	Choices
 >::type;
 
-}
-}
 }
 
 #endif

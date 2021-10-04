@@ -10,9 +10,7 @@
 #include <sge/plugin/flags_fwd.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 enum class flags
@@ -29,7 +27,6 @@ enum class flags
 	fcppt_maximum = delayed_unload
 };
 
-}
 }
 
 #endif

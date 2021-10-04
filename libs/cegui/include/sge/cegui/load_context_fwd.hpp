@@ -8,14 +8,11 @@
 #define SGE_CEGUI_LOAD_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 class load_context;
 
-}
 }
 
 #endif

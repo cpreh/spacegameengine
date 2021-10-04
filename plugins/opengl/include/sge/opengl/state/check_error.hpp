@@ -16,11 +16,7 @@
 #endif
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
+namespace sge::opengl::state
 {
 
 inline
@@ -43,8 +39,6 @@ check_error(
 #endif
 }
 
-}
-}
 }
 
 #endif

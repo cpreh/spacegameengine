@@ -11,13 +11,7 @@
 #include <fcppt/optional_string_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace absolute_axis
+namespace sge::evdev::joypad::absolute_axis
 {
 
 fcppt::optional_string
@@ -25,9 +19,6 @@ make_string(
 	sge::evdev::joypad::absolute_axis::code
 );
 
-}
-}
-}
 }
 
 #endif

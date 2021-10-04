@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::renderer::texture::cube
 >;
 
-}
-}
 }
 
 #endif

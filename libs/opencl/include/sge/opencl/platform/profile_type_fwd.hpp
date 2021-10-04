@@ -8,17 +8,11 @@
 #define SGE_OPENCL_PLATFORM_PROFILE_TYPE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace platform
+namespace sge::opencl::platform
 {
 
 enum class profile_type;
 
-}
-}
 }
 
 #endif

@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace bresenham
+namespace sge::bresenham
 {
 
 /**
@@ -62,7 +60,6 @@ normal(
 		);
 }
 
-}
 }
 
 #endif

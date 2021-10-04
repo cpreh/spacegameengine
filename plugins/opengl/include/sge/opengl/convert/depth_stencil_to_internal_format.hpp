@@ -11,11 +11,7 @@
 #include <sge/opengl/internal_color_format.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace convert
+namespace sge::opengl::convert
 {
 
 sge::opengl::internal_color_format
@@ -23,8 +19,6 @@ depth_stencil_to_internal_format(
 	sge::image::ds::format
 );
 
-}
-}
 }
 
 #endif

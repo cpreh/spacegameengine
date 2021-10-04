@@ -10,11 +10,7 @@
 #include <sge/renderer/scalar.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace clear
+namespace sge::renderer::clear
 {
 
 /**
@@ -29,8 +25,6 @@ depth_buffer_value
 =
 sge::renderer::scalar;
 
-}
-}
 }
 
 #endif

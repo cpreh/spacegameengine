@@ -18,9 +18,7 @@
 #include <fcppt/log/object.hpp>
 
 
-namespace sge
-{
-namespace wave
+namespace sge::wave
 {
 
 class loader
@@ -56,7 +54,6 @@ private:
 	fcppt::log::object log_;
 };
 
-}
 }
 
 #endif

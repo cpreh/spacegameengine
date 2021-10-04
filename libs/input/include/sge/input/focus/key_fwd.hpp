@@ -8,17 +8,11 @@
 #define SGE_INPUT_FOCUS_KEY_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace focus
+namespace sge::input::focus
 {
 
 class key;
 
-}
-}
 }
 
 #endif

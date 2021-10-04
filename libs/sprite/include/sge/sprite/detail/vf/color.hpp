@@ -11,13 +11,7 @@
 #include <sge/sprite/detail/config/color_format.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 template<
@@ -33,9 +27,6 @@ sge::renderer::vf::color<
 	>::type
 >;
 
-}
-}
-}
 }
 
 #endif

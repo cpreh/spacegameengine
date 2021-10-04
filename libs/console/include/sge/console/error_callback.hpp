@@ -11,9 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::function<
 	sge::console::error_function
 >;
 
-}
 }
 
 #endif

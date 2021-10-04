@@ -33,11 +33,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace focus
+namespace sge::x11input::focus
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
@@ -137,8 +133,6 @@ private:
 	fcppt::signal::auto_connection const event_connection_;
 };
 
-}
-}
 }
 
 #endif

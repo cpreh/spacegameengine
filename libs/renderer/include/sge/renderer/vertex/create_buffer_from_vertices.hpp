@@ -33,11 +33,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 template<
@@ -123,8 +119,6 @@ create_buffer_from_vertices(
 		buffer;
 }
 
-}
-}
 }
 
 #endif

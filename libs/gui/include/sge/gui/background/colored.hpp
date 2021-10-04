@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace background
+namespace sge::gui::background
 {
 
 class colored
@@ -50,8 +46,6 @@ private:
 	override;
 };
 
-}
-}
 }
 
 #endif

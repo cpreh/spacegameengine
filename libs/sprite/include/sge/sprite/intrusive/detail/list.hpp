@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace detail
+namespace sge::sprite::intrusive::detail
 {
 
 template<
@@ -37,9 +31,6 @@ boost::intrusive::list<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

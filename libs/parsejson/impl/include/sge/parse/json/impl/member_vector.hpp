@@ -16,13 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace impl
+namespace sge::parse::json::impl
 {
 
 using
@@ -37,9 +31,6 @@ std::vector<
 	>
 >;
 
-}
-}
-}
 }
 
 #endif

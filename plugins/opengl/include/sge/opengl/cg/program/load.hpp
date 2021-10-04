@@ -11,13 +11,7 @@
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace program
+namespace sge::opengl::cg::program
 {
 
 sge::renderer::cg::loaded_program_unique_ptr
@@ -25,9 +19,6 @@ load(
 	sge::cg::program::object_ref
 );
 
-}
-}
-}
 }
 
 #endif

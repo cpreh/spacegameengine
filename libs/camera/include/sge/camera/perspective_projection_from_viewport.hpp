@@ -19,9 +19,7 @@
 #include <fcppt/signal/auto_connection.hpp>
 
 
-namespace sge
-{
-namespace camera
+namespace sge::camera
 {
 
 class perspective_projection_from_viewport
@@ -62,7 +60,6 @@ private:
 	);
 };
 
-}
 }
 
 #endif

@@ -17,9 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 template<
@@ -66,7 +64,6 @@ operator<<(
 		_stream;
 }
 
-}
 }
 
 #endif

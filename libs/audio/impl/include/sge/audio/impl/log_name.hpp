@@ -10,18 +10,12 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace impl
+namespace sge::audio::impl
 {
 
 fcppt::log::name
 log_name();
 
-}
-}
 }
 
 #endif

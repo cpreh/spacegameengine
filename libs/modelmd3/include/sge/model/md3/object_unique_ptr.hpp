@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::model::md3::object
 >;
 
-}
-}
 }
 
 #endif

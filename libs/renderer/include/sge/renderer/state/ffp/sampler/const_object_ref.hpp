@@ -11,15 +11,7 @@
 #include <fcppt/reference.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 using
@@ -29,10 +21,6 @@ fcppt::reference<
 	sge::renderer::state::ffp::sampler::object const
 >;
 
-}
-}
-}
-}
 }
 
 #endif

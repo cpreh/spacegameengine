@@ -11,11 +11,7 @@
 #include <mizuiro/nonconst_tag.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -29,8 +25,6 @@ sge::image::view::basic_elements<
 	mizuiro::nonconst_tag
 >;
 
-}
-}
 }
 
 #endif

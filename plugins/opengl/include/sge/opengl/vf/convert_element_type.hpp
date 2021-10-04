@@ -11,11 +11,7 @@
 #include <sge/renderer/vf/dynamic/element_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 GLenum
@@ -23,8 +19,6 @@ convert_element_type(
 	sge::renderer::vf::dynamic::element_type
 );
 
-}
-}
 }
 
 #endif

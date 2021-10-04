@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::window::object
 >;
 
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/renderer/display_mode/pixel_size_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::renderer::display_mode::optional_pixel_size
@@ -24,8 +20,6 @@ combine_pixel_sizes(
 	sge::renderer::display_mode::pixel_size const &
 );
 
-}
-}
 }
 
 #endif

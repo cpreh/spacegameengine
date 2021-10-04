@@ -13,11 +13,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace align_h
+namespace sge::font::align_h
 {
 
 using
@@ -29,8 +25,6 @@ fcppt::variant::object<
 	sge::font::align_h::right
 >;
 
-}
-}
 }
 
 #endif

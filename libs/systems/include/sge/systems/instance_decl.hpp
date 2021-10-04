@@ -30,9 +30,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 template<
@@ -133,7 +131,6 @@ private:
 	sge::systems::detail::instance instance_;
 };
 
-}
 }
 
 #endif

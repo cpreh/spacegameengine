@@ -8,11 +8,7 @@
 #define SGE_RENDERER_INDEX_CONST_PROXY_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 class const_proxy;
 
-}
-}
 }
 
 #endif

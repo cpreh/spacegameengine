@@ -8,17 +8,11 @@
 #define SGE_RENDERER_PIXEL_FORMAT_DEPTH_STENCIL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 enum class depth_stencil;
 
-}
-}
 }
 
 #endif

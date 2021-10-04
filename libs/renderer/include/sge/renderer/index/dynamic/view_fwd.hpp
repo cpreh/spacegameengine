@@ -10,13 +10,7 @@
 #include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace dynamic
+namespace sge::renderer::index::dynamic
 {
 
 using
@@ -26,9 +20,6 @@ sge::renderer::index::dynamic::basic_view<
 	false
 >;
 
-}
-}
-}
 }
 
 #endif

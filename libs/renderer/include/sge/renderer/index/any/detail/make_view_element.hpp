@@ -12,15 +12,7 @@
 #include <sge/renderer/index/dynamic/format_element.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace any
-{
-namespace detail
+namespace sge::renderer::index::any::detail
 {
 
 template<
@@ -40,10 +32,6 @@ sge::renderer::index::view<
 	Constness
 >;
 
-}
-}
-}
-}
 }
 
 #endif

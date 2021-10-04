@@ -16,13 +16,7 @@
 #include <fcppt/math/vector/object_impl.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace vector
+namespace sge::cg::parameter::vector
 {
 
 template<
@@ -64,9 +58,6 @@ set(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

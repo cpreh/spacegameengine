@@ -10,15 +10,7 @@
 #include <sge/renderer/state/core/rasterizer/cull_mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::renderer::state::core::rasterizer
 {
 
 enum class cull_mode
@@ -28,10 +20,6 @@ enum class cull_mode
 	counter_clockwise
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 
 class scoped_objects
@@ -39,8 +35,6 @@ private:
 	sge::opencl::memory_object::base_ref_sequence const objects_;
 };
 
-}
-}
 }
 
 #endif

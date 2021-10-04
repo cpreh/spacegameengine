@@ -12,11 +12,7 @@
 #include <mizuiro/image/view_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -32,8 +28,6 @@ mizuiro::image::view<
 	Constness
 >;
 
-}
-}
 }
 
 #endif

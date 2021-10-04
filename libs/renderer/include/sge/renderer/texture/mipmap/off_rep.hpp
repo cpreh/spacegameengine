@@ -10,13 +10,7 @@
 #include <sge/renderer/texture/mipmap/off_rep_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::renderer::texture::mipmap
 {
 
 class off_rep
@@ -25,9 +19,6 @@ public:
 	off_rep();
 };
 
-}
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 /**
@@ -52,8 +48,6 @@ create_buffer_from_view(
 	sge::renderer::resource_flags_field const &flags
 );
 
-}
-}
 }
 
 #endif

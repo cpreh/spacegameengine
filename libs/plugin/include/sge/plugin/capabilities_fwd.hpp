@@ -8,14 +8,11 @@
 #define SGE_PLUGIN_CAPABILITIES_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 enum class capabilities;
 
-}
 }
 
 #endif

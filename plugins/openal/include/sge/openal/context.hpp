@@ -14,9 +14,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class context
@@ -49,7 +47,6 @@ private:
 	ALCcontext *const context_;
 };
 
-}
 }
 
 #endif

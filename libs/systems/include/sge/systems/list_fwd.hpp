@@ -8,9 +8,7 @@
 #define SGE_SYSTEMS_LIST_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 template<
@@ -18,7 +16,6 @@ template<
 >
 class list;
 
-}
 }
 
 #endif

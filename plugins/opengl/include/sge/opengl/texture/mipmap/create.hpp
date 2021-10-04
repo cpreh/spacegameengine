@@ -18,13 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::opengl::texture::mipmap
 {
 
 template<
@@ -40,9 +34,6 @@ create(
 	sge::renderer::texture::mipmap::object const &
 );
 
-}
-}
-}
 }
 
 #define SGE_OPENGL_TEXTURE_MIPMAP_DECLARE_CREATE(\

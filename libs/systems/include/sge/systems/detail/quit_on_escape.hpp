@@ -12,11 +12,7 @@
 #include <awl/event/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 SGE_SYSTEMS_DETAIL_SYMBOL
@@ -26,8 +22,6 @@ quit_on_escape(
 	awl::event::base const &
 );
 
-}
-}
 }
 
 #endif

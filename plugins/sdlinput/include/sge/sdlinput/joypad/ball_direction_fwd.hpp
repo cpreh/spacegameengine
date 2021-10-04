@@ -8,17 +8,11 @@
 #define SGE_SDLINPUT_JOYPAD_BALL_DIRECTION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 enum class ball_direction;
 
-}
-}
 }
 
 #endif

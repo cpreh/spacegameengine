@@ -13,11 +13,7 @@
 #include <sge/input/joypad/relative_axis_id.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 class event_map
@@ -67,8 +63,6 @@ private:
 	relative_axis_map relative_axis_;
 };
 
-}
-}
 }
 
 #endif

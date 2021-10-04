@@ -22,9 +22,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL multi_loader
@@ -72,7 +70,6 @@ private:
 	muxer muxer_;
 };
 
-}
 }
 
 #endif

@@ -8,9 +8,7 @@
 #define SGE_WINDOW_UNIT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace window
+namespace sge::window
 {
 
 using
@@ -18,7 +16,6 @@ unit
 =
 unsigned;
 
-}
 }
 
 #endif

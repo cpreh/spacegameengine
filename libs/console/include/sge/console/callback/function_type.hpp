@@ -11,11 +11,7 @@
 #include <sge/console/object_ref.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace callback
+namespace sge::console::callback
 {
 
 using
@@ -26,8 +22,6 @@ void(
 	sge::console::object_ref
 );
 
-}
-}
 }
 
 #endif

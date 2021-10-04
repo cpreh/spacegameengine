@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
+namespace sge::plugin::library
 {
 
 using
@@ -24,8 +20,6 @@ symbol_string
 =
 std::string;
 
-}
-}
 }
 
 #endif

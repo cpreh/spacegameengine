@@ -11,13 +11,7 @@
 #include <sge/renderer/state/core/sampler/filter/anisotropic/mip_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 GLenum
@@ -25,9 +19,6 @@ anisotropic_mip_filter(
 	sge::renderer::state::core::sampler::filter::anisotropic::mip
 );
 
-}
-}
-}
 }
 
 #endif

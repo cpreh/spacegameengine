@@ -14,11 +14,7 @@
 #include <sge/renderer/index/dynamic/format.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 class buffer_parameters
@@ -60,8 +56,6 @@ private:
 	sge::renderer::resource_flags_field flags_;
 };
 
-}
-}
 }
 
 #endif

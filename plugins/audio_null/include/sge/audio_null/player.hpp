@@ -21,9 +21,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace audio_null
+namespace sge::audio_null
 {
 
 class player
@@ -93,7 +91,6 @@ private:
 	sge::audio_null::listener listener_;
 };
 
-}
 }
 
 #endif

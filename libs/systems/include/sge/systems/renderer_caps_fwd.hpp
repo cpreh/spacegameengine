@@ -8,14 +8,11 @@
 #define SGE_SYSTEMS_RENDERER_CAPS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 enum class renderer_caps;
 
-}
 }
 
 #endif

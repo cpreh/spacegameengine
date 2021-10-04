@@ -11,11 +11,7 @@
 #include <fcppt/strong_typedef_impl.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -23,8 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	device_id
 );
 
-}
-}
 }
 
 #endif

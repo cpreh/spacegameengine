@@ -14,13 +14,7 @@
 #include <fcppt/math/vector/null.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace view
+namespace sge::image::impl::view
 {
 
 template<
@@ -74,9 +68,6 @@ noexcept(
 	}
 }
 
-}
-}
-}
 }
 
 #endif

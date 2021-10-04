@@ -11,9 +11,7 @@
 #include <fcppt/math/matrix/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -30,7 +28,6 @@ fcppt::math::matrix::static_<
 	4
 >;
 
-}
 }
 
 #endif

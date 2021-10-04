@@ -13,11 +13,7 @@
 #include <fcppt/noncopyable.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace focus
+namespace sge::x11input::focus
 {
 
 class looked_up_string
@@ -61,8 +57,6 @@ private:
 	sge::input::key::code key_code_;
 };
 
-}
-}
 }
 
 #endif

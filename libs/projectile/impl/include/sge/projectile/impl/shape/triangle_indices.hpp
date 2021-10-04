@@ -12,13 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace impl
-{
-namespace shape
+namespace sge::projectile::impl::shape
 {
 
 sge::projectile::shape::detail::index_container
@@ -27,9 +21,6 @@ triangle_indices(
 	sge::projectile::shape::triangle_sequence const &
 );
 
-}
-}
-}
 }
 
 #endif

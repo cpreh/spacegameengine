@@ -12,17 +12,11 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace shader
-{
-namespace parameter
+namespace sge::shader::parameter
 {
 FCPPT_MAKE_STRONG_TYPEDEF(
 	sge::cg::string,
 	name);
-}
-}
 }
 
 #endif

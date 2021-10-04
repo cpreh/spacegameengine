@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
+namespace sge::sprite::detail
 {
 
 template<
@@ -89,8 +85,6 @@ set_pos(
 	);
 }
 
-}
-}
 }
 
 #endif

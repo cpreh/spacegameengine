@@ -16,11 +16,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 
-namespace sge
-{
-namespace image3d
-{
-namespace view
+namespace sge::image3d::view
 {
 
 using
@@ -30,8 +26,6 @@ sge::image::view::sub_out_of_range<
 	sge::image3d::tag
 >;
 
-}
-}
 }
 
 FCPPT_PP_PUSH_WARNING

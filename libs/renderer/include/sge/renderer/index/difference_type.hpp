@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 using
@@ -27,8 +23,6 @@ std::make_signed_t<
 	sge::renderer::size_type
 >;
 
-}
-}
 }
 
 #endif

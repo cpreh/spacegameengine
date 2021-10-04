@@ -13,17 +13,7 @@
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace depth
+namespace sge::renderer::state::core::depth_stencil::depth
 {
 
 class enabled
@@ -50,11 +40,6 @@ private:
 	sge::renderer::state::core::depth_stencil::depth::write_enable write_enable_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

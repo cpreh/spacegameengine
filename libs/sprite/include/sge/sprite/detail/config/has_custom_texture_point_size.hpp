@@ -11,13 +11,7 @@
 #include <sge/sprite/detail/config/find_with_texture_point_size.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace config
+namespace sge::sprite::detail::config
 {
 
 template<
@@ -32,9 +26,6 @@ sge::sprite::config::is_custom_texture_point_size<
 	>::point_size
 >;
 
-}
-}
-}
 }
 
 #endif

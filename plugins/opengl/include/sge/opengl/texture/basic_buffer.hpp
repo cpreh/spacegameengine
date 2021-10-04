@@ -18,11 +18,7 @@
 #include <fcppt/math/dim/static_decl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -109,8 +105,6 @@ private:
 	format_type const format_;
 };
 
-}
-}
 }
 
 #endif

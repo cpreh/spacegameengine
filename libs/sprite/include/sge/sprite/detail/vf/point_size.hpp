@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/vector.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 template<
@@ -37,9 +31,6 @@ sge::renderer::vf::extra<
 	Choices::size_choice::attribute_index
 >;
 
-}
-}
-}
 }
 
 #endif

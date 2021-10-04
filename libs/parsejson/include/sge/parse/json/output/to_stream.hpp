@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace output
+namespace sge::parse::json::output
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
@@ -30,9 +24,6 @@ to_stream(
 	sge::parse::json::start const &
 );
 
-}
-}
-}
 }
 
 #endif

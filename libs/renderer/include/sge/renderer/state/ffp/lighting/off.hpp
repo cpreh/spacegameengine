@@ -10,25 +10,13 @@
 #include <sge/renderer/state/ffp/lighting/off_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
+namespace sge::renderer::state::ffp::lighting
 {
 
 class off
 {
 };
 
-}
-}
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace widget
+namespace sge::rucksack::widget
 {
 
 class dummy
@@ -90,8 +86,6 @@ private:
 	sge::rucksack::dim size_;
 };
 
-}
-}
 }
 
 #endif

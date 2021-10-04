@@ -16,13 +16,7 @@
 #include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class locked_part
@@ -62,9 +56,6 @@ private:
 	sge::renderer::lock_flags::method lock_flags_;
 };
 
-}
-}
-}
 }
 
 #endif

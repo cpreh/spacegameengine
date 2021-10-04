@@ -20,11 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 class grammar
@@ -66,8 +62,6 @@ private:
 	ini_;
 };
 
-}
-}
 }
 
 #endif

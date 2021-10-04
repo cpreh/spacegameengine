@@ -14,11 +14,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct planar_types
@@ -44,8 +40,6 @@ struct planar_types
 	name();
 };
 
-}
-}
 }
 
 #endif

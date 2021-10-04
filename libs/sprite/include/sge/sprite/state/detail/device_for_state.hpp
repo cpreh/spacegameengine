@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
-{
-namespace detail
+namespace sge::sprite::state::detail
 {
 
 template<
@@ -35,9 +29,6 @@ std::conditional_t<
 	sge::renderer::device::core
 >;
 
-}
-}
-}
 }
 
 #endif

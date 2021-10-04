@@ -14,15 +14,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace alpha_test
+namespace sge::opengl::state::ffp::alpha_test
 {
 
 class default_context
@@ -61,10 +53,6 @@ private:
 	object_unique_ptr const default_state_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

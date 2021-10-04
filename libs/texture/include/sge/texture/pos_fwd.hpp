@@ -11,9 +11,7 @@
 #include <fcppt/math/vector/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 using
@@ -24,7 +22,6 @@ fcppt::math::vector::static_<
 	2U
 >;
 
-}
 }
 
 #endif

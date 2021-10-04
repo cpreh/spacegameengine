@@ -8,9 +8,7 @@
 #define SGE_AUDIO_CHANNEL_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 /// Unsigned integral type to denote the number of channels (in a file or sound)
@@ -19,7 +17,6 @@ channel_type
 =
 unsigned;
 
-}
 }
 
 #endif

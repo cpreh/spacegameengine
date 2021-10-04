@@ -13,15 +13,7 @@
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::renderer::state::core::sampler
 {
 
 class parameters
@@ -48,10 +40,6 @@ private:
 	sge::renderer::state::core::sampler::filter::parameters filter_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

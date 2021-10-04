@@ -8,22 +8,13 @@
 #define SGE_SPRITE_TYPES_DETAIL_CENTER_TAG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
-{
-namespace detail
+namespace sge::sprite::types::detail
 {
 
 struct center_tag
 {
 };
 
-}
-}
-}
 }
 
 #endif

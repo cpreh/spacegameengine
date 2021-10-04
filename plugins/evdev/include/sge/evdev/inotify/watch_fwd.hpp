@@ -8,17 +8,11 @@
 #define SGE_EVDEV_INOTIFY_WATCH_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace inotify
+namespace sge::evdev::inotify
 {
 
 class watch;
 
-}
-}
 }
 
 #endif

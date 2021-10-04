@@ -14,11 +14,7 @@
 #include <sge/scenic/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
+namespace sge::scenic::scene
 {
 class camera_properties
 {
@@ -61,8 +57,6 @@ private:
 	sge::renderer::projection::far far_;
 };
 
-}
-}
 }
 
 #endif

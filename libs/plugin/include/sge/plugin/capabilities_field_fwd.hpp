@@ -11,9 +11,7 @@
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::container::bitfield::object<
 	sge::plugin::capabilities
 >;
 
-}
 }
 
 #endif

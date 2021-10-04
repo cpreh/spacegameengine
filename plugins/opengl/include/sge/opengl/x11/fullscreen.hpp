@@ -12,11 +12,7 @@
 #include <awl/backends/x11/window/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace x11
+namespace sge::opengl::x11
 {
 
 void
@@ -27,8 +23,6 @@ fullscreen(
 	bool
 );
 
-}
-}
 }
 
 #endif

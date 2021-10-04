@@ -12,13 +12,7 @@
 #include <fcppt/variant/object_impl.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace light
+namespace sge::scenic::render_context::light
 {
 
 using
@@ -29,9 +23,6 @@ fcppt::variant::object<
 	sge::scenic::render_context::light::point
 >;
 
-}
-}
-}
 }
 
 #endif

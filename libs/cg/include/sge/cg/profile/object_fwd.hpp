@@ -8,17 +8,11 @@
 #define SGE_CG_PROFILE_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cg
-{
-namespace profile
+namespace sge::cg::profile
 {
 
 class object;
 
-}
-}
 }
 
 #endif

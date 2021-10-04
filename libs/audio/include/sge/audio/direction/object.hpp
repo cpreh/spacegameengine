@@ -13,11 +13,7 @@
 #include <sge/audio/direction/up.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace direction
+namespace sge::audio::direction
 {
 
 class object
@@ -56,8 +52,6 @@ private:
 		up_;
 };
 
-}
-}
 }
 
 #endif

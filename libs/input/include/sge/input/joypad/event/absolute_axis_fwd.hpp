@@ -8,20 +8,11 @@
 #define SGE_INPUT_JOYPAD_EVENT_ABSOLUTE_AXIS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace event
+namespace sge::input::joypad::event
 {
 
 class absolute_axis;
 
-}
-}
-}
 }
 
 #endif

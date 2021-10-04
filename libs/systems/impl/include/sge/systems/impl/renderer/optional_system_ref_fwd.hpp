@@ -11,13 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace renderer
+namespace sge::systems::impl::renderer
 {
 
 using
@@ -27,9 +21,6 @@ fcppt::optional::reference<
 	sge::systems::impl::renderer::system
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/renderer/clear/depth_buffer_value.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace clear
+namespace sge::opengl::clear
 {
 
 void
@@ -22,8 +18,6 @@ depth_buffer(
 	sge::renderer::clear::depth_buffer_value const &
 );
 
-}
-}
 }
 
 #endif

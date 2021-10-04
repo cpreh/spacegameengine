@@ -19,11 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 /// Searches for a member with the name @a name
@@ -66,8 +62,6 @@ find_member_exn(
 		);
 }
 
-}
-}
 }
 
 #endif

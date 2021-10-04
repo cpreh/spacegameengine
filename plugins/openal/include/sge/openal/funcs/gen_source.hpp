@@ -10,18 +10,12 @@
 #include <sge/openal/source_id.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 sge::openal::source_id
 gen_source();
 
-}
-}
 }
 
 #endif

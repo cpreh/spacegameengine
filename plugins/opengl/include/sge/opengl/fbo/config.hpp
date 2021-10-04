@@ -15,11 +15,7 @@
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class config
@@ -225,8 +221,6 @@ private:
 	sge::opengl::fbo::optional_attachment_type depth_stencil_attachment_;
 };
 
-}
-}
 }
 
 #endif

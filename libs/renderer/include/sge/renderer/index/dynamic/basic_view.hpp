@@ -18,13 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace dynamic
+namespace sge::renderer::index::dynamic
 {
 
 template<
@@ -76,9 +70,6 @@ private:
 	sge::renderer::index::dynamic::format format_;
 };
 
-}
-}
-}
 }
 
 #endif

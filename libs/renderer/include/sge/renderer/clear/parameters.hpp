@@ -17,11 +17,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace clear
+namespace sge::renderer::clear
 {
 
 /**
@@ -96,8 +92,6 @@ private:
 	sge::renderer::clear::optional_stencil_buffer stencil_buffer_;
 };
 
-}
-}
 }
 
 #endif

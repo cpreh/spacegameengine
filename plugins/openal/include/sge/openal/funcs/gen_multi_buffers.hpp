@@ -10,11 +10,7 @@
 #include <sge/openal/buffer_id_container.hpp>
 
 
-namespace sge
-{
-namespace openal
-{
-namespace funcs
+namespace sge::openal::funcs
 {
 
 sge::openal::buffer_id_container
@@ -22,8 +18,6 @@ gen_multi_buffers(
 	sge::openal::buffer_id_container::size_type
 );
 
-}
-}
 }
 
 #endif

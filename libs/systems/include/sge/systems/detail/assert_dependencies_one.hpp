@@ -15,11 +15,7 @@
 #include <fcppt/mpl/list/contains.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 template<
@@ -43,8 +39,6 @@ fcppt::mpl::list::all_of<
 	>
 >;
 
-}
-}
 }
 
 #endif

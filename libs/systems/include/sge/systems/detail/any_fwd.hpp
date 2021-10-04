@@ -18,11 +18,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 using
@@ -39,8 +35,6 @@ fcppt::variant::object<
 	sge::systems::font
 >;
 
-}
-}
 }
 
 #endif

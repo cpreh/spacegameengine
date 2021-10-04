@@ -8,20 +8,11 @@
 #define SGE_X11INPUT_DEVICE_VALUATOR_ITERATOR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace valuator
+namespace sge::x11input::device::valuator
 {
 
 class iterator;
 
-}
-}
-}
 }
 
 #endif

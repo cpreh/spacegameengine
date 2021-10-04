@@ -12,9 +12,7 @@
 #include <sge/image/traits/pixel/format_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -31,7 +29,6 @@ sge::image::enable_if_has_format<
 >
 format_from_static();
 
-}
 }
 
 #endif

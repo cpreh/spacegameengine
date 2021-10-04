@@ -16,11 +16,7 @@
 #include <sge/image2d/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
-{
-namespace algorithm
+namespace sge::image2d::algorithm
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
@@ -32,8 +28,6 @@ copy(
 	sge::image::algorithm::uninitialized
 );
 
-}
-}
 }
 
 SGE_IMAGE_ALGORITHM_DECLARE_COPY(

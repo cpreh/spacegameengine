@@ -23,11 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 struct with_blend
@@ -95,8 +91,6 @@ struct with_blend
 	); // NOLINT(google-runtime-references)
 };
 
-}
-}
 }
 
 #endif

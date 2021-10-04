@@ -10,18 +10,12 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace impl
+namespace sge::renderer::impl
 {
 
 fcppt::log::name
 log_name();
 
-}
-}
 }
 
 #endif

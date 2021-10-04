@@ -14,11 +14,7 @@
 #include <sge/sprite/render/range_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
+namespace sge::sprite::geometry
 {
 
 template<
@@ -46,8 +42,6 @@ update_one(
 		);
 }
 
-}
-}
 }
 
 #endif

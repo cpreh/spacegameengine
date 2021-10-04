@@ -12,9 +12,7 @@
 #include <sge/systems/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 class image2d
@@ -33,7 +31,6 @@ private:
 	sge::media::optional_extension_set extensions_;
 };
 
-}
 }
 
 #endif

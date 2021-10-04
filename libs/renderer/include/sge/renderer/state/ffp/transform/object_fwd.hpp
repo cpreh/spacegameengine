@@ -8,23 +8,11 @@
 #define SGE_RENDERER_STATE_FFP_TRANSFORM_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace transform
+namespace sge::renderer::state::ffp::transform
 {
 
 class object;
 
-}
-}
-}
-}
 }
 
 #endif

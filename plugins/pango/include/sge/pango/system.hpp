@@ -17,9 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 class system
@@ -50,7 +48,6 @@ private:
 	override;
 };
 
-}
 }
 
 #endif

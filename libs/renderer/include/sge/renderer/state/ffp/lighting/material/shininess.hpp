@@ -12,17 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace material
+namespace sge::renderer::state::ffp::lighting::material
 {
 
 /**
@@ -34,11 +24,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	shininess
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

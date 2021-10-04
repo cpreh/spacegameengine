@@ -11,11 +11,7 @@
 #include <sge/wlinput/focus/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 using
@@ -25,8 +21,6 @@ sge::wlinput::create_function<
 	sge::wlinput::focus::object
 >;
 
-}
-}
 }
 
 #endif

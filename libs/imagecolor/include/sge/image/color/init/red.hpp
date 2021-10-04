@@ -10,20 +10,11 @@
 #include <mizuiro/color/init/red.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace init
+namespace sge::image::color::init
 {
 
 using mizuiro::color::init::red;
 
-}
-}
-}
 }
 
 #endif

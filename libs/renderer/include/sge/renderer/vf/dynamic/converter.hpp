@@ -18,13 +18,7 @@
 #include <fcppt/optional/object_decl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class converter
@@ -88,9 +82,6 @@ private:
 	optional_converter_unique_ptr converter_;
 };
 
-}
-}
-}
 }
 
 #endif

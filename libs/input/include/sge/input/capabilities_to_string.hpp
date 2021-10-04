@@ -12,9 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace input
+namespace sge::input
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ capabilities_to_string(
 	sge::input::capabilities
 );
 
-}
 }
 
 #endif

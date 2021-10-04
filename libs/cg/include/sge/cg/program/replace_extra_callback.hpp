@@ -11,11 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::function<
 	sge::cg::program::replace_extra_function
 >;
 
-}
-}
 }
 
 #endif

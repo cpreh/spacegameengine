@@ -36,9 +36,7 @@
 #include <fcppt/record/label_value_type.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 template<
@@ -464,7 +462,6 @@ private:
 	element_type elements_;
 };
 
-}
 }
 
 #endif

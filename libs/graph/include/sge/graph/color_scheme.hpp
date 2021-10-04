@@ -17,9 +17,7 @@
 #include <fcppt/noncopyable.hpp>
 
 
-namespace sge
-{
-namespace graph
+namespace sge::graph
 {
 
 class color_scheme
@@ -105,7 +103,6 @@ private:
 	baseline_color_;
 };
 
-}
 }
 
 #endif

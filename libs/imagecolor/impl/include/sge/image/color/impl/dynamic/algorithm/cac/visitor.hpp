@@ -19,19 +19,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace algorithm
-{
-namespace cac
+namespace sge::image::color::impl::dynamic::algorithm::cac
 {
 
 class visitor
@@ -130,12 +118,6 @@ private:
 	sge::image::algorithm::uninitialized uninitialized_;
 };
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

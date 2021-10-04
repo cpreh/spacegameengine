@@ -12,9 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 template<typename T>
@@ -32,7 +30,6 @@ std::disjunction<
 	>
 >;
 
-}
 }
 
 #endif

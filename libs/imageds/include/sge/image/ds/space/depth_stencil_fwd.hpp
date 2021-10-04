@@ -8,20 +8,11 @@
 #define SGE_IMAGE_DS_SPACE_DEPTH_STENCIL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
-{
-namespace space
+namespace sge::image::ds::space
 {
 
 struct depth_stencil;
 
-}
-}
-}
 }
 
 #endif

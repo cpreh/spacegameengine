@@ -11,9 +11,7 @@
 #include <sge/sprite/detail/config/color_format.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 template<
@@ -28,7 +26,6 @@ sge::image::pixel::mizuiro_type<
 	>::type
 >;
 
-}
 }
 
 #endif

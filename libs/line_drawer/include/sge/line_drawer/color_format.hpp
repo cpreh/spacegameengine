@@ -10,9 +10,7 @@
 #include <sge/image/color/rgba8_format.hpp>
 
 
-namespace sge
-{
-namespace line_drawer
+namespace sge::line_drawer
 {
 
 using
@@ -20,7 +18,6 @@ color_format
 =
 sge::image::color::rgba8_format;
 
-}
 }
 
 #endif

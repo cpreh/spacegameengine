@@ -10,9 +10,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 using
@@ -20,7 +18,6 @@ dimension_count
 =
 fcppt::math::size_type;
 
-}
 }
 
 #endif

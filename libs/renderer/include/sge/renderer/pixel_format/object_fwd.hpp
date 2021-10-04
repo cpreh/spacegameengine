@@ -8,17 +8,11 @@
 #define SGE_RENDERER_PIXEL_FORMAT_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 class object;
 
-}
-}
 }
 
 #endif

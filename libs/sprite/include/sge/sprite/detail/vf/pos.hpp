@@ -10,13 +10,7 @@
 #include <sge/renderer/vf/pos.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 template<
@@ -31,9 +25,6 @@ sge::renderer::vf::pos<
 	3
 >;
 
-}
-}
-}
 }
 
 #endif

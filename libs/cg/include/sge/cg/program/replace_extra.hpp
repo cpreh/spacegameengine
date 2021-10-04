@@ -12,11 +12,7 @@
 #include <sge/cg/program/source.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 SGE_CG_DETAIL_SYMBOL
@@ -26,8 +22,6 @@ replace_extra(
 	sge::cg::program::replace_extra_callback const &
 );
 
-}
-}
 }
 
 #endif

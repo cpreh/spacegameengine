@@ -10,11 +10,7 @@
 #include <sge/renderer/vf/labels/extra.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -38,8 +34,6 @@ struct extra_base
 	>;
 };
 
-}
-}
 }
 
 #endif

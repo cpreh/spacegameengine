@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace background
+namespace sge::gui::background
 {
 
 class base
@@ -57,8 +53,6 @@ private:
 	sge::gui::main_area::reference const main_area_;
 };
 
-}
-}
 }
 
 #endif

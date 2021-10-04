@@ -9,11 +9,7 @@
 
 #include <fcppt/math/size_type.hpp>
 
-namespace sge
-{
-namespace shader
-{
-namespace parameter
+namespace sge::shader::parameter
 {
 template
 <
@@ -22,8 +18,6 @@ template
 	fcppt::math::size_type N
 >
 class matrix;
-}
-}
 }
 
 #endif

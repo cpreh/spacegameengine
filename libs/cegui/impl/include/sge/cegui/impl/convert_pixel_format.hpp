@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 sge::image::color::optional_format
@@ -25,8 +21,6 @@ convert_pixel_format(
 	CEGUI::Texture::PixelFormat
 );
 
-}
-}
 }
 
 #endif

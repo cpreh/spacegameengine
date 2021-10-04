@@ -8,20 +8,11 @@
 #define SGE_INPUT_KEYBOARD_EVENT_REMOVE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace keyboard
-{
-namespace event
+namespace sge::input::keyboard::event
 {
 
 class remove;
 
-}
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/x11input/mouse/axis_value_accu_pair.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace mouse
+namespace sge::x11input::mouse
 {
 
 sge::x11input::mouse::axis_value_accu_pair
@@ -25,8 +21,6 @@ axis_value(
 	sge::x11input::device::valuator::value
 );
 
-}
-}
 }
 
 #endif

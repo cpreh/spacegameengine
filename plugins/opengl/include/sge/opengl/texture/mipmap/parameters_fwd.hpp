@@ -10,13 +10,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::opengl::texture::mipmap
 {
 
 template<
@@ -24,9 +18,6 @@ template<
 >
 class parameters;
 
-}
-}
-}
 }
 
 #endif

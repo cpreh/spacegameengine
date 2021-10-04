@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace process
+namespace sge::sprite::process
 {
 
 template<
@@ -83,8 +79,6 @@ std::integral_constant<
 
 FCPPT_PP_POP_WARNING
 
-}
-}
 }
 
 #endif

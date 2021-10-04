@@ -8,20 +8,11 @@
 #define SGE_SYSTEMS_IMPL_FONT_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace font
+namespace sge::systems::impl::font
 {
 
 class object;
 
-}
-}
-}
 }
 
 #endif

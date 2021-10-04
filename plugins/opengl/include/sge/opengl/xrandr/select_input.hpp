@@ -11,11 +11,7 @@
 #include <awl/backends/x11/window/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 void
@@ -24,8 +20,6 @@ select_input(
 	sge::opengl::xrandr::input_mask
 );
 
-}
-}
 }
 
 #endif

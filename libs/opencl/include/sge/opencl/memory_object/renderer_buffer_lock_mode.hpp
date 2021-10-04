@@ -10,11 +10,7 @@
 #include <sge/opencl/memory_object/renderer_buffer_lock_mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 
 enum class renderer_buffer_lock_mode
@@ -24,8 +20,6 @@ enum class renderer_buffer_lock_mode
 	read_write
 };
 
-}
-}
 }
 
 #endif

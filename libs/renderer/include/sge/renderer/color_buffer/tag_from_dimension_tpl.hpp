@@ -12,11 +12,7 @@
 #include <sge/image3d/tag.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace color_buffer
+namespace sge::renderer::color_buffer
 {
 
 template<
@@ -46,8 +42,6 @@ struct tag_from_dimension_tpl<
 	sge::image3d::tag;
 };
 
-}
-}
 }
 
 #endif

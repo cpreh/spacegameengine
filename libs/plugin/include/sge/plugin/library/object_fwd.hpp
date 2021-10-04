@@ -8,17 +8,11 @@
 #define SGE_PLUGIN_LIBRARY_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
+namespace sge::plugin::library
 {
 
 class object;
 
-}
-}
 }
 
 #endif

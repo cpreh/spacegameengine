@@ -8,17 +8,11 @@
 #define SGE_CONSOLE_GFX_CURSOR_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace console
-{
-namespace gfx
+namespace sge::console::gfx
 {
 
 class cursor;
 
-}
-}
 }
 
 #endif

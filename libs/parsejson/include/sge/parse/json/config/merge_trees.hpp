@@ -11,13 +11,7 @@
 #include <sge/parse/json/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace config
+namespace sge::parse::json::config
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ merge_trees(
 	sge::parse::json::object const &update
 );
 
-}
-}
-}
 }
 
 #endif

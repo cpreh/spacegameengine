@@ -12,9 +12,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class source_holder
@@ -39,7 +37,6 @@ private:
 	sge::openal::source_id const value_;
 };
 
-}
 }
 
 #endif

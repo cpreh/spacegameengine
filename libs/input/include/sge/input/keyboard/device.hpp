@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace keyboard
+namespace sge::input::keyboard
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL device
@@ -40,8 +36,6 @@ public:
 	window() const = 0;
 };
 
-}
-}
 }
 
 #endif

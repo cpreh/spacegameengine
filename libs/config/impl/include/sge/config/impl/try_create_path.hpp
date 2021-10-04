@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace config
-{
-namespace impl
+namespace sge::config::impl
 {
 
 std::filesystem::path
@@ -24,8 +20,6 @@ try_create_path(
 	std::filesystem::path const &
 );
 
-}
-}
 }
 
 #endif

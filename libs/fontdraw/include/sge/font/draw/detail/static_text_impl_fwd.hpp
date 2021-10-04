@@ -8,20 +8,11 @@
 #define SGE_FONT_DRAW_DETAIL_STATIC_TEXT_IMPL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace font
-{
-namespace draw
-{
-namespace detail
+namespace sge::font::draw::detail
 {
 
 class static_text_impl;
 
-}
-}
-}
 }
 
 #endif

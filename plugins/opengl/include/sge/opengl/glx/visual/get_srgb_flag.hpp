@@ -11,13 +11,7 @@
 #include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
-{
-namespace visual
+namespace sge::opengl::glx::visual
 {
 
 sge::opengl::glx::visual::optional_srgb_flag
@@ -25,9 +19,6 @@ get_srgb_flag(
 	sge::opengl::glx::extension_set const &
 );
 
-}
-}
-}
 }
 
 #endif

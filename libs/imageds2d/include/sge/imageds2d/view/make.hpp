@@ -15,11 +15,7 @@
 #include <sge/imageds2d/view/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace imageds2d
-{
-namespace view
+namespace sge::imageds2d::view
 {
 
 SGE_IMAGEDS2D_DETAIL_SYMBOL
@@ -31,8 +27,6 @@ make(
 	sge::imageds2d::pitch const &
 );
 
-}
-}
 }
 
 #endif

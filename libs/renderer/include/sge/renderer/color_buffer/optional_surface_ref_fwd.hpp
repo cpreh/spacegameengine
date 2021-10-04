@@ -11,11 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace color_buffer
+namespace sge::renderer::color_buffer
 {
 
 /**
@@ -30,8 +26,6 @@ fcppt::optional::reference<
 	sge::renderer::color_buffer::surface
 >;
 
-}
-}
 }
 
 #endif

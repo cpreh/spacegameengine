@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::opengl::state::ffp::clip_plane
 {
 
 sge::opengl::state::index_actor_vector
@@ -27,10 +19,6 @@ make_actors(
 	sge::renderer::state::ffp::clip_plane::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

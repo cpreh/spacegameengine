@@ -12,9 +12,7 @@
 #include <sge/libpng/png.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 template<
@@ -37,7 +35,6 @@ create_struct(
 		);
 }
 
-}
 }
 
 #endif

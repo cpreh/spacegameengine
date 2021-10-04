@@ -11,15 +11,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace impl
-{
-namespace parameter
-{
-namespace vector
+namespace sge::cg::impl::parameter::vector
 {
 
 fcppt::math::size_type
@@ -27,10 +19,6 @@ element_count(
 	sge::cg::parameter::object const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

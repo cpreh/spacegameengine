@@ -20,11 +20,7 @@
 #include <fcppt/math/dim/output.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -75,8 +71,6 @@ warn_pow2(
 	}
 }
 
-}
-}
 }
 
 #endif

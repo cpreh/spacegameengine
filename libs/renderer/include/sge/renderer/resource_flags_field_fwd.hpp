@@ -11,9 +11,7 @@
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -28,7 +26,6 @@ fcppt::container::bitfield::object<
 	sge::renderer::resource_flags
 >;
 
-}
 }
 
 #endif

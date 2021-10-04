@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 template<
@@ -30,7 +28,6 @@ fcppt::reference<
 	>
 >;
 
-}
 }
 
 #endif

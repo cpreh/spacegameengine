@@ -8,26 +8,11 @@
 #define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::opengl::state::core::depth_stencil::stencil
 {
 
 class context;
 
-}
-}
-}
-}
-}
 }
 
 #endif

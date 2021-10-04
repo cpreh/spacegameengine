@@ -11,11 +11,7 @@
 #include <fcppt/parse/result_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 using
@@ -26,8 +22,6 @@ fcppt::parse::result<
 	sge::parse::json::start
 >;
 
-}
-}
 }
 
 #endif

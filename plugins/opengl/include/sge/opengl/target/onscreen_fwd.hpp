@@ -8,17 +8,11 @@
 #define SGE_OPENGL_TARGET_ONSCREEN_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 class onscreen;
 
-}
-}
 }
 
 #endif

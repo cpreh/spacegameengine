@@ -12,13 +12,7 @@
 #include <sge/x11input/device/valuator/value.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace valuator
+namespace sge::x11input::device::valuator
 {
 
 class pair
@@ -42,9 +36,6 @@ private:
 	sge::x11input::device::valuator::value value_;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -23,11 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace kernel
+namespace sge::opencl::kernel
 {
 
 class object
@@ -96,8 +92,6 @@ private:
 	cl_uint argument_count_;
 };
 
-}
-}
 }
 
 #endif

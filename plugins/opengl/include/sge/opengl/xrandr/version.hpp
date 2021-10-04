@@ -13,11 +13,7 @@
 #undef major
 #undef minor
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class version
@@ -53,8 +49,6 @@ operator<<(
 	sge::opengl::xrandr::version const &
 );
 
-}
-}
 }
 
 #endif

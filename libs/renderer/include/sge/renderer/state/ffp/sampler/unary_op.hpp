@@ -13,15 +13,7 @@
 #include <sge/renderer/state/ffp/sampler/unary_op_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 class unary_op
@@ -48,10 +40,6 @@ private:
 	sge::renderer::state::ffp::sampler::arg1 arg1_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

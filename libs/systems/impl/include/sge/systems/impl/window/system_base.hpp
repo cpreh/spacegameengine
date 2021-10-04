@@ -12,13 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace window
+namespace sge::systems::impl::window
 {
 
 class system_base
@@ -38,9 +32,6 @@ public:
 	get() = 0;
 };
 
-}
-}
-}
 }
 
 #endif

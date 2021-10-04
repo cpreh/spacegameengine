@@ -38,11 +38,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace cursor
-{
-namespace detail
+namespace sge::cursor::detail
 {
 
 class object
@@ -157,8 +153,6 @@ private:
 	) const;
 };
 
-}
-}
 }
 
 #endif

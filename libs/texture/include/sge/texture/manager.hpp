@@ -20,9 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 class manager
@@ -70,7 +68,6 @@ private:
 	sge::texture::manager::fragmented_map textures_;
 };
 
-}
 }
 
 #endif

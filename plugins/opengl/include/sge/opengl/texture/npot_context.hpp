@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class npot_context
@@ -53,8 +49,6 @@ private:
 	bool const is_supported_;
 };
 
-}
-}
 }
 
 #endif

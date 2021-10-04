@@ -13,11 +13,7 @@
 #include <fcppt/mpl/list/map.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace pixel
+namespace sge::image::pixel
 {
 
 template<
@@ -35,8 +31,6 @@ fcppt::mpl::list::map<
 	>
 >;
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 void
@@ -24,8 +20,6 @@ disable_vertex_attrib_array(
 	GLuint index
 );
 
-}
-}
 }
 
 #endif

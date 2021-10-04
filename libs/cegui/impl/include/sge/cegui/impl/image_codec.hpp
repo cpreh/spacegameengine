@@ -21,11 +21,7 @@ class RawDataContainer;
 class Texture;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class image_codec
@@ -59,8 +55,6 @@ private:
 	sge::image2d::system_ref const image_system_;
 };
 
-}
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_MODEL_MD3_LOAD_FLAGS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 enum class load_flags;
 
-}
-}
 }
 
 #endif

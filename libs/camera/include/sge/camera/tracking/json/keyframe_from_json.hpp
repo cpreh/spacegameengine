@@ -12,13 +12,7 @@
 #include <sge/parse/json/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace tracking
-{
-namespace json
+namespace sge::camera::tracking::json
 {
 
 SGE_CAMERA_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ keyframe_from_json(
 	sge::parse::json::object const &
 );
 
-}
-}
-}
 }
 
 #endif

@@ -13,15 +13,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 using
@@ -33,10 +25,6 @@ fcppt::variant::object<
 	sge::renderer::state::ffp::sampler::ternary_op
 >;
 
-}
-}
-}
-}
 }
 
 #endif

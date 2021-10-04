@@ -7,17 +7,11 @@
 #ifndef SGE_X11INPUT_CURSOR_GRAB_FWD_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_GRAB_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 class grab;
 
-}
-}
 }
 
 #endif

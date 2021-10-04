@@ -11,11 +11,7 @@
 #include <sge/x11input/xim/supported_styles_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace xim
+namespace sge::x11input::xim
 {
 
 sge::x11input::xim::supported_styles_unique_ptr
@@ -23,8 +19,6 @@ get_supported_styles(
 	sge::x11input::xim::method const &
 );
 
-}
-}
 }
 
 #endif

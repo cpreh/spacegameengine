@@ -10,9 +10,7 @@
 #include <sge/opengl/extension_set.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 template<
@@ -35,7 +33,6 @@ extension_supported(
 		0U;
 }
 
-}
 }
 
 #endif

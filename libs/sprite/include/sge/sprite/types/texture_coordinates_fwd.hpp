@@ -11,11 +11,7 @@
 #include <sge/sprite/types/basic/homogenous_pair_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
+namespace sge::sprite::types
 {
 
 template<
@@ -29,8 +25,6 @@ sge::sprite::types::basic::homogenous_pair<
 	>
 >;
 
-}
-}
 }
 
 #endif

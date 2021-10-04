@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -29,7 +27,6 @@ std::integral_constant<
 	Size
 >;
 
-}
 }
 
 #endif

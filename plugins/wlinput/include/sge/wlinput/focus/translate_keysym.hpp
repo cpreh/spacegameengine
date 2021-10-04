@@ -11,11 +11,7 @@
 #include <sge/wlinput/focus/xkb_keysym.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 sge::input::key::code
@@ -23,8 +19,6 @@ translate_keysym(
 	sge::wlinput::focus::xkb_keysym
 );
 
-}
-}
 }
 
 #endif

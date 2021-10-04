@@ -139,10 +139,10 @@ sge::sdlinput::joypad::device::ball_axis(
 			{
 			case sge::sdlinput::joypad::ball_direction::x:
 				return
-					0u;
+					0U;
 			case sge::sdlinput::joypad::ball_direction::y:
 				return
-					1u;
+					1U;
 			}
 
 			FCPPT_ASSERT_UNREACHABLE;
@@ -189,10 +189,10 @@ sge::sdlinput::joypad::device::hat_axis(
 			{
 			case sge::sdlinput::joypad::hat_direction::x:
 				return
-					0u;
+					0U;
 			case sge::sdlinput::joypad::hat_direction::y:
 				return
-					1u;
+					1U;
 			}
 
 			FCPPT_ASSERT_UNREACHABLE;

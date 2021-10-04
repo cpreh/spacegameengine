@@ -29,11 +29,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace spherical
+namespace sge::camera::spherical
 {
 
 // NOLINTNEXTLINE(fuchsia-multiple-inheritance)
@@ -124,8 +120,6 @@ private:
 	);
 };
 
-}
-}
 }
 
 #endif

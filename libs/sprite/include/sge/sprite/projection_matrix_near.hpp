@@ -11,16 +11,13 @@
 #include <sge/sprite/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 SGE_SPRITE_DETAIL_SYMBOL
 sge::renderer::projection::near
 projection_matrix_near();
 
-}
 }
 
 #endif

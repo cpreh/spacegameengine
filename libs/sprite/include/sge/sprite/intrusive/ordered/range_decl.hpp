@@ -17,13 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace ordered
+namespace sge::sprite::intrusive::ordered
 {
 
 template<
@@ -95,9 +89,6 @@ private:
 	sge::sprite::count size_;
 };
 
-}
-}
-}
 }
 
 #endif

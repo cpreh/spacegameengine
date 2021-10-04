@@ -14,13 +14,7 @@
 #include <fcppt/record/get.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
-{
-namespace detail
+namespace sge::sprite::state::detail
 {
 
 template<
@@ -94,9 +88,6 @@ private:
 	> options_;
 };
 
-}
-}
-}
 }
 
 #endif

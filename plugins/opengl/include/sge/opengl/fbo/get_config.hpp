@@ -11,11 +11,7 @@
 #include <sge/opengl/fbo/const_context_ref.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 sge::opengl::fbo::config const &
@@ -23,8 +19,6 @@ get_config(
 	sge::opengl::fbo::const_context_ref
 );
 
-}
-}
 }
 
 #endif

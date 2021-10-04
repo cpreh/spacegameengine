@@ -12,11 +12,7 @@
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace lock_flags
+namespace sge::renderer::lock_flags
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ from_mode(
 	sge::renderer::lock_mode
 );
 
-}
-}
 }
 
 #endif

@@ -10,9 +10,7 @@
 #include <sge/renderer/resource_flags_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -44,7 +42,6 @@ enum class resource_flags
 	fcppt_maximum = readable
 };
 
-}
 }
 
 #endif

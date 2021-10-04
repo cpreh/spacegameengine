@@ -12,11 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class extension
@@ -39,8 +35,6 @@ private:
 	event_base_type event_base_;
 };
 
-}
-}
 }
 
 #endif

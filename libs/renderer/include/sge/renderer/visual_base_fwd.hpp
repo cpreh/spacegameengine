@@ -8,14 +8,11 @@
 #define SGE_RENDERER_VISUAL_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 class visual_base;
 
-}
 }
 
 #endif

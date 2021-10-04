@@ -8,11 +8,7 @@
 #define SGE_EVDEV_DEVICE_READ_BITS_VALUE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 using
@@ -20,8 +16,6 @@ read_bits_value
 =
 unsigned long; // NOLINT(google-runtime-int)
 
-}
-}
 }
 
 #endif

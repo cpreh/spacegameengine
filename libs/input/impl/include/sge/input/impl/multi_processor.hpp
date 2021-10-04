@@ -25,11 +25,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace impl
+namespace sge::input::impl
 {
 
 class multi_processor
@@ -114,8 +110,6 @@ private:
 	processor_vector const processors_;
 };
 
-}
-}
 }
 
 #endif

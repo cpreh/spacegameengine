@@ -11,13 +11,7 @@
 #include <sge/parse/json/member_map.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 sge::font::vector
@@ -25,9 +19,6 @@ load_offset(
 	sge::parse::json::member_map const &
 );
 
-}
-}
-}
 }
 
 #endif

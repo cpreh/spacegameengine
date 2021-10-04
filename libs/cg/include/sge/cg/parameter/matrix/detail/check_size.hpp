@@ -12,15 +12,7 @@
 #include <sge/cg/parameter/matrix/detail/size_fwd.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace matrix
-{
-namespace detail
+namespace sge::cg::parameter::matrix::detail
 {
 
 SGE_CG_DETAIL_SYMBOL
@@ -30,10 +22,6 @@ check_size(
 	sge::cg::parameter::matrix::detail::size const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

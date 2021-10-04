@@ -20,11 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 class from_file_parameters
@@ -81,8 +77,6 @@ private:
 	sge::cg::program::compile_options compile_options_;
 };
 
-}
-}
 }
 
 #endif

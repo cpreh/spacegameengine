@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace context
+namespace sge::renderer::context
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::renderer::context::scoped_core
 >;
 
-}
-}
 }
 
 #endif

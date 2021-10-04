@@ -35,11 +35,7 @@
 #include <fcppt/signal/object_decl.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class edit
@@ -177,8 +173,6 @@ private:
 	text_signal text_change_;
 };
 
-}
-}
 }
 
 #endif

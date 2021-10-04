@@ -15,11 +15,7 @@
 #include <fcppt/optional/object_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace program
+namespace sge::opencl::program
 {
 
 class build_parameters
@@ -78,8 +74,6 @@ private:
 	sge::opencl::program::optional_notification_callback notification_callback_;
 };
 
-}
-}
 }
 
 #endif

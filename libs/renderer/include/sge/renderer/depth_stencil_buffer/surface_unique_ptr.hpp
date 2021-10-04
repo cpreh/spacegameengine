@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace depth_stencil_buffer
+namespace sge::renderer::depth_stencil_buffer
 {
 
 /**
@@ -28,8 +24,6 @@ fcppt::unique_ptr<
 	sge::renderer::depth_stencil_buffer::surface
 >;
 
-}
-}
 }
 
 #endif

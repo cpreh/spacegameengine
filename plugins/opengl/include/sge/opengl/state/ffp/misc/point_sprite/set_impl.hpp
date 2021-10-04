@@ -14,17 +14,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
-{
-namespace point_sprite
+namespace sge::opengl::state::ffp::misc::point_sprite
 {
 
 sge::opengl::state::actor_vector
@@ -35,11 +25,6 @@ set_impl(
 	sge::renderer::state::ffp::misc::enable_point_sprites
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

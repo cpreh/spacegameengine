@@ -11,11 +11,7 @@
 #include <sge/opengl/glx/extension.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 using
@@ -25,8 +21,6 @@ sge::opengl::extension_set<
 	sge::opengl::glx::extension
 >;
 
-}
-}
 }
 
 #endif

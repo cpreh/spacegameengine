@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace ff
+namespace sge::evdev::joypad::ff
 {
 
 ff_replay
@@ -29,9 +23,6 @@ convert_replay(
 	sge::input::joypad::ff::delay
 );
 
-}
-}
-}
 }
 
 #endif

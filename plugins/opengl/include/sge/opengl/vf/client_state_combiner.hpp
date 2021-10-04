@@ -18,11 +18,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class client_state_combiner
@@ -85,8 +81,6 @@ private:
 	sge::opengl::vf::client_state new_states_;
 };
 
-}
-}
 }
 
 #endif

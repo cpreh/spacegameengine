@@ -16,13 +16,7 @@ struct btBroadphaseProxy;
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace ghost
-{
-namespace detail
+namespace sge::projectile::ghost::detail
 {
 
 class pair_callback
@@ -63,9 +57,6 @@ private:
 	override;
 };
 
-}
-}
-}
 }
 
 #endif

@@ -12,17 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace depth
+namespace sge::renderer::state::core::depth_stencil::depth
 {
 
 using
@@ -33,11 +23,6 @@ fcppt::variant::object<
 	sge::renderer::state::core::depth_stencil::depth::enabled
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

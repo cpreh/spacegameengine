@@ -10,17 +10,7 @@
 #include <mizuiro/size_type.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace format
+namespace sge::image::color::impl::dynamic::format
 {
 
 template<
@@ -30,11 +20,6 @@ template<
 >
 class object;
 
-}
-}
-}
-}
-}
 }
 
 #endif

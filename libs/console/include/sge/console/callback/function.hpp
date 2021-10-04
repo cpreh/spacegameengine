@@ -11,11 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace callback
+namespace sge::console::callback
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::function<
 	sge::console::callback::function_type
 >;
 
-}
-}
 }
 
 #endif

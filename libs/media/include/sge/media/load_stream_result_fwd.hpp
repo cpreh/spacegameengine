@@ -12,9 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 template<
@@ -30,7 +28,6 @@ fcppt::variant::object<
 	>
 >;
 
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_X11INPUT_FOCUS_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace focus
+namespace sge::x11input::focus
 {
 
 class object;
 
-}
-}
 }
 
 #endif

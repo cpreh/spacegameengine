@@ -11,13 +11,7 @@
 #include <sge/cg/program/extra_index.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace program
+namespace sge::opengl::cg::program
 {
 
 sge::cg::string
@@ -25,9 +19,6 @@ replace_index(
 	sge::cg::program::extra_index
 );
 
-}
-}
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/cg/parameter/object.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
+namespace sge::cg::parameter
 {
 
 class named
@@ -35,8 +31,6 @@ private:
 	sge::cg::parameter::object impl_;
 };
 
-}
-}
 }
 
 #endif

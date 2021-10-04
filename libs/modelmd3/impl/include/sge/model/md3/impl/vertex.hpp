@@ -15,13 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 class vertex
@@ -57,9 +51,6 @@ private:
 	sge::model::md3::impl::s16 normal_;
 };
 
-}
-}
-}
 }
 
 #endif

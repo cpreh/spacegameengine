@@ -10,13 +10,7 @@
 #include <sge/renderer/texture/mipmap/auto_generate_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::renderer::texture::mipmap
 {
 
 enum class auto_generate
@@ -25,9 +19,6 @@ enum class auto_generate
 	no
 };
 
-}
-}
-}
 }
 
 #endif

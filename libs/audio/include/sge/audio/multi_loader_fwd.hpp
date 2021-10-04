@@ -8,14 +8,11 @@
 #define SGE_AUDIO_MULTI_LOADER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 class multi_loader;
 
-}
 }
 
 #endif

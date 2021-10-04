@@ -12,11 +12,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace impl
+namespace sge::camera::impl
 {
 
 void
@@ -28,8 +24,6 @@ set_pressed_if_appropriate(
 	sge::input::keyboard::event::key const &
 );
 
-}
-}
 }
 
 #endif

@@ -8,14 +8,11 @@
 #define SGE_PROJECTILE_LOG_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace projectile
+namespace sge::projectile
 {
 
 class log;
 
-}
 }
 
 #endif

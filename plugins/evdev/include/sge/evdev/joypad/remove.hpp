@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 awl::event::optional_base_unique_ptr
@@ -27,8 +23,6 @@ remove(
 	std::filesystem::path const &
 );
 
-}
-}
 }
 
 #endif

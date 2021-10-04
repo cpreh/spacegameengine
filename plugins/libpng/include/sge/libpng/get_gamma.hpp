@@ -12,9 +12,7 @@
 #include <sge/libpng/read_ptr_fwd.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 sge::libpng::gamma
@@ -23,7 +21,6 @@ get_gamma(
 	sge::libpng::info const &
 );
 
-}
 }
 
 #endif

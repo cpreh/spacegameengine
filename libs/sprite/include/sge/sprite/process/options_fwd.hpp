@@ -10,11 +10,7 @@
 #include <sge/sprite/process/geometry_options_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace process
+namespace sge::sprite::process
 {
 
 template<
@@ -22,8 +18,6 @@ template<
 >
 struct options;
 
-}
-}
 }
 
 #endif

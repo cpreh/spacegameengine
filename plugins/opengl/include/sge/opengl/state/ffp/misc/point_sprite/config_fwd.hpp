@@ -8,26 +8,11 @@
 #define SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_CONFIG_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
-{
-namespace point_sprite
+namespace sge::opengl::state::ffp::misc::point_sprite
 {
 
 class config;
 
-}
-}
-}
-}
-}
 }
 
 #endif

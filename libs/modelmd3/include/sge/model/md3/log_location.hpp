@@ -11,19 +11,13 @@
 #include <fcppt/log/location.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 SGE_MODEL_MD3_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 
-}
-}
 }
 
 #endif

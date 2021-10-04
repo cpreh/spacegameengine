@@ -11,11 +11,7 @@
 #include <awl/backends/x11/display_ref.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 sge::opengl::glx::extension_set
@@ -23,8 +19,6 @@ get_extensions(
 	awl::backends::x11::display_ref
 );
 
-}
-}
 }
 
 #endif

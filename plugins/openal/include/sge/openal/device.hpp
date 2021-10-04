@@ -12,9 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class device
@@ -37,7 +35,6 @@ private:
 	ALCdevice *const device_;
 };
 
-}
 }
 
 #endif

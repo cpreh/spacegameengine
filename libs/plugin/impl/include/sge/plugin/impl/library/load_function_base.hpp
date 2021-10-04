@@ -14,13 +14,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
-{
-namespace library
+namespace sge::plugin::impl::library
 {
 
 SGE_PLUGIN_DETAIL_SYMBOL
@@ -32,9 +26,6 @@ load_function_base(
 	sge::plugin::library::symbol_string const &
 );
 
-}
-}
-}
 }
 
 #endif

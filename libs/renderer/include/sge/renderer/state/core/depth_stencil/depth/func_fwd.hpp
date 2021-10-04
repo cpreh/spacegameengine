@@ -8,26 +8,11 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_DEPTH_FUNC_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace depth
+namespace sge::renderer::state::core::depth_stencil::depth
 {
 
 enum class func;
 
-}
-}
-}
-}
-}
 }
 
 #endif

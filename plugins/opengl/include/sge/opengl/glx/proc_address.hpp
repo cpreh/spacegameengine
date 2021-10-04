@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 sge::opengl::glx::optional_raw_function
@@ -27,8 +23,6 @@ proc_address(
 	std::string const &
 );
 
-}
-}
 }
 
 #endif

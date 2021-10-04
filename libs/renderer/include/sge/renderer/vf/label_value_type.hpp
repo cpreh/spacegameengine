@@ -11,11 +11,7 @@
 #include <fcppt/record/label_value_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -33,8 +29,6 @@ fcppt::record::label_value_type<
 	Label
 >;
 
-}
-}
 }
 
 #endif

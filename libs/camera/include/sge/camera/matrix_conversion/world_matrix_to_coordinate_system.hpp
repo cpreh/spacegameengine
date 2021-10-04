@@ -12,11 +12,7 @@
 #include <sge/renderer/matrix4_fwd.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace matrix_conversion
+namespace sge::camera::matrix_conversion
 {
 
 SGE_CAMERA_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ world_matrix_to_coordinate_system(
 	sge::renderer::matrix4 const &
 );
 
-}
-}
 }
 
 #endif

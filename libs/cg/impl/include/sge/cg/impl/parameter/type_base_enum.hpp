@@ -16,13 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace impl
-{
-namespace parameter
+namespace sge::cg::impl::parameter
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -68,9 +62,6 @@ sge::cg::impl::type_integral_c<
 
 FCPPT_PP_POP_WARNING
 
-}
-}
-}
 }
 
 #endif

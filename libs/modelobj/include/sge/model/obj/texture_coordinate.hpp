@@ -10,11 +10,7 @@
 #include <sge/renderer/vector2.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace obj
+namespace sge::model::obj
 {
 
 using
@@ -22,8 +18,6 @@ texture_coordinate
 =
 sge::renderer::vector2;
 
-}
-}
 }
 
 #endif

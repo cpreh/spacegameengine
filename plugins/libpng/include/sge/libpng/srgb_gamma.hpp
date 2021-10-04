@@ -10,15 +10,12 @@
 #include <sge/libpng/gamma.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 sge::libpng::gamma
 srgb_gamma();
 
-}
 }
 
 #endif

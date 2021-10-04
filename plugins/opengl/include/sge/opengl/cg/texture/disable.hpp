@@ -10,13 +10,7 @@
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace texture
+namespace sge::opengl::cg::texture
 {
 
 void
@@ -24,9 +18,6 @@ disable(
 	sge::renderer::cg::loaded_texture const &
 );
 
-}
-}
-}
 }
 
 #endif

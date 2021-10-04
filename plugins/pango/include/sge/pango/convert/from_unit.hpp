@@ -10,11 +10,7 @@
 #include <sge/font/unit.hpp>
 
 
-namespace sge
-{
-namespace pango
-{
-namespace convert
+namespace sge::pango::convert
 {
 
 sge::font::unit
@@ -22,8 +18,6 @@ from_unit(
 	int
 );
 
-}
-}
 }
 
 #endif

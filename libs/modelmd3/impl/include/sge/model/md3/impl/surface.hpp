@@ -21,13 +21,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 class surface
@@ -75,9 +69,6 @@ private:
 	sge::model::md3::impl::transformed_vertex_vector transformed_vertices_;
 };
 
-}
-}
-}
 }
 
 #endif

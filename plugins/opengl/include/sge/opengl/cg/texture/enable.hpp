@@ -11,13 +11,7 @@
 #include <sge/renderer/texture/stage.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace texture
+namespace sge::opengl::cg::texture
 {
 
 sge::renderer::texture::stage
@@ -25,9 +19,6 @@ enable(
 	sge::renderer::cg::loaded_texture const &
 );
 
-}
-}
-}
 }
 
 #endif

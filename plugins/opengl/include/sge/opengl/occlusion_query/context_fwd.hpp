@@ -8,17 +8,11 @@
 #define SGE_OPENGL_OCCLUSION_QUERY_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 class context;
 
-}
-}
 }
 
 #endif

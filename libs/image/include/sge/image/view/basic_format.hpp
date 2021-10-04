@@ -12,11 +12,7 @@
 #include <mizuiro/image/format/interleaved.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace view
+namespace sge::image::view
 {
 
 template<
@@ -33,8 +29,6 @@ mizuiro::image::format::interleaved<
 	ColorFormat
 >;
 
-}
-}
 }
 
 #endif

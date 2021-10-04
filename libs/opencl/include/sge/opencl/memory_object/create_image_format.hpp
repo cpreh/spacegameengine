@@ -11,19 +11,13 @@
 #include <sge/opencl/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 SGE_OPENCL_DETAIL_SYMBOL
 cl_image_format
 create_image_format(
 	cl_channel_order,
 	cl_channel_type);
-}
-}
 }
 
 #endif

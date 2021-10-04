@@ -11,11 +11,7 @@
 #include <sge/plugin/collection_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace plugin
+namespace sge::font::plugin
 {
 
 using
@@ -25,8 +21,6 @@ sge::plugin::collection<
 	sge::font::system
 >;
 
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace focus
+namespace sge::sdlinput::focus
 {
 
 awl::event::container
@@ -29,8 +25,6 @@ translate_text_event(
 	SDL_TextInputEvent const &
 );
 
-}
-}
 }
 
 #endif

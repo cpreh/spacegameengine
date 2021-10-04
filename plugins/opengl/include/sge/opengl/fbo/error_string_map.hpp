@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 using
@@ -29,8 +25,6 @@ std::map<
 	fcppt::string
 >;
 
-}
-}
 }
 
 #endif

@@ -8,11 +8,7 @@
 #define SGE_MODEL_MD3_SCALAR_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 using
@@ -20,8 +16,6 @@ scalar
 =
 float;
 
-}
-}
 }
 
 #endif

@@ -9,13 +9,7 @@
 
 #include <sge/scenic/render_context/optional_planar_texture.hpp>
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace material
+namespace sge::scenic::render_context::material
 {
 
 using
@@ -23,9 +17,6 @@ specular_texture
 =
 sge::scenic::render_context::optional_planar_texture;
 
-}
-}
-}
 }
 
 #endif

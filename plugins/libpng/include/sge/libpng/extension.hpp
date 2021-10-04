@@ -10,15 +10,12 @@
 #include <sge/media/extension_fwd.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 sge::media::extension
 extension();
 
-}
 }
 
 #endif

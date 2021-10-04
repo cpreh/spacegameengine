@@ -27,9 +27,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 
 class pair
@@ -119,7 +117,6 @@ private:
 	); // NOLINT(google-runtime-references)
 };
 
-}
 }
 
 #endif

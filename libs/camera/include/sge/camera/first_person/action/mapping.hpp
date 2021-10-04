@@ -18,13 +18,7 @@
 #include <fcppt/optional/object_impl.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace first_person
-{
-namespace action
+namespace sge::camera::first_person::action
 {
 /**
 \brief A mapping from camera "actions" to key codes
@@ -81,9 +75,6 @@ private:
 	sge::camera::first_person::action::backward backward_;
 };
 
-}
-}
-}
 }
 
 #endif

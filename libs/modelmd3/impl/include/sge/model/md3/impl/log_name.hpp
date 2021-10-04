@@ -10,21 +10,12 @@
 #include <fcppt/log/name.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 fcppt::log::name
 log_name();
 
-}
-}
-}
 }
 
 #endif

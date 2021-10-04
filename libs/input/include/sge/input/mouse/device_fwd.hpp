@@ -8,17 +8,11 @@
 #define SGE_INPUT_MOUSE_DEVICE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 class device;
 
-}
-}
 }
 
 #endif

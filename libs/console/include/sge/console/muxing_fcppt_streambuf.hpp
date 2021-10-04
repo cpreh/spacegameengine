@@ -13,9 +13,7 @@
 #include <fcppt/char_type.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 using
@@ -25,7 +23,6 @@ sge::console::muxing_streambuf<
 	fcppt::char_type
 >;
 
-}
 }
 
 #endif

@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wave
+namespace sge::wave
 {
 
 [[nodiscard]]
@@ -29,7 +27,6 @@ ignore_chunks_until(
 	std::endian
 );
 
-}
 }
 
 #endif

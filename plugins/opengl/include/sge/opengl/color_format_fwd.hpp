@@ -8,14 +8,11 @@
 #define SGE_OPENGL_COLOR_FORMAT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 enum class color_format;
 
-}
 }
 
 #endif

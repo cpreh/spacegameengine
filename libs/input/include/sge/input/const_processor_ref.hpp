@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace input
+namespace sge::input
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::input::processor const
 >;
 
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <awl/backends/x11/window/base_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace event
+namespace sge::x11input::event
 {
 
 void
@@ -26,8 +22,6 @@ select_unsafe(
 	sge::x11input::event::type_container const &
 );
 
-}
-}
 }
 
 #endif

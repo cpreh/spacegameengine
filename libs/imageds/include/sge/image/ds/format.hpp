@@ -10,11 +10,7 @@
 #include <sge/image/ds/format_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace ds
+namespace sge::image::ds
 {
 
 enum class format
@@ -25,8 +21,6 @@ enum class format
 	fcppt_maximum = d24s8
 };
 
-}
-}
 }
 
 #endif

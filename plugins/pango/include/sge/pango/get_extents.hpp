@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 sge::pango::extents
@@ -23,7 +21,6 @@ get_extents(
 	PangoLayout & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/opengl/xrandr/mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::opengl::xrandr::mode
@@ -23,8 +19,6 @@ current_mode(
 	sge::opengl::xrandr::const_configuration_ref
 );
 
-}
-}
 }
 
 #endif

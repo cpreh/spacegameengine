@@ -11,9 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::reference<
 	sge::font::object
 >;
 
-}
 }
 
 #endif

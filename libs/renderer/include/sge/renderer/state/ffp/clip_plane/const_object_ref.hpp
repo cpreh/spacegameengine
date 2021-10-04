@@ -11,15 +11,7 @@
 #include <fcppt/reference.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::renderer::state::ffp::clip_plane
 {
 
 using
@@ -29,10 +21,6 @@ fcppt::reference<
 	sge::renderer::state::ffp::clip_plane::object const
 >;
 
-}
-}
-}
-}
 }
 
 #endif

@@ -10,13 +10,7 @@
 #include <sge/renderer/index/dynamic/format_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace dynamic
+namespace sge::renderer::index::dynamic
 {
 
 enum class format
@@ -26,9 +20,6 @@ enum class format
 	fcppt_maximum = i32
 };
 
-}
-}
-}
 }
 
 #endif

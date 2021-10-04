@@ -14,11 +14,7 @@
 #include <sge/parse/ini/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
@@ -29,8 +25,6 @@ find_value(
 	sge::parse::ini::entry_name const &
 );
 
-}
-}
 }
 
 #endif

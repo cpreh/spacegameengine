@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace vorbis
+namespace sge::vorbis
 {
 
 class stream
@@ -39,7 +37,6 @@ private:
 	OggVorbis_File file_;
 };
 
-}
 }
 
 #endif

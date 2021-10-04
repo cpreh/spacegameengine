@@ -12,11 +12,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace xim
+namespace sge::x11input::xim
 {
 
 sge::x11input::xim::optional_method_unique_ptr
@@ -25,8 +21,6 @@ create_method_opt(
 	awl::backends::x11::display_ref
 );
 
-}
-}
 }
 
 #endif

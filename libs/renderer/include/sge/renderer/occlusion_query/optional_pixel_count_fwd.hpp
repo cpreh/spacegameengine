@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace occlusion_query
+namespace sge::renderer::occlusion_query
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::renderer::occlusion_query::pixel_count
 >;
 
-}
-}
 }
 
 #endif

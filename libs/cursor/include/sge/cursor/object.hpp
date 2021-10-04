@@ -19,9 +19,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace cursor
+namespace sge::cursor
 {
 
 class object
@@ -70,7 +68,6 @@ private:
 	> impl_;
 };
 
-}
 }
 
 #endif

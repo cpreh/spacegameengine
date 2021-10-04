@@ -18,6 +18,7 @@
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/algorithm/contains.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/format.hpp>
@@ -168,10 +169,10 @@ public:
 	) const
 	{
 		if(
-			_string.find(
+			fcppt::algorithm::contains(
+				_string,
 				'\"'
 			)
-			!= std::string::npos
 		)
 		{
 			throw

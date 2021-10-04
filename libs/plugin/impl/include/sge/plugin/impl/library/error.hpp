@@ -10,21 +10,12 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
-{
-namespace library
+namespace sge::plugin::impl::library
 {
 
 fcppt::string
 error();
 
-}
-}
-}
 }
 
 #endif

@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
+namespace sge::opengl::state
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -80,8 +76,6 @@ private:
 
 FCPPT_PP_POP_WARNING
 
-}
-}
 }
 
 #endif

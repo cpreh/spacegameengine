@@ -21,11 +21,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace grid
+namespace sge::scenic::grid
 {
 
 class object
@@ -60,8 +56,6 @@ private:
 	sge::line_drawer::object line_drawer_;
 };
 
-}
-}
 }
 
 #endif

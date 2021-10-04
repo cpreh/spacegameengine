@@ -10,15 +10,7 @@
 #include <sge/renderer/state/ffp/sampler/binary_op_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 enum class binary_op_type
@@ -29,10 +21,6 @@ enum class binary_op_type
 	add_signed
 };
 
-}
-}
-}
-}
 }
 
 #endif

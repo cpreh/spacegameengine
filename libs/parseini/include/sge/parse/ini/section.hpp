@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 struct section
@@ -49,8 +45,6 @@ operator==(
 	sge::parse::ini::section const &
 );
 
-}
-}
 }
 
 #endif

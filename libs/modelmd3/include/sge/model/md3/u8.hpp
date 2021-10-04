@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 using
@@ -24,8 +20,6 @@ u8
 =
 std::uint8_t;
 
-}
-}
 }
 
 #endif

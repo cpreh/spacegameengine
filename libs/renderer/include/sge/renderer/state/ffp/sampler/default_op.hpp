@@ -11,25 +11,13 @@
 #include <sge/renderer/state/ffp/sampler/op_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::ffp::sampler::op
 default_op();
 
-}
-}
-}
-}
 }
 
 #endif

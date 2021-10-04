@@ -8,14 +8,11 @@
 #define SGE_SHADER_CONTEXT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 
 class context;
 
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <awl/backends/x11/window/event/mask.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace xim
+namespace sge::x11input::xim
 {
 
 awl::backends::x11::window::event::mask
@@ -23,8 +19,6 @@ get_filter_events(
 	sge::x11input::xim::context const &
 );
 
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ type_to_string(
 	sge::input::joypad::ff::type
 );
 
-}
-}
-}
 }
 
 #endif

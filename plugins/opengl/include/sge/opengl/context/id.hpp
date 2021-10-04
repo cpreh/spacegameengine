@@ -10,11 +10,7 @@
 #include <sge/opengl/context/id_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace context
+namespace sge::opengl::context
 {
 
 class id
@@ -38,8 +34,6 @@ private:
 	type value_;
 };
 
-}
-}
 }
 
 #endif

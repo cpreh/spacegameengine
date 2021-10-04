@@ -11,11 +11,7 @@
 #include <sge/opencl/memory_object/byte_size.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace kernel
+namespace sge::opencl::kernel
 {
 class local_buffer
 {
@@ -30,8 +26,6 @@ public:
 private:
 	memory_object::byte_size byte_size_;
 };
-}
-}
 }
 
 #endif

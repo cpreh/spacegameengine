@@ -13,9 +13,7 @@
 #include <fcppt/math/box/null.hpp>
 
 
-namespace sge
-{
-namespace bvh
+namespace sge::bvh
 {
 
 template<
@@ -58,7 +56,6 @@ bounding_box(
 		);
 }
 
-}
 }
 
 #endif

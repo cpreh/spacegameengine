@@ -23,11 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace widget
+namespace sge::rucksack::widget
 {
 /**
  * The master and slaves widget is a pretty "special" one. Chances are you
@@ -114,8 +110,6 @@ private:
 	sge::rucksack::dim size_;
 };
 
-}
-}
 }
 
 #endif

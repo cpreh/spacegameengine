@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace backend
+namespace sge::opengl::backend
 {
 
 class system
@@ -48,8 +44,6 @@ public:
 	) = 0;
 };
 
-}
-}
 }
 
 #endif

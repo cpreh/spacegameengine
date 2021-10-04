@@ -12,11 +12,7 @@
 #include <sge/input/key/optional_modifier_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace key
+namespace sge::input::key
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ to_modifier(
 	sge::input::key::code
 );
 
-}
-}
 }
 
 #endif

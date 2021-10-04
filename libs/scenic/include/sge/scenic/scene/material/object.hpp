@@ -18,13 +18,7 @@
 #include <sge/scenic/scene/material/specular_texture_path.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace scene
-{
-namespace material
+namespace sge::scenic::scene::material
 {
 class object
 {
@@ -90,9 +84,6 @@ private:
 	sge::scenic::scene::material::diffuse_texture_path diffuse_texture_;
 	sge::scenic::scene::material::specular_texture_path specular_texture_;
 };
-}
-}
-}
 }
 
 #endif

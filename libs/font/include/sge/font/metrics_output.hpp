@@ -12,9 +12,7 @@
 #include <fcppt/io/ostream_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 SGE_FONT_DETAIL_SYMBOL
@@ -24,7 +22,6 @@ operator<<(
 	sge::font::metrics const &
 );
 
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/opengl/internal_color_format.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -28,8 +24,6 @@ sge::opengl::internal_color_format
 	Format
 );
 
-}
-}
 }
 
 #endif

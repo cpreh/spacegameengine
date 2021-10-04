@@ -8,19 +8,13 @@
 #define SGE_RENDERER_VF_CONST_TAG_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 struct const_tag
 {
 };
 
-}
-}
 }
 
 #endif

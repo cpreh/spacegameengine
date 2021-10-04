@@ -12,9 +12,7 @@
 #include <sge/window/dim_fwd.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 SGE_VIEWPORT_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ center_on_resize(
 	sge::window::dim const &
 );
 
-}
 }
 
 #endif

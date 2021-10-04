@@ -12,11 +12,7 @@
 #include <sge/audio/sound/do_pause.hpp>
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 SGE_AUDIO_DETAIL_SYMBOL
@@ -26,8 +22,6 @@ pause_or_resume(
 	sge::audio::sound::do_pause
 );
 
-}
-}
 }
 
 #endif

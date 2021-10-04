@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 class swap_functions
@@ -85,8 +81,6 @@ private:
 	optional_glx_swap_interval_ext swap_interval_ext_;
 };
 
-}
-}
 }
 
 #endif

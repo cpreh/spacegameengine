@@ -21,11 +21,7 @@
 #include <fcppt/signal/object_decl.hpp>
 
 
-namespace sge
-{
-namespace viewport
-{
-namespace detail
+namespace sge::viewport::detail
 {
 
 class manager_impl
@@ -79,8 +75,6 @@ private:
 	manage_signal manage_signal_;
 };
 
-}
-}
 }
 
 #endif

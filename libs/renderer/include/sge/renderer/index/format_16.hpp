@@ -11,11 +11,7 @@
 #include <sge/renderer/index/i16.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 using
@@ -25,8 +21,6 @@ sge::renderer::index::format<
 	sge::renderer::index::i16
 >;
 
-}
-}
 }
 
 #endif

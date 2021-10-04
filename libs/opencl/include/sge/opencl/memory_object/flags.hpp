@@ -10,11 +10,7 @@
 #include <sge/opencl/memory_object/flags_fwd.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 
 enum class flags
@@ -25,8 +21,6 @@ enum class flags
 	fcppt_maximum = alloc_host_ptr
 };
 
-}
-}
 }
 
 #endif

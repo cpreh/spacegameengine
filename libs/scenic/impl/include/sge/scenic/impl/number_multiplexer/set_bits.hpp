@@ -7,13 +7,7 @@
 #ifndef SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_SET_BITS_HPP_INCLUDED
 #define SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_SET_BITS_HPP_INCLUDED
 
-namespace sge
-{
-namespace scenic
-{
-namespace impl
-{
-namespace number_multiplexer
+namespace sge::scenic::impl::number_multiplexer
 {
 template<typename T>
 T
@@ -34,9 +28,6 @@ set_bits(
 		(input & ~part) | (value << begin);
 }
 
-}
-}
-}
 }
 
 #endif

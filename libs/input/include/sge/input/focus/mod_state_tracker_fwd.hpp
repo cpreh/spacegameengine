@@ -8,17 +8,11 @@
 #define SGE_INPUT_FOCUS_MOD_STATE_TRACKER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace focus
+namespace sge::input::focus
 {
 
 class mod_state_tracker;
 
-}
-}
 }
 
 #endif

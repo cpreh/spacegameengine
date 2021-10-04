@@ -12,11 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ format_to_string(
 	sge::image::color::format
 );
 
-}
-}
 }
 
 #endif

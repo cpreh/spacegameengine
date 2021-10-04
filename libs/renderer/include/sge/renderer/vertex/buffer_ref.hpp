@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 /**
@@ -28,8 +24,6 @@ fcppt::reference<
 	sge::renderer::vertex::buffer
 >;
 
-}
-}
 }
 
 #endif

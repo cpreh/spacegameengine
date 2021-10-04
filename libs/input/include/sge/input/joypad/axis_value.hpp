@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 using
@@ -24,8 +20,6 @@ axis_value
 =
 std::int64_t;
 
-}
-}
 }
 
 #endif

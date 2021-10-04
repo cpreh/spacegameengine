@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 class default_font
@@ -41,7 +39,6 @@ private:
 	sge::cegui::font_size font_size_;
 };
 
-}
 }
 
 #endif

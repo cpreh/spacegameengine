@@ -15,11 +15,7 @@
 #include <sge/opengl/texture/format_result_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct depth_stencil_format_types
@@ -86,8 +82,6 @@ struct depth_stencil_format_types
 	);
 };
 
-}
-}
 }
 
 #endif

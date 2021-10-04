@@ -11,13 +11,7 @@
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace egl
-{
-namespace visual
+namespace sge::opengl::egl::visual
 {
 
 sge::opengl::egl::attribute_vector
@@ -25,9 +19,6 @@ make_attributes(
 	sge::renderer::pixel_format::object const &
 );
 
-}
-}
-}
 }
 
 #endif

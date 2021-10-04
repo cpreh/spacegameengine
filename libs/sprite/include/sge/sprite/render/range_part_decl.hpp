@@ -17,11 +17,7 @@
 #include <sge/sprite/render/texture_ref_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace render
+namespace sge::sprite::render
 {
 
 template<
@@ -69,8 +65,6 @@ private:
 	range_part_object object_;
 };
 
-}
-}
 }
 
 #endif

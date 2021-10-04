@@ -12,11 +12,7 @@
 #include <sge/opengl/fbo/config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 void
@@ -26,8 +22,6 @@ attach_render_buffer(
 	GLuint
 );
 
-}
-}
 }
 
 #endif

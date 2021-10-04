@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 /**
@@ -72,8 +68,6 @@ public:
 	override;
 };
 
-}
-}
 }
 
 #endif

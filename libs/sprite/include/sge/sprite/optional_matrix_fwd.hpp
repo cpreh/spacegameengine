@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::sprite::matrix
 >;
 
-}
 }
 
 #endif

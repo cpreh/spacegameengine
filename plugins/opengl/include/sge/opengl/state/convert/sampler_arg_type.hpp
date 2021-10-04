@@ -16,13 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 template<
@@ -57,9 +51,6 @@ struct sampler_arg_type<
 	get();
 };
 
-}
-}
-}
 }
 
 #define SGE_OPENGL_STATE_CONVERT_DECLARE_SAMPLER_ALPHA_ARG_TYPE(\

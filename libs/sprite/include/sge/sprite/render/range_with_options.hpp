@@ -26,11 +26,7 @@
 #include <fcppt/record/get.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace render
+namespace sge::sprite::render
 {
 
 template<
@@ -111,8 +107,6 @@ range_with_options(
 	);
 }
 
-}
-}
 }
 
 #endif

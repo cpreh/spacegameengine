@@ -11,9 +11,7 @@
 #include <sge/rucksack/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 SGE_RUCKSACK_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ operator==(
 	sge::rucksack::axis_policy2 const &
 );
 
-}
 }
 
 #endif

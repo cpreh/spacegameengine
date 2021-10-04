@@ -19,11 +19,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace testbed
+namespace sge::rucksack::testbed
 {
 
 class object
@@ -63,8 +59,6 @@ private:
 	> const impl_;
 };
 
-}
-}
 }
 
 #endif

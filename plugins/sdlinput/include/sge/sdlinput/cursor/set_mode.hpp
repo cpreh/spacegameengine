@@ -10,11 +10,7 @@
 #include <sge/input/cursor/mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace cursor
+namespace sge::sdlinput::cursor
 {
 
 void
@@ -22,8 +18,6 @@ set_mode(
 	sge::input::cursor::mode
 );
 
-}
-}
 }
 
 #endif

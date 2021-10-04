@@ -8,11 +8,7 @@
 #define SGE_SPRITE_CONFIG_POINT_SIZE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template<
@@ -20,8 +16,6 @@ template<
 >
 struct point_size;
 
-}
-}
 }
 
 #endif

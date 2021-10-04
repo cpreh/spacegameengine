@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/fog/variant.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace fog
+namespace sge::renderer::state::ffp::fog
 {
 
 class parameters
@@ -40,10 +32,6 @@ private:
 	sge::renderer::state::ffp::fog::variant variant_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

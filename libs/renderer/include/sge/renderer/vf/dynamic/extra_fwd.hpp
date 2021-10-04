@@ -8,20 +8,11 @@
 #define SGE_RENDERER_VF_DYNAMIC_EXTRA_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class extra;
 
-}
-}
-}
 }
 
 #endif

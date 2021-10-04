@@ -10,9 +10,7 @@
 #include <sge/image/size_type.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -25,7 +23,6 @@ size_type
 =
 sge::image::size_type;
 
-}
 }
 
 #endif

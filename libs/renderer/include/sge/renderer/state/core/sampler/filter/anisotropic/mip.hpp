@@ -10,19 +10,7 @@
 #include <sge/renderer/state/core/sampler/filter/anisotropic/mip_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
-{
-namespace anisotropic
+namespace sge::renderer::state::core::sampler::filter::anisotropic
 {
 
 enum class mip
@@ -32,12 +20,6 @@ enum class mip
 	linear
 };
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

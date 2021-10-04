@@ -22,11 +22,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace focus
+namespace sge::input::focus
 {
 
 class mod_state_tracker
@@ -73,8 +69,6 @@ private:
 	map_type map_;
 };
 
-}
-}
 }
 
 #endif

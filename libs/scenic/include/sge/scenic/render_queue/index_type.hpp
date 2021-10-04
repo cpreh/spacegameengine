@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_queue
+namespace sge::scenic::render_queue
 {
 
 using
@@ -24,8 +20,6 @@ index_type
 =
 std::int64_t;
 
-}
-}
 }
 
 #endif

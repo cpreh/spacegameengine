@@ -12,11 +12,7 @@
 #include <sge/sprite/geometry/detail/indices_per_sprite.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 template<
@@ -38,8 +34,6 @@ index_count(
 		);
 }
 
-}
-}
 }
 
 #endif

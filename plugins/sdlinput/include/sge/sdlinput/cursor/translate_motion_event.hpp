@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace cursor
+namespace sge::sdlinput::cursor
 {
 
 awl::event::base_unique_ptr
@@ -27,8 +23,6 @@ translate_motion_event(
 	SDL_MouseMotionEvent const &
 );
 
-}
-}
 }
 
 #endif

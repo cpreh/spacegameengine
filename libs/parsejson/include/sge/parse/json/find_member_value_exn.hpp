@@ -21,11 +21,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 template<
@@ -74,8 +70,6 @@ find_member_value_exn(
 		);
 }
 
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace focus
+namespace sge::x11input::focus
 {
 
 XKeyEvent
@@ -25,8 +21,6 @@ translate_event(
 	XIDeviceEvent const &
 );
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace device
+namespace sge::evdev::device
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::evdev::device::fd
 >;
 
-}
-}
 }
 
 #endif

@@ -8,11 +8,7 @@
 #define SGE_INPUT_CURSOR_POSITION_UNIT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
+namespace sge::input::cursor
 {
 
 using
@@ -20,8 +16,6 @@ position_unit
 =
 int;
 
-}
-}
 }
 
 #endif

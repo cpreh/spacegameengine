@@ -15,11 +15,7 @@
 #include <fcppt/math/vector/dim.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
+namespace sge::sprite::detail
 {
 
 template<
@@ -58,8 +54,6 @@ pos_from_center(
 		).get_unsafe();
 }
 
-}
-}
 }
 
 #endif

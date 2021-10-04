@@ -12,11 +12,7 @@
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 template<
@@ -35,8 +31,6 @@ from_event(
 		);
 }
 
-}
-}
 }
 
 #endif

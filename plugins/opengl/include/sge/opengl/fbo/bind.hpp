@@ -12,11 +12,7 @@
 #include <sge/opengl/fbo/id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 void
@@ -25,8 +21,6 @@ bind(
 	sge::opengl::fbo::id
 );
 
-}
-}
 }
 
 #endif

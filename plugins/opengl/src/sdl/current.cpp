@@ -78,7 +78,7 @@ sge::opengl::sdl::current::end_rendering()
 
 void
 sge::opengl::sdl::current::vsync(
-	sge::renderer::display_mode::vsync const _vsync
+	sge::renderer::display_mode::vsync const  /*_vsync*/
 )
 {
 	auto const convert_mode(

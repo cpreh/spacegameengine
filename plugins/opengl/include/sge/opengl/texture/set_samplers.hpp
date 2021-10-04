@@ -11,11 +11,7 @@
 #include <sge/opengl/texture/render_binding_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 void
@@ -24,8 +20,6 @@ set_samplers(
 	sge::opengl::context::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

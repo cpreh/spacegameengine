@@ -11,9 +11,7 @@
 #include <awl/backends/sdl/window/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
+namespace sge::sdlinput
 {
 
 template<
@@ -32,7 +30,6 @@ same_windows(
 		);
 }
 
-}
 }
 
 #endif

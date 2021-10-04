@@ -8,9 +8,7 @@
 #define SGE_AUDIO_RAW_DATA_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace audio
+namespace sge::audio
 {
 
 using
@@ -18,7 +16,6 @@ raw_data
 =
 unsigned char;
 
-}
 }
 
 #endif

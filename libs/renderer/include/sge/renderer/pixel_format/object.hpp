@@ -15,11 +15,7 @@
 #include <sge/renderer/pixel_format/srgb.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace pixel_format
+namespace sge::renderer::pixel_format
 {
 
 /**
@@ -69,8 +65,6 @@ private:
 	sge::renderer::pixel_format::srgb srgb_;
 };
 
-}
-}
 }
 
 #endif

@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace program
+namespace sge::opencl::program
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::opencl::program::source_string
 >;
 
-}
-}
 }
 
 #endif

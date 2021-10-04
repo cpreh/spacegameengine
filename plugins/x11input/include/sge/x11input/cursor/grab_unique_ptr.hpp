@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::x11input::cursor::grab
 >;
 
-}
-}
 }
 
 #endif

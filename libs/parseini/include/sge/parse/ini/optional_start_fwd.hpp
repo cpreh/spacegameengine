@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace ini
+namespace sge::parse::ini
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::parse::ini::start
 >;
 
-}
-}
 }
 
 #endif

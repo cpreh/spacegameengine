@@ -12,17 +12,7 @@
 #include <sge/renderer/state/core/sampler/filter/variant.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::renderer::state::core::sampler::filter
 {
 
 class parameters
@@ -49,11 +39,6 @@ operator==(
 	sge::renderer::state::core::sampler::filter::parameters const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

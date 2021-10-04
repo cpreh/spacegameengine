@@ -13,9 +13,7 @@
 #include <sge/renderer/device/ffp_fwd.hpp>
 
 
-namespace sge
-{
-namespace line_drawer
+namespace sge::line_drawer
 {
 
 SGE_LINE_DRAWER_DETAIL_SYMBOL
@@ -26,7 +24,6 @@ render_to_screen(
 	sge::line_drawer::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
 }
 
 #endif

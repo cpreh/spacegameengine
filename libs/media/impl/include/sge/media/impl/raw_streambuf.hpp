@@ -16,11 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace media
-{
-namespace impl
+namespace sge::media::impl
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL raw_streambuf
@@ -43,8 +39,6 @@ public:
 	override;
 };
 
-}
-}
 }
 
 #endif

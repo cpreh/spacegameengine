@@ -10,13 +10,7 @@
 #include <sge/input/joypad/ff/type_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 enum class type
@@ -35,9 +29,6 @@ enum class type
 	fcppt_maximum = custom
 };
 
-}
-}
-}
 }
 
 #endif

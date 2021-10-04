@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace texture
+namespace sge::texture
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::texture::part_unique_ptr
 >;
 
-}
 }
 
 #endif

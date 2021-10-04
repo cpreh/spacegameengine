@@ -12,13 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
-{
-namespace ff
+namespace sge::input::joypad::ff
 {
 
 using
@@ -26,9 +20,6 @@ duration
 =
 std::chrono::microseconds;
 
-}
-}
-}
 }
 
 #endif

@@ -14,11 +14,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class scoped_system
@@ -40,8 +36,6 @@ public:
 	~scoped_system();
 };
 
-}
-}
 }
 
 #endif

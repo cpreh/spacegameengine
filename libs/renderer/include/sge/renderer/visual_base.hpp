@@ -14,9 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -48,7 +46,6 @@ private:
 	sge::renderer::pixel_format::object const pixel_format_;
 };
 
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace viewport
+namespace sge::viewport
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::function<
 	sge::viewport::resize_function
 >;
 
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/opencl/command_queue/map_flags_fwd.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace command_queue
+namespace sge::opencl::command_queue
 {
 
 enum class map_flags
@@ -24,8 +20,6 @@ enum class map_flags
 	read_write
 };
 
-}
-}
 }
 
 #endif

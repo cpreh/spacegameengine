@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace device
+namespace sge::renderer::device
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::renderer::device::ffp
 >;
 
-}
-}
 }
 
 #endif

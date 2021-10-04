@@ -10,11 +10,7 @@
 #include <sge/renderer/clear/back_buffer_value_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace clear
+namespace sge::opengl::clear
 {
 
 void
@@ -22,8 +18,6 @@ back_buffer(
 	sge::renderer::clear::back_buffer_value const &
 );
 
-}
-}
 }
 
 #endif

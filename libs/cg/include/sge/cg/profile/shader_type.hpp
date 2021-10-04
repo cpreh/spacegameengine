@@ -10,11 +10,7 @@
 #include <sge/cg/profile/shader_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace profile
+namespace sge::cg::profile
 {
 
 enum class shader_type
@@ -24,8 +20,6 @@ enum class shader_type
 	geometry
 };
 
-}
-}
 }
 
 #endif

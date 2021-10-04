@@ -11,11 +11,7 @@
 #include <sge/image/color/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
@@ -24,8 +20,6 @@ format_is_srgb(
 	sge::image::color::format
 );
 
-}
-}
 }
 
 #endif

@@ -21,11 +21,7 @@
 #include <fcppt/math/size_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -54,8 +50,6 @@ fcppt::reference<
 	)
 >;
 
-}
-}
 }
 
 #endif

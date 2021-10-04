@@ -11,9 +11,7 @@
 #include <awl/backends/x11/display_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
+namespace sge::x11input
 {
 
 sge::x11input::optional_opcode
@@ -21,7 +19,6 @@ xi_opcode(
 	awl::backends::x11::display & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
 }
 
 #endif

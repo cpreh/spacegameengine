@@ -18,13 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
-{
-namespace event
+namespace sge::input::mouse::event
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL axis
@@ -66,9 +60,6 @@ private:
 	sge::input::mouse::axis_value const value_;
 };
 
-}
-}
-}
 }
 
 #endif

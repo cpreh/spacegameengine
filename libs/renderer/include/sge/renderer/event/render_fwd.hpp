@@ -8,17 +8,11 @@
 #define SGE_RENDERER_EVENT_RENDER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace event
+namespace sge::renderer::event
 {
 
 class render;
 
-}
-}
 }
 
 #endif

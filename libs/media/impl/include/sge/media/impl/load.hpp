@@ -27,11 +27,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace media
-{
-namespace impl
+namespace sge::media::impl
 {
 
 template<
@@ -115,8 +111,6 @@ load(
 	}
 }
 
-}
-}
 }
 
 #endif

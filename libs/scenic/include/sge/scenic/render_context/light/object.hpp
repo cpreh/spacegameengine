@@ -17,13 +17,7 @@
 #include <fcppt/variant/object_impl.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace light
+namespace sge::scenic::render_context::light
 {
 class object
 {
@@ -61,9 +55,6 @@ private:
 	sge::scenic::render_context::ambient_color ambient_color_;
 	sge::scenic::render_context::light::variant variant_;
 };
-}
-}
-}
 }
 
 #endif

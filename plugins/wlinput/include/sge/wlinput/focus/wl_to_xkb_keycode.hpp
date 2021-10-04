@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 sge::wlinput::focus::xkb_keycode
@@ -25,8 +21,6 @@ wl_to_xkb_keycode(
 	std::uint32_t
 );
 
-}
-}
 }
 
 #endif

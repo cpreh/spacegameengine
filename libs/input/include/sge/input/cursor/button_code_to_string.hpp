@@ -12,11 +12,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
+namespace sge::input::cursor
 {
 
 SGE_INPUT_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ button_code_to_string(
 	sge::input::cursor::button_code
 );
 
-}
-}
 }
 
 #endif

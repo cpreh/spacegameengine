@@ -12,11 +12,7 @@
 #include <sge/renderer/display_mode/refresh_rate_value.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ desired_fps(
 	sge::renderer::display_mode::optional_object const &
 );
 
-}
-}
 }
 
 #endif

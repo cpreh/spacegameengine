@@ -13,11 +13,7 @@
 #include <sge/systems/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 class list
@@ -36,8 +32,6 @@ private:
 	sge::systems::detail::any_map states_;
 };
 
-}
-}
 }
 
 #endif

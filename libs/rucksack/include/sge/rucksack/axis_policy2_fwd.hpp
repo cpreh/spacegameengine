@@ -8,14 +8,11 @@
 #define SGE_RUCKSACK_AXIS_POLICY2_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 class axis_policy2;
 
-}
 }
 
 #endif

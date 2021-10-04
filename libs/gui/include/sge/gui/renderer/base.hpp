@@ -18,11 +18,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace renderer
+namespace sge::gui::renderer
 {
 
 class base
@@ -70,8 +66,6 @@ public:
 	) = 0;
 };
 
-}
-}
 }
 
 #endif

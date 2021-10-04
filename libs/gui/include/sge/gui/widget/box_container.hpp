@@ -22,11 +22,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class box_container
@@ -86,8 +82,6 @@ private:
 	sge::rucksack::widget::box layout_;
 };
 
-}
-}
 }
 
 #endif

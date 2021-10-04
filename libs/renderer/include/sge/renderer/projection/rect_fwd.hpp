@@ -11,11 +11,7 @@
 #include <fcppt/math/box/rect_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace projection
+namespace sge::renderer::projection
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::math::box::rect<
 	sge::renderer::scalar
 >;
 
-}
-}
 }
 
 #endif

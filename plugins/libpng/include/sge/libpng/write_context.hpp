@@ -16,9 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 class write_context
@@ -69,7 +67,6 @@ private:
 	);
 };
 
-}
 }
 
 #endif

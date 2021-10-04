@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 template<
@@ -62,7 +60,6 @@ difference_fractional(
 		);
 }
 
-}
 }
 
 #endif

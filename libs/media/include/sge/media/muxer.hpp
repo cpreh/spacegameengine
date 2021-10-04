@@ -21,9 +21,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace media
+namespace sge::media
 {
 
 template<
@@ -110,7 +108,6 @@ private:
 	muxer_impl_unique_ptr const impl_;
 };
 
-}
 }
 
 #endif

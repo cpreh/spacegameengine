@@ -10,9 +10,7 @@
 #include <fcppt/math/static_size.hpp>
 
 
-namespace sge
-{
-namespace rucksack
+namespace sge::rucksack
 {
 
 using
@@ -22,7 +20,6 @@ fcppt::math::static_size<
 	2
 >;
 
-}
 }
 
 #endif

@@ -11,13 +11,7 @@
 #include <sge/projectile/triangulation/traits/insert_result_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace triangulation
-{
-namespace traits
+namespace sge::projectile::triangulation::traits
 {
 
 template<
@@ -52,9 +46,6 @@ struct insert_result<
 	}
 };
 
-}
-}
-}
 }
 
 #endif

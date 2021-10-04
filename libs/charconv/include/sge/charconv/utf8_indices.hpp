@@ -12,9 +12,7 @@
 #include <sge/charconv/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 SGE_CHARCONV_DETAIL_SYMBOL
@@ -23,7 +21,6 @@ utf8_indices(
 	sge::charconv::utf8_string const &
 );
 
-}
 }
 
 #endif

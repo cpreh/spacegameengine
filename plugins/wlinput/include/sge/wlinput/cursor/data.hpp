@@ -15,11 +15,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace cursor
+namespace sge::wlinput::cursor
 {
 
 struct data
@@ -36,7 +32,7 @@ struct data
 		awl::event::container_reference
 	);
 
-	~data();
+	~data() = default;
 
 	fcppt::reference<
 		sge::wlinput::cursor::object
@@ -49,8 +45,6 @@ struct data
 	sge::input::cursor::optional_position position_; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <fcppt/variant/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace valuator
+namespace sge::x11input::device::valuator
 {
 
 using
@@ -29,9 +23,6 @@ fcppt::variant::object<
 	sge::x11input::device::valuator::relative
 >;
 
-}
-}
-}
 }
 
 #endif

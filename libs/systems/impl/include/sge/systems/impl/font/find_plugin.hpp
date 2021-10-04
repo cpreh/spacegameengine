@@ -12,13 +12,7 @@
 #include <sge/systems/font_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
-{
-namespace font
+namespace sge::systems::impl::font
 {
 
 sge::font::plugin::object
@@ -27,9 +21,6 @@ find_plugin(
 	sge::systems::font const &
 );
 
-}
-}
-}
 }
 
 #endif

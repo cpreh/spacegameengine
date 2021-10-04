@@ -15,11 +15,7 @@
 #include <sge/camera/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace coordinate_system
+namespace sge::camera::coordinate_system
 {
 
 /**
@@ -90,8 +86,6 @@ private:
 	sge::camera::coordinate_system::position position_;
 };
 
-}
-}
 }
 
 #endif

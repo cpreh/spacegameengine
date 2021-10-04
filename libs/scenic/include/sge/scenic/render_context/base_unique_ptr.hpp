@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
+namespace sge::scenic::render_context
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::scenic::render_context::base
 >;
 
-}
-}
 }
 
 #endif

@@ -8,11 +8,7 @@
 #define SGE_RENDERER_DISPLAY_MODE_DPI_UNIT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace display_mode
+namespace sge::renderer::display_mode
 {
 
 using
@@ -20,8 +16,6 @@ dpi_unit
 =
 double;
 
-}
-}
 }
 
 #endif

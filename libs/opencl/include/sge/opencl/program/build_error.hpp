@@ -13,11 +13,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace program
+namespace sge::opencl::program
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL build_error
@@ -67,8 +63,6 @@ private:
 	fcppt::string message_;
 };
 
-}
-}
 }
 
 #endif

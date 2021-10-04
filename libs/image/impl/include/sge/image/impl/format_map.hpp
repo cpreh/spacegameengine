@@ -10,11 +10,7 @@
 #include <fcppt/mpl/map/object.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace impl
+namespace sge::image::impl
 {
 
 template<
@@ -27,8 +23,6 @@ fcppt::mpl::map::object<
 	Args...
 >;
 
-}
-}
 }
 
 #endif

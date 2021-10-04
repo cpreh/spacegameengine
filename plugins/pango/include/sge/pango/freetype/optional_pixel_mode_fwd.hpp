@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace pango
-{
-namespace freetype
+namespace sge::pango::freetype
 {
 
 using
@@ -28,8 +24,6 @@ fcppt::optional::object<
 	FT_Pixel_Mode
 >;
 
-}
-}
 }
 
 #endif

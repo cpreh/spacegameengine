@@ -12,19 +12,7 @@
 #include <mizuiro/image/types/reference.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace algorithm
-{
-namespace cac
+namespace sge::image::color::impl::dynamic::algorithm::cac
 {
 
 template<
@@ -38,12 +26,6 @@ mizuiro::image::types::reference<
 	mizuiro::const_tag
 >;
 
-}
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -21,17 +21,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/write_mask.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
 /**
@@ -122,11 +112,6 @@ private:
 	sge::renderer::state::core::depth_stencil::stencil::pass_op pass_op_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

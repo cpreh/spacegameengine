@@ -10,9 +10,7 @@
 #include <fcppt/array/object_impl.hpp>
 
 
-namespace sge
-{
-namespace wave
+namespace sge::wave
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::array::object<
 	4
 >;
 
-}
 }
 
 #endif

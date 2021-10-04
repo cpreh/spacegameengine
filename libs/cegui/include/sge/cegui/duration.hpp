@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 using
@@ -25,7 +23,6 @@ std::chrono::duration<
 	sge::cegui::unit
 >;
 
-}
 }
 
 #endif

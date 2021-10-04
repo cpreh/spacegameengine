@@ -8,9 +8,7 @@
 #define SGE_CEGUI_UNIT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cegui
+namespace sge::cegui
 {
 
 using
@@ -18,7 +16,6 @@ unit
 =
 float;
 
-}
 }
 
 #endif

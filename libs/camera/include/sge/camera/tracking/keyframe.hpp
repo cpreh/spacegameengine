@@ -12,11 +12,7 @@
 #include <sge/camera/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace tracking
+namespace sge::camera::tracking
 {
 
 class keyframe
@@ -42,8 +38,6 @@ private:
 	sge::camera::coordinate_system::object coordinate_system_;
 };
 
-}
-}
 }
 
 #endif

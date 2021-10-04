@@ -10,11 +10,7 @@
 #include <sge/sprite/process/geometry_options_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace process
+namespace sge::sprite::process
 {
 
 enum class geometry_options
@@ -29,8 +25,6 @@ enum class geometry_options
 	sort_and_update
 };
 
-}
-}
 }
 
 #endif

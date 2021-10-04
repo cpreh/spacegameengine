@@ -8,17 +8,11 @@
 #define SGE_RENDERER_CG_LOADED_PROGRAM_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace cg
+namespace sge::renderer::cg
 {
 
 class loaded_program;
 
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <sge/renderer/index/dynamic/format_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
-{
-namespace dynamic
+namespace sge::renderer::index::dynamic
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -27,9 +21,6 @@ format_stride(
 	sge::renderer::index::dynamic::format
 );
 
-}
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::container::bitfield::object<
 	sge::font::flags
 >;
 
-}
 }
 
 #endif

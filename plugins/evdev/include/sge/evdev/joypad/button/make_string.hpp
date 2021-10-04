@@ -11,13 +11,7 @@
 #include <fcppt/optional_string_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace button
+namespace sge::evdev::joypad::button
 {
 
 fcppt::optional_string
@@ -25,9 +19,6 @@ make_string(
 	sge::evdev::joypad::button::code
 );
 
-}
-}
-}
 }
 
 #endif

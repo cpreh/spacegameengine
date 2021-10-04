@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace xim
+namespace sge::x11input::xim
 {
 
 class scoped_locale
@@ -36,8 +32,6 @@ private:
 	std::string const old_locale_;
 };
 
-}
-}
 }
 
 #endif

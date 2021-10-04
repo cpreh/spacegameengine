@@ -11,11 +11,7 @@
 #include <sge/renderer/buffer/const_scoped_lock_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace color_buffer
+namespace sge::renderer::color_buffer
 {
 
 /**
@@ -30,8 +26,6 @@ sge::renderer::buffer::const_scoped_lock<
 	sge::image2d::tag
 >;
 
-}
-}
 }
 
 #endif

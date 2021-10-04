@@ -11,13 +11,7 @@
 #include <sge/opengl/texture/optional_id.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace cg
-{
-namespace texture
+namespace sge::opengl::cg::texture
 {
 
 void
@@ -26,9 +20,6 @@ set_parameter(
 	sge::opengl::texture::optional_id const &
 );
 
-}
-}
-}
 }
 
 #endif

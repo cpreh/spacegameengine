@@ -11,13 +11,7 @@
 #include <sge/renderer/vf/format.hpp>
 
 
-namespace sge
-{
-namespace line_drawer
-{
-namespace impl
-{
-namespace vf
+namespace sge::line_drawer::impl::vf
 {
 
 using
@@ -27,9 +21,6 @@ sge::renderer::vf::format<
 	sge::line_drawer::impl::vf::part
 >;
 
-}
-}
-}
 }
 
 #endif

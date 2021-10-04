@@ -11,15 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace sampler
+namespace sge::renderer::state::ffp::sampler
 {
 
 using
@@ -29,10 +21,6 @@ fcppt::optional::object<
 	sge::renderer::state::ffp::sampler::object_unique_ptr
 >;
 
-}
-}
-}
-}
 }
 
 #endif

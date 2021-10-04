@@ -10,11 +10,7 @@
 #include <sge/renderer/state/index_count.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 using
@@ -22,8 +18,6 @@ stage_value
 =
 sge::renderer::state::index_count;
 
-}
-}
 }
 
 #endif

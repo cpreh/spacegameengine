@@ -8,17 +8,11 @@
 #define SGE_RENDERER_VERTEX_DECLARATION_PARAMETERS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 class declaration_parameters;
 
-}
-}
 }
 
 #endif

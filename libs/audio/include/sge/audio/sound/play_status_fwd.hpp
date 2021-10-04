@@ -8,17 +8,11 @@
 #define SGE_AUDIO_SOUND_PLAY_STATUS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace audio
-{
-namespace sound
+namespace sge::audio::sound
 {
 
 enum class play_status;
 
-}
-}
 }
 
 #endif

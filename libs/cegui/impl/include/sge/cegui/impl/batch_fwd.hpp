@@ -8,17 +8,11 @@
 #define SGE_CEGUI_IMPL_BATCH_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class batch;
 
-}
-}
 }
 
 #endif

@@ -21,11 +21,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
+namespace sge::scenic::render_context
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
@@ -82,8 +78,6 @@ protected:
 	base();
 };
 
-}
-}
 }
 
 #endif

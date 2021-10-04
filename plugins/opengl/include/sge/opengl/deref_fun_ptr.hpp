@@ -13,9 +13,7 @@
 #include <fcppt/text.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 template<
@@ -47,7 +45,6 @@ deref_fun_ptr(
 
 }
 
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/image/color/format.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 sge::image::color::format
@@ -22,8 +18,6 @@ convert_color_format(
 	sge::image::color::format
 );
 
-}
-}
 }
 
 #endif

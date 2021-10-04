@@ -11,9 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace wave
+namespace sge::wave
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::optional::object<
 	sge::wave::header
 >;
 
-}
 }
 
 #endif

@@ -8,17 +8,11 @@
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_FORMAT_TYPES_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 struct depth_stencil_format_types;
 
-}
-}
 }
 
 #endif

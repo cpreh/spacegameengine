@@ -10,13 +10,7 @@
 #include <sge/image/traits/image/color_tag_tpl_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-namespace image
+namespace sge::image::traits::image
 {
 
 template<
@@ -30,9 +24,6 @@ sge::image::traits::image::color_tag_tpl<
 	Tag
 >::type;
 
-}
-}
-}
 }
 
 #endif

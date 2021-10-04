@@ -13,9 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 template<
@@ -85,7 +83,6 @@ private:
 	time_point last_time_;
 };
 
-}
 }
 
 #endif

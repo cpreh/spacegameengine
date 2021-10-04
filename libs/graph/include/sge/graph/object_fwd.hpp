@@ -8,12 +8,9 @@
 #define SGE_GRAPH_OBJECT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace graph
+namespace sge::graph
 {
 class object;
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <sge/opengl/context/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 void
@@ -22,7 +20,6 @@ set_unpack_alignment(
 	sge::opengl::unpack_alignment
 );
 
-}
 }
 
 #endif

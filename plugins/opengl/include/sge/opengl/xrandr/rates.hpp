@@ -13,11 +13,7 @@
 #include <sge/opengl/xrandr/refresh_rate_type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 class rates
@@ -65,8 +61,6 @@ private:
 	int_type const *rates_;
 };
 
-}
-}
 }
 
 #endif

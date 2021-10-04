@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class buffer_base
@@ -63,8 +59,6 @@ private:
 	sge::opengl::texture::is_render_target const is_render_target_;
 };
 
-}
-}
 }
 
 #endif

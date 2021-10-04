@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace impl
+namespace sge::input::impl
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::input::system_unique_ptr
 >;
 
-}
-}
 }
 
 #endif

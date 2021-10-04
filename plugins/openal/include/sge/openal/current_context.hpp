@@ -13,9 +13,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class current_context
@@ -40,7 +38,6 @@ private:
 	> const context_;
 };
 
-}
 }
 
 #endif

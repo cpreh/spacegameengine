@@ -13,17 +13,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::opengl::state::ffp::lighting::light
 {
 
 class context
@@ -60,11 +50,6 @@ private:
 	sge::renderer::state::index_count indices_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/opencl/command_queue/profiling_mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace command_queue
+namespace sge::opencl::command_queue
 {
 
 enum class profiling_mode
@@ -23,8 +19,6 @@ enum class profiling_mode
 	disabled
 };
 
-}
-}
 }
 
 #endif

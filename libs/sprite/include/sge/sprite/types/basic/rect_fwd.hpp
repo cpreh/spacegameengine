@@ -10,13 +10,7 @@
 #include <fcppt/math/box/rect_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
-{
-namespace basic
+namespace sge::sprite::types::basic
 {
 
 template<
@@ -28,9 +22,6 @@ fcppt::math::box::rect<
 	Type
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::vf::dynamic
 {
 
 class normal
@@ -45,9 +39,6 @@ operator==(
 	sge::renderer::vf::dynamic::normal const &
 );
 
-}
-}
-}
 }
 
 #endif

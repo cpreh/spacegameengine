@@ -8,9 +8,7 @@
 #define SGE_RENDERER_PIXEL_UNIT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -23,7 +21,6 @@ pixel_unit
 =
 int;
 
-}
 }
 
 #endif

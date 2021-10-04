@@ -7,15 +7,9 @@
 #ifndef SGE_OPENCL_MEMORY_OBJECT_BASE_FWD_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_BASE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
+namespace sge::opencl::memory_object
 {
 class base;
-}
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class client_state
@@ -102,8 +98,6 @@ private:
 	index_state_set attribute_states_;
 };
 
-}
-}
 }
 
 #endif

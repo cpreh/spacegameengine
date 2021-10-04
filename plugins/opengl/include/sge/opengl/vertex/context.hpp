@@ -17,11 +17,7 @@
 #include <fcppt/optional/reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 class context
@@ -91,8 +87,6 @@ private:
 	mutable vertex_buffer_map last_buffers_;
 };
 
-}
-}
 }
 
 #endif

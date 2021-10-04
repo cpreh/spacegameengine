@@ -12,9 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace pango
+namespace sge::pango
 {
 
 class index
@@ -48,7 +46,6 @@ private:
 	trailing_type trailing_;
 };
 
-}
 }
 
 #endif

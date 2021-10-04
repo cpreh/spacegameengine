@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace sdl
+namespace sge::opengl::sdl
 {
 
 void
@@ -26,8 +22,6 @@ make_current(
 	SDL_GLContext
 );
 
-}
-}
 }
 
 #endif

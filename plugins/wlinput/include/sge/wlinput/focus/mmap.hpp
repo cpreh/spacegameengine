@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 class mmap
@@ -44,8 +40,6 @@ private:
 	char *const string_;
 };
 
-}
-}
 }
 
 #endif

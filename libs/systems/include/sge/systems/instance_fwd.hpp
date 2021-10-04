@@ -8,9 +8,7 @@
 #define SGE_SYSTEMS_INSTANCE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 template<
@@ -18,7 +16,6 @@ template<
 >
 class instance;
 
-}
 }
 
 #endif

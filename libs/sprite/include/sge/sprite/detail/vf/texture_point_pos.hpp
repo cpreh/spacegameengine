@@ -10,13 +10,7 @@
 #include <sge/sprite/detail/vf/texpos.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace vf
+namespace sge::sprite::detail::vf
 {
 
 template<
@@ -28,9 +22,6 @@ sge::sprite::detail::vf::texpos<
 	Choices
 >;
 
-}
-}
-}
 }
 
 #endif

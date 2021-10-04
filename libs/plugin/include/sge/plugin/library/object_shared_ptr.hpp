@@ -11,11 +11,7 @@
 #include <fcppt/shared_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
+namespace sge::plugin::library
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::shared_ptr<
 	sge::plugin::library::object
 >;
 
-}
-}
 }
 
 #endif

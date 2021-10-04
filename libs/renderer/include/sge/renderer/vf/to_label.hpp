@@ -8,11 +8,7 @@
 #define SGE_RENDERER_VF_TO_LABEL_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -24,8 +20,6 @@ to_label
 typename
 Type::label;
 
-}
-}
 }
 
 #endif

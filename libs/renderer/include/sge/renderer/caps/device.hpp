@@ -25,11 +25,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace caps
+namespace sge::renderer::caps
 {
 
 /**
@@ -262,8 +258,6 @@ private:
 	sge::renderer::caps::srgb_framebuffer srgb_framebuffer_;
 };
 
-}
-}
 }
 
 #endif

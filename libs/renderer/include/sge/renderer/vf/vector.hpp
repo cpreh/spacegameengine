@@ -11,11 +11,7 @@
 #include <sge/renderer/vf/vector_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 template<
@@ -26,8 +22,6 @@ struct vector
 {
 };
 
-}
-}
 }
 
 #endif

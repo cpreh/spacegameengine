@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opengl::occlusion_query::config const
 >;
 
-}
-}
 }
 
 #endif

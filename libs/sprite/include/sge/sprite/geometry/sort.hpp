@@ -8,11 +8,7 @@
 #define SGE_SPRITE_GEOMETRY_SORT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace geometry
+namespace sge::sprite::geometry
 {
 
 template<
@@ -30,8 +26,6 @@ sort(
 	);
 }
 
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/math/box/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace scenic
+namespace sge::scenic
 {
 
 using
@@ -24,7 +22,6 @@ fcppt::math::box::object<
 	3
 >;
 
-}
 }
 
 #endif

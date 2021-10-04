@@ -385,10 +385,10 @@ try
 
 			scoped_block.get().render_nonindexed(
 				sge::renderer::vertex::first(
-					0u
+					0U
 				),
 				sge::renderer::vertex::count(
-					3u
+					3U
 				),
 				sge::renderer::primitive_type::triangle_list
 			);

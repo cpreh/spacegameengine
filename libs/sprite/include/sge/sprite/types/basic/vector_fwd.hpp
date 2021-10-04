@@ -10,13 +10,7 @@
 #include <fcppt/math/vector/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace types
-{
-namespace basic
+namespace sge::sprite::types::basic
 {
 
 template<
@@ -29,9 +23,6 @@ fcppt::math::vector::static_<
 	2
 >;
 
-}
-}
-}
 }
 
 #endif

@@ -12,17 +12,7 @@
 #include <sge/opengl/state/actor.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace material
+namespace sge::opengl::state::ffp::lighting::material
 {
 
 sge::opengl::state::actor
@@ -32,11 +22,6 @@ color(
 	sge::image::color::any::object const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

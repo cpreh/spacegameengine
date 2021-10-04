@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace xim
+namespace sge::x11input::xim
 {
 
 template<
@@ -62,8 +58,6 @@ get_ic_values(
 	}
 }
 
-}
-}
 }
 
 #endif

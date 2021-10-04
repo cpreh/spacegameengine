@@ -11,9 +11,7 @@
 #include <sge/libpng/optional_format.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 sge::libpng::optional_format
@@ -21,7 +19,6 @@ from_sge_format(
 	sge::image::color::format
 );
 
-}
 }
 
 #endif

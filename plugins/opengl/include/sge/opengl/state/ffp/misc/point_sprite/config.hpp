@@ -13,17 +13,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace misc
-{
-namespace point_sprite
+namespace sge::opengl::state::ffp::misc::point_sprite
 {
 
 class config
@@ -69,11 +59,6 @@ private:
 	coord_replace_flag_type coord_replace_flag_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

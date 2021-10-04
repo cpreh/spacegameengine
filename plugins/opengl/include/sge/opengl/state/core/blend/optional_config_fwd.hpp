@@ -11,15 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace blend
+namespace sge::opengl::state::core::blend
 {
 
 using
@@ -29,10 +21,6 @@ fcppt::optional::object<
 	sge::opengl::state::core::blend::config
 >;
 
-}
-}
-}
-}
 }
 
 #endif

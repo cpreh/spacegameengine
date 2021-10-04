@@ -8,17 +8,7 @@
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_VIEW_IMAGE_FORMAT_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace view
+namespace sge::image::color::impl::dynamic::view
 {
 
 template<
@@ -34,11 +24,6 @@ image_format(
 		_view.format_store().get();
 }
 
-}
-}
-}
-}
-}
 }
 
 #endif

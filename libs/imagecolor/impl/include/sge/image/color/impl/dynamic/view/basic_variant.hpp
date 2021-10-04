@@ -12,17 +12,7 @@
 #include <fcppt/variant/from_list_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace view
+namespace sge::image::color::impl::dynamic::view
 {
 
 template<
@@ -38,11 +28,6 @@ fcppt::variant::from_list<
 	>
 >;
 
-}
-}
-}
-}
-}
 }
 
 #endif

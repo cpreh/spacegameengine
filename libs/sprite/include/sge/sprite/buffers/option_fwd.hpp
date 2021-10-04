@@ -8,17 +8,11 @@
 #define SGE_SPRITE_BUFFERS_OPTION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace buffers
+namespace sge::sprite::buffers
 {
 
 enum class option;
 
-}
-}
 }
 
 #endif

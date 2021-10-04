@@ -7,17 +7,11 @@
 #ifndef SGE_RENDERER_TEXTURE_CUBE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CUBE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
+namespace sge::renderer::texture
 {
 
 class cube;
 
-}
-}
 }
 
 #endif

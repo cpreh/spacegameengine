@@ -14,9 +14,7 @@
 #include <sge/media/extension_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
@@ -27,7 +25,6 @@ create_exn(
 	sge::media::extension const &
 );
 
-}
 }
 
 #endif

@@ -16,11 +16,7 @@
 #include <fcppt/algorithm/loop_break_mpl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
+namespace sge::sprite::state
 {
 
 template<
@@ -62,8 +58,6 @@ set(
 	);
 }
 
-}
-}
 }
 
 #endif

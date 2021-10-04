@@ -11,11 +11,7 @@
 #include <sge/renderer/vertex/const_buffer_ref.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 void
@@ -24,8 +20,6 @@ set_buffer(
 	sge::renderer::vertex::const_buffer_ref
 );
 
-}
-}
 }
 
 #endif

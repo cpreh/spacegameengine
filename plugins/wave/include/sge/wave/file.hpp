@@ -25,9 +25,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wave
+namespace sge::wave
 {
 
 class file
@@ -100,7 +98,6 @@ private:
 	sge::audio::sample_count samples_read_;
 };
 
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/evdev/joypad/info_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 bool
@@ -22,8 +18,6 @@ is_joypad(
 	sge::evdev::joypad::info const &
 );
 
-}
-}
 }
 
 #endif

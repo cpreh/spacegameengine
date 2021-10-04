@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace wlinput
-{
-namespace focus
+namespace sge::wlinput::focus
 {
 
 sge::input::key::pressed
@@ -25,8 +21,6 @@ key_pressed(
 	std::uint32_t
 );
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/optional/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 /**
@@ -30,8 +26,6 @@ fcppt::optional::reference<
 	sge::renderer::vertex::declaration const
 >;
 
-}
-}
 }
 
 #endif

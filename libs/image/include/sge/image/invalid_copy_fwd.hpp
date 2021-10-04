@@ -8,9 +8,7 @@
 #define SGE_IMAGE_INVALID_COPY_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -18,7 +16,6 @@ template<
 >
 class invalid_copy;
 
-}
 }
 
 #endif

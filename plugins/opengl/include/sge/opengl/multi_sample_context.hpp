@@ -15,9 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 class multi_sample_context
@@ -50,7 +48,6 @@ private:
 	sge::opengl::optional_enum const flag_;
 };
 
-}
 }
 
 #endif

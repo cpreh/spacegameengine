@@ -12,13 +12,7 @@
 #include <sge/input/joypad/absolute_axis_info_fwd.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
-{
-namespace absolute_axis
+namespace sge::evdev::joypad::absolute_axis
 {
 
 using
@@ -29,9 +23,6 @@ sge::evdev::device::basic_info<
 	sge::input::joypad::absolute_axis_info
 >;
 
-}
-}
-}
 }
 
 #endif

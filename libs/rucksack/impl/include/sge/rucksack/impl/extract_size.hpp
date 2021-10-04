@@ -11,11 +11,7 @@
 #include <sge/rucksack/scalar.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace impl
+namespace sge::rucksack::impl
 {
 
 sge::rucksack::scalar
@@ -23,8 +19,6 @@ extract_size(
 	sge::rucksack::axis_policy const &
 );
 
-}
-}
 }
 
 #endif

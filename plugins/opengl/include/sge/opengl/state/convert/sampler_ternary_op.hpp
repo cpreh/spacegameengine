@@ -11,13 +11,7 @@
 #include <sge/renderer/state/ffp/sampler/ternary_op_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 GLenum
@@ -25,9 +19,6 @@ sampler_ternary_op(
 	sge::renderer::state::ffp::sampler::ternary_op_type
 );
 
-}
-}
-}
 }
 
 #endif

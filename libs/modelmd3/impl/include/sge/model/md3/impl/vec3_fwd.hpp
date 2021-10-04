@@ -11,13 +11,7 @@
 #include <fcppt/math/vector/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 using
@@ -28,9 +22,6 @@ fcppt::math::vector::static_<
 	3
 >;
 
-}
-}
-}
 }
 
 #endif

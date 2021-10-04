@@ -11,11 +11,7 @@
 #include <fcppt/math/vector/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
+namespace sge::input::cursor
 {
 
 using
@@ -26,8 +22,6 @@ fcppt::math::vector::static_<
 	2
 >;
 
-}
-}
 }
 
 #endif

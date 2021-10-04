@@ -8,11 +8,7 @@
 #define SGE_RENDERER_CLEAR_STENCIL_BUFFER_VALUE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace clear
+namespace sge::renderer::clear
 {
 
 /**
@@ -25,8 +21,6 @@ stencil_buffer_value
 =
 int;
 
-}
-}
 }
 
 #endif

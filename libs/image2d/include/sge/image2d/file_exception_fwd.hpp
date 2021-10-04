@@ -11,9 +11,7 @@
 #include <sge/media/file_exception_fwd.hpp>
 
 
-namespace sge
-{
-namespace image2d
+namespace sge::image2d
 {
 
 using
@@ -23,7 +21,6 @@ sge::media::file_exception<
 	sge::image2d::exception
 >;
 
-}
 }
 
 #endif

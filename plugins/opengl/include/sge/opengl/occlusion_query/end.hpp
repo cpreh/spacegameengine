@@ -10,11 +10,7 @@
 #include <sge/opengl/occlusion_query/config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 void
@@ -22,8 +18,6 @@ end(
 	sge::opengl::occlusion_query::config const &
 );
 
-}
-}
 }
 
 #endif

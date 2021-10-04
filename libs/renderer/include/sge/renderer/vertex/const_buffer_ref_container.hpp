@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vertex
+namespace sge::renderer::vertex
 {
 
 /**
@@ -30,8 +26,6 @@ std::vector<
 	sge::renderer::vertex::const_buffer_ref
 >;
 
-}
-}
 }
 
 #endif

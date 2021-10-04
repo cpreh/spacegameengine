@@ -19,9 +19,7 @@
 #include <fcppt/string.hpp>
 
 
-namespace sge
-{
-namespace font
+namespace sge::font
 {
 
 class parameters
@@ -94,7 +92,6 @@ private:
 	bool italic_;
 };
 
-}
 }
 
 #endif

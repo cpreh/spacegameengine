@@ -11,17 +11,7 @@
 #include <sge/opengl/state/core/sampler/filter/anisotropy_config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace filter
+namespace sge::opengl::state::core::sampler::filter
 {
 
 class anisotropy_config
@@ -45,11 +35,6 @@ private:
 	GLenum max_anisotropy_flag_;
 };
 
-}
-}
-}
-}
-}
 }
 
 #endif

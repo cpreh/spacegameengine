@@ -10,13 +10,7 @@
 #include <sge/plugin/info_fwd.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace library
-{
-namespace detail
+namespace sge::plugin::library::detail
 {
 
 using
@@ -25,9 +19,6 @@ version_function
 sge::plugin::info
 (*)();
 
-}
-}
-}
 }
 
 #endif

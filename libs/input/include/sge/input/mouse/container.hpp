@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::input::mouse::shared_ptr
 >;
 
-}
-}
 }
 
 #endif

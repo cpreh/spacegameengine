@@ -15,11 +15,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace ghost
+namespace sge::projectile::ghost
 {
 
 class parameters
@@ -53,8 +49,6 @@ private:
 	sge::projectile::ghost::size size_;
 };
 
-}
-}
 }
 
 #endif

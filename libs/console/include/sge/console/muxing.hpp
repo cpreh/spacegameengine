@@ -10,9 +10,7 @@
 #include <sge/console/muxing_fwd.hpp>
 
 
-namespace sge
-{
-namespace console
+namespace sge::console
 {
 
 enum class muxing
@@ -21,7 +19,6 @@ enum class muxing
 	disabled
 };
 
-}
 }
 
 #endif

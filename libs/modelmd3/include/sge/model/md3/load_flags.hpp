@@ -10,11 +10,7 @@
 #include <sge/model/md3/load_flags_fwd.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 enum class load_flags
@@ -23,8 +19,6 @@ enum class load_flags
 	fcppt_maximum = switch_yz
 };
 
-}
-}
 }
 
 #endif

@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class lock_base
@@ -94,8 +90,6 @@ public:
 	method() const = 0;
 };
 
-}
-}
 }
 
 #endif

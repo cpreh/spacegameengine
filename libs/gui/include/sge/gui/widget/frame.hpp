@@ -26,11 +26,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class frame
@@ -103,8 +99,6 @@ private:
 	sge::rucksack::widget::frame layout_;
 };
 
-}
-}
 }
 
 #endif

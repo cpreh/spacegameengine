@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace context
+namespace sge::cg::context
 {
 
 class object
@@ -42,8 +38,6 @@ private:
 	CGcontext const context_; // NOLINT(misc-misplaced-const)
 };
 
-}
-}
 }
 
 #endif

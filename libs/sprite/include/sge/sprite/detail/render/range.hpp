@@ -15,13 +15,7 @@
 #include <sge/sprite/render/range_part_vector.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace detail
-{
-namespace render
+namespace sge::sprite::detail::render
 {
 
 template<
@@ -63,9 +57,6 @@ range(
 	);
 }
 
-}
-}
-}
 }
 
 #endif

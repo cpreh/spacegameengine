@@ -8,9 +8,7 @@
 #define SGE_RENDERER_SCALAR_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -26,7 +24,6 @@ scalar
 =
 float;
 
-}
 }
 
 #endif

@@ -7,19 +7,10 @@
 #ifndef SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_FWD_HPP_INCLUDED
 #define SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace scenic
-{
-namespace impl
-{
-namespace number_multiplexer
+namespace sge::scenic::impl::number_multiplexer
 {
 template<typename T>
 class number_multiplexer;
-}
-}
-}
 }
 
 #endif

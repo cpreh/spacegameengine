@@ -12,17 +12,7 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/variant_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace depth_stencil
-{
-namespace stencil
+namespace sge::opengl::state::core::depth_stencil::stencil
 {
 
 sge::opengl::state::actor_vector
@@ -31,11 +21,6 @@ make_actors(
 	sge::renderer::state::core::depth_stencil::stencil::variant const &
 );
 
-}
-}
-}
-}
-}
 }
 
 #endif

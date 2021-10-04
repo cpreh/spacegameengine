@@ -8,11 +8,7 @@
 #define SGE_RENDERER_VF_INDEX_TYPE_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
+namespace sge::renderer::vf
 {
 
 using
@@ -20,8 +16,6 @@ index_type
 =
 unsigned;
 
-}
-}
 }
 
 #endif

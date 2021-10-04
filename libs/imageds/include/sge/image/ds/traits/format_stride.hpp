@@ -14,13 +14,7 @@
 #include <sge/image/traits/pixel/format_stride_tpl_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace traits
-{
-namespace pixel
+namespace sge::image::traits::pixel
 {
 
 template<>
@@ -36,9 +30,6 @@ struct format_stride_tpl<
 	);
 };
 
-}
-}
-}
 }
 
 #endif

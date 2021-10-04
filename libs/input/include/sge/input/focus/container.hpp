@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace focus
+namespace sge::input::focus
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::input::focus::shared_ptr
 >;
 
-}
-}
 }
 
 #endif

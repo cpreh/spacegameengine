@@ -10,11 +10,7 @@
 #include <sge/renderer/display_mode/optional_refresh_rate_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace xrandr
+namespace sge::opengl::xrandr
 {
 
 sge::renderer::display_mode::optional_refresh_rate
@@ -23,8 +19,6 @@ combine_rates(
 	sge::renderer::display_mode::optional_refresh_rate
 );
 
-}
-}
 }
 
 #endif

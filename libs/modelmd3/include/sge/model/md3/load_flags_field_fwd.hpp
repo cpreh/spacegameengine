@@ -11,11 +11,7 @@
 #include <fcppt/container/bitfield/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
+namespace sge::model::md3
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::container::bitfield::object<
 	sge::model::md3::load_flags
 >;
 
-}
-}
 }
 
 #endif

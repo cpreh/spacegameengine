@@ -14,11 +14,7 @@
 #include <fcppt/reference_fwd.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace store
+namespace sge::image::store
 {
 
 template<
@@ -51,8 +47,6 @@ view(
 	>
 );
 
-}
-}
 }
 
 #endif

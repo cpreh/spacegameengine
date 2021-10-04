@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace cursor
+namespace sge::sdlinput::cursor
 {
 
 class object
@@ -61,8 +57,6 @@ private:
 	awl::backends::sdl::window::object_ref const sdl_window_;
 };
 
-}
-}
 }
 
 #endif

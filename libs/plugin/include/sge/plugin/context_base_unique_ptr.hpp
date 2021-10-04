@@ -11,9 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 using
@@ -23,7 +21,6 @@ fcppt::unique_ptr<
 	sge::plugin::context_base
 >;
 
-}
 }
 
 #endif

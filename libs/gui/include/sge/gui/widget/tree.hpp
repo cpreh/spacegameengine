@@ -16,11 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace widget
+namespace sge::gui::widget
 {
 
 class tree
@@ -44,8 +40,6 @@ private:
 	sge::gui::widget::unique_ptr_vector boxes_;
 };
 
-}
-}
 }
 
 #endif

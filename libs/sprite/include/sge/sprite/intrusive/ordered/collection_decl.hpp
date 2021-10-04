@@ -15,13 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace intrusive
-{
-namespace ordered
+namespace sge::sprite::intrusive::ordered
 {
 
 template<
@@ -119,9 +113,6 @@ private:
 	order_map collections_;
 };
 
-}
-}
-}
 }
 
 #endif

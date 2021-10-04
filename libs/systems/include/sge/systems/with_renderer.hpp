@@ -17,9 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 template<
@@ -53,7 +51,6 @@ struct with_renderer
 	>;
 };
 
-}
 }
 
 #endif

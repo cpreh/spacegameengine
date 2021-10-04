@@ -16,9 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 /**
@@ -55,7 +53,6 @@ public:
 	caps() const = 0;
 };
 
-}
 }
 
 #endif

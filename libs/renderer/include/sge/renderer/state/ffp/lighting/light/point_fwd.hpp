@@ -8,26 +8,11 @@
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_POINT_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace lighting
-{
-namespace light
+namespace sge::renderer::state::ffp::lighting::light
 {
 
 class point;
 
-}
-}
-}
-}
-}
 }
 
 #endif

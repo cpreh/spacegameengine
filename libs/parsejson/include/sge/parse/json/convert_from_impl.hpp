@@ -41,11 +41,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 template<
@@ -515,8 +511,6 @@ struct convert_from_impl<
 	}
 };
 
-}
-}
 }
 
 #endif

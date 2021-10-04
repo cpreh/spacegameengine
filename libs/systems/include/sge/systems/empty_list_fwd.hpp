@@ -11,9 +11,7 @@
 #include <fcppt/tuple/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 using
@@ -23,7 +21,6 @@ sge::systems::list<
 	fcppt::tuple::object<>
 >;
 
-}
 }
 
 #endif

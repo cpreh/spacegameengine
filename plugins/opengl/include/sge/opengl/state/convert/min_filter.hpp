@@ -12,13 +12,7 @@
 #include <sge/renderer/state/core/sampler/filter/normal/mip_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace convert
+namespace sge::opengl::state::convert
 {
 
 GLenum
@@ -27,9 +21,6 @@ min_filter(
 	sge::renderer::state::core::sampler::filter::normal::mip
 );
 
-}
-}
-}
 }
 
 #endif

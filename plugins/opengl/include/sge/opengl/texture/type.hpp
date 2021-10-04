@@ -11,11 +11,7 @@
 #include <sge/renderer/opengl/texture/type.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 using
@@ -23,8 +19,6 @@ type
 =
 sge::renderer::opengl::texture::type;
 
-}
-}
 }
 
 #endif

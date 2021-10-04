@@ -11,11 +11,7 @@
 #include <sge/opencl/error_information_string.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace context
+namespace sge::opencl::context
 {
 
 using
@@ -26,8 +22,6 @@ void (
 	sge::opencl::binary_error_data const &
 );
 
-}
-}
 }
 
 #endif

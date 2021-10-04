@@ -12,13 +12,7 @@
 #include <fcppt/strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace ortho_freelook
-{
-namespace action
+namespace sge::camera::ortho_freelook::action
 {
 
 /**
@@ -30,9 +24,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	zoom_out
 );
 
-}
-}
-}
 }
 
 #endif

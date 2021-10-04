@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace line_drawer
+namespace sge::line_drawer
 {
 
 using
@@ -25,7 +23,6 @@ std::vector<
 	sge::line_drawer::line
 >;
 
-}
 }
 
 #endif

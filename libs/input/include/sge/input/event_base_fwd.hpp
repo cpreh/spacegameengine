@@ -8,14 +8,11 @@
 #define SGE_INPUT_EVENT_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
+namespace sge::input
 {
 
 class event_base;
 
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/opengl/backend/fun_ptr.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace info
+namespace sge::opengl::info
 {
 
 template<
@@ -34,8 +30,6 @@ cast_function(
 		);
 }
 
-}
-}
 }
 
 #endif

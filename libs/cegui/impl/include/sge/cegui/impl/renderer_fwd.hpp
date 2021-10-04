@@ -8,17 +8,11 @@
 #define SGE_CEGUI_IMPL_RENDERER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class renderer;
 
-}
-}
 }
 
 #endif

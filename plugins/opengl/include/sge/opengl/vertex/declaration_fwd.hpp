@@ -8,17 +8,11 @@
 #define SGE_OPENGL_VERTEX_DECLARATION_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 class declaration;
 
-}
-}
 }
 
 #endif

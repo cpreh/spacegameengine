@@ -25,11 +25,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace index
+namespace sge::opengl::index
 {
 
 // NOLINTNEXTLINE(fuchsia-multiple-inheritance)
@@ -119,8 +115,6 @@ private:
 	mutable sge::opengl::buffer::object buffer_;
 };
 
-}
-}
 }
 
 #endif

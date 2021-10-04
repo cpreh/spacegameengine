@@ -10,18 +10,12 @@
 #include <sge/parse/ini/section_name.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace impl
+namespace sge::systems::impl
 {
 
 sge::parse::ini::section_name
 ini_section_name();
 
-}
-}
 }
 
 #endif

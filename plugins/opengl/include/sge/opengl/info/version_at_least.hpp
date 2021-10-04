@@ -12,11 +12,7 @@
 #include <sge/opengl/info/version_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace info
+namespace sge::opengl::info
 {
 
 bool
@@ -26,8 +22,6 @@ version_at_least(
 	sge::opengl::info::minor_version
 );
 
-}
-}
 }
 
 #endif

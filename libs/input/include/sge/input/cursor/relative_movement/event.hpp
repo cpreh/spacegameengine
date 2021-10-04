@@ -16,13 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
-{
-namespace relative_movement
+namespace sge::input::cursor::relative_movement
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL event
@@ -51,9 +45,6 @@ private:
 	sge::input::cursor::relative_movement::difference const difference_;
 };
 
-}
-}
-}
 }
 
 #endif

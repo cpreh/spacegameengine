@@ -12,13 +12,7 @@
 #include <sge/renderer/texture/mipmap/variant.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace texture
-{
-namespace mipmap
+namespace sge::renderer::texture::mipmap
 {
 
 class object
@@ -38,9 +32,6 @@ private:
 	sge::renderer::texture::mipmap::variant variant_;
 };
 
-}
-}
-}
 }
 
 #endif

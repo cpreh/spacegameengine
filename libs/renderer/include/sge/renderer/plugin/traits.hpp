@@ -15,11 +15,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace detail
+namespace sge::plugin::detail
 {
 
 template<>
@@ -45,8 +41,6 @@ struct traits<
 	sge::renderer::core_unique_ptr ();
 };
 
-}
-}
 }
 
 #endif

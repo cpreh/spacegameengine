@@ -18,11 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 template<
@@ -37,8 +33,6 @@ get_level_size(
 	sge::renderer::texture::mipmap::level
 );
 
-}
-}
 }
 
 #define SGE_OPENGL_TEXTURE_DECLARE_GET_LEVEL_SIZE(\

@@ -11,19 +11,13 @@
 #include <fcppt/log/location.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
+namespace sge::font::bitmap
 {
 
 SGE_FONT_BITMAP_DETAIL_SYMBOL
 fcppt::log::location
 log_location();
 
-}
-}
 }
 
 #endif

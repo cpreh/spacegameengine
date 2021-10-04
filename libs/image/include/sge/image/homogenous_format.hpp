@@ -10,9 +10,7 @@
 #include <mizuiro/color/format/homogenous_static.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -27,7 +25,6 @@ mizuiro::color::format::homogenous_static<
 	Layout
 >;
 
-}
 }
 
 #endif

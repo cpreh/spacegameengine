@@ -12,11 +12,7 @@
 #include <sge/renderer/vf/part.hpp>
 
 
-namespace sge
-{
-namespace postprocessing
-{
-namespace vf
+namespace sge::postprocessing::vf
 {
 
 using
@@ -27,8 +23,6 @@ sge::renderer::vf::part<
 	sge::postprocessing::vf::texcoord
 >;
 
-}
-}
 }
 
 #endif

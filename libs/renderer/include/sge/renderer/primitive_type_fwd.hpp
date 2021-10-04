@@ -8,14 +8,11 @@
 #define SGE_RENDERER_PRIMITIVE_TYPE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
+namespace sge::renderer
 {
 
 enum class primitive_type;
 
-}
 }
 
 #endif

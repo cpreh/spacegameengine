@@ -13,11 +13,7 @@
 #include <fcppt/log/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 void
@@ -28,8 +24,6 @@ activate(
 	sge::renderer::texture::stage
 );
 
-}
-}
 }
 
 #endif

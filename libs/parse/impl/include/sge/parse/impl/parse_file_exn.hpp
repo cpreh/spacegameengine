@@ -23,11 +23,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace impl
+namespace sge::parse::impl
 {
 
 template<
@@ -99,8 +95,6 @@ parse_file_exn(
 		);
 }
 
-}
-}
 }
 
 #endif

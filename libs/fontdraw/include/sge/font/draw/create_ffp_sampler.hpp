@@ -13,11 +13,7 @@
 #include <sge/renderer/state/ffp/sampler/optional_object_unique_ptr.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace draw
+namespace sge::font::draw
 {
 
 SGE_FONT_DRAW_DETAIL_SYMBOL
@@ -27,8 +23,6 @@ create_ffp_sampler(
 	sge::image::color::format
 );
 
-}
-}
 }
 
 #endif

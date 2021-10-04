@@ -11,11 +11,7 @@
 #include <sge/renderer/color_buffer/tag_from_dimension_tpl.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace color_buffer
+namespace sge::renderer::color_buffer
 {
 
 template<
@@ -29,8 +25,6 @@ sge::renderer::color_buffer::tag_from_dimension_tpl<
 	Dim
 >::type;
 
-}
-}
 }
 
 #endif

@@ -18,9 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 class frames_counter
@@ -68,7 +66,6 @@ private:
 	counter display_frames_;
 };
 
-}
 }
 
 #endif

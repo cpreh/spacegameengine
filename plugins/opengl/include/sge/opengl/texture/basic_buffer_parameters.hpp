@@ -25,11 +25,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class basic_buffer_parameters
@@ -123,8 +119,6 @@ private:
 	sge::opengl::texture::is_render_target is_render_target_;
 };
 
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <fcppt/parse/skipper/space.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 inline
@@ -25,8 +21,6 @@ skipper()
 		fcppt::parse::skipper::space();
 }
 
-}
-}
 }
 
 #endif

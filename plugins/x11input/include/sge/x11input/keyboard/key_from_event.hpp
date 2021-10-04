@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace keyboard
+namespace sge::x11input::keyboard
 {
 
 sge::input::keyboard::key
@@ -27,8 +23,6 @@ key_from_event(
 	XIDeviceEvent const &
 );
 
-}
-}
 }
 
 #endif

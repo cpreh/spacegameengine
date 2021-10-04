@@ -10,13 +10,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace timer
-{
-namespace clocks
-{
-namespace detail
+namespace sge::timer::clocks::detail
 {
 
 template<
@@ -54,9 +48,6 @@ private:
 	clock_ref clock_;
 };
 
-}
-}
-}
 }
 
 #endif

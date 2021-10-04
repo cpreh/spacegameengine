@@ -18,13 +18,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace device
-{
-namespace info
+namespace sge::x11input::device::info
 {
 
 template<
@@ -68,9 +62,6 @@ class_maybe(
 		;
 }
 
-}
-}
-}
 }
 
 #endif

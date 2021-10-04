@@ -17,11 +17,7 @@
 #include <sge/input/joypad/ff/type_field.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace joypad
+namespace sge::input::joypad
 {
 
 class info
@@ -80,8 +76,6 @@ private:
 	sge::input::info::unique_id unique_id_;
 };
 
-}
-}
 }
 
 #endif

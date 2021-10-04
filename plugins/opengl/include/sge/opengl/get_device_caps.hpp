@@ -11,9 +11,7 @@
 #include <sge/renderer/caps/device.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 sge::renderer::caps::device
@@ -21,7 +19,6 @@ get_device_caps(
 	sge::opengl::context::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
 }
 
 #endif

@@ -15,11 +15,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vf
+namespace sge::opengl::vf
 {
 
 class context
@@ -57,8 +53,6 @@ private:
 	sge::opengl::vf::client_state state_;
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/evdev/joypad/info.hpp>
 
 
-namespace sge
-{
-namespace evdev
-{
-namespace joypad
+namespace sge::evdev::joypad
 {
 
 sge::evdev::joypad::info
@@ -23,8 +19,6 @@ make_info(
 	sge::evdev::device::fd & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
-}
-}
 }
 
 #endif

@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opengl
+namespace sge::opengl
 {
 
 std::string
@@ -23,7 +21,6 @@ get_string(
 	GLenum
 );
 
-}
 }
 
 #endif

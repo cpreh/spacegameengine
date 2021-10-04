@@ -11,9 +11,7 @@
 #include <sge/libpng/format_fwd.hpp>
 
 
-namespace sge
-{
-namespace libpng
+namespace sge::libpng
 {
 
 sge::image::color::format
@@ -21,7 +19,6 @@ to_sge_format(
 	sge::libpng::format
 );
 
-}
 }
 
 #endif

@@ -12,11 +12,7 @@
 #include <sge/opengl/occlusion_query/config_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace occlusion_query
+namespace sge::opengl::occlusion_query
 {
 
 class config
@@ -131,8 +127,6 @@ private:
 	GLenum query_result_;
 };
 
-}
-}
 }
 
 #endif

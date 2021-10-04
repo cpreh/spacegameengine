@@ -11,11 +11,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace fbo
+namespace sge::opengl::fbo
 {
 
 class attachment
@@ -30,8 +26,6 @@ public:
 	~attachment();
 };
 
-}
-}
 }
 
 #endif

@@ -11,28 +11,13 @@
 #include <sge/renderer/state/core/sampler/address/mode_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
-{
-namespace address
+namespace sge::renderer::state::core::sampler::address
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::state::core::sampler::address::mode
 mode_default();
 
-}
-}
-}
-}
-}
 }
 
 #endif

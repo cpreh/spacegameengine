@@ -13,13 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace impl
-{
-namespace program
+namespace sge::cg::impl::program
 {
 
 CGenum
@@ -27,9 +21,6 @@ convert_source_type(
 	sge::cg::program::source_type
 );
 
-}
-}
-}
 }
 
 #endif

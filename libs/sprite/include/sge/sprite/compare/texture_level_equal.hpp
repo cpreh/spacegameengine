@@ -15,11 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace compare
+namespace sge::sprite::compare
 {
 
 template<
@@ -54,8 +50,6 @@ texture_level_equal(
 		);
 }
 
-}
-}
 }
 
 #endif

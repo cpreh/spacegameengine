@@ -11,11 +11,7 @@
 #include <fcppt/make_strong_typedef.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace align_h
+namespace sge::font::align_h
 {
 
 FCPPT_MAKE_STRONG_TYPEDEF(
@@ -23,8 +19,6 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 	max_width
 );
 
-}
-}
 }
 
 #endif

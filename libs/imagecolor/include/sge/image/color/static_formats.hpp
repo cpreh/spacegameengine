@@ -28,11 +28,7 @@
 #include <fcppt/mpl/list/object.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 using
@@ -59,8 +55,6 @@ fcppt::mpl::list::object<
 	sge::image::color::sbgra8_format
 >;
 
-}
-}
 }
 
 #endif

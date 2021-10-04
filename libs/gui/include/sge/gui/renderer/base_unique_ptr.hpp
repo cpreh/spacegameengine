@@ -11,11 +11,7 @@
 #include <fcppt/unique_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace renderer
+namespace sge::gui::renderer
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::unique_ptr<
 	sge::gui::renderer::base
 >;
 
-}
-}
 }
 
 #endif

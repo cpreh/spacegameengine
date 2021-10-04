@@ -10,11 +10,7 @@
 #include <sge/graph/color_scheme.hpp>
 #include <sge/graph/detail/symbol.hpp>
 
-namespace sge
-{
-namespace graph
-{
-namespace color_schemes
+namespace sge::graph::color_schemes
 {
 
 SGE_GRAPH_DETAIL_SYMBOL
@@ -33,8 +29,6 @@ SGE_GRAPH_DETAIL_SYMBOL
 sge::graph::color_scheme
 minimal();
 
-}
-}
 }
 
 #endif

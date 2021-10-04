@@ -11,15 +11,7 @@
 #include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::opengl::state::ffp::clip_plane
 {
 
 sge::renderer::state::ffp::clip_plane::object_unique_ptr
@@ -27,10 +19,6 @@ create(
 	sge::renderer::state::ffp::clip_plane::parameters const &
 );
 
-}
-}
-}
-}
 }
 
 #endif

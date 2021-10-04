@@ -12,13 +12,7 @@
 #include <sge/scenic/render_context/light/directional_fwd.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
-{
-namespace light
+namespace sge::scenic::render_context::light
 {
 
 class directional
@@ -38,9 +32,6 @@ private:
 	sge::scenic::render_context::light::direction direction_;
 };
 
-}
-}
-}
 }
 
 #endif

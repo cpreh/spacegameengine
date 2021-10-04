@@ -7,9 +7,7 @@
 #ifndef SGE_SPRITE_OBJECT_FWD_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace sprite
+namespace sge::sprite
 {
 
 template<
@@ -17,7 +15,6 @@ template<
 >
 class object;
 
-}
 }
 
 #endif

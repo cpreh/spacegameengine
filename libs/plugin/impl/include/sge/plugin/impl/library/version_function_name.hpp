@@ -10,21 +10,12 @@
 #include <sge/plugin/library/symbol_string.hpp>
 
 
-namespace sge
-{
-namespace plugin
-{
-namespace impl
-{
-namespace library
+namespace sge::plugin::impl::library
 {
 
 sge::plugin::library::symbol_string
 version_function_name();
 
-}
-}
-}
 }
 
 #endif

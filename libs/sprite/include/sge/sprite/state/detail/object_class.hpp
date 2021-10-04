@@ -10,13 +10,7 @@
 #include <sge/sprite/state/detail/object_class_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace state
-{
-namespace detail
+namespace sge::sprite::state::detail
 {
 
 template<
@@ -29,9 +23,6 @@ sge::sprite::state::detail::object_class_impl<
 	StateChoices
 >::type;
 
-}
-}
-}
 }
 
 #endif

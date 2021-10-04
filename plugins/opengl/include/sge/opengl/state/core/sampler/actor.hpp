@@ -11,15 +11,7 @@
 #include <fcppt/function_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace sampler
+namespace sge::opengl::state::core::sampler
 {
 
 using
@@ -31,10 +23,6 @@ fcppt::function<
 	)
 >;
 
-}
-}
-}
-}
 }
 
 #endif

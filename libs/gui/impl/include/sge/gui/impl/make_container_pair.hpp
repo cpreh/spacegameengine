@@ -12,11 +12,7 @@
 #include <sge/gui/widget/reference_alignment_vector.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
+namespace sge::gui::impl
 {
 
 sge::gui::widget::reference_alignment_vector
@@ -26,8 +22,6 @@ make_container_pair(
 	sge::gui::impl::swap_pair
 );
 
-}
-}
 }
 
 #endif

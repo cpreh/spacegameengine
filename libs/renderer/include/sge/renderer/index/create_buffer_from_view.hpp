@@ -14,11 +14,7 @@
 #include <sge/renderer/index/dynamic/const_view_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace index
+namespace sge::renderer::index
 {
 
 /**
@@ -44,8 +40,6 @@ create_buffer_from_view(
 	sge::renderer::resource_flags_field const &flags
 );
 
-}
-}
 }
 
 #endif

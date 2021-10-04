@@ -8,17 +8,11 @@
 #define SGE_GUI_RENDERER_BASE_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace gui
-{
-namespace renderer
+namespace sge::gui::renderer
 {
 
 class base;
 
-}
-}
 }
 
 #endif

@@ -14,11 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace sdlinput
-{
-namespace joypad
+namespace sge::sdlinput::joypad
 {
 
 awl::event::container
@@ -27,8 +23,6 @@ translate_button_event(
 	SDL_JoyButtonEvent const &
 );
 
-}
-}
 }
 
 #endif

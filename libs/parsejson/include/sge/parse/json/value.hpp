@@ -12,11 +12,7 @@
 #include <sge/parse/json/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 struct value
@@ -47,8 +43,6 @@ operator==(
 	sge::parse::json::value const &
 );
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <sge/camera/detail/symbol.hpp>
 
 
-namespace sge
-{
-namespace camera
-{
-namespace coordinate_system
+namespace sge::camera::coordinate_system
 {
 
 /**
@@ -30,8 +26,6 @@ SGE_CAMERA_DETAIL_SYMBOL
 sge::camera::coordinate_system::object
 identity();
 
-}
-}
 }
 
 #endif

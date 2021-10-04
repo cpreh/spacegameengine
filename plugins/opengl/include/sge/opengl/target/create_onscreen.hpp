@@ -13,11 +13,7 @@
 #include <awl/window/object_ref.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 sge::renderer::target::onscreen_unique_ptr
@@ -27,8 +23,6 @@ create_onscreen(
 	awl::window::object_ref
 );
 
-}
-}
 }
 
 #endif

@@ -11,15 +11,7 @@
 #include <sge/renderer/state/core/rasterizer/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace state
-{
-namespace core
-{
-namespace rasterizer
+namespace sge::opengl::state::core::rasterizer
 {
 
 using
@@ -29,10 +21,6 @@ sge::opengl::state::object<
 	sge::renderer::state::core::rasterizer::object
 >;
 
-}
-}
-}
-}
 }
 
 #endif

@@ -11,9 +11,7 @@
 #include <fcppt/math/vector/static_fwd.hpp>
 
 
-namespace sge
-{
-namespace projectile
+namespace sge::projectile
 {
 
 using
@@ -24,7 +22,6 @@ fcppt::math::vector::static_<
 	3
 >;
 
-}
 }
 
 #endif

@@ -26,11 +26,7 @@ class GeometryBuffer;
 class RenderQueue;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace impl
+namespace sge::cegui::impl
 {
 
 class default_target
@@ -109,8 +105,6 @@ private:
 	> const render_context_;
 };
 
-}
-}
 }
 
 #endif

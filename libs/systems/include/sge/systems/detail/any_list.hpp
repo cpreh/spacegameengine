@@ -13,11 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
-{
-namespace detail
+namespace sge::systems::detail
 {
 
 using
@@ -27,8 +23,6 @@ std::vector<
 	sge::systems::detail::any
 >;
 
-}
-}
 }
 
 #endif

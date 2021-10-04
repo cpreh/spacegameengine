@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace target
+namespace sge::opengl::target
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opengl::target::base
 >;
 
-}
-}
 }
 
 #endif

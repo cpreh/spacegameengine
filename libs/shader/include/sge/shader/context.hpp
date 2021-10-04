@@ -16,9 +16,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace shader
+namespace sge::shader
 {
 
 class context
@@ -80,7 +78,6 @@ private:
 	sge::cg::profile::object const pixel_profile_;
 };
 
-}
 }
 
 #endif

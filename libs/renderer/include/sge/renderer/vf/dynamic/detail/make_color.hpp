@@ -11,15 +11,7 @@
 #include <sge/renderer/vf/dynamic/color.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace vf
-{
-namespace dynamic
-{
-namespace detail
+namespace sge::renderer::vf::dynamic::detail
 {
 
 template<
@@ -36,10 +28,6 @@ make_color()
 		);
 }
 
-}
-}
-}
-}
 }
 
 #endif

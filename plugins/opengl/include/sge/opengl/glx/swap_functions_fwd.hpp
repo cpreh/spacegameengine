@@ -8,17 +8,11 @@
 #define SGE_OPENGL_GLX_SWAP_FUNCTIONS_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace glx
+namespace sge::opengl::glx
 {
 
 class swap_functions;
 
-}
-}
 }
 
 #endif

@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace charconv
+namespace sge::charconv
 {
 
 using
@@ -25,7 +23,6 @@ std::vector<
 	sge::charconv::index
 >;
 
-}
 }
 
 #endif

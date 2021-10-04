@@ -28,11 +28,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace vertex
+namespace sge::opengl::vertex
 {
 
 class buffer // NOLINT(fuchsia-multiple-inheritance)
@@ -120,8 +116,6 @@ private:
 	mutable sge::opengl::buffer::object buffer_;
 };
 
-}
-}
 }
 
 #endif

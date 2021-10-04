@@ -10,11 +10,7 @@
 #include <sge/renderer/clear/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace clear
+namespace sge::opengl::clear
 {
 
 void
@@ -22,8 +18,6 @@ set(
 	sge::renderer::clear::parameters const &
 );
 
-}
-}
 }
 
 #endif

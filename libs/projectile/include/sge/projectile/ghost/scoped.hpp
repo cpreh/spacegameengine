@@ -15,11 +15,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace projectile
-{
-namespace ghost
+namespace sge::projectile::ghost
 {
 
 class scoped
@@ -43,8 +39,6 @@ private:
 	sge::projectile::ghost::object_ref const object_;
 };
 
-}
-}
 }
 
 #endif

@@ -13,9 +13,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace image
+namespace sge::image
 {
 
 template<
@@ -34,7 +32,6 @@ std::enable_if_t<
 	Result
 >;
 
-}
 }
 
 #endif

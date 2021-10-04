@@ -14,13 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace output
+namespace sge::parse::json::output
 {
 
 [[nodiscard]]
@@ -31,9 +25,6 @@ to_file(
 	sge::parse::json::start const &
 );
 
-}
-}
-}
 }
 
 #endif

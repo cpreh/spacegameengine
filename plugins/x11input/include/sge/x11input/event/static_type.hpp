@@ -17,11 +17,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace event
+namespace sge::x11input::event
 {
 
 template<
@@ -50,8 +46,6 @@ std::conditional_t<
 	>
 >;
 
-}
-}
 }
 
 #endif

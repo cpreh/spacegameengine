@@ -22,7 +22,7 @@ sge::renderer::pixel_format::depth_bits(
 	{
 	case sge::renderer::pixel_format::depth_stencil::off:
 		return
-			sge::renderer::pixel_format::optional_bit_count();
+			{};
 	case sge::renderer::pixel_format::depth_stencil::d16:
 		return
 			sge::renderer::pixel_format::optional_bit_count(

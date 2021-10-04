@@ -18,9 +18,7 @@
 #include <fcppt/log/object_reference.hpp>
 
 
-namespace sge
-{
-namespace openal
+namespace sge::openal
 {
 
 class buffer
@@ -58,7 +56,6 @@ private:
 	sge::openal::buffer_holder const holder_;
 };
 
-}
 }
 
 #endif

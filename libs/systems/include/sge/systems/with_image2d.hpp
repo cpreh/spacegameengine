@@ -15,9 +15,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace systems
+namespace sge::systems
 {
 
 struct with_image2d
@@ -38,7 +36,6 @@ struct with_image2d
 	fcppt::mpl::list::object<>;
 };
 
-}
 }
 
 #endif

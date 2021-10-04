@@ -8,20 +8,11 @@
 #define SGE_INPUT_CURSOR_EVENT_SCROLL_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace input
-{
-namespace cursor
-{
-namespace event
+namespace sge::input::cursor::event
 {
 
 class scroll;
 
-}
-}
-}
 }
 
 #endif

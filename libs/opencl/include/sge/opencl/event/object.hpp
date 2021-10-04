@@ -12,11 +12,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace event
+namespace sge::opencl::event
 {
 
 class object
@@ -45,8 +41,6 @@ private:
 	mutable bool handle_retrieved_;
 };
 
-}
-}
 }
 
 #endif

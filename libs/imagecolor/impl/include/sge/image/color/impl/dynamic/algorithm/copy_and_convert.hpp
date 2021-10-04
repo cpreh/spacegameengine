@@ -21,17 +21,7 @@
 #include <fcppt/variant/apply.hpp>
 
 
-namespace sge
-{
-namespace image
-{
-namespace color
-{
-namespace impl
-{
-namespace dynamic
-{
-namespace algorithm
+namespace sge::image::color::impl::dynamic::algorithm
 {
 
 template<
@@ -78,11 +68,6 @@ copy_and_convert(
 	);
 }
 
-}
-}
-}
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/cg/program/source_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace program
+namespace sge::cg::program
 {
 
 enum class source_type
@@ -23,8 +19,6 @@ enum class source_type
 	binary
 };
 
-}
-}
 }
 
 #endif

@@ -11,11 +11,7 @@
 #include <fcppt/optional/object_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace key
+namespace sge::input::key
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::optional::object<
 	sge::input::key::code
 >;
 
-}
-}
 }
 
 #endif

@@ -16,13 +16,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace compare
-{
-namespace detail
+namespace sge::sprite::compare::detail
 {
 
 template<
@@ -71,9 +65,6 @@ struct texture_level_function
 	}
 };
 
-}
-}
-}
 }
 
 #endif

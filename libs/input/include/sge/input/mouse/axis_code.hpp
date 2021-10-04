@@ -10,11 +10,7 @@
 #include <sge/input/mouse/axis_code_fwd.hpp>
 
 
-namespace sge
-{
-namespace input
-{
-namespace mouse
+namespace sge::input::mouse
 {
 
 enum class axis_code
@@ -25,8 +21,6 @@ enum class axis_code
 	unknown
 };
 
-}
-}
 }
 
 #endif

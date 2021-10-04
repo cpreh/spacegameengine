@@ -10,11 +10,7 @@
 #include <sge/scenic/render_context/transform_matrix_type_fwd.hpp>
 
 
-namespace sge
-{
-namespace scenic
-{
-namespace render_context
+namespace sge::scenic::render_context
 {
 
 enum class transform_matrix_type
@@ -23,8 +19,6 @@ enum class transform_matrix_type
 	world
 };
 
-}
-}
 }
 
 #endif

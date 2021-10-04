@@ -20,15 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace cg
-{
-namespace parameter
-{
-namespace vector
-{
-namespace detail
+namespace sge::cg::parameter::vector::detail
 {
 
 #define SGE_CG_PARAMETER_VECTOR_DETAIL_SET(\
@@ -63,10 +55,6 @@ BOOST_PP_SEQ_FOR_EACH(
 	SGE_CG_PARAMETER_DETAIL_PP_TYPES
 )
 
-}
-}
-}
-}
 }
 
 #endif

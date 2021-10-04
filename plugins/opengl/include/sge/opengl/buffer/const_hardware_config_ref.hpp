@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace opengl
-{
-namespace buffer
+namespace sge::opengl::buffer
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::opengl::buffer::hardware_config const
 >;
 
-}
-}
 }
 
 #endif

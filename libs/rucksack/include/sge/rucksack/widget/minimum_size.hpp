@@ -17,11 +17,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace rucksack
-{
-namespace widget
+namespace sge::rucksack::widget
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL minimum_size
@@ -82,8 +78,6 @@ private:
 	sge::rucksack::widget::reference const child_;
 };
 
-}
-}
 }
 
 #endif

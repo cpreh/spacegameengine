@@ -12,15 +12,7 @@
 #include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace state
-{
-namespace ffp
-{
-namespace clip_plane
+namespace sge::renderer::state::ffp::clip_plane
 {
 
 class parameters
@@ -40,10 +32,6 @@ private:
 	sge::renderer::state::ffp::clip_plane::area area_;
 };
 
-}
-}
-}
-}
 }
 
 #endif

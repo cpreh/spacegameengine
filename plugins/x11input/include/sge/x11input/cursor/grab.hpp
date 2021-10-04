@@ -14,11 +14,7 @@
 #include <fcppt/nonmovable.hpp>
 
 
-namespace sge
-{
-namespace x11input
-{
-namespace cursor
+namespace sge::x11input::cursor
 {
 
 class grab
@@ -40,8 +36,6 @@ private:
 	sge::x11input::device::id const id_;
 };
 
-}
-}
 }
 
 #endif

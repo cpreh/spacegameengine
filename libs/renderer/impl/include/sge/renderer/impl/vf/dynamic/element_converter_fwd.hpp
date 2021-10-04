@@ -8,23 +8,11 @@
 #define SGE_RENDERER_IMPL_VF_DYNAMIC_ELEMENT_CONVERTER_FWD_HPP_INCLUDED
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace impl
-{
-namespace vf
-{
-namespace dynamic
+namespace sge::renderer::impl::vf::dynamic
 {
 
 class element_converter;
 
-}
-}
-}
-}
 }
 
 #endif

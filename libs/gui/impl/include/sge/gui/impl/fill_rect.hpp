@@ -13,11 +13,7 @@
 #include <sge/rucksack/rect_fwd.hpp>
 
 
-namespace sge
-{
-namespace gui
-{
-namespace impl
+namespace sge::gui::impl
 {
 
 void
@@ -28,8 +24,6 @@ fill_rect(
 	sge::image::color::any::object const &
 );
 
-}
-}
 }
 
 #endif

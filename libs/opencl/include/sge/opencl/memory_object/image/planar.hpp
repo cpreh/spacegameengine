@@ -20,13 +20,7 @@
 #include <fcppt/math/dim/object_impl.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace memory_object
-{
-namespace image
+namespace sge::opencl::memory_object::image
 {
 class SGE_CORE_DETAIL_CLASS_SYMBOL planar
 :
@@ -76,9 +70,6 @@ private:
 	cl_image_format image_format_;
 	sge::opencl::dim2 size_;
 };
-}
-}
-}
 }
 
 #endif

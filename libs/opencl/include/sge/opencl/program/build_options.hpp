@@ -12,11 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace opencl
-{
-namespace program
+namespace sge::opencl::program
 {
 
 using
@@ -24,8 +20,6 @@ build_options
 =
 std::string;
 
-}
-}
 }
 
 #endif

@@ -12,13 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace model
-{
-namespace md3
-{
-namespace impl
+namespace sge::model::md3::impl
 {
 
 using
@@ -26,9 +20,6 @@ s32
 =
 std::int32_t;
 
-}
-}
-}
 }
 
 #endif

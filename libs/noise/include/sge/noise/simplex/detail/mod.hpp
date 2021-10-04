@@ -12,13 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace noise
-{
-namespace simplex
-{
-namespace detail
+namespace sge::noise::simplex::detail
 {
 
 inline
@@ -38,9 +32,6 @@ mod(
 		static_cast<std::size_t>(b);
 }
 
-}
-}
-}
 }
 
 #endif

@@ -10,11 +10,7 @@
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace lock_flags
+namespace sge::renderer::lock_flags
 {
 
 enum class method
@@ -24,8 +20,6 @@ enum class method
 	readwrite
 };
 
-}
-}
 }
 
 #endif

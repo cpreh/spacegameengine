@@ -13,11 +13,7 @@
 #include <sge/renderer/texture/planar_ref.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace target
+namespace sge::renderer::target
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
@@ -27,8 +23,6 @@ from_texture(
 	sge::renderer::texture::planar_ref
 );
 
-}
-}
 }
 
 #endif

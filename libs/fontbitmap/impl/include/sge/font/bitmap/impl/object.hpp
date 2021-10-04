@@ -28,13 +28,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace font
-{
-namespace bitmap
-{
-namespace impl
+namespace sge::font::bitmap::impl
 {
 
 class object
@@ -98,9 +92,6 @@ private:
 	sge::image::color::optional_format const color_format_;
 };
 
-}
-}
-}
 }
 
 #endif

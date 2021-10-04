@@ -7,17 +7,11 @@
 #ifndef SGE_OPENGL_TEXTURE_BASE_FWD_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASE_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace opengl
-{
-namespace texture
+namespace sge::opengl::texture
 {
 
 class base;
 
-}
-}
 }
 
 #endif

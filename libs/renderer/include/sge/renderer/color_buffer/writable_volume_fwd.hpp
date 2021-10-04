@@ -11,11 +11,7 @@
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 
 
-namespace sge
-{
-namespace renderer
-{
-namespace color_buffer
+namespace sge::renderer::color_buffer
 {
 
 /**
@@ -32,8 +28,6 @@ sge::renderer::buffer::writable<
 	>
 >;
 
-}
-}
 }
 
 #endif

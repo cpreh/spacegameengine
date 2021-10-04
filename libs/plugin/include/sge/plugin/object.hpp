@@ -15,9 +15,7 @@
 #include <fcppt/shared_ptr_impl.hpp>
 
 
-namespace sge
-{
-namespace plugin
+namespace sge::plugin
 {
 
 template<
@@ -75,7 +73,6 @@ private:
 	loader_function loader_;
 };
 
-}
 }
 
 #endif

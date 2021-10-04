@@ -20,11 +20,7 @@ namespace CEGUI
 class Window;
 }
 
-namespace sge
-{
-namespace cegui
-{
-namespace toolbox
+namespace sge::cegui::toolbox
 {
 
 class scoped_layout
@@ -52,8 +48,6 @@ private:
 	CEGUI::Window *const window_;
 };
 
-}
-}
 }
 
 #endif
