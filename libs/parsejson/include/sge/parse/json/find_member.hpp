@@ -16,11 +16,7 @@
 #include <fcppt/optional/map.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
 /**
@@ -63,8 +59,6 @@ find_member(
 		);
 }
 
-}
-}
 }
 
 #endif
