@@ -22,6 +22,8 @@
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/math/vector/comparison.hpp>
@@ -30,6 +32,8 @@
 #include <catch2/catch.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"rucksack::box",
@@ -164,6 +168,8 @@ TEST_CASE(
 		}
 	);
 }
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"rucksack::box in box",
@@ -393,3 +399,5 @@ TEST_CASE(
 		}
 	);
 }
+
+FCPPT_CATCH_END

@@ -12,11 +12,15 @@
 #include <sge/timer/remaining.hpp>
 #include <sge/timer/clocks/delta.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <chrono>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"timer::basic",
@@ -111,6 +115,8 @@ TEST_CASE(
 	);
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"timer::absolute",
 	"[sge]"
@@ -174,3 +180,5 @@ TEST_CASE(
 		)
 	);
 }
+
+FCPPT_CATCH_END

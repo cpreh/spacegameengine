@@ -17,8 +17,10 @@
 #include <sge/parse/json/start.hpp>
 #include <fcppt/make_recursive.hpp>
 #include <fcppt/strong_typedef_comparison.hpp>
+#include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/convert.hpp>
 #include <fcppt/catch/either.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/catch/optional.hpp>
 #include <fcppt/catch/recursive.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
@@ -109,6 +111,8 @@ struct StringMaker<
 
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"parse_json object",
 	"[sge]"
@@ -190,6 +194,8 @@ TEST_CASE(
 	);
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"parse_json array",
 	"[sge]"
@@ -234,6 +240,8 @@ TEST_CASE(
 	);
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"parse_json empty object",
 	"[sge]"
@@ -259,6 +267,8 @@ TEST_CASE(
 		)
 	);
 }
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"parse_json empty array",
@@ -286,6 +296,8 @@ TEST_CASE(
 	);
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"parse_json error",
 	"[sge]"
@@ -306,3 +318,5 @@ TEST_CASE(
 		).has_failure()
 	);
 }
+
+FCPPT_CATCH_END

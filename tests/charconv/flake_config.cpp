@@ -8,11 +8,15 @@
 #include <sge/tests/charconv/test_data.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"charconv flake_config",
@@ -32,3 +36,5 @@ TEST_CASE(
 		result.empty()
 	);
 }
+
+FCPPT_CATCH_END

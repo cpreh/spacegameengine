@@ -47,6 +47,8 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/output.hpp>
@@ -58,6 +60,8 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"save_load rgba",
@@ -216,3 +220,5 @@ TEST_CASE(
 		);
 	}
 }
+
+FCPPT_CATCH_END

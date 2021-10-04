@@ -5,6 +5,8 @@
 
 
 #include <sge/bresenham/normal.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/math/vector/output.hpp>
@@ -16,6 +18,8 @@
 
 
 // TODO(philipp): Add a test for bresenham_thick as well
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"bresenham",
@@ -114,3 +118,5 @@ TEST_CASE(
 		}
 	);
 }
+
+FCPPT_CATCH_END

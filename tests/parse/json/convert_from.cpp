@@ -13,6 +13,8 @@
 #include <fcppt/make_recursive.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/math/matrix/comparison.hpp>
 #include <fcppt/math/matrix/output.hpp>
 #include <fcppt/math/matrix/row.hpp>
@@ -22,6 +24,8 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"parse::json::convert_from",
@@ -161,3 +165,5 @@ TEST_CASE(
 		)
 	);
 }
+
+FCPPT_CATCH_END

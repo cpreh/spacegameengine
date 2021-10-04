@@ -6,10 +6,14 @@
 
 #include <sge/console/gfx/cursor.hpp>
 #include <sge/font/lit.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <fcppt/config/external_end.hpp>
 
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"console cursor",
@@ -274,3 +278,5 @@ TEST_CASE(
 
 	// TODO(philipp): Add complete_word tests
 }
+
+FCPPT_CATCH_END

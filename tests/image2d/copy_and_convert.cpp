@@ -26,6 +26,8 @@
 #include <sge/image2d/view/object.hpp>
 #include <mizuiro/color/compare.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch.hpp>
 #include <fcppt/config/external_end.hpp>
@@ -160,6 +162,8 @@ test_conversion(
 
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"rgba_to_bgra",
 	"[sge]"
@@ -175,6 +179,8 @@ TEST_CASE(
 		(sge::image::color::init::alpha() = channel8(128)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 }
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"rgb_to_rgba",
@@ -195,3 +201,5 @@ TEST_CASE(
 		(sge::image::color::init::alpha() = channel8(255)) // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 	);
 }
+
+FCPPT_CATCH_END

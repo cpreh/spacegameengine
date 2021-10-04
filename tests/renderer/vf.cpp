@@ -44,6 +44,8 @@
 #include <fcppt/no_init.hpp>
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/mpl/list/object.hpp>
@@ -64,6 +66,8 @@
 // TODO(philipp)
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wfloat-equal)
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/math/vector/comparison.hpp>
 FCPPT_PP_POP_WARNING
 
@@ -83,6 +87,8 @@ std::integral_constant<
 >;
 
 }
+
+FCPPT_CATCH_BEGIN
 
 TEST_CASE(
 	"renderer/vf/pos color interleaved",
@@ -370,3 +376,5 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wfloat-equal)
 
 FCPPT_PP_POP_WARNING
 }
+
+FCPPT_CATCH_END

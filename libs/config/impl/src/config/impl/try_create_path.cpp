@@ -7,8 +7,8 @@
 #include <sge/config/exception.hpp>
 #include <sge/config/impl/try_create_path.hpp>
 #include <fcppt/error_code_to_string.hpp>
-#include <fcppt/use.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/use.hpp>
 #include <fcppt/either/error_from_optional.hpp>
 #include <fcppt/either/no_error.hpp>
 #include <fcppt/either/to_exception.hpp>

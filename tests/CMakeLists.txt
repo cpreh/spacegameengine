@@ -39,6 +39,12 @@ function(
 			NO_CODE
 			"NO_CODE"
 		)
+	else()
+		list(
+			APPEND
+			_ADDITIONAL_DEPS
+			fcppt_catch_interface
+		)
 	endif()
 
 	fcppt_utils_add_test(

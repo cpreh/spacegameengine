@@ -7,6 +7,8 @@
 #include <sge/projectile/triangulation/default_tag.hpp>
 #include <sge/projectile/triangulation/triangulate.hpp>
 #include <fcppt/array/object_impl.hpp>
+#include <fcppt/catch/begin.hpp>
+#include <fcppt/catch/end.hpp>
 #include <fcppt/math/vector/object.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/math/vector/static.hpp>
@@ -81,6 +83,8 @@ test_long(
 
 }
 
+FCPPT_CATCH_BEGIN
+
 TEST_CASE(
 	"projectile::triangulate_long",
 	"[sge]"
@@ -132,3 +136,5 @@ TEST_CASE(
 		0L
 	);
 }
+
+FCPPT_CATCH_END

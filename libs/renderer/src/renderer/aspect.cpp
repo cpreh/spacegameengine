@@ -7,9 +7,9 @@
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/screen_size.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/math/div.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 fcppt::optional::object<

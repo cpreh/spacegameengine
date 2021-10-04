@@ -8,9 +8,9 @@
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/target/aspect_from_viewport.hpp>
 #include <sge/renderer/target/viewport.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 
 fcppt::optional::object<
