@@ -19,6 +19,7 @@
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
+#include <sge/sprite/detail/offset.hpp>
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
@@ -52,7 +53,7 @@ public:
 
 	render_part_element(
 		slice_type const &_slice,
-		sge::sprite::count const _offset,
+		sge::sprite::detail::offset const _offset,
 		sge::sprite::count const _count,
 		object_type const &_object
 	)
@@ -61,7 +62,7 @@ public:
 			_slice
 		),
 		offset_(
-			_offset
+			_offset.get()
 		),
 		count_(
 			_count

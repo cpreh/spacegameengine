@@ -137,6 +137,7 @@ set(
 	libs/sprite/include/sge/sprite/detail/make_class.hpp
 	libs/sprite/include/sge/sprite/detail/make_texture_levels.hpp
 	libs/sprite/include/sge/sprite/detail/object_base.hpp
+	libs/sprite/include/sge/sprite/detail/offset.hpp
 	libs/sprite/include/sge/sprite/detail/pos_from_center.hpp
 	libs/sprite/include/sge/sprite/detail/primitives/normal_size.hpp
 	libs/sprite/include/sge/sprite/detail/primitives/pos.hpp

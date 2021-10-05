@@ -16,6 +16,7 @@
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
+#include <sge/sprite/detail/offset.hpp>
 #include <sge/sprite/detail/vf/format_part_from_object.hpp>
 #include <sge/sprite/geometry/detail/fill_color.hpp>
 #include <sge/sprite/geometry/detail/fill_point_size.hpp>
@@ -128,7 +129,7 @@ fill_vertices(
 
 	range_part_vector result;
 
-	sge::sprite::count offset(
+	sge::sprite::detail::offset offset(
 		0U
 	);
 
@@ -182,7 +183,9 @@ fill_vertices(
 				)
 			);
 
-			offset += cur_count;
+			offset += sge::sprite::detail::offset{
+				cur_count.get()
+			};
 
 			cur_count =
 				sge::sprite::count(

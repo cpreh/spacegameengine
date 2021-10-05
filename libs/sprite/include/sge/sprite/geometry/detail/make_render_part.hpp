@@ -10,6 +10,7 @@
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>
+#include <sge/sprite/detail/offset.hpp>
 #include <sge/sprite/detail/render/range_part_object.hpp>
 #include <sge/sprite/geometry/detail/render_part_element.hpp>
 #include <sge/sprite/render/range_part_impl.hpp>
@@ -30,7 +31,7 @@ make_render_part(
 	sge::sprite::buffers::slice<
 		Choices
 	> const &_slice,
-	sge::sprite::count const _offset,
+	sge::sprite::detail::offset const _offset,
 	sge::sprite::count const _count,
 	sge::sprite::object<
 		Choices
