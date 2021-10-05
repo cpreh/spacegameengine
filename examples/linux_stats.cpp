@@ -76,10 +76,10 @@
 #include <awl/main/exit_success.hpp>
 #include <awl/main/function_context.hpp>
 #include <fcppt/args_from_second.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>

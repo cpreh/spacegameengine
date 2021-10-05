@@ -24,8 +24,8 @@
 #include <sge/rucksack/widget/reference.hpp>
 #include <sge/rucksack/widget/reference_alignment.hpp>
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
