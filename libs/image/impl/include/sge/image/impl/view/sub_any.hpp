@@ -49,21 +49,29 @@ sub_any(
 					)
 				>;
 
+				using
+				bound_type
+				=
+				typename source_type::bound_type;
+
 				return
 					View(
 						sge::image::view::wrap(
 							mizuiro::image::sub_view(
 								_src,
-								typename
-								source_type::bound_type{
-									sge::image::impl::to_mizuiro_dim(
-										fcppt::math::vector::to_dim(
-											_box.pos()
+								bound_type{
+									typename bound_type::pos_t{
+										sge::image::impl::to_mizuiro_dim(
+											fcppt::math::vector::to_dim(
+												_box.pos()
+											)
 										)
-									),
-									sge::image::impl::to_mizuiro_dim(
-										_box.size()
-									)
+									},
+									typename bound_type::size_t{
+										sge::image::impl::to_mizuiro_dim(
+											_box.size()
+										)
+									}
 								}
 							)
 						)
