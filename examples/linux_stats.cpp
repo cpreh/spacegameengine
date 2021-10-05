@@ -79,7 +79,7 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/noncopyable.hpp>
@@ -147,12 +147,12 @@ public:
 	=
 	unsigned long; // NOLINT(google-runtime-int)
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		value_type,
 		total_type
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		value_type,
 		work_type
 	);

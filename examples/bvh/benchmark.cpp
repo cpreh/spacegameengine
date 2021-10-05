@@ -13,7 +13,7 @@
 #include <fcppt/main.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/strong_typedef_input.hpp>
 #include <fcppt/strong_typedef_output.hpp>
@@ -51,7 +51,7 @@
 namespace
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	unsigned,
 	rectangle_count
 );

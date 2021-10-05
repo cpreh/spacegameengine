@@ -8,14 +8,14 @@
 #define SGE_OPENGL_OCCLUSION_QUERY_ID_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::opengl::occlusion_query
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	GLuint,
 	id
 );

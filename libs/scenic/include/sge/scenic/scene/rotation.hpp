@@ -8,12 +8,12 @@
 #define SGE_SCENIC_SCENE_ROTATION_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge::scenic::scene
 {
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::matrix4,
 	rotation);
 }

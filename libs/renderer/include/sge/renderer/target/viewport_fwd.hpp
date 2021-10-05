@@ -8,7 +8,7 @@
 #define SGE_RENDERER_TARGET_VIEWPORT_FWD_HPP_INCLUDED
 
 #include <sge/renderer/pixel_rect_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::renderer::target
@@ -17,7 +17,7 @@ namespace sge::renderer::target
 /**
  * \brief A strong typedef to a pixel rect describing a viewport
 */
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::pixel_rect,
 	viewport
 );

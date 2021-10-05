@@ -10,11 +10,7 @@
 #include <sge/sprite/roles/texture_coordinates.hpp>
 
 
-namespace sge
-{
-namespace sprite
-{
-namespace roles
+namespace sge::sprite::roles
 {
 
 using
@@ -24,8 +20,6 @@ sge::sprite::roles::texture_coordinates<
 	0
 >;
 
-}
-}
 }
 
 #endif

@@ -25,7 +25,7 @@
 #include <sge/rucksack/widget/reference_alignment.hpp>
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/algorithm/fold.hpp>
@@ -315,17 +315,17 @@ sge::rucksack::widget::box::relayout()
 		return;
 	}
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		sge::rucksack::scalar,
 		remaining_size
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		bool,
 		all_preferred_size
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		sge::rucksack::scalar,
 		minimum_size_count
 	);

@@ -8,14 +8,14 @@
 #define SGE_CAMERA_SPHERICAL_ACTION_INCREASE_INCLINATION_HPP_INCLUDED
 
 #include <sge/input/key/optional_code.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::camera::spherical::action
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::input::key::optional_code,
 	increase_inclination
 );

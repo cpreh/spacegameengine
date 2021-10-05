@@ -8,14 +8,14 @@
 #define SGE_RENDERER_STATE_FFP_LIGHTING_DIFFUSE_COLOR_HPP_INCLUDED
 
 #include <sge/image/color/any/object.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::state::ffp::lighting
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::image::color::any::object,
 	diffuse_color
 );

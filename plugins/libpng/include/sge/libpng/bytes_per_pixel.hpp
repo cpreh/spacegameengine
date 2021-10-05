@@ -8,14 +8,14 @@
 #define SGE_LIBPNG_BYTES_PER_PIXEL_HPP_INCLUDED
 
 #include <sge/image/size_type.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::libpng
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::image::size_type,
 	bytes_per_pixel
 );

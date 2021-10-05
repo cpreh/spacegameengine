@@ -8,13 +8,13 @@
 #define SGE_INPUT_JOYPAD_FF_END_MAGNITUDE_FWD_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/signed_value.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::input::joypad::ff
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::input::joypad::ff::signed_value,
 	end_magnitude
 );

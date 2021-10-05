@@ -8,14 +8,14 @@
 #define SGE_CAMERA_SPHERICAL_MAXIMUM_RADIUS_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::camera::spherical
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::scalar,
 	maximum_radius
 );

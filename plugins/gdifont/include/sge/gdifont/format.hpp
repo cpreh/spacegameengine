@@ -8,7 +8,7 @@
 #define SGE_GDIFONT_FORMAT_HPP_INCLUDED
 
 #include <sge/gdifont/include_windows.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -17,7 +17,7 @@ namespace sge
 namespace gdifont
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	UINT,
 	format
 );

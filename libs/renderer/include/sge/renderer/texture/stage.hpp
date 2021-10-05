@@ -8,14 +8,14 @@
 #define SGE_RENDERER_TEXTURE_STAGE_HPP_INCLUDED
 
 #include <sge/renderer/texture/stage_value.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::texture
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::texture::stage_value,
 	stage
 );

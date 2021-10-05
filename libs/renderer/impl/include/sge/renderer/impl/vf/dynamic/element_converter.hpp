@@ -15,7 +15,7 @@
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -25,12 +25,12 @@ namespace sge::renderer::impl::vf::dynamic
 class element_converter
 {
 public:
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		sge::image::color::format,
 		original_format
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		sge::image::color::format,
 		backend_format
 	);

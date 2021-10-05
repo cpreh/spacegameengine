@@ -8,7 +8,7 @@
 #define SGE_CAMERA_FIRST_PERSON_ACTION_UP_HPP_INCLUDED
 
 #include <sge/input/key/optional_code.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -19,7 +19,7 @@ namespace sge::camera::first_person::action
 \brief The (optional) key code belonging to the action "go up"
 \ingroup sgecamera
 */
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::input::key::optional_code,
 	up
 );

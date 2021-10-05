@@ -8,14 +8,14 @@
 #define SGE_RENDERER_OPENGL_TEXTURE_ID_HPP_INCLUDED
 
 #include <sge/renderer/opengl/glinclude.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::opengl::texture
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	GLuint,
 	id
 );

@@ -9,7 +9,7 @@
 
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -19,17 +19,17 @@ namespace sge::opengl::state::ffp::misc::point_sprite
 class config
 {
 public:
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		GLenum,
 		point_sprite_flag_type
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		GLenum,
 		vertex_shader_size_flag_type
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		GLenum,
 		coord_replace_flag_type
 	);

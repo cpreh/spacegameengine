@@ -8,13 +8,13 @@
 #define SGE_SHADER_PARAMETER_NAME_HPP_INCLUDED
 
 #include <sge/cg/string.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::shader::parameter
 {
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::cg::string,
 	name);
 }

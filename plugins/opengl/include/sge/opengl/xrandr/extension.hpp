@@ -8,7 +8,7 @@
 #define SGE_OPENGL_XRANDR_EXTENSION_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/extension_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -18,7 +18,7 @@ namespace sge::opengl::xrandr
 class extension
 {
 public:
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		int,
 		event_base_type
 	);

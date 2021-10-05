@@ -8,7 +8,7 @@
 #define SGE_RENDERER_STATE_FFP_CLIP_PLANE_AREA_FWD_HPP_INCLUDED
 
 #include <sge/renderer/vector4_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::renderer::state::ffp::clip_plane
@@ -19,7 +19,7 @@ namespace sge::renderer::state::ffp::clip_plane
 
 A clip plane is a vector of four components, interpreted as a plane equation.
 */
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::vector4,
 	area
 );

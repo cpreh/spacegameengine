@@ -19,13 +19,7 @@
 #include <fcppt/text.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace convert
+namespace sge::parse::json::convert
 {
 
 template<
@@ -95,9 +89,6 @@ to_static_container(
 		result;
 }
 
-}
-}
-}
 }
 
 #endif

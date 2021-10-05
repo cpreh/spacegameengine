@@ -8,14 +8,14 @@
 #define SGE_PROJECTILE_BODY_ROTATION_HPP_INCLUDED
 
 #include <sge/projectile/scalar.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::projectile::body
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::projectile::scalar,
 	rotation
 );

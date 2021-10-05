@@ -8,14 +8,14 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_READ_MASK_HPP_INCLUDED
 
 #include <sge/renderer/state/core/depth_stencil/stencil/value.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::state::core::depth_stencil::stencil::value,
 	read_mask
 );

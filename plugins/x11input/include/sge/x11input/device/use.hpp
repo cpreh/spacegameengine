@@ -7,7 +7,7 @@
 #ifndef SGE_X11INPUT_DEVICE_USE_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_USE_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -18,7 +18,7 @@ namespace x11input
 namespace device
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	int,
 	use
 );

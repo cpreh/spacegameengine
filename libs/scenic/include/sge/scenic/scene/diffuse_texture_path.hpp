@@ -7,7 +7,7 @@
 #ifndef SGE_SCENIC_SCENE_DIFFUSE_TEXTURE_PATH_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_DIFFUSE_TEXTURE_PATH_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
@@ -19,7 +19,7 @@ namespace scenic
 {
 namespace scene
 {
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	std::filesystem::path,
 	diffuse_texture_path);
 }

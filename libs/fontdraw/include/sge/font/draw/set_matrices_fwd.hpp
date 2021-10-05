@@ -7,13 +7,13 @@
 #ifndef SGE_FONT_DRAW_SET_MATRICES_FWD_HPP_INCLUDED
 #define SGE_FONT_DRAW_SET_MATRICES_FWD_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::font::draw
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	bool,
 	set_matrices
 );

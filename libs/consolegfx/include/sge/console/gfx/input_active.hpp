@@ -7,14 +7,14 @@
 #ifndef SGE_CONSOLE_GFX_INPUT_ACTIVE_HPP_INCLUDED
 #define SGE_CONSOLE_GFX_INPUT_ACTIVE_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::console::gfx
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	bool,
 	input_active
 );

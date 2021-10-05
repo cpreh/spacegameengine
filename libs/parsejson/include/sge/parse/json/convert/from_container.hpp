@@ -15,13 +15,7 @@
 #include <fcppt/algorithm/map.hpp>
 
 
-namespace sge
-{
-namespace parse
-{
-namespace json
-{
-namespace convert
+namespace sge::parse::json::convert
 {
 
 template<
@@ -61,9 +55,6 @@ from_container(
 		);
 }
 
-}
-}
-}
 }
 
 #endif

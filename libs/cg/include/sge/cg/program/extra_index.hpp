@@ -7,14 +7,14 @@
 #ifndef SGE_CG_PROGRAM_EXTRA_INDEX_HPP_INCLUDED
 #define SGE_CG_PROGRAM_EXTRA_INDEX_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::cg::program
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	unsigned,
 	extra_index
 );

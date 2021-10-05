@@ -15,7 +15,7 @@
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/log/object.hpp>
@@ -154,7 +154,7 @@ private:
 		CEGUI::Vector2f
 	>;
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		optional_vector2f,
 		optional_texel_scaling
 	);

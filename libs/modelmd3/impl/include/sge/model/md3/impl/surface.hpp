@@ -14,7 +14,7 @@
 #include <sge/model/md3/impl/texpos_vector.hpp>
 #include <sge/model/md3/impl/transformed_vertex_vector.hpp>
 #include <sge/model/md3/impl/triangle_vector.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
@@ -27,7 +27,7 @@ namespace sge::model::md3::impl
 class surface
 {
 public:
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		sge::model::md3::impl::s32,
 		num_frames
 	);

@@ -8,14 +8,14 @@
 #define SGE_RENDERER_VF_DYNAMIC_ELEMENT_COUNT_HPP_INCLUDED
 
 #include <sge/renderer/vf/element_count_type.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::vf::dynamic
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::vf::element_count_type,
 	element_count
 );

@@ -7,7 +7,7 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_INDEX_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_INDEX_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -15,7 +15,7 @@
 
 namespace sge::scenic::render_context::cg::light
 {
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	std::size_t,
 	index);
 }

@@ -8,7 +8,7 @@
 #define SGE_RENDERER_STATE_FFP_LIGHTING_MATERIAL_SHININESS_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -19,7 +19,7 @@ namespace sge::renderer::state::ffp::lighting::material
 \brief A strong typedef to a floating point type describing the shininess of a
 material
 */
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::scalar,
 	shininess
 );

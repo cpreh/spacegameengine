@@ -8,7 +8,7 @@
 #define SGE_SHADER_PIXEL_PROFILE_HPP_INCLUDED
 
 #include <sge/cg/profile/object_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -16,11 +16,10 @@ namespace sge
 {
 namespace shader
 {
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::cg::profile::object const &,
 	pixel_profile);
 }
 }
 
 #endif
-

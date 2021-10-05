@@ -7,7 +7,7 @@
 #ifndef SGE_NOISE_SAMPLE_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_NOISE_SAMPLE_PARAMETERS_DECL_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -20,25 +20,25 @@ template<
 class sample_parameters
 {
 public:
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		typename
 		Noise::vector_type,
 		position_type
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		typename
 		Noise::value_type,
 		amplitude_type
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		typename
 		Noise::value_type,
 		frequency_type
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		unsigned,
 		octaves_type
 	);

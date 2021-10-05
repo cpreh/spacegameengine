@@ -8,13 +8,13 @@
 #define SGE_CONSOLE_SHORT_DESCRIPTION_FWD_HPP_INCLUDED
 
 #include <sge/font/string.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::console
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::font::string,
 	short_description
 );

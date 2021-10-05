@@ -7,14 +7,14 @@
 #ifndef SGE_SDLINPUT_JOYPAD_DEVICE_ID_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_DEVICE_ID_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef_impl.hpp>
 
 
 namespace sge::sdlinput::joypad
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	int,
 	device_id
 );

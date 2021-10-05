@@ -14,9 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 
-namespace sge
-{
-namespace timer
+namespace sge::timer
 {
 
 template<
@@ -51,7 +49,6 @@ elapsed_fractional_and_reset(
 		ret;
 }
 
-}
 }
 
 #endif

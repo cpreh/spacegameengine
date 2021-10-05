@@ -7,7 +7,7 @@
 #ifndef SGE_PANGO_NO_MULTI_LINE_HPP_INCLUDED
 #define SGE_PANGO_NO_MULTI_LINE_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -16,7 +16,7 @@ namespace sge
 namespace pango
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	bool,
 	no_multi_line
 );

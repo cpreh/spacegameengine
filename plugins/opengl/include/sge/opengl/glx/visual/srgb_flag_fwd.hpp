@@ -7,13 +7,13 @@
 #ifndef SGE_OPENGL_GLX_VISUAL_SRGB_FLAG_FWD_HPP_INCLUDED
 #define SGE_OPENGL_GLX_VISUAL_SRGB_FLAG_FWD_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::opengl::glx::visual
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	int,
 	srgb_flag
 );

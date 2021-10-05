@@ -7,14 +7,14 @@
 #ifndef SGE_PLUGIN_MIN_CORE_VERSION_HPP_INCLUDED
 #define SGE_PLUGIN_MIN_CORE_VERSION_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::plugin
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	unsigned,
 	min_core_version
 );

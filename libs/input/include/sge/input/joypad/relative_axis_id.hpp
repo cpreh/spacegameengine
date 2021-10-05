@@ -8,14 +8,14 @@
 #define SGE_INPUT_JOYPAD_RELATIVE_AXIS_ID_HPP_INCLUDED
 
 #include <sge/input/info/id.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::input::joypad
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::input::info::id,
 	relative_axis_id
 );

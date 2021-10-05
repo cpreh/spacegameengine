@@ -8,13 +8,13 @@
 #define SGE_CONSOLE_PREFIX_FWD_HPP_INCLUDED
 
 #include <sge/font/char_type.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::console
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::font::char_type,
 	prefix
 );

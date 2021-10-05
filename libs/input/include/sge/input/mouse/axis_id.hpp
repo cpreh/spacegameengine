@@ -8,14 +8,14 @@
 #define SGE_INPUT_MOUSE_AXIS_ID_HPP_INCLUDED
 
 #include <sge/input/info/id.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::input::mouse
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::input::info::id,
 	axis_id
 );

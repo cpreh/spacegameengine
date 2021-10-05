@@ -8,14 +8,14 @@
 #define SGE_OPENGL_INTERNAL_COLOR_FORMAT_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::opengl
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	GLint,
 	internal_color_format
 );

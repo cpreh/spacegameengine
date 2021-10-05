@@ -8,14 +8,14 @@
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_PLANAR_PITCH_HPP_INCLUDED
 
 #include <sge/opencl/size_type.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::opencl::memory_object::image
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::opencl::size_type,
 	planar_pitch
 );

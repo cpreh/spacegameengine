@@ -8,7 +8,7 @@
 #define SGE_RENDERER_TARGET_SURFACE_INDEX_HPP_INCLUDED
 
 #include <sge/renderer/target/surface_index_value.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -18,7 +18,7 @@ namespace sge::renderer::target
 /**
  * \brief A strong typedef describing the index of a surface
 */
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::target::surface_index_value,
 	surface_index
 );

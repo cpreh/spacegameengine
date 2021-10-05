@@ -8,7 +8,7 @@
 #define SGE_OPENGL_VISUAL_RGB_TRIPLE_HPP_INCLUDED
 
 #include <sge/opengl/visual/rgb_triple_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -18,17 +18,17 @@ namespace sge::opengl::visual
 class rgb_triple
 {
 public:
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		int,
 		red_bits
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		int,
 		green_bits
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		int,
 		blue_bits
 	);

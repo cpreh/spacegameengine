@@ -8,14 +8,14 @@
 #define SGE_CG_PROGRAM_SOURCE_HPP_INCLUDED
 
 #include <sge/cg/string.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::cg::program
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::cg::string,
 	source
 );

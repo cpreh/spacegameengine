@@ -8,14 +8,14 @@
 #define SGE_SHADER_VERTEX_PROGRAM_STREAM_HPP_INCLUDED
 
 #include <sge/shader/istream_ref.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::shader
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::shader::istream_ref,
 	vertex_program_stream
 );

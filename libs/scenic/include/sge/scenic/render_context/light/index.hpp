@@ -8,7 +8,7 @@
 #define SGE_SCENIC_RENDER_CONTEXT_LIGHT_INDEX_HPP_INCLUDED
 
 #include <sge/scenic/render_context/light/index_value.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -20,7 +20,7 @@ namespace render_context
 {
 namespace light
 {
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::scenic::render_context::light::index_value,
 	index);
 }

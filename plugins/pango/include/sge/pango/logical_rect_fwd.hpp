@@ -8,13 +8,13 @@
 #define SGE_PANGO_LOGICAL_RECT_FWD_HPP_INCLUDED
 
 #include <sge/font/rect_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::pango
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::font::rect,
 	logical_rect
 );

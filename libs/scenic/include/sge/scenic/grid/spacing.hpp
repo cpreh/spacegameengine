@@ -8,12 +8,12 @@
 #define SGE_SCENIC_GRID_SPACING_HPP_INCLUDED
 
 #include <sge/scenic/grid/dim.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 namespace sge::scenic::grid
 {
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::scenic::grid::dim,
 	spacing);
 }

@@ -8,14 +8,14 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_DEPTH_FAIL_OP_HPP_INCLUDED
 
 #include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::state::core::depth_stencil::stencil::op,
 	depth_fail_op
 );

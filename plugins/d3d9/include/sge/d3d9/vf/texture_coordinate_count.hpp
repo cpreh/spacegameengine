@@ -8,7 +8,7 @@
 #define SGE_D3D9_VF_TEXTURE_COORDINATE_COUNT_HPP_INCLUDED
 
 #include <sge/renderer/vf/index_type.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -19,7 +19,7 @@ namespace d3d9
 namespace vf
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::vf::index_type,
 	texture_coordinate_count
 );

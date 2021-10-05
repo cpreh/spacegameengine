@@ -8,14 +8,14 @@
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_ANISOTROPIC_LEVEL_HPP_INCLUDED
 
 #include <sge/renderer/state/core/sampler/filter/anisotropic/level_value.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::state::core::sampler::filter::anisotropic
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::state::core::sampler::filter::anisotropic::level_value,
 	level
 );

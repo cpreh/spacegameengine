@@ -7,7 +7,7 @@
 #ifndef SGE_OPENGL_GLX_EXTENSION_HPP_INCLUDED
 #define SGE_OPENGL_GLX_EXTENSION_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -17,7 +17,7 @@
 namespace sge::opengl::glx
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	std::string,
 	extension
 );

@@ -8,14 +8,14 @@
 #define SGE_PROJECTILE_TIME_INCREMENT_HPP_INCLUDED
 
 #include <sge/projectile/duration.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::projectile
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::projectile::duration,
 	time_increment
 );

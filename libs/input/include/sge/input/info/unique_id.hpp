@@ -7,7 +7,7 @@
 #ifndef SGE_INPUT_INFO_UNIQUE_ID_HPP_INCLUDED
 #define SGE_INPUT_INFO_UNIQUE_ID_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/strong_typedef.hpp>
 
@@ -15,7 +15,7 @@
 namespace sge::input::info
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	fcppt::string,
 	unique_id
 );

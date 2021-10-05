@@ -8,7 +8,7 @@
 #define SGE_RENDERER_PRIMITIVE_COUNT_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -20,7 +20,7 @@ namespace sge::renderer
 
 \ingroup sge_renderer
 */
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::size_type,
 	primitive_count
 );

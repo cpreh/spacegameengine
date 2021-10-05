@@ -7,14 +7,14 @@
 #ifndef SGE_RENDERER_STATE_CORE_RASTERIZER_ENABLE_SCISSOR_TEST_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_ENABLE_SCISSOR_TEST_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::state::core::rasterizer
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	bool,
 	enable_scissor_test
 );

@@ -8,7 +8,7 @@
 #define SGE_D3D9_MULTI_SAMPLE_QUALITY_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -17,7 +17,7 @@ namespace sge
 namespace d3d9
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	DWORD,
 	multi_sample_quality
 );

@@ -8,14 +8,14 @@
 #define SGE_OPENGL_XRANDR_REFRESH_RATE_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/refresh_rate_type.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::opengl::xrandr
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::opengl::xrandr::refresh_rate_type,
 	refresh_rate
 );

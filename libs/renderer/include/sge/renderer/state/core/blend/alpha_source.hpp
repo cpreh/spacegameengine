@@ -8,14 +8,14 @@
 #define SGE_RENDERER_STATE_CORE_BLEND_ALPHA_SOURCE_HPP_INCLUDED
 
 #include <sge/renderer/state/core/blend/source.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::state::core::blend
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::state::core::blend::source,
 	alpha_source
 );

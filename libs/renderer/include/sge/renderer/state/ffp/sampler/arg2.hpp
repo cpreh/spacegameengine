@@ -8,14 +8,14 @@
 #define SGE_RENDERER_STATE_FFP_SAMPLER_ARG2_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/sampler/arg.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::state::ffp::sampler
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::state::ffp::sampler::arg,
 	arg2
 );

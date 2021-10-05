@@ -8,14 +8,14 @@
 #define SGE_RENDERER_STATE_FFP_FOG_DENSITY_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::state::ffp::fog
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::scalar,
 	density
 );

@@ -8,7 +8,7 @@
 #define SGE_RENDERER_INDEX_FIRST_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -18,7 +18,7 @@ namespace sge::renderer::index
 /**
 \brief A typedef used to describe the first index in an index buffer
 */
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::size_type,
 	first
 );

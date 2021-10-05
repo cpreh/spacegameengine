@@ -11,11 +11,7 @@
 #include <fcppt/reference_impl.hpp>
 
 
-namespace sge
-{
-namespace console
-{
-namespace gfx
+namespace sge::console::gfx
 {
 
 using
@@ -25,8 +21,6 @@ fcppt::reference<
 	sge::console::gfx::object
 >;
 
-}
-}
 }
 
 #endif

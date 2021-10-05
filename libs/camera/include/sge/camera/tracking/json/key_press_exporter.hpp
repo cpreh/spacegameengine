@@ -14,7 +14,7 @@
 #include <sge/input/event_base_fwd.hpp>
 #include <sge/input/key/code_fwd.hpp>
 #include <sge/input/keyboard/event/key_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/strong_typedef.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
@@ -33,12 +33,12 @@ class key_press_exporter
 		key_press_exporter
 	);
 public:
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		sge::input::key::code,
 		keyframe_keypress
 	);
 
-	FCPPT_MAKE_STRONG_TYPEDEF(
+	FCPPT_DECLARE_STRONG_TYPEDEF(
 		sge::input::key::code,
 		export_keypress
 	);

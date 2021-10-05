@@ -8,14 +8,14 @@
 #define SGE_OPENGL_X11_STATE_ATOM_HPP_INCLUDED
 
 #include <awl/backends/x11/atom.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef_impl.hpp>
 
 
 namespace sge::opengl::x11
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	awl::backends::x11::atom,
 	state_atom
 );

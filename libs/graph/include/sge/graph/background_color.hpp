@@ -8,14 +8,14 @@
 #define SGE_GRAPH_BACKGROUND_COLOR_HPP_INCLUDED
 
 #include <sge/graph/color.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::graph
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::graph::color,
 	background_color
 );
@@ -23,4 +23,3 @@ FCPPT_MAKE_STRONG_TYPEDEF(
 }
 
 #endif
-

@@ -7,14 +7,14 @@
 #ifndef SGE_RENDERER_STATE_FFP_MISC_NORMALIZE_NORMALS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_MISC_NORMALIZE_NORMALS_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::state::ffp::misc
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	bool,
 	normalize_normals
 );

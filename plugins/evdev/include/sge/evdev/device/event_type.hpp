@@ -8,14 +8,14 @@
 #define SGE_EVDEV_DEVICE_EVENT_TYPE_HPP_INCLUDED
 
 #include <sge/evdev/device/event_type_value.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::evdev::device
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::evdev::device::event_type_value,
 	event_type
 );

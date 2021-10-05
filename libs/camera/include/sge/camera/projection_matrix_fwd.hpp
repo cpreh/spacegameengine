@@ -8,13 +8,13 @@
 #define SGE_CAMERA_PROJECTION_MATRIX_FWD_HPP_INCLUDED
 
 #include <sge/renderer/matrix4_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::camera
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::matrix4,
 	projection_matrix
 );

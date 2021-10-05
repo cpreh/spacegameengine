@@ -8,13 +8,13 @@
 #define SGE_TEXTURE_ATLASING_INNER_RECT_FWD_HPP_INCLUDED
 
 #include <sge/renderer/lock_rect_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 
 
 namespace sge::texture::atlasing
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::lock_rect,
 	inner_rect
 );

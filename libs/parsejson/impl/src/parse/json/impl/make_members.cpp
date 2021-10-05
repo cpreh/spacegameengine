@@ -10,7 +10,7 @@
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/impl/make_members.hpp>
 #include <sge/parse/json/impl/member_vector.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/recursive_impl.hpp>
 #include <fcppt/strong_typedef_impl.hpp>
@@ -31,7 +31,7 @@
 namespace
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::charconv::utf8_string,
 	double_insert
 );

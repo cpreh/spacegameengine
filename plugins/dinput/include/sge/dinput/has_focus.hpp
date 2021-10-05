@@ -7,7 +7,7 @@
 #ifndef SGE_DINPUT_HAS_FOCUS_HPP_INCLUDED
 #define SGE_DINPUT_HAS_FOCUS_HPP_INCLUDED
 
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
@@ -16,7 +16,7 @@ namespace sge
 namespace dinput
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	bool,
 	has_focus
 );

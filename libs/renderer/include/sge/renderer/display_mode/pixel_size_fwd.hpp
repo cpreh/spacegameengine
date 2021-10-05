@@ -8,14 +8,14 @@
 #define SGE_RENDERER_DISPLAY_MODE_PIXEL_SIZE_FWD_HPP_INCLUDED
 
 #include <sge/renderer/screen_size_fwd.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::renderer::display_mode
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::renderer::screen_size,
 	pixel_size
 );

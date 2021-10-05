@@ -8,14 +8,14 @@
 #define SGE_PROJECTILE_GHOST_SIZE_HPP_INCLUDED
 
 #include <sge/projectile/dim2.hpp>
-#include <fcppt/make_strong_typedef.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
 
 namespace sge::projectile::ghost
 {
 
-FCPPT_MAKE_STRONG_TYPEDEF(
+FCPPT_DECLARE_STRONG_TYPEDEF(
 	sge::projectile::dim2,
 	size
 );
