@@ -3,12 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cg/impl/parameter/vector/set_impl.hpp>
 #include <sge/cg/parameter/vector/detail/set_double.hpp>
 
-
-SGE_CG_IMPL_PARAMETER_VECTOR_SET_IMPL(
-	double,
-	d
-)
+SGE_CG_IMPL_PARAMETER_VECTOR_SET_IMPL(double, d)

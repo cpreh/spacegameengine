@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/loader_plugin/collection.hpp>
@@ -63,121 +62,53 @@
 #include <typeinfo>
 #include <fcppt/config/external_end.hpp>
 
-
-int
-main()
+int main()
 try
 {
-	fcppt::log::context log_context(
-		fcppt::log::optional_level{
-			fcppt::log::level::debug
-		},
-		sge::log::default_level_streams()
-	);
+  fcppt::log::context log_context(
+      fcppt::log::optional_level{fcppt::log::level::debug}, sge::log::default_level_streams());
 
-	sge::plugin::manager manager(
-		fcppt::make_ref(
-			log_context
-		),
-		sge::config::plugin_path(),
-		sge::plugin::optional_cache_ref()
-	);
+  sge::plugin::manager manager(
+      fcppt::make_ref(log_context), sge::config::plugin_path(), sge::plugin::optional_cache_ref());
 
-	using
-	plugins
-	=
-	fcppt::mpl::list::object<
-		sge::audio::loader,
-		sge::audio::player,
-		sge::font::system,
-		sge::image2d::system,
-		sge::input::system,
-		sge::renderer::core
-	>;
+  using plugins = fcppt::mpl::list::object<
+      sge::audio::loader,
+      sge::audio::player,
+      sge::font::system,
+      sge::image2d::system,
+      sge::input::system,
+      sge::renderer::core>;
 
-	fcppt::algorithm::loop(
-		plugins{},
-		[
-			&manager
-		](
-			auto const _tag
-		)
-		{
-			FCPPT_USE(
-				_tag
-			);
+  fcppt::algorithm::loop(
+      plugins{},
+      [&manager](auto const _tag)
+      {
+        FCPPT_USE(_tag);
 
-			using
-			type
-			=
-			fcppt::tag_type<
-				decltype(
-					_tag
-				)
-			>;
+        using type = fcppt::tag_type<decltype(_tag)>;
 
-			fcppt::io::cout()
-				<<
-				fcppt::from_std_string(
-					fcppt::type_name_from_info(
-						typeid(
-							type
-						)
-					)
-				)
-				<<
-				FCPPT_TEXT('\n');
+        fcppt::io::cout() << fcppt::from_std_string(fcppt::type_name_from_info(typeid(type)))
+                          << FCPPT_TEXT('\n');
 
-			for(
-				auto const &plugin
-				:
-				manager.collection<
-					type
-				>()
-			)
-			{
-				sge::plugin::info const &info(
-					plugin.info()
-				);
+        for (auto const &plugin : manager.collection<type>())
+        {
+          sge::plugin::info const &info(plugin.info());
 
-				fcppt::io::cout()
-					<<
-					FCPPT_TEXT("\tname: \"")
-					<<
-					info.name()
-					<<
-					FCPPT_TEXT("\", description: \"")
-					<<
-					info.description()
-					<<
-					FCPPT_TEXT("\"\n");
-			}
-		}
-	);
+          fcppt::io::cout() << FCPPT_TEXT("\tname: \"") << info.name()
+                            << FCPPT_TEXT("\", description: \"") << info.description()
+                            << FCPPT_TEXT("\"\n");
+        }
+      });
 }
-catch(
-	fcppt::exception const &_exception
-)
+catch (fcppt::exception const &_exception)
 {
-	fcppt::io::cerr()
-		<<
-		_exception.string()
-		<<
-		FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _exception.string() << FCPPT_TEXT('\n');
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }
-catch(
-	std::exception const &_exception
-)
+catch (std::exception const &_exception)
 {
-	std::cerr
-		<<
-		_exception.what()
-		<<
-		'\n';
+  std::cerr << _exception.what() << '\n';
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }

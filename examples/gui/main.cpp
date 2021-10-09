@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/media_path.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/object.hpp>
@@ -132,596 +131,227 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_font,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_window,
-		sge::systems::with_input,
-		sge::systems::with_image2d
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("gui test")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-		(
-			sge::systems::image2d(
-				sge::media::optional_extension_set(
-					sge::media::extension_set{
-						sge::media::extension(
-							FCPPT_TEXT("png")
-						)
-					}
-				)
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_font,
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_window,
+      sge::systems::with_input,
+      sge::systems::with_image2d> const
+      sys(sge::systems::make_list(sge::systems::window(sge::systems::window_source(
+          sge::systems::original_window(sge::window::title(FCPPT_TEXT("gui test"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::input(sge::systems::cursor_option_field::null()))(
+          sge::systems::image2d(sge::media::optional_extension_set(
+              sge::media::extension_set{sge::media::extension(FCPPT_TEXT("png"))}))));
 
-	sge::font::object_unique_ptr const font(
-		sys.font_system().create_font(
-			sge::font::parameters()
-			.dpi(
-				sge::renderer::display_mode::to_dpi(
-					sys.renderer_device_ffp().display_mode()
-				)
-			)
-		)
-	);
+  sge::font::object_unique_ptr const font(sys.font_system().create_font(sge::font::parameters().dpi(
+      sge::renderer::display_mode::to_dpi(sys.renderer_device_ffp().display_mode()))));
 
-	sge::gui::style::base_unique_ptr const style{
-		sge::gui::style::create()
-	};
+  sge::gui::style::base_unique_ptr const style{sge::gui::style::create()};
 
-	sge::gui::context context{};
+  sge::gui::context context{};
 
-	sge::gui::widget::button button(
-		fcppt::make_cref(
-			*style
-		),
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		fcppt::make_ref(
-			*font
-		),
-		SGE_FONT_LIT("Quit"),
-		sge::gui::optional_needed_width()
-	);
+  sge::gui::widget::button button(
+      fcppt::make_cref(*style),
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      fcppt::make_ref(*font),
+      SGE_FONT_LIT("Quit"),
+      sge::gui::optional_needed_width());
 
-	fcppt::signal::auto_connection const quit_connection(
-		button.click(
-			sge::gui::click_callback{
-				[
-					&sys
-				]()
-				{
-					sys.window_system().quit(
-						awl::main::exit_success()
-					);
-				}
-			}
-		)
-	);
+  fcppt::signal::auto_connection const quit_connection(button.click(
+      sge::gui::click_callback{[&sys]() { sys.window_system().quit(awl::main::exit_success()); }}));
 
-	sge::gui::widget::edit edit(
-		fcppt::make_cref(
-			*style
-		),
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		fcppt::make_ref(
-			*font
-		),
-		SGE_FONT_LIT("Test")
-	);
+  sge::gui::widget::edit edit(
+      fcppt::make_cref(*style),
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      fcppt::make_ref(*font),
+      SGE_FONT_LIT("Test"));
 
-	sge::texture::part_raw_ptr const car_image(
-		sge::gui::create_texture(
-			fcppt::make_ref(
-				sys.renderer_device_core()
-			),
-			sge::image2d::load_exn(
-				fcppt::make_ref(
-					sys.image_system()
-				),
-				sge::config::media_path()
-				/
-				FCPPT_TEXT("images")
-				/
-				FCPPT_TEXT("tux.png")
-			)->view()
-		)
-	);
+  sge::texture::part_raw_ptr const car_image(sge::gui::create_texture(
+      fcppt::make_ref(sys.renderer_device_core()),
+      sge::image2d::load_exn(
+          fcppt::make_ref(sys.image_system()),
+          sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("tux.png"))
+          ->view()));
 
-	sge::gui::widget::image image(
-		fcppt::make_cref(
-			*style
-		),
-		fcppt::reference_to_base<
-			sge::texture::part const
-		>(
-			fcppt::make_cref(
-				car_image
-			)
-		)
-	);
+  sge::gui::widget::image image(
+      fcppt::make_cref(*style),
+      fcppt::reference_to_base<sge::texture::part const>(fcppt::make_cref(car_image)));
 
-	auto const make_tree(
-		[
-			&style,
-			&sys,
-			&font
-		](
-			sge::font::string &&_label
-		)
-		{
-			return
-				sge::gui::widget::unique_ptr_tree(
-					fcppt::unique_ptr_to_base<
-						sge::gui::widget::base
-					>(
-						fcppt::make_unique_ptr<
-							sge::gui::widget::text
-						>(
-							fcppt::make_cref(
-								*style
-							),
-							fcppt::make_ref(
-								sys.renderer_device_ffp()
-							),
-							fcppt::make_ref(
-								*font
-							),
-							std::move(
-								_label
-							),
-							sge::gui::text_color(
-								sge::image::color::any::object{
-									sge::image::color::predef::black()
-								}
-							),
-							sge::gui::optional_needed_width()
-						)
-					),
-					fcppt::container::make<
-						sge::gui::widget::unique_ptr_tree::child_list
-					>(
-						sge::gui::widget::unique_ptr_tree(
-							fcppt::unique_ptr_to_base<
-								sge::gui::widget::base
-							>(
-								fcppt::make_unique_ptr<
-									sge::gui::widget::button
-								>(
-									fcppt::make_cref(
-										*style
-									),
-									fcppt::make_ref(
-										sys.renderer_device_ffp()
-									),
-									fcppt::make_ref(
-										*font
-									),
-									SGE_FONT_LIT("Child 1"),
-									sge::gui::optional_needed_width()
-								)
-							)
-						),
-						sge::gui::widget::unique_ptr_tree(
-							fcppt::unique_ptr_to_base<
-								sge::gui::widget::base
-							>(
-								fcppt::make_unique_ptr<
-									sge::gui::widget::button
-								>(
-									fcppt::make_cref(
-										*style
-									),
-									fcppt::make_ref(
-										sys.renderer_device_ffp()
-									),
-									fcppt::make_ref(
-										*font
-									),
-									SGE_FONT_LIT("Child 2 asdljasdljasdklasdjklasdjlkasdjaskldjjasdkljasdklasdjlk"),
-									sge::gui::optional_needed_width()
-								)
-							)
-						)
-					)
-				);
-		}
-	);
+  auto const make_tree(
+      [&style, &sys, &font](sge::font::string &&_label)
+      {
+        return sge::gui::widget::unique_ptr_tree(
+            fcppt::unique_ptr_to_base<sge::gui::widget::base>(
+                fcppt::make_unique_ptr<sge::gui::widget::text>(
+                    fcppt::make_cref(*style),
+                    fcppt::make_ref(sys.renderer_device_ffp()),
+                    fcppt::make_ref(*font),
+                    std::move(_label),
+                    sge::gui::text_color(
+                        sge::image::color::any::object{sge::image::color::predef::black()}),
+                    sge::gui::optional_needed_width())),
+            fcppt::container::make<sge::gui::widget::unique_ptr_tree::child_list>(
+                sge::gui::widget::unique_ptr_tree(fcppt::unique_ptr_to_base<sge::gui::widget::base>(
+                    fcppt::make_unique_ptr<sge::gui::widget::button>(
+                        fcppt::make_cref(*style),
+                        fcppt::make_ref(sys.renderer_device_ffp()),
+                        fcppt::make_ref(*font),
+                        SGE_FONT_LIT("Child 1"),
+                        sge::gui::optional_needed_width()))),
+                sge::gui::widget::unique_ptr_tree(fcppt::unique_ptr_to_base<sge::gui::widget::base>(
+                    fcppt::make_unique_ptr<sge::gui::widget::button>(
+                        fcppt::make_cref(*style),
+                        fcppt::make_ref(sys.renderer_device_ffp()),
+                        fcppt::make_ref(*font),
+                        SGE_FONT_LIT(
+                            "Child 2 asdljasdljasdklasdjklasdjlkasdjaskldjjasdkljasdklasdjlk"),
+                        sge::gui::optional_needed_width())))));
+      });
 
-	auto const make_widget_tree(
-		[
-			&context
-		](
-			sge::gui::widget::unique_ptr_tree const &_tree
-		)
-		{
-			return
-				fcppt::make_unique_ptr<
-					sge::gui::widget::tree
-				>(
-					fcppt::make_ref(
-						context
-					),
-					sge::gui::widget::reference_tree_vector{
-						fcppt::container::tree::map<
-							sge::gui::widget::reference_tree
-						>(
-							_tree,
-							[](
-								sge::gui::widget::unique_ptr const &_widget
-							)
-							{
-								return
-									sge::gui::widget::reference(
-										*_widget
-									);
-							}
-						)
-					}
-				);
-		}
-	);
+  auto const make_widget_tree(
+      [&context](sge::gui::widget::unique_ptr_tree const &_tree)
+      {
+        return fcppt::make_unique_ptr<sge::gui::widget::tree>(
+            fcppt::make_ref(context),
+            sge::gui::widget::reference_tree_vector{
+                fcppt::container::tree::map<sge::gui::widget::reference_tree>(
+                    _tree,
+                    [](sge::gui::widget::unique_ptr const &_widget)
+                    { return sge::gui::widget::reference(*_widget); })});
+      });
 
-	sge::gui::widget::unique_ptr_tree tree1_widgets(
-		make_tree(
-			SGE_FONT_LIT("Toplevel 1")
-		)
-	);
+  sge::gui::widget::unique_ptr_tree tree1_widgets(make_tree(SGE_FONT_LIT("Toplevel 1")));
 
-	sge::gui::widget::tree_unique_ptr tree1(
-		make_widget_tree(
-			tree1_widgets
-		)
-	);
+  sge::gui::widget::tree_unique_ptr tree1(make_widget_tree(tree1_widgets));
 
-	sge::gui::widget::unique_ptr_tree tree2_widgets(
-		make_tree(
-			SGE_FONT_LIT("Toplevel 2")
-		)
-	);
+  sge::gui::widget::unique_ptr_tree tree2_widgets(make_tree(SGE_FONT_LIT("Toplevel 2")));
 
-	sge::gui::widget::tree_unique_ptr tree2(
-		make_widget_tree(
-			tree2_widgets
-		)
-	);
+  sge::gui::widget::tree_unique_ptr tree2(make_widget_tree(tree2_widgets));
 
-	sge::gui::widget::tab tab(
-		fcppt::make_ref(
-			context
-		),
-		fcppt::make_cref(
-			*style
-		),
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		fcppt::make_ref(
-			*font
-		),
-		sge::gui::widget::reference_name_vector{
-			sge::gui::widget::reference_name_pair(
-				sge::gui::widget::reference(
-					*tree1
-				),
-				SGE_FONT_LIT("Tab 1 asdkljasdlasdlkasdjklasdjklasdjklasjjklasdfoasdioasdjhiosjjaojasdfojasdfojasdfoasdfjaklasdgjkl")
-			),
-			sge::gui::widget::reference_name_pair(
-				sge::gui::widget::reference(
-					*tree2
-				),
-				SGE_FONT_LIT("Tab 2")
-			)
-		}
-	);
+  sge::gui::widget::tab tab(
+      fcppt::make_ref(context),
+      fcppt::make_cref(*style),
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      fcppt::make_ref(*font),
+      sge::gui::widget::reference_name_vector{
+          sge::gui::widget::reference_name_pair(
+              sge::gui::widget::reference(*tree1),
+              SGE_FONT_LIT("Tab 1 "
+                           "asdkljasdlasdlkasdjklasdjklasdjklasjjklasdfoasdioasdjhiosjjaojasdfojasd"
+                           "fojasdfoasdfjaklasdgjkl")),
+          sge::gui::widget::reference_name_pair(
+              sge::gui::widget::reference(*tree2), SGE_FONT_LIT("Tab 2"))});
 
-	sge::gui::widget::box_container line_widget(
-		fcppt::make_ref(
-			context
-		),
-		sge::gui::widget::reference_alignment_vector{
-			sge::gui::widget::reference_alignment_pair(
-				sge::gui::widget::reference(
-					button
-				),
-				sge::rucksack::alignment::center
-			),
-			sge::gui::widget::reference_alignment_pair(
-				sge::gui::widget::reference(
-					edit
-				),
-				sge::rucksack::alignment::center
-			),
-			sge::gui::widget::reference_alignment_pair(
-				sge::gui::widget::reference(
-					image
-				),
-				sge::rucksack::alignment::center
-			)
-		},
-		sge::rucksack::axis::x
-	);
+  sge::gui::widget::box_container line_widget(
+      fcppt::make_ref(context),
+      sge::gui::widget::reference_alignment_vector{
+          sge::gui::widget::reference_alignment_pair(
+              sge::gui::widget::reference(button), sge::rucksack::alignment::center),
+          sge::gui::widget::reference_alignment_pair(
+              sge::gui::widget::reference(edit), sge::rucksack::alignment::center),
+          sge::gui::widget::reference_alignment_pair(
+              sge::gui::widget::reference(image), sge::rucksack::alignment::center)},
+      sge::rucksack::axis::x);
 
-	sge::gui::widget::choices choices(
-		fcppt::make_ref(
-			context
-		),
-		fcppt::make_cref(
-			*style
-		),
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		fcppt::make_ref(
-			*font
-		),
-		sge::gui::string_container{
-			SGE_FONT_LIT("Choices Short"),
-			SGE_FONT_LIT("Choices Loooooooooooooooooooooooooooooooooooong")
-		},
-		sge::gui::optional_index(
-			sge::gui::index(
-				0U
-			)
-		)
-	);
+  sge::gui::widget::choices choices(
+      fcppt::make_ref(context),
+      fcppt::make_cref(*style),
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      fcppt::make_ref(*font),
+      sge::gui::string_container{
+          SGE_FONT_LIT("Choices Short"),
+          SGE_FONT_LIT("Choices Loooooooooooooooooooooooooooooooooooong")},
+      sge::gui::optional_index(sge::gui::index(0U)));
 
-	sge::gui::widget::box_container main_widget(
-		fcppt::make_ref(
-			context
-		),
-		sge::gui::widget::reference_alignment_vector{
-			sge::gui::widget::reference_alignment_pair(
-				sge::gui::widget::reference(
-					tab
-				),
-				sge::rucksack::alignment::left_or_top
-			),
-			sge::gui::widget::reference_alignment_pair(
-				sge::gui::widget::reference(
-					line_widget
-				),
-				sge::rucksack::alignment::center
-			),
-			sge::gui::widget::reference_alignment_pair(
-				sge::gui::widget::reference(
-					choices
-				),
-				sge::rucksack::alignment::center
-			)
-		},
-		sge::rucksack::axis::y
-	);
+  sge::gui::widget::box_container main_widget(
+      fcppt::make_ref(context),
+      sge::gui::widget::reference_alignment_vector{
+          sge::gui::widget::reference_alignment_pair(
+              sge::gui::widget::reference(tab), sge::rucksack::alignment::left_or_top),
+          sge::gui::widget::reference_alignment_pair(
+              sge::gui::widget::reference(line_widget), sge::rucksack::alignment::center),
+          sge::gui::widget::reference_alignment_pair(
+              sge::gui::widget::reference(choices), sge::rucksack::alignment::center)},
+      sge::rucksack::axis::y);
 
-	sge::gui::main_area::viewport_adaptor main_area(
-		fcppt::make_ref(
-			sys.renderer_device_core()
-		),
-		fcppt::make_ref(
-			sys.viewport_manager()
-		),
-		fcppt::reference_to_base<
-			sge::gui::widget::base
-		>(
-			fcppt::make_ref(
-				main_widget
-			)
-		)
-	);
+  sge::gui::main_area::viewport_adaptor main_area(
+      fcppt::make_ref(sys.renderer_device_core()),
+      fcppt::make_ref(sys.viewport_manager()),
+      fcppt::reference_to_base<sge::gui::widget::base>(fcppt::make_ref(main_widget)));
 
-	sge::gui::master master(
-		fcppt::make_ref(
-			context
-		),
-		fcppt::reference_to_base<
-			sge::gui::main_area::base
-		>(
-			fcppt::make_ref(
-				main_area
-			)
-		)
-	);
+  sge::gui::master master(
+      fcppt::make_ref(context),
+      fcppt::reference_to_base<sge::gui::main_area::base>(fcppt::make_ref(main_area)));
 
-	sge::gui::background::colored background(
-		fcppt::reference_to_base<
-			sge::gui::main_area::base
-		>(
-			fcppt::make_ref(
-				main_area
-			)
-		)
-	);
+  sge::gui::background::colored background(
+      fcppt::reference_to_base<sge::gui::main_area::base>(fcppt::make_ref(main_area)));
 
-	using
-	frame_timer_type
-	=
-	sge::timer::basic<
-		sge::timer::clocks::standard
-	>;
+  using frame_timer_type = sge::timer::basic<sge::timer::clocks::standard>;
 
-	frame_timer_type frame_timer(
-		frame_timer_type::parameters(
-			std::chrono::seconds(
-				1
-			)
-		)
-	);
+  frame_timer_type frame_timer(frame_timer_type::parameters(std::chrono::seconds(1)));
 
-	auto const draw(
-		[
-			&background,
-			&frame_timer,
-			&master,
-			&sys
-		]{
-			sge::timer::scoped_frame_limiter const limiter(
-				sge::renderer::display_mode::desired_fps(
-					sys.renderer_device_ffp().display_mode()
-				)
-			);
+  auto const draw(
+      [&background, &frame_timer, &master, &sys]
+      {
+        sge::timer::scoped_frame_limiter const limiter(
+            sge::renderer::display_mode::desired_fps(sys.renderer_device_ffp().display_mode()));
 
-			master.update(
-				std::chrono::duration_cast<
-					sge::gui::duration
-				>(
-					sge::timer::elapsed_and_reset(
-						frame_timer
-					)
-				)
-			);
+        master.update(std::chrono::duration_cast<sge::gui::duration>(
+            sge::timer::elapsed_and_reset(frame_timer)));
 
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			scoped_block.get().clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::blue()
-					}
-				)
-			);
+        scoped_block.get().clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::blue()}));
 
-			master.draw_with_states(
-				sys.renderer_device_ffp(),
-				scoped_block.get(),
-				background
-			);
-		}
-	);
+        master.draw_with_states(sys.renderer_device_ffp(), scoped_block.get(), background);
+      });
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&master,
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					fcppt::optional::maybe_void(
-						fcppt::variant::dynamic_cast_<
-							fcppt::mpl::list::object<
-								sge::renderer::event::render const,
-								sge::input::event_base const
-							>,
-							fcppt::cast::dynamic_fun
-						>(
-							_event
-						),
-						[
-							&master,
-							&draw
-						](
-							auto const &_variant
-						)
-						{
-							fcppt::variant::match(
-								_variant,
-								[
-									&draw
-								](
-									fcppt::reference<
-										sge::renderer::event::render const
-									>
-								)
-								{
-									draw();
-								},
-								[
-									&master
-								](
-									fcppt::reference<
-										sge::input::event_base const
-									> const _input_event
-								)
-								{
-									master.process_event(
-										_input_event.get()
-									);
-								}
-							);
-						}
-					);
-				}
-			}
-		);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&master, &draw](awl::event::base const &_event)
+          {
+            fcppt::optional::maybe_void(
+                fcppt::variant::dynamic_cast_<
+                    fcppt::mpl::list::
+                        object<sge::renderer::event::render const, sge::input::event_base const>,
+                    fcppt::cast::dynamic_fun>(_event),
+                [&master, &draw](auto const &_variant)
+                {
+                  fcppt::variant::match(
+                      _variant,
+                      [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); },
+                      [&master](fcppt::reference<sge::input::event_base const> const _input_event)
+                      { master.process_event(_input_event.get()); });
+                });
+          }});
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

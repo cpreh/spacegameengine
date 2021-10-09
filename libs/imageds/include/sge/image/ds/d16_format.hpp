@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_DS_D16_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_DS_D16_FORMAT_HPP_INCLUDED
 
@@ -11,17 +10,11 @@
 #include <sge/image/homogenous_format.hpp>
 #include <sge/image/ds/layout/depth.hpp>
 
-
 namespace sge::image::ds
 {
 
-using
-d16_format
-=
-sge::image::homogenous_format<
-	sge::image::channel16,
-	sge::image::ds::layout::depth
->;
+using d16_format =
+    sge::image::homogenous_format<sge::image::channel16, sge::image::ds::layout::depth>;
 
 }
 

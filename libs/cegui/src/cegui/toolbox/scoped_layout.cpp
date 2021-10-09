@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/system.hpp>
 #include <sge/cegui/system_ref.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
@@ -14,40 +13,20 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::cegui::toolbox::scoped_layout::scoped_layout(
-	sge::cegui::system_ref const _system,
-	std::filesystem::path const &_path
-)
-:
-	system_(
-		_system
-	),
-	window_(
-		system_.get().window_manager().loadLayoutFromFile(
-			sge::cegui::to_cegui_string(
-				fcppt::filesystem::path_to_string(
-					_path
-				)
-			),
-			"",
-			nullptr,
-			nullptr
-		)
-	)
+    sge::cegui::system_ref const _system, std::filesystem::path const &_path)
+    : system_(_system),
+      window_(system_.get().window_manager().loadLayoutFromFile(
+          sge::cegui::to_cegui_string(fcppt::filesystem::path_to_string(_path)),
+          "",
+          nullptr,
+          nullptr))
 {
 }
 
 sge::cegui::toolbox::scoped_layout::~scoped_layout()
 {
-	system_.get().window_manager().destroyWindow(
-		window_
-	);
+  system_.get().window_manager().destroyWindow(window_);
 }
 
-CEGUI::Window &
-sge::cegui::toolbox::scoped_layout::window() const
-{
-	return
-		*window_;
-}
+CEGUI::Window &sge::cegui::toolbox::scoped_layout::window() const { return *window_; }

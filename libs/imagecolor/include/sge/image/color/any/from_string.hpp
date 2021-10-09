@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_ANY_FROM_STRING_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_FROM_STRING_HPP_INCLUDED
 
@@ -15,27 +14,16 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::image::color::any
 {
 
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
-fcppt::either::object<
-	fcppt::string,
-	sge::image::color::any::object
->
-from_string(
-	std::string const &
-);
+fcppt::either::object<fcppt::string, sge::image::color::any::object>
+from_string(std::string const &);
 
 SGE_IMAGE_COLOR_DETAIL_SYMBOL
-fcppt::either::object<
-	fcppt::string,
-	sge::image::color::any::object
->
-from_string(
-	std::wstring const &
-);
+fcppt::either::object<fcppt::string, sge::image::color::any::object>
+from_string(std::wstring const &);
 
 }
 

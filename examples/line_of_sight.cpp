@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/bresenham/normal.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/predef.hpp>
@@ -112,74 +111,28 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-using
-color_format
-=
-sge::image::color::rgba8_format;
+using color_format = sge::image::color::rgba8_format;
 
-using
-sprite_choices
-=
-sge::sprite::config::choices<
-	sge::sprite::config::type_choices<
-		sge::sprite::config::unit_type<
-			int
-		>,
-		sge::sprite::config::float_type<
-			float
-		>
-	>,
-	sge::sprite::config::pos<
-		sge::sprite::config::pos_option::pos
-	>,
-	sge::sprite::config::normal_size<
-		sge::sprite::config::texture_size_option::never
-	>,
-	fcppt::mpl::list::object<
-		sge::sprite::config::with_color<
-			color_format
-		>
-	>
->;
+using sprite_choices = sge::sprite::config::choices<
+    sge::sprite::config::
+        type_choices<sge::sprite::config::unit_type<int>, sge::sprite::config::float_type<float>>,
+    sge::sprite::config::pos<sge::sprite::config::pos_option::pos>,
+    sge::sprite::config::normal_size<sge::sprite::config::texture_size_option::never>,
+    fcppt::mpl::list::object<sge::sprite::config::with_color<color_format>>>;
 
-using
-sprite_buffers_type
-=
-sge::sprite::buffers::with_declaration<
-	sge::sprite::buffers::single<
-		sprite_choices
-	>
->;
+using sprite_buffers_type =
+    sge::sprite::buffers::with_declaration<sge::sprite::buffers::single<sprite_choices>>;
 
-using
-sprite_object
-=
-sge::sprite::object<
-	sprite_choices
->;
+using sprite_object = sge::sprite::object<sprite_choices>;
 
-using
-sprite_state_choices
-=
-sge::sprite::state::all_choices;
+using sprite_state_choices = sge::sprite::state::all_choices;
 
-using
-sprite_state_object
-=
-sge::sprite::state::object<
-	sprite_state_choices
->;
+using sprite_state_object = sge::sprite::state::object<sprite_state_choices>;
 
-using
-sprite_state_parameters
-=
-sge::sprite::state::parameters<
-	sprite_state_choices
->;
+using sprite_state_parameters = sge::sprite::state::parameters<sprite_state_choices>;
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
@@ -187,509 +140,219 @@ FCPPT_PP_DISABLE_CLANG_WARNING(-Wexit-time-destructors)
 
 // NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
 sprite_object::dim const cell_size(
-	32, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-	32 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    32, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    32 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 );
 
 FCPPT_PP_POP_WARNING
 
-using
-sprite_grid
-=
-fcppt::container::grid::object<
-	sprite_object,
-	2
->;
+using sprite_grid = fcppt::container::grid::object<sprite_object, 2>;
 
-sprite_object
-make_sprite(
-	sprite_grid::pos const &_pos
-)
+sprite_object make_sprite(sprite_grid::pos const &_pos)
 {
-	return
-		sprite_object(
-			sge::sprite::roles::pos{} =
-				fcppt::math::vector::structure_cast<
-					sprite_object::vector,
-					fcppt::cast::size_fun
-				>(
-					_pos
-				)
-				*
-				cell_size,
-			sge::sprite::roles::size{} =
-				cell_size,
-			sge::sprite::roles::color{} =
-				sge::image::color::convert<
-					color_format
-				>(
-					sge::image::color::predef::white()
-				)
-		);
+  return sprite_object(
+      sge::sprite::roles::pos{} =
+          fcppt::math::vector::structure_cast<sprite_object::vector, fcppt::cast::size_fun>(_pos) *
+          cell_size,
+      sge::sprite::roles::size{} = cell_size,
+      sge::sprite::roles::color{} =
+          sge::image::color::convert<color_format>(sge::image::color::predef::white()));
 }
 
 }
 
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_window,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_input
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge line of sight example")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_window,
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_input> const
+      sys(sge::systems::make_list(
+          sge::systems::window(sge::systems::window_source(sge::systems::original_window(
+              sge::window::title(FCPPT_TEXT("sge line of sight example"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::input(sge::systems::cursor_option_field::null())));
 
-	sprite_state_object sprite_state(
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		sprite_state_parameters()
-	);
+  sprite_state_object sprite_state(
+      fcppt::make_ref(sys.renderer_device_ffp()), sprite_state_parameters());
 
-	sprite_buffers_type sprite_buffers(
-		fcppt::make_ref(
-			sys.renderer_device_core()
-		),
-		sge::sprite::buffers::option::dynamic
-	);
+  sprite_buffers_type sprite_buffers(
+      fcppt::make_ref(sys.renderer_device_core()), sge::sprite::buffers::option::dynamic);
 
-	sprite_grid sprites(
-		(
-			fcppt::math::dim::structure_cast<
-				sprite_grid::dim,
-				fcppt::cast::size_fun
-			>(
-				// TODO(philipp): Use something else here
-				sys.window().size()
-			)
-			/
-			fcppt::math::dim::structure_cast<
-				sprite_grid::dim,
-				fcppt::cast::size_fun
-			>(
-				cell_size
-			)
-		).get_unsafe(),
-		make_sprite
-	);
+  sprite_grid sprites(
+      (fcppt::math::dim::structure_cast<sprite_grid::dim, fcppt::cast::size_fun>(
+           // TODO(philipp): Use something else here
+           sys.window().size()) /
+       fcppt::math::dim::structure_cast<sprite_grid::dim, fcppt::cast::size_fun>(cell_size))
+          .get_unsafe(),
+      make_sprite);
 
-	using
-	difference_type
-	=
-	std::make_signed_t<
-		sprite_grid::size_type
-	>;
+  using difference_type = std::make_signed_t<sprite_grid::size_type>;
 
-	using
-	signed_pos
-	=
-	fcppt::container::grid::pos<
-		difference_type,
-		2
-	>;
+  using signed_pos = fcppt::container::grid::pos<difference_type, 2>;
 
-	fcppt::signal::auto_connection const manage_connection(
-		sys.viewport_manager().manage_callback(
-			sge::viewport::manage_callback{
-				[
-					&sprites
-				](
-					sge::renderer::target::viewport const &_viewport
-				)
-				{
-					sprites =
-						fcppt::container::grid::resize(
-							sprites,
-							(
-								fcppt::math::dim::structure_cast<
-									sprite_grid::dim,
-									fcppt::cast::size_fun
-								>(
-									fcppt::math::dim::structure_cast<
-										sge::renderer::screen_size,
-										fcppt::cast::to_unsigned_fun
-									>(
-										_viewport.get().size()
-									)
-								)
-								/
-								fcppt::math::dim::structure_cast<
-									sprite_grid::dim,
-									fcppt::cast::size_fun
-								>(
-									cell_size
-								)
-							).get_unsafe(),
-							make_sprite
-						);
-				}
-			}
-		)
-	);
+  fcppt::signal::auto_connection const manage_connection(
+      sys.viewport_manager().manage_callback(sge::viewport::manage_callback{
+          [&sprites](sge::renderer::target::viewport const &_viewport)
+          {
+            sprites = fcppt::container::grid::resize(
+                sprites,
+                (fcppt::math::dim::structure_cast<sprite_grid::dim, fcppt::cast::size_fun>(
+                     fcppt::math::dim::
+                         structure_cast<sge::renderer::screen_size, fcppt::cast::to_unsigned_fun>(
+                             _viewport.get().size())) /
+                 fcppt::math::dim::structure_cast<sprite_grid::dim, fcppt::cast::size_fun>(
+                     cell_size))
+                    .get_unsafe(),
+                make_sprite);
+          }}));
 
-	sge::input::cursor::optional_position last_position{};
+  sge::input::cursor::optional_position last_position{};
 
-	auto const button_event(
-		[
-			&sprites,
-			&last_position
-		](
-			sge::input::cursor::event::button const &_event
-		)
-		{
-			if(
-				!_event.pressed()
-				||
-				_event.button_code()
-				!=
-				sge::input::cursor::button_code::left
-			)
-			{
-				return;
-			}
+  auto const button_event(
+      [&sprites, &last_position](sge::input::cursor::event::button const &_event)
+      {
+        if (!_event.pressed() || _event.button_code() != sge::input::cursor::button_code::left)
+        {
+          return;
+        }
 
-			auto const cell_size_dim(
-				fcppt::math::dim::structure_cast<
-					sprite_grid::dim,
-					fcppt::cast::size_fun
-				>(
-					cell_size
-				)
-			);
+        auto const cell_size_dim(
+            fcppt::math::dim::structure_cast<sprite_grid::dim, fcppt::cast::size_fun>(cell_size));
 
-			sge::input::cursor::position const cur_position{
-				_event.position()
-			};
+        sge::input::cursor::position const cur_position{_event.position()};
 
-			sprite_grid::pos const cur_grid_position(
-				(
-					fcppt::math::vector::structure_cast<
-						sprite_grid::pos,
-						fcppt::cast::size_fun
-					>(
-						cur_position
-					)
-					/
-					cell_size_dim
-				).get_unsafe()
-			);
+        sprite_grid::pos const cur_grid_position(
+            (fcppt::math::vector::structure_cast<sprite_grid::pos, fcppt::cast::size_fun>(
+                 cur_position) /
+             cell_size_dim)
+                .get_unsafe());
 
-			if(
-				!fcppt::container::grid::in_range(
-					sprites,
-					cur_grid_position
-				)
-			)
-			{
-				return;
-			}
+        if (!fcppt::container::grid::in_range(sprites, cur_grid_position))
+        {
+          return;
+        }
 
-			fcppt::optional::maybe(
-				last_position,
-				[
-					&last_position,
-					cur_position
-				]{
-					last_position =
-						sge::input::cursor::optional_position{
-							cur_position
-						};
-				},
-				[
-					&last_position,
-					&sprites,
-					cell_size_dim,
-					cur_grid_position
-				](
-					sge::input::cursor::position const &_last_position
-				)
-				{
-					sprite_grid::pos const last_grid_position(
-						(
-							fcppt::math::vector::structure_cast<
-								sprite_grid::pos,
-								fcppt::cast::to_unsigned_fun
-							>(
-								fcppt::math::vector::structure_cast<
-									signed_pos,
-									fcppt::cast::size_fun
-								>(
-									_last_position
-								)
-							)
-							/
-							cell_size_dim
-						).get_unsafe()
-					);
+        fcppt::optional::maybe(
+            last_position,
+            [&last_position, cur_position]
+            { last_position = sge::input::cursor::optional_position{cur_position}; },
+            [&last_position, &sprites, cell_size_dim, cur_grid_position](
+                sge::input::cursor::position const &_last_position)
+            {
+              sprite_grid::pos const last_grid_position(
+                  (fcppt::math::vector::
+                       structure_cast<sprite_grid::pos, fcppt::cast::to_unsigned_fun>(
+                           fcppt::math::vector::structure_cast<signed_pos, fcppt::cast::size_fun>(
+                               _last_position)) /
+                   cell_size_dim)
+                      .get_unsafe());
 
-					sge::bresenham::normal(
-						fcppt::math::vector::structure_cast<
-							signed_pos,
-							fcppt::cast::to_signed_fun
-						>(
-							cur_grid_position
-						),
-						fcppt::math::vector::structure_cast<
-							signed_pos,
-							fcppt::cast::to_signed_fun
-						>(
-							last_grid_position
-						),
-						[
-							&sprites
-						](
-							signed_pos const &_pos
-						)
-						{
-							fcppt::optional::maybe_void(
-								fcppt::container::grid::at_optional(
-									sprites,
-									fcppt::math::vector::structure_cast<
-										sprite_grid::pos,
-										fcppt::cast::to_unsigned_fun
-									>(
-										_pos
-									)
-								),
-								[](
-									fcppt::reference<
-										sprite_object
-									> const _sprite
-								)
-								{
-									_sprite.get().color(
-										sge::image::color::convert<
-											color_format
-										>(
-											sge::image::color::predef::red()
-										)
-									);
-								}
-							);
+              sge::bresenham::normal(
+                  fcppt::math::vector::structure_cast<signed_pos, fcppt::cast::to_signed_fun>(
+                      cur_grid_position),
+                  fcppt::math::vector::structure_cast<signed_pos, fcppt::cast::to_signed_fun>(
+                      last_grid_position),
+                  [&sprites](signed_pos const &_pos)
+                  {
+                    fcppt::optional::maybe_void(
+                        fcppt::container::grid::at_optional(
+                            sprites,
+                            fcppt::math::vector::
+                                structure_cast<sprite_grid::pos, fcppt::cast::to_unsigned_fun>(
+                                    _pos)),
+                        [](fcppt::reference<sprite_object> const _sprite)
+                        {
+                          _sprite.get().color(sge::image::color::convert<color_format>(
+                              sge::image::color::predef::red()));
+                        });
 
-							return
-								true;
-						}
-					);
+                    return true;
+                  });
 
-					last_position =
-						sge::input::cursor::optional_position{};
-				}
-			);
-		}
-	);
+              last_position = sge::input::cursor::optional_position{};
+            });
+      });
 
-	auto const key_event(
-		[
-			&sprites
-		](
-			sge::input::keyboard::event::key const &_event
-		)
-		{
-			if(
-				_event.get().code()
-				==
-				sge::input::key::code::c
-			)
-			{
-				for(
-					auto &element
-					:
-					sprites
-				)
-				{
-					element.color(
-						sge::image::color::convert<
-							color_format
-						>(
-							sge::image::color::predef::white()
-						)
-					);
-				}
-			}
-		}
-	);
+  auto const key_event(
+      [&sprites](sge::input::keyboard::event::key const &_event)
+      {
+        if (_event.get().code() == sge::input::key::code::c)
+        {
+          for (auto &element : sprites)
+          {
+            element.color(
+                sge::image::color::convert<color_format>(sge::image::color::predef::white()));
+          }
+        }
+      });
 
-	auto const draw(
-		[
-			&sprite_buffers,
-			&sprite_state,
-			&sprites,
-			&sys
-		]{
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+  auto const draw(
+      [&sprite_buffers, &sprite_state, &sprites, &sys]
+      {
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			scoped_block.get().clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-			);
+        scoped_block.get().clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::black()}));
 
-			sge::sprite::process::all(
-				scoped_block.get(),
-				sge::sprite::geometry::make_random_access_range(
-					sprites
-				),
-				sprite_buffers,
-				sge::sprite::compare::default_(),
-				sprite_state
-			);
-		}
-	);
+        sge::sprite::process::all(
+            scoped_block.get(),
+            sge::sprite::geometry::make_random_access_range(sprites),
+            sprite_buffers,
+            sge::sprite::compare::default_(),
+            sprite_state);
+      });
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&sys,
-					&button_event,
-					&draw,
-					&key_event
-				](
-					awl::event::base const &_event
-				)
-				{
-					sge::systems::quit_on_escape(
-						sys,
-						_event
-					);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&sys, &button_event, &draw, &key_event](awl::event::base const &_event)
+          {
+            sge::systems::quit_on_escape(sys, _event);
 
-					fcppt::optional::maybe_void(
-						fcppt::variant::dynamic_cast_<
-							fcppt::mpl::list::object<
-								sge::renderer::event::render const,
-								sge::input::cursor::event::button const,
-								sge::input::keyboard::event::key const
-							>,
-							fcppt::cast::dynamic_fun
-						>(
-							_event
-						),
-						[
-							&button_event,
-							&draw,
-							&key_event
-						](
-							auto const &_variant
-						)
-						{
-							fcppt::variant::match(
-								_variant,
-								[
-									&draw
-								](
-									fcppt::reference<
-										sge::renderer::event::render const
-									>
-								)
-								{
-									draw();
-								},
-								[
-									&button_event
-								](
-									fcppt::reference<
-										sge::input::cursor::event::button const
-									> const _button_event
-								)
-								{
-									button_event(
-										_button_event.get()
-									);
-								},
-								[
-									&key_event
-								](
-									fcppt::reference<
-										sge::input::keyboard::event::key const
-									> const _key_event
-								)
-								{
-									key_event(
-										_key_event.get()
-									);
-								}
-							);
-						}
-					);
-				}
-			}
-		);
+            fcppt::optional::maybe_void(
+                fcppt::variant::dynamic_cast_<
+                    fcppt::mpl::list::object<
+                        sge::renderer::event::render const,
+                        sge::input::cursor::event::button const,
+                        sge::input::keyboard::event::key const>,
+                    fcppt::cast::dynamic_fun>(_event),
+                [&button_event, &draw, &key_event](auto const &_variant)
+                {
+                  fcppt::variant::match(
+                      _variant,
+                      [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); },
+                      [&button_event](
+                          fcppt::reference<sge::input::cursor::event::button const> const
+                              _button_event) { button_event(_button_event.get()); },
+                      [&key_event](
+                          fcppt::reference<sge::input::keyboard::event::key const> const _key_event)
+                      { key_event(_key_event.get()); });
+                });
+          }});
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

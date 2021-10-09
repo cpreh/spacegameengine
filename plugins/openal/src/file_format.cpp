@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/channel_type.hpp>
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
@@ -14,58 +13,32 @@
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 
-
-ALenum
-sge::openal::file_format(
-	sge::audio::file const &_file
-)
+ALenum sge::openal::file_format(sge::audio::file const &_file)
 {
-	switch(
-		_file.bits_per_sample().get()
-	)
-	{
-	case 8U: // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		switch(
-			_file.channels().get()
-		)
-		{
-		case 1U:
-			return
-				AL_FORMAT_MONO8;
-		case 2U:
-			return
-				AL_FORMAT_STEREO8;
-		}
-		break;
-	case 16U: // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		switch(
-			_file.channels().get()
-		)
-		{
-		case 1U:
-			return
-				AL_FORMAT_MONO16;
-		case 2U:
-			return
-				AL_FORMAT_STEREO16;
-		}
-		break;
-	}
+  switch (_file.bits_per_sample().get())
+  {
+  case 8U: // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    switch (_file.channels().get())
+    {
+    case 1U:
+      return AL_FORMAT_MONO8;
+    case 2U:
+      return AL_FORMAT_STEREO8;
+    }
+    break;
+  case 16U: // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    switch (_file.channels().get())
+    {
+    case 1U:
+      return AL_FORMAT_MONO16;
+    case 2U:
+      return AL_FORMAT_STEREO16;
+    }
+    break;
+  }
 
-	throw
-		sge::audio::exception(
-			FCPPT_TEXT("OpenAL error: Format not supported: ")
-			+
-			fcppt::output_to_fcppt_string(
-				_file.bits_per_sample()
-			)
-			+
-			FCPPT_TEXT(" bps, ")
-			+
-			fcppt::output_to_fcppt_string(
-				_file.channels()
-			)
-			+
-			FCPPT_TEXT(" channels")
-		);
+  throw sge::audio::exception(
+      FCPPT_TEXT("OpenAL error: Format not supported: ") +
+      fcppt::output_to_fcppt_string(_file.bits_per_sample()) + FCPPT_TEXT(" bps, ") +
+      fcppt::output_to_fcppt_string(_file.channels()) + FCPPT_TEXT(" channels"));
 }

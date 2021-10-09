@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_BITMAP_IMPL_OBJECT_HPP_INCLUDED
 #define SGE_FONT_BITMAP_IMPL_OBJECT_HPP_INCLUDED
 
@@ -27,69 +26,41 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::font::bitmap::impl
 {
 
-class object
-:
-	public sge::font::object
+class object : public sge::font::object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	object(
-		fcppt::log::context_reference,
-		std::filesystem::path const &,
-		sge::image2d::system_ref
-	);
+  object(fcppt::log::context_reference, std::filesystem::path const &, sge::image2d::system_ref);
 
-	~object()
-	override;
+  ~object() override;
+
 private:
-	object(
-		fcppt::log::context_reference,
-		std::filesystem::path const &,
-		sge::image2d::system_ref,
-		sge::parse::json::start const &
-	);
+  object(
+      fcppt::log::context_reference,
+      std::filesystem::path const &,
+      sge::image2d::system_ref,
+      sge::parse::json::start const &);
 
-	[[nodiscard]]
-	sge::font::text_unique_ptr
-	create_text(
-		sge::font::string const &,
-		sge::font::text_parameters const &
-	)
-	override;
+  [[nodiscard]] sge::font::text_unique_ptr
+  create_text(sge::font::string const &, sge::font::text_parameters const &) override;
 
-	[[nodiscard]]
-	sge::image::color::optional_format
-	preferred_color_format() const
-	override;
+  [[nodiscard]] sge::image::color::optional_format preferred_color_format() const override;
 
-	[[nodiscard]]
-	sge::font::metrics
-	metrics() const
-	override;
+  [[nodiscard]] sge::font::metrics metrics() const override;
 
-	fcppt::log::object log_;
+  fcppt::log::object log_;
 
-	sge::font::bitmap::impl::line_height const line_height_;
+  sge::font::bitmap::impl::line_height const line_height_;
 
-	using
-	image_vector
-	=
-	std::vector<
-		sge::image2d::file_unique_ptr
-	>;
+  using image_vector = std::vector<sge::image2d::file_unique_ptr>;
 
-	std::pair<
-		image_vector,
-		sge::font::bitmap::impl::char_map
-	> const impl_;
+  std::pair<image_vector, sge::font::bitmap::impl::char_map> const impl_;
 
-	sge::image::color::optional_format const color_format_;
+  sge::image::color::optional_format const color_format_;
 };
 
 }

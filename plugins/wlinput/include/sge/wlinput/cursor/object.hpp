@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_CURSOR_OBJECT_HPP_INCLUDED
 #define SGE_WLINPUT_CURSOR_OBJECT_HPP_INCLUDED
 
@@ -22,58 +21,38 @@
 #include <fcppt/enable_shared_from_this_decl.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::wlinput::cursor
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
-:
-	public
-		sge::input::cursor::object,
-	public
-		fcppt::enable_shared_from_this<
-			sge::wlinput::cursor::object
-		>
+    : public sge::input::cursor::object,
+      public fcppt::enable_shared_from_this<sge::wlinput::cursor::object>
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	object(
-		sge::window::object_ref,
-		awl::backends::wayland::window::object_ref,
-		awl::event::container_reference,
-		awl::backends::wayland::seat_ref
-	);
+  object(
+      sge::window::object_ref,
+      awl::backends::wayland::window::object_ref,
+      awl::event::container_reference,
+      awl::backends::wayland::seat_ref);
 
-	~object()
-	override;
+  ~object() override;
 
-	[[nodiscard]]
-	sge::window::object &
-	window() const
-	override;
+  [[nodiscard]] sge::window::object &window() const override;
 
-	[[nodiscard]]
-	sge::input::cursor::optional_position
-	position() const
-	override;
+  [[nodiscard]] sge::input::cursor::optional_position position() const override;
 
-	void
-	mode(
-		sge::input::cursor::mode
-	)
-	override;
+  void mode(sge::input::cursor::mode) override;
 
-	[[nodiscard]]
-	sge::input::cursor::shared_ptr
-	get_shared_ptr();
+  [[nodiscard]] sge::input::cursor::shared_ptr get_shared_ptr();
+
 private:
-	sge::window::object_ref const window_;
+  sge::window::object_ref const window_;
 
-	sge::wlinput::cursor::holder const impl_;
+  sge::wlinput::cursor::holder const impl_;
 
-	sge::wlinput::cursor::data data_;
+  sge::wlinput::cursor::data data_;
 };
 
 }

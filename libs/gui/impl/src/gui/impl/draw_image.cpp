@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/gui/impl/draw_image.hpp>
 #include <sge/gui/impl/draw_sprite.hpp>
 #include <sge/gui/impl/image_sprite_choices.hpp>
@@ -18,30 +17,18 @@
 #include <sge/texture/const_part_ref.hpp>
 #include <sge/texture/part_fwd.hpp>
 
-
-void
-sge::gui::impl::draw_image(
-	sge::renderer::device::core &_renderer,
-	sge::renderer::context::ffp &_context,
-	sge::texture::part const &_texture,
-	sge::rucksack::vector const &_pos
-)
+void sge::gui::impl::draw_image(
+    sge::renderer::device::core &_renderer,
+    sge::renderer::context::ffp &_context,
+    sge::texture::part const &_texture,
+    sge::rucksack::vector const &_pos)
 {
-	sge::gui::impl::draw_sprite(
-		_renderer,
-		_context,
-		sge::sprite::object<
-			sge::gui::impl::image_sprite_choices<
-				sge::sprite::config::texture_coordinates::automatic,
-				sge::sprite::config::texture_size_option::always
-			>
-		>(
-			sge::sprite::roles::pos{} =
-				_pos,
-			sge::sprite::roles::texture0{} =
-				sge::texture::const_part_ref(
-					_texture
-				)
-		)
-	);
+  sge::gui::impl::draw_sprite(
+      _renderer,
+      _context,
+      sge::sprite::object<sge::gui::impl::image_sprite_choices<
+          sge::sprite::config::texture_coordinates::automatic,
+          sge::sprite::config::texture_size_option::always>>(
+          sge::sprite::roles::pos{} = _pos,
+          sge::sprite::roles::texture0{} = sge::texture::const_part_ref(_texture)));
 }

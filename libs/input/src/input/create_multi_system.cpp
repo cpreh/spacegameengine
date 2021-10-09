@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/create_multi_system.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/system_unique_ptr.hpp>
@@ -13,22 +12,10 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/context_reference.hpp>
 
-
-sge::input::system_unique_ptr
-sge::input::create_multi_system(
-	fcppt::log::context_reference const _log_context,
-	sge::input::plugin::collection const &_collection
-)
+sge::input::system_unique_ptr sge::input::create_multi_system(
+    fcppt::log::context_reference const _log_context,
+    sge::input::plugin::collection const &_collection)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::input::system
-		>(
-			fcppt::make_unique_ptr<
-				sge::input::impl::multi_system
-			>(
-				_log_context,
-				_collection
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::input::system>(
+      fcppt::make_unique_ptr<sge::input::impl::multi_system>(_log_context, _collection));
 }

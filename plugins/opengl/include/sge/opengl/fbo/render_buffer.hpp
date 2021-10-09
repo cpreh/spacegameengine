@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_FBO_RENDER_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_FBO_RENDER_BUFFER_HPP_INCLUDED
 
@@ -15,34 +14,29 @@
 #include <sge/renderer/dim2_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::fbo
 {
 
 class render_buffer
 {
-	FCPPT_NONMOVABLE(
-		render_buffer
-	);
+  FCPPT_NONMOVABLE(render_buffer);
+
 public:
-	render_buffer(
-		sge::opengl::fbo::const_config_ref,
-		sge::opengl::internal_color_format,
-		sge::renderer::dim2 const &
-	);
+  render_buffer(
+      sge::opengl::fbo::const_config_ref,
+      sge::opengl::internal_color_format,
+      sge::renderer::dim2 const &);
 
-	~render_buffer();
+  ~render_buffer();
 
-	[[nodiscard]]
-	GLuint
-	id() const;
+  [[nodiscard]] GLuint id() const;
+
 private:
-	void
-	bind() const;
+  void bind() const;
 
-	sge::opengl::fbo::const_config_ref const context_;
+  sge::opengl::fbo::const_config_ref const context_;
 
-	sge::opengl::fbo::render_buffer_holder const holder_;
+  sge::opengl::fbo::render_buffer_holder const holder_;
 };
 
 }

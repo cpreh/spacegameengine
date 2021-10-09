@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_INFO_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_INFO_CONTEXT_HPP_INCLUDED
 
@@ -18,42 +17,32 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::info
 {
 
 class context
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	context(
-		fcppt::log::object &, // NOLINT(google-runtime-references)
-		sge::opengl::backend::const_current_ref
-	);
+  context(
+      fcppt::log::object &, // NOLINT(google-runtime-references)
+      sge::opengl::backend::const_current_ref);
 
-	~context();
+  ~context();
 
-	[[nodiscard]]
-	sge::opengl::info::version
-	version() const;
+  [[nodiscard]] sge::opengl::info::version version() const;
 
-	[[nodiscard]]
-	sge::opengl::info::extension_set const &
-	extensions() const;
+  [[nodiscard]] sge::opengl::info::extension_set const &extensions() const;
 
-	[[nodiscard]]
-	sge::opengl::backend::fun_ptr
-	load_function(
-		std::string const &
-	) const;
+  [[nodiscard]] sge::opengl::backend::fun_ptr load_function(std::string const &) const;
+
 private:
-	sge::opengl::backend::const_current_ref const current_;
+  sge::opengl::backend::const_current_ref const current_;
 
-	sge::opengl::info::version const version_;
+  sge::opengl::info::version const version_;
 
-	sge::opengl::info::extension_set const extensions_;
+  sge::opengl::info::extension_set const extensions_;
 };
 
 }

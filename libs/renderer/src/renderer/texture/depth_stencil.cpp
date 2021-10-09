@@ -3,30 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 
+sge::renderer::texture::depth_stencil::depth_stencil() : sge::renderer::texture::base{} {}
 
-sge::renderer::texture::depth_stencil::depth_stencil()
-:
-	sge::renderer::texture::base{}
+sge::renderer::texture::depth_stencil::~depth_stencil() = default;
+
+sge::renderer::texture::depth_stencil::dim sge::renderer::texture::depth_stencil::size() const
 {
-}
-
-sge::renderer::texture::depth_stencil::~depth_stencil()
-= default;
-
-sge::renderer::texture::depth_stencil::dim
-sge::renderer::texture::depth_stencil::size() const
-{
-	return
-		this->level(
-			sge::renderer::texture::mipmap::level(
-				0U
-			)
-		).size();
+  return this->level(sge::renderer::texture::mipmap::level(0U)).size();
 }

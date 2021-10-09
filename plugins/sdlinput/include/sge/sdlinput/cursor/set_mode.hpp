@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_CURSOR_SET_MODE_HPP_INCLUDED
 #define SGE_SDLINPUT_CURSOR_SET_MODE_HPP_INCLUDED
 
 #include <sge/input/cursor/mode_fwd.hpp>
 
-
 namespace sge::sdlinput::cursor
 {
 
-void
-set_mode(
-	sge::input::cursor::mode
-);
+void set_mode(sge::input::cursor::mode);
 
 }
 

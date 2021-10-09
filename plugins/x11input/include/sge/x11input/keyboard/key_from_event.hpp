@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_KEYBOARD_KEY_FROM_EVENT_HPP_INCLUDED
 #define SGE_X11INPUT_KEYBOARD_KEY_FROM_EVENT_HPP_INCLUDED
 
@@ -13,15 +12,11 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::keyboard
 {
 
 sge::input::keyboard::key
-key_from_event(
-	awl::backends::x11::display const &,
-	XIDeviceEvent const &
-);
+key_from_event(awl::backends::x11::display const &, XIDeviceEvent const &);
 
 }
 

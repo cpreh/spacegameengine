@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_HPP_INCLUDED
 
@@ -15,7 +14,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/map.hpp>
 
-
 namespace sge::parse::json
 {
 
@@ -24,39 +22,13 @@ namespace sge::parse::json
 
 \throws invalid_get if the member has a different type than T
 */
-template<
-	typename T,
-	typename Arg
->
-sge::parse::json::find_member_return_type<
-	T,
-	Arg
->
-find_member(
-	fcppt::reference<
-		Arg
-	> const _members,
-	sge::charconv::utf8_string const &_name
-)
+template <typename T, typename Arg>
+sge::parse::json::find_member_return_type<T, Arg>
+find_member(fcppt::reference<Arg> const _members, sge::charconv::utf8_string const &_name)
 {
-	return
-		fcppt::optional::map(
-			sge::parse::json::find_member_value(
-				_members,
-				_name
-			),
-			[](
-				auto const _arg_ref
-			)
-			{
-				return
-					sge::parse::json::get_exn<
-						T
-					>(
-						_arg_ref
-					);
-			}
-		);
+  return fcppt::optional::map(
+      sge::parse::json::find_member_value(_members, _name),
+      [](auto const _arg_ref) { return sge::parse::json::get_exn<T>(_arg_ref); });
 }
 
 }

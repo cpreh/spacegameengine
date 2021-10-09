@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENAL_CONTEXT_HPP_INCLUDED
 
@@ -13,38 +12,26 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::openal
 {
 
 class context
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	explicit
-	context(
-		fcppt::reference<
-			sge::openal::device
-		>
-	);
+  explicit context(fcppt::reference<sge::openal::device>);
 
-	[[nodiscard]]
-	ALCcontext &
-	alcontext();
+  [[nodiscard]] ALCcontext &alcontext();
 
-	[[nodiscard]]
-	ALCdevice &
-	aldevice();
+  [[nodiscard]] ALCdevice &aldevice();
 
-	~context();
+  ~context();
+
 private:
-	fcppt::reference<
-		sge::openal::device
-	> const device_;
+  fcppt::reference<sge::openal::device> const device_;
 
-	ALCcontext *const context_;
+  ALCcontext *const context_;
 };
 
 }

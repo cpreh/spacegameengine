@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cg/check_state.hpp>
 #include <sge/opengl/cg/profile/get_latest.hpp>
 #include <sge/renderer/exception.hpp>
@@ -13,34 +12,16 @@
 #include <Cg/cgGL.h>
 #include <fcppt/config/external_end.hpp>
 
-
-CGprofile
-sge::opengl::cg::profile::get_latest(
-	CGGLenum const _type
-)
+CGprofile sge::opengl::cg::profile::get_latest(CGGLenum const _type)
 {
-	CGprofile const ret(
-		::cgGLGetLatestProfile(
-			_type
-		)
-	);
+  CGprofile const ret(::cgGLGetLatestProfile(_type));
 
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgGLGetLatestProfile failed!"),
-		sge::renderer::exception
-	)
+  SGE_CG_CHECK_STATE(FCPPT_TEXT("cgGLGetLatestProfile failed!"), sge::renderer::exception)
 
-	if(
-		ret
-		==
-		CG_PROFILE_UNKNOWN
-	)
-	{
-		throw
-			sge::renderer::exception{
-				FCPPT_TEXT("Unknown Cg profile")
-			};
-	}
+  if (ret == CG_PROFILE_UNKNOWN)
+  {
+    throw sge::renderer::exception{FCPPT_TEXT("Unknown Cg profile")};
+  }
 
-	return ret;
+  return ret;
 }

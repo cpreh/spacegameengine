@@ -3,26 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_CONVERT_INTERNAL_FORMAT_FUNCTION_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CONVERT_INTERNAL_FORMAT_FUNCTION_HPP_INCLUDED
 
 #include <sge/opengl/internal_color_format.hpp>
 
-
 namespace sge::opengl::texture
 {
 
-template<
-	typename Format
->
-using convert_internal_format_function
-=
-sge::opengl::internal_color_format
-(&)
-(
-	Format
-);
+template <typename Format>
+using convert_internal_format_function = sge::opengl::internal_color_format (&)(Format);
 
 }
 

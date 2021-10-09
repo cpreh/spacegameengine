@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_LISTENER_HPP_INCLUDED
 #define SGE_AUDIO_LISTENER_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <sge/audio/direction/object_fwd.hpp>
 #include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/nonmovable.hpp>
-
 
 namespace sge::audio
 {
@@ -29,29 +27,21 @@ namespace sge::audio
  */
 class SGE_CORE_DETAIL_CLASS_SYMBOL listener
 {
-	FCPPT_NONMOVABLE(
-		listener
-	);
+  FCPPT_NONMOVABLE(listener);
+
 protected:
-	SGE_AUDIO_DETAIL_SYMBOL
-	listener();
+  SGE_AUDIO_DETAIL_SYMBOL
+  listener();
+
 public:
-	/// Set the position
-	virtual
-	void
-	position(
-		sge::audio::vector const &
-	) = 0;
+  /// Set the position
+  virtual void position(sge::audio::vector const &) = 0;
 
-	/// Set the linear velocity
-	virtual
-	void
-	linear_velocity(
-		sge::audio::vector const &
-	) = 0;
+  /// Set the linear velocity
+  virtual void linear_velocity(sge::audio::vector const &) = 0;
 
-	/// Set the direction
-	/**
+  /// Set the direction
+  /**
 	 * \note
 	 * The direction object might or might not check if it's
 	 * actually "correct" in the sense that the vectors are linearly
@@ -59,15 +49,10 @@ public:
 	 * independent/normalized vectors, so they won't correct or check this
 	 * either. Be careful.
 	 */
-	virtual
-	void
-	direction(
-		sge::audio::direction::object const &
-	) = 0;
+  virtual void direction(sge::audio::direction::object const &) = 0;
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	virtual
-	~listener();
+  SGE_AUDIO_DETAIL_SYMBOL
+  virtual ~listener();
 };
 
 }

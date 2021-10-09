@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_BASIC_BUFFER_FWD_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_BUFFER_FWD_HPP_INCLUDED
-
 
 namespace sge::opengl::texture
 {
 
-template<
-	typename Types
->
+template <typename Types>
 class basic_buffer; // NOLINT(fuchsia-multiple-inheritance)
 
 }

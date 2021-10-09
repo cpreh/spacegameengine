@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_DINPUT_PROCESSOR_HPP_INCLUDED
 
@@ -34,189 +33,90 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace dinput
 {
 
-class processor
-:
-	public sge::input::processor
+class processor : public sge::input::processor
 {
-	FCPPT_NONCOPYABLE(
-		processor
-	);
+  FCPPT_NONCOPYABLE(processor);
+
 public:
-	processor(
-		fcppt::log::object_reference,
-		sge::window::object_ref
-	);
+  processor(fcppt::log::object_reference, sge::window::object_ref);
 
-	~processor()
-	override;
+  ~processor() override;
+
 private:
-	sge::window::object &
-	window() const
-	override;
+  sge::window::object &window() const override;
 
-	sge::input::cursor::container
-	cursors() const
-	override;
+  sge::input::cursor::container cursors() const override;
 
-	sge::input::focus::container
-	foci() const
-	override;
+  sge::input::focus::container foci() const override;
 
-	sge::input::joypad::container
-	joypads() const
-	override;
+  sge::input::joypad::container joypads() const override;
 
-	sge::input::keyboard::container
-	keyboards() const
-	override;
+  sge::input::keyboard::container keyboards() const override;
 
-	sge::input::mouse::container
-	mice() const
-	override;
+  sge::input::mouse::container mice() const override;
 
-	template<
-		typename State
-	>
-	using
-	fold_device_function
-	=
-	fcppt::function<
-		State (
-			sge::dinput::device::object &,
-			State &&
-		)
-	>;
+  template <typename State>
+  using fold_device_function = fcppt::function<State(sge::dinput::device::object &, State &&)>;
 
-	typedef
-	fcppt::function<
-		void (
-			sge::dinput::device::object &
-		)
-	>
-	for_each_device_function;
-		
-	template<
-		typename State
-	>
-	State
-	fold_devices(
-		State &&,
-		fold_device_function<
-			State
-		> const &
-	);
+  typedef fcppt::function<void(sge::dinput::device::object &)> for_each_device_function;
 
-	void
-	for_each_device(
-		for_each_device_function const &
-	);
+  template <typename State>
+  State fold_devices(State &&, fold_device_function<State> const &);
 
-	void
-	acquire_all();
+  void for_each_device(for_each_device_function const &);
 
-	void
-	on_focus_in();
+  void acquire_all();
 
-	void
-	on_focus_out();
+  void on_focus_in();
 
-	awl::event::container
-	on_handle_ready();
+  void on_focus_out();
 
-	awl::event::container
-	on_event(
-		awl::event::base const &
-	);
+  awl::event::container on_handle_ready();
 
-	awl::event::container
-	on_window_event(
-		awl::window::event::base const &
-	);
+  awl::event::container on_event(awl::event::base const &);
 
-	static
-	BOOL
-	CALLBACK
-	enum_devices_callback(
-		LPCDIDEVICEINSTANCE,
-		LPVOID
-	);
+  awl::event::container on_window_event(awl::window::event::base const &);
 
-	fcppt::log::object_reference const log_;
+  static BOOL CALLBACK enum_devices_callback(LPCDIDEVICEINSTANCE, LPVOID);
 
-	sge::window::object_ref const window_;
+  fcppt::log::object_reference const log_;
 
-	sge::dinput::dinput_unique_ptr const dinput_;
+  sge::window::object_ref const window_;
 
-	awl::backends::windows::window::object &windows_window_;
+  sge::dinput::dinput_unique_ptr const dinput_;
 
-	awl::backends::windows::system::event::handle_unique_ptr const event_handle_;
+  awl::backends::windows::window::object &windows_window_;
 
-	sge::dinput::has_focus has_focus_;
+  awl::backends::windows::system::event::handle_unique_ptr const event_handle_;
 
-	template<
-		typename Type
-	>
-	using
-	device_pointer
-	=
-	fcppt::shared_ptr<
-		Type
-	>;
+  sge::dinput::has_focus has_focus_;
 
-	typedef
-	fcppt::shared_ptr<
-		sge::dinput::keyboard::device
-	>
-	keyboard_shared_ptr;
+  template <typename Type>
+  using device_pointer = fcppt::shared_ptr<Type>;
 
-	typedef
-	fcppt::shared_ptr<
-		sge::dinput::mouse::device
-	>
-	mouse_shared_ptr;
+  typedef fcppt::shared_ptr<sge::dinput::keyboard::device> keyboard_shared_ptr;
 
-	typedef
-	fcppt::shared_ptr<
-		sge::dinput::joypad::device
-	>
-	joypad_shared_ptr;
+  typedef fcppt::shared_ptr<sge::dinput::mouse::device> mouse_shared_ptr;
 
-	template<
-		typename Type
-	>
-	using
-	device_container
-	=
-	std::vector<
-		device_pointer<
-			Type
-		>
-	>;
+  typedef fcppt::shared_ptr<sge::dinput::joypad::device> joypad_shared_ptr;
 
-	device_container<
-		sge::dinput::keyboard::device
-	>
-	keyboards_;
+  template <typename Type>
+  using device_container = std::vector<device_pointer<Type>>;
 
-	device_container<
-		sge::dinput::mouse::device
-	>
-	mice_;
+  device_container<sge::dinput::keyboard::device> keyboards_;
 
-	device_container<
-		sge::dinput::joypad::device
-	>
-	joypads_;
+  device_container<sge::dinput::mouse::device> mice_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  device_container<sge::dinput::joypad::device> joypads_;
 
-	fcppt::signal::auto_connection const window_event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
+
+  fcppt::signal::auto_connection const window_event_connection_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/get_string.hpp>
 #include <sge/opengl/parse_extensions.hpp>
@@ -12,19 +11,10 @@
 #include <sge/opengl/wgl/get_extensions.hpp>
 #include <sge/opengl/wgl/scoped_current_fwd.hpp>
 
-
 sge::opengl::wgl::extension_set
-sge::opengl::wgl::get_extensions(
-	sge::opengl::wgl::scoped_current const &
-)
+sge::opengl::wgl::get_extensions(sge::opengl::wgl::scoped_current const &)
 {
-	// TODO: Try wglGetExtensionsStringARB?
-	return
-		sge::opengl::parse_extensions<
-			sge::opengl::wgl::extension
-		>(
-			sge::opengl::get_string(
-				GL_EXTENSIONS
-			)
-		);
+  // TODO: Try wglGetExtensionsStringARB?
+  return sge::opengl::parse_extensions<sge::opengl::wgl::extension>(
+      sge::opengl::get_string(GL_EXTENSIONS));
 }

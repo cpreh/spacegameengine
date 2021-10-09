@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/object_ref.hpp>
@@ -25,158 +24,74 @@
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_ref.hpp>
 
-
 sge::opengl::index::buffer::buffer(
-	sge::opengl::context::object_ref const _context,
-	sge::renderer::index::buffer_parameters const &_parameters
-)
-:
-	sge::renderer::index::buffer(),
-	sge::opengl::buffer::wrapper(),
-	format_(
-		_parameters.format()
-	),
-	gl_format_(
-		sge::opengl::convert::index_format(
-			format_
-		)
-	),
-	buffer_(
-		fcppt::make_ref(
-			sge::opengl::context::use<
-				sge::opengl::buffer::vbo_context
-			>(
-				_context,
-				_context
-			).index_buffer()
-		),
-		_parameters.count().get(),
-		sge::renderer::index::dynamic::format_stride(
-			format_
-		),
-		_parameters.flags(),
-		nullptr
-	)
+    sge::opengl::context::object_ref const _context,
+    sge::renderer::index::buffer_parameters const &_parameters)
+    : sge::renderer::index::buffer(),
+      sge::opengl::buffer::wrapper(),
+      format_(_parameters.format()),
+      gl_format_(sge::opengl::convert::index_format(format_)),
+      buffer_(
+          fcppt::make_ref(
+              sge::opengl::context::use<sge::opengl::buffer::vbo_context>(_context, _context)
+                  .index_buffer()),
+          _parameters.count().get(),
+          sge::renderer::index::dynamic::format_stride(format_),
+          _parameters.flags(),
+          nullptr)
 {
 }
 
-sge::opengl::index::buffer::~buffer()
-= default;
+sge::opengl::index::buffer::~buffer() = default;
 
-GLenum
-sge::opengl::index::buffer::gl_format() const
+GLenum sge::opengl::index::buffer::gl_format() const { return gl_format_; }
+
+GLvoid *sge::opengl::index::buffer::buffer_offset(sge::renderer::index::first const _size) const
 {
-	return
-		gl_format_;
+  return buffer_.buffer_offset(_size.get());
 }
 
-GLvoid *
-sge::opengl::index::buffer::buffer_offset(
-	sge::renderer::index::first const _size
-) const
-{
-	return
-		buffer_.buffer_offset(
-			_size.get()
-		);
-}
+void sge::opengl::index::buffer::bind() const { buffer_.bind(); }
 
-void
-sge::opengl::index::buffer::bind() const
+sge::renderer::index::dynamic::view sge::opengl::index::buffer::lock(
+    sge::renderer::lock_segment const &_segment, sge::renderer::lock_mode const _flags)
 {
-	buffer_.bind();
-}
-
-sge::renderer::index::dynamic::view
-sge::opengl::index::buffer::lock(
-	sge::renderer::lock_segment const &_segment,
-	sge::renderer::lock_mode const _flags
-)
-{
-	return
-		this->do_lock<
-			sge::renderer::index::dynamic::view
-		>(
-			sge::renderer::lock_flags::from_mode(
-				_flags
-			),
-			_segment
-		);
+  return this->do_lock<sge::renderer::index::dynamic::view>(
+      sge::renderer::lock_flags::from_mode(_flags), _segment);
 }
 
 sge::renderer::index::dynamic::const_view
-sge::opengl::index::buffer::lock_c(
-	sge::renderer::lock_segment const &_segment
-) const
+sge::opengl::index::buffer::lock_c(sge::renderer::lock_segment const &_segment) const
 {
-	return
-		this->do_lock<
-			sge::renderer::index::dynamic::const_view
-		>(
-			sge::renderer::lock_flags::method::read,
-			_segment
-		);
+  return this->do_lock<sge::renderer::index::dynamic::const_view>(
+      sge::renderer::lock_flags::method::read, _segment);
 }
 
-template<
-	typename View
->
-View
-sge::opengl::index::buffer::do_lock(
-	sge::renderer::lock_flags::method const _method,
-	sge::renderer::lock_segment const &_segment
-) const
+template <typename View>
+View sge::opengl::index::buffer::do_lock(
+    sge::renderer::lock_flags::method const _method,
+    sge::renderer::lock_segment const &_segment) const
 {
-	buffer_.lock(
-		_method,
-		_segment.pos().x(),
-		_segment.size().w()
-	);
+  buffer_.lock(_method, _segment.pos().x(), _segment.size().w());
 
-	return
-		View(
-			buffer_.data(),
-			buffer_.lock_size()
-			/
-			sge::renderer::index::dynamic::format_stride(
-				format_
-			),
-			format_
-		);
+  return View(
+      buffer_.data(),
+      buffer_.lock_size() / sge::renderer::index::dynamic::format_stride(format_),
+      format_);
 }
 
-void
-sge::opengl::index::buffer::unlock() const
+void sge::opengl::index::buffer::unlock() const { buffer_.unlock(); }
+
+sge::renderer::dim1 sge::opengl::index::buffer::size() const
 {
-	buffer_.unlock();
+  return sge::renderer::dim1{buffer_.size()};
 }
 
-sge::renderer::dim1
-sge::opengl::index::buffer::size() const
+sge::renderer::resource_flags_field sge::opengl::index::buffer::resource_flags() const
 {
-	return
-		sge::renderer::dim1{
-			buffer_.size()
-		};
+  return buffer_.flags();
 }
 
-sge::renderer::resource_flags_field
-sge::opengl::index::buffer::resource_flags() const
-{
-	return
-		buffer_.flags();
-}
+sge::renderer::index::dynamic::format sge::opengl::index::buffer::format() const { return format_; }
 
-sge::renderer::index::dynamic::format
-sge::opengl::index::buffer::format() const
-{
-	return
-		format_;
-}
-
-sge::opengl::buffer::object const &
-sge::opengl::index::buffer::get() const
-{
-	return
-		buffer_;
-}
+sge::opengl::buffer::object const &sge::opengl::index::buffer::get() const { return buffer_; }

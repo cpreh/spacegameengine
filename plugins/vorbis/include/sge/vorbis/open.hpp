@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_VORBIS_OPEN_HPP_INCLUDED
 #define SGE_VORBIS_OPEN_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::vorbis
 {
 
-sge::vorbis::optional_stream_unique_ptr
-open(
-	std::istream &
-);
+sge::vorbis::optional_stream_unique_ptr open(std::istream &);
 
 }
 

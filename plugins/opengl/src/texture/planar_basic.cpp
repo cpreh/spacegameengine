@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image2d/traits/dimension.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
@@ -19,15 +18,6 @@
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters.hpp>
 
+template class sge::opengl::texture::basic<sge::opengl::texture::planar_types>;
 
-template
-class
-sge::opengl::texture::basic<
-	sge::opengl::texture::planar_types
->;
-
-template
-class
-sge::opengl::texture::basic_box<
-	sge::opengl::texture::planar_types
->;
+template class sge::opengl::texture::basic_box<sge::opengl::texture::planar_types>;

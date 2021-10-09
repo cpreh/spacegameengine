@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_WAYLAND_WINDOW_HPP_INCLUDED
 #define SGE_OPENGL_EGL_WAYLAND_WINDOW_HPP_INCLUDED
 
@@ -16,30 +15,24 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge::opengl::egl::wayland
 {
 
 class window
 {
-	FCPPT_NONMOVABLE(
-		window
-	);
+  FCPPT_NONMOVABLE(window);
+
 public:
-	explicit
-	window(
-		sge::window::object_ref
-	);
+  explicit window(sge::window::object_ref);
 
-	~window();
+  ~window();
 
-	[[nodiscard]]
-	wl_egl_window *
-	get() const;
+  [[nodiscard]] wl_egl_window *get() const;
+
 private:
-	sge::opengl::egl::wayland::window_holder const holder_;
+  sge::opengl::egl::wayland::window_holder const holder_;
 
-	fcppt::signal::auto_connection const resize_connection_;
+  fcppt::signal::auto_connection const resize_connection_;
 };
 
 }

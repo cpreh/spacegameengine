@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_FIND_PLUGIN_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_FIND_PLUGIN_HPP_INCLUDED
 
@@ -33,192 +32,70 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::systems::impl
 {
 
-template<
-	typename System,
-	typename TestFunction
->
-sge::systems::impl::plugin_pair<
-	System
->
-find_plugin(
-	fcppt::log::context_reference const _log_context,
-	sge::plugin::collection<
-		System
-	> const &_collection,
-	sge::systems::optional_name const &_opt_name,
-	TestFunction const &_test_function
-)
+template <typename System, typename TestFunction>
+sge::systems::impl::plugin_pair<System> find_plugin(
+    fcppt::log::context_reference const _log_context,
+    sge::plugin::collection<System> const &_collection,
+    sge::systems::optional_name const &_opt_name,
+    TestFunction const &_test_function)
 {
-	return
-		fcppt::optional::to_exception(
-			fcppt::optional::maybe(
-				_opt_name,
-				[
-					&_log_context,
-					&_collection,
-					&_test_function
-				]{
-					return
-						sge::systems::impl::find_plugin_opt(
-							_log_context,
-							_collection,
-							_test_function
-						);
-				},
-				[
-					&_log_context,
-					&_collection,
-					&_test_function
-				](
-					sge::plugin::name const &_name
-				)
-				{
-					using
-					return_type
-					=
-					sge::systems::impl::plugin_pair<
-						System
-					>;
+  return fcppt::optional::to_exception(
+      fcppt::optional::maybe(
+          _opt_name,
+          [&_log_context, &_collection, &_test_function] {
+            return sge::systems::impl::find_plugin_opt(_log_context, _collection, _test_function);
+          },
+          [&_log_context, &_collection, &_test_function](sge::plugin::name const &_name)
+          {
+            using return_type = sge::systems::impl::plugin_pair<System>;
 
-					return
-						fcppt::algorithm::find_by_opt<
-							return_type
-						>(
-							_collection,
-							[
-								&_log_context,
-								&_test_function,
-								&_name
-							](
-								sge::plugin::context<
-									System
-								> const &_element
-							)
-							{
-								using
-								optional_result
-								=
-								fcppt::optional::object<
-									return_type
-								>;
+            return fcppt::algorithm::find_by_opt<return_type>(
+                _collection,
+                [&_log_context, &_test_function, &_name](
+                    sge::plugin::context<System> const &_element)
+                {
+                  using optional_result = fcppt::optional::object<return_type>;
 
-								if(
-									_element.info().name()
-									!=
-									_name
-								)
-								{
-									return
-										optional_result{};
-								}
+                  if (_element.info().name() != _name)
+                  {
+                    return optional_result{};
+                  }
 
-								using
-								plugin_type
-								=
-								sge::plugin::object<
-									System
-								>;
+                  using plugin_type = sge::plugin::object<System>;
 
-								plugin_type plugin(
-									_element.load()
-								);
+                  plugin_type plugin(_element.load());
 
-								using
-								system_unique_ptr
-								=
-								fcppt::unique_ptr<
-									System
-								>;
+                  using system_unique_ptr = fcppt::unique_ptr<System>;
 
-								system_unique_ptr system(
-									plugin.get()(
-										_log_context
-									)
-								);
+                  system_unique_ptr system(plugin.get()(_log_context));
 
-								if(
-									_test_function(
-										*system
-									)
-								)
-								{
-									return
-										optional_result{
-											return_type{
-												std::move(
-													plugin
-												),
-												std::move(
-													system
-												)
-											}
-										};
-								}
+                  if (_test_function(*system))
+                  {
+                    return optional_result{return_type{std::move(plugin), std::move(system)}};
+                  }
 
-								throw
-									sge::systems::exception{
-										FCPPT_TEXT("Plugin of type ")
-										+
-										fcppt::from_std_string(
-											fcppt::type_name_from_info(
-												typeid(
-													System
-												)
-											)
-										)
-										+
-										FCPPT_TEXT(" and name ")
-										+
-										_name.get()
-										+
-										FCPPT_TEXT(" was explicitly requested but doesn't match the requested capabilities.")
-									};
-							}
-						);
-				}
-			),
-			[
-				&_opt_name
-			]{
-				return
-					sge::systems::exception(
-						FCPPT_TEXT("No plugin of type ")
-						+
-						fcppt::from_std_string(
-							fcppt::type_name_from_info(
-								typeid(
-									System
-								)
-							)
-						)
-						+
-						fcppt::optional::maybe(
-							_opt_name,
-							[]{
-								return
-									fcppt::string{
-										FCPPT_TEXT(" matched the requested capabilities.")
-									};
-							},
-							[](
-								sge::plugin::name const &_name
-							)
-							{
-								return
-									FCPPT_TEXT(" and with name ")
-									+
-									_name.get()
-									+
-									FCPPT_TEXT(" found.");
-							}
-						)
-					);
-			}
-		);
+                  throw sge::systems::exception{
+                      FCPPT_TEXT("Plugin of type ") +
+                      fcppt::from_std_string(fcppt::type_name_from_info(typeid(System))) +
+                      FCPPT_TEXT(" and name ") + _name.get() +
+                      FCPPT_TEXT(" was explicitly requested but doesn't match the requested "
+                                 "capabilities.")};
+                });
+          }),
+      [&_opt_name]
+      {
+        return sge::systems::exception(
+            FCPPT_TEXT("No plugin of type ") +
+            fcppt::from_std_string(fcppt::type_name_from_info(typeid(System))) +
+            fcppt::optional::maybe(
+                _opt_name,
+                [] { return fcppt::string{FCPPT_TEXT(" matched the requested capabilities.")}; },
+                [](sge::plugin::name const &_name)
+                { return FCPPT_TEXT(" and with name ") + _name.get() + FCPPT_TEXT(" found."); }));
+      });
 }
 
 }

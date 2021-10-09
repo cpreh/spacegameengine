@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_ACTION_MAPPING_FWD_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_ACTION_MAPPING_FWD_HPP_INCLUDED
 
@@ -22,4 +21,3 @@ class mapping;
 }
 
 #endif
-

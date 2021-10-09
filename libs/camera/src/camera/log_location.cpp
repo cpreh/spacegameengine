@@ -3,18 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/camera/log_location.hpp>
 #include <sge/camera/impl/log_name.hpp>
 #include <sge/log/location.hpp>
 #include <fcppt/log/location.hpp>
 
-
-fcppt::log::location
-sge::camera::log_location()
+fcppt::log::location sge::camera::log_location()
 {
-	return
-		sge::log::location()
-		/
-		sge::camera::impl::log_name();
+  return sge::log::location() / sge::camera::impl::log_name();
 }

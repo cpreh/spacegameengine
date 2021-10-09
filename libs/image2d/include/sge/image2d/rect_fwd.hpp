@@ -3,22 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_RECT_FWD_HPP_INCLUDED
 #define SGE_IMAGE2D_RECT_FWD_HPP_INCLUDED
 
 #include <sge/image/basic_box_fwd.hpp>
 
-
 namespace sge::image2d
 {
 
-using
-rect
-=
-sge::image::basic_box<
-	2
->;
+using rect = sge::image::basic_box<2>;
 
 }
 

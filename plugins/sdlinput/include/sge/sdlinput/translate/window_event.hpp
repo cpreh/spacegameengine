@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_TRANSLATE_WINDOW_EVENT_HPP_INCLUDED
 #define SGE_SDLINPUT_TRANSLATE_WINDOW_EVENT_HPP_INCLUDED
 
@@ -15,17 +14,14 @@
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::translate
 {
 
-awl::event::container
-window_event(
-	sge::input::cursor::shared_ptr const &,
-	sge::input::focus::shared_ptr const &,
-	awl::backends::sdl::window::object const &,
-	SDL_WindowEvent const &
-);
+awl::event::container window_event(
+    sge::input::cursor::shared_ptr const &,
+    sge::input::focus::shared_ptr const &,
+    awl::backends::sdl::window::object const &,
+    SDL_WindowEvent const &);
 
 }
 

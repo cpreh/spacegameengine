@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LOG_OPTION_HPP_INCLUDED
 #define SGE_LOG_OPTION_HPP_INCLUDED
 
@@ -12,30 +11,23 @@
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>
 
-
 namespace sge::log
 {
 
 class option
 {
 public:
-	SGE_LOG_DETAIL_SYMBOL
-	option(
-		fcppt::log::location &&,
-		fcppt::log::level
-	);
+  SGE_LOG_DETAIL_SYMBOL
+  option(fcppt::log::location &&, fcppt::log::level);
 
-	[[nodiscard]]
-	fcppt::log::location const &
-	location() const;
+  [[nodiscard]] fcppt::log::location const &location() const;
 
-	[[nodiscard]]
-	fcppt::log::level
-	level() const;
+  [[nodiscard]] fcppt::log::level level() const;
+
 private:
-	fcppt::log::location location_;
+  fcppt::log::location location_;
 
-	fcppt::log::level level_;
+  fcppt::log::level level_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_RENDER_CONTEXT_MATERIAL_SPECULAR_TEXTURE_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_MATERIAL_SPECULAR_TEXTURE_HPP_INCLUDED
 
@@ -12,10 +11,7 @@
 namespace sge::scenic::render_context::material
 {
 
-using
-specular_texture
-=
-sge::scenic::render_context::optional_planar_texture;
+using specular_texture = sge::scenic::render_context::optional_planar_texture;
 
 }
 

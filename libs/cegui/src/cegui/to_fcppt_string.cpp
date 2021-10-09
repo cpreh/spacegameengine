@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/to_fcppt_string.hpp>
 #include <sge/cegui/to_wstring.hpp>
 #include <fcppt/from_std_wstring.hpp>
@@ -12,16 +11,7 @@
 #include <CEGUI/String.h>
 #include <fcppt/config/external_end.hpp>
 
-
-fcppt::optional_string
-sge::cegui::to_fcppt_string(
-	CEGUI::String const &_string
-)
+fcppt::optional_string sge::cegui::to_fcppt_string(CEGUI::String const &_string)
 {
-	return
-		fcppt::from_std_wstring(
-			sge::cegui::to_wstring(
-				_string
-			)
-		);
+  return fcppt::from_std_wstring(sge::cegui::to_wstring(_string));
 }

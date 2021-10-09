@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_BAR_HPP_INCLUDED
 #define SGE_GUI_WIDGET_BAR_HPP_INCLUDED
 
@@ -22,58 +21,41 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class bar
-:
-	public sge::gui::widget::base
+class bar : public sge::gui::widget::base
 {
-	FCPPT_NONMOVABLE(
-		bar
-	);
+  FCPPT_NONMOVABLE(bar);
+
 public:
-	SGE_GUI_DETAIL_SYMBOL
-	bar(
-		sge::gui::style::const_reference,
-		sge::rucksack::dim const &,
-		sge::rucksack::axis,
-		sge::gui::fill_color,
-		sge::gui::fill_level
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  bar(sge::gui::style::const_reference,
+      sge::rucksack::dim const &,
+      sge::rucksack::axis,
+      sge::gui::fill_color,
+      sge::gui::fill_level);
 
-	SGE_GUI_DETAIL_SYMBOL
-	~bar()
-	override;
+  SGE_GUI_DETAIL_SYMBOL
+  ~bar() override;
 
-	SGE_GUI_DETAIL_SYMBOL
-	void
-	value(
-		sge::gui::fill_level
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  void value(sge::gui::fill_level);
+
 private:
-	void
-	on_draw(
-		sge::gui::renderer::base &,
-		sge::renderer::context::ffp &
-	)
-	override;
+  void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
 
-	[[nodiscard]]
-	sge::rucksack::widget::base &
-	layout()
-	override;
+  [[nodiscard]] sge::rucksack::widget::base &layout() override;
 
-	sge::gui::style::const_reference const style_;
+  sge::gui::style::const_reference const style_;
 
-	sge::rucksack::axis const axis_;
+  sge::rucksack::axis const axis_;
 
-	sge::gui::fill_color const foreground_;
+  sge::gui::fill_color const foreground_;
 
-	sge::gui::fill_level value_;
+  sge::gui::fill_level value_;
 
-	sge::rucksack::widget::dummy layout_;
+  sge::rucksack::widget::dummy layout_;
 };
 
 }

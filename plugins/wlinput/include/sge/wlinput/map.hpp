@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_MAP_HPP_INCLUDED
 #define SGE_WLINPUT_MAP_HPP_INCLUDED
 
@@ -13,22 +12,11 @@
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::wlinput
 {
 
-template<
-	typename Object
->
-using
-map
-=
-std::unordered_map<
-	awl::backends::wayland::registry_id,
-	fcppt::shared_ptr<
-		Object
-	>
->;
+template <typename Object>
+using map = std::unordered_map<awl::backends::wayland::registry_id, fcppt::shared_ptr<Object>>;
 
 }
 

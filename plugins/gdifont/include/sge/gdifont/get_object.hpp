@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GDIFONT_GET_OBJECT_HPP_INCLUDED
 #define SGE_GDIFONT_GET_OBJECT_HPP_INCLUDED
 
@@ -12,18 +11,12 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace gdifont
 {
 
-void
-get_object(
-	HGDIOBJ,
-	std::size_t size,
-	void *
-);
+void get_object(HGDIOBJ, std::size_t size, void *);
 
 }
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/impl/view/data_impl.hpp>
@@ -13,33 +12,15 @@
 #include <sge/image3d/view/data.hpp>
 #include <sge/image3d/view/object.hpp>
 
-
-sge::image::raw_pointer
-sge::image3d::view::data(
-	sge::image3d::view::object const &_view
-)
+sge::image::raw_pointer sge::image3d::view::data(sge::image3d::view::object const &_view)
 {
-	return
-		sge::image::view::data<
-			sge::image3d::tag
-		>(
-			_view
-		);
+  return sge::image::view::data<sge::image3d::tag>(_view);
 }
 
 sge::image::const_raw_pointer
-sge::image3d::view::data(
-	sge::image3d::view::const_object const &_view
-)
+sge::image3d::view::data(sge::image3d::view::const_object const &_view)
 {
-	return
-		sge::image::view::data<
-			sge::image3d::tag
-		>(
-			_view
-		);
+  return sge::image::view::data<sge::image3d::tag>(_view);
 }
 
-SGE_IMAGE_IMPL_VIEW_INSTANTIATE_DATA(
-	sge::image3d::tag
-);
+SGE_IMAGE_IMPL_VIEW_INSTANTIATE_DATA(sge::image3d::tag);

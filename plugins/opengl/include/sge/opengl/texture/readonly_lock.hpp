@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_READONLY_LOCK_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_READONLY_LOCK_HPP_INCLUDED
 
@@ -14,70 +13,42 @@
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::texture
 {
 
-class readonly_lock
-:
-	public sge::opengl::texture::lock_base
+class readonly_lock : public sge::opengl::texture::lock_base
 {
-	FCPPT_NONMOVABLE(
-		readonly_lock
-	);
+  FCPPT_NONMOVABLE(readonly_lock);
+
 public:
-	readonly_lock(
-		sge::opengl::context::object_ref,
-		size_type whole_size,
-		size_type stride,
-		sge::renderer::resource_flags_field const &
-	);
+  readonly_lock(
+      sge::opengl::context::object_ref,
+      size_type whole_size,
+      size_type stride,
+      sge::renderer::resource_flags_field const &);
 
-	~readonly_lock()
-	override;
+  ~readonly_lock() override;
 
-	void
-	lock()
-	override;
+  void lock() override;
 
-	void
-	unlock()
-	override;
+  void unlock() override;
 
-	void
-	pre_unlock()
-	override;
+  void pre_unlock() override;
 
-	void
-	post_copy()
-	override;
+  void post_copy() override;
 
-	[[nodiscard]]
-	pointer
-	read_pointer()
-	override;
+  [[nodiscard]] pointer read_pointer() override;
 
-	[[nodiscard]]
-	pointer
-	write_pointer()
-	override;
+  [[nodiscard]] pointer write_pointer() override;
 
-	[[nodiscard]]
-	pointer
-	read_view_pointer()
-	override;
+  [[nodiscard]] pointer read_view_pointer() override;
 
-	[[nodiscard]]
-	pointer
-	write_view_pointer()
-	override;
+  [[nodiscard]] pointer write_view_pointer() override;
+
 private:
-	[[nodiscard]]
-	sge::renderer::lock_flags::method
-	method() const
-	override;
+  [[nodiscard]] sge::renderer::lock_flags::method method() const override;
 
-	sge::opengl::buffer::object buffer_;
+  sge::opengl::buffer::object buffer_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
@@ -31,70 +30,31 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::opengl::egl::wayland::display::display(
-	fcppt::log::object_reference const _log,
-	awl::backends::wayland::system::object_ref const _system
-)
-:
-	sge::opengl::egl::display(),
-	log_{
-		_log
-	},
-	display_{
-		sge::opengl::egl::get_display(
-			_system.get().display().get()
-		)
-	}
+    fcppt::log::object_reference const _log,
+    awl::backends::wayland::system::object_ref const _system)
+    : sge::opengl::egl::display(),
+      log_{_log},
+      display_{sge::opengl::egl::get_display(_system.get().display().get())}
 {
 }
 
-sge::opengl::egl::wayland::display::~display()
-= default;
+sge::opengl::egl::wayland::display::~display() = default;
 
-EGLDisplay
-sge::opengl::egl::wayland::display::get() const
+EGLDisplay sge::opengl::egl::wayland::display::get() const { return display_; }
+
+awl::visual::object_unique_ptr sge::opengl::egl::wayland::display::create_visual(
+    sge::opengl::egl::init const &, sge::renderer::pixel_format::object const &_pixel_format)
 {
-	return
-		display_;
+  return fcppt::unique_ptr_to_base<awl::visual::object>(
+      fcppt::make_unique_ptr<sge::opengl::egl::wayland::visual>(
+          log_.get(), display_, _pixel_format));
 }
 
-awl::visual::object_unique_ptr
-sge::opengl::egl::wayland::display::create_visual(
-	sge::opengl::egl::init const &,
-	sge::renderer::pixel_format::object const &_pixel_format
-)
+sge::opengl::egl::surface_unique_ptr sge::opengl::egl::wayland::display::create_surface(
+    EGLConfig const _config, // NOLINT(misc-misplaced-const)
+    sge::window::object_ref const _window)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			awl::visual::object
-		>(
-			fcppt::make_unique_ptr<
-				sge::opengl::egl::wayland::visual
-			>(
-				log_.get(),
-				display_,
-				_pixel_format
-			)
-		);
-}
-
-sge::opengl::egl::surface_unique_ptr
-sge::opengl::egl::wayland::display::create_surface(
-	EGLConfig const _config, // NOLINT(misc-misplaced-const)
-	sge::window::object_ref const _window
-)
-{
-	return
-		fcppt::unique_ptr_to_base<
-			sge::opengl::egl::surface
-		>(
-			fcppt::make_unique_ptr<
-				sge::opengl::egl::wayland::surface
-			>(
-				display_,
-				_config,
-				_window
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::opengl::egl::surface>(
+      fcppt::make_unique_ptr<sge::opengl::egl::wayland::surface>(display_, _config, _window));
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_ATLASING_BORDER_H_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_BORDER_H_HPP_INCLUDED
 
@@ -13,18 +12,15 @@
 #include <sge/texture/atlasing/inner_rect.hpp>
 #include <sge/texture/detail/symbol.hpp>
 
-
 namespace sge::texture::atlasing
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
-void
-border_h(
-	sge::renderer::texture::planar &, // NOLINT(google-runtime-references)
-	sge::image2d::view::const_object const &,
-	sge::texture::atlasing::inner_rect const &,
-	sge::image::algorithm::uninitialized
-);
+void border_h(
+    sge::renderer::texture::planar &, // NOLINT(google-runtime-references)
+    sge::image2d::view::const_object const &,
+    sge::texture::atlasing::inner_rect const &,
+    sge::image::algorithm::uninitialized);
 
 }
 

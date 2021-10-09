@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_PRINT_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_PRINT_IMPL_HPP_INCLUDED
 
@@ -15,32 +14,14 @@
 #include <fcppt/io/ostream_fwd.hpp>
 #include <fcppt/variant/apply.hpp>
 
-
-template<
-	typename Tag
->
-void
-sge::image::algorithm::print(
-	fcppt::io::ostream &_ostream,
-	sge::image::view::const_object<
-		Tag
-	> const &_view
-)
+template <typename Tag>
+void sge::image::algorithm::print(
+    fcppt::io::ostream &_ostream, sge::image::view::const_object<Tag> const &_view)
 {
-	fcppt::variant::apply(
-		[
-			&_ostream
-		](
-			auto const &_view_inner
-		)
-		{
-			mizuiro::image::algorithm::print(
-				_ostream,
-				_view_inner
-			);
-		},
-		_view.get()
-	);
+  fcppt::variant::apply(
+      [&_ostream](auto const &_view_inner)
+      { mizuiro::image::algorithm::print(_ostream, _view_inner); },
+      _view.get());
 }
 
 #endif

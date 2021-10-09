@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_XIM_SETLOCALE_HPP_INCLUDED
 #define SGE_X11INPUT_XIM_SETLOCALE_HPP_INCLUDED
 
@@ -11,14 +10,10 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::xim
 {
 
-std::string
-setlocale(
-	std::string const &
-);
+std::string setlocale(std::string const &);
 
 }
 

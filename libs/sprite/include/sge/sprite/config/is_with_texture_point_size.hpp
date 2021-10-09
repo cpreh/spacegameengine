@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_IS_WITH_TEXTURE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_IS_WITH_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
@@ -13,35 +12,22 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::config
 {
 
-template<
-	typename T
->
-struct is_with_texture_point_size
-:
-std::false_type
+template <typename T>
+struct is_with_texture_point_size : std::false_type
 {
 };
 
-template<
-	typename TextureLevels,
-	typename PosOptions,
-	typename SizeOptions,
-	sge::sprite::config::texture_ownership Ownership
->
+template <
+    typename TextureLevels,
+    typename PosOptions,
+    typename SizeOptions,
+    sge::sprite::config::texture_ownership Ownership>
 struct is_with_texture_point_size<
-	sge::sprite::config::with_texture_point_size<
-		TextureLevels,
-		PosOptions,
-		SizeOptions,
-		Ownership
-	>
->
-:
-std::true_type
+    sge::sprite::config::with_texture_point_size<TextureLevels, PosOptions, SizeOptions, Ownership>>
+    : std::true_type
 {
 };
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_JOYPAD_FF_CONVERT_PERIODIC_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_FF_CONVERT_PERIODIC_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::joypad::ff
 {
 
-ff_periodic_effect
-convert_periodic(
-	sge::input::joypad::ff::periodic const &
-);
+ff_periodic_effect convert_periodic(sge::input::joypad::ff::periodic const &);
 
 }
 

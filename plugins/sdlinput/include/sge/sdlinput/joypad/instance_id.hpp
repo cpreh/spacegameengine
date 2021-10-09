@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_JOYPAD_INSTANCE_ID_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_INSTANCE_ID_HPP_INCLUDED
 
@@ -11,13 +10,10 @@
 #include <SDL_joystick.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::joypad
 {
 
-SDL_JoystickID
-instance_id(
-	SDL_Joystick & // NOLINT(google-runtime-references)
+SDL_JoystickID instance_id(SDL_Joystick & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
 }

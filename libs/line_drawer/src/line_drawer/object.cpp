@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/impl/vf/format.hpp>
@@ -53,221 +52,102 @@
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
-
-sge::line_drawer::object::object(
-	sge::renderer::device::core_ref const _renderer
-)
-:
-	renderer_(
-		_renderer
-	),
-	vertex_declaration_(
-		renderer_.get().create_vertex_declaration(
-			sge::renderer::vertex::declaration_parameters(
-				sge::renderer::vf::dynamic::make_format<
-					sge::line_drawer::impl::vf::format
-				>()
-			)
-		)
-	),
-	blend_state_(
-		renderer_.get().create_blend_state(
-			sge::renderer::state::core::blend::parameters(
-				sge::renderer::state::core::blend::alpha_variant{
-					sge::renderer::state::core::blend::alpha_enabled(
-						sge::renderer::state::core::blend::combined(
-							sge::renderer::state::core::blend::source::src_alpha,
-							sge::renderer::state::core::blend::dest::inv_src_alpha
-						)
-					)
-				},
-				sge::renderer::state::core::blend::write_mask_all()
-			)
-		)
-	),
-	vb_(),
-	lines_()
+sge::line_drawer::object::object(sge::renderer::device::core_ref const _renderer)
+    : renderer_(_renderer),
+      vertex_declaration_(
+          renderer_.get().create_vertex_declaration(sge::renderer::vertex::declaration_parameters(
+              sge::renderer::vf::dynamic::make_format<sge::line_drawer::impl::vf::format>()))),
+      blend_state_(renderer_.get().create_blend_state(sge::renderer::state::core::blend::parameters(
+          sge::renderer::state::core::blend::alpha_variant{
+              sge::renderer::state::core::blend::alpha_enabled(
+                  sge::renderer::state::core::blend::combined(
+                      sge::renderer::state::core::blend::source::src_alpha,
+                      sge::renderer::state::core::blend::dest::inv_src_alpha))},
+          sge::renderer::state::core::blend::write_mask_all()))),
+      vb_(),
+      lines_()
 {
 }
 
-void
-sge::line_drawer::object::render(
-	sge::renderer::context::core &_render_context
-)
+void sge::line_drawer::object::render(sge::renderer::context::core &_render_context)
 {
-	fcppt::optional::maybe_void(
-		vb_,
-		[
-			&_render_context,
-			this
-		](
-			sge::renderer::vertex::buffer_unique_ptr const &_buffer
-		)
-		{
-			if(
-				lines_.empty()
-			)
-			{
-				return;
-			}
+  fcppt::optional::maybe_void(
+      vb_,
+      [&_render_context, this](sge::renderer::vertex::buffer_unique_ptr const &_buffer)
+      {
+        if (lines_.empty())
+        {
+          return;
+        }
 
-			sge::renderer::state::core::blend::scoped const scoped_blend(
-				fcppt::make_ref(
-					_render_context
-				),
-				fcppt::make_cref(
-					*blend_state_
-				)
-			);
+        sge::renderer::state::core::blend::scoped const scoped_blend(
+            fcppt::make_ref(_render_context), fcppt::make_cref(*blend_state_));
 
-			sge::renderer::vertex::scoped_declaration const scoped_decl(
-				fcppt::make_ref(
-					_render_context
-				),
-				fcppt::make_cref(
-					*vertex_declaration_
-				)
-			);
+        sge::renderer::vertex::scoped_declaration const scoped_decl(
+            fcppt::make_ref(_render_context), fcppt::make_cref(*vertex_declaration_));
 
-			sge::renderer::vertex::scoped_buffer const scoped_vb(
-				fcppt::make_ref(
-					_render_context
-				),
-				fcppt::make_cref(
-					*_buffer
-				)
-			);
+        sge::renderer::vertex::scoped_buffer const scoped_vb(
+            fcppt::make_ref(_render_context), fcppt::make_cref(*_buffer));
 
-			_render_context.render_nonindexed(
-				sge::renderer::vertex::first(
-					0U
-				),
-				sge::renderer::vertex::count(
-					_buffer->linear_size()
-				),
-				sge::renderer::primitive_type::line_list
-			);
-		}
-	);
+        _render_context.render_nonindexed(
+            sge::renderer::vertex::first(0U),
+            sge::renderer::vertex::count(_buffer->linear_size()),
+            sge::renderer::primitive_type::line_list);
+      });
 }
 
-sge::line_drawer::object::~object()
-= default;
+sge::line_drawer::object::~object() = default;
 
-void
-sge::line_drawer::object::lock()
+void sge::line_drawer::object::lock() {}
+
+void sge::line_drawer::object::unlock()
 {
-}
+  if (lines_.empty())
+  {
+    return;
+  }
 
-void
-sge::line_drawer::object::unlock()
-{
-	if(
-		lines_.empty()
-	)
-	{
-		return;
-	}
+  auto const needed_size(fcppt::cast::size<sge::renderer::size_type>(lines_.size() * 2U));
 
-	auto const needed_size(
-		fcppt::cast::size<
-			sge::renderer::size_type
-		>(
-			lines_.size()
-			*
-			2U
-		)
-	);
+  if (fcppt::optional::maybe(
+          vb_,
+          fcppt::const_(true),
+          [needed_size](sge::renderer::vertex::buffer_unique_ptr const &_buffer)
+          { return _buffer->linear_size() < needed_size; }))
+  {
+    vb_ = optional_vertex_buffer_unique_ptr(
+        renderer_.get().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(
+            fcppt::make_cref(*vertex_declaration_),
+            sge::renderer::vf::dynamic::part_index(0U),
+            sge::renderer::vertex::count(needed_size),
+            sge::renderer::resource_flags_field::null())));
+  }
 
-	if(
-		fcppt::optional::maybe(
-			vb_,
-			fcppt::const_(
-				true
-			),
-			[
-				needed_size
-			](
-				sge::renderer::vertex::buffer_unique_ptr const &_buffer
-			)
-			{
-				return
-					_buffer->linear_size()
-					<
-					needed_size;
-			}
-		)
-	)
-	{
-		vb_ =
-			optional_vertex_buffer_unique_ptr(
-				renderer_.get().create_vertex_buffer(
-					sge::renderer::vertex::buffer_parameters(
-						fcppt::make_cref(
-							*vertex_declaration_
-						),
-						sge::renderer::vf::dynamic::part_index(
-							0U
-						),
-						sge::renderer::vertex::count(
-							needed_size
-						),
-						sge::renderer::resource_flags_field::null()
-					)
-				)
-			);
-	}
+  sge::renderer::vertex::scoped_lock const vblock{
+      fcppt::make_ref(
+          // TODO(philipp): Better optional support for this
+          *FCPPT_ASSERT_OPTIONAL_ERROR(vb_)),
+      sge::renderer::lock_mode::writeonly};
 
-	sge::renderer::vertex::scoped_lock const vblock{
-		fcppt::make_ref(
-			// TODO(philipp): Better optional support for this
-			*FCPPT_ASSERT_OPTIONAL_ERROR(
-				vb_
-			)
-		),
-		sge::renderer::lock_mode::writeonly
-	};
+  sge::line_drawer::impl::vf::vertex_view const vertices{vblock.value()};
 
-	sge::line_drawer::impl::vf::vertex_view const vertices{
-		vblock.value()
-	};
+  sge::line_drawer::impl::vf::vertex_view::iterator vb_it{vertices.begin()};
 
-	sge::line_drawer::impl::vf::vertex_view::iterator vb_it{
-		vertices.begin()
-	};
+  using vertex = sge::renderer::vf::vertex<sge::line_drawer::impl::vf::part>;
 
-	using
-	vertex
-	=
-	sge::renderer::vf::vertex<
-		sge::line_drawer::impl::vf::part
-	>;
+  // TODO(philipp): Improve this
+  for (sge::line_drawer::line const &line : lines_)
+  {
+    *vb_it = vertex{
+        sge::renderer::vf::labels::pos{} = line.begin(),
+        sge::renderer::vf::labels::color{} = line.begin_color()};
 
-	// TODO(philipp): Improve this
-	for(
-		sge::line_drawer::line const &line
-		:
-		lines_
-	)
-	{
-		*vb_it =
-			vertex{
-				sge::renderer::vf::labels::pos{} =
-					line.begin(),
-				sge::renderer::vf::labels::color{} =
-					line.begin_color()
-			};
+    ++vb_it;
 
-		++vb_it;
+    *vb_it = vertex{
+        sge::renderer::vf::labels::pos{} = line.end(),
+        sge::renderer::vf::labels::color{} = line.end_color()};
 
-		*vb_it =
-			vertex{
-				sge::renderer::vf::labels::pos{} =
-					line.end(),
-				sge::renderer::vf::labels::color{} =
-					line.end_color()
-			};
-
-		++vb_it;
-	}
+    ++vb_it;
+  }
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_CONVERT_LIGHT_VISITOR_HPP_INCLUDED
 #define SGE_D3D9_STATE_CONVERT_LIGHT_VISITOR_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/light/spot_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
-
 
 namespace sge
 {
@@ -28,31 +26,18 @@ namespace light
 class visitor
 {
 public:
-	explicit
-	visitor(
-		D3DLIGHT9 &
-	);
+  explicit visitor(D3DLIGHT9 &);
 
-	typedef void result_type;
+  typedef void result_type;
 
-	result_type
-	operator()(
-		sge::renderer::state::ffp::lighting::light::directional const &
-	) const;
+  result_type operator()(sge::renderer::state::ffp::lighting::light::directional const &) const;
 
-	result_type
-	operator()(
-		sge::renderer::state::ffp::lighting::light::point const &
-	) const;
+  result_type operator()(sge::renderer::state::ffp::lighting::light::point const &) const;
 
-	result_type
-	operator()(
-		sge::renderer::state::ffp::lighting::light::spot const &
-	) const;
+  result_type operator()(sge::renderer::state::ffp::lighting::light::spot const &) const;
+
 private:
-	fcppt::reference<
-		D3DLIGHT9
-	> object_;
+  fcppt::reference<D3DLIGHT9> object_;
 };
 
 }

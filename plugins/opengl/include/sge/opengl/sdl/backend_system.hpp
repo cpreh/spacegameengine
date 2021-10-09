@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_SDL_BACKEND_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_SDL_BACKEND_SYSTEM_HPP_INCLUDED
 
@@ -17,42 +16,27 @@
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::sdl
 {
 
-class backend_system
-:
-	public
-		sge::opengl::backend::system
+class backend_system : public sge::opengl::backend::system
 {
-	FCPPT_NONMOVABLE(
-		backend_system
-	);
+  FCPPT_NONMOVABLE(backend_system);
+
 public:
-	explicit
-	backend_system(
-		awl::backends::sdl::system::object_ref
-	);
+  explicit backend_system(awl::backends::sdl::system::object_ref);
 
-	~backend_system()
-	override;
+  ~backend_system() override;
 
-	awl::visual::object_unique_ptr
-	create_visual(
-		sge::renderer::pixel_format::object const &
-	)
-	override;
+  awl::visual::object_unique_ptr
+  create_visual(sge::renderer::pixel_format::object const &) override;
 
-	sge::opengl::backend::context_unique_ptr
-	create_context(
-		sge::window::object_ref
-	)
-	override;
+  sge::opengl::backend::context_unique_ptr create_context(sge::window::object_ref) override;
+
 private:
-	awl::backends::sdl::system::init const init_video_;
+  awl::backends::sdl::system::init const init_video_;
 
-	sge::opengl::sdl::library const library_;
+  sge::opengl::sdl::library const library_;
 };
 
 }

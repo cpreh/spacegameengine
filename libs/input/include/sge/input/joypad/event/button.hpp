@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_EVENT_BUTTON_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_EVENT_BUTTON_HPP_INCLUDED
 
@@ -16,42 +15,31 @@
 #include <sge/input/joypad/event/button_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::joypad::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL button
-:
-	public sge::input::joypad::event::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL button : public sge::input::joypad::event::base
 {
-	FCPPT_NONMOVABLE(
-		button
-	);
+  FCPPT_NONMOVABLE(button);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	button(
-		sge::input::joypad::shared_ptr,
-		sge::input::joypad::button_id,
-		sge::input::joypad::button_pressed
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  button(
+      sge::input::joypad::shared_ptr,
+      sge::input::joypad::button_id,
+      sge::input::joypad::button_pressed);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~button()
-	override;
+  SGE_INPUT_DETAIL_SYMBOL
+  ~button() override;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::button_id
-	button_id() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::button_id button_id() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	bool
-	pressed() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL bool pressed() const;
+
 private:
-	sge::input::joypad::button_id const button_id_;
+  sge::input::joypad::button_id const button_id_;
 
-	sge::input::joypad::button_pressed const pressed_;
+  sge::input::joypad::button_pressed const pressed_;
 };
 
 }

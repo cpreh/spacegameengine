@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_IMPL_CONTEXT_BASE_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_CONTEXT_BASE_HPP_INCLUDED
 
@@ -19,52 +18,34 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::plugin
 {
 
 class context_base
 {
-	FCPPT_NONMOVABLE(
-		context_base
-	);
+  FCPPT_NONMOVABLE(context_base);
+
 public:
-	context_base(
-		sge::plugin::optional_cache_ref const &,
-		std::filesystem::path &&
-	);
+  context_base(sge::plugin::optional_cache_ref const &, std::filesystem::path &&);
 
-	~context_base();
+  ~context_base();
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	std::filesystem::path const &
-	path() const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL std::filesystem::path const &path() const;
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::info const &
-	info() const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL sge::plugin::info const &info() const;
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::library::object_shared_ptr
-	load();
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL sge::plugin::library::object_shared_ptr load();
+
 private:
-	sge::plugin::optional_cache_ref const cache_;
+  sge::plugin::optional_cache_ref const cache_;
 
-	std::filesystem::path const path_;
+  std::filesystem::path const path_;
 
-	sge::plugin::info const info_;
+  sge::plugin::info const info_;
 
-	using
-	library_weak_ptr
-	=
-	fcppt::weak_ptr<
-		sge::plugin::library::object
-	>;
+  using library_weak_ptr = fcppt::weak_ptr<sge::plugin::library::object>;
 
-	library_weak_ptr library_ptr_;
+  library_weak_ptr library_ptr_;
 };
 
 }

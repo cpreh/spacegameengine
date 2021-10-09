@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_XRANDR_OPTIONAL_EXTENSION_FWD_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_OPTIONAL_EXTENSION_FWD_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/extension_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::opengl::xrandr
 {
 
-using
-optional_extension
-=
-fcppt::optional::object<
-	sge::opengl::xrandr::extension
->;
+using optional_extension = fcppt::optional::object<sge::opengl::xrandr::extension>;
 
 }
 

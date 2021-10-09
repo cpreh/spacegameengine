@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_IMPL_MULTI_SYSTEM_HPP_INCLUDED
 #define SGE_INPUT_IMPL_MULTI_SYSTEM_HPP_INCLUDED
 
@@ -22,52 +21,32 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::input::impl
 {
 
-class multi_system
-:
-	public sge::input::system
+class multi_system : public sge::input::system
 {
-	FCPPT_NONMOVABLE(
-		multi_system
-	);
+  FCPPT_NONMOVABLE(multi_system);
+
 public:
-	multi_system(
-		fcppt::log::context_reference,
-		sge::input::plugin::collection const &
-	);
+  multi_system(fcppt::log::context_reference, sge::input::plugin::collection const &);
 
-	~multi_system()
-	override;
+  ~multi_system() override;
+
 private:
-	[[nodiscard]]
-	sge::input::processor_unique_ptr
-	create_processor(
-		sge::window::object_ref
-	)
-	override;
+  [[nodiscard]] sge::input::processor_unique_ptr create_processor(sge::window::object_ref) override;
 
-	[[nodiscard]]
-	sge::input::capabilities_field
-	capabilities() const
-	override;
+  [[nodiscard]] sge::input::capabilities_field capabilities() const override;
 
-	fcppt::log::object log_;
+  fcppt::log::object log_;
 
-	using
-	plugin_vector
-	=
-	std::vector<
-		sge::input::plugin::object
-	>;
+  using plugin_vector = std::vector<sge::input::plugin::object>;
 
-	plugin_vector plugins_;
+  plugin_vector plugins_;
 
-	sge::input::impl::system_ptr_vector systems_;
+  sge::input::impl::system_ptr_vector systems_;
 
-	sge::input::capabilities_field capabilities_;
+  sge::input::capabilities_field capabilities_;
 };
 
 }

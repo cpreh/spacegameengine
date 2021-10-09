@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/gui/impl/draw_image_repeat.hpp>
 #include <sge/gui/impl/draw_sprite.hpp>
 #include <sge/gui/impl/image_sprite_choices.hpp>
@@ -27,70 +26,30 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
-
-void
-sge::gui::impl::draw_image_repeat(
-	sge::renderer::device::core &_renderer,
-	sge::renderer::context::ffp &_context,
-	sge::texture::part const &_texture,
-	sge::rucksack::rect const _rect
-)
+void sge::gui::impl::draw_image_repeat(
+    sge::renderer::device::core &_renderer,
+    sge::renderer::context::ffp &_context,
+    sge::texture::part const &_texture,
+    sge::rucksack::rect const _rect)
 {
-	using
-	repetition_type
-	=
-	sge::sprite::types::repetition<
-		sge::gui::impl::sprite_type_choices
-	>;
+  using repetition_type = sge::sprite::types::repetition<sge::gui::impl::sprite_type_choices>;
 
-	fcppt::optional::maybe_void(
-		fcppt::math::vector::structure_cast<
-			repetition_type,
-			fcppt::cast::int_to_float_fun
-		>(
-			fcppt::math::dim::to_vector(
-				_rect.size()
-			)
-		)
-		/
-		fcppt::math::vector::structure_cast<
-			repetition_type,
-			fcppt::cast::int_to_float_fun
-		>(
-			fcppt::math::dim::to_vector(
-				_texture.size()
-			)
-		),
-		[
-			&_context,
-			&_rect,
-			&_texture,
-			&_renderer
-		](
-			repetition_type const &_repetition
-		)
-		{
-			sge::gui::impl::draw_sprite(
-				_renderer,
-				_context,
-				sge::sprite::object<
-					sge::gui::impl::image_sprite_choices<
-						sge::sprite::config::texture_coordinates::repetition,
-						sge::sprite::config::texture_size_option::never
-					>
-				>(
-					sge::sprite::roles::pos{} =
-						_rect.pos(),
-					sge::sprite::roles::texture0{} =
-						sge::texture::const_part_ref(
-							_texture
-						),
-					sge::sprite::roles::repetition{} =
-						_repetition,
-					sge::sprite::roles::size{} =
-						_rect.size()
-				)
-			);
-		}
-	);
+  fcppt::optional::maybe_void(
+      fcppt::math::vector::structure_cast<repetition_type, fcppt::cast::int_to_float_fun>(
+          fcppt::math::dim::to_vector(_rect.size())) /
+          fcppt::math::vector::structure_cast<repetition_type, fcppt::cast::int_to_float_fun>(
+              fcppt::math::dim::to_vector(_texture.size())),
+      [&_context, &_rect, &_texture, &_renderer](repetition_type const &_repetition)
+      {
+        sge::gui::impl::draw_sprite(
+            _renderer,
+            _context,
+            sge::sprite::object<sge::gui::impl::image_sprite_choices<
+                sge::sprite::config::texture_coordinates::repetition,
+                sge::sprite::config::texture_size_option::never>>(
+                sge::sprite::roles::pos{} = _rect.pos(),
+                sge::sprite::roles::texture0{} = sge::texture::const_part_ref(_texture),
+                sge::sprite::roles::repetition{} = _repetition,
+                sge::sprite::roles::size{} = _rect.size()));
+      });
 }

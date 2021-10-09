@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_WINDOW_WRAPPED_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_WINDOW_WRAPPED_HPP_INCLUDED
 
@@ -13,32 +12,22 @@
 #include <sge/window/system_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::systems::impl::window
 {
 
-class wrapped
-:
-	public sge::systems::impl::window::base
+class wrapped : public sge::systems::impl::window::base
 {
-	FCPPT_NONMOVABLE(
-		wrapped
-	);
+  FCPPT_NONMOVABLE(wrapped);
+
 public:
-	wrapped(
-		sge::systems::wrapped_window const &,
-		sge::window::system_ref
-	);
+  wrapped(sge::systems::wrapped_window const &, sge::window::system_ref);
 
-	~wrapped()
-	override;
+  ~wrapped() override;
+
 private:
-	[[nodiscard]]
-	sge::window::object &
-	get() const
-	override;
+  [[nodiscard]] sge::window::object &get() const override;
 
-	mutable sge::window::object window_;
+  mutable sge::window::object window_;
 };
 
 }

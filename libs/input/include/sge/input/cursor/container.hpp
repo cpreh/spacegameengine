@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_CURSOR_CONTAINER_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_CONTAINER_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::input::cursor
 {
 
-using
-container
-=
-std::vector<
-	sge::input::cursor::shared_ptr
->;
+using container = std::vector<sge::input::cursor::shared_ptr>;
 
 }
 

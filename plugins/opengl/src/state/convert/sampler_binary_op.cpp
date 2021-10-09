@@ -3,31 +3,25 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/sampler_binary_op.hpp>
 #include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
-
-GLenum
-sge::opengl::state::convert::sampler_binary_op(
-	sge::renderer::state::ffp::sampler::binary_op_type const _op
-)
+GLenum sge::opengl::state::convert::sampler_binary_op(
+    sge::renderer::state::ffp::sampler::binary_op_type const _op)
 {
-	switch(
-		_op
-	)
-	{
-	case sge::renderer::state::ffp::sampler::binary_op_type::modulate:
-		return GL_MODULATE;
-	case sge::renderer::state::ffp::sampler::binary_op_type::add:
-		return GL_ADD;
-	case sge::renderer::state::ffp::sampler::binary_op_type::subtract:
-		return GL_SUBTRACT;
-	case sge::renderer::state::ffp::sampler::binary_op_type::add_signed:
-		return GL_ADD_SIGNED;
-	}
+  switch (_op)
+  {
+  case sge::renderer::state::ffp::sampler::binary_op_type::modulate:
+    return GL_MODULATE;
+  case sge::renderer::state::ffp::sampler::binary_op_type::add:
+    return GL_ADD;
+  case sge::renderer::state::ffp::sampler::binary_op_type::subtract:
+    return GL_SUBTRACT;
+  case sge::renderer::state::ffp::sampler::binary_op_type::add_signed:
+    return GL_ADD_SIGNED;
+  }
 
-	FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_ASSERT_UNREACHABLE;
 }

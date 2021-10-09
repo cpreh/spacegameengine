@@ -3,26 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_TRAITS_STATIC_CONVERTER_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_TRAITS_STATIC_CONVERTER_HPP_INCLUDED
 
 #include <sge/image/impl/traits/static_converter_tpl_fwd.hpp>
 
-
 namespace sge::image::impl::traits
 {
 
-template<
-	typename Tag
->
-using
-static_converter
-=
-typename
-sge::image::impl::traits::static_converter_tpl<
-	Tag
->::type;
+template <typename Tag>
+using static_converter = typename sge::image::impl::traits::static_converter_tpl<Tag>::type;
 
 }
 

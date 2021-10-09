@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_CHECK_STATE_HPP_INCLUDED
 #define SGE_OPENAL_CHECK_STATE_HPP_INCLUDED
 
@@ -11,18 +10,8 @@
 #include <sge/openal/al.hpp>
 #include <sge/openal/error_string.hpp>
 
-
-#define SGE_OPENAL_CHECK_STATE(\
-	message,\
-	exception\
-)\
-SGE_CORE_CHECK_STATE(\
-	exception,\
-	message,\
-	ALenum,\
-	::alGetError(),\
-	AL_NO_ERROR,\
-	sge::openal::error_string\
-)
+#define SGE_OPENAL_CHECK_STATE(message, exception) \
+  SGE_CORE_CHECK_STATE( \
+      exception, message, ALenum, ::alGetError(), AL_NO_ERROR, sge::openal::error_string)
 
 #endif

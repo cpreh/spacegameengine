@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_IMPL_VF_DYNAMIC_LOCK_INTERVAL_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_VF_DYNAMIC_LOCK_INTERVAL_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <boost/icl/interval.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::impl::vf::dynamic
 {
 
-using
-lock_interval
-=
-boost::icl::interval<
-	sge::renderer::size_type
->::type;
+using lock_interval = boost::icl::interval<sge::renderer::size_type>::type;
 
 }
 

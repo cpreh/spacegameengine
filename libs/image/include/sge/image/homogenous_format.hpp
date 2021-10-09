@@ -3,27 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_HOMOGENOUS_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_HOMOGENOUS_FORMAT_HPP_INCLUDED
 
 #include <mizuiro/color/format/homogenous_static.hpp>
 
-
 namespace sge::image
 {
 
-template<
-	typename Channel,
-	typename Layout
->
-using
-homogenous_format
-=
-mizuiro::color::format::homogenous_static<
-	Channel,
-	Layout
->;
+template <typename Channel, typename Layout>
+using homogenous_format = mizuiro::color::format::homogenous_static<Channel, Layout>;
 
 }
 

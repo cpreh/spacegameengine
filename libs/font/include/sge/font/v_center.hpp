@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_V_CENTER_HPP_INCLUDED
 #define SGE_FONT_V_CENTER_HPP_INCLUDED
 
@@ -12,16 +11,11 @@
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/detail/symbol.hpp>
 
-
 namespace sge::font
 {
 
 SGE_FONT_DETAIL_SYMBOL
-sge::font::unit
-v_center(
-	sge::font::height,
-	sge::font::unit
-);
+sge::font::unit v_center(sge::font::height, sge::font::unit);
 
 }
 

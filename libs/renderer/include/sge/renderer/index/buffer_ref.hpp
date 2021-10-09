@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_BUFFER_REF_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_BUFFER_REF_HPP_INCLUDED
 
 #include <sge/renderer/index/buffer_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::renderer::index
 {
 
-using
-buffer_ref
-=
-fcppt::reference<
-	sge::renderer::index::buffer
->;
+using buffer_ref = fcppt::reference<sge::renderer::index::buffer>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BACKEND_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_BACKEND_CONTEXT_HPP_INCLUDED
 
@@ -11,31 +10,22 @@
 #include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::backend
 {
 
 class context
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 protected:
-	context();
+  context();
+
 public:
-	virtual
-	~context();
+  virtual ~context();
 
-	[[nodiscard]]
-	virtual
-	sge::opengl::backend::current_unique_ptr
-	activate() = 0;
+  [[nodiscard]] virtual sge::opengl::backend::current_unique_ptr activate() = 0;
 
-	virtual
-	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
-	) = 0;
+  virtual void deactivate(sge::opengl::backend::current_unique_ptr &&) = 0;
 };
 
 }

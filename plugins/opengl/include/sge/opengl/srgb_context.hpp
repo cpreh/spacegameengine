@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_SRGB_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_SRGB_CONTEXT_HPP_INCLUDED
 
@@ -14,40 +13,26 @@
 #include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl
 {
 
-class srgb_context
-:
-	public sge::opengl::context::base
+class srgb_context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		srgb_context
-	);
+  FCPPT_NONMOVABLE(srgb_context);
+
 public:
-	using
-	parameter
-	=
-	sge::opengl::info::context const &;
+  using parameter = sge::opengl::info::context const &;
 
-	explicit
-	srgb_context(
-		sge::opengl::info::context const &
-	);
+  explicit srgb_context(sge::opengl::info::context const &);
 
-	~srgb_context()
-	override;
+  ~srgb_context() override;
 
-	[[nodiscard]]
-	sge::opengl::optional_enum
-	flag() const;
+  [[nodiscard]] sge::opengl::optional_enum flag() const;
 
-	static
-	sge::opengl::context::id const
-	static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::opengl::optional_enum const flag_;
+  sge::opengl::optional_enum const flag_;
 };
 
 }

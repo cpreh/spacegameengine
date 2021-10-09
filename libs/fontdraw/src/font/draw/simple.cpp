@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/object_fwd.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
@@ -16,34 +15,24 @@
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <fcppt/make_ref.hpp>
 
-
-void
-sge::font::draw::simple(
-	sge::renderer::device::ffp &_renderer,
-	sge::renderer::context::ffp &_render_context,
-	sge::font::object &_font,
-	sge::font::string const &_string,
-	sge::font::text_parameters const &_parameters,
-	sge::font::vector const &_pos,
-	sge::image::color::any::object const &_color,
-	sge::renderer::texture::emulate_srgb const _emulate_srgb
-)
+void sge::font::draw::simple(
+    sge::renderer::device::ffp &_renderer,
+    sge::renderer::context::ffp &_render_context,
+    sge::font::object &_font,
+    sge::font::string const &_string,
+    sge::font::text_parameters const &_parameters,
+    sge::font::vector const &_pos,
+    sge::image::color::any::object const &_color,
+    sge::renderer::texture::emulate_srgb const _emulate_srgb)
 {
-	sge::font::draw::static_text text(
-		fcppt::make_ref(
-			_renderer
-		),
-		fcppt::make_ref(
-			_font
-		),
-		_string,
-		_parameters,
-		_pos,
-		_color,
-		_emulate_srgb
-	);
+  sge::font::draw::static_text text(
+      fcppt::make_ref(_renderer),
+      fcppt::make_ref(_font),
+      _string,
+      _parameters,
+      _pos,
+      _color,
+      _emulate_srgb);
 
-	text.draw(
-		_render_context
-	);
+  text.draw(_render_context);
 }

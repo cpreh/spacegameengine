@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_FF_DINPUT_EFFECT_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_FF_DINPUT_EFFECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-
 
 namespace sge
 {
@@ -21,12 +19,7 @@ namespace joypad
 namespace ff
 {
 
-typedef
-fcppt::unique_ptr<
-	IDirectInputEffect,
-	fcppt::com_deleter
->
-dinput_effect_unique_ptr;
+typedef fcppt::unique_ptr<IDirectInputEffect, fcppt::com_deleter> dinput_effect_unique_ptr;
 
 }
 }

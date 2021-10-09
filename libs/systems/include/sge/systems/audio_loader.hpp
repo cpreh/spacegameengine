@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
 #define SGE_SYSTEMS_AUDIO_LOADER_HPP_INCLUDED
 
@@ -11,24 +10,19 @@
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/detail/symbol.hpp>
 
-
 namespace sge::systems
 {
 
 class audio_loader
 {
 public:
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	explicit
-	audio_loader(
-		sge::media::optional_extension_set &&
-	);
+  SGE_SYSTEMS_DETAIL_SYMBOL
+  explicit audio_loader(sge::media::optional_extension_set &&);
 
-	[[nodiscard]]
-	sge::media::optional_extension_set const &
-	extensions() const;
+  [[nodiscard]] sge::media::optional_extension_set const &extensions() const;
+
 private:
-	sge::media::optional_extension_set extensions_;
+  sge::media::optional_extension_set extensions_;
 };
 
 }

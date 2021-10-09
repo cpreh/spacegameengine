@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_INI_OUTPUT_TO_FILE_HPP_INCLUDED
 #define SGE_PARSE_INI_OUTPUT_TO_FILE_HPP_INCLUDED
 
@@ -13,17 +12,11 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::ini::output
 {
 
-[[nodiscard]]
-SGE_PARSE_INI_DETAIL_SYMBOL
-bool
-to_file(
-	std::filesystem::path const &,
-	sge::parse::ini::start const &
-);
+[[nodiscard]] SGE_PARSE_INI_DETAIL_SYMBOL bool
+to_file(std::filesystem::path const &, sge::parse::ini::start const &);
 
 }
 

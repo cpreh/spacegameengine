@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_BASE_HPP_INCLUDED
 #define SGE_GUI_WIDGET_BASE_HPP_INCLUDED
 
@@ -22,97 +21,52 @@
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::widget
 {
 
 class base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 protected:
-	base();
+  base();
+
 public:
-	SGE_GUI_DETAIL_SYMBOL
-	virtual
-	~base();
+  SGE_GUI_DETAIL_SYMBOL
+  virtual ~base();
 
-	virtual
-	void
-	on_update(
-		sge::gui::duration
-	);
+  virtual void on_update(sge::gui::duration);
 
-	virtual
-	void
-	on_draw(
-		sge::gui::renderer::base &, // NOLINT(google-runtime-references)
-		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
-	) = 0; // NOLINT(google-runtime-references)
+  virtual void on_draw(
+      sge::gui::renderer::base &, // NOLINT(google-runtime-references)
+      sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+      ) = 0; // NOLINT(google-runtime-references)
 
-	[[nodiscard]]
-	virtual
-	sge::gui::get_focus
-	on_click(
-		sge::rucksack::vector const &
-	);
+  [[nodiscard]] virtual sge::gui::get_focus on_click(sge::rucksack::vector const &);
 
-	virtual
-	void
-	on_key(
-		sge::input::key::code
-	);
+  virtual void on_key(sge::input::key::code);
 
-	virtual
-	void
-	on_char(
-		sge::font::char_type
-	);
+  virtual void on_char(sge::font::char_type);
 
-	virtual
-	void
-	on_focus_changed(
-		sge::gui::focus_change
-	);
+  virtual void on_focus_changed(sge::gui::focus_change);
 
-	[[nodiscard]]
-	virtual
-	sge::gui::widget::optional_ref
-	on_tab(
-		sge::gui::widget::optional_focus_ref
-	);
+  [[nodiscard]] virtual sge::gui::widget::optional_ref on_tab(sge::gui::widget::optional_focus_ref);
 
-	[[nodiscard]]
-	virtual
-	sge::rucksack::widget::base &
-	layout() = 0;
+  [[nodiscard]] virtual sge::rucksack::widget::base &layout() = 0;
 
-	void
-	parent(
-		sge::gui::widget::optional_ref
-	);
+  void parent(sge::gui::widget::optional_ref);
 
-	SGE_GUI_DETAIL_SYMBOL
-	void
-	enable(
-		bool
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  void enable(bool);
 
-	[[nodiscard]]
-	SGE_GUI_DETAIL_SYMBOL
-	bool
-	enabled() const;
+  [[nodiscard]] SGE_GUI_DETAIL_SYMBOL bool enabled() const;
+
 private:
-	virtual
-	void
-	unregister(
-		sge::gui::widget::base const &
-	);
+  virtual void unregister(sge::gui::widget::base const &);
 
-	sge::gui::widget::optional_ref parent_;
+  sge::gui::widget::optional_ref parent_;
 
-	bool enabled_;
+  bool enabled_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONFIG_IMPL_TRY_CREATE_PATH_HPP_INCLUDED
 #define SGE_CONFIG_IMPL_TRY_CREATE_PATH_HPP_INCLUDED
 
@@ -11,14 +10,10 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::config::impl
 {
 
-std::filesystem::path
-try_create_path(
-	std::filesystem::path const &
-);
+std::filesystem::path try_create_path(std::filesystem::path const &);
 
 }
 

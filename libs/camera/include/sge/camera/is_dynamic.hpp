@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_IS_DYNAMIC_HPP_INCLUDED
 #define SGE_CAMERA_IS_DYNAMIC_HPP_INCLUDED
 
@@ -13,30 +12,22 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::camera
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL is_dynamic
-:
-	public virtual sge::camera::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL is_dynamic : public virtual sge::camera::base
 {
-	FCPPT_NONMOVABLE(
-		is_dynamic
-	);
-protected:
-	SGE_CAMERA_DETAIL_SYMBOL
-	is_dynamic();
-public:
-	virtual
-	void
-	update(
-		sge::camera::update_duration
-	) = 0;
+  FCPPT_NONMOVABLE(is_dynamic);
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	~is_dynamic()
-	override;
+protected:
+  SGE_CAMERA_DETAIL_SYMBOL
+  is_dynamic();
+
+public:
+  virtual void update(sge::camera::update_duration) = 0;
+
+  SGE_CAMERA_DETAIL_SYMBOL
+  ~is_dynamic() override;
 };
 
 }

@@ -3,16 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/projection/near.hpp>
 #include <sge/sprite/projection_matrix_near.hpp>
 
-
-sge::renderer::projection::near
-sge::sprite::projection_matrix_near()
+sge::renderer::projection::near sge::sprite::projection_matrix_near()
 {
-	return
-		sge::renderer::projection::near{
-			0.F
-		};
+  return sge::renderer::projection::near{0.F};
 }

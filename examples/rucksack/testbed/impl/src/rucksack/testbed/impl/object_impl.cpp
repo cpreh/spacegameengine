@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/log/location.hpp>
@@ -75,234 +74,98 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::rucksack::testbed::object_impl::object_impl(
-	sge::window::title &&_window_title
-)
-:
-	systems_(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						std::move(
-							_window_title
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-		(
-			sge::systems::config()
-			.log_settings(
-				sge::systems::log_settings(
-					sge::log::option_container{
-						sge::log::option{
-							sge::log::location(),
-							fcppt::log::level::debug
-						}
-					}
-				)
-			)
-		)
-	),
-	buffers_(
-		fcppt::make_ref(
-			systems_.renderer_device_core()
-		),
-		sge::sprite::buffers::option::dynamic
-	),
-	sprite_states_(
-		fcppt::make_ref(
-			systems_.renderer_device_ffp()
-		),
-		sge::rucksack::testbed::object_impl::sprite_state_parameters()
-	),
-	sprites_()
+sge::rucksack::testbed::object_impl::object_impl(sge::window::title &&_window_title)
+    : systems_(sge::systems::make_list(sge::systems::window(
+          sge::systems::window_source(sge::systems::original_window(std::move(_window_title)))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::input(sge::systems::cursor_option_field::null()))(
+          sge::systems::config().log_settings(sge::systems::log_settings(sge::log::option_container{
+              sge::log::option{sge::log::location(), fcppt::log::level::debug}})))),
+      buffers_(
+          fcppt::make_ref(systems_.renderer_device_core()), sge::sprite::buffers::option::dynamic),
+      sprite_states_(
+          fcppt::make_ref(systems_.renderer_device_ffp()),
+          sge::rucksack::testbed::object_impl::sprite_state_parameters()),
+      sprites_()
 {
 }
 
-void
-sge::rucksack::testbed::object_impl::add_widget(
-	sge::rucksack::widget::reference const _widget,
-	sge::image::color::any::object const &_color
-)
+void sge::rucksack::testbed::object_impl::add_widget(
+    sge::rucksack::widget::reference const _widget, sge::image::color::any::object const &_color)
 {
-	sprites_.push_back(
-		std::make_pair(
-			_widget,
-			sprite_object(
-				sge::sprite::roles::pos{} =
-					fcppt::math::vector::null<
-						sprite_object::vector
-					>(),
-				sge::sprite::roles::size{} =
-					fcppt::math::dim::null<
-						sprite_object::dim
-					>(),
-				sge::sprite::roles::color{} =
-					sge::image::color::any::convert<
-						color_format
-					>(
-						_color
-					)
-			)
-		)
-	);
+  sprites_.push_back(std::make_pair(
+      _widget,
+      sprite_object(
+          sge::sprite::roles::pos{} = fcppt::math::vector::null<sprite_object::vector>(),
+          sge::sprite::roles::size{} = fcppt::math::dim::null<sprite_object::dim>(),
+          sge::sprite::roles::color{} = sge::image::color::any::convert<color_format>(_color))));
 }
 
-awl::main::exit_code
-sge::rucksack::testbed::object_impl::run()
+awl::main::exit_code sge::rucksack::testbed::object_impl::run()
 {
-	auto const draw(
-		[
-			this
-		]{
-			this->update();
+  auto const draw(
+      [this]
+      {
+        this->update();
 
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					this->systems_.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						this->systems_.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(this->systems_.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(this->systems_.renderer_device_ffp().onscreen_target())));
 
-			this->render(
-				scoped_block.get()
-			);
-		}
-	);
+        this->render(scoped_block.get());
+      });
 
-	return
-		sge::window::loop(
-			this->systems_.window_system(),
-			sge::window::loop_function{
-				[
-					this,
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					sge::systems::quit_on_escape(
-						this->systems_,
-						_event
-					);
+  return sge::window::loop(
+      this->systems_.window_system(),
+      sge::window::loop_function{
+          [this, &draw](awl::event::base const &_event)
+          {
+            sge::systems::quit_on_escape(this->systems_, _event);
 
-					fcppt::optional::maybe_void(
-						fcppt::cast::dynamic<
-							sge::renderer::event::render const
-						>(
-							_event
-						),
-						[
-							&draw
-						](
-							fcppt::reference<
-								sge::renderer::event::render const
-							>
-						)
-						{
-							draw();
-						}
-					);
-				}
-			}
-		);
+            fcppt::optional::maybe_void(
+                fcppt::cast::dynamic<sge::renderer::event::render const>(_event),
+                [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); });
+          }});
 }
 
-void
-sge::rucksack::testbed::object_impl::update()
+void sge::rucksack::testbed::object_impl::update()
 {
-	for(
-		auto &entry
-		:
-		sprites_
-	)
-	{
-		entry.second.pos(
-			entry.first.get().position()
-		);
+  for (auto &entry : sprites_)
+  {
+    entry.second.pos(entry.first.get().position());
 
-		entry.second.size(
-			entry.first.get().size()
-		);
-	}
+    entry.second.size(entry.first.get().size());
+  }
 }
 
-void
-sge::rucksack::testbed::object_impl::render(
-	sge::renderer::context::ffp &_render_context
-)
+void sge::rucksack::testbed::object_impl::render(sge::renderer::context::ffp &_render_context)
 {
-	_render_context.clear(
-		sge::renderer::clear::parameters()
-		.back_buffer(
-			sge::image::color::any::object{
-				sge::image::color::predef::black()
-			}
-		)
-	);
+  _render_context.clear(sge::renderer::clear::parameters().back_buffer(
+      sge::image::color::any::object{sge::image::color::predef::black()}));
 
-	sge::sprite::process::all(
-		_render_context,
-		sge::sprite::geometry::make_random_access_range(
-			fcppt::algorithm::map<
-				std::vector<
-					sprite_object
-				>
-			>(
-				sprites_,
-				[](
-					sprite_list::value_type const &_element
-				)
-				{
-					return
-						_element.second;
-				}
-			)
-		),
-		buffers_,
-		sge::sprite::compare::default_(),
-		sprite_states_
-	);
+  sge::sprite::process::all(
+      _render_context,
+      sge::sprite::geometry::make_random_access_range(
+          fcppt::algorithm::map<std::vector<sprite_object>>(
+              sprites_, [](sprite_list::value_type const &_element) { return _element.second; })),
+      buffers_,
+      sge::sprite::compare::default_(),
+      sprite_states_);
 }
 
-sge::rucksack::testbed::systems const &
-sge::rucksack::testbed::object_impl::systems() const
+sge::rucksack::testbed::systems const &sge::rucksack::testbed::object_impl::systems() const
 {
-	return
-		systems_;
+  return systems_;
 }
 
-sge::rucksack::testbed::object_impl::~object_impl()
-= default;
+sge::rucksack::testbed::object_impl::~object_impl() = default;

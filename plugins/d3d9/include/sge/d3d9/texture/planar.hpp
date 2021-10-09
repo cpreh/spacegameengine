@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_TEXTURE_PLANAR_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_PLANAR_HPP_INCLUDED
 
@@ -20,7 +19,6 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -28,48 +26,28 @@ namespace d3d9
 namespace texture
 {
 
-class planar
-:
-	public sge::d3d9::texture::planar_basic
+class planar : public sge::d3d9::texture::planar_basic
 {
-	FCPPT_NONCOPYABLE(
-		planar
-	);
+  FCPPT_NONCOPYABLE(planar);
+
 public:
-	planar(
-		IDirect3DDevice9 &,
-		sge::renderer::texture::planar_parameters const &
-	);
+  planar(IDirect3DDevice9 &, sge::renderer::texture::planar_parameters const &);
 
-	~planar()
-	override;
+  ~planar() override;
+
 private:
-	sge::renderer::texture::planar::nonconst_buffer &
-	level(
-		sge::renderer::texture::mipmap::level
-	)
-	override;
+  sge::renderer::texture::planar::nonconst_buffer &
+      level(sge::renderer::texture::mipmap::level) override;
 
-	sge::renderer::texture::planar::const_buffer const &
-	level(
-		sge::renderer::texture::mipmap::level
-	) const
-	override;
+  sge::renderer::texture::planar::const_buffer const &
+      level(sge::renderer::texture::mipmap::level) const override;
 
-	sge::d3d9::surface::d3d_unique_ptr
-	get_level(
-		sge::renderer::texture::mipmap::level
-	);
+  sge::d3d9::surface::d3d_unique_ptr get_level(sge::renderer::texture::mipmap::level);
 
-	typedef
-	std::vector<
-		fcppt::unique_ptr<
-			sge::renderer::texture::planar::nonconst_buffer
-		>
-	>
-	level_vector;
+  typedef std::vector<fcppt::unique_ptr<sge::renderer::texture::planar::nonconst_buffer>>
+      level_vector;
 
-	level_vector const levels_;
+  level_vector const levels_;
 };
 
 }

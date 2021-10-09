@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_SCENE_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_OBJECT_HPP_INCLUDED
 
@@ -25,72 +24,53 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::scenic::scene
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	SGE_SCENIC_DETAIL_SYMBOL
-	object(
-		fcppt::log::context_reference,
-		sge::scenic::scene::manager_ref,
-		sge::viewport::manager_ref,
-		sge::camera::base_ref,
-		sge::scenic::scene::prototype_unique_ptr
-	);
+  SGE_SCENIC_DETAIL_SYMBOL
+  object(
+      fcppt::log::context_reference,
+      sge::scenic::scene::manager_ref,
+      sge::viewport::manager_ref,
+      sge::camera::base_ref,
+      sge::scenic::scene::prototype_unique_ptr);
 
-	SGE_SCENIC_DETAIL_SYMBOL
-	void
-	render(
-		sge::scenic::render_context::base & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  SGE_SCENIC_DETAIL_SYMBOL
+  void render(sge::scenic::render_context::base & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	SGE_SCENIC_DETAIL_SYMBOL
-	~object();
+  SGE_SCENIC_DETAIL_SYMBOL
+  ~object();
+
 private:
-	using
-	mesh_map
-	=
-	std::map<
-		sge::scenic::scene::mesh_path,
-		sge::scenic::scene::mesh::object
-	>;
+  using mesh_map = std::map<sge::scenic::scene::mesh_path, sge::scenic::scene::mesh::object>;
 
-	using
-	material_map
-	=
-	std::map<
-		sge::scenic::scene::identifier,
-		sge::scenic::scene::material::object
-	>;
+  using material_map =
+      std::map<sge::scenic::scene::identifier, sge::scenic::scene::material::object>;
 
-	fcppt::log::context_reference const log_context_;
-	sge::scenic::scene::manager_ref const scene_manager_;
-	sge::camera::base_ref const camera_;
-	sge::scenic::scene::prototype_unique_ptr const prototype_;
-	sge::camera::perspective_projection_from_viewport camera_viewport_connection_;
-	mesh_map mesh_name_to_instance_;
-	material_map materials_;
-	unsigned state_changes_;
+  fcppt::log::context_reference const log_context_;
+  sge::scenic::scene::manager_ref const scene_manager_;
+  sge::camera::base_ref const camera_;
+  sge::scenic::scene::prototype_unique_ptr const prototype_;
+  sge::camera::perspective_projection_from_viewport camera_viewport_connection_;
+  mesh_map mesh_name_to_instance_;
+  material_map materials_;
+  unsigned state_changes_;
 
-	void
-	load_entities();
+  void load_entities();
 
-	void
-	activate_lights(
-		sge::scenic::render_context::base & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void activate_lights(sge::scenic::render_context::base & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	void
-	render_entity(
-		sge::scenic::scene::entity const &,
-		sge::scenic::render_queue::object & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void render_entity(
+      sge::scenic::scene::entity const &,
+      sge::scenic::render_queue::object & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 };
 
 }

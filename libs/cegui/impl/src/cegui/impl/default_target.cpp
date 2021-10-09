@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/impl/default_target.hpp>
 #include <sge/cegui/impl/from_cegui_rect.hpp>
@@ -42,7 +41,6 @@
 #include <CEGUI/RenderTarget.h>
 #include <fcppt/config/external_end.hpp>
 
-
 // cegui's internal OpenGL renderer uses a static viewport (I
 // think). The area is initialized to the current viewport in the
 // constructor and is changed only by setArea which is called by the
@@ -51,194 +49,101 @@
 // sge already provides this viewport-adaption technique so I just
 // update the viewport variable when the viewport is requested.
 sge::cegui::impl::default_target::default_target(
-	fcppt::log::object &_log,
-	sge::renderer::device::ffp_ref const _renderer,
-	fcppt::reference<
-		sge::cegui::impl::optional_render_context_ref const
-	> const _render_context
-)
-:
-	log_{
-		_log,
-		sge::log::default_parameters(
-			fcppt::log::name{
-				FCPPT_TEXT("default_target")
-			}
-		)
-	},
-	renderer_(
-		_renderer
-	),
-	viewport_(),
-	transform_(),
-	render_context_(
-		_render_context
-	)
+    fcppt::log::object &_log,
+    sge::renderer::device::ffp_ref const _renderer,
+    fcppt::reference<sge::cegui::impl::optional_render_context_ref const> const _render_context)
+    : log_{_log, sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("default_target")})},
+      renderer_(_renderer),
+      viewport_(),
+      transform_(),
+      render_context_(_render_context)
 {
 }
 
-sge::cegui::impl::default_target::~default_target()
-= default;
+sge::cegui::impl::default_target::~default_target() = default;
 
-void
-sge::cegui::impl::default_target::draw(
-	CEGUI::GeometryBuffer const &_buffer
-)
+void sge::cegui::impl::default_target::draw(CEGUI::GeometryBuffer const &_buffer)
 {
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("default_target(")
-			<< this
-			<< FCPPT_TEXT(")::draw(GeometryBuffer)")
-	)
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("default_target(") << this
+                      << FCPPT_TEXT(")::draw(GeometryBuffer)"))
 
-	_buffer.draw();
+  _buffer.draw();
 }
 
-void
-sge::cegui::impl::default_target::draw(
-	CEGUI::RenderQueue const &_queue
-)
+void sge::cegui::impl::default_target::draw(CEGUI::RenderQueue const &_queue)
 {
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("default_target(")
-			<< this
-			<< FCPPT_TEXT(")::draw(RenderQueue)")
-	)
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("default_target(") << this
+                      << FCPPT_TEXT(")::draw(RenderQueue)"))
 
-	_queue.draw();
+  _queue.draw();
 }
 
-void
-sge::cegui::impl::default_target::setArea(
-	CEGUI::Rectf const &_area
-)
+void sge::cegui::impl::default_target::setArea(CEGUI::Rectf const &_area)
 {
-	CEGUI::RenderTargetEventArgs args(
-		this
-	);
+  CEGUI::RenderTargetEventArgs args(this);
 
-	viewport_ = _area;
+  viewport_ = _area;
 
-	transform_ =
-		fcppt::optional::map(
-			sge::renderer::projection::orthogonal_viewport(
-				sge::renderer::target::viewport(
-					fcppt::math::box::structure_cast<
-						sge::renderer::pixel_rect,
-						fcppt::cast::float_to_int_fun
-					>(
-						sge::cegui::impl::from_cegui_rect(
-							viewport_
-						)
-					)
-				),
-				sge::renderer::projection::near(
-					0.F
-				),
-				sge::renderer::projection::far(
-					10.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-				)
-			),
-			[
-				this
-			](
-				sge::renderer::matrix4 const &_matrix
-			)
-			{
-				return
-					renderer_.get().create_transform_state(
-						sge::renderer::state::ffp::transform::parameters(
-							_matrix
-						)
-					);
-			}
-		);
+  transform_ = fcppt::optional::map(
+      sge::renderer::projection::orthogonal_viewport(
+          sge::renderer::target::viewport(
+              fcppt::math::box::
+                  structure_cast<sge::renderer::pixel_rect, fcppt::cast::float_to_int_fun>(
+                      sge::cegui::impl::from_cegui_rect(viewport_))),
+          sge::renderer::projection::near(0.F),
+          sge::renderer::projection::far(
+              10.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              )),
+      [this](sge::renderer::matrix4 const &_matrix)
+      {
+        return renderer_.get().create_transform_state(
+            sge::renderer::state::ffp::transform::parameters(_matrix));
+      });
 
-	this->fireEvent(
-		CEGUI::RenderTarget::EventAreaChanged,
-		args
-	);
+  this->fireEvent(CEGUI::RenderTarget::EventAreaChanged, args);
 }
 
-CEGUI::Rectf const &
-sge::cegui::impl::default_target::getArea() const
+CEGUI::Rectf const &sge::cegui::impl::default_target::getArea() const { return viewport_; }
+
+bool sge::cegui::impl::default_target::isImageryCache() const { return false; }
+
+void sge::cegui::impl::default_target::activate()
 {
-	return
-		viewport_;
+  FCPPT_LOG_DEBUG(
+      log_, fcppt::log::out << FCPPT_TEXT("default_target(") << this << FCPPT_TEXT(")::activate()"))
+
+  fcppt::optional::maybe_void(
+      transform_,
+      [this](sge::renderer::state::ffp::transform::object_unique_ptr const &_transform)
+      {
+        FCPPT_ASSERT_OPTIONAL_ERROR(render_context_.get())
+            .get()
+            .transform(
+                sge::renderer::state::ffp::transform::mode::projection,
+                sge::renderer::state::ffp::transform::const_optional_object_ref(
+                    fcppt::make_cref(*_transform)));
+      });
 }
 
-bool
-sge::cegui::impl::default_target::isImageryCache() const
+void sge::cegui::impl::default_target::deactivate()
 {
-	return
-		false;
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("default_target(") << this << FCPPT_TEXT(")::deactivate()"))
+
+  FCPPT_ASSERT_OPTIONAL_ERROR(render_context_.get())
+      .get()
+      .transform(
+          sge::renderer::state::ffp::transform::mode::projection,
+          sge::renderer::state::ffp::transform::const_optional_object_ref());
 }
 
-void
-sge::cegui::impl::default_target::activate()
+void sge::cegui::impl::default_target::unprojectPoint(
+    CEGUI::GeometryBuffer const &, CEGUI::Vector2f const &, CEGUI::Vector2f &) const
 {
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("default_target(")
-			<< this
-			<< FCPPT_TEXT(")::activate()")
-	)
-
-	fcppt::optional::maybe_void(
-		transform_,
-		[
-			this
-		](
-			sge::renderer::state::ffp::transform::object_unique_ptr const &_transform
-		)
-		{
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				render_context_.get()
-			).get().transform(
-				sge::renderer::state::ffp::transform::mode::projection,
-				sge::renderer::state::ffp::transform::const_optional_object_ref(
-					fcppt::make_cref(
-						*_transform
-					)
-				)
-			);
-		}
-	);
-}
-
-void
-sge::cegui::impl::default_target::deactivate()
-{
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("default_target(")
-			<< this
-			<< FCPPT_TEXT(")::deactivate()")
-	)
-
-	FCPPT_ASSERT_OPTIONAL_ERROR(
-		render_context_.get()
-	).get().transform(
-		sge::renderer::state::ffp::transform::mode::projection,
-		sge::renderer::state::ffp::transform::const_optional_object_ref()
-	);
-}
-
-void
-sge::cegui::impl::default_target::unprojectPoint(
-	CEGUI::GeometryBuffer const &,
-	CEGUI::Vector2f const &,
-	CEGUI::Vector2f &
-) const
-{
-	throw
-		sge::cegui::exception{
-			FCPPT_TEXT("default_target::unprojectPoint not implemented yet")
-		};
+  throw sge::cegui::exception{FCPPT_TEXT("default_target::unprojectPoint not implemented yet")};
 }

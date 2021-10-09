@@ -3,23 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_DECLARE_FILE_EXCEPTION_HPP_INCLUDED
 #define SGE_MEDIA_DECLARE_FILE_EXCEPTION_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
 #include <sge/media/file_exception.hpp>
 
-
-#define SGE_MEDIA_DECLARE_FILE_EXCEPTION(\
-	base\
-)\
-extern \
-template \
-class \
-SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
-sge::media::file_exception<\
-	base\
->
+#define SGE_MEDIA_DECLARE_FILE_EXCEPTION(base) \
+  extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION sge::media::file_exception<base>
 
 #endif

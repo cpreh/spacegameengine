@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_CREATE_BUFFER_FROM_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_CREATE_BUFFER_FROM_VIEW_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vf/dynamic/const_view_fwd.hpp>
-
 
 namespace sge::renderer::vertex
 {
@@ -40,13 +38,11 @@ vertex_declaration and resource flags \a flags.
 vertex_declaration
 */
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::vertex::buffer_unique_ptr
-create_buffer_from_view(
-	sge::renderer::device::core_ref device,
-	sge::renderer::vertex::const_declaration_ref vertex_declaration,
-	sge::renderer::vf::dynamic::const_view const &view,
-	sge::renderer::resource_flags_field const &flags
-);
+sge::renderer::vertex::buffer_unique_ptr create_buffer_from_view(
+    sge::renderer::device::core_ref device,
+    sge::renderer::vertex::const_declaration_ref vertex_declaration,
+    sge::renderer::vf::dynamic::const_view const &view,
+    sge::renderer::resource_flags_field const &flags);
 
 }
 

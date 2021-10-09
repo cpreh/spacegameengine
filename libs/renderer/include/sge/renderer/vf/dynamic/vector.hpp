@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_VECTOR_HPP_INCLUDED
 
@@ -12,40 +11,30 @@
 #include <sge/renderer/vf/dynamic/element_type.hpp>
 #include <sge/renderer/vf/dynamic/vector_fwd.hpp>
 
-
 namespace sge::renderer::vf::dynamic
 {
 
 class vector
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	vector(
-		sge::renderer::vf::dynamic::element_type,
-		sge::renderer::vf::dynamic::element_count
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  vector(sge::renderer::vf::dynamic::element_type, sge::renderer::vf::dynamic::element_count);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::element_type
-	element_type() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::vf::dynamic::element_type
+  element_type() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::element_count
-	element_count() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::vf::dynamic::element_count
+  element_count() const;
+
 private:
-	sge::renderer::vf::dynamic::element_type element_type_;
+  sge::renderer::vf::dynamic::element_type element_type_;
 
-	sge::renderer::vf::dynamic::element_count element_count_;
+  sge::renderer::vf::dynamic::element_count element_count_;
 };
 
 SGE_RENDERER_DETAIL_SYMBOL
-bool
-operator==(
-	sge::renderer::vf::dynamic::vector const &,
-	sge::renderer::vf::dynamic::vector const &
-);
+bool operator==(
+    sge::renderer::vf::dynamic::vector const &, sge::renderer::vf::dynamic::vector const &);
 
 }
 

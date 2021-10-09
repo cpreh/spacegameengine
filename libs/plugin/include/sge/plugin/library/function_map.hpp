@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_LIBRARY_FUNCTION_MAP_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_FUNCTION_MAP_HPP_INCLUDED
 
@@ -14,40 +13,25 @@
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::plugin::library
 {
 
 class function_map
 {
 public:
-	using
-	container
-	=
-	std::unordered_map<
-		sge::plugin::library::symbol_string,
-		sge::plugin::library::function_base
-	>;
+  using container =
+      std::unordered_map<sge::plugin::library::symbol_string, sge::plugin::library::function_base>;
 
-	SGE_PLUGIN_DETAIL_SYMBOL
-	explicit
-	function_map(
-		container &&
-	);
+  SGE_PLUGIN_DETAIL_SYMBOL
+  explicit function_map(container &&);
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::library::function_base
-	function(
-		sge::plugin::library::symbol_string const &
-	) const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL sge::plugin::library::function_base
+  function(sge::plugin::library::symbol_string const &) const;
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	container const &
-	get() const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL container const &get() const;
+
 private:
-	container functions_;
+  container functions_;
 };
 
 }

@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BACKEND_CONST_CURRENT_REF_HPP_INCLUDED
 #define SGE_OPENGL_BACKEND_CONST_CURRENT_REF_HPP_INCLUDED
 
 #include <sge/opengl/backend/current_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::opengl::backend
 {
 
-using
-const_current_ref
-=
-fcppt::reference<
-	sge::opengl::backend::current const
->;
+using const_current_ref = fcppt::reference<sge::opengl::backend::current const>;
 
 }
 

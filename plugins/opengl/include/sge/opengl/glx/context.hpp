@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_GLX_CONTEXT_HPP_INCLUDED
 
@@ -18,45 +17,33 @@
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::glx
 {
 
-class context
-:
-	public sge::opengl::backend::context
+class context : public sge::opengl::backend::context
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	context(
-		fcppt::log::object_reference,
-		awl::backends::x11::window::base_ref,
-		sge::opengl::glx::optional_proc_address_function
-	);
+  context(
+      fcppt::log::object_reference,
+      awl::backends::x11::window::base_ref,
+      sge::opengl::glx::optional_proc_address_function);
 
-	~context()
-	override;
+  ~context() override;
+
 private:
-	[[nodiscard]]
-	sge::opengl::backend::current_unique_ptr
-	activate()
-	override;
+  [[nodiscard]] sge::opengl::backend::current_unique_ptr activate() override;
 
-	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
-	)
-	override;
+  void deactivate(sge::opengl::backend::current_unique_ptr &&) override;
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	awl::backends::x11::window::base_ref const window_;
+  awl::backends::x11::window::base_ref const window_;
 
-	sge::opengl::glx::optional_proc_address_function const proc_address_;
+  sge::opengl::glx::optional_proc_address_function const proc_address_;
 
-	GLXContext const context_; // NOLINT(misc-misplaced-const)
+  GLXContext const context_; // NOLINT(misc-misplaced-const)
 };
 
 }

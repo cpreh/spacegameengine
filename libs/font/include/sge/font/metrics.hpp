@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_METRICS_HPP_INCLUDED
 #define SGE_FONT_METRICS_HPP_INCLUDED
 
@@ -11,25 +10,19 @@
 #include <sge/font/metrics_fwd.hpp>
 #include <sge/font/detail/symbol.hpp>
 
-
 namespace sge::font
 {
 
 class metrics
 {
 public:
-	SGE_FONT_DETAIL_SYMBOL
-	explicit
-	metrics(
-		sge::font::height
-	);
+  SGE_FONT_DETAIL_SYMBOL
+  explicit metrics(sge::font::height);
 
-	[[nodiscard]]
-	SGE_FONT_DETAIL_SYMBOL
-	sge::font::height
-	height() const;
+  [[nodiscard]] SGE_FONT_DETAIL_SYMBOL sge::font::height height() const;
+
 private:
-	sge::font::height height_;
+  sge::font::height height_;
 };
 
 }

@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_CORE_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_RENDERER_CORE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/renderer/core_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-
 
 namespace sge::renderer
 {
@@ -19,12 +17,7 @@ namespace sge::renderer
 
 \ingroup sge_renderer
 */
-using
-core_unique_ptr
-=
-fcppt::unique_ptr<
-	sge::renderer::core
->;
+using core_unique_ptr = fcppt::unique_ptr<sge::renderer::core>;
 
 }
 

@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_FFP_ALPHA_TEST_MAKE_STATES_HPP_INCLUDED
 #define SGE_D3D9_STATE_FFP_ALPHA_TEST_MAKE_STATES_HPP_INCLUDED
 
 #include <sge/d3d9/state/render_vector.hpp>
 #include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
-
 
 namespace sge
 {
@@ -23,9 +21,7 @@ namespace alpha_test
 {
 
 sge::d3d9::state::render_vector
-make_states(
-	sge::renderer::state::ffp::alpha_test::parameters const &
-);
+make_states(sge::renderer::state::ffp::alpha_test::parameters const &);
 
 }
 }

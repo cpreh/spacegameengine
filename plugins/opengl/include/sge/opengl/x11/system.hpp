@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_X11_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_X11_SYSTEM_HPP_INCLUDED
 
@@ -18,40 +17,29 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
 
-
 namespace sge::opengl::x11
 {
 
-class system
-:
-	public sge::opengl::platform::system
+class system : public sge::opengl::platform::system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
+  FCPPT_NONMOVABLE(system);
+
 public:
-	system(
-		fcppt::log::object_reference,
-		awl::backends::x11::system::object_ref
-	);
+  system(fcppt::log::object_reference, awl::backends::x11::system::object_ref);
 
-	~system()
-	override;
+  ~system() override;
+
 private:
-	sge::opengl::platform::device_state_unique_ptr
-	create_device_state(
-		sge::renderer::display_mode::optional_fullscreen const &,
-		sge::window::object_ref
-	)
-	override;
+  sge::opengl::platform::device_state_unique_ptr create_device_state(
+      sge::renderer::display_mode::optional_fullscreen const &, sge::window::object_ref) override;
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	sge::opengl::xrandr::optional_system_unique_ptr const xrandr_system_;
+  sge::opengl::xrandr::optional_system_unique_ptr const xrandr_system_;
 
-	sge::opengl::x11::state_atom const wm_state_;
+  sge::opengl::x11::state_atom const wm_state_;
 
-	sge::opengl::x11::fullscreen_atom const wm_fullscreen_;
+  sge::opengl::x11::fullscreen_atom const wm_fullscreen_;
 };
 
 }

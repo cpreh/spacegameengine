@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_TRAITS_DIMENSION_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_TRAITS_DIMENSION_HPP_INCLUDED
 
@@ -11,21 +10,13 @@
 #include <sge/image/traits/image/dimension_tpl_fwd.hpp>
 #include <sge/renderer/vertex/tag.hpp>
 
-
 namespace sge::image::traits::image
 {
 
-template<>
-struct dimension_tpl<
-	sge::renderer::vertex::tag
->
+template <>
+struct dimension_tpl<sge::renderer::vertex::tag>
 {
-	using
-	type
-	=
-	sge::image::dimension_integral_c<
-		1
-	>;
+  using type = sge::image::dimension_integral_c<1>;
 };
 
 }

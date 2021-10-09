@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file.hpp>
@@ -50,190 +49,83 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
-int
-main()
+int main()
 try
 {
-	sge::media::extension_set const extensions{
-		sge::media::extension{
-			FCPPT_TEXT("wav")
-		}
-	};
+  sge::media::extension_set const extensions{sge::media::extension{FCPPT_TEXT("wav")}};
 
-	fcppt::log::context log_context{
-		fcppt::log::optional_level{
-			fcppt::log::level::debug
-		},
-		sge::log::default_level_streams()
-	};
+  fcppt::log::context log_context{
+      fcppt::log::optional_level{fcppt::log::level::debug}, sge::log::default_level_streams()};
 
-//! [manual_initialization_pm]
-	sge::plugin::manager plugin_manager{
-		log_context,
-		sge::config::plugin_path(),
-		sge::plugin::optional_cache_ref()
-	};
-//! [manual_initialization_pm]
+  //! [manual_initialization_pm]
+  sge::plugin::manager plugin_manager{
+      log_context, sge::config::plugin_path(), sge::plugin::optional_cache_ref()};
+  //! [manual_initialization_pm]
 
-//! [manual_initialization_player]
-	sge::audio::player_plugin::collection const audio_players{
-		plugin_manager.collection<
-			sge::audio::player
-		>()
-	};
+  //! [manual_initialization_player]
+  sge::audio::player_plugin::collection const audio_players{
+      plugin_manager.collection<sge::audio::player>()};
 
-	sge::audio::player_plugin::object const player_plugin{
-		audio_players.get(0u).load()
-	};
+  sge::audio::player_plugin::object const player_plugin{audio_players.get(0u).load()};
 
-	sge::audio::player_unique_ptr const player_ptr{
-		player_plugin.get()(
-			log_context
-		)
-	};
+  sge::audio::player_unique_ptr const player_ptr{player_plugin.get()(log_context)};
 
-	sge::audio::player &player{
-		*player_ptr
-	};
-//! [manual_initialization_player]
+  sge::audio::player &player{*player_ptr};
+  //! [manual_initialization_player]
 
-//! [manual_initialization_loader]
-	sge::audio::multi_loader loader(
-		sge::audio::multi_loader_parameters(
-			log_context,
-			plugin_manager.collection<
-				sge::audio::loader
-			>(),
-			sge::media::optional_extension_set(
-				extensions
-			)
-		)
-	);
-//! [manual_initialization_loader]
+  //! [manual_initialization_loader]
+  sge::audio::multi_loader loader(sge::audio::multi_loader_parameters(
+      log_context,
+      plugin_manager.collection<sge::audio::loader>(),
+      sge::media::optional_extension_set(extensions)));
+  //! [manual_initialization_loader]
 
-//! [create_file_buffer_and_sound]
-	sge::audio::file_unique_ptr const soundfile{
-		sge::audio::load_exn(
-			loader,
-			sge::config::media_path()
-			/ FCPPT_TEXT("sounds")
-			/ FCPPT_TEXT("ding.wav")
-		)
-	};
+  //! [create_file_buffer_and_sound]
+  sge::audio::file_unique_ptr const soundfile{sge::audio::load_exn(
+      loader, sge::config::media_path() / FCPPT_TEXT("sounds") / FCPPT_TEXT("ding.wav"))};
 
-	sge::audio::buffer_unique_ptr const buf{
-		player.create_buffer(
-			*soundfile
-		)
-	};
+  sge::audio::buffer_unique_ptr const buf{player.create_buffer(*soundfile)};
 
-	sge::audio::sound::base_unique_ptr const sound{
-		buf->create_nonpositional(
-			sge::audio::sound::nonpositional_parameters()
-			.gain(
-				fcppt::literal<
-					sge::audio::scalar
-				>(
-					1
-				)
-			)
-			.pitch(
-				fcppt::literal<
-					sge::audio::scalar
-				>(
-					1
-				)
-			)
-		)
-	};
-//! [create_file_buffer_and_sound]
+  sge::audio::sound::base_unique_ptr const sound{
+      buf->create_nonpositional(sge::audio::sound::nonpositional_parameters()
+                                    .gain(fcppt::literal<sge::audio::scalar>(1))
+                                    .pitch(fcppt::literal<sge::audio::scalar>(1)))};
+  //! [create_file_buffer_and_sound]
 
-//! [play]
-	sound->play(
-		sge::audio::sound::repeat::once
-	);
+  //! [play]
+  sound->play(sge::audio::sound::repeat::once);
 
-	while(
-		sound->status()
-		!=
-		sge::audio::sound::play_status::stopped
-	)
-		sound->update();
-//! [play]
+  while (sound->status() != sge::audio::sound::play_status::stopped)
+    sound->update();
+  //! [play]
 
-//! [listener_direction]
-	player.listener().position(
-		fcppt::math::vector::null<
-			sge::audio::vector
-		>()
-	);
+  //! [listener_direction]
+  player.listener().position(fcppt::math::vector::null<sge::audio::vector>());
 
-	player.listener().linear_velocity(
-		fcppt::math::vector::null<
-			sge::audio::vector
-		>()
-	);
+  player.listener().linear_velocity(fcppt::math::vector::null<sge::audio::vector>());
 
-	player.listener().direction(
-		sge::audio::direction::object{
-			sge::audio::direction::forward{
-				sge::audio::vector{
-					0.0f,
-					0.0f,
-					1.0f
-				}
-			},
-			sge::audio::direction::up{
-				sge::audio::vector{
-					0.0f,
-					1.0f,
-					0.0f
-				}
-			}
-		}
-	);
-//! [listener_direction]
+  player.listener().direction(sge::audio::direction::object{
+      sge::audio::direction::forward{sge::audio::vector{0.0f, 0.0f, 1.0f}},
+      sge::audio::direction::up{sge::audio::vector{0.0f, 1.0f, 0.0f}}});
+  //! [listener_direction]
 
-//! [create_and_play_streaming]
-	sge::audio::sound::base_unique_ptr const streaming{
-		player.create_nonpositional_stream(
-			*soundfile,
-			sge::audio::sound::nonpositional_parameters()
-		)
-	};
+  //! [create_and_play_streaming]
+  sge::audio::sound::base_unique_ptr const streaming{player.create_nonpositional_stream(
+      *soundfile, sge::audio::sound::nonpositional_parameters())};
 
-	while(
-		streaming->status()
-		!=
-		sge::audio::sound::play_status::stopped
-	)
-		streaming->update();
-//! [create_and_play_streaming]
+  while (streaming->status() != sge::audio::sound::play_status::stopped)
+    streaming->update();
+  //! [create_and_play_streaming]
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	fcppt::io::cerr()
-		<<
-		_error.string()
-		<<
-		FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	std::cerr
-		<<
-		_error.what()
-		<<
-		'\n';
+  std::cerr << _error.what() << '\n';
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PANGO_CONVERT_FROM_RECT_SCALE_HPP_INCLUDED
 #define SGE_PANGO_CONVERT_FROM_RECT_SCALE_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <pango/pango-types.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::pango::convert
 {
 
-sge::font::rect
-from_rect_scale(
-	PangoRectangle const &
-);
+sge::font::rect from_rect_scale(PangoRectangle const &);
 
 }
 

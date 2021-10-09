@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_PREFIX_HPP_INCLUDED
 #define SGE_CONSOLE_PREFIX_HPP_INCLUDED
 
 #include <sge/console/prefix_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
-
 
 #endif

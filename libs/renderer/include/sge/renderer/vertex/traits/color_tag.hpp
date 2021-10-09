@@ -3,26 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_TRAITS_COLOR_TAG_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_TRAITS_COLOR_TAG_HPP_INCLUDED
 
 #include <sge/image/traits/image/color_tag_tpl_fwd.hpp>
 #include <sge/renderer/vertex/tag.hpp>
 
-
 namespace sge::image::traits::image
 {
 
-template<>
-struct color_tag_tpl<
-	sge::renderer::vertex::tag
->
+template <>
+struct color_tag_tpl<sge::renderer::vertex::tag>
 {
-	using
-	type
-	=
-	sge::renderer::vertex::tag;
+  using type = sge::renderer::vertex::tag;
 };
 
 }

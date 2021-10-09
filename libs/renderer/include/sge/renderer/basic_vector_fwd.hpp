@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_BASIC_VECTOR_FWD_HPP_INCLUDED
 #define SGE_RENDERER_BASIC_VECTOR_FWD_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/static_fwd.hpp>
-
 
 namespace sge::renderer
 {
@@ -25,15 +23,8 @@ Creates a vector with value type renderer::scalar.
 
 \tparam Size The dimension to use
 */
-template<
-	fcppt::math::size_type Size
->
-using basic_vector
-=
-fcppt::math::vector::static_<
-	sge::renderer::scalar,
-	Size
->;
+template <fcppt::math::size_type Size>
+using basic_vector = fcppt::math::vector::static_<sge::renderer::scalar, Size>;
 
 }
 

@@ -3,18 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/key/code.hpp>
 #include <sge/wlinput/focus/translate_keysym.hpp>
 #include <sge/wlinput/focus/xkb_keysym.hpp>
 
-
 sge::input::key::code
-sge::wlinput::focus::translate_keysym(
-	sge::wlinput::focus::xkb_keysym const  /*_keysym*/
+sge::wlinput::focus::translate_keysym(sge::wlinput::focus::xkb_keysym const /*_keysym*/
 )
 {
-	// TODO(philipp): 
-	return
-		sge::input::key::code::unknown;
+  // TODO(philipp):
+  return sge::input::key::code::unknown;
 }

@@ -3,14 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/size_type.hpp>
 #include <sge/texture/atlasing/gap.hpp>
 
-
-sge::renderer::size_type
-sge::texture::atlasing::gap()
-{
-	return
-		1U;
-}
+sge::renderer::size_type sge::texture::atlasing::gap() { return 1U; }

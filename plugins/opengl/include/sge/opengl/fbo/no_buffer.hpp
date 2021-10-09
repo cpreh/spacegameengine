@@ -3,18 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_FBO_NO_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_FBO_NO_BUFFER_HPP_INCLUDED
 
 #include <sge/opengl/fbo/id.hpp>
 
-
 namespace sge::opengl::fbo
 {
 
-sge::opengl::fbo::id
-no_buffer();
+sge::opengl::fbo::id no_buffer();
 
 }
 

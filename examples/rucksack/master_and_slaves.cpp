@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/rucksack/testbed/object.hpp>
@@ -35,246 +34,101 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::rucksack::testbed::object testbed(
-		sge::window::title(
-			FCPPT_TEXT("rucksack master and slaves test")
-		)
-	);
+  sge::rucksack::testbed::object testbed(
+      sge::window::title(FCPPT_TEXT("rucksack master and slaves test")));
 
-	sge::rucksack::viewport::adaptor viewport_box(
-		fcppt::make_ref(
-			testbed.systems().viewport_manager()
-		),
-		fcppt::make_ref(
-			testbed.systems().renderer_device_core()
-		)
-	);
+  sge::rucksack::viewport::adaptor viewport_box(
+      fcppt::make_ref(testbed.systems().viewport_manager()),
+      fcppt::make_ref(testbed.systems().renderer_device_core()));
 
-	sge::rucksack::widget::master_and_slaves mas_box(
-		sge::rucksack::padding(
-			5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		)
-	);
+  sge::rucksack::widget::master_and_slaves mas_box(sge::rucksack::padding(
+      5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      ));
 
-	viewport_box.child(
-		fcppt::reference_to_base<
-			sge::rucksack::widget::base
-		>(
-			fcppt::make_ref(
-				mas_box
-			)
-		)
-	);
+  viewport_box.child(
+      fcppt::reference_to_base<sge::rucksack::widget::base>(fcppt::make_ref(mas_box)));
 
-	using
-	default_generator
-	=
-	fcppt::random::generator::minstd_rand;
+  using default_generator = fcppt::random::generator::minstd_rand;
 
-	default_generator def_gen(
-		fcppt::random::generator::seed_from_chrono<
-			default_generator::seed
-		>()
-	);
+  default_generator def_gen(fcppt::random::generator::seed_from_chrono<default_generator::seed>());
 
-	using
-	scalar_distribution
-	=
-	fcppt::random::distribution::basic<
-		fcppt::random::distribution::parameters::uniform_int<
-			sge::rucksack::scalar
-		>
-	>;
+  using scalar_distribution = fcppt::random::distribution::basic<
+      fcppt::random::distribution::parameters::uniform_int<sge::rucksack::scalar>>;
 
-	fcppt::random::variate<
-		default_generator,
-		scalar_distribution
-	> size_rng_w(
-		fcppt::make_ref(
-			def_gen
-		),
-		scalar_distribution(
-			scalar_distribution::param_type::min(
-				10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			),
-			scalar_distribution::param_type::max(
-				300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			)
-		)
-	);
+  fcppt::random::variate<default_generator, scalar_distribution> size_rng_w(
+      fcppt::make_ref(def_gen),
+      scalar_distribution(
+          scalar_distribution::param_type::min(
+              10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              ),
+          scalar_distribution::param_type::max(
+              300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              )));
 
-	fcppt::random::variate<
-		default_generator,
-		scalar_distribution
-	> size_rng_h(
-		fcppt::make_ref(
-			def_gen
-		),
-		scalar_distribution(
-			scalar_distribution::param_type::min(
-				10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			),
-			scalar_distribution::param_type::max(
-				300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			)
-		)
-	);
+  fcppt::random::variate<default_generator, scalar_distribution> size_rng_h(
+      fcppt::make_ref(def_gen),
+      scalar_distribution(
+          scalar_distribution::param_type::min(
+              10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              ),
+          scalar_distribution::param_type::max(
+              300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              )));
 
-	testbed.add_widget(
-		fcppt::reference_to_base<
-			sge::rucksack::widget::base
-		>(
-			fcppt::make_ref(
-				viewport_box
-			)
-		),
-		sge::image::color::any::object{
-			sge::image::color::predef::blue()
-		}
-	);
+  testbed.add_widget(
+      fcppt::reference_to_base<sge::rucksack::widget::base>(fcppt::make_ref(viewport_box)),
+      sge::image::color::any::object{sge::image::color::predef::blue()});
 
-	sge::rucksack::widget::dummy master_dummy{
-		sge::rucksack::axis_policy2(
-			sge::rucksack::axis_policy(
-				sge::rucksack::preferred_size(
-					size_rng_w()
-				)
-			),
-			sge::rucksack::axis_policy(
-				sge::rucksack::preferred_size(
-					size_rng_h()
-				)
-			)
-		)
-	};
+  sge::rucksack::widget::dummy master_dummy{sge::rucksack::axis_policy2(
+      sge::rucksack::axis_policy(sge::rucksack::preferred_size(size_rng_w())),
+      sge::rucksack::axis_policy(sge::rucksack::preferred_size(size_rng_h())))};
 
-	mas_box.master_pane(
-		fcppt::reference_to_base<
-			sge::rucksack::widget::base
-		>(
-			fcppt::make_ref(
-				master_dummy
-			)
-		)
-	);
+  mas_box.master_pane(
+      fcppt::reference_to_base<sge::rucksack::widget::base>(fcppt::make_ref(master_dummy)));
 
-	testbed.add_widget(
-		fcppt::reference_to_base<
-			sge::rucksack::widget::base
-		>(
-			fcppt::make_ref(
-				master_dummy
-			)
-		),
-		sge::image::color::any::object{
-			sge::image::color::predef::cyan()
-		}
-	);
+  testbed.add_widget(
+      fcppt::reference_to_base<sge::rucksack::widget::base>(fcppt::make_ref(master_dummy)),
+      sge::image::color::any::object{sge::image::color::predef::cyan()});
 
-	using
-	dummy_unique_ptr
-	=
-	fcppt::unique_ptr<
-		sge::rucksack::widget::dummy
-	>;
+  using dummy_unique_ptr = fcppt::unique_ptr<sge::rucksack::widget::dummy>;
 
-	using
-	dummy_unique_ptr_array
-	=
-	fcppt::array::object<
-		dummy_unique_ptr,
-		5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-	>;
+  using dummy_unique_ptr_array = fcppt::array::object<
+      dummy_unique_ptr,
+      5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      >;
 
-	auto sprites(
-		fcppt::array::init<
-			dummy_unique_ptr_array
-		>(
-			[
-				&size_rng_w,
-				&size_rng_h
-			](auto)
-			{
-				return
-					fcppt::make_unique_ptr<
-						sge::rucksack::widget::dummy
-					>(
-						sge::rucksack::axis_policy2(
-							sge::rucksack::axis_policy(
-								sge::rucksack::preferred_size(
-									size_rng_w()
-								)
-							),
-							sge::rucksack::axis_policy(
-								sge::rucksack::preferred_size(
-									size_rng_h()
-								)
-							)
-						)
-					);
-			}
-		)
-	);
+  auto sprites(fcppt::array::init<dummy_unique_ptr_array>(
+      [&size_rng_w, &size_rng_h](auto)
+      {
+        return fcppt::make_unique_ptr<sge::rucksack::widget::dummy>(sge::rucksack::axis_policy2(
+            sge::rucksack::axis_policy(sge::rucksack::preferred_size(size_rng_w())),
+            sge::rucksack::axis_policy(sge::rucksack::preferred_size(size_rng_h()))));
+      }));
 
-	for(
-		auto const &dummy
-		:
-		sprites
-	)
-	{
-		mas_box.push_back_child(
-			fcppt::reference_to_base<
-				sge::rucksack::widget::base
-			>(
-				fcppt::make_ref(
-					*dummy
-				)
-			)
-		);
+  for (auto const &dummy : sprites)
+  {
+    mas_box.push_back_child(
+        fcppt::reference_to_base<sge::rucksack::widget::base>(fcppt::make_ref(*dummy)));
 
-		testbed.add_widget(
-			fcppt::reference_to_base<
-				sge::rucksack::widget::base
-			>(
-				fcppt::make_ref(
-					*dummy
-				)
-			),
-			sge::image::color::any::object{
-				sge::image::color::predef::red()
-			}
-		);
-	}
+    testbed.add_widget(
+        fcppt::reference_to_base<sge::rucksack::widget::base>(fcppt::make_ref(*dummy)),
+        sge::image::color::any::object{sge::image::color::predef::red()});
+  }
 
-	return
-		testbed.run();
+  return testbed.run();
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

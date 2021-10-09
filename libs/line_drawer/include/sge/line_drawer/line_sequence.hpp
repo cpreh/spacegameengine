@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LINE_DRAWER_LINE_SEQUENCE_HPP_INCLUDED
 #define SGE_LINE_DRAWER_LINE_SEQUENCE_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::line_drawer
 {
 
-using
-line_sequence
-=
-std::vector<
-	sge::line_drawer::line
->;
+using line_sequence = std::vector<sge::line_drawer::line>;
 
 }
 

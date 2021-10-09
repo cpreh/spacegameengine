@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/joypad/ff/convert_duration.hpp>
 #include <sge/evdev/joypad/ff/convert_envelope.hpp>
 #include <sge/evdev/joypad/ff/convert_periodic.hpp>
@@ -16,43 +15,16 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 ff_periodic_effect
-sge::evdev::joypad::ff::convert_periodic(
-	sge::input::joypad::ff::periodic const &_periodic
-)
+sge::evdev::joypad::ff::convert_periodic(sge::input::joypad::ff::periodic const &_periodic)
 {
-	return
-		ff_periodic_effect{
-			sge::evdev::joypad::ff::convert_waveform(
-				_periodic.waveform()
-			),
-			sge::evdev::joypad::ff::convert_duration(
-				_periodic.period().get()
-			),
-			fcppt::cast::size<
-				std::int16_t
-			>(
-				_periodic.magnitude().get()
-			),
-			fcppt::cast::size<
-				std::int16_t
-			>(
-				_periodic.offset().get()
-			),
-			fcppt::cast::size<
-				std::uint16_t
-			>(
-				_periodic.phase().get()
-			),
-			sge::evdev::joypad::ff::convert_envelope(
-				_periodic.envelope()
-			),
-			fcppt::literal<
-				std::uint32_t
-			>(
-				0
-			),
-			nullptr
-		};
+  return ff_periodic_effect{
+      sge::evdev::joypad::ff::convert_waveform(_periodic.waveform()),
+      sge::evdev::joypad::ff::convert_duration(_periodic.period().get()),
+      fcppt::cast::size<std::int16_t>(_periodic.magnitude().get()),
+      fcppt::cast::size<std::int16_t>(_periodic.offset().get()),
+      fcppt::cast::size<std::uint16_t>(_periodic.phase().get()),
+      sge::evdev::joypad::ff::convert_envelope(_periodic.envelope()),
+      fcppt::literal<std::uint32_t>(0),
+      nullptr};
 }

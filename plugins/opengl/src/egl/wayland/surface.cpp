@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
@@ -17,31 +16,14 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::opengl::egl::wayland::surface::surface(
-	EGLDisplay const _display, // NOLINT(misc-misplaced-const)
-	EGLConfig const _config, // NOLINT(misc-misplaced-const)
-	sge::window::object_ref const _window
-)
-:
-	sge::opengl::egl::surface(),
-	window_{
-		_window
-	},
-	surface_{
-		_display,
-		_config,
-		window_.get()
-	}
+    EGLDisplay const _display, // NOLINT(misc-misplaced-const)
+    EGLConfig const _config, // NOLINT(misc-misplaced-const)
+    sge::window::object_ref const _window)
+    : sge::opengl::egl::surface(), window_{_window}, surface_{_display, _config, window_.get()}
 {
 }
 
-sge::opengl::egl::wayland::surface::~surface()
-= default;
+sge::opengl::egl::wayland::surface::~surface() = default;
 
-EGLSurface
-sge::opengl::egl::wayland::surface::get() const
-{
-	return
-		surface_.get();
-}
+EGLSurface sge::opengl::egl::wayland::surface::get() const { return surface_.get(); }

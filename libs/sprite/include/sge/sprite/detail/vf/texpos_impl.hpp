@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_VF_TEXPOS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_TEXPOS_IMPL_HPP_INCLUDED
 
@@ -13,42 +12,21 @@
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <fcppt/mpl/lambda.hpp>
 
-
 namespace sge::sprite::detail::vf
 {
 
-template<
-	typename Choices
->
+template <typename Choices>
 struct texpos_impl
 {
 private:
-	template<
-		typename Level
-	>
-	using
-	make_pos
-	=
-	sge::renderer::vf::texpos<
-		typename
-		Choices::type_choices::float_type,
-		2,
-		sge::renderer::vf::index<
-			Level::value
-		>
-	>;
+  template <typename Level>
+  using make_pos = sge::renderer::vf::
+      texpos<typename Choices::type_choices::float_type, 2, sge::renderer::vf::index<Level::value>>;
+
 public:
-	using
-	type
-	=
-	sge::sprite::detail::transform_texture_levels_static<
-		fcppt::mpl::lambda<
-			make_pos
-		>,
-		sge::sprite::detail::config::texture_levels<
-			Choices
-		>
-	>;
+  using type = sge::sprite::detail::transform_texture_levels_static<
+      fcppt::mpl::lambda<make_pos>,
+      sge::sprite::detail::config::texture_levels<Choices>>;
 };
 
 }

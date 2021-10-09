@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_BGR8_FWD_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_BGR8_FWD_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-
 
 namespace sge
 {
@@ -24,12 +22,7 @@ namespace color
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wshadow)
 
-using
-bgr8
-=
-sge::image::pixel::mizuiro_type<
-	sge::image::color::bgr8_format
->;
+using bgr8 = sge::image::pixel::mizuiro_type<sge::image::color::bgr8_format>;
 
 FCPPT_PP_POP_WARNING
 

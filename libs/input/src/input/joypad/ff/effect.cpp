@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/joypad/ff/effect.hpp>
 
+sge::input::joypad::ff::effect::effect() = default;
 
-sge::input::joypad::ff::effect::effect()
-= default;
-
-sge::input::joypad::ff::effect::~effect()
-= default;
+sge::input::joypad::ff::effect::~effect() = default;

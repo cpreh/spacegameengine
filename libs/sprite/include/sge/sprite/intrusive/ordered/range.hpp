@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/ordered/range_decl.hpp>
 #include <sge/sprite/intrusive/ordered/range_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/range_impl.hpp>
-
 
 #endif

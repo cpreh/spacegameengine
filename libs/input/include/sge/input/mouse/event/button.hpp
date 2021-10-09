@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_MOUSE_EVENT_BUTTON_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_EVENT_BUTTON_HPP_INCLUDED
 
@@ -17,47 +16,33 @@
 #include <sge/input/mouse/event/button_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::mouse::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL button
-:
-	public sge::input::mouse::event::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL button : public sge::input::mouse::event::base
 {
-	FCPPT_NONMOVABLE(
-		button
-	);
+  FCPPT_NONMOVABLE(button);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	button(
-		sge::input::mouse::shared_ptr,
-		sge::input::mouse::button const &,
-		sge::input::mouse::button_pressed
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  button(
+      sge::input::mouse::shared_ptr,
+      sge::input::mouse::button const &,
+      sge::input::mouse::button_pressed);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~button()
-	override;
+  SGE_INPUT_DETAIL_SYMBOL
+  ~button() override;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::mouse::button_code
-	button_code() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::mouse::button_code button_code() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::mouse::button const &
-	get() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::mouse::button const &get() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	bool
-	pressed() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL bool pressed() const;
+
 private:
-	sge::input::mouse::button const button_;
+  sge::input::mouse::button const button_;
 
-	sge::input::mouse::button_pressed const pressed_;
+  sge::input::mouse::button_pressed const pressed_;
 };
 
 }

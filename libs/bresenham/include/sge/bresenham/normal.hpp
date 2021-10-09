@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_BRESENHAM_NORMAL_HPP_INCLUDED
 #define SGE_BRESENHAM_NORMAL_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
-
 
 namespace sge::bresenham
 {
@@ -28,36 +26,13 @@ the algorithm stops.
 
 \return <code>true</code> iff every call to \a _callback returns <code>true</code>
 */
-template<
-	typename T,
-	typename S1,
-	typename S2,
-	typename Callback
->
-inline
-bool
-normal(
-	fcppt::math::vector::object<
-		T,
-		2,
-		S1
-	> const _start,
-	fcppt::math::vector::object<
-		T,
-		2,
-		S2
-	> const _end,
-	Callback const &_callback
-)
+template <typename T, typename S1, typename S2, typename Callback>
+inline bool normal(
+    fcppt::math::vector::object<T, 2, S1> const _start,
+    fcppt::math::vector::object<T, 2, S2> const _end,
+    Callback const &_callback)
 {
-	return
-		sge::bresenham::detail::impl<
-			false
-		>(
-			_start,
-			_end,
-			_callback
-		);
+  return sge::bresenham::detail::impl<false>(_start, _end, _callback);
 }
 
 }

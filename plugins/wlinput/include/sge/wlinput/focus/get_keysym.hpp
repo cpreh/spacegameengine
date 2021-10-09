@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_FOCUS_GET_KEYSYM_HPP_INCLUDED
 #define SGE_WLINPUT_FOCUS_GET_KEYSYM_HPP_INCLUDED
 
@@ -11,15 +10,11 @@
 #include <sge/wlinput/focus/xkb_keycode.hpp>
 #include <sge/wlinput/focus/xkb_keysym.hpp>
 
-
 namespace sge::wlinput::focus
 {
 
 sge::wlinput::focus::xkb_keysym
-get_keysym(
-	sge::wlinput::focus::state const &,
-	sge::wlinput::focus::xkb_keycode
-);
+get_keysym(sge::wlinput::focus::state const &, sge::wlinput::focus::xkb_keycode);
 
 }
 

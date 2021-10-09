@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR_HPP_INCLUDED
 
@@ -12,16 +11,8 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
-#define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(\
-	name\
-)\
-fcppt::mpl::map::element<\
-	name ## Info ,\
-	std::integral_constant<\
-		int,\
-		name \
-	>\
+#define SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(name) \
+  fcppt::mpl::map::element<name##Info, std::integral_constant<int, name>\
 >
 
 #endif

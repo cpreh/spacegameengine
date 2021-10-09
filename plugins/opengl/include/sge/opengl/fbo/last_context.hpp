@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_FBO_LAST_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_FBO_LAST_CONTEXT_HPP_INCLUDED
 
@@ -12,43 +11,30 @@
 #include <sge/opengl/fbo/id.hpp>
 #include <sge/opengl/fbo/last_context_fwd.hpp>
 
-
 namespace sge::opengl::fbo
 {
 
-class last_context
-:
-	public sge::opengl::context::base
+class last_context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		last_context
-	);
+  FCPPT_NONMOVABLE(last_context);
+
 public:
-	last_context();
+  last_context();
 
-	~last_context()
-	override;
+  ~last_context() override;
 
-	[[nodiscard]]
-	sge::opengl::fbo::id
-	last_buffer() const;
+  [[nodiscard]] sge::opengl::fbo::id last_buffer() const;
 
-	void
-	last_buffer(
-		sge::opengl::fbo::id
-	);
+  void last_buffer(sge::opengl::fbo::id);
 
-	using
-	parameter
-	=
-	void;
+  using parameter = void;
 
-	static sge::opengl::context::id const static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::opengl::fbo::id last_buffer_;
+  sge::opengl::fbo::id last_buffer_;
 };
 
 }
 
 #endif
-

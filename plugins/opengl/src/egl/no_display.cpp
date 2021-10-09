@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/egl/no_display.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -12,13 +11,10 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
-EGLDisplay
-sge::opengl::egl::no_display()
+EGLDisplay sge::opengl::egl::no_display()
 {
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
-	return
-		EGL_NO_DISPLAY;
-FCPPT_PP_POP_WARNING
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
+  return EGL_NO_DISPLAY;
+  FCPPT_PP_POP_WARNING
 }

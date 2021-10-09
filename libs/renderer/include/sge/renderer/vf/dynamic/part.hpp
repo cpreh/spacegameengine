@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DYNAMIC_PART_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_PART_HPP_INCLUDED
 
@@ -14,46 +13,33 @@
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 
-
 namespace sge::renderer::vf::dynamic
 {
 
 class part
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	part(
-		sge::renderer::vf::dynamic::element_list const &,
-		sge::renderer::vf::dynamic::offset_list const &
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  part(
+      sge::renderer::vf::dynamic::element_list const &,
+      sge::renderer::vf::dynamic::offset_list const &);
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	part(
-		sge::renderer::vf::dynamic::ordered_element_list &&,
-		sge::renderer::vf::dynamic::stride
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  part(sge::renderer::vf::dynamic::ordered_element_list &&, sge::renderer::vf::dynamic::stride);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::ordered_element_list const &
-	elements() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::vf::dynamic::ordered_element_list const &
+  elements() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::stride
-	stride() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::vf::dynamic::stride stride() const;
+
 private:
-	sge::renderer::vf::dynamic::ordered_element_list elements_;
+  sge::renderer::vf::dynamic::ordered_element_list elements_;
 
-	sge::renderer::vf::dynamic::stride stride_;
+  sge::renderer::vf::dynamic::stride stride_;
 };
 
 SGE_RENDERER_DETAIL_SYMBOL
-bool
-operator==(
-	sge::renderer::vf::dynamic::part const &,
-	sge::renderer::vf::dynamic::part const &
-);
+bool operator==(sge::renderer::vf::dynamic::part const &, sge::renderer::vf::dynamic::part const &);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_IS_DYNAMIC_FWD_HPP_INCLUDED
 #define SGE_CAMERA_IS_DYNAMIC_FWD_HPP_INCLUDED
 
@@ -16,4 +15,3 @@ class is_dynamic;
 }
 
 #endif
-

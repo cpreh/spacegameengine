@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_BVH_OBJECT_DECL_HPP_INCLUDED
 #define SGE_BVH_OBJECT_DECL_HPP_INCLUDED
 
@@ -13,49 +12,33 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::bvh
 {
 
-template<typename Traits>
+template <typename Traits>
 class object
 {
-FCPPT_NONMOVABLE(
-	object);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	using
-	traits
-	=
-	Traits;
+  using traits = Traits;
 
-	using
-	leaf_sequence
-	=
-	typename
-	traits::leaf_sequence;
+  using leaf_sequence = typename traits::leaf_sequence;
 
-	using
-	tree_representation
-	=
-	typename
-	traits::tree_representation;
+  using tree_representation = typename traits::tree_representation;
 
-	object();
+  object();
 
-	void
-	insert(
-		leaf_sequence const &
-	);
+  void insert(leaf_sequence const &);
 
-	[[nodiscard]]
-	tree_representation const &
-	representation() const;
+  [[nodiscard]] tree_representation const &representation() const;
 
-	~object();
+  ~object();
+
 private:
-	leaf_sequence leaves_;
+  leaf_sequence leaves_;
 
-	tree_representation representation_;
+  tree_representation representation_;
 };
 
 }

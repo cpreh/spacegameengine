@@ -3,20 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GET_DEVICE_CAPS_HPP_INCLUDED
 #define SGE_OPENGL_GET_DEVICE_CAPS_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/caps/device.hpp>
 
-
 namespace sge::opengl
 {
 
 sge::renderer::caps::device
-get_device_caps(
-	sge::opengl::context::object & // NOLINT(google-runtime-references)
+get_device_caps(sge::opengl::context::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
 }

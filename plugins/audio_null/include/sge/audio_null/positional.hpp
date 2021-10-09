@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_NULL_POSITIONAL_HPP_INCLUDED
 #define SGE_AUDIO_NULL_POSITIONAL_HPP_INCLUDED
 
@@ -15,111 +14,50 @@
 #include <sge/audio/sound/repeat_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::audio_null
 {
 
-class positional
-:
-	public sge::audio::sound::positional
+class positional : public sge::audio::sound::positional
 {
-	FCPPT_NONMOVABLE(
-		positional
-	);
+  FCPPT_NONMOVABLE(positional);
+
 public:
-	positional();
+  positional();
 
-	~positional()
-	override;
+  ~positional() override;
+
 private:
-	void
-	play(
-		sge::audio::sound::repeat
-	)
-	override;
+  void play(sge::audio::sound::repeat) override;
 
-	void
-	toggle_pause()
-	override;
+  void toggle_pause() override;
 
-	[[nodiscard]]
-	sge::audio::sound::play_status
-	status() const
-	override;
+  [[nodiscard]] sge::audio::sound::play_status status() const override;
 
-	void
-	stop()
-	override;
+  void stop() override;
 
-	void
-	update()
-	override;
+  void update() override;
 
-	void
-	position(
-		sge::audio::vector const &
-	)
-	override;
+  void position(sge::audio::vector const &) override;
 
-	void
-	linear_velocity(
-		sge::audio::vector const &
-	)
-	override;
+  void linear_velocity(sge::audio::vector const &) override;
 
-	void
-	gain(
-		sge::audio::scalar
-	)
-	override;
+  void gain(sge::audio::scalar) override;
 
-	void
-	pitch(
-		sge::audio::scalar
-	)
-	override;
+  void pitch(sge::audio::scalar) override;
 
-	void
-	rolloff_factor(
-		sge::audio::scalar
-	)
-	override;
+  void rolloff_factor(sge::audio::scalar) override;
 
-	void
-	reference_distance(
-		sge::audio::scalar
-	)
-	override;
+  void reference_distance(sge::audio::scalar) override;
 
-	void
-	max_distance(
-		sge::audio::scalar
-	)
-	override;
+  void max_distance(sge::audio::scalar) override;
 
-	void
-	direction(
-		sge::audio::sound::optional_direction const &
-	)
-	override;
+  void direction(sge::audio::sound::optional_direction const &) override;
 
-	void
-	inner_cone_angle(
-		sge::audio::scalar
-	)
-	override;
+  void inner_cone_angle(sge::audio::scalar) override;
 
-	void
-	outer_cone_angle(
-		sge::audio::scalar
-	)
-	override;
+  void outer_cone_angle(sge::audio::scalar) override;
 
-	void
-	outer_cone_gain(
-		sge::audio::scalar
-	)
-	override;
+  void outer_cone_gain(sge::audio::scalar) override;
 };
 
 }

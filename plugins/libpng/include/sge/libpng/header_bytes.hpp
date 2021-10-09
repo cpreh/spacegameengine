@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LIBPNG_HEADER_BYTES_HPP_INCLUDED
 #define SGE_LIBPNG_HEADER_BYTES_HPP_INCLUDED
 
@@ -12,17 +11,13 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::libpng
 {
 
-using
-header_bytes
-=
-std::integral_constant<
-	std::size_t,
-	8U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
->;
+using header_bytes = std::integral_constant<
+    std::size_t,
+    8U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    >;
 
 }
 

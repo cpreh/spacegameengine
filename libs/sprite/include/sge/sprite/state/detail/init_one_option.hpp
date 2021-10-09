@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 #define SGE_SPRITE_STATE_DETAIL_INIT_ONE_OPTION_HPP_INCLUDED
 
@@ -13,54 +12,27 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/element.hpp>
 
-
 namespace sge::sprite::state::detail
 {
 
-template<
-	typename StateChoices
->
+template <typename StateChoices>
 struct init_one_option
 {
-	template<
-		typename Tag
-	>
-	bool
-	operator()(
-		fcppt::record::element<
-			Tag,
-			bool
-		>
-	) const
-	{
-		return
-			true;
-	}
+  template <typename Tag>
+  bool operator()(fcppt::record::element<Tag, bool>) const
+  {
+    return true;
+  }
 
-	template<
-		typename Type,
-		typename Tag
-	>
-	fcppt::optional::object<
-		Type
-	>
-	operator()(
-		fcppt::record::element<
-			Tag,
-			fcppt::optional::object<
-				Type
-			>
-		>
-	) const
-	{
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_DISABLE_GNU_GCC_WARNING(-Wmaybe-uninitialized)
-		return
-			fcppt::optional::object<
-				Type
-			>();
-FCPPT_PP_POP_WARNING
-	}
+  template <typename Type, typename Tag>
+  fcppt::optional::object<Type>
+  operator()(fcppt::record::element<Tag, fcppt::optional::object<Type>>) const
+  {
+    FCPPT_PP_PUSH_WARNING
+    FCPPT_PP_DISABLE_GNU_GCC_WARNING(-Wmaybe-uninitialized)
+    return fcppt::optional::object<Type>();
+    FCPPT_PP_POP_WARNING
+  }
 };
 
 }

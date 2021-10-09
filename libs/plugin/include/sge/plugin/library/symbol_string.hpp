@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_LIBRARY_SYMBOL_STRING_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_SYMBOL_STRING_HPP_INCLUDED
 
@@ -11,14 +10,10 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::plugin::library
 {
 
-using
-symbol_string
-=
-std::string;
+using symbol_string = std::string;
 
 }
 

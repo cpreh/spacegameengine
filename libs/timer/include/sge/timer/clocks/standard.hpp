@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TIMER_CLOCKS_STANDARD_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_STANDARD_HPP_INCLUDED
 
@@ -12,18 +11,13 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::timer::clocks
 {
 
-using
-standard
-=
-std::conditional_t<
-	std::chrono::high_resolution_clock::is_steady,
-	std::chrono::high_resolution_clock,
-	std::chrono::steady_clock
->;
+using standard = std::conditional_t<
+    std::chrono::high_resolution_clock::is_steady,
+    std::chrono::high_resolution_clock,
+    std::chrono::steady_clock>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_SYSTEM_HPP_INCLUDED
 #define SGE_RENDERER_SYSTEM_HPP_INCLUDED
 
@@ -16,7 +15,6 @@
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
-
 
 namespace sge::renderer
 {
@@ -33,36 +31,30 @@ renderable windows, it also creates devices.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
+  FCPPT_NONMOVABLE(system);
+
 protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	system();
+  SGE_RENDERER_DETAIL_SYMBOL
+  system();
+
 public:
-	/**
+  /**
 	\brief Creates a core renderer
 
 	Creates a core renderer with properties from \a parameters
 	*/
-	virtual
-	sge::renderer::device::core_unique_ptr
-	create_core_renderer(
-		sge::renderer::device::parameters const &parameters
-	) = 0;
+  virtual sge::renderer::device::core_unique_ptr
+  create_core_renderer(sge::renderer::device::parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Creates an ffp renderer
 
 	Creates an ffp renderer with properties from \a parameters
 	*/
-	virtual
-	sge::renderer::device::ffp_unique_ptr
-	create_ffp_renderer(
-		sge::renderer::device::parameters const &parameters
-	) = 0;
+  virtual sge::renderer::device::ffp_unique_ptr
+  create_ffp_renderer(sge::renderer::device::parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Creates a renderable visual
 
 	Creates a renderable visual that satisfies the requirements of \a
@@ -71,15 +63,11 @@ public:
 
 	\throw \link sge::renderer::exception\endlink if anything goes wrong
 	*/
-	virtual
-	awl::visual::object_unique_ptr
-	create_visual(
-		sge::renderer::pixel_format::object const &pixel_format
-	) = 0;
+  virtual awl::visual::object_unique_ptr
+  create_visual(sge::renderer::pixel_format::object const &pixel_format) = 0;
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	virtual
-	~system();
+  SGE_RENDERER_DETAIL_SYMBOL
+  virtual ~system();
 };
 
 }

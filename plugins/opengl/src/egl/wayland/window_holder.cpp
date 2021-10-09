@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/egl/wayland/window_holder.hpp>
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/wayland/window/object.hpp>
@@ -18,59 +17,23 @@
 #include <wayland-egl-core.h>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::opengl::egl::wayland::window_holder::window_holder(
-	awl::window::object_ref const _window
-)
-:
-	window_{
-		::wl_egl_window_create(
-			fcppt::optional::to_exception(
-				fcppt::cast::dynamic<
-					awl::backends::wayland::window::object const
-				>(
-					_window.get()
-				),
-				[]{
-					return
-						sge::renderer::exception{
-							FCPPT_TEXT("AWL window is not a wayland window.")
-						};
-				}
-			)->surface(),
-			fcppt::cast::to_signed(
-				_window.get().size().w()
-			),
-			fcppt::cast::to_signed(
-				_window.get().size().h()
-			)
-		)
-	}
+sge::opengl::egl::wayland::window_holder::window_holder(awl::window::object_ref const _window)
+    : window_{::wl_egl_window_create(
+          fcppt::optional::to_exception(
+              fcppt::cast::dynamic<awl::backends::wayland::window::object const>(_window.get()),
+              [] {
+                return sge::renderer::exception{FCPPT_TEXT("AWL window is not a wayland window.")};
+              })
+              ->surface(),
+          fcppt::cast::to_signed(_window.get().size().w()),
+          fcppt::cast::to_signed(_window.get().size().h()))}
 {
-	if(
-		window_
-		==
-		nullptr
-	)
-	{
-		throw
-			sge::renderer::exception{
-				FCPPT_TEXT("Cannot create wayland egl window")
-			};
-	}
+  if (window_ == nullptr)
+  {
+    throw sge::renderer::exception{FCPPT_TEXT("Cannot create wayland egl window")};
+  }
 }
 
+sge::opengl::egl::wayland::window_holder::~window_holder() { ::wl_egl_window_destroy(window_); }
 
-sge::opengl::egl::wayland::window_holder::~window_holder()
-{
-	::wl_egl_window_destroy(
-		window_
-	);
-}
-
-wl_egl_window *
-sge::opengl::egl::wayland::window_holder::get() const
-{
-	return
-		window_;
-}
+wl_egl_window *sge::opengl::egl::wayland::window_holder::get() const { return window_; }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_CHOICES_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_CHOICES_FWD_HPP_INCLUDED
 
@@ -12,12 +11,11 @@
 namespace sge::sprite::config
 {
 
-template<
-	typename TypeChoices,
-	typename PosChoice,
-	typename SizeChoice,
-	fcppt::mpl::list::object_concept OptionalElements
->
+template <
+    typename TypeChoices,
+    typename PosChoice,
+    typename SizeChoice,
+    fcppt::mpl::list::object_concept OptionalElements>
 struct choices;
 
 }

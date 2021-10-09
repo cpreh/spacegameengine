@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_FF_CONVERT_TYPE_PARAMETERS_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_FF_CONVERT_TYPE_PARAMETERS_HPP_INCLUDED
 
 #include <sge/dinput/joypad/ff/type_parameters.hpp>
 #include <sge/input/joypad/ff/variant_fwd.hpp>
-
 
 namespace sge
 {
@@ -21,9 +19,7 @@ namespace ff
 {
 
 sge::dinput::joypad::ff::type_parameters
-convert_type_parameters(
-	sge::input::joypad::ff::variant const &
-);
+convert_type_parameters(sge::input::joypad::ff::variant const &);
 
 }
 }

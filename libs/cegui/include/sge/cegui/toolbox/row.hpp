@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_TOOLBOX_ROW_HPP_INCLUDED
 #define SGE_CEGUI_TOOLBOX_ROW_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cegui::toolbox
 {
 
-using
-row
-=
-std::vector<
-	CEGUI::String
->;
+using row = std::vector<CEGUI::String>;
 
 }
 

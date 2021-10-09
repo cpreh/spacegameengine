@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
 
 #include <sge/renderer/state/core/depth_stencil/const_optional_object_ref_fwd.hpp>
 #include <fcppt/optional/reference.hpp>
-
 
 #endif

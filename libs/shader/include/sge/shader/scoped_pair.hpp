@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_SCOPED_PAIR_HPP_INCLUDED
 #define SGE_SHADER_SCOPED_PAIR_HPP_INCLUDED
 
@@ -15,37 +14,28 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::shader
 {
 
 class scoped_pair
 {
-	FCPPT_NONMOVABLE(
-		scoped_pair
-	);
+  FCPPT_NONMOVABLE(scoped_pair);
+
 public:
-	using
-	pair_ref
-	=
-	fcppt::reference<
-		sge::shader::pair
-	>;
+  using pair_ref = fcppt::reference<sge::shader::pair>;
 
-	SGE_SHADER_DETAIL_SYMBOL
-	scoped_pair(
-		sge::renderer::context::core_ref,
-		pair_ref
-	);
+  SGE_SHADER_DETAIL_SYMBOL
+  scoped_pair(sge::renderer::context::core_ref, pair_ref);
 
-	SGE_SHADER_DETAIL_SYMBOL
-	~scoped_pair();
+  SGE_SHADER_DETAIL_SYMBOL
+  ~scoped_pair();
+
 private:
-	pair_ref const parent_;
+  pair_ref const parent_;
 
-	sge::renderer::cg::scoped_program scoped_vertex_program_;
+  sge::renderer::cg::scoped_program scoped_vertex_program_;
 
-	sge::renderer::cg::scoped_program scoped_pixel_program_;
+  sge::renderer::cg::scoped_program scoped_pixel_program_;
 };
 
 }

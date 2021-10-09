@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/get_or_create_entry.hpp>
@@ -17,26 +16,16 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
-void
-sge::parse::ini::set_or_create(
-	fcppt::reference<
-		sge::parse::ini::start
-	> const _start,
-	sge::parse::ini::section_name const &_section_name,
-	sge::parse::ini::entry_name const &_entry_name,
-	sge::parse::ini::value const &_value
-)
+void sge::parse::ini::set_or_create(
+    fcppt::reference<sge::parse::ini::start> const _start,
+    sge::parse::ini::section_name const &_section_name,
+    sge::parse::ini::entry_name const &_entry_name,
+    sge::parse::ini::value const &_value)
 {
-	sge::parse::ini::get_or_create_entry(
-		sge::parse::ini::get_or_create_section(
-			_start,
-			_section_name
-		),
-		_entry_name,
-		sge::parse::ini::value(
-			std::string{}
-		)
-	).get().value =
-		_value.get();
+  sge::parse::ini::get_or_create_entry(
+      sge::parse::ini::get_or_create_section(_start, _section_name),
+      _entry_name,
+      sge::parse::ini::value(std::string{}))
+      .get()
+      .value = _value.get();
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_EVENT_ABSOLUTE_AXIS_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_EVENT_ABSOLUTE_AXIS_HPP_INCLUDED
 
@@ -16,42 +15,31 @@
 #include <sge/input/joypad/event/base.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::joypad::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL absolute_axis
-:
-	public sge::input::joypad::event::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL absolute_axis : public sge::input::joypad::event::base
 {
-	FCPPT_NONMOVABLE(
-		absolute_axis
-	);
+  FCPPT_NONMOVABLE(absolute_axis);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	absolute_axis(
-		sge::input::joypad::shared_ptr,
-		sge::input::joypad::absolute_axis const &,
-		sge::input::joypad::axis_value
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  absolute_axis(
+      sge::input::joypad::shared_ptr,
+      sge::input::joypad::absolute_axis const &,
+      sge::input::joypad::axis_value);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~absolute_axis()
-	override;
+  SGE_INPUT_DETAIL_SYMBOL
+  ~absolute_axis() override;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::absolute_axis const &
-	axis() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::absolute_axis const &axis() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::axis_value
-	value() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::axis_value value() const;
+
 private:
-	sge::input::joypad::absolute_axis const axis_;
+  sge::input::joypad::absolute_axis const axis_;
 
-	sge::input::joypad::axis_value const axis_value_;
+  sge::input::joypad::axis_value const axis_value_;
 };
 
 }

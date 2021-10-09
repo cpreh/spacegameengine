@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_CONST_OBJECT_REF_VECTOR_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_CONST_OBJECT_REF_VECTOR_HPP_INCLUDED
 
@@ -12,16 +11,11 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::state::ffp::lighting::light
 {
 
-using
-const_object_ref_vector
-=
-std::vector<
-	sge::renderer::state::ffp::lighting::light::const_object_ref
->;
+using const_object_ref_vector =
+    std::vector<sge::renderer::state::ffp::lighting::light::const_object_ref>;
 
 }
 

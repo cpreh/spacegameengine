@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_BUFFER_VOLUME_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BUFFER_VOLUME_TYPES_HPP_INCLUDED
 
@@ -13,42 +12,22 @@
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/math/size_type.hpp>
 
-
 namespace sge::opengl::texture
 {
 
 struct buffer_volume_types
 {
-	[[nodiscard]]
-	static
-	sge::renderer::size_type
-	min_size();
+  [[nodiscard]] static sge::renderer::size_type min_size();
 
-	static constexpr fcppt::math::size_type const num_dims = 3;
+  static constexpr fcppt::math::size_type const num_dims = 3;
 
-	using
-	init_function_type
-	=
-	sge::opengl::texture::init_function<
-		num_dims
-	>;
+  using init_function_type = sge::opengl::texture::init_function<num_dims>;
 
-	[[nodiscard]]
-	static
-	init_function_type
-	init_function();
+  [[nodiscard]] static init_function_type init_function();
 
-	using
-	sub_function_type
-	=
-	sge::opengl::texture::sub_function<
-		num_dims
-	>;
+  using sub_function_type = sge::opengl::texture::sub_function<num_dims>;
 
-	[[nodiscard]]
-	static
-	sub_function_type
-	sub_function();
+  [[nodiscard]] static sub_function_type sub_function();
 };
 
 }

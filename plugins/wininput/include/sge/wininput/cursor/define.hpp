@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WININPUT_CURSOR_DEFINE_HPP_INCLUDED
 #define SGE_WININPUT_CURSOR_DEFINE_HPP_INCLUDED
 
@@ -18,7 +17,6 @@
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge
 {
 namespace wininput
@@ -28,36 +26,25 @@ namespace cursor
 
 class define
 {
-	FCPPT_NONCOPYABLE(
-		define
-	);
+  FCPPT_NONCOPYABLE(define);
+
 public:
-	explicit
-	define(
-		sge::window::object &
-	);
+  explicit define(sge::window::object &);
 
-	~define();
+  ~define();
+
 private:
-	awl::event::container
-	on_event(
-		awl::window::event::base const &
-	);
+  awl::event::container on_event(awl::window::event::base const &);
 
-	void
-	on_cursor();
+  void on_cursor();
 
-	typedef
-	fcppt::optional::object<
-		HCURSOR
-	>
-	optional_hcursor;
+  typedef fcppt::optional::object<HCURSOR> optional_hcursor;
 
-	optional_hcursor previous_cursor_;
+  optional_hcursor previous_cursor_;
 
-	sge::wininput::cursor::pixmap const pixmap_;
+  sge::wininput::cursor::pixmap const pixmap_;
 
-	fcppt::signal::auto_connection const connection_;
+  fcppt::signal::auto_connection const connection_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_BACKGROUND_COLORED_HPP_INCLUDED
 #define SGE_GUI_BACKGROUND_COLORED_HPP_INCLUDED
 
@@ -15,35 +14,25 @@
 #include <sge/rucksack/rect_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::background
 {
 
-class colored
-:
-	public sge::gui::background::base
+class colored : public sge::gui::background::base
 {
-	FCPPT_NONMOVABLE(
-		colored
-	);
-public:
-	SGE_GUI_DETAIL_SYMBOL
-	explicit
-	colored(
-		sge::gui::main_area::reference
-	);
+  FCPPT_NONMOVABLE(colored);
 
-	SGE_GUI_DETAIL_SYMBOL
-	~colored()
-	override;
+public:
+  SGE_GUI_DETAIL_SYMBOL
+  explicit colored(sge::gui::main_area::reference);
+
+  SGE_GUI_DETAIL_SYMBOL
+  ~colored() override;
+
 private:
-	void
-	on_draw(
-		sge::gui::renderer::base &, // NOLINT(google-runtime-references)
-		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-		sge::rucksack::rect const &
-	)
-	override;
+  void on_draw(
+      sge::gui::renderer::base &, // NOLINT(google-runtime-references)
+      sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+      sge::rucksack::rect const &) override;
 };
 
 }

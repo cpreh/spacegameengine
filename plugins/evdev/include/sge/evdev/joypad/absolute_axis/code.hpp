@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_CODE_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_CODE_HPP_INCLUDED
 
@@ -12,13 +11,12 @@
 #include <linux/input-event-codes.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::joypad::absolute_axis
 {
 
 enum class code
 {
-	fcppt_maximum = ABS_MAX
+  fcppt_maximum = ABS_MAX
 };
 
 }

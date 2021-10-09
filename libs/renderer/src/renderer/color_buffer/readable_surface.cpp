@@ -3,15 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 #include <sge/renderer/impl/buffer/instantiate_readable.hpp>
 
-
-SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_READABLE(
-	sge::renderer::color_buffer::tag_from_dimension<
-		2U
-	>
-);
+SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_READABLE(sge::renderer::color_buffer::tag_from_dimension<2U>);

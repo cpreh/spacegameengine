@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/device/event_value.hpp>
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/joypad/ff/id.hpp>
@@ -19,49 +18,19 @@
 #include <sys/time.h>
 #include <fcppt/config/external_end.hpp>
 
-
-void
-sge::evdev::joypad::ff::write_event(
-	sge::evdev::device::fd &_fd,
-	sge::evdev::joypad::ff::id const _id,
-	sge::evdev::device::event_value const _value
-)
+void sge::evdev::joypad::ff::write_event(
+    sge::evdev::device::fd &_fd,
+    sge::evdev::joypad::ff::id const _id,
+    sge::evdev::device::event_value const _value)
 {
-	input_event const event{
-		timeval{
-			fcppt::literal<
-				time_t
-			>(
-				0
-			),
-			fcppt::literal<
-				suseconds_t
-			>(
-				0
-			)
-		},
-		EV_FF,
-		fcppt::cast::to_unsigned(
-			_id.get()
-		),
-		_value
-	};
+  input_event const event{
+      timeval{fcppt::literal<time_t>(0), fcppt::literal<suseconds_t>(0)},
+      EV_FF,
+      fcppt::cast::to_unsigned(_id.get()),
+      _value};
 
-	if(
-		::write(
-			_fd.get().get(),
-			&event,
-			sizeof(
-				event
-			)
-		)
-		==
-		-1
-	)
-	{
-		throw
-			sge::input::exception{
-				FCPPT_TEXT("Writing a FF event failed")
-			};
-	}
+  if (::write(_fd.get().get(), &event, sizeof(event)) == -1)
+  {
+    throw sge::input::exception{FCPPT_TEXT("Writing a FF event failed")};
+  }
 }

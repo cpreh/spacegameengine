@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_TO_STD_WSTRING_HPP_INCLUDED
 #define SGE_FONT_TO_STD_WSTRING_HPP_INCLUDED
 
@@ -13,15 +12,11 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::font
 {
 
 SGE_FONT_DETAIL_SYMBOL
-std::wstring
-to_std_wstring(
-	sge::font::string const &
-);
+std::wstring to_std_wstring(sge::font::string const &);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_DETAIL_MAKE_LIST_ELEMENT_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_MAKE_LIST_ELEMENT_HPP_INCLUDED
 
@@ -20,59 +19,25 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::systems::detail
 {
 
-template<
-	typename Choices,
-	typename Type
->
-inline
-sge::systems::detail::any
-make_list_element(
-	Type &&_value
-)
+template <typename Choices, typename Type>
+inline sge::systems::detail::any make_list_element(Type &&_value)
 {
-	// Check that the given parameter is actually part of the
-	// static subsystems
-	static_assert(
-		std::is_same_v<
-			std::remove_cvref_t<
-				Type
-			>,
-			sge::systems::config
-		>
-		||
-		fcppt::mpl::list::any_of<
-			Choices,
-			fcppt::mpl::bind<
-				fcppt::mpl::lambda<
-					std::is_same
-				>,
-				fcppt::mpl::constant<
-					std::remove_cvref_t<
-						Type
-					>
-				>,
-				fcppt::mpl::lambda<
-					sge::systems::detail::extract_parameter_type
-				>
-			>
-		>::value,
-		"Parameter given to sge::systems::list is not part of the system choices"
-	);
+  // Check that the given parameter is actually part of the
+  // static subsystems
+  static_assert(
+      std::is_same_v<std::remove_cvref_t<Type>, sge::systems::config> ||
+          fcppt::mpl::list::any_of<
+              Choices,
+              fcppt::mpl::bind<
+                  fcppt::mpl::lambda<std::is_same>,
+                  fcppt::mpl::constant<std::remove_cvref_t<Type>>,
+                  fcppt::mpl::lambda<sge::systems::detail::extract_parameter_type>>>::value,
+      "Parameter given to sge::systems::list is not part of the system choices");
 
-	return
-		sge::systems::detail::make_list_element_impl<
-			Choices
-		>(
-			std::forward<
-				Type
-			>(
-				_value
-			)
-		);
+  return sge::systems::detail::make_list_element_impl<Choices>(std::forward<Type>(_value));
 }
 
 }

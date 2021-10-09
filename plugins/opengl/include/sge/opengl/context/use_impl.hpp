@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_CONTEXT_USE_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_USE_IMPL_HPP_INCLUDED
 
@@ -15,48 +14,21 @@
 #include <fcppt/cast/static_downcast.hpp>
 #include <fcppt/optional/from.hpp>
 
-
 namespace sge::opengl::context
 {
 
-template<
-	typename Type,
-	typename Parameter
->
-[[nodiscard]]
-Type &
-use_impl(
-	sge::opengl::context::object_ref const _object,
-	Parameter &&_parameter
-)
+template <typename Type, typename Parameter>
+[[nodiscard]] Type &use_impl(sge::opengl::context::object_ref const _object, Parameter &&_parameter)
 {
-	return
-		fcppt::cast::static_downcast<
-			Type &
-		>(
-			fcppt::optional::from(
-				_object.get().get(
-					Type::static_id
-				),
-				[
-					&_object,
-					&_parameter
-				]()
-				{
-					return
-						fcppt::make_ref(
-							_object.get().insert(
-								Type::static_id,
-								sge::opengl::context::make_object<
-									Type
-								>(
-									_parameter
-								)
-							)
-						);
-				}
-			).get()
-		);
+  return fcppt::cast::static_downcast<Type &>(
+      fcppt::optional::from(
+          _object.get().get(Type::static_id),
+          [&_object, &_parameter]()
+          {
+            return fcppt::make_ref(_object.get().insert(
+                Type::static_id, sge::opengl::context::make_object<Type>(_parameter)));
+          })
+          .get());
 }
 
 }

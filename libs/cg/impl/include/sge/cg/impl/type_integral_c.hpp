@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_IMPL_TYPE_INTEGRAL_C_HPP_INCLUDED
 #define SGE_CG_IMPL_TYPE_INTEGRAL_C_HPP_INCLUDED
 
@@ -12,20 +11,11 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cg::impl
 {
 
-template<
-	CGtype Type
->
-using
-type_integral_c
-=
-std::integral_constant<
-	CGtype,
-	Type
->;
+template <CGtype Type>
+using type_integral_c = std::integral_constant<CGtype, Type>;
 
 }
 

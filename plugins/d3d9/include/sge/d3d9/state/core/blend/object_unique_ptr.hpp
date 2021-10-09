@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_CORE_BLEND_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_D3D9_STATE_CORE_BLEND_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/d3d9/state/core/blend/object_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-
 
 namespace sge
 {
@@ -22,11 +20,7 @@ namespace core
 namespace blend
 {
 
-typedef
-fcppt::unique_ptr<
-	sge::d3d9::state::core::blend::object
->
-object_unique_ptr;
+typedef fcppt::unique_ptr<sge::d3d9::state::core::blend::object> object_unique_ptr;
 
 }
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
 
@@ -19,35 +18,21 @@ namespace sge::opengl::xrandr
 class version
 {
 public:
-	version(
-		int major,
-		int minor
-	);
+  version(int major, int minor);
 
-	[[nodiscard]]
-	int
-	major() const;
+  [[nodiscard]] int major() const;
 
-	[[nodiscard]]
-	int
-	minor() const;
+  [[nodiscard]] int minor() const;
+
 private:
-	int major_;
+  int major_;
 
-	int minor_;
+  int minor_;
 };
 
-bool
-operator<(
-	sge::opengl::xrandr::version const &,
-	sge::opengl::xrandr::version const &
-);
+bool operator<(sge::opengl::xrandr::version const &, sge::opengl::xrandr::version const &);
 
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &,
-	sge::opengl::xrandr::version const &
-);
+fcppt::io::ostream &operator<<(fcppt::io::ostream &, sge::opengl::xrandr::version const &);
 
 }
 

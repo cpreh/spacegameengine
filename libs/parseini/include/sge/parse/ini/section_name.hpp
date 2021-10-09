@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_INI_SECTION_NAME_HPP_INCLUDED
 #define SGE_PARSE_INI_SECTION_NAME_HPP_INCLUDED
 
@@ -13,14 +12,10 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::ini
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	std::string,
-	section_name
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(std::string, section_name);
 
 }
 

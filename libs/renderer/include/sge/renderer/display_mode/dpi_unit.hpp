@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_DISPLAY_MODE_DPI_UNIT_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_DPI_UNIT_HPP_INCLUDED
-
 
 namespace sge::renderer::display_mode
 {
 
-using
-dpi_unit
-=
-double;
+using dpi_unit = double;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_OCCLUSION_QUERY_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_OCCLUSION_QUERY_CONTEXT_HPP_INCLUDED
 
@@ -14,38 +13,26 @@
 #include <sge/opengl/occlusion_query/optional_config.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::occlusion_query
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	using
-	parameter
-	=
-	sge::opengl::info::context const &;
+  using parameter = sge::opengl::info::context const &;
 
-	explicit
-	context(
-		sge::opengl::info::context const &
-	);
+  explicit context(sge::opengl::info::context const &);
 
-	~context()
-	override;
+  ~context() override;
 
-	[[nodiscard]]
-	sge::opengl::occlusion_query::optional_config const &
-	config() const;
+  [[nodiscard]] sge::opengl::occlusion_query::optional_config const &config() const;
 
-	static sge::opengl::context::id const static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::opengl::occlusion_query::optional_config const config_;
+  sge::opengl::occlusion_query::optional_config const config_;
 };
 
 }

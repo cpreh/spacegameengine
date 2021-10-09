@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_ELEMENT_VECTOR_HPP_INCLUDED
 #define SGE_PARSE_JSON_ELEMENT_VECTOR_HPP_INCLUDED
 
@@ -13,18 +12,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::json
 {
 
-using
-element_vector
-=
-std::vector<
-	fcppt::recursive<
-		sge::parse::json::value
-	>
->;
+using element_vector = std::vector<fcppt::recursive<sge::parse::json::value>>;
 
 }
 

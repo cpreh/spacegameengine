@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BUFFER_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_CONTEXT_HPP_INCLUDED
 
@@ -13,38 +12,26 @@
 #include <sge/opengl/info/context_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::buffer
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	using
-	parameter
-	=
-	sge::opengl::info::context const &;
+  using parameter = sge::opengl::info::context const &;
 
-	explicit
-	context(
-		parameter
-	);
+  explicit context(parameter);
 
-	~context()
-	override;
+  ~context() override;
 
-	[[nodiscard]]
-	sge::opengl::buffer::optional_hardware_config const &
-	hardware_config() const;
+  [[nodiscard]] sge::opengl::buffer::optional_hardware_config const &hardware_config() const;
 
-	static sge::opengl::context::id const static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::opengl::buffer::optional_hardware_config const hardware_config_;
+  sge::opengl::buffer::optional_hardware_config const hardware_config_;
 };
 
 }

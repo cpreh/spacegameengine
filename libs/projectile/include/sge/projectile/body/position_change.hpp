@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_BODY_POSITION_CHANGE_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_POSITION_CHANGE_HPP_INCLUDED
 
 #include <sge/projectile/body/position_change_fn.hpp>
 #include <fcppt/function_impl.hpp>
 
-
 namespace sge::projectile::body
 {
 
-using
-position_change
-=
-fcppt::function<
-	sge::projectile::body::position_change_fn
->;
+using position_change = fcppt::function<sge::projectile::body::position_change_fn>;
 
 }
 

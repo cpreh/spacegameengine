@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/device/fd_fwd.hpp>
 #include <sge/evdev/device/make_info_container.hpp>
 #include <sge/evdev/device/read_bits.hpp>
@@ -17,24 +16,13 @@
 #include <linux/input-event-codes.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::evdev::joypad::button::info_container
-sge::evdev::joypad::button::make_info_container(
-	sge::evdev::device::fd &_fd
-)
+sge::evdev::joypad::button::make_info_container(sge::evdev::device::fd &_fd)
 {
-	return
-		sge::evdev::device::make_info_container<
-			sge::input::joypad::button_id,
-			sge::input::joypad::button_info,
-			sge::evdev::joypad::button::code
-		>(
-			sge::evdev::device::read_bits<
-				sge::evdev::joypad::button::code
-			>(
-				_fd,
-				EV_KEY
-			),
-			&sge::evdev::joypad::button::make_info
-		);
+  return sge::evdev::device::make_info_container<
+      sge::input::joypad::button_id,
+      sge::input::joypad::button_info,
+      sge::evdev::joypad::button::code>(
+      sge::evdev::device::read_bits<sge::evdev::joypad::button::code>(_fd, EV_KEY),
+      &sge::evdev::joypad::button::make_info);
 }

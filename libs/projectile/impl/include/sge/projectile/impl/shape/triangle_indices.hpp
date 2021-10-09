@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_IMPL_SHAPE_TRIANGLE_INDICES_HPP_INCLUDED
 #define SGE_PROJECTILE_IMPL_SHAPE_TRIANGLE_INDICES_HPP_INCLUDED
 
@@ -11,15 +10,12 @@
 #include <sge/projectile/shape/detail/index_container.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-
 namespace sge::projectile::impl::shape
 {
 
-sge::projectile::shape::detail::index_container
-triangle_indices(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	sge::projectile::shape::triangle_sequence const &
-);
+sge::projectile::shape::detail::index_container triangle_indices(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    sge::projectile::shape::triangle_sequence const &);
 
 }
 

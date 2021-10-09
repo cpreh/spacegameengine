@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/state/index_actor_vector.hpp>
 #include <sge/opengl/state/ffp/lighting/light/attenuation.hpp>
 #include <sge/opengl/state/ffp/lighting/light/cutoff_angle.hpp>
@@ -13,27 +12,16 @@
 #include <sge/renderer/state/ffp/lighting/light/point.hpp>
 #include <fcppt/container/join.hpp>
 
-
-sge::opengl::state::index_actor_vector
-sge::opengl::state::ffp::lighting::light::point(
-	sge::renderer::state::ffp::lighting::light::point const &_point
-)
+sge::opengl::state::index_actor_vector sge::opengl::state::ffp::lighting::light::point(
+    sge::renderer::state::ffp::lighting::light::point const &_point)
 {
-	return
-		fcppt::container::join(
-			sge::opengl::state::index_actor_vector{
-				sge::opengl::state::ffp::lighting::light::position(
-					_point.position()
-				),
-				// special value to make this a point light
-				sge::opengl::state::ffp::lighting::light::cutoff_angle(
-					sge::renderer::state::ffp::lighting::light::cutoff_angle(
-						180.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-					)
-				)
-			},
-			sge::opengl::state::ffp::lighting::light::attenuation(
-				_point.attenuation()
-			)
-		);
+  return fcppt::container::join(
+      sge::opengl::state::index_actor_vector{
+          sge::opengl::state::ffp::lighting::light::position(_point.position()),
+          // special value to make this a point light
+          sge::opengl::state::ffp::lighting::light::cutoff_angle(
+              sge::renderer::state::ffp::lighting::light::cutoff_angle(
+                  180.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                  ))},
+      sge::opengl::state::ffp::lighting::light::attenuation(_point.attenuation()));
 }

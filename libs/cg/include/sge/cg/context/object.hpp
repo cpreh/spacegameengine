@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_CG_CONTEXT_OBJECT_HPP_INCLUDED
 
@@ -14,28 +13,24 @@
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cg::context
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	SGE_CG_DETAIL_SYMBOL
-	object();
+  SGE_CG_DETAIL_SYMBOL
+  object();
 
-	SGE_CG_DETAIL_SYMBOL
-	~object();
+  SGE_CG_DETAIL_SYMBOL
+  ~object();
 
-	[[nodiscard]]
-	SGE_CG_DETAIL_SYMBOL
-	CGcontext
-	get() const;
+  [[nodiscard]] SGE_CG_DETAIL_SYMBOL CGcontext get() const;
+
 private:
-	CGcontext const context_; // NOLINT(misc-misplaced-const)
+  CGcontext const context_; // NOLINT(misc-misplaced-const)
 };
 
 }

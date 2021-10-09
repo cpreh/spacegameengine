@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_FF_SCOPED_DOWNLOAD_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_FF_SCOPED_DOWNLOAD_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/joypad/ff/scoped_download_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 namespace sge
 {
@@ -23,18 +21,15 @@ namespace ff
 
 class scoped_download
 {
-	FCPPT_NONCOPYABLE(
-		scoped_download
-	);
-public:
-	explicit
-	scoped_download(
-		IDirectInputEffect &
-	);
+  FCPPT_NONCOPYABLE(scoped_download);
 
-	~scoped_download();
+public:
+  explicit scoped_download(IDirectInputEffect &);
+
+  ~scoped_download();
+
 private:
-	IDirectInputEffect &effect_;
+  IDirectInputEffect &effect_;
 };
 
 }

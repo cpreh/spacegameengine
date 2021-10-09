@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_STATE_OBJECT_DECL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_OBJECT_DECL_HPP_INCLUDED
 
@@ -14,71 +13,37 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::sprite::state
 {
 
-template<
-	typename StateChoices
->
+template <typename StateChoices>
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	using
-	state_choices
-	=
-	StateChoices;
+  using state_choices = StateChoices;
 
-	using
-	elements_type
-	=
-	sge::sprite::state::detail::object_class<
-		StateChoices
-	>;
+  using elements_type = sge::sprite::state::detail::object_class<StateChoices>;
 
-	using
-	parameters_type
-	=
-	sge::sprite::state::parameters<
-		state_choices
-	>;
+  using parameters_type = sge::sprite::state::parameters<state_choices>;
 
-	using
-	render_device
-	=
-	sge::sprite::state::render_device<
-		StateChoices
-	>;
+  using render_device = sge::sprite::state::render_device<StateChoices>;
 
-	object(
-		fcppt::reference<
-			render_device
-		>,
-		parameters_type const &
-	);
+  object(fcppt::reference<render_device>, parameters_type const &);
 
-	~object();
+  ~object();
 
-	[[nodiscard]]
-	elements_type &
-	elements();
+  [[nodiscard]] elements_type &elements();
 
-	[[nodiscard]]
-	elements_type const &
-	elements() const;
+  [[nodiscard]] elements_type const &elements() const;
 
-	[[nodiscard]]
-	render_device &
-	renderer() const;
+  [[nodiscard]] render_device &renderer() const;
+
 private:
-	fcppt::reference<
-		render_device
-	> const renderer_;
+  fcppt::reference<render_device> const renderer_;
 
-	elements_type elements_;
+  elements_type elements_;
 };
 
 }

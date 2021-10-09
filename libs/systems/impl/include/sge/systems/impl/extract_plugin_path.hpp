@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_EXTRACT_PLUGIN_PATH_HPP_INCLUDED
 
 #include <sge/systems/plugin_path.hpp>
 #include <sge/systems/detail/any_map.hpp>
 
-
 namespace sge::systems::impl
 {
 
-sge::systems::plugin_path
-extract_plugin_path(
-	sge::systems::detail::any_map const &
-);
+sge::systems::plugin_path extract_plugin_path(sge::systems::detail::any_map const &);
 
 }
 

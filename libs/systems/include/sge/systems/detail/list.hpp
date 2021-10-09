@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_DETAIL_LIST_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_LIST_HPP_INCLUDED
 
@@ -12,24 +11,19 @@
 #include <sge/systems/detail/list_fwd.hpp>
 #include <sge/systems/detail/symbol.hpp>
 
-
 namespace sge::systems::detail
 {
 
 class list
 {
 public:
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	explicit
-	list(
-		sge::systems::detail::any_list const &
-	);
+  SGE_SYSTEMS_DETAIL_SYMBOL
+  explicit list(sge::systems::detail::any_list const &);
 
-	[[nodiscard]]
-	sge::systems::detail::any_map const &
-	get() const;
+  [[nodiscard]] sge::systems::detail::any_map const &get() const;
+
 private:
-	sge::systems::detail::any_map states_;
+  sge::systems::detail::any_map states_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_BACKGROUND_BASE_HPP_INCLUDED
 #define SGE_GUI_BACKGROUND_BASE_HPP_INCLUDED
 
@@ -15,42 +14,33 @@
 #include <sge/rucksack/rect_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::background
 {
 
 class base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 protected:
-	explicit
-	base(
-		sge::gui::main_area::reference
-	);
+  explicit base(sge::gui::main_area::reference);
+
 public:
-	virtual
-	~base();
+  virtual ~base();
 
-	void
-	draw(
-		sge::gui::renderer::base &, // NOLINT(google-runtime-references)
-		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void draw(
+      sge::gui::renderer::base &, // NOLINT(google-runtime-references)
+      sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	sge::gui::widget::base &
-	widget();
+  sge::gui::widget::base &widget();
+
 private:
-	virtual
-	void
-	on_draw(
-		sge::gui::renderer::base &, // NOLINT(google-runtime-references)
-		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-		sge::rucksack::rect const &
-	) = 0;
+  virtual void on_draw(
+      sge::gui::renderer::base &, // NOLINT(google-runtime-references)
+      sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+      sge::rucksack::rect const &) = 0;
 
-	sge::gui::main_area::reference const main_area_;
+  sge::gui::main_area::reference const main_area_;
 };
 
 }

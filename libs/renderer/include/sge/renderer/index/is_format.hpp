@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_IS_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_IS_FORMAT_HPP_INCLUDED
 
@@ -12,29 +11,16 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::index
 {
 
-template<
-	typename Format
->
-struct is_format
-:
-std::false_type
+template <typename Format>
+struct is_format : std::false_type
 {
 };
 
-template<
-	typename Index
->
-struct is_format<
-	sge::renderer::index::format<
-		Index
-	>
->
-:
-std::true_type
+template <typename Index>
+struct is_format<sge::renderer::index::format<Index>> : std::true_type
 {
 };
 

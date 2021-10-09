@@ -3,17 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/model/md3/impl/log_name.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/name.hpp>
 
-
-fcppt::log::name
-sge::model::md3::impl::log_name()
+fcppt::log::name sge::model::md3::impl::log_name()
 {
-	return
-		fcppt::log::name{
-			FCPPT_TEXT("modelmd3")
-		};
+  return fcppt::log::name{FCPPT_TEXT("modelmd3")};
 }

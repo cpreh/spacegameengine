@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_NOISE_SIMPLEX_WIDTH_HPP_INCLUDED
 #define SGE_NOISE_SIMPLEX_WIDTH_HPP_INCLUDED
 
@@ -13,14 +12,10 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::noise::simplex
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	std::size_t,
-	width
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(std::size_t, width);
 
 }
 

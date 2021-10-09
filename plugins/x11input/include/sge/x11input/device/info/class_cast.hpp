@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_DEVICE_INFO_CLASS_CAST_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_INFO_CLASS_CAST_HPP_INCLUDED
 
@@ -17,43 +16,26 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::device::info
 {
 
-template<
-	typename Result
->
+template <typename Result>
 std::enable_if_t<
-	fcppt::mpl::list::contains<
-		fcppt::mpl::list::object<
-			XIButtonClassInfo,
-			XIValuatorClassInfo,
-			XIKeyClassInfo,
-			XIScrollClassInfo
-		>,
-		std::remove_cvref_t<
-			Result
-		>
-	>::value,
-	Result
->
-class_cast(
-	XIAnyClassInfo const &_info
-)
+    fcppt::mpl::list::contains<
+        fcppt::mpl::list::
+            object<XIButtonClassInfo, XIValuatorClassInfo, XIKeyClassInfo, XIScrollClassInfo>,
+        std::remove_cvref_t<Result>>::value,
+    Result>
+class_cast(XIAnyClassInfo const &_info)
 {
-	FCPPT_PP_PUSH_WARNING
-	FCPPT_PP_DISABLE_GCC_WARNING(-Wstrict-aliasing)
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wstrict-aliasing)
 
-	return
-		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-		reinterpret_cast<
-			Result
-		>(
-			_info
-		);
+  return
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+      reinterpret_cast<Result>(_info);
 
-	FCPPT_PP_POP_WARNING
+  FCPPT_PP_POP_WARNING
 }
 
 }

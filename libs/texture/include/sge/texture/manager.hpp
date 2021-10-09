@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_MANAGER_HPP_INCLUDED
 #define SGE_TEXTURE_MANAGER_HPP_INCLUDED
 
@@ -19,53 +18,36 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::texture
 {
 
 class manager
 {
-	FCPPT_NONMOVABLE(
-		manager
-	);
+  FCPPT_NONMOVABLE(manager);
+
 public:
-	SGE_TEXTURE_DETAIL_SYMBOL
-	explicit
-	manager(
-		sge::texture::on_alloc_callback &&
-	);
+  SGE_TEXTURE_DETAIL_SYMBOL
+  explicit manager(sge::texture::on_alloc_callback &&);
 
-	SGE_TEXTURE_DETAIL_SYMBOL
-	~manager();
+  SGE_TEXTURE_DETAIL_SYMBOL
+  ~manager();
 
-	[[nodiscard]]
-	SGE_TEXTURE_DETAIL_SYMBOL
-	sge::texture::part_unique_ptr
-	add(
-		sge::image2d::view::const_object const &
-	);
+  [[nodiscard]] SGE_TEXTURE_DETAIL_SYMBOL sge::texture::part_unique_ptr
+  add(sge::image2d::view::const_object const &);
 
-	SGE_TEXTURE_DETAIL_SYMBOL
-	void
-	on_alloc(
-		sge::texture::on_alloc_callback const &
-	);
+  SGE_TEXTURE_DETAIL_SYMBOL
+  void on_alloc(sge::texture::on_alloc_callback const &);
 
-	SGE_TEXTURE_DETAIL_SYMBOL
-	void
-	free_empty_textures();
+  SGE_TEXTURE_DETAIL_SYMBOL
+  void free_empty_textures();
+
 private:
-	sge::texture::on_alloc_callback on_alloc_;
+  sge::texture::on_alloc_callback on_alloc_;
 
-	using
-	fragmented_map
-	=
-	std::multimap<
-		sge::image::color::format,
-		sge::texture::fragmented_unique_ptr
-	>;
+  using fragmented_map =
+      std::multimap<sge::image::color::format, sge::texture::fragmented_unique_ptr>;
 
-	sge::texture::manager::fragmented_map textures_;
+  sge::texture::manager::fragmented_map textures_;
 };
 
 }

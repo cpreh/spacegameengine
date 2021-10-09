@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_SURFACE_DEPTH_STENCIL_OFFSCREEN_HPP_INCLUDED
 #define SGE_D3D9_SURFACE_DEPTH_STENCIL_OFFSCREEN_HPP_INCLUDED
 
@@ -17,7 +16,6 @@
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -25,56 +23,42 @@ namespace d3d9
 namespace surface
 {
 
-class depth_stencil_offscreen
-:
-	public sge::renderer::depth_stencil_buffer::surface,
-	public sge::d3d9::resource
+class depth_stencil_offscreen : public sge::renderer::depth_stencil_buffer::surface,
+                                public sge::d3d9::resource
 {
-	FCPPT_NONCOPYABLE(
-		depth_stencil_offscreen
-	);
+  FCPPT_NONCOPYABLE(depth_stencil_offscreen);
+
 public:
-	depth_stencil_offscreen(
-		IDirect3DDevice9 &,
-		sge::renderer::depth_stencil_buffer::surface_parameters const &,
-		D3DMULTISAMPLE_TYPE,
-		sge::d3d9::multi_sample_quality
-	);
+  depth_stencil_offscreen(
+      IDirect3DDevice9 &,
+      sge::renderer::depth_stencil_buffer::surface_parameters const &,
+      D3DMULTISAMPLE_TYPE,
+      sge::d3d9::multi_sample_quality);
 
-	~depth_stencil_offscreen()
-	override;
+  ~depth_stencil_offscreen() override;
 
-	dim
-	size() const
-	override;
+  dim size() const override;
 
-	sge::image::ds::format
-	format() const
-	override;
+  sge::image::ds::format format() const override;
 
-	IDirect3DSurface9 &
-	surface() const;
+  IDirect3DSurface9 &surface() const;
+
 private:
-	void
-	init();
+  void init();
 
-	void
-	on_loss()
-	override;
+  void on_loss() override;
 
-	void
-	on_reset()
-	override;
+  void on_reset() override;
 
-	IDirect3DDevice9 &device_;
+  IDirect3DDevice9 &device_;
 
-	sge::renderer::depth_stencil_buffer::surface_parameters const parameters_;
+  sge::renderer::depth_stencil_buffer::surface_parameters const parameters_;
 
-	D3DMULTISAMPLE_TYPE const samples_;
+  D3DMULTISAMPLE_TYPE const samples_;
 
-	sge::d3d9::multi_sample_quality const multi_sample_quality_;
+  sge::d3d9::multi_sample_quality const multi_sample_quality_;
 
-	sge::d3d9::surface::optional_d3d_unique_ptr surface_;
+  sge::d3d9::surface::optional_d3d_unique_ptr surface_;
 };
 
 }

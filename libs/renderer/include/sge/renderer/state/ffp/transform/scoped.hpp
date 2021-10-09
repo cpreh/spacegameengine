@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_SCOPED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_TRANSFORM_SCOPED_HPP_INCLUDED
 
@@ -14,7 +13,6 @@
 #include <sge/renderer/state/ffp/transform/scoped_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_fwd.hpp>
-
 
 namespace sge::renderer::state::ffp::transform
 {
@@ -27,25 +25,22 @@ resets the matrix to the identity in the destructor.
 */
 class scoped
 {
-	FCPPT_NONMOVABLE(
-		scoped
-	);
+  FCPPT_NONMOVABLE(scoped);
+
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	scoped(
-		sge::renderer::context::ffp_ref context,
-		sge::renderer::state::ffp::transform::mode,
-		fcppt::reference<
-			sge::renderer::state::ffp::transform::object const
-		>
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  scoped(
+      sge::renderer::context::ffp_ref context,
+      sge::renderer::state::ffp::transform::mode,
+      fcppt::reference<sge::renderer::state::ffp::transform::object const>);
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	~scoped();
+  SGE_RENDERER_DETAIL_SYMBOL
+  ~scoped();
+
 private:
-	sge::renderer::context::ffp_ref const context_;
+  sge::renderer::context::ffp_ref const context_;
 
-	sge::renderer::state::ffp::transform::mode const mode_;
+  sge::renderer::state::ffp::transform::mode const mode_;
 };
 
 }

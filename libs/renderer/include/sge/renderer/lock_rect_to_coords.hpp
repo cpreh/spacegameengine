@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_RECT_TO_COORDS_HPP_INCLUDED
 
@@ -15,7 +14,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
-
 
 namespace sge::renderer
 {
@@ -35,52 +33,22 @@ Calculates the texture coordinates for \a area using the texture size \a size.
 
 \warning The behaviour is undefined if \a area lies outside of \a size
 */
-template<
-	typename Ret
->
+template <typename Ret>
 SGE_RENDERER_DETAIL_SYMBOL
-std::enable_if_t<
-	sge::renderer::is_valid_float_type<
-		Ret
-	>::value,
-	fcppt::math::box::rect<
-		Ret
-	>
->
-lock_rect_to_coords(
-	sge::renderer::lock_rect const &area,
-	sge::renderer::dim2 const &size
-);
+    std::enable_if_t<sge::renderer::is_valid_float_type<Ret>::value, fcppt::math::box::rect<Ret>>
+    lock_rect_to_coords(sge::renderer::lock_rect const &area, sge::renderer::dim2 const &size);
 
 }
 
-#define SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(\
-	floattype\
-)\
-extern \
-template \
-SGE_RENDERER_DETAIL_SYMBOL \
-std::enable_if_t< \
-	sge::renderer::is_valid_float_type< \
-		floattype \
-	>::value, \
-	fcppt::math::box::rect< \
-		floattype \
-	> \
-> \
-sge::renderer::lock_rect_to_coords<\
-	floattype \
->(\
-	sge::renderer::lock_rect const &, \
-	sge::renderer::dim2 const &\
-)
+#define SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(floattype) \
+  extern template SGE_RENDERER_DETAIL_SYMBOL std::enable_if_t< \
+      sge::renderer::is_valid_float_type<floattype>::value, \
+      fcppt::math::box::rect<floattype>> \
+  sge::renderer::lock_rect_to_coords<floattype>( \
+      sge::renderer::lock_rect const &, sge::renderer::dim2 const &)
 
-SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(
-	float
-);
+SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(float);
 
-SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(
-	double
-);
+SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(double);
 
 #endif

@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_CURSOR_POSITION_UNIT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_POSITION_UNIT_HPP_INCLUDED
-
 
 namespace sge::input::cursor
 {
 
-using
-position_unit
-=
-int;
+using position_unit = int;
 
 }
 

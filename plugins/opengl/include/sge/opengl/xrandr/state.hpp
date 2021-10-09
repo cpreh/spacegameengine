@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_XRANDR_STATE_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_STATE_HPP_INCLUDED
 
@@ -21,57 +20,41 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge::opengl::xrandr
 {
 
 class state
 {
-	FCPPT_NONMOVABLE(
-		state
-	);
+  FCPPT_NONMOVABLE(state);
+
 public:
-	state(
-		sge::opengl::xrandr::extension const &,
-		sge::window::object_ref
-	);
+  state(sge::opengl::xrandr::extension const &, sge::window::object_ref);
 
-	~state();
+  ~state();
 
-	[[nodiscard]]
-	sge::renderer::display_mode::optional_object
-	display_mode() const;
+  [[nodiscard]] sge::renderer::display_mode::optional_object display_mode() const;
 
-	[[nodiscard]]
-	sge::opengl::xrandr::resolution_unique_ptr
-	choose_resolution(
-		sge::renderer::display_mode::object const &
-	);
+  [[nodiscard]] sge::opengl::xrandr::resolution_unique_ptr
+  choose_resolution(sge::renderer::display_mode::object const &);
 
-	[[nodiscard]]
-	sge::renderer::display_mode::container
-	display_modes() const;
+  [[nodiscard]] sge::renderer::display_mode::container display_modes() const;
+
 private:
-	[[nodiscard]]
-	awl::event::container
-	on_event(
-		awl::window::event::base const &
-	);
+  [[nodiscard]] awl::event::container on_event(awl::window::event::base const &);
 
-	void
-	update();
+  void update();
 
-	sge::opengl::xrandr::extension const extension_;
+  sge::opengl::xrandr::extension const extension_;
 
-	awl::backends::x11::window::base_ref const window_;
+  awl::backends::x11::window::base_ref const window_;
 
-	sge::opengl::xrandr::configuration const config_;
+  sge::opengl::xrandr::configuration const config_;
 
-	sge::renderer::display_mode::optional_object display_mode_;
+  sge::renderer::display_mode::optional_object display_mode_;
 
-	sge::renderer::display_mode::container display_modes_;
+  sge::renderer::display_mode::container display_modes_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
 };
 
 }

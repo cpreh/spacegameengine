@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_EVENT_DISCOVER_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_EVENT_DISCOVER_HPP_INCLUDED
 
@@ -13,27 +12,19 @@
 #include <sge/input/joypad/event/discover_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::joypad::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL discover
-:
-	public sge::input::joypad::event::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL discover : public sge::input::joypad::event::base
 {
-	FCPPT_NONMOVABLE(
-		discover
-	);
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	explicit
-	discover(
-		sge::input::joypad::shared_ptr
-	);
+  FCPPT_NONMOVABLE(discover);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~discover()
-	override;
+public:
+  SGE_INPUT_DETAIL_SYMBOL
+  explicit discover(sge::input::joypad::shared_ptr);
+
+  SGE_INPUT_DETAIL_SYMBOL
+  ~discover() override;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_BODY_SOLIDITY_VARIANT_FWD_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_SOLIDITY_VARIANT_FWD_HPP_INCLUDED
 
@@ -12,18 +11,13 @@
 #include <sge/projectile/body/solidity/static_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
-
 namespace sge::projectile::body::solidity
 {
 
-using
-variant
-=
-fcppt::variant::object<
-	sge::projectile::body::solidity::static_,
-	sge::projectile::body::solidity::solid,
-	sge::projectile::body::solidity::nonsolid
->;
+using variant = fcppt::variant::object<
+    sge::projectile::body::solidity::static_,
+    sge::projectile::body::solidity::solid,
+    sge::projectile::body::solidity::nonsolid>;
 
 }
 

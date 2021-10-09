@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/gui/impl/renderer/scoped.hpp>
 #include <sge/gui/renderer/base.hpp>
 #include <sge/gui/renderer/base_unique_ptr.hpp>
@@ -13,22 +12,9 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
-
-sge::gui::renderer::base_unique_ptr
-sge::gui::renderer::create_scoped(
-	sge::renderer::device::ffp_ref const _renderer,
-	sge::renderer::context::ffp_ref const _context
-)
+sge::gui::renderer::base_unique_ptr sge::gui::renderer::create_scoped(
+    sge::renderer::device::ffp_ref const _renderer, sge::renderer::context::ffp_ref const _context)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::gui::renderer::base
-		>(
-			fcppt::make_unique_ptr<
-				sge::gui::impl::renderer::scoped
-			>(
-				_renderer,
-				_context
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::gui::renderer::base>(
+      fcppt::make_unique_ptr<sge::gui::impl::renderer::scoped>(_renderer, _context));
 }

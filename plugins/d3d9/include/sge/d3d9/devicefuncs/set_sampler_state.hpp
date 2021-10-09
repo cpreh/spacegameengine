@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_DEVICEFUNCS_SET_SAMPLER_STATE_HPP_INCLUDED
 #define SGE_D3D9_DEVICEFUNCS_SET_SAMPLER_STATE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/texture/stage.hpp>
-
 
 namespace sge
 {
@@ -18,13 +16,8 @@ namespace d3d9
 namespace devicefuncs
 {
 
-void
-set_sampler_state(
-	IDirect3DDevice9 &,
-	sge::renderer::texture::stage,
-	D3DSAMPLERSTATETYPE,
-	DWORD
-);
+void set_sampler_state(
+    IDirect3DDevice9 &, sge::renderer::texture::stage, D3DSAMPLERSTATETYPE, DWORD);
 
 }
 }

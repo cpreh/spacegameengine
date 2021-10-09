@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_FBO_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_FBO_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
@@ -17,45 +16,32 @@
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::fbo
 {
 
-class depth_stencil_surface
-:
-	public sge::renderer::depth_stencil_buffer::surface
+class depth_stencil_surface : public sge::renderer::depth_stencil_buffer::surface
 {
-	FCPPT_NONMOVABLE(
-		depth_stencil_surface
-	);
+  FCPPT_NONMOVABLE(depth_stencil_surface);
+
 public:
-	depth_stencil_surface(
-		sge::opengl::fbo::const_config_ref,
-		sge::renderer::depth_stencil_buffer::surface_parameters const &
-	);
+  depth_stencil_surface(
+      sge::opengl::fbo::const_config_ref,
+      sge::renderer::depth_stencil_buffer::surface_parameters const &);
 
-	~depth_stencil_surface()
-	override;
+  ~depth_stencil_surface() override;
 
-	[[nodiscard]]
-	sge::opengl::fbo::render_buffer const &
-	render_buffer() const;
+  [[nodiscard]] sge::opengl::fbo::render_buffer const &render_buffer() const;
+
 private:
-	[[nodiscard]]
-	dim
-	size() const
-	override;
+  [[nodiscard]] dim size() const override;
 
-	[[nodiscard]]
-	sge::image::ds::format
-	format() const
-	override;
+  [[nodiscard]] sge::image::ds::format format() const override;
 
-	sge::opengl::fbo::render_buffer const render_buffer_;
+  sge::opengl::fbo::render_buffer const render_buffer_;
 
-	dim const dim_;
+  dim const dim_;
 
-	sge::image::ds::format const format_;
+  sge::image::ds::format const format_;
 };
 
 }

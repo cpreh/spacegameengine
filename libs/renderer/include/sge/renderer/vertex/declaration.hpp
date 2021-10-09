@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_DECLARATION_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_DECLARATION_HPP_INCLUDED
 
@@ -11,7 +10,6 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
-
 
 namespace sge::renderer::vertex
 {
@@ -28,16 +26,15 @@ to be set first.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL declaration
 {
-	FCPPT_NONMOVABLE(
-		declaration
-	);
+  FCPPT_NONMOVABLE(declaration);
+
 protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	declaration();
+  SGE_RENDERER_DETAIL_SYMBOL
+  declaration();
+
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	virtual
-	~declaration();
+  SGE_RENDERER_DETAIL_SYMBOL
+  virtual ~declaration();
 };
 
 }

@@ -3,24 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_L8_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE2D_L8_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/l8_format.hpp>
 #include <sge/image/view/basic_format.hpp>
 
-
 namespace sge::image2d
 {
 
-using
-l8_format
-=
-sge::image::view::basic_format<
-	2,
-	sge::image::color::l8_format
->;
+using l8_format = sge::image::view::basic_format<2, sge::image::color::l8_format>;
 
 }
 

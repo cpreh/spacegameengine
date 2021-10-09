@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_ISTREAM_REF_HPP_INCLUDED
 #define SGE_SHADER_ISTREAM_REF_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::shader
 {
 
-using
-istream_ref
-=
-fcppt::reference<
-	std::istream
->;
+using istream_ref = fcppt::reference<std::istream>;
 
 }
 

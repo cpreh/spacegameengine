@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_DETAIL_IS_ITERABLE_HPP_INCLUDED
 #define SGE_PARSE_JSON_DETAIL_IS_ITERABLE_HPP_INCLUDED
 
@@ -14,36 +13,19 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::json::detail
 {
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Type,
-	typename Test = void
->
-struct is_iterable
-:
-std::false_type
+template <typename Type, typename Test = void>
+struct is_iterable : std::false_type
 {
 };
 
-template<
-	typename Type
->
-struct is_iterable<
-	Type,
-	decltype(
-		std::declval<
-			Type
-		>().begin()
-	)
->
-:
-std::true_type
+template <typename Type>
+struct is_iterable<Type, decltype(std::declval<Type>().begin())> : std::true_type
 {
 };
 

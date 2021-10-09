@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/systems/impl/window/system_base.hpp>
 
+sge::systems::impl::window::system_base::system_base() = default;
 
-sge::systems::impl::window::system_base::system_base()
-= default;
-
-sge::systems::impl::window::system_base::~system_base()
-= default;
+sge::systems::impl::window::system_base::~system_base() = default;

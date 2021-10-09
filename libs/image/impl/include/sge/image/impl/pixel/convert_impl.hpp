@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_PIXEL_CONVERT_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_PIXEL_CONVERT_IMPL_HPP_INCLUDED
 
@@ -15,42 +14,17 @@
 #include <mizuiro/color/convert.hpp>
 #include <fcppt/variant/apply.hpp>
 
-
-template<
-	typename Tag,
-	typename Format
->
-sge::image::enable_if_has_format<
-	Tag,
-	Format,
-	sge::image::pixel::mizuiro_type<
-		Format
-	>
->
-sge::image::pixel::convert(
-	sge::image::pixel::object<
-		Tag
-	> const &_pixel
-)
+template <typename Tag, typename Format>
+sge::image::enable_if_has_format<Tag, Format, sge::image::pixel::mizuiro_type<Format>>
+sge::image::pixel::convert(sge::image::pixel::object<Tag> const &_pixel)
 {
-	return
-		fcppt::variant::apply(
-			[](
-				auto const &_source
-			)
-			{
-				return
-					mizuiro::color::convert<
-						sge::image::impl::traits::static_converter<
-							Tag
-						>,
-						Format
-					>(
-						_source
-					);
-			},
-			_pixel.get()
-		);
+  return fcppt::variant::apply(
+      [](auto const &_source)
+      {
+        return mizuiro::color::convert<sge::image::impl::traits::static_converter<Tag>, Format>(
+            _source);
+      },
+      _pixel.get());
 }
 
 #endif

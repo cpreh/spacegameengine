@@ -4,7 +4,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/generate_levels.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
@@ -21,169 +20,65 @@
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-template<
-	fcppt::math::size_type Size
->
-sge::renderer::basic_dim<
-	Size
->
-reduce_dim(
-	sge::renderer::basic_dim<
-		Size
-	> const &
-);
+template <fcppt::math::size_type Size>
+sge::renderer::basic_dim<Size> reduce_dim(sge::renderer::basic_dim<Size> const &);
 
 }
 
-template<
-	fcppt::math::size_type Size
->
-void
-sge::opengl::texture::mipmap::generate_levels(
-	sge::opengl::texture::mipmap::parameters<
-		Size
-	> const &_parameters,
-	sge::renderer::texture::mipmap::level_count const _levels
-)
+template <fcppt::math::size_type Size>
+void sge::opengl::texture::mipmap::generate_levels(
+    sge::opengl::texture::mipmap::parameters<Size> const &_parameters,
+    sge::renderer::texture::mipmap::level_count const _levels)
 {
-	using
-	dim
-	=
-	typename
-	sge::opengl::texture::mipmap::parameters<
-		Size
-	>::dim;
+  using dim = typename sge::opengl::texture::mipmap::parameters<Size>::dim;
 
-	sge::renderer::texture::mipmap::level level(
-		1U
-	);
+  sge::renderer::texture::mipmap::level level(1U);
 
-	for(
-		dim size(
-			::reduce_dim<
-				Size
-			>(
-				_parameters.size()
-			)
-		)
-		;
-		fcppt::math::dim::contents(
-			size
-		)
-		!= 1U
-		&&
-		level.get() <= _levels.get()
-		;
-		size =
-			::reduce_dim<
-				Size
-			>(
-				size
-			)
-		,
-		++level
-	)
-	{
-		_parameters.init_function().get()(
-			_parameters.binding(),
-			_parameters.config(),
-			_parameters.buffer_type(),
-			_parameters.format_order(),
-			_parameters.format_base_type(),
-			_parameters.internal_format(),
-			level,
-			size,
-			nullptr
-		);
-	}
+  for (dim size(::reduce_dim<Size>(_parameters.size()));
+       fcppt::math::dim::contents(size) != 1U && level.get() <= _levels.get();
+       size = ::reduce_dim<Size>(size), ++level)
+  {
+    _parameters.init_function().get()(
+        _parameters.binding(),
+        _parameters.config(),
+        _parameters.buffer_type(),
+        _parameters.format_order(),
+        _parameters.format_base_type(),
+        _parameters.internal_format(),
+        level,
+        size,
+        nullptr);
+  }
 }
 
 namespace
 {
 
-template<
-	fcppt::math::size_type Size
->
-sge::renderer::basic_dim<
-	Size
->
-reduce_dim(
-	sge::renderer::basic_dim<
-		Size
-	> const &_size
-)
+template <fcppt::math::size_type Size>
+sge::renderer::basic_dim<Size> reduce_dim(sge::renderer::basic_dim<Size> const &_size)
 {
-	using
-	dim
-	=
-	sge::renderer::basic_dim<
-		Size
-	>;
+  using dim = sge::renderer::basic_dim<Size>;
 
-	return
-		fcppt::math::dim::init<
-			dim
-		>(
-			[
-				&_size
-			](
-				auto const _index
-			)
-			{
-				FCPPT_USE(
-					_index
-				);
+  return fcppt::math::dim::init<dim>(
+      [&_size](auto const _index)
+      {
+        FCPPT_USE(_index);
 
-				return
-					std::max(
-						fcppt::math::dim::at<
-							_index
-						>(
-							_size
-						)
-						/
-						fcppt::literal<
-							typename
-							dim::value_type
-						>(
-							2
-						),
-						fcppt::literal<
-							typename
-							dim::value_type
-						>(
-							1U
-						)
-					);
-			}
-		);
+        return std::max(
+            fcppt::math::dim::at<_index>(_size) / fcppt::literal<typename dim::value_type>(2),
+            fcppt::literal<typename dim::value_type>(1U));
+      });
 }
 
 }
 
-
-#define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GENERATE_LEVELS(\
-	seq,\
-	_,\
-	dimension\
-)\
-template \
-void \
-sge::opengl::texture::mipmap::generate_levels<\
-	dimension\
->(\
-	sge::opengl::texture::mipmap::parameters<\
-		dimension\
-	> const &,\
-	sge::renderer::texture::mipmap::level_count\
-);
+#define SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GENERATE_LEVELS(seq, _, dimension) \
+  template void sge::opengl::texture::mipmap::generate_levels<dimension>( \
+      sge::opengl::texture::mipmap::parameters<dimension> const &, \
+      sge::renderer::texture::mipmap::level_count);
 
 BOOST_PP_SEQ_FOR_EACH(
-	SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GENERATE_LEVELS,
-	_,
-	SGE_OPENGL_TEXTURE_PP_DIMS
-)
+    SGE_OPENGL_TEXTURE_MIPMAP_INSTANTIATE_GENERATE_LEVELS, _, SGE_OPENGL_TEXTURE_PP_DIMS)

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BACKEND_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_BACKEND_SYSTEM_HPP_INCLUDED
 
@@ -14,34 +13,24 @@
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::backend
 {
 
 class system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
+  FCPPT_NONMOVABLE(system);
+
 protected:
-	system();
+  system();
+
 public:
-	virtual
-	~system();
+  virtual ~system();
 
-	[[nodiscard]]
-	virtual
-	awl::visual::object_unique_ptr
-	create_visual(
-		sge::renderer::pixel_format::object const &
-	) = 0;
+  [[nodiscard]] virtual awl::visual::object_unique_ptr
+  create_visual(sge::renderer::pixel_format::object const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::opengl::backend::context_unique_ptr
-	create_context(
-		sge::window::object_ref
-	) = 0;
+  [[nodiscard]] virtual sge::opengl::backend::context_unique_ptr
+      create_context(sge::window::object_ref) = 0;
 };
 
 }

@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_DIMENSION_COUNT_HPP_INCLUDED
 #define SGE_IMAGE_DIMENSION_COUNT_HPP_INCLUDED
 
 #include <fcppt/math/size_type.hpp>
 
-
 namespace sge::image
 {
 
-using
-dimension_count
-=
-fcppt::math::size_type;
+using dimension_count = fcppt::math::size_type;
 
 }
 

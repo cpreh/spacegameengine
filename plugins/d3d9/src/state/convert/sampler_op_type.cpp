@@ -3,25 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/sampler_op_type.hpp>
 #include <sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
 
-
 D3DTEXTURESTAGESTATETYPE
-sge::d3d9::state::convert::sampler_op_type<
-	sge::renderer::state::ffp::sampler::alpha_op
->::get()
+sge::d3d9::state::convert::sampler_op_type<sge::renderer::state::ffp::sampler::alpha_op>::get()
 {
-	return D3DTSS_ALPHAOP;
+  return D3DTSS_ALPHAOP;
 }
 
 D3DTEXTURESTAGESTATETYPE
-sge::d3d9::state::convert::sampler_op_type<
-	sge::renderer::state::ffp::sampler::color_op
->::get()
+sge::d3d9::state::convert::sampler_op_type<sge::renderer::state::ffp::sampler::color_op>::get()
 {
-	return D3DTSS_COLOROP;
+  return D3DTSS_COLOROP;
 }

@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_DIFFERENCE_TYPE_HPP_INCLUDED
 #define SGE_IMAGE_DIFFERENCE_TYPE_HPP_INCLUDED
 
 #include <mizuiro/difference_type.hpp>
 
-
 namespace sge::image
 {
 
-using
-difference_type
-=
-mizuiro::difference_type;
+using difference_type = mizuiro::difference_type;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_COPY_AND_CONVERT_STATIC_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_COPY_AND_CONVERT_STATIC_HPP_INCLUDED
 
@@ -19,7 +18,6 @@
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
 #include <fcppt/variant/apply.hpp>
 
-
 namespace sge
 {
 namespace image
@@ -29,51 +27,25 @@ namespace impl
 namespace algorithm
 {
 
-template<
-	typename Tag
->
-void
-copy_and_convert_static(
-	sge::image::view::const_object<
-		Tag
-	> const &_src,
-	sge::image::view::object<
-		Tag
-	> const &_dest,
-	sge::image::algorithm::may_overlap const _overlap,
-	sge::image::algorithm::uninitialized const _uninitialized
-)
+template <typename Tag>
+void copy_and_convert_static(
+    sge::image::view::const_object<Tag> const &_src,
+    sge::image::view::object<Tag> const &_dest,
+    sge::image::algorithm::may_overlap const _overlap,
+    sge::image::algorithm::uninitialized const _uninitialized)
 {
-	fcppt::variant::apply(
-		[
-			_overlap,
-			_uninitialized
-		](
-			auto const &_src_inner,
-			auto const &_dest_inner
-		)
-		{
-			return
-				mizuiro::image::algorithm::copy_and_convert<
-					sge::image::impl::traits::static_converter<
-						sge::image::traits::image::color_tag<
-							Tag
-						>
-					>
-				>(
-					_src_inner,
-					_dest_inner,
-					sge::image::impl::algorithm::convert_may_overlap(
-						_overlap
-					),
-					sge::image::impl::algorithm::convert_uninitialized(
-						_uninitialized
-					)
-				);
-		},
-		_src.get(),
-		_dest.get()
-	);
+  fcppt::variant::apply(
+      [_overlap, _uninitialized](auto const &_src_inner, auto const &_dest_inner)
+      {
+        return mizuiro::image::algorithm::copy_and_convert<
+            sge::image::impl::traits::static_converter<sge::image::traits::image::color_tag<Tag>>>(
+            _src_inner,
+            _dest_inner,
+            sge::image::impl::algorithm::convert_may_overlap(_overlap),
+            sge::image::impl::algorithm::convert_uninitialized(_uninitialized));
+      },
+      _src.get(),
+      _dest.get());
 }
 
 }

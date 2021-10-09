@@ -3,16 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/json/null.hpp>
 
-
-bool
-sge::parse::json::operator==(
-	sge::parse::json::null const &,
-	sge::parse::json::null const &
-)
+bool sge::parse::json::operator==(sge::parse::json::null const &, sge::parse::json::null const &)
 {
-	return
-		true;
+  return true;
 }

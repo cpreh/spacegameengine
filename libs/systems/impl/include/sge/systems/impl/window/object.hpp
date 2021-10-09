@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_WINDOW_OBJECT_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_WINDOW_OBJECT_HPP_INCLUDED
 
@@ -18,50 +17,35 @@
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
-
 namespace sge::systems::impl::window
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	object(
-		sge::systems::window const &,
-		sge::systems::impl::window::system const &,
-		sge::systems::impl::renderer::optional_system_ref const &
-	);
+  object(
+      sge::systems::window const &,
+      sge::systems::impl::window::system const &,
+      sge::systems::impl::renderer::optional_system_ref const &);
 
-	~object();
+  ~object();
 
-	[[nodiscard]]
-	sge::window::object &
-	get() const;
+  [[nodiscard]] sge::window::object &get() const;
 
-	void
-	post_init() const;
+  void post_init() const;
+
 private:
-	sge::systems::impl::window::base_unique_ptr const base_;
+  sge::systems::impl::window::base_unique_ptr const base_;
 
-	bool const show_on_post_;
+  bool const show_on_post_;
 
-	using
-	quit_unique_ptr
-	=
-	fcppt::unique_ptr<
-		sge::systems::impl::window::quit
-	>;
+  using quit_unique_ptr = fcppt::unique_ptr<sge::systems::impl::window::quit>;
 
-	using
-	optional_quit_unique_ptr
-	=
-	fcppt::optional::object<
-		quit_unique_ptr
-	>;
+  using optional_quit_unique_ptr = fcppt::optional::object<quit_unique_ptr>;
 
-	optional_quit_unique_ptr const quit_;
+  optional_quit_unique_ptr const quit_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_VIEWPORT_ADAPTOR_HPP_INCLUDED
 #define SGE_RUCKSACK_VIEWPORT_ADAPTOR_HPP_INCLUDED
 
@@ -22,7 +21,6 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge::rucksack::viewport
 {
 /**
@@ -37,87 +35,52 @@ namespace sge::rucksack::viewport
  * will be changed by the parent) but I don't know any use case for this, since
  * a renderer can only have one viewport at a time.
  */
-class SGE_CORE_DETAIL_CLASS_SYMBOL adaptor
-:
-	public sge::rucksack::widget::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL adaptor : public sge::rucksack::widget::base
 {
-	FCPPT_NONMOVABLE(
-		adaptor
-	);
+  FCPPT_NONMOVABLE(adaptor);
+
 public:
-	// We need the renderer object for the size() and position() getters/setters.
-	// The viewport manager ironically doesn't give us access to the viewport
-	// directly.
-	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
-	adaptor(
-		sge::viewport::manager_ref,
-		sge::renderer::device::core_ref
-	);
+  // We need the renderer object for the size() and position() getters/setters.
+  // The viewport manager ironically doesn't give us access to the viewport
+  // directly.
+  SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
+  adaptor(sge::viewport::manager_ref, sge::renderer::device::core_ref);
 
-	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
-	void
-	size(
-		sge::rucksack::dim const &
-	)
-	override;
+  SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
+  void size(sge::rucksack::dim const &) override;
 
-	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
-	void
-	position(
-		sge::rucksack::vector const &
-	)
-	override;
+  SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
+  void position(sge::rucksack::vector const &) override;
 
-	[[nodiscard]]
-	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
-	sge::rucksack::dim
-	size() const
-	override;
+  [[nodiscard]] SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL sge::rucksack::dim size() const override;
 
-	[[nodiscard]]
-	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
-	sge::rucksack::vector
-	position() const
-	override;
+  [[nodiscard]] SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL sge::rucksack::vector position() const override;
 
-	[[nodiscard]]
-	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
-	sge::rucksack::axis_policy2
-	axis_policy() const
-	override;
+  [[nodiscard]] SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL sge::rucksack::axis_policy2
+  axis_policy() const override;
 
-	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
-	void
-	relayout()
-	override;
+  SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
+  void relayout() override;
 
-	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
-	void
-	child(
-		sge::rucksack::widget::reference
-	);
+  SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
+  void child(sge::rucksack::widget::reference);
 
-	SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
-	~adaptor()
-	override;
+  SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
+  ~adaptor() override;
+
 private:
-	sge::renderer::target::base &target_;
+  sge::renderer::target::base &target_;
 
-	sge::rucksack::widget::optional_ref child_;
+  sge::rucksack::widget::optional_ref child_;
 
-	fcppt::signal::auto_connection const viewport_connection_;
+  fcppt::signal::auto_connection const viewport_connection_;
 
-	void
-	manage_callback();
+  void manage_callback();
 
-	void
-	resize_child();
+  void resize_child();
 
-	void
-	child_destroyed(
-		sge::rucksack::widget::base & // NOLINT(google-runtime-references)
-	)
-	override;
+  void child_destroyed(sge::rucksack::widget::base & // NOLINT(google-runtime-references)
+                       ) override;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_XIM_METHOD_HPP_INCLUDED
 #define SGE_X11INPUT_XIM_METHOD_HPP_INCLUDED
 
@@ -14,28 +13,22 @@
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::xim
 {
 
 class method
 {
-	FCPPT_NONMOVABLE(
-		method
-	);
+  FCPPT_NONMOVABLE(method);
+
 public:
-	explicit
-	method(
-		awl::backends::x11::display_ref
-	);
+  explicit method(awl::backends::x11::display_ref);
 
-	~method();
+  ~method();
 
-	[[nodiscard]]
-	XIM
-	get() const;
+  [[nodiscard]] XIM get() const;
+
 private:
-	XIM const xim_; // NOLINT(misc-misplaced-const)
+  XIM const xim_; // NOLINT(misc-misplaced-const)
 };
 
 }

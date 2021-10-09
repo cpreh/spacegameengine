@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/exception.hpp>
 #include <sge/libpng/create_struct.hpp>
 #include <sge/libpng/error_context_ref.hpp>
@@ -11,43 +10,15 @@
 #include <sge/libpng/read_ptr.hpp>
 #include <fcppt/text.hpp>
 
-
-sge::libpng::read_ptr::read_ptr(
-	sge::libpng::error_context_ref const _error_context
-)
-:
-	ptr_(
-		sge::libpng::create_struct(
-			&::png_create_read_struct,
-			_error_context
-		)
-	)
+sge::libpng::read_ptr::read_ptr(sge::libpng::error_context_ref const _error_context)
+    : ptr_(sge::libpng::create_struct(&::png_create_read_struct, _error_context))
 {
-	if(
-		ptr_
-		==
-		nullptr
-	)
-	{
-		throw
-			sge::image::exception{
-				FCPPT_TEXT("couldn't allocate png read structure")
-			};
-	}
+  if (ptr_ == nullptr)
+  {
+    throw sge::image::exception{FCPPT_TEXT("couldn't allocate png read structure")};
+  }
 }
 
-sge::libpng::read_ptr::~read_ptr()
-{
-	::png_destroy_read_struct(
-		&ptr_,
-		nullptr,
-		nullptr
-	);
-}
+sge::libpng::read_ptr::~read_ptr() { ::png_destroy_read_struct(&ptr_, nullptr, nullptr); }
 
-png_structp
-sge::libpng::read_ptr::ptr() const
-{
-	return
-		ptr_;
-}
+png_structp sge::libpng::read_ptr::ptr() const { return ptr_; }

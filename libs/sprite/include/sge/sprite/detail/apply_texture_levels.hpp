@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_APPLY_TEXTURE_LEVELS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_APPLY_TEXTURE_LEVELS_HPP_INCLUDED
 
@@ -15,31 +14,14 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail
 {
 
-template<
-	typename Levels,
-	typename Function
->
-inline
-std::enable_if_t<
-	sge::sprite::config::is_texture_level_count<
-		Levels
-	>::value,
-	void
->
-apply_texture_levels(
-	Function const &_function
-)
+template <typename Levels, typename Function>
+inline std::enable_if_t<sge::sprite::config::is_texture_level_count<Levels>::value, void>
+apply_texture_levels(Function const &_function)
 {
-	fcppt::algorithm::loop(
-		sge::sprite::detail::make_texture_levels<
-			Levels
-		>{},
-		_function
-	);
+  fcppt::algorithm::loop(sge::sprite::detail::make_texture_levels<Levels>{}, _function);
 }
 
 }

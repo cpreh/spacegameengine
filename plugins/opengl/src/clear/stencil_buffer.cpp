@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
@@ -12,19 +11,9 @@
 #include <sge/renderer/clear/stencil_buffer_value.hpp>
 #include <fcppt/text.hpp>
 
-
-void
-sge::opengl::clear::stencil_buffer(
-	sge::renderer::clear::stencil_buffer_value const &_value
-)
+void sge::opengl::clear::stencil_buffer(sge::renderer::clear::stencil_buffer_value const &_value)
 {
-	sge::opengl::call(
-		::glClearStencil,
-		_value
-	);
+  sge::opengl::call(::glClearStencil, _value);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glClearStencil failed"),
-		sge::renderer::exception
-	)
+  SGE_OPENGL_CHECK_STATE(FCPPT_TEXT("glClearStencil failed"), sge::renderer::exception)
 }

@@ -3,20 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_ALGORITHM_MAY_OVERLAP_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_MAY_OVERLAP_HPP_INCLUDED
 
 #include <sge/image/algorithm/may_overlap_fwd.hpp>
-
 
 namespace sge::image::algorithm
 {
 
 enum class may_overlap
 {
-	no,
-	yes
+  no,
+  yes
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_CONTEXT_CORE_HPP_INCLUDED
 #define SGE_RENDERER_CONTEXT_CORE_HPP_INCLUDED
 
@@ -38,7 +37,6 @@
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #endif
 
-
 namespace sge::renderer::context
 {
 
@@ -52,50 +50,39 @@ sge::renderer::device::core::begin_rendering on a render target.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL core
 {
-	FCPPT_NONMOVABLE(
-		core
-	);
-protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	core();
-public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	virtual
-	~core();
+  FCPPT_NONMOVABLE(core);
 
-	/**
+protected:
+  SGE_RENDERER_DETAIL_SYMBOL
+  core();
+
+public:
+  SGE_RENDERER_DETAIL_SYMBOL
+  virtual ~core();
+
+  /**
 	\brief The target that has been used to create this context
 	*/
-	virtual
-	sge::renderer::target::base &
-	target() = 0;
+  virtual sge::renderer::target::base &target() = 0;
 
-	/**
+  /**
 	\brief Clear various buffers
 
 	Clears the buffers denoted by \a parameters, e.g. color buffer, depth
 	or stencil buffer.
 	*/
-	virtual
-	void
-	clear(
-		sge::renderer::clear::parameters const &parameters
-	) = 0;
+  virtual void clear(sge::renderer::clear::parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Allows temporary substitution of the current target
 
 	\note Avoid using this function if you can and try to render everything
 	to a target in one go. This function was introduced to support APIs
 	that need to change render targets at any point.
 	*/
-	virtual
-	void
-	offscreen_target(
-		sge::renderer::target::optional_offscreen_ref const &
-	) = 0;
+  virtual void offscreen_target(sge::renderer::target::optional_offscreen_ref const &) = 0;
 
-	/**
+  /**
 	\brief Renders indexed geometry
 
 	Renders indexed geometry using \a index_buffer and the currently set
@@ -139,18 +126,15 @@ public:
 	are outside of the constraints from \a first_vertex and \a
 	vertex_count.
 	*/
-	virtual
-	void
-	render_indexed(
-		sge::renderer::index::buffer const &index_buffer,
-		sge::renderer::vertex::first first_vertex,
-		sge::renderer::vertex::count vertex_count,
-		sge::renderer::primitive_type primitive_type,
-		sge::renderer::index::first first_index,
-		sge::renderer::index::count index_count
-	) = 0;
+  virtual void render_indexed(
+      sge::renderer::index::buffer const &index_buffer,
+      sge::renderer::vertex::first first_vertex,
+      sge::renderer::vertex::count vertex_count,
+      sge::renderer::primitive_type primitive_type,
+      sge::renderer::index::first first_index,
+      sge::renderer::index::count index_count) = 0;
 
-	/**
+  /**
 	\brief Renders non indexed geometry
 
 	Renders non indexed geometry using the currently set vertex buffers.
@@ -174,15 +158,12 @@ public:
 	\warning The behaviour is undefined if vertices are referenced that
 	 one of the vertex buffer doesn't have.
 	*/
-	virtual
-	void
-	render_nonindexed(
-		sge::renderer::vertex::first first_vertex,
-		sge::renderer::vertex::count vertex_count,
-		sge::renderer::primitive_type primitive_type
-	) = 0;
+  virtual void render_nonindexed(
+      sge::renderer::vertex::first first_vertex,
+      sge::renderer::vertex::count vertex_count,
+      sge::renderer::primitive_type primitive_type) = 0;
 
-	/**
+  /**
 	\brief Activates a vertex buffer
 
 	A vertex buffer is activated, which means that it will supply vertex
@@ -199,13 +180,9 @@ public:
 	\warning The behaviour is undefined if the vertex declaration of \a
 	vertex_buffer is not set.
 	*/
-	virtual
-	void
-	activate_vertex_buffer(
-		sge::renderer::vertex::const_buffer_ref vertex_buffer
-	) = 0;
+  virtual void activate_vertex_buffer(sge::renderer::vertex::const_buffer_ref vertex_buffer) = 0;
 
-	/**
+  /**
 	\brief Deactives a vertex buffer
 
 	After activating a vertex buffer with
@@ -217,13 +194,9 @@ public:
 	\warning The behaviour is undefined if \a vertex_buffer isn't
 	activated.
 	*/
-	virtual
-	void
-	deactivate_vertex_buffer(
-		sge::renderer::vertex::buffer const &vertex_buffer
-	) = 0;
+  virtual void deactivate_vertex_buffer(sge::renderer::vertex::buffer const &vertex_buffer) = 0;
 
-	/**
+  /**
 	\brief Sets or unsets the current vertex declaration
 
 	Sets or unsets the current vertex declaration depending on whether \a
@@ -237,13 +210,10 @@ public:
 
 	\warning The behaviour is undefined if vertex buffers are still active.
 	*/
-	virtual
-	void
-	vertex_declaration(
-		sge::renderer::vertex::const_optional_declaration_ref const &vertex_declaration
-	) = 0;
+  virtual void vertex_declaration(
+      sge::renderer::vertex::const_optional_declaration_ref const &vertex_declaration) = 0;
 
-	/**
+  /**
 	\brief Sets a texture for a texture stage
 
 	Sets the texture for \a stage to \a texture. Initially, the textures
@@ -258,14 +228,11 @@ public:
 	\warning The behaviour is undefined if \a stage is greater or equal
 	to sge::renderer::caps::object::texture_stages
 	*/
-	virtual
-	void
-	texture(
-		sge::renderer::texture::const_optional_base_ref const &texture,
-		sge::renderer::texture::stage stage
-	) = 0;
+  virtual void texture(
+      sge::renderer::texture::const_optional_base_ref const &texture,
+      sge::renderer::texture::stage stage) = 0;
 
-	/**
+  /**
 	\brief Sets or resets the blend state
 
 	Sets the blend state to \a state. If \a state is nothing, the default
@@ -275,13 +242,10 @@ public:
 	render target are combined with color and values from rendered
 	geometry.
 	*/
-	virtual
-	void
-	blend_state(
-		sge::renderer::state::core::blend::const_optional_object_ref const &state
-	) = 0;
+  virtual void
+  blend_state(sge::renderer::state::core::blend::const_optional_object_ref const &state) = 0;
 
-	/**
+  /**
 	\brief Sets or resets the depth stencil state
 
 	Sets the depth stencil state to \a state. If \a state is nothing, the
@@ -291,13 +255,10 @@ public:
 	The depth stencil state dictates how the depth and stencil buffers are
 	used to omit rendering of geometry and how they are updated.
 	*/
-	virtual
-	void
-	depth_stencil_state(
-		sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-	) = 0;
+  virtual void depth_stencil_state(
+      sge::renderer::state::core::depth_stencil::const_optional_object_ref const &) = 0;
 
-	/**
+  /**
 	\brief Sets or resets the rasterizer state
 
 	Sets the rasterizer state to \a state. If \a state is nothing, the
@@ -306,13 +267,10 @@ public:
 
 	The rasterizer state dictates how polygons are clipped and filled.
 	*/
-	virtual
-	void
-	rasterizer_state(
-		sge::renderer::state::core::rasterizer::const_optional_object_ref const &
-	) = 0;
+  virtual void
+  rasterizer_state(sge::renderer::state::core::rasterizer::const_optional_object_ref const &) = 0;
 
-	/**
+  /**
 	\brief Sets or resets the sampler state
 
 	Sets the sampler state to \a state. If \a state is nothing, the default
@@ -322,36 +280,18 @@ public:
 	The sampler state dictates how texture coordinates are processed and
 	textures are filtered.
 	*/
-	virtual
-	void
-	sampler_state(
-		sge::renderer::state::core::sampler::const_optional_object_ref_map const &
-	) = 0;
+  virtual void
+  sampler_state(sge::renderer::state::core::sampler::const_optional_object_ref_map const &) = 0;
 
 #if defined(SGE_RENDERER_HAVE_CG)
-	virtual
-	void
-	set_cg_program(
-		sge::renderer::cg::const_loaded_program_ref
-	) = 0;
+  virtual void set_cg_program(sge::renderer::cg::const_loaded_program_ref) = 0;
 
-	virtual
-	void
-	unset_cg_program(
-		sge::renderer::cg::loaded_program const &
-	) = 0;
+  virtual void unset_cg_program(sge::renderer::cg::loaded_program const &) = 0;
 
-	virtual
-	sge::renderer::texture::stage
-	set_cg_texture(
-		sge::renderer::cg::const_loaded_texture_ref
-	) = 0;
+  virtual sge::renderer::texture::stage
+      set_cg_texture(sge::renderer::cg::const_loaded_texture_ref) = 0;
 
-	virtual
-	void
-	unset_cg_texture(
-		sge::renderer::cg::loaded_texture const &
-	) = 0;
+  virtual void unset_cg_texture(sge::renderer::cg::loaded_texture const &) = 0;
 #endif
 };
 

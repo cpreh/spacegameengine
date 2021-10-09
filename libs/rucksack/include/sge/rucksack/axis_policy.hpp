@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_AXIS_POLICY_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_POLICY_HPP_INCLUDED
 
@@ -11,6 +10,5 @@
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/preferred_size.hpp>
 #include <fcppt/variant/object_impl.hpp>
-
 
 #endif

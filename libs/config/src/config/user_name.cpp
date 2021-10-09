@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/user_name.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
@@ -31,112 +30,50 @@
 #include <fcppt/config/external_end.hpp>
 #endif
 
-
-fcppt::string
-sge::config::user_name()
+fcppt::string sge::config::user_name()
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	using
-	raw_character_sequence
-	=
-	fcppt::array::object<
-		fcppt::char_type,
-		UNLEN+1
-	>;
+  using raw_character_sequence = fcppt::array::object<fcppt::char_type, UNLEN + 1>;
 
-	raw_character_sequence raw_characters{
-		fcppt::no_init{
-	}};
-	// I don't know if the size argument can be NULL.
-	DWORD size{
-		static_cast<DWORD>(
-			raw_characters.size()
-		)
-	};
+  raw_character_sequence raw_characters{fcppt::no_init{}};
+  // I don't know if the size argument can be NULL.
+  DWORD size{static_cast<DWORD>(raw_characters.size())};
 
-	if(!GetUserName(raw_characters.data(),&size))
-	{
-		throw
-			sge::config::exception(
-				FCPPT_TEXT("Couldn't get user name: ")
-				+
-				awl::backends::windows::format_message(
-					GetLastError()
-				)
-			);
-	}
+  if (!GetUserName(raw_characters.data(), &size))
+  {
+    throw sge::config::exception(
+        FCPPT_TEXT("Couldn't get user name: ") +
+        awl::backends::windows::format_message(GetLastError()));
+  }
 
-	return
-		fcppt::string(
-			raw_characters.data()
-		);
+  return fcppt::string(raw_characters.data());
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	long const bufsize{ // NOLINT(google-runtime-int)
-		sysconf(
-			_SC_GETPW_R_SIZE_MAX
-		)
-	};
+  long const bufsize{// NOLINT(google-runtime-int)
+                     sysconf(_SC_GETPW_R_SIZE_MAX)};
 
-	if(
-		bufsize
-		==
-		-1
-	)
-	{
-		throw
-			sge::config::exception{
-				FCPPT_TEXT("Couldn't determine maximum user name length")
-			};
-	}
+  if (bufsize == -1)
+  {
+    throw sge::config::exception{FCPPT_TEXT("Couldn't determine maximum user name length")};
+  }
 
-	using
-	raw_byte_sequence
-	=
-	fcppt::container::dynamic_array<
-		char
-	>;
+  using raw_byte_sequence = fcppt::container::dynamic_array<char>;
 
-	raw_byte_sequence buf{
-		fcppt::cast::to_unsigned(
-			bufsize
-		)
-	};
+  raw_byte_sequence buf{fcppt::cast::to_unsigned(bufsize)};
 
-	struct passwd pwd{};
-	struct passwd *result{
-		nullptr
-	};
+  struct passwd pwd
+  {
+  };
+  struct passwd *result{nullptr};
 
-	int const error_code{
-		getpwuid_r(
-			getuid(),
-			&pwd,
-			buf.data(),
-			buf.size(),
-			&result
-		)
-	};
+  int const error_code{getpwuid_r(getuid(), &pwd, buf.data(), buf.size(), &result)};
 
-	if(
-		error_code
-		!=
-		0
-	)
-	{
-		throw
-			sge::config::exception{
-				FCPPT_TEXT("Couldn't determine user name: ")
-				+
-				fcppt::error::strerrno()
-			};
-	}
+  if (error_code != 0)
+  {
+    throw sge::config::exception{
+        FCPPT_TEXT("Couldn't determine user name: ") + fcppt::error::strerrno()};
+  }
 
-	return
-		fcppt::from_std_string(
-			std::string(
-				pwd.pw_name
-			)
-		);
+  return fcppt::from_std_string(std::string(pwd.pw_name));
 #else
 #error "don't know how to find a config path"
 #endif

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_WRAP_NPOT_HPP_INCLUDED
 #define SGE_TEXTURE_WRAP_NPOT_HPP_INCLUDED
 
@@ -12,16 +11,12 @@
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/detail/symbol.hpp>
 
-
 namespace sge::texture
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
 sge::texture::part_unique_ptr
-wrap_npot(
-	sge::renderer::device::core_ref,
-	sge::renderer::texture::planar_parameters const &
-);
+wrap_npot(sge::renderer::device::core_ref, sge::renderer::texture::planar_parameters const &);
 
 }
 

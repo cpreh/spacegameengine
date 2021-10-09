@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_MINIMUM_SIZE_HPP_INCLUDED
 #define SGE_GUI_WIDGET_MINIMUM_SIZE_HPP_INCLUDED
 
@@ -15,31 +14,22 @@
 #include <sge/rucksack/widget/minimum_size.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class minimum_size
-:
-	public sge::gui::widget::dummy
+class minimum_size : public sge::gui::widget::dummy
 {
-	FCPPT_NONMOVABLE(
-		minimum_size
-	);
+  FCPPT_NONMOVABLE(minimum_size);
+
 public:
-	explicit
-	minimum_size(
-		sge::gui::widget::reference
-	);
+  explicit minimum_size(sge::gui::widget::reference);
 
-	~minimum_size()
-	override;
+  ~minimum_size() override;
 
-	sge::rucksack::widget::base &
-	layout()
-	override;
+  sge::rucksack::widget::base &layout() override;
+
 private:
-	sge::rucksack::widget::minimum_size layout_;
+  sge::rucksack::widget::minimum_size layout_;
 };
 
 }

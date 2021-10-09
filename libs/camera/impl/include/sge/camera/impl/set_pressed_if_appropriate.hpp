@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_IMPL_SET_PRESSED_IF_APPROPRIATE_HPP_INCLUDED
 #define SGE_CAMERA_IMPL_SET_PRESSED_IF_APPROPRIATE_HPP_INCLUDED
 
@@ -11,18 +10,13 @@
 #include <sge/input/keyboard/event/key_fwd.hpp>
 #include <fcppt/reference_fwd.hpp>
 
-
 namespace sge::camera::impl
 {
 
-void
-set_pressed_if_appropriate(
-	fcppt::reference<
-		bool
-	>,
-	sge::input::key::optional_code const &,
-	sge::input::keyboard::event::key const &
-);
+void set_pressed_if_appropriate(
+    fcppt::reference<bool>,
+    sge::input::key::optional_code const &,
+    sge::input::keyboard::event::key const &);
 
 }
 

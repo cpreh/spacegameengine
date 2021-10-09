@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_IMPL_LOAD_HPP_INCLUDED
 #define SGE_MEDIA_IMPL_LOAD_HPP_INCLUDED
 
@@ -26,89 +25,34 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::media::impl
 {
 
-template<
-	typename Result,
-	typename Exception,
-	typename System
->
-fcppt::optional::object<
-	Result
->
-load(
-	fcppt::reference<
-		System
-	> const _system,
-	std::filesystem::path const &_path
-)
+template <typename Result, typename Exception, typename System>
+fcppt::optional::object<Result>
+load(fcppt::reference<System> const _system, std::filesystem::path const &_path)
 {
-	auto file_stream(
-		fcppt::make_unique_ptr<
-			std::ifstream
-		>(
-			_path,
-			std::ios_base::binary
-		)
-	);
+  auto file_stream(fcppt::make_unique_ptr<std::ifstream>(_path, std::ios_base::binary));
 
-	if(
-		!file_stream->is_open()
-	)
-	{
-		throw
-			Exception{
-				FCPPT_TEXT("Couldn't open ")
-				+
-				fcppt::filesystem::path_to_string(
-					_path
-				)
-			};
-	}
+  if (!file_stream->is_open())
+  {
+    throw Exception{FCPPT_TEXT("Couldn't open ") + fcppt::filesystem::path_to_string(_path)};
+  }
 
-	sge::media::optional_name const cur_name{
-		sge::media::name{
-			fcppt::filesystem::path_to_string(
-				_path
-			)
-		}
-	};
+  sge::media::optional_name const cur_name{
+      sge::media::name{fcppt::filesystem::path_to_string(_path)}};
 
-	try
-	{
-		return
-			fcppt::variant::to_optional<
-				Result
-			>(
-				_system.get().load_stream(
-					fcppt::unique_ptr_to_base<
-						std::istream
-					>(
-						std::move(
-							file_stream
-						)
-					),
-					sge::media::path_to_extension(
-						_path
-					),
-					cur_name
-				)
-			);
-	}
-	catch(
-		fcppt::exception const &_error
-	)
-	{
-		throw
-			sge::media::file_exception<
-				Exception
-			>(
-				cur_name,
-				_error.string()
-			);
-	}
+  try
+  {
+    return fcppt::variant::to_optional<Result>(_system.get().load_stream(
+        fcppt::unique_ptr_to_base<std::istream>(std::move(file_stream)),
+        sge::media::path_to_extension(_path),
+        cur_name));
+  }
+  catch (fcppt::exception const &_error)
+  {
+    throw sge::media::file_exception<Exception>(cur_name, _error.string());
+  }
 }
 
 }

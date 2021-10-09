@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VF_ACTOR_PARAMETERS_HPP_INCLUDED
 #define SGE_OPENGL_VF_ACTOR_PARAMETERS_HPP_INCLUDED
 
@@ -13,36 +12,29 @@
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 
-
 namespace sge::opengl::vf
 {
 
 class actor_parameters
 {
 public:
-	actor_parameters(
-		sge::renderer::vf::dynamic::stride,
-		sge::renderer::vf::dynamic::offset,
-		sge::opengl::context::object_ref
-	);
+  actor_parameters(
+      sge::renderer::vf::dynamic::stride,
+      sge::renderer::vf::dynamic::offset,
+      sge::opengl::context::object_ref);
 
-	[[nodiscard]]
-	sge::renderer::vf::dynamic::stride
-	stride() const;
+  [[nodiscard]] sge::renderer::vf::dynamic::stride stride() const;
 
-	[[nodiscard]]
-	sge::renderer::vf::dynamic::offset
-	offset() const;
+  [[nodiscard]] sge::renderer::vf::dynamic::offset offset() const;
 
-	[[nodiscard]]
-	sge::opengl::context::object &
-	context() const;
+  [[nodiscard]] sge::opengl::context::object &context() const;
+
 private:
-	sge::renderer::vf::dynamic::stride stride_;
+  sge::renderer::vf::dynamic::stride stride_;
 
-	sge::renderer::vf::dynamic::offset offset_;
+  sge::renderer::vf::dynamic::offset offset_;
 
-	sge::opengl::context::object_ref context_;
+  sge::opengl::context::object_ref context_;
 };
 
 }

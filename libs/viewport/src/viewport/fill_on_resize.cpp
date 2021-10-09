@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/target/viewport.hpp>
@@ -16,35 +15,17 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/null.hpp>
 
-
-sge::viewport::resize_callback
-sge::viewport::fill_on_resize()
+sge::viewport::resize_callback sge::viewport::fill_on_resize()
 {
-	return
-		sge::viewport::resize_callback{
-			[](
-				awl::window::event::resize const &_resize
-			)
-			{
-				return
-					sge::renderer::target::viewport(
-						sge::renderer::pixel_rect(
-							fcppt::math::vector::null<
-								sge::renderer::pixel_rect::vector
-							>(),
-							fcppt::math::dim::structure_cast<
-								sge::renderer::pixel_rect::dim,
-								fcppt::cast::to_signed_fun
-							>(
-								fcppt::math::dim::structure_cast<
-									sge::renderer::screen_size,
-									fcppt::cast::size_fun
-								>(
-									_resize.dim()
-								)
-							)
-						)
-					);
-			}
-		};
+  return sge::viewport::resize_callback{
+      [](awl::window::event::resize const &_resize)
+      {
+        return sge::renderer::target::viewport(sge::renderer::pixel_rect(
+            fcppt::math::vector::null<sge::renderer::pixel_rect::vector>(),
+            fcppt::math::dim::structure_cast<
+                sge::renderer::pixel_rect::dim,
+                fcppt::cast::to_signed_fun>(
+                fcppt::math::dim::structure_cast<sge::renderer::screen_size, fcppt::cast::size_fun>(
+                    _resize.dim()))));
+      }};
 }

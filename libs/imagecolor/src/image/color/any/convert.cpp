@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/image/color/a8_format.hpp>
 #include <sge/image/color/bgr32f_format.hpp>
@@ -37,56 +36,20 @@
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename Format
->
-sge::image::color::enable_if_has_format<
-	Format,
-	sge::image::pixel::mizuiro_type<
-		Format
-	>
->
-sge::image::color::any::convert(
-	sge::image::color::any::object const &_color
-)
+template <typename Format>
+sge::image::color::enable_if_has_format<Format, sge::image::pixel::mizuiro_type<Format>>
+sge::image::color::any::convert(sge::image::color::any::object const &_color)
 {
-	return
-		sge::image::pixel::convert<
-			sge::image::color::tag,
-			Format
-		>(
-			_color
-		);
+  return sge::image::pixel::convert<sge::image::color::tag, Format>(_color);
 }
 
-#define SGE_IMAGE_COLOR_INSTANTIATE_CONVERT(\
-	seq,\
-	_,\
-	format_arg\
-)\
-template \
-SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::color::enable_if_has_format<\
-	sge::image::color:: BOOST_PP_CAT(format_arg,_format),\
-	sge::image::pixel::mizuiro_type<\
-		sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
-	> \
-> \
-sge::image::color::any::convert<\
-	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
->(\
-	sge::image::color::any::object const &\
-) \
-; \
-SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_CONVERT(\
-	sge::image::color::tag,\
-	sge::image::color:: BOOST_PP_CAT(format_arg,_format)\
-) \
-;
+#define SGE_IMAGE_COLOR_INSTANTIATE_CONVERT(seq, _, format_arg) \
+  template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::color::enable_if_has_format< \
+      sge::image::color::BOOST_PP_CAT(format_arg, _format), \
+      sge::image::pixel::mizuiro_type<sge::image::color::BOOST_PP_CAT(format_arg, _format)>> \
+  sge::image::color::any::convert<sge::image::color::BOOST_PP_CAT(format_arg, _format)>( \
+      sge::image::color::any::object const &); \
+  SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_CONVERT( \
+      sge::image::color::tag, sge::image::color::BOOST_PP_CAT(format_arg, _format));
 
-BOOST_PP_SEQ_FOR_EACH(
-	SGE_IMAGE_COLOR_INSTANTIATE_CONVERT,
-	_,
-	SGE_IMAGE_COLOR_DETAIL_PP_FORMATS
-)
+BOOST_PP_SEQ_FOR_EACH(SGE_IMAGE_COLOR_INSTANTIATE_CONVERT, _, SGE_IMAGE_COLOR_DETAIL_PP_FORMATS)

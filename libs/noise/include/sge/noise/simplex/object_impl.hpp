@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_NOISE_SIMPLEX_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_NOISE_SIMPLEX_OBJECT_IMPL_HPP_INCLUDED
 
@@ -30,289 +29,167 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename Float,
-	fcppt::math::size_type N
->
-sge::noise::simplex::object<
-	Float,
-	N
->::object(
-	sge::noise::simplex::width const &_width
-)
-:
-	perm_(
-		_width.get()),
-	// TODO(philipp): Initialize this directly!
-	gradients_(
-		fcppt::array::init<
-			gradient_array
-		>(
-			[](auto)
-			{
-				return
-					fcppt::math::vector::null<
-						vector_type
-					>();
-			}
-		)
-	)
+template <typename Float, fcppt::math::size_type N>
+sge::noise::simplex::object<Float, N>::object(sge::noise::simplex::width const &_width)
+    : perm_(_width.get()),
+      // TODO(philipp): Initialize this directly!
+      gradients_(fcppt::array::init<gradient_array>(
+          [](auto) { return fcppt::math::vector::null<vector_type>(); }))
 {
-	std::iota(
-		perm_.begin(),
-		perm_.end(),
-		static_cast<
-			index_type
-		>(
-			0
-		)
-	);
+  std::iota(perm_.begin(), perm_.end(), static_cast<index_type>(0));
 
-	{
-		using
-		generator_type
-		=
-		fcppt::random::generator::mt19937;
+  {
+    using generator_type = fcppt::random::generator::mt19937;
 
-		generator_type randgen{
-			fcppt::random::generator::seed_from_chrono<
-				generator_type::seed
-			>()
-		};
+    generator_type randgen{fcppt::random::generator::seed_from_chrono<generator_type::seed>()};
 
-		std::shuffle(
-			perm_.begin(),
-			perm_.end(),
-			randgen
-		);
-	}
+    std::shuffle(perm_.begin(), perm_.end(), randgen);
+  }
 
-	for (typename vector_type::size_type i = 0U; i < N; i++)
-	{
-		vector_type tmp(
-			fcppt::math::vector::null<
-				vector_type
-			>()
-		);
-		tmp.get_unsafe(i) = static_cast<Float>(1);
-		gradients_.get_unsafe(2U*i) = tmp;
-		tmp.get_unsafe(i) = static_cast<Float>(-1);
-		gradients_.get_unsafe(2U*i+1U) = tmp;
-	}
+  for (typename vector_type::size_type i = 0U; i < N; i++)
+  {
+    vector_type tmp(fcppt::math::vector::null<vector_type>());
+    tmp.get_unsafe(i) = static_cast<Float>(1);
+    gradients_.get_unsafe(2U * i) = tmp;
+    tmp.get_unsafe(i) = static_cast<Float>(-1);
+    gradients_.get_unsafe(2U * i + 1U) = tmp;
+  }
 }
 
-template<
-	typename Float,
-	fcppt::math::size_type N
->
-Float
-sge::noise::simplex::object<Float,N>::sample(
-	vector_type const &in)
+template <typename Float, fcppt::math::size_type N>
+Float sge::noise::simplex::object<Float, N>::sample(vector_type const &in)
 {
-	auto res = static_cast<Float>(0);
-	vector_type tmp = stretch_m() * in;
-	for(
-		auto &elem
-		:
-		fcppt::math::to_array(
-			tmp
-		)
-	)
-	{
-		elem = std::floor(elem);
-	}
-	vector_type floored(tmp);
-	tmp = inv_m() * tmp;
-	tmp = in - tmp;
-	tmp = stretch_m() * tmp;
+  auto res = static_cast<Float>(0);
+  vector_type tmp = stretch_m() * in;
+  for (auto &elem : fcppt::math::to_array(tmp))
+  {
+    elem = std::floor(elem);
+  }
+  vector_type floored(tmp);
+  tmp = inv_m() * tmp;
+  tmp = in - tmp;
+  tmp = stretch_m() * tmp;
 
-	corner_array c = corners(tmp);
-	for (auto const &v : c)
-	{
-		vector_type t(in - inv_m() * (floored + v));
-		res +=
-			contrib(t, floored + v);
-	}
+  corner_array c = corners(tmp);
+  for (auto const &v : c)
+  {
+    vector_type t(in - inv_m() * (floored + v));
+    res += contrib(t, floored + v);
+  }
 
-	// FIXME: replace this magic number with something sensible
-	return static_cast<Float>(40.0) * res;
+  // FIXME: replace this magic number with something sensible
+  return static_cast<Float>(40.0) * res;
 }
 
-template<
-	typename Float,
-	fcppt::math::size_type N
->
-std::size_t
-sge::noise::simplex::object<Float,N>::index(
-	vector_type const &vec)
+template <typename Float, fcppt::math::size_type N>
+std::size_t sge::noise::simplex::object<Float, N>::index(vector_type const &vec)
 {
-	auto res = static_cast<std::size_t>(0);
-	for (
-		auto const elem
-		:
-		fcppt::math::to_array(
-			vec
-		)
-	)
-	{
-		auto t = static_cast<long>(elem); // NOLINT(google-runtime-int)
-		res = perm_[sge::noise::simplex::detail::mod(
-			static_cast<long>(res) + // NOLINT(google-runtime-int)
-				static_cast<long>(t), // NOLINT(google-runtime-int)
-			perm_.size())];
-	}
-	return res;
+  auto res = static_cast<std::size_t>(0);
+  for (auto const elem : fcppt::math::to_array(vec))
+  {
+    auto t = static_cast<long>(elem); // NOLINT(google-runtime-int)
+    res = perm_[sge::noise::simplex::detail::mod(
+        static_cast<long>(res) + // NOLINT(google-runtime-int)
+            static_cast<long>(t), // NOLINT(google-runtime-int)
+        perm_.size())];
+  }
+  return res;
 }
 
-template<
-	typename Float,
-	fcppt::math::size_type N
->
-typename sge::noise::simplex::object<Float,N>::corner_array
-sge::noise::simplex::object<Float,N>::corners(
-	vector_type point)
+template <typename Float, fcppt::math::size_type N>
+typename sge::noise::simplex::object<Float, N>::corner_array
+sge::noise::simplex::object<Float, N>::corners(vector_type point)
 {
-	// TODO(philipp): Initialize this directly!
-	auto res(
-		fcppt::array::init<
-			corner_array
-		>(
-			[](auto)
-			{
-				return
-					fcppt::math::vector::null<
-						vector_type
-					>();
-			}
-		)
-	);
+  // TODO(philipp): Initialize this directly!
+  auto res(fcppt::array::init<corner_array>([](auto)
+                                            { return fcppt::math::vector::null<vector_type>(); }));
 
-	vector_type cur(
-		fcppt::math::vector::null<
-			vector_type
-		>()
-	);
+  vector_type cur(fcppt::math::vector::null<vector_type>());
 
-	auto max = static_cast<Float>(-1);
-	typename vector_type::size_type max_i = 0;
+  auto max = static_cast<Float>(-1);
+  typename vector_type::size_type max_i = 0;
 
-	fcppt::array::get<0U>(res) = vector_type(cur);
+  fcppt::array::get<0U>(res) = vector_type(cur);
 
-	for (typename vector_type::size_type j = 0; j < N; ++j)
-	{
-		for (typename vector_type::size_type i = 0; i < N; ++i)
-		{
-			if (point.get_unsafe(i) > max)
-			{
-				max = point.get_unsafe(i);
-				max_i = i;
-			}
-		}
-		max = static_cast<Float>(-1);
-		point.get_unsafe(max_i) = static_cast<Float>(-2);
-		cur += fcppt::math::vector::unit<vector_type>(max_i);
-		res.get_unsafe(j+1) = vector_type(cur);
-	}
+  for (typename vector_type::size_type j = 0; j < N; ++j)
+  {
+    for (typename vector_type::size_type i = 0; i < N; ++i)
+    {
+      if (point.get_unsafe(i) > max)
+      {
+        max = point.get_unsafe(i);
+        max_i = i;
+      }
+    }
+    max = static_cast<Float>(-1);
+    point.get_unsafe(max_i) = static_cast<Float>(-2);
+    cur += fcppt::math::vector::unit<vector_type>(max_i);
+    res.get_unsafe(j + 1) = vector_type(cur);
+  }
 
-	return res;
+  return res;
 }
 
-template<
-	typename Float,
-	fcppt::math::size_type N
->
-Float
-sge::noise::simplex::object<Float,N>::stretch_factor()
+template <typename Float, fcppt::math::size_type N>
+Float sge::noise::simplex::object<Float, N>::stretch_factor()
 {
-	return static_cast<Float>(
-		1.0/(1.0 + std::sqrt(1.0 + N))
-	);
+  return static_cast<Float>(1.0 / (1.0 + std::sqrt(1.0 + N)));
 }
 
-template<
-	typename Float,
-	fcppt::math::size_type N
->
-Float
-sge::noise::simplex::object<Float,N>::inv_factor()
+template <typename Float, fcppt::math::size_type N>
+Float sge::noise::simplex::object<Float, N>::inv_factor()
 {
-	return static_cast<Float>(
-		-1.0/(1.0 + N + std::sqrt(1.0 + N))
-	);
+  return static_cast<Float>(-1.0 / (1.0 + N + std::sqrt(1.0 + N)));
 }
 
-template<
-	typename Float,
-	fcppt::math::size_type N
->
-typename sge::noise::simplex::object<Float,N>::matrix
-sge::noise::simplex::object<Float,N>::stretch_m()
+template <typename Float, fcppt::math::size_type N>
+typename sge::noise::simplex::object<Float, N>::matrix
+sge::noise::simplex::object<Float, N>::stretch_m()
 {
-	matrix tmp{
-		fcppt::no_init()};
+  matrix tmp{fcppt::no_init()};
 
-	for (typename matrix::size_type i = 0; i < N; ++i)
-	{
-		for (typename matrix::size_type j = 0; j < N; ++j)
-		{
-			tmp.get_unsafe(i).get_unsafe(j) =
-				stretch_factor() +
-				((i == j)? 1 : 0 );
-		}
-	}
-	return tmp;
+  for (typename matrix::size_type i = 0; i < N; ++i)
+  {
+    for (typename matrix::size_type j = 0; j < N; ++j)
+    {
+      tmp.get_unsafe(i).get_unsafe(j) = stretch_factor() + ((i == j) ? 1 : 0);
+    }
+  }
+  return tmp;
 }
 
-template<
-	typename Float,
-	fcppt::math::size_type N
->
-typename sge::noise::simplex::object<Float,N>::matrix
-sge::noise::simplex::object<Float,N>::inv_m()
+template <typename Float, fcppt::math::size_type N>
+typename sge::noise::simplex::object<Float, N>::matrix
+sge::noise::simplex::object<Float, N>::inv_m()
 {
-	matrix tmp{
-		fcppt::no_init()};
+  matrix tmp{fcppt::no_init()};
 
-	for (typename matrix::size_type i = 0; i < N; ++i)
-	{
-		for (typename matrix::size_type j = 0; j < N; ++j)
-		{
-			tmp.get_unsafe(i).get_unsafe(j) =
-				inv_factor() +
-				((i == j)? 1 : 0 );
-		}
-	}
-	return tmp;
+  for (typename matrix::size_type i = 0; i < N; ++i)
+  {
+    for (typename matrix::size_type j = 0; j < N; ++j)
+    {
+      tmp.get_unsafe(i).get_unsafe(j) = inv_factor() + ((i == j) ? 1 : 0);
+    }
+  }
+  return tmp;
 }
 
-template<
-	typename Float,
-	fcppt::math::size_type N
->
-Float
-sge::noise::simplex::object<Float,N>::contrib(
-	vector_type const &v,
-	vector_type const &intv)
+template <typename Float, fcppt::math::size_type N>
+Float sge::noise::simplex::object<Float, N>::contrib(vector_type const &v, vector_type const &intv)
 {
-	auto t = static_cast<Float>(0.6); // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  auto t = static_cast<Float>(
+      0.6); // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
-	t -= fcppt::math::vector::dot(v,v);
+  t -= fcppt::math::vector::dot(v, v);
 
-	if (t < 0)
-	{
-		return static_cast<Float>(0);
-	}
+  if (t < 0)
+  {
+    return static_cast<Float>(0);
+  }
 
-	t *= t;
+  t *= t;
 
-	return
-		t * t * fcppt::math::vector::dot(
-			gradients_.get_unsafe(
-				index(intv) % (2U * N)
-			),
-			v
-		);
+  return t * t * fcppt::math::vector::dot(gradients_.get_unsafe(index(intv) % (2U * N)), v);
 }
 
 #endif

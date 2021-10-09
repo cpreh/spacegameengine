@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_DEVICE_INFO_CLASS_MAYBE_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_INFO_CLASS_MAYBE_HPP_INCLUDED
 
@@ -17,49 +16,19 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::device::info
 {
 
-template<
-	typename Class
->
-fcppt::optional::reference<
-	Class const
->
-class_maybe(
-	XIAnyClassInfo const &_info
-)
+template <typename Class>
+fcppt::optional::reference<Class const> class_maybe(XIAnyClassInfo const &_info)
 {
-	using
-	result_type
-	=
-	fcppt::optional::reference<
-		Class const
-	>;
+  using result_type = fcppt::optional::reference<Class const>;
 
-	return
-		sge::x11input::device::info::class_type(
-			_info
-		)
-		==
-		fcppt::mpl::map::at<
-			sge::x11input::device::info::class_map,
-			Class
-		>::value
-		?
-			result_type(
-				fcppt::make_cref(
-					sge::x11input::device::info::class_cast<
-						Class const &
-					>(
-						_info
-					)
-				)
-			)
-		:
-			result_type()
-		;
+  return sge::x11input::device::info::class_type(_info) ==
+                 fcppt::mpl::map::at<sge::x11input::device::info::class_map, Class>::value
+             ? result_type(
+                   fcppt::make_cref(sge::x11input::device::info::class_cast<Class const &>(_info)))
+             : result_type();
 }
 
 }

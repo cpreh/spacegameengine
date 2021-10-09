@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_XIM_CONTEXT_HPP_INCLUDED
 #define SGE_X11INPUT_XIM_CONTEXT_HPP_INCLUDED
 
@@ -14,28 +13,22 @@
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::xim
 {
 
 class context
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	context(
-		XIM,
-		awl::backends::x11::window::object_ref
-	);
+  context(XIM, awl::backends::x11::window::object_ref);
 
-	~context();
+  ~context();
 
-	[[nodiscard]]
-	XIC
-	get() const;
+  [[nodiscard]] XIC get() const;
+
 private:
-	XIC const xic_; // NOLINT(misc-misplaced-const)
+  XIC const xic_; // NOLINT(misc-misplaced-const)
 };
 
 }

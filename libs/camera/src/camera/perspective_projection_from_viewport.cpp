@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/projection_matrix.hpp>
@@ -22,84 +21,38 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::camera::perspective_projection_from_viewport::perspective_projection_from_viewport(
-	fcppt::reference<
-		sge::camera::has_mutable_projection
-	> const _camera,
-	sge::viewport::manager_ref const _viewport_manager,
-	sge::renderer::projection::near const _near,
-	sge::renderer::projection::far const _far,
-	sge::renderer::projection::fov const _fov
-)
-:
-	camera_(
-		_camera
-	),
-	near_(
-		_near
-	),
-	far_(
-		_far
-	),
-	fov_(
-		_fov
-	),
-	viewport_callback_connection_(
-		_viewport_manager.get().manage_callback(
-			sge::viewport::manage_callback{
-				[
-					this
-				](
-					sge::renderer::target::viewport const &_viewport
-				)
-				{
-					this->viewport_callback(
-						_viewport
-					);
-				}
-			}
-		)
-	)
+    fcppt::reference<sge::camera::has_mutable_projection> const _camera,
+    sge::viewport::manager_ref const _viewport_manager,
+    sge::renderer::projection::near const _near,
+    sge::renderer::projection::far const _far,
+    sge::renderer::projection::fov const _fov)
+    : camera_(_camera),
+      near_(_near),
+      far_(_far),
+      fov_(_fov),
+      viewport_callback_connection_(_viewport_manager.get().manage_callback(
+          sge::viewport::manage_callback{[this](sge::renderer::target::viewport const &_viewport)
+                                         { this->viewport_callback(_viewport); }}))
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::camera::perspective_projection_from_viewport::~perspective_projection_from_viewport()
-= default;
+sge::camera::perspective_projection_from_viewport::~perspective_projection_from_viewport() =
+    default;
 
-void
-sge::camera::perspective_projection_from_viewport::viewport_callback(
-	sge::renderer::target::viewport const &_viewport
-)
+void sge::camera::perspective_projection_from_viewport::viewport_callback(
+    sge::renderer::target::viewport const &_viewport)
 {
-	camera_.get().update_projection_matrix(
-		fcppt::optional::map(
-			sge::renderer::target::aspect_from_viewport(
-				_viewport
-			),
-			[
-				this
-			](
-				sge::renderer::scalar const _aspect
-			)
-			{
-				return
-					sge::camera::projection_matrix(
-						sge::renderer::projection::perspective_af(
-							sge::renderer::projection::aspect(
-								_aspect
-							),
-							this->fov_,
-							this->near_,
-							this->far_
-						)
-					);
-			}
-		)
-	);
+  camera_.get().update_projection_matrix(fcppt::optional::map(
+      sge::renderer::target::aspect_from_viewport(_viewport),
+      [this](sge::renderer::scalar const _aspect)
+      {
+        return sge::camera::projection_matrix(sge::renderer::projection::perspective_af(
+            sge::renderer::projection::aspect(_aspect), this->fov_, this->near_, this->far_));
+      }));
 }

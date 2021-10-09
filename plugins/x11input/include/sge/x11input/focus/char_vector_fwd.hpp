@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_FOCUS_CHAR_VECTOR_FWD_HPP_INCLUDED
 #define SGE_X11INPUT_FOCUS_CHAR_VECTOR_FWD_HPP_INCLUDED
 
 #include <sge/input/focus/char_type.hpp>
 #include <fcppt/container/raw_vector/object_fwd.hpp>
 
-
 namespace sge::x11input::focus
 {
 
-using
-char_vector
-=
-fcppt::container::raw_vector::object<
-	sge::input::focus::char_type
->;
+using char_vector = fcppt::container::raw_vector::object<sge::input::focus::char_type>;
 
 }
 

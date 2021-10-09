@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_TEXT_HPP_INCLUDED
 #define SGE_FONT_TEXT_HPP_INCLUDED
 
@@ -18,52 +17,30 @@
 #include <sge/font/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::font
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL text
 {
-	FCPPT_NONMOVABLE(
-		text
-	);
+  FCPPT_NONMOVABLE(text);
+
 protected:
-	SGE_FONT_DETAIL_SYMBOL
-	text();
+  SGE_FONT_DETAIL_SYMBOL
+  text();
+
 public:
-	SGE_FONT_DETAIL_SYMBOL
-	virtual
-	~text();
+  SGE_FONT_DETAIL_SYMBOL
+  virtual ~text();
 
-	virtual
-	void
-	render(
-		sge::font::view const &
-	) = 0;
+  virtual void render(sge::font::view const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::font::rect
-	rect() const = 0;
+  [[nodiscard]] virtual sge::font::rect rect() const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::font::dim
-	logical_size() const = 0;
+  [[nodiscard]] virtual sge::font::dim logical_size() const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::font::rect
-	cursor_rect(
-		sge::font::index
-	) const = 0;
+  [[nodiscard]] virtual sge::font::rect cursor_rect(sge::font::index) const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::font::optional_index
-	pos_to_index(
-		sge::font::vector
-	) const = 0;
+  [[nodiscard]] virtual sge::font::optional_index pos_to_index(sge::font::vector) const = 0;
 };
 
 }

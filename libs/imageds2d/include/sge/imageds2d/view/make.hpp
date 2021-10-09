@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGEDS2D_VIEW_MAKE_HPP_INCLUDED
 #define SGE_IMAGEDS2D_VIEW_MAKE_HPP_INCLUDED
 
@@ -14,18 +13,15 @@
 #include <sge/imageds2d/detail/symbol.hpp>
 #include <sge/imageds2d/view/object_fwd.hpp>
 
-
 namespace sge::imageds2d::view
 {
 
 SGE_IMAGEDS2D_DETAIL_SYMBOL
-sge::imageds2d::view::object
-make(
-	sge::image::raw_pointer,
-	sge::imageds2d::dim const &,
-	sge::image::ds::format,
-	sge::imageds2d::pitch const &
-);
+sge::imageds2d::view::object make(
+    sge::image::raw_pointer,
+    sge::imageds2d::dim const &,
+    sge::image::ds::format,
+    sge::imageds2d::pitch const &);
 
 }
 

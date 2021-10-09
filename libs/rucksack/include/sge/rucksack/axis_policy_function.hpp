@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_AXIS_POLICY_FUNCTION_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_POLICY_FUNCTION_HPP_INCLUDED
 
@@ -11,18 +10,10 @@
 #include <sge/rucksack/axis_policy_fwd.hpp>
 #include <fcppt/function_impl.hpp>
 
-
 namespace sge::rucksack
 {
 
-using
-axis_policy_function
-=
-fcppt::function<
-	sge::rucksack::axis_policy (
-		sge::rucksack::axis
-	)
->;
+using axis_policy_function = fcppt::function<sge::rucksack::axis_policy(sge::rucksack::axis)>;
 
 }
 

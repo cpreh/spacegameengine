@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_EVENT_IS_RAW_HPP_INCLUDED
 #define SGE_X11INPUT_EVENT_IS_RAW_HPP_INCLUDED
 
@@ -16,24 +15,14 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::event
 {
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Value
->
-struct is_raw
-:
-std::is_same<
-	Value,
-	sge::x11input::event::type_c<
-		XI_RawMotion
-	>
->
+template <typename Value>
+struct is_raw : std::is_same<Value, sge::x11input::event::type_c<XI_RawMotion>>
 {
 };
 

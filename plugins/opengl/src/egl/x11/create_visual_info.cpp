@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/egl/get_config_attrib.hpp>
 #include <sge/opengl/egl/x11/create_visual_info.hpp>
 #include <awl/backends/x11/const_display_ref.hpp>
@@ -15,31 +14,17 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::backends::x11::visual::info_unique_ptr
-sge::opengl::egl::x11::create_visual_info(
-	awl::backends::x11::const_display_ref const _display,
-	EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
-	EGLConfig const _egl_config // NOLINT(misc-misplaced-const)
+awl::backends::x11::visual::info_unique_ptr sge::opengl::egl::x11::create_visual_info(
+    awl::backends::x11::const_display_ref const _display,
+    EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
+    EGLConfig const _egl_config // NOLINT(misc-misplaced-const)
 )
 {
-	XVisualInfo info;
+  XVisualInfo info;
 
-	info.visualid =
-		fcppt::cast::to_unsigned(
-			sge::opengl::egl::get_config_attrib(
-				_egl_display,
-				_egl_config,
-				EGL_NATIVE_VISUAL_ID
-			)
-		);
+  info.visualid = fcppt::cast::to_unsigned(
+      sge::opengl::egl::get_config_attrib(_egl_display, _egl_config, EGL_NATIVE_VISUAL_ID));
 
-	return
-		awl::backends::x11::visual::get_info(
-			_display.get(),
-			awl::backends::x11::visual::mask{
-				VisualIDMask
-			},
-			info
-		);
+  return awl::backends::x11::visual::get_info(
+      _display.get(), awl::backends::x11::visual::mask{VisualIDMask}, info);
 }

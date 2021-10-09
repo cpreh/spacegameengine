@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_FOCUS_STATE_HPP_INCLUDED
 #define SGE_WLINPUT_FOCUS_STATE_HPP_INCLUDED
 
@@ -14,39 +13,26 @@
 #include <xkbcommon/xkbcommon.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::wlinput::focus
 {
 
 class state
 {
-	FCPPT_NONCOPYABLE(
-		state
-	);
+  FCPPT_NONCOPYABLE(state);
+
 public:
-	explicit
-	state(
-		sge::wlinput::focus::keymap_ref
-	);
+  explicit state(sge::wlinput::focus::keymap_ref);
 
-	state(
-		state &&
-	)
-	noexcept;
+  state(state &&) noexcept;
 
-	state &
-	operator=(
-		state &&
-	)
-	noexcept;
+  state &operator=(state &&) noexcept;
 
-	~state();
+  ~state();
 
-	[[nodiscard]]
-	xkb_state *
-	get() const;
+  [[nodiscard]] xkb_state *get() const;
+
 private:
-	xkb_state *state_;
+  xkb_state *state_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
@@ -20,44 +19,23 @@
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/log/context_reference.hpp>
 
-
-sge::systems::impl::renderer::plugin_core_pair
-sge::systems::impl::renderer::find_plugin(
-	fcppt::log::context_reference const _log_context,
-	sge::renderer::plugin::collection const &_collection,
-	sge::systems::optional_name const &_name,
-	sge::renderer::caps::system_field const &_caps,
-	sge::systems::renderer_caps const _renderer_caps
-)
+sge::systems::impl::renderer::plugin_core_pair sge::systems::impl::renderer::find_plugin(
+    fcppt::log::context_reference const _log_context,
+    sge::renderer::plugin::collection const &_collection,
+    sge::systems::optional_name const &_name,
+    sge::renderer::caps::system_field const &_caps,
+    sge::systems::renderer_caps const _renderer_caps)
 {
-	return
-		sge::systems::impl::find_plugin<
-			sge::renderer::core
-		>(
-			_log_context,
-			_collection,
-			_name,
-			[
-				_renderer_caps,
-				&_caps
-			](
-				sge::renderer::core const &_core
-			)
-			{
-				return
-					fcppt::container::bitfield::is_subset_eq(
-						_renderer_caps
-						==
-						sge::systems::renderer_caps::ffp
-						?
-							_caps
-							|
-							sge::renderer::caps::system::ffp
-						:
-							_caps
-						,
-						_core.caps()
-					);
-			}
-		);
+  return sge::systems::impl::find_plugin<sge::renderer::core>(
+      _log_context,
+      _collection,
+      _name,
+      [_renderer_caps, &_caps](sge::renderer::core const &_core)
+      {
+        return fcppt::container::bitfield::is_subset_eq(
+            _renderer_caps == sge::systems::renderer_caps::ffp
+                ? _caps | sge::renderer::caps::system::ffp
+                : _caps,
+            _core.caps());
+      });
 }

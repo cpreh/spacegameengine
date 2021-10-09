@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_VIEW_MAKE_CONST_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_MAKE_CONST_IMPL_HPP_INCLUDED
 
@@ -17,38 +16,14 @@
 #include <sge/image/view/make_const.hpp>
 #include <mizuiro/const_tag.hpp>
 
-
-template<
-	typename Tag
->
-sge::image::view::const_object<
-	Tag
->
-sge::image::view::make_const(
-	sge::image::const_raw_pointer const _data,
-	sge::image::dim<
-		Tag
-	> const &_dim,
-	sge::image::traits::pixel::format<
-		sge::image::traits::image::color_tag<
-			Tag
-		>
-	> const _format,
-	sge::image::pitch<
-		Tag
-	> const &_pitch
-)
+template <typename Tag>
+sge::image::view::const_object<Tag> sge::image::view::make_const(
+    sge::image::const_raw_pointer const _data,
+    sge::image::dim<Tag> const &_dim,
+    sge::image::traits::pixel::format<sge::image::traits::image::color_tag<Tag>> const _format,
+    sge::image::pitch<Tag> const &_pitch)
 {
-	return
-		sge::image::impl::view::make_any<
-			Tag,
-			mizuiro::const_tag
-		>(
-			_data,
-			_dim,
-			_format,
-			_pitch
-		);
+  return sge::image::impl::view::make_any<Tag, mizuiro::const_tag>(_data, _dim, _format, _pitch);
 }
 
 #endif

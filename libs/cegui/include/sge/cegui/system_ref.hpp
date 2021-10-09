@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_SYSTEM_REF_HPP_INCLUDED
 #define SGE_CEGUI_SYSTEM_REF_HPP_INCLUDED
 
 #include <sge/cegui/system_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::cegui
 {
 
-using
-system_ref
-=
-fcppt::reference<
-	sge::cegui::system
->;
+using system_ref = fcppt::reference<sge::cegui::system>;
 
 }
 

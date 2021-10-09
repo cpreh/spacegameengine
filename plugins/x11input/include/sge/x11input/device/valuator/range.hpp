@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_DEVICE_VALUATOR_RANGE_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_VALUATOR_RANGE_HPP_INCLUDED
 
@@ -14,41 +13,24 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::device::valuator
 {
 
 class range
 {
 public:
-	explicit
-	range(
-		fcppt::reference<
-			XIValuatorState const
-		>
-	);
+  explicit range(fcppt::reference<XIValuatorState const>);
 
-	using
-	iterator
-	=
-	sge::x11input::device::valuator::iterator;
+  using iterator = sge::x11input::device::valuator::iterator;
 
-	using
-	const_iterator
-	=
-	iterator;
+  using const_iterator = iterator;
 
-	[[nodiscard]]
-	iterator
-	begin() const;
+  [[nodiscard]] iterator begin() const;
 
-	[[nodiscard]]
-	iterator
-	end() const;
+  [[nodiscard]] iterator end() const;
+
 private:
-	fcppt::reference<
-		XIValuatorState const
-	> state_;
+  fcppt::reference<XIValuatorState const> state_;
 };
 
 }

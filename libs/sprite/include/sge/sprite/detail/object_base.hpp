@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_OBJECT_BASE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_OBJECT_BASE_HPP_INCLUDED
 
@@ -14,22 +13,14 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail
 {
 
-template<
-	typename Choices
->
-using object_base
-=
-std::conditional_t<
-	sge::sprite::detail::config::is_intrusive<
-		Choices
-	>::value,
-	sge::sprite::intrusive::detail::object_base_hook,
-	fcppt::unit
->;
+template <typename Choices>
+using object_base = std::conditional_t<
+    sge::sprite::detail::config::is_intrusive<Choices>::value,
+    sge::sprite::intrusive::detail::object_base_hook,
+    fcppt::unit>;
 
 }
 

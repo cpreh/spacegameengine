@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GDIFONT_COLORS_TO_MAX_VISITOR_HPP_INCLUDED
 #define SGE_GDIFONT_COLORS_TO_MAX_VISITOR_HPP_INCLUDED
 
@@ -14,7 +13,6 @@
 #include <mizuiro/image/algorithm/uninitialized.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
-
 namespace sge
 {
 namespace gdifont
@@ -22,32 +20,23 @@ namespace gdifont
 
 struct colors_to_max_visitor
 {
-	typedef void result_type;
+  typedef void result_type;
 
-	template<
-		typename View
-	>
-	result_type
-	operator()(
-		View const &
-	) const
-	{
-		// TOOD: Maybe we have to support a generic version here
-		FCPPT_ASSERT_UNREACHABLE;
-	}
+  template <typename View>
+  result_type operator()(View const &) const
+  {
+    // TOOD: Maybe we have to support a generic version here
+    FCPPT_ASSERT_UNREACHABLE;
+  }
 
-	result_type
-	operator()(
-		sge::gdifont::a8_view const &_view
-	) const
-	{
-		mizuiro::image::algorithm::for_each(
-			_view,
-			sge::gdifont::alpha_to_max(),
-			mizuiro::image::algorithm::make_iterator_identity(),
-			mizuiro::image::algorithm::uninitialized::yes
-		);
-	}
+  result_type operator()(sge::gdifont::a8_view const &_view) const
+  {
+    mizuiro::image::algorithm::for_each(
+        _view,
+        sge::gdifont::alpha_to_max(),
+        mizuiro::image::algorithm::make_iterator_identity(),
+        mizuiro::image::algorithm::uninitialized::yes);
+  }
 };
 
 }

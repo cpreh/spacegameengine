@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 #define SGE_SYSTEMS_WINDOW_HPP_INCLUDED
 
@@ -11,51 +10,33 @@
 #include <sge/systems/window_source.hpp>
 #include <sge/systems/detail/symbol.hpp>
 
-
 namespace sge::systems
 {
 
 class window
 {
 public:
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	explicit
-	window(
-		sge::systems::window_source &&
-	);
+  SGE_SYSTEMS_DETAIL_SYMBOL
+  explicit window(sge::systems::window_source &&);
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::window
-	dont_show() &&;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::systems::window dont_show() &&;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::window
-	dont_quit() &&;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::systems::window dont_quit() &&;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::window
-	hide_cursor() &&;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::systems::window hide_cursor() &&;
 
-	[[nodiscard]]
-	sge::systems::window_source const &
-	source() const;
+  [[nodiscard]] sge::systems::window_source const &source() const;
 
-	[[nodiscard]]
-	bool
-	show() const;
+  [[nodiscard]] bool show() const;
 
-	[[nodiscard]]
-	bool
-	quit() const;
+  [[nodiscard]] bool quit() const;
+
 private:
-	sge::systems::window_source source_;
+  sge::systems::window_source source_;
 
-	bool show_;
+  bool show_;
 
-	bool quit_;
+  bool quit_;
 };
 
 }

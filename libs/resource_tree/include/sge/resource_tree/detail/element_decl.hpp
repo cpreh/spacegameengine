@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RESOURCE_TREE_DETAIL_ELEMENT_DECL_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_DETAIL_ELEMENT_DECL_HPP_INCLUDED
 
@@ -19,7 +18,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
-
 
 namespace sge::resource_tree::detail
 {
@@ -47,91 +45,40 @@ is asked to return a resource (designated by a path, of course), it...
 	</li>
 </ul>
 */
-template<
-	typename T,
-	typename Rng
->
+template <typename T, typename Rng>
 class element
 {
-	FCPPT_NONCOPYABLE(
-		element
-	);
+  FCPPT_NONCOPYABLE(element);
+
 public:
-	using
-	resource_container
-	=
-	std::vector<
-		sge::resource_tree::detail::path_with_resource<
-			T
-		>
-	>;
+  using resource_container = std::vector<sge::resource_tree::detail::path_with_resource<T>>;
 
-	element(
-		sge::resource_tree::path &&,
-		resource_container &&,
-		fcppt::reference<
-			Rng
-		>
-	);
+  element(sge::resource_tree::path &&, resource_container &&, fcppt::reference<Rng>);
 
-	element(
-		element &&
-	)
-	noexcept;
+  element(element &&) noexcept;
 
-	element &
-	operator=(
-		element &&
-	)
-	noexcept;
+  element &operator=(element &&) noexcept;
 
-	~element();
+  ~element();
 
-	[[nodiscard]]
-	sge::resource_tree::path const &
-	base_path() const;
+  [[nodiscard]] sge::resource_tree::path const &base_path() const;
 
-	[[nodiscard]]
-	T const &
-	get_random() const;
+  [[nodiscard]] T const &get_random() const;
 
-	using
-	optional_type
-	=
-	fcppt::optional::reference<
-		T const
-	>;
+  using optional_type = fcppt::optional::reference<T const>;
 
-	[[nodiscard]]
-	optional_type
-	get_opt(
-		sge::resource_tree::path const &
-	) const;
+  [[nodiscard]] optional_type get_opt(sge::resource_tree::path const &) const;
+
 private:
-	sge::resource_tree::path base_path_;
+  sge::resource_tree::path base_path_;
 
-	resource_container resources_;
+  resource_container resources_;
 
-	using
-	container_distribution
-	=
-	fcppt::random::wrapper::uniform_container<
-		resource_container
-	>;
+  using container_distribution = fcppt::random::wrapper::uniform_container<resource_container>;
 
-	using
-	variate
-	=
-	fcppt::random::variate<
-		Rng,
-		container_distribution
-	>;
+  using variate = fcppt::random::variate<Rng, container_distribution>;
 
-	mutable
-	fcppt::optional::object<
-		variate
-	>
-	rng_;
+  mutable fcppt::optional::object<variate> rng_;
 };
 
 }

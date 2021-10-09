@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_SIZE_TYPE_HPP_INCLUDED
 #define SGE_OPENCL_SIZE_TYPE_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opencl
 {
 
-using
-size_type
-=
-std::size_t;
+using size_type = std::size_t;
 
 }
 

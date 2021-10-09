@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LIBPNG_IS_PNG_HPP_INCLUDED
 #define SGE_LIBPNG_IS_PNG_HPP_INCLUDED
 
@@ -11,14 +10,10 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::libpng
 {
 
-bool
-is_png(
-	std::istream &
-);
+bool is_png(std::istream &);
 
 }
 

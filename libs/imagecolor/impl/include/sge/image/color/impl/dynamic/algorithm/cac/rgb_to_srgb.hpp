@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_RGB_TO_SRGB_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_RGB_TO_SRGB_HPP_INCLUDED
 
@@ -14,34 +13,18 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::image::color::impl::dynamic::algorithm::cac
 {
 
 // TODO(philipp): Simplify this?
-template<
-	typename SourceFormat,
-	typename DestFormat
->
-using
-rgb_to_srgb
-=
-std::conjunction<
-	std::is_same<
-		mizuiro::color::types::space<
-			typename
-			DestFormat::color_format
-		>,
-		mizuiro::color::space::rgb
-	>,
-	std::is_same<
-		mizuiro::color::types::space<
-			typename
-			SourceFormat::color_format
-		>,
-		mizuiro::color::space::srgb
-	>
->;
+template <typename SourceFormat, typename DestFormat>
+using rgb_to_srgb = std::conjunction<
+    std::is_same<
+        mizuiro::color::types::space<typename DestFormat::color_format>,
+        mizuiro::color::space::rgb>,
+    std::is_same<
+        mizuiro::color::types::space<typename SourceFormat::color_format>,
+        mizuiro::color::space::srgb>>;
 
 }
 

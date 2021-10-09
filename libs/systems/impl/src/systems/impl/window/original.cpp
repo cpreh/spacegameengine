@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/impl/renderer/optional_system_ref.hpp>
 #include <sge/systems/impl/renderer/system.hpp>
@@ -27,73 +26,28 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/maybe.hpp>
 
-
 sge::systems::impl::window::original::original(
-	sge::systems::original_window const &_parameters,
-	sge::window::system_ref const  _system,
-	sge::systems::impl::renderer::optional_system_ref const &_opt_renderer_system
-)
-:
-	sge::systems::impl::window::base(),
-	awl_visual_(
-		fcppt::optional::maybe(
-			_opt_renderer_system,
-			[
-				_system
-			]{
-				return
-					_system.get().awl_system().default_visual();
-			},
-			[](
-				fcppt::reference<
-					sge::systems::impl::renderer::system
-				> const _renderer_system
-			)
-			{
-				return
-					_renderer_system.get().create_visual();
-			}
-		)
-	),
-	awl_cursor_(
-		_system.get().awl_system().create_cursor(
-			_parameters.get_hide_cursor()
-			?
-				awl::cursor::optional_type{}
-			:
-				awl::cursor::optional_type{
-					awl::cursor::type::arrow
-				}
-		)
-	),
-	awl_window_(
-		_system.get().awl_system().create_window(
-			sge::systems::impl::window::to_awl_parameters(
-				*awl_visual_,
-				awl::cursor::const_optional_object_ref(
-					fcppt::make_cref(
-						*awl_cursor_
-					)
-				),
-				_parameters
-			)
-		)
-	),
-	window_(
-		_system,
-		fcppt::make_ref(
-			*awl_window_
-		)
-	)
+    sge::systems::original_window const &_parameters,
+    sge::window::system_ref const _system,
+    sge::systems::impl::renderer::optional_system_ref const &_opt_renderer_system)
+    : sge::systems::impl::window::base(),
+      awl_visual_(fcppt::optional::maybe(
+          _opt_renderer_system,
+          [_system] { return _system.get().awl_system().default_visual(); },
+          [](fcppt::reference<sge::systems::impl::renderer::system> const _renderer_system)
+          { return _renderer_system.get().create_visual(); })),
+      awl_cursor_(_system.get().awl_system().create_cursor(
+          _parameters.get_hide_cursor() ? awl::cursor::optional_type{}
+                                        : awl::cursor::optional_type{awl::cursor::type::arrow})),
+      awl_window_(
+          _system.get().awl_system().create_window(sge::systems::impl::window::to_awl_parameters(
+              *awl_visual_,
+              awl::cursor::const_optional_object_ref(fcppt::make_cref(*awl_cursor_)),
+              _parameters))),
+      window_(_system, fcppt::make_ref(*awl_window_))
 {
 }
 
-sge::systems::impl::window::original::~original()
-= default;
+sge::systems::impl::window::original::~original() = default;
 
-sge::window::object &
-sge::systems::impl::window::original::get() const
-{
-	return
-		window_;
-}
+sge::window::object &sge::systems::impl::window::original::get() const { return window_; }

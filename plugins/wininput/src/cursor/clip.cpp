@@ -3,37 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/wininput/cursor/clip.hpp>
 #include <awl/backends/windows/optional_rect.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/optional/maybe.hpp>
 
-
-bool
-sge::wininput::cursor::clip(
-	awl::backends::windows::optional_rect const &_area
-)
+bool sge::wininput::cursor::clip(awl::backends::windows::optional_rect const &_area)
 {
-	return
-		::ClipCursor(
-			fcppt::optional::maybe(
-				_area,
-				fcppt::const_<
-					RECT const *
-				>(
-					nullptr
-				),
-				[](
-					RECT const &_rect
-				)
-				{
-					return
-						&_rect;
-				}
-			)
-		)
-		!= 0
-		;
+  return ::ClipCursor(fcppt::optional::maybe(
+             _area,
+             fcppt::const_<RECT const *>(nullptr),
+             [](RECT const &_rect) { return &_rect; })) != 0;
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_POSTPROCESSING_VF_FORMAT_PART_HPP_INCLUDED
 #define SGE_POSTPROCESSING_VF_FORMAT_PART_HPP_INCLUDED
 
@@ -11,17 +10,11 @@
 #include <sge/postprocessing/vf/texcoord.hpp>
 #include <sge/renderer/vf/part.hpp>
 
-
 namespace sge::postprocessing::vf
 {
 
-using
-format_part
-=
-sge::renderer::vf::part<
-	sge::postprocessing::vf::position,
-	sge::postprocessing::vf::texcoord
->;
+using format_part =
+    sge::renderer::vf::part<sge::postprocessing::vf::position, sge::postprocessing::vf::texcoord>;
 
 }
 

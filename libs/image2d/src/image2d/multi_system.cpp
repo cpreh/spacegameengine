@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/load_stream_result.hpp>
 #include <sge/image2d/multi_system.hpp>
@@ -25,70 +24,31 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/bind.hpp>
 
-
-sge::image2d::multi_system::multi_system(
-	sge::image2d::multi_system_parameters const &_params
-)
-:
-	sge::image2d::system(),
-	muxer_(
-		_params
-	)
+sge::image2d::multi_system::multi_system(sge::image2d::multi_system_parameters const &_params)
+    : sge::image2d::system(), muxer_(_params)
 {
 }
 
-sge::image2d::multi_system::~multi_system()
-= default;
+sge::image2d::multi_system::~multi_system() = default;
 
-sge::image2d::load_stream_result
-sge::image2d::multi_system::load_stream(
-	sge::media::stream_unique_ptr &&_stream,
-	sge::media::optional_extension const &_extension,
-	sge::media::optional_name const &_name
-)
+sge::image2d::load_stream_result sge::image2d::multi_system::load_stream(
+    sge::media::stream_unique_ptr &&_stream,
+    sge::media::optional_extension const &_extension,
+    sge::media::optional_name const &_name)
 {
-	return
-		muxer_.mux_stream(
-			std::move(
-				_stream
-			),
-			_extension,
-			_name
-		);
+  return muxer_.mux_stream(std::move(_stream), _extension, _name);
 }
 
-sge::image2d::optional_file_unique_ptr
-sge::image2d::multi_system::create(
-	sge::image2d::view::const_object const &_view,
-	sge::media::extension const &_extension
-)
+sge::image2d::optional_file_unique_ptr sge::image2d::multi_system::create(
+    sge::image2d::view::const_object const &_view, sge::media::extension const &_extension)
 {
-	return
-		fcppt::optional::bind(
-			muxer_.mux_extension(
-				_extension
-			),
-			[
-				&_view,
-				&_extension
-			](
-				fcppt::reference<
-					sge::image2d::system
-				> const _system
-			)
-			{
-				return
-					_system.get().create(
-						_view,
-						_extension
-					);
-			}
-		);
+  return fcppt::optional::bind(
+      muxer_.mux_extension(_extension),
+      [&_view, &_extension](fcppt::reference<sge::image2d::system> const _system)
+      { return _system.get().create(_view, _extension); });
 }
 
-sge::media::extension_set
-sge::image2d::multi_system::extensions() const
+sge::media::extension_set sge::image2d::multi_system::extensions() const
 {
-	return
-		muxer_.extensions();
+  return muxer_.extensions();
 }

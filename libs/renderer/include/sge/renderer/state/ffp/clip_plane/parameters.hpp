@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_CLIP_PLANE_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_CLIP_PLANE_PARAMETERS_HPP_INCLUDED
 
@@ -11,25 +10,20 @@
 #include <sge/renderer/state/ffp/clip_plane/area.hpp>
 #include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
 
-
 namespace sge::renderer::state::ffp::clip_plane
 {
 
 class parameters
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	explicit
-	parameters(
-		sge::renderer::state::ffp::clip_plane::area
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  explicit parameters(sge::renderer::state::ffp::clip_plane::area);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::clip_plane::area const &
-	area() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::clip_plane::area const &
+  area() const;
+
 private:
-	sge::renderer::state::ffp::clip_plane::area area_;
+  sge::renderer::state::ffp::clip_plane::area area_;
 };
 
 }

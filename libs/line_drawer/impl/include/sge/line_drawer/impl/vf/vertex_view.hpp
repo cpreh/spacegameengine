@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LINE_DRAWER_IMPL_VF_VERTEX_VIEW_HPP_INCLUDED
 #define SGE_LINE_DRAWER_IMPL_VF_VERTEX_VIEW_HPP_INCLUDED
 
 #include <sge/line_drawer/impl/vf/part.hpp>
 #include <sge/renderer/vf/view.hpp>
 
-
 namespace sge::line_drawer::impl::vf
 {
 
-using
-vertex_view
-=
-sge::renderer::vf::view<
-	sge::line_drawer::impl::vf::part
->;
+using vertex_view = sge::renderer::vf::view<sge::line_drawer::impl::vf::part>;
 
 }
 

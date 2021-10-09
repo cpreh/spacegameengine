@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_MULTI_LOADER_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_AUDIO_MULTI_LOADER_PARAMETERS_FWD_HPP_INCLUDED
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/media/muxer_parameters_fwd.hpp>
 
-
 namespace sge::audio
 {
 
-using
-multi_loader_parameters
-=
-sge::media::muxer_parameters<
-	sge::audio::loader
->;
+using multi_loader_parameters = sge::media::muxer_parameters<sge::audio::loader>;
 
 }
 

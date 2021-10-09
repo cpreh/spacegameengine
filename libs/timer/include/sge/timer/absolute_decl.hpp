@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TIMER_ABSOLUTE_DECL_HPP_INCLUDED
 #define SGE_TIMER_ABSOLUTE_DECL_HPP_INCLUDED
 
@@ -12,75 +11,39 @@
 #include <sge/timer/clocks/detail/wrapper.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::timer
 {
 
-template<
-	typename Clock
->
-class absolute final
-:
-	sge::timer::clocks::detail::wrapper<
-		Clock
-	>
+template <typename Clock>
+class absolute final : sge::timer::clocks::detail::wrapper<Clock>
 {
-	FCPPT_NONMOVABLE(
-		absolute
-	);
+  FCPPT_NONMOVABLE(absolute);
 
-	using
-	base
-	=
-	sge::timer::clocks::detail::wrapper<
-		Clock
-	>;
+  using base = sge::timer::clocks::detail::wrapper<Clock>;
+
 public:
-	using
-	clock_type
-	=
-	Clock;
+  using clock_type = Clock;
 
-	using
-	time_point
-	=
-	typename
-	clock_type::time_point;
+  using time_point = typename clock_type::time_point;
 
-	using
-	duration
-	=
-	typename
-	clock_type::duration;
+  using duration = typename clock_type::duration;
 
-	using
-	clock_parameter
-	=
-	sge::timer::clocks::parameter<
-		Clock
-	>;
+  using clock_parameter = sge::timer::clocks::parameter<Clock>;
 
-	absolute();
+  absolute();
 
-	explicit
-	absolute(
-		clock_parameter
-	);
+  explicit absolute(clock_parameter);
 
-	~absolute();
+  ~absolute();
 
-	[[nodiscard]]
-	time_point
-	now() const;
+  [[nodiscard]] time_point now() const;
 
-	[[nodiscard]]
-	time_point
-	last_time() const;
+  [[nodiscard]] time_point last_time() const;
 
-	void
-	reset();
+  void reset();
+
 private:
-	time_point last_time_;
+  time_point last_time_;
 };
 
 }

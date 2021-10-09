@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_TOOLBOX_SCOPED_GUI_SHEET_HPP_INCLUDED
 #define SGE_CEGUI_TOOLBOX_SCOPED_GUI_SHEET_HPP_INCLUDED
 
@@ -11,7 +10,6 @@
 #include <sge/cegui/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_fwd.hpp>
-
 
 namespace CEGUI
 {
@@ -23,22 +21,17 @@ namespace sge::cegui::toolbox
 
 class scoped_gui_sheet
 {
-	FCPPT_NONMOVABLE(
-		scoped_gui_sheet
-	);
-public:
-	SGE_CEGUI_DETAIL_SYMBOL
-	scoped_gui_sheet(
-		sge::cegui::system_ref,
-		fcppt::reference<
-			CEGUI::Window
-		>
-	);
+  FCPPT_NONMOVABLE(scoped_gui_sheet);
 
-	SGE_CEGUI_DETAIL_SYMBOL
-	~scoped_gui_sheet();
+public:
+  SGE_CEGUI_DETAIL_SYMBOL
+  scoped_gui_sheet(sge::cegui::system_ref, fcppt::reference<CEGUI::Window>);
+
+  SGE_CEGUI_DETAIL_SYMBOL
+  ~scoped_gui_sheet();
+
 private:
-	sge::cegui::system_ref const system_;
+  sge::cegui::system_ref const system_;
 };
 
 }

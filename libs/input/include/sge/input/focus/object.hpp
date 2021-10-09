@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_FOCUS_OBJECT_HPP_INCLUDED
 #define SGE_INPUT_FOCUS_OBJECT_HPP_INCLUDED
 
@@ -13,27 +12,22 @@
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::focus
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
-protected:
-	SGE_INPUT_DETAIL_SYMBOL
-	object();
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	virtual
-	~object();
+  FCPPT_NONMOVABLE(object);
 
-	[[nodiscard]]
-	virtual
-	sge::window::object &
-	window() const = 0;
+protected:
+  SGE_INPUT_DETAIL_SYMBOL
+  object();
+
+public:
+  SGE_INPUT_DETAIL_SYMBOL
+  virtual ~object();
+
+  [[nodiscard]] virtual sge::window::object &window() const = 0;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_PATH_HPP_INCLUDED
 #define SGE_PARSE_JSON_PATH_HPP_INCLUDED
 
@@ -13,45 +12,26 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::json
 {
 
 class path
 {
 public:
-	using
-	sequence_type
-	=
-	std::vector<
-		sge::charconv::utf8_string
-	>;
+  using sequence_type = std::vector<sge::charconv::utf8_string>;
 
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	explicit
-	path(
-		sge::charconv::utf8_string &&
-	);
+  SGE_PARSE_JSON_DETAIL_SYMBOL
+  explicit path(sge::charconv::utf8_string &&);
 
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	explicit
-	path(
-		sequence_type &&
-	);
+  SGE_PARSE_JSON_DETAIL_SYMBOL
+  explicit path(sequence_type &&);
 
-	[[nodiscard]]
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	path
-	operator/(
-		sge::charconv::utf8_string &&
-	) &&;
+  [[nodiscard]] SGE_PARSE_JSON_DETAIL_SYMBOL path operator/(sge::charconv::utf8_string &&) &&;
 
-	[[nodiscard]]
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	sequence_type const &
-	get() const;
+  [[nodiscard]] SGE_PARSE_JSON_DETAIL_SYMBOL sequence_type const &get() const;
+
 private:
-	sequence_type sequence_;
+  sequence_type sequence_;
 };
 
 }

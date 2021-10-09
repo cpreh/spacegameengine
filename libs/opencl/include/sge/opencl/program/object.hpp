@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_PROGRAM_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_PROGRAM_OBJECT_HPP_INCLUDED
 
@@ -21,68 +20,44 @@
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/object.hpp>
 
-
 namespace sge::opencl::program
 {
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	SGE_OPENCL_DETAIL_SYMBOL
-	object(
-		fcppt::log::context_reference,
-		sge::opencl::context::object_ref,
-		sge::opencl::program::source_string_sequence const &,
-		sge::opencl::program::optional_build_parameters const &
-	);
+  SGE_OPENCL_DETAIL_SYMBOL
+  object(
+      fcppt::log::context_reference,
+      sge::opencl::context::object_ref,
+      sge::opencl::program::source_string_sequence const &,
+      sge::opencl::program::optional_build_parameters const &);
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	cl_program
-	impl() const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL cl_program impl() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	void
-	build(
-		sge::opencl::program::build_parameters const &
-	);
+  SGE_OPENCL_DETAIL_SYMBOL
+  void build(sge::opencl::program::build_parameters const &);
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	~object();
+  SGE_OPENCL_DETAIL_SYMBOL
+  ~object();
+
 private:
-	explicit
-	object(
-		fcppt::log::context_reference
-	);
+  explicit object(fcppt::log::context_reference);
 
-	friend class sge::opencl::kernel::object;
+  friend class sge::opencl::kernel::object;
 
-	using
-	device_id_vector
-	=
-	fcppt::container::raw_vector::object<
-		cl_device_id
-	>;
+  using device_id_vector = fcppt::container::raw_vector::object<cl_device_id>;
 
-	fcppt::log::object log_;
-	cl_program program_;
-	sge::opencl::program::optional_notification_callback notification_callback_;
+  fcppt::log::object log_;
+  cl_program program_;
+  sge::opencl::program::optional_notification_callback notification_callback_;
 
-	[[nodiscard]]
-	device_id_vector
-	program_devices() const;
+  [[nodiscard]] device_id_vector program_devices() const;
 
-	void
-	check_program_return_values();
+  void check_program_return_values();
 
-	static
-	void
-	notification_callback(
-		cl_program,
-		void *
-	);
+  static void notification_callback(cl_program, void *);
 };
 }
 

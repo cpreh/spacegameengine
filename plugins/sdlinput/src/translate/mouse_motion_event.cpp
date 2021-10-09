@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/sdlinput/same_windows.hpp>
@@ -20,41 +19,19 @@
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::event::container
-sge::sdlinput::translate::mouse_motion_event(
-	sge::input::cursor::shared_ptr const &_cursor,
-	sge::input::mouse::shared_ptr const &_mouse,
-	awl::backends::sdl::window::object const &_window,
-	SDL_MouseMotionEvent const &_event
-)
+awl::event::container sge::sdlinput::translate::mouse_motion_event(
+    sge::input::cursor::shared_ptr const &_cursor,
+    sge::input::mouse::shared_ptr const &_mouse,
+    awl::backends::sdl::window::object const &_window,
+    SDL_MouseMotionEvent const &_event)
 {
-	if(
-		fcppt::not_(
-			sge::sdlinput::same_windows(
-				_window,
-				_event
-			)
-		)
-	)
-	{
-		return
-			awl::event::container{};
-	}
+  if (fcppt::not_(sge::sdlinput::same_windows(_window, _event)))
+  {
+    return awl::event::container{};
+  }
 
-	return
-		fcppt::container::join(
-			sge::sdlinput::mouse::translate_motion_event(
-				_mouse,
-				_event
-			),
-			fcppt::container::make<
-				awl::event::container
-			>(
-				sge::sdlinput::cursor::translate_motion_event(
-					_cursor,
-					_event
-				)
-			)
-		);
+  return fcppt::container::join(
+      sge::sdlinput::mouse::translate_motion_event(_mouse, _event),
+      fcppt::container::make<awl::event::container>(
+          sge::sdlinput::cursor::translate_motion_event(_cursor, _event)));
 }

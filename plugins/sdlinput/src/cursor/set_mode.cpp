@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/exception.hpp>
 #include <sge/input/cursor/mode.hpp>
 #include <sge/sdlinput/cursor/set_mode.hpp>
@@ -14,50 +13,28 @@
 #include <SDL_stdinc.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-SDL_bool
-convert_mode(
-	sge::input::cursor::mode const _mode
-)
+SDL_bool convert_mode(sge::input::cursor::mode const _mode)
 {
-	switch(
-		_mode
-	)
-	{
-	case sge::input::cursor::mode::normal:
-		return
-			SDL_FALSE;
-	case sge::input::cursor::mode::exclusive:
-		return
-			SDL_TRUE;
-	}
+  switch (_mode)
+  {
+  case sge::input::cursor::mode::normal:
+    return SDL_FALSE;
+  case sge::input::cursor::mode::exclusive:
+    return SDL_TRUE;
+  }
 
-	FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_ASSERT_UNREACHABLE;
 }
 
 }
 
-void
-sge::sdlinput::cursor::set_mode(
-	sge::input::cursor::mode const _mode
-)
+void sge::sdlinput::cursor::set_mode(sge::input::cursor::mode const _mode)
 {
-	if(
-		SDL_SetRelativeMouseMode(
-			convert_mode(
-				_mode
-			)
-		)
-		==
-		-1
-	)
-	{
-		throw
-			sge::input::exception{
-				FCPPT_TEXT("SDL_SetRelativeMouseMode failed!")
-			};
-	}
+  if (SDL_SetRelativeMouseMode(convert_mode(_mode)) == -1)
+  {
+    throw sge::input::exception{FCPPT_TEXT("SDL_SetRelativeMouseMode failed!")};
+  }
 }

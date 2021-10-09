@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_LIST_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_ELEMENT_LIST_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vf::dynamic
 {
 
-using
-element_list
-=
-std::vector<
-	sge::renderer::vf::dynamic::element
->;
+using element_list = std::vector<sge::renderer::vf::dynamic::element>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LOG_OPTION_CONTAINER_HPP_INCLUDED
 #define SGE_LOG_OPTION_CONTAINER_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::log
 {
 
-using
-option_container
-=
-std::vector<
-	sge::log::option
->;
+using option_container = std::vector<sge::log::option>;
 
 }
 

@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_CLICK_CALLBACK_HPP_INCLUDED
 #define SGE_GUI_CLICK_CALLBACK_HPP_INCLUDED
 
 #include <sge/gui/click_function.hpp>
 #include <fcppt/function_impl.hpp>
 
-
 namespace sge::gui
 {
 
-using
-click_callback
-=
-fcppt::function<
-	sge::gui::click_function
->;
+using click_callback = fcppt::function<sge::gui::click_function>;
 
 }
 

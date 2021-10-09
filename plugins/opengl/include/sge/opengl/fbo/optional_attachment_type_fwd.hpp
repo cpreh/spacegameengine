@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_FWD_HPP_INCLUDED
 #define SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_FWD_HPP_INCLUDED
 
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::opengl::fbo
 {
 
-using
-optional_attachment_type
-=
-fcppt::optional::object<
-	sge::opengl::fbo::attachment_type
->;
+using optional_attachment_type = fcppt::optional::object<sge::opengl::fbo::attachment_type>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_PART_HPP_INCLUDED
 #define SGE_RENDERER_VF_PART_HPP_INCLUDED
 
@@ -15,40 +14,19 @@
 #include <fcppt/mpl/list/map.hpp>
 #include <fcppt/mpl/list/object.hpp>
 
-
 namespace sge::renderer::vf
 {
 
-template<
-	typename... Elements
->
+template <typename... Elements>
 struct part
 {
-	using
-	elements
-	=
-	fcppt::mpl::list::object<
-		Elements...
-	>;
+  using elements = fcppt::mpl::list::object<Elements...>;
 
-	using
-	offsets
-	=
-	sge::renderer::vf::detail::partial_sums<
-		fcppt::mpl::list::map<
-			elements,
-			fcppt::mpl::lambda<
-				sge::renderer::vf::detail::element_stride
-			>
-		>
-	>;
+  using offsets = sge::renderer::vf::detail::partial_sums<fcppt::mpl::list::map<
+      elements,
+      fcppt::mpl::lambda<sge::renderer::vf::detail::element_stride>>>;
 
-	using
-	stride
-	=
-	fcppt::mpl::list::back<
-		offsets
-	>;
+  using stride = fcppt::mpl::list::back<offsets>;
 };
 
 }

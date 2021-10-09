@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_FRAGMENTED_HPP_INCLUDED
 
@@ -16,55 +15,33 @@
 #include <sge/texture/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::texture
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL fragmented
 {
-	FCPPT_NONMOVABLE(
-		fragmented
-	);
+  FCPPT_NONMOVABLE(fragmented);
+
 protected:
-	SGE_TEXTURE_DETAIL_SYMBOL
-	fragmented();
+  SGE_TEXTURE_DETAIL_SYMBOL
+  fragmented();
+
 public:
-	SGE_TEXTURE_DETAIL_SYMBOL
-	virtual
-	~fragmented();
+  SGE_TEXTURE_DETAIL_SYMBOL
+  virtual ~fragmented();
 
-	[[nodiscard]]
-	virtual
-	sge::texture::optional_part_unique_ptr
-	consume_fragment(
-		sge::renderer::dim2 const &
-	) = 0;
+  [[nodiscard]] virtual sge::texture::optional_part_unique_ptr
+  consume_fragment(sge::renderer::dim2 const &) = 0;
 
-	virtual
-	void
-	return_fragment(
-		sge::texture::part const &
-	) = 0;
+  virtual void return_fragment(sge::texture::part const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::texture::planar &
-	texture() = 0;
+  [[nodiscard]] virtual sge::renderer::texture::planar &texture() = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::texture::planar const &
-	texture() const = 0;
+  [[nodiscard]] virtual sge::renderer::texture::planar const &texture() const = 0;
 
-	[[nodiscard]]
-	virtual
-	bool
-	repeatable() const = 0;
+  [[nodiscard]] virtual bool repeatable() const = 0;
 
-	[[nodiscard]]
-	virtual
-	bool
-	empty() const = 0;
+  [[nodiscard]] virtual bool empty() const = 0;
 };
 
 }

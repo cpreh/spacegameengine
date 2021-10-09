@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_VECTOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_VECTOR_HPP_INCLUDED
 
 #include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/vector_fwd.hpp>
 
-
 namespace sge::renderer::vf
 {
 
-template<
-	typename Format,
-	sge::renderer::vf::element_count_type NumSubElements
->
+template <typename Format, sge::renderer::vf::element_count_type NumSubElements>
 struct vector
 {
 };

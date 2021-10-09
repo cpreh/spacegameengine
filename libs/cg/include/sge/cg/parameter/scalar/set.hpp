@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_PARAMETER_SCALAR_SET_HPP_INCLUDED
 #define SGE_CG_PARAMETER_SCALAR_SET_HPP_INCLUDED
 
@@ -12,36 +11,18 @@
 #include <sge/cg/parameter/detail/check_type.hpp>
 #include <sge/cg/parameter/scalar/detail/set.hpp>
 
-
 namespace sge::cg::parameter::scalar
 {
 
-template<
-	typename T
->
-void
-set(
-	sge::cg::parameter::object const &_parameter,
-	T const _scalar
-)
+template <typename T>
+void set(sge::cg::parameter::object const &_parameter, T const _scalar)
 {
-	static_assert(
-		sge::cg::parameter::is_int_float_double<
-			T
-		>::value,
-		"T must be int, float or double"
-	);
+  static_assert(
+      sge::cg::parameter::is_int_float_double<T>::value, "T must be int, float or double");
 
-	sge::cg::parameter::detail::check_type<
-		T
-	>(
-		_parameter
-	);
+  sge::cg::parameter::detail::check_type<T>(_parameter);
 
-	sge::cg::parameter::scalar::detail::set(
-		_parameter,
-		_scalar
-	);
+  sge::cg::parameter::scalar::detail::set(_parameter, _scalar);
 }
 
 }

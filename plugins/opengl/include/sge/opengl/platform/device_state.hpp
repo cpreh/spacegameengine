@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_PLATFORM_DEVICE_STATE_HPP_INCLUDED
 #define SGE_OPENGL_PLATFORM_DEVICE_STATE_HPP_INCLUDED
 
@@ -12,31 +11,22 @@
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::platform
 {
 
 class device_state
 {
-	FCPPT_NONMOVABLE(
-		device_state
-	);
+  FCPPT_NONMOVABLE(device_state);
+
 protected:
-	device_state();
+  device_state();
+
 public:
-	virtual
-	~device_state();
+  virtual ~device_state();
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::display_mode::optional_object
-	display_mode() const = 0;
+  [[nodiscard]] virtual sge::renderer::display_mode::optional_object display_mode() const = 0;
 
-	virtual
-	void
-	fullscreen(
-		sge::renderer::display_mode::optional_fullscreen const &
-	) = 0;
+  virtual void fullscreen(sge::renderer::display_mode::optional_fullscreen const &) = 0;
 };
 
 }

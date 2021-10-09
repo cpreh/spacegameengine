@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/impl/file_error_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/from_std_wstring.hpp>
@@ -17,86 +16,29 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-fcppt::string
-common_error(
-	std::filesystem::path const &_path
-)
+fcppt::string common_error(std::filesystem::path const &_path)
 {
-	return
-		FCPPT_TEXT("Error in file ")
-		+
-		fcppt::filesystem::path_to_string(
-			_path
-		)
-		+
-		FCPPT_TEXT(" : ");
+  return FCPPT_TEXT("Error in file ") + fcppt::filesystem::path_to_string(_path) +
+         FCPPT_TEXT(" : ");
 }
 
 }
 
-fcppt::string
-sge::parse::impl::file_error_string(
-	std::filesystem::path const &_path,
-	fcppt::parse::error<
-		char
-	> &&_error
-)
+fcppt::string sge::parse::impl::file_error_string(
+    std::filesystem::path const &_path, fcppt::parse::error<char> &&_error)
 {
-	return
-		common_error(
-			_path
-		)
-		+
-		fcppt::from_std_string(
-			std::move(
-				_error.get()
-			)
-		);
+  return common_error(_path) + fcppt::from_std_string(std::move(_error.get()));
 }
 
-fcppt::string
-sge::parse::impl::file_error_string(
-	std::filesystem::path const &_path,
-	fcppt::parse::error<
-		wchar_t
-	> &&_error
-)
+fcppt::string sge::parse::impl::file_error_string(
+    std::filesystem::path const &_path, fcppt::parse::error<wchar_t> &&_error)
 {
-	return
-		fcppt::optional::maybe(
-			fcppt::from_std_wstring(
-				std::move(
-					_error.get()
-				)
-			),
-			[
-				&_path
-			]{
-				return
-					common_error(
-						_path
-					)
-					+
-					FCPPT_TEXT("Failed to convert error message!");
-			},
-			[
-				&_path
-			](
-				fcppt::string &&_fcppt_error
-			)
-			{
-				return
-					common_error(
-						_path
-					)
-					+
-					std::move(
-						_fcppt_error
-					);
-			}
-		);
+  return fcppt::optional::maybe(
+      fcppt::from_std_wstring(std::move(_error.get())),
+      [&_path] { return common_error(_path) + FCPPT_TEXT("Failed to convert error message!"); },
+      [&_path](fcppt::string &&_fcppt_error)
+      { return common_error(_path) + std::move(_fcppt_error); });
 }

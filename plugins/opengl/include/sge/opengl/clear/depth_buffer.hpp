@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_CLEAR_DEPTH_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_CLEAR_DEPTH_BUFFER_HPP_INCLUDED
 
 #include <sge/renderer/clear/depth_buffer_value.hpp>
 
-
 namespace sge::opengl::clear
 {
 
-void
-depth_buffer(
-	sge::renderer::clear::depth_buffer_value const &
-);
+void depth_buffer(sge::renderer::clear::depth_buffer_value const &);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_CONTAINER_FWD_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_INFO_CONTAINER_FWD_HPP_INCLUDED
 
@@ -11,17 +10,11 @@
 #include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_fwd.hpp>
 
-
 namespace sge::input::joypad
 {
 
-using
-absolute_axis_info_container
-=
-sge::input::info::container<
-	sge::input::joypad::absolute_axis_id,
-	sge::input::joypad::absolute_axis_info
->;
+using absolute_axis_info_container = sge::input::info::
+    container<sge::input::joypad::absolute_axis_id, sge::input::joypad::absolute_axis_info>;
 
 }
 

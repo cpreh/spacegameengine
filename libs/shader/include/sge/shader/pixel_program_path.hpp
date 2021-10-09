@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_PIXEL_PROGRAM_PATH_HPP_INCLUDED
 #define SGE_SHADER_PIXEL_PROGRAM_PATH_HPP_INCLUDED
 
@@ -15,9 +14,7 @@
 
 namespace sge::shader
 {
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	std::filesystem::path,
-	pixel_program_path);
+FCPPT_DECLARE_STRONG_TYPEDEF(std::filesystem::path, pixel_program_path);
 }
 
 #endif

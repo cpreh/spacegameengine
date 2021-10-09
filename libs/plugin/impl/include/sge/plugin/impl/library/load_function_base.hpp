@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_BASE_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_BASE_HPP_INCLUDED
 
@@ -13,18 +12,12 @@
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/reference_fwd.hpp>
 
-
 namespace sge::plugin::impl::library
 {
 
 SGE_PLUGIN_DETAIL_SYMBOL
-sge::plugin::library::function_base
-load_function_base(
-	fcppt::reference<
-		sge::plugin::library::object
-	>,
-	sge::plugin::library::symbol_string const &
-);
+sge::plugin::library::function_base load_function_base(
+    fcppt::reference<sge::plugin::library::object>, sge::plugin::library::symbol_string const &);
 
 }
 

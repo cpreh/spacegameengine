@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/config.hpp>
 #include <sge/opengl/egl/create_display.hpp>
 #include <sge/opengl/egl/display.hpp>
@@ -42,200 +41,69 @@
 #include <awl/backends/wayland/system/object.hpp>
 #endif
 
-
 namespace
 {
 
 // TODO(philipp): This code is pretty much the same as in sge::opengl::platform::create_system
-using
-either_type
-=
-fcppt::either::object<
-	fcppt::string,
-	sge::opengl::egl::display_unique_ptr
->;
+using either_type = fcppt::either::object<fcppt::string, sge::opengl::egl::display_unique_ptr>;
 
-using
+using function_type = fcppt::function<either_type()>;
+
+template <typename Result, typename Arg>
+using create_function = fcppt::function<fcppt::unique_ptr<Result>(fcppt::reference<Arg>)>;
+
+template <typename Result, typename Arg>
 function_type
-=
-fcppt::function<
-	either_type ()
->;
-
-template<
-	typename Result,
-	typename Arg
->
-using
-create_function
-=
-fcppt::function<
-	fcppt::unique_ptr<
-		Result
-	>(
-		fcppt::reference<
-			Arg
-		>
-	)
->;
-
-template<
-	typename Result,
-	typename Arg
->
-function_type
-try_create(
-	awl::system::object_ref const _awl_system,
-	create_function<
-		Result,
-		Arg
-	> const &_create
-)
+try_create(awl::system::object_ref const _awl_system, create_function<Result, Arg> const &_create)
 {
-	return
-		function_type{
-			[
-				_awl_system,
-				&_create
-			]{
-				return
-					fcppt::either::from_optional(
-						fcppt::optional::map(
-							fcppt::cast::dynamic<
-								Arg
-							>(
-								_awl_system.get()
-							),
-							[
-								&_create
-							](
-								fcppt::reference<
-									Arg
-								> const _system
-							)
-							{
-								return
-									fcppt::unique_ptr_to_base<
-										sge::opengl::egl::display
-									>(
-										_create(
-											_system
-										)
-									);
-							}
-						),
-						[]{
-							return
-								fcppt::string{
-									FCPPT_TEXT("Failed to convert to \"")
-									+
-									fcppt::type_name_from_info(
-										typeid(
-											Arg
-										)
-									)
-									+
-									FCPPT_TEXT('"')
-								};
-						}
-					);
-			}
-		};
+  return function_type{
+      [_awl_system, &_create]
+      {
+        return fcppt::either::from_optional(
+            fcppt::optional::map(
+                fcppt::cast::dynamic<Arg>(_awl_system.get()),
+                [&_create](fcppt::reference<Arg> const _system)
+                { return fcppt::unique_ptr_to_base<sge::opengl::egl::display>(_create(_system)); }),
+            []
+            {
+              return fcppt::string{
+                  FCPPT_TEXT("Failed to convert to \"") + fcppt::type_name_from_info(typeid(Arg)) +
+                  FCPPT_TEXT('"')};
+            });
+      }};
 }
 
 }
 
-sge::opengl::egl::display_unique_ptr
-sge::opengl::egl::create_display(
-	fcppt::log::object_reference const _log,
-	awl::system::object_ref const _awl_system
-)
+sge::opengl::egl::display_unique_ptr sge::opengl::egl::create_display(
+    fcppt::log::object_reference const _log, awl::system::object_ref const _awl_system)
 {
-	return
-		fcppt::either::to_exception(
-			fcppt::either::first_success(
-				fcppt::array::make(
+  return fcppt::either::to_exception(
+      fcppt::either::first_success(fcppt::array::make(
 #if defined(SGE_OPENGL_HAVE_X11)
-					try_create(
-						_awl_system,
-						create_function<
-							sge::opengl::egl::x11::display,
-							awl::backends::x11::system::object
-						>{
-							[
-								_log
-							](
-								fcppt::reference<
-									awl::backends::x11::system::object
-								> const _system
-							)
-							{
-								return
-									fcppt::make_unique_ptr<
-										sge::opengl::egl::x11::display
-									>(
-										_log,
-										_system
-									);
-							}
-						}
-					),
+          try_create(
+              _awl_system,
+              create_function<sge::opengl::egl::x11::display, awl::backends::x11::system::object>{
+                  [_log](fcppt::reference<awl::backends::x11::system::object> const _system) {
+                    return fcppt::make_unique_ptr<sge::opengl::egl::x11::display>(_log, _system);
+                  }}),
 #endif
 #if defined(SGE_OPENGL_HAVE_WAYLAND)
-					try_create(
-						_awl_system,
-						create_function<
-							sge::opengl::egl::wayland::display,
-							awl::backends::wayland::system::object
-						>{
-							[
-								_log
-							](
-								fcppt::reference<
-									awl::backends::wayland::system::object
-								> const _system
-							)
-							{
-								return
-									fcppt::make_unique_ptr<
-										sge::opengl::egl::wayland::display
-									>(
-										_log,
-										_system
-									);
-							}
-						}
-					),
+          try_create(
+              _awl_system,
+              create_function<
+                  sge::opengl::egl::wayland::display,
+                  awl::backends::wayland::system::object>{
+                  [_log](fcppt::reference<awl::backends::wayland::system::object> const _system) {
+                    return fcppt::make_unique_ptr<sge::opengl::egl::wayland::display>(
+                        _log, _system);
+                  }}),
 #endif
-					function_type{
-						[]{
-							return
-								either_type{
-									fcppt::string{
-										FCPPT_TEXT("")
-									}
-								};
-						}
-					}
-				)
-			),
-			[](
-				std::vector<
-					fcppt::string
-				> const &_failures
-			)
-			{
-				return
-					sge::renderer::exception{
-						FCPPT_TEXT("Cannot create any egl native displays: ")
-						+
-						fcppt::algorithm::join_strings(
-							_failures,
-							fcppt::string{
-								FCPPT_TEXT(", ")
-							}
-						)
-					};
-			}
-		);
+          function_type{[] { return either_type{fcppt::string{FCPPT_TEXT("")}}; }})),
+      [](std::vector<fcppt::string> const &_failures)
+      {
+        return sge::renderer::exception{
+            FCPPT_TEXT("Cannot create any egl native displays: ") +
+            fcppt::algorithm::join_strings(_failures, fcppt::string{FCPPT_TEXT(", ")})};
+      });
 }

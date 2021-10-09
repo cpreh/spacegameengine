@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/ini/grammar.hpp>
 #include <sge/parse/ini/parse_string.hpp>
 #include <sge/parse/ini/result.hpp>
@@ -13,17 +12,7 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::parse::ini::result
-sge::parse::ini::parse_string(
-	std::string &&_string
-)
+sge::parse::ini::result sge::parse::ini::parse_string(std::string &&_string)
 {
-	return
-		fcppt::parse::grammar_parse_string(
-			std::move(
-				_string
-			),
-			sge::parse::ini::grammar{}
-		);
+  return fcppt::parse::grammar_parse_string(std::move(_string), sge::parse::ini::grammar{});
 }

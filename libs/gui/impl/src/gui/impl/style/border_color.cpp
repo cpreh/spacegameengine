@@ -3,17 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/gui/impl/style/border_color.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 
-
-sge::image::color::any::object
-sge::gui::impl::style::border_color()
+sge::image::color::any::object sge::gui::impl::style::border_color()
 {
-	return
-		sge::image::color::any::object{
-			sge::image::color::predef::black()
-		};
+  return sge::image::color::any::object{sge::image::color::predef::black()};
 }

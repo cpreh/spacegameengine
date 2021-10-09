@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cursor/hotspot.hpp>
 #include <sge/cursor/object.hpp>
 #include <sge/cursor/impl/detail/object.hpp>
@@ -13,56 +12,25 @@
 #include <sge/texture/const_part_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
-
 sge::cursor::object::object(
-	sge::input::const_processor_ref const _processor,
-	sge::renderer::device::ffp_ref const _renderer,
-	sge::texture::const_part_ref const _texture,
-	sge::cursor::hotspot const _hotspot
-)
-:
-	impl_{
-		fcppt::make_unique_ptr<
-			sge::cursor::detail::object
-		>(
-			_processor,
-			_renderer,
-			_texture,
-			_hotspot
-		)
-	}
+    sge::input::const_processor_ref const _processor,
+    sge::renderer::device::ffp_ref const _renderer,
+    sge::texture::const_part_ref const _texture,
+    sge::cursor::hotspot const _hotspot)
+    : impl_{fcppt::make_unique_ptr<sge::cursor::detail::object>(
+          _processor, _renderer, _texture, _hotspot)}
 {
 }
 
-sge::cursor::object::object(
-	object &&
-)
-noexcept
-= default;
+sge::cursor::object::object(object &&) noexcept = default;
 
-sge::cursor::object &
-sge::cursor::object::operator=(
-	object &&
-)
-noexcept
-= default;
+sge::cursor::object &sge::cursor::object::operator=(object &&) noexcept = default;
 
-sge::cursor::object::~object()
-= default;
+sge::cursor::object::~object() = default;
 
-void
-sge::cursor::object::draw(
-	sge::renderer::context::ffp &_context
-)
+void sge::cursor::object::draw(sge::renderer::context::ffp &_context)
 {
-	this->impl_->draw(
-		_context
-	);
+  this->impl_->draw(_context);
 }
 
-sge::cursor::hotspot
-sge::cursor::object::hotspot() const
-{
-	return
-		this->impl_->hotspot();
-}
+sge::cursor::hotspot sge::cursor::object::hotspot() const { return this->impl_->hotspot(); }

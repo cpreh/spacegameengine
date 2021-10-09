@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_VALUE_VARIANT_FWD_HPP_INCLUDED
 #define SGE_PARSE_JSON_VALUE_VARIANT_FWD_HPP_INCLUDED
 
@@ -18,22 +17,17 @@
 #include <sge/parse/json/value_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
-
 namespace sge::parse::json
 {
 
-using
-value_variant
-=
-fcppt::variant::object<
-	sge::parse::json::object,
-	sge::parse::json::array,
-	bool,
-	sge::charconv::utf8_string,
-	sge::parse::json::int_type,
-	sge::parse::json::float_type,
-	sge::parse::json::null
->;
+using value_variant = fcppt::variant::object<
+    sge::parse::json::object,
+    sge::parse::json::array,
+    bool,
+    sge::charconv::utf8_string,
+    sge::parse::json::int_type,
+    sge::parse::json::float_type,
+    sge::parse::json::null>;
 
 }
 

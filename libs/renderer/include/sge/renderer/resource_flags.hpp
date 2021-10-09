@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_RESOURCE_FLAGS_HPP_INCLUDED
 #define SGE_RENDERER_RESOURCE_FLAGS_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_fwd.hpp>
-
 
 namespace sge::renderer
 {
@@ -20,7 +18,7 @@ namespace sge::renderer
 */
 enum class resource_flags
 {
-	/**
+  /**
 	\brief Makes the resource dynamic
 
 	A driver shall try to make a compromise so that dynamic resources are
@@ -30,16 +28,16 @@ enum class resource_flags
 	to make a copy of the internal data. Dynamic resources are most useful
 	if the contents change every frame anyway, e.g. in a sprite system.
 	*/
-	dynamic,
-	/**
+  dynamic,
+  /**
 	\brief Makes a resource readable
 
 	By default, a resource is not readable which means it cannot be locked
 	so that data can be read from it. A readable resource might be slower
 	to render, slower to lock or unlock or might require more memory.
 	*/
-	readable,
-	fcppt_maximum = readable
+  readable,
+  fcppt_maximum = readable
 };
 
 }

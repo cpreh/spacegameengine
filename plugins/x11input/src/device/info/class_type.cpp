@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/x11input/device/info/class_type.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -11,27 +10,12 @@
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
 
-
-int
-sge::x11input::device::info::class_type(
-	XIAnyClassInfo const &_info
-)
+int sge::x11input::device::info::class_type(XIAnyClassInfo const &_info)
 {
-	// don't dereference _info because that's not its actual type!
-	int ret{};
+  // don't dereference _info because that's not its actual type!
+  int ret{};
 
-	std::memcpy(
-		&ret,
-		fcppt::cast::to_char_ptr<
-			unsigned char const *
-		>(
-			&_info
-		),
-		sizeof(
-			int
-		)
-	);
+  std::memcpy(&ret, fcppt::cast::to_char_ptr<unsigned char const *>(&_info), sizeof(int));
 
-	return
-		ret;
+  return ret;
 }

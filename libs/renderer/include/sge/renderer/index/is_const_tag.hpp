@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_IS_CONST_TAG_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_IS_CONST_TAG_HPP_INCLUDED
 
@@ -13,34 +12,21 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::index
 {
 
-template<
-	typename Type
->
-struct is_const_tag
-:
-std::false_type
+template <typename Type>
+struct is_const_tag : std::false_type
 {
 };
 
-template<>
-struct is_const_tag<
-	sge::renderer::index::const_tag
->
-:
-std::true_type
+template <>
+struct is_const_tag<sge::renderer::index::const_tag> : std::true_type
 {
 };
 
-template<>
-struct is_const_tag<
-	sge::renderer::index::nonconst_tag
->
-:
-std::true_type
+template <>
+struct is_const_tag<sge::renderer::index::nonconst_tag> : std::true_type
 {
 };
 

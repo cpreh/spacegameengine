@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_FIND_PLUGIN_OPT_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_FIND_PLUGIN_OPT_HPP_INCLUDED
 
@@ -22,101 +21,35 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::systems::impl
 {
 
-template<
-	typename System,
-	typename TestFunction
->
-fcppt::optional::object<
-	sge::systems::impl::plugin_pair<
-		System
-	>
->
-find_plugin_opt(
-	fcppt::log::context_reference const _log_context,
-	sge::plugin::collection<
-		System
-	> const &_collection,
-	TestFunction const &_test_function
-)
+template <typename System, typename TestFunction>
+fcppt::optional::object<sge::systems::impl::plugin_pair<System>> find_plugin_opt(
+    fcppt::log::context_reference const _log_context,
+    sge::plugin::collection<System> const &_collection,
+    TestFunction const &_test_function)
 {
-	return
-		fcppt::algorithm::find_by_opt<
-			sge::systems::impl::plugin_pair<
-				System
-			>
-		>(
-			_collection,
-			[
-				&_log_context,
-				&_test_function
-			](
-				sge::plugin::context<
-					System
-				> const &_element
-			)
-			{
-				using
-				pair_type
-				=
-				sge::systems::impl::plugin_pair<
-					System
-				>;
+  return fcppt::algorithm::find_by_opt<sge::systems::impl::plugin_pair<System>>(
+      _collection,
+      [&_log_context, &_test_function](sge::plugin::context<System> const &_element)
+      {
+        using pair_type = sge::systems::impl::plugin_pair<System>;
 
-				using
-				return_type
-				=
-				fcppt::optional::object<
-					pair_type
-				>;
+        using return_type = fcppt::optional::object<pair_type>;
 
-				using
-				plugin_type
-				=
-				sge::plugin::object<
-					System
-				>;
+        using plugin_type = sge::plugin::object<System>;
 
-				plugin_type plugin{
-					_element.load()
-				};
+        plugin_type plugin{_element.load()};
 
-				using
-				system_unique_ptr
-				=
-				fcppt::unique_ptr<
-					System
-				>;
+        using system_unique_ptr = fcppt::unique_ptr<System>;
 
-				system_unique_ptr system{
-					plugin.get()(
-						_log_context
-					)
-				};
+        system_unique_ptr system{plugin.get()(_log_context)};
 
-				return
-					_test_function(
-						*system
-					)
-					?
-						return_type{
-							pair_type{
-								std::move(
-									plugin
-								),
-								std::move(
-									system
-								)
-							}
-						}
-					:
-						return_type{}
-					;
-			}
-		);
+        return _test_function(*system)
+                   ? return_type{pair_type{std::move(plugin), std::move(system)}}
+                   : return_type{};
+      });
 }
 
 }

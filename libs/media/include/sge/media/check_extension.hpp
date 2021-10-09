@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_CHECK_EXTENSION_HPP_INCLUDED
 #define SGE_MEDIA_CHECK_EXTENSION_HPP_INCLUDED
 
@@ -11,16 +10,11 @@
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/detail/symbol.hpp>
 
-
 namespace sge::media
 {
 
 SGE_MEDIA_DETAIL_SYMBOL
-bool
-check_extension(
-	sge::media::extension const &,
-	sge::media::optional_extension const &
-);
+bool check_extension(sge::media::extension const &, sge::media::optional_extension const &);
 
 }
 

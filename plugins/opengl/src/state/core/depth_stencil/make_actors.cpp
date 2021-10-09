@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/core/depth_stencil/make_actors.hpp>
@@ -12,21 +11,12 @@
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <fcppt/container/join.hpp>
 
-
-sge::opengl::state::actor_vector
-sge::opengl::state::core::depth_stencil::make_actors(
-	sge::opengl::context::object_ref const _context,
-	sge::renderer::state::core::depth_stencil::parameters const &_parameters
-)
+sge::opengl::state::actor_vector sge::opengl::state::core::depth_stencil::make_actors(
+    sge::opengl::context::object_ref const _context,
+    sge::renderer::state::core::depth_stencil::parameters const &_parameters)
 {
-	return
-		fcppt::container::join(
-			sge::opengl::state::core::depth_stencil::depth::make_actors(
-				_parameters.depth_variant()
-			),
-			sge::opengl::state::core::depth_stencil::stencil::make_actors(
-				_context,
-				_parameters.stencil_variant()
-			)
-		);
+  return fcppt::container::join(
+      sge::opengl::state::core::depth_stencil::depth::make_actors(_parameters.depth_variant()),
+      sge::opengl::state::core::depth_stencil::stencil::make_actors(
+          _context, _parameters.stencil_variant()));
 }

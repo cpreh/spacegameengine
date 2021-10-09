@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_INI_GET_OR_CREATE_HPP_INCLUDED
 #define SGE_PARSE_INI_GET_OR_CREATE_HPP_INCLUDED
 
@@ -14,20 +13,15 @@
 #include <sge/parse/ini/detail/symbol.hpp>
 #include <fcppt/reference_fwd.hpp>
 
-
 namespace sge::parse::ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
-sge::parse::ini::value
-get_or_create(
-	fcppt::reference<
-		sge::parse::ini::start
-	>,
-	sge::parse::ini::section_name const &,
-	sge::parse::ini::entry_name const &,
-	sge::parse::ini::value const &
-);
+sge::parse::ini::value get_or_create(
+    fcppt::reference<sge::parse::ini::start>,
+    sge::parse::ini::section_name const &,
+    sge::parse::ini::entry_name const &,
+    sge::parse::ini::value const &);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WININPUT_SYSTEM_HPP_INCLUDED
 #define SGE_WININPUT_SYSTEM_HPP_INCLUDED
 
@@ -15,39 +14,26 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 
-
 namespace sge
 {
 namespace wininput
 {
 
-class system
-:
-	public sge::input::system
+class system : public sge::input::system
 {
-	FCPPT_NONCOPYABLE(
-		system
-	);
+  FCPPT_NONCOPYABLE(system);
+
 public:
-	explicit
-	system(
-		fcppt::log::context_reference
-	);
+  explicit system(fcppt::log::context_reference);
 
-	~system()
-	override;
+  ~system() override;
+
 private:
-	sge::input::processor_unique_ptr
-	create_processor(
-		sge::window::object_ref
-	)
-	override;
+  sge::input::processor_unique_ptr create_processor(sge::window::object_ref) override;
 
-	sge::input::capabilities_field
-	capabilities() const
-	override;
+  sge::input::capabilities_field capabilities() const override;
 
-	fcppt::log::object log_;
+  fcppt::log::object log_;
 };
 
 }

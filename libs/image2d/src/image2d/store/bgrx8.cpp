@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/impl/store/instantiate_basic.hpp>
 #include <sge/image2d/bgrx8_format.hpp>
 #include <sge/image2d/store/bgrx8.hpp>
 
-
-SGE_IMAGE_IMPL_STORE_INSTANTIATE_BASIC(
-	sge::image2d::bgrx8_format
-);
+SGE_IMAGE_IMPL_STORE_INSTANTIATE_BASIC(sge::image2d::bgrx8_format);

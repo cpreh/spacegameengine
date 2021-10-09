@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_IMPL_TO_CEGUI_VECTOR2_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_TO_CEGUI_VECTOR2_HPP_INCLUDED
 
@@ -12,30 +11,14 @@
 #include <CEGUI/Vector.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cegui::impl
 {
 
-template<
-	typename ValueType
->
-CEGUI::Vector2<
-	ValueType
->
-to_cegui_vector2(
-	fcppt::math::vector::static_<
-		ValueType,
-		2
-	> const &_container
-)
+template <typename ValueType>
+CEGUI::Vector2<ValueType>
+to_cegui_vector2(fcppt::math::vector::static_<ValueType, 2> const &_container)
 {
-	return
-		CEGUI::Vector2<
-			ValueType
-		>(
-			_container.x(),
-			_container.y()
-		);
+  return CEGUI::Vector2<ValueType>(_container.x(), _container.y());
 }
 
 }

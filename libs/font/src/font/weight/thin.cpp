@@ -3,14 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/weight/thin.hpp>
 #include <sge/font/weight/unit.hpp>
 
-
-sge::font::weight::unit
-sge::font::weight::thin()
+sge::font::weight::unit sge::font::weight::thin()
 {
-	return
-		100U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  return 100U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 }

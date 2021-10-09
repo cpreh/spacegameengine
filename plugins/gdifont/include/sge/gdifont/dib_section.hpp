@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GDIFONT_DIB_SECTION_HPP_INCLUDED
 #define SGE_GDIFONT_DIB_SECTION_HPP_INCLUDED
 
@@ -15,7 +14,6 @@
 #include <sge/image2d/view/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace gdifont
@@ -23,31 +21,26 @@ namespace gdifont
 
 class dib_section
 {
-	FCPPT_NONCOPYABLE(
-		dib_section
-	);
+  FCPPT_NONCOPYABLE(dib_section);
+
 public:
-	dib_section(
-		sge::gdifont::device_context const &,
-		sge::image2d::dim const &
-	);
+  dib_section(sge::gdifont::device_context const &, sge::image2d::dim const &);
 
-	~dib_section();
+  ~dib_section();
 
-	sge::image2d::view::object const
-	view();
+  sge::image2d::view::object const view();
 
-	sge::image2d::view::const_object const
-	const_view() const;
+  sge::image2d::view::const_object const const_view() const;
 
-	HBITMAP
-	handle();
+  HBITMAP
+  handle();
+
 private:
-	VOID *data_;
+  VOID *data_;
 
-	sge::gdifont::hbitmap_unique_ptr const hbitmap_;
+  sge::gdifont::hbitmap_unique_ptr const hbitmap_;
 
-	BITMAP const bitmap_;
+  BITMAP const bitmap_;
 };
 
 }

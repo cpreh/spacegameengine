@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_JOYPAD_BUTTON_INFO_CONTAINER_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_BUTTON_INFO_CONTAINER_HPP_INCLUDED
 
@@ -13,14 +12,7 @@
 #include <sge/input/joypad/button_info.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 
-
-extern
-template
-class
-sge::evdev::device::basic_info<
-	sge::input::joypad::button_id,
-	sge::input::joypad::button_info
->;
-
+extern template class sge::evdev::device::
+    basic_info<sge::input::joypad::button_id, sge::input::joypad::button_info>;
 
 #endif

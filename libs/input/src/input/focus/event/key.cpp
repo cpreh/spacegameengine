@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/focus/key.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base.hpp>
@@ -13,40 +12,16 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::input::focus::event::key::key(
-	sge::input::focus::shared_ptr _focus,
-	sge::input::focus::key const &_key,
-	sge::input::key::pressed const _pressed
-)
-:
-	sge::input::focus::event::base{
-		std::move(
-			_focus
-		)
-	},
-	key_{
-		_key
-	},
-	pressed_{
-		_pressed
-	}
+    sge::input::focus::shared_ptr _focus,
+    sge::input::focus::key const &_key,
+    sge::input::key::pressed const _pressed)
+    : sge::input::focus::event::base{std::move(_focus)}, key_{_key}, pressed_{_pressed}
 {
 }
 
-sge::input::focus::event::key::~key()
-= default;
+sge::input::focus::event::key::~key() = default;
 
-sge::input::focus::key const &
-sge::input::focus::event::key::get() const
-{
-	return
-		key_;
-}
+sge::input::focus::key const &sge::input::focus::event::key::get() const { return key_; }
 
-bool
-sge::input::focus::event::key::pressed() const
-{
-	return
-		pressed_.get();
-}
+bool sge::input::focus::event::key::pressed() const { return pressed_.get(); }

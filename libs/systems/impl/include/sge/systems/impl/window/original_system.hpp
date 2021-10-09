@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_WINDOW_ORIGINAL_SYSTEM_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_WINDOW_ORIGINAL_SYSTEM_HPP_INCLUDED
 
@@ -13,34 +12,24 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
-
 namespace sge::systems::impl::window
 {
 
-class original_system
-:
-	public sge::systems::impl::window::system_base
+class original_system : public sge::systems::impl::window::system_base
 {
-	FCPPT_NONMOVABLE(
-		original_system
-	);
+  FCPPT_NONMOVABLE(original_system);
+
 public:
-	explicit
-	original_system(
-		fcppt::log::context_reference
-	);
+  explicit original_system(fcppt::log::context_reference);
 
-	~original_system()
-	override;
+  ~original_system() override;
+
 private:
-	[[nodiscard]]
-	sge::window::system &
-	get()
-	override;
+  [[nodiscard]] sge::window::system &get() override;
 
-	awl::system::object_unique_ptr const awl_system_;
+  awl::system::object_unique_ptr const awl_system_;
 
-	sge::window::system system_;
+  sge::window::system system_;
 };
 
 }

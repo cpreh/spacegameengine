@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_PIXEL_TO_STATIC_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_PIXEL_TO_STATIC_FORMAT_HPP_INCLUDED
 
@@ -11,27 +10,13 @@
 #include <sge/image/impl/traits/pixel/format_map.hpp>
 #include <fcppt/mpl/map/at.hpp>
 
-
 namespace sge::image::impl::pixel
 {
 
-template<
-	typename Tag,
-	typename FormatEnum
->
-using
-to_static_format
-=
-fcppt::mpl::map::at<
-	sge::image::impl::traits::pixel::format_map<
-		Tag
-	>,
-	sge::image::impl::format_key<
-		typename
-		FormatEnum::value_type,
-		FormatEnum::value
-	>
->;
+template <typename Tag, typename FormatEnum>
+using to_static_format = fcppt::mpl::map::at<
+    sge::image::impl::traits::pixel::format_map<Tag>,
+    sge::image::impl::format_key<typename FormatEnum::value_type, FormatEnum::value>>;
 
 }
 

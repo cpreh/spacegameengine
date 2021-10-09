@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_FBO_CONST_CONFIG_REF_HPP_INCLUDED
 #define SGE_OPENGL_FBO_CONST_CONFIG_REF_HPP_INCLUDED
 
 #include <sge/opengl/fbo/config_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::opengl::fbo
 {
 
-using
-const_config_ref
-=
-fcppt::reference<
-	sge::opengl::fbo::config const
->;
+using const_config_ref = fcppt::reference<sge::opengl::fbo::config const>;
 
 }
 

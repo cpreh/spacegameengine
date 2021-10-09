@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image2d/system_ref.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device/core_ref.hpp>
@@ -16,54 +15,35 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::scenic::texture_manager::texture_manager(
-	sge::renderer::device::core_ref const _renderer,
-	sge::image2d::system_ref const _image_loader
-)
-:
-	renderer_(
-		_renderer
-	),
-	image_loader_(
-		_image_loader
-	),
-	path_to_texture_()
+    sge::renderer::device::core_ref const _renderer, sge::image2d::system_ref const _image_loader)
+    : renderer_(_renderer), image_loader_(_image_loader), path_to_texture_()
 {
 }
 
 sge::renderer::texture::planar &
-sge::scenic::texture_manager::texture_for_path(
-	std::filesystem::path const &_path
-)
+sge::scenic::texture_manager::texture_for_path(std::filesystem::path const &_path)
 {
-	// TODO(philipp): get_or_insert
-	auto it =
-		path_to_texture_.find(
-			_path);
+  // TODO(philipp): get_or_insert
+  auto it = path_to_texture_.find(_path);
 
-	if(it != path_to_texture_.end())
-	{
-		return *(it->second);
-	}
+  if (it != path_to_texture_.end())
+  {
+    return *(it->second);
+  }
 
-	return
-		*path_to_texture_.insert(
-			std::make_pair(
-				_path,
-				sge::renderer::texture::create_planar_from_path(
-					_path,
-					renderer_,
-					image_loader_.get(),
-					sge::renderer::texture::mipmap::all_levels(
-						sge::renderer::texture::mipmap::auto_generate::yes
-					),
-					sge::renderer::resource_flags_field::null(),
-					sge::renderer::texture::emulate_srgb::no
-				)
-			)
-		).first->second;
+  return *path_to_texture_
+              .insert(std::make_pair(
+                  _path,
+                  sge::renderer::texture::create_planar_from_path(
+                      _path,
+                      renderer_,
+                      image_loader_.get(),
+                      sge::renderer::texture::mipmap::all_levels(
+                          sge::renderer::texture::mipmap::auto_generate::yes),
+                      sge::renderer::resource_flags_field::null(),
+                      sge::renderer::texture::emulate_srgb::no)))
+              .first->second;
 }
 
-sge::scenic::texture_manager::~texture_manager()
-= default;
+sge::scenic::texture_manager::~texture_manager() = default;

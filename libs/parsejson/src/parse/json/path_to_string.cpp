@@ -3,28 +3,23 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 
-
-sge::charconv::utf8_string
-sge::parse::json::path_to_string(
-	sge::parse::json::path const &_path
-)
+sge::charconv::utf8_string sge::parse::json::path_to_string(sge::parse::json::path const &_path)
 {
-	sge::charconv::utf8_string result{};
+  sge::charconv::utf8_string result{};
 
-	// TODO(philipp)
-	for(auto i = _path.get().begin(); i != _path.get().end(); ++i)
-	{
-		result += *i;
-		if(i != --_path.get().end())
-		{
-			result += "/";
-		}
-	}
+  // TODO(philipp)
+  for (auto i = _path.get().begin(); i != _path.get().end(); ++i)
+  {
+    result += *i;
+    if (i != --_path.get().end())
+    {
+      result += "/";
+    }
+  }
 
-	return result;
+  return result;
 }

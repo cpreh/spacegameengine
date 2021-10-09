@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_HPP_INCLUDED
 
 #include <sge/opengl/fbo/optional_attachment_type_fwd.hpp>
 #include <fcppt/optional/object_impl.hpp>
-
 
 #endif

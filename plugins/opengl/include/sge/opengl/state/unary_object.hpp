@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_UNARY_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_UNARY_OBJECT_HPP_INCLUDED
 
@@ -14,52 +13,27 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::state
 {
 
-template<
-	typename Base,
-	typename Parameter
->
-class unary_object
-:
-	public Base
+template <typename Base, typename Parameter>
+class unary_object : public Base
 {
-	FCPPT_NONMOVABLE(
-		unary_object
-	);
+  FCPPT_NONMOVABLE(unary_object);
+
 public:
-	using
-	actor_type
-	=
-	fcppt::function<
-		void (
-			Parameter const &
-		)
-	>;
+  using actor_type = fcppt::function<void(Parameter const &)>;
 
-	using
-	actor_vector
-	=
-	std::vector<
-		actor_type
-	>;
+  using actor_vector = std::vector<actor_type>;
 
-	explicit
-	unary_object(
-		actor_vector &&
-	);
+  explicit unary_object(actor_vector &&);
 
-	~unary_object()
-	override;
+  ~unary_object() override;
 
-	void
-	set(
-		Parameter const &
-	) const;
+  void set(Parameter const &) const;
+
 private:
-	actor_vector const actors_;
+  actor_vector const actors_;
 };
 
 }

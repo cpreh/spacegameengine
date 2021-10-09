@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/model/md3/impl/endian.hpp>
 #include <sge/model/md3/impl/max_qpath.hpp>
 #include <sge/model/md3/impl/read_s32.hpp>
@@ -13,22 +12,8 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::model::md3::impl::shader::shader(
-	std::istream &_stream
-)
-:
-	name_(
-		sge::model::md3::impl::read_string<
-			sge::model::md3::impl::max_qpath::value
-		>(
-			_stream
-		)
-	),
-	shader_index_(
-		sge::model::md3::impl::read_s32(
-			_stream
-		)
-	)
+sge::model::md3::impl::shader::shader(std::istream &_stream)
+    : name_(sge::model::md3::impl::read_string<sge::model::md3::impl::max_qpath::value>(_stream)),
+      shader_index_(sge::model::md3::impl::read_s32(_stream))
 {
 }

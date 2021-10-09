@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_PLANAR_PITCH_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_PLANAR_PITCH_HPP_INCLUDED
 
@@ -11,14 +10,10 @@
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
 namespace sge::opencl::memory_object::image
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	sge::opencl::size_type,
-	planar_pitch
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::opencl::size_type, planar_pitch);
 
 }
 

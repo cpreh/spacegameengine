@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_CORE_RASTERIZER_DEFAULT_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_RASTERIZER_DEFAULT_CONTEXT_HPP_INCLUDED
 
@@ -13,44 +12,28 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 namespace sge::opengl::state::core::rasterizer
 {
 
-class default_context
-:
-	public sge::opengl::context::base
+class default_context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		default_context
-	);
+  FCPPT_NONMOVABLE(default_context);
+
 public:
-	using
-	parameter
-	=
-	void;
+  using parameter = void;
 
-	default_context();
+  default_context();
 
-	~default_context()
-	override;
+  ~default_context() override;
 
-	[[nodiscard]]
-	sge::opengl::state::core::rasterizer::object const &
-	default_state() const;
+  [[nodiscard]] sge::opengl::state::core::rasterizer::object const &default_state() const;
 
-	static
-	sge::opengl::context::id const
-	static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	using
-	object_unique_ptr
-	=
-	fcppt::unique_ptr<
-		sge::opengl::state::core::rasterizer::object
-	>;
+  using object_unique_ptr = fcppt::unique_ptr<sge::opengl::state::core::rasterizer::object>;
 
-	object_unique_ptr const default_state_;
+  object_unique_ptr const default_state_;
 };
 
 }

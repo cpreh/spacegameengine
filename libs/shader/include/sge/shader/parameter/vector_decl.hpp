@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_PARAMETER_VECTOR_DECL_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_VECTOR_DECL_HPP_INCLUDED
 
@@ -15,50 +14,28 @@
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/static_fwd.hpp>
 
-
 namespace sge::shader::parameter
 {
 
-template<
-	typename ValueType,
-	fcppt::math::size_type N
->
+template <typename ValueType, fcppt::math::size_type N>
 class vector
 {
-	FCPPT_NONMOVABLE(
-		vector
-	);
+  FCPPT_NONMOVABLE(vector);
+
 public:
-	using
-	value_type
-	=
-	ValueType;
+  using value_type = ValueType;
 
-	using
-	vector_type
-	=
-	fcppt::math::vector::static_<
-		ValueType,
-		N
-	>;
+  using vector_type = fcppt::math::vector::static_<ValueType, N>;
 
-	static constexpr fcppt::math::size_type const size =
-		N;
+  static constexpr fcppt::math::size_type const size = N;
 
-	vector(
-		sge::cg::program::object_ref,
-		sge::shader::parameter::name const &,
-		vector_type const &
-	);
+  vector(sge::cg::program::object_ref, sge::shader::parameter::name const &, vector_type const &);
 
-	void
-	set(
-		vector_type const &
-	);
+  void set(vector_type const &);
 
-	~vector(); // NOLINT(performance-trivially-destructible)
+  ~vector(); // NOLINT(performance-trivially-destructible)
 private:
-	sge::cg::parameter::named const parameter_;
+  sge::cg::parameter::named const parameter_;
 };
 
 }

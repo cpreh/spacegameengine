@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_INPUT_OBJECT_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_INPUT_OBJECT_HPP_INCLUDED
 
@@ -22,53 +21,37 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
-
 namespace sge::systems::impl::input
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	object(
-		fcppt::log::context_reference,
-		fcppt::log::object &, // NOLINT(google-runtime-references)
-		sge::input::plugin::collection const &,
-		sge::systems::input const &,
-		sge::systems::impl::window::object const &
-	);
+  object(
+      fcppt::log::context_reference,
+      fcppt::log::object &, // NOLINT(google-runtime-references)
+      sge::input::plugin::collection const &,
+      sge::systems::input const &,
+      sge::systems::impl::window::object const &);
 
-	~object();
+  ~object();
 
-	[[nodiscard]]
-	sge::input::system &
-	system() const;
+  [[nodiscard]] sge::input::system &system() const;
 
-	[[nodiscard]]
-	sge::input::processor &
-	processor() const;
+  [[nodiscard]] sge::input::processor &processor() const;
+
 private:
-	sge::input::system_unique_ptr const input_system_;
+  sge::input::system_unique_ptr const input_system_;
 
-	sge::input::processor_unique_ptr const input_processor_;
+  sge::input::processor_unique_ptr const input_processor_;
 
-	using
-	cursor_modifier_unique_ptr
-	=
-	fcppt::unique_ptr<
-		sge::systems::impl::input::cursor_modifier
-	>;
+  using cursor_modifier_unique_ptr = fcppt::unique_ptr<sge::systems::impl::input::cursor_modifier>;
 
-	using
-	optional_cursor_modifier_unique_ptr
-	=
-	fcppt::optional::object<
-		cursor_modifier_unique_ptr
-	>;
+  using optional_cursor_modifier_unique_ptr = fcppt::optional::object<cursor_modifier_unique_ptr>;
 
-	optional_cursor_modifier_unique_ptr const cursor_modifier_;
+  optional_cursor_modifier_unique_ptr const cursor_modifier_;
 };
 
 }

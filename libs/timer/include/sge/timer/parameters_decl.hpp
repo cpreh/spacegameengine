@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TIMER_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_TIMER_PARAMETERS_DECL_HPP_INCLUDED
 
@@ -11,85 +10,43 @@
 #include <sge/timer/clocks/parameter_fwd.hpp>
 #include <sge/timer/clocks/detail/wrapper.hpp>
 
-
 namespace sge::timer
 {
 
-template<
-	typename Clock
->
-class parameters final
-:
-	sge::timer::clocks::detail::wrapper<
-		Clock
-	>
+template <typename Clock>
+class parameters final : sge::timer::clocks::detail::wrapper<Clock>
 {
-	using
-	state_base
-	=
-	sge::timer::clocks::detail::wrapper<
-		Clock
-	>;
+  using state_base = sge::timer::clocks::detail::wrapper<Clock>;
+
 public:
-	using
-	clock_type
-	=
-	Clock;
+  using clock_type = Clock;
 
-	using
-	duration
-	=
-	typename
-	clock_type::duration;
+  using duration = typename clock_type::duration;
 
-	using
-	clock_parameter
-	=
-	sge::timer::clocks::parameter<
-		Clock
-	>;
+  using clock_parameter = sge::timer::clocks::parameter<Clock>;
 
-	explicit
-	parameters(
-		duration
-	);
+  explicit parameters(duration);
 
-	parameters(
-		clock_parameter,
-		duration
-	);
+  parameters(clock_parameter, duration);
 
-	parameters &
-	active(
-		bool
-	);
+  parameters &active(bool);
 
-	parameters &
-	expired(
-		bool
-	);
+  parameters &expired(bool);
 
-	[[nodiscard]]
-	duration
-	interval() const;
+  [[nodiscard]] duration interval() const;
 
-	[[nodiscard]]
-	state_base const &
-	clock() const;
+  [[nodiscard]] state_base const &clock() const;
 
-	[[nodiscard]]
-	bool
-	active() const;
+  [[nodiscard]] bool active() const;
 
-	[[nodiscard]]
-	bool
-	expired() const;
+  [[nodiscard]] bool expired() const;
+
 private:
-	duration interval_;
+  duration interval_;
 
-	bool active_;
+  bool active_;
 
-	bool expired_;
+  bool expired_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_CONTEXT_OBJECT_HPP_INCLUDED
 
@@ -20,60 +19,37 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opencl::context
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	SGE_OPENCL_DETAIL_SYMBOL
-	explicit
-	object(
-		sge::opencl::context::parameters const &
-	);
+  SGE_OPENCL_DETAIL_SYMBOL
+  explicit object(sge::opencl::context::parameters const &);
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	cl_context
-	impl() const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL cl_context impl() const;
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	sge::opencl::memory_object::image::format_sequence
-	supported_planar_image_formats(
-		cl_mem_flags
-	) const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL sge::opencl::memory_object::image::format_sequence
+      supported_planar_image_formats(cl_mem_flags) const;
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	sge::opencl::memory_object::image::format_sequence
-	supported_volume_image_formats(
-		cl_mem_flags
-	) const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL sge::opencl::memory_object::image::format_sequence
+      supported_volume_image_formats(cl_mem_flags) const;
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	~object();
+  SGE_OPENCL_DETAIL_SYMBOL
+  ~object();
+
 private:
-	friend class sge::opencl::platform::object;
-	friend class sge::opencl::command_queue::object;
-	friend class sge::opencl::program::object;
+  friend class sge::opencl::platform::object;
+  friend class sge::opencl::command_queue::object;
+  friend class sge::opencl::program::object;
 
-	cl_context context_;
-	sge::opencl::context::optional_error_callback const error_callback_;
+  cl_context context_;
+  sge::opencl::context::optional_error_callback const error_callback_;
 
-
-	static
-	void
-	error_callback(
-		char const *,
-		void const *,
-		size_t,
-		void *
-	);
+  static void error_callback(char const *, void const *, size_t, void *);
 };
 
 }

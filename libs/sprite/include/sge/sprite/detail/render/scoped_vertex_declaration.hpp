@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_SCOPED_VERTEX_DECLARATION_HPP_INCLUDED
 
@@ -13,29 +12,27 @@
 #include <sge/sprite/state/vertex_options.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::sprite::detail::render
 {
 
 class scoped_vertex_declaration
 {
-	FCPPT_NONMOVABLE(
-		scoped_vertex_declaration
-	);
+  FCPPT_NONMOVABLE(scoped_vertex_declaration);
+
 public:
-	SGE_SPRITE_DETAIL_SYMBOL
-	scoped_vertex_declaration(
-		sge::renderer::context::core_ref,
-		sge::renderer::vertex::const_declaration_ref,
-		sge::sprite::state::vertex_options const &
-	);
+  SGE_SPRITE_DETAIL_SYMBOL
+  scoped_vertex_declaration(
+      sge::renderer::context::core_ref,
+      sge::renderer::vertex::const_declaration_ref,
+      sge::sprite::state::vertex_options const &);
 
-	SGE_SPRITE_DETAIL_SYMBOL
-	~scoped_vertex_declaration();
+  SGE_SPRITE_DETAIL_SYMBOL
+  ~scoped_vertex_declaration();
+
 private:
-	sge::renderer::context::core_ref const render_context_;
+  sge::renderer::context::core_ref const render_context_;
 
-	bool const set_declaration_;
+  bool const set_declaration_;
 };
 
 }

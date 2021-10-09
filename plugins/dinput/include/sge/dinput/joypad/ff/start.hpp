@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_FF_START_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_FF_START_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <sge/input/joypad/ff/optional_play_count_fwd.hpp>
-
 
 namespace sge
 {
@@ -20,11 +18,7 @@ namespace joypad
 namespace ff
 {
 
-void
-start(
-	IDirectInputEffect &,
-	sge::input::joypad::ff::optional_play_count const &
-);
+void start(IDirectInputEffect &, sge::input::joypad::ff::optional_play_count const &);
 
 }
 }

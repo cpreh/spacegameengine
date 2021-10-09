@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_CONTAINER_HPP_INCLUDED
 #define SGE_GUI_WIDGET_CONTAINER_HPP_INCLUDED
 
@@ -24,120 +23,72 @@
 #include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class container
-:
-	public sge::gui::widget::base
+class container : public sge::gui::widget::base
 {
-	FCPPT_NONMOVABLE(
-		container
-	);
+  FCPPT_NONMOVABLE(container);
+
 public:
-	SGE_GUI_DETAIL_SYMBOL
-	container(
-		sge::gui::context_ref,
-		sge::gui::widget::reference_vector &&,
-		sge::rucksack::widget::reference
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  container(
+      sge::gui::context_ref,
+      sge::gui::widget::reference_vector &&,
+      sge::rucksack::widget::reference);
 
-	SGE_GUI_DETAIL_SYMBOL
-	~container()
-	override;
+  SGE_GUI_DETAIL_SYMBOL
+  ~container() override;
 
-	SGE_GUI_DETAIL_SYMBOL
-	sge::rucksack::widget::base &
-	layout()
-	override;
+  SGE_GUI_DETAIL_SYMBOL
+  sge::rucksack::widget::base &layout() override;
+
 protected:
-	void
-	push_front_widget(
-		sge::gui::widget::reference
-	);
+  void push_front_widget(sge::gui::widget::reference);
 
-	void
-	pop_front_widget();
+  void pop_front_widget();
 
-	void
-	push_back_widget(
-		sge::gui::widget::reference
-	);
+  void push_back_widget(sge::gui::widget::reference);
 
-	void
-	pop_back_widget();
+  void pop_back_widget();
 
-	void
-	replace_widgets(
-		sge::gui::widget::reference_vector::size_type,
-		sge::gui::widget::reference
-	);
+  void replace_widgets(sge::gui::widget::reference_vector::size_type, sge::gui::widget::reference);
 
-	void
-	clear_widgets();
+  void clear_widgets();
+
 private:
-	void
-	insert_widget(
-		sge::gui::widget::reference_vector::iterator,
-		sge::gui::widget::reference
-	);
+  void insert_widget(sge::gui::widget::reference_vector::iterator, sge::gui::widget::reference);
 
-	sge::gui::widget::reference_vector::iterator
-	erase_widget(
-		sge::gui::widget::reference_vector::iterator
-	);
+  sge::gui::widget::reference_vector::iterator
+      erase_widget(sge::gui::widget::reference_vector::iterator);
 
-	void
-	on_update(
-		sge::gui::duration
-	)
-	override;
+  void on_update(sge::gui::duration) override;
 
-	void
-	on_draw(
-		sge::gui::renderer::base &, // NOLINT(google-runtime-references)
-		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
-	)
-	override;
+  void on_draw(
+      sge::gui::renderer::base &, // NOLINT(google-runtime-references)
+      sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+      ) override;
 
-	sge::gui::get_focus
-	on_click(
-		sge::rucksack::vector const &
-	)
-	override;
+  sge::gui::get_focus on_click(sge::rucksack::vector const &) override;
 
-	sge::gui::widget::optional_ref
-	on_tab(
-		sge::gui::widget::optional_focus_ref
-	)
-	override;
+  sge::gui::widget::optional_ref on_tab(sge::gui::widget::optional_focus_ref) override;
 
-	void
-	unregister(
-		sge::gui::widget::base const &
-	)
-	override;
+  void unregister(sge::gui::widget::base const &) override;
 
-	enum class foreach_result
-	{
-		abort,
-		continue_
-	};
+  enum class foreach_result
+  {
+    abort,
+    continue_
+  };
 
-	template<
-		typename Function
-	>
-	void
-	foreach_widget(
-		Function const &
-	);
+  template <typename Function>
+  void foreach_widget(Function const &);
 
-	sge::gui::context_ref const context_;
+  sge::gui::context_ref const context_;
 
-	sge::gui::widget::reference_vector widgets_;
+  sge::gui::widget::reference_vector widgets_;
 
-	sge::rucksack::widget::reference const layout_;
+  sge::rucksack::widget::reference const layout_;
 };
 
 }

@@ -3,22 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_ROLES_TEXTURE0_HPP_INCLUDED
 #define SGE_SPRITE_ROLES_TEXTURE0_HPP_INCLUDED
 
 #include <sge/sprite/roles/texture.hpp>
 
-
 namespace sge::sprite::roles
 {
 
-using
-texture0
-=
-sge::sprite::roles::texture<
-	0
->;
+using texture0 = sge::sprite::roles::texture<0>;
 
 }
 

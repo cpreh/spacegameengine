@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_VORBIS_ERROR_STRING_HPP_INCLUDED
 #define SGE_VORBIS_ERROR_STRING_HPP_INCLUDED
 
 #include <fcppt/string.hpp>
 
-
 namespace sge::vorbis
 {
 
-fcppt::string
-error_string(
-	int
-);
+fcppt::string error_string(int);
 
 }
 

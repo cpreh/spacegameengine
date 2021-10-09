@@ -3,10 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_SCALAR_HPP_INCLUDED
 #define SGE_RENDERER_SCALAR_HPP_INCLUDED
-
 
 namespace sge::renderer
 {
@@ -19,10 +17,7 @@ namespace sge::renderer
 Although double can be used in some places like the vertex format, float is
 used everywhere else.
 */
-using
-scalar
-=
-float;
+using scalar = float;
 
 }
 

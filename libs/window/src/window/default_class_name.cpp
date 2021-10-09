@@ -3,15 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/window/default_class_name.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
-
-fcppt::string
-sge::window::default_class_name()
-{
-	return
-		FCPPT_TEXT("sgeclass");
-}
+fcppt::string sge::window::default_class_name() { return FCPPT_TEXT("sgeclass"); }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_FF_ENVELOPE_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_ENVELOPE_HPP_INCLUDED
 
@@ -14,48 +13,35 @@
 #include <sge/input/joypad/ff/fade_level.hpp>
 #include <sge/input/joypad/ff/fade_time.hpp>
 
-
 namespace sge::input::joypad::ff
 {
 
 class envelope
 {
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	envelope(
-		sge::input::joypad::ff::attack_level,
-		sge::input::joypad::ff::attack_time,
-		sge::input::joypad::ff::fade_level,
-		sge::input::joypad::ff::fade_time
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  envelope(
+      sge::input::joypad::ff::attack_level,
+      sge::input::joypad::ff::attack_time,
+      sge::input::joypad::ff::fade_level,
+      sge::input::joypad::ff::fade_time);
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::attack_level
-	attack_level() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::ff::attack_level attack_level() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::attack_time
-	attack_time() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::ff::attack_time attack_time() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::fade_level
-	fade_level() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::ff::fade_level fade_level() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::ff::fade_time
-	fade_time() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::ff::fade_time fade_time() const;
+
 private:
-	sge::input::joypad::ff::attack_level attack_level_;
+  sge::input::joypad::ff::attack_level attack_level_;
 
-	sge::input::joypad::ff::attack_time attack_time_;
+  sge::input::joypad::ff::attack_time attack_time_;
 
-	sge::input::joypad::ff::fade_level fade_level_;
+  sge::input::joypad::ff::fade_level fade_level_;
 
-	sge::input::joypad::ff::fade_time fade_time_;
+  sge::input::joypad::ff::fade_time fade_time_;
 };
 
 }

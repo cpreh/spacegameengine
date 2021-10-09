@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_CONTEXT_OPTIONAL_ERROR_CALLBACK_HPP_INCLUDED
 #define SGE_OPENCL_CONTEXT_OPTIONAL_ERROR_CALLBACK_HPP_INCLUDED
 
 #include <sge/opencl/context/error_callback.hpp>
 #include <fcppt/optional/object.hpp>
 
-
 namespace sge::opencl::context
 {
 
-using
-optional_error_callback
-=
-fcppt::optional::object<
-	sge::opencl::context::error_callback
->;
+using optional_error_callback = fcppt::optional::object<sge::opencl::context::error_callback>;
 
 }
 

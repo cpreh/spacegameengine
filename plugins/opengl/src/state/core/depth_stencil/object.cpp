@@ -3,14 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/state/object_impl.hpp>
 #include <sge/opengl/state/core/depth_stencil/object.hpp>
 #include <sge/renderer/state/core/depth_stencil/object.hpp>
 
-
-template
-class
-sge::opengl::state::object<
-	sge::renderer::state::core::depth_stencil::object
->;
+template class sge::opengl::state::object<sge::renderer::state::core::depth_stencil::object>;

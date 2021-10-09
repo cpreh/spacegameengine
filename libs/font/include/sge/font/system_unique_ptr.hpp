@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_FONT_SYSTEM_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/font/system_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 namespace sge::font
 {
 
-using
-system_unique_ptr
-=
-fcppt::unique_ptr<
-	sge::font::system
->;
+using system_unique_ptr = fcppt::unique_ptr<sge::font::system>;
 
 }
 

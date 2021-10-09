@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_AUDIO_PLAYER_PAIR_FWD_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_AUDIO_PLAYER_PAIR_FWD_HPP_INCLUDED
 
 #include <sge/audio/player_fwd.hpp>
 #include <sge/systems/impl/plugin_pair_fwd.hpp>
 
-
 namespace sge::systems::impl::audio
 {
 
-using
-player_pair
-=
-sge::systems::impl::plugin_pair<
-	sge::audio::player
->;
+using player_pair = sge::systems::impl::plugin_pair<sge::audio::player>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/added.hpp>
 #include <sge/font/added_unique_ptr.hpp>
 #include <sge/font/object.hpp>
@@ -19,46 +18,19 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
+sge::pango::system::system() : sge::font::system() {}
 
-sge::pango::system::system()
-:
-	sge::font::system()
-{
-}
-
-sge::pango::system::~system()
-= default;
+sge::pango::system::~system() = default;
 
 sge::font::object_unique_ptr
-sge::pango::system::create_font(
-	sge::font::parameters const &_parameters
-)
+sge::pango::system::create_font(sge::font::parameters const &_parameters)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::font::object
-		>(
-			fcppt::make_unique_ptr<
-				sge::pango::object
-			>(
-				_parameters
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::font::object>(
+      fcppt::make_unique_ptr<sge::pango::object>(_parameters));
 }
 
-sge::font::added_unique_ptr
-sge::pango::system::add_font(
-	std::filesystem::path const &_path
-)
+sge::font::added_unique_ptr sge::pango::system::add_font(std::filesystem::path const &_path)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::font::added
-		>(
-			fcppt::make_unique_ptr<
-				sge::pango::added
-			>(
-				_path
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::font::added>(
+      fcppt::make_unique_ptr<sge::pango::added>(_path));
 }

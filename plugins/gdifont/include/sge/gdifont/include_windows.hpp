@@ -3,10 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GDIFONT_INCLUDE_WINDOWS_HPP_INCLUDED
 #define SGE_GDIFONT_INCLUDE_WINDOWS_HPP_INCLUDED
-
 
 #if !defined(WIN32_LEAN_AND_MEAN)
 #define WIN32_LEAN_AND_MEAN

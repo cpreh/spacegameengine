@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_PIXEL_OBJECT_FWD_HPP_INCLUDED
 #define SGE_IMAGE_PIXEL_OBJECT_FWD_HPP_INCLUDED
-
 
 namespace sge::image::pixel
 {
 
-template<
-	typename Tag
->
+template <typename Tag>
 class object;
 
 }

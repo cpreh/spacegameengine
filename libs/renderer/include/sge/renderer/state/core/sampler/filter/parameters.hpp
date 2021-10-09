@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_PARAMETERS_HPP_INCLUDED
 
@@ -11,33 +10,27 @@
 #include <sge/renderer/state/core/sampler/filter/parameters_fwd.hpp>
 #include <sge/renderer/state/core/sampler/filter/variant.hpp>
 
-
 namespace sge::renderer::state::core::sampler::filter
 {
 
 class parameters
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	explicit
-	parameters(
-		sge::renderer::state::core::sampler::filter::variant const &
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  explicit parameters(sge::renderer::state::core::sampler::filter::variant const &);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::sampler::filter::variant const &
-	variant() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL
+      sge::renderer::state::core::sampler::filter::variant const &
+      variant() const;
+
 private:
-	sge::renderer::state::core::sampler::filter::variant variant_;
+  sge::renderer::state::core::sampler::filter::variant variant_;
 };
 
 SGE_RENDERER_DETAIL_SYMBOL
-bool
-operator==(
-	sge::renderer::state::core::sampler::filter::parameters const &,
-	sge::renderer::state::core::sampler::filter::parameters const &
-);
+bool operator==(
+    sge::renderer::state::core::sampler::filter::parameters const &,
+    sge::renderer::state::core::sampler::filter::parameters const &);
 
 }
 

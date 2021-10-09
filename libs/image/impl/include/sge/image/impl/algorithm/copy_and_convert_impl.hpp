@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_COPY_AND_CONVERT_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_COPY_AND_CONVERT_IMPL_HPP_INCLUDED
 
@@ -20,41 +19,18 @@
 #include <sge/image/impl/algorithm/copy_and_convert_dynamic.hpp>
 #endif
 
-
-template<
-	typename Tag
->
-void
-sge::image::algorithm::copy_and_convert(
-	sge::image::view::const_object<
-		Tag
-	> const &_src,
-	sge::image::view::object<
-		Tag
-	> const &_dest,
-	sge::image::algorithm::may_overlap const _overlap,
-	sge::image::algorithm::uninitialized const _uninitialized
-)
+template <typename Tag>
+void sge::image::algorithm::copy_and_convert(
+    sge::image::view::const_object<Tag> const &_src,
+    sge::image::view::object<Tag> const &_dest,
+    sge::image::algorithm::may_overlap const _overlap,
+    sge::image::algorithm::uninitialized const _uninitialized)
 {
-	// TODO(philipp): automatically use the static version if the dynamic one is not specialized
+  // TODO(philipp): automatically use the static version if the dynamic one is not specialized
 #if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
-	sge::image::impl::algorithm::copy_and_convert_static<
-		Tag
-	>(
-		_src,
-		_dest,
-		_overlap,
-		_uninitialized
-	);
+  sge::image::impl::algorithm::copy_and_convert_static<Tag>(_src, _dest, _overlap, _uninitialized);
 #else
-	sge::image::impl::algorithm::copy_and_convert_dynamic<
-		Tag
-	>(
-		_src,
-		_dest,
-		_overlap,
-		_uninitialized
-	);
+  sge::image::impl::algorithm::copy_and_convert_dynamic<Tag>(_src, _dest, _overlap, _uninitialized);
 #endif
 }
 

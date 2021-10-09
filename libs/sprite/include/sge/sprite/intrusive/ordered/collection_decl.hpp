@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_DECL_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_DECL_HPP_INCLUDED
 
@@ -14,103 +13,46 @@
 #include <sge/sprite/intrusive/ordered/detail/map.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::sprite::intrusive::ordered
 {
 
-template<
-	typename Choices,
-	typename Order
->
+template <typename Choices, typename Order>
 class collection
 {
-	FCPPT_NONMOVABLE(
-		collection
-	);
+  FCPPT_NONMOVABLE(collection);
+
 public:
-	using
-	order
-	=
-	Order;
+  using order = Order;
 
-	using
-	collection_base
-	=
-	sge::sprite::intrusive::collection<
-		Choices
-	>;
+  using collection_base = sge::sprite::intrusive::collection<Choices>;
 
-	using
-	choices
-	=
-	Choices;
+  using choices = Choices;
 
-	using
-	connection_ref
-	=
-	sge::sprite::intrusive::connection_ref<
-		Choices
-	>;
+  using connection_ref = sge::sprite::intrusive::connection_ref<Choices>;
 
-	collection();
+  collection();
 
-	~collection();
+  ~collection();
 
-	[[nodiscard]]
-	collection_base &
-	get(
-		order const &
-	);
+  [[nodiscard]] collection_base &get(order const &);
 
-	[[nodiscard]]
-	connection_ref
-	connection(
-		order const &
-	);
+  [[nodiscard]] connection_ref connection(order const &);
 
-	using
-	range_type
-	=
-	sge::sprite::intrusive::ordered::range<
-		Choices,
-		order,
-		false
-	>;
+  using range_type = sge::sprite::intrusive::ordered::range<Choices, order, false>;
 
-	using
-	const_range_type
-	=
-	sge::sprite::intrusive::ordered::range<
-		Choices,
-		order,
-		true
-	>;
+  using const_range_type = sge::sprite::intrusive::ordered::range<Choices, order, true>;
 
-	[[nodiscard]]
-	range_type
-	range();
+  [[nodiscard]] range_type range();
 
-	[[nodiscard]]
-	const_range_type
-	range() const;
+  [[nodiscard]] const_range_type range() const;
 
-	template<
-		typename Function
-	>
-	void
-	for_each(
-		Function const &
-	);
+  template <typename Function>
+  void for_each(Function const &);
+
 private:
-	using
-	order_map
-	=
-	sge::sprite::intrusive::ordered::detail::map<
-		order,
-		Choices
-	>;
+  using order_map = sge::sprite::intrusive::ordered::detail::map<order, Choices>;
 
-	order_map collections_;
+  order_map collections_;
 };
 
 }

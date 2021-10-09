@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_POSITION_ROTATED_HPP_INCLUDED
 
@@ -29,158 +28,58 @@
 #include <cmath>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::geometry::detail
 {
 
-template<
-	typename Iterator,
-	typename Choices
->
-void
-fill_position_rotated(
-	Iterator _iterator,
-	sge::sprite::object<
-		Choices
-	> const &_sprite
-)
+template <typename Iterator, typename Choices>
+void fill_position_rotated(Iterator _iterator, sge::sprite::object<Choices> const &_sprite)
 {
-	using
-	type_choices
-	=
-	typename
-	Choices::type_choices;
+  using type_choices = typename Choices::type_choices;
 
-	using
-	funit
-	=
-	sge::sprite::types::basic::float_<
-		type_choices
-	>;
+  using funit = sge::sprite::types::basic::float_<type_choices>;
 
-	using
-	pos2
-	=
-	sge::sprite::types::basic::float_vector<
-		type_choices
-	>;
+  using pos2 = sge::sprite::types::basic::float_vector<type_choices>;
 
-	pos2 const centerf(
-		fcppt::math::vector::structure_cast<
-			pos2,
-			fcppt::cast::static_cast_fun
-		>(
-			_sprite.center()
-		)
-	);
+  pos2 const centerf(
+      fcppt::math::vector::structure_cast<pos2, fcppt::cast::static_cast_fun>(_sprite.center()));
 
-	using
-	float_rect
-	=
-	sge::sprite::geometry::detail::float_rect<
-		type_choices
-	>;
+  using float_rect = sge::sprite::geometry::detail::float_rect<type_choices>;
 
-	auto const rbs(
-		fcppt::math::box::structure_cast<
-			float_rect,
-			fcppt::cast::static_cast_fun
-		>(
-			sge::sprite::bounding_rect(
-				_sprite
-			)
-		)
-	);
+  auto const rbs(fcppt::math::box::structure_cast<float_rect, fcppt::cast::static_cast_fun>(
+      sge::sprite::bounding_rect(_sprite)));
 
-	using
-	position_array
-	=
-	fcppt::array::object<
-		pos2,
-		sge::sprite::geometry::detail::vertices_per_sprite<
-			Choices
-		>::value
-	>;
+  using position_array = fcppt::array::
+      object<pos2, sge::sprite::geometry::detail::vertices_per_sprite<Choices>::value>;
 
-	position_array const positions{
-		pos2(
-			rbs.left(),
-			rbs.top()
-		) - centerf,
-		pos2(
-			rbs.right(),
-			rbs.top()
-		) - centerf,
-		pos2(
-			rbs.right(),
-			rbs.bottom()
-		) - centerf,
-		pos2(
-			rbs.left(),
-			rbs.bottom()
-		) - centerf
-	};
+  position_array const positions{
+      pos2(rbs.left(), rbs.top()) - centerf,
+      pos2(rbs.right(), rbs.top()) - centerf,
+      pos2(rbs.right(), rbs.bottom()) - centerf,
+      pos2(rbs.left(), rbs.bottom()) - centerf};
 
-	using
-	rotation_type
-	=
-	sge::sprite::types::rotation<
-		type_choices
-	>;
+  using rotation_type = sge::sprite::types::rotation<type_choices>;
 
-	rotation_type const rot(
-		_sprite.rotation()
-	);
+  rotation_type const rot(_sprite.rotation());
 
-	funit const sinx(
-		std::sin(
-			rot
-		)
-	);
+  funit const sinx(std::sin(rot));
 
-	funit const cosx(
-		std::cos(
-			rot
-		)
-	);
+  funit const cosx(std::cos(rot));
 
-	using
-	matrix2x2
-	=
-	fcppt::math::matrix::static_<
-		funit,
-		2,
-		2
-	>;
+  using matrix2x2 = fcppt::math::matrix::static_<funit, 2, 2>;
 
-	matrix2x2 const mat_rot(
-		fcppt::math::matrix::row(
-			cosx, -sinx
-		),
-		fcppt::math::matrix::row(
-			sinx,  cosx
-		)
-	);
+  matrix2x2 const mat_rot(
+      fcppt::math::matrix::row(cosx, -sinx), fcppt::math::matrix::row(sinx, cosx));
 
-	for(
-		auto const &cur_pos
-		:
-		positions
-	)
-	{
-		sge::renderer::vf::set_proxy(
-			*_iterator,
-			sge::renderer::vf::labels::pos{},
-			sge::sprite::geometry::detail::make_position<
-				Choices
-			>(
-				(mat_rot * cur_pos) + centerf,
-				_sprite
-			)
-		);
+  for (auto const &cur_pos : positions)
+  {
+    sge::renderer::vf::set_proxy(
+        *_iterator,
+        sge::renderer::vf::labels::pos{},
+        sge::sprite::geometry::detail::make_position<Choices>(
+            (mat_rot * cur_pos) + centerf, _sprite));
 
-		++_iterator;
-	}
+    ++_iterator;
+  }
 }
 
 }

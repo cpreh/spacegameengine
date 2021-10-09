@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/file_exception.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/vorbis/info.hpp>
@@ -14,33 +13,15 @@
 #include <vorbis/vorbisfile.h>
 #include <fcppt/config/external_end.hpp>
 
-
-vorbis_info
-sge::vorbis::info(
-	sge::vorbis::stream &_stream,
-	sge::media::optional_name const &_name
-)
+vorbis_info sge::vorbis::info(sge::vorbis::stream &_stream, sge::media::optional_name const &_name)
 {
-	vorbis_info *const info(
-		::ov_info(
-			_stream.get(),
-			-1
-		)
-	);
+  vorbis_info *const info(::ov_info(_stream.get(), -1));
 
-	if(
-		info
-		==
-		nullptr
-	)
-	{
-		throw
-			sge::audio::file_exception(
-				_name,
-				FCPPT_TEXT("couldn't read file info from ogg vorbis file")
-			);
-	}
+  if (info == nullptr)
+  {
+    throw sge::audio::file_exception(
+        _name, FCPPT_TEXT("couldn't read file info from ogg vorbis file"));
+  }
 
-	return
-		*info;
+  return *info;
 }

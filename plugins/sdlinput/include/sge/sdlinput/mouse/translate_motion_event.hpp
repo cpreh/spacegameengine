@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_MOUSE_TRANSLATE_MOTION_EVENT_HPP_INCLUDED
 #define SGE_SDLINPUT_MOUSE_TRANSLATE_MOTION_EVENT_HPP_INCLUDED
 
@@ -13,15 +12,11 @@
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::mouse
 {
 
 awl::event::container
-translate_motion_event(
-	sge::input::mouse::shared_ptr const &,
-	SDL_MouseMotionEvent const &
-);
+translate_motion_event(sge::input::mouse::shared_ptr const &, SDL_MouseMotionEvent const &);
 
 }
 

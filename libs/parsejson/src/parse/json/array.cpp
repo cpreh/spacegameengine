@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/value.hpp>
@@ -12,27 +11,13 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::parse::json::array::array(
-	sge::parse::json::element_vector &&_elements
-)
-:
-	elements(
-		std::move(
-			_elements
-		)
-	)
+sge::parse::json::array::array(sge::parse::json::element_vector &&_elements)
+    : elements(std::move(_elements))
 {
 }
 
-bool
-sge::parse::json::operator==(
-	sge::parse::json::array const &_left,
-	sge::parse::json::array const &_right
-)
+bool sge::parse::json::operator==(
+    sge::parse::json::array const &_left, sge::parse::json::array const &_right)
 {
-	return
-		_left.elements
-		==
-		_right.elements;
+  return _left.elements == _right.elements;
 }

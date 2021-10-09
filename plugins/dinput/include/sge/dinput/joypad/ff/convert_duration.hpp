@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_FF_CONVERT_DURATION_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_FF_CONVERT_DURATION_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <sge/input/joypad/ff/duration.hpp>
-
 
 namespace sge
 {
@@ -21,9 +19,7 @@ namespace ff
 {
 
 DWORD
-convert_duration(
-	sge::input::joypad::ff::duration
-);
+convert_duration(sge::input::joypad::ff::duration);
 
 }
 }

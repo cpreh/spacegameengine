@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RESOURCE_TREE_DETAIL_ELEMENT_FWD_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_DETAIL_ELEMENT_FWD_HPP_INCLUDED
-
 
 namespace sge::resource_tree::detail
 {
 
-template<
-	typename T,
-	typename Rng
->
+template <typename T, typename Rng>
 class element;
 
 }

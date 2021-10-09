@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_WINDOW_ORIGINAL_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_WINDOW_ORIGINAL_HPP_INCLUDED
 
@@ -17,39 +16,31 @@
 #include <awl/window/object_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::systems::impl::window
 {
 
-class original
-:
-	public sge::systems::impl::window::base
+class original : public sge::systems::impl::window::base
 {
-	FCPPT_NONMOVABLE(
-		original
-	);
+  FCPPT_NONMOVABLE(original);
+
 public:
-	original(
-		sge::systems::original_window const &,
-		sge::window::system_ref,
-		sge::systems::impl::renderer::optional_system_ref const &
-	);
+  original(
+      sge::systems::original_window const &,
+      sge::window::system_ref,
+      sge::systems::impl::renderer::optional_system_ref const &);
 
-	~original()
-	override;
+  ~original() override;
+
 private:
-	[[nodiscard]]
-	sge::window::object &
-	get() const
-	override;
+  [[nodiscard]] sge::window::object &get() const override;
 
-	awl::visual::object_unique_ptr const awl_visual_;
+  awl::visual::object_unique_ptr const awl_visual_;
 
-	awl::cursor::object_unique_ptr const awl_cursor_;
+  awl::cursor::object_unique_ptr const awl_cursor_;
 
-	awl::window::object_unique_ptr const awl_window_;
+  awl::window::object_unique_ptr const awl_window_;
 
-	mutable sge::window::object window_;
+  mutable sge::window::object window_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_OBJECT_HPP_INCLUDED
 #define SGE_FONT_OBJECT_HPP_INCLUDED
 
@@ -17,43 +16,30 @@
 #include <sge/image/color/optional_format_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::font
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 protected:
-	SGE_FONT_DETAIL_SYMBOL
-	object();
+  SGE_FONT_DETAIL_SYMBOL
+  object();
+
 public:
-	SGE_FONT_DETAIL_SYMBOL
-	virtual
-	~object();
+  SGE_FONT_DETAIL_SYMBOL
+  virtual ~object();
 
-	[[nodiscard]]
-	virtual
-	sge::font::text_unique_ptr
-	create_text(
-		sge::font::string const &,
-		sge::font::text_parameters const &
-	) = 0;
+  [[nodiscard]] virtual sge::font::text_unique_ptr
+  create_text(sge::font::string const &, sge::font::text_parameters const &) = 0;
 
-	/**
+  /**
 	\brief Tells which color format is preferred by this font, if any.
 	*/
-	[[nodiscard]]
-	virtual
-	sge::image::color::optional_format
-	preferred_color_format() const = 0;
+  [[nodiscard]] virtual sge::image::color::optional_format preferred_color_format() const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::font::metrics
-	metrics() const = 0;
+  [[nodiscard]] virtual sge::font::metrics metrics() const = 0;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_CONFIG_MODIFY_USER_VALUE_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONFIG_MODIFY_USER_VALUE_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
 #include <fcppt/reference_fwd.hpp>
-
 
 namespace sge::parse::json::config
 {
@@ -28,15 +26,11 @@ namespace sge::parse::json::config
 	- the option's new value
  */
 SGE_PARSE_JSON_DETAIL_SYMBOL
-void
-modify_user_value(
-	sge::parse::json::object const &structure_json,
-	fcppt::reference<
-		sge::parse::json::object
-	> user_json,
-	sge::parse::json::path const &path,
-	sge::parse::json::value const &new_value
-);
+void modify_user_value(
+    sge::parse::json::object const &structure_json,
+    fcppt::reference<sge::parse::json::object> user_json,
+    sge::parse::json::path const &path,
+    sge::parse::json::value const &new_value);
 
 }
 

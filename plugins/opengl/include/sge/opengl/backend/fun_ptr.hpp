@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BACKEND_FUN_PTR_HPP_INCLUDED
 #define SGE_OPENGL_BACKEND_FUN_PTR_HPP_INCLUDED
 
 #include <sge/opengl/apientry.hpp>
 
-
 namespace sge::opengl::backend
 {
 
-using
-fun_ptr
-=
-void (SGE_OPENGL_APIENTRY *)();
+using fun_ptr = void(SGE_OPENGL_APIENTRY *)();
 
 }
 

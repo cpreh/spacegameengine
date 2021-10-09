@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_FOCUS_MOD_STATE_TRACKER_HPP_INCLUDED
 #define SGE_INPUT_FOCUS_MOD_STATE_TRACKER_HPP_INCLUDED
 
@@ -21,52 +20,32 @@
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::input::focus
 {
 
 class mod_state_tracker
 {
-	FCPPT_NONMOVABLE(
-		mod_state_tracker
-	);
+  FCPPT_NONMOVABLE(mod_state_tracker);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	mod_state_tracker();
+  SGE_INPUT_DETAIL_SYMBOL
+  mod_state_tracker();
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~mod_state_tracker();
+  SGE_INPUT_DETAIL_SYMBOL
+  ~mod_state_tracker();
 
-	SGE_INPUT_DETAIL_SYMBOL
-	void
-	event(
-		sge::input::focus::event::base const &
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  void event(sge::input::focus::event::base const &);
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::key::mod_state
-	mod_state(
-		sge::input::focus::shared_ptr const &
-	) const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::key::mod_state
+  mod_state(sge::input::focus::shared_ptr const &) const;
+
 private:
-	using
-	pressed_array
-	=
-	fcppt::enum_::array<
-		sge::input::key::modifier,
-		sge::input::key::pressed
-	>;
+  using pressed_array = fcppt::enum_::array<sge::input::key::modifier, sge::input::key::pressed>;
 
-	using
-	map_type
-	=
-	std::unordered_map<
-		sge::input::focus::shared_ptr,
-		pressed_array
-	>;
+  using map_type = std::unordered_map<sge::input::focus::shared_ptr, pressed_array>;
 
-	map_type map_;
+  map_type map_;
 };
 
 }

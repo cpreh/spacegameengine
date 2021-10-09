@@ -3,15 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/texture/planar_types.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
-
-fcppt::string
-sge::opengl::texture::planar_types::name()
-{
-	return
-		FCPPT_TEXT("planar texture");
-}
+fcppt::string sge::opengl::texture::planar_types::name() { return FCPPT_TEXT("planar texture"); }

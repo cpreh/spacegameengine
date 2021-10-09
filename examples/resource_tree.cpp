@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/media_path.hpp>
 #include <sge/resource_tree/object.hpp>
 #include <sge/resource_tree/path.hpp>
@@ -21,96 +20,43 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-using
-resource
-=
-std::filesystem::path;
+using resource = std::filesystem::path;
 
-resource
-path_to_resource(
-	std::filesystem::path const &_path
-)
+resource path_to_resource(std::filesystem::path const &_path)
 {
-	fcppt::io::cout()
-		<<
-		fcppt::filesystem::path_to_string(
-			_path
-		)
-		<<
-		FCPPT_TEXT('\n');
+  fcppt::io::cout() << fcppt::filesystem::path_to_string(_path) << FCPPT_TEXT('\n');
 
-	return
-		_path;
+  return _path;
 }
 
 }
 
-int
-main()
+int main()
 try
 {
-	using
-	random_generator
-	=
-	fcppt::random::generator::minstd_rand;
+  using random_generator = fcppt::random::generator::minstd_rand;
 
-	random_generator generator(
-		fcppt::random::generator::seed_from_chrono<
-			random_generator::seed
-		>()
-	);
+  random_generator generator(fcppt::random::generator::seed_from_chrono<random_generator::seed>());
 
-	using
-	resource_tree
-	=
-	sge::resource_tree::object<
-		resource,
-		random_generator
-	>;
+  using resource_tree = sge::resource_tree::object<resource, random_generator>;
 
-	resource_tree tree(
-		sge::config::media_path(),
-		resource_tree::path_to_resource_function(
-			path_to_resource
-		),
-		fcppt::make_ref(
-			generator
-		)
-	);
+  resource_tree tree(
+      sge::config::media_path(),
+      resource_tree::path_to_resource_function(path_to_resource),
+      fcppt::make_ref(generator));
 
-	resource const example(
-		tree.get(
-			sge::resource_tree::path()
-			/
-			FCPPT_TEXT("images")
-			/
-			FCPPT_TEXT("grass")
-		)
-	);
+  resource const example(
+      tree.get(sge::resource_tree::path() / FCPPT_TEXT("images") / FCPPT_TEXT("grass")));
 
-	fcppt::io::cout()
-		<<
-		FCPPT_TEXT('\n')
-		<<
-		FCPPT_TEXT("Got resource example: ")
-		<<
-		fcppt::filesystem::path_to_string(
-			example
-		)
-		<<
-		FCPPT_TEXT('\n');
+  fcppt::io::cout() << FCPPT_TEXT('\n') << FCPPT_TEXT("Got resource example: ")
+                    << fcppt::filesystem::path_to_string(example) << FCPPT_TEXT('\n');
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+  return EXIT_FAILURE;
 }

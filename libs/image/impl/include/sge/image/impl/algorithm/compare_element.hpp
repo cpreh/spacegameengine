@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_COMPARE_ELEMENT_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_COMPARE_ELEMENT_HPP_INCLUDED
 
@@ -14,13 +13,12 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::image::algorithm
 {
 
 struct compare_element
 {
-/*
+  /*
 	// TODO: Create a decay function that decays const channel_proxies
 	template<
 		typename Pointer1,
@@ -51,57 +49,20 @@ struct compare_element
 			);
 	}*/
 
-	template<
-		typename T
-	>
-	std::enable_if_t<
-		std::is_integral_v<
-			T
-		>,
-		bool
-	>
-	operator()(
-		T const _value1,
-		T const _value2
-	) const
-	{
-		return
-			_value1
-			==
-			_value2;
-	}
+  template <typename T>
+  std::enable_if_t<std::is_integral_v<T>, bool> operator()(T const _value1, T const _value2) const
+  {
+    return _value1 == _value2;
+  }
 
-	template<
-		typename T
-	>
-	std::enable_if_t<
-		std::is_floating_point_v<
-			T
-		>,
-		bool
-	>
-	operator()(
-		T const _value1,
-		T const _value2
-	) const
-	{
-		T const epsilon{
-			fcppt::literal<
-				T
-			>(
-				0.00001
-			)
-		};
+  template <typename T>
+  std::enable_if_t<std::is_floating_point_v<T>, bool>
+  operator()(T const _value1, T const _value2) const
+  {
+    T const epsilon{fcppt::literal<T>(0.00001)};
 
-		return
-			std::abs(
-				_value1
-				-
-				_value2
-			)
-			<
-			epsilon;
-	}
+    return std::abs(_value1 - _value2) < epsilon;
+  }
 };
 
 }

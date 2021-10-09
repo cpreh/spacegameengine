@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_SCENE_MATERIAL_DIFFUSE_COLOR_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_MATERIAL_DIFFUSE_COLOR_HPP_INCLUDED
 
@@ -13,9 +12,7 @@
 
 namespace sge::scenic::scene::material
 {
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	sge::image::color::any::object,
-	diffuse_color);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::image::color::any::object, diffuse_color);
 }
 
 #endif

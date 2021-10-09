@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/exception.hpp>
 #include <sge/openal/al.hpp>
 #include <sge/openal/check_state.hpp>
@@ -12,23 +11,9 @@
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
 
-
-void
-sge::openal::funcs::delete_source(
-	sge::openal::source_id const _source
-)
+void sge::openal::funcs::delete_source(sge::openal::source_id const _source)
 {
-	::alDeleteSources(
-		fcppt::literal<
-			ALsizei
-		>(
-			1
-		),
-		&_source.get()
-	);
+  ::alDeleteSources(fcppt::literal<ALsizei>(1), &_source.get());
 
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alDeleteSources failed"),
-		sge::audio::exception
-	)
+  SGE_OPENAL_CHECK_STATE(FCPPT_TEXT("alDeleteSources failed"), sge::audio::exception)
 }

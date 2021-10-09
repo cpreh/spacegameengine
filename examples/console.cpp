@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/media_path.hpp>
 #include <sge/console/arg_list.hpp>
 #include <sge/console/fallback.hpp>
@@ -102,370 +101,153 @@
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_window,
-		sge::systems::with_input,
-		sge::systems::with_image2d,
-		sge::systems::with_font
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge console test")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::center_on_resize(
-						sge::window::dim{
-							1024U,
-							768U
-						}
-					)
-				}
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-		(
-			sge::systems::image2d(
-				sge::media::optional_extension_set(
-					sge::media::extension_set{
-						sge::media::extension(
-							FCPPT_TEXT("png")
-						)
-					}
-				)
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_window,
+      sge::systems::with_input,
+      sge::systems::with_image2d,
+      sge::systems::with_font> const
+      sys(sge::systems::make_list(sge::systems::window(sge::systems::window_source(
+          sge::systems::original_window(sge::window::title(FCPPT_TEXT("sge console test"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{
+                  sge::viewport::center_on_resize(sge::window::dim{1024U, 768U})}))(
+          sge::systems::input(sge::systems::cursor_option_field::null()))(
+          sge::systems::image2d(sge::media::optional_extension_set(
+              sge::media::extension_set{sge::media::extension(FCPPT_TEXT("png"))}))));
 
-	sge::console::object object(
-		sge::console::prefix(
-			SGE_FONT_LIT('/')
-		)
-	);
+  sge::console::object object(sge::console::prefix(SGE_FONT_LIT('/')));
 
-	fcppt::signal::auto_connection const c0(
-		object.insert(
-			sge::console::callback::convenience<
-				void()
-			>(
-				[
-					&sys
-				]{
-					sys.window_system().quit(
-						awl::main::exit_success()
-					);
-				},
-				sge::console::callback::name(
-					SGE_FONT_LIT("quit")
-				),
-				sge::console::callback::short_description(
-					SGE_FONT_LIT("Usage: /quit")
-				)
-			)
-		)
-	);
+  fcppt::signal::auto_connection const c0(object.insert(sge::console::callback::convenience<void()>(
+      [&sys] { sys.window_system().quit(awl::main::exit_success()); },
+      sge::console::callback::name(SGE_FONT_LIT("quit")),
+      sge::console::callback::short_description(SGE_FONT_LIT("Usage: /quit")))));
 
-	fcppt::signal::auto_connection const c1(
-		object.register_fallback(
-			sge::console::fallback{
-				[](
-					sge::font::string const &_arg
-				)
-				{
-					fcppt::io::cout()
-						<<
-						FCPPT_TEXT("fallback called with argument:")
-						<<
-						fcppt::optional::from(
-							sge::font::to_fcppt_string(
-								_arg
-							),
-							[]{
-								return
-									fcppt::string{
-										FCPPT_TEXT("Failed to convert fallback text!")
-									};
-							}
-						)
-						<<
-						FCPPT_TEXT('\n');
-				}
-			}
-		)
-	);
+  fcppt::signal::auto_connection const c1(object.register_fallback(sge::console::fallback{
+      [](sge::font::string const &_arg)
+      {
+        fcppt::io::cout()
+            << FCPPT_TEXT("fallback called with argument:")
+            << fcppt::optional::from(
+                   sge::font::to_fcppt_string(_arg),
+                   [] { return fcppt::string{FCPPT_TEXT("Failed to convert fallback text!")}; })
+            << FCPPT_TEXT('\n');
+      }}));
 
-	fcppt::signal::auto_connection const c2(
-		object.insert(
-			sge::console::callback::convenience<
-				void(
-					float
-				)
-			>(
-				[
-					&object
-				](
-					float const _value
-				)
-				{
-					object.emit_message(
-						SGE_FONT_LIT("New value is ")
-						+
-						fcppt::output_to_string<
-							sge::font::string
-						>(
-							_value
-							+
-							1.F
-						)
-					);
-				},
-				sge::console::callback::name(
-					SGE_FONT_LIT("increment")
-				),
-				sge::console::callback::short_description(
-					SGE_FONT_LIT("Usage: /increment <float-value>")
-				)
-			)
-			.long_description(
-				SGE_FONT_LIT("Increments the float value (extremely useful!)")
-			)
-		)
-	);
+  fcppt::signal::auto_connection const c2(object.insert(
+      sge::console::callback::convenience<void(float)>(
+          [&object](float const _value)
+          {
+            object.emit_message(
+                SGE_FONT_LIT("New value is ") +
+                fcppt::output_to_string<sge::font::string>(_value + 1.F));
+          },
+          sge::console::callback::name(SGE_FONT_LIT("increment")),
+          sge::console::callback::short_description(
+              SGE_FONT_LIT("Usage: /increment <float-value>")))
+          .long_description(SGE_FONT_LIT("Increments the float value (extremely useful!)"))));
 
-	sge::texture::part_raw_ptr const tex_bg(
-		sge::renderer::texture::create_planar_from_path(
-			sge::config::media_path()
-			/ FCPPT_TEXT("images")
-			/ FCPPT_TEXT("grass.png"),
-			fcppt::make_ref(
-				sys.renderer_device_core()
-			),
-			sys.image_system(),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb_from_caps(
-				sys.renderer_device_ffp().caps()
-			)
-		)
-	);
+  sge::texture::part_raw_ptr const tex_bg(sge::renderer::texture::create_planar_from_path(
+      sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("grass.png"),
+      fcppt::make_ref(sys.renderer_device_core()),
+      sys.image_system(),
+      sge::renderer::texture::mipmap::off(),
+      sge::renderer::resource_flags_field::null(),
+      sge::renderer::texture::emulate_srgb_from_caps(sys.renderer_device_ffp().caps())));
 
-	sge::font::object_unique_ptr const font_object(
-		sys.font_system().create_font(
-			sge::font::parameters()
-		)
-	);
+  sge::font::object_unique_ptr const font_object(
+      sys.font_system().create_font(sge::font::parameters()));
 
-	sge::console::gfx::object gfx(
-		fcppt::make_ref(
-			object
-		),
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		sge::console::gfx::font_color(
-			sge::image::color::any::object{
-				sge::image::color::predef::white()
-			}
-		),
-		fcppt::make_ref(
-			*font_object
-		),
-		sge::font::rect{
-			fcppt::math::vector::null<
-				sge::font::rect::vector
-			>(),
-			sge::font::rect::dim{
-				400, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-				300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			}
-		},
-		sge::console::gfx::output_line_limit(
-			100U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		)
-	);
+  sge::console::gfx::object gfx(
+      fcppt::make_ref(object),
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      sge::console::gfx::font_color(
+          sge::image::color::any::object{sge::image::color::predef::white()}),
+      fcppt::make_ref(*font_object),
+      sge::font::rect{
+          fcppt::math::vector::null<sge::font::rect::vector>(),
+          sge::font::rect::dim{
+              400, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          }},
+      sge::console::gfx::output_line_limit(
+          100U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ));
 
-	// TODO(philipp): muxing_fcppt_streambuf?
-	sge::console::muxing_narrow_streambuf stdout_streambuf(
-		fcppt::make_ref(
-			std::cout
-		),
-		fcppt::make_ref(
-			object
-		),
-		sge::console::muxing::enabled
-	);
+  // TODO(philipp): muxing_fcppt_streambuf?
+  sge::console::muxing_narrow_streambuf stdout_streambuf(
+      fcppt::make_ref(std::cout), fcppt::make_ref(object), sge::console::muxing::enabled);
 
-	std::cout << "Test for console muxer (cout).\n";
+  std::cout << "Test for console muxer (cout).\n";
 
-	std::cout << "You should see this message in the console and in the terminal (if available)\n";
+  std::cout << "You should see this message in the console and in the terminal (if available)\n";
 
-	sge::console::muxing_narrow_streambuf stderr_streambuf(
-		fcppt::make_ref(
-			std::cerr
-		),
-		fcppt::make_ref(
-			object
-		),
-		sge::console::muxing::disabled
-	);
+  sge::console::muxing_narrow_streambuf stderr_streambuf(
+      fcppt::make_ref(std::cerr), fcppt::make_ref(object), sge::console::muxing::disabled);
 
-	std::cerr << "Test for console muxer (cerr).\n";
+  std::cerr << "Test for console muxer (cerr).\n";
 
-	std::cerr << "You should see this message _only_ in the console and _not_ in the terminal (if available)\n";
+  std::cerr << "You should see this message _only_ in the console and _not_ in the terminal (if "
+               "available)\n";
 
-	auto const draw(
-		[
-			&gfx,
-			&sys
-		]{
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+  auto const draw(
+      [&gfx, &sys]
+      {
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			scoped_block.get().clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-			);
+        scoped_block.get().clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::black()}));
 
-			gfx.render(
-				scoped_block.get(),
-				sge::console::gfx::input_active{
-					true
-				}
-			);
-		}
-	);
+        gfx.render(scoped_block.get(), sge::console::gfx::input_active{true});
+      });
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&sys,
-					&draw,
-					&gfx
-				](
-					awl::event::base const &_event
-				)
-				{
-					sge::systems::quit_on_escape(
-						sys,
-						_event
-					);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&sys, &draw, &gfx](awl::event::base const &_event)
+          {
+            sge::systems::quit_on_escape(sys, _event);
 
-					fcppt::optional::maybe_void(
-						fcppt::variant::dynamic_cast_<
-							fcppt::mpl::list::object<
-								sge::renderer::event::render const,
-								sge::input::focus::event::base const
-							>,
-							fcppt::cast::dynamic_fun
-						>(
-							_event
-						),
-						[
-							&draw,
-							&gfx
-						](
-							auto const &_variant
-						)
-						{
-							fcppt::variant::match(
-								_variant,
-								[
-									&draw
-								](
-									fcppt::reference<
-										sge::renderer::event::render const
-									>
-								)
-								{
-									draw();
-								},
-								[
-									&gfx
-								](
-									fcppt::reference<
-										sge::input::focus::event::base const
-									> const _focus_event
-								)
-								{
-									gfx.focus_event(
-										_focus_event.get()
-									);
-								}
-							);
-						}
-					);
-				}
-			}
-		);
+            fcppt::optional::maybe_void(
+                fcppt::variant::dynamic_cast_<
+                    fcppt::mpl::list::object<
+                        sge::renderer::event::render const,
+                        sge::input::focus::event::base const>,
+                    fcppt::cast::dynamic_fun>(_event),
+                [&draw, &gfx](auto const &_variant)
+                {
+                  fcppt::variant::match(
+                      _variant,
+                      [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); },
+                      [&gfx](
+                          fcppt::reference<sge::input::focus::event::base const> const _focus_event)
+                      { gfx.focus_event(_focus_event.get()); });
+                });
+          }});
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

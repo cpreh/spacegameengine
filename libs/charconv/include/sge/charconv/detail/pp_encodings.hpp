@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CHARCONV_DETAIL_PP_ENCODINGS_HPP_INCLUDED
 #define SGE_CHARCONV_DETAIL_PP_ENCODINGS_HPP_INCLUDED
 
 #include <sge/charconv/encoding.hpp>
 
-
 #define SGE_CHARCONV_DETAIL_PP_ENCODINGS \
-	(sge::charconv::encoding::utf8)\
-	(sge::charconv::encoding::utf16)\
-	(sge::charconv::encoding::utf32)\
-	(sge::charconv::encoding::wchar)
+  (sge::charconv::encoding::utf8)(sge::charconv::encoding::utf16)(sge::charconv::encoding::utf32)( \
+      sge::charconv::encoding::wchar)
 
 #endif

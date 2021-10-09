@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_DECLARATION_SHARED_PTR_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_DECLARATION_SHARED_PTR_HPP_INCLUDED
 
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
-
 
 namespace sge
 {
@@ -21,9 +19,7 @@ namespace vertex
 /**
 \brief A shared pointer to an sge::renderer::vertex::declaration
 */
-typedef fcppt::shared_ptr<
-	sge::renderer::vertex::declaration
-> declaration_shared_ptr;
+typedef fcppt::shared_ptr<sge::renderer::vertex::declaration> declaration_shared_ptr;
 
 }
 }

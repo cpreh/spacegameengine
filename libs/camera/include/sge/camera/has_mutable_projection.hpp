@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_HAS_MUTABLE_PROJECTION_HPP_INCLUDED
 #define SGE_CAMERA_HAS_MUTABLE_PROJECTION_HPP_INCLUDED
 
@@ -13,30 +12,22 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::camera
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL has_mutable_projection
-:
-	public virtual sge::camera::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL has_mutable_projection : public virtual sge::camera::base
 {
-	FCPPT_NONMOVABLE(
-		has_mutable_projection
-	);
-protected:
-	SGE_CAMERA_DETAIL_SYMBOL
-	has_mutable_projection();
-public:
-	virtual
-	void
-	update_projection_matrix(
-		sge::camera::optional_projection_matrix const &
-	) = 0;
+  FCPPT_NONMOVABLE(has_mutable_projection);
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	~has_mutable_projection()
-	override;
+protected:
+  SGE_CAMERA_DETAIL_SYMBOL
+  has_mutable_projection();
+
+public:
+  virtual void update_projection_matrix(sge::camera::optional_projection_matrix const &) = 0;
+
+  SGE_CAMERA_DETAIL_SYMBOL
+  ~has_mutable_projection() override;
 };
 
 }

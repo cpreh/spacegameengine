@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_FF_EFFECT_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_EFFECT_HPP_INCLUDED
 
@@ -13,32 +12,24 @@
 #include <sge/input/joypad/ff/optional_play_count_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::joypad::ff
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL effect
 {
-	FCPPT_NONMOVABLE(
-		effect
-	);
+  FCPPT_NONMOVABLE(effect);
+
 protected:
-	SGE_INPUT_DETAIL_SYMBOL
-	effect();
+  SGE_INPUT_DETAIL_SYMBOL
+  effect();
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	virtual
-	~effect();
+  SGE_INPUT_DETAIL_SYMBOL
+  virtual ~effect();
 
-	virtual
-	void
-	play(
-		sge::input::joypad::ff::optional_play_count
-	) = 0;
+  virtual void play(sge::input::joypad::ff::optional_play_count) = 0;
 
-	virtual
-	void
-	stop() = 0;
+  virtual void stop() = 0;
 };
 
 }

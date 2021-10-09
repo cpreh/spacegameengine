@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_CONVERT_PROJECTION_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_PROJECTION_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
 
-
 namespace sge::opengl::convert
 {
 
-sge::renderer::matrix4
-projection(
-	sge::renderer::matrix4 const &
-);
+sge::renderer::matrix4 projection(sge::renderer::matrix4 const &);
 
 }
 

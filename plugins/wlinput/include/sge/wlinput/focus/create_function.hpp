@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_FOCUS_CREATE_FUNCTION_HPP_INCLUDED
 #define SGE_WLINPUT_FOCUS_CREATE_FUNCTION_HPP_INCLUDED
 
 #include <sge/wlinput/create_function.hpp>
 #include <sge/wlinput/focus/object_fwd.hpp>
 
-
 namespace sge::wlinput::focus
 {
 
-using
-create_function
-=
-sge::wlinput::create_function<
-	sge::wlinput::focus::object
->;
+using create_function = sge::wlinput::create_function<sge::wlinput::focus::object>;
 
 }
 

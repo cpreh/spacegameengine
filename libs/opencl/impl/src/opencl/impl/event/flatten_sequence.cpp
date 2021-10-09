@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/event/object.hpp>
 #include <sge/opencl/event/object_unique_ptr.hpp>
@@ -13,27 +12,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
-std::vector<
-	cl_event
->
-sge::opencl::impl::event::flatten_sequence(
-	sge::opencl::event::sequence const &_event_sequence
-)
+std::vector<cl_event>
+sge::opencl::impl::event::flatten_sequence(sge::opencl::event::sequence const &_event_sequence)
 {
-	return
-		fcppt::algorithm::map<
-			std::vector<
-				cl_event
-			>
-		>(
-			_event_sequence,
-			[](
-				sge::opencl::event::object_unique_ptr const &_ptr
-			)
-			{
-				return
-					_ptr->handle();
-			}
-		);
+  return fcppt::algorithm::map<std::vector<cl_event>>(
+      _event_sequence,
+      [](sge::opencl::event::object_unique_ptr const &_ptr) { return _ptr->handle(); });
 }

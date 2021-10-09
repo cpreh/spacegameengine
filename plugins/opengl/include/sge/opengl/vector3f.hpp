@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VECTOR3F_HPP_INCLUDED
 #define SGE_OPENGL_VECTOR3F_HPP_INCLUDED
 
 #include <sge/opengl/vector3f_fwd.hpp>
 #include <fcppt/math/vector/static.hpp>
-
 
 #endif

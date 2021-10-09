@@ -3,26 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/gdifont/get_bitmap.hpp>
 #include <sge/gdifont/get_object.hpp>
 #include <sge/gdifont/include_windows.hpp>
 
-
-BITMAP const
-sge::gdifont::get_bitmap(
-	HGDIOBJ const _object
-)
+BITMAP const sge::gdifont::get_bitmap(HGDIOBJ const _object)
 {
-	BITMAP result;
+  BITMAP result;
 
-	sge::gdifont::get_object(
-		_object,
-		sizeof(
-			BITMAP
-		),
-		&result
-	);
+  sge::gdifont::get_object(_object, sizeof(BITMAP), &result);
 
-	return result;
+  return result;
 }

@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_RENDER_TEXTURE_REF_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_TEXTURE_REF_HPP_INCLUDED
 
 #include <sge/sprite/render/texture_ref_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
-
 
 #endif

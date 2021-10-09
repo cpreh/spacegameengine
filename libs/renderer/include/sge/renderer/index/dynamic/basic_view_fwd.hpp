@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_FWD_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DYNAMIC_BASIC_VIEW_FWD_HPP_INCLUDED
-
 
 namespace sge::renderer::index::dynamic
 {
 
-template<
-	bool isConst
->
+template <bool isConst>
 class basic_view;
 
 }

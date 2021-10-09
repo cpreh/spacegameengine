@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_XIM_CREATE_METHOD_HPP_INCLUDED
 #define SGE_X11INPUT_XIM_CREATE_METHOD_HPP_INCLUDED
 
@@ -11,15 +10,12 @@
 #include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-
 namespace sge::x11input::xim
 {
 
-sge::x11input::xim::method_unique_ptr
-create_method(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	awl::backends::x11::display_ref
-);
+sge::x11input::xim::method_unique_ptr create_method(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    awl::backends::x11::display_ref);
 
 }
 

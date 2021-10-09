@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_FUNCTION_HPP_INCLUDED
 #define SGE_CONSOLE_FUNCTION_HPP_INCLUDED
 
@@ -16,55 +15,41 @@
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/unregister/base_decl.hpp>
 
-
 namespace sge::console
 {
 
 class function
 {
-	FCPPT_NONCOPYABLE(
-		function
-	);
+  FCPPT_NONCOPYABLE(function);
+
 public:
-	SGE_CONSOLE_DETAIL_SYMBOL
-	function(
-		sge::console::short_description &&,
-		sge::console::long_description &&
-	);
+  SGE_CONSOLE_DETAIL_SYMBOL
+  function(sge::console::short_description &&, sge::console::long_description &&);
 
-	SGE_CONSOLE_DETAIL_SYMBOL
-	function(
-		function &&
-	)
-	noexcept;
+  SGE_CONSOLE_DETAIL_SYMBOL
+  function(function &&) noexcept;
 
-	SGE_CONSOLE_DETAIL_SYMBOL
-	function &
-	operator=(
-		function &&
-	)
-	noexcept;
+  SGE_CONSOLE_DETAIL_SYMBOL
+  function &operator=(function &&) noexcept;
 
-	SGE_CONSOLE_DETAIL_SYMBOL
-	~function();
+  SGE_CONSOLE_DETAIL_SYMBOL
+  ~function();
 
-	SGE_CONSOLE_DETAIL_SYMBOL
-	sge::console::signal &
-	signal();
+  SGE_CONSOLE_DETAIL_SYMBOL
+  sge::console::signal &signal();
 
-	SGE_CONSOLE_DETAIL_SYMBOL
-	sge::console::short_description const &
-	short_description() const;
+  SGE_CONSOLE_DETAIL_SYMBOL
+  sge::console::short_description const &short_description() const;
 
-	SGE_CONSOLE_DETAIL_SYMBOL
-	sge::console::long_description const &
-	long_description() const;
+  SGE_CONSOLE_DETAIL_SYMBOL
+  sge::console::long_description const &long_description() const;
+
 private:
-	sge::console::signal signal_;
+  sge::console::signal signal_;
 
-	sge::console::short_description short_description_;
+  sge::console::short_description short_description_;
 
-	sge::console::long_description long_description_;
+  sge::console::long_description long_description_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_ACTOR_HPP_INCLUDED
 
@@ -13,38 +12,25 @@
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::vf
 {
 
 class actor
 {
-	FCPPT_NONMOVABLE(
-		actor
-	);
+  FCPPT_NONMOVABLE(actor);
+
 protected:
-	actor();
+  actor();
+
 public:
-	virtual
-	void
-	operator()(
-		sge::opengl::vf::client_state_combiner_ref,
-		sge::opengl::vf::pointer
-	) const = 0;
+  virtual void
+  operator()(sge::opengl::vf::client_state_combiner_ref, sge::opengl::vf::pointer) const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::vf::dynamic::offset
-	offset() const = 0;
+  [[nodiscard]] virtual sge::renderer::vf::dynamic::offset offset() const = 0;
 
-	virtual
-	void
-	unuse(
-		sge::opengl::vf::client_state_combiner_ref
-	) const = 0;
+  virtual void unuse(sge::opengl::vf::client_state_combiner_ref) const = 0;
 
-	virtual
-	~actor();
+  virtual ~actor();
 };
 
 }

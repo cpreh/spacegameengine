@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
 #define SGE_OPENGL_RANGE_CHECK_HPP_INCLUDED
 
@@ -17,67 +16,24 @@
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/vector/at.hpp>
 
-
 namespace sge::opengl
 {
 
-template<
-	typename T,
-	fcppt::math::size_type N,
-	typename S
->
-bool
-range_check(
-	fcppt::math::dim::object<
-		T,
-		N,
-		S
-	> const &_dim,
-	fcppt::math::box::object<
-		T,
-		N
-	> const &_box
-)
+template <typename T, fcppt::math::size_type N, typename S>
+bool range_check(
+    fcppt::math::dim::object<T, N, S> const &_dim, fcppt::math::box::object<T, N> const &_box)
 {
-	return
-		fcppt::algorithm::all_of(
-			fcppt::math::int_range_count<
-				N
-			>{},
-			[
-				&_dim,
-				&_box
-			](
-				auto const _index
-			)
-			{
-				FCPPT_USE(
-					_index
-				);
+  return fcppt::algorithm::all_of(
+      fcppt::math::int_range_count<N>{},
+      [&_dim, &_box](auto const _index)
+      {
+        FCPPT_USE(_index);
 
-				using
-				index
-				=
-				fcppt::tag_type<
-					decltype(
-						_index
-					)
-				>;
+        using index = fcppt::tag_type<decltype(_index)>;
 
-				return
-					fcppt::math::vector::at<
-						index::value
-					>(
-						_box.max()
-					)
-					<=
-					fcppt::math::dim::at<
-						index::value
-					>(
-						_dim
-					);
-			}
-		);
+        return fcppt::math::vector::at<index::value>(_box.max()) <=
+               fcppt::math::dim::at<index::value>(_dim);
+      });
 }
 
 }

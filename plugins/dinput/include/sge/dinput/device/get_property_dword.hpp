@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_DEVICE_GET_PROPERTY_DWORD_HPP_INCLUDED
 #define SGE_DINPUT_DEVICE_GET_PROPERTY_DWORD_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-
 
 namespace sge
 {
@@ -18,11 +16,7 @@ namespace device
 {
 
 DWORD
-get_property_dword(
-	IDirectInputDevice8 &,
-	DIDEVICEOBJECTINSTANCE const &,
-	REFGUID
-);
+get_property_dword(IDirectInputDevice8 &, DIDEVICEOBJECTINSTANCE const &, REFGUID);
 
 }
 }

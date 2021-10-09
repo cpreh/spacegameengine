@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/joypad/add.hpp>
 #include <sge/evdev/joypad/attrib.hpp>
 #include <sge/evdev/joypad/find_path.hpp>
@@ -19,39 +18,15 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::event::optional_base_unique_ptr
-sge::evdev::joypad::attrib(
-	fcppt::log::object &_log,
-	sge::window::object_ref const _window,
-	awl::backends::posix::processor_ref const _processor,
-	sge::evdev::joypad::map &_map,
-	std::filesystem::path const &_path
-)
+awl::event::optional_base_unique_ptr sge::evdev::joypad::attrib(
+    fcppt::log::object &_log,
+    sge::window::object_ref const _window,
+    awl::backends::posix::processor_ref const _processor,
+    sge::evdev::joypad::map &_map,
+    std::filesystem::path const &_path)
 {
-	return
-		fcppt::optional::join(
-			fcppt::optional::make_if(
-				!sge::evdev::joypad::find_path(
-					_map,
-					_path
-				).has_value(),
-				[
-					&_log,
-					_window,
-					&_processor,
-					&_map,
-					&_path
-				]{
-					return
-						sge::evdev::joypad::add(
-							_log,
-							_window,
-							_processor,
-							_map,
-							_path
-						);
-				}
-			)
-		);
+  return fcppt::optional::join(fcppt::optional::make_if(
+      !sge::evdev::joypad::find_path(_map, _path).has_value(),
+      [&_log, _window, &_processor, &_map, &_path]
+      { return sge::evdev::joypad::add(_log, _window, _processor, _map, _path); }));
 }

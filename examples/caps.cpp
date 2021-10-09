@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/plugin_path.hpp>
 #include <sge/log/default_level_streams.hpp>
 #include <sge/plugin/collection.hpp>
@@ -51,113 +50,53 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
-int
-main()
+int main()
 try
 {
-	fcppt::log::context log_context{
-		fcppt::log::optional_level{
-			fcppt::log::level::debug
-		},
-		sge::log::default_level_streams()
-	};
+  fcppt::log::context log_context{
+      fcppt::log::optional_level{fcppt::log::level::debug}, sge::log::default_level_streams()};
 
-	sge::plugin::manager manager(
-		log_context,
-		sge::config::plugin_path(),
-		sge::plugin::optional_cache_ref()
-	);
+  sge::plugin::manager manager(
+      log_context, sge::config::plugin_path(), sge::plugin::optional_cache_ref());
 
-	sge::renderer::plugin::object const plugin(
-		manager.collection<
-			sge::renderer::core
-		>().get(
-			0u
-		).load()
-	);
+  sge::renderer::plugin::object const plugin(
+      manager.collection<sge::renderer::core>().get(0u).load());
 
-	sge::renderer::core_unique_ptr const render_core(
-		plugin.get()(
-			log_context
-		)
-	);
+  sge::renderer::core_unique_ptr const render_core(plugin.get()(log_context));
 
-	awl::system::object_unique_ptr const awl_system(
-		awl::system::create(
-			log_context
-		)
-	);
+  awl::system::object_unique_ptr const awl_system(awl::system::create(log_context));
 
-	sge::window::system window_system{
-		*awl_system
-	};
+  sge::window::system window_system{*awl_system};
 
-	sge::renderer::system_unique_ptr const render_sys(
-		render_core->create_system(
-			window_system
-		)
-	);
+  sge::renderer::system_unique_ptr const render_sys(render_core->create_system(window_system));
 
-	awl::visual::object_unique_ptr const visual{
-		render_sys->create_visual(
-			sge::renderer::pixel_format::object{
-				sge::renderer::pixel_format::color::depth32,
-				sge::renderer::pixel_format::depth_stencil::off,
-				sge::renderer::pixel_format::optional_multi_samples{},
-				sge::renderer::pixel_format::srgb::no
-			}
-		)
-	};
+  awl::visual::object_unique_ptr const visual{
+      render_sys->create_visual(sge::renderer::pixel_format::object{
+          sge::renderer::pixel_format::color::depth32,
+          sge::renderer::pixel_format::depth_stencil::off,
+          sge::renderer::pixel_format::optional_multi_samples{},
+          sge::renderer::pixel_format::srgb::no})};
 
-	awl::window::object_unique_ptr const awl_window{
-		awl_system->create_window(
-			awl::window::parameters{
-				*visual
-			}
-		)
-	};
+  awl::window::object_unique_ptr const awl_window{
+      awl_system->create_window(awl::window::parameters{*visual})};
 
-	sge::window::object window{
-		window_system,
-		*awl_window
-	};
+  sge::window::object window{window_system, *awl_window};
 
-	sge::renderer::device::core_unique_ptr const render_device{
-		render_sys->create_core_renderer(
-			sge::renderer::device::parameters{
-				sge::renderer::display_mode::parameters{
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object{}
-				},
-				window
-			}
-		)
-	};
+  sge::renderer::device::core_unique_ptr const render_device{
+      render_sys->create_core_renderer(sge::renderer::device::parameters{
+          sge::renderer::display_mode::parameters{
+              sge::renderer::display_mode::vsync::on,
+              sge::renderer::display_mode::optional_object{}},
+          window})};
 
-	fcppt::io::cout()
-		<<
-		std::boolalpha
-		<<
-		FCPPT_TEXT("Device ")
-		<<
-		FCPPT_TEXT(": ")
-		<<
-		render_device->caps()
-		<<
-		FCPPT_TEXT('\n');
+  fcppt::io::cout() << std::boolalpha << FCPPT_TEXT("Device ") << FCPPT_TEXT(": ")
+                    << render_device->caps() << FCPPT_TEXT('\n');
 
-	return
-		EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }

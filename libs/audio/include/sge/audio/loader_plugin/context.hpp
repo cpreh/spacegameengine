@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_LOADER_PLUGIN_CONTEXT_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_PLUGIN_CONTEXT_HPP_INCLUDED
 
@@ -11,9 +10,6 @@
 #include <sge/audio/loader_plugin/context_fwd.hpp>
 #include <sge/plugin/declare_context.hpp>
 
-
-SGE_PLUGIN_DECLARE_CONTEXT(
-	sge::audio::loader
-);
+SGE_PLUGIN_DECLARE_CONTEXT(sge::audio::loader);
 
 #endif

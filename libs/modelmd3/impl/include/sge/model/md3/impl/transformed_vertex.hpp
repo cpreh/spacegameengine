@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_MD3_IMPL_TRANSFORMED_VERTEX_HPP_INCLUDED
 #define SGE_MODEL_MD3_IMPL_TRANSFORMED_VERTEX_HPP_INCLUDED
 
 #include <sge/model/md3/impl/vec3.hpp>
 #include <sge/model/md3/impl/vertex_fwd.hpp>
-
 
 namespace sge::model::md3::impl
 {
@@ -17,22 +15,16 @@ namespace sge::model::md3::impl
 class transformed_vertex
 {
 public:
-	explicit
-	transformed_vertex(
-		sge::model::md3::impl::vertex const &
-	);
+  explicit transformed_vertex(sge::model::md3::impl::vertex const &);
 
-	[[nodiscard]]
-	sge::model::md3::impl::vec3 const &
-	pos() const;
+  [[nodiscard]] sge::model::md3::impl::vec3 const &pos() const;
 
-	[[nodiscard]]
-	sge::model::md3::impl::vec3 const &
-	normal() const;
+  [[nodiscard]] sge::model::md3::impl::vec3 const &normal() const;
+
 private:
-	sge::model::md3::impl::vec3 pos_;
+  sge::model::md3::impl::vec3 pos_;
 
-	sge::model::md3::impl::vec3 normal_;
+  sge::model::md3::impl::vec3 normal_;
 };
 
 }

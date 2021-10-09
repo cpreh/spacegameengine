@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 #define SGE_DINPUT_DEVICE_PARAMETERS_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <awl/backends/windows/system/event/handle_fwd.hpp>
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
-
 
 namespace sge
 {
@@ -25,46 +23,33 @@ namespace device
 class parameters
 {
 public:
-	parameters(
-		IDirectInput8 &,
-		GUID,
-		sge::window::object &,
-		awl::backends::windows::window::object &,
-		awl::backends::windows::system::event::handle &
-	);
+  parameters(
+      IDirectInput8 &,
+      GUID,
+      sge::window::object &,
+      awl::backends::windows::window::object &,
+      awl::backends::windows::system::event::handle &);
 
-	IDirectInput8 &
-	instance() const;
+  IDirectInput8 &instance() const;
 
-	GUID
-	guid() const;
+  GUID guid() const;
 
-	sge::window::object &
-	sge_window() const;
+  sge::window::object &sge_window() const;
 
-	awl::backends::windows::window::object &
-	window() const;
+  awl::backends::windows::window::object &window() const;
 
-	awl::backends::windows::system::event::handle &
-	event_handle() const;
+  awl::backends::windows::system::event::handle &event_handle() const;
+
 private:
-	fcppt::reference<
-		IDirectInput8
-	> instance_;
+  fcppt::reference<IDirectInput8> instance_;
 
-	GUID guid_;
+  GUID guid_;
 
-	fcppt::reference<
-		sge::window::object
-	> sge_window_;
+  fcppt::reference<sge::window::object> sge_window_;
 
-	fcppt::reference<
-		awl::backends::windows::window::object
-	> window_;
+  fcppt::reference<awl::backends::windows::window::object> window_;
 
-	fcppt::reference<
-		awl::backends::windows::system::event::handle
-	> event_handle_;
+  fcppt::reference<awl::backends::windows::system::event::handle> event_handle_;
 };
 
 }

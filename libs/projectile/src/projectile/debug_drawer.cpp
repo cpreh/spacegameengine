@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/projectile/debug_drawer.hpp>
 #include <sge/projectile/world_ref.hpp>
 #include <sge/projectile/impl/detail/debug_drawer_impl.hpp>
@@ -12,57 +11,24 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/log/context_reference.hpp>
 
-
 sge::projectile::debug_drawer::debug_drawer(
-	fcppt::log::context_reference const _log,
-	sge::projectile::world_ref const _world,
-	sge::renderer::device::core_ref const _renderer
-)
-:
-	impl_(
-		fcppt::make_unique_ptr<
-			sge::projectile::detail::debug_drawer_impl
-		>(
-			_log,
-			_world,
-			_renderer
-		)
-	)
+    fcppt::log::context_reference const _log,
+    sge::projectile::world_ref const _world,
+    sge::renderer::device::core_ref const _renderer)
+    : impl_(fcppt::make_unique_ptr<sge::projectile::detail::debug_drawer_impl>(
+          _log, _world, _renderer))
 {
 }
 
-void
-sge::projectile::debug_drawer::update()
+void sge::projectile::debug_drawer::update() { impl_->update(); }
+
+void sge::projectile::debug_drawer::render(sge::renderer::context::core &_render_context)
 {
-	impl_->update();
+  impl_->render(_render_context);
 }
 
-void
-sge::projectile::debug_drawer::render(
-	sge::renderer::context::core &_render_context
-)
-{
-	impl_->render(
-		_render_context
-	);
-}
+void sge::projectile::debug_drawer::active(bool const _active) { impl_->active(_active); }
 
-void
-sge::projectile::debug_drawer::active(
-	bool const _active
-)
-{
-	impl_->active(
-		_active
-	);
-}
+bool sge::projectile::debug_drawer::active() const { return impl_->active(); }
 
-bool
-sge::projectile::debug_drawer::active() const
-{
-	return
-		impl_->active();
-}
-
-sge::projectile::debug_drawer::~debug_drawer()
-= default;
+sge::projectile::debug_drawer::~debug_drawer() = default;

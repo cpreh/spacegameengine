@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_DISPLAY_HPP_INCLUDED
 #define SGE_OPENGL_EGL_DISPLAY_HPP_INCLUDED
 
@@ -18,41 +17,26 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::egl
 {
 
 class display
 {
-	FCPPT_NONMOVABLE(
-		display
-	);
+  FCPPT_NONMOVABLE(display);
+
 protected:
-	display();
+  display();
+
 public:
-	virtual
-	~display() = 0;
+  virtual ~display() = 0;
 
-	[[nodiscard]]
-	virtual
-	EGLDisplay
-	get() const = 0;
+  [[nodiscard]] virtual EGLDisplay get() const = 0;
 
-	[[nodiscard]]
-	virtual
-	awl::visual::object_unique_ptr
-	create_visual(
-		sge::opengl::egl::init const &,
-		sge::renderer::pixel_format::object const &
-	) = 0;
+  [[nodiscard]] virtual awl::visual::object_unique_ptr
+  create_visual(sge::opengl::egl::init const &, sge::renderer::pixel_format::object const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::opengl::egl::surface_unique_ptr
-	create_surface(
-		EGLConfig,
-		sge::window::object_ref
-	) = 0;
+  [[nodiscard]] virtual sge::opengl::egl::surface_unique_ptr
+      create_surface(EGLConfig, sge::window::object_ref) = 0;
 };
 
 }

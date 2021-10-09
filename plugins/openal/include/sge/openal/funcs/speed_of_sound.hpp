@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_FUNCS_SPEED_OF_SOUND_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_SPEED_OF_SOUND_HPP_INCLUDED
 
 #include <sge/openal/al.hpp>
 
-
 namespace sge::openal::funcs
 {
 
-void
-speed_of_sound(
-	ALfloat value
-);
+void speed_of_sound(ALfloat value);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_CHANNEL32_HPP_INCLUDED
 #define SGE_IMAGE_CHANNEL32_HPP_INCLUDED
 
@@ -11,14 +10,10 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::image
 {
 
-using
-channel32
-=
-std::uint32_t;
+using channel32 = std::uint32_t;
 
 }
 

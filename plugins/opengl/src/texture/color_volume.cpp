@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/color/traits/format_stride.hpp>
 #include <sge/image3d/algorithm/copy.hpp>
 #include <sge/image3d/view/const_object.hpp>
@@ -18,15 +17,7 @@
 #include <sge/opengl/texture/color_volume.hpp>
 #include <sge/opengl/texture/color_volume_types.hpp>
 
+template class sge::opengl::texture::basic_buffer<sge::opengl::texture::color_volume_types>;
 
-template
-class
-sge::opengl::texture::basic_buffer<
-	sge::opengl::texture::color_volume_types
->;
-
-template
-class
-sge::opengl::texture::basic_lockable_buffer<
-	sge::opengl::texture::color_volume_types
->;
+template class sge::opengl::texture::basic_lockable_buffer<
+    sge::opengl::texture::color_volume_types>;

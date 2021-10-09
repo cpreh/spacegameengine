@@ -3,29 +3,24 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/normal_mip_filter.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
-
 DWORD
 sge::d3d9::state::convert::normal_mip_filter(
-	sge::renderer::state::core::sampler::filter::normal::mip const _type
-)
+    sge::renderer::state::core::sampler::filter::normal::mip const _type)
 {
-	switch(
-		_type
-	)
-	{
-	case sge::renderer::state::core::sampler::filter::normal::mip::off:
-		return D3DTEXF_NONE;
-	case sge::renderer::state::core::sampler::filter::normal::mip::point:
-		return D3DTEXF_POINT;
-	case sge::renderer::state::core::sampler::filter::normal::mip::linear:
-		return D3DTEXF_LINEAR;
-	}
+  switch (_type)
+  {
+  case sge::renderer::state::core::sampler::filter::normal::mip::off:
+    return D3DTEXF_NONE;
+  case sge::renderer::state::core::sampler::filter::normal::mip::point:
+    return D3DTEXF_POINT;
+  case sge::renderer::state::core::sampler::filter::normal::mip::linear:
+    return D3DTEXF_LINEAR;
+  }
 
-	FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_ASSERT_UNREACHABLE;
 }

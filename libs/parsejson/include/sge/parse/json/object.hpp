@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_OBJECT_HPP_INCLUDED
 #define SGE_PARSE_JSON_OBJECT_HPP_INCLUDED
 
@@ -11,27 +10,19 @@
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
 
-
 namespace sge::parse::json
 {
 
 struct object
 {
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	explicit
-	object(
-		sge::parse::json::member_map &&
-	);
+  SGE_PARSE_JSON_DETAIL_SYMBOL
+  explicit object(sge::parse::json::member_map &&);
 
-	sge::parse::json::member_map members; // NOLINT(misc-non-private-member-variables-in-classes)
+  sge::parse::json::member_map members; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
-bool
-operator==(
-	sge::parse::json::object const &,
-	sge::parse::json::object const &
-);
+bool operator==(sge::parse::json::object const &, sge::parse::json::object const &);
 
 }
 

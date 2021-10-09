@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_GRID_DISTANCE_TO_ORIGIN_HPP_INCLUDED
 #define SGE_SCENIC_GRID_DISTANCE_TO_ORIGIN_HPP_INCLUDED
 
@@ -13,9 +12,7 @@
 
 namespace sge::scenic::grid
 {
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	sge::renderer::scalar,
-	distance_to_origin);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::renderer::scalar, distance_to_origin);
 }
 
 #endif

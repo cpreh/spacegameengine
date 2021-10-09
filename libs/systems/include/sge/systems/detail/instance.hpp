@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_DETAIL_INSTANCE_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_INSTANCE_HPP_INCLUDED
 
@@ -28,108 +27,54 @@
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
-
 namespace sge::systems::detail
 {
 
 class instance
 {
-	FCPPT_NONMOVABLE(
-		instance
-	);
+  FCPPT_NONMOVABLE(instance);
+
 public:
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	explicit
-	instance(
-		sge::systems::detail::list const &
-	);
+  SGE_SYSTEMS_DETAIL_SYMBOL
+  explicit instance(sge::systems::detail::list const &);
 
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	~instance();
+  SGE_SYSTEMS_DETAIL_SYMBOL
+  ~instance();
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	fcppt::log::context_reference
-	log_context() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL fcppt::log::context_reference log_context() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::plugin::manager &
-	plugin_manager();
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::plugin::manager &plugin_manager();
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::renderer::core &
-	renderer_core() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::renderer::core &renderer_core() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::renderer::system &
-	renderer_system() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::renderer::system &renderer_system() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::renderer::device::ffp &
-	renderer_device_ffp() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::renderer::device::ffp &renderer_device_ffp() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::renderer::device::core &
-	renderer_device_core() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::renderer::device::core &renderer_device_core() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::input::system &
-	input_system() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::input::system &input_system() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::input::processor &
-	input_processor() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::input::processor &input_processor() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::image2d::system &
-	image_system() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::image2d::system &image_system() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::audio::loader &
-	audio_loader() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::audio::loader &audio_loader() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::audio::player &
-	audio_player() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::audio::player &audio_player() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::font::system &
-	font_system() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::font::system &font_system() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::window::system &
-	window_system() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::window::system &window_system() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::window::object &
-	window() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::window::object &window() const;
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::viewport::manager &
-	viewport_manager() const;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::viewport::manager &viewport_manager() const;
+
 private:
-	using
-	impl_ptr
-	=
-	fcppt::unique_ptr<
-		sge::systems::detail::instance_impl
-	>;
+  using impl_ptr = fcppt::unique_ptr<sge::systems::detail::instance_impl>;
 
-	impl_ptr const impl_;
+  impl_ptr const impl_;
 };
 
 }

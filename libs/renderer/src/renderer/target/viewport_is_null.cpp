@@ -3,22 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
 #include <fcppt/math/dim/contents.hpp>
 
-
-bool
-sge::renderer::target::viewport_is_null(
-	sge::renderer::target::viewport const &_viewport
-)
+bool sge::renderer::target::viewport_is_null(sge::renderer::target::viewport const &_viewport)
 {
-	return
-		fcppt::math::dim::contents(
-			_viewport.get().size()
-		)
-		==
-		0
-		;
+  return fcppt::math::dim::contents(_viewport.get().size()) == 0;
 }

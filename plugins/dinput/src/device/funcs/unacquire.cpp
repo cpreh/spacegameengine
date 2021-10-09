@@ -3,28 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/funcs/unacquire.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
-
-bool
-sge::dinput::device::funcs::unacquire(
-	IDirectInputDevice8 &_device
-)
+bool sge::dinput::device::funcs::unacquire(IDirectInputDevice8 &_device)
 {
-	switch(
-		_device.Unacquire()
-	)
-	{
-	case DI_OK:
-		return
-			true;
-	case DI_NOEFFECT:
-		return
-			false;
-	}
+  switch (_device.Unacquire())
+  {
+  case DI_OK:
+    return true;
+  case DI_NOEFFECT:
+    return false;
+  }
 
-	FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_ASSERT_UNREACHABLE;
 }

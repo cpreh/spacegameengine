@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DYNAMIC_EXTRA_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_EXTRA_HPP_INCLUDED
 
@@ -12,40 +11,29 @@
 #include <sge/renderer/vf/dynamic/extra_fwd.hpp>
 #include <sge/renderer/vf/dynamic/index.hpp>
 
-
 namespace sge::renderer::vf::dynamic
 {
 
 class extra
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	extra(
-		sge::renderer::vf::dynamic::extra_any const &,
-		sge::renderer::vf::dynamic::index
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  extra(sge::renderer::vf::dynamic::extra_any const &, sge::renderer::vf::dynamic::index);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::extra_any const &
-	type() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::vf::dynamic::extra_any const &
+  type() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vf::dynamic::index
-	index() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::vf::dynamic::index index() const;
+
 private:
-	sge::renderer::vf::dynamic::extra_any type_;
+  sge::renderer::vf::dynamic::extra_any type_;
 
-	sge::renderer::vf::dynamic::index index_;
+  sge::renderer::vf::dynamic::index index_;
 };
 
 SGE_RENDERER_DETAIL_SYMBOL
-bool
-operator==(
-	sge::renderer::vf::dynamic::extra const &,
-	sge::renderer::vf::dynamic::extra const &
-);
+bool operator==(
+    sge::renderer::vf::dynamic::extra const &, sge::renderer::vf::dynamic::extra const &);
 
 }
 

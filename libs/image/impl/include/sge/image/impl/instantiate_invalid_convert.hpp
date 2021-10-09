@@ -3,22 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_INSTANTIATE_INVALID_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_INSTANTIATE_INVALID_CONVERT_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
 #include <sge/image/impl/invalid_convert_impl.hpp>
 
-
-#define SGE_IMAGE_IMPL_INSTANTIATE_INVALID_CONVERT(\
-	tag\
-)\
-template \
-class \
-SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \
-sge::image::invalid_convert<\
-	tag\
->
+#define SGE_IMAGE_IMPL_INSTANTIATE_INVALID_CONVERT(tag) \
+  template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION sge::image::invalid_convert<tag>
 
 #endif

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/config.hpp>
 #include <sge/opengl/backend/create_system.hpp>
 #include <sge/opengl/backend/system.hpp>
@@ -45,273 +44,107 @@
 #include <sge/opengl/wgl/system.hpp>
 #endif
 
-
 namespace
 {
 
-using
-create_function_exn
-=
-fcppt::function<
-	sge::opengl::backend::system_unique_ptr(
-		fcppt::log::object_reference,
-		awl::system::object_ref
-	)
->;
+using create_function_exn = fcppt::function<sge::opengl::backend::system_unique_ptr(
+    fcppt::log::object_reference, awl::system::object_ref)>;
 
-using
-create_function_exn_vector
-=
-std::vector<
-	create_function_exn
->;
+using create_function_exn_vector = std::vector<create_function_exn>;
 
-create_function_exn_vector
-create_functions_exn()
+create_function_exn_vector create_functions_exn()
 {
-	return
-		create_function_exn_vector{
+  return create_function_exn_vector
+  {
 #if defined(SGE_OPENGL_HAVE_SDL)
-			create_function_exn{
-				[](
-					fcppt::log::object_reference,
-					awl::system::object_ref const _awl_system
-				)
-				{
-					return
-						fcppt::unique_ptr_to_base<
-							sge::opengl::backend::system
-						>(
-							fcppt::make_unique_ptr<
-								sge::opengl::sdl::backend_system
-							>(
-								fcppt::optional::to_exception(
-									fcppt::cast::dynamic<
-										awl::backends::sdl::system::object
-									>(
-										_awl_system.get()
-									),
-									[]{
-										return
-											sge::renderer::exception{
-												FCPPT_TEXT("awl::system is not an SDL system.")
-											};
-									}
-								)
-							)
-						);
-				}
-			},
+    create_function_exn{
+        [](fcppt::log::object_reference, awl::system::object_ref const _awl_system)
+        {
+          return fcppt::unique_ptr_to_base<sge::opengl::backend::system>(
+              fcppt::make_unique_ptr<sge::opengl::sdl::backend_system>(
+                  fcppt::optional::to_exception(
+                      fcppt::cast::dynamic<awl::backends::sdl::system::object>(_awl_system.get()),
+                      [] {
+                        return sge::renderer::exception{
+                            FCPPT_TEXT("awl::system is not an SDL system.")};
+                      })));
+        }},
 #endif
 #if defined(SGE_OPENGL_HAVE_EGL)
-			create_function_exn{
-				[](
-					fcppt::log::object_reference const _log,
-					awl::system::object_ref const _awl_system
-				)
-				{
-					return
-						fcppt::unique_ptr_to_base<
-							sge::opengl::backend::system
-						>(
-							fcppt::make_unique_ptr<
-								sge::opengl::egl::system
-							>(
-								_log,
-								_awl_system
-							)
-						);
-				}
-			},
+        create_function_exn{
+            [](fcppt::log::object_reference const _log, awl::system::object_ref const _awl_system)
+            {
+              return fcppt::unique_ptr_to_base<sge::opengl::backend::system>(
+                  fcppt::make_unique_ptr<sge::opengl::egl::system>(_log, _awl_system));
+            }},
 #endif
 #if defined(SGE_OPENGL_HAVE_GLX)
-			create_function_exn{
-				[](
-					fcppt::log::object_reference const _log,
-					awl::system::object_ref const _awl_system
-				)
-				{
-					return
-						fcppt::unique_ptr_to_base<
-							sge::opengl::backend::system
-						>(
-							fcppt::make_unique_ptr<
-								sge::opengl::glx::system
-							>(
-								_log,
-								fcppt::optional::to_exception(
-									fcppt::cast::dynamic<
-										awl::backends::x11::system::object
-									>(
-										_awl_system.get()
-									),
-									[]{
-										return
-											sge::renderer::exception{
-												FCPPT_TEXT("Backend system is not an X11 system.")
-											};
-									}
-								)
-							)
-						);
-				}
-			},
+        create_function_exn{
+            [](fcppt::log::object_reference const _log, awl::system::object_ref const _awl_system)
+            {
+              return fcppt::unique_ptr_to_base<sge::opengl::backend::system>(
+                  fcppt::make_unique_ptr<sge::opengl::glx::system>(
+                      _log,
+                      fcppt::optional::to_exception(
+                          fcppt::cast::dynamic<awl::backends::x11::system::object>(
+                              _awl_system.get()),
+                          [] {
+                            return sge::renderer::exception{
+                                FCPPT_TEXT("Backend system is not an X11 system.")};
+                          })));
+            }},
 #endif
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-			create_function_exn{
-				[](
-					fcppt::log::object_reference,
-					awl::system::object_ref const _awl_system
-				)
-				{
-					return
-						fcppt::unique_ptr_to_base<
-							sge::opengl::backend::system
-						>(
-							fcppt::make_unique_ptr<
-								sge::opengl::wgl::system
-							>(
-								_awl_system.get()
-							)
-						);
-				}
-			},
+        create_function_exn{
+            [](fcppt::log::object_reference, awl::system::object_ref const _awl_system)
+            {
+              return fcppt::unique_ptr_to_base<sge::opengl::backend::system>(
+                  fcppt::make_unique_ptr<sge::opengl::wgl::system>(_awl_system.get()));
+            }},
 #endif
-			create_function_exn{
-				[](
-					fcppt::log::object_reference,
-					awl::system::object_ref
-				)
-				->
-				sge::opengl::backend::system_unique_ptr
-				{
-					throw
-						sge::renderer::exception{
-							fcppt::string{
-								FCPPT_TEXT("All possibilities exhausted.")
-							}
-						};
-				}
-			}
-		};
+        create_function_exn
+    {
+      [](fcppt::log::object_reference,
+         awl::system::object_ref) -> sge::opengl::backend::system_unique_ptr
+      { throw sge::renderer::exception{fcppt::string{FCPPT_TEXT("All possibilities exhausted.")}}; }
+    }
+  };
 }
 
-using
-create_function
-=
-fcppt::function<
-	fcppt::either::object<
-		fcppt::string,
-		sge::opengl::backend::system_unique_ptr
-	>()
->;
+using create_function = fcppt::function<
+    fcppt::either::object<fcppt::string, sge::opengl::backend::system_unique_ptr>()>;
 
-using
-create_function_vector
-=
-std::vector<
-	create_function
->;
+using create_function_vector = std::vector<create_function>;
 
 create_function_vector
-create_functions(
-	fcppt::log::object_reference const _log,
-	awl::system::object_ref const _awl_system
-)
+create_functions(fcppt::log::object_reference const _log, awl::system::object_ref const _awl_system)
 {
-	return
-		fcppt::algorithm::map<
-			create_function_vector
-		>(
-			create_functions_exn(),
-			[
-				&_log,
-				&_awl_system
-			](
-				create_function_exn &&_function
-			)
-			{
-				return
-					create_function{
-						[
-							_log,
-							_awl_system,
-							function =
-								std::move(
-									_function
-								)
-						]()
-						->
-						fcppt::either::object<
-							fcppt::string,
-							sge::opengl::backend::system_unique_ptr
-						>
-						{
-							return
-								fcppt::either::try_call<
-									fcppt::exception
-								>(
-									[
-										&function,
-										&_log,
-										&_awl_system
-									]()
-									{
-										return
-											function(
-												_log,
-												_awl_system
-											);
-									},
-									[](
-										fcppt::exception const &_error
-									)
-									->
-									fcppt::string
-									{
-										return
-											_error.string();
-									}
-								);
-						}
-					};
-			}
-		);
+  return fcppt::algorithm::map<create_function_vector>(
+      create_functions_exn(),
+      [&_log, &_awl_system](create_function_exn &&_function)
+      {
+        return create_function{
+            [_log, _awl_system, function = std::move(_function)]()
+                -> fcppt::either::object<fcppt::string, sge::opengl::backend::system_unique_ptr>
+            {
+              return fcppt::either::try_call<fcppt::exception>(
+                  [&function, &_log, &_awl_system]() { return function(_log, _awl_system); },
+                  [](fcppt::exception const &_error) -> fcppt::string { return _error.string(); });
+            }};
+      });
 }
 
 }
 
-sge::opengl::backend::system_unique_ptr
-sge::opengl::backend::create_system(
-	fcppt::log::object_reference const _log,
-	awl::system::object_ref const _awl_system
-)
+sge::opengl::backend::system_unique_ptr sge::opengl::backend::create_system(
+    fcppt::log::object_reference const _log, awl::system::object_ref const _awl_system)
 {
-	return
-		fcppt::either::to_exception(
-			fcppt::either::first_success(
-				create_functions(
-					_log,
-					_awl_system
-				)
-			),
-			[](
-				std::vector<
-					fcppt::string
-				> const &_failures
-			)
-			{
-				return
-					sge::renderer::exception{
-						FCPPT_TEXT("Cannot create an OpenGL backend: ")
-						+
-						fcppt::algorithm::join_strings(
-							_failures,
-							fcppt::string{
-								FCPPT_TEXT(", ")
-							}
-						)
-					};
-			}
-		);
+  return fcppt::either::to_exception(
+      fcppt::either::first_success(create_functions(_log, _awl_system)),
+      [](std::vector<fcppt::string> const &_failures)
+      {
+        return sge::renderer::exception{
+            FCPPT_TEXT("Cannot create an OpenGL backend: ") +
+            fcppt::algorithm::join_strings(_failures, fcppt::string{FCPPT_TEXT(", ")})};
+      });
 }

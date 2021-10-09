@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_CENTER_FROM_POS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CENTER_FROM_POS_HPP_INCLUDED
 
@@ -14,44 +13,16 @@
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/dim.hpp>
 
-
 namespace sge::sprite::detail
 {
 
-template<
-	typename Choices,
-	typename Elements
->
-inline
-sge::sprite::types::vector<
-	typename
-	Choices::type_choices
->
-center_from_pos(
-	Elements const &_elements,
-	sge::sprite::types::pos<
-		typename
-		Choices::type_choices
-	> const _pos
-)
+template <typename Choices, typename Elements>
+inline sge::sprite::types::vector<typename Choices::type_choices> center_from_pos(
+    Elements const &_elements, sge::sprite::types::pos<typename Choices::type_choices> const _pos)
 {
-	return
-		_pos.get()
-		+
-		(
-			sge::sprite::detail::get_size<
-				Choices
-			>(
-				_elements
-			)
-			/
-			fcppt::literal<
-				typename
-				Choices::type_choices::unit_type
-			>(
-				2
-			)
-		).get_unsafe();
+  return _pos.get() + (sge::sprite::detail::get_size<Choices>(_elements) /
+                       fcppt::literal<typename Choices::type_choices::unit_type>(2))
+                          .get_unsafe();
 }
 
 }

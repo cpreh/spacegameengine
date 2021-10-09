@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/media_path.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -98,301 +97,124 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_window,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_input,
-		sge::systems::with_image2d
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge tutorial03")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::image2d(
-				sge::media::optional_extension_set(
-					sge::media::extension_set{
-						sge::media::extension(
-							FCPPT_TEXT("png")
-						)
-					}
-				)
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_window,
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_input,
+      sge::systems::with_image2d> const
+      sys(sge::systems::make_list(sge::systems::window(sge::systems::window_source(
+          sge::systems::original_window(sge::window::title(FCPPT_TEXT("sge tutorial03"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::image2d(sge::media::optional_extension_set(
+              sge::media::extension_set{sge::media::extension(FCPPT_TEXT("png"))})))(
+          sge::systems::input(sge::systems::cursor_option_field::null())));
 
-	using
-	sprite_choices
-	=
-	sge::sprite::config::choices<
-		sge::sprite::config::type_choices<
-			sge::sprite::config::unit_type<
-				int
-			>,
-			sge::sprite::config::float_type<
-				float
-			>
-		>,
-		sge::sprite::config::pos<
-			sge::sprite::config::pos_option::pos
-		>,
-		sge::sprite::config::normal_size<
-			sge::sprite::config::texture_size_option::always
-		>,
-		fcppt::mpl::list::object<
-			sge::sprite::config::with_texture<
-				sge::sprite::config::texture_level_count<
-					1U
-				>,
-				sge::sprite::config::texture_coordinates::automatic,
-				sge::sprite::config::texture_ownership::reference
-			>
-		>
-	>;
+  using sprite_choices = sge::sprite::config::choices<
+      sge::sprite::config::
+          type_choices<sge::sprite::config::unit_type<int>, sge::sprite::config::float_type<float>>,
+      sge::sprite::config::pos<sge::sprite::config::pos_option::pos>,
+      sge::sprite::config::normal_size<sge::sprite::config::texture_size_option::always>,
+      fcppt::mpl::list::object<sge::sprite::config::with_texture<
+          sge::sprite::config::texture_level_count<1U>,
+          sge::sprite::config::texture_coordinates::automatic,
+          sge::sprite::config::texture_ownership::reference>>>;
 
-	using
-	sprite_object
-	=
-	sge::sprite::object<
-		sprite_choices
-	>;
+  using sprite_object = sge::sprite::object<sprite_choices>;
 
-	using
-	sprite_buffers_type
-	=
-	sge::sprite::buffers::with_declaration<
-		sge::sprite::buffers::single<
-			sprite_choices
-		>
-	>;
+  using sprite_buffers_type =
+      sge::sprite::buffers::with_declaration<sge::sprite::buffers::single<sprite_choices>>;
 
-	sprite_buffers_type sprite_buffers(
-		fcppt::make_ref(
-			sys.renderer_device_core()
-		),
-		sge::sprite::buffers::option::dynamic
-	);
+  sprite_buffers_type sprite_buffers(
+      fcppt::make_ref(sys.renderer_device_core()), sge::sprite::buffers::option::dynamic);
 
-	using
-	sprite_state_choices
-	=
-	sge::sprite::state::all_choices;
+  using sprite_state_choices = sge::sprite::state::all_choices;
 
-	using
-	sprite_state_object
-	=
-	sge::sprite::state::object<
-		sprite_state_choices
-	>;
+  using sprite_state_object = sge::sprite::state::object<sprite_state_choices>;
 
-	using
-	sprite_state_parameters
-	=
-	sge::sprite::state::parameters<
-		sprite_state_choices
-	>;
+  using sprite_state_parameters = sge::sprite::state::parameters<sprite_state_choices>;
 
-	sprite_state_object sprite_state(
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		sprite_state_parameters()
-	);
+  sprite_state_object sprite_state(
+      fcppt::make_ref(sys.renderer_device_ffp()), sprite_state_parameters());
 
-	sge::renderer::texture::planar_unique_ptr const image_texture(
-		sge::renderer::texture::create_planar_from_path(
-			sge::config::media_path()
-			/ FCPPT_TEXT("images")
-			/ FCPPT_TEXT("tux.png"),
-			fcppt::make_ref(
-				sys.renderer_device_core()
-			),
-			sys.image_system(),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb_from_caps(
-				sys.renderer_device_ffp().caps()
-			)
-		)
-	);
+  sge::renderer::texture::planar_unique_ptr const image_texture(
+      sge::renderer::texture::create_planar_from_path(
+          sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("tux.png"),
+          fcppt::make_ref(sys.renderer_device_core()),
+          sys.image_system(),
+          sge::renderer::texture::mipmap::off(),
+          sge::renderer::resource_flags_field::null(),
+          sge::renderer::texture::emulate_srgb_from_caps(sys.renderer_device_ffp().caps())));
 
-	sge::texture::const_part_unique_ptr const image_texture_part(
-		fcppt::unique_ptr_to_const(
-			fcppt::unique_ptr_to_base<
-				sge::texture::part
-			>(
-				fcppt::make_unique_ptr<
-					sge::texture::part_raw_ref
-				>(
-					*image_texture
-				)
-			)
-		)
-	);
+  sge::texture::const_part_unique_ptr const image_texture_part(
+      fcppt::unique_ptr_to_const(fcppt::unique_ptr_to_base<sge::texture::part>(
+          fcppt::make_unique_ptr<sge::texture::part_raw_ref>(*image_texture))));
 
-//! [multi_objects]
-	using
-	sprite_array_2
-	=
-	fcppt::array::object<
-		sprite_object,
-		2U
-	>;
+  //! [multi_objects]
+  using sprite_array_2 = fcppt::array::object<sprite_object, 2U>;
 
-	sprite_array_2 sprites{
-		sprite_object(
-			sge::sprite::roles::pos{} =
-				fcppt::math::vector::null<
-					sprite_object::vector
-				>(),
-			sge::sprite::roles::texture0{} =
-				sprite_object::texture_type(
-					*image_texture_part
-				)
-		),
-		sprite_object(
-			sge::sprite::roles::pos{} =
-				sprite_object::vector(
-					300, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-					300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-				),
-			sge::sprite::roles::texture0{} =
-				sprite_object::texture_type(
-					*image_texture_part
-				)
-		)
-	};
-//! [multi_objects]
+  sprite_array_2 sprites{
+      sprite_object(
+          sge::sprite::roles::pos{} = fcppt::math::vector::null<sprite_object::vector>(),
+          sge::sprite::roles::texture0{} = sprite_object::texture_type(*image_texture_part)),
+      sprite_object(
+          sge::sprite::roles::pos{} = sprite_object::vector(
+              300, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              300 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              ),
+          sge::sprite::roles::texture0{} = sprite_object::texture_type(*image_texture_part))};
+  //! [multi_objects]
 
-//! [process_multi]
-	auto const draw(
-		[
-			&sprite_buffers,
-			&sprite_state,
-			&sprites,
-			&sys
-		]{
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+  //! [process_multi]
+  auto const draw(
+      [&sprite_buffers, &sprite_state, &sprites, &sys]
+      {
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			sge::sprite::process::all(
-				scoped_block.get(),
-				sge::sprite::geometry::make_random_access_range(
-					sprites
-				),
-				sprite_buffers,
-				sge::sprite::compare::default_(),
-				sprite_state
-			);
-		}
-	);
-//! [process_multi]
+        sge::sprite::process::all(
+            scoped_block.get(),
+            sge::sprite::geometry::make_random_access_range(sprites),
+            sprite_buffers,
+            sge::sprite::compare::default_(),
+            sprite_state);
+      });
+  //! [process_multi]
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&sys,
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					sge::systems::quit_on_escape(
-						sys,
-						_event
-					);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&sys, &draw](awl::event::base const &_event)
+          {
+            sge::systems::quit_on_escape(sys, _event);
 
-					fcppt::optional::maybe_void(
-						fcppt::cast::dynamic<
-							sge::renderer::event::render const
-						>(
-							_event
-						),
-						[
-							&draw
-						](
-							fcppt::reference<
-								sge::renderer::event::render const
-							>
-						)
-						{
-							draw();
-						}
-					);
-				}
-			}
-		);
+            fcppt::optional::maybe_void(
+                fcppt::cast::dynamic<sge::renderer::event::render const>(_event),
+                [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); });
+          }});
 }
-catch(
-	fcppt::exception const &_exception
-)
+catch (fcppt::exception const &_exception)
 {
-	awl::show_error(
-		_exception.string()
-	);
+  awl::show_error(_exception.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_exception
-)
+catch (std::exception const &_exception)
 {
-	awl::show_error_narrow(
-		_exception.what()
-	);
+  awl::show_error_narrow(_exception.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

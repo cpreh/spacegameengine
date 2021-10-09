@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_INFO_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_MAKE_INFO_HPP_INCLUDED
 
@@ -11,15 +10,12 @@
 #include <sge/evdev/joypad/absolute_axis/code_fwd.hpp>
 #include <sge/input/joypad/absolute_axis_info_fwd.hpp>
 
-
 namespace sge::evdev::joypad::absolute_axis
 {
 
-sge::input::joypad::absolute_axis_info
-make_info(
-	sge::evdev::device::fd &, // NOLINT(google-runtime-references)
-	sge::evdev::joypad::absolute_axis::code
-);
+sge::input::joypad::absolute_axis_info make_info(
+    sge::evdev::device::fd &, // NOLINT(google-runtime-references)
+    sge::evdev::joypad::absolute_axis::code);
 
 }
 

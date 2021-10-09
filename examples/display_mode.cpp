@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/display_mode/object.hpp>
@@ -53,157 +52,73 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_window,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::core
-		>
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge display mode example")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{}
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_window,
+      sge::systems::with_renderer<sge::systems::renderer_caps::core>> const
+      sys(sge::systems::make_list(
+          sge::systems::window(sge::systems::window_source(sge::systems::original_window(
+              sge::window::title(FCPPT_TEXT("sge display mode example"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{})));
 
-	fcppt::io::cout()
-		<< FCPPT_TEXT("Available modes:\n");
+  fcppt::io::cout() << FCPPT_TEXT("Available modes:\n");
 
-	for(
-		sge::renderer::display_mode::object const &mode
-		:
-		sys.renderer_device_core().display_modes()
-	)
-	{
-		fcppt::io::cout()
-			<<
-			mode
-			<<
-			FCPPT_TEXT('\n');
-	}
+  for (sge::renderer::display_mode::object const &mode : sys.renderer_device_core().display_modes())
+  {
+    fcppt::io::cout() << mode << FCPPT_TEXT('\n');
+  }
 
-	fcppt::io::cout()
-		<< FCPPT_TEXT('\n');
+  fcppt::io::cout() << FCPPT_TEXT('\n');
 
-	auto const print_display_mode(
-		[
-			&sys
-		]()
-		{
-			fcppt::optional::maybe(
-				sys.renderer_device_core().display_mode(),
-				[]{
-					fcppt::io::cout()
-						<<
-						FCPPT_TEXT("No display mode set.\n");
-				},
-				[](
-					sge::renderer::display_mode::object const &_mode
-				){
-					fcppt::io::cout()
-						<<
-						FCPPT_TEXT("Current display mode:\n\t")
-						<<
-						_mode
-						<<
-						FCPPT_TEXT("\nDPI:\n\t")
-						<<
-						sge::renderer::display_mode::to_dpi(
-							sge::renderer::display_mode::optional_object(
-								_mode
-							)
-						)
-						<<
-						FCPPT_TEXT('\n');
-				}
-			);
+  auto const print_display_mode(
+      [&sys]()
+      {
+        fcppt::optional::maybe(
+            sys.renderer_device_core().display_mode(),
+            [] { fcppt::io::cout() << FCPPT_TEXT("No display mode set.\n"); },
+            [](sge::renderer::display_mode::object const &_mode)
+            {
+              fcppt::io::cout() << FCPPT_TEXT("Current display mode:\n\t") << _mode
+                                << FCPPT_TEXT("\nDPI:\n\t")
+                                << sge::renderer::display_mode::to_dpi(
+                                       sge::renderer::display_mode::optional_object(_mode))
+                                << FCPPT_TEXT('\n');
+            });
 
-			sys.window_system().quit(
-				awl::main::exit_success()
-			);
-		}
-	);
+        sys.window_system().quit(awl::main::exit_success());
+      });
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&print_display_mode
-				](
-					awl::event::base const &_event
-				)
-				{
-					fcppt::optional::maybe_void(
-						fcppt::cast::dynamic<
-							awl::window::event::show const
-						>(
-							_event
-						),
-						[
-							&print_display_mode
-						](
-							fcppt::reference<
-								awl::window::event::show const
-							>
-						)
-						{
-							print_display_mode();
-						}
-					);
-				}
-			}
-		);
-
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&print_display_mode](awl::event::base const &_event)
+          {
+            fcppt::optional::maybe_void(
+                fcppt::cast::dynamic<awl::window::event::show const>(_event),
+                [&print_display_mode](fcppt::reference<awl::window::event::show const>)
+                { print_display_mode(); });
+          }});
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

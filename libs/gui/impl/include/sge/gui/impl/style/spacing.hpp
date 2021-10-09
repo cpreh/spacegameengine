@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_IMPL_STYLE_SPACING_HPP_INCLUDED
 #define SGE_GUI_IMPL_STYLE_SPACING_HPP_INCLUDED
 
@@ -14,23 +13,12 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::gui::impl::style
 {
 
-using
-spacing
-=
-std::integral_constant<
-	sge::rucksack::scalar,
-	(
-		sge::gui::impl::style::inner_border::value
-		+
-		sge::gui::impl::style::outer_border::value
-	)
-	*
-	2
->;
+using spacing = std::integral_constant<
+    sge::rucksack::scalar,
+    (sge::gui::impl::style::inner_border::value + sge::gui::impl::style::outer_border::value) * 2>;
 
 }
 

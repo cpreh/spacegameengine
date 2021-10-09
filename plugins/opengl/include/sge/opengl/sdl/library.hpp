@@ -3,25 +3,22 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_SDL_LIBRARY_HPP_INCLUDED
 #define SGE_OPENGL_SDL_LIBRARY_HPP_INCLUDED
 
 #include <fcppt/nonmovable.hpp>
-
 
 namespace sge::opengl::sdl
 {
 
 class library
 {
-	FCPPT_NONMOVABLE(
-		library
-	);
-public:
-	library();
+  FCPPT_NONMOVABLE(library);
 
-	~library();
+public:
+  library();
+
+  ~library();
 };
 
 }

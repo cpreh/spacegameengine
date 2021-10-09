@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_SBGR8_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_SBGR8_HPP_INCLUDED
 
 #include <sge/image/color/sbgr8_fwd.hpp>
 #include <sge/image/pixel/mizuiro_type.hpp>
-
 
 #endif

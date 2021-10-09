@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_WAYLAND_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_EGL_WAYLAND_SURFACE_HPP_INCLUDED
 
@@ -20,37 +19,24 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::egl::wayland
 {
 
-class surface
-:
-	public sge::opengl::egl::surface
+class surface : public sge::opengl::egl::surface
 {
-	FCPPT_NONMOVABLE(
-		surface
-	);
+  FCPPT_NONMOVABLE(surface);
+
 public:
-	surface(
-		EGLDisplay,
-		EGLConfig,
-		sge::window::object_ref
-	);
+  surface(EGLDisplay, EGLConfig, sge::window::object_ref);
 
-	~surface()
-	override;
+  ~surface() override;
+
 private:
-	[[nodiscard]]
-	EGLSurface
-	get() const
-	override;
+  [[nodiscard]] EGLSurface get() const override;
 
-	sge::opengl::egl::wayland::window const window_;
+  sge::opengl::egl::wayland::window const window_;
 
-	sge::opengl::egl::window_surface<
-		EGLNativeWindowType
-	> const surface_;
+  sge::opengl::egl::window_surface<EGLNativeWindowType> const surface_;
 };
 
 }

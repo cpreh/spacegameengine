@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_VIEW_OBJECT_FWD_HPP_INCLUDED
 #define SGE_IMAGE2D_VIEW_OBJECT_FWD_HPP_INCLUDED
 
 #include <sge/image/view/object_fwd.hpp>
 #include <sge/image2d/tag.hpp>
 
-
 namespace sge::image2d::view
 {
 
-using
-object
-=
-sge::image::view::object<
-	sge::image2d::tag
->;
+using object = sge::image::view::object<sge::image2d::tag>;
 
 }
 

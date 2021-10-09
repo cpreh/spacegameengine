@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CORE_DETAIL_CLASS_SYMBOL_HPP_INCLUDED
 #define SGE_CORE_DETAIL_CLASS_SYMBOL_HPP_INCLUDED
 
 #include <fcppt/symbol/class.hpp>
-
 
 #define SGE_CORE_DETAIL_CLASS_SYMBOL FCPPT_SYMBOL_CLASS
 

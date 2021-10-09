@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/rect.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/draw/create_texture.hpp>
@@ -27,60 +26,29 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
 
-
-sge::texture::part_unique_ptr
-sge::font::draw::create_texture(
-	sge::renderer::device::core_ref const _renderer,
-	sge::font::text &_text,
-	sge::image::color::format const _color_format,
-	sge::renderer::texture::emulate_srgb const _emulate_srgb
-)
+sge::texture::part_unique_ptr sge::font::draw::create_texture(
+    sge::renderer::device::core_ref const _renderer,
+    sge::font::text &_text,
+    sge::image::color::format const _color_format,
+    sge::renderer::texture::emulate_srgb const _emulate_srgb)
 {
-	sge::texture::part_unique_ptr result(
-		sge::texture::wrap_npot(
-			_renderer,
-			sge::renderer::texture::planar_parameters(
-				fcppt::math::dim::structure_cast<
-					sge::renderer::dim2,
-					fcppt::cast::size_fun
-				>(
-					fcppt::math::dim::to_unsigned(
-						_text.rect().size()
-					)
-				),
-				sge::renderer::texture::color_format(
-					_color_format,
-					_emulate_srgb
-				),
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null(),
-				sge::renderer::texture::capabilities_field::null()
-			)
-		)
-	);
+  sge::texture::part_unique_ptr result(sge::texture::wrap_npot(
+      _renderer,
+      sge::renderer::texture::planar_parameters(
+          fcppt::math::dim::structure_cast<sge::renderer::dim2, fcppt::cast::size_fun>(
+              fcppt::math::dim::to_unsigned(_text.rect().size())),
+          sge::renderer::texture::color_format(_color_format, _emulate_srgb),
+          sge::renderer::texture::mipmap::off(),
+          sge::renderer::resource_flags_field::null(),
+          sge::renderer::texture::capabilities_field::null())));
 
-	if(
-		fcppt::math::dim::contents(
-			result->size()
-		)
-		!=
-		0U
-	)
-	{
-		sge::renderer::texture::scoped_planar_lock const lock(
-			fcppt::make_ref(
-				result->texture()
-			),
-			sge::renderer::lock_mode::writeonly
-		);
+  if (fcppt::math::dim::contents(result->size()) != 0U)
+  {
+    sge::renderer::texture::scoped_planar_lock const lock(
+        fcppt::make_ref(result->texture()), sge::renderer::lock_mode::writeonly);
 
-		_text.render(
-			lock.value()
-		);
-	}
+    _text.render(lock.value());
+  }
 
-	return
-		result;
+  return result;
 }
-
-

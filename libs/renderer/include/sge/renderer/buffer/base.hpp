@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_BUFFER_BASE_HPP_INCLUDED
 #define SGE_RENDERER_BUFFER_BASE_HPP_INCLUDED
 
@@ -15,61 +14,33 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::renderer::buffer
 {
 
-template<
-	typename ImageTag
->
+template <typename ImageTag>
 class SGE_CORE_DETAIL_CLASS_SYMBOL base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	base();
+  SGE_RENDERER_DETAIL_SYMBOL
+  base();
+
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	virtual
-	~base();
+  SGE_RENDERER_DETAIL_SYMBOL
+  virtual ~base();
 
-	using
-	image_tag
-	=
-	ImageTag;
+  using image_tag = ImageTag;
 
-	using
-	dim
-	=
-	sge::image::dim<
-		ImageTag
-	>;
+  using dim = sge::image::dim<ImageTag>;
 
-	using
-	format_tag
-	=
-	sge::image::traits::image::color_tag<
-		ImageTag
-	>;
+  using format_tag = sge::image::traits::image::color_tag<ImageTag>;
 
-	using
-	format_type
-	=
-	sge::image::traits::pixel::format<
-		format_tag
-	>;
+  using format_type = sge::image::traits::pixel::format<format_tag>;
 
-	[[nodiscard]]
-	virtual
-	dim
-	size() const = 0;
+  [[nodiscard]] virtual dim size() const = 0;
 
-	[[nodiscard]]
-	virtual
-	format_type
-	format() const = 0;
+  [[nodiscard]] virtual format_type format() const = 0;
 };
 
 }

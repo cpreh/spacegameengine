@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/charconv/fcppt_string_to_utf8.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <fcppt/catch/begin.hpp>
@@ -12,23 +11,14 @@
 #include <catch2/catch.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"charconv various",
-	"[sge]"
-)
+TEST_CASE("charconv various", "[sge]")
 {
-	sge::charconv::utf8_string const empty_result(
-		sge::charconv::fcppt_string_to_utf8(
-			fcppt::string()
-		)
-	);
+  sge::charconv::utf8_string const empty_result(
+      sge::charconv::fcppt_string_to_utf8(fcppt::string()));
 
-	CHECK(
-		empty_result.empty()
-	);
+  CHECK(empty_result.empty());
 }
 
 FCPPT_CATCH_END

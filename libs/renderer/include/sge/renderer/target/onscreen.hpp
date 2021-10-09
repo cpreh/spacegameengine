@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TARGET_ONSCREEN_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_ONSCREEN_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/onscreen_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
-
 
 namespace sge::renderer::target
 {
@@ -27,28 +25,22 @@ anything on screen (instead of rendering to, for example, a texture).
 \see sge::renderer::target_base
 \see sge::renderer::device::onscreen_target
 */
-class SGE_CORE_DETAIL_CLASS_SYMBOL onscreen
-:
-	public sge::renderer::target::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL onscreen : public sge::renderer::target::base
 {
-	FCPPT_NONMOVABLE(
-		onscreen
-	);
+  FCPPT_NONMOVABLE(onscreen);
+
 protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	onscreen();
+  SGE_RENDERER_DETAIL_SYMBOL
+  onscreen();
+
 public:
-	/**
+  /**
 	\brief Returns the associated color surface
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::color_buffer::readable_surface const &
-	surface() const = 0;
+  [[nodiscard]] virtual sge::renderer::color_buffer::readable_surface const &surface() const = 0;
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	~onscreen()
-	override;
+  SGE_RENDERER_DETAIL_SYMBOL
+  ~onscreen() override;
 };
 
 }

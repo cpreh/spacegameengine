@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_JOYPAD_ATTRIB_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_ATTRIB_HPP_INCLUDED
 
@@ -16,18 +15,15 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::joypad
 {
 
-awl::event::optional_base_unique_ptr
-attrib(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	sge::window::object_ref,
-	awl::backends::posix::processor_ref,
-	sge::evdev::joypad::map &, // NOLINT(google-runtime-references)
-	std::filesystem::path const &
-);
+awl::event::optional_base_unique_ptr attrib(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    sge::window::object_ref,
+    awl::backends::posix::processor_ref,
+    sge::evdev::joypad::map &, // NOLINT(google-runtime-references)
+    std::filesystem::path const &);
 
 }
 

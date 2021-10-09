@@ -3,14 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_PARAMETER_DETAIL_PP_TYPES_HPP_INCLUDED
 #define SGE_CG_PARAMETER_DETAIL_PP_TYPES_HPP_INCLUDED
 
-
-#define SGE_CG_PARAMETER_DETAIL_PP_TYPES \
-	(double)\
-	(float)\
-	(int)
+#define SGE_CG_PARAMETER_DETAIL_PP_TYPES (double)(float)(int)
 
 #endif

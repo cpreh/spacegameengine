@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/cursor/button_pressed.hpp>
 #include <sge/wlinput/cursor/button_state.hpp>
 #include <fcppt/assert/unreachable.hpp>
@@ -12,29 +11,17 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::input::cursor::button_pressed
-sge::wlinput::cursor::button_state(
-	std::uint32_t const _state
-)
+sge::input::cursor::button_pressed sge::wlinput::cursor::button_state(std::uint32_t const _state)
 {
-	switch(
-		_state
-	)
-	{
-	case WL_POINTER_BUTTON_STATE_RELEASED:
-		return
-			sge::input::cursor::button_pressed{
-				false
-			};
-	case WL_POINTER_BUTTON_STATE_PRESSED:
-		return
-			sge::input::cursor::button_pressed{
-				true
-			};
-	default:
-		break;
-	}
+  switch (_state)
+  {
+  case WL_POINTER_BUTTON_STATE_RELEASED:
+    return sge::input::cursor::button_pressed{false};
+  case WL_POINTER_BUTTON_STATE_PRESSED:
+    return sge::input::cursor::button_pressed{true};
+  default:
+    break;
+  }
 
-	FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_ASSERT_UNREACHABLE;
 }

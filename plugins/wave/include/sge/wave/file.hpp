@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WAVE_FILE_HPP_INCLUDED
 #define SGE_WAVE_FILE_HPP_INCLUDED
 
@@ -24,78 +23,49 @@
 #include <ios>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::wave
 {
 
-class file
-:
-	public sge::audio::file
+class file : public sge::audio::file
 {
-	FCPPT_NONMOVABLE(
-		file
-	);
+  FCPPT_NONMOVABLE(file);
+
 public:
-	file(
-		fcppt::log::object_reference,
-		sge::media::stream_unique_ptr &&,
-		sge::wave::info const &,
-		sge::media::optional_name &&
-	);
+  file(
+      fcppt::log::object_reference,
+      sge::media::stream_unique_ptr &&,
+      sge::wave::info const &,
+      sge::media::optional_name &&);
 
-	~file()
-	override;
+  ~file() override;
 
-	[[nodiscard]]
-	sge::audio::bits_per_sample
-	bits_per_sample() const
-	override;
+  [[nodiscard]] sge::audio::bits_per_sample bits_per_sample() const override;
 
-	[[nodiscard]]
-	sge::audio::sample_rate
-	sample_rate() const
-	override;
+  [[nodiscard]] sge::audio::sample_rate sample_rate() const override;
 
-	[[nodiscard]]
-	sge::audio::channel_count
-	channels() const
-	override;
+  [[nodiscard]] sge::audio::channel_count channels() const override;
 
-	[[nodiscard]]
-	sge::audio::sample_count
-	expected_package_size() const
-	override;
+  [[nodiscard]] sge::audio::sample_count expected_package_size() const override;
 
-	void
-	reset()
-	override;
+  void reset() override;
 
-	[[nodiscard]]
-	sge::audio::sample_count
-	read(
-		sge::audio::sample_count,
-		fcppt::reference<
-			sge::audio::sample_buffer
-		>
-	)
-	override;
+  [[nodiscard]] sge::audio::sample_count
+      read(sge::audio::sample_count, fcppt::reference<sge::audio::sample_buffer>) override;
 
-	[[nodiscard]]
-	sge::audio::sample_container
-	read_all()
-	override;
+  [[nodiscard]] sge::audio::sample_container read_all() override;
+
 private:
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	sge::media::optional_name const name_;
+  sge::media::optional_name const name_;
 
-	sge::wave::info const info_;
+  sge::wave::info const info_;
 
-	sge::media::stream_unique_ptr const file_;
+  sge::media::stream_unique_ptr const file_;
 
-	std::streampos data_segment_;
+  std::streampos data_segment_;
 
-	sge::audio::sample_count samples_read_;
+  sge::audio::sample_count samples_read_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_DEVICE_INFO_BASE_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_INFO_BASE_HPP_INCLUDED
 
@@ -14,39 +13,28 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::device::info
 {
 
 class base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 public:
-	using
-	size_type
-	=
-	int;
+  using size_type = int;
 
-	base(
-		awl::backends::x11::display_ref,
-		sge::x11input::device::id
-	);
+  base(awl::backends::x11::display_ref, sge::x11input::device::id);
 
-	~base();
+  ~base();
 
-	[[nodiscard]]
-	XIDeviceInfo const *
-	get() const;
+  [[nodiscard]] XIDeviceInfo const *get() const;
 
-	[[nodiscard]]
-	size_type
-	size() const;
+  [[nodiscard]] size_type size() const;
+
 private:
-	int size_;
+  int size_;
 
-	XIDeviceInfo *const devices_;
+  XIDeviceInfo *const devices_;
 };
 
 }

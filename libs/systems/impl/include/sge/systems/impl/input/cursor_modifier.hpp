@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_INPUT_CURSOR_MODIFIER_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_INPUT_CURSOR_MODIFIER_HPP_INCLUDED
 
@@ -16,33 +15,27 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge::systems::impl::input
 {
 
 class cursor_modifier
 {
-	FCPPT_NONMOVABLE(
-		cursor_modifier
-	);
+  FCPPT_NONMOVABLE(cursor_modifier);
+
 public:
-	cursor_modifier(
-		sge::input::processor const &,
-		sge::window::object_ref,
-		sge::systems::cursor_option_field const &
-	);
+  cursor_modifier(
+      sge::input::processor const &,
+      sge::window::object_ref,
+      sge::systems::cursor_option_field const &);
 
-	~cursor_modifier();
+  ~cursor_modifier();
+
 private:
-	[[nodiscard]]
-	awl::event::container
-	on_event(
-		awl::window::event::base const &
-	) const;
+  [[nodiscard]] awl::event::container on_event(awl::window::event::base const &) const;
 
-	sge::systems::cursor_option_field const options_;
+  sge::systems::cursor_option_field const options_;
 
-	fcppt::signal::auto_connection const connection_;
+  fcppt::signal::auto_connection const connection_;
 };
 
 }

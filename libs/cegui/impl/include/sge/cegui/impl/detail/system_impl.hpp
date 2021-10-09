@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_IMPL_DETAIL_SYSTEM_IMPL_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_DETAIL_SYSTEM_IMPL_HPP_INCLUDED
 
@@ -31,71 +30,58 @@
 #include <CEGUI/GUIContext.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cegui::detail
 {
 
 class system_impl
 {
-	FCPPT_NONMOVABLE(
-		system_impl
-	);
+  FCPPT_NONMOVABLE(system_impl);
+
 public:
-	system_impl(
-		fcppt::log::context_reference,
-		sge::cegui::load_context const &,
-		sge::renderer::device::ffp_ref,
-		sge::image2d::system_ref,
-		sge::viewport::manager_ref,
-		sge::cegui::cursor_visibility,
-		sge::renderer::texture::emulate_srgb
-	);
+  system_impl(
+      fcppt::log::context_reference,
+      sge::cegui::load_context const &,
+      sge::renderer::device::ffp_ref,
+      sge::image2d::system_ref,
+      sge::viewport::manager_ref,
+      sge::cegui::cursor_visibility,
+      sge::renderer::texture::emulate_srgb);
 
-	~system_impl();
+  ~system_impl();
 
-	static
-	void
-	update(
-		sge::cegui::duration const &
-	);
+  static void update(sge::cegui::duration const &);
 
-	void
-	render(
-		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void render(sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	[[nodiscard]]
-	CEGUI::GUIContext &
-	gui_context();
+  [[nodiscard]] CEGUI::GUIContext &gui_context();
+
 private:
-	void
-	viewport_change(
-		sge::renderer::target::viewport
-	);
+  void viewport_change(sge::renderer::target::viewport);
 
-	fcppt::log::object main_log_;
+  fcppt::log::object main_log_;
 
-	fcppt::log::object system_log_;
+  fcppt::log::object system_log_;
 
-	sge::cegui::impl::prefix const prefix_;
+  sge::cegui::impl::prefix const prefix_;
 
-	sge::cegui::impl::cegui_logger cegui_logger_;
+  sge::cegui::impl::cegui_logger cegui_logger_;
 
-	sge::cegui::impl::renderer renderer_;
+  sge::cegui::impl::renderer renderer_;
 
-	sge::cegui::impl::image_codec image_codec_;
+  sge::cegui::impl::image_codec image_codec_;
 
-	sge::cegui::impl::resource_provider resource_provider_;
+  sge::cegui::impl::resource_provider resource_provider_;
 
-	sge::cegui::impl::scoped_system const scoped_system_;
+  sge::cegui::impl::scoped_system const scoped_system_;
 
-	CEGUI::GUIContext gui_context_;
+  CEGUI::GUIContext gui_context_;
 
-	fcppt::signal::auto_connection const viewport_change_connection_;
+  fcppt::signal::auto_connection const viewport_change_connection_;
 
-	// We have to memorize the old viewport so we don't call
-	// notifyDisplaySizeChanged if old == new (costs performance)
-	sge::renderer::target::viewport old_viewport_;
+  // We have to memorize the old viewport so we don't call
+  // notifyDisplaySizeChanged if old == new (costs performance)
+  sge::renderer::target::viewport old_viewport_;
 };
 
 }

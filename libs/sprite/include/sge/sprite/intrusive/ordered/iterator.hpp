@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/ordered/iterator_decl.hpp>
 #include <sge/sprite/intrusive/ordered/iterator_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/iterator_impl.hpp>
-
 
 #endif

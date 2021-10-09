@@ -3,24 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_PROJECTION_DIM_FWD_HPP_INCLUDED
 #define SGE_RENDERER_PROJECTION_DIM_FWD_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/dim/static_fwd.hpp>
 
-
 namespace sge::renderer::projection
 {
 
-using
-dim
-=
-fcppt::math::dim::static_<
-	sge::renderer::scalar,
-	2
->;
+using dim = fcppt::math::dim::static_<sge::renderer::scalar, 2>;
 
 }
 

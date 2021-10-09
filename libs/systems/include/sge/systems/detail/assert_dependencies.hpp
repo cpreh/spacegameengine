@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ASSERT_DEPENDENCIES_HPP_INCLUDED
 
@@ -14,28 +13,16 @@
 #include <fcppt/mpl/lambda.hpp>
 #include <fcppt/mpl/list/all_of.hpp>
 
-
 namespace sge::systems::detail
 {
 
-template<
-	typename Choices
->
-using
-assert_dependencies
-=
-fcppt::mpl::list::all_of<
-	Choices,
-	fcppt::mpl::bind<
-		fcppt::mpl::lambda<
-			sge::systems::detail::assert_dependencies_one
-		>,
-		fcppt::mpl::constant<
-			Choices
-		>,
-		fcppt::mpl::arg<1>
-	>
->;
+template <typename Choices>
+using assert_dependencies = fcppt::mpl::list::all_of<
+    Choices,
+    fcppt::mpl::bind<
+        fcppt::mpl::lambda<sge::systems::detail::assert_dependencies_one>,
+        fcppt::mpl::constant<Choices>,
+        fcppt::mpl::arg<1>>>;
 
 }
 

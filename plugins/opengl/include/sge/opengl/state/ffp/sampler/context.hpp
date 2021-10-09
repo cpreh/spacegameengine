@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_FFP_SAMPLER_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_SAMPLER_CONTEXT_HPP_INCLUDED
 
@@ -12,42 +11,28 @@
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::state::ffp::sampler
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	using
-	parameter
-	=
-	void;
+  using parameter = void;
 
-	context();
+  context();
 
-	~context()
-	override;
+  ~context() override;
 
-	[[nodiscard]]
-	sge::renderer::texture::stage
-	stages() const;
+  [[nodiscard]] sge::renderer::texture::stage stages() const;
 
-	void
-	stages(
-		sge::renderer::texture::stage
-	);
+  void stages(sge::renderer::texture::stage);
 
-	static
-	sge::opengl::context::id const
-	static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::renderer::texture::stage stages_;
+  sge::renderer::texture::stage stages_;
 };
 
 }

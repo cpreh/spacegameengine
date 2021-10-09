@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TIMER_CLOCKS_ADJUSTABLE_DECL_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_ADJUSTABLE_DECL_HPP_INCLUDED
 
 #include <sge/timer/clocks/adjustable_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 namespace sge
 {
@@ -17,55 +15,40 @@ namespace timer
 {
 namespace clocks
 {
-template<typename ClockImpl>
+template <typename ClockImpl>
 class adjustable
 {
-FCPPT_NONCOPYABLE(
-	adjustable);
+  FCPPT_NONCOPYABLE(adjustable);
+
 public:
-	typedef typename
-	ClockImpl::rep
-	rep;
+  typedef typename ClockImpl::rep rep;
 
-	typedef typename
-	ClockImpl::period
-	period;
+  typedef typename ClockImpl::period period;
 
-	typedef typename
-	ClockImpl::duration
-	duration;
+  typedef typename ClockImpl::duration duration;
 
-	typedef typename
-	ClockImpl::time_point
-	time_point;
+  typedef typename ClockImpl::time_point time_point;
 
-	typedef
-	float
-	float_type;
+  typedef float float_type;
 
-	static bool const is_steady =
-		true;
+  static bool const is_steady = true;
 
-	adjustable();
+  adjustable();
 
-	~adjustable();
+  ~adjustable();
 
-	void
-	update();
+  void update();
 
-	float_type
-	factor() const;
+  float_type factor() const;
 
-	void
-	factor(
-		float_type);
+  void factor(float_type);
 
-	time_point
-	now() const;
+  time_point now() const;
+
 private:
-	time_point current_time_;
-	time_point transformed_time_;
-	float_type factor_;
+  time_point current_time_;
+  time_point transformed_time_;
+  float_type factor_;
 };
 }
 }

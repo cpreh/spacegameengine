@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_HPP_INCLUDED
 
@@ -15,7 +14,6 @@
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/nonmovable.hpp>
-
 
 namespace sge::renderer::vertex
 {
@@ -31,43 +29,30 @@ namespace sge::renderer::vertex
 \see sge::renderer::device::deactivate_vertex_buffer
 \see sge::renderer::vf::part
 */
-class SGE_CORE_DETAIL_CLASS_SYMBOL buffer
-:
-	public
-		sge::renderer::vertex::buffer_base
+class SGE_CORE_DETAIL_CLASS_SYMBOL buffer : public sge::renderer::vertex::buffer_base
 {
-	FCPPT_NONMOVABLE(
-		buffer
-	);
+  FCPPT_NONMOVABLE(buffer);
+
 protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	buffer();
+  SGE_RENDERER_DETAIL_SYMBOL
+  buffer();
+
 public:
-	/**
+  /**
 	\brief Returns the resource flags the buffer has been created with
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::resource_flags_field
-	resource_flags() const = 0;
+  [[nodiscard]] virtual sge::renderer::resource_flags_field resource_flags() const = 0;
 
-	/**
+  /**
 	\brief Returns the index of the vertex format part the buffer
 	represents
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::vf::dynamic::part_index
-	format_part_index() const = 0;
+  [[nodiscard]] virtual sge::renderer::vf::dynamic::part_index format_part_index() const = 0;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::size_type
-	linear_size() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::size_type linear_size() const;
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	~buffer()
-	override;
+  SGE_RENDERER_DETAIL_SYMBOL
+  ~buffer() override;
 };
 
 }

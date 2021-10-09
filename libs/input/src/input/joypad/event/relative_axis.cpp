@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/joypad/axis_value.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
@@ -13,40 +12,22 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::input::joypad::event::relative_axis::relative_axis(
-	sge::input::joypad::shared_ptr _joypad,
-	sge::input::joypad::relative_axis const &_axis,
-	sge::input::joypad::axis_value const _axis_value
-)
-:
-	sge::input::joypad::event::base{
-		std::move(
-			_joypad
-		)
-	},
-	axis_{
-		_axis
-	},
-	axis_value_{
-		_axis_value
-	}
+    sge::input::joypad::shared_ptr _joypad,
+    sge::input::joypad::relative_axis const &_axis,
+    sge::input::joypad::axis_value const _axis_value)
+    : sge::input::joypad::event::base{std::move(_joypad)}, axis_{_axis}, axis_value_{_axis_value}
 {
 }
 
-sge::input::joypad::event::relative_axis::~relative_axis()
-= default;
+sge::input::joypad::event::relative_axis::~relative_axis() = default;
 
-sge::input::joypad::relative_axis const &
-sge::input::joypad::event::relative_axis::axis() const
+sge::input::joypad::relative_axis const &sge::input::joypad::event::relative_axis::axis() const
 {
-	return
-		axis_;
+  return axis_;
 }
 
-sge::input::joypad::axis_value
-sge::input::joypad::event::relative_axis::value() const
+sge::input::joypad::axis_value sge::input::joypad::event::relative_axis::value() const
 {
-	return
-		axis_value_;
+  return axis_value_;
 }

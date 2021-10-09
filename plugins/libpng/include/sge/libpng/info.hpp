@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LIBPNG_INFO_HPP_INCLUDED
 #define SGE_LIBPNG_INFO_HPP_INCLUDED
 
@@ -11,30 +10,24 @@
 #include <sge/libpng/png.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::libpng
 {
 
 class info
 {
-	FCPPT_NONMOVABLE(
-		info
-	);
+  FCPPT_NONMOVABLE(info);
+
 public:
-	explicit
-	info(
-		png_structp
-	);
+  explicit info(png_structp);
 
-	~info();
+  ~info();
 
-	[[nodiscard]]
-	png_infop
-	get() const;
+  [[nodiscard]] png_infop get() const;
+
 private:
-	png_structp const ptr_; // NOLINT(misc-misplaced-const)
+  png_structp const ptr_; // NOLINT(misc-misplaced-const)
 
-	png_infop info_;
+  png_infop info_;
 };
 
 }

@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WAVE_OPTIONAL_INFO_FWD_HPP_INCLUDED
 #define SGE_WAVE_OPTIONAL_INFO_FWD_HPP_INCLUDED
 
 #include <sge/wave/info_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::wave
 {
 
-using
-optional_info
-=
-fcppt::optional::object<
-	sge::wave::info
->;
+using optional_info = fcppt::optional::object<sge::wave::info>;
 
 }
 

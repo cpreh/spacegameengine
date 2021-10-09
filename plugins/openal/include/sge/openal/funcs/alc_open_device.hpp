@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_FUNCS_ALC_OPEN_DEVICE_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_ALC_OPEN_DEVICE_HPP_INCLUDED
 
 #include <sge/openal/alc.hpp>
 
-
 namespace sge::openal::funcs
 {
 
-ALCdevice *
-alc_open_device(
-	ALCchar const *
-);
+ALCdevice *alc_open_device(ALCchar const *);
 
 }
 

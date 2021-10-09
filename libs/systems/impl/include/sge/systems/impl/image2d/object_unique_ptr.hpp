@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_IMAGE2D_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_IMAGE2D_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/systems/impl/image2d/object_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 namespace sge::systems::impl::image2d
 {
 
-using
-object_unique_ptr
-=
-fcppt::unique_ptr<
-	sge::systems::impl::image2d::object
->;
+using object_unique_ptr = fcppt::unique_ptr<sge::systems::impl::image2d::object>;
 
 }
 

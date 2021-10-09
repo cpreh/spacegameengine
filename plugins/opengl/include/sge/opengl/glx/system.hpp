@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_GLX_SYSTEM_HPP_INCLUDED
 
@@ -19,47 +18,33 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
 
-
 namespace sge::opengl::glx
 {
 
-class system
-:
-	public sge::opengl::backend::system
+class system : public sge::opengl::backend::system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
+  FCPPT_NONMOVABLE(system);
+
 public:
-	system(
-		fcppt::log::object_reference,
-		awl::backends::x11::system::object_ref
-	);
+  system(fcppt::log::object_reference, awl::backends::x11::system::object_ref);
 
-	~system()
-	override;
+  ~system() override;
+
 private:
-	awl::visual::object_unique_ptr
-	create_visual(
-		sge::renderer::pixel_format::object const &
-	)
-	override;
+  awl::visual::object_unique_ptr
+  create_visual(sge::renderer::pixel_format::object const &) override;
 
-	sge::opengl::backend::context_unique_ptr
-	create_context(
-		sge::window::object_ref
-	)
-	override;
+  sge::opengl::backend::context_unique_ptr create_context(sge::window::object_ref) override;
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	awl::backends::x11::system::object_ref const awl_system_;
+  awl::backends::x11::system::object_ref const awl_system_;
 
-	sge::opengl::glx::optional_proc_address_function const get_proc_address_;
+  sge::opengl::glx::optional_proc_address_function const get_proc_address_;
 
-	sge::opengl::glx::extension_set const extensions_;
+  sge::opengl::glx::extension_set const extensions_;
 
-	sge::opengl::glx::visual::optional_srgb_flag const srgb_flag_;
+  sge::opengl::glx::visual::optional_srgb_flag const srgb_flag_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_LOADER_HPP_INCLUDED
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
@@ -17,7 +16,6 @@
 #include <sge/media/stream_unique_ptr_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::audio
 {
 
@@ -28,30 +26,22 @@ For a short introduction to loading an audio file, see \ref audio_example.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL loader
 {
-	FCPPT_NONMOVABLE(
-		loader
-	);
+  FCPPT_NONMOVABLE(loader);
+
 protected:
-	SGE_AUDIO_DETAIL_SYMBOL
-	loader();
+  SGE_AUDIO_DETAIL_SYMBOL
+  loader();
+
 public:
-	[[nodiscard]]
-	virtual
-	sge::audio::load_stream_result
-	load_stream(
-		sge::media::stream_unique_ptr &&,
-		sge::media::optional_extension const &,
-		sge::media::optional_name const &
-	) = 0;
+  [[nodiscard]] virtual sge::audio::load_stream_result load_stream(
+      sge::media::stream_unique_ptr &&,
+      sge::media::optional_extension const &,
+      sge::media::optional_name const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::media::extension_set
-	extensions() const = 0;
+  [[nodiscard]] virtual sge::media::extension_set extensions() const = 0;
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	virtual
-	~loader();
+  SGE_AUDIO_DETAIL_SYMBOL
+  virtual ~loader();
 };
 
 }

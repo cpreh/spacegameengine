@@ -3,23 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/resume.hpp>
 
-
-void
-sge::audio::sound::resume(
-	sge::audio::sound::base &_sound
-)
+void sge::audio::sound::resume(sge::audio::sound::base &_sound)
 {
-	if(
-		_sound.status()
-		==
-		sge::audio::sound::play_status::paused
-	)
-	{
-		_sound.toggle_pause();
-	}
+  if (_sound.status() == sge::audio::sound::play_status::paused)
+  {
+    _sound.toggle_pause();
+  }
 }

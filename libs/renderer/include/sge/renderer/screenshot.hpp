@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_SCREENSHOT_HPP_INCLUDED
 #define SGE_RENDERER_SCREENSHOT_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
-
 
 namespace sge::renderer
 {
@@ -36,12 +34,10 @@ path.
 \param path The path to save the screenshot to
 */
 SGE_RENDERER_DETAIL_SYMBOL
-void
-screenshot(
-	sge::renderer::device::core const &device,
-	sge::image2d::system &system, // NOLINT(google-runtime-references)
-	std::filesystem::path const &path
-);
+void screenshot(
+    sge::renderer::device::core const &device,
+    sge::image2d::system &system, // NOLINT(google-runtime-references)
+    std::filesystem::path const &path);
 
 }
 

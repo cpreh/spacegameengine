@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BUFFER_WRAPPER_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_WRAPPER_HPP_INCLUDED
 
@@ -13,37 +12,24 @@
 #include <sge/renderer/opengl/buffer/id.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::buffer
 {
 
-class wrapper
-:
-	public sge::renderer::opengl::buffer::base
+class wrapper : public sge::renderer::opengl::buffer::base
 {
-	FCPPT_NONMOVABLE(
-		wrapper
-	);
+  FCPPT_NONMOVABLE(wrapper);
+
 protected:
-	wrapper();
+  wrapper();
 
-	~wrapper()
-	override = 0;
+  ~wrapper() override = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::opengl::buffer::object const &
-	get() const = 0;
+  [[nodiscard]] virtual sge::opengl::buffer::object const &get() const = 0;
+
 private:
-	[[nodiscard]]
-	sge::renderer::opengl::buffer::id
-	id() const
-	override;
+  [[nodiscard]] sge::renderer::opengl::buffer::id id() const override;
 
-	[[nodiscard]]
-	bool
-	native() const
-	override;
+  [[nodiscard]] bool native() const override;
 };
 
 }

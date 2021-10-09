@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/device/conditional_event.hpp>
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/device/event_type.hpp>
@@ -36,121 +35,64 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::evdev::joypad::object::object(
-	sge::evdev::device::fd_unique_ptr &&_fd,
-	std::filesystem::path &&_path,
-	sge::window::object_ref const _window,
-	awl::backends::posix::processor_ref const _processor,
-	sge::evdev::joypad::info &&_info
-)
-:
-	sge::input::joypad::device{},
-	sge::evdev::device::object{
-		std::move(
-			_fd
-		),
-		_processor,
-		std::move(
-			_path
-		)
-	},
-	fcppt::enable_shared_from_this<
-		sge::evdev::joypad::object
-	>{},
-	window_{
-		_window
-	},
-	info_{
-		std::move(
-			_info
-		)
-	}
+    sge::evdev::device::fd_unique_ptr &&_fd,
+    std::filesystem::path &&_path,
+    sge::window::object_ref const _window,
+    awl::backends::posix::processor_ref const _processor,
+    sge::evdev::joypad::info &&_info)
+    : sge::input::joypad::device{},
+      sge::evdev::device::object{std::move(_fd), _processor, std::move(_path)},
+      fcppt::enable_shared_from_this<sge::evdev::joypad::object>{},
+      window_{_window},
+      info_{std::move(_info)}
 {
 }
 
-sge::evdev::joypad::object::~object()
-= default;
+sge::evdev::joypad::object::~object() = default;
 
-sge::window::object &
-sge::evdev::joypad::object::window() const
-{
-	return
-		window_.get();
-}
+sge::window::object &sge::evdev::joypad::object::window() const { return window_.get(); }
 
-sge::input::joypad::info const &
-sge::evdev::joypad::object::info() const
+sge::input::joypad::info const &sge::evdev::joypad::object::info() const
 {
-	return
-		info_.input_info();
+  return info_.input_info();
 }
 
 awl::event::optional_base_unique_ptr
-sge::evdev::joypad::object::process_event(
-	sge::evdev::device::event const &_event
-)
+sge::evdev::joypad::object::process_event(sge::evdev::device::event const &_event)
 {
-	switch(
-		_event.get().type
-	)
-	{
-	case EV_ABS:
-		return
-			sge::evdev::device::conditional_event(
-				sge::input::joypad::shared_ptr{
-					this->fcppt_shared_from_this()
-				},
-				_event,
-				info_.event_map().absolute_axis(),
-				info_.input_info().absolute_axes(),
-				&sge::evdev::joypad::absolute_axis::make_event
-			);
-	case EV_KEY:
-		return
-			sge::evdev::device::conditional_event(
-				sge::input::joypad::shared_ptr{
-					this->fcppt_shared_from_this()
-				},
-				_event,
-				info_.event_map().buttons(),
-				info_.input_info().buttons(),
-				&sge::evdev::joypad::button::make_event
-			);
-	case EV_REL:
-		return
-			sge::evdev::device::conditional_event(
-				sge::input::joypad::shared_ptr{
-					this->fcppt_shared_from_this()
-				},
-				_event,
-				info_.event_map().relative_axis(),
-				info_.input_info().relative_axes(),
-				&sge::evdev::joypad::relative_axis::make_event
-			);
-	}
+  switch (_event.get().type)
+  {
+  case EV_ABS:
+    return sge::evdev::device::conditional_event(
+        sge::input::joypad::shared_ptr{this->fcppt_shared_from_this()},
+        _event,
+        info_.event_map().absolute_axis(),
+        info_.input_info().absolute_axes(),
+        &sge::evdev::joypad::absolute_axis::make_event);
+  case EV_KEY:
+    return sge::evdev::device::conditional_event(
+        sge::input::joypad::shared_ptr{this->fcppt_shared_from_this()},
+        _event,
+        info_.event_map().buttons(),
+        info_.input_info().buttons(),
+        &sge::evdev::joypad::button::make_event);
+  case EV_REL:
+    return sge::evdev::device::conditional_event(
+        sge::input::joypad::shared_ptr{this->fcppt_shared_from_this()},
+        _event,
+        info_.event_map().relative_axis(),
+        info_.input_info().relative_axes(),
+        &sge::evdev::joypad::relative_axis::make_event);
+  }
 
-	return
-		awl::event::optional_base_unique_ptr{};
+  return awl::event::optional_base_unique_ptr{};
 }
 
 sge::input::joypad::ff::effect_unique_ptr
-sge::evdev::joypad::object::create_ff_effect(
-	sge::input::joypad::ff::parameters const &_parameters
-)
+sge::evdev::joypad::object::create_ff_effect(sge::input::joypad::ff::parameters const &_parameters)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::input::joypad::ff::effect
-		>(
-			fcppt::make_unique_ptr<
-				sge::evdev::joypad::ff::effect
-			>(
-				fcppt::make_ref(
-					this->fd()
-				),
-				info_.event_map().buttons(),
-				_parameters
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::input::joypad::ff::effect>(
+      fcppt::make_unique_ptr<sge::evdev::joypad::ff::effect>(
+          fcppt::make_ref(this->fd()), info_.event_map().buttons(), _parameters));
 }

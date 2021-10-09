@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_INVALID_GET_HPP_INCLUDED
 #define SGE_PARSE_JSON_INVALID_GET_HPP_INCLUDED
 
@@ -12,48 +11,29 @@
 #include <sge/parse/json/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge::parse::json
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL invalid_get
-:
-	public sge::parse::json::exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL invalid_get : public sge::parse::json::exception
 {
 public:
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	explicit
-	invalid_get(
-		fcppt::string &&
-	);
+  SGE_PARSE_JSON_DETAIL_SYMBOL
+  explicit invalid_get(fcppt::string &&);
 
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	invalid_get(
-		invalid_get &&
-	)
-	noexcept;
+  SGE_PARSE_JSON_DETAIL_SYMBOL
+  invalid_get(invalid_get &&) noexcept;
 
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	invalid_get(
-		invalid_get const &
-	);
+  SGE_PARSE_JSON_DETAIL_SYMBOL
+  invalid_get(invalid_get const &);
 
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	invalid_get &
-	operator=(
-		invalid_get &&
-	)
-	noexcept;
+  SGE_PARSE_JSON_DETAIL_SYMBOL
+  invalid_get &operator=(invalid_get &&) noexcept;
 
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	invalid_get &
-	operator=(
-		invalid_get const &
-	);
+  SGE_PARSE_JSON_DETAIL_SYMBOL
+  invalid_get &operator=(invalid_get const &);
 
-	SGE_PARSE_JSON_DETAIL_SYMBOL
-	~invalid_get() noexcept
-	override;
+  SGE_PARSE_JSON_DETAIL_SYMBOL
+  ~invalid_get() noexcept override;
 };
 
 }

@@ -3,17 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/is_down.hpp>
 
-
-bool
-sge::dinput::is_down(
-	DWORD const _key
-)
-{
-	return
-		(_key & 0x80)
-		!= 0;
-}
+bool sge::dinput::is_down(DWORD const _key) { return (_key & 0x80) != 0; }

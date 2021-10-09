@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_OPTIONAL_CACHE_REF_HPP_INCLUDED
 #define SGE_PLUGIN_OPTIONAL_CACHE_REF_HPP_INCLUDED
 
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
 #include <fcppt/optional/reference.hpp>
-
 
 #endif

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_JOYPAD_NUM_AXES_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_NUM_AXES_HPP_INCLUDED
 
@@ -12,13 +11,10 @@
 #include <SDL_joystick.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::joypad
 {
 
-sge::input::info::id
-num_axes(
-	SDL_Joystick & // NOLINT(google-runtime-references)
+sge::input::info::id num_axes(SDL_Joystick & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_MOUSE_AXIS_MAP_HPP_INCLUDED
 #define SGE_DINPUT_MOUSE_AXIS_MAP_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace dinput
@@ -21,10 +19,7 @@ namespace dinput
 namespace mouse
 {
 
-typedef std::map<
-	DWORD,
-	sge::input::mouse::axis_id
-> axis_map;
+typedef std::map<DWORD, sge::input::mouse::axis_id> axis_map;
 
 }
 }

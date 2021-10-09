@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_SHAPE_CIRCLE_HPP_INCLUDED
 #define SGE_PROJECTILE_SHAPE_CIRCLE_HPP_INCLUDED
 
@@ -14,41 +13,30 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 class btCollisionShape;
 
 namespace sge::projectile::shape
 {
-class SGE_CORE_DETAIL_CLASS_SYMBOL circle
-:
-	public sge::projectile::shape::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL circle : public sge::projectile::shape::base
 {
-	FCPPT_NONMOVABLE(
-		circle
-	);
+  FCPPT_NONMOVABLE(circle);
+
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	explicit
-	circle(
-		sge::projectile::scalar radius
-	);
+  SGE_PROJECTILE_DETAIL_SYMBOL
+  explicit circle(sge::projectile::scalar radius);
 
-	[[nodiscard]]
-	// No symbol needed here
-	btCollisionShape &
-	bullet_shape()
-	override;
+  [[nodiscard]]
+  // No symbol needed here
+  btCollisionShape &
+  bullet_shape() override;
 
-	[[nodiscard]]
-	btCollisionShape const &
-	bullet_shape() const
-	override;
+  [[nodiscard]] btCollisionShape const &bullet_shape() const override;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	~circle()
-	override;
+  SGE_PROJECTILE_DETAIL_SYMBOL
+  ~circle() override;
+
 private:
-	fcppt::unique_ptr<btCollisionShape> const bullet_shape_;
+  fcppt::unique_ptr<btCollisionShape> const bullet_shape_;
 };
 }
 

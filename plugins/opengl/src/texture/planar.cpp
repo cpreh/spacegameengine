@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
@@ -16,28 +15,17 @@
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <fcppt/make_ref.hpp>
 
-
 sge::opengl::texture::planar::planar(
-	sge::opengl::texture::basic_parameters const &_basic_parameters,
-	sge::renderer::texture::planar_parameters const &_parameters
-)
-:
-	sge::opengl::texture::planar_basic(
-		_basic_parameters,
-		sge::opengl::texture::convert::make_type(
-			GL_TEXTURE_2D
-		),
-		_parameters,
-		sge::opengl::context::use<
-			sge::opengl::texture::surface_context
-		>(
-			fcppt::make_ref(
-				_basic_parameters.context()
-			)
-		).config()
-	)
+    sge::opengl::texture::basic_parameters const &_basic_parameters,
+    sge::renderer::texture::planar_parameters const &_parameters)
+    : sge::opengl::texture::planar_basic(
+          _basic_parameters,
+          sge::opengl::texture::convert::make_type(GL_TEXTURE_2D),
+          _parameters,
+          sge::opengl::context::use<sge::opengl::texture::surface_context>(
+              fcppt::make_ref(_basic_parameters.context()))
+              .config())
 {
 }
 
-sge::opengl::texture::planar::~planar()
-= default;
+sge::opengl::texture::planar::~planar() = default;

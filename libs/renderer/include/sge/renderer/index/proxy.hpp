@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_PROXY_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_PROXY_HPP_INCLUDED
 
 #include <sge/renderer/index/proxy_decl.hpp>
 #include <sge/renderer/index/proxy_fwd.hpp>
 #include <sge/renderer/index/proxy_impl.hpp>
-
 
 #endif

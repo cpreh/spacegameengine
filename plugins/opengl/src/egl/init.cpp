@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/egl/init.hpp>
 #include <sge/opengl/egl/initialize.hpp>
 #include <sge/opengl/egl/version.hpp>
@@ -12,36 +11,12 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::opengl::egl::init::init(
-	EGLDisplay const _display // NOLINT(misc-misplaced-const)
-)
-:
-	display_(
-		_display
-	),
-	version_(
-		sge::opengl::egl::initialize(
-			_display
-		)
-	)
+sge::opengl::egl::init::init(EGLDisplay const _display // NOLINT(misc-misplaced-const)
+                             )
+    : display_(_display), version_(sge::opengl::egl::initialize(_display))
 {
 }
 
-sge::opengl::egl::init::~init()
-{
-	FCPPT_ASSERT_ERROR(
-		::eglTerminate(
-			display_
-		)
-		==
-		EGL_TRUE
-	);
-}
+sge::opengl::egl::init::~init() { FCPPT_ASSERT_ERROR(::eglTerminate(display_) == EGL_TRUE); }
 
-sge::opengl::egl::version
-sge::opengl::egl::init::version() const
-{
-	return
-		version_;
-}
+sge::opengl::egl::version sge::opengl::egl::init::version() const { return version_; }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_DEVICE_HPP_INCLUDED
 #define SGE_OPENAL_DEVICE_HPP_INCLUDED
 
@@ -11,28 +10,22 @@
 #include <sge/openal/device_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::openal
 {
 
 class device
 {
-	FCPPT_NONMOVABLE(
-		device
-	);
+  FCPPT_NONMOVABLE(device);
+
 public:
-	explicit
-	device(
-		ALCchar const *
-	);
+  explicit device(ALCchar const *);
 
-	[[nodiscard]]
-	ALCdevice &
-	aldevice();
+  [[nodiscard]] ALCdevice &aldevice();
 
-	~device();
+  ~device();
+
 private:
-	ALCdevice *const device_;
+  ALCdevice *const device_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_WGL_CONTEXT_HPP_INCLUDED
 
@@ -15,7 +14,6 @@
 #include <awl/backends/windows/window/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace opengl
@@ -23,35 +21,23 @@ namespace opengl
 namespace wgl
 {
 
-class context
-:
-	public sge::opengl::backend::context
+class context : public sge::opengl::backend::context
 {
-	FCPPT_NONCOPYABLE(
-		context
-	);
+  FCPPT_NONCOPYABLE(context);
+
 public:
-	explicit
-	context(
-		awl::backends::windows::window::object &
-	);
+  explicit context(awl::backends::windows::window::object &);
 
-	~context()
-	override;
+  ~context() override;
+
 private:
-	sge::opengl::backend::current_unique_ptr
-	activate()
-	override;
+  sge::opengl::backend::current_unique_ptr activate() override;
 
-	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
-	)
-	override;
+  void deactivate(sge::opengl::backend::current_unique_ptr &&) override;
 
-	sge::opengl::windows::gdi_device const gdi_device_;
+  sge::opengl::windows::gdi_device const gdi_device_;
 
-	sge::opengl::wgl::context_holder const context_;
+  sge::opengl::wgl::context_holder const context_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_JOYPAD_FIND_PATH_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_FIND_PATH_HPP_INCLUDED
 
@@ -13,15 +12,12 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::joypad
 {
 
-sge::evdev::joypad::optional_iterator
-find_path(
-	sge::evdev::joypad::map &, // NOLINT(google-runtime-references)
-	std::filesystem::path const &
-);
+sge::evdev::joypad::optional_iterator find_path(
+    sge::evdev::joypad::map &, // NOLINT(google-runtime-references)
+    std::filesystem::path const &);
 
 }
 

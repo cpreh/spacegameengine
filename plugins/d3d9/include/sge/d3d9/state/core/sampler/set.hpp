@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
 #define SGE_D3D9_STATE_CORE_SAMPLER_SET_HPP_INCLUDED
 
 #include <sge/d3d9/state/core/sampler/object_fwd.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
-
 
 namespace sge
 {
@@ -22,11 +20,9 @@ namespace core
 namespace sampler
 {
 
-void
-set(
-	sge::renderer::state::core::sampler::const_optional_object_ref_map const &,
-	sge::d3d9::state::core::sampler::object const &
-);
+void set(
+    sge::renderer::state::core::sampler::const_optional_object_ref_map const &,
+    sge::d3d9::state::core::sampler::object const &);
 
 }
 }

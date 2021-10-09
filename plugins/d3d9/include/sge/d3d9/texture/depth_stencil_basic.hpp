@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_TEXTURE_DEPTH_STENCIL_BASIC_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_DEPTH_STENCIL_BASIC_HPP_INCLUDED
 
@@ -17,9 +16,7 @@ namespace d3d9
 namespace texture
 {
 
-typedef texture::basic<
-	texture::depth_stencil_types
-> depth_stencil_basic;
+typedef texture::basic<texture::depth_stencil_types> depth_stencil_basic;
 
 }
 }

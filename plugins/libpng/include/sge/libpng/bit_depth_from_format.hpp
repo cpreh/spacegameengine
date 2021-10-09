@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LIBPNG_BIT_DEPTH_FROM_FORMAT_HPP_INCLUDED
 #define SGE_LIBPNG_BIT_DEPTH_FROM_FORMAT_HPP_INCLUDED
 
 #include <sge/libpng/format_fwd.hpp>
 
-
 namespace sge::libpng
 {
 
-int
-bit_depth_from_format(
-	sge::libpng::format
-);
+int bit_depth_from_format(sge::libpng::format);
 
 }
 

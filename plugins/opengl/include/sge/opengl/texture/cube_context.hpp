@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_CUBE_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CUBE_CONTEXT_HPP_INCLUDED
 
@@ -14,38 +13,26 @@
 #include <sge/opengl/texture/optional_cube_config.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::texture
 {
 
-class cube_context
-:
-	public sge::opengl::context::base
+class cube_context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		cube_context
-	);
+  FCPPT_NONMOVABLE(cube_context);
+
 public:
-	using
-	parameter
-	=
-	sge::opengl::info::context const &;
+  using parameter = sge::opengl::info::context const &;
 
-	explicit
-	cube_context(
-		sge::opengl::info::context const &
-	);
+  explicit cube_context(sge::opengl::info::context const &);
 
-	~cube_context()
-	override;
+  ~cube_context() override;
 
-	[[nodiscard]]
-	sge::opengl::texture::optional_cube_config const &
-	config() const;
+  [[nodiscard]] sge::opengl::texture::optional_cube_config const &config() const;
 
-	static sge::opengl::context::id const static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::opengl::texture::optional_cube_config const config_;
+  sge::opengl::texture::optional_cube_config const config_;
 };
 
 }

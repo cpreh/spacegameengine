@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_DEVICE_EVENT_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_EVENT_HPP_INCLUDED
 
@@ -12,23 +11,18 @@
 #include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::device
 {
 
 class event
 {
 public:
-	explicit
-	event(
-		input_event const &
-	);
+  explicit event(input_event const &);
 
-	[[nodiscard]]
-	input_event const &
-	get() const;
+  [[nodiscard]] input_event const &get() const;
+
 private:
-	input_event event_;
+  input_event event_;
 };
 
 }

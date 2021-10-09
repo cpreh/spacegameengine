@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_LOCK_MODE_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_MODE_HPP_INCLUDED
 
 #include <sge/renderer/lock_mode_fwd.hpp>
-
 
 namespace sge::renderer
 {
@@ -20,14 +18,14 @@ namespace sge::renderer
 */
 enum class lock_mode
 {
-	/**
+  /**
 	\brief Locks a resource for writing only
 
 	This is always safe to use and is the most efficient way to update a
 	resource.
 	*/
-	writeonly,
-	/**
+  writeonly,
+  /**
 	\brief Locks a resource for reading and writing
 
 	The contents of the resource can be read and written at the same time.
@@ -35,7 +33,7 @@ enum class lock_mode
 	sge::renderer::resource_flags::readable. Reading a resource can slow
 	locking and unlocking down a lot.
 	*/
-	readwrite
+  readwrite
 };
 
 }

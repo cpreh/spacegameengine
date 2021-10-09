@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_WLINPUT_PROCESSOR_HPP_INCLUDED
 
@@ -33,117 +32,68 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge::wlinput
 {
 
-class processor
-:
-	public sge::input::processor
+class processor : public sge::input::processor
 {
-	FCPPT_NONMOVABLE(
-		processor
-	);
+  FCPPT_NONMOVABLE(processor);
+
 public:
-	processor(
-		fcppt::log::object_reference,
-		sge::window::object_ref
-	);
+  processor(fcppt::log::object_reference, sge::window::object_ref);
 
-	~processor()
-	override;
+  ~processor() override;
+
 private:
-	[[nodiscard]]
-	sge::window::object &
-	window() const
-	override;
+  [[nodiscard]] sge::window::object &window() const override;
 
-	[[nodiscard]]
-	sge::input::cursor::container
-	cursors() const
-	override;
+  [[nodiscard]] sge::input::cursor::container cursors() const override;
 
-	[[nodiscard]]
-	sge::input::focus::container
-	foci() const
-	override;
+  [[nodiscard]] sge::input::focus::container foci() const override;
 
-	[[nodiscard]]
-	sge::input::joypad::container
-	joypads() const
-	override;
+  [[nodiscard]] sge::input::joypad::container joypads() const override;
 
-	[[nodiscard]]
-	sge::input::keyboard::container
-	keyboards() const
-	override;
+  [[nodiscard]] sge::input::keyboard::container keyboards() const override;
 
-	[[nodiscard]]
-	sge::input::mouse::container
-	mice() const
-	override;
+  [[nodiscard]] sge::input::mouse::container mice() const override;
 
-	[[nodiscard]]
-	awl::event::container
-	on_event(
-		awl::event::base const &
-	);
+  [[nodiscard]] awl::event::container on_event(awl::event::base const &);
 
-	[[nodiscard]]
-	awl::event::container
-	display_event();
+  [[nodiscard]] awl::event::container display_event();
 
-	[[nodiscard]]
-	awl::event::container
-	seat_caps(
-		awl::backends::wayland::system::event::seat_caps const &
-	);
+  [[nodiscard]] awl::event::container
+  seat_caps(awl::backends::wayland::system::event::seat_caps const &);
 
-	[[nodiscard]]
-	awl::event::container
-	remove_seat(
-		awl::backends::wayland::system::event::seat_removed const &
-	);
+  [[nodiscard]] awl::event::container
+  remove_seat(awl::backends::wayland::system::event::seat_removed const &);
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	fcppt::reference<
-		awl::backends::wayland::system::event::processor
-	> const system_processor_;
+  fcppt::reference<awl::backends::wayland::system::event::processor> const system_processor_;
 
-	sge::window::object_ref const sge_window_;
+  sge::window::object_ref const sge_window_;
 
-	awl::backends::wayland::window::object_ref const window_;
+  awl::backends::wayland::window::object_ref const window_;
 
-	awl::backends::wayland::display_ref const display_;
+  awl::backends::wayland::display_ref const display_;
 
-	awl::backends::posix::fd const fd_;
+  awl::backends::posix::fd const fd_;
 
-	sge::wlinput::xkb_context xkb_context_;
+  sge::wlinput::xkb_context xkb_context_;
 
-	awl::event::container last_events_;
+  awl::event::container last_events_;
 
-	using
-	cursor_map
-	=
-	sge::wlinput::map<
-		sge::wlinput::cursor::object
-	>;
+  using cursor_map = sge::wlinput::map<sge::wlinput::cursor::object>;
 
-	using
-	focus_map
-	=
-	sge::wlinput::map<
-		sge::wlinput::focus::object
-	>;
+  using focus_map = sge::wlinput::map<sge::wlinput::focus::object>;
 
-	cursor_map cursors_;
+  cursor_map cursors_;
 
-	focus_map foci_;
+  focus_map foci_;
 
-	awl::event::connection_unique_ptr const fd_connection_;
+  awl::event::connection_unique_ptr const fd_connection_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
 };
 
 }

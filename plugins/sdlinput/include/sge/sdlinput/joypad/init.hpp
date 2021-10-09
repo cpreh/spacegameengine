@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_JOYPAD_INIT_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_INIT_HPP_INCLUDED
 
@@ -14,16 +13,12 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::joypad
 {
 
-std::vector<
-	sge::sdlinput::joypad::shared_ptr
->
-init(
-	sge::window::object_ref,
-	fcppt::log::object & // NOLINT(google-runtime-references)
+std::vector<sge::sdlinput::joypad::shared_ptr> init(
+    sge::window::object_ref,
+    fcppt::log::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
 }

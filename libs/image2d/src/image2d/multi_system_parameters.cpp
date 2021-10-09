@@ -3,13 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image2d/multi_system_parameters.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/plugin/collection.hpp>
 #include <sge/media/impl/instantiate_muxer_parameters.hpp>
 
-
-SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS(
-	sge::image2d::system
-);
+SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS(sge::image2d::system);

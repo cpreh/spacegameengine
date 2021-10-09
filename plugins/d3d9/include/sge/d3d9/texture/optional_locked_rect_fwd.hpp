@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_TEXTURE_OPTIONAL_LOCKED_RECT_FWD_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_OPTIONAL_LOCKED_RECT_FWD_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <fcppt/optional/object_fwd.hpp>
-
 
 namespace sge
 {
@@ -18,9 +16,7 @@ namespace d3d9
 namespace texture
 {
 
-typedef fcppt::optional::object<
-	D3DLOCKED_RECT
-> optional_locked_rect;
+typedef fcppt::optional::object<D3DLOCKED_RECT> optional_locked_rect;
 
 }
 }

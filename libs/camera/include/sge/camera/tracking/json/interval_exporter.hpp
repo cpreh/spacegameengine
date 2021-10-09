@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_TRACKING_JSON_INTERVAL_EXPORTER_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_JSON_INTERVAL_EXPORTER_HPP_INCLUDED
 
@@ -19,46 +18,34 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::camera::tracking::json
 {
 
 class interval_exporter
 {
-	FCPPT_NONMOVABLE(
-		interval_exporter
-	);
+  FCPPT_NONMOVABLE(interval_exporter);
+
 public:
-	SGE_CAMERA_DETAIL_SYMBOL
-	interval_exporter(
-		fcppt::reference<
-			sge::camera::base const
-		>,
-		sge::camera::update_duration const &,
-		std::filesystem::path &&
-	);
+  SGE_CAMERA_DETAIL_SYMBOL
+  interval_exporter(
+      fcppt::reference<sge::camera::base const>,
+      sge::camera::update_duration const &,
+      std::filesystem::path &&);
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	void
-	update();
+  SGE_CAMERA_DETAIL_SYMBOL
+  void update();
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	~interval_exporter()
-	noexcept(
-		false
-	);
+  SGE_CAMERA_DETAIL_SYMBOL
+  ~interval_exporter() noexcept(false);
+
 private:
-	fcppt::reference<
-		sge::camera::base const
-	> const camera_;
+  fcppt::reference<sge::camera::base const> const camera_;
 
-	sge::timer::basic<
-		sge::timer::clocks::standard
-	> update_timer_;
+  sge::timer::basic<sge::timer::clocks::standard> update_timer_;
 
-	std::filesystem::path const export_file_path_;
+  std::filesystem::path const export_file_path_;
 
-	sge::camera::tracking::keyframe_sequence keyframes_;
+  sge::camera::tracking::keyframe_sequence keyframes_;
 };
 
 }

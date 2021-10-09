@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_SUB_FUNCTION_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_SUB_FUNCTION_HPP_INCLUDED
 
@@ -20,35 +19,21 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/math/size_type.hpp>
 
-
 namespace sge::opengl::texture
 {
 
-template<
-	fcppt::math::size_type Size
->
-using sub_function
-=
-fcppt::reference<
-	void (
-		sge::opengl::texture::binding const &,
-		sge::opengl::context::object &,
-		sge::opengl::texture::config<
-			Size
-		> const &,
-		sge::opengl::texture::buffer_type,
-		sge::opengl::color_order,
-		sge::opengl::color_base_type,
-		sge::renderer::texture::mipmap::level,
-		sge::renderer::basic_dim<
-			Size
-		> const &,
-		sge::renderer::basic_lock_box<
-			Size
-		> const &,
-		sge::renderer::const_raw_pointer
-	)
->;
+template <fcppt::math::size_type Size>
+using sub_function = fcppt::reference<void(
+    sge::opengl::texture::binding const &,
+    sge::opengl::context::object &,
+    sge::opengl::texture::config<Size> const &,
+    sge::opengl::texture::buffer_type,
+    sge::opengl::color_order,
+    sge::opengl::color_base_type,
+    sge::renderer::texture::mipmap::level,
+    sge::renderer::basic_dim<Size> const &,
+    sge::renderer::basic_lock_box<Size> const &,
+    sge::renderer::const_raw_pointer)>;
 
 }
 

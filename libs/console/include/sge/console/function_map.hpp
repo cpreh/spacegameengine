@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
 #define SGE_CONSOLE_FUNCTION_MAP_HPP_INCLUDED
 
@@ -13,17 +12,10 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::console
 {
 
-using
-function_map
-=
-std::map<
-	sge::font::string,
-	sge::console::function
->;
+using function_map = std::map<sge::font::string, sge::console::function>;
 
 }
 

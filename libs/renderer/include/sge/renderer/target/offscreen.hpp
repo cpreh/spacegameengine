@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TARGET_OFFSCREEN_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_OFFSCREEN_HPP_INCLUDED
 
@@ -15,7 +14,6 @@
 #include <sge/renderer/target/offscreen_fwd.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/nonmovable.hpp>
-
 
 namespace sge::renderer::target
 {
@@ -41,18 +39,16 @@ depth stencil surface.
 \see sge::renderer::device::create_depth_stencil_texture
 \see sge::renderer::texture::planar::level
 */
-class SGE_CORE_DETAIL_CLASS_SYMBOL offscreen
-:
-	public sge::renderer::target::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL offscreen : public sge::renderer::target::base
 {
-	FCPPT_NONMOVABLE(
-		offscreen
-	);
+  FCPPT_NONMOVABLE(offscreen);
+
 protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	offscreen();
+  SGE_RENDERER_DETAIL_SYMBOL
+  offscreen();
+
 public:
-	/**
+  /**
 	\brief Sets or unsets a color surface for a surface level
 
 	Sets \a surface to \a level or unsets the surface for \a level if \a
@@ -64,14 +60,11 @@ public:
 	\param level The level to set the surface for. Level 0 is the one that
 	will be used by the fixed function pipeline.
 	*/
-	virtual
-	void
-	color_surface(
-		sge::renderer::color_buffer::optional_surface_ref const &surface,
-		sge::renderer::target::surface_index level
-	) = 0;
+  virtual void color_surface(
+      sge::renderer::color_buffer::optional_surface_ref const &surface,
+      sge::renderer::target::surface_index level) = 0;
 
-	/**
+  /**
 	\brief Sets or unsets the depth stencil surface
 
 	Sets \a surface to be used as the depth stencil surface or unsets the
@@ -81,15 +74,11 @@ public:
 	\param surface The depth stencil surface to set or an empty optional to
 	unset the surface
 	*/
-	virtual
-	void
-	depth_stencil_surface(
-		sge::renderer::depth_stencil_buffer::optional_surface_ref const &surface
-	) = 0;
+  virtual void depth_stencil_surface(
+      sge::renderer::depth_stencil_buffer::optional_surface_ref const &surface) = 0;
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	~offscreen()
-	override;
+  SGE_RENDERER_DETAIL_SYMBOL
+  ~offscreen() override;
 };
 
 }

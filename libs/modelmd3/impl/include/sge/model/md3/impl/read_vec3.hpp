@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_MD3_IMPL_READ_VEC3_HPP_INCLUDED
 #define SGE_MODEL_MD3_IMPL_READ_VEC3_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::model::md3::impl
 {
 
-sge::model::md3::impl::vec3
-read_vec3(
-	std::istream &
-);
+sge::model::md3::impl::vec3 read_vec3(std::istream &);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/impl/traits/format_map.hpp>
 #include <sge/image/color/traits/format_fwd.hpp>
@@ -14,33 +13,14 @@
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/object.hpp>
 
-
-sge::image::color::format
-sge::image2d::view::format(
-	sge::image2d::view::object const &_view
-)
+sge::image::color::format sge::image2d::view::format(sge::image2d::view::object const &_view)
 {
-	return
-		sge::image::view::format<
-			sge::image2d::tag
-		>(
-			_view
-		);
+  return sge::image::view::format<sge::image2d::tag>(_view);
 }
 
-sge::image::color::format
-sge::image2d::view::format(
-	sge::image2d::view::const_object const &_view
-)
+sge::image::color::format sge::image2d::view::format(sge::image2d::view::const_object const &_view)
 {
-	return
-		sge::image::view::format<
-			sge::image2d::tag
-		>(
-			_view
-		);
+  return sge::image::view::format<sge::image2d::tag>(_view);
 }
 
-SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FORMAT(
-	sge::image2d::tag
-);
+SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FORMAT(sge::image2d::tag);

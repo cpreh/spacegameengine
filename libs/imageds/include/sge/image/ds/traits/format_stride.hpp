@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_DS_TRAITS_FORMAT_STRIDE_HPP_INCLUDED
 #define SGE_IMAGE_DS_TRAITS_FORMAT_STRIDE_HPP_INCLUDED
 
@@ -13,21 +12,14 @@
 #include <sge/image/ds/detail/symbol.hpp>
 #include <sge/image/traits/pixel/format_stride_tpl_fwd.hpp>
 
-
 namespace sge::image::traits::pixel
 {
 
-template<>
-struct format_stride_tpl<
-	sge::image::ds::tag
->
+template <>
+struct format_stride_tpl<sge::image::ds::tag>
 {
-	SGE_IMAGE_DS_DETAIL_SYMBOL
-	static
-	sge::image::size_type
-	execute(
-		sge::image::ds::format
-	);
+  SGE_IMAGE_DS_DETAIL_SYMBOL
+  static sge::image::size_type execute(sge::image::ds::format);
 };
 
 }

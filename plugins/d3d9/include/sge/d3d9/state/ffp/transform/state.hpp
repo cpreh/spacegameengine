@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_FFP_TRANSFORM_STATE_HPP_INCLUDED
 #define SGE_D3D9_STATE_FFP_TRANSFORM_STATE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/ffp/transform/state_fwd.hpp>
-
 
 namespace sge
 {
@@ -25,15 +23,12 @@ namespace transform
 class state
 {
 public:
-	explicit
-	state(
-		D3DMATRIX const &
-	);
+  explicit state(D3DMATRIX const &);
 
-	D3DMATRIX const &
-	matrix() const;
+  D3DMATRIX const &matrix() const;
+
 private:
-	D3DMATRIX matrix_;
+  D3DMATRIX matrix_;
 };
 
 }

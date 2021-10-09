@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_FROM_MIZUIRO_DIM_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_FROM_MIZUIRO_DIM_HPP_INCLUDED
 
@@ -14,52 +13,16 @@
 #include <fcppt/math/dim/init.hpp>
 #include <fcppt/math/dim/static.hpp>
 
-
 namespace sge::image::impl
 {
 
-template<
-	typename T,
-	mizuiro::size_type N
->
-fcppt::math::dim::static_<
-	T,
-	fcppt::cast::size<
-		fcppt::math::size_type
-	>(
-		N
-	)
->
-from_mizuiro_dim(
-	mizuiro::image::dimension<
-		N,
-		T
-	> const &_src
-)
+template <typename T, mizuiro::size_type N>
+fcppt::math::dim::static_<T, fcppt::cast::size<fcppt::math::size_type>(N)>
+from_mizuiro_dim(mizuiro::image::dimension<N, T> const &_src)
 {
-	return
-		fcppt::math::dim::init<
-			fcppt::math::dim::static_<
-				T,
-				fcppt::cast::size<
-					fcppt::math::size_type
-				>(
-					N
-				)
-			>
-		>(
-			[
-				&_src
-			](
-				fcppt::math::size_type const _index
-			)
-			{
-				return
-					_src[
-						_index
-					];
-			}
-		);
+  return fcppt::math::dim::init<
+      fcppt::math::dim::static_<T, fcppt::cast::size<fcppt::math::size_type>(N)>>(
+      [&_src](fcppt::math::size_type const _index) { return _src[_index]; });
 }
 
 }

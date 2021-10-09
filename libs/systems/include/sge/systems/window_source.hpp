@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_WINDOW_SOURCE_HPP_INCLUDED
 #define SGE_SYSTEMS_WINDOW_SOURCE_HPP_INCLUDED
 
@@ -11,6 +10,5 @@
 #include <sge/systems/window_source_fwd.hpp>
 #include <sge/systems/wrapped_window.hpp>
 #include <fcppt/variant/object_impl.hpp>
-
 
 #endif

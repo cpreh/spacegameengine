@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_FOCUS_MMAP_HPP_INCLUDED
 #define SGE_WLINPUT_FOCUS_MMAP_HPP_INCLUDED
 
@@ -14,30 +13,24 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::wlinput::focus
 {
 
 class mmap
 {
-	FCPPT_NONMOVABLE(
-		mmap
-	);
+  FCPPT_NONMOVABLE(mmap);
+
 public:
-	mmap(
-		awl::backends::posix::fd,
-		std::uint32_t
-	);
+  mmap(awl::backends::posix::fd, std::uint32_t);
 
-	~mmap();
+  ~mmap();
 
-	[[nodiscard]]
-	char const *
-	string() const;
+  [[nodiscard]] char const *string() const;
+
 private:
-	std::size_t const size_;
+  std::size_t const size_;
 
-	char *const string_;
+  char *const string_;
 };
 
 }

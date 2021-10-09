@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_CURSOR_GET_FOCUS_HPP_INCLUDED
 #define SGE_SDLINPUT_CURSOR_GET_FOCUS_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <SDL_video.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::cursor
 {
 
-fcppt::optional::reference<
-	SDL_Window
->
-get_focus();
+fcppt::optional::reference<SDL_Window> get_focus();
 
 }
 

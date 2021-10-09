@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_CORE_DEPTH_STENCIL_DEPTH_VISITOR_HPP_INCLUDED
 #define SGE_D3D9_STATE_CORE_DEPTH_STENCIL_DEPTH_VISITOR_HPP_INCLUDED
 
 #include <sge/d3d9/state/render_vector.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>
-
 
 namespace sge
 {
@@ -28,17 +26,11 @@ namespace depth
 class visitor
 {
 public:
-	typedef sge::d3d9::state::render_vector result_type;
+  typedef sge::d3d9::state::render_vector result_type;
 
-	result_type
-	operator()(
-		sge::renderer::state::core::depth_stencil::depth::off const &
-	) const;
+  result_type operator()(sge::renderer::state::core::depth_stencil::depth::off const &) const;
 
-	result_type
-	operator()(
-		sge::renderer::state::core::depth_stencil::depth::enabled const &
-	) const;
+  result_type operator()(sge::renderer::state::core::depth_stencil::depth::enabled const &) const;
 };
 
 }

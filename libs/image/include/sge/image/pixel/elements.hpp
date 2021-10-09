@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_PIXEL_ELEMENTS_HPP_INCLUDED
 #define SGE_IMAGE_PIXEL_ELEMENTS_HPP_INCLUDED
 
@@ -12,24 +11,13 @@
 #include <fcppt/mpl/lambda.hpp>
 #include <fcppt/mpl/list/map.hpp>
 
-
 namespace sge::image::pixel
 {
 
-template<
-	typename Tag
->
-using
-elements
-=
-fcppt::mpl::list::map<
-	sge::image::traits::pixel::static_formats<
-		Tag
-	>,
-	fcppt::mpl::lambda<
-		sge::image::pixel::mizuiro_type
-	>
->;
+template <typename Tag>
+using elements = fcppt::mpl::list::map<
+    sge::image::traits::pixel::static_formats<Tag>,
+    fcppt::mpl::lambda<sge::image::pixel::mizuiro_type>>;
 
 }
 

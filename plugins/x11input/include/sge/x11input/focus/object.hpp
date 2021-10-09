@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_FOCUS_OBJECT_HPP_INCLUDED
 #define SGE_X11INPUT_FOCUS_OBJECT_HPP_INCLUDED
 
@@ -32,105 +31,59 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::focus
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
-:
-	public
-		sge::input::focus::object,
-	public
-		fcppt::enable_shared_from_this<
-			sge::x11input::focus::object
-		 >
+    : public sge::input::focus::object,
+      public fcppt::enable_shared_from_this<sge::x11input::focus::object>
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	object(
-		sge::window::object_ref,
-		fcppt::log::object_reference,
-		awl::backends::x11::window::object_ref,
-		sge::x11input::device::id,
-		sge::x11input::event::window_demuxer_ref,
-		sge::x11input::xim::const_optional_method_ref const &
-	);
+  object(
+      sge::window::object_ref,
+      fcppt::log::object_reference,
+      awl::backends::x11::window::object_ref,
+      sge::x11input::device::id,
+      sge::x11input::event::window_demuxer_ref,
+      sge::x11input::xim::const_optional_method_ref const &);
 
-	~object()
-	override;
+  ~object() override;
+
 private:
-	[[nodiscard]]
-	sge::window::object &
-	window() const
-	override;
+  [[nodiscard]] sge::window::object &window() const override;
 
-	[[nodiscard]]
-	awl::event::container
-	on_event(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::container on_event(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::container
-	on_key_press(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::container on_key_press(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::base_unique_ptr
-	on_key_release(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::base_unique_ptr on_key_release(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::base_unique_ptr
-	on_focus_in();
+  [[nodiscard]] awl::event::base_unique_ptr on_focus_in();
 
-	[[nodiscard]]
-	awl::event::base_unique_ptr
-	on_focus_out();
+  [[nodiscard]] awl::event::base_unique_ptr on_focus_out();
 
-	[[nodiscard]]
-	awl::event::base_unique_ptr
-	process_key_down(
-		sge::x11input::key::repeated,
-		sge::input::key::code
-	);
+  [[nodiscard]] awl::event::base_unique_ptr
+      process_key_down(sge::x11input::key::repeated, sge::input::key::code);
 
-	sge::window::object_ref const sge_window_;
+  sge::window::object_ref const sge_window_;
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	awl::backends::x11::window::const_base_ref const window_;
+  awl::backends::x11::window::const_base_ref const window_;
 
-	using
-	xim_context_unique_ptr
-	=
-	fcppt::unique_ptr<
-		sge::x11input::xim::context
-	>;
+  using xim_context_unique_ptr = fcppt::unique_ptr<sge::x11input::xim::context>;
 
-	using
-	optional_xim_context_unique_ptr
-	=
-	fcppt::optional::object<
-		xim_context_unique_ptr
-	>;
+  using optional_xim_context_unique_ptr = fcppt::optional::object<xim_context_unique_ptr>;
 
-	optional_xim_context_unique_ptr const xim_context_;
+  optional_xim_context_unique_ptr const xim_context_;
 
-	using
-	optional_connection_unique_ptr
-	=
-	fcppt::optional::object<
-		awl::event::connection_unique_ptr
-	>;
+  using optional_connection_unique_ptr = fcppt::optional::object<awl::event::connection_unique_ptr>;
 
-	optional_connection_unique_ptr const mask_connection_;
+  optional_connection_unique_ptr const mask_connection_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
 };
 
 }

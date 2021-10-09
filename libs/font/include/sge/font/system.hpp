@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_SYSTEM_HPP_INCLUDED
 #define SGE_FONT_SYSTEM_HPP_INCLUDED
 
@@ -18,38 +17,24 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::font
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
+  FCPPT_NONMOVABLE(system);
+
 protected:
-	SGE_FONT_DETAIL_SYMBOL
-	system();
+  SGE_FONT_DETAIL_SYMBOL
+  system();
+
 public:
-	SGE_FONT_DETAIL_SYMBOL
-	virtual
-	~system();
+  SGE_FONT_DETAIL_SYMBOL
+  virtual ~system();
 
-	[[nodiscard]]
-	virtual
-	sge::font::object_unique_ptr
-	create_font(
-		sge::font::parameters const &
-	)
-	= 0;
+  [[nodiscard]] virtual sge::font::object_unique_ptr create_font(sge::font::parameters const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::font::added_unique_ptr
-	add_font(
-		std::filesystem::path const &
-	)
-	= 0;
+  [[nodiscard]] virtual sge::font::added_unique_ptr add_font(std::filesystem::path const &) = 0;
 };
 
 }

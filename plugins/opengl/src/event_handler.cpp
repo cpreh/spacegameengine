@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/event_handler.hpp>
 #include <sge/renderer/event/render.hpp>
 #include <sge/window/system_event_function.hpp>
@@ -17,48 +16,19 @@
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/to_container.hpp>
 
-
-sge::window::system_event_function
-sge::opengl::event_handler(
-	awl::window::object_ref const _window,
-	awl::timer::const_reference const _timer
-)
+sge::window::system_event_function sge::opengl::event_handler(
+    awl::window::object_ref const _window, awl::timer::const_reference const _timer)
 {
-	// TODO(philipp): Check for changed refresh rate
-	return
-		sge::window::system_event_function{
-			[
-				_window,
-				_timer
-			](
-				awl::event::base const &_event
-			)
-			{
-				return
-					fcppt::optional::to_container<
-						awl::event::container
-					>(
-						fcppt::optional::make_if(
-							awl::timer::match(
-								_event,
-								_timer.get()
-							),
-							[
-								&_window
-							]{
-								return
-									fcppt::unique_ptr_to_base<
-										awl::event::base
-									>(
-										fcppt::make_unique_ptr<
-											sge::renderer::event::render
-										>(
-											_window
-										)
-									);
-							}
-						)
-					);
-			}
-		};
+  // TODO(philipp): Check for changed refresh rate
+  return sge::window::system_event_function{
+      [_window, _timer](awl::event::base const &_event)
+      {
+        return fcppt::optional::to_container<awl::event::container>(fcppt::optional::make_if(
+            awl::timer::match(_event, _timer.get()),
+            [&_window]
+            {
+              return fcppt::unique_ptr_to_base<awl::event::base>(
+                  fcppt::make_unique_ptr<sge::renderer::event::render>(_window));
+            }));
+      }};
 }

@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_OPTIONAL_OPCODE_FWD_HPP_INCLUDED
 #define SGE_X11INPUT_OPTIONAL_OPCODE_FWD_HPP_INCLUDED
 
 #include <sge/x11input/opcode.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::x11input
 {
 
-using
-optional_opcode
-=
-fcppt::optional::object<
-	sge::x11input::opcode
->;
+using optional_opcode = fcppt::optional::object<sge::x11input::opcode>;
 
 }
 

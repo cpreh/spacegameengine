@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_TO_FCPPT_STRING_HPP_INCLUDED
 #define SGE_FONT_TO_FCPPT_STRING_HPP_INCLUDED
 
@@ -11,15 +10,11 @@
 #include <sge/font/detail/symbol.hpp>
 #include <fcppt/optional_string.hpp>
 
-
 namespace sge::font
 {
 
 SGE_FONT_DETAIL_SYMBOL
-fcppt::optional_string
-to_fcppt_string(
-	sge::font::string const &
-);
+fcppt::optional_string to_fcppt_string(sge::font::string const &);
 
 }
 

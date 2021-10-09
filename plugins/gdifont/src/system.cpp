@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/added.hpp>
 #include <sge/font/added_unique_ptr.hpp>
 #include <sge/font/object.hpp>
@@ -19,49 +18,19 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
+sge::gdifont::system::system() : sge::font::system(), device_context_() {}
 
-sge::gdifont::system::system()
-:
-	sge::font::system(),
-	device_context_()
-{
-}
-
-sge::gdifont::system::~system()
-{
-}
+sge::gdifont::system::~system() {}
 
 sge::font::object_unique_ptr
-sge::gdifont::system::create_font(
-	sge::font::parameters const &_parameters
-)
+sge::gdifont::system::create_font(sge::font::parameters const &_parameters)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::font::object
-		>(
-			fcppt::make_unique_ptr<
-				sge::gdifont::object
-			>(
-				device_context_,
-				_parameters
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::font::object>(
+      fcppt::make_unique_ptr<sge::gdifont::object>(device_context_, _parameters));
 }
 
-sge::font::added_unique_ptr
-sge::gdifont::system::add_font(
-	std::filesystem::path const &_path
-)
+sge::font::added_unique_ptr sge::gdifont::system::add_font(std::filesystem::path const &_path)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::font::added
-		>(
-			fcppt::make_unique_ptr<
-				sge::gdifont::added
-			>(
-				_path
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::font::added>(
+      fcppt::make_unique_ptr<sge::gdifont::added>(_path));
 }

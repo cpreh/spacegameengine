@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_EVENT_SELECT_HPP_INCLUDED
 #define SGE_X11INPUT_EVENT_SELECT_HPP_INCLUDED
 
@@ -24,66 +23,33 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::event
 {
 
-template<
-	typename Events,
-	typename EventType
->
-void
-select(
-	sge::x11input::event::demuxer<
-		EventType
-	> const &_demuxer,
-	sge::x11input::device::id const _id
-)
+template <typename Events, typename EventType>
+void select(
+    sge::x11input::event::demuxer<EventType> const &_demuxer, sge::x11input::device::id const _id)
 {
-	static_assert(
-		fcppt::mpl::list::all_of<
-			Events,
-			fcppt::mpl::bind<
-				fcppt::mpl::lambda<
-					std::is_same
-				>,
-				fcppt::mpl::lambda<
-					sge::x11input::event::static_type
-				>,
-				fcppt::mpl::constant<
-					EventType
-				>
-			>
-		>::value,
-		"Invalid device event"
-	);
+  static_assert(
+      fcppt::mpl::list::all_of<
+          Events,
+          fcppt::mpl::bind<
+              fcppt::mpl::lambda<std::is_same>,
+              fcppt::mpl::lambda<sge::x11input::event::static_type>,
+              fcppt::mpl::constant<EventType>>>::value,
+      "Invalid device event");
 
-	sge::x11input::event::select_unsafe(
-		_demuxer.window(),
-		_id,
-		fcppt::algorithm::map<
-			sge::x11input::event::type_container
-		>(
-			Events{},
-			[](
-				auto const _tag
-			)
-			{
-				FCPPT_USE(
-					_tag
-				);
+  sge::x11input::event::select_unsafe(
+      _demuxer.window(),
+      _id,
+      fcppt::algorithm::map<sge::x11input::event::type_container>(
+          Events{},
+          [](auto const _tag)
+          {
+            FCPPT_USE(_tag);
 
-				return
-					sge::x11input::event::type{
-						fcppt::tag_type<
-							decltype(
-								_tag
-							)
-						>::value
-					};
-			}
-		)
-	);
+            return sge::x11input::event::type{fcppt::tag_type<decltype(_tag)>::value};
+          }));
 }
 
 }

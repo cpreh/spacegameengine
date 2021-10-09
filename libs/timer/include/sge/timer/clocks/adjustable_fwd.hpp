@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TIMER_CLOCKS_ADJUSTABLE_FWD_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_ADJUSTABLE_FWD_HPP_INCLUDED
 
@@ -13,7 +12,7 @@ namespace timer
 {
 namespace clocks
 {
-template<typename ClockImpl>
+template <typename ClockImpl>
 class adjustable;
 }
 }

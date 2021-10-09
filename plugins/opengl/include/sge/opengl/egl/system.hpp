@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_EGL_SYSTEM_HPP_INCLUDED
 
@@ -21,45 +20,31 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::egl
 {
 
-class system
-:
-	public sge::opengl::backend::system
+class system : public sge::opengl::backend::system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
+  FCPPT_NONMOVABLE(system);
+
 public:
-	system(
-		fcppt::log::object_reference,
-		awl::system::object_ref
-	);
+  system(fcppt::log::object_reference, awl::system::object_ref);
 
-	~system()
-	override;
+  ~system() override;
+
 private:
-	awl::visual::object_unique_ptr
-	create_visual(
-		sge::renderer::pixel_format::object const &
-	)
-	override;
+  awl::visual::object_unique_ptr
+  create_visual(sge::renderer::pixel_format::object const &) override;
 
-	sge::opengl::backend::context_unique_ptr
-	create_context(
-		sge::window::object_ref
-	)
-	override;
+  sge::opengl::backend::context_unique_ptr create_context(sge::window::object_ref) override;
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	awl::system::object_ref const awl_system_;
+  awl::system::object_ref const awl_system_;
 
-	sge::opengl::egl::display_unique_ptr const egl_display_;
+  sge::opengl::egl::display_unique_ptr const egl_display_;
 
-	sge::opengl::egl::init const init_;
+  sge::opengl::egl::init const init_;
 };
 
 }

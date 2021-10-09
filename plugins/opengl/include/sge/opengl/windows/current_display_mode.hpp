@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_WINDOWS_CURRENT_DISPLAY_MODE_HPP_INCLUDED
 #define SGE_OPENGL_WINDOWS_CURRENT_DISPLAY_MODE_HPP_INCLUDED
 
 #include <sge/renderer/display_mode/object_fwd.hpp>
-
 
 namespace sge
 {
@@ -17,8 +15,7 @@ namespace opengl
 namespace windows
 {
 
-sge::renderer::display_mode::object const
-current_display_mode();
+sge::renderer::display_mode::object const current_display_mode();
 
 }
 }

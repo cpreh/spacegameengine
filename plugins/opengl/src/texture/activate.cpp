@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/activate.hpp>
@@ -26,120 +25,50 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
-
-void
-sge::opengl::texture::activate(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context,
-	sge::renderer::texture::const_optional_base_ref const &_opt_texture,
-	sge::renderer::texture::stage const _stage
-)
+void sge::opengl::texture::activate(
+    fcppt::log::object &_log,
+    sge::opengl::context::object &_context,
+    sge::renderer::texture::const_optional_base_ref const &_opt_texture,
+    sge::renderer::texture::stage const _stage)
 {
-	sge::opengl::texture::active_level const active_level(
-		_log,
-		_context,
-		_stage
-	);
+  sge::opengl::texture::active_level const active_level(_log, _context, _stage);
 
-	sge::opengl::texture::bind_context &bind_context(
-		sge::opengl::context::use<
-			sge::opengl::texture::bind_context
-		>(
-			fcppt::make_ref(
-				_context
-			)
-		)
-	);
+  sge::opengl::texture::bind_context &bind_context(
+      sge::opengl::context::use<sge::opengl::texture::bind_context>(fcppt::make_ref(_context)));
 
-	fcppt::optional::maybe_void(
-		sge::opengl::texture::get_stage_type(
-			_context,
-			_stage
-		),
-		[
-			&active_level,
-			&bind_context,
-			_stage,
-			&_opt_texture
-		](
-			sge::opengl::texture::type const _old_type
-		)
-		{
-			sge::opengl::texture::disable(
-				active_level,
-				_old_type
-			);
+  fcppt::optional::maybe_void(
+      sge::opengl::texture::get_stage_type(_context, _stage),
+      [&active_level, &bind_context, _stage, &_opt_texture](
+          sge::opengl::texture::type const _old_type)
+      {
+        sge::opengl::texture::disable(active_level, _old_type);
 
-			if(
-				!_opt_texture.has_value()
-			)
-			{
-				sge::opengl::texture::bind_level(
-					active_level,
-					_old_type,
-					sge::opengl::texture::optional_id()
-				);
+        if (!_opt_texture.has_value())
+        {
+          sge::opengl::texture::bind_level(
+              active_level, _old_type, sge::opengl::texture::optional_id());
 
-				bind_context.stage(
-					_stage,
-					sge::opengl::texture::const_optional_base_ref()
-				);
-			}
-		}
-	);
+          bind_context.stage(_stage, sge::opengl::texture::const_optional_base_ref());
+        }
+      });
 
-	fcppt::optional::maybe_void(
-		_opt_texture,
-		[
-			&active_level,
-			&bind_context,
-			&_context,
-			&_stage
-		](
-			fcppt::reference<
-				sge::renderer::texture::base const
-			> const _texture
-		)
-		{
-			auto const &base(
-				dynamic_cast<
-					sge::opengl::texture::base const &
-				>(
-					_texture.get()
-				)
-			);
+  fcppt::optional::maybe_void(
+      _opt_texture,
+      [&active_level, &bind_context, &_context, &_stage](
+          fcppt::reference<sge::renderer::texture::base const> const _texture)
+      {
+        auto const &base(dynamic_cast<sge::opengl::texture::base const &>(_texture.get()));
 
-			sge::opengl::texture::enable(
-				active_level,
-				base.type()
-			);
+        sge::opengl::texture::enable(active_level, base.type());
 
-			bind_context.stage(
-				_stage,
-				sge::opengl::texture::const_optional_base_ref(
-					fcppt::make_cref(
-						base
-					)
-				)
-			);
+        bind_context.stage(
+            _stage, sge::opengl::texture::const_optional_base_ref(fcppt::make_cref(base)));
 
-			sge::opengl::texture::bind_level(
-				active_level,
-				base.type(),
-				sge::opengl::texture::optional_id(
-					base.id()
-				)
-			);
+        sge::opengl::texture::bind_level(
+            active_level, base.type(), sge::opengl::texture::optional_id(base.id()));
 
-			sge::opengl::texture::render_binding const binding(
-				active_level,
-				base.type()
-			);
+        sge::opengl::texture::render_binding const binding(active_level, base.type());
 
-			sge::opengl::texture::set_samplers(
-				binding,
-				_context
-			);
-		}
-	);
+        sge::opengl::texture::set_samplers(binding, _context);
+      });
 }

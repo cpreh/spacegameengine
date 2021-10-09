@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_IMPL_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_VF_DYNAMIC_DETAIL_CONVERTER_IMPL_HPP_INCLUDED
 
@@ -21,54 +20,41 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vf::dynamic::detail
 {
 
 class converter_impl
 {
-	FCPPT_NONMOVABLE(
-		converter_impl
-	);
+  FCPPT_NONMOVABLE(converter_impl);
+
 public:
-	converter_impl(
-		sge::renderer::vf::dynamic::part const &,
-		sge::renderer::vf::dynamic::color_format_vector const &
-	);
+  converter_impl(
+      sge::renderer::vf::dynamic::part const &,
+      sge::renderer::vf::dynamic::color_format_vector const &);
 
-	~converter_impl();
+  ~converter_impl();
 
-	void
-	convert_lock(
-		sge::renderer::raw_pointer data,
-		sge::renderer::vertex::first,
-		sge::renderer::vf::dynamic::detail::lock_interval_set const &,
-		sge::renderer::impl::vf::dynamic::lock_interval const &
-	);
+  void convert_lock(
+      sge::renderer::raw_pointer data,
+      sge::renderer::vertex::first,
+      sge::renderer::vf::dynamic::detail::lock_interval_set const &,
+      sge::renderer::impl::vf::dynamic::lock_interval const &);
 
-	void
-	convert_unlock(
-		sge::renderer::raw_pointer data,
-		sge::renderer::vertex::first,
-		sge::renderer::impl::vf::dynamic::lock_interval const &
-	);
+  void convert_unlock(
+      sge::renderer::raw_pointer data,
+      sge::renderer::vertex::first,
+      sge::renderer::impl::vf::dynamic::lock_interval const &);
+
 private:
-	void
-	do_convert(
-		sge::renderer::raw_pointer data,
-		sge::renderer::vertex::first,
-		sge::renderer::impl::vf::dynamic::lock_interval const &,
-		sge::renderer::impl::vf::dynamic::unlock
-	);
+  void do_convert(
+      sge::renderer::raw_pointer data,
+      sge::renderer::vertex::first,
+      sge::renderer::impl::vf::dynamic::lock_interval const &,
+      sge::renderer::impl::vf::dynamic::unlock);
 
-	using
-	element_converter_vector
-	=
-	std::vector<
-		sge::renderer::impl::vf::dynamic::element_converter
-	>;
+  using element_converter_vector = std::vector<sge::renderer::impl::vf::dynamic::element_converter>;
 
-	element_converter_vector const element_converters_;
+  element_converter_vector const element_converters_;
 };
 
 }

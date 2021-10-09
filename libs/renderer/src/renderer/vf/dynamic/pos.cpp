@@ -3,34 +3,20 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 
-
-sge::renderer::vf::dynamic::pos::pos(
-	sge::renderer::vf::dynamic::vector const &_type
-)
-:
-	type_(
-		_type
-	)
+sge::renderer::vf::dynamic::pos::pos(sge::renderer::vf::dynamic::vector const &_type) : type_(_type)
 {
 }
 
-sge::renderer::vf::dynamic::vector const &
-sge::renderer::vf::dynamic::pos::type() const
+sge::renderer::vf::dynamic::vector const &sge::renderer::vf::dynamic::pos::type() const
 {
-	return
-		this->type_;
+  return this->type_;
 }
 
-bool
-sge::renderer::vf::dynamic::operator==(
-	sge::renderer::vf::dynamic::pos const &_left,
-	sge::renderer::vf::dynamic::pos const &_right
-)
+bool sge::renderer::vf::dynamic::operator==(
+    sge::renderer::vf::dynamic::pos const &_left, sge::renderer::vf::dynamic::pos const &_right)
 {
-	return
-		_left.type() == _right.type();
+  return _left.type() == _right.type();
 }

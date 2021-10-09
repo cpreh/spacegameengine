@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WINDOW_SYSTEM_HPP_INCLUDED
 #define SGE_WINDOW_SYSTEM_HPP_INCLUDED
 
@@ -19,69 +18,40 @@
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
-
 namespace sge::window
 {
 
 class system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
+  FCPPT_NONMOVABLE(system);
+
 public:
-	SGE_WINDOW_DETAIL_SYMBOL
-	explicit
-	system(
-		awl::system::reference
-	);
+  SGE_WINDOW_DETAIL_SYMBOL
+  explicit system(awl::system::reference);
 
-	SGE_WINDOW_DETAIL_SYMBOL
-	~system();
+  SGE_WINDOW_DETAIL_SYMBOL
+  ~system();
 
-	[[nodiscard]]
-	SGE_WINDOW_DETAIL_SYMBOL
-	awl::system::event::result
-	poll();
+  [[nodiscard]] SGE_WINDOW_DETAIL_SYMBOL awl::system::event::result poll();
 
-	[[nodiscard]]
-	SGE_WINDOW_DETAIL_SYMBOL
-	awl::system::event::result
-	next();
+  [[nodiscard]] SGE_WINDOW_DETAIL_SYMBOL awl::system::event::result next();
 
-	SGE_WINDOW_DETAIL_SYMBOL
-	void
-	quit(
-		awl::main::exit_code
-	);
+  SGE_WINDOW_DETAIL_SYMBOL
+  void quit(awl::main::exit_code);
 
-	[[nodiscard]]
-	SGE_WINDOW_DETAIL_SYMBOL
-	fcppt::signal::auto_connection
-	event_handler(
-		sge::window::system_event_function &&
-	);
+  [[nodiscard]] SGE_WINDOW_DETAIL_SYMBOL fcppt::signal::auto_connection
+  event_handler(sge::window::system_event_function &&);
 
-	[[nodiscard]]
-	SGE_WINDOW_DETAIL_SYMBOL
-	awl::system::object &
-	awl_system();
+  [[nodiscard]] SGE_WINDOW_DETAIL_SYMBOL awl::system::object &awl_system();
+
 private:
-	[[nodiscard]]
-	awl::system::event::result
-	transform_events(
-		awl::system::event::result &&
-	);
+  [[nodiscard]] awl::system::event::result transform_events(awl::system::event::result &&);
 
-	awl::system::reference const awl_system_;
+  awl::system::reference const awl_system_;
 
-	using
-	event_signal
-	=
-	fcppt::signal::object<
-		sge::window::system_event_function_type
-	>;
+  using event_signal = fcppt::signal::object<sge::window::system_event_function_type>;
 
-	event_signal event_signal_;
+  event_signal event_signal_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 #define SGE_TEXTURE_PART_FRAGMENTED_HPP_INCLUDED
 
@@ -18,57 +17,34 @@
 #include <sge/texture/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::texture
 {
 
-class part_fragmented
-:
-	public sge::texture::part
+class part_fragmented : public sge::texture::part
 {
-	FCPPT_NONMOVABLE(
-		part_fragmented
-	);
+  FCPPT_NONMOVABLE(part_fragmented);
+
 public:
-	SGE_TEXTURE_DETAIL_SYMBOL
-	part_fragmented(
-		sge::texture::fragmented_ref,
-		sge::texture::atlasing::outer_rect const &
-	);
+  SGE_TEXTURE_DETAIL_SYMBOL
+  part_fragmented(sge::texture::fragmented_ref, sge::texture::atlasing::outer_rect const &);
 
-	SGE_TEXTURE_DETAIL_SYMBOL
-	void
-	data(
-		sge::image2d::view::const_object const &,
-		sge::image::algorithm::uninitialized
-	)
-	override;
+  SGE_TEXTURE_DETAIL_SYMBOL
+  void
+  data(sge::image2d::view::const_object const &, sge::image::algorithm::uninitialized) override;
 
-	[[nodiscard]]
-	SGE_TEXTURE_DETAIL_SYMBOL
-	sge::renderer::lock_rect
-	area() const
-	override;
+  [[nodiscard]] SGE_TEXTURE_DETAIL_SYMBOL sge::renderer::lock_rect area() const override;
 
-	[[nodiscard]]
-	SGE_TEXTURE_DETAIL_SYMBOL
-	sge::renderer::texture::planar &
-	texture() const
-	override;
+  [[nodiscard]] SGE_TEXTURE_DETAIL_SYMBOL sge::renderer::texture::planar &texture() const override;
 
-	[[nodiscard]]
-	SGE_TEXTURE_DETAIL_SYMBOL
-	bool
-	repeatable() const
-	override;
+  [[nodiscard]] SGE_TEXTURE_DETAIL_SYMBOL bool repeatable() const override;
 
-	SGE_TEXTURE_DETAIL_SYMBOL
-	~part_fragmented()
-	override;
+  SGE_TEXTURE_DETAIL_SYMBOL
+  ~part_fragmented() override;
+
 private:
-	sge::texture::fragmented_ref const fragment_;
+  sge::texture::fragmented_ref const fragment_;
 
-	sge::texture::atlasing::inner_rect const inner_area_;
+  sge::texture::atlasing::inner_rect const inner_area_;
 };
 
 }

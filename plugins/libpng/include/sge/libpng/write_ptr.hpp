@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LIBPNG_WRITE_PTR_HPP_INCLUDED
 #define SGE_LIBPNG_WRITE_PTR_HPP_INCLUDED
 
@@ -12,28 +11,22 @@
 #include <sge/libpng/write_ptr_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::libpng
 {
 
 class write_ptr
 {
-	FCPPT_NONMOVABLE(
-		write_ptr
-	);
+  FCPPT_NONMOVABLE(write_ptr);
+
 public:
-	explicit
-	write_ptr(
-		sge::libpng::error_context_ref
-	);
+  explicit write_ptr(sge::libpng::error_context_ref);
 
-	~write_ptr();
+  ~write_ptr();
 
-	[[nodiscard]]
-	png_structp
-	ptr() const;
+  [[nodiscard]] png_structp ptr() const;
+
 private:
-	png_structp ptr_;
+  png_structp ptr_;
 };
 
 }

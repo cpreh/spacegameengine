@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_IMPL_MULTI_PROCESSOR_HPP_INCLUDED
 #define SGE_INPUT_IMPL_MULTI_PROCESSOR_HPP_INCLUDED
 
@@ -24,90 +23,45 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::input::impl
 {
 
-class multi_processor
-:
-	public sge::input::processor
+class multi_processor : public sge::input::processor
 {
-	FCPPT_NONMOVABLE(
-		multi_processor
-	);
+  FCPPT_NONMOVABLE(multi_processor);
+
 public:
-	multi_processor(
-		fcppt::log::object &, // NOLINT(google-runtime-references)
-		sge::window::object_ref,
-		sge::input::impl::system_ptr_vector const &
-	);
+  multi_processor(
+      fcppt::log::object &, // NOLINT(google-runtime-references)
+      sge::window::object_ref,
+      sge::input::impl::system_ptr_vector const &);
 
-	~multi_processor()
-	override;
+  ~multi_processor() override;
+
 private:
-	[[nodiscard]]
-	sge::window::object &
-	window() const
-	override;
+  [[nodiscard]] sge::window::object &window() const override;
 
-	[[nodiscard]]
-	sge::input::cursor::container
-	cursors() const
-	override;
+  [[nodiscard]] sge::input::cursor::container cursors() const override;
 
-	[[nodiscard]]
-	sge::input::focus::container
-	foci() const
-	override;
+  [[nodiscard]] sge::input::focus::container foci() const override;
 
-	[[nodiscard]]
-	sge::input::joypad::container
-	joypads() const
-	override;
+  [[nodiscard]] sge::input::joypad::container joypads() const override;
 
-	[[nodiscard]]
-	sge::input::keyboard::container
-	keyboards() const
-	override;
+  [[nodiscard]] sge::input::keyboard::container keyboards() const override;
 
-	[[nodiscard]]
-	sge::input::mouse::container
-	mice() const
-	override;
+  [[nodiscard]] sge::input::mouse::container mice() const override;
 
-	template<
-		typename Container
-	>
-	using
-	collect_function
-	=
-	fcppt::function<
-		Container (
-			sge::input::processor const &
-		)
-	>;
+  template <typename Container>
+  using collect_function = fcppt::function<Container(sge::input::processor const &)>;
 
-	template<
-		typename Container
-	>
-	[[nodiscard]]
-	Container
-	collect(
-		collect_function<
-			Container
-		> const &
-	) const;
+  template <typename Container>
+  [[nodiscard]] Container collect(collect_function<Container> const &) const;
 
-	sge::window::object_ref const  window_;
+  sge::window::object_ref const window_;
 
-	using
-	processor_vector
-	=
-	std::vector<
-		sge::input::processor_unique_ptr
-	>;
+  using processor_vector = std::vector<sge::input::processor_unique_ptr>;
 
-	processor_vector const processors_;
+  processor_vector const processors_;
 };
 
 }

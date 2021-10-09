@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_PRIMITIVES_NORMAL_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PRIMITIVES_NORMAL_SIZE_HPP_INCLUDED
 
@@ -15,72 +14,32 @@
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
 
-
 namespace sge::sprite::detail::primitives
 {
 
-template<
-	typename Choices,
-	sge::sprite::config::texture_size_option
->
+template <typename Choices, sge::sprite::config::texture_size_option>
 struct normal_size;
 
-template<
-	typename Choices
->
-struct normal_size<
-	Choices,
-	sge::sprite::config::texture_size_option::never
->
+template <typename Choices>
+struct normal_size<Choices, sge::sprite::config::texture_size_option::never>
 {
-	using
-	type
-	=
-	fcppt::mpl::list::object<
-		fcppt::record::element<
-			sge::sprite::roles::size,
-			sge::sprite::types::dim<
-				typename
-				Choices::type_choices
-			>
-		>
-	>;
+  using type = fcppt::mpl::list::object<fcppt::record::element<
+      sge::sprite::roles::size,
+      sge::sprite::types::dim<typename Choices::type_choices>>>;
 };
 
-template<
-	typename Choices
->
-struct normal_size<
-	Choices,
-	sge::sprite::config::texture_size_option::always
->
+template <typename Choices>
+struct normal_size<Choices, sge::sprite::config::texture_size_option::always>
 {
-	using
-	type
-	=
-	fcppt::mpl::list::object<>;
+  using type = fcppt::mpl::list::object<>;
 };
 
-template<
-	typename Choices
->
-struct normal_size<
-	Choices,
-	sge::sprite::config::texture_size_option::maybe
->
+template <typename Choices>
+struct normal_size<Choices, sge::sprite::config::texture_size_option::maybe>
 {
-	using
-	type
-	=
-	fcppt::mpl::list::object<
-		fcppt::record::element<
-			sge::sprite::roles::size_or_texture_size,
-			sge::sprite::types::size_or_texture_size<
-				typename
-				Choices::type_choices
-			>
-		>
-	>;
+  using type = fcppt::mpl::list::object<fcppt::record::element<
+      sge::sprite::roles::size_or_texture_size,
+      sge::sprite::types::size_or_texture_size<typename Choices::type_choices>>>;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_WINDOW_TO_AWL_PARAMETERS_HPP_INCLUDED
 
@@ -12,16 +11,13 @@
 #include <awl/visual/object_fwd.hpp>
 #include <awl/window/parameters_fwd.hpp>
 
-
 namespace sge::systems::impl::window
 {
 
-awl::window::parameters
-to_awl_parameters(
-	awl::visual::object const &,
-	awl::cursor::const_optional_object_ref const &,
-	sge::systems::original_window const &
-);
+awl::window::parameters to_awl_parameters(
+    awl::visual::object const &,
+    awl::cursor::const_optional_object_ref const &,
+    sge::systems::original_window const &);
 
 }
 

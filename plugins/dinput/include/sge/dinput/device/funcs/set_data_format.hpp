@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_DEVICE_FUNCS_SET_DATA_FORMAT_HPP_INCLUDED
 #define SGE_DINPUT_DEVICE_FUNCS_SET_DATA_FORMAT_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-
 
 namespace sge
 {
@@ -19,11 +17,7 @@ namespace device
 namespace funcs
 {
 
-void
-set_data_format(
-	IDirectInputDevice8 &,
-	DIDATAFORMAT const &
-);
+void set_data_format(IDirectInputDevice8 &, DIDATAFORMAT const &);
 
 }
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_MOUSE_AXIS_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_AXIS_HPP_INCLUDED
 
@@ -12,32 +11,23 @@
 #include <sge/input/mouse/axis_fwd.hpp>
 #include <sge/input/mouse/axis_id.hpp>
 
-
 namespace sge::input::mouse
 {
 
 class axis
 {
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	axis(
-		sge::input::mouse::axis_code,
-		sge::input::mouse::axis_id
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  axis(sge::input::mouse::axis_code, sge::input::mouse::axis_id);
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::mouse::axis_code
-	code() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::mouse::axis_code code() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::mouse::axis_id
-	id() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::mouse::axis_id id() const;
+
 private:
-	sge::input::mouse::axis_code code_;
+  sge::input::mouse::axis_code code_;
 
-	sge::input::mouse::axis_id id_;
+  sge::input::mouse::axis_id id_;
 };
 
 }

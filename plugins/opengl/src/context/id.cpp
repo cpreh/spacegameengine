@@ -3,24 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/context/id.hpp>
 
+sge::opengl::context::id::id(type const _value) noexcept : value_(_value) {}
 
-sge::opengl::context::id::id(
-	type const _value
-)
-noexcept
-:
-	value_(
-		_value
-	)
-{
-}
-
-sge::opengl::context::id::type
-sge::opengl::context::id::get() const
-{
-	return
-		value_;
-}
+sge::opengl::context::id::type sge::opengl::context::id::get() const { return value_; }

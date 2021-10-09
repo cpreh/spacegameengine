@@ -3,22 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/exception.hpp>
 #include <sge/wininput/cursor/release_capture.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/text.hpp>
 
-
-void
-sge::wininput::cursor::release_capture()
+void sge::wininput::cursor::release_capture()
 {
-	if(
-		::ReleaseCapture()
-		==
-		0
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("ReleaseCapture failed!")
-		);
+  if (::ReleaseCapture() == 0)
+    throw sge::input::exception(FCPPT_TEXT("ReleaseCapture failed!"));
 }

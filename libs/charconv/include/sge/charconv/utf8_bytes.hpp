@@ -3,22 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CHARCONV_UTF8_BYTES_HPP_INCLUDED
 #define SGE_CHARCONV_UTF8_BYTES_HPP_INCLUDED
 
 #include <sge/charconv/utf8_char.hpp>
 #include <sge/charconv/detail/symbol.hpp>
 
-
 namespace sge::charconv
 {
 
 SGE_CHARCONV_DETAIL_SYMBOL
-unsigned
-utf8_bytes(
-	sge::charconv::utf8_char
-);
+unsigned utf8_bytes(sge::charconv::utf8_char);
 
 }
 

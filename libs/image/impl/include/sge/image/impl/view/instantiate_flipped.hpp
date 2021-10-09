@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED_HPP_INCLUDED
 
@@ -11,30 +10,11 @@
 #include <sge/image/impl/view/flipped_impl.hpp>
 #include <sge/image/impl/view/instantiate_const_nonconst.hpp>
 
+#define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED_BASE(tag, object_type) \
+  template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::view::object_type<tag> \
+  sge::image::view::flipped<tag>(sge::image::view::object_type<tag> const &)
 
-#define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED_BASE(\
-	tag,\
-	object_type\
-) \
-template \
-SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
-sge::image::view::object_type<\
-	tag\
-> \
-sge::image::view::flipped<\
-	tag \
->(\
-	sge::image::view::object_type<\
-		tag\
-	> const &\
-)
-
-#define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED(\
-	tag\
-)\
-SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_NONCONST(\
-	tag,\
-	SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED_BASE\
-)
+#define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED(tag) \
+  SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_NONCONST(tag, SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED_BASE)
 
 #endif

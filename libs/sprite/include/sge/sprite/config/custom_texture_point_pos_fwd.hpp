@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_POS_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_POS_FWD_HPP_INCLUDED
-
 
 namespace sge::sprite::config
 {
 
-template<
-	bool CustomTexturePoint
->
+template <bool CustomTexturePoint>
 struct custom_texture_point_pos;
 
 }

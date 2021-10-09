@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_PARAMETERS_HPP_INCLUDED
 
@@ -12,32 +11,27 @@
 #include <sge/renderer/state/core/blend/parameters_fwd.hpp>
 #include <sge/renderer/state/core/blend/write_mask.hpp>
 
-
 namespace sge::renderer::state::core::blend
 {
 
 class parameters
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	parameters(
-		sge::renderer::state::core::blend::alpha_variant const &,
-		sge::renderer::state::core::blend::write_mask const &
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  parameters(
+      sge::renderer::state::core::blend::alpha_variant const &,
+      sge::renderer::state::core::blend::write_mask const &);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::alpha_variant const &
-	alpha_variant() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::core::blend::alpha_variant const &
+  alpha_variant() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::core::blend::write_mask const &
-	write_mask() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::core::blend::write_mask const &
+  write_mask() const;
+
 private:
-	sge::renderer::state::core::blend::alpha_variant alpha_variant_;
+  sge::renderer::state::core::blend::alpha_variant alpha_variant_;
 
-	sge::renderer::state::core::blend::write_mask write_mask_;
+  sge::renderer::state::core::blend::write_mask write_mask_;
 };
 
 }

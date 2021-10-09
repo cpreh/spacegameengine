@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_IMPL_BODY_SOLIDITY_IS_SOLID_HPP_INCLUDED
 #define SGE_PROJECTILE_IMPL_BODY_SOLIDITY_IS_SOLID_HPP_INCLUDED
 
 #include <sge/projectile/body/solidity/variant_fwd.hpp>
 
-
 namespace sge::projectile::impl::body::solidity
 {
 
-bool
-is_solid(
-	sge::projectile::body::solidity::variant const &
-);
+bool is_solid(sge::projectile::body::solidity::variant const &);
 
 }
 

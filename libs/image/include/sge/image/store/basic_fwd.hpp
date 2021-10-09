@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_STORE_BASIC_FWD_HPP_INCLUDED
 #define SGE_IMAGE_STORE_BASIC_FWD_HPP_INCLUDED
-
 
 namespace sge::image::store
 {
 
-template<
-	typename Format
->
+template <typename Format>
 class basic;
 
 }

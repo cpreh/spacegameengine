@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GLX_VISUAL_OPTIONAL_SRGB_FLAG_FWD_HPP_INCLUDED
 #define SGE_OPENGL_GLX_VISUAL_OPTIONAL_SRGB_FLAG_FWD_HPP_INCLUDED
 
 #include <sge/opengl/glx/visual/srgb_flag_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::opengl::glx::visual
 {
 
-using
-optional_srgb_flag
-=
-fcppt::optional::object<
-	sge::opengl::glx::visual::srgb_flag
->;
+using optional_srgb_flag = fcppt::optional::object<sge::opengl::glx::visual::srgb_flag>;
 
 }
 

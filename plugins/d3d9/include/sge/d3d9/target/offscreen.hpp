@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_TARGET_OFFSCREEN_HPP_INCLUDED
 #define SGE_D3D9_TARGET_OFFSCREEN_HPP_INCLUDED
 
@@ -21,7 +20,6 @@
 #include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/optional/reference.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -29,79 +27,44 @@ namespace d3d9
 namespace target
 {
 
-class offscreen
-:
-	public sge::d3d9::target::basic<
-		sge::renderer::target::offscreen
-	>
+class offscreen : public sge::d3d9::target::basic<sge::renderer::target::offscreen>
 {
-	FCPPT_NONCOPYABLE(
-		offscreen
-	);
+  FCPPT_NONCOPYABLE(offscreen);
 
-	typedef sge::d3d9::target::basic<
-		sge::renderer::target::offscreen
-	> base;
+  typedef sge::d3d9::target::basic<sge::renderer::target::offscreen> base;
+
 public:
-	offscreen(
-		IDirect3DDevice9 &,
-		sge::renderer::caps::target_surface_indices
-	);
+  offscreen(IDirect3DDevice9 &, sge::renderer::caps::target_surface_indices);
 
-	~offscreen()
-	override;
+  ~offscreen() override;
+
 private:
-	void
-	color_surface(
-		sge::renderer::color_buffer::optional_surface_ref const &,
-		sge::renderer::target::surface_index
-	)
-	override;
+  void color_surface(
+      sge::renderer::color_buffer::optional_surface_ref const &,
+      sge::renderer::target::surface_index) override;
 
-	void
-	depth_stencil_surface(
-		sge::renderer::depth_stencil_buffer::optional_surface_ref const &
-	)
-	override;
+  void
+  depth_stencil_surface(sge::renderer::depth_stencil_buffer::optional_surface_ref const &) override;
 
-	bool
-	needs_present() const
-	override;
+  bool needs_present() const override;
 
-	void
-	on_activate()
-	override;
+  void on_activate() override;
 
-	void
-	on_deactivate()
-	override;
+  void on_deactivate() override;
 
-	void
-	change_surfaces(
-		bool
-	);
+  void change_surfaces(bool);
 
-	typedef
-	fcppt::optional::reference<
-		sge::d3d9::surface::color
-	>
-	optional_color_surface_ref;
+  typedef fcppt::optional::reference<sge::d3d9::surface::color> optional_color_surface_ref;
 
-	typedef
-	fcppt::optional::reference<
-		sge::d3d9::surface::depth_stencil_offscreen
-	>
-	optional_depth_stencil_surface_ref;
+  typedef fcppt::optional::reference<sge::d3d9::surface::depth_stencil_offscreen>
+      optional_depth_stencil_surface_ref;
 
-	typedef
-	fcppt::container::index_map<
-		sge::d3d9::target::offscreen::optional_color_surface_ref
-	>
-	color_surface_map;
+  typedef fcppt::container::index_map<sge::d3d9::target::offscreen::optional_color_surface_ref>
+      color_surface_map;
 
-	color_surface_map color_surfaces_;
+  color_surface_map color_surfaces_;
 
-	sge::d3d9::target::offscreen::optional_depth_stencil_surface_ref depth_stencil_surface_;
+  sge::d3d9::target::offscreen::optional_depth_stencil_surface_ref depth_stencil_surface_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_JOYPAD_FF_EFFECT_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_FF_EFFECT_HPP_INCLUDED
 
@@ -15,41 +14,29 @@
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::evdev::joypad::ff
 {
 
-class effect
-:
-	public
-		sge::input::joypad::ff::effect
+class effect : public sge::input::joypad::ff::effect
 {
-	FCPPT_NONMOVABLE(
-		effect
-	);
+  FCPPT_NONMOVABLE(effect);
+
 public:
-	effect(
-		sge::evdev::device::fd_ref,
-		sge::evdev::joypad::button::event_map const &,
-		sge::input::joypad::ff::parameters const &
-	);
+  effect(
+      sge::evdev::device::fd_ref,
+      sge::evdev::joypad::button::event_map const &,
+      sge::input::joypad::ff::parameters const &);
 
-	~effect()
-	override;
+  ~effect() override;
 
-	void
-	play(
-		sge::input::joypad::ff::optional_play_count
-	)
-	override;
+  void play(sge::input::joypad::ff::optional_play_count) override;
 
-	void
-	stop()
-	override;
+  void stop() override;
+
 private:
-	sge::evdev::device::fd_ref const fd_;
+  sge::evdev::device::fd_ref const fd_;
 
-	sge::evdev::joypad::ff::uploaded_effect const uploaded_effect_;
+  sge::evdev::joypad::ff::uploaded_effect const uploaded_effect_;
 };
 
 }

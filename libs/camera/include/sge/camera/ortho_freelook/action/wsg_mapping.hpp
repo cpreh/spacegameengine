@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_ACTION_WSG_MAPPING_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_ACTION_WSG_MAPPING_HPP_INCLUDED
 
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/ortho_freelook/action/mapping.hpp>
-
 
 namespace sge::camera::ortho_freelook::action
 {
@@ -19,8 +17,7 @@ namespace sge::camera::ortho_freelook::action
 \ingroup sgecamera
 */
 SGE_CAMERA_DETAIL_SYMBOL
-sge::camera::ortho_freelook::action::mapping
-wsg_mapping();
+sge::camera::ortho_freelook::action::mapping wsg_mapping();
 
 }
 

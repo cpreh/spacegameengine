@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_XRANDR_SIZES_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_SIZES_HPP_INCLUDED
 
@@ -14,49 +13,30 @@
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::xrandr
 {
 
 class sizes
 {
 public:
-	explicit
-	sizes(
-		sge::opengl::xrandr::const_configuration_ref
-	);
+  explicit sizes(sge::opengl::xrandr::const_configuration_ref);
 
-	using
-	iterator
-	=
-	XRRScreenSize const *;
+  using iterator = XRRScreenSize const *;
 
-	using
-	const_iterator
-	=
-	iterator;
+  using const_iterator = iterator;
 
-	[[nodiscard]]
-	iterator
-	begin() const;
+  [[nodiscard]] iterator begin() const;
 
-	[[nodiscard]]
-	iterator
-	end() const;
+  [[nodiscard]] iterator end() const;
 
-	[[nodiscard]]
-	XRRScreenSize const &
-	operator[](
-		sge::opengl::xrandr::mode_index
-	) const;
+  [[nodiscard]] XRRScreenSize const &operator[](sge::opengl::xrandr::mode_index) const;
 
-	[[nodiscard]]
-	sge::opengl::xrandr::mode_index
-	size() const;
+  [[nodiscard]] sge::opengl::xrandr::mode_index size() const;
+
 private:
-	int size_;
+  int size_;
 
-	XRRScreenSize const *sizes_;
+  XRRScreenSize const *sizes_;
 };
 
 }

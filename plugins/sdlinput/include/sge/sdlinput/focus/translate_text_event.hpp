@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_FOCUS_TRANSLATE_TEXT_EVENT_HPP_INCLUDED
 #define SGE_SDLINPUT_FOCUS_TRANSLATE_TEXT_EVENT_HPP_INCLUDED
 
@@ -14,16 +13,13 @@
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::focus
 {
 
-awl::event::container
-translate_text_event(
-	sge::input::focus::shared_ptr const &,
-	awl::backends::sdl::window::object const &,
-	SDL_TextInputEvent const &
-);
+awl::event::container translate_text_event(
+    sge::input::focus::shared_ptr const &,
+    awl::backends::sdl::window::object const &,
+    SDL_TextInputEvent const &);
 
 }
 

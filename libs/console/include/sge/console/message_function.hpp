@@ -3,22 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_MESSAGE_FUNCTION_HPP_INCLUDED
 #define SGE_CONSOLE_MESSAGE_FUNCTION_HPP_INCLUDED
 
 #include <sge/font/string.hpp>
 
-
 namespace sge::console
 {
 
-using
-message_function
-=
-void(
-	sge::font::string const &
-);
+using message_function = void(sge::font::string const &);
 
 }
 

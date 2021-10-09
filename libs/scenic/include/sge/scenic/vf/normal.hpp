@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_VF_NORMAL_HPP_INCLUDED
 #define SGE_SCENIC_VF_NORMAL_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vf/normal.hpp>
 
-
 namespace sge::scenic::vf
 {
 
-using
-normal
-=
-sge::renderer::vf::normal<
-	sge::renderer::scalar
->;
+using normal = sge::renderer::vf::normal<sge::renderer::scalar>;
 
 }
 

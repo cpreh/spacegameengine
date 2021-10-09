@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GRAPH_OPTIONAL_AXIS_CONSTRAINT_FWD_HPP_INCLUDED
 #define SGE_GRAPH_OPTIONAL_AXIS_CONSTRAINT_FWD_HPP_INCLUDED
 
 #include <sge/graph/axis_constraint_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::graph
 {
 
-using
-optional_axis_constraint
-=
-fcppt::optional::object<
-	sge::graph::axis_constraint
->;
+using optional_axis_constraint = fcppt::optional::object<sge::graph::axis_constraint>;
 
 }
 

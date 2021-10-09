@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_TRANSFORM_PARAMETERS_HPP_INCLUDED
 
@@ -11,25 +10,19 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 
-
 namespace sge::renderer::state::ffp::transform
 {
 
 class parameters
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	explicit
-	parameters(
-		sge::renderer::matrix4
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  explicit parameters(sge::renderer::matrix4);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::matrix4 const &
-	matrix() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::matrix4 const &matrix() const;
+
 private:
-	sge::renderer::matrix4 matrix_;
+  sge::renderer::matrix4 matrix_;
 };
 
 }

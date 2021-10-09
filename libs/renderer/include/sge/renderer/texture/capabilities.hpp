@@ -3,20 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TEXTURE_CAPABILITIES_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CAPABILITIES_HPP_INCLUDED
 
 #include <sge/renderer/texture/capabilities_fwd.hpp>
-
 
 namespace sge::renderer::texture
 {
 
 enum class capabilities
 {
-	render_target,
-	fcppt_maximum = render_target
+  render_target,
+  fcppt_maximum = render_target
 };
 
 }

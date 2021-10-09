@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_RENDER_CONTEXT_OPTIONAL_PLANAR_TEXTURE_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_OPTIONAL_PLANAR_TEXTURE_HPP_INCLUDED
 
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <fcppt/optional/reference.hpp>
 
-
 namespace sge::scenic::render_context
 {
 
-using
-optional_planar_texture
-=
-fcppt::optional::reference<
-	sge::renderer::texture::planar
->;
+using optional_planar_texture = fcppt::optional::reference<sge::renderer::texture::planar>;
 
 }
 

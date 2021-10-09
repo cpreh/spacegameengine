@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_LOCK_RECT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_RECT_FWD_HPP_INCLUDED
 
 #include <sge/renderer/basic_lock_box_fwd.hpp>
-
 
 namespace sge::renderer
 {
@@ -18,12 +16,7 @@ namespace sge::renderer
 
 \ingroup sge_renderer
 */
-using
-lock_rect
-=
-sge::renderer::basic_lock_box<
-	2
->;
+using lock_rect = sge::renderer::basic_lock_box<2>;
 
 }
 

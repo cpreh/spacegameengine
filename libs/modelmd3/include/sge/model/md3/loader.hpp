@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_MD3_LOADER_HPP_INCLUDED
 #define SGE_MODEL_MD3_LOADER_HPP_INCLUDED
 
@@ -18,37 +17,25 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::model::md3
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL loader
 {
-	FCPPT_NONMOVABLE(
-		loader
-	);
+  FCPPT_NONMOVABLE(loader);
+
 protected:
-	loader();
+  loader();
+
 public:
-	[[nodiscard]]
-	virtual
-	sge::model::md3::object_unique_ptr
-	load(
-		std::filesystem::path const &,
-		sge::model::md3::load_flags_field
-	) = 0;
+  [[nodiscard]] virtual sge::model::md3::object_unique_ptr
+  load(std::filesystem::path const &, sge::model::md3::load_flags_field) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::model::md3::object_unique_ptr
-	load_stream(
-		std::istream &,
-		sge::model::md3::load_flags_field
-	) = 0;
+  [[nodiscard]] virtual sge::model::md3::object_unique_ptr
+  load_stream(std::istream &, sge::model::md3::load_flags_field) = 0;
 
-	SGE_MODEL_MD3_DETAIL_SYMBOL
-	virtual
-	~loader();
+  SGE_MODEL_MD3_DETAIL_SYMBOL
+  virtual ~loader();
 };
 
 }

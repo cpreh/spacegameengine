@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CURSOR_IMPL_DETAIL_OBJECT_HPP_INCLUDED
 #define SGE_CURSOR_IMPL_DETAIL_OBJECT_HPP_INCLUDED
 
@@ -37,120 +36,63 @@
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::cursor::detail
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	object(
-		sge::input::const_processor_ref,
-		sge::renderer::device::ffp_ref,
-		sge::texture::const_part_ref,
-		sge::cursor::hotspot
-	);
+  object(
+      sge::input::const_processor_ref,
+      sge::renderer::device::ffp_ref,
+      sge::texture::const_part_ref,
+      sge::cursor::hotspot);
 
-	~object();
+  ~object();
 
-	void
-	draw(
-		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void draw(sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	[[nodiscard]]
-	sge::cursor::hotspot
-	hotspot() const;
+  [[nodiscard]] sge::cursor::hotspot hotspot() const;
+
 private:
-	sge::input::const_processor_ref const processor_;
+  sge::input::const_processor_ref const processor_;
 
-	sge::texture::const_part_ref const texture_;
+  sge::texture::const_part_ref const texture_;
 
-	sge::cursor::hotspot const hotspot_;
+  sge::cursor::hotspot const hotspot_;
 
-	using
-	sprite_choices
-	=
-	sge::sprite::config::choices<
-		sge::sprite::config::type_choices<
-			sge::sprite::config::unit_type<
-				sge::input::cursor::position_unit
-			>,
-			sge::sprite::config::float_type<
-				float
-			>
-		>,
-		sge::sprite::config::pos<
-			sge::sprite::config::pos_option::pos
-		>,
-		sge::sprite::config::normal_size<
-			sge::sprite::config::texture_size_option::always
-		>,
-		fcppt::mpl::list::object<
-			sge::sprite::config::with_texture<
-				sge::sprite::config::texture_level_count<
-					1U
-				>,
-				sge::sprite::config::texture_coordinates::automatic,
-				sge::sprite::config::texture_ownership::reference
-			>
-		>
-	>;
+  using sprite_choices = sge::sprite::config::choices<
+      sge::sprite::config::type_choices<
+          sge::sprite::config::unit_type<sge::input::cursor::position_unit>,
+          sge::sprite::config::float_type<float>>,
+      sge::sprite::config::pos<sge::sprite::config::pos_option::pos>,
+      sge::sprite::config::normal_size<sge::sprite::config::texture_size_option::always>,
+      fcppt::mpl::list::object<sge::sprite::config::with_texture<
+          sge::sprite::config::texture_level_count<1U>,
+          sge::sprite::config::texture_coordinates::automatic,
+          sge::sprite::config::texture_ownership::reference>>>;
 
-	using
-	sprite_buffers
-	=
-	sge::sprite::buffers::with_declaration<
-		sge::sprite::buffers::single<
-			sprite_choices
-		>
-	>;
+  using sprite_buffers =
+      sge::sprite::buffers::with_declaration<sge::sprite::buffers::single<sprite_choices>>;
 
-	sprite_buffers sprite_buffers_;
+  sprite_buffers sprite_buffers_;
 
-	using
-	sprite_state_choices
-	=
-	sge::sprite::state::all_choices;
+  using sprite_state_choices = sge::sprite::state::all_choices;
 
-	using
-	sprite_state
-	=
-	sge::sprite::state::object<
-		sprite_state_choices
-	>;
+  using sprite_state = sge::sprite::state::object<sprite_state_choices>;
 
-	using
-	sprite_state_parameters
-	=
-	sge::sprite::state::parameters<
-		sprite_state_choices
-	>;
+  using sprite_state_parameters = sge::sprite::state::parameters<sprite_state_choices>;
 
-	sprite_state sprite_state_;
+  sprite_state sprite_state_;
 
-	using
-	sprite_object
-	=
-	sge::sprite::object<
-		sprite_choices
-	>;
+  using sprite_object = sge::sprite::object<sprite_choices>;
 
-	using
-	optional_sprite
-	=
-	fcppt::optional::object<
-		sprite_object
-	>;
+  using optional_sprite = fcppt::optional::object<sprite_object>;
 
-	[[nodiscard]]
-	optional_sprite
-	make_sprite(
-		sge::input::cursor::optional_position const &
-	) const;
+  [[nodiscard]] optional_sprite make_sprite(sge::input::cursor::optional_position const &) const;
 };
 
 }

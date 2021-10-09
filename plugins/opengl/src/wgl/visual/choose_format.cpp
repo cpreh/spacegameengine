@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/wgl/visual/attribute_container.hpp>
 #include <sge/opengl/wgl/visual/choose_format.hpp>
@@ -19,63 +18,38 @@
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
-
-sge::opengl::windows::visual::format
-sge::opengl::wgl::visual::choose_format(
-	sge::opengl::windows::gdi_device const &_device,
-	sge::opengl::wgl::visual::config const &_config,
-	sge::renderer::pixel_format::object const &_format
-)
+sge::opengl::windows::visual::format sge::opengl::wgl::visual::choose_format(
+    sge::opengl::windows::gdi_device const &_device,
+    sge::opengl::wgl::visual::config const &_config,
+    sge::renderer::pixel_format::object const &_format)
 {
-	sge::opengl::wgl::visual::attribute_container const attributes(
-		sge::opengl::wgl::visual::make_attributes(
-			_config,
-			_format
-		)
-	);
+  sge::opengl::wgl::visual::attribute_container const attributes(
+      sge::opengl::wgl::visual::make_attributes(_config, _format));
 
-	sge::opengl::wgl::visual::pixel_format_types const pixel_format_types(
-		fcppt::optional::to_exception(
-			_config.pixel_format_types(),
-			[]{
-				return
-					sge::renderer::unsupported(
-						FCPPT_TEXT("WGL pixel formats"),
-						FCPPT_TEXT(""),
-						FCPPT_TEXT("WGLEW_EXT_pixel_format, WGLEW_ARB_pixel_format")
-					);
-			}
-		)
-	);
+  sge::opengl::wgl::visual::pixel_format_types const pixel_format_types(
+      fcppt::optional::to_exception(
+          _config.pixel_format_types(),
+          []
+          {
+            return sge::renderer::unsupported(
+                FCPPT_TEXT("WGL pixel formats"),
+                FCPPT_TEXT(""),
+                FCPPT_TEXT("WGLEW_EXT_pixel_format, WGLEW_ARB_pixel_format"));
+          }));
 
-	int result;
+  int result;
 
-	UINT num_results;
+  UINT num_results;
 
-	if(
-		sge::opengl::call_fun_ref(
-			pixel_format_types.choose_pixel_format(),
-			_device.hdc(),
-			attributes.data(),
-			static_cast<
-				FLOAT const *
-			>(
-				nullptr
-			),
-			1u,
-			&result,
-			&num_results
-		)
-		==
-		FALSE
-	)
-		throw
-			sge::renderer::exception(
-				FCPPT_TEXT("wglChoosePixelFormat failed!")
-			);
+  if (sge::opengl::call_fun_ref(
+          pixel_format_types.choose_pixel_format(),
+          _device.hdc(),
+          attributes.data(),
+          static_cast<FLOAT const *>(nullptr),
+          1u,
+          &result,
+          &num_results) == FALSE)
+    throw sge::renderer::exception(FCPPT_TEXT("wglChoosePixelFormat failed!"));
 
-	return
-		sge::opengl::windows::visual::format(
-			result
-		);
+  return sge::opengl::windows::visual::format(result);
 }

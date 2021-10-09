@@ -3,20 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/bool.hpp>
 
-
-BOOL
-sge::d3d9::convert::bool_(
-	bool const _value
-)
-{
-	return
-		_value
-		?
-			TRUE
-		:
-			FALSE;
-}
+BOOL sge::d3d9::convert::bool_(bool const _value) { return _value ? TRUE : FALSE; }

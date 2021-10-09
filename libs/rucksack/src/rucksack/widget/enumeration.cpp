@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
@@ -27,199 +26,88 @@
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::rucksack::widget::enumeration::enumeration(
-	sge::rucksack::padding const &_padding
-)
-:
-	sge::rucksack::widget::base(),
-	padding_{
-		_padding
-	},
-	children_(),
-	position_{
-		fcppt::math::vector::null<
-			sge::rucksack::vector
-		>()
-	},
-	size_{
-		fcppt::math::dim::null<
-			sge::rucksack::dim
-		>()
-	}
+sge::rucksack::widget::enumeration::enumeration(sge::rucksack::padding const &_padding)
+    : sge::rucksack::widget::base(),
+      padding_{_padding},
+      children_(),
+      position_{fcppt::math::vector::null<sge::rucksack::vector>()},
+      size_{fcppt::math::dim::null<sge::rucksack::dim>()}
 {
 }
 
-void
-sge::rucksack::widget::enumeration::size(
-	sge::rucksack::dim const &_size
-)
+void sge::rucksack::widget::enumeration::size(sge::rucksack::dim const &_size) { size_ = _size; }
+
+void sge::rucksack::widget::enumeration::position(sge::rucksack::vector const &_position)
 {
-	size_ =
-		_size;
+  position_ = _position;
 }
 
-void
-sge::rucksack::widget::enumeration::position(
-	sge::rucksack::vector const &_position
-)
+sge::rucksack::dim sge::rucksack::widget::enumeration::size() const { return size_; }
+
+sge::rucksack::vector sge::rucksack::widget::enumeration::position() const { return position_; }
+
+sge::rucksack::axis_policy2 sge::rucksack::widget::enumeration::axis_policy() const
 {
-	position_ =
-		_position;
+  return sge::rucksack::axis_policy2{
+      sge::rucksack::axis_policy{sge::rucksack::minimum_size{0}},
+      sge::rucksack::axis_policy{sge::rucksack::minimum_size{0}}};
 }
 
-sge::rucksack::dim
-sge::rucksack::widget::enumeration::size() const
+void sge::rucksack::widget::enumeration::relayout()
 {
-	return
-		size_;
+  sge::rucksack::vector current_pos(this->position().x(), this->position().y() + padding_.get());
+
+  sge::rucksack::scalar current_row_max_height{0};
+
+  for (sge::rucksack::widget::reference const &child_ptr : children_)
+  {
+    sge::rucksack::dim const preferred_or_minimum{
+        sge::rucksack::impl::extract_size(child_ptr.get().axis_policy().x()),
+        sge::rucksack::impl::extract_size(child_ptr.get().axis_policy().y())};
+
+    // Next line
+    if (current_pos.x() + padding_.get() + preferred_or_minimum.w() >
+        this->position().x() + this->size().w())
+    {
+      current_pos.x() = this->position().x();
+
+      current_pos.y() += current_row_max_height + padding_.get();
+
+      current_row_max_height = 0;
+    }
+
+    child_ptr.get().position(
+        sge::rucksack::vector{current_pos.x() + padding_.get(), current_pos.y()});
+
+    child_ptr.get().size(preferred_or_minimum);
+
+    child_ptr.get().relayout();
+
+    current_pos.x() += preferred_or_minimum.w() + padding_.get();
+
+    current_row_max_height = std::max(current_row_max_height, preferred_or_minimum.h());
+  }
 }
 
-sge::rucksack::vector
-sge::rucksack::widget::enumeration::position() const
+void sge::rucksack::widget::enumeration::push_back_child(
+    sge::rucksack::widget::reference const _child)
 {
-	return
-		position_;
-}
+  children_.push_back(_child);
 
-sge::rucksack::axis_policy2
-sge::rucksack::widget::enumeration::axis_policy() const
-{
-	return
-		sge::rucksack::axis_policy2{
-			sge::rucksack::axis_policy{
-				sge::rucksack::minimum_size{
-					0
-				}
-			},
-			sge::rucksack::axis_policy{
-				sge::rucksack::minimum_size{
-					0
-				}
-			}
-		};
-}
-
-void
-sge::rucksack::widget::enumeration::relayout()
-{
-	sge::rucksack::vector current_pos(
-		this->position().x(),
-		this->position().y() + padding_.get()
-	);
-
-	sge::rucksack::scalar current_row_max_height{
-		0
-	};
-
-	for(
-		sge::rucksack::widget::reference const &child_ptr
-		:
-		children_
-	)
-	{
-		sge::rucksack::dim const preferred_or_minimum{
-			sge::rucksack::impl::extract_size(
-				child_ptr.get().axis_policy().x()
-			),
-			sge::rucksack::impl::extract_size(
-				child_ptr.get().axis_policy().y()
-			)
-		};
-
-		// Next line
-		if(
-			current_pos.x() + padding_.get() + preferred_or_minimum.w()
-			>
-			this->position().x() + this->size().w()
-		)
-		{
-			current_pos.x() =
-				this->position().x();
-
-			current_pos.y() +=
-				current_row_max_height + padding_.get();
-
-			current_row_max_height =
-				0;
-		}
-
-		child_ptr.get().position(
-			sge::rucksack::vector{
-				current_pos.x()
-				+
-				padding_.get()
-				,
-				current_pos.y()
-			}
-		);
-
-		child_ptr.get().size(
-			preferred_or_minimum
-		);
-
-		child_ptr.get().relayout();
-
-		current_pos.x() +=
-			preferred_or_minimum.w() + padding_.get();
-
-		current_row_max_height =
-			std::max(
-				current_row_max_height,
-				preferred_or_minimum.h()
-			);
-	}
-}
-
-void
-sge::rucksack::widget::enumeration::push_back_child(
-	sge::rucksack::widget::reference const _child
-)
-{
-	children_.push_back(
-		_child
-	);
-
-	_child.get().parent(
-		sge::rucksack::widget::optional_ref{
-			fcppt::reference_to_base<
-				sge::rucksack::widget::base
-			>(
-				fcppt::make_ref(
-					*this
-				)
-			)
-		}
-	);
+  _child.get().parent(sge::rucksack::widget::optional_ref{
+      fcppt::reference_to_base<sge::rucksack::widget::base>(fcppt::make_ref(*this))});
 }
 
 sge::rucksack::widget::enumeration::~enumeration()
 {
-	for(
-		sge::rucksack::widget::reference const &child_ptr
-		:
-		children_
-	)
-	{
-		child_ptr.get().parent(
-			sge::rucksack::widget::optional_ref()
-		);
-	}
+  for (sge::rucksack::widget::reference const &child_ptr : children_)
+  {
+    child_ptr.get().parent(sge::rucksack::widget::optional_ref());
+  }
 }
 
-void
-sge::rucksack::widget::enumeration::child_destroyed(
-	sge::rucksack::widget::base &_child
-)
+void sge::rucksack::widget::enumeration::child_destroyed(sge::rucksack::widget::base &_child)
 {
-	children_.erase(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			fcppt::algorithm::find_opt(
-				children_,
-				fcppt::make_ref(
-					_child
-				)
-			)
-		)
-	);
+  children_.erase(
+      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::algorithm::find_opt(children_, fcppt::make_ref(_child))));
 }

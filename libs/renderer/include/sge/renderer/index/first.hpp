@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_FIRST_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_FIRST_HPP_INCLUDED
 
@@ -11,17 +10,13 @@
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
 namespace sge::renderer::index
 {
 
 /**
 \brief A typedef used to describe the first index in an index buffer
 */
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	sge::renderer::size_type,
-	first
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::renderer::size_type, first);
 
 }
 

@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_OBJECT_REF_HPP_INCLUDED
 #define SGE_FONT_OBJECT_REF_HPP_INCLUDED
 
 #include <sge/font/object_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::font
 {
 
-using
-object_ref
-=
-fcppt::reference<
-	sge::font::object
->;
+using object_ref = fcppt::reference<sge::font::object>;
 
 }
 

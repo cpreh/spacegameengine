@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/joypad/ff/convert_envelope.hpp>
 #include <sge/evdev/joypad/ff/convert_ramp.hpp>
 #include <sge/input/joypad/ff/ramp.hpp>
@@ -13,26 +12,10 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
-ff_ramp_effect
-sge::evdev::joypad::ff::convert_ramp(
-	sge::input::joypad::ff::ramp const &_ramp
-)
+ff_ramp_effect sge::evdev::joypad::ff::convert_ramp(sge::input::joypad::ff::ramp const &_ramp)
 {
-	return
-		ff_ramp_effect{
-			fcppt::cast::size<
-				std::int16_t
-			>(
-				_ramp.start_magnitude().get()
-			),
-			fcppt::cast::size<
-				std::int16_t
-			>(
-				_ramp.end_magnitude().get()
-			),
-			sge::evdev::joypad::ff::convert_envelope(
-				_ramp.envelope()
-			)
-		};
+  return ff_ramp_effect{
+      fcppt::cast::size<std::int16_t>(_ramp.start_magnitude().get()),
+      fcppt::cast::size<std::int16_t>(_ramp.end_magnitude().get()),
+      sge::evdev::joypad::ff::convert_envelope(_ramp.envelope())};
 }

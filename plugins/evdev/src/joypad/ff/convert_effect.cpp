@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/joypad/button/event_map.hpp>
 #include <sge/evdev/joypad/ff/convert_effect.hpp>
 #include <sge/evdev/joypad/ff/convert_effect_type.hpp>
@@ -18,41 +17,19 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
-ff_effect
-sge::evdev::joypad::ff::convert_effect(
-	sge::evdev::joypad::button::event_map const &_buttons,
-	sge::input::joypad::ff::parameters const &_parameters
-)
+ff_effect sge::evdev::joypad::ff::convert_effect(
+    sge::evdev::joypad::button::event_map const &_buttons,
+    sge::input::joypad::ff::parameters const &_parameters)
 {
-	return
-		ff_effect{
-			sge::evdev::joypad::ff::convert_effect_type(
-				_parameters.variant()
-			),
-			// ID
-			fcppt::literal<
-				std::int16_t
-			>(
-				-1
-			),
-			fcppt::cast::size<
-				std::uint16_t
-			>(
-				_parameters.direction().get().get()
-				/
-				1000U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			),
-			sge::evdev::joypad::ff::convert_trigger(
-				_buttons,
-				_parameters.trigger()
-			),
-			sge::evdev::joypad::ff::convert_replay(
-				_parameters.duration(),
-				_parameters.delay()
-			),
-			sge::evdev::joypad::ff::convert_variant(
-				_parameters.variant()
-			)
-		};
+  return ff_effect{
+      sge::evdev::joypad::ff::convert_effect_type(_parameters.variant()),
+      // ID
+      fcppt::literal<std::int16_t>(-1),
+      fcppt::cast::size<std::uint16_t>(
+          _parameters.direction().get().get() /
+          1000U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      sge::evdev::joypad::ff::convert_trigger(_buttons, _parameters.trigger()),
+      sge::evdev::joypad::ff::convert_replay(_parameters.duration(), _parameters.delay()),
+      sge::evdev::joypad::ff::convert_variant(_parameters.variant())};
 }

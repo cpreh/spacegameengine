@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_VIEW_CONST_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE2D_VIEW_CONST_OBJECT_HPP_INCLUDED
 
@@ -14,9 +13,6 @@
 #include <sge/image2d/traits/dimension.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 
-
-SGE_IMAGE_VIEW_DECLARE_CONST_OBJECT(
-	sge::image2d::tag
-);
+SGE_IMAGE_VIEW_DECLARE_CONST_OBJECT(sge::image2d::tag);
 
 #endif

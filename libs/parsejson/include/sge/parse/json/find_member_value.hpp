@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
 #define SGE_PARSE_JSON_FIND_MEMBER_VALUE_HPP_INCLUDED
 
@@ -19,49 +18,18 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::json
 {
 
-template<
-	typename Arg
->
-sge::parse::json::find_member_return_type<
-	sge::parse::json::value,
-	Arg
->
-find_member_value(
-	fcppt::reference<
-		Arg
-	> const _members,
-	sge::charconv::utf8_string const &_name
-)
+template <typename Arg>
+sge::parse::json::find_member_return_type<sge::parse::json::value, Arg>
+find_member_value(fcppt::reference<Arg> const _members, sge::charconv::utf8_string const &_name)
 {
-	static_assert(
-		std::is_same_v<
-			std::remove_const_t<
-				Arg
-			>,
-			sge::parse::json::member_map
-		>
-	);
+  static_assert(std::is_same_v<std::remove_const_t<Arg>, sge::parse::json::member_map>);
 
-	return
-		fcppt::optional::map(
-			fcppt::container::find_opt_mapped(
-				_members.get(),
-				_name
-			),
-			[](
-				auto const _ref
-			)
-			{
-				return
-					fcppt::make_ref(
-						_ref.get().get()
-					);
-			}
-		);
+  return fcppt::optional::map(
+      fcppt::container::find_opt_mapped(_members.get(), _name),
+      [](auto const _ref) { return fcppt::make_ref(_ref.get().get()); });
 }
 
 }

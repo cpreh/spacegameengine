@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VERTEX_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_CONTEXT_HPP_INCLUDED
 
@@ -16,75 +15,40 @@
 #include <fcppt/container/index_map_decl.hpp>
 #include <fcppt/optional/reference.hpp>
 
-
 namespace sge::opengl::vertex
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	context();
+  context();
 
-	~context()
-	override;
+  ~context() override;
 
-	using
-	optional_buffer
-	=
-	fcppt::optional::reference<
-		sge::opengl::vertex::buffer const
-	>;
+  using optional_buffer = fcppt::optional::reference<sge::opengl::vertex::buffer const>;
 
-	void
-	vertex_buffer(
-		sge::renderer::vf::dynamic::part_index,
-		optional_buffer
-	);
+  void vertex_buffer(sge::renderer::vf::dynamic::part_index, optional_buffer);
 
-	[[nodiscard]]
-	optional_buffer
-	vertex_buffer(
-		sge::renderer::vf::dynamic::part_index
-	) const;
+  [[nodiscard]] optional_buffer vertex_buffer(sge::renderer::vf::dynamic::part_index) const;
 
-	using
-	optional_declaration
-	=
-	fcppt::optional::reference<
-		sge::opengl::vertex::declaration const
-	>;
+  using optional_declaration = fcppt::optional::reference<sge::opengl::vertex::declaration const>;
 
-	void
-	vertex_declaration(
-		optional_declaration
-	);
+  void vertex_declaration(optional_declaration);
 
-	[[nodiscard]]
-	optional_declaration
-	vertex_declaration() const;
+  [[nodiscard]] optional_declaration vertex_declaration() const;
 
-	using
-	parameter
-	=
-	void;
+  using parameter = void;
 
-	static sge::opengl::context::id const static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	using
-	vertex_buffer_map
-	=
-	fcppt::container::index_map<
-		optional_buffer
-	>;
+  using vertex_buffer_map = fcppt::container::index_map<optional_buffer>;
 
-	optional_declaration last_declaration_;
+  optional_declaration last_declaration_;
 
-	mutable vertex_buffer_map last_buffers_;
+  mutable vertex_buffer_map last_buffers_;
 };
 
 }

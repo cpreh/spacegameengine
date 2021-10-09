@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_GEOMETRY_IS_RANDOM_ACCESS_RANGE_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_IS_RANDOM_ACCESS_RANGE_HPP_INCLUDED
 
@@ -15,7 +14,6 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace sprite
@@ -23,25 +21,13 @@ namespace sprite
 namespace geometry
 {
 
-template<
-	typename T
->
-struct is_random_access_range
-:
-std::false_type
+template <typename T>
+struct is_random_access_range : std::false_type
 {
 };
 
-template<
-	typename Iterator
->
-struct is_random_access_range<
-	sge::sprite::geometry::random_access_range<
-		Iterator
-	>
->
-:
-std::true_type
+template <typename Iterator>
+struct is_random_access_range<sge::sprite::geometry::random_access_range<Iterator>> : std::true_type
 {
 };
 

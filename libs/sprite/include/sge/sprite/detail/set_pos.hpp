@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_SET_POS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_SET_POS_HPP_INCLUDED
 
@@ -17,72 +16,29 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail
 {
 
-template<
-	typename Choices,
-	typename Elements
->
-inline
-typename
-std::enable_if<
-	Choices::pos_choice::option::value
-	==
-	sge::sprite::config::pos_option::pos
-	,
-	void
->::type
+template <typename Choices, typename Elements>
+inline typename std::enable_if<
+    Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos,
+    void>::type
 set_pos(
-	Elements &_elements,
-	sge::sprite::types::pos<
-		typename
-		Choices::type_choices
-	> const _pos
+    Elements &_elements, sge::sprite::types::pos<typename Choices::type_choices> const _pos
 
 )
 {
-	fcppt::record::set<
-		sge::sprite::roles::pos
-	>(
-		_elements,
-		_pos.get()
-	);
+  fcppt::record::set<sge::sprite::roles::pos>(_elements, _pos.get());
 }
 
-template<
-	typename Choices,
-	typename Elements
->
-inline
-typename
-std::enable_if<
-	Choices::pos_choice::option::value
-	==
-	sge::sprite::config::pos_option::pos_or_center
-	,
-	void
->::type
-set_pos(
-	Elements &_elements,
-	sge::sprite::types::pos<
-		typename
-		Choices::type_choices
-	> const _pos
-)
+template <typename Choices, typename Elements>
+inline typename std::enable_if<
+    Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos_or_center,
+    void>::type
+set_pos(Elements &_elements, sge::sprite::types::pos<typename Choices::type_choices> const _pos)
 {
-	fcppt::record::set<
-		sge::sprite::roles::pos_or_center
-	>(
-		_elements,
-		sge::sprite::types::pos_or_center<
-			typename
-			Choices::type_choices
-		>(
-			_pos
-		)
-	);
+  fcppt::record::set<sge::sprite::roles::pos_or_center>(
+      _elements, sge::sprite::types::pos_or_center<typename Choices::type_choices>(_pos));
 }
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_CHECK_ALC_STATE_HPP_INCLUDED
 #define SGE_OPENAL_CHECK_ALC_STATE_HPP_INCLUDED
 
@@ -11,21 +10,13 @@
 #include <sge/openal/alc.hpp>
 #include <sge/openal/alc_error_string.hpp>
 
-
-#define SGE_OPENAL_CHECK_ALC_STATE(\
-	device,\
-	message,\
-	exception\
-)\
-SGE_CORE_CHECK_STATE(\
-	exception,\
-	message,\
-	ALenum,\
-	::alcGetError(\
-		&device\
-	),\
-	ALC_NO_ERROR,\
-	sge::openal::alc_error_string\
-)
+#define SGE_OPENAL_CHECK_ALC_STATE(device, message, exception) \
+  SGE_CORE_CHECK_STATE( \
+      exception, \
+      message, \
+      ALenum, \
+      ::alcGetError(&device), \
+      ALC_NO_ERROR, \
+      sge::openal::alc_error_string)
 
 #endif

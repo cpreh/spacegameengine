@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_INTRUSIVE_CONNECTION_DECL_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_CONNECTION_DECL_HPP_INCLUDED
 
@@ -11,42 +10,25 @@
 #include <sge/sprite/intrusive/connection_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::sprite::intrusive
 {
 
-template<
-	typename Choices
->
+template <typename Choices>
 class connection
 {
-	FCPPT_NONMOVABLE(
-		connection
-	);
+  FCPPT_NONMOVABLE(connection);
+
 protected:
-	connection()
-	= default;
+  connection() = default;
+
 public:
-	using
-	object
-	=
-	sge::sprite::object<
-		Choices
-	>;
+  using object = sge::sprite::object<Choices>;
 
-	virtual
-	void
-	add(
-		object &
-	) = 0;
+  virtual void add(object &) = 0;
 
-	virtual
-	void
-	remove() = 0;
+  virtual void remove() = 0;
 
-	virtual
-	~connection()
-	= default;
+  virtual ~connection() = default;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_CURSOR_TRANSLATE_BUTTON_CODE_HPP_INCLUDED
 #define SGE_SDLINPUT_CURSOR_TRANSLATE_BUTTON_CODE_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::cursor
 {
 
-sge::input::cursor::button_code
-translate_button_code(
-	std::uint8_t
-);
+sge::input::cursor::button_code translate_button_code(std::uint8_t);
 
 }
 

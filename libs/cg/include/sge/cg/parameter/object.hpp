@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_PARAMETER_OBJECT_HPP_INCLUDED
 #define SGE_CG_PARAMETER_OBJECT_HPP_INCLUDED
 
@@ -13,24 +12,18 @@
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cg::parameter
 {
 
 class object
 {
 public:
-	explicit
-	object(
-		CGparameter
-	);
+  explicit object(CGparameter);
 
-	[[nodiscard]]
-	SGE_CG_DETAIL_SYMBOL
-	CGparameter
-	get() const;
+  [[nodiscard]] SGE_CG_DETAIL_SYMBOL CGparameter get() const;
+
 private:
-	CGparameter parameter_;
+  CGparameter parameter_;
 };
 
 }

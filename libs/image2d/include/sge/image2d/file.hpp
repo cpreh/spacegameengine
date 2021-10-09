@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_FILE_HPP_INCLUDED
 #define SGE_IMAGE2D_FILE_HPP_INCLUDED
 
@@ -18,44 +17,28 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::image2d
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL file
 {
-	FCPPT_NONMOVABLE(
-		file
-	);
+  FCPPT_NONMOVABLE(file);
+
 protected:
-	SGE_IMAGE2D_DETAIL_SYMBOL
-	file();
+  SGE_IMAGE2D_DETAIL_SYMBOL
+  file();
+
 public:
-	[[nodiscard]]
-	virtual
-	sge::image2d::view::const_object
-	view() const = 0;
+  [[nodiscard]] virtual sge::image2d::view::const_object view() const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::image2d::dim
-	size() const = 0;
+  [[nodiscard]] virtual sge::image2d::dim size() const = 0;
 
-	virtual
-	void
-	save(
-		std::filesystem::path const &
-	) const = 0;
+  virtual void save(std::filesystem::path const &) const = 0;
 
-	virtual
-	void
-	save_stream(
-		std::ostream &
-	) const = 0;
+  virtual void save_stream(std::ostream &) const = 0;
 
-	SGE_IMAGE2D_DETAIL_SYMBOL
-	virtual
-	~file();
+  SGE_IMAGE2D_DETAIL_SYMBOL
+  virtual ~file();
 };
 
 }

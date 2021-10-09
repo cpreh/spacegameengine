@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TEXTURE_BASIC_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASIC_PARAMETERS_HPP_INCLUDED
 
@@ -13,60 +12,44 @@
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 
-
 namespace sge::renderer::texture
 {
 
-template<
-	typename Dim,
-	typename Format
->
+template <typename Dim, typename Format>
 class basic_parameters
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	basic_parameters(
-		Dim,
-		Format const &,
-		sge::renderer::texture::mipmap::object const &,
-		sge::renderer::resource_flags_field const &,
-		sge::renderer::texture::capabilities_field const &
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  basic_parameters(
+      Dim,
+      Format const &,
+      sge::renderer::texture::mipmap::object const &,
+      sge::renderer::resource_flags_field const &,
+      sge::renderer::texture::capabilities_field const &);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	Dim const &
-	size() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL Dim const &size() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	Format
-	format() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL Format format() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::texture::mipmap::object const &
-	mipmap() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::texture::mipmap::object const &
+  mipmap() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::resource_flags_field const &
-	resource_flags() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::resource_flags_field const &
+  resource_flags() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::texture::capabilities_field const &
-	capabilities() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::texture::capabilities_field const &
+  capabilities() const;
+
 private:
-	Dim dim_;
+  Dim dim_;
 
-	Format format_;
+  Format format_;
 
-	sge::renderer::texture::mipmap::object mipmap_;
+  sge::renderer::texture::mipmap::object mipmap_;
 
-	sge::renderer::resource_flags_field resource_flags_;
+  sge::renderer::resource_flags_field resource_flags_;
 
-	sge::renderer::texture::capabilities_field capabilities_;
+  sge::renderer::texture::capabilities_field capabilities_;
 };
 
 }

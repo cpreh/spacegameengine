@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/fbo/create_target.hpp>
 #include <sge/opengl/fbo/target.hpp>
@@ -12,20 +11,9 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
-
 sge::renderer::target::offscreen_unique_ptr
-sge::opengl::fbo::create_target(
-	sge::opengl::context::object_ref const _context
-)
+sge::opengl::fbo::create_target(sge::opengl::context::object_ref const _context)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::renderer::target::offscreen
-		>(
-			fcppt::make_unique_ptr<
-				sge::opengl::fbo::target
-			>(
-				_context
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::renderer::target::offscreen>(
+      fcppt::make_unique_ptr<sge::opengl::fbo::target>(_context));
 }

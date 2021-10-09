@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_FUNCS_SOURCE_PAUSE_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_SOURCE_PAUSE_HPP_INCLUDED
 
 #include <sge/openal/source_id.hpp>
 
-
 namespace sge::openal::funcs
 {
 
-void
-source_pause(
-	sge::openal::source_id
-);
+void source_pause(sge::openal::source_id);
 
 }
 

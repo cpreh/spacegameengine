@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_BUFFER_BASE_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_BUFFER_BASE_HPP_INCLUDED
 
@@ -21,21 +20,14 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
 
-SGE_RENDERER_BUFFER_DETAIL_DECLARE_BASE(
-	sge::renderer::vertex::tag
-);
+SGE_RENDERER_BUFFER_DETAIL_DECLARE_BASE(sge::renderer::vertex::tag);
 
-SGE_RENDERER_BUFFER_DETAIL_DECLARE_READABLE(
-	sge::renderer::vertex::tag
-);
+SGE_RENDERER_BUFFER_DETAIL_DECLARE_READABLE(sge::renderer::vertex::tag);
 
-SGE_RENDERER_BUFFER_DETAIL_DECLARE_WRITABLE(
-	sge::renderer::vertex::tag
-);
+SGE_RENDERER_BUFFER_DETAIL_DECLARE_WRITABLE(sge::renderer::vertex::tag);
 
 FCPPT_PP_POP_WARNING
 

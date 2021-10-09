@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_VF_TEXTURE_POINT_SIZE_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_TEXTURE_POINT_SIZE_IMPL_HPP_INCLUDED
 
@@ -15,64 +14,28 @@
 #include <fcppt/mpl/lambda.hpp>
 #include <fcppt/mpl/list/at.hpp>
 
-
 namespace sge::sprite::detail::vf
 {
 
-template<
-	typename Choices
->
+template <typename Choices>
 struct texture_point_size_impl
 {
 private:
-	using
-	texture_levels
-	=
-	sge::sprite::detail::config::texture_levels<
-		Choices
-	>;
+  using texture_levels = sge::sprite::detail::config::texture_levels<Choices>;
 
-	using
-	with_texture_point_size
-	=
-	sge::sprite::detail::config::find_with_texture_point_size<
-		Choices
-	>;
+  using with_texture_point_size =
+      sge::sprite::detail::config::find_with_texture_point_size<Choices>;
 
-	using
-	point_size
-	=
-	typename
-	with_texture_point_size::point_size;
+  using point_size = typename with_texture_point_size::point_size;
 
-	template<
-		typename Level
-	>
-	using
-	make_size
-	=
-	sge::renderer::vf::extra<
-		sge::renderer::vf::vector<
-			typename
-			Choices::type_choices::float_type,
-			1
-		>,
-		fcppt::mpl::list::at<
-			typename
-			point_size::attribute_indices,
-			Level
-		>
-	>;
+  template <typename Level>
+  using make_size = sge::renderer::vf::extra<
+      sge::renderer::vf::vector<typename Choices::type_choices::float_type, 1>,
+      fcppt::mpl::list::at<typename point_size::attribute_indices, Level>>;
+
 public:
-	using
-	type
-	=
-	sge::sprite::detail::transform_texture_levels_static<
-		fcppt::mpl::lambda<
-			make_size
-		>,
-		texture_levels
-	>;
+  using type = sge::sprite::detail::
+      transform_texture_levels_static<fcppt::mpl::lambda<make_size>, texture_levels>;
 };
 
 }

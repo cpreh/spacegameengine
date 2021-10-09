@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_DI_HPP_INCLUDED
 #define SGE_DINPUT_DI_HPP_INCLUDED
 
@@ -23,6 +22,5 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wpedantic)
 #include <dinput.h>
 #include <fcppt/config/external_end.hpp>
 FCPPT_PP_POP_WARNING
-
 
 #endif

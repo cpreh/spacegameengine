@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_EVENT_TYPE_CONTAINER_HPP_INCLUDED
 #define SGE_X11INPUT_EVENT_TYPE_CONTAINER_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::event
 {
 
-using
-type_container
-=
-std::vector<
-	sge::x11input::event::type
->;
+using type_container = std::vector<sge::x11input::event::type>;
 
 }
 

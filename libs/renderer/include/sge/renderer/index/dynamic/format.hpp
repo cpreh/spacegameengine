@@ -3,21 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_HPP_INCLUDED
 
 #include <sge/renderer/index/dynamic/format_fwd.hpp>
-
 
 namespace sge::renderer::index::dynamic
 {
 
 enum class format
 {
-	i16,
-	i32,
-	fcppt_maximum = i32
+  i16,
+  i32,
+  fcppt_maximum = i32
 };
 
 }

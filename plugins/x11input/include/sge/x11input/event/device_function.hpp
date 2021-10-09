@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_EVENT_DEVICE_FUNCTION_HPP_INCLUDED
 #define SGE_X11INPUT_EVENT_DEVICE_FUNCTION_HPP_INCLUDED
 
 #include <sge/x11input/event/device_function_type.hpp>
 #include <fcppt/function_impl.hpp>
 
-
 namespace sge::x11input::event
 {
 
-using
-device_function
-=
-fcppt::function<
-	sge::x11input::event::device_function_type
->;
+using device_function = fcppt::function<sge::x11input::event::device_function_type>;
 
 }
 

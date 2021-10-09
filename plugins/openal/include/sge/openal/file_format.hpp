@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_FILE_FORMAT_HPP_INCLUDED
 #define SGE_OPENAL_FILE_FORMAT_HPP_INCLUDED
 
 #include <sge/audio/file_fwd.hpp>
 #include <sge/openal/al.hpp>
 
-
 namespace sge::openal
 {
 
-ALenum
-file_format(
-	sge::audio::file const &
-);
+ALenum file_format(sge::audio::file const &);
 
 }
 

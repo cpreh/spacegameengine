@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/exception.hpp>
 #include <sge/openal/alc.hpp>
 #include <sge/openal/check_alc_state.hpp>
@@ -12,46 +11,19 @@
 #include <fcppt/text.hpp>
 #include <fcppt/array/object_impl.hpp>
 
-
-ALCcontext *
-sge::openal::funcs::alc_create_context(
-	fcppt::reference<
-		ALCdevice
-	> const _device
-)
+ALCcontext *sge::openal::funcs::alc_create_context(fcppt::reference<ALCdevice> const _device)
 {
-	fcppt::array::object<
-		ALCint,
-		1U
-	> const attributes{
-		0
-	};
+  fcppt::array::object<ALCint, 1U> const attributes{0};
 
-	ALCcontext *const result(
-		::alcCreateContext(
-			&_device.get(),
-			attributes.data()
-		)
-	);
+  ALCcontext *const result(::alcCreateContext(&_device.get(), attributes.data()));
 
-	SGE_OPENAL_CHECK_ALC_STATE(
-		_device.get(),
-		FCPPT_TEXT("alcCreateContext failed"),
-		sge::audio::exception
-	)
+  SGE_OPENAL_CHECK_ALC_STATE(
+      _device.get(), FCPPT_TEXT("alcCreateContext failed"), sge::audio::exception)
 
-	if(
-		result
-		==
-		nullptr
-	)
-	{
-		throw
-			sge::audio::exception{
-				FCPPT_TEXT("AL context is null")
-			};
-	}
+  if (result == nullptr)
+  {
+    throw sge::audio::exception{FCPPT_TEXT("AL context is null")};
+  }
 
-	return
-		result;
+  return result;
 }

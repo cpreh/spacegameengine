@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/cursor_visibility.hpp>
 #include <sge/cegui/default_font.hpp>
 #include <sge/cegui/duration.hpp>
@@ -62,307 +61,124 @@
 #include <CEGUI/falagard/WidgetLookManager.h>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::cegui::detail::system_impl::system_impl(
-	fcppt::log::context_reference const _log_context,
-	sge::cegui::load_context const &_load_context,
-	sge::renderer::device::ffp_ref const _renderer,
-	sge::image2d::system_ref const _image_system,
-	sge::viewport::manager_ref const _viewport_manager,
-	sge::cegui::cursor_visibility const _cursor_visibility,
-	sge::renderer::texture::emulate_srgb const _emulate_srgb
-)
-:
-	main_log_{
-		_log_context,
-		sge::log::location(),
-		sge::log::default_parameters(
-			sge::cegui::impl::log_name()
-		)
-	},
-	system_log_{
-		main_log_,
-		sge::log::default_parameters(
-			fcppt::log::name{
-				FCPPT_TEXT("system")
-			}
-		)
-	},
-	prefix_(
-		_load_context.scheme_file().parent_path()
-	),
-	cegui_logger_(
-		main_log_
-	),
-	renderer_{
-		fcppt::make_ref(
-			main_log_
-		),
-		sge::cegui::impl::texture_parameters(
-			sge::cegui::impl::prefix{
-				prefix_
-			},
-			_image_system,
-			_renderer,
-			_emulate_srgb
-		)
-	},
-	image_codec_(
-		_image_system
-	),
-	resource_provider_{
-		main_log_
-	},
-	scoped_system_(
-		fcppt::make_ref(
-			renderer_
-		),
-		fcppt::make_ref(
-			image_codec_
-		),
-		fcppt::make_ref(
-			resource_provider_
-		)
-	),
-	gui_context_(
-		renderer_.getDefaultRenderTarget()
-	),
-	viewport_change_connection_(
-		_viewport_manager.get().manage_callback(
-			sge::viewport::manage_callback{
-				[
-					this
-				](
-					sge::renderer::target::viewport const &_viewport
-				)
-				{
-					this->viewport_change(
-						_viewport
-					);
-				}
-			}
-		)
-	),
-	old_viewport_(
-		fcppt::math::box::null<
-			sge::renderer::pixel_rect
-		>()
-	)
+    fcppt::log::context_reference const _log_context,
+    sge::cegui::load_context const &_load_context,
+    sge::renderer::device::ffp_ref const _renderer,
+    sge::image2d::system_ref const _image_system,
+    sge::viewport::manager_ref const _viewport_manager,
+    sge::cegui::cursor_visibility const _cursor_visibility,
+    sge::renderer::texture::emulate_srgb const _emulate_srgb)
+    : main_log_{_log_context, sge::log::location(), sge::log::default_parameters(sge::cegui::impl::log_name())},
+      system_log_{main_log_, sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("system")})},
+      prefix_(_load_context.scheme_file().parent_path()),
+      cegui_logger_(main_log_),
+      renderer_{
+          fcppt::make_ref(main_log_),
+          sge::cegui::impl::texture_parameters(
+              sge::cegui::impl::prefix{prefix_}, _image_system, _renderer, _emulate_srgb)},
+      image_codec_(_image_system),
+      resource_provider_{main_log_},
+      scoped_system_(
+          fcppt::make_ref(renderer_),
+          fcppt::make_ref(image_codec_),
+          fcppt::make_ref(resource_provider_)),
+      gui_context_(renderer_.getDefaultRenderTarget()),
+      viewport_change_connection_(_viewport_manager.get().manage_callback(
+          sge::viewport::manage_callback{[this](sge::renderer::target::viewport const &_viewport)
+                                         { this->viewport_change(_viewport); }})),
+      old_viewport_(fcppt::math::box::null<sge::renderer::pixel_rect>())
 {
-	CEGUI::WidgetLookManager::setDefaultResourceGroup(
-		sge::cegui::to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				fcppt::optional::from(
-					_load_context.looknfeel_directory(),
-					[
-						this
-					]{
-						return
-							prefix_.get();
-					}
-				)
-			)
-		)
-	);
+  CEGUI::WidgetLookManager::setDefaultResourceGroup(
+      sge::cegui::to_cegui_string(fcppt::filesystem::path_to_string(fcppt::optional::from(
+          _load_context.looknfeel_directory(), [this] { return prefix_.get(); }))));
 
-	CEGUI::Font::setDefaultResourceGroup(
-		sge::cegui::to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				fcppt::optional::from(
-					_load_context.font_directory(),
-					[
-						this
-					]{
-						return
-							prefix_.get();
-					}
-				)
-			)
-		)
-	);
+  CEGUI::Font::setDefaultResourceGroup(
+      sge::cegui::to_cegui_string(fcppt::filesystem::path_to_string(fcppt::optional::from(
+          _load_context.font_directory(), [this] { return prefix_.get(); }))));
 
-	CEGUI::ImageManager::setImagesetDefaultResourceGroup(
-		sge::cegui::to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				fcppt::optional::from(
-					_load_context.imageset_directory(),
-					[
-						this
-					]{
-						return
-							prefix_.get();
-					}
-				)
-			)
-		)
-	);
+  CEGUI::ImageManager::setImagesetDefaultResourceGroup(
+      sge::cegui::to_cegui_string(fcppt::filesystem::path_to_string(fcppt::optional::from(
+          _load_context.imageset_directory(), [this] { return prefix_.get(); }))));
 
-	CEGUI::Scheme::setDefaultResourceGroup(
-		sge::cegui::to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				prefix_.get()
-			)
-		)
-	);
+  CEGUI::Scheme::setDefaultResourceGroup(
+      sge::cegui::to_cegui_string(fcppt::filesystem::path_to_string(prefix_.get())));
 
-	CEGUI::SchemeManager::getSingleton().createFromFile(
-		sge::cegui::to_cegui_string(
-			fcppt::filesystem::path_to_string(
-				_load_context.scheme_file().filename()
-			)
-		)
-	);
+  CEGUI::SchemeManager::getSingleton().createFromFile(sge::cegui::to_cegui_string(
+      fcppt::filesystem::path_to_string(_load_context.scheme_file().filename())));
 
-	if(
-		_cursor_visibility
-		==
-		sge::cegui::cursor_visibility::invisible
-	)
-	{
-		gui_context_.getMouseCursor().hide();
-	}
+  if (_cursor_visibility == sge::cegui::cursor_visibility::invisible)
+  {
+    gui_context_.getMouseCursor().hide();
+  }
 
-	fcppt::optional::maybe_void(
-		_load_context.default_font(),
-		[
-			this
-		](
-			sge::cegui::default_font const &_default_font
-		)
-		{
-			gui_context_.setDefaultFont(
-				&CEGUI::FontManager::getSingleton().createFreeTypeFont(
-					"",
-					_default_font.font_size().get(),
-					true,
-					cegui::to_cegui_string(
-						fcppt::filesystem::path_to_string(
-							_default_font.path()
-						)
-					)
-				)
-			);
-		}
-	);
+  fcppt::optional::maybe_void(
+      _load_context.default_font(),
+      [this](sge::cegui::default_font const &_default_font)
+      {
+        gui_context_.setDefaultFont(&CEGUI::FontManager::getSingleton().createFreeTypeFont(
+            "",
+            _default_font.font_size().get(),
+            true,
+            cegui::to_cegui_string(fcppt::filesystem::path_to_string(_default_font.path()))));
+      });
 
-	this->viewport_change(
-		_viewport_manager.get().viewport()
-	);
+  this->viewport_change(_viewport_manager.get().viewport());
 }
 FCPPT_PP_POP_WARNING
 
-sge::cegui::detail::system_impl::~system_impl()
-= default;
+sge::cegui::detail::system_impl::~system_impl() = default;
 
-void
-sge::cegui::detail::system_impl::update(
-	sge::cegui::duration const &_duration
-)
+void sge::cegui::detail::system_impl::update(sge::cegui::duration const &_duration)
 {
-	CEGUI::System::getSingleton().injectTimePulse(
-		_duration.count()
-	);
+  CEGUI::System::getSingleton().injectTimePulse(_duration.count());
 }
 
-void
-sge::cegui::detail::system_impl::render(
-	sge::renderer::context::ffp &_context
-)
+void sge::cegui::detail::system_impl::render(sge::renderer::context::ffp &_context)
 {
-	sge::cegui::impl::scoped_render_context const context(
-		fcppt::make_ref(
-			renderer_
-		),
-		fcppt::make_ref(
-			_context
-		)
-	);
+  sge::cegui::impl::scoped_render_context const context(
+      fcppt::make_ref(renderer_), fcppt::make_ref(_context));
 
-	gui_context_.draw();
+  gui_context_.draw();
 }
 
-CEGUI::GUIContext &
-sge::cegui::detail::system_impl::gui_context()
+CEGUI::GUIContext &sge::cegui::detail::system_impl::gui_context() { return gui_context_; }
+
+void sge::cegui::detail::system_impl::viewport_change(sge::renderer::target::viewport _viewport)
 {
-	return
-		gui_context_;
-}
+  FCPPT_LOG_DEBUG(
+      system_log_, fcppt::log::out << FCPPT_TEXT("viewport_change() with ") << _viewport.get())
 
-void
-sge::cegui::detail::system_impl::viewport_change(
-	sge::renderer::target::viewport _viewport
-)
-{
-	FCPPT_LOG_DEBUG(
-		system_log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("viewport_change() with ")
-			<< _viewport.get()
-	)
+  if (sge::renderer::target::viewport_is_null(_viewport))
+  {
+    _viewport = sge::renderer::target::viewport(sge::renderer::pixel_rect(
+        fcppt::math::vector::null<sge::renderer::pixel_rect::vector>(),
+        fcppt::math::dim::fill<sge::renderer::pixel_rect::dim>(
+            10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+            )));
+  }
 
-	if(
-		sge::renderer::target::viewport_is_null(
-			_viewport
-		)
-	)
-	{
-		_viewport =
-			sge::renderer::target::viewport(
-				sge::renderer::pixel_rect(
-					fcppt::math::vector::null<
-						sge::renderer::pixel_rect::vector
-					>(),
-					fcppt::math::dim::fill<
-						sge::renderer::pixel_rect::dim
-					>(
-						10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-					)
-				)
-			);
-	}
+  // Calling notifyDisplaySizeChanged with a null rect causes a strange problem
+  if (sge::renderer::target::viewport_is_null(_viewport) || old_viewport_ == _viewport)
+  {
+    return;
+  }
 
-	// Calling notifyDisplaySizeChanged with a null rect causes a strange problem
-	if(
-		sge::renderer::target::viewport_is_null(
-			_viewport
-		)
-		||
-		old_viewport_
-		==
-		_viewport
-	)
-	{
-		return;
-	}
+  CEGUI::Rectf const new_area_cegui(sge::cegui::impl::to_cegui_rect(
+      fcppt::math::box::
+          structure_cast<fcppt::math::box::rect<float>, fcppt::cast::int_to_float_fun>(
+              _viewport.get())));
 
-	CEGUI::Rectf const new_area_cegui(
-		sge::cegui::impl::to_cegui_rect(
-			fcppt::math::box::structure_cast<
-				fcppt::math::box::rect<
-					float
-				>,
-				fcppt::cast::int_to_float_fun
-			>(
-				_viewport.get()
-			)
-		)
-	);
+  CEGUI::System::getSingleton().notifyDisplaySizeChanged(new_area_cegui.getSize());
 
-	CEGUI::System::getSingleton().notifyDisplaySizeChanged(
-		new_area_cegui.getSize()
-	);
+  // TODO(philipp):
+  // We have to reset this manually. The cursor does receive its own
+  // "notifyDisplaySizeChanged" but that (deliberately?) doesn't
+  // update the constraint area
+  gui_context_.getMouseCursor().setConstraintArea(&new_area_cegui);
 
-	// TODO(philipp):
-	// We have to reset this manually. The cursor does receive its own
-	// "notifyDisplaySizeChanged" but that (deliberately?) doesn't
-	// update the constraint area
-	gui_context_.getMouseCursor().setConstraintArea(
-		&new_area_cegui
-	);
-
-	old_viewport_ =
-		_viewport;
+  old_viewport_ = _viewport;
 }

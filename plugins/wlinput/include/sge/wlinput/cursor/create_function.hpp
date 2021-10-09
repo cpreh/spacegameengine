@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_CURSOR_CREATE_FUNCTION_HPP_INCLUDED
 #define SGE_WLINPUT_CURSOR_CREATE_FUNCTION_HPP_INCLUDED
 
 #include <sge/wlinput/create_function.hpp>
 #include <sge/wlinput/cursor/object_fwd.hpp>
 
-
 namespace sge::wlinput::cursor
 {
 
-using
-create_function
-=
-sge::wlinput::create_function<
-	sge::wlinput::cursor::object
->;
+using create_function = sge::wlinput::create_function<sge::wlinput::cursor::object>;
 
 }
 

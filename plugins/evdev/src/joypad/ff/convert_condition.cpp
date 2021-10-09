@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/joypad/ff/convert_condition.hpp>
 #include <sge/input/joypad/ff/condition.hpp>
 #include <fcppt/cast/size.hpp>
@@ -12,43 +11,14 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 ff_condition_effect
-sge::evdev::joypad::ff::convert_condition(
-	sge::input::joypad::ff::condition const &_condition
-)
+sge::evdev::joypad::ff::convert_condition(sge::input::joypad::ff::condition const &_condition)
 {
-	return
-		ff_condition_effect{
-			fcppt::cast::size<
-				std::uint16_t
-			>(
-				_condition.right_saturation().get()
-			),
-			fcppt::cast::size<
-				std::uint16_t
-			>(
-				_condition.left_saturation().get()
-			),
-			fcppt::cast::size<
-				std::int16_t
-			>(
-				_condition.right_coefficient().get()
-			),
-			fcppt::cast::size<
-				std::int16_t
-			>(
-				_condition.left_coefficient().get()
-			),
-			fcppt::cast::size<
-				std::uint16_t
-			>(
-				_condition.deadband_size().get()
-			),
-			fcppt::cast::size<
-				std::int16_t
-			>(
-				_condition.deadband_center().get()
-			)
-		};
+  return ff_condition_effect{
+      fcppt::cast::size<std::uint16_t>(_condition.right_saturation().get()),
+      fcppt::cast::size<std::uint16_t>(_condition.left_saturation().get()),
+      fcppt::cast::size<std::int16_t>(_condition.right_coefficient().get()),
+      fcppt::cast::size<std::int16_t>(_condition.left_coefficient().get()),
+      fcppt::cast::size<std::uint16_t>(_condition.deadband_size().get()),
+      fcppt::cast::size<std::int16_t>(_condition.deadband_center().get())};
 }

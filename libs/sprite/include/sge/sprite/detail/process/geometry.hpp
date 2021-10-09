@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_PROCESS_GEOMETRY_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PROCESS_GEOMETRY_HPP_INCLUDED
 
@@ -16,70 +15,38 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail::process
 {
 
-template<
-	sge::sprite::process::geometry_options Options,
-	typename Choices,
-	typename Range,
-	typename Buffers,
-	typename Compare
->
-inline
-std::enable_if_t<
-	sge::sprite::detail::process::is_same_geometry_options<
-		Options,
-		sge::sprite::process::geometry_options::sort_and_update
-	>::value,
-	sge::sprite::render::range<
-		Choices
-	>
->
-geometry(
-	Range const &_range,
-	Buffers &_buffers,
-	Compare const &_compare
-)
+template <
+    sge::sprite::process::geometry_options Options,
+    typename Choices,
+    typename Range,
+    typename Buffers,
+    typename Compare>
+inline std::enable_if_t<
+    sge::sprite::detail::process::is_same_geometry_options<
+        Options,
+        sge::sprite::process::geometry_options::sort_and_update>::value,
+    sge::sprite::render::range<Choices>>
+geometry(Range const &_range, Buffers &_buffers, Compare const &_compare)
 {
-	return
-		sge::sprite::geometry::sort_and_update(
-			_range,
-			_compare,
-			_buffers
-		);
+  return sge::sprite::geometry::sort_and_update(_range, _compare, _buffers);
 }
 
-template<
-	sge::sprite::process::geometry_options Options,
-	typename Choices,
-	typename Range,
-	typename Buffers,
-	typename Compare
->
-inline
-std::enable_if_t<
-	sge::sprite::detail::process::is_same_geometry_options<
-		Options,
-		sge::sprite::process::geometry_options::update
-	>::value,
-	sge::sprite::render::range<
-		Choices
-	>
->
-geometry(
-	Range const &_range,
-	Buffers &_buffers,
-	Compare const &_compare
-)
+template <
+    sge::sprite::process::geometry_options Options,
+    typename Choices,
+    typename Range,
+    typename Buffers,
+    typename Compare>
+inline std::enable_if_t<
+    sge::sprite::detail::process::
+        is_same_geometry_options<Options, sge::sprite::process::geometry_options::update>::value,
+    sge::sprite::render::range<Choices>>
+geometry(Range const &_range, Buffers &_buffers, Compare const &_compare)
 {
-	return
-		sge::sprite::geometry::update(
-			_range,
-			_compare,
-			_buffers
-		);
+  return sge::sprite::geometry::update(_range, _compare, _buffers);
 }
 
 }

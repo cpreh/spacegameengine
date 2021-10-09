@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/xrandr/create_system.hpp>
 #include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/get_extension.hpp>
@@ -19,73 +18,32 @@
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/maybe.hpp>
 
-
-sge::opengl::xrandr::optional_system_unique_ptr
-sge::opengl::xrandr::create_system(
-	fcppt::log::object_reference const _log,
-	awl::backends::x11::display_ref const _display
-)
+sge::opengl::xrandr::optional_system_unique_ptr sge::opengl::xrandr::create_system(
+    fcppt::log::object_reference const _log, awl::backends::x11::display_ref const _display)
 {
-	return
-		fcppt::optional::maybe(
-			sge::opengl::xrandr::get_extension(
-				_display
-			),
-			[
-				&_log
-			]{
-				FCPPT_LOG_WARNING(
-					_log.get(),
-					fcppt::log::out
-						<< FCPPT_TEXT("xrandr extension not found")
-				)
+  return fcppt::optional::maybe(
+      sge::opengl::xrandr::get_extension(_display),
+      [&_log]
+      {
+        FCPPT_LOG_WARNING(_log.get(), fcppt::log::out << FCPPT_TEXT("xrandr extension not found"))
 
-				return
-					sge::opengl::xrandr::optional_system_unique_ptr();
-			},
-			[
-				&_log,
-				&_display
-			](
-				sge::opengl::xrandr::extension const _extension
-			)
-			{
-				sge::opengl::xrandr::version const version(
-					sge::opengl::xrandr::get_version(
-						_extension,
-						_display
-					)
-				);
+        return sge::opengl::xrandr::optional_system_unique_ptr();
+      },
+      [&_log, &_display](sge::opengl::xrandr::extension const _extension)
+      {
+        sge::opengl::xrandr::version const version(
+            sge::opengl::xrandr::get_version(_extension, _display));
 
-				if(
-					version
-					<
-					sge::opengl::xrandr::version(
-						1,
-						3
-					)
-				)
-				{
-					FCPPT_LOG_WARNING(
-						_log.get(),
-						fcppt::log::out
-							<< FCPPT_TEXT("xrandr version ")
-							<< version
-							<< FCPPT_TEXT(" too old")
-					)
+        if (version < sge::opengl::xrandr::version(1, 3))
+        {
+          FCPPT_LOG_WARNING(
+              _log.get(),
+              fcppt::log::out << FCPPT_TEXT("xrandr version ") << version << FCPPT_TEXT(" too old"))
 
-					return
-						sge::opengl::xrandr::optional_system_unique_ptr();
-				}
+          return sge::opengl::xrandr::optional_system_unique_ptr();
+        }
 
-				return
-					sge::opengl::xrandr::optional_system_unique_ptr(
-						fcppt::make_unique_ptr<
-							sge::opengl::xrandr::system
-						>(
-							_extension
-						)
-					);
-			}
-		);
+        return sge::opengl::xrandr::optional_system_unique_ptr(
+            fcppt::make_unique_ptr<sge::opengl::xrandr::system>(_extension));
+      });
 }

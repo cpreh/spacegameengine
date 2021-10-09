@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_IMPL_PARAMETER_VECTOR_ELEMENT_COUNT_HPP_INCLUDED
 #define SGE_CG_IMPL_PARAMETER_VECTOR_ELEMENT_COUNT_HPP_INCLUDED
 
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <fcppt/math/size_type.hpp>
 
-
 namespace sge::cg::impl::parameter::vector
 {
 
-fcppt::math::size_type
-element_count(
-	sge::cg::parameter::object const &
-);
+fcppt::math::size_type element_count(sge::cg::parameter::object const &);
 
 }
 

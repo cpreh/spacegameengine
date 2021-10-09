@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_IS_VERTEX_HPP_INCLUDED
 #define SGE_RENDERER_VF_IS_VERTEX_HPP_INCLUDED
 
@@ -12,29 +11,16 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vf
 {
 
-template<
-	typename Type
->
-struct is_vertex
-:
-std::false_type
+template <typename Type>
+struct is_vertex : std::false_type
 {
 };
 
-template<
-	typename Part
->
-struct is_vertex<
-	sge::renderer::vf::vertex<
-		Part
-	>
->
-:
-std::true_type
+template <typename Part>
+struct is_vertex<sge::renderer::vf::vertex<Part>> : std::true_type
 {
 };
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
@@ -15,29 +14,15 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
-CEGUI::String
-sge::cegui::to_cegui_string(
-	fcppt::string const &_string
-)
+CEGUI::String sge::cegui::to_cegui_string(fcppt::string const &_string)
 {
-	if(
-		_string.empty()
-	)
-	{
-		return
-			CEGUI::String();
-	}
+  if (_string.empty())
+  {
+    return CEGUI::String();
+  }
 
-	return
-		CEGUI::String(
-			sge::charconv::convert<
-				sge::charconv::encoding::utf8,
-				sge::charconv::encoding::wchar
-			>(
-				fcppt::to_std_wstring(
-					_string
-				)
-			).c_str()
-		);
+  return CEGUI::String(
+      sge::charconv::convert<sge::charconv::encoding::utf8, sge::charconv::encoding::wchar>(
+          fcppt::to_std_wstring(_string))
+          .c_str());
 }

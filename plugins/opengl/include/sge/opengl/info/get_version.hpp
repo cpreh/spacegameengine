@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_INFO_GET_VERSION_HPP_INCLUDED
 #define SGE_OPENGL_INFO_GET_VERSION_HPP_INCLUDED
 
 #include <sge/opengl/backend/current_fwd.hpp>
 #include <sge/opengl/info/version.hpp>
 
-
 namespace sge::opengl::info
 {
 
-sge::opengl::info::version
-get_version(
-	sge::opengl::backend::current const &
-);
+sge::opengl::info::version get_version(sge::opengl::backend::current const &);
 
 }
 

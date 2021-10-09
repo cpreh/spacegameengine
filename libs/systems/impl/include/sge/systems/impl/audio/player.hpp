@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_AUDIO_PLAYER_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_AUDIO_PLAYER_HPP_INCLUDED
 
@@ -16,30 +15,26 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-
 namespace sge::systems::impl::audio
 {
 
 class player
 {
-	FCPPT_NONMOVABLE(
-		player
-	);
+  FCPPT_NONMOVABLE(player);
+
 public:
-	player(
-		fcppt::log::context_reference,
-		fcppt::log::object &, // NOLINT(google-runtime-references)
-		sge::audio::player_plugin::collection const &,
-		sge::systems::audio_player const &
-	);
+  player(
+      fcppt::log::context_reference,
+      fcppt::log::object &, // NOLINT(google-runtime-references)
+      sge::audio::player_plugin::collection const &,
+      sge::systems::audio_player const &);
 
-	~player();
+  ~player();
 
-	[[nodiscard]]
-	sge::audio::player &
-	get() const;
+  [[nodiscard]] sge::audio::player &get() const;
+
 private:
-	sge::systems::impl::audio::player_pair const player_pair_;
+  sge::systems::impl::audio::player_pair const player_pair_;
 };
 
 }

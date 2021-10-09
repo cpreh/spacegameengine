@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_PLUGIN_PAIR_FWD_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_PLUGIN_PAIR_FWD_HPP_INCLUDED
-
 
 namespace sge::systems::impl
 {
 
-template<
-	typename System
->
+template <typename System>
 class plugin_pair;
 
 }

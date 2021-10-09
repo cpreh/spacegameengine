@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/impl/parse_file_exn.hpp>
 #include <sge/parse/json/grammar.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
@@ -12,15 +11,7 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::parse::json::start
-sge::parse::json::parse_file_exn(
-	std::filesystem::path const &_path
-)
+sge::parse::json::start sge::parse::json::parse_file_exn(std::filesystem::path const &_path)
 {
-	return
-		sge::parse::impl::parse_file_exn(
-			_path,
-			sge::parse::json::grammar{}
-		);
+  return sge::parse::impl::parse_file_exn(_path, sge::parse::json::grammar{});
 }

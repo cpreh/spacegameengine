@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_CONFIG_HAS_TEXTURE_LEVELS_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_HAS_TEXTURE_LEVELS_HPP_INCLUDED
 
@@ -13,23 +12,13 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail::config
 {
 
-template<
-	typename Choices
->
-using has_texture_levels
-=
-std::disjunction<
-	sge::sprite::detail::config::has_texture<
-		Choices
-	>,
-	sge::sprite::detail::config::has_texture_point_size<
-		Choices
-	>
->;
+template <typename Choices>
+using has_texture_levels = std::disjunction<
+    sge::sprite::detail::config::has_texture<Choices>,
+    sge::sprite::detail::config::has_texture_point_size<Choices>>;
 
 }
 

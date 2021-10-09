@@ -3,20 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/libpng/extension.hpp>
 #include <sge/media/extension.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
-
-sge::media::extension
-sge::libpng::extension()
+sge::media::extension sge::libpng::extension()
 {
-	return
-		sge::media::extension{
-			fcppt::string{
-				FCPPT_TEXT("png")
-			}
-		};
+  return sge::media::extension{fcppt::string{FCPPT_TEXT("png")}};
 }

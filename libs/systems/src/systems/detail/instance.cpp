@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/config/config_path.hpp>
@@ -52,276 +51,139 @@
 #include <fcppt/parse/error.hpp>
 #include <fcppt/variant/apply.hpp>
 
-
-sge::systems::detail::instance::instance(
-	sge::systems::detail::list const &_list
-)
-:
-	impl_(
-		fcppt::make_unique_ptr<
-			sge::systems::detail::instance_impl
-		>(
-			sge::systems::impl::extract_plugin_path(
-				_list.get()
-			),
-			fcppt::optional::bind(
-				sge::systems::impl::extract_config(
-					_list.get()
-				).log_settings(),
-				[](
-					sge::systems::log_settings const &_settings
-				)
-				{
-					return
-						_settings.log_context();
-				}
-			)
-		)
-	)
+sge::systems::detail::instance::instance(sge::systems::detail::list const &_list)
+    : impl_(fcppt::make_unique_ptr<sge::systems::detail::instance_impl>(
+          sge::systems::impl::extract_plugin_path(_list.get()),
+          fcppt::optional::bind(
+              sge::systems::impl::extract_config(_list.get()).log_settings(),
+              [](sge::systems::log_settings const &_settings) { return _settings.log_context(); })))
 {
-	sge::systems::optional_log_settings const log_settings(
-		sge::systems::impl::extract_config(
-			_list.get()
-		)
-		.log_settings()
-	);
+  sge::systems::optional_log_settings const log_settings(
+      sge::systems::impl::extract_config(_list.get()).log_settings());
 
-	sge::log::apply_options(
-		this->log_context(),
-		fcppt::optional::maybe(
-			log_settings,
-			[]{
-				return
-					sge::log::option_container{};
-			},
-			[](
-				sge::systems::log_settings const &_settings
-			)
-			-> sge::log::option_container
-			{
-				return
-					_settings.options();
-			}
-		)
-	);
+  sge::log::apply_options(
+      this->log_context(),
+      fcppt::optional::maybe(
+          log_settings,
+          [] { return sge::log::option_container{}; },
+          [](sge::systems::log_settings const &_settings) -> sge::log::option_container
+          { return _settings.options(); }));
 
-	sge::parse::ini::file_result const ini_result_value(
-		sge::parse::ini::parse_file(
-			sge::config::config_path(
-				sge::config::own_app_name()
-			)
-			/
-			FCPPT_TEXT("systems.ini")
-		)
-	);
+  sge::parse::ini::file_result const ini_result_value(sge::parse::ini::parse_file(
+      sge::config::config_path(sge::config::own_app_name()) / FCPPT_TEXT("systems.ini")));
 
-	fcppt::optional::maybe_void(
-		fcppt::either::failure_opt(
-			ini_result_value
-		),
-		[
-			this
-		](
-			fcppt::optional::object<
-				fcppt::parse::error<
-					char
-				>
-			> const &_error
-		)
-		{
-			fcppt::optional::maybe_void(
-				_error,
-				[
-					this
-				](
-					fcppt::parse::error<
-						char
-					> const &_parse_error
-				)
-				{
-					FCPPT_LOG_ERROR(
-						this->impl_->log(),
-						fcppt::log::out
-							<<
-							fcppt::from_std_string(
-								_parse_error.get()
-							)
-					)
-				}
-			);
-		}
-	);
+  fcppt::optional::maybe_void(
+      fcppt::either::failure_opt(ini_result_value),
+      [this](fcppt::optional::object<fcppt::parse::error<char>> const &_error)
+      {
+        fcppt::optional::maybe_void(
+            _error,
+            [this](fcppt::parse::error<char> const &_parse_error)
+            {
+              FCPPT_LOG_ERROR(
+                  this->impl_->log(), fcppt::log::out << fcppt::from_std_string(_parse_error.get()))
+            });
+      });
 
-	sge::systems::detail::any_map const &map(
-		_list.get()
-	);
+  sge::systems::detail::any_map const &map(_list.get());
 
-	// Special case:
-	// The window system must be initialized before the renderer system.
-	sge::systems::impl::unpack_if_present<
-		sge::systems::window
-	>(
-		map,
-		sge::systems::detail::any_key::window,
-		[
-			this
-		](
-			sge::systems::window const &_window
-		)
-		{
-			// TODO(philipp): Take viewport settings into account here
-			impl_->init_window_system(
-				_window
-			);
-		}
-	);
+  // Special case:
+  // The window system must be initialized before the renderer system.
+  sge::systems::impl::unpack_if_present<sge::systems::window>(
+      map,
+      sge::systems::detail::any_key::window,
+      [this](sge::systems::window const &_window)
+      {
+        // TODO(philipp): Take viewport settings into account here
+        impl_->init_window_system(_window);
+      });
 
-	// Special case:
-	// The renderer system must be initialized before the window.
-	sge::systems::impl::unpack_if_present<
-		sge::systems::detail::renderer
-	>(
-		map,
-		sge::systems::detail::any_key::renderer,
-		[
-			this,
-			&ini_result_value
-		](
-			sge::systems::detail::renderer const &_param
-		)
-		{
-			impl_->init_renderer_system(
-				_param,
-				fcppt::either::success_opt(
-					ini_result_value
-				)
-			);
-		}
-	);
+  // Special case:
+  // The renderer system must be initialized before the window.
+  sge::systems::impl::unpack_if_present<sge::systems::detail::renderer>(
+      map,
+      sge::systems::detail::any_key::renderer,
+      [this, &ini_result_value](sge::systems::detail::renderer const &_param)
+      { impl_->init_renderer_system(_param, fcppt::either::success_opt(ini_result_value)); });
 
-	for(
-		auto const &item
-		:
-		map
-	)
-	{
-		fcppt::variant::apply(
-			sge::systems::impl::any_visitor(
-				fcppt::make_ref(
-					*impl_
-				)
-			),
-			item.second
-		);
-	}
+  for (auto const &item : map)
+  {
+    fcppt::variant::apply(sge::systems::impl::any_visitor(fcppt::make_ref(*impl_)), item.second);
+  }
 
-	impl_->post_init();
+  impl_->post_init();
 }
 
-sge::systems::detail::instance::~instance()
-= default;
+sge::systems::detail::instance::~instance() = default;
 
-fcppt::log::context_reference
-sge::systems::detail::instance::log_context() const
+fcppt::log::context_reference sge::systems::detail::instance::log_context() const
 {
-	return
-		impl_->log_context();
+  return impl_->log_context();
 }
 
-sge::plugin::manager &
-sge::systems::detail::instance::plugin_manager()
+sge::plugin::manager &sge::systems::detail::instance::plugin_manager()
 {
-	return
-		impl_->plugin_manager();
+  return impl_->plugin_manager();
 }
 
-sge::renderer::core &
-sge::systems::detail::instance::renderer_core() const
+sge::renderer::core &sge::systems::detail::instance::renderer_core() const
 {
-	return
-		impl_->renderer_core();
+  return impl_->renderer_core();
 }
 
-sge::renderer::system &
-sge::systems::detail::instance::renderer_system() const
+sge::renderer::system &sge::systems::detail::instance::renderer_system() const
 {
-	return
-		impl_->renderer_system();
+  return impl_->renderer_system();
 }
 
-sge::renderer::device::ffp &
-sge::systems::detail::instance::renderer_device_ffp() const
+sge::renderer::device::ffp &sge::systems::detail::instance::renderer_device_ffp() const
 {
-	return
-		impl_->renderer_device_ffp();
+  return impl_->renderer_device_ffp();
 }
 
-sge::renderer::device::core &
-sge::systems::detail::instance::renderer_device_core() const
+sge::renderer::device::core &sge::systems::detail::instance::renderer_device_core() const
 {
-	return
-		impl_->renderer_device_core();
+  return impl_->renderer_device_core();
 }
 
-sge::input::system &
-sge::systems::detail::instance::input_system() const
+sge::input::system &sge::systems::detail::instance::input_system() const
 {
-	return
-		impl_->input_system();
+  return impl_->input_system();
 }
 
-sge::input::processor &
-sge::systems::detail::instance::input_processor() const
+sge::input::processor &sge::systems::detail::instance::input_processor() const
 {
-	return
-		impl_->input_processor();
+  return impl_->input_processor();
 }
 
-sge::image2d::system &
-sge::systems::detail::instance::image_system() const
+sge::image2d::system &sge::systems::detail::instance::image_system() const
 {
-	return
-		impl_->image_system();
+  return impl_->image_system();
 }
 
-sge::audio::loader &
-sge::systems::detail::instance::audio_loader() const
+sge::audio::loader &sge::systems::detail::instance::audio_loader() const
 {
-	return
-		impl_->audio_loader();
+  return impl_->audio_loader();
 }
 
-sge::audio::player &
-sge::systems::detail::instance::audio_player() const
+sge::audio::player &sge::systems::detail::instance::audio_player() const
 {
-	return
-		impl_->audio_player();
+  return impl_->audio_player();
 }
 
-sge::font::system &
-sge::systems::detail::instance::font_system() const
+sge::font::system &sge::systems::detail::instance::font_system() const
 {
-	return
-		impl_->font_system();
+  return impl_->font_system();
 }
 
-sge::window::object &
-sge::systems::detail::instance::window() const
+sge::window::object &sge::systems::detail::instance::window() const { return impl_->window(); }
+
+sge::window::system &sge::systems::detail::instance::window_system() const
 {
-	return
-		impl_->window();
+  return impl_->window_system();
 }
 
-sge::window::system &
-sge::systems::detail::instance::window_system() const
+sge::viewport::manager &sge::systems::detail::instance::viewport_manager() const
 {
-	return
-		impl_->window_system();
-}
-
-sge::viewport::manager &
-sge::systems::detail::instance::viewport_manager() const
-{
-	return
-		impl_->viewport_manager();
+  return impl_->viewport_manager();
 }

@@ -3,36 +3,20 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/get_property.hpp>
 #include <sge/dinput/device/get_property_dword.hpp>
 #include <fcppt/cast/size.hpp>
 
-
 DWORD
 sge::dinput::device::get_property_dword(
-	IDirectInputDevice8 &_device,
-	DIDEVICEOBJECTINSTANCE const &_data,
-	REFGUID _guid
-)
+    IDirectInputDevice8 &_device, DIDEVICEOBJECTINSTANCE const &_data, REFGUID _guid)
 {
-	DIPROPDWORD result;
+  DIPROPDWORD result;
 
-	result.diph.dwSize =
-		fcppt::cast::size<
-			DWORD
-		>(
-			sizeof(DIPROPDWORD)
-		);
+  result.diph.dwSize = fcppt::cast::size<DWORD>(sizeof(DIPROPDWORD));
 
-	sge::dinput::device::get_property(
-		_device,
-		_data,
-		_guid,
-		result.diph
-	);
+  sge::dinput::device::get_property(_device, _data, _guid, result.diph);
 
-	return
-		result.dwData;
+  return result.dwData;
 }

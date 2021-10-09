@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_CG_TEXTURE_DISABLE_HPP_INCLUDED
 #define SGE_OPENGL_CG_TEXTURE_DISABLE_HPP_INCLUDED
 
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 
-
 namespace sge::opengl::cg::texture
 {
 
-void
-disable(
-	sge::renderer::cg::loaded_texture const &
-);
+void disable(sge::renderer::cg::loaded_texture const &);
 
 }
 

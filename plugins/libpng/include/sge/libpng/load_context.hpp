@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LIBPNG_LOAD_CONTEXT_HPP_INCLUDED
 #define SGE_LIBPNG_LOAD_CONTEXT_HPP_INCLUDED
 
@@ -15,41 +14,26 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::libpng
 {
 
 class load_context
 {
-	FCPPT_NONMOVABLE(
-		load_context
-	);
+  FCPPT_NONMOVABLE(load_context);
+
 public:
-	load_context(
-		std::istream &,
-		sge::media::optional_name &&,
-		sge::libpng::read_ptr const &
-	);
+  load_context(std::istream &, sge::media::optional_name &&, sge::libpng::read_ptr const &);
 
-	~load_context();
+  ~load_context();
+
 private:
-	std::istream &stream_;
+  std::istream &stream_;
 
-	sge::media::optional_name const name_;
+  sge::media::optional_name const name_;
 
-	static
-	void
-	handle_read(
-		png_structp,
-		png_bytep data,
-		png_size_t length
-	);
+  static void handle_read(png_structp, png_bytep data, png_size_t length);
 
-	void
-	handle_read_impl(
-		png_bytep data,
-		png_size_t length
-	);
+  void handle_read_impl(png_bytep data, png_size_t length);
 };
 
 }

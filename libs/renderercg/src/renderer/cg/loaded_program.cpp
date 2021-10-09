@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/cg/loaded_program.hpp>
 
+sge::renderer::cg::loaded_program::loaded_program() = default;
 
-sge::renderer::cg::loaded_program::loaded_program()
-= default;
-
-sge::renderer::cg::loaded_program::~loaded_program()
-= default;
+sge::renderer::cg::loaded_program::~loaded_program() = default;

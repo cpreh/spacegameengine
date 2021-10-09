@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_exception.hpp>
@@ -16,19 +15,9 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::audio::file_unique_ptr
-sge::audio::load_exn(
-	sge::audio::loader_ref const _loader,
-	std::filesystem::path const &_path
-)
+sge::audio::load_exn(sge::audio::loader_ref const _loader, std::filesystem::path const &_path)
 {
-	return
-		sge::media::impl::load_exn<
-			sge::audio::file_unique_ptr,
-			sge::audio::exception
-		>(
-			_loader,
-			_path
-		);
+  return sge::media::impl::load_exn<sge::audio::file_unique_ptr, sge::audio::exception>(
+      _loader, _path);
 }

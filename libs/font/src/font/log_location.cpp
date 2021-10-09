@@ -3,21 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/log_location.hpp>
 #include <sge/log/location.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/name.hpp>
 
-
-fcppt::log::location
-sge::font::log_location()
+fcppt::log::location sge::font::log_location()
 {
-	return
-		sge::log::location()
-		/
-		fcppt::log::name{
-			FCPPT_TEXT("font")
-		};
+  return sge::log::location() / fcppt::log::name{FCPPT_TEXT("font")};
 }

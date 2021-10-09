@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_CG_PROGRAM_DEACTIVATE_HPP_INCLUDED
 #define SGE_D3D9_CG_PROGRAM_DEACTIVATE_HPP_INCLUDED
 
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
-
 
 namespace sge
 {
@@ -19,10 +17,7 @@ namespace cg
 namespace program
 {
 
-void
-deactivate(
-	sge::renderer::cg::loaded_program const &
-);
+void deactivate(sge::renderer::cg::loaded_program const &);
 
 }
 }

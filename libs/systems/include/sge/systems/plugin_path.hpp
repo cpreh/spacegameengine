@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
 #define SGE_SYSTEMS_PLUGIN_PATH_HPP_INCLUDED
 
@@ -13,14 +12,10 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::systems
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	std::filesystem::path,
-	plugin_path
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(std::filesystem::path, plugin_path);
 
 }
 

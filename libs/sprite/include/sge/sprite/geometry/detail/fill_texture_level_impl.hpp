@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FILL_TEXTURE_LEVEL_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FILL_TEXTURE_LEVEL_IMPL_HPP_INCLUDED
 
@@ -17,65 +16,29 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::geometry::detail
 {
 
-template<
-	typename Level,
-	typename Iterator,
-	typename Choices
->
-inline
-std::enable_if_t<
-	sge::sprite::detail::config::has_texture<
-		Choices
-	>::value,
-	void
->
+template <typename Level, typename Iterator, typename Choices>
+inline std::enable_if_t<sge::sprite::detail::config::has_texture<Choices>::value, void>
 fill_texture_level_impl(
-	Level const &_level,
-	Iterator const _iterator,
-	sge::sprite::object<
-		Choices
-	> const &_sprite,
-	sge::texture::part const &_texture
-)
+    Level const &_level,
+    Iterator const _iterator,
+    sge::sprite::object<Choices> const &_sprite,
+    sge::texture::part const &_texture)
 {
-	sge::sprite::geometry::detail::fill_texture_coordinates(
-		_level,
-		_iterator,
-		_sprite,
-		_texture
-	);
+  sge::sprite::geometry::detail::fill_texture_coordinates(_level, _iterator, _sprite, _texture);
 }
 
-template<
-	typename Level,
-	typename Iterator,
-	typename Choices
->
-inline
-std::enable_if_t<
-	sge::sprite::detail::config::has_texture_point_size<
-		Choices
-	>::value,
-	void
->
+template <typename Level, typename Iterator, typename Choices>
+inline std::enable_if_t<sge::sprite::detail::config::has_texture_point_size<Choices>::value, void>
 fill_texture_level_impl(
-	Level const &_level,
-	Iterator const _iterator,
-	sge::sprite::object<
-		Choices
-	> const &_sprite,
-	sge::texture::part const &
-)
+    Level const &_level,
+    Iterator const _iterator,
+    sge::sprite::object<Choices> const &_sprite,
+    sge::texture::part const &)
 {
-	sge::sprite::geometry::detail::fill_texture_point(
-		_level,
-		_iterator,
-		_sprite
-	);
+  sge::sprite::geometry::detail::fill_texture_point(_level, _iterator, _sprite);
 }
 
 }

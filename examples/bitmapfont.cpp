@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/media_path.hpp>
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
@@ -98,360 +97,146 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-awl::main::exit_code
-main_program(
-	sge::font::string const &_text
-)
+awl::main::exit_code main_program(sge::font::string const &_text)
 {
-	sge::systems::instance<
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_window,
-		sge::systems::with_input,
-		sge::systems::with_image2d
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("bitmapfont")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::center_on_resize(
-						sge::window::dim{
-							1024U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-							768U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-						}
-					)
-				}
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-		(
-			sge::systems::image2d(
-				sge::media::optional_extension_set(
-					sge::media::extension_set{
-						sge::media::extension(
-							FCPPT_TEXT("png")
-						)
-					}
-				)
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_window,
+      sge::systems::with_input,
+      sge::systems::
+          with_image2d> const sys(sge::systems::make_list(sge::systems::
+                                                              window(sge::systems::window_source(
+                                                                  sge::systems::original_window(
+                                                                      sge::window::title(FCPPT_TEXT(
+                                                                          "bitmapfont"))))))(
+      sge::systems::renderer(
+          sge::renderer::pixel_format::object(
+              sge::renderer::pixel_format::color::depth32,
+              sge::renderer::pixel_format::depth_stencil::off,
+              sge::renderer::pixel_format::optional_multi_samples(),
+              sge::renderer::pixel_format::srgb::
+                  no),
+          sge::renderer::display_mode::parameters(
+              sge::renderer::display_mode::vsync::on,
+              sge::renderer::display_mode::optional_object()),
+          sge::viewport::optional_resize_callback{sge::viewport::center_on_resize(sge::window::dim{
+              1024U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              768U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          })}))(sge::systems::input(sge::systems::cursor_option_field::null()))(
+      sge::systems::image2d(sge::media::optional_extension_set(
+          sge::media::extension_set{sge::media::extension(FCPPT_TEXT("png"))}))));
 
-	sge::font::object_unique_ptr const font_object(
-		sge::font::bitmap::create(
-			sys.log_context(),
-			sge::config::media_path()
-			/ FCPPT_TEXT("fonts")
-			/ FCPPT_TEXT("bitmap")
-			/ FCPPT_TEXT("font.json"),
-			fcppt::make_ref(
-				sys.image_system()
-			)
-		)
-	);
+  sge::font::object_unique_ptr const font_object(sge::font::bitmap::create(
+      sys.log_context(),
+      sge::config::media_path() / FCPPT_TEXT("fonts") / FCPPT_TEXT("bitmap") /
+          FCPPT_TEXT("font.json"),
+      fcppt::make_ref(sys.image_system())));
 
-	sge::font::draw::static_text const static_text_left(
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		fcppt::make_ref(
-			*font_object
-		),
-		_text,
-		sge::font::text_parameters(
-			sge::font::align_h::variant(
-				sge::font::align_h::left(
-					sge::font::align_h::max_width(
-						300
-					)
-				)
-			)
-		),
-		sge::font::vector(
-			100,
-			100
-		),
-		sge::image::color::any::object{
-			sge::image::color::predef::white()
-		},
-		sge::renderer::texture::emulate_srgb::yes
-	);
+  sge::font::draw::static_text const static_text_left(
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      fcppt::make_ref(*font_object),
+      _text,
+      sge::font::text_parameters(sge::font::align_h::variant(
+          sge::font::align_h::left(sge::font::align_h::max_width(300)))),
+      sge::font::vector(100, 100),
+      sge::image::color::any::object{sge::image::color::predef::white()},
+      sge::renderer::texture::emulate_srgb::yes);
 
-	sge::font::draw::static_text const static_text_center(
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		fcppt::make_ref(
-			*font_object
-		),
-		_text,
-		sge::font::text_parameters(
-			sge::font::align_h::variant(
-				sge::font::align_h::center(
-					sge::font::align_h::max_width(
-						300
-					)
-				)
-			)
-		),
-		sge::font::vector(
-			400,
-			100
-		),
-		sge::image::color::any::object{
-			sge::image::color::predef::white()
-		},
-		sge::renderer::texture::emulate_srgb::yes
-	);
+  sge::font::draw::static_text const static_text_center(
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      fcppt::make_ref(*font_object),
+      _text,
+      sge::font::text_parameters(sge::font::align_h::variant(
+          sge::font::align_h::center(sge::font::align_h::max_width(300)))),
+      sge::font::vector(400, 100),
+      sge::image::color::any::object{sge::image::color::predef::white()},
+      sge::renderer::texture::emulate_srgb::yes);
 
-	sge::font::draw::static_text const static_text_right(
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		fcppt::make_ref(
-			*font_object
-		),
-		_text,
-		sge::font::text_parameters(
-			sge::font::align_h::variant(
-				sge::font::align_h::right(
-					sge::font::align_h::max_width(
-						300
-					)
-				)
-			)
-		),
-		sge::font::vector(
-			700,
-			100
-		),
-		sge::image::color::any::object{
-			sge::image::color::predef::white()
-		},
-		sge::renderer::texture::emulate_srgb::yes
-	);
+  sge::font::draw::static_text const static_text_right(
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      fcppt::make_ref(*font_object),
+      _text,
+      sge::font::text_parameters(sge::font::align_h::variant(
+          sge::font::align_h::right(sge::font::align_h::max_width(300)))),
+      sge::font::vector(700, 100),
+      sge::image::color::any::object{sge::image::color::predef::white()},
+      sge::renderer::texture::emulate_srgb::yes);
 
-	auto const draw(
-		[
-			&static_text_center,
-			&static_text_left,
-			&static_text_right,
-			&sys
-		]{
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+  auto const draw(
+      [&static_text_center, &static_text_left, &static_text_right, &sys]
+      {
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			scoped_block.get().clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-			);
+        scoped_block.get().clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::black()}));
 
-			static_text_left.draw(
-				scoped_block.get()
-			);
+        static_text_left.draw(scoped_block.get());
 
-			static_text_center.draw(
-				scoped_block.get()
-			);
+        static_text_center.draw(scoped_block.get());
 
-			static_text_right.draw(
-				scoped_block.get()
-			);
-		}
-	);
+        static_text_right.draw(scoped_block.get());
+      });
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&sys,
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					sge::systems::quit_on_escape(
-						sys,
-						_event
-					);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&sys, &draw](awl::event::base const &_event)
+          {
+            sge::systems::quit_on_escape(sys, _event);
 
-					fcppt::optional::maybe_void(
-						fcppt::cast::dynamic<
-							sge::renderer::event::render const
-						>(
-							_event
-						),
-						[
-							&draw
-						](
-							fcppt::reference<
-								sge::renderer::event::render const
-							>
-						)
-						{
-							draw();
-						}
-					);
-				}
-			}
-		);
+            fcppt::optional::maybe_void(
+                fcppt::cast::dynamic<sge::renderer::event::render const>(_event),
+                [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); });
+          }});
 }
 
 }
 
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &_main_function_context
-)
+awl::main::exit_code example_main(awl::main::function_context const &_main_function_context)
 try
 {
-	FCPPT_RECORD_MAKE_LABEL(
-		text_label
-	);
+  FCPPT_RECORD_MAKE_LABEL(text_label);
 
-	auto const parser(
-		fcppt::options::make_optional(
-			fcppt::options::argument<
-				text_label,
-				fcppt::string
-			>{
-				fcppt::options::long_name{
-					FCPPT_TEXT("text")
-				},
-				fcppt::options::optional_help_text{}
-			}
-		)
-	);
+  auto const parser(
+      fcppt::options::make_optional(fcppt::options::argument<text_label, fcppt::string>{
+          fcppt::options::long_name{FCPPT_TEXT("text")}, fcppt::options::optional_help_text{}}));
 
-	using
-	result_type
-	=
-	fcppt::options::result_of<
-		decltype(
-			parser
-		)
-	>;
+  using result_type = fcppt::options::result_of<decltype(parser)>;
 
-	return
-		fcppt::either::match(
-			fcppt::options::parse(
-				parser,
-				fcppt::args_from_second(
-					_main_function_context.argc(),
-					_main_function_context.argv()
-				)
-			),
-			[](
-				fcppt::options::error const &_error
-			)
-			{
-				awl::show_error(
-					fcppt::output_to_fcppt_string(
-						_error
-					)
-				);
+  return fcppt::either::match(
+      fcppt::options::parse(
+          parser,
+          fcppt::args_from_second(_main_function_context.argc(), _main_function_context.argv())),
+      [](fcppt::options::error const &_error)
+      {
+        awl::show_error(fcppt::output_to_fcppt_string(_error));
 
-				return
-					awl::main::exit_failure();
-			},
-			[](
-				result_type const &_result
-			)
-			{
-				return
-					main_program(
-						fcppt::optional::from(
-							fcppt::optional::map(
-								fcppt::record::get<
-									text_label
-								>(
-									_result
-								),
-								[](
-									fcppt::string const &_text
-								)
-								{
-									return
-										sge::font::from_fcppt_string(
-											_text
-										);
-								}
-							),
-							[]{
-								return
-									sge::font::string{
-										SGE_FONT_LIT("test abcd e 123456789 10 11")
-									};
-							}
-						)
-					);
-			}
-		);
+        return awl::main::exit_failure();
+      },
+      [](result_type const &_result)
+      {
+        return main_program(fcppt::optional::from(
+            fcppt::optional::map(
+                fcppt::record::get<text_label>(_result),
+                [](fcppt::string const &_text) { return sge::font::from_fcppt_string(_text); }),
+            [] { return sge::font::string{SGE_FONT_LIT("test abcd e 123456789 10 11")}; }));
+      });
 }
-catch(
-	fcppt::exception const &_exception
-)
+catch (fcppt::exception const &_exception)
 {
-	awl::show_error(
-		_exception.string()
-	);
+  awl::show_error(_exception.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_exception
-)
+catch (std::exception const &_exception)
 {
-	awl::show_error_narrow(
-		_exception.what()
-	);
+  awl::show_error_narrow(_exception.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

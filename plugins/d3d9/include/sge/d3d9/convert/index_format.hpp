@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_CONVERT_INDEX_FORMAT_HPP_INCLUDED
 #define SGE_D3D9_CONVERT_INDEX_FORMAT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/index/dynamic/format_fwd.hpp>
-
 
 namespace sge
 {
@@ -19,9 +17,7 @@ namespace convert
 {
 
 D3DFORMAT
-index_format(
-	sge::renderer::index::dynamic::format
-);
+index_format(sge::renderer::index::dynamic::format);
 
 }
 }

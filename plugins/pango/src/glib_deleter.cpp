@@ -3,25 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/pango/glib_deleter.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <glib-object.h>
 #include <glib.h>
 #include <fcppt/config/external_end.hpp>
 
-
-void
-sge::pango::glib_deleter::operator()(
-	gpointer const _ptr // NOLINT(misc-misplaced-const)
+void sge::pango::glib_deleter::operator()(gpointer const _ptr // NOLINT(misc-misplaced-const)
 )
 {
-	if(
-		_ptr != nullptr
-	)
-	{
-		::g_object_unref(
-			_ptr
-		);
-	}
+  if (_ptr != nullptr)
+  {
+    ::g_object_unref(_ptr);
+  }
 }

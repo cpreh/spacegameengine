@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_CONFIG_HAS_TEXTURE_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_CONFIG_HAS_TEXTURE_COORDINATES_HPP_INCLUDED
 
@@ -13,23 +12,14 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail::config
 {
 
-template<
-	typename Choices
->
-using has_texture_coordinates
-=
-std::integral_constant<
-	bool,
-	sge::sprite::detail::config::find_with_texture<
-		Choices
-	>::coordinates::value
-	==
-	sge::sprite::config::texture_coordinates::custom
->;
+template <typename Choices>
+using has_texture_coordinates = std::integral_constant<
+    bool,
+    sge::sprite::detail::config::find_with_texture<Choices>::coordinates::value ==
+        sge::sprite::config::texture_coordinates::custom>;
 
 }
 

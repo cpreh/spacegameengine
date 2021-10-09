@@ -3,10 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_CLEAR_STENCIL_BUFFER_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_CLEAR_STENCIL_BUFFER_VALUE_HPP_INCLUDED
-
 
 namespace sge::renderer::clear
 {
@@ -16,10 +14,7 @@ namespace sge::renderer::clear
 
 \ingroup sge_renderer
 */
-using
-stencil_buffer_value
-=
-int;
+using stencil_buffer_value = int;
 
 }
 

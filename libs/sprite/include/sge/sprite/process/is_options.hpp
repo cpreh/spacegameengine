@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_PROCESS_IS_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_IS_OPTIONS_HPP_INCLUDED
 
@@ -13,29 +12,16 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::process
 {
 
-template<
-	typename T
->
-struct is_options
-:
-std::false_type
+template <typename T>
+struct is_options : std::false_type
 {
 };
 
-template<
-	sge::sprite::process::geometry_options GeometryOptions
->
-struct is_options<
-	sge::sprite::process::options<
-		GeometryOptions
-	>
->
-:
-std::true_type
+template <sge::sprite::process::geometry_options GeometryOptions>
+struct is_options<sge::sprite::process::options<GeometryOptions>> : std::true_type
 {
 };
 

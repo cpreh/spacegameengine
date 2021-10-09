@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
@@ -21,66 +20,29 @@
 #include <SDL_video.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::sdlinput::cursor::object::object(
-	sge::window::object_ref const _window,
-	awl::backends::sdl::window::object_ref const _sdl_window
-)
-:
-	sge::input::cursor::object{},
-	window_{
-		_window
-	},
-	sdl_window_{
-		_sdl_window
-	}
+    sge::window::object_ref const _window, awl::backends::sdl::window::object_ref const _sdl_window)
+    : sge::input::cursor::object{}, window_{_window}, sdl_window_{_sdl_window}
 {
 }
 
-sge::sdlinput::cursor::object::~object()
-= default;
+sge::sdlinput::cursor::object::~object() = default;
 
-sge::window::object &
-sge::sdlinput::cursor::object::window() const
+sge::window::object &sge::sdlinput::cursor::object::window() const { return this->window_.get(); }
+
+sge::input::cursor::optional_position sge::sdlinput::cursor::object::position() const
 {
-	return
-		this->window_.get();
+  return fcppt::optional::bind(
+      sge::sdlinput::cursor::get_focus(),
+      [this](fcppt::reference<SDL_Window> const _window)
+      {
+        return fcppt::optional::make_if(
+            &_window.get() == &this->sdl_window_.get().get().get(),
+            [] { return sge::sdlinput::cursor::get_position(); });
+      });
 }
 
-sge::input::cursor::optional_position
-sge::sdlinput::cursor::object::position() const
+void sge::sdlinput::cursor::object::mode(sge::input::cursor::mode const _mode)
 {
-	return
-		fcppt::optional::bind(
-			sge::sdlinput::cursor::get_focus(),
-			[
-				this
-			](
-				fcppt::reference<
-					SDL_Window
-				> const _window
-			)
-			{
-				return
-					fcppt::optional::make_if(
-						&_window.get()
-						==
-						&this->sdl_window_.get().get().get(),
-						[]{
-							return
-								sge::sdlinput::cursor::get_position();
-						}
-					);
-			}
-		);
-}
-
-void
-sge::sdlinput::cursor::object::mode(
-	sge::input::cursor::mode const _mode
-)
-{
-	sge::sdlinput::cursor::set_mode(
-		_mode
-	);
+  sge::sdlinput::cursor::set_mode(_mode);
 }

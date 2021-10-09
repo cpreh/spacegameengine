@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_WIDGET_REFERENCE_ALIGNMENT_CONTAINER_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_REFERENCE_ALIGNMENT_CONTAINER_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::rucksack::widget
 {
 
-using
-reference_alignment_container
-=
-std::vector<
-	sge::rucksack::widget::reference_alignment
->;
+using reference_alignment_container = std::vector<sge::rucksack::widget::reference_alignment>;
 
 }
 

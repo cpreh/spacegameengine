@@ -3,28 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TARGET_AREA_FUNCTION_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_AREA_FUNCTION_HPP_INCLUDED
 
 #include <sge/opengl/apientry.hpp>
 #include <sge/opengl/common.hpp>
 
-
 namespace sge::opengl::target
 {
 
-using
-area_function
-=
-void
-(SGE_OPENGL_APIENTRY &)
-(
-	GLint,
-	GLint,
-	GLsizei,
-	GLsizei
-);
+using area_function = void(SGE_OPENGL_APIENTRY &)(GLint, GLint, GLsizei, GLsizei);
 
 }
 

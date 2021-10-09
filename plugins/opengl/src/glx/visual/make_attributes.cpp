@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/glx/visual/attribute_container.hpp>
 #include <sge/opengl/glx/visual/make_attributes.hpp>
 #include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
@@ -24,173 +23,86 @@
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::opengl::glx::visual::attribute_container
-sge::opengl::glx::visual::make_attributes(
-	sge::opengl::glx::visual::optional_srgb_flag const _srgb_flag,
-	sge::renderer::pixel_format::object const &_format
-)
+sge::opengl::glx::visual::attribute_container sge::opengl::glx::visual::make_attributes(
+    sge::opengl::glx::visual::optional_srgb_flag const _srgb_flag,
+    sge::renderer::pixel_format::object const &_format)
 {
-	sge::opengl::glx::visual::attribute_container ret;
+  sge::opengl::glx::visual::attribute_container ret;
 
-	ret.push_back(
-		GLX_RGBA
-	);
+  ret.push_back(GLX_RGBA);
 
-	ret.push_back(
-		GLX_DOUBLEBUFFER
-	);
+  ret.push_back(GLX_DOUBLEBUFFER);
 
-	{
-		sge::opengl::visual::rgb_triple const rgb(
-			sge::opengl::visual::convert_color(
-				_format.color()
-			)
-		);
+  {
+    sge::opengl::visual::rgb_triple const rgb(sge::opengl::visual::convert_color(_format.color()));
 
-		ret.push_back(
-			GLX_RED_SIZE
-		);
+    ret.push_back(GLX_RED_SIZE);
 
-		ret.push_back(
-			rgb.red().get()
-		);
+    ret.push_back(rgb.red().get());
 
-		ret.push_back(
-			GLX_BLUE_SIZE
-		);
+    ret.push_back(GLX_BLUE_SIZE);
 
-		ret.push_back(
-			rgb.blue().get()
-		);
+    ret.push_back(rgb.blue().get());
 
-		ret.push_back(
-			GLX_GREEN_SIZE
-		);
+    ret.push_back(GLX_GREEN_SIZE);
 
-		ret.push_back(
-			rgb.green().get()
-		);
-	}
+    ret.push_back(rgb.green().get());
+  }
 
-	fcppt::optional::maybe_void(
-		sge::renderer::pixel_format::depth_bits(
-			_format.depth_stencil()
-		),
-		[
-			&ret
-		](
-			sge::renderer::pixel_format::bit_count const _depth_bits
-		)
-		{
-			ret.push_back(
-				GLX_DEPTH_SIZE
-			);
+  fcppt::optional::maybe_void(
+      sge::renderer::pixel_format::depth_bits(_format.depth_stencil()),
+      [&ret](sge::renderer::pixel_format::bit_count const _depth_bits)
+      {
+        ret.push_back(GLX_DEPTH_SIZE);
 
-			ret.push_back(
-				fcppt::cast::to_signed(
-					_depth_bits.get()
-				)
-			);
-		}
-	);
+        ret.push_back(fcppt::cast::to_signed(_depth_bits.get()));
+      });
 
-	fcppt::optional::maybe_void(
-		sge::renderer::pixel_format::stencil_bits(
-			_format.depth_stencil()
-		),
-		[
-			&ret
-		](
-			sge::renderer::pixel_format::bit_count const _stencil_bits
-		)
-		{
-			ret.push_back(
-				GLX_STENCIL_SIZE
-			);
+  fcppt::optional::maybe_void(
+      sge::renderer::pixel_format::stencil_bits(_format.depth_stencil()),
+      [&ret](sge::renderer::pixel_format::bit_count const _stencil_bits)
+      {
+        ret.push_back(GLX_STENCIL_SIZE);
 
-			ret.push_back(
-				fcppt::cast::to_signed(
-					_stencil_bits.get()
-				)
-			);
-		}
-	);
+        ret.push_back(fcppt::cast::to_signed(_stencil_bits.get()));
+      });
 
-	fcppt::optional::maybe_void(
-		_format.multi_samples(),
-		[
-			&ret
-		](
-			sge::renderer::pixel_format::multi_samples const _samples
-		)
-		{
-			ret.push_back(
-				GLX_SAMPLE_BUFFERS
-			);
+  fcppt::optional::maybe_void(
+      _format.multi_samples(),
+      [&ret](sge::renderer::pixel_format::multi_samples const _samples)
+      {
+        ret.push_back(GLX_SAMPLE_BUFFERS);
 
-			ret.push_back(
-				GL_TRUE
-			);
+        ret.push_back(GL_TRUE);
 
-			ret.push_back(
-				GLX_SAMPLES
-			);
+        ret.push_back(GLX_SAMPLES);
 
-			ret.push_back(
-				fcppt::cast::to_signed(
-					_samples.get()
-				)
-			);
-		}
-	);
+        ret.push_back(fcppt::cast::to_signed(_samples.get()));
+      });
 
-	if(
-		_format.srgb()
-		!=
-		sge::renderer::pixel_format::srgb::no
-	)
-	{
-		fcppt::optional::maybe(
-			_srgb_flag,
-			[
-				&_format
-			]{
-				if(
-					_format.srgb()
-					==
-					sge::renderer::pixel_format::srgb::yes
-				)
-				{
-					throw
-						sge::renderer::unsupported(
-							FCPPT_TEXT("sRGB visuals"),
-							FCPPT_TEXT(""),
-							FCPPT_TEXT("GLX_EXT_framebuffer_sRGB, GLX_ARB_framebuffer_sRGB")
-						);
-				}
-			},
-			[
-				&ret
-			](
-				sge::opengl::glx::visual::srgb_flag const _flag
-			)
-			{
-				ret.push_back(
-					_flag.get()
-				);
+  if (_format.srgb() != sge::renderer::pixel_format::srgb::no)
+  {
+    fcppt::optional::maybe(
+        _srgb_flag,
+        [&_format]
+        {
+          if (_format.srgb() == sge::renderer::pixel_format::srgb::yes)
+          {
+            throw sge::renderer::unsupported(
+                FCPPT_TEXT("sRGB visuals"),
+                FCPPT_TEXT(""),
+                FCPPT_TEXT("GLX_EXT_framebuffer_sRGB, GLX_ARB_framebuffer_sRGB"));
+          }
+        },
+        [&ret](sge::opengl::glx::visual::srgb_flag const _flag)
+        {
+          ret.push_back(_flag.get());
 
-				ret.push_back(
-					GL_TRUE
-				);
-			}
-		);
-	}
+          ret.push_back(GL_TRUE);
+        });
+  }
 
-	ret.push_back(
-		None
-	);
+  ret.push_back(None);
 
-	return
-		ret;
+  return ret;
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_PROFILE_OBJECT_HPP_INCLUDED
 #define SGE_CG_PROFILE_OBJECT_HPP_INCLUDED
 
@@ -13,25 +12,19 @@
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cg::profile
 {
 
 class object
 {
 public:
-	SGE_CG_DETAIL_SYMBOL
-	explicit
-	object(
-		CGprofile
-	);
+  SGE_CG_DETAIL_SYMBOL
+  explicit object(CGprofile);
 
-	[[nodiscard]]
-	SGE_CG_DETAIL_SYMBOL
-	CGprofile
-	get() const;
+  [[nodiscard]] SGE_CG_DETAIL_SYMBOL CGprofile get() const;
+
 private:
-	CGprofile profile_;
+  CGprofile profile_;
 };
 
 }

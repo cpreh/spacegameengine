@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/x11input/device/valuator/any.hpp>
 #include <sge/x11input/device/valuator/make_absolute.hpp>
 #include <sge/x11input/device/valuator/make_any.hpp>
@@ -14,29 +13,17 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::x11input::device::valuator::any
-sge::x11input::device::valuator::make_any(
-	XIValuatorClassInfo const &_info
-)
+sge::x11input::device::valuator::make_any(XIValuatorClassInfo const &_info)
 {
-	switch(
-		_info.mode
-	)
-	{
-	case XIModeAbsolute:
-		return
-			sge::x11input::device::valuator::any{
-				sge::x11input::device::valuator::make_absolute(
-					_info
-				)
-			};
-	case XIModeRelative:
-		return
-			sge::x11input::device::valuator::any{
-				sge::x11input::device::valuator::relative{}
-			};
-	}
+  switch (_info.mode)
+  {
+  case XIModeAbsolute:
+    return sge::x11input::device::valuator::any{
+        sge::x11input::device::valuator::make_absolute(_info)};
+  case XIModeRelative:
+    return sge::x11input::device::valuator::any{sge::x11input::device::valuator::relative{}};
+  }
 
-	FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_ASSERT_UNREACHABLE;
 }

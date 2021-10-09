@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_OPTIONAL_FORMAT_FWD_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_OPTIONAL_FORMAT_FWD_HPP_INCLUDED
 
 #include <sge/image/color/format_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::image::color
 {
 
-using
-optional_format
-=
-fcppt::optional::object<
-	sge::image::color::format
->;
+using optional_format = fcppt::optional::object<sge::image::color::format>;
 
 }
 

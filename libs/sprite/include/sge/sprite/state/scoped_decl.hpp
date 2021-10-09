@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_STATE_SCOPED_DECL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_SCOPED_DECL_HPP_INCLUDED
 
@@ -15,63 +14,31 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::sprite::state
 {
 
-template<
-	typename StateChoices
->
+template <typename StateChoices>
 class scoped
 {
-	FCPPT_NONMOVABLE(
-		scoped
-	);
+  FCPPT_NONMOVABLE(scoped);
+
 public:
-	using
-	render_device
-	=
-	sge::sprite::state::render_device<
-		StateChoices
-	>;
+  using render_device = sge::sprite::state::render_device<StateChoices>;
 
-	using
-	render_context
-	=
-	sge::sprite::state::render_context<
-		StateChoices
-	>;
+  using render_context = sge::sprite::state::render_context<StateChoices>;
 
-	using
-	state_options
-	=
-	sge::sprite::state::options<
-		StateChoices
-	>;
+  using state_options = sge::sprite::state::options<StateChoices>;
 
-	using
-	state_object
-	=
-	sge::sprite::state::object<
-		StateChoices
-	>;
+  using state_object = sge::sprite::state::object<StateChoices>;
 
-	scoped(
-		render_device &,
-		fcppt::reference<
-			render_context
-		>,
-		state_options,
-		state_object &
-	);
+  scoped(render_device &, fcppt::reference<render_context>, state_options, state_object &);
 
-	~scoped();
+  ~scoped();
+
 private:
-	fcppt::reference<
-		render_context
-	> const render_context_;
+  fcppt::reference<render_context> const render_context_;
 
-	state_options const options_;
+  state_options const options_;
 };
 
 }

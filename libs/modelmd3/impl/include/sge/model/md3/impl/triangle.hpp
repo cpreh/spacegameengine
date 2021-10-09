@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_MD3_IMPL_TRIANGLE_HPP_INCLUDED
 #define SGE_MODEL_MD3_IMPL_TRIANGLE_HPP_INCLUDED
 
@@ -12,23 +11,18 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::model::md3::impl
 {
 
 class triangle
 {
 public:
-	explicit
-	triangle(
-		std::istream &
-	);
+  explicit triangle(std::istream &);
 
-	[[nodiscard]]
-	sge::model::md3::impl::index_array const &
-	indices() const;
+  [[nodiscard]] sge::model::md3::impl::index_array const &indices() const;
+
 private:
-	sge::model::md3::impl::index_array indices_;
+  sge::model::md3::impl::index_array indices_;
 };
 
 }

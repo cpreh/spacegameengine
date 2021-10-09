@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_CORE_SAMPLER_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_SAMPLER_CONTEXT_HPP_INCLUDED
 
@@ -20,75 +19,42 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::state::core::sampler
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
+  FCPPT_NONMOVABLE(context
 
-	);
+  );
+
 public:
-	using
-	parameter
-	=
-	sge::opengl::context::object_ref;
+  using parameter = sge::opengl::context::object_ref;
 
-	explicit
-	context(
-		parameter
-	);
+  explicit context(parameter);
 
-	~context()
-	override;
+  ~context() override;
 
-	void
-	set(
-		sge::renderer::state::core::sampler::const_optional_object_ref_map const &
-	);
+  void set(sge::renderer::state::core::sampler::const_optional_object_ref_map const &);
 
-	[[nodiscard]]
-	sge::opengl::state::core::sampler::object const &
-	get(
-		sge::renderer::texture::stage
-	) const;
+  [[nodiscard]] sge::opengl::state::core::sampler::object const &
+      get(sge::renderer::texture::stage) const;
 
-	void
-	reset();
+  void reset();
 
-	static
-	sge::opengl::context::id const
-	static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	using
-	object_unique_ptr
-	=
-	fcppt::unique_ptr<
-		sge::opengl::state::core::sampler::object
-	>;
+  using object_unique_ptr = fcppt::unique_ptr<sge::opengl::state::core::sampler::object>;
 
-	using
-	optional_object_ref
-	=
-	fcppt::optional::reference<
-		sge::opengl::state::core::sampler::object const
-	>;
+  using optional_object_ref =
+      fcppt::optional::reference<sge::opengl::state::core::sampler::object const>;
 
-	using
-	optional_object_ref_map
-	=
-	std::map<
-		sge::renderer::texture::stage,
-		optional_object_ref
-	>;
+  using optional_object_ref_map = std::map<sge::renderer::texture::stage, optional_object_ref>;
 
-	object_unique_ptr const defaults_;
+  object_unique_ptr const defaults_;
 
-	optional_object_ref_map objects_;
+  optional_object_ref_map objects_;
 };
 
 }

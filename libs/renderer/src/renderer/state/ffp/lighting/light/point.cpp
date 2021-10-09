@@ -3,36 +3,25 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/point.hpp>
 #include <sge/renderer/state/ffp/lighting/light/position.hpp>
 
-
 sge::renderer::state::ffp::lighting::light::point::point(
-	sge::renderer::state::ffp::lighting::light::position const _position,
-	sge::renderer::state::ffp::lighting::light::attenuation const &_attenuation
-)
-:
-	position_(
-		_position
-	),
-	attenuation_(
-		_attenuation
-	)
+    sge::renderer::state::ffp::lighting::light::position const _position,
+    sge::renderer::state::ffp::lighting::light::attenuation const &_attenuation)
+    : position_(_position), attenuation_(_attenuation)
 {
 }
 
 sge::renderer::state::ffp::lighting::light::position const &
 sge::renderer::state::ffp::lighting::light::point::position() const
 {
-	return
-		position_;
+  return position_;
 }
 
 sge::renderer::state::ffp::lighting::light::attenuation const &
 sge::renderer::state::ffp::lighting::light::point::attenuation() const
 {
-	return
-		attenuation_;
+  return attenuation_;
 }

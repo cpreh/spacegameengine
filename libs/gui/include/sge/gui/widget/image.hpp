@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_IMAGE_HPP_INCLUDED
 #define SGE_GUI_WIDGET_IMAGE_HPP_INCLUDED
 
@@ -18,46 +17,30 @@
 #include <sge/texture/const_part_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class image
-:
-	public sge::gui::widget::base
+class image : public sge::gui::widget::base
 {
-	FCPPT_NONMOVABLE(
-		image
-	);
+  FCPPT_NONMOVABLE(image);
+
 public:
-	SGE_GUI_DETAIL_SYMBOL
-	image(
-		sge::gui::style::const_reference,
-		sge::texture::const_part_ref
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  image(sge::gui::style::const_reference, sge::texture::const_part_ref);
 
-	SGE_GUI_DETAIL_SYMBOL
-	~image()
-	override;
+  SGE_GUI_DETAIL_SYMBOL
+  ~image() override;
 
-	[[nodiscard]]
-	SGE_GUI_DETAIL_SYMBOL
-	sge::rucksack::widget::base &
-	layout()
-	override;
+  [[nodiscard]] SGE_GUI_DETAIL_SYMBOL sge::rucksack::widget::base &layout() override;
+
 private:
-	void
-	on_draw(
-		sge::gui::renderer::base &,
-		sge::renderer::context::ffp &
-	)
-	override;
+  void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
 
-	sge::gui::style::const_reference const style_;
+  sge::gui::style::const_reference const style_;
 
-	sge::texture::const_part_ref const texture_;
+  sge::texture::const_part_ref const texture_;
 
-	sge::rucksack::widget::dummy layout_;
+  sge::rucksack::widget::dummy layout_;
 };
 
 }

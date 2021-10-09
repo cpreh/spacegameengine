@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_INOTIFY_READER_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_READER_HPP_INCLUDED
 
@@ -16,34 +15,26 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::inotify
 {
 
 class reader
 {
-	FCPPT_NONMOVABLE(
-		reader
-	);
+  FCPPT_NONMOVABLE(reader);
+
 public:
-	explicit
-	reader(
-		std::filesystem::path const &
-	);
+  explicit reader(std::filesystem::path const &);
 
-	~reader();
+  ~reader();
 
-	[[nodiscard]]
-	sge::evdev::inotify::event_container
-	on_event();
+  [[nodiscard]] sge::evdev::inotify::event_container on_event();
 
-	[[nodiscard]]
-	awl::backends::posix::fd
-	fd();
+  [[nodiscard]] awl::backends::posix::fd fd();
+
 private:
-	sge::evdev::inotify::object object_;
+  sge::evdev::inotify::object object_;
 
-	sge::evdev::inotify::watch const watch_;
+  sge::evdev::inotify::watch const watch_;
 };
 
 }

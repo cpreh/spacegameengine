@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VF_POS_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_POS_ACTOR_HPP_INCLUDED
 
@@ -14,35 +13,24 @@
 #include <sge/renderer/vf/dynamic/pos_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::vf
 {
 
-class pos_actor
-:
-	public sge::opengl::vf::fp_actor
+class pos_actor : public sge::opengl::vf::fp_actor
 {
-	FCPPT_NONMOVABLE(
-		pos_actor
-	);
+  FCPPT_NONMOVABLE(pos_actor);
+
 public:
-	pos_actor(
-		sge::opengl::vf::actor_parameters const &,
-		sge::renderer::vf::dynamic::pos const &
-	);
+  pos_actor(sge::opengl::vf::actor_parameters const &, sge::renderer::vf::dynamic::pos const &);
 
-	~pos_actor()
-	override;
+  ~pos_actor() override;
+
 private:
-	void
-	on_use(
-		sge::opengl::vf::pointer
-	) const
-	override;
+  void on_use(sge::opengl::vf::pointer) const override;
 
-	GLenum const format_;
+  GLenum const format_;
 
-	GLint const elements_;
+  GLint const elements_;
 };
 
 }

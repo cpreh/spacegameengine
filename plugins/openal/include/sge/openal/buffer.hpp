@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_BUFFER_HPP_INCLUDED
 #define SGE_OPENAL_BUFFER_HPP_INCLUDED
 
@@ -17,43 +16,31 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
 
-
 namespace sge::openal
 {
 
-class buffer
-:
-	public sge::audio::buffer
+class buffer : public sge::audio::buffer
 {
-	FCPPT_NONMOVABLE(
-		buffer
-	);
+  FCPPT_NONMOVABLE(buffer);
+
 public:
-	buffer(
-		fcppt::log::object_reference,
-		sge::audio::file & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  buffer(
+      fcppt::log::object_reference,
+      sge::audio::file & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	[[nodiscard]]
-	sge::audio::sound::positional_unique_ptr
-	create_positional(
-		sge::audio::sound::positional_parameters const &
-	)
-	override;
+  [[nodiscard]] sge::audio::sound::positional_unique_ptr
+  create_positional(sge::audio::sound::positional_parameters const &) override;
 
-	[[nodiscard]]
-	sge::audio::sound::base_unique_ptr
-	create_nonpositional(
-		sge::audio::sound::nonpositional_parameters const &
-	)
-	override;
+  [[nodiscard]] sge::audio::sound::base_unique_ptr
+  create_nonpositional(sge::audio::sound::nonpositional_parameters const &) override;
 
-	~buffer()
-	override;
+  ~buffer() override;
+
 private:
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	sge::openal::buffer_holder const holder_;
+  sge::openal::buffer_holder const holder_;
 };
 
 }

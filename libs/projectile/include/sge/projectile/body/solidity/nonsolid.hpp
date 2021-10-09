@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_BODY_SOLIDITY_NONSOLID_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_SOLIDITY_NONSOLID_HPP_INCLUDED
 
 #include <sge/projectile/body/solidity/nonsolid_fwd.hpp>
-
 
 namespace sge::projectile::body::solidity
 {

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TIMER_CLOCKS_DETAIL_WRAPPER_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_DETAIL_WRAPPER_HPP_INCLUDED
 
@@ -14,26 +13,14 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::timer::clocks::detail
 {
 
-template<
-	typename Clock
->
-using wrapper
-=
-std::conditional_t<
-	sge::timer::clocks::is_stateful<
-		Clock
-	>::value,
-	sge::timer::clocks::detail::stateful_base<
-		Clock
-	>,
-	sge::timer::clocks::detail::stateless_base<
-		Clock
-	>
->;
+template <typename Clock>
+using wrapper = std::conditional_t<
+    sge::timer::clocks::is_stateful<Clock>::value,
+    sge::timer::clocks::detail::stateful_base<Clock>,
+    sge::timer::clocks::detail::stateless_base<Clock>>;
 
 }
 

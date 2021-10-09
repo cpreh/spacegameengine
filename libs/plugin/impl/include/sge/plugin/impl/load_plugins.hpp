@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_IMPL_LOAD_PLUGINS_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_LOAD_PLUGINS_HPP_INCLUDED
 
@@ -14,16 +13,13 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::plugin::impl
 {
 
-sge::plugin::detail::context_base_vector
-load_plugins(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	std::filesystem::path const &,
-	sge::plugin::optional_cache_ref const &
-);
+sge::plugin::detail::context_base_vector load_plugins(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    std::filesystem::path const &,
+    sge::plugin::optional_cache_ref const &);
 
 }
 

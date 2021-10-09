@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_RENDER_CONTEXT_OBJECT_HPP_INCLUDED
 
@@ -53,218 +52,114 @@
 #include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #endif
 
-
 namespace sge::opengl::render_context
 {
 
-class object
-:
-	public sge::renderer::context::ffp
+class object : public sge::renderer::context::ffp
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	object(
-		fcppt::log::object_reference,
-		sge::opengl::context::object_ref,
-		sge::renderer::target::base_ref
-	);
+  object(
+      fcppt::log::object_reference,
+      sge::opengl::context::object_ref,
+      sge::renderer::target::base_ref);
 
-	~object()
-	override;
+  ~object() override;
 
-	void
-	end_rendering();
+  void end_rendering();
+
 private:
-	sge::renderer::target::base &
-	target()
-	override;
+  sge::renderer::target::base &target() override;
 
-	void
-	clear(
-		sge::renderer::clear::parameters const &
-	)
-	override;
+  void clear(sge::renderer::clear::parameters const &) override;
 
-	void
-	offscreen_target(
-		sge::renderer::target::optional_offscreen_ref const &
-	)
-	override;
+  void offscreen_target(sge::renderer::target::optional_offscreen_ref const &) override;
 
-	void
-	render_indexed(
-		sge::renderer::index::buffer const &,
-		sge::renderer::vertex::first,
-		sge::renderer::vertex::count,
-		sge::renderer::primitive_type,
-		sge::renderer::index::first,
-		sge::renderer::index::count
-	)
-	override;
+  void render_indexed(
+      sge::renderer::index::buffer const &,
+      sge::renderer::vertex::first,
+      sge::renderer::vertex::count,
+      sge::renderer::primitive_type,
+      sge::renderer::index::first,
+      sge::renderer::index::count) override;
 
-	void
-	render_nonindexed(
-		sge::renderer::vertex::first,
-		sge::renderer::vertex::count,
-		sge::renderer::primitive_type
-	)
-	override;
+  void render_nonindexed(
+      sge::renderer::vertex::first,
+      sge::renderer::vertex::count,
+      sge::renderer::primitive_type) override;
 
-	void
-	activate_vertex_buffer(
-		sge::renderer::vertex::const_buffer_ref
-	)
-	override;
+  void activate_vertex_buffer(sge::renderer::vertex::const_buffer_ref) override;
 
-	void
-	deactivate_vertex_buffer(
-		sge::renderer::vertex::buffer const &
-	)
-	override;
+  void deactivate_vertex_buffer(sge::renderer::vertex::buffer const &) override;
 
-	void
-	vertex_declaration(
-		sge::renderer::vertex::const_optional_declaration_ref const &
-	)
-	override;
+  void vertex_declaration(sge::renderer::vertex::const_optional_declaration_ref const &) override;
 
-	void
-	texture(
-		sge::renderer::texture::const_optional_base_ref const &,
-		sge::renderer::texture::stage
-	)
-	override;
+  void texture(
+      sge::renderer::texture::const_optional_base_ref const &,
+      sge::renderer::texture::stage) override;
 
-	void
-	blend_state(
-		sge::renderer::state::core::blend::const_optional_object_ref const &
-	)
-	override;
+  void blend_state(sge::renderer::state::core::blend::const_optional_object_ref const &) override;
 
-	void
-	depth_stencil_state(
-		sge::renderer::state::core::depth_stencil::const_optional_object_ref const &
-	)
-	override;
+  void depth_stencil_state(
+      sge::renderer::state::core::depth_stencil::const_optional_object_ref const &) override;
 
-	void
-	rasterizer_state(
-		sge::renderer::state::core::rasterizer::const_optional_object_ref const &
-	)
-	override;
+  void rasterizer_state(
+      sge::renderer::state::core::rasterizer::const_optional_object_ref const &) override;
 
-	void
-	sampler_state(
-		sge::renderer::state::core::sampler::const_optional_object_ref_map const &
-	)
-	override;
+  void sampler_state(
+      sge::renderer::state::core::sampler::const_optional_object_ref_map const &) override;
 
-	void
-	alpha_test_state(
-		sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &
-	)
-	override;
+  void alpha_test_state(
+      sge::renderer::state::ffp::alpha_test::const_optional_object_ref const &) override;
 
-	void
-	clip_plane_state(
-		sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &
-	)
-	override;
+  void
+  clip_plane_state(sge::renderer::state::ffp::clip_plane::const_object_ref_vector const &) override;
 
-	void
-	fog_state(
-		sge::renderer::state::ffp::fog::const_optional_object_ref const &
-	)
-	override;
+  void fog_state(sge::renderer::state::ffp::fog::const_optional_object_ref const &) override;
 
-	void
-	lighting_state(
-		sge::renderer::state::ffp::lighting::const_optional_object_ref const &
-	)
-	override;
+  void
+  lighting_state(sge::renderer::state::ffp::lighting::const_optional_object_ref const &) override;
 
-	void
-	lights_state(
-		sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &
-	)
-	override;
+  void lights_state(
+      sge::renderer::state::ffp::lighting::light::const_object_ref_vector const &) override;
 
-	void
-	material_state(
-		sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &
-	)
-	override;
+  void material_state(
+      sge::renderer::state::ffp::lighting::material::const_optional_object_ref const &) override;
 
-	void
-	misc_state(
-		sge::renderer::state::ffp::misc::const_optional_object_ref const &
-	)
-	override;
+  void misc_state(sge::renderer::state::ffp::misc::const_optional_object_ref const &) override;
 
-	void
-	sampler_ffp_state(
-		sge::renderer::state::ffp::sampler::const_object_ref_vector const &
-	)
-	override;
+  void
+  sampler_ffp_state(sge::renderer::state::ffp::sampler::const_object_ref_vector const &) override;
 
-	void
-	transform(
-		sge::renderer::state::ffp::transform::mode,
-		sge::renderer::state::ffp::transform::const_optional_object_ref const &
-	)
-	override;
+  void transform(
+      sge::renderer::state::ffp::transform::mode,
+      sge::renderer::state::ffp::transform::const_optional_object_ref const &) override;
 
 #if defined(SGE_RENDERER_HAVE_CG)
-	void
-	set_cg_program(
-		sge::renderer::cg::const_loaded_program_ref
-	)
-	override;
+  void set_cg_program(sge::renderer::cg::const_loaded_program_ref) override;
 
-	void
-	unset_cg_program(
-		sge::renderer::cg::loaded_program const &
-	)
-	override;
+  void unset_cg_program(sge::renderer::cg::loaded_program const &) override;
 
-	sge::renderer::texture::stage
-	set_cg_texture(
-		sge::renderer::cg::const_loaded_texture_ref
-	)
-	override;
+  sge::renderer::texture::stage
+      set_cg_texture(sge::renderer::cg::const_loaded_texture_ref) override;
 
-	void
-	unset_cg_texture(
-		sge::renderer::cg::loaded_texture const &
-	)
-	override;
+  void unset_cg_texture(sge::renderer::cg::loaded_texture const &) override;
 #endif
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	sge::opengl::context::object_ref const context_;
+  sge::opengl::context::object_ref const context_;
 
-	sge::renderer::target::base_ref const target_;
+  sge::renderer::target::base_ref const target_;
 
-	sge::opengl::target::scoped const scoped_target_;
+  sge::opengl::target::scoped const scoped_target_;
 
-	using
-	scoped_offscreen_target_ptr
-	=
-	fcppt::unique_ptr<
-		sge::opengl::target::scoped
-	>;
+  using scoped_offscreen_target_ptr = fcppt::unique_ptr<sge::opengl::target::scoped>;
 
-	using
-	optional_scoped_offscreen_target_ptr
-	=
-	fcppt::optional::object<
-		scoped_offscreen_target_ptr
-	>;
+  using optional_scoped_offscreen_target_ptr = fcppt::optional::object<scoped_offscreen_target_ptr>;
 
-	optional_scoped_offscreen_target_ptr scoped_offscreen_target_;
+  optional_scoped_offscreen_target_ptr scoped_offscreen_target_;
 };
 
 }

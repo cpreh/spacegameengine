@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_GFX_OBJECT_REF_HPP_INCLUDED
 #define SGE_CONSOLE_GFX_OBJECT_REF_HPP_INCLUDED
 
 #include <sge/console/gfx/object_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::console::gfx
 {
 
-using
-object_ref
-=
-fcppt::reference<
-	sge::console::gfx::object
->;
+using object_ref = fcppt::reference<sge::console::gfx::object>;
 
 }
 

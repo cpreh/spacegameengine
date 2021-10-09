@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_TO_PRIMITIVE_COUNT_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_TO_PRIMITIVE_COUNT_HPP_INCLUDED
 
@@ -11,7 +10,6 @@
 #include <sge/renderer/primitive_type_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/count.hpp>
-
 
 namespace sge::renderer::vertex
 {
@@ -31,10 +29,7 @@ vertices)
 */
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::primitive_count
-to_primitive_count(
-	sge::renderer::vertex::count vertices,
-	sge::renderer::primitive_type type
-);
+to_primitive_count(sge::renderer::vertex::count vertices, sge::renderer::primitive_type type);
 
 }
 

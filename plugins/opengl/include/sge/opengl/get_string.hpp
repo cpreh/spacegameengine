@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GET_STRING_HPP_INCLUDED
 #define SGE_OPENGL_GET_STRING_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl
 {
 
-std::string
-get_string(
-	GLenum
-);
+std::string get_string(GLenum);
 
 }
 

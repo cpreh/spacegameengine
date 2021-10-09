@@ -3,19 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_ROLES_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_ROLES_POINT_SIZE_HPP_INCLUDED
 
 #include <fcppt/record/make_label.hpp>
 
-
 namespace sge::sprite::roles
 {
 
-FCPPT_RECORD_MAKE_LABEL(
-	point_size
-);
+FCPPT_RECORD_MAKE_LABEL(point_size);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_FOCUS_TRANSLATE_KEYBOARD_EVENT_HPP_INCLUDED
 #define SGE_SDLINPUT_FOCUS_TRANSLATE_KEYBOARD_EVENT_HPP_INCLUDED
 
@@ -13,15 +12,11 @@
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::focus
 {
 
 awl::event::base_unique_ptr
-translate_keyboard_event(
-	sge::input::focus::shared_ptr const &,
-	SDL_KeyboardEvent const &
-);
+translate_keyboard_event(sge::input::focus::shared_ptr const &, SDL_KeyboardEvent const &);
 
 }
 

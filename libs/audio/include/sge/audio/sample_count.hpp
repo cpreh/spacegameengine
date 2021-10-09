@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_SAMPLE_COUNT_HPP_INCLUDED
 #define SGE_AUDIO_SAMPLE_COUNT_HPP_INCLUDED
 
@@ -11,15 +10,11 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::audio
 {
 
 /// An unsigned integral value which is used in all calculations involving samples
-using
-sample_count
-=
-std::size_t;
+using sample_count = std::size_t;
 
 }
 

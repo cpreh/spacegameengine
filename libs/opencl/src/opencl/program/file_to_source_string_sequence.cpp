@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/program/file_to_source_string_sequence.hpp>
 #include <sge/opencl/program/source_string_sequence.hpp>
@@ -16,34 +15,16 @@
 #include <fstream>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::opencl::program::source_string_sequence
-sge::opencl::program::file_to_source_string_sequence(
-	std::filesystem::path const &_path
-)
+sge::opencl::program::file_to_source_string_sequence(std::filesystem::path const &_path)
 {
-	std::ifstream stream(
-		_path
-	);
+  std::ifstream stream(_path);
 
-	return
-		sge::opencl::program::source_string_sequence{
-			fcppt::optional::to_exception(
-				fcppt::io::stream_to_string(
-					stream
-				),
-				[
-					&_path
-				]{
-					return
-						sge::opencl::exception{
-							FCPPT_TEXT("Failed to read ")
-							+
-							fcppt::filesystem::path_to_string(
-								_path
-							)
-						};
-				}
-			)
-		};
+  return sge::opencl::program::source_string_sequence{fcppt::optional::to_exception(
+      fcppt::io::stream_to_string(stream),
+      [&_path]
+      {
+        return sge::opencl::exception{
+            FCPPT_TEXT("Failed to read ") + fcppt::filesystem::path_to_string(_path)};
+      })};
 }

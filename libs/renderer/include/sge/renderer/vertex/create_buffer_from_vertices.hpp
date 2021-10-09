@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_CREATE_BUFFER_FROM_VERTICES_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_CREATE_BUFFER_FROM_VERTICES_HPP_INCLUDED
 
@@ -32,91 +31,39 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vertex
 {
 
-template<
-	typename Format,
-	typename Range
->
-sge::renderer::vertex::buffer_unique_ptr
-create_buffer_from_vertices(
-	sge::renderer::device::core_ref const _device,
-	sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
-	sge::renderer::resource_flags_field const &_resource_flags,
-	Range const &_vertices
-)
+template <typename Format, typename Range>
+sge::renderer::vertex::buffer_unique_ptr create_buffer_from_vertices(
+    sge::renderer::device::core_ref const _device,
+    sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
+    sge::renderer::resource_flags_field const &_resource_flags,
+    Range const &_vertices)
 {
-	using
-	vertex_type
-	=
-	std::remove_cvref_t<
-		fcppt::algorithm::range_element_type<
-			Range
-		>
-	>;
+  using vertex_type = std::remove_cvref_t<fcppt::algorithm::range_element_type<Range>>;
 
-	static_assert(
-		sge::renderer::vf::is_vertex<
-			vertex_type
-		>::value
-	);
+  static_assert(sge::renderer::vf::is_vertex<vertex_type>::value);
 
-	using
-	format_part
-	=
-	typename
-	vertex_type::format_part;
+  using format_part = typename vertex_type::format_part;
 
-	sge::renderer::vertex::buffer_unique_ptr buffer{
-		_device.get().create_vertex_buffer(
-			sge::renderer::vertex::buffer_parameters(
-				_vertex_declaration,
-				sge::renderer::vf::dynamic::make_part_index<
-					Format,
-					format_part
-				>(),
-				sge::renderer::vertex::count(
-					fcppt::range::size(
-						_vertices
-					)
-				),
-				_resource_flags
-			)
-		)
-	};
+  sge::renderer::vertex::buffer_unique_ptr buffer{
+      _device.get().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(
+          _vertex_declaration,
+          sge::renderer::vf::dynamic::make_part_index<Format, format_part>(),
+          sge::renderer::vertex::count(fcppt::range::size(_vertices)),
+          _resource_flags))};
 
-	sge::renderer::vertex::scoped_lock const lock{
-		fcppt::make_ref(
-			*buffer
-		),
-		sge::renderer::lock_mode::writeonly
-	};
+  sge::renderer::vertex::scoped_lock const lock{
+      fcppt::make_ref(*buffer), sge::renderer::lock_mode::writeonly};
 
-	using
-	view
-	=
-	sge::renderer::vf::view<
-		format_part
-	>;
+  using view = sge::renderer::vf::view<format_part>;
 
-	view const dest{
-		lock.value()
-	};
+  view const dest{lock.value()};
 
-	std::copy(
-		fcppt::range::begin(
-			_vertices
-		),
-		fcppt::range::end(
-			_vertices
-		),
-		dest.begin()
-	);
+  std::copy(fcppt::range::begin(_vertices), fcppt::range::end(_vertices), dest.begin());
 
-	return
-		buffer;
+  return buffer;
 }
 
 }

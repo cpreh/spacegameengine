@@ -3,15 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION_HPP_INCLUDED
 #define SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION_HPP_INCLUDED
 
 #if defined(SGE_STATIC_LINK)
-#	define SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION
+#define SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION
 #else
-#	include <fcppt/symbol/export_function_instantiation.hpp>
-#	define SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION FCPPT_SYMBOL_EXPORT_FUNCTION_INSTANTIATION
+#include <fcppt/symbol/export_function_instantiation.hpp>
+#define SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION FCPPT_SYMBOL_EXPORT_FUNCTION_INSTANTIATION
 #endif
 
 #endif

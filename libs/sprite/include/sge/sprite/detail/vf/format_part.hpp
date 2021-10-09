@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_VF_FORMAT_PART_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_FORMAT_PART_HPP_INCLUDED
 
@@ -32,164 +31,60 @@
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/mpl/list/remove.hpp>
 
-
 namespace sge::sprite::detail::vf
 {
 
-template<
-	typename Choices
->
+template <typename Choices>
 struct format_part
 {
 private:
-	using
-	basic
-	=
-	fcppt::mpl::list::object<
-		sge::sprite::detail::vf::pos<
-			Choices
-		>
-	>;
+  using basic = fcppt::mpl::list::object<sge::sprite::detail::vf::pos<Choices>>;
 
-	using
-	basic_with_size
-	=
-	fcppt::mpl::list::append<
-		basic,
-		typename
-		sge::sprite::detail::vf::point_size_extra<
-			Choices
-		>::type
-	>;
+  using basic_with_size = fcppt::mpl::list::
+      append<basic, typename sge::sprite::detail::vf::point_size_extra<Choices>::type>;
 
-	template<
-		typename First,
-		typename Second
-	>
-	struct condition_component_pair;
+  template <typename First, typename Second>
+  struct condition_component_pair;
 
-	template<
-		typename Pair
-	>
-	using
-	condition
-	=
-	fcppt::mpl::list::at<
-		fcppt::mpl::list::from<
-			Pair
-		>,
-		fcppt::mpl::size_type<
-			0U
-		>
-	>;
+  template <typename Pair>
+  using condition = fcppt::mpl::list::at<fcppt::mpl::list::from<Pair>, fcppt::mpl::size_type<0U>>;
 
-	template<
-		typename Pair
-	>
-	using
-	component
-	=
-	fcppt::mpl::list::at<
-		fcppt::mpl::list::from<
-			Pair
-		>,
-		fcppt::mpl::size_type<
-			1U
-		>
-	>;
+  template <typename Pair>
+  using component = fcppt::mpl::list::at<fcppt::mpl::list::from<Pair>, fcppt::mpl::size_type<1U>>;
 
-	using
-	optional_primitives
-	=
-	fcppt::mpl::list::object<
-		condition_component_pair<
-			fcppt::mpl::lambda<
-				sge::sprite::config::is_with_color
-			>,
-			fcppt::mpl::bind<
-				fcppt::mpl::lambda<
-					sge::sprite::detail::vf::color_types
-				>,
-				fcppt::mpl::constant<
-					Choices
-				>
-			>
-		>,
-		condition_component_pair<
-			fcppt::mpl::lambda<
-				sge::sprite::config::is_with_texture
-			>,
-			fcppt::mpl::bind<
-				fcppt::mpl::lambda<
-					sge::sprite::detail::vf::texpos
-				>,
-				fcppt::mpl::constant<
-					Choices
-				>
-			>
-		>,
-		condition_component_pair<
-			fcppt::mpl::lambda<
-				sge::sprite::config::is_with_texture_point_size
-			>,
-			fcppt::mpl::bind<
-				fcppt::mpl::lambda<
-					sge::sprite::detail::vf::texture_point
-				>,
-				fcppt::mpl::constant<
-					Choices
-				>
-			>
-		>
-	>;
+  using optional_primitives = fcppt::mpl::list::object<
+      condition_component_pair<
+          fcppt::mpl::lambda<sge::sprite::config::is_with_color>,
+          fcppt::mpl::bind<
+              fcppt::mpl::lambda<sge::sprite::detail::vf::color_types>,
+              fcppt::mpl::constant<Choices>>>,
+      condition_component_pair<
+          fcppt::mpl::lambda<sge::sprite::config::is_with_texture>,
+          fcppt::mpl::bind<
+              fcppt::mpl::lambda<sge::sprite::detail::vf::texpos>,
+              fcppt::mpl::constant<Choices>>>,
+      condition_component_pair<
+          fcppt::mpl::lambda<sge::sprite::config::is_with_texture_point_size>,
+          fcppt::mpl::bind<
+              fcppt::mpl::lambda<sge::sprite::detail::vf::texture_point>,
+              fcppt::mpl::constant<Choices>>>>;
 
-	struct nothing
-	{
-	};
+  struct nothing
+  {
+  };
 
-	template<
-		typename Pair
-	>
-	using
-	make_element
-	=
-	fcppt::mpl::apply<
-		fcppt::mpl::if_<
-			fcppt::mpl::list::any_of<
-				typename
-				Choices::optional_elements,
-				condition<
-					Pair
-				>
-			>,
-			component<
-				Pair
-			>,
-			fcppt::mpl::constant<
-				nothing
-			>
-		>
-	>;
+  template <typename Pair>
+  using make_element = fcppt::mpl::apply<fcppt::mpl::if_<
+      fcppt::mpl::list::any_of<typename Choices::optional_elements, condition<Pair>>,
+      component<Pair>,
+      fcppt::mpl::constant<nothing>>>;
+
 public:
-	using
-	type
-	=
-	sge::renderer::vf::part_from_list<
-		fcppt::mpl::list::append<
-			basic_with_size,
-			fcppt::mpl::list::join<
-				fcppt::mpl::list::remove<
-					fcppt::mpl::list::map<
-						optional_primitives,
-						fcppt::mpl::lambda<
-							make_element
-						>
-					>,
-					nothing
-				>
-			>
-		>
-	>;
+  using type = sge::renderer::vf::part_from_list<fcppt::mpl::list::append<
+      basic_with_size,
+      fcppt::mpl::list::join<fcppt::mpl::list::remove<
+          fcppt::mpl::list::map<optional_primitives, fcppt::mpl::lambda<make_element>>,
+          nothing>>>>;
 };
 
 }

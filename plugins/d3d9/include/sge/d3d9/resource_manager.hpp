@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_RESOURCE_MANAGER_HPP_INCLUDED
 #define SGE_D3D9_RESOURCE_MANAGER_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <sge/d3d9/resource_manager_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -20,26 +18,21 @@ namespace d3d9
 
 class resource_manager
 {
-	FCPPT_NONCOPYABLE(
-		resource_manager
-	);
+  FCPPT_NONCOPYABLE(resource_manager);
+
 public:
-	resource_manager();
+  resource_manager();
 
-	~resource_manager();
+  ~resource_manager();
 
-	void
-	add(
-		d3d9::resource &
-	);
+  void add(d3d9::resource &);
 
-	void
-	release();
+  void release();
 
-	void
-	reinit();
+  void reinit();
+
 private:
-	d3d9::resource_list resources_;
+  d3d9::resource_list resources_;
 };
 
 }

@@ -3,20 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_DEFAULT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_DEFAULT_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
 
-
 namespace sge::renderer::state::core::sampler
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::state::core::sampler::parameters
-default_();
+sge::renderer::state::core::sampler::parameters default_();
 
 }
 

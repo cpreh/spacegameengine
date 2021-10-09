@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/glx/visual/attribute_container.hpp>
 #include <sge/opengl/glx/visual/choose.hpp>
 #include <sge/opengl/glx/visual/create.hpp>
@@ -18,30 +17,16 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 
-
-awl::visual::object_unique_ptr
-sge::opengl::glx::visual::create(
-	sge::opengl::glx::visual::optional_srgb_flag const _srgb_flag,
-	awl::backends::x11::system::object_ref const _awl_system,
-	sge::renderer::pixel_format::object const &_format
-)
+awl::visual::object_unique_ptr sge::opengl::glx::visual::create(
+    sge::opengl::glx::visual::optional_srgb_flag const _srgb_flag,
+    awl::backends::x11::system::object_ref const _awl_system,
+    sge::renderer::pixel_format::object const &_format)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			awl::visual::object
-		>(
-			fcppt::make_unique_ptr<
-				sge::opengl::glx::visual::object
-			>(
-				sge::opengl::glx::visual::choose(
-					_awl_system.get().display().get(),
-					_awl_system.get().screen(),
-					sge::opengl::glx::visual::make_attributes(
-						_srgb_flag,
-						_format
-					)
-				),
-				_format
-			)
-		);
+  return fcppt::unique_ptr_to_base<awl::visual::object>(
+      fcppt::make_unique_ptr<sge::opengl::glx::visual::object>(
+          sge::opengl::glx::visual::choose(
+              _awl_system.get().display().get(),
+              _awl_system.get().screen(),
+              sge::opengl::glx::visual::make_attributes(_srgb_flag, _format)),
+          _format));
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_XRANDR_CRTC_INFO_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_CRTC_INFO_HPP_INCLUDED
 
@@ -16,37 +15,27 @@
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::xrandr
 {
 
 class crtc_info
 {
-	FCPPT_NONMOVABLE(
-		crtc_info
-	);
+  FCPPT_NONMOVABLE(crtc_info);
+
 public:
-	crtc_info(
-		awl::backends::x11::display_ref,
-		sge::opengl::xrandr::const_screen_resources_ref,
-		RRCrtc
-	);
+  crtc_info(
+      awl::backends::x11::display_ref, sge::opengl::xrandr::const_screen_resources_ref, RRCrtc);
 
-	~crtc_info();
+  ~crtc_info();
 
-	[[nodiscard]]
-	awl::backends::x11::window::rect
-	rect() const;
+  [[nodiscard]] awl::backends::x11::window::rect rect() const;
 
-	[[nodiscard]]
-	sge::renderer::display_mode::pixel_size
-	pixel_size() const;
+  [[nodiscard]] sge::renderer::display_mode::pixel_size pixel_size() const;
 
-	[[nodiscard]]
-	RRMode
-	mode() const;
+  [[nodiscard]] RRMode mode() const;
+
 private:
-	XRRCrtcInfo *const info_;
+  XRRCrtcInfo *const info_;
 };
 
 }

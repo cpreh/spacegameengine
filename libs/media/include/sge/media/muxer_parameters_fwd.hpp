@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_MUXER_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_MEDIA_MUXER_PARAMETERS_FWD_HPP_INCLUDED
-
 
 namespace sge::media
 {
 
-template<
-	typename System
->
+template <typename System>
 class muxer_parameters;
 
 }

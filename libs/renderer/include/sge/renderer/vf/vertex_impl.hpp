@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 
@@ -15,77 +14,27 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename Part
->
-template<
-	typename... Args,
-	typename
->
-sge::renderer::vf::vertex<
-	Part
->::vertex(
-	Args &&..._args
-)
-:
-	elements_{
-		std::forward<
-			Args
-		>(
-			_args
-		)...
-	}
+template <typename Part>
+template <typename... Args, typename>
+sge::renderer::vf::vertex<Part>::vertex(Args &&..._args) : elements_{std::forward<Args>(_args)...}
 {
 }
 
-template<
-	typename Part
->
-template<
-	typename Label
->
-fcppt::record::label_value_type<
-	typename
-	sge::renderer::vf::vertex<
-		Part
-	>::record_type,
-	Label
-> const &
-sge::renderer::vf::vertex<
-	Part
->::get() const
+template <typename Part>
+template <typename Label>
+fcppt::record::
+    label_value_type<typename sge::renderer::vf::vertex<Part>::record_type, Label> const &
+    sge::renderer::vf::vertex<Part>::get() const
 {
-	return
-		fcppt::record::get<
-			Label
-		>(
-			this->elements_
-		);
+  return fcppt::record::get<Label>(this->elements_);
 }
 
-template<
-	typename Part
->
-template<
-	typename Label
->
-void
-sge::renderer::vf::vertex<
-	Part
->::set(
-	fcppt::record::label_value_type<
-		record_type,
-		Label
-	> const &_value
-)
+template <typename Part>
+template <typename Label>
+void sge::renderer::vf::vertex<Part>::set(
+    fcppt::record::label_value_type<record_type, Label> const &_value)
 {
-	fcppt::record::set<
-		Label
-	>(
-		this->elements_,
-		_value
-	);
+  fcppt::record::set<Label>(this->elements_, _value);
 }
 
 #endif

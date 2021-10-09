@@ -3,19 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_STATE_ROLES_ENABLE_SCISSOR_TEST_HPP_INCLUDED
 #define SGE_SPRITE_STATE_ROLES_ENABLE_SCISSOR_TEST_HPP_INCLUDED
 
 #include <fcppt/record/make_label.hpp>
 
-
 namespace sge::sprite::state::roles
 {
 
-FCPPT_RECORD_MAKE_LABEL(
-	enable_scissor_test
-);
+FCPPT_RECORD_MAKE_LABEL(enable_scissor_test);
 
 }
 

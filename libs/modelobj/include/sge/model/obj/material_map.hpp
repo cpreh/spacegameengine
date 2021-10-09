@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_OBJ_MATERIAL_MAP_HPP_INCLUDED
 #define SGE_MODEL_OBJ_MATERIAL_MAP_HPP_INCLUDED
 
@@ -13,17 +12,10 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::model::obj
 {
 
-using
-material_map
-=
-std::map<
-	sge::model::obj::identifier,
-	sge::model::obj::material::object
->;
+using material_map = std::map<sge::model::obj::identifier, sge::model::obj::material::object>;
 
 }
 

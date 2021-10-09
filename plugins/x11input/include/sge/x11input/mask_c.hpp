@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_MASK_C_HPP_INCLUDED
 #define SGE_X11INPUT_MASK_C_HPP_INCLUDED
 
@@ -11,26 +10,15 @@
 #include <fcppt/bit/mask.hpp>
 #include <fcppt/bit/mask_c.hpp>
 
-
 namespace sge
 {
 namespace x11input
 {
 
-template<
-	sge::x11input::mask_type Mask
->
-inline
-fcppt::bit::mask<
-	sge::x11input::mask_type
->
-mask_c()
+template <sge::x11input::mask_type Mask>
+inline fcppt::bit::mask<sge::x11input::mask_type> mask_c()
 {
-	return
-		fcppt::bit::mask_c<
-			sge::x11input::mask_type,
-			Mask
-		>();
+  return fcppt::bit::mask_c<sge::x11input::mask_type, Mask>();
 }
 
 }

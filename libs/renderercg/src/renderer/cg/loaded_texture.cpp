@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/cg/loaded_texture.hpp>
 
+sge::renderer::cg::loaded_texture::loaded_texture() = default;
 
-sge::renderer::cg::loaded_texture::loaded_texture()
-= default;
-
-sge::renderer::cg::loaded_texture::~loaded_texture()
-= default;
+sge::renderer::cg::loaded_texture::~loaded_texture() = default;

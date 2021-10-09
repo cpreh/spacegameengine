@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_MEMBER_HPP_INCLUDED
 #define SGE_PARSE_JSON_MEMBER_HPP_INCLUDED
 
@@ -14,19 +13,10 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::json
 {
 
-using
-member
-=
-std::pair<
-	sge::charconv::utf8_string,
-	fcppt::recursive<
-		sge::parse::json::value
-	>
->;
+using member = std::pair<sge::charconv::utf8_string, fcppt::recursive<sge::parse::json::value>>;
 
 }
 

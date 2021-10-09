@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PANGO_GLIB_DELETER_HPP_INCLUDED
 #define SGE_PANGO_GLIB_DELETER_HPP_INCLUDED
 
@@ -12,16 +11,12 @@
 #include <glib.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::pango
 {
 
 struct glib_deleter
 {
-	void
-	operator()(
-		gpointer
-	);
+  void operator()(gpointer);
 };
 
 }

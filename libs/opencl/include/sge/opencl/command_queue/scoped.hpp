@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_COMMAND_QUEUE_SCOPED_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_SCOPED_HPP_INCLUDED
 
@@ -11,26 +10,22 @@
 #include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opencl::command_queue
 {
 
 class scoped
 {
-	FCPPT_NONMOVABLE(
-		scoped
-	);
-public:
-	SGE_OPENCL_DETAIL_SYMBOL
-	explicit
-	scoped(
-		sge::opencl::command_queue::object_ref
-	);
+  FCPPT_NONMOVABLE(scoped);
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	~scoped();
+public:
+  SGE_OPENCL_DETAIL_SYMBOL
+  explicit scoped(sge::opencl::command_queue::object_ref);
+
+  SGE_OPENCL_DETAIL_SYMBOL
+  ~scoped();
+
 private:
-	sge::opencl::command_queue::object_ref const object_;
+  sge::opencl::command_queue::object_ref const object_;
 };
 
 }

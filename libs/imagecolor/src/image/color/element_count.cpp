@@ -3,49 +3,38 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/image/color/format.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
-
-sge::image::size_type
-sge::image::color::element_count(
-	sge::image::color::format const _format
-)
+sge::image::size_type sge::image::color::element_count(sge::image::color::format const _format)
 {
-	switch(
-		_format
-	)
-	{
-	case sge::image::color::format::a8:
-	case sge::image::color::format::l8:
-	case sge::image::color::format::r32f:
-		return
-			1;
-	case sge::image::color::format::la8:
-		return
-			2;
-	case sge::image::color::format::rgb8:
-	case sge::image::color::format::bgr8:
-	case sge::image::color::format::rgb32f:
-	case sge::image::color::format::bgr32f:
-	case sge::image::color::format::srgb8:
-	case sge::image::color::format::sbgr8:
-		return
-			3;
-	case sge::image::color::format::rgba8:
-	case sge::image::color::format::rgbx8:
-	case sge::image::color::format::bgra8:
-	case sge::image::color::format::bgrx8:
-	case sge::image::color::format::rgba32f:
-	case sge::image::color::format::bgra32f:
-	case sge::image::color::format::srgba8:
-	case sge::image::color::format::sbgra8:
-		return
-			4;
-	}
+  switch (_format)
+  {
+  case sge::image::color::format::a8:
+  case sge::image::color::format::l8:
+  case sge::image::color::format::r32f:
+    return 1;
+  case sge::image::color::format::la8:
+    return 2;
+  case sge::image::color::format::rgb8:
+  case sge::image::color::format::bgr8:
+  case sge::image::color::format::rgb32f:
+  case sge::image::color::format::bgr32f:
+  case sge::image::color::format::srgb8:
+  case sge::image::color::format::sbgr8:
+    return 3;
+  case sge::image::color::format::rgba8:
+  case sge::image::color::format::rgbx8:
+  case sge::image::color::format::bgra8:
+  case sge::image::color::format::bgrx8:
+  case sge::image::color::format::rgba32f:
+  case sge::image::color::format::bgra32f:
+  case sge::image::color::format::srgba8:
+  case sge::image::color::format::sbgra8:
+    return 4;
+  }
 
-	FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_ASSERT_UNREACHABLE;
 }

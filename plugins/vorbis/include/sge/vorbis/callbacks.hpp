@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_VORBIS_CALLBACKS_HPP_INCLUDED
 #define SGE_VORBIS_CALLBACKS_HPP_INCLUDED
 
@@ -11,12 +10,10 @@
 #include <vorbis/vorbisfile.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::vorbis
 {
 
-ov_callbacks
-callbacks();
+ov_callbacks callbacks();
 
 }
 

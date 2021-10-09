@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/media/extension.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/path_to_extension.hpp>
@@ -13,27 +12,10 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::media::optional_extension
-sge::media::path_to_extension(
-	std::filesystem::path const &_path
-)
+sge::media::optional_extension sge::media::path_to_extension(std::filesystem::path const &_path)
 {
-	fcppt::string const ext(
-		fcppt::filesystem::extension_without_dot(
-			_path
-		)
-	);
+  fcppt::string const ext(fcppt::filesystem::extension_without_dot(_path));
 
-	return
-		ext.empty()
-		?
-			sge::media::optional_extension()
-		:
-			sge::media::optional_extension(
-				sge::media::extension(
-					ext
-				)
-			)
-		;
+  return ext.empty() ? sge::media::optional_extension()
+                     : sge::media::optional_extension(sge::media::extension(ext));
 }

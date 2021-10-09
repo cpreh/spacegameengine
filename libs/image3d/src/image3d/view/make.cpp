@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/impl/traits/format_map.hpp>
@@ -18,26 +17,13 @@
 #include <sge/image3d/view/make.hpp>
 #include <sge/image3d/view/object.hpp>
 
-
-sge::image3d::view::object
-sge::image3d::view::make(
-	sge::image::raw_pointer const _data,
-	sge::image3d::dim const &_dim,
-	sge::image::color::format const _format,
-	sge::image3d::pitch const &_pitch
-)
+sge::image3d::view::object sge::image3d::view::make(
+    sge::image::raw_pointer const _data,
+    sge::image3d::dim const &_dim,
+    sge::image::color::format const _format,
+    sge::image3d::pitch const &_pitch)
 {
-	return
-		sge::image::view::make<
-			sge::image3d::tag
-		>(
-			_data,
-			_dim,
-			_format,
-			_pitch
-		);
+  return sge::image::view::make<sge::image3d::tag>(_data, _dim, _format, _pitch);
 }
 
-SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE(
-	sge::image3d::tag
-);
+SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE(sge::image3d::tag);

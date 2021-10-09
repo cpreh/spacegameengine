@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GLX_GET_EXTENSIONS_HPP_INCLUDED
 #define SGE_OPENGL_GLX_GET_EXTENSIONS_HPP_INCLUDED
 
 #include <sge/opengl/glx/extension_set.hpp>
 #include <awl/backends/x11/display_ref.hpp>
 
-
 namespace sge::opengl::glx
 {
 
-sge::opengl::glx::extension_set
-get_extensions(
-	awl::backends::x11::display_ref
-);
+sge::opengl::glx::extension_set get_extensions(awl::backends::x11::display_ref);
 
 }
 

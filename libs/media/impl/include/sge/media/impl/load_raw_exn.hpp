@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_IMPL_LOAD_RAW_EXN_HPP_INCLUDED
 #define SGE_MEDIA_IMPL_LOAD_RAW_EXN_HPP_INCLUDED
 
@@ -14,40 +13,18 @@
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 
-
 namespace sge::media::impl
 {
 
-template<
-	typename Result,
-	typename Exception,
-	typename System
->
-Result
-load_raw_exn(
-	fcppt::reference<
-		System
-	> const _system,
-	sge::media::const_raw_range const &_range,
-	sge::media::optional_extension const &_extension
-)
+template <typename Result, typename Exception, typename System>
+Result load_raw_exn(
+    fcppt::reference<System> const _system,
+    sge::media::const_raw_range const &_range,
+    sge::media::optional_extension const &_extension)
 {
-	return
-		fcppt::optional::to_exception(
-			sge::media::impl::load_raw<
-				Result
-			>(
-				_system,
-				_range,
-				_extension
-			),
-			[]{
-				return
-					Exception(
-						FCPPT_TEXT("load_raw_exn failed")
-					);
-			}
-		);
+  return fcppt::optional::to_exception(
+      sge::media::impl::load_raw<Result>(_system, _range, _extension),
+      [] { return Exception(FCPPT_TEXT("load_raw_exn failed")); });
 }
 
 }

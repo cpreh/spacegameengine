@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_CHECK_STATE_HPP_INCLUDED
 #define SGE_CG_CHECK_STATE_HPP_INCLUDED
 
@@ -13,18 +12,8 @@
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
-
-#define SGE_CG_CHECK_STATE(\
-	message,\
-	exception\
-)\
-SGE_CORE_CHECK_STATE(\
-	exception,\
-	message,\
-	CGerror,\
-	::cgGetError(),\
-	CG_NO_ERROR,\
-	sge::cg::error_string\
-)
+#define SGE_CG_CHECK_STATE(message, exception) \
+  SGE_CORE_CHECK_STATE( \
+      exception, message, CGerror, ::cgGetError(), CG_NO_ERROR, sge::cg::error_string)
 
 #endif

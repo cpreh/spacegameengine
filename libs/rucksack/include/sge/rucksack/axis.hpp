@@ -3,21 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_AXIS_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_HPP_INCLUDED
 
 #include <sge/rucksack/axis_fwd.hpp>
-
 
 namespace sge::rucksack
 {
 
 enum class axis
 {
-	x,
-	y,
-	fcppt_maximum = y
+  x,
+  y,
+  fcppt_maximum = y
 };
 
 }

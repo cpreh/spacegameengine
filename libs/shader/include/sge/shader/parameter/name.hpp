@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_PARAMETER_NAME_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_NAME_HPP_INCLUDED
 
@@ -11,12 +10,9 @@
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
 namespace sge::shader::parameter
 {
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	sge::cg::string,
-	name);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::cg::string, name);
 }
 
 #endif

@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/state/ffp/alpha_test/object.hpp>
 
+sge::renderer::state::ffp::alpha_test::object::object() = default;
 
-sge::renderer::state::ffp::alpha_test::object::object()
-= default;
-
-sge::renderer::state::ffp::alpha_test::object::~object()
-= default;
+sge::renderer::state::ffp::alpha_test::object::~object() = default;

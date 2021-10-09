@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_TEXTURE_MANAGER_HPP_INCLUDED
 #define SGE_SCENIC_TEXTURE_MANAGER_HPP_INCLUDED
 
@@ -18,44 +17,31 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::scenic
 {
 class texture_manager
 {
-	FCPPT_NONMOVABLE(
-		texture_manager
-	);
+  FCPPT_NONMOVABLE(texture_manager);
+
 public:
-	SGE_SCENIC_DETAIL_SYMBOL
-	texture_manager(
-		sge::renderer::device::core_ref,
-		sge::image2d::system_ref
-	);
+  SGE_SCENIC_DETAIL_SYMBOL
+  texture_manager(sge::renderer::device::core_ref, sge::image2d::system_ref);
 
-	[[nodiscard]]
-	SGE_SCENIC_DETAIL_SYMBOL
-	sge::renderer::texture::planar &
-	texture_for_path(
-		std::filesystem::path const &
-	);
+  [[nodiscard]] SGE_SCENIC_DETAIL_SYMBOL sge::renderer::texture::planar &
+  texture_for_path(std::filesystem::path const &);
 
-	SGE_SCENIC_DETAIL_SYMBOL
-	~texture_manager();
+  SGE_SCENIC_DETAIL_SYMBOL
+  ~texture_manager();
+
 private:
-	using
-	path_to_texture_map
-	=
-	std::map<
-		std::filesystem::path,
-		sge::renderer::texture::planar_unique_ptr
-	>;
+  using path_to_texture_map =
+      std::map<std::filesystem::path, sge::renderer::texture::planar_unique_ptr>;
 
-	sge::renderer::device::core_ref const renderer_;
+  sge::renderer::device::core_ref const renderer_;
 
-	sge::image2d::system_ref const image_loader_;
+  sge::image2d::system_ref const image_loader_;
 
-	path_to_texture_map path_to_texture_;
+  path_to_texture_map path_to_texture_;
 };
 
 }

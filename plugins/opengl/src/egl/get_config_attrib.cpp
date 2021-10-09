@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/egl/get_config_attrib.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -11,33 +10,17 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
-EGLint
-sge::opengl::egl::get_config_attrib(
-	EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
-	EGLConfig const _egl_config, // NOLINT(misc-misplaced-const)
-	EGLint const _attrib
-)
+EGLint sge::opengl::egl::get_config_attrib(
+    EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
+    EGLConfig const _egl_config, // NOLINT(misc-misplaced-const)
+    EGLint const _attrib)
 {
-	EGLint result{};
+  EGLint result{};
 
-	if(
-		::eglGetConfigAttrib(
-			_egl_display,
-			_egl_config,
-			_attrib,
-			&result
-		)
-		!=
-		EGL_TRUE
-	)
-	{
-		throw
-			sge::renderer::exception(
-				FCPPT_TEXT("eglGetConfigAttrib failed")
-			);
-	}
+  if (::eglGetConfigAttrib(_egl_display, _egl_config, _attrib, &result) != EGL_TRUE)
+  {
+    throw sge::renderer::exception(FCPPT_TEXT("eglGetConfigAttrib failed"));
+  }
 
-	return
-		result;
+  return result;
 }

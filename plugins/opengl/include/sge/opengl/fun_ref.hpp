@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_FUN_REF_HPP_INCLUDED
 #define SGE_OPENGL_FUN_REF_HPP_INCLUDED
 
@@ -12,21 +11,11 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl
 {
 
-template<
-	typename Type
->
-using
-fun_ref
-=
-fcppt::reference<
-	std::remove_pointer_t<
-		Type
-	>
->;
+template <typename Type>
+using fun_ref = fcppt::reference<std::remove_pointer_t<Type>>;
 
 }
 

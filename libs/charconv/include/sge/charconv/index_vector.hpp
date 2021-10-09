@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CHARCONV_INDEX_VECTOR_HPP_INCLUDED
 #define SGE_CHARCONV_INDEX_VECTOR_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::charconv
 {
 
-using
-index_vector
-=
-std::vector<
-	sge::charconv::index
->;
+using index_vector = std::vector<sge::charconv::index>;
 
 }
 

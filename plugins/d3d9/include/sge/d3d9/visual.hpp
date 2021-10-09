@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_VISUAL_HPP_INCLUDED
 #define SGE_D3D9_VISUAL_HPP_INCLUDED
 
@@ -12,27 +11,19 @@
 #include <awl/backends/windows/visual/null_object.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace d3d9
 {
 
-class visual
-:
-	public awl::backends::windows::visual::null_object,
-	public sge::renderer::visual_base
+class visual : public awl::backends::windows::visual::null_object, public sge::renderer::visual_base
 {
-	FCPPT_NONCOPYABLE(
-		visual
-	);
-public:
-	explicit
-	visual(
-		sge::renderer::pixel_format::object const &
-	);
+  FCPPT_NONCOPYABLE(visual);
 
-	~visual();
+public:
+  explicit visual(sge::renderer::pixel_format::object const &);
+
+  ~visual();
 };
 
 }

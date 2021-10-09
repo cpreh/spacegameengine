@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_FF_STOP_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_FF_STOP_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-
 
 namespace sge
 {
@@ -19,10 +17,7 @@ namespace joypad
 namespace ff
 {
 
-void
-stop(
-	IDirectInputEffect &
-);
+void stop(IDirectInputEffect &);
 
 }
 }

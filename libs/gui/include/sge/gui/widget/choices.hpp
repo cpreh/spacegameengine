@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_CHOICES_HPP_INCLUDED
 #define SGE_GUI_WIDGET_CHOICES_HPP_INCLUDED
 
@@ -25,80 +24,56 @@
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class choices
-:
-	public sge::gui::widget::box_container
+class choices : public sge::gui::widget::box_container
 {
-	FCPPT_NONMOVABLE(
-		choices
-	);
+  FCPPT_NONMOVABLE(choices);
+
 public:
-	SGE_GUI_DETAIL_SYMBOL
-	choices(
-		sge::gui::context_ref,
-		sge::gui::style::const_reference,
-		sge::renderer::device::ffp_ref,
-		sge::font::object_ref,
-		sge::gui::string_container &&,
-		sge::gui::optional_index
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  choices(
+      sge::gui::context_ref,
+      sge::gui::style::const_reference,
+      sge::renderer::device::ffp_ref,
+      sge::font::object_ref,
+      sge::gui::string_container &&,
+      sge::gui::optional_index);
 
-	SGE_GUI_DETAIL_SYMBOL
-	~choices()
-	override;
+  SGE_GUI_DETAIL_SYMBOL
+  ~choices() override;
 
-	[[nodiscard]]
-	SGE_GUI_DETAIL_SYMBOL
-	fcppt::signal::auto_connection
-	change(
-		sge::gui::index_callback &&
-	);
+  [[nodiscard]] SGE_GUI_DETAIL_SYMBOL fcppt::signal::auto_connection
+  change(sge::gui::index_callback &&);
 
-	[[nodiscard]]
-	SGE_GUI_DETAIL_SYMBOL
-	sge::gui::optional_index
-	index() const;
+  [[nodiscard]] SGE_GUI_DETAIL_SYMBOL sge::gui::optional_index index() const;
+
 private:
-	void
-	left_clicked();
+  void left_clicked();
 
-	void
-	right_clicked();
+  void right_clicked();
 
-	template<
-		typename Func
-	>
-	void
-	update_index(
-		Func const &
-	);
+  template <typename Func>
+  void update_index(Func const &);
 
-	sge::gui::string_container const strings_;
+  sge::gui::string_container const strings_;
 
-	sge::gui::widget::button left_button_;
+  sge::gui::widget::button left_button_;
 
-	sge::gui::widget::text middle_text_;
+  sge::gui::widget::text middle_text_;
 
-	sge::gui::widget::button right_button_;
+  sge::gui::widget::button right_button_;
 
-	sge::gui::optional_index index_;
+  sge::gui::optional_index index_;
 
-	fcppt::signal::auto_connection const left_connection_;
+  fcppt::signal::auto_connection const left_connection_;
 
-	fcppt::signal::auto_connection const right_connection_;
+  fcppt::signal::auto_connection const right_connection_;
 
-	using
-	index_signal
-	=
-	fcppt::signal::object<
-		sge::gui::index_function
-	>;
+  using index_signal = fcppt::signal::object<sge::gui::index_function>;
 
-	index_signal index_changed_;
+  index_signal index_changed_;
 };
 
 }

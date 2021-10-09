@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_CHANNEL32F_HPP_INCLUDED
 #define SGE_IMAGE_CHANNEL32F_HPP_INCLUDED
-
 
 namespace sge::image
 {
 
-using
-channel32f
-=
-float;
+using channel32f = float;
 
 }
 

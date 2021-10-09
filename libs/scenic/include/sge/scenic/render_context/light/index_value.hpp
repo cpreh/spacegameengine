@@ -3,10 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_RENDER_CONTEXT_LIGHT_INDEX_VALUE_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_LIGHT_INDEX_VALUE_HPP_INCLUDED
-
 
 namespace sge
 {
@@ -16,9 +14,7 @@ namespace render_context
 {
 namespace light
 {
-typedef
-unsigned
-index_value;
+typedef unsigned index_value;
 }
 }
 }

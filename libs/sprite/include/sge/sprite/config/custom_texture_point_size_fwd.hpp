@@ -3,19 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_FWD_HPP_INCLUDED
 
 #include <fcppt/mpl/list/object_concept.hpp>
 
-
 namespace sge::sprite::config
 {
 
-template<
-	fcppt::mpl::list::object_concept AttributeNames
->
+template <fcppt::mpl::list::object_concept AttributeNames>
 struct custom_texture_point_size;
 
 }

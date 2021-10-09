@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_IMPL_SCOPED_RENDER_CONTEXT_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_SCOPED_RENDER_CONTEXT_HPP_INCLUDED
 
@@ -11,24 +10,20 @@
 #include <sge/renderer/context/ffp_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::cegui::impl
 {
 
 class scoped_render_context
 {
-	FCPPT_NONMOVABLE(
-		scoped_render_context
-	);
-public:
-	scoped_render_context(
-		sge::cegui::impl::renderer_ref,
-		sge::renderer::context::ffp_ref
-	);
+  FCPPT_NONMOVABLE(scoped_render_context);
 
-	~scoped_render_context();
+public:
+  scoped_render_context(sge::cegui::impl::renderer_ref, sge::renderer::context::ffp_ref);
+
+  ~scoped_render_context();
+
 private:
-	sge::cegui::impl::renderer_ref const renderer_;
+  sge::cegui::impl::renderer_ref const renderer_;
 };
 
 }

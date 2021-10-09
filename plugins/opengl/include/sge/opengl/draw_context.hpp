@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_DRAW_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_DRAW_CONTEXT_HPP_INCLUDED
 
@@ -16,59 +15,33 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/reference.hpp>
 
-
 namespace sge::opengl
 {
 
-class draw_context
-:
-	public sge::opengl::context::base
+class draw_context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		draw_context
-	);
+  FCPPT_NONMOVABLE(draw_context);
+
 public:
-	using
-	parameter
-	=
-	sge::opengl::info::context const &;
+  using parameter = sge::opengl::info::context const &;
 
-	explicit
-	draw_context(
-		sge::opengl::info::context const &
-	);
+  explicit draw_context(sge::opengl::info::context const &);
 
-	~draw_context()
-	override;
+  ~draw_context() override;
 
-	using
-	gl_draw_range_elements
-	=
-	sge::opengl::fun_ref<
-		PFNGLDRAWRANGEELEMENTSPROC
-	>;
+  using gl_draw_range_elements = sge::opengl::fun_ref<PFNGLDRAWRANGEELEMENTSPROC>;
 
-	using
-	optional_draw_range_elements
-	=
-	fcppt::optional::reference<
-		sge::opengl::fun_ref_value_type<
-			gl_draw_range_elements
-		>
-	>;
+  using optional_draw_range_elements =
+      fcppt::optional::reference<sge::opengl::fun_ref_value_type<gl_draw_range_elements>>;
 
-	using
-	draw_range_elements_ref
-	=
-	optional_draw_range_elements::value_type;
+  using draw_range_elements_ref = optional_draw_range_elements::value_type;
 
-	[[nodiscard]]
-	optional_draw_range_elements
-	draw_range_elements() const;
+  [[nodiscard]] optional_draw_range_elements draw_range_elements() const;
 
-	static sge::opengl::context::id const static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	optional_draw_range_elements const draw_range_elements_;
+  optional_draw_range_elements const draw_range_elements_;
 };
 
 }

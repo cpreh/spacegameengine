@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_ASPECT_HPP_INCLUDED
 #define SGE_RENDERER_ASPECT_HPP_INCLUDED
 
@@ -11,7 +10,6 @@
 #include <sge/renderer/screen_size_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/optional/object_impl.hpp>
-
 
 namespace sge::renderer
 {
@@ -29,12 +27,7 @@ smaller. The division is done as a floating point division.
 \return <code> size.w > size.h ? size.w / size.h : size.h / size.w </code>
 */
 SGE_RENDERER_DETAIL_SYMBOL
-fcppt::optional::object<
-	sge::renderer::scalar
->
-aspect(
-	sge::renderer::screen_size const &size
-);
+fcppt::optional::object<sge::renderer::scalar> aspect(sge::renderer::screen_size const &size);
 
 }
 

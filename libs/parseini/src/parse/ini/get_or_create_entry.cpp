@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/entry_name_equal.hpp>
@@ -18,76 +17,27 @@
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/make_if.hpp>
 
-
-fcppt::reference<
-	sge::parse::ini::entry
->
-sge::parse::ini::get_or_create_entry(
-	fcppt::reference<
-		sge::parse::ini::section
-	> const _section,
-	sge::parse::ini::entry_name const &_entry_name,
-	sge::parse::ini::value const &_value
-)
+fcppt::reference<sge::parse::ini::entry> sge::parse::ini::get_or_create_entry(
+    fcppt::reference<sge::parse::ini::section> const _section,
+    sge::parse::ini::entry_name const &_entry_name,
+    sge::parse::ini::value const &_value)
 {
-	sge::parse::ini::entry_vector &entries(
-		_section.get().entries
-	);
+  sge::parse::ini::entry_vector &entries(_section.get().entries);
 
-	return
-		fcppt::optional::from(
-			fcppt::algorithm::find_by_opt<
-				fcppt::reference<
-					sge::parse::ini::entry
-				>
-			>(
-				entries,
-				[
-					&_entry_name
-				](
-					sge::parse::ini::entry &_entry
-				)
-				{
-					return
-						fcppt::optional::make_if(
-							sge::parse::ini::entry_name_equal{
-								fcppt::make_cref(
-									_entry_name
-								)
-							}(
-								_entry
-							),
-							[
-								&_entry
-							]{
-								return
-									fcppt::make_ref(
-										_entry
-									);
-							}
-						);
-				}
-			),
-			[
-				&entries,
-				&_entry_name,
-				&_value
-			]{
-				entries.push_back(
-					sge::parse::ini::entry(
-						sge::parse::ini::entry_name{
-							_entry_name
-						},
-						sge::parse::ini::value{
-							_value
-						}
-					)
-				);
+  return fcppt::optional::from(
+      fcppt::algorithm::find_by_opt<fcppt::reference<sge::parse::ini::entry>>(
+          entries,
+          [&_entry_name](sge::parse::ini::entry &_entry)
+          {
+            return fcppt::optional::make_if(
+                sge::parse::ini::entry_name_equal{fcppt::make_cref(_entry_name)}(_entry),
+                [&_entry] { return fcppt::make_ref(_entry); });
+          }),
+      [&entries, &_entry_name, &_value]
+      {
+        entries.push_back(sge::parse::ini::entry(
+            sge::parse::ini::entry_name{_entry_name}, sge::parse::ini::value{_value}));
 
-				return
-					fcppt::make_ref(
-						entries.back()
-					);
-			}
-		);
+        return fcppt::make_ref(entries.back());
+      });
 }

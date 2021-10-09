@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/glx/make_current.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -12,27 +11,14 @@
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
-
-void
-sge::opengl::glx::make_current(
-	Display *const _display,
-	Window const _window,
-	GLXContext const _context // NOLINT(misc-misplaced-const)
+void sge::opengl::glx::make_current(
+    Display *const _display,
+    Window const _window,
+    GLXContext const _context // NOLINT(misc-misplaced-const)
 )
 {
-	if(
-		::glXMakeCurrent(
-			_display,
-			_window,
-			_context
-		)
-		==
-		False
-	)
-	{
-		throw
-			sge::renderer::exception(
-				FCPPT_TEXT("glXMakeCurrent() failed!")
-			);
-	}
+  if (::glXMakeCurrent(_display, _window, _context) == False)
+  {
+    throw sge::renderer::exception(FCPPT_TEXT("glXMakeCurrent() failed!"));
+  }
 }

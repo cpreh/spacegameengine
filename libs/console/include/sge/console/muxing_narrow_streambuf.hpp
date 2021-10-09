@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_MUXING_NARROW_STREAMBUF_HPP_INCLUDED
 #define SGE_CONSOLE_MUXING_NARROW_STREAMBUF_HPP_INCLUDED
 
@@ -13,25 +12,17 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 namespace sge::console
 {
 
-using
-muxing_narrow_streambuf
-=
-sge::console::muxing_streambuf<
-	char
->;
+using muxing_narrow_streambuf = sge::console::muxing_streambuf<char>;
 
 }
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
 
-SGE_CONSOLE_DECLARE_MUXING_STREAMBUF(
-	char
-);
+SGE_CONSOLE_DECLARE_MUXING_STREAMBUF(char);
 
 FCPPT_PP_POP_WARNING
 

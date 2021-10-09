@@ -3,24 +3,22 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_CAPABILITIES_HPP_INCLUDED
 #define SGE_INPUT_CAPABILITIES_HPP_INCLUDED
 
 #include <sge/input/capabilities_fwd.hpp>
-
 
 namespace sge::input
 {
 
 enum class capabilities
 {
-	cursor,
-	focus,
-	joypad,
-	keyboard,
-	mouse,
-	fcppt_maximum = mouse
+  cursor,
+  focus,
+  joypad,
+  keyboard,
+  mouse,
+  fcppt_maximum = mouse
 };
 
 }

@@ -3,20 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONFIG_USER_NAME_HPP_INCLUDED
 #define SGE_CONFIG_USER_NAME_HPP_INCLUDED
 
 #include <sge/config/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge::config
 {
 
 SGE_CONFIG_DETAIL_SYMBOL
-fcppt::string
-user_name();
+fcppt::string user_name();
 
 }
 

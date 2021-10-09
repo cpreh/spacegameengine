@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_WGL_CONTEXT_HOLDER_HPP_INCLUDED
 #define SGE_OPENGL_WGL_CONTEXT_HOLDER_HPP_INCLUDED
 
@@ -11,7 +10,6 @@
 #include <sge/opengl/windows/gdi_device_fwd.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 namespace sge
 {
@@ -22,21 +20,18 @@ namespace wgl
 
 class context_holder
 {
-	FCPPT_NONCOPYABLE(
-		context_holder
-	);
+  FCPPT_NONCOPYABLE(context_holder);
+
 public:
-	explicit
-	context_holder(
-		sge::opengl::windows::gdi_device const &
-	);
+  explicit context_holder(sge::opengl::windows::gdi_device const &);
 
-	~context_holder();
+  ~context_holder();
 
-	HGLRC
-	get() const;
+  HGLRC
+  get() const;
+
 private:
-	HGLRC const glrc_;
+  HGLRC const glrc_;
 };
 
 }

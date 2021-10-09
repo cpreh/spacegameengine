@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/color_base_type.hpp>
@@ -19,51 +18,22 @@
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_void_ptr.hpp>
 
-
-void
-sge::opengl::target::read_pixels(
-	sge::renderer::pixel_pos const &_pos,
-	sge::renderer::screen_size const &_size,
-	sge::opengl::color_order const _format,
-	sge::opengl::color_base_type const _format_type,
-	sge::renderer::raw_pointer const _dest
-)
+void sge::opengl::target::read_pixels(
+    sge::renderer::pixel_pos const &_pos,
+    sge::renderer::screen_size const &_size,
+    sge::opengl::color_order const _format,
+    sge::opengl::color_base_type const _format_type,
+    sge::renderer::raw_pointer const _dest)
 {
-	sge::opengl::call(
-		::glReadPixels,
-		fcppt::cast::size<
-			GLint
-		>(
-			_pos.x()
-		),
-		fcppt::cast::size<
-			GLint
-		>(
-			_pos.y()
-		),
-		fcppt::cast::size<
-			GLsizei
-		>(
-			fcppt::cast::to_signed(
-				_size.w()
-			)
-		),
-		fcppt::cast::size<
-			GLsizei
-		>(
-			fcppt::cast::to_signed(
-				_size.h()
-			)
-		),
-		_format.get(),
-		_format_type.get(),
-		fcppt::cast::to_void_ptr(
-			_dest
-		)
-	);
+  sge::opengl::call(
+      ::glReadPixels,
+      fcppt::cast::size<GLint>(_pos.x()),
+      fcppt::cast::size<GLint>(_pos.y()),
+      fcppt::cast::size<GLsizei>(fcppt::cast::to_signed(_size.w())),
+      fcppt::cast::size<GLsizei>(fcppt::cast::to_signed(_size.h())),
+      _format.get(),
+      _format_type.get(),
+      fcppt::cast::to_void_ptr(_dest));
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glReadPixels failed"),
-		sge::renderer::exception
-	)
+  SGE_OPENGL_CHECK_STATE(FCPPT_TEXT("glReadPixels failed"), sge::renderer::exception)
 }

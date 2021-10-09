@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/flags.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
@@ -23,95 +22,39 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::plugin::context_base::context_base(
-	sge::plugin::optional_cache_ref const &_cache,
-	std::filesystem::path &&_path
-)
-:
-	cache_(
-		_cache
-	),
-	path_(
-		std::move(
-			_path
-		)
-	),
-	info_(
-		sge::plugin::impl::load_info(
-			path_
-		)
-	),
-	library_ptr_()
+    sge::plugin::optional_cache_ref const &_cache, std::filesystem::path &&_path)
+    : cache_(_cache),
+      path_(std::move(_path)),
+      info_(sge::plugin::impl::load_info(path_)),
+      library_ptr_()
 {
 }
 
-sge::plugin::context_base::~context_base()
-= default;
+sge::plugin::context_base::~context_base() = default;
 
-std::filesystem::path const &
-sge::plugin::context_base::path() const
+std::filesystem::path const &sge::plugin::context_base::path() const { return path_; }
+
+sge::plugin::info const &sge::plugin::context_base::info() const { return info_; }
+
+sge::plugin::library::object_shared_ptr sge::plugin::context_base::load()
 {
-	return
-		path_;
-}
+  return fcppt::optional::from(
+      library_ptr_.lock(),
+      [this]
+      {
+        sge::plugin::library::object_shared_ptr ret(
+            fcppt::make_shared_ptr<sge::plugin::library::object>(std::filesystem::path{path_}));
 
-sge::plugin::info const &
-sge::plugin::context_base::info() const
-{
-	return
-		info_;
-}
+        library_ptr_ = library_weak_ptr{ret};
 
-sge::plugin::library::object_shared_ptr
-sge::plugin::context_base::load()
-{
-	return
-		fcppt::optional::from(
-			library_ptr_.lock(),
-			[
-				this
-			]{
-				sge::plugin::library::object_shared_ptr ret(
-					fcppt::make_shared_ptr<
-						sge::plugin::library::object
-					>(
-						std::filesystem::path{
-							path_
-						}
-					)
-				);
+        if (this->info().flags() & sge::plugin::flags::delayed_unload)
+        {
+          fcppt::optional::maybe_void(
+              cache_,
+              [ret](fcppt::reference<sge::plugin::cache> const _cache) { _cache.get().add(ret); });
+        }
 
-				library_ptr_ =
-					library_weak_ptr{
-						ret
-					};
-
-				if(
-					this->info().flags()
-					&
-					sge::plugin::flags::delayed_unload
-				)
-				{
-					fcppt::optional::maybe_void(
-						cache_,
-						[
-							ret
-						](
-							fcppt::reference<
-								sge::plugin::cache
-							> const _cache
-						)
-						{
-							_cache.get().add(
-								ret
-							);
-						}
-					);
-				}
-
-				return
-					ret;
-			}
-		);
+        return ret;
+      });
 }

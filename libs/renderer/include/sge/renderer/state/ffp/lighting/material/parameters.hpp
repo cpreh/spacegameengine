@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_MATERIAL_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_MATERIAL_PARAMETERS_HPP_INCLUDED
 
@@ -14,7 +13,6 @@
 #include <sge/renderer/state/ffp/lighting/material/emissive_color.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/material/shininess.hpp>
-
 
 namespace sge::renderer::state::ffp::lighting::material
 {
@@ -30,7 +28,7 @@ geometry.
 class parameters
 {
 public:
-	/**
+  /**
 	\brief Constructs material parameters
 
 	\param diffuse Describes how much diffuse light affects geometry
@@ -43,64 +41,59 @@ public:
 
 	\param shininess Describes how strong specular light is
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	parameters(
-		sge::renderer::state::ffp::lighting::diffuse_color diffuse,
-		sge::renderer::state::ffp::lighting::ambient_color ambient,
-		sge::renderer::state::ffp::lighting::specular_color specular,
-		sge::renderer::state::ffp::lighting::material::emissive_color emissive,
-		sge::renderer::state::ffp::lighting::material::shininess shininess
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  parameters(
+      sge::renderer::state::ffp::lighting::diffuse_color diffuse,
+      sge::renderer::state::ffp::lighting::ambient_color ambient,
+      sge::renderer::state::ffp::lighting::specular_color specular,
+      sge::renderer::state::ffp::lighting::material::emissive_color emissive,
+      sge::renderer::state::ffp::lighting::material::shininess shininess);
 
-	[[nodiscard]]
-	/**
+  [[nodiscard]]
+  /**
 	 * \brief Returns the diffuse part
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::diffuse_color const &
-	diffuse() const;
+  SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::lighting::diffuse_color const &
+  diffuse() const;
 
-	[[nodiscard]]
-	/**
+  [[nodiscard]]
+  /**
 	 * \brief Returns the ambient part
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::ambient_color const &
-	ambient() const;
+  SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::lighting::ambient_color const &
+  ambient() const;
 
-	[[nodiscard]]
-	/**
+  [[nodiscard]]
+  /**
 	 * \brief Returns the specular part
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::specular_color const &
-	specular() const;
+  SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::lighting::specular_color const &
+  specular() const;
 
-	[[nodiscard]]
-	/**
+  [[nodiscard]]
+  /**
 	 * \brief Returns the emissive part
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::material::emissive_color const &
-	emissive() const;
+  SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::lighting::material::emissive_color const &
+  emissive() const;
 
-	[[nodiscard]]
-	/**
+  [[nodiscard]]
+  /**
 	 * \brief Returns the shininess
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::material::shininess
-	shininess() const;
+  SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::lighting::material::shininess
+  shininess() const;
+
 private:
-	sge::renderer::state::ffp::lighting::diffuse_color diffuse_;
+  sge::renderer::state::ffp::lighting::diffuse_color diffuse_;
 
-	sge::renderer::state::ffp::lighting::ambient_color ambient_;
+  sge::renderer::state::ffp::lighting::ambient_color ambient_;
 
-	sge::renderer::state::ffp::lighting::specular_color specular_;
+  sge::renderer::state::ffp::lighting::specular_color specular_;
 
-	sge::renderer::state::ffp::lighting::material::emissive_color emissive_;
+  sge::renderer::state::ffp::lighting::material::emissive_color emissive_;
 
-	sge::renderer::state::ffp::lighting::material::shininess shininess_;
+  sge::renderer::state::ffp::lighting::material::shininess shininess_;
 };
 
 }

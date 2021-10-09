@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/object_ref.hpp>
 #include <sge/projectile/impl/body/detail/motion_state.hpp>
@@ -12,37 +11,20 @@
 #include <LinearMath/btTransform.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::projectile::body::detail::motion_state::motion_state(
-	sge::projectile::body::object_ref const _body
-)
-:
-	btMotionState(),
-	body_(
-		_body
-	)
+    sge::projectile::body::object_ref const _body)
+    : btMotionState(), body_(_body)
 {
 }
 
-sge::projectile::body::detail::motion_state::~motion_state()
-= default;
+sge::projectile::body::detail::motion_state::~motion_state() = default;
 
-void
-sge::projectile::body::detail::motion_state::getWorldTransform(
-	btTransform &_transform
-) const
+void sge::projectile::body::detail::motion_state::getWorldTransform(btTransform &_transform) const
 {
-	body_.get().getWorldTransform(
-		_transform
-	);
+  body_.get().getWorldTransform(_transform);
 }
 
-void
-sge::projectile::body::detail::motion_state::setWorldTransform(
-	btTransform const &_transform
-)
+void sge::projectile::body::detail::motion_state::setWorldTransform(btTransform const &_transform)
 {
-	body_.get().setWorldTransform(
-		_transform
-	);
+  body_.get().setWorldTransform(_transform);
 }

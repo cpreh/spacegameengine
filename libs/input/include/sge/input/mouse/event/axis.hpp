@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_MOUSE_EVENT_AXIS_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_EVENT_AXIS_HPP_INCLUDED
 
@@ -17,47 +16,33 @@
 #include <sge/input/mouse/event/base.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::mouse::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL axis
-:
-	public sge::input::mouse::event::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL axis : public sge::input::mouse::event::base
 {
-	FCPPT_NONMOVABLE(
-		axis
-	);
+  FCPPT_NONMOVABLE(axis);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	axis(
-		sge::input::mouse::shared_ptr,
-		sge::input::mouse::axis const &,
-		sge::input::mouse::axis_value
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  axis(
+      sge::input::mouse::shared_ptr,
+      sge::input::mouse::axis const &,
+      sge::input::mouse::axis_value);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~axis()
-	override;
+  SGE_INPUT_DETAIL_SYMBOL
+  ~axis() override;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::mouse::axis const &
-	get() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::mouse::axis const &get() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::mouse::axis_code
-	code() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::mouse::axis_code code() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::mouse::axis_value
-	value() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::mouse::axis_value value() const;
+
 private:
-	sge::input::mouse::axis const axis_;
+  sge::input::mouse::axis const axis_;
 
-	sge::input::mouse::axis_value const value_;
+  sge::input::mouse::axis_value const value_;
 };
 
 }

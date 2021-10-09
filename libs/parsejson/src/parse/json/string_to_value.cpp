@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_value_exn.hpp>
@@ -19,42 +18,18 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::parse::json::value
-sge::parse::json::string_to_value(
-	std::string &&_string
-)
+sge::parse::json::value sge::parse::json::string_to_value(std::string &&_string)
 {
-	return
-		sge::parse::json::find_member_value_exn(
-			fcppt::make_cref(
-				fcppt::either::to_exception(
-					sge::parse::json::parse_string(
-						"{ \"value\" : "
-						+
-						std::move(
-							_string
-						)
-						+
-						" }"
-					),
-					[](
-						fcppt::parse::error<
-							char
-						> &&_error
-					)
-					{
-						return
-							sge::parse::exception{
-								fcppt::from_std_string(
-									std::move(
-										_error.get()
-									)
-								)
-							};
-					}
-				).object().members
-			),
-			"value"
-		).get();
+  return sge::parse::json::find_member_value_exn(
+             fcppt::make_cref(
+                 fcppt::either::to_exception(
+                     sge::parse::json::parse_string("{ \"value\" : " + std::move(_string) + " }"),
+                     [](fcppt::parse::error<char> &&_error) {
+                       return sge::parse::exception{
+                           fcppt::from_std_string(std::move(_error.get()))};
+                     })
+                     .object()
+                     .members),
+             "value")
+      .get();
 }

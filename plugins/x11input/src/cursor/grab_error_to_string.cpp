@@ -3,38 +3,26 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/x11input/cursor/grab_error_to_string.hpp>
 #include <awl/backends/x11/X.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 
-
-fcppt::string
-sge::x11input::cursor::grab_error_to_string(
-	int const _status
-)
+fcppt::string sge::x11input::cursor::grab_error_to_string(int const _status)
 {
-	switch(
-		_status
-	)
-	{
-	case AlreadyGrabbed:
-		return
-			FCPPT_TEXT("AlreadyGrabbed");
-	case GrabNotViewable:
-		return
-			FCPPT_TEXT("GrabNotViewable");
-	case GrabFrozen:
-		return
-			FCPPT_TEXT("GrabFrozen");
-	case GrabInvalidTime:
-		return
-			FCPPT_TEXT("GrabInvalidTime");
-	default:
-		break;
-	}
+  switch (_status)
+  {
+  case AlreadyGrabbed:
+    return FCPPT_TEXT("AlreadyGrabbed");
+  case GrabNotViewable:
+    return FCPPT_TEXT("GrabNotViewable");
+  case GrabFrozen:
+    return FCPPT_TEXT("GrabFrozen");
+  case GrabInvalidTime:
+    return FCPPT_TEXT("GrabInvalidTime");
+  default:
+    break;
+  }
 
-	return
-		FCPPT_TEXT("Unknown");
+  return FCPPT_TEXT("Unknown");
 }

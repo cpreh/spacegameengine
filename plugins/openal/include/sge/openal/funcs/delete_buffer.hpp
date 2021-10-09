@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_FUNCS_DELETE_BUFFER_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_DELETE_BUFFER_HPP_INCLUDED
 
 #include <sge/openal/buffer_id.hpp>
 
-
 namespace sge::openal::funcs
 {
 
-void
-delete_buffer(
-	sge::openal::buffer_id
-);
+void delete_buffer(sge::openal::buffer_id);
 
 }
 

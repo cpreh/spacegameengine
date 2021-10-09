@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_BUFFERS_SINGLE_DECL_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_SINGLE_DECL_HPP_INCLUDED
 
@@ -18,70 +17,42 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
-
 namespace sge::sprite::buffers
 {
 
-template<
-	typename Choices
->
+template <typename Choices>
 class single
 {
-	FCPPT_NONMOVABLE(
-		single
-	);
+  FCPPT_NONMOVABLE(single);
+
 public:
-	using
-	choices
-	=
-	Choices;
+  using choices = Choices;
 
-	single(
-		sge::renderer::device::core_ref,
-		sge::renderer::vertex::const_declaration_ref,
-		sge::sprite::buffers::option
-	);
+  single(
+      sge::renderer::device::core_ref,
+      sge::renderer::vertex::const_declaration_ref,
+      sge::sprite::buffers::option);
 
-	~single();
+  ~single();
 
-	using
-	slice_type
-	=
-	sge::sprite::buffers::slice<
-		Choices
-	>;
+  using slice_type = sge::sprite::buffers::slice<Choices>;
 
-	[[nodiscard]]
-	slice_type
-	allocate(
-		sge::sprite::count
-	);
+  [[nodiscard]] slice_type allocate(sge::sprite::count);
 
-	[[nodiscard]]
-	sge::renderer::vertex::declaration const &
-	vertex_declaration() const;
+  [[nodiscard]] sge::renderer::vertex::declaration const &vertex_declaration() const;
+
 private:
-	using
-	buffers_object
-	=
-	sge::sprite::buffers::object<
-		Choices
-	>;
+  using buffers_object = sge::sprite::buffers::object<Choices>;
 
-	using
-	optional_buffers_object
-	=
-	fcppt::optional::object<
-		buffers_object
-	>;
+  using optional_buffers_object = fcppt::optional::object<buffers_object>;
 
-	sge::renderer::device::core_ref const renderer_;
+  sge::renderer::device::core_ref const renderer_;
 
-	sge::renderer::vertex::const_declaration_ref const vertex_declaration_;
+  sge::renderer::vertex::const_declaration_ref const vertex_declaration_;
 
-	sge::sprite::buffers::option const buffers_option_;
+  sge::sprite::buffers::option const buffers_option_;
 
-	optional_buffers_object buffers_object_;
+  optional_buffers_object buffers_object_;
 };
 
 }

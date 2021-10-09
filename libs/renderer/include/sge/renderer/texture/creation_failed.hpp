@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TEXTURE_CREATION_FAILED_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CREATION_FAILED_HPP_INCLUDED
 
@@ -12,48 +11,29 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge::renderer::texture
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL creation_failed
-:
-	public sge::renderer::exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL creation_failed : public sge::renderer::exception
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	explicit
-	creation_failed(
-		fcppt::string &&
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  explicit creation_failed(fcppt::string &&);
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	creation_failed(
-		creation_failed &&
-	)
-	noexcept;
+  SGE_RENDERER_DETAIL_SYMBOL
+  creation_failed(creation_failed &&) noexcept;
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	creation_failed(
-		creation_failed const &
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  creation_failed(creation_failed const &);
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	creation_failed &
-	operator=(
-		creation_failed &&
-	)
-	noexcept;
+  SGE_RENDERER_DETAIL_SYMBOL
+  creation_failed &operator=(creation_failed &&) noexcept;
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	creation_failed &
-	operator=(
-		creation_failed const &
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  creation_failed &operator=(creation_failed const &);
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	~creation_failed() noexcept
-	override;
+  SGE_RENDERER_DETAIL_SYMBOL
+  ~creation_failed() noexcept override;
 };
 
 }

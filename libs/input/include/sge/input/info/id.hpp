@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_INFO_ID_HPP_INCLUDED
 #define SGE_INPUT_INFO_ID_HPP_INCLUDED
-
 
 namespace sge::input::info
 {
 
-using
-id
-=
-unsigned;
+using id = unsigned;
 
 }
 

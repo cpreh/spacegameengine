@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/projection_matrix.hpp>
@@ -231,7 +230,6 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 /**
 	Example description:
 
@@ -247,48 +245,20 @@
 	the right eye in cyan.
  */
 
-
 namespace
 {
 // Define the vertex format which consists of a position value and a normal (for the diffuse shading)
 namespace vf
 {
-using
-position
-=
-sge::renderer::vf::pos<
-	sge::renderer::scalar,
-	3
->;
+using position = sge::renderer::vf::pos<sge::renderer::scalar, 3>;
 
-using
-normal
-=
-sge::renderer::vf::normal<
-	sge::renderer::scalar
->;
+using normal = sge::renderer::vf::normal<sge::renderer::scalar>;
 
-using
-format_part
-=
-sge::renderer::vf::part<
-	position,
-	normal
->;
+using format_part = sge::renderer::vf::part<position, normal>;
 
-using
-format
-=
-sge::renderer::vf::format<
-	format_part
->;
+using format = sge::renderer::vf::format<format_part>;
 
-using
-format_part_view
-=
-sge::renderer::vf::view<
-	format_part
->;
+using format_part_view = sge::renderer::vf::view<format_part>;
 
 }
 
@@ -297,564 +267,281 @@ sge::renderer::vf::view<
 // buffers from it.
 class compiled_model
 {
-	FCPPT_NONMOVABLE(
-		compiled_model
-	);
+  FCPPT_NONMOVABLE(compiled_model);
+
 public:
-	compiled_model(
-		sge::renderer::device::core_ref,
-		sge::renderer::vertex::const_declaration_ref,
-		sge::model::md3::object const &
-	);
+  compiled_model(
+      sge::renderer::device::core_ref,
+      sge::renderer::vertex::const_declaration_ref,
+      sge::model::md3::object const &);
 
-	[[nodiscard]]
-	sge::renderer::vertex::buffer const &
-	vb() const;
+  [[nodiscard]] sge::renderer::vertex::buffer const &vb() const;
 
-	void
-	render(
-		sge::renderer::context::core & // NOLINT(google-runtime-references)
-	) const; // NOLINT(google-runtime-references)
+  void render(sge::renderer::context::core & // NOLINT(google-runtime-references)
+  ) const; // NOLINT(google-runtime-references)
 
-	~compiled_model();
+  ~compiled_model();
+
 private:
-	compiled_model(
-		sge::renderer::device::core_ref,
-		sge::renderer::vertex::const_declaration_ref,
-		sge::model::md3::object const &,
-		sge::model::md3::string const &
-	);
+  compiled_model(
+      sge::renderer::device::core_ref,
+      sge::renderer::vertex::const_declaration_ref,
+      sge::model::md3::object const &,
+      sge::model::md3::string const &);
 
-	sge::renderer::vertex::buffer_unique_ptr const vb_;
+  sge::renderer::vertex::buffer_unique_ptr const vb_;
 
-	sge::renderer::index::buffer_unique_ptr const ib_;
+  sge::renderer::index::buffer_unique_ptr const ib_;
 };
 
 compiled_model::compiled_model(
-	sge::renderer::device::core_ref const _renderer,
-	sge::renderer::vertex::const_declaration_ref const _vd,
-	sge::model::md3::object const &_model
-)
-:
-	compiled_model(
-		_renderer,
-		_vd,
-		_model,
-		[
-			&_model
-		]()
-		->
-		sge::model::md3::string
-		{
-			sge::model::md3::part_name_sequence const parts(
-				_model.part_names()
-			);
+    sge::renderer::device::core_ref const _renderer,
+    sge::renderer::vertex::const_declaration_ref const _vd,
+    sge::model::md3::object const &_model)
+    : compiled_model(
+          _renderer,
+          _vd,
+          _model,
+          [&_model]() -> sge::model::md3::string
+          {
+            sge::model::md3::part_name_sequence const parts(_model.part_names());
 
-			return
-				sge::model::md3::string(
-					FCPPT_ASSERT_OPTIONAL_ERROR(
-						fcppt::container::maybe_front(
-							parts
-						)
-					).get()
-				);
-		}()
-	)
+            return sge::model::md3::string(
+                FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::container::maybe_front(parts)).get());
+          }())
 {
 }
 
-sge::renderer::vertex::buffer const &
-compiled_model::vb() const
+sge::renderer::vertex::buffer const &compiled_model::vb() const { return *vb_; }
+
+void compiled_model::render(sge::renderer::context::core &_context) const
 {
-	return
-		*vb_;
+  // This should be pretty self-explanatory. Note that here, we just
+  // call render. The vertex buffer isn't activated here, neither is
+  // the vertex declaration. This is done at a "higher" level so we
+  // don't activate/deactive it too often (which decreases
+  // performance).
+  _context.render_indexed(
+      *ib_,
+      sge::renderer::vertex::first(0U),
+      sge::renderer::vertex::count(vb_->linear_size()),
+      sge::renderer::primitive_type::triangle_list,
+      sge::renderer::index::first(0U),
+      sge::renderer::index::count(ib_->linear_size()));
 }
 
-void
-compiled_model::render(
-	sge::renderer::context::core &_context
-) const
-{
-	// This should be pretty self-explanatory. Note that here, we just
-	// call render. The vertex buffer isn't activated here, neither is
-	// the vertex declaration. This is done at a "higher" level so we
-	// don't activate/deactive it too often (which decreases
-	// performance).
-	_context.render_indexed(
-		*ib_,
-		sge::renderer::vertex::first(
-			0U
-		),
-		sge::renderer::vertex::count(
-			vb_->linear_size()
-		),
-		sge::renderer::primitive_type::triangle_list,
-		sge::renderer::index::first(
-			0U
-		),
-		sge::renderer::index::count(
-			ib_->linear_size()
-		)
-	);
-}
-
-compiled_model::~compiled_model()
-= default;
+compiled_model::~compiled_model() = default;
 
 compiled_model::compiled_model(
-	sge::renderer::device::core_ref const _renderer,
-	sge::renderer::vertex::const_declaration_ref const _vd,
-	sge::model::md3::object const &_model,
-	sge::model::md3::string const &_first_part
-)
-:
-	vb_(
-		_renderer.get().create_vertex_buffer(
-			sge::renderer::vertex::buffer_parameters(
-				_vd,
-				sge::renderer::vf::dynamic::make_part_index<
-					vf::format,
-					vf::format_part
-				>(),
-				sge::renderer::vertex::count(
-					_model.vertices(
-						_first_part
-					).size()
-				),
-				sge::renderer::resource_flags_field::null()
-			)
-		)
-	),
-	// Create the index buffer. We have to decide which data type to
-	// use. Since our models have < 100 vertices, a 16 bit integer is
-	// enough, so we're using "format::i16" here.
-	ib_(
-		_renderer.get().create_index_buffer(
-			sge::renderer::index::buffer_parameters(
-				sge::renderer::index::dynamic::format::i16,
-				sge::renderer::index::count(
-					_model.indices(
-						_first_part
-					).size()
-				),
-				sge::renderer::resource_flags_field::null()
-			)
-		)
-	)
+    sge::renderer::device::core_ref const _renderer,
+    sge::renderer::vertex::const_declaration_ref const _vd,
+    sge::model::md3::object const &_model,
+    sge::model::md3::string const &_first_part)
+    : vb_(_renderer.get().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(
+          _vd,
+          sge::renderer::vf::dynamic::make_part_index<vf::format, vf::format_part>(),
+          sge::renderer::vertex::count(_model.vertices(_first_part).size()),
+          sge::renderer::resource_flags_field::null()))),
+      // Create the index buffer. We have to decide which data type to
+      // use. Since our models have < 100 vertices, a 16 bit integer is
+      // enough, so we're using "format::i16" here.
+      ib_(_renderer.get().create_index_buffer(sge::renderer::index::buffer_parameters(
+          sge::renderer::index::dynamic::format::i16,
+          sge::renderer::index::count(_model.indices(_first_part).size()),
+          sge::renderer::resource_flags_field::null())))
 {
-	{
-		sge::renderer::vertex::scoped_lock const vblock{
-			fcppt::make_ref(
-				*vb_
-			),
-			sge::renderer::lock_mode::writeonly
-		};
+  {
+    sge::renderer::vertex::scoped_lock const vblock{
+        fcppt::make_ref(*vb_), sge::renderer::lock_mode::writeonly};
 
-		vf::format_part_view const current_vertex_view{
-			vblock.value()
-		};
+    vf::format_part_view const current_vertex_view{vblock.value()};
 
-		vf::format_part_view::iterator current_vertex{
-			current_vertex_view.begin()
-		};
+    vf::format_part_view::iterator current_vertex{current_vertex_view.begin()};
 
-		sge::model::md3::vertex_sequence const model_vertices{
-			_model.vertices(
-				_first_part
-			)
-		};
+    sge::model::md3::vertex_sequence const model_vertices{_model.vertices(_first_part)};
 
-		sge::model::md3::normal_sequence const model_normals{
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				_model.normals(
-					_first_part
-				)
-			)
-		};
+    sge::model::md3::normal_sequence const model_normals{
+        FCPPT_ASSERT_OPTIONAL_ERROR(_model.normals(_first_part))};
 
-		sge::model::md3::normal_sequence::const_iterator current_model_normal{
-			model_normals.begin()
-		};
+    sge::model::md3::normal_sequence::const_iterator current_model_normal{model_normals.begin()};
 
-		for(
-			auto const &model_vertex
-			:
-			model_vertices
-		)
-		{
-			sge::renderer::vf::set_proxy(
-				*current_vertex,
-				sge::renderer::vf::labels::pos{},
-				fcppt::math::vector::structure_cast<
-					vf::position::packed_type,
-					fcppt::cast::size_fun
-				>(
-					model_vertex
-				)
-			);
+    for (auto const &model_vertex : model_vertices)
+    {
+      sge::renderer::vf::set_proxy(
+          *current_vertex,
+          sge::renderer::vf::labels::pos{},
+          fcppt::math::vector::structure_cast<vf::position::packed_type, fcppt::cast::size_fun>(
+              model_vertex));
 
-			sge::renderer::vf::set_proxy(
-				*current_vertex,
-				sge::renderer::vf::labels::normal{},
-				fcppt::math::vector::structure_cast<
-					vf::normal::packed_type,
-					fcppt::cast::size_fun
-				>(
-					*current_model_normal++
-				)
-			);
+      sge::renderer::vf::set_proxy(
+          *current_vertex,
+          sge::renderer::vf::labels::normal{},
+          fcppt::math::vector::structure_cast<vf::normal::packed_type, fcppt::cast::size_fun>(
+              *current_model_normal++));
 
-			++current_vertex;
-		}
-	}
+      ++current_vertex;
+    }
+  }
 
-	sge::renderer::index::scoped_lock const iblock{
-		fcppt::make_ref(
-			*ib_
-		),
-		sge::renderer::lock_mode::writeonly
-	};
+  sge::renderer::index::scoped_lock const iblock{
+      fcppt::make_ref(*ib_), sge::renderer::lock_mode::writeonly};
 
-	sge::renderer::index::dynamic::view const indices(
-		iblock.value()
-	);
+  sge::renderer::index::dynamic::view const indices(iblock.value());
 
-	sge::renderer::index::iterator<
-		sge::renderer::index::format_16,
-		sge::renderer::index::nonconst_tag
-	> current_index(
-		indices.data()
-	);
+  sge::renderer::index::
+      iterator<sge::renderer::index::format_16, sge::renderer::index::nonconst_tag>
+          current_index(indices.data());
 
-	sge::model::md3::index_sequence const model_indices{
-		_model.indices(
-			_first_part
-		)
-	};
+  sge::model::md3::index_sequence const model_indices{_model.indices(_first_part)};
 
-	for(
-		auto const index
-		:
-		model_indices
-	)
-	{
-		(*current_index++).set(
-			fcppt::cast::size<
-				sge::renderer::index::i16
-			>(
-				index
-			)
-		);
-	}
+  for (auto const index : model_indices)
+  {
+    (*current_index++).set(fcppt::cast::size<sge::renderer::index::i16>(index));
+  }
 }
-
 
 // This is a specific model instance, meaning it has a position and an
 // orientation. It has no logic, however.
 class model_instance
 {
-	FCPPT_NONMOVABLE(
-		model_instance
-	);
+  FCPPT_NONMOVABLE(model_instance);
+
 public:
-	model_instance(
-		fcppt::reference<
-			compiled_model const
-		>,
-		sge::renderer::matrix4
-	);
+  model_instance(fcppt::reference<compiled_model const>, sge::renderer::matrix4);
 
-	void
-	render(
-		sge::renderer::context::core & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  void render(sge::renderer::context::core & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 
-	[[nodiscard]]
-	sge::renderer::matrix4 const &
-	modelview() const;
+  [[nodiscard]] sge::renderer::matrix4 const &modelview() const;
 
-	~model_instance(); // NOLINT(performance-trivially-destructible)
+  ~model_instance(); // NOLINT(performance-trivially-destructible)
 private:
-	fcppt::reference<
-		compiled_model const
-	> const backend_;
+  fcppt::reference<compiled_model const> const backend_;
 
-	sge::renderer::matrix4 const modelview_;
+  sge::renderer::matrix4 const modelview_;
 };
 
 model_instance::model_instance(
-	fcppt::reference<
-		compiled_model const
-	> const _backend,
-	sge::renderer::matrix4 const _modelview
-)
-:
-	backend_{
-		_backend
-	},
-	modelview_{
-		_modelview
-	}
+    fcppt::reference<compiled_model const> const _backend, sge::renderer::matrix4 const _modelview)
+    : backend_{_backend}, modelview_{_modelview}
 {
 }
 
-void
-model_instance::render(
-	sge::renderer::context::core &_context
-)
+void model_instance::render(sge::renderer::context::core &_context)
 {
-	backend_.get().render(
-		_context
-	);
+  backend_.get().render(_context);
 }
 
-sge::renderer::matrix4 const &
-model_instance::modelview() const
-{
-	return
-		modelview_;
-}
+sge::renderer::matrix4 const &model_instance::modelview() const { return modelview_; }
 
-model_instance::~model_instance()
-= default;
+model_instance::~model_instance() = default;
 
 // This class represents a collection of randomly placed and oriented
 // "model_instance" objects (see above).
 class random_model_collection
 {
-	FCPPT_NONMOVABLE(
-		random_model_collection
-	);
+  FCPPT_NONMOVABLE(random_model_collection);
+
 public:
-	random_model_collection(
-		sge::renderer::device::ffp_ref,
-		fcppt::reference<
-			compiled_model const
-		>
-	);
+  random_model_collection(sge::renderer::device::ffp_ref, fcppt::reference<compiled_model const>);
 
-	void
-	render(
-		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-		sge::renderer::matrix4 const &
-	);
+  void render(
+      sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+      sge::renderer::matrix4 const &);
 
-	~random_model_collection();
+  ~random_model_collection();
+
 private:
-	using
-	model_instance_unique_ptr
-	=
-	fcppt::unique_ptr<
-		model_instance
-	>;
+  using model_instance_unique_ptr = fcppt::unique_ptr<model_instance>;
 
-	using
-	model_sequence
-	=
-	std::vector<
-		model_instance_unique_ptr
-	>;
+  using model_sequence = std::vector<model_instance_unique_ptr>;
 
-	sge::renderer::device::ffp_ref const renderer_;
+  sge::renderer::device::ffp_ref const renderer_;
 
-	fcppt::reference<
-		compiled_model const
-	> const backend_;
+  fcppt::reference<compiled_model const> const backend_;
 
-	model_sequence models_;
+  model_sequence models_;
 };
 
 random_model_collection::random_model_collection(
-	sge::renderer::device::ffp_ref const _renderer,
-	fcppt::reference<
-		compiled_model const
-	> const _backend
-)
-:
-	renderer_{
-		_renderer
-	},
-	backend_{
-		_backend
-	},
-	models_{
-		[
-			&_backend
-		]{
-			// Create objects in the cube with side length 10
-			sge::renderer::scalar const position_range{
-				fcppt::literal<
-					sge::renderer::scalar
-				>(
-					10
-				)
-			};
+    sge::renderer::device::ffp_ref const _renderer,
+    fcppt::reference<compiled_model const> const _backend)
+    : renderer_{_renderer},
+      backend_{_backend},
+      models_{
+          [&_backend]
+          {
+            // Create objects in the cube with side length 10
+            sge::renderer::scalar const position_range{fcppt::literal<sge::renderer::scalar>(10)};
 
-			using
-			generator_type
-			=
-			fcppt::random::generator::minstd_rand;
+            using generator_type = fcppt::random::generator::minstd_rand;
 
-			generator_type generator{
-				fcppt::random::generator::seed_from_chrono<
-					generator_type::seed
-				>()
-			};
+            generator_type generator{
+                fcppt::random::generator::seed_from_chrono<generator_type::seed>()};
 
-			using
-			distribution
-			=
-			fcppt::random::distribution::basic<
-				fcppt::random::distribution::parameters::uniform_real<
-					sge::renderer::scalar
-				>
-			>;
+            using distribution = fcppt::random::distribution::basic<
+                fcppt::random::distribution::parameters::uniform_real<sge::renderer::scalar>>;
 
-			using
-			variate
-			=
-			fcppt::random::variate<
-				generator_type,
-				distribution
-			>;
+            using variate = fcppt::random::variate<generator_type, distribution>;
 
-			variate position_rng{
-				fcppt::make_ref(
-					generator
-				),
-				distribution{
-					distribution::param_type::min{
-						-position_range
-					},
-					distribution::param_type::sup{
-						position_range
-					}
-				}
-			};
+            variate position_rng{
+                fcppt::make_ref(generator),
+                distribution{
+                    distribution::param_type::min{-position_range},
+                    distribution::param_type::sup{position_range}}};
 
-			variate angle_rng{
-				fcppt::make_ref(
-					generator
-				),
-				distribution{
-					distribution::param_type::min{
-						0.F
-					},
-					distribution::param_type::sup{
-						std::numbers::pi_v<
-							sge::renderer::scalar
-						>
-						*
-						fcppt::literal<
-							sge::renderer::scalar
-						>(
-							2
-						)
-					}
-				}
-			};
+            variate angle_rng{
+                fcppt::make_ref(generator),
+                distribution{
+                    distribution::param_type::min{0.F},
+                    distribution::param_type::sup{
+                        std::numbers::pi_v<sge::renderer::scalar> *
+                        fcppt::literal<sge::renderer::scalar>(2)}}};
 
-			return
-				fcppt::algorithm::map<
-					model_sequence
-				>(
-					fcppt::make_int_range_count(
-						100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-					),
-					[
-						&_backend,
-						&angle_rng,
-						&position_rng
-					](
-						auto const
-					)
-					{
-						return
-							fcppt::make_unique_ptr<
-								model_instance
-							>(
-								_backend,
-								fcppt::math::matrix::rotation_x(
-									angle_rng()
-								)
-								*
-								fcppt::math::matrix::rotation_y(
-									angle_rng()
-								)
-								*
-								fcppt::math::matrix::rotation_z(
-									angle_rng()
-								)
-								*
-								fcppt::math::matrix::translation(
-									sge::renderer::vector3{
-										position_rng(),
-										position_rng(),
-										position_rng()
-									}
-								)
-							);
-					}
-				);
-		}()
-	}
+            return fcppt::algorithm::map<model_sequence>(
+                fcppt::make_int_range_count(
+                    100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                    ),
+                [&_backend, &angle_rng, &position_rng](auto const)
+                {
+                  return fcppt::make_unique_ptr<model_instance>(
+                      _backend,
+                      fcppt::math::matrix::rotation_x(angle_rng()) *
+                          fcppt::math::matrix::rotation_y(angle_rng()) *
+                          fcppt::math::matrix::rotation_z(angle_rng()) *
+                          fcppt::math::matrix::translation(sge::renderer::vector3{
+                              position_rng(), position_rng(), position_rng()}));
+                });
+          }()}
 {
 }
 
-void
-random_model_collection::render(
-	sge::renderer::context::ffp &_context,
-	sge::renderer::matrix4 const &_mv
-)
+void random_model_collection::render(
+    sge::renderer::context::ffp &_context, sge::renderer::matrix4 const &_mv)
 {
-	// Finally, we activate the vertex buffer so we can render stuff
-	// with it. We only activate it once, however, not for every model.
-	sge::renderer::vertex::scoped_buffer const scoped_vb{
-		fcppt::reference_to_base<
-			sge::renderer::context::core
-		>(
-			fcppt::make_ref(
-				_context
-			)
-		),
-		fcppt::make_cref(
-			backend_.get().vb()
-		)
-	};
+  // Finally, we activate the vertex buffer so we can render stuff
+  // with it. We only activate it once, however, not for every model.
+  sge::renderer::vertex::scoped_buffer const scoped_vb{
+      fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+      fcppt::make_cref(backend_.get().vb())};
 
-	for(
-		auto const &current_model
-		:
-		models_
-	)
-	{
-		sge::renderer::state::ffp::transform::object_unique_ptr const world_state{
-			renderer_.get().create_transform_state(
-				sge::renderer::state::ffp::transform::parameters{
-					_mv * current_model->modelview()
-				}
-			)
-		};
+  for (auto const &current_model : models_)
+  {
+    sge::renderer::state::ffp::transform::object_unique_ptr const world_state{
+        renderer_.get().create_transform_state(
+            sge::renderer::state::ffp::transform::parameters{_mv * current_model->modelview()})};
 
-		// Set the world transformation and render
-		sge::renderer::state::ffp::transform::scoped const world_transform{
-			fcppt::make_ref(
-				_context
-			),
-			sge::renderer::state::ffp::transform::mode::world,
-			fcppt::make_cref(
-				*world_state
-			)
-		};
+    // Set the world transformation and render
+    sge::renderer::state::ffp::transform::scoped const world_transform{
+        fcppt::make_ref(_context),
+        sge::renderer::state::ffp::transform::mode::world,
+        fcppt::make_cref(*world_state)};
 
-		current_model->render(
-			_context
-		);
-	}
+    current_model->render(_context);
+  }
 }
 
-random_model_collection::~random_model_collection()
-= default;
+random_model_collection::~random_model_collection() = default;
 
 // Rendering works as follows:
 // The camera gives us a coordinate system consisting of three vectors: right, up, and forward:
@@ -889,759 +576,319 @@ random_model_collection::~random_model_collection()
 // Using simple trigonometry, we get "atan(f/(d/2))" for 'a'
 // The following function implements just this.
 
-sge::camera::coordinate_system::object
-move_eye_position(
-	sge::camera::coordinate_system::object _result,
-	sge::renderer::scalar const _eye_distance,
-	sge::renderer::scalar const _focal_length
-)
+sge::camera::coordinate_system::object move_eye_position(
+    sge::camera::coordinate_system::object _result,
+    sge::renderer::scalar const _eye_distance,
+    sge::renderer::scalar const _focal_length)
 {
-	_result.position(
-		sge::camera::coordinate_system::position(
-			_result.position().get()
-			+
-			_eye_distance
-			*
-			_result.right().get()
-		)
-	);
+  _result.position(sge::camera::coordinate_system::position(
+      _result.position().get() + _eye_distance * _result.right().get()));
 
-	sge::renderer::scalar const angle{
-		std::atan(
-			_eye_distance
-			/
-			_focal_length
-		)
-	};
+  sge::renderer::scalar const angle{std::atan(_eye_distance / _focal_length)};
 
-	sge::renderer::scalar const sinx{
-		std::sin(
-			angle
-		)
-	};
+  sge::renderer::scalar const sinx{std::sin(angle)};
 
-	sge::renderer::scalar const cosx{
-		std::cos(
-			angle
-		)
-	};
+  sge::renderer::scalar const cosx{std::cos(angle)};
 
-	sge::renderer::scalar const cosxc{
-		1 - cosx
-	};
+  sge::renderer::scalar const cosxc{1 - cosx};
 
-	sge::renderer::scalar const x{
-		_result.up().get().x()
-	};
+  sge::renderer::scalar const x{_result.up().get().x()};
 
-	sge::renderer::scalar const y{
-		_result.up().get().y()
-	};
+  sge::renderer::scalar const y{_result.up().get().y()};
 
-	sge::renderer::scalar const z{
-		_result.up().get().z()
-	};
+  sge::renderer::scalar const z{_result.up().get().z()};
 
-	using
-	matrix3
-	=
-	fcppt::math::matrix::static_<
-		sge::renderer::scalar,
-		3,
-		3
-	>;
+  using matrix3 = fcppt::math::matrix::static_<sge::renderer::scalar, 3, 3>;
 
-	matrix3 const rotation_matrix{
-		fcppt::math::matrix::row(
-			cosx + x*x*cosxc,   x*y*cosxc - z*sinx, x*z*cosxc + y*sinx
-		),
-		fcppt::math::matrix::row(
-			x*y*cosxc + z*sinx, cosx + y*y*cosxc,   y*z*cosxc - x*sinx
-		),
-		fcppt::math::matrix::row(
-			x*z*cosxc - y*sinx, y*z*cosxc + x*sinx, cosx + z*z*cosxc
-		)
-	};
+  matrix3 const rotation_matrix{
+      fcppt::math::matrix::row(
+          cosx + x * x * cosxc, x * y * cosxc - z * sinx, x * z * cosxc + y * sinx),
+      fcppt::math::matrix::row(
+          x * y * cosxc + z * sinx, cosx + y * y * cosxc, y * z * cosxc - x * sinx),
+      fcppt::math::matrix::row(
+          x * z * cosxc - y * sinx, y * z * cosxc + x * sinx, cosx + z * z * cosxc)};
 
-	_result.right(
-		sge::camera::coordinate_system::right(
-			rotation_matrix * _result.right().get()
-		)
-	);
+  _result.right(sge::camera::coordinate_system::right(rotation_matrix * _result.right().get()));
 
-	_result.forward(
-		sge::camera::coordinate_system::forward(
-			rotation_matrix * _result.forward().get()
-		)
-	);
+  _result.forward(
+      sge::camera::coordinate_system::forward(rotation_matrix * _result.forward().get()));
 
-	return
-		_result;
+  return _result;
 }
 
-FCPPT_RECORD_MAKE_LABEL(
-	eye_distance_label
-);
+FCPPT_RECORD_MAKE_LABEL(eye_distance_label);
 
-FCPPT_RECORD_MAKE_LABEL(
-	focal_length_label
-);
+FCPPT_RECORD_MAKE_LABEL(focal_length_label);
 
-using
-options_record
-=
-fcppt::record::object<
-	fcppt::record::element<
-		eye_distance_label,
-		sge::renderer::scalar
-	>,
-	fcppt::record::element<
-		focal_length_label,
-		sge::renderer::scalar
-	>
->;
+using options_record = fcppt::record::object<
+    fcppt::record::element<eye_distance_label, sge::renderer::scalar>,
+    fcppt::record::element<focal_length_label, sge::renderer::scalar>>;
 
-awl::main::exit_code
-main_program(
-	options_record const &_options
-)
+awl::main::exit_code main_program(options_record const &_options)
 {
-	sge::systems::instance<
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_window,
-		sge::systems::with_input
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge test for anaglyph 3D")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::d24,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field{
-					sge::systems::cursor_option::exclusive
-				}
-			)
-		)
-		(
-			sge::systems::config()
-			.log_settings(
-				sge::systems::log_settings{
-					sge::log::option_container{
-						sge::log::option{
-							sge::log::location(),
-							fcppt::log::level::debug
-						}
-					}
-				}
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_window,
+      sge::systems::with_input> const
+      sys(sge::systems::make_list(
+          sge::systems::window(sge::systems::window_source(sge::systems::original_window(
+              sge::window::title(FCPPT_TEXT("sge test for anaglyph 3D"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::d24,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::input(
+              sge::systems::cursor_option_field{sge::systems::cursor_option::exclusive}))(
+          sge::systems::config().log_settings(sge::systems::log_settings{sge::log::option_container{
+              sge::log::option{sge::log::location(), fcppt::log::level::debug}}})));
 
-	sge::camera::first_person::object camera{
-		sge::camera::first_person::parameters{
-			sge::camera::first_person::movement_speed(
-				4.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			),
-			sge::camera::coordinate_system::identity()
-		}
-	};
+  sge::camera::first_person::object camera{sge::camera::first_person::parameters{
+      sge::camera::first_person::movement_speed(
+          4.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      sge::camera::coordinate_system::identity()}};
 
-	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
-		fcppt::reference_to_base<
-			sge::camera::has_mutable_projection
-		>(
-			fcppt::make_ref(
-				camera
-			)
-		),
-		fcppt::make_ref(
-			sys.viewport_manager()
-		),
-		sge::renderer::projection::near(
-			0.1F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		),
-		sge::renderer::projection::far(
-			1000.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		),
-		sge::renderer::projection::fov(
-			fcppt::math::deg_to_rad(
-				90.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			)
-		)
-	);
+  sge::camera::perspective_projection_from_viewport camera_viewport_connection(
+      fcppt::reference_to_base<sge::camera::has_mutable_projection>(fcppt::make_ref(camera)),
+      fcppt::make_ref(sys.viewport_manager()),
+      sge::renderer::projection::near(
+          0.1F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      sge::renderer::projection::far(
+          1000.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      sge::renderer::projection::fov(fcppt::math::deg_to_rad(
+          90.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          )));
 
-	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
-		sys.renderer_device_ffp().create_vertex_declaration(
-			sge::renderer::vertex::declaration_parameters(
-				sge::renderer::vf::dynamic::make_format<
-					vf::format
-				>()
-			)
-		)
-	);
+  sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
+      sys.renderer_device_ffp().create_vertex_declaration(
+          sge::renderer::vertex::declaration_parameters(
+              sge::renderer::vf::dynamic::make_format<vf::format>())));
 
-	// Create an md3 loader using the "create" function.
-	sge::model::md3::loader_unique_ptr const md3_loader(
-		sge::model::md3::create(
-			sys.log_context()
-		)
-	);
+  // Create an md3 loader using the "create" function.
+  sge::model::md3::loader_unique_ptr const md3_loader(sge::model::md3::create(sys.log_context()));
 
-	// Create a model and a model collection
-	compiled_model main_model(
-		fcppt::make_ref(
-			sys.renderer_device_core()
-		),
-		fcppt::make_cref(
-			*vertex_declaration
-		),
-		*md3_loader->load(
-			sge::config::media_path()
-			/
-			FCPPT_TEXT("md3s")
-			/
-			FCPPT_TEXT("arrow.md3"),
-			sge::model::md3::load_flags_field::null()
-		)
-	);
+  // Create a model and a model collection
+  compiled_model main_model(
+      fcppt::make_ref(sys.renderer_device_core()),
+      fcppt::make_cref(*vertex_declaration),
+      *md3_loader->load(
+          sge::config::media_path() / FCPPT_TEXT("md3s") / FCPPT_TEXT("arrow.md3"),
+          sge::model::md3::load_flags_field::null()));
 
-	random_model_collection model_collection(
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		fcppt::make_cref(
-			main_model
-		)
-	);
+  random_model_collection model_collection(
+      fcppt::make_ref(sys.renderer_device_ffp()), fcppt::make_cref(main_model));
 
-	sge::timer::basic<
-		sge::timer::clocks::standard
-	> camera_timer(
-		sge::timer::parameters<
-			sge::timer::clocks::standard
-		>(
-			std::chrono::seconds(
-				1
-			)
-		)
-	);
+  sge::timer::basic<sge::timer::clocks::standard> camera_timer(
+      sge::timer::parameters<sge::timer::clocks::standard>(std::chrono::seconds(1)));
 
-	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state(
-		sys.renderer_device_core().create_depth_stencil_state(
-			sge::renderer::state::core::depth_stencil::parameters(
-				sge::renderer::state::core::depth_stencil::depth::variant(
-					sge::renderer::state::core::depth_stencil::depth::enabled(
-						sge::renderer::state::core::depth_stencil::depth::func::less,
-						sge::renderer::state::core::depth_stencil::depth::write_enable(
-							true
-						)
-					)
-				),
-				sge::renderer::state::core::depth_stencil::stencil::variant(
-					sge::renderer::state::core::depth_stencil::stencil::off()
-				)
-			)
-		)
-	);
+  sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state(
+      sys.renderer_device_core().create_depth_stencil_state(
+          sge::renderer::state::core::depth_stencil::parameters(
+              sge::renderer::state::core::depth_stencil::depth::variant(
+                  sge::renderer::state::core::depth_stencil::depth::enabled(
+                      sge::renderer::state::core::depth_stencil::depth::func::less,
+                      sge::renderer::state::core::depth_stencil::depth::write_enable(true))),
+              sge::renderer::state::core::depth_stencil::stencil::variant(
+                  sge::renderer::state::core::depth_stencil::stencil::off()))));
 
-	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_state(
-		sys.renderer_device_core().create_rasterizer_state(
-			sge::renderer::state::core::rasterizer::parameters(
-				sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
-				sge::renderer::state::core::rasterizer::fill_mode::solid,
-				sge::renderer::state::core::rasterizer::enable_scissor_test(
-					false
-				)
-			)
-		)
-	);
+  sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_state(
+      sys.renderer_device_core().create_rasterizer_state(
+          sge::renderer::state::core::rasterizer::parameters(
+              sge::renderer::state::core::rasterizer::cull_mode::counter_clockwise,
+              sge::renderer::state::core::rasterizer::fill_mode::solid,
+              sge::renderer::state::core::rasterizer::enable_scissor_test(false))));
 
-	sge::renderer::state::core::blend::object_unique_ptr const blend_red_state(
-		sys.renderer_device_core().create_blend_state(
-			sge::renderer::state::core::blend::parameters(
-				sge::renderer::state::core::blend::alpha_variant(
-					sge::renderer::state::core::blend::alpha_off()
-				),
-				sge::renderer::state::core::blend::write_mask(
-					sge::renderer::state::core::blend::write_red(
-						true
-					),
-					sge::renderer::state::core::blend::write_blue(
-						false
-					),
-					sge::renderer::state::core::blend::write_green(
-						false
-					),
-					sge::renderer::state::core::blend::write_alpha(
-						true
-					)
-				)
-			)
-		)
-	);
+  sge::renderer::state::core::blend::object_unique_ptr const blend_red_state(
+      sys.renderer_device_core().create_blend_state(sge::renderer::state::core::blend::parameters(
+          sge::renderer::state::core::blend::alpha_variant(
+              sge::renderer::state::core::blend::alpha_off()),
+          sge::renderer::state::core::blend::write_mask(
+              sge::renderer::state::core::blend::write_red(true),
+              sge::renderer::state::core::blend::write_blue(false),
+              sge::renderer::state::core::blend::write_green(false),
+              sge::renderer::state::core::blend::write_alpha(true)))));
 
-	sge::renderer::state::core::blend::object_unique_ptr const blend_cyan_state(
-		sys.renderer_device_core().create_blend_state(
-			sge::renderer::state::core::blend::parameters(
-				sge::renderer::state::core::blend::alpha_variant(
-					sge::renderer::state::core::blend::alpha_off()
-				),
-				sge::renderer::state::core::blend::write_mask(
-					sge::renderer::state::core::blend::write_red(
-						false
-					),
-					sge::renderer::state::core::blend::write_blue(
-						true
-					),
-					sge::renderer::state::core::blend::write_green(
-						true
-					),
-					sge::renderer::state::core::blend::write_alpha(
-						true
-					)
-				)
-			)
-		)
-	);
+  sge::renderer::state::core::blend::object_unique_ptr const blend_cyan_state(
+      sys.renderer_device_core().create_blend_state(sge::renderer::state::core::blend::parameters(
+          sge::renderer::state::core::blend::alpha_variant(
+              sge::renderer::state::core::blend::alpha_off()),
+          sge::renderer::state::core::blend::write_mask(
+              sge::renderer::state::core::blend::write_red(false),
+              sge::renderer::state::core::blend::write_blue(true),
+              sge::renderer::state::core::blend::write_green(true),
+              sge::renderer::state::core::blend::write_alpha(true)))));
 
-	sge::renderer::scalar const eye_distance{
-		fcppt::record::get<
-			eye_distance_label
-		>(
-			_options
-		)
-	};
+  sge::renderer::scalar const eye_distance{fcppt::record::get<eye_distance_label>(_options)};
 
-	sge::renderer::scalar const focal_length{
-		fcppt::record::get<
-			focal_length_label
-		>(
-			_options
-		)
-	};
+  sge::renderer::scalar const focal_length{fcppt::record::get<focal_length_label>(_options)};
 
-	sge::renderer::clear::depth_buffer_value const depth_clear_value(
-		1.F
-	);
+  sge::renderer::clear::depth_buffer_value const depth_clear_value(1.F);
 
-	auto const draw_camera(
-		[
-			&blend_cyan_state,
-			&blend_red_state,
-			&camera,
-			depth_clear_value,
-			eye_distance,
-			focal_length,
-			&model_collection,
-			&sys,
-			&vertex_declaration
-		](
-			sge::renderer::context::ffp &_context,
-			sge::camera::projection_matrix const &_projection
-		)
-		{
+  auto const draw_camera(
+      [&blend_cyan_state,
+       &blend_red_state,
+       &camera,
+       depth_clear_value,
+       eye_distance,
+       focal_length,
+       &model_collection,
+       &sys,
+       &vertex_declaration](
+          sge::renderer::context::ffp &_context, sge::camera::projection_matrix const &_projection)
+      {
+        sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
+            sys.renderer_device_ffp().create_transform_state(
+                sge::renderer::state::ffp::transform::parameters(_projection.get())));
 
-			sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
-				sys.renderer_device_ffp().create_transform_state(
-					sge::renderer::state::ffp::transform::parameters(
-						_projection.get()
-					)
-				)
-			);
+        sge::renderer::state::ffp::transform::scoped const projection_transform(
+            fcppt::make_ref(_context),
+            sge::renderer::state::ffp::transform::mode::projection,
+            fcppt::make_cref(*projection_state));
 
-			sge::renderer::state::ffp::transform::scoped const projection_transform(
-				fcppt::make_ref(
-					_context
-				),
-				sge::renderer::state::ffp::transform::mode::projection,
-				fcppt::make_cref(
-					*projection_state
-				)
-			);
+        // The vertex declaration can be set once in this case
+        sge::renderer::vertex::scoped_declaration const scoped_vd(
+            fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+            fcppt::make_cref(*vertex_declaration));
 
-			// The vertex declaration can be set once in this case
-			sge::renderer::vertex::scoped_declaration const scoped_vd(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						_context
-					)
-				),
-				fcppt::make_cref(
-					*vertex_declaration
-				)
-			);
+        {
+          // Set the color mask to "red"
+          sge::renderer::state::core::blend::scoped const scoped_blend(
+              fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+              fcppt::make_cref(*blend_red_state));
 
-			{
-				// Set the color mask to "red"
-				sge::renderer::state::core::blend::scoped const scoped_blend(
-					fcppt::reference_to_base<
-						sge::renderer::context::core
-					>(
-						fcppt::make_ref(
-							_context
-						)
-					),
-					fcppt::make_cref(
-						*blend_red_state
-					)
-				);
+          model_collection.render(
+              _context,
+              sge::camera::matrix_conversion::world(
+                  move_eye_position(camera.coordinate_system(), eye_distance, focal_length)));
+        }
 
-				model_collection.render(
-					_context,
-					sge::camera::matrix_conversion::world(
-						move_eye_position(
-							camera.coordinate_system(),
-							eye_distance,
-							focal_length
-						)
-					)
-				);
-			}
+        // Clear depth buffer
+        _context.clear(sge::renderer::clear::parameters().depth_buffer(depth_clear_value));
 
-			// Clear depth buffer
-			_context.clear(
-				sge::renderer::clear::parameters()
-				.depth_buffer(
-					depth_clear_value
-				)
-			);
+        {
+          // Set the color mask to cyan
+          sge::renderer::state::core::blend::scoped const scoped_blend(
+              fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+              fcppt::make_cref(*blend_cyan_state));
 
-			{
-				// Set the color mask to cyan
-				sge::renderer::state::core::blend::scoped const scoped_blend(
-					fcppt::reference_to_base<
-						sge::renderer::context::core
-					>(
-						fcppt::make_ref(
-							_context
-						)
-					),
-					fcppt::make_cref(
-						*blend_cyan_state
-					)
-				);
+          model_collection.render(
+              _context,
+              sge::camera::matrix_conversion::world(
+                  move_eye_position(camera.coordinate_system(), -eye_distance, focal_length)));
+        }
+      });
 
-				model_collection.render(
-					_context,
-					sge::camera::matrix_conversion::world(
-						move_eye_position(
-							camera.coordinate_system(),
-							-eye_distance,
-							focal_length
-						)
-					)
-				);
-			}
-		}
-	);
+  auto const draw(
+      [&camera, &camera_timer, &draw_camera, depth_clear_value, &sys]
+      {
+        // This moves the camera around
+        camera.update(std::chrono::duration_cast<sge::camera::update_duration>(
+            sge::timer::elapsed_and_reset(camera_timer)));
 
-	auto const draw(
-		[
-			&camera,
-			&camera_timer,
-			&draw_camera,
-			depth_clear_value,
-			&sys
-		]
-		{
-			// This moves the camera around
-			camera.update(
-				std::chrono::duration_cast<
-					sge::camera::update_duration
-				>(
-					sge::timer::elapsed_and_reset(
-						camera_timer
-					)
-				)
-			);
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+        sge::renderer::context::ffp &context(scoped_block.get());
 
-			sge::renderer::context::ffp &context(
-				scoped_block.get()
-			);
+        context.clear(
+            sge::renderer::clear::parameters()
+                .back_buffer(sge::image::color::any::object{sge::image::color::predef::black()})
+                .depth_buffer(depth_clear_value));
 
-			context.clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-				.depth_buffer(
-					depth_clear_value
-				)
-			);
+        fcppt::optional::maybe_void(
+            camera.projection_matrix(),
+            [&context, &draw_camera](sge::camera::projection_matrix const &_projection)
+            { draw_camera(context, _projection); });
+      });
 
-			fcppt::optional::maybe_void(
-				camera.projection_matrix(),
-				[
-					&context,
-					&draw_camera
-				](
-					sge::camera::projection_matrix const &_projection
-				)
-				{
-					draw_camera(
-						context,
-						_projection
-					);
-				}
-			);
-		}
-	);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&sys, &camera, &draw](awl::event::base const &_event)
+          {
+            sge::systems::quit_on_escape(sys, _event);
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&sys,
-					&camera,
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					sge::systems::quit_on_escape(
-						sys,
-						_event
-					);
-
-					fcppt::optional::maybe_void(
-						fcppt::variant::dynamic_cast_<
-							fcppt::mpl::list::object<
-								sge::renderer::event::render const,
-								sge::input::event_base const
-							>,
-							fcppt::cast::dynamic_fun
-						>(
-							_event
-						),
-						[
-							&camera,
-							&draw
-						](
-							auto const &_variant
-						)
-						{
-							fcppt::variant::match(
-								_variant,
-								[
-									&draw
-								](
-									fcppt::reference<
-										sge::renderer::event::render const
-									>
-								)
-								{
-									draw();
-								},
-								[
-									&camera
-								](
-									fcppt::reference<
-										sge::input::event_base const
-									> const _input_event
-								)
-								{
-									camera.process_event(
-										_input_event.get()
-									);
-								}
-							);
-						}
-					);
-				}
-			}
-		);
+            fcppt::optional::maybe_void(
+                fcppt::variant::dynamic_cast_<
+                    fcppt::mpl::list::
+                        object<sge::renderer::event::render const, sge::input::event_base const>,
+                    fcppt::cast::dynamic_fun>(_event),
+                [&camera, &draw](auto const &_variant)
+                {
+                  fcppt::variant::match(
+                      _variant,
+                      [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); },
+                      [&camera](fcppt::reference<sge::input::event_base const> const _input_event)
+                      { camera.process_event(_input_event.get()); });
+                });
+          }});
 }
 
 }
 
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &_function_context
-)
+awl::main::exit_code example_main(awl::main::function_context const &_function_context)
 try
 {
-	auto const parser(
-		fcppt::options::apply(
-			fcppt::options::option<
-				eye_distance_label,
-				sge::renderer::scalar
-			>{
-				fcppt::options::optional_short_name{},
-				fcppt::options::long_name{
-					FCPPT_TEXT("eye-distance")
-				},
-				fcppt::options::make_default_value(
-					fcppt::optional::make(
-						fcppt::literal<
-							sge::renderer::scalar
-						>(
-							0.01
-						)
-					)
-				),
-				fcppt::options::optional_help_text{}
-			},
-			fcppt::options::option<
-				focal_length_label,
-				sge::renderer::scalar
-			>{
-				fcppt::options::optional_short_name{},
-				fcppt::options::long_name{
-					FCPPT_TEXT("focal-length")
-				},
-				fcppt::options::make_default_value(
-					fcppt::optional::make(
-						fcppt::literal<
-							sge::renderer::scalar
-						>(
-							1
-						)
-					)
-				),
-				fcppt::options::optional_help_text{}
-			}
-		)
-	);
+  auto const parser(fcppt::options::apply(
+      fcppt::options::option<eye_distance_label, sge::renderer::scalar>{
+          fcppt::options::optional_short_name{},
+          fcppt::options::long_name{FCPPT_TEXT("eye-distance")},
+          fcppt::options::make_default_value(
+              fcppt::optional::make(fcppt::literal<sge::renderer::scalar>(0.01))),
+          fcppt::options::optional_help_text{}},
+      fcppt::options::option<focal_length_label, sge::renderer::scalar>{
+          fcppt::options::optional_short_name{},
+          fcppt::options::long_name{FCPPT_TEXT("focal-length")},
+          fcppt::options::make_default_value(
+              fcppt::optional::make(fcppt::literal<sge::renderer::scalar>(1))),
+          fcppt::options::optional_help_text{}}));
 
-	using
-	parser_type
-	=
-	decltype(
-		parser
-	);
+  using parser_type = decltype(parser);
 
-	return
-		fcppt::variant::match(
-			fcppt::options::parse_help(
-				fcppt::options::default_help_switch(),
-				parser,
-				fcppt::args_from_second(
-					_function_context.argc(),
-					_function_context.argv()
-				)
-			),
-			[](
-				fcppt::options::result<
-					fcppt::options::result_of<
-						parser_type
-					>
-				> const &_result
-			)
-			{
-				return
-					fcppt::either::match(
-						_result,
-						[](
-							fcppt::options::error const &_error
-						)
-						-> awl::main::exit_code
-						{
-							awl::show_error(
-								fcppt::output_to_fcppt_string(
-									_error
-								)
-							);
+  return fcppt::variant::match(
+      fcppt::options::parse_help(
+          fcppt::options::default_help_switch(),
+          parser,
+          fcppt::args_from_second(_function_context.argc(), _function_context.argv())),
+      [](fcppt::options::result<fcppt::options::result_of<parser_type>> const &_result)
+      {
+        return fcppt::either::match(
+            _result,
+            [](fcppt::options::error const &_error) -> awl::main::exit_code
+            {
+              awl::show_error(fcppt::output_to_fcppt_string(_error));
 
-							return
-								awl::main::exit_failure();
-						},
-						[](
-							fcppt::options::result_of<
-								parser_type
-							> const &_args
-						)
-						-> awl::main::exit_code
-						{
-							return
-								main_program(
-									fcppt::record::permute<
-										options_record
-									>(
-										_args
-									)
-								);
-						}
-					);
-			},
-			[](
-				fcppt::options::help_text const &_help_text
-			)
-			{
-				awl::show_message(
-					fcppt::output_to_fcppt_string(
-						_help_text
-					)
-				);
+              return awl::main::exit_failure();
+            },
+            [](fcppt::options::result_of<parser_type> const &_args) -> awl::main::exit_code
+            { return main_program(fcppt::record::permute<options_record>(_args)); });
+      },
+      [](fcppt::options::help_text const &_help_text)
+      {
+        awl::show_message(fcppt::output_to_fcppt_string(_help_text));
 
-				return
-					awl::main::exit_success();
-			}
-		);
+        return awl::main::exit_success();
+      });
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

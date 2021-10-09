@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_WINDOW_MAKE_SYSTEM_BASE_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_WINDOW_MAKE_SYSTEM_BASE_HPP_INCLUDED
 
@@ -11,15 +10,11 @@
 #include <sge/systems/impl/window/system_base_unique_ptr.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
-
 namespace sge::systems::impl::window
 {
 
 sge::systems::impl::window::system_base_unique_ptr
-make_system_base(
-	fcppt::log::context_reference,
-	sge::systems::window const &
-);
+make_system_base(fcppt::log::context_reference, sge::systems::window const &);
 
 }
 

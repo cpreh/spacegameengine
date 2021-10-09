@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_DETAIL_MAKE_DEFAULTS_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_MAKE_DEFAULTS_HPP_INCLUDED
 
@@ -23,55 +22,23 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::systems::detail
 {
 
-template<
-	typename Choices,
-	typename Inits
->
-sge::systems::detail::any_list
-make_defaults()
+template <typename Choices, typename Inits>
+sge::systems::detail::any_list make_defaults()
 {
-	return
-		fcppt::algorithm::map<
-			sge::systems::detail::any_list
-		>(
-			fcppt::mpl::list::remove_if<
-				Choices,
-				fcppt::mpl::bind<
-					fcppt::mpl::lambda<
-						std::disjunction
-					>,
-					fcppt::mpl::lambda<
-						sge::systems::detail::extract_needs_init
-					>,
-					fcppt::mpl::bind<
-						fcppt::mpl::lambda<
-							fcppt::mpl::list::contains
-						>,
-						fcppt::mpl::constant<
-							fcppt::mpl::list::from<
-								Inits
-							>
-						>,
-						fcppt::mpl::lambda<
-							sge::systems::detail::extract_parameter_type
-						>
-					>
-				>
-			>{},
-			[](
-				auto const _type
-			)
-			{
-				return
-					sge::systems::detail::make_default_element(
-						_type
-					);
-			}
-		);
+  return fcppt::algorithm::map<sge::systems::detail::any_list>(
+      fcppt::mpl::list::remove_if<
+          Choices,
+          fcppt::mpl::bind<
+              fcppt::mpl::lambda<std::disjunction>,
+              fcppt::mpl::lambda<sge::systems::detail::extract_needs_init>,
+              fcppt::mpl::bind<
+                  fcppt::mpl::lambda<fcppt::mpl::list::contains>,
+                  fcppt::mpl::constant<fcppt::mpl::list::from<Inits>>,
+                  fcppt::mpl::lambda<sge::systems::detail::extract_parameter_type>>>>{},
+      [](auto const _type) { return sge::systems::detail::make_default_element(_type); });
 }
 
 }

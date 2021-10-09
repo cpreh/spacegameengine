@@ -3,21 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_FUNCS_DELETE_BUFFERS_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_DELETE_BUFFERS_HPP_INCLUDED
 
 #include <sge/openal/al.hpp>
 
-
 namespace sge::openal::funcs
 {
 
-void
-delete_buffers(
-	ALuint const *buffers,
-	ALsizei size
-);
+void delete_buffers(ALuint const *buffers, ALsizei size);
 
 }
 

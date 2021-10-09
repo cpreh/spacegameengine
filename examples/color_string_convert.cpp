@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/color/any/from_string.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/any/print.hpp>
@@ -32,120 +31,52 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wmissing-declarations)
 
-int
-FCPPT_MAIN(
-	int argc,
-	fcppt::args_char **argv
-)
+int FCPPT_MAIN(int argc, fcppt::args_char **argv)
 try
 {
-	FCPPT_RECORD_MAKE_LABEL(
-		string_label
-	);
+  FCPPT_RECORD_MAKE_LABEL(string_label);
 
-	using
-	argument
-	=
-	fcppt::options::argument<
-		string_label,
-		fcppt::string
-	>;
+  using argument = fcppt::options::argument<string_label, fcppt::string>;
 
-	using
-	result_type
-	=
-	fcppt::options::result_of<
-		argument
-	>;
+  using result_type = fcppt::options::result_of<argument>;
 
-	argument const parser{
-		fcppt::options::long_name{
-			FCPPT_TEXT("color-string")
-		},
-		fcppt::options::optional_help_text{}
-	};
+  argument const parser{
+      fcppt::options::long_name{FCPPT_TEXT("color-string")}, fcppt::options::optional_help_text{}};
 
-	return
-		fcppt::either::match(
-			fcppt::options::parse(
-				parser,
-				fcppt::args_from_second(
-					argc,
-					argv
-				)
-			),
-			[](
-				fcppt::options::error const &_error
-			)
-			{
-				fcppt::io::cerr()
-					<<
-					_error
-					<<
-					FCPPT_TEXT('\n');
+  return fcppt::either::match(
+      fcppt::options::parse(parser, fcppt::args_from_second(argc, argv)),
+      [](fcppt::options::error const &_error)
+      {
+        fcppt::io::cerr() << _error << FCPPT_TEXT('\n');
 
-				return
-					EXIT_FAILURE;
-			},
-			[](
-				result_type const &_result
-			)
-			{
-				return
-					fcppt::either::match(
-						sge::image::color::any::from_string(
-							fcppt::record::get<
-								string_label
-							>(
-								_result
-							)
-						),
-						[](
-							fcppt::string const &_error
-						)
-						{
-							fcppt::io::cerr()
-								<<
-								_error
-								<<
-								FCPPT_TEXT('\n');
+        return EXIT_FAILURE;
+      },
+      [](result_type const &_result)
+      {
+        return fcppt::either::match(
+            sge::image::color::any::from_string(fcppt::record::get<string_label>(_result)),
+            [](fcppt::string const &_error)
+            {
+              fcppt::io::cerr() << _error << FCPPT_TEXT('\n');
 
-							return
-								EXIT_FAILURE;
-						},
-						[](
-							sge::image::color::any::object const &_color
-						)
-						{
-							fcppt::io::cout()
-								<<
-								_color
-								<<
-								FCPPT_TEXT('\n');
+              return EXIT_FAILURE;
+            },
+            [](sge::image::color::any::object const &_color)
+            {
+              fcppt::io::cout() << _color << FCPPT_TEXT('\n');
 
-							return
-								EXIT_SUCCESS;
-						}
-					);
-			}
-		);
+              return EXIT_SUCCESS;
+            });
+      });
 }
-catch(
-	 fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	 fcppt::io::cerr()
-	 	<<
-		_error.string()
-		<<
-		FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
 
-	 return
-	 	EXIT_FAILURE;
+  return EXIT_FAILURE;
 }
 
 FCPPT_PP_POP_WARNING

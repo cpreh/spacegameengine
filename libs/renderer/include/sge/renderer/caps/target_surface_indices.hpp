@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_CAPS_TARGET_SURFACE_INDICES_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_TARGET_SURFACE_INDICES_HPP_INCLUDED
 
 #include <sge/renderer/target/surface_index_value.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
-
 
 namespace sge::renderer::caps
 {
@@ -20,10 +18,7 @@ namespace sge::renderer::caps
 
 \ingroup sge_renderer
 */
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	sge::renderer::target::surface_index_value,
-	target_surface_indices
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::renderer::target::surface_index_value, target_surface_indices);
 
 }
 

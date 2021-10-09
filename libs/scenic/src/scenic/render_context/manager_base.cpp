@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/scenic/render_context/manager_base.hpp>
 
+sge::scenic::render_context::manager_base::~manager_base() = default;
 
-sge::scenic::render_context::manager_base::~manager_base()
-= default;
-
-sge::scenic::render_context::manager_base::manager_base()
-= default;
+sge::scenic::render_context::manager_base::manager_base() = default;

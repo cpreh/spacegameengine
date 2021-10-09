@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/key/pressed.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/shared_ptr.hpp>
@@ -13,40 +12,16 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::input::keyboard::event::key::key(
-	sge::input::keyboard::shared_ptr _keyboard,
-	sge::input::keyboard::key const &_key,
-	sge::input::key::pressed const _pressed
-)
-:
-	sge::input::keyboard::event::base{
-		std::move(
-			_keyboard
-		)
-	},
-	key_{
-		_key
-	},
-	pressed_{
-		_pressed
-	}
+    sge::input::keyboard::shared_ptr _keyboard,
+    sge::input::keyboard::key const &_key,
+    sge::input::key::pressed const _pressed)
+    : sge::input::keyboard::event::base{std::move(_keyboard)}, key_{_key}, pressed_{_pressed}
 {
 }
 
-sge::input::keyboard::event::key::~key()
-= default;
+sge::input::keyboard::event::key::~key() = default;
 
-sge::input::keyboard::key const &
-sge::input::keyboard::event::key::get() const
-{
-	return
-		key_;
-}
+sge::input::keyboard::key const &sge::input::keyboard::event::key::get() const { return key_; }
 
-bool
-sge::input::keyboard::event::key::pressed() const
-{
-	return
-		pressed_.get();
-}
+bool sge::input::keyboard::event::key::pressed() const { return pressed_.get(); }

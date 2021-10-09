@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TARGET_SCOPED_SCISSOR_AREA_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_SCOPED_SCISSOR_AREA_HPP_INCLUDED
 
@@ -11,7 +10,6 @@
 #include <sge/renderer/target/base_ref.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <fcppt/nonmovable.hpp>
-
 
 namespace sge::renderer::target
 {
@@ -24,11 +22,10 @@ namespace sge::renderer::target
 */
 class scoped_scissor_area
 {
-	FCPPT_NONMOVABLE(
-		scoped_scissor_area
-	);
+  FCPPT_NONMOVABLE(scoped_scissor_area);
+
 public:
-	/**
+  /**
 	 * \brief Sets a new scissor area
 	 *
 	 * Sets the scissor area of \a target to \a area. It also saves the
@@ -39,21 +36,20 @@ public:
 	 *
 	 * \param area The new scissor area
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	scoped_scissor_area(
-		sge::renderer::target::base_ref target,
-		sge::renderer::target::scissor_area const &area
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  scoped_scissor_area(
+      sge::renderer::target::base_ref target, sge::renderer::target::scissor_area const &area);
 
-	/**
+  /**
 	 * \brief Resets to the old scissor area
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	~scoped_scissor_area();
-private:
-	sge::renderer::target::base_ref const target_;
+  SGE_RENDERER_DETAIL_SYMBOL
+  ~scoped_scissor_area();
 
-	sge::renderer::target::scissor_area const old_area_;
+private:
+  sge::renderer::target::base_ref const target_;
+
+  sge::renderer::target::scissor_area const old_area_;
 };
 
 }

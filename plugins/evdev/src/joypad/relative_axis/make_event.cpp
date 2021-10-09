@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/joypad/relative_axis/make_event.hpp>
 #include <sge/input/exception.hpp>
@@ -19,32 +18,15 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/assert/optional_error.hpp>
 
-
-awl::event::base_unique_ptr
-sge::evdev::joypad::relative_axis::make_event(
-	sge::input::joypad::shared_ptr const &_joypad,
-	sge::input::joypad::relative_axis_id const _id,
-	sge::input::joypad::relative_axis_info_container const &_info,
-	sge::evdev::device::event const _event
-)
+awl::event::base_unique_ptr sge::evdev::joypad::relative_axis::make_event(
+    sge::input::joypad::shared_ptr const &_joypad,
+    sge::input::joypad::relative_axis_id const _id,
+    sge::input::joypad::relative_axis_info_container const &_info,
+    sge::evdev::device::event const _event)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			awl::event::base
-		>(
-			fcppt::make_unique_ptr<
-				sge::input::joypad::event::relative_axis
-			>(
-				_joypad,
-				sge::input::joypad::relative_axis(
-					FCPPT_ASSERT_OPTIONAL_ERROR(
-						_info[
-							_id
-						]
-					)->code(),
-					_id
-				),
-				_event.get().value
-			)
-		);
+  return fcppt::unique_ptr_to_base<awl::event::base>(
+      fcppt::make_unique_ptr<sge::input::joypad::event::relative_axis>(
+          _joypad,
+          sge::input::joypad::relative_axis(FCPPT_ASSERT_OPTIONAL_ERROR(_info[_id])->code(), _id),
+          _event.get().value));
 }

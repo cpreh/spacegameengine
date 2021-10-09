@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file.hpp>
@@ -150,64 +149,38 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
 class cursor_speed_tracker
 {
-	FCPPT_NONMOVABLE(
-		cursor_speed_tracker
-	);
+  FCPPT_NONMOVABLE(cursor_speed_tracker);
+
 public:
-	using
-	scalar
-	=
-	float;
+  using scalar = float;
 
-	using
-	modifier
-	=
-	fcppt::function<
-		scalar(
-			scalar
-		)
-	>;
+  using modifier = fcppt::function<scalar(scalar)>;
 
-	explicit
-	cursor_speed_tracker(
-		modifier &&
-	);
+  explicit cursor_speed_tracker(modifier &&);
 
-	~cursor_speed_tracker();
+  ~cursor_speed_tracker();
 
-	void
-	update();
+  void update();
 
-	[[nodiscard]]
-	scalar
-	current_speed() const;
+  [[nodiscard]] scalar current_speed() const;
 
-	void
-	move_event(
-		sge::input::cursor::relative_movement::event const &
-	);
+  void move_event(sge::input::cursor::relative_movement::event const &);
+
 private:
-	using
-	speed_ring_buffer
-	=
-	boost::circular_buffer<
-		scalar
-	>;
+  using speed_ring_buffer = boost::circular_buffer<scalar>;
 
-	modifier const modifier_;
+  modifier const modifier_;
 
-	speed_ring_buffer speed_values_;
+  speed_ring_buffer speed_values_;
 
-	scalar current_speed_;
+  scalar current_speed_;
 
-	bool speed_updated_;
-
+  bool speed_updated_;
 };
 
 }
@@ -218,105 +191,45 @@ namespace
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
-cursor_speed_tracker::cursor_speed_tracker(
-	modifier &&_modifier
-)
-:
-	modifier_{
-		std::move(
-			_modifier
-		)
-	},
-	speed_values_{
-		10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-	},
-	current_speed_{
-		0.0F
-	},
-	speed_updated_{
-		false
-	}
+cursor_speed_tracker::cursor_speed_tracker(modifier &&_modifier)
+    : modifier_{std::move(_modifier)},
+      speed_values_{
+          10U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      },
+      current_speed_{0.0F},
+      speed_updated_{false}
 {
-	// Eliminate nasty / 0 in current_speed
-	speed_values_.push_back(
-		modifier_(
-			0.0F
-		)
-	);
+  // Eliminate nasty / 0 in current_speed
+  speed_values_.push_back(modifier_(0.0F));
 }
 
 FCPPT_PP_POP_WARNING
 
-cursor_speed_tracker::~cursor_speed_tracker()
-= default;
+cursor_speed_tracker::~cursor_speed_tracker() = default;
 
-void
-cursor_speed_tracker::move_event(
-	sge::input::cursor::relative_movement::event const &_event
-)
+void cursor_speed_tracker::move_event(sge::input::cursor::relative_movement::event const &_event)
 {
-	using
-	vector2
-	=
-	fcppt::math::vector::static_<
-		scalar,
-		2
-	>;
+  using vector2 = fcppt::math::vector::static_<scalar, 2>;
 
-	current_speed_ =
-		fcppt::math::vector::length(
-			fcppt::math::vector::structure_cast<
-				vector2,
-				fcppt::cast::int_to_float_fun
-			>(
-				_event.difference().get()
-			)
-		);
+  current_speed_ = fcppt::math::vector::length(
+      fcppt::math::vector::structure_cast<vector2, fcppt::cast::int_to_float_fun>(
+          _event.difference().get()));
 
-	speed_updated_ =
-		true;
+  speed_updated_ = true;
 }
 
-void
-cursor_speed_tracker::update()
+void cursor_speed_tracker::update()
 {
-	speed_values_.push_back(
-		modifier_(
-			speed_updated_
-			?
-				current_speed_
-			:
-				fcppt::literal<
-					scalar
-				>(
-					0.0F
-				)
-		)
-	);
+  speed_values_.push_back(
+      modifier_(speed_updated_ ? current_speed_ : fcppt::literal<scalar>(0.0F)));
 
-	speed_updated_ =
-		false;
+  speed_updated_ = false;
 }
 
-cursor_speed_tracker::scalar
-cursor_speed_tracker::current_speed() const
+cursor_speed_tracker::scalar cursor_speed_tracker::current_speed() const
 {
-	return
-		std::accumulate(
-			speed_values_.begin(),
-			speed_values_.end(),
-			fcppt::literal<
-				scalar
-			>(
-				0
-			)
-		)
-		/
-		fcppt::cast::int_to_float<
-			scalar
-		>(
-			speed_values_.size()
-		);
+  return std::accumulate(speed_values_.begin(), speed_values_.end(), fcppt::literal<scalar>(0)) /
+         fcppt::cast::int_to_float<scalar>(speed_values_.size());
 }
 
 }
@@ -324,523 +237,213 @@ cursor_speed_tracker::current_speed() const
 namespace
 {
 
-template<
-	typename T
->
-T
-step(
-	T const &_value,
-	T const &_vmin
-)
+template <typename T>
+T step(T const &_value, T const &_vmin)
 {
-	return
-		_value >= _vmin
-		?
-			fcppt::literal<
-				T
-			>(
-				1
-			)
-		:
-			fcppt::literal<
-				T
-			>(
-				0
-			);
+  return _value >= _vmin ? fcppt::literal<T>(1) : fcppt::literal<T>(0);
 }
 
-cursor_speed_tracker::scalar
-cursor_speed_modifier(
-	cursor_speed_tracker::scalar const _input
-)
+cursor_speed_tracker::scalar cursor_speed_modifier(cursor_speed_tracker::scalar const _input)
 {
-	cursor_speed_tracker::scalar const initial_value{
-		std::pow(
-			_input / 100.0F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			0.5F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		)
-	};
-	cursor_speed_tracker::scalar const final_value{
-		step(
-			initial_value,
-			0.25F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		) *
-		initial_value
-	};
+  cursor_speed_tracker::scalar const initial_value{std::pow(
+      _input / 100.0F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      0.5F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      )};
+  cursor_speed_tracker::scalar const final_value{
+      step(
+          initial_value,
+          0.25F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ) *
+      initial_value};
 
-	return
-		final_value;
+  return final_value;
 }
 }
 
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_window,
-		sge::systems::with_input,
-		sge::systems::with_audio_player,
-		sge::systems::with_audio_loader,
-		sge::systems::with_image2d
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge dopplertest")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-		(
-			sge::systems::audio_player_default()
-		)
-		(
-			sge::systems::image2d(
-				sge::media::optional_extension_set(
-					sge::media::extension_set{
-						sge::media::extension(
-							FCPPT_TEXT("png")
-						)
-					}
-				)
-			)
-		)
-		(
-			sge::systems::audio_loader(
-				sge::media::optional_extension_set(
-					sge::media::extension_set{
-						sge::media::extension(
-							FCPPT_TEXT("wav")
-						)
-					}
-				)
-			)
-		)
-		(
-			sge::systems::config()
-			.log_settings(
-				sge::systems::log_settings(
-					sge::log::option_container{
-						sge::log::option{
-							sge::log::location(),
-							fcppt::log::level::debug
-						}
-					}
-				)
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_window,
+      sge::systems::with_input,
+      sge::systems::with_audio_player,
+      sge::systems::with_audio_loader,
+      sge::systems::with_image2d> const
+      sys(sge::systems::make_list(sge::systems::window(sge::systems::window_source(
+          sge::systems::original_window(sge::window::title(FCPPT_TEXT("sge dopplertest"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::input(sge::systems::cursor_option_field::null()))(
+          sge::systems::audio_player_default())(
+          sge::systems::image2d(sge::media::optional_extension_set(
+              sge::media::extension_set{sge::media::extension(FCPPT_TEXT("png"))})))(
+          sge::systems::audio_loader(sge::media::optional_extension_set(
+              sge::media::extension_set{sge::media::extension(FCPPT_TEXT("wav"))})))(
+          sge::systems::config().log_settings(sge::systems::log_settings(sge::log::option_container{
+              sge::log::option{sge::log::location(), fcppt::log::level::debug}}))));
 
-	sge::graph::object graph(
-		sge::graph::position(
-			sge::renderer::vector2(
-				5.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-				5.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			)
-		),
-		sge::image2d::dim(
-			512U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		),
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		sge::graph::baseline(
-			0.0
-		),
-		sge::graph::optional_axis_constraint(),
-		sge::graph::color_schemes::bright()
-	);
+  sge::graph::object graph(
+      sge::graph::position(sge::renderer::vector2(
+          5.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          5.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          )),
+      sge::image2d::dim(
+          512U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      sge::graph::baseline(0.0),
+      sge::graph::optional_axis_constraint(),
+      sge::graph::color_schemes::bright());
 
-	sge::texture::const_part_unique_ptr const tex_bg(
-		fcppt::unique_ptr_to_const(
-			fcppt::unique_ptr_to_base<
-				sge::texture::part
-			>(
-				fcppt::make_unique_ptr<
-					sge::texture::part_raw_ptr
-				>(
-					sge::renderer::texture::create_planar_from_path(
-						sge::config::media_path()
-						/ FCPPT_TEXT("images")
-						/ FCPPT_TEXT("grass.png"),
-						fcppt::make_ref(
-							sys.renderer_device_core()
-						),
-						sys.image_system(),
-						sge::renderer::texture::mipmap::off(),
-						sge::renderer::resource_flags_field::null(),
-						sge::renderer::texture::emulate_srgb_from_caps(
-							sys.renderer_device_ffp().caps()
-						)
-					)
-				)
-			)
-		)
-	);
+  sge::texture::const_part_unique_ptr const tex_bg(
+      fcppt::unique_ptr_to_const(fcppt::unique_ptr_to_base<sge::texture::part>(
+          fcppt::make_unique_ptr<sge::texture::part_raw_ptr>(
+              sge::renderer::texture::create_planar_from_path(
+                  sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("grass.png"),
+                  fcppt::make_ref(sys.renderer_device_core()),
+                  sys.image_system(),
+                  sge::renderer::texture::mipmap::off(),
+                  sge::renderer::resource_flags_field::null(),
+                  sge::renderer::texture::emulate_srgb_from_caps(
+                      sys.renderer_device_ffp().caps()))))));
 
-	sge::texture::const_part_unique_ptr const tex_tux(
-		fcppt::unique_ptr_to_const(
-			fcppt::unique_ptr_to_base<
-				sge::texture::part
-			>(
-				fcppt::make_unique_ptr<
-					sge::texture::part_raw_ptr
-				>(
-					sge::renderer::texture::create_planar_from_path(
-						sge::config::media_path()
-						/ FCPPT_TEXT("images")
-						/ FCPPT_TEXT("tux.png"),
-						fcppt::make_ref(
-							sys.renderer_device_core()
-						),
-						sys.image_system(),
-						sge::renderer::texture::mipmap::off(),
-						sge::renderer::resource_flags_field::null(),
-						sge::renderer::texture::emulate_srgb_from_caps(
-							sys.renderer_device_ffp().caps()
-						)
-					)
-				)
-			)
-		)
-	);
+  sge::texture::const_part_unique_ptr const tex_tux(
+      fcppt::unique_ptr_to_const(fcppt::unique_ptr_to_base<sge::texture::part>(
+          fcppt::make_unique_ptr<sge::texture::part_raw_ptr>(
+              sge::renderer::texture::create_planar_from_path(
+                  sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("tux.png"),
+                  fcppt::make_ref(sys.renderer_device_core()),
+                  sys.image_system(),
+                  sge::renderer::texture::mipmap::off(),
+                  sge::renderer::resource_flags_field::null(),
+                  sge::renderer::texture::emulate_srgb_from_caps(
+                      sys.renderer_device_ffp().caps()))))));
 
-	using
-	sprite_choices
-	=
-	sge::sprite::config::choices<
-		sge::sprite::config::type_choices<
-			sge::sprite::config::unit_type<
-				int
-			>,
-			sge::sprite::config::float_type<
-				float
-			>
-		>,
-		sge::sprite::config::pos<
-			sge::sprite::config::pos_option::pos
-		>,
-		sge::sprite::config::normal_size<
-			sge::sprite::config::texture_size_option::always
-		>,
-		fcppt::mpl::list::object<
-			sge::sprite::config::with_texture<
-				sge::sprite::config::texture_level_count<
-					1U
-				>,
-				sge::sprite::config::texture_coordinates::automatic,
-				sge::sprite::config::texture_ownership::reference
-			>
-		>
-	>;
+  using sprite_choices = sge::sprite::config::choices<
+      sge::sprite::config::
+          type_choices<sge::sprite::config::unit_type<int>, sge::sprite::config::float_type<float>>,
+      sge::sprite::config::pos<sge::sprite::config::pos_option::pos>,
+      sge::sprite::config::normal_size<sge::sprite::config::texture_size_option::always>,
+      fcppt::mpl::list::object<sge::sprite::config::with_texture<
+          sge::sprite::config::texture_level_count<1U>,
+          sge::sprite::config::texture_coordinates::automatic,
+          sge::sprite::config::texture_ownership::reference>>>;
 
-	using
-	sprite_object
-	=
-	sge::sprite::object<
-		sprite_choices
-	>;
+  using sprite_object = sge::sprite::object<sprite_choices>;
 
-	using
-	sprite_buffers
-	=
-	sge::sprite::buffers::with_declaration<
-		sge::sprite::buffers::single<
-			sprite_choices
-		>
-	>;
+  using sprite_buffers =
+      sge::sprite::buffers::with_declaration<sge::sprite::buffers::single<sprite_choices>>;
 
-	using
-	sprite_state_choices
-	=
-	sge::sprite::state::all_choices;
+  using sprite_state_choices = sge::sprite::state::all_choices;
 
-	using
-	sprite_state_object
-	=
-	sge::sprite::state::object<
-		sprite_state_choices
-	>;
+  using sprite_state_object = sge::sprite::state::object<sprite_state_choices>;
 
-	using
-	sprite_state_parameters
-	=
-	sge::sprite::state::parameters<
-		sprite_state_choices
-	>;
+  using sprite_state_parameters = sge::sprite::state::parameters<sprite_state_choices>;
 
-	sprite_buffers sprite_buf(
-		fcppt::make_ref(
-			sys.renderer_device_core()
-		),
-		sge::sprite::buffers::option::dynamic
-	);
+  sprite_buffers sprite_buf(
+      fcppt::make_ref(sys.renderer_device_core()), sge::sprite::buffers::option::dynamic);
 
-	sprite_state_object sprite_states(
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		sprite_state_parameters()
-	);
+  sprite_state_object sprite_states(
+      fcppt::make_ref(sys.renderer_device_ffp()), sprite_state_parameters());
 
-	sprite_object const background(
-		sge::sprite::roles::texture0{} =
-			sprite_object::texture_type(
-				*tex_bg
-			),
-		sge::sprite::roles::pos{} =
-			fcppt::math::vector::null<
-				sprite_object::vector
-			>()
-	);
+  sprite_object const background(
+      sge::sprite::roles::texture0{} = sprite_object::texture_type(*tex_bg),
+      sge::sprite::roles::pos{} = fcppt::math::vector::null<sprite_object::vector>());
 
-	sprite_object const tux(
-		sge::sprite::roles::pos{} =
-			fcppt::math::vector::fill<
-				sprite_object::vector
-			>(
-				100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			),
-		sge::sprite::roles::texture0{} =
-			sprite_object::texture_type(
-				*tex_tux
-			)
-	);
+  sprite_object const tux(
+      sge::sprite::roles::pos{} = fcppt::math::vector::fill<sprite_object::vector>(
+          100 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      sge::sprite::roles::texture0{} = sprite_object::texture_type(*tex_tux));
 
-	sge::audio::file_unique_ptr const af_siren(
-		sge::audio::load_exn(
-			fcppt::make_ref(
-				sys.audio_loader()
-			),
-			sge::config::media_path()
-			/ FCPPT_TEXT("sounds")
-			/ FCPPT_TEXT("wind.wav")
-		)
-	);
+  sge::audio::file_unique_ptr const af_siren(sge::audio::load_exn(
+      fcppt::make_ref(sys.audio_loader()),
+      sge::config::media_path() / FCPPT_TEXT("sounds") / FCPPT_TEXT("wind.wav")));
 
-	sge::audio::buffer_unique_ptr const sound_buffer{
-		sys.audio_player().create_buffer(
-			*af_siren
-		)
-	};
+  sge::audio::buffer_unique_ptr const sound_buffer{sys.audio_player().create_buffer(*af_siren)};
 
-	sge::audio::sound::base_unique_ptr const sound_siren{
-		sound_buffer->create_nonpositional(
-			sge::audio::sound::nonpositional_parameters()
-		)
-	};
+  sge::audio::sound::base_unique_ptr const sound_siren{
+      sound_buffer->create_nonpositional(sge::audio::sound::nonpositional_parameters())};
 
-	sound_siren->play(
-		sge::audio::sound::repeat::loop
-	);
+  sound_siren->play(sge::audio::sound::repeat::loop);
 
-	cursor_speed_tracker cursor_speed{
-		cursor_speed_tracker::modifier{
-			&cursor_speed_modifier
-		}
-	};
+  cursor_speed_tracker cursor_speed{cursor_speed_tracker::modifier{&cursor_speed_modifier}};
 
-	sound_siren->pitch(
-		fcppt::literal<
-			sge::audio::scalar
-		>(
-			0
-		)
-	);
+  sound_siren->pitch(fcppt::literal<sge::audio::scalar>(0));
 
-	sge::input::cursor::relative_movement::object const relative_cursor_movement{
-		fcppt::make_ref(
-			sys.input_processor()
-		)
-	};
+  sge::input::cursor::relative_movement::object const relative_cursor_movement{
+      fcppt::make_ref(sys.input_processor())};
 
-	auto const draw(
-		[
-			&background,
-			&cursor_speed,
-			&graph,
-			&sound_siren,
-			&sprite_buf,
-			&sprite_states,
-			&sys,
-			&tux
-		]
-		{
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+  auto const draw(
+      [&background, &cursor_speed, &graph, &sound_siren, &sprite_buf, &sprite_states, &sys, &tux]
+      {
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			scoped_block.get().clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-			);
+        scoped_block.get().clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::black()}));
 
-			sge::sprite::process::one(
-				scoped_block.get(),
-				background,
-				sprite_buf,
-				sprite_states
-			);
+        sge::sprite::process::one(scoped_block.get(), background, sprite_buf, sprite_states);
 
-			sge::sprite::process::one(
-				scoped_block.get(),
-				tux,
-				sprite_buf,
-				sprite_states
-			);
+        sge::sprite::process::one(scoped_block.get(), tux, sprite_buf, sprite_states);
 
-			cursor_speed.update();
+        cursor_speed.update();
 
-			sound_siren->update();
+        sound_siren->update();
 
-			graph.render(
-				scoped_block.get()
-			);
+        graph.render(scoped_block.get());
 
-			graph.push(
-				fcppt::cast::size<
-					sge::graph::scalar
-				>(
-					cursor_speed.current_speed()
-				)
-			);
+        graph.push(fcppt::cast::size<sge::graph::scalar>(cursor_speed.current_speed()));
 
-			sound_siren->pitch(
-				cursor_speed.current_speed()
-			);
-		}
-	);
+        sound_siren->pitch(cursor_speed.current_speed());
+      });
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&sys,
-					&cursor_speed,
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					sge::systems::quit_on_escape(
-						sys,
-						_event
-					);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&sys, &cursor_speed, &draw](awl::event::base const &_event)
+          {
+            sge::systems::quit_on_escape(sys, _event);
 
-					fcppt::optional::maybe_void(
-						fcppt::variant::dynamic_cast_<
-							fcppt::mpl::list::object<
-								sge::input::cursor::relative_movement::event const,
-								sge::renderer::event::render const
-							>,
-							fcppt::cast::dynamic_fun
-						>(
-							_event
-						),
-						[
-							&cursor_speed,
-							&draw
-						](
-							auto const &_variant
-						)
-						{
-							fcppt::variant::match(
-								_variant,
-								[
-									&cursor_speed
-								](
-									fcppt::reference<
-										sge::input::cursor::relative_movement::event const
-									> const _relative_movement
-								)
-								{
-									cursor_speed.move_event(
-										_relative_movement.get()
-									);
-								},
-								[
-									&draw
-								](
-									fcppt::reference<
-										sge::renderer::event::render const
-									>
-								)
-								{
-									draw();
-								}
-							);
-						}
-					);
-				}
-			}
-		);
+            fcppt::optional::maybe_void(
+                fcppt::variant::dynamic_cast_<
+                    fcppt::mpl::list::object<
+                        sge::input::cursor::relative_movement::event const,
+                        sge::renderer::event::render const>,
+                    fcppt::cast::dynamic_fun>(_event),
+                [&cursor_speed, &draw](auto const &_variant)
+                {
+                  fcppt::variant::match(
+                      _variant,
+                      [&cursor_speed](
+                          fcppt::reference<sge::input::cursor::relative_movement::event const> const
+                              _relative_movement)
+                      { cursor_speed.move_event(_relative_movement.get()); },
+                      [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); });
+                });
+          }});
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

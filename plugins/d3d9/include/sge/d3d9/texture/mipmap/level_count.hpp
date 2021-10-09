@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_TEXTURE_MIPMAP_LEVEL_COUNT_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_MIPMAP_LEVEL_COUNT_HPP_INCLUDED
 
@@ -19,10 +18,7 @@ namespace texture
 namespace mipmap
 {
 
-UINT
-level_count(
-	sge::renderer::texture::mipmap::object const &
-);
+UINT level_count(sge::renderer::texture::mipmap::object const &);
 
 }
 }

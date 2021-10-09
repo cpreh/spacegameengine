@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/openal/buffer_holder.hpp>
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/funcs/delete_buffer.hpp>
@@ -13,36 +12,16 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 
-
-sge::openal::buffer_holder::buffer_holder(
-	fcppt::log::object_reference const _log
-)
-:
-	log_{
-		_log
-	},
-	buffer_(
-		sge::openal::funcs::gen_buffer()
-	)
+sge::openal::buffer_holder::buffer_holder(fcppt::log::object_reference const _log)
+    : log_{_log}, buffer_(sge::openal::funcs::gen_buffer())
 {
 }
 
 sge::openal::buffer_holder::~buffer_holder()
 {
-	FCPPT_LOG_DEBUG(
-		log_.get(),
-		fcppt::log::out
-			<< FCPPT_TEXT("Deleting a buffer")
-	)
+  FCPPT_LOG_DEBUG(log_.get(), fcppt::log::out << FCPPT_TEXT("Deleting a buffer"))
 
-	sge::openal::funcs::delete_buffer(
-		buffer_
-	);
+  sge::openal::funcs::delete_buffer(buffer_);
 }
 
-sge::openal::buffer_id
-sge::openal::buffer_holder::get() const
-{
-	return
-		buffer_;
-}
+sge::openal::buffer_id sge::openal::buffer_holder::get() const { return buffer_; }

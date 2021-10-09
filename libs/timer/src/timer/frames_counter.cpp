@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/timer/basic_impl.hpp>
 #include <sge/timer/frames_counter.hpp>
 #include <sge/timer/parameters.hpp>
@@ -15,61 +14,33 @@
 #include <chrono>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::timer::frames_counter::frames_counter()
-:
-	timer_(
-		sge::timer::parameters<
-			clock
-		>(
-			std::chrono::seconds(
-				1
-			)
-		)
-	),
-	current_frames_(
-		0
-	),
-	display_frames_(
-		0
-	)
+    : timer_(sge::timer::parameters<clock>(std::chrono::seconds(1))),
+      current_frames_(0),
+      display_frames_(0)
 {
 }
 
-void
-sge::timer::frames_counter::update()
+void sge::timer::frames_counter::update()
 {
-	++current_frames_;
+  ++current_frames_;
 
-	if(
-		sge::timer::reset_when_expired(
-			fcppt::make_ref(
-				timer_
-			)
-		)
-	)
-	{
-		display_frames_ = current_frames_;
+  if (sge::timer::reset_when_expired(fcppt::make_ref(timer_)))
+  {
+    display_frames_ = current_frames_;
 
-		current_frames_ = 0;
-	}
+    current_frames_ = 0;
+  }
 }
 
-sge::timer::frames_counter::counter
-sge::timer::frames_counter::frames() const
+sge::timer::frames_counter::counter sge::timer::frames_counter::frames() const
 {
-	return
-		display_frames_;
+  return display_frames_;
 }
 
-fcppt::string
-sge::timer::frames_counter::frames_str() const
+fcppt::string sge::timer::frames_counter::frames_str() const
 {
-	return
-		fcppt::output_to_fcppt_string(
-			this->frames()
-		);
+  return fcppt::output_to_fcppt_string(this->frames());
 }
 
-sge::timer::frames_counter::~frames_counter()
-= default;
+sge::timer::frames_counter::~frames_counter() = default;

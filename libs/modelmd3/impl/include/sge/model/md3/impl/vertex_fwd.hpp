@@ -3,10 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_MD3_IMPL_VERTEX_FWD_HPP_INCLUDED
 #define SGE_MODEL_MD3_IMPL_VERTEX_FWD_HPP_INCLUDED
-
 
 namespace sge::model::md3::impl
 {

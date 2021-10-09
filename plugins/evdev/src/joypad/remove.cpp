@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/joypad/find_path.hpp>
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/evdev/joypad/object.hpp>
@@ -19,43 +18,18 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 awl::event::optional_base_unique_ptr
-sge::evdev::joypad::remove(
-	sge::evdev::joypad::map &_map,
-	std::filesystem::path const &_path
-)
+sge::evdev::joypad::remove(sge::evdev::joypad::map &_map, std::filesystem::path const &_path)
 {
-	return
-		fcppt::optional::map(
-			sge::evdev::joypad::find_path(
-				_map,
-				_path
-			),
-			[
-				&_map
-			](
-				sge::evdev::joypad::map::iterator const _pos
-			)
-			{
-				sge::input::joypad::shared_ptr const result{
-					_pos->second
-				};
+  return fcppt::optional::map(
+      sge::evdev::joypad::find_path(_map, _path),
+      [&_map](sge::evdev::joypad::map::iterator const _pos)
+      {
+        sge::input::joypad::shared_ptr const result{_pos->second};
 
-				_map.erase(
-					_pos
-				);
+        _map.erase(_pos);
 
-				return
-					fcppt::unique_ptr_to_base<
-						awl::event::base
-					>(
-						fcppt::make_unique_ptr<
-							sge::input::joypad::event::remove
-						>(
-							result
-						)
-					);
-			}
-		);
+        return fcppt::unique_ptr_to_base<awl::event::base>(
+            fcppt::make_unique_ptr<sge::input::joypad::event::remove>(result));
+      });
 }

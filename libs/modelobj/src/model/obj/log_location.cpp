@@ -3,18 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/log/location.hpp>
 #include <sge/model/obj/log_location.hpp>
 #include <sge/model/obj/impl/log_name.hpp>
 #include <fcppt/log/location.hpp>
 
-
-fcppt::log::location
-sge::model::obj::log_location()
+fcppt::log::location sge::model::obj::log_location()
 {
-	return
-		sge::log::location()
-		/
-		sge::model::obj::impl::log_name();
+  return sge::log::location() / sge::model::obj::impl::log_name();
 }

@@ -3,18 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_IMPL_STYLE_BACKGROUND_COLOR_HPP_INCLUDED
 #define SGE_GUI_IMPL_STYLE_BACKGROUND_COLOR_HPP_INCLUDED
 
 #include <sge/image/color/any/object.hpp>
 
-
 namespace sge::gui::impl::style
 {
 
-sge::image::color::any::object
-background_color();
+sge::image::color::any::object background_color();
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_FOCUS_EVENT_IN_HPP_INCLUDED
 #define SGE_INPUT_FOCUS_EVENT_IN_HPP_INCLUDED
 
@@ -14,27 +13,19 @@
 #include <sge/input/focus/event/in_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::focus::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL in
-:
-	public sge::input::focus::event::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL in : public sge::input::focus::event::base
 {
-	FCPPT_NONMOVABLE(
-		in
-	);
-public:
-	SGE_INPUT_DETAIL_SYMBOL
-	explicit
-	in(
-		sge::input::focus::shared_ptr
-	);
+  FCPPT_NONMOVABLE(in);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~in()
-	override;
+public:
+  SGE_INPUT_DETAIL_SYMBOL
+  explicit in(sge::input::focus::shared_ptr);
+
+  SGE_INPUT_DETAIL_SYMBOL
+  ~in() override;
 };
 
 }

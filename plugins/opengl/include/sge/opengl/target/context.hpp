@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TARGET_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_CONTEXT_HPP_INCLUDED
 
@@ -13,40 +12,28 @@
 #include <sge/opengl/target/optional_base_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::target
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	context();
+  context();
 
-	~context()
-	override;
+  ~context() override;
 
-	[[nodiscard]]
-	sge::opengl::target::optional_base_ref const &
-	last_target();
+  [[nodiscard]] sge::opengl::target::optional_base_ref const &last_target();
 
-	void
-	last_target(
-		sge::opengl::target::optional_base_ref const &
-	);
+  void last_target(sge::opengl::target::optional_base_ref const &);
 
-	using
-	parameter
-	=
-	void;
+  using parameter = void;
 
-	static sge::opengl::context::id const static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::opengl::target::optional_base_ref last_target_;
+  sge::opengl::target::optional_base_ref last_target_;
 };
 
 }

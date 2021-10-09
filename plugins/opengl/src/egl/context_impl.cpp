@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/egl/attribute_vector.hpp>
 #include <sge/opengl/egl/context_impl.hpp>
 #include <sge/opengl/egl/make_current.hpp>
@@ -16,71 +15,37 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::opengl::egl::context_impl::context_impl(
-	EGLDisplay const _display, // NOLINT(misc-misplaced-const)
-	EGLConfig const _config // NOLINT(misc-misplaced-const)
-)
-:
-	display_(
-		_display
-	),
-	context_(
-		::eglCreateContext(
-			_display,
-			_config,
-			EGL_NO_CONTEXT,
-			sge::opengl::egl::attribute_vector{
-				EGL_CONTEXT_CLIENT_VERSION,
-				2,
-				EGL_NONE
-			}.data()
-		)
-	)
+    EGLDisplay const _display, // NOLINT(misc-misplaced-const)
+    EGLConfig const _config // NOLINT(misc-misplaced-const)
+    )
+    : display_(_display),
+      context_(::eglCreateContext(
+          _display,
+          _config,
+          EGL_NO_CONTEXT,
+          sge::opengl::egl::attribute_vector{EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE}.data()))
 {
-	if(
-		context_
-		==
-		sge::opengl::egl::no_context()
-	)
-	{
-		throw
-			sge::renderer::exception(
-				FCPPT_TEXT("eglCreateContext failed")
-			);
-	}
+  if (context_ == sge::opengl::egl::no_context())
+  {
+    throw sge::renderer::exception(FCPPT_TEXT("eglCreateContext failed"));
+  }
 }
 
 sge::opengl::egl::context_impl::~context_impl()
 {
-	FCPPT_ASSERT_ERROR(
-		::eglDestroyContext(
-			display_,
-			context_
-		)
-		==
-		EGL_TRUE
-	);
+  FCPPT_ASSERT_ERROR(::eglDestroyContext(display_, context_) == EGL_TRUE);
 }
 
-void
-sge::opengl::egl::context_impl::activate(
-	EGLSurface const _surface // NOLINT(misc-misplaced-const)
+void sge::opengl::egl::context_impl::activate(
+    EGLSurface const _surface // NOLINT(misc-misplaced-const)
 )
 {
-	sge::opengl::egl::make_current(
-		display_,
-		_surface,
-		context_
-	);
+  sge::opengl::egl::make_current(display_, _surface, context_);
 }
 
-void
-sge::opengl::egl::context_impl::deactivate()
+void sge::opengl::egl::context_impl::deactivate()
 {
-	sge::opengl::egl::make_current(
-		display_,
-		sge::opengl::egl::no_surface(),
-		sge::opengl::egl::no_context()
-	);
+  sge::opengl::egl::make_current(
+      display_, sge::opengl::egl::no_surface(), sge::opengl::egl::no_context());
 }

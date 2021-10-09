@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_CONVERT_DEPTH_STENCIL_BASE_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_DEPTH_STENCIL_BASE_TYPE_HPP_INCLUDED
 
 #include <sge/image/ds/format_fwd.hpp>
 #include <sge/opengl/color_base_type.hpp>
 
-
 namespace sge::opengl::convert
 {
 
-sge::opengl::color_base_type
-depth_stencil_base_type(
-	sge::image::ds::format
-);
+sge::opengl::color_base_type depth_stencil_base_type(sge::image::ds::format);
 
 }
 

@@ -3,19 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_MASK_IS_SET_HPP_INCLUDED
 #define SGE_X11INPUT_MASK_IS_SET_HPP_INCLUDED
-
 
 namespace sge::x11input
 {
 
-bool
-mask_is_set(
-	unsigned char const *,
-	int
-);
+bool mask_is_set(unsigned char const *, int);
 
 }
 

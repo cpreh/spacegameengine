@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_PARAMETER_SCALAR_DECL_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_SCALAR_DECL_HPP_INCLUDED
 
@@ -17,50 +16,29 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::shader::parameter
 {
 
-template<
-	typename ValueType
->
+template <typename ValueType>
 class scalar
 {
-	FCPPT_NONMOVABLE(
-		scalar
-	);
+  FCPPT_NONMOVABLE(scalar);
+
 public:
-	static_assert(
-		std::is_same<
-			ValueType,
-			bool
-		>::value
-		||
-		sge::cg::parameter::is_int_float_double<
-			ValueType
-		>::value,
-		"Shader parameters must be either bool, int, float or double"
-	);
+  static_assert(
+      std::is_same<ValueType, bool>::value ||
+          sge::cg::parameter::is_int_float_double<ValueType>::value,
+      "Shader parameters must be either bool, int, float or double");
 
-	using
-	value_type
-	=
-	ValueType;
+  using value_type = ValueType;
 
-	scalar(
-		sge::cg::program::object_ref,
-		sge::shader::parameter::name const &,
-		value_type
-	);
+  scalar(sge::cg::program::object_ref, sge::shader::parameter::name const &, value_type);
 
-	void
-	set(
-		value_type
-	);
+  void set(value_type);
 
-	~scalar(); // NOLINT(performance-trivially-destructible)
+  ~scalar(); // NOLINT(performance-trivially-destructible)
 private:
-	sge::cg::parameter::named const parameter_;
+  sge::cg::parameter::named const parameter_;
 };
 
 }

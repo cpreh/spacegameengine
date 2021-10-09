@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VF_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_VF_CONTEXT_HPP_INCLUDED
 
@@ -14,43 +13,28 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
 
-
 namespace sge::opengl::vf
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	using
-	parameter
-	=
-	fcppt::log::object_reference;
+  using parameter = fcppt::log::object_reference;
 
-	explicit
-	context(
-		parameter
-	);
+  explicit context(parameter);
 
-	~context()
-	override;
+  ~context() override;
 
-	[[nodiscard]]
-	sge::opengl::vf::client_state const &
-	state() const;
+  [[nodiscard]] sge::opengl::vf::client_state const &state() const;
 
-	void
-	state(
-		sge::opengl::vf::client_state const &
-	);
+  void state(sge::opengl::vf::client_state const &);
 
-	static sge::opengl::context::id const static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::opengl::vf::client_state state_;
+  sge::opengl::vf::client_state state_;
 };
 
 }

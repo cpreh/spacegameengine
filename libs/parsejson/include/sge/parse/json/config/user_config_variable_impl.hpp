@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_IMPL_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_IMPL_HPP_INCLUDED
 
@@ -16,64 +15,44 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 
-
-template<typename T>
+template <typename T>
 sge::parse::json::config::user_config_variable<T>::user_config_variable(
-	sge::parse::json::object const &_global_config,
-	sge::parse::json::object &_user_config,
-	sge::parse::json::path const &_path)
-:
-	global_config_(
-		_global_config),
-	user_config_(
-		_user_config),
-	path_(
-		_path),
-	value_(
-		sge::parse::json::find_and_convert_member<T>(
-			global_config_,
-			path_)),
-	callback_()
+    sge::parse::json::object const &_global_config,
+    sge::parse::json::object &_user_config,
+    sge::parse::json::path const &_path)
+    : global_config_(_global_config),
+      user_config_(_user_config),
+      path_(_path),
+      value_(sge::parse::json::find_and_convert_member<T>(global_config_, path_)),
+      callback_()
 {
 }
 
-template<typename T>
-void
-sge::parse::json::config::user_config_variable<T>::value(
-	T const &_value)
+template <typename T>
+void sge::parse::json::config::user_config_variable<T>::value(T const &_value)
 {
-	value_ =
-		_value;
-	callback_(
-		value_);
+  value_ = _value;
+  callback_(value_);
 }
 
-template<typename T>
-T const &
-sge::parse::json::config::user_config_variable<T>::value() const
+template <typename T>
+T const &sge::parse::json::config::user_config_variable<T>::value() const
 {
-	return value_;
+  return value_;
 }
 
-template<typename T>
+template <typename T>
 fcppt::signal::auto_connection
-sge::parse::json::config::user_config_variable<T>::change_callback(
-	callback const &f)
+sge::parse::json::config::user_config_variable<T>::change_callback(callback const &f)
 {
-	return
-		callback_.connect(
-			f);
+  return callback_.connect(f);
 }
 
-template<typename T>
+template <typename T>
 sge::parse::json::config::user_config_variable<T>::~user_config_variable()
 {
-	sge::parse::json::config::modify_user_value(
-		global_config_,
-		user_config_,
-		path_,
-		sge::parse::json::convert_to(
-			value_));
+  sge::parse::json::config::modify_user_value(
+      global_config_, user_config_, path_, sge::parse::json::convert_to(value_));
 }
 
 #endif

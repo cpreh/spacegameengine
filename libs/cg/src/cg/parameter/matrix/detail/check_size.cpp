@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/exception.hpp>
 #include <sge/cg/impl/parameter/get_type.hpp>
@@ -21,95 +20,43 @@
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-using
-cg_size
-=
-fcppt::math::dim::static_<
-	int,
-	2
->;
+using cg_size = fcppt::math::dim::static_<int, 2>;
 
-cg_size
-get_size(
-	CGtype const _type
-)
+cg_size get_size(CGtype const _type)
 {
-	int rows{-1};
+  int rows{-1};
 
-	int columns{-1};
+  int columns{-1};
 
-	::cgGetMatrixSize(
-		_type,
-		&rows,
-		&columns
-	);
+  ::cgGetMatrixSize(_type, &rows, &columns);
 
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgGetMatrixSize failed"),
-		sge::cg::exception
-	)
+  SGE_CG_CHECK_STATE(FCPPT_TEXT("cgGetMatrixSize failed"), sge::cg::exception)
 
-	return
-		cg_size{
-			rows,
-			columns
-		};
+  return cg_size{rows, columns};
 }
 
 }
 
-void
-sge::cg::parameter::matrix::detail::check_size(
-	sge::cg::parameter::object const &_parameter,
-	sge::cg::parameter::matrix::detail::size const &_dim
-)
+void sge::cg::parameter::matrix::detail::check_size(
+    sge::cg::parameter::object const &_parameter,
+    sge::cg::parameter::matrix::detail::size const &_dim)
 {
-	cg_size const result{
-		get_size(
-			sge::cg::impl::parameter::get_type(
-				_parameter
-			)
-		)
-	};
+  cg_size const result{get_size(sge::cg::impl::parameter::get_type(_parameter))};
 
-	if(
-		fcppt::math::dim::contents(
-			result
-		)
-		==
-		0
-	)
-	{
-		throw
-			sge::cg::exception{
-				FCPPT_TEXT("Parameter is not a matrix")
-			};
-	}
+  if (fcppt::math::dim::contents(result) == 0)
+  {
+    throw sge::cg::exception{FCPPT_TEXT("Parameter is not a matrix")};
+  }
 
-	auto const unsigned_result(
-		fcppt::math::dim::structure_cast<
-			sge::cg::parameter::matrix::detail::size,
-			fcppt::cast::size_fun
-		>(
-			fcppt::math::dim::to_unsigned(
-				result
-			)
-		)
-	);
+  auto const unsigned_result(fcppt::math::dim::structure_cast<
+                             sge::cg::parameter::matrix::detail::size,
+                             fcppt::cast::size_fun>(fcppt::math::dim::to_unsigned(result)));
 
-	if(
-		_dim
-		!=
-		unsigned_result
-	)
-	{
-		throw
-			sge::cg::exception{
-				FCPPT_TEXT("Unexpected matrix size!")
-			};
-	}
+  if (_dim != unsigned_result)
+  {
+    throw sge::cg::exception{FCPPT_TEXT("Unexpected matrix size!")};
+  }
 }

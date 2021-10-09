@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_WINDOW_QUIT_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_WINDOW_QUIT_HPP_INCLUDED
 
@@ -13,26 +12,22 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge::systems::impl::window
 {
 
 class quit
 {
-	FCPPT_NONMOVABLE(
-		quit
-	);
+  FCPPT_NONMOVABLE(quit);
+
 public:
-	quit(
-		sge::window::system_ref,
-		sge::window::object_ref
-	);
+  quit(sge::window::system_ref, sge::window::object_ref);
 
-	~quit();
+  ~quit();
+
 private:
-	sge::window::system_ref const system_;
+  sge::window::system_ref const system_;
 
-	fcppt::signal::auto_connection const destroy_connection_;
+  fcppt::signal::auto_connection const destroy_connection_;
 };
 
 }

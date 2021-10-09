@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/capabilities.hpp>
 #include <sge/input/capabilities_field.hpp>
 #include <sge/input/processor.hpp>
@@ -21,53 +20,26 @@
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 
-
-sge::wlinput::system::system(
-	fcppt::log::context_reference const _log_context
-)
-:
-	sge::input::system(),
-	log_{
-		_log_context,
-		sge::log::location(),
-		sge::log::default_parameters(
-			fcppt::log::name{
-				FCPPT_TEXT("wlinput")
-			}
-		)
-	}
+sge::wlinput::system::system(fcppt::log::context_reference const _log_context)
+    : sge::input::system(),
+      log_{
+          _log_context,
+          sge::log::location(),
+          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("wlinput")})}
 {
 }
 
-sge::wlinput::system::~system()
-= default;
+sge::wlinput::system::~system() = default;
 
 sge::input::processor_unique_ptr
-sge::wlinput::system::create_processor(
-	sge::window::object_ref const _window
-)
+sge::wlinput::system::create_processor(sge::window::object_ref const _window)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::input::processor
-		>(
-			fcppt::make_unique_ptr<
-				sge::wlinput::processor
-			>(
-				fcppt::make_ref(
-					log_
-				),
-				_window
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::input::processor>(
+      fcppt::make_unique_ptr<sge::wlinput::processor>(fcppt::make_ref(log_), _window));
 }
 
-sge::input::capabilities_field
-sge::wlinput::system::capabilities() const
+sge::input::capabilities_field sge::wlinput::system::capabilities() const
 {
-	return
-		sge::input::capabilities_field{
-			sge::input::capabilities::cursor,
-			sge::input::capabilities::focus
-		};
+  return sge::input::capabilities_field{
+      sge::input::capabilities::cursor, sge::input::capabilities::focus};
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_WAYLAND_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_WAYLAND_SYSTEM_HPP_INCLUDED
 
@@ -14,33 +13,21 @@
 #include <awl/backends/wayland/system/object_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::wayland
 {
 
-class system
-:
-	public sge::opengl::platform::system
+class system : public sge::opengl::platform::system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
-public:
-	explicit
-	system(
-		awl::backends::wayland::system::object_ref
-	);
+  FCPPT_NONMOVABLE(system);
 
-	~system()
-	override;
+public:
+  explicit system(awl::backends::wayland::system::object_ref);
+
+  ~system() override;
+
 private:
-	[[nodiscard]]
-	sge::opengl::platform::device_state_unique_ptr
-	create_device_state(
-		sge::renderer::display_mode::optional_fullscreen const &,
-		sge::window::object_ref
-	)
-	override;
+  [[nodiscard]] sge::opengl::platform::device_state_unique_ptr create_device_state(
+      sge::renderer::display_mode::optional_fullscreen const &, sge::window::object_ref) override;
 };
 
 }

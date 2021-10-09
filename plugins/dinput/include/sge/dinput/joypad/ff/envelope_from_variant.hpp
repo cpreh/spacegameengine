@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_FF_ENVELOPE_FROM_VARIANT_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_FF_ENVELOPE_FROM_VARIANT_HPP_INCLUDED
 
 #include <sge/dinput/joypad/ff/optional_envelope.hpp>
 #include <sge/input/joypad/ff/variant_fwd.hpp>
-
 
 namespace sge
 {
@@ -21,9 +19,7 @@ namespace ff
 {
 
 sge::dinput::joypad::ff::optional_envelope
-envelope_from_variant(
-	sge::input::joypad::ff::variant const &
-);
+envelope_from_variant(sge::input::joypad::ff::variant const &);
 
 }
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 
@@ -17,98 +16,50 @@
 #include <mizuiro/nonconst_tag.hpp>
 #include <fcppt/variant/from_list.hpp>
 
-
 namespace sge::image::view
 {
 
-template<
-	typename Tag
->
+template <typename Tag>
 class object
 {
 public:
-	using
-	elements
-	=
-	sge::image::view::elements<
-		Tag
-	>;
+  using elements = sge::image::view::elements<Tag>;
 
-	using
-	variant
-	=
-	fcppt::variant::from_list<
-		elements
-	>;
+  using variant = fcppt::variant::from_list<elements>;
 
-	template<
-		typename Format
-	>
-	explicit
-	object(
-		sge::image::view::mizuiro_type<
-			Format,
-			mizuiro::nonconst_tag
-		> const &_view
-	)
-	:
-		object(
-			variant{
-				_view
-			}
-		)
-	{
-		static_assert(
-			sge::image::has_format<
-				sge::image::traits::image::color_tag<
-					Tag
-				>,
-				typename
-				Format::color_format
-			>::value,
-			"Invalid format."
-		);
-	}
+  template <typename Format>
+  explicit object(sge::image::view::mizuiro_type<Format, mizuiro::nonconst_tag> const &_view)
+      : object(variant{_view})
+  {
+    static_assert(
+        sge::image::has_format<
+            sge::image::traits::image::color_tag<Tag>,
+            typename Format::color_format>::value,
+        "Invalid format.");
+  }
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	explicit
-	object(
-		variant const &
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  explicit object(variant const &);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	object(
-		object const &
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  object(object const &);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	object(
-		object &&
-	)
-	noexcept;
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  object(object &&) noexcept;
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	object &
-	operator=(
-		object const &
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  object &operator=(object const &);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	object &
-	operator=(
-		object &&
-	)
-	noexcept;
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  object &operator=(object &&) noexcept;
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	~object();
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  ~object();
 
-	[[nodiscard]]
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	variant const &
-	get() const;
+  [[nodiscard]] SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL variant const &get() const;
+
 private:
-	variant variant_;
+  variant variant_;
 };
 
 }

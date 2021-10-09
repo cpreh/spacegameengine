@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_RECT_HPP_INCLUDED
 #define SGE_RUCKSACK_RECT_HPP_INCLUDED
 
 #include <sge/rucksack/rect_fwd.hpp>
 #include <fcppt/math/box/rect.hpp>
-
 
 #endif

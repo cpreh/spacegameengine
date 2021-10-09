@@ -3,21 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/log/location.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/location.hpp>
 #include <fcppt/log/name.hpp>
 
-
-fcppt::log::location
-sge::opencl::log_location()
+fcppt::log::location sge::opencl::log_location()
 {
-	return
-		sge::log::location()
-		/
-		fcppt::log::name{
-			FCPPT_TEXT("opencl")
-		};
+  return sge::log::location() / fcppt::log::name{FCPPT_TEXT("opencl")};
 }

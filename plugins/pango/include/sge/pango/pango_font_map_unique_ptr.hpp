@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PANGO_PANGO_FONT_MAP_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_PANGO_PANGO_FONT_MAP_UNIQUE_PTR_HPP_INCLUDED
 
@@ -13,17 +12,10 @@
 #include <pango/pango-fontmap.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::pango
 {
 
-using
-pango_font_map_unique_ptr
-=
-fcppt::unique_ptr<
-	PangoFontMap,
-	sge::pango::glib_deleter
->;
+using pango_font_map_unique_ptr = fcppt::unique_ptr<PangoFontMap, sge::pango::glib_deleter>;
 
 }
 

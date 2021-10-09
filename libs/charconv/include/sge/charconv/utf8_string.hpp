@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CHARCONV_UTF8_STRING_HPP_INCLUDED
 #define SGE_CHARCONV_UTF8_STRING_HPP_INCLUDED
 
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 
-
 namespace sge::charconv
 {
 
-using
-utf8_string
-=
-sge::charconv::string_type<
-	sge::charconv::encoding::utf8
->;
+using utf8_string = sge::charconv::string_type<sge::charconv::encoding::utf8>;
 
 }
 

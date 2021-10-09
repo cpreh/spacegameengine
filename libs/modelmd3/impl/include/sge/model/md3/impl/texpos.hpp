@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_MD3_IMPL_TEXPOS_HPP_INCLUDED
 #define SGE_MODEL_MD3_IMPL_TEXPOS_HPP_INCLUDED
 
@@ -13,24 +12,19 @@
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::model::md3::impl
 {
 
 class texpos
 {
 public:
-	explicit
-	texpos(
-		std::istream &
-	);
+  explicit texpos(std::istream &);
 
-	[[nodiscard]]
-	sge::model::md3::texcoord
-	texcoord() const;
+  [[nodiscard]] sge::model::md3::texcoord texcoord() const;
+
 private:
-	sge::model::md3::scalar x_;
-	sge::model::md3::scalar y_;
+  sge::model::md3::scalar x_;
+  sge::model::md3::scalar y_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/event_base.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
@@ -12,28 +11,14 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::input::joypad::event::base::base(
-	sge::input::joypad::shared_ptr _joypad
-)
-:
-	sge::input::event_base{
-		_joypad->window()
-	},
-	joypad_{
-		std::move(
-			_joypad
-		)
-	}
+sge::input::joypad::event::base::base(sge::input::joypad::shared_ptr _joypad)
+    : sge::input::event_base{_joypad->window()}, joypad_{std::move(_joypad)}
 {
 }
 
-sge::input::joypad::event::base::~base()
-= default;
+sge::input::joypad::event::base::~base() = default;
 
-sge::input::joypad::shared_ptr const &
-sge::input::joypad::event::base::joypad() const
+sge::input::joypad::shared_ptr const &sge::input::joypad::event::base::joypad() const
 {
-	return
-		joypad_;
+  return joypad_;
 }

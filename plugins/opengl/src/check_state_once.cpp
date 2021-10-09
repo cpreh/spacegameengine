@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/check_state_always.hpp>
 #include <sge/opengl/check_state_once.hpp>
 #if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
@@ -15,48 +14,22 @@
 #include <fcppt/text.hpp>
 #endif
 
-
-void
-sge::opengl::check_state_once()
+void sge::opengl::check_state_once()
 {
 #if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
-	GLenum ret(
-		GL_NO_ERROR
-	);
+  GLenum ret(GL_NO_ERROR);
 
-	fcppt::string errors;
+  fcppt::string errors;
 
-	while(
-		(
-			ret
-			=
-			sge::opengl::call(
-				::glGetError
-			)
-		)
-		!= GL_NO_ERROR
-	)
-		errors +=
-			sge::opengl::error_string(
-				ret
-			)
-			+
-			FCPPT_TEXT(", ");
+  while ((ret = sge::opengl::call(::glGetError)) != GL_NO_ERROR)
+    errors += sge::opengl::error_string(ret) + FCPPT_TEXT(", ");
 
-	if(
-		ret != GL_NO_ERROR
-	)
-	{
-		// erase last ", "
-		errors.erase(
-			errors.end() - 2,
-			errors.end()
-		);
+  if (ret != GL_NO_ERROR)
+  {
+    // erase last ", "
+    errors.erase(errors.end() - 2, errors.end());
 
-		throw sge::renderer::exception(
-			FCPPT_TEXT("Cumulative GL errors: ")
-			+ errors
-		);
-	}
+    throw sge::renderer::exception(FCPPT_TEXT("Cumulative GL errors: ") + errors);
+  }
 #endif
 }

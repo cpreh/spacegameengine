@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_OCCLUSION_QUERY_HOLDER_HPP_INCLUDED
 #define SGE_OPENGL_OCCLUSION_QUERY_HOLDER_HPP_INCLUDED
 
@@ -11,30 +10,24 @@
 #include <sge/opengl/occlusion_query/id.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::occlusion_query
 {
 
 class holder
 {
-	FCPPT_NONMOVABLE(
-		holder
-	);
+  FCPPT_NONMOVABLE(holder);
+
 public:
-	explicit
-	holder(
-		sge::opengl::occlusion_query::const_config_ref
-	);
+  explicit holder(sge::opengl::occlusion_query::const_config_ref);
 
-	~holder();
+  ~holder();
 
-	[[nodiscard]]
-	sge::opengl::occlusion_query::id
-	id() const;
+  [[nodiscard]] sge::opengl::occlusion_query::id id() const;
+
 private:
-	sge::opengl::occlusion_query::const_config_ref const config_;
+  sge::opengl::occlusion_query::const_config_ref const config_;
 
-	sge::opengl::occlusion_query::id const id_;
+  sge::opengl::occlusion_query::id const id_;
 };
 
 }

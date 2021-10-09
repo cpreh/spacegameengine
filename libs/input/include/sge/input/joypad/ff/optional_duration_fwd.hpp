@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_FF_OPTIONAL_DURATION_FWD_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_OPTIONAL_DURATION_FWD_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/duration.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::input::joypad::ff
 {
 
-using
-optional_duration
-=
-fcppt::optional::object<
-	sge::input::joypad::ff::duration
->;
+using optional_duration = fcppt::optional::object<sge::input::joypad::ff::duration>;
 
 }
 

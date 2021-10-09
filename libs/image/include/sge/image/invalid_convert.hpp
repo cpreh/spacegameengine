@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_INVALID_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_INVALID_CONVERT_HPP_INCLUDED
 
@@ -13,58 +12,32 @@
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
 
-
 namespace sge::image
 {
 
-template<
-	typename Tag
->
-class SGE_CORE_DETAIL_CLASS_SYMBOL invalid_convert
-:
-	public sge::image::exception
+template <typename Tag>
+class SGE_CORE_DETAIL_CLASS_SYMBOL invalid_convert : public sge::image::exception
 {
 public:
-	using
-	format
-	=
-	sge::image::traits::pixel::format<
-		Tag
-	>;
+  using format = sge::image::traits::pixel::format<Tag>;
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	invalid_convert(
-		format source,
-		format dest
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  invalid_convert(format source, format dest);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	invalid_convert(
-		invalid_convert &&
-	)
-	noexcept;
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  invalid_convert(invalid_convert &&) noexcept;
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	invalid_convert(
-		invalid_convert const &
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  invalid_convert(invalid_convert const &);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	invalid_convert &
-	operator=(
-		invalid_convert &&
-	)
-	noexcept;
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  invalid_convert &operator=(invalid_convert &&) noexcept;
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	invalid_convert &
-	operator=(
-		invalid_convert const &
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  invalid_convert &operator=(invalid_convert const &);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	~invalid_convert() noexcept
-	override;
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  ~invalid_convert() noexcept override;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/element_vector.hpp>
@@ -33,290 +32,130 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace Catch
 {
 
-template<>
-struct StringMaker<
-	sge::parse::json::start
->
+template <>
+struct StringMaker<sge::parse::json::start>
 {
-	static
-	std::string
-	convert(
-		sge::parse::json::start const &_value
-	)
-	{
-		return
-			fcppt::catch_::convert(
-				_value.variant
-			);
-	}
+  static std::string convert(sge::parse::json::start const &_value)
+  {
+    return fcppt::catch_::convert(_value.variant);
+  }
 };
 
-template<>
-struct StringMaker<
-	sge::parse::json::array
->
+template <>
+struct StringMaker<sge::parse::json::array>
 {
-	static
-	std::string
-	convert(
-		sge::parse::json::array const &_value
-	)
-	{
-		return
-			fcppt::catch_::convert(
-				_value.elements
-			);
-	}
+  static std::string convert(sge::parse::json::array const &_value)
+  {
+    return fcppt::catch_::convert(_value.elements);
+  }
 };
 
-template<>
-struct StringMaker<
-	sge::parse::json::object
->
+template <>
+struct StringMaker<sge::parse::json::object>
 {
-	static
-	std::string
-	convert(
-		sge::parse::json::object const &_value
-	)
-	{
-		return
-			fcppt::catch_::convert(
-				_value.members
-			);
-	}
+  static std::string convert(sge::parse::json::object const &_value)
+  {
+    return fcppt::catch_::convert(_value.members);
+  }
 };
 
-template<>
-struct StringMaker<
-	sge::parse::json::value
->
+template <>
+struct StringMaker<sge::parse::json::value>
 {
-	static
-	std::string
-	convert(
-		sge::parse::json::value const &_value
-	)
-	{
-		return
-			fcppt::catch_::convert(
-				_value.get()
-			);
-	}
+  static std::string convert(sge::parse::json::value const &_value)
+  {
+    return fcppt::catch_::convert(_value.get());
+  }
 };
 
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"parse_json object",
-	"[sge]"
-)
+TEST_CASE("parse_json object", "[sge]")
 {
-	CHECK(
-		sge::parse::json::parse_string(
-			std::string{
-				"{"
-					"\"foo\": 42,"
-					"\"bar\" :"
-					"{"
-						"\"inner\" : 5.5,"
-						"\"booltest\" : true"
-					"}"
-				"}"
-			}
-		)
-		==
-		fcppt::parse::make_success<
-			char
-		>(
-			sge::parse::json::start{
-				sge::parse::json::array_or_object{
-					sge::parse::json::object{
-						sge::parse::json::member_map{
-							sge::parse::json::member{
-								std::string{
-									"foo"
-								},
-								fcppt::make_recursive(
-									sge::parse::json::make_value(
-										sge::parse::json::int_type{
-											42
-										}
-									)
-								)
-							},
-							sge::parse::json::member{
-								std::string{
-									"bar"
-								},
-								fcppt::make_recursive(
-									sge::parse::json::make_value(
-										sge::parse::json::object{
-											sge::parse::json::member_map{
-												sge::parse::json::member{
-													std::string{
-														"inner"
-													},
-													fcppt::make_recursive(
-														sge::parse::json::make_value(
-															sge::parse::json::float_type{
-																5.5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-															}
-														)
-													)
-												},
-												sge::parse::json::member{
-													std::string{
-														"booltest"
-													},
-													fcppt::make_recursive(
-														sge::parse::json::make_value(
-															true
-														)
-													)
-												}
-											}
-										}
-									)
-								)
-							}
-						}
-					}
-				}
-			}
-		)
-	);
+  CHECK(
+      sge::parse::json::parse_string(std::string{"{"
+                                                 "\"foo\": 42,"
+                                                 "\"bar\" :"
+                                                 "{"
+                                                 "\"inner\" : 5.5,"
+                                                 "\"booltest\" : true"
+                                                 "}"
+                                                 "}"}) ==
+      fcppt::parse::make_success<char>(sge::parse::json::start{
+          sge::parse::json::array_or_object{sge::parse::json::object{sge::parse::json::member_map{
+              sge::parse::json::member{
+                  std::string{"foo"},
+                  fcppt::make_recursive(
+                      sge::parse::json::make_value(sge::parse::json::int_type{42}))},
+              sge::parse::json::member{
+                  std::string{"bar"},
+                  fcppt::make_recursive(sge::parse::json::make_value(
+                      sge::parse::json::object{sge::parse::json::member_map{
+                          sge::parse::json::member{
+                              std::string{"inner"},
+                              fcppt::make_recursive(
+                                  sge::parse::json::make_value(sge::parse::json::float_type{
+                                      5.5 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                                  }))},
+                          sge::parse::json::member{
+                              std::string{"booltest"},
+                              fcppt::make_recursive(sge::parse::json::make_value(true))}}}))}}}}}));
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"parse_json array",
-	"[sge]"
-)
+TEST_CASE("parse_json array", "[sge]")
 {
-	CHECK(
-		sge::parse::json::parse_string(
-			std::string{
-				"["
-					"42,"
-					"100"
-				"]"
-			}
-		)
-		==
-		fcppt::parse::make_success<
-			char
-		>(
-			sge::parse::json::start{
-				sge::parse::json::array_or_object{
-					sge::parse::json::array{
-						sge::parse::json::element_vector{
-							fcppt::make_recursive(
-								sge::parse::json::make_value(
-									sge::parse::json::int_type{
-										42
-									}
-								)
-							),
-							fcppt::make_recursive(
-								sge::parse::json::make_value(
-									sge::parse::json::int_type{
-										100
-									}
-								)
-							)
-						}
-					}
-				}
-			}
-		)
-	);
+  CHECK(
+      sge::parse::json::parse_string(std::string{"["
+                                                 "42,"
+                                                 "100"
+                                                 "]"}) ==
+      fcppt::parse::make_success<char>(sge::parse::json::start{sge::parse::json::array_or_object{
+          sge::parse::json::array{sge::parse::json::element_vector{
+              fcppt::make_recursive(sge::parse::json::make_value(sge::parse::json::int_type{42})),
+              fcppt::make_recursive(
+                  sge::parse::json::make_value(sge::parse::json::int_type{100}))}}}}));
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"parse_json empty object",
-	"[sge]"
-)
+TEST_CASE("parse_json empty object", "[sge]")
 {
-	CHECK(
-		sge::parse::json::parse_string(
-			std::string{
-				"{}"
-			}
-		)
-		==
-		fcppt::parse::make_success<
-			char
-		>(
-			sge::parse::json::start{
-				sge::parse::json::array_or_object{
-					sge::parse::json::object{
-						sge::parse::json::member_map{}
-					}
-				}
-			}
-		)
-	);
+  CHECK(
+      sge::parse::json::parse_string(std::string{"{}"}) ==
+      fcppt::parse::make_success<char>(sge::parse::json::start{sge::parse::json::array_or_object{
+          sge::parse::json::object{sge::parse::json::member_map{}}}}));
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"parse_json empty array",
-	"[sge]"
-)
+TEST_CASE("parse_json empty array", "[sge]")
 {
-	CHECK(
-		sge::parse::json::parse_string(
-			std::string{
-				"[]"
-			}
-		)
-		==
-		fcppt::parse::make_success<
-			char
-		>(
-			sge::parse::json::start{
-				sge::parse::json::array_or_object{
-					sge::parse::json::array{
-						sge::parse::json::element_vector{}
-					}
-				}
-			}
-		)
-	);
+  CHECK(
+      sge::parse::json::parse_string(std::string{"[]"}) ==
+      fcppt::parse::make_success<char>(sge::parse::json::start{sge::parse::json::array_or_object{
+          sge::parse::json::array{sge::parse::json::element_vector{}}}}));
 }
 
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"parse_json error",
-	"[sge]"
-)
+TEST_CASE("parse_json error", "[sge]")
 {
-	CHECK(
-		sge::parse::json::parse_string(
-			std::string{
-				"{"
-					"\"foo\": 42,"
-					"\"bar\" :"
-					"{"
-						"\"inner\" : 5.5,"
-						"\"booltest\" : true"
-					"}"
-				""
-			}
-		).has_failure()
-	);
+  CHECK(sge::parse::json::parse_string(std::string{"{"
+                                                   "\"foo\": 42,"
+                                                   "\"bar\" :"
+                                                   "{"
+                                                   "\"inner\" : 5.5,"
+                                                   "\"booltest\" : true"
+                                                   "}"
+                                                   ""})
+            .has_failure());
 }
 
 FCPPT_CATCH_END

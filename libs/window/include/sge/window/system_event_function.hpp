@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WINDOW_SYSTEM_EVENT_FUNCTION_HPP_INCLUDED
 #define SGE_WINDOW_SYSTEM_EVENT_FUNCTION_HPP_INCLUDED
 
 #include <sge/window/system_event_function_type.hpp>
 #include <fcppt/function_impl.hpp>
 
-
 namespace sge::window
 {
 
-using
-system_event_function
-=
-fcppt::function<
-	sge::window::system_event_function_type
->;
+using system_event_function = fcppt::function<sge::window::system_event_function_type>;
 
 }
 

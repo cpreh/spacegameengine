@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_SCENE_MESH_MATERIAL_TO_INDEX_BUFFER_RANGE_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_MESH_MATERIAL_TO_INDEX_BUFFER_RANGE_HPP_INCLUDED
 
@@ -13,17 +12,11 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::scenic::scene::mesh
 {
 
-using
-material_to_index_buffer_range
-=
-std::map<
-	sge::scenic::scene::identifier,
-	sge::scenic::index_buffer_range
->;
+using material_to_index_buffer_range =
+    std::map<sge::scenic::scene::identifier, sge::scenic::index_buffer_range>;
 
 }
 

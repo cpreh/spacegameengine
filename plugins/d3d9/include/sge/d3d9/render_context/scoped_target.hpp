@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_RENDER_CONTEXT_SCOPED_TARGET_HPP_INCLUDED
 #define SGE_D3D9_RENDER_CONTEXT_SCOPED_TARGET_HPP_INCLUDED
 
 #include <sge/d3d9/target/base_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 namespace sge
 {
@@ -20,21 +18,17 @@ namespace render_context
 
 class scoped_target
 {
-	FCPPT_NONCOPYABLE(
-		scoped_target
-	);
+  FCPPT_NONCOPYABLE(scoped_target);
+
 public:
-	explicit
-	scoped_target(
-		sge::d3d9::target::base &
-	);
+  explicit scoped_target(sge::d3d9::target::base &);
 
-	~scoped_target();
+  ~scoped_target();
 
-	sge::d3d9::target::base &
-	target() const;
+  sge::d3d9::target::base &target() const;
+
 private:
-	sge::d3d9::target::base &target_;
+  sge::d3d9::target::base &target_;
 };
 
 }

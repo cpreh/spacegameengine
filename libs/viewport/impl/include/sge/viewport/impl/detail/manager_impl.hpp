@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_VIEWPORT_IMPL_DETAIL_MANAGER_IMPL_HPP_INCLUDED
 #define SGE_VIEWPORT_IMPL_DETAIL_MANAGER_IMPL_HPP_INCLUDED
 
@@ -20,59 +19,39 @@
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
-
 namespace sge::viewport::detail
 {
 
 class manager_impl
 {
-	FCPPT_NONMOVABLE(
-		manager_impl
-	);
+  FCPPT_NONMOVABLE(manager_impl);
+
 public:
-	manager_impl(
-		sge::renderer::device::core_ref,
-		sge::window::object_ref,
-		sge::viewport::optional_resize_callback &&
-	);
+  manager_impl(
+      sge::renderer::device::core_ref,
+      sge::window::object_ref,
+      sge::viewport::optional_resize_callback &&);
 
-	~manager_impl();
+  ~manager_impl();
 
-	[[nodiscard]]
-	fcppt::signal::auto_connection
-	manage_callback(
-		sge::viewport::manage_callback &&
-	);
+  [[nodiscard]] fcppt::signal::auto_connection manage_callback(sge::viewport::manage_callback &&);
 
-	void
-	resize_callback(
-		sge::viewport::optional_resize_callback &&
-	);
+  void resize_callback(sge::viewport::optional_resize_callback &&);
 
-	[[nodiscard]]
-	sge::renderer::target::viewport
-	viewport() const;
+  [[nodiscard]] sge::renderer::target::viewport viewport() const;
+
 private:
-	[[nodiscard]]
-	awl::event::container
-	on_resize(
-		awl::window::event::base const &
-	);
+  [[nodiscard]] awl::event::container on_resize(awl::window::event::base const &);
 
-	sge::renderer::target::base &target_;
+  sge::renderer::target::base &target_;
 
-	sge::viewport::optional_resize_callback resize_callback_;
+  sge::viewport::optional_resize_callback resize_callback_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
 
-	using
-	manage_signal
-	=
-	fcppt::signal::object<
-		sge::viewport::manage_function
-	>;
+  using manage_signal = fcppt::signal::object<sge::viewport::manage_function>;
 
-	manage_signal manage_signal_;
+  manage_signal manage_signal_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_STATE_UNSET_HPP_INCLUDED
 #define SGE_SPRITE_STATE_UNSET_HPP_INCLUDED
 
@@ -14,36 +13,17 @@
 #include <fcppt/algorithm/loop.hpp>
 #include <fcppt/algorithm/loop_break_mpl.hpp>
 
-
 namespace sge::sprite::state
 {
 
-template<
-	typename RenderContext,
-	typename StateChoices
->
-void
-unset(
-	RenderContext &_render_context,
-	sge::sprite::state::options<
-		StateChoices
-	> const &_options
-)
+template <typename RenderContext, typename StateChoices>
+void unset(
+    RenderContext &_render_context, sge::sprite::state::options<StateChoices> const &_options)
 {
-	fcppt::algorithm::loop(
-		typename
-		StateChoices::optional_elements{},
-		sge::sprite::state::detail::unset_one<
-			StateChoices
-		>(
-			fcppt::make_ref(
-				_render_context
-			),
-			fcppt::make_cref(
-				_options.elements()
-			)
-		)
-	);
+  fcppt::algorithm::loop(
+      typename StateChoices::optional_elements{},
+      sge::sprite::state::detail::unset_one<StateChoices>(
+          fcppt::make_ref(_render_context), fcppt::make_cref(_options.elements())));
 }
 
 }

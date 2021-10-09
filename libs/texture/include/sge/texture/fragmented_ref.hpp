@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_FRAGMENTED_REF_HPP_INCLUDED
 #define SGE_TEXTURE_FRAGMENTED_REF_HPP_INCLUDED
 
 #include <sge/texture/fragmented_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::texture
 {
 
-using
-fragmented_ref
-=
-fcppt::reference<
-	sge::texture::fragmented
->;
+using fragmented_ref = fcppt::reference<sge::texture::fragmented>;
 
 }
 

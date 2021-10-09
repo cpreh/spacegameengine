@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_AXIS_TO_INDEX_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_TO_INDEX_HPP_INCLUDED
 
@@ -11,15 +10,11 @@
 #include <sge/rucksack/detail/symbol.hpp>
 #include <fcppt/math/size_type.hpp>
 
-
 namespace sge::rucksack
 {
 
 SGE_RUCKSACK_DETAIL_SYMBOL
-fcppt::math::size_type
-axis_to_index(
-	sge::rucksack::axis
-);
+fcppt::math::size_type axis_to_index(sge::rucksack::axis);
 
 }
 

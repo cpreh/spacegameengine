@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_LOCKED_PART_HPP_INCLUDED
 
@@ -15,45 +14,30 @@
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
 
-
 namespace sge::renderer::vf::dynamic
 {
 
 class locked_part
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	locked_part(
-		sge::renderer::raw_pointer,
-		sge::renderer::lock_segment,
-		sge::renderer::lock_flags::method
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  locked_part(
+      sge::renderer::raw_pointer, sge::renderer::lock_segment, sge::renderer::lock_flags::method);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::raw_pointer
-	data() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::raw_pointer data() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vertex::first
-	pos() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::vertex::first pos() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::vertex::count
-	count() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::vertex::count count() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::lock_flags::method
-	lock_flags() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::lock_flags::method lock_flags() const;
+
 private:
-	sge::renderer::raw_pointer data_;
+  sge::renderer::raw_pointer data_;
 
-	sge::renderer::lock_segment segment_;
+  sge::renderer::lock_segment segment_;
 
-	sge::renderer::lock_flags::method lock_flags_;
+  sge::renderer::lock_flags::method lock_flags_;
 };
 
 }

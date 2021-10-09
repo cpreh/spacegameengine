@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_IMPL_FORMAT_MAP_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_FORMAT_MAP_HPP_INCLUDED
 
@@ -32,20 +31,11 @@
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::image::color::impl
 {
 
-using
-format_map
-=
-sge::image::impl::format_map<
-	BOOST_PP_SEQ_FOR_EACH_I(
-		SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR,
-		_,
-		SGE_IMAGE_COLOR_DETAIL_PP_FORMATS
-	)
->;
+using format_map = sge::image::impl::format_map<BOOST_PP_SEQ_FOR_EACH_I(
+    SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR, _, SGE_IMAGE_COLOR_DETAIL_PP_FORMATS)>;
 
 }
 

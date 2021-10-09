@@ -3,18 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_CORE_SAMPLER_ADDRESS_DEFAULT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_SAMPLER_ADDRESS_DEFAULT_HPP_INCLUDED
 
 #include <sge/renderer/state/core/sampler/address/mode_fwd.hpp>
 
-
 namespace sge::opengl::state::core::sampler::address
 {
 
-sge::renderer::state::core::sampler::address::mode
-default_();
+sge::renderer::state::core::sampler::address::mode default_();
 
 }
 

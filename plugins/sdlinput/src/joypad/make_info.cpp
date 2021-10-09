@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/info/name.hpp>
 #include <sge/input/info/unique_id.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
@@ -38,214 +37,90 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-fcppt::optional::object<
-	std::string
->
-get_name(
-	SDL_Joystick &_joystick // NOLINT(google-runtime-references)
-) // NOLINT(google-runtime-references)
+fcppt::optional::object<std::string>
+get_name(SDL_Joystick &_joystick // NOLINT(google-runtime-references)
+         ) // NOLINT(google-runtime-references)
 {
-	char const *const result{
-		SDL_JoystickName(
-			&_joystick
-		)
-	};
+  char const *const result{SDL_JoystickName(&_joystick)};
 
-	return
-		fcppt::optional::make_if(
-			result
-			!=
-			nullptr,
-			[
-				result
-			]{
-				return
-					std::string{
-						result
-					};
-			}
-		);
+  return fcppt::optional::make_if(result != nullptr, [result] { return std::string{result}; });
 }
 
-std::string
-get_guid(
-	SDL_Joystick &_joystick // NOLINT(google-runtime-references)
-) // NOLINT(google-runtime-references)
+std::string get_guid(SDL_Joystick &_joystick // NOLINT(google-runtime-references)
+                     ) // NOLINT(google-runtime-references)
 {
-	SDL_JoystickGUID const guid{
-		SDL_JoystickGetGUID(
-			&_joystick
-		)
-	};
+  SDL_JoystickGUID const guid{SDL_JoystickGetGUID(&_joystick)};
 
-	auto guid_string{
-		fcppt::array::init<
-			fcppt::array::object<
-				char,
-				33 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			>
-		>(
-			[](auto)
-			{
-				return
-					'\0';
-			}
-		)
-	};
+  auto guid_string{fcppt::array::init<fcppt::array::object<
+      char,
+      33 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      >>([](auto) { return '\0'; })};
 
-	SDL_JoystickGetGUIDString(
-		guid,
-		guid_string.data(),
-		fcppt::cast::size<
-			int
-		>(
-			fcppt::cast::to_signed(
-				guid_string.size()
-			)
-		)
-	);
+  SDL_JoystickGetGUIDString(
+      guid, guid_string.data(), fcppt::cast::size<int>(fcppt::cast::to_signed(guid_string.size())));
 
-	return
-		std::string{
-			guid_string.data()
-		};
+  return std::string{guid_string.data()};
 }
 
 sge::input::joypad::button_info_container::vector::size_type
-num_buttons(
-	SDL_Joystick &_joystick // NOLINT(google-runtime-references)
-) // NOLINT(google-runtime-references)
+num_buttons(SDL_Joystick &_joystick // NOLINT(google-runtime-references)
+            ) // NOLINT(google-runtime-references)
 {
-	return
-		fcppt::cast::to_unsigned(
-			SDL_JoystickNumButtons(
-				&_joystick
-			)
-		);
+  return fcppt::cast::to_unsigned(SDL_JoystickNumButtons(&_joystick));
 }
 
 }
 
 sge::input::joypad::info
-sge::sdlinput::joypad::make_info(
-	SDL_Joystick &_joystick // NOLINT(google-runtime-references)
-) // NOLINT(google-runtime-references)
+sge::sdlinput::joypad::make_info(SDL_Joystick &_joystick // NOLINT(google-runtime-references)
+                                 ) // NOLINT(google-runtime-references)
 {
-	return
-		sge::input::joypad::info{
-			sge::input::joypad::absolute_axis_info_container{
-				fcppt::container::join(
-					sge::input::joypad::absolute_axis_info_container::vector{
-						sge::sdlinput::joypad::num_axes(
-							_joystick
-						),
-						sge::input::joypad::absolute_axis_info{
-							sge::input::joypad::axis_code::unknown,
-							fcppt::optional_string{},
-							sge::input::joypad::axis_min{
-								-32768 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-							},
-							sge::input::joypad::axis_max{
-								32767 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-							}
-						}
-					},
-					sge::input::joypad::absolute_axis_info_container::vector{
-						sge::sdlinput::joypad::num_hats(
-							_joystick
-						),
-						sge::input::joypad::absolute_axis_info{
-							sge::input::joypad::axis_code::x,
-							fcppt::optional_string{},
-							sge::input::joypad::axis_min{
-								-1
-							},
-							sge::input::joypad::axis_max{
-								1
-							}
-						}
-					},
-					sge::input::joypad::absolute_axis_info_container::vector{
-						num_hats(
-							_joystick
-						),
-						sge::input::joypad::absolute_axis_info{
-							sge::input::joypad::axis_code::y,
-							fcppt::optional_string{},
-							sge::input::joypad::axis_min{
-								-1
-							},
-							sge::input::joypad::axis_max{
-								1
-							}
-						}
-					}
-				)
-			},
-			sge::input::joypad::button_info_container{
-				sge::input::joypad::button_info_container::vector{
-					num_buttons(
-						_joystick
-					),
-					sge::input::joypad::button_info{
-						fcppt::optional_string{}
-					}
-				}
-			},
-			sge::input::joypad::relative_axis_info_container{
-				fcppt::container::join(
-					sge::input::joypad::relative_axis_info_container::vector{
-						sge::sdlinput::joypad::num_balls(
-							_joystick
-						),
-						sge::input::joypad::relative_axis_info{
-							sge::input::joypad::axis_code::x,
-							fcppt::optional_string{}
-						}
-					},
-					sge::input::joypad::relative_axis_info_container::vector{
-						sge::sdlinput::joypad::num_balls(
-							_joystick
-						),
-						sge::input::joypad::relative_axis_info{
-							sge::input::joypad::axis_code::y,
-							fcppt::optional_string{}
-						}
-					}
-				)
-			},
-			// TODO(philipp)
-			sge::input::joypad::ff::type_field::null(),
-			sge::input::info::name{
-				fcppt::optional::maybe(
-					get_name(
-						_joystick
-					),
-					[]{
-						return
-							fcppt::string{};
-					},
-					[](
-						std::string const &_name
-					)
-					{
-						return
-							fcppt::from_std_string(
-								_name
-							);
-					}
-				)
-			},
-			sge::input::info::unique_id{
-				fcppt::from_std_string(
-					get_guid(
-						_joystick
-					)
-				)
-			}
-		};
+  return sge::input::joypad::info{
+      sge::input::joypad::absolute_axis_info_container{fcppt::container::join(
+          sge::input::joypad::absolute_axis_info_container::vector{
+              sge::sdlinput::joypad::num_axes(_joystick),
+              sge::input::joypad::absolute_axis_info{
+                  sge::input::joypad::axis_code::unknown,
+                  fcppt::optional_string{},
+                  sge::input::joypad::axis_min{
+                      -32768 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                  },
+                  sge::input::joypad::axis_max{
+                      32767 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                  }}},
+          sge::input::joypad::absolute_axis_info_container::vector{
+              sge::sdlinput::joypad::num_hats(_joystick),
+              sge::input::joypad::absolute_axis_info{
+                  sge::input::joypad::axis_code::x,
+                  fcppt::optional_string{},
+                  sge::input::joypad::axis_min{-1},
+                  sge::input::joypad::axis_max{1}}},
+          sge::input::joypad::absolute_axis_info_container::vector{
+              num_hats(_joystick),
+              sge::input::joypad::absolute_axis_info{
+                  sge::input::joypad::axis_code::y,
+                  fcppt::optional_string{},
+                  sge::input::joypad::axis_min{-1},
+                  sge::input::joypad::axis_max{1}}})},
+      sge::input::joypad::button_info_container{sge::input::joypad::button_info_container::vector{
+          num_buttons(_joystick), sge::input::joypad::button_info{fcppt::optional_string{}}}},
+      sge::input::joypad::relative_axis_info_container{fcppt::container::join(
+          sge::input::joypad::relative_axis_info_container::vector{
+              sge::sdlinput::joypad::num_balls(_joystick),
+              sge::input::joypad::relative_axis_info{
+                  sge::input::joypad::axis_code::x, fcppt::optional_string{}}},
+          sge::input::joypad::relative_axis_info_container::vector{
+              sge::sdlinput::joypad::num_balls(_joystick),
+              sge::input::joypad::relative_axis_info{
+                  sge::input::joypad::axis_code::y, fcppt::optional_string{}}})},
+      // TODO(philipp)
+      sge::input::joypad::ff::type_field::null(),
+      sge::input::info::name{fcppt::optional::maybe(
+          get_name(_joystick),
+          [] { return fcppt::string{}; },
+          [](std::string const &_name) { return fcppt::from_std_string(_name); })},
+      sge::input::info::unique_id{fcppt::from_std_string(get_guid(_joystick))}};
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_PARAMETER_CREATED_HPP_INCLUDED
 #define SGE_CG_PARAMETER_CREATED_HPP_INCLUDED
 
@@ -18,43 +17,30 @@
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cg::parameter
 {
 
 class created
 {
-	FCPPT_NONMOVABLE(
-		created
-	);
+  FCPPT_NONMOVABLE(created);
+
 public:
-	SGE_CG_DETAIL_SYMBOL
-	created(
-		sge::cg::context::object const &,
-		sge::cg::parameter::element_type
-	);
+  SGE_CG_DETAIL_SYMBOL
+  created(sge::cg::context::object const &, sge::cg::parameter::element_type);
 
-	SGE_CG_DETAIL_SYMBOL
-	~created();
+  SGE_CG_DETAIL_SYMBOL
+  ~created();
 
-	[[nodiscard]]
-	SGE_CG_DETAIL_SYMBOL
-	sge::cg::parameter::object
-	object() const;
+  [[nodiscard]] SGE_CG_DETAIL_SYMBOL sge::cg::parameter::object object() const;
 
-	SGE_CG_DETAIL_SYMBOL
-	void
-	connect(
-		sge::cg::parameter::named const &
-	);
+  SGE_CG_DETAIL_SYMBOL
+  void connect(sge::cg::parameter::named const &);
 
-	SGE_CG_DETAIL_SYMBOL
-	void
-	disconnect(
-		sge::cg::parameter::named const &
-	);
+  SGE_CG_DETAIL_SYMBOL
+  void disconnect(sge::cg::parameter::named const &);
+
 private:
-	CGparameter const parameter_; // NOLINT(misc-misplaced-const)
+  CGparameter const parameter_; // NOLINT(misc-misplaced-const)
 };
 
 }

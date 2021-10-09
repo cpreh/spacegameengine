@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_STATE_WITH_TRANSFORM_HPP_INCLUDED
 #define SGE_SPRITE_STATE_WITH_TRANSFORM_HPP_INCLUDED
 
@@ -21,72 +20,39 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::state
 {
 
 struct with_transform
 {
-	using
-	role
-	=
-	sge::sprite::state::roles::transform;
+  using role = sge::sprite::state::roles::transform;
 
-	using
-	option_role
-	=
-	sge::sprite::state::roles::projection_dim;
+  using option_role = sge::sprite::state::roles::projection_dim;
 
-	using
-	needs_ffp
-	=
-	std::true_type;
+  using needs_ffp = std::true_type;
 
-	using
-	persistent
-	=
-	std::false_type;
+  using persistent = std::false_type;
 
-	using
-	has_parameter
-	=
-	std::true_type;
+  using has_parameter = std::true_type;
 
-	using
-	state_type
-	=
-	sge::renderer::state::ffp::transform::object_unique_ptr;
+  using state_type = sge::renderer::state::ffp::transform::object_unique_ptr;
 
-	using
-	optional_extra_option
-	=
-	sge::sprite::optional_projection_dim;
+  using optional_extra_option = sge::sprite::optional_projection_dim;
 
-	SGE_SPRITE_DETAIL_SYMBOL
-	static
-	sge::renderer::state::ffp::transform::optional_object_unique_ptr
-	make(
-		sge::renderer::device::ffp_ref,
-		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-		sge::sprite::state::with_transform::optional_extra_option const &
-	);
+  SGE_SPRITE_DETAIL_SYMBOL
+  static sge::renderer::state::ffp::transform::optional_object_unique_ptr make(
+      sge::renderer::device::ffp_ref,
+      sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+      sge::sprite::state::with_transform::optional_extra_option const &);
 
-	SGE_SPRITE_DETAIL_SYMBOL
-	static
-	void
-	set(
-		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-		fcppt::reference<
-			sge::renderer::state::ffp::transform::object const
-		>
-	);
+  SGE_SPRITE_DETAIL_SYMBOL
+  static void
+  set(sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+      fcppt::reference<sge::renderer::state::ffp::transform::object const>);
 
-	SGE_SPRITE_DETAIL_SYMBOL
-	static
-	void
-	unset(
-		sge::renderer::context::ffp & // NOLINT(google-runtime-references)
-	); // NOLINT(google-runtime-references)
+  SGE_SPRITE_DETAIL_SYMBOL
+  static void unset(sge::renderer::context::ffp & // NOLINT(google-runtime-references)
+  ); // NOLINT(google-runtime-references)
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_SDL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_SDL_CONTEXT_HPP_INCLUDED
 
@@ -16,41 +15,26 @@
 #include <SDL_video.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::sdl
 {
 
-class context
-:
-	public
-		sge::opengl::backend::context
+class context : public sge::opengl::backend::context
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	explicit
-	context(
-		sge::window::object_ref
-	);
+  explicit context(sge::window::object_ref);
 
-	~context()
-	override;
+  ~context() override;
 
-	[[nodiscard]]
-	sge::opengl::backend::current_unique_ptr
-	activate()
-	override;
+  [[nodiscard]] sge::opengl::backend::current_unique_ptr activate() override;
 
-	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
-	)
-	override;
+  void deactivate(sge::opengl::backend::current_unique_ptr &&) override;
+
 private:
-	awl::backends::sdl::window::object_ref const window_;
+  awl::backends::sdl::window::object_ref const window_;
 
-	SDL_GLContext const context_; // NOLINT(misc-misplaced-const)
+  SDL_GLContext const context_; // NOLINT(misc-misplaced-const)
 };
 
 }

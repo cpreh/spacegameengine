@@ -3,18 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/state/core/sampler/address/default.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_all.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_default.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
 
-
 sge::renderer::state::core::sampler::address::parameters
 sge::renderer::state::core::sampler::address::default_()
 {
-	return
-		sge::renderer::state::core::sampler::address::mode_all(
-			sge::renderer::state::core::sampler::address::mode_default()
-		);
+  return sge::renderer::state::core::sampler::address::mode_all(
+      sge::renderer::state::core::sampler::address::mode_default());
 }

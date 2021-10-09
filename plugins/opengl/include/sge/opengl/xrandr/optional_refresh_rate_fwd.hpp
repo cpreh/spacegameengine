@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_XRANDR_OPTIONAL_REFRESH_RATE_FWD_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_OPTIONAL_REFRESH_RATE_FWD_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/refresh_rate.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::opengl::xrandr
 {
 
-using
-optional_refresh_rate
-=
-fcppt::optional::object<
-	sge::opengl::xrandr::refresh_rate
->;
+using optional_refresh_rate = fcppt::optional::object<sge::opengl::xrandr::refresh_rate>;
 
 }
 

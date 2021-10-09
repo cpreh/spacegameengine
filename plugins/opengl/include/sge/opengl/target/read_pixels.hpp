@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TARGET_READ_PIXELS_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_READ_PIXELS_HPP_INCLUDED
 
@@ -13,18 +12,15 @@
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/screen_size_fwd.hpp>
 
-
 namespace sge::opengl::target
 {
 
-void
-read_pixels(
-	sge::renderer::pixel_pos const &,
-	sge::renderer::screen_size const &,
-	sge::opengl::color_order,
-	sge::opengl::color_base_type,
-	sge::renderer::raw_pointer
-);
+void read_pixels(
+    sge::renderer::pixel_pos const &,
+    sge::renderer::screen_size const &,
+    sge::opengl::color_order,
+    sge::opengl::color_base_type,
+    sge::renderer::raw_pointer);
 
 }
 

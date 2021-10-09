@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_OBJECT_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_OBJECT_HPP_INCLUDED
 
@@ -14,33 +13,24 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 
-
 namespace sge::input::cursor::relative_movement
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	explicit
-	object(
-		sge::input::processor_ref
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  explicit object(sge::input::processor_ref);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~object();
+  SGE_INPUT_DETAIL_SYMBOL
+  ~object();
+
 private:
-	using
-	impl
-	=
-	fcppt::unique_ptr<
-		sge::input::cursor::relative_movement::detail::object
-	>;
+  using impl = fcppt::unique_ptr<sge::input::cursor::relative_movement::detail::object>;
 
-	impl const impl_;
+  impl const impl_;
 };
 
 }

@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_VF_VIEW_HPP_INCLUDED
 
 #include <sge/renderer/vf/view_decl.hpp>
 #include <sge/renderer/vf/view_fwd.hpp>
 #include <sge/renderer/vf/view_impl.hpp>
-
 
 #endif

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_CURSOR_EVENT_BUTTON_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_EVENT_BUTTON_HPP_INCLUDED
 
@@ -17,50 +16,36 @@
 #include <sge/input/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::cursor::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL button
-:
-	public sge::input::cursor::event::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL button : public sge::input::cursor::event::base
 {
-	FCPPT_NONMOVABLE(
-		button
-	);
+  FCPPT_NONMOVABLE(button);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	button(
-		sge::input::cursor::shared_ptr,
-		sge::input::cursor::button_code,
-		sge::input::cursor::position,
-		sge::input::cursor::button_pressed
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  button(
+      sge::input::cursor::shared_ptr,
+      sge::input::cursor::button_code,
+      sge::input::cursor::position,
+      sge::input::cursor::button_pressed);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~button()
-	override;
+  SGE_INPUT_DETAIL_SYMBOL
+  ~button() override;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::cursor::button_code
-	button_code() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::cursor::button_code button_code() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::cursor::position
-	position() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::cursor::position position() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	bool
-	pressed() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL bool pressed() const;
+
 private:
-	sge::input::cursor::button_code const button_code_;
+  sge::input::cursor::button_code const button_code_;
 
-	sge::input::cursor::position const position_;
+  sge::input::cursor::position const position_;
 
-	sge::input::cursor::button_pressed const pressed_;
+  sge::input::cursor::button_pressed const pressed_;
 };
 
 }

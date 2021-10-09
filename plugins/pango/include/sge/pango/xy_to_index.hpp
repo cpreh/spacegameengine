@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PANGO_XY_TO_INDEX_HPP_INCLUDED
 #define SGE_PANGO_XY_TO_INDEX_HPP_INCLUDED
 
@@ -13,15 +12,12 @@
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::pango
 {
 
-sge::pango::optional_index
-xy_to_index(
-	PangoLayout &, // NOLINT(google-runtime-references)
-	sge::font::vector const &
-);
+sge::pango::optional_index xy_to_index(
+    PangoLayout &, // NOLINT(google-runtime-references)
+    sge::font::vector const &);
 
 }
 

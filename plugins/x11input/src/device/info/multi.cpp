@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/info/multi.hpp>
 #include <awl/backends/x11/display_ref.hpp>
@@ -11,35 +10,20 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::x11input::device::info::multi::multi(
-	awl::backends::x11::display_ref const _display
-)
-:
-	info_base_(
-		_display,
-		sge::x11input::device::id(
-			XIAllDevices
-		)
-	)
+sge::x11input::device::info::multi::multi(awl::backends::x11::display_ref const _display)
+    : info_base_(_display, sge::x11input::device::id(XIAllDevices))
 {
 }
 
-sge::x11input::device::info::multi::~multi()
-= default;
+sge::x11input::device::info::multi::~multi() = default;
 
-sge::x11input::device::info::multi::iterator
-sge::x11input::device::info::multi::begin() const
+sge::x11input::device::info::multi::iterator sge::x11input::device::info::multi::begin() const
 {
-	return
-		info_base_.get();
+  return info_base_.get();
 }
 
-sge::x11input::device::info::multi::iterator
-sge::x11input::device::info::multi::end() const
+sge::x11input::device::info::multi::iterator sge::x11input::device::info::multi::end() const
 {
-	return
-		info_base_.get()
-		+ // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-		info_base_.size();
+  return info_base_.get() + // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+         info_base_.size();
 }

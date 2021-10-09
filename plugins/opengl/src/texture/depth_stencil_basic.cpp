@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/imageds2d/traits/dimension.hpp>
 #include <sge/imageds2d/view/const_object.hpp>
 #include <sge/imageds2d/view/object.hpp>
@@ -18,15 +17,6 @@
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters.hpp>
 
+template class sge::opengl::texture::basic<sge::opengl::texture::depth_stencil_types>;
 
-template
-class
-sge::opengl::texture::basic<
-	sge::opengl::texture::depth_stencil_types
->;
-
-template
-class
-sge::opengl::texture::basic_box<
-	sge::opengl::texture::depth_stencil_types
->;
+template class sge::opengl::texture::basic_box<sge::opengl::texture::depth_stencil_types>;

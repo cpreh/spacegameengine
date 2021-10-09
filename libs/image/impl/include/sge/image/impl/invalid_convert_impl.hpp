@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_INVALID_CONVERT_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_INVALID_CONVERT_IMPL_HPP_INCLUDED
 
@@ -12,97 +11,33 @@
 #include <sge/image/traits/pixel/format_to_string.hpp>
 #include <fcppt/text.hpp>
 
-
-template<
-	typename Tag
->
-sge::image::invalid_convert<
-	Tag
->::invalid_convert(
-	format const _source,
-	format const _dest
-)
-:
-	sge::image::exception{
-		FCPPT_TEXT("Invalid image convert from ")
-		+
-		sge::image::traits::pixel::format_to_string<
-			Tag
-		>(
-			_source
-		)
-		+
-		FCPPT_TEXT(" to ")
-		+
-		sge::image::traits::pixel::format_to_string<
-			Tag
-		>(
-			_dest
-		)
-		+
-		FCPPT_TEXT('!')
-	}
+template <typename Tag>
+sge::image::invalid_convert<Tag>::invalid_convert(format const _source, format const _dest)
+    : sge::image::exception{
+          FCPPT_TEXT("Invalid image convert from ") +
+          sge::image::traits::pixel::format_to_string<Tag>(_source) + FCPPT_TEXT(" to ") +
+          sge::image::traits::pixel::format_to_string<Tag>(_dest) + FCPPT_TEXT('!')}
 {
 }
 
-template<
-	typename Tag
->
-sge::image::invalid_convert<
-	Tag
->::invalid_convert(
-	invalid_convert &&
-)
-noexcept
-= default;
+template <typename Tag>
+sge::image::invalid_convert<Tag>::invalid_convert(invalid_convert &&) noexcept = default;
 
-template<
-	typename Tag
->
-sge::image::invalid_convert<
-	Tag
->::invalid_convert(
-	invalid_convert const &
-)
-= default;
+template <typename Tag>
+sge::image::invalid_convert<Tag>::invalid_convert(invalid_convert const &) = default;
 
-template<
-	typename Tag
->
-sge::image::invalid_convert<
-	Tag
-> &
-sge::image::invalid_convert<
-	Tag
->::operator=(
-	invalid_convert &&
-)
-noexcept
-= default;
+template <typename Tag>
+sge::image::invalid_convert<Tag> &
+sge::image::invalid_convert<Tag>::operator=(invalid_convert &&) noexcept = default;
 
-template<
-	typename Tag
->
-sge::image::invalid_convert<
-	Tag
-> &
-sge::image::invalid_convert<
-	Tag
->::operator=(
-	invalid_convert const &
-)
-= default;
+template <typename Tag>
+sge::image::invalid_convert<Tag> &
+sge::image::invalid_convert<Tag>::operator=(invalid_convert const &) = default;
 
 namespace sge::image
 {
-template<
-	typename Tag
->
-invalid_convert<
-	Tag
->::~invalid_convert()
-noexcept
-= default;
+template <typename Tag>
+invalid_convert<Tag>::~invalid_convert() noexcept = default;
 }
 
 #endif

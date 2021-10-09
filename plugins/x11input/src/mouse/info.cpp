@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/mouse/info.hpp>
 #include <sge/x11input/device/info/name.hpp>
 #include <sge/x11input/mouse/info.hpp>
@@ -14,25 +13,11 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::input::mouse::info
-sge::x11input::mouse::info(
-	awl::backends::x11::display &_display,
-	XIDeviceInfo const &_info
-)
+sge::x11input::mouse::info(awl::backends::x11::display &_display, XIDeviceInfo const &_info)
 {
-	return
-		sge::input::mouse::info(
-			sge::x11input::mouse::make_axis_infos(
-				_display,
-				_info
-			),
-			sge::x11input::mouse::make_button_infos(
-				_display,
-				_info
-			),
-			sge::x11input::device::info::name(
-				_info
-			)
-		);
+  return sge::input::mouse::info(
+      sge::x11input::mouse::make_axis_infos(_display, _info),
+      sge::x11input::mouse::make_button_infos(_display, _info),
+      sge::x11input::device::info::name(_info));
 }

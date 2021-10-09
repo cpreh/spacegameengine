@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_OBJ_NORMAL_INDEX_HPP_INCLUDED
 #define SGE_MODEL_OBJ_NORMAL_INDEX_HPP_INCLUDED
 
@@ -13,14 +12,10 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::model::obj
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	std::size_t,
-	normal_index
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(std::size_t, normal_index);
 
 }
 

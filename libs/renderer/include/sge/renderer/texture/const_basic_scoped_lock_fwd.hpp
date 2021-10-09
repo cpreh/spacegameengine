@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TEXTURE_CONST_BASIC_SCOPED_LOCK_FWD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CONST_BASIC_SCOPED_LOCK_FWD_HPP_INCLUDED
-
 
 namespace sge::renderer::texture
 {
 
-template<
-	typename Tag
->
+template <typename Tag>
 class const_basic_scoped_lock;
 
 }

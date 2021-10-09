@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_X11_FULLSCREEN_ATOM_HPP_INCLUDED
 #define SGE_OPENGL_X11_FULLSCREEN_ATOM_HPP_INCLUDED
 
@@ -11,14 +10,10 @@
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef_impl.hpp>
 
-
 namespace sge::opengl::x11
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	awl::backends::x11::atom,
-	fullscreen_atom
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(awl::backends::x11::atom, fullscreen_atom);
 
 }
 

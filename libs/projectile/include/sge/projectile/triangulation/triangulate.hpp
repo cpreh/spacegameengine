@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_TRIANGULATION_TRIANGULATE_HPP_INCLUDED
 #define SGE_PROJECTILE_TRIANGULATION_TRIANGULATE_HPP_INCLUDED
 
@@ -18,231 +17,92 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::projectile::triangulation
 {
 
-template<
-	typename Tag,
-	typename ResultContainer,
-	typename ContourContainer
->
-ResultContainer
-triangulate(
-	ContourContainer const &_contour,
-	typename sge::projectile::triangulation::traits::scalar<
-		typename ContourContainer::value_type,
-		Tag
-	>::type const _epsilon
-)
+template <typename Tag, typename ResultContainer, typename ContourContainer>
+ResultContainer triangulate(
+    ContourContainer const &_contour,
+    typename sge::projectile::triangulation::traits::
+        scalar<typename ContourContainer::value_type, Tag>::type const _epsilon)
 {
-	using
-	size_type
-	=
-	typename
-	ContourContainer::size_type;
+  using size_type = typename ContourContainer::size_type;
 
-	using
-	vertex
-	=
-	typename
-	ContourContainer::value_type;
+  using vertex = typename ContourContainer::value_type;
 
-	using
-	scalar
-	=
-	typename
-	sge::projectile::triangulation::traits::scalar<
-		vertex,
-		Tag
-	>::type;
+  using scalar = typename sge::projectile::triangulation::traits::scalar<vertex, Tag>::type;
 
-	if(
-		_contour.size()
-		<
-		static_cast<
-			size_type
-		>(
-			3
-		)
-	)
-	{
-		throw
-			sge::core::exception{
-				FCPPT_TEXT("projectile triangulate: Must have at least three points!")
-			};
-	}
+  if (_contour.size() < static_cast<size_type>(3))
+  {
+    throw sge::core::exception{
+        FCPPT_TEXT("projectile triangulate: Must have at least three points!")};
+  }
 
-	using
-	index_vector
-	=
-	std::vector<
-		size_type
-	>;
+  using index_vector = std::vector<size_type>;
 
-	index_vector indices(
-		_contour.size()
-	);
+  index_vector indices(_contour.size());
 
-	// TODO(philipp): Initialize this directly
-	// we want a counter-clockwise polygon in indices
-	if(
-		static_cast<
-			scalar
-		>(
-			0
-		)
-		<
-		sge::projectile::triangulation::detail::area<
-			Tag
-		>(
-			_contour
-		)
-	)
-	{
-		std::iota(
-			indices.begin(),
-			indices.end(),
-			static_cast<
-				size_type
-			>(
-				0
-			)
-		);
-	}
-	else
-	{
-		for(
-			size_type index = 0;
-			index < indices.size();
-			++index
-		)
-		{
-			indices[
-				index
-			]
-			=
-			static_cast<
-				size_type
-			>(
-				(
-					_contour.size()
-					- 1U
-				)
-			)
-			- index;
-		}
-	}
+  // TODO(philipp): Initialize this directly
+  // we want a counter-clockwise polygon in indices
+  if (static_cast<scalar>(0) < sge::projectile::triangulation::detail::area<Tag>(_contour))
+  {
+    std::iota(indices.begin(), indices.end(), static_cast<size_type>(0));
+  }
+  else
+  {
+    for (size_type index = 0; index < indices.size(); ++index)
+    {
+      indices[index] = static_cast<size_type>((_contour.size() - 1U)) - index;
+    }
+  }
 
-	size_type num_vertices(
-		_contour.size()
-	);
+  size_type num_vertices(_contour.size());
 
-	ResultContainer result{};
+  ResultContainer result{};
 
-	for(
-		auto cur_vertex(
-			static_cast<
-				size_type
-			>(
-				num_vertices - 1U
-			)
-		)
-		;
-		num_vertices > 2U
-		;
-		--num_vertices
-	)
-	{
-		// three consecutive vertices in current polygon
-		size_type prev_vertex(
-			cur_vertex
-		);
+  for (auto cur_vertex(static_cast<size_type>(num_vertices - 1U)); num_vertices > 2U;
+       --num_vertices)
+  {
+    // three consecutive vertices in current polygon
+    size_type prev_vertex(cur_vertex);
 
-		if(
-			num_vertices <= prev_vertex
-		)
-		{
-			prev_vertex = 0;
-		}
+    if (num_vertices <= prev_vertex)
+    {
+      prev_vertex = 0;
+    }
 
-		cur_vertex = prev_vertex + 1U;
+    cur_vertex = prev_vertex + 1U;
 
-		if(
-			num_vertices <= cur_vertex
-		)
-		{
-			cur_vertex = 0;
-		}
+    if (num_vertices <= cur_vertex)
+    {
+      cur_vertex = 0;
+    }
 
-		size_type next_vertex(
-			cur_vertex + 1U
-		);
+    size_type next_vertex(cur_vertex + 1U);
 
-		if(
-			num_vertices <= next_vertex
-		)
-		{
-			next_vertex = 0;
-		}
+    if (num_vertices <= next_vertex)
+    {
+      next_vertex = 0;
+    }
 
-		if(
-			sge::projectile::triangulation::detail::snip<
-				Tag
-			>(
-				_contour,
-				prev_vertex,
-				cur_vertex,
-				next_vertex,
-				num_vertices,
-				indices,
-				_epsilon
-			)
-		)
-		{
-			sge::projectile::triangulation::traits::insert_result<
-				ResultContainer,
-				vertex,
-				Tag
-			>::execute(
-				result,
-				_contour[
-					indices[
-						prev_vertex
-					]
-				],
-				_contour[
-					indices[
-						cur_vertex
-					]
-				],
-				_contour[
-					indices[
-						next_vertex
-					]
-				]
-			);
+    if (sge::projectile::triangulation::detail::snip<Tag>(
+            _contour, prev_vertex, cur_vertex, next_vertex, num_vertices, indices, _epsilon))
+    {
+      sge::projectile::triangulation::traits::insert_result<ResultContainer, vertex, Tag>::execute(
+          result,
+          _contour[indices[prev_vertex]],
+          _contour[indices[cur_vertex]],
+          _contour[indices[next_vertex]]);
 
-			// remove v from remaining polygon
-			for(
-				size_type cur(
-					cur_vertex + 1U
-				);
-				cur < num_vertices;
-				++cur
-			)
-			{
-				indices[
-					cur - 1U
-				] =
-					indices[
-						cur
-					];
-			}
-		}
-	}
+      // remove v from remaining polygon
+      for (size_type cur(cur_vertex + 1U); cur < num_vertices; ++cur)
+      {
+        indices[cur - 1U] = indices[cur];
+      }
+    }
+  }
 
-	return result;
+  return result;
 }
 
 }

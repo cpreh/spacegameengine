@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_OBJ_TEXTURE_COORDINATE_SEQUENCE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_TEXTURE_COORDINATE_SEQUENCE_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::model::obj
 {
 
-using
-texture_coordinate_sequence
-=
-std::vector<
-	sge::model::obj::texture_coordinate
->;
+using texture_coordinate_sequence = std::vector<sge::model::obj::texture_coordinate>;
 
 }
 

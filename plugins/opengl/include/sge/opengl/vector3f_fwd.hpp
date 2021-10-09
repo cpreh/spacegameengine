@@ -3,26 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VECTOR3F_FWD_HPP_INCLUDED
 #define SGE_OPENGL_VECTOR3F_FWD_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
 #include <fcppt/math/vector/static.hpp>
 
-
 namespace sge
 {
 namespace opengl
 {
 
-using
-vector3f
-=
-fcppt::math::vector::static_<
-	GLfloat,
-	3
->;
+using vector3f = fcppt::math::vector::static_<GLfloat, 3>;
 
 }
 }

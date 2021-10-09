@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_FIRST_PERSON_OBJECT_HPP_INCLUDED
 #define SGE_CAMERA_FIRST_PERSON_OBJECT_HPP_INCLUDED
 
@@ -27,109 +26,68 @@
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::camera::first_person
 {
 
 // NOLINTNEXTLINE(fuchsia-multiple-inheritance)
-class SGE_CORE_DETAIL_CLASS_SYMBOL object
-:
-	public virtual sge::camera::base,
-	public sge::camera::is_dynamic,
-	public sge::camera::has_mutable_projection,
-	public sge::camera::has_mutable_coordinate_system
+class SGE_CORE_DETAIL_CLASS_SYMBOL object : public virtual sge::camera::base,
+                                            public sge::camera::is_dynamic,
+                                            public sge::camera::has_mutable_projection,
+                                            public sge::camera::has_mutable_coordinate_system
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	SGE_CAMERA_DETAIL_SYMBOL
-	explicit
-	object(
-		sge::camera::first_person::parameters const &
-	);
+  SGE_CAMERA_DETAIL_SYMBOL
+  explicit object(sge::camera::first_person::parameters const &);
 
-	[[nodiscard]]
-	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::coordinate_system::object
-	coordinate_system() const
-	override;
+  [[nodiscard]] SGE_CAMERA_DETAIL_SYMBOL sge::camera::coordinate_system::object
+  coordinate_system() const override;
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	void
-	update_coordinate_system(
-		sge::camera::coordinate_system::object const &
-	)
-	override;
+  SGE_CAMERA_DETAIL_SYMBOL
+  void update_coordinate_system(sge::camera::coordinate_system::object const &) override;
 
-	[[nodiscard]]
-	SGE_CAMERA_DETAIL_SYMBOL
-	sge::camera::optional_projection_matrix
-	projection_matrix() const
-	override;
+  [[nodiscard]] SGE_CAMERA_DETAIL_SYMBOL sge::camera::optional_projection_matrix
+  projection_matrix() const override;
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	void
-	update_projection_matrix(
-		sge::camera::optional_projection_matrix const &
-	)
-	override;
+  SGE_CAMERA_DETAIL_SYMBOL
+  void update_projection_matrix(sge::camera::optional_projection_matrix const &) override;
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	void
-	process_event(
-		sge::input::event_base const &
-	)
-	override;
+  SGE_CAMERA_DETAIL_SYMBOL
+  void process_event(sge::input::event_base const &) override;
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	void
-	update(
-		sge::camera::update_duration
-	)
-	override;
+  SGE_CAMERA_DETAIL_SYMBOL
+  void update(sge::camera::update_duration) override;
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	~object()
-	override;
+  SGE_CAMERA_DETAIL_SYMBOL
+  ~object() override;
+
 private:
-	sge::camera::first_person::action::mapping action_mapping_;
+  sge::camera::first_person::action::mapping action_mapping_;
 
-	sge::camera::first_person::movement_speed movement_speed_;
+  sge::camera::first_person::movement_speed movement_speed_;
 
-	sge::camera::first_person::mouse_speed_multiplier mouse_speed_multiplier_;
+  sge::camera::first_person::mouse_speed_multiplier mouse_speed_multiplier_;
 
-	sge::renderer::vector3 directions_;
+  sge::renderer::vector3 directions_;
 
-	sge::camera::coordinate_system::object coordinate_system_;
+  sge::camera::coordinate_system::object coordinate_system_;
 
-	sge::camera::optional_projection_matrix projection_matrix_;
+  sge::camera::optional_projection_matrix projection_matrix_;
 
-	bool left_pressed_, right_pressed_;
+  bool left_pressed_, right_pressed_;
 
-	bool up_pressed_, down_pressed_;
+  bool up_pressed_, down_pressed_;
 
-	bool forward_pressed_, backward_pressed_;
+  bool forward_pressed_, backward_pressed_;
 
-	void
-	key_event(
-		sge::input::keyboard::event::key const &
-	);
+  void key_event(sge::input::keyboard::event::key const &);
 
-	void
-	mouse_axis_event(
-		sge::input::mouse::event::axis const &
-	);
+  void mouse_axis_event(sge::input::mouse::event::axis const &);
 
-	void
-	rotate_on_x(
-		sge::renderer::scalar
-	);
+  void rotate_on_x(sge::renderer::scalar);
 
-	void
-	rotate_on_y(
-		sge::renderer::scalar
-	);
+  void rotate_on_y(sge::renderer::scalar);
 };
 
 }

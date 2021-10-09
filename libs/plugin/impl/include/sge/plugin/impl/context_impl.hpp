@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_IMPL_CONTEXT_IMPL_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_CONTEXT_IMPL_HPP_INCLUDED
 
@@ -16,122 +15,46 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename Type
->
-sge::plugin::context<
-	Type
->::context(
-	sge::plugin::context_base_ref const _context_base
-)
-:
-	context_base_(
-		_context_base
-	)
+template <typename Type>
+sge::plugin::context<Type>::context(sge::plugin::context_base_ref const _context_base)
+    : context_base_(_context_base)
 {
 }
 
-template<
-	typename Type
->
-sge::plugin::context<
-	Type
->::context(
-	context const &
-)
-= default;
+template <typename Type>
+sge::plugin::context<Type>::context(context const &) = default;
 
-template<
-	typename Type
->
-sge::plugin::context<
-	Type
->::context(
-	context &&
-)
-noexcept
-= default;
+template <typename Type>
+sge::plugin::context<Type>::context(context &&) noexcept = default;
 
-template<
-	typename Type
->
-sge::plugin::context<
-	Type
-> &
-sge::plugin::context<
-	Type
->::operator=(
-	context const &
-)
-= default;
+template <typename Type>
+sge::plugin::context<Type> &sge::plugin::context<Type>::operator=(context const &) = default;
 
-template<
-	typename Type
->
-sge::plugin::context<
-	Type
-> &
-sge::plugin::context<
-	Type
->::operator=(
-	context &&
-)
-noexcept
-= default;
+template <typename Type>
+sge::plugin::context<Type> &sge::plugin::context<Type>::operator=(context &&) noexcept = default;
 
 namespace sge::plugin
 {
-template<
-	typename Type
->
-context<
-	Type
->::~context()
-= default;
+template <typename Type>
+context<Type>::~context() = default;
 }
 
-template<
-	typename Type
->
-typename
-sge::plugin::context<
-	Type
->::object
-sge::plugin::context<
-	Type
->::load() const
+template <typename Type>
+typename sge::plugin::context<Type>::object sge::plugin::context<Type>::load() const
 {
-	return
-		sge::plugin::object<
-			Type
-		>(
-			context_base_.get().load()
-		);
+  return sge::plugin::object<Type>(context_base_.get().load());
 }
 
-template<
-	typename Type
->
-std::filesystem::path const &
-sge::plugin::context<
-	Type
->::path() const
+template <typename Type>
+std::filesystem::path const &sge::plugin::context<Type>::path() const
 {
-	return
-		context_base_.get().path();
+  return context_base_.get().path();
 }
 
-template<
-	typename Type
->
-sge::plugin::info const &
-sge::plugin::context<
-	Type
->::info() const
+template <typename Type>
+sge::plugin::info const &sge::plugin::context<Type>::info() const
 {
-	return
-		context_base_.get().info();
+  return context_base_.get().info();
 }
 
 #endif

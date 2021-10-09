@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_INFO_HPP_INCLUDED
 #define SGE_PLUGIN_INFO_HPP_INCLUDED
 
@@ -16,64 +15,46 @@
 #include <sge/plugin/version.hpp>
 #include <sge/plugin/detail/symbol.hpp>
 
-
 namespace sge::plugin
 {
 
 class info
 {
 public:
-	SGE_PLUGIN_DETAIL_SYMBOL
-	info(
-		sge::plugin::name &&,
-		sge::plugin::description &&,
-		sge::plugin::version,
-		sge::plugin::min_core_version,
-		sge::plugin::capabilities_field const &,
-		sge::plugin::flags_field const &
-	);
+  SGE_PLUGIN_DETAIL_SYMBOL
+  info(
+      sge::plugin::name &&,
+      sge::plugin::description &&,
+      sge::plugin::version,
+      sge::plugin::min_core_version,
+      sge::plugin::capabilities_field const &,
+      sge::plugin::flags_field const &);
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::name const &
-	name() const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL sge::plugin::name const &name() const;
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::description const &
-	description() const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL sge::plugin::description const &description() const;
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::version
-	version() const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL sge::plugin::version version() const;
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::min_core_version
-	min_core_version() const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL sge::plugin::min_core_version min_core_version() const;
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::capabilities_field const &
-	capabilities() const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL sge::plugin::capabilities_field const &
+  capabilities() const;
 
-	[[nodiscard]]
-	SGE_PLUGIN_DETAIL_SYMBOL
-	sge::plugin::flags_field const &
-	flags() const;
+  [[nodiscard]] SGE_PLUGIN_DETAIL_SYMBOL sge::plugin::flags_field const &flags() const;
+
 private:
-	sge::plugin::name name_;
+  sge::plugin::name name_;
 
-	sge::plugin::description description_;
+  sge::plugin::description description_;
 
-	sge::plugin::version version_;
+  sge::plugin::version version_;
 
-	sge::plugin::min_core_version min_core_version_;
+  sge::plugin::min_core_version min_core_version_;
 
-	sge::plugin::capabilities_field capabilities_;
+  sge::plugin::capabilities_field capabilities_;
 
-	sge::plugin::flags_field flags_;
+  sge::plugin::flags_field flags_;
 };
 
 }

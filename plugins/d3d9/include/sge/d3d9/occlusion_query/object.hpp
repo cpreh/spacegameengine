@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_OCCLUSION_QUERY_OBJECT_HPP_INCLUDED
 #define SGE_D3D9_OCCLUSION_QUERY_OBJECT_HPP_INCLUDED
 
@@ -14,7 +13,6 @@
 #include <sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -22,37 +20,24 @@ namespace d3d9
 namespace occlusion_query
 {
 
-class object
-:
-	public sge::renderer::occlusion_query::object
+class object : public sge::renderer::occlusion_query::object
 {
-	FCPPT_NONCOPYABLE(
-		object
-	);
+  FCPPT_NONCOPYABLE(object);
+
 public:
-	explicit
-	object(
-		IDirect3DDevice9 &
-	);
+  explicit object(IDirect3DDevice9 &);
 
-	~object()
-	override;
+  ~object() override;
+
 private:
-	void
-	begin()
-	override;
+  void begin() override;
 
-	void
-	end()
-	override;
+  void end() override;
 
-	sge::renderer::occlusion_query::optional_pixel_count
-	result(
-		sge::renderer::occlusion_query::blocking_wait
-	) const
-	override;
+  sge::renderer::occlusion_query::optional_pixel_count
+      result(sge::renderer::occlusion_query::blocking_wait) const override;
 
-	sge::d3d9::query::d3d_unique_ptr const query_;
+  sge::d3d9::query::d3d_unique_ptr const query_;
 };
 
 }

@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_FFP_SAMPLER_CREATE_HPP_INCLUDED
 #define SGE_D3D9_STATE_FFP_SAMPLER_CREATE_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
-
 
 namespace sge
 {
@@ -24,10 +22,7 @@ namespace sampler
 {
 
 sge::renderer::state::ffp::sampler::object_unique_ptr
-create(
-	IDirect3DDevice9 &,
-	sge::renderer::state::ffp::sampler::parameters const &
-);
+create(IDirect3DDevice9 &, sge::renderer::state::ffp::sampler::parameters const &);
 
 }
 }

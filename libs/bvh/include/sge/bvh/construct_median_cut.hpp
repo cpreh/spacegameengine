@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_BVH_CONSTRUCT_MEDIAN_CUT_HPP_INCLUDED
 #define SGE_BVH_CONSTRUCT_MEDIAN_CUT_HPP_INCLUDED
 
@@ -22,7 +21,6 @@
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::bvh
 {
 namespace detail
@@ -32,150 +30,78 @@ namespace detail
 class construct_median_cut_comparator
 {
 public:
-	explicit
-	construct_median_cut_comparator(
-		fcppt::math::size_type const _axis)
-	:
-		axis_(
-			_axis)
-	{
-	}
+  explicit construct_median_cut_comparator(fcppt::math::size_type const _axis) : axis_(_axis) {}
 
-	template<typename LeafWrapper>
-	bool
-	operator()(
-		LeafWrapper const &_left,
-		LeafWrapper const &_right) const
-	{
-		using
-		leaf
-		=
-		typename
-		LeafWrapper::leaf;
+  template <typename LeafWrapper>
+  bool operator()(LeafWrapper const &_left, LeafWrapper const &_right) const
+  {
+    using leaf = typename LeafWrapper::leaf;
 
-		return
-			fcppt::math::box::center(
-				sge::bvh::traits::box<leaf>::extract_box(
-					_left.value()
-				)
-			).get_unsafe(axis_)
-			<
-			fcppt::math::box::center(
-				sge::bvh::traits::box<leaf>::extract_box(
-					_right.value()
-				)
-			).get_unsafe(axis_);
-	}
+    return fcppt::math::box::center(sge::bvh::traits::box<leaf>::extract_box(_left.value()))
+               .get_unsafe(axis_) <
+           fcppt::math::box::center(sge::bvh::traits::box<leaf>::extract_box(_right.value()))
+               .get_unsafe(axis_);
+  }
 
-	[[nodiscard]]
-	fcppt::math::size_type
-	axis() const
-	{
-		return
-			axis_;
-	}
+  [[nodiscard]] fcppt::math::size_type axis() const { return axis_; }
+
 private:
-	fcppt::math::size_type axis_;
+  fcppt::math::size_type axis_;
 };
 
 }
 
-template<typename Traits>
-void
-construct_median_cut(
-	typename Traits::leaf_wrapper_sequence _leaves,
-	typename Traits::tree_representation &_tree)
+template <typename Traits>
+void construct_median_cut(
+    typename Traits::leaf_wrapper_sequence _leaves, typename Traits::tree_representation &_tree)
 {
-	if(
-		!_tree.empty()
-	)
-	{
-		throw
-			sge::core::exception{
-				FCPPT_TEXT("construct_median_cut: Tree not empty!")
-			};
-	}
+  if (!_tree.empty())
+  {
+    throw sge::core::exception{FCPPT_TEXT("construct_median_cut: Tree not empty!")};
+  }
 
-	if(_leaves.size() <= 1U)
-	{
-		_tree.value(
-			typename Traits::node_or_leaf_variant(
-				_leaves));
-		return;
-	}
+  if (_leaves.size() <= 1U)
+  {
+    _tree.value(typename Traits::node_or_leaf_variant(_leaves));
+    return;
+  }
 
-	typename Traits::box const bounding_box =
-		sge::bvh::bounding_box<Traits>(
-			_leaves);
+  typename Traits::box const bounding_box = sge::bvh::bounding_box<Traits>(_leaves);
 
-	typename Traits::box::dim const bounding_box_size =
-		bounding_box.size();
+  typename Traits::box::dim const bounding_box_size = bounding_box.size();
 
-	_tree.value(
-		typename Traits::node_or_leaf_variant(
-			typename Traits::node_wrapper(
-				typename Traits::node(
-					bounding_box),
-				bounding_box)));
+  _tree.value(typename Traits::node_or_leaf_variant(
+      typename Traits::node_wrapper(typename Traits::node(bounding_box), bounding_box)));
 
-	sge::bvh::detail::construct_median_cut_comparator comparator{
-		[
-			bounding_box_size
-		]{
-			auto const array(
-				fcppt::math::to_array(
-					bounding_box_size
-				)
-			);
+  sge::bvh::detail::construct_median_cut_comparator comparator{
+      [bounding_box_size]
+      {
+        auto const array(fcppt::math::to_array(bounding_box_size));
 
-			return
-				static_cast<
-					fcppt::math::size_type
-				>(
-					std::distance(
-						array.begin(),
-						boost::range::max_element(
-							array
-						)
-					)
-				);
-		}()
-	};
+        return static_cast<fcppt::math::size_type>(
+            std::distance(array.begin(), boost::range::max_element(array)));
+      }()};
 
-	std::nth_element(
-		_leaves.begin(),
-		std::next(
-			_leaves.begin(),
-			static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
-				_leaves.size()/2U)),
-		_leaves.end(),
-		comparator);
+  std::nth_element(
+      _leaves.begin(),
+      std::next(
+          _leaves.begin(),
+          static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
+              _leaves.size() / 2U)),
+      _leaves.end(),
+      comparator);
 
-	typename Traits::leaf_wrapper const &median(
-		*std::next(
-			_leaves.begin(),
-			static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
-				_leaves.size()/2U)));
+  typename Traits::leaf_wrapper const &median(*std::next(
+      _leaves.begin(),
+      static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(_leaves.size() / 2U)));
 
-	std::partition(
-		_leaves.begin(),
-		_leaves.end(),
-		[
-			median,
-			&comparator
-		](
-			typename Traits::leaf_wrapper const &_value
-		)
-		{
-			return
-				comparator(
-					_value,
-					median
-				);
-		}
-	);
+  std::partition(
+      _leaves.begin(),
+      _leaves.end(),
+      [median, &comparator](typename Traits::leaf_wrapper const &_value)
+      { return comparator(_value, median); });
 
-	/*
+  /*
 	typename Traits::leaf_wrapper_sequence left_side,right_side;
 	left_side.reserve(
 		_leaves.size()/2U);
@@ -193,7 +119,7 @@ construct_median_cut(
 			right_side.push_back(
 				*it);
 				*/
-	/*
+  /*
 	boost::range::sort(
 		_leaves,
 		sge::bvh::detail::construct_median_cut_comparator(
@@ -204,7 +130,7 @@ construct_median_cut(
 						bounding_box_size)))));
 	*/
 
-	/*
+  /*
 	if(_leaves.size() == 2)
 	{
 		std::cout
@@ -228,39 +154,33 @@ construct_median_cut(
 			"\n";
 	}
 	*/
-	/*
+  /*
 	std::cout << "input length: " << _leaves.size() << "\n";
 	std::cout << "left side: " << left_side.size() << "\n";
 	std::cout << "right side: " << right_side.size() << "\n";
 	*/
 
-	_tree.push_back(
-		typename Traits::node_or_leaf_variant(
-			sge::bvh::empty_node()));
+  _tree.push_back(typename Traits::node_or_leaf_variant(sge::bvh::empty_node()));
 
-	_tree.push_back(
-		typename Traits::node_or_leaf_variant(
-			sge::bvh::empty_node()));
+  _tree.push_back(typename Traits::node_or_leaf_variant(sge::bvh::empty_node()));
 
-	sge::bvh::construct_median_cut<Traits>(
-		typename Traits::leaf_wrapper_sequence(
-			_leaves.begin(),
-			std::next(
-				_leaves.begin(),
-				static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
-					_leaves.size()/2U))),
-		_tree.front().get_unsafe().get()
-	);
+  sge::bvh::construct_median_cut<Traits>(
+      typename Traits::leaf_wrapper_sequence(
+          _leaves.begin(),
+          std::next(
+              _leaves.begin(),
+              static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
+                  _leaves.size() / 2U))),
+      _tree.front().get_unsafe().get());
 
-	sge::bvh::construct_median_cut<Traits>(
-		typename Traits::leaf_wrapper_sequence(
-			std::next(
-				_leaves.begin(),
-				static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
-					_leaves.size()/2U)),
-			_leaves.end()),
-		*std::next(
-			_tree.begin()));
+  sge::bvh::construct_median_cut<Traits>(
+      typename Traits::leaf_wrapper_sequence(
+          std::next(
+              _leaves.begin(),
+              static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
+                  _leaves.size() / 2U)),
+          _leaves.end()),
+      *std::next(_tree.begin()));
 }
 }
 

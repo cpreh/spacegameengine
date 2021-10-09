@@ -3,22 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VERTEX_UNSET_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_VERTEX_UNSET_BUFFER_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 
-
 namespace sge::opengl::vertex
 {
 
-void
-unset_buffer(
-	sge::opengl::context::object &, // NOLINT(google-runtime-references)
-	sge::renderer::vertex::buffer const &
-);
+void unset_buffer(
+    sge::opengl::context::object &, // NOLINT(google-runtime-references)
+    sge::renderer::vertex::buffer const &);
 
 }
 

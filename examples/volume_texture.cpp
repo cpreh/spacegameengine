@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/projection_matrix.hpp>
@@ -162,920 +161,392 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-using
-vf_pos
-=
-sge::renderer::vf::pos<
-	sge::renderer::scalar,
-	3
->;
+using vf_pos = sge::renderer::vf::pos<sge::renderer::scalar, 3>;
 
-using
-vf_texpos0
-=
-sge::renderer::vf::texpos<
-	sge::renderer::scalar,
-	3,
-	sge::renderer::vf::index<
-		0
-	>
->;
+using vf_texpos0 = sge::renderer::vf::texpos<sge::renderer::scalar, 3, sge::renderer::vf::index<0>>;
 
-using
-vf_texpos1
-=
-sge::renderer::vf::texpos<
-	sge::renderer::scalar,
-	3,
-	sge::renderer::vf::index<
-		1
-	>
->;
+using vf_texpos1 = sge::renderer::vf::texpos<sge::renderer::scalar, 3, sge::renderer::vf::index<1>>;
 
-using
-vf_part
-=
-sge::renderer::vf::part<
-	vf_pos,
-	vf_texpos0,
-	vf_texpos1
->;
+using vf_part = sge::renderer::vf::part<vf_pos, vf_texpos0, vf_texpos1>;
 
-using
-vf_format
-=
-sge::renderer::vf::format<
-	vf_part
->;
+using vf_format = sge::renderer::vf::format<vf_part>;
 
-using
-pos_vector
-=
-vf_pos::packed_type;
+using pos_vector = vf_pos::packed_type;
 
-using
-pos_array
-=
-fcppt::array::object<
-	pos_vector,
-	2 * 3 * 6 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
->;
+using pos_array = fcppt::array::object<
+    pos_vector,
+    2 * 3 * 6 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    >;
 
-void
-fill_geometry(
-	sge::renderer::vertex::buffer &_vertex_buffer // NOLINT(google-runtime-references)
-) // NOLINT(google-runtime-references)
+void fill_geometry(
+    sge::renderer::vertex::buffer &_vertex_buffer // NOLINT(google-runtime-references)
+    ) // NOLINT(google-runtime-references)
 {
-	pos_array const positions{
-		// bottom 1
-		pos_vector(
-			-1.F,-1.F,-1.F
-		),
-		pos_vector(
-			-1.F,-1.F,1.F
-		),
-		pos_vector(
-			1.F,-1.F,1.F
-		),
-		// bottom 2
-		pos_vector(
-			1.F,-1.F,1.F
-		),
-		pos_vector(
-			1.F,-1.F,-1.F
-		),
-		pos_vector(
-			-1.F,-1.F,-1.F
-		),
-		// top 1
-		pos_vector(
-			-1.F,1.F,-1.F
-		),
-		pos_vector(
-			1.F,1.F,-1.F
-		),
-		pos_vector(
-			1.F,1.F,1.F
-		),
-		// top 2
-		pos_vector(
-			1.F,1.F,1.F
-		),
-		pos_vector(
-			-1.F,1.F,1.F
-		),
-		pos_vector(
-			-1.F,1.F,-1.F
-		),
-		// left 1
-		pos_vector(
-			-1.F,-1.F,-1.F
-		),
-		pos_vector(
-			-1.F,1.F,-1.F
-		),
-		pos_vector(
-			-1.F,1.F,1.F
-		),
-		// left 2
-		pos_vector(
-			-1.F,1.F,1.F
-		),
-		pos_vector(
-			-1.F,-1.F,1.F
-		),
-		pos_vector(
-			-1.F,-1.F,-1.F
-		),
-		// right 1
-		pos_vector(
-			1.F,-1.F,-1.F
-		),
-		pos_vector(
-			1.F,-1.F,1.F
-		),
-		pos_vector(
-			1.F,1.F,1.F
-		),
-		// right 2
-		pos_vector(
-			1.F,1.F,1.F
-		),
-		pos_vector(
-			1.F,1.F,-1.F
-		),
-		pos_vector(
-			1.F,-1.F,-1.F
-		),
-		// front 1
-		pos_vector(
-			-1.F,-1.F,1.F
-		),
-		pos_vector(
-			-1.F,1.F,1.F
-		),
-		pos_vector(
-			1.F,1.F,1.F
-		),
-		// front 2
-		pos_vector(
-			1.F,1.F,1.F
-		),
-		pos_vector(
-			1.F,-1.F,1.F
-		),
-		pos_vector(
-			-1.F,-1.F,1.F
-		),
-		// back 1
-		pos_vector(
-			-1.F,-1.F,-1.F
-		),
-		pos_vector(
-			1.F,-1.F,-1.F
-		),
-		pos_vector(
-			1.F,1.F,-1.F
-		),
-		// back 2
-		pos_vector(
-			1.F,1.F,-1.F
-		),
-		pos_vector(
-			-1.F,1.F,-1.F
-		),
-		pos_vector(
-			-1.F,-1.F,-1.F
-		)
-	};
+  pos_array const positions{// bottom 1
+                            pos_vector(-1.F, -1.F, -1.F),
+                            pos_vector(-1.F, -1.F, 1.F),
+                            pos_vector(1.F, -1.F, 1.F),
+                            // bottom 2
+                            pos_vector(1.F, -1.F, 1.F),
+                            pos_vector(1.F, -1.F, -1.F),
+                            pos_vector(-1.F, -1.F, -1.F),
+                            // top 1
+                            pos_vector(-1.F, 1.F, -1.F),
+                            pos_vector(1.F, 1.F, -1.F),
+                            pos_vector(1.F, 1.F, 1.F),
+                            // top 2
+                            pos_vector(1.F, 1.F, 1.F),
+                            pos_vector(-1.F, 1.F, 1.F),
+                            pos_vector(-1.F, 1.F, -1.F),
+                            // left 1
+                            pos_vector(-1.F, -1.F, -1.F),
+                            pos_vector(-1.F, 1.F, -1.F),
+                            pos_vector(-1.F, 1.F, 1.F),
+                            // left 2
+                            pos_vector(-1.F, 1.F, 1.F),
+                            pos_vector(-1.F, -1.F, 1.F),
+                            pos_vector(-1.F, -1.F, -1.F),
+                            // right 1
+                            pos_vector(1.F, -1.F, -1.F),
+                            pos_vector(1.F, -1.F, 1.F),
+                            pos_vector(1.F, 1.F, 1.F),
+                            // right 2
+                            pos_vector(1.F, 1.F, 1.F),
+                            pos_vector(1.F, 1.F, -1.F),
+                            pos_vector(1.F, -1.F, -1.F),
+                            // front 1
+                            pos_vector(-1.F, -1.F, 1.F),
+                            pos_vector(-1.F, 1.F, 1.F),
+                            pos_vector(1.F, 1.F, 1.F),
+                            // front 2
+                            pos_vector(1.F, 1.F, 1.F),
+                            pos_vector(1.F, -1.F, 1.F),
+                            pos_vector(-1.F, -1.F, 1.F),
+                            // back 1
+                            pos_vector(-1.F, -1.F, -1.F),
+                            pos_vector(1.F, -1.F, -1.F),
+                            pos_vector(1.F, 1.F, -1.F),
+                            // back 2
+                            pos_vector(1.F, 1.F, -1.F),
+                            pos_vector(-1.F, 1.F, -1.F),
+                            pos_vector(-1.F, -1.F, -1.F)};
 
-	sge::renderer::vertex::scoped_lock const vb_lock(
-		fcppt::make_ref(
-			_vertex_buffer
-		),
-		sge::renderer::lock_mode::writeonly
-	);
+  sge::renderer::vertex::scoped_lock const vb_lock(
+      fcppt::make_ref(_vertex_buffer), sge::renderer::lock_mode::writeonly);
 
-	using
-	vf_view
-	=
-	sge::renderer::vf::view<
-		vf_part
-	>;
+  using vf_view = sge::renderer::vf::view<vf_part>;
 
-	vf_view const view(
-		vb_lock.value()
-	);
+  vf_view const view(vb_lock.value());
 
-	using
-	vf_iterator
-	=
-	vf_view::iterator;
+  using vf_iterator = vf_view::iterator;
 
-	vf_iterator vb_it(
-		view.begin()
-	);
+  vf_iterator vb_it(view.begin());
 
-	// TODO(philipp): Use vf::vertex?
-	for(
-		auto const &position
-		:
-		positions
-	)
-	{
-		sge::renderer::vf::set_proxy(
-			*vb_it,
-			sge::renderer::vf::labels::pos{},
-			position
-		);
+  // TODO(philipp): Use vf::vertex?
+  for (auto const &position : positions)
+  {
+    sge::renderer::vf::set_proxy(*vb_it, sge::renderer::vf::labels::pos{}, position);
 
-		pos_vector const texpos(
-			fcppt::math::vector::map(
-				position,
-				[](
-					sge::renderer::scalar const _value
-				)
-				{
-					return
-						static_cast<
-							sge::renderer::scalar
-						>(
-							(_value + 1.F) / 2.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-						);
-				}
-			)
-		);
+    pos_vector const texpos(fcppt::math::vector::map(
+        position,
+        [](sge::renderer::scalar const _value)
+        {
+          return static_cast<sge::renderer::scalar>(
+              (_value + 1.F) /
+              2.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          );
+        }));
 
-		sge::renderer::vf::set_proxy(
-			*vb_it,
-			sge::renderer::vf::labels::texpos<0>{},
-			texpos
-		);
+    sge::renderer::vf::set_proxy(*vb_it, sge::renderer::vf::labels::texpos<0>{}, texpos);
 
-		sge::renderer::vf::set_proxy(
-			*vb_it,
-			sge::renderer::vf::labels::texpos<1>{},
-			texpos
-		);
+    sge::renderer::vf::set_proxy(*vb_it, sge::renderer::vf::labels::texpos<1>{}, texpos);
 
-		++vb_it;
-	}
+    ++vb_it;
+  }
 }
 
 sge::renderer::texture::volume_unique_ptr
-create_noise_texture(
-	sge::renderer::device::core_ref const _device
-)
+create_noise_texture(sge::renderer::device::core_ref const _device)
 {
-	using
-	store_type
-	=
-	sge::image3d::store::l8;
+  using store_type = sge::image3d::store::l8;
 
-	using
-	view_type
-	=
-	store_type::view_type;
+  using view_type = store_type::view_type;
 
-	using
-	noise_type
-	=
-	sge::noise::simplex::object<
-		float,
-		3
-	>;
+  using noise_type = sge::noise::simplex::object<float, 3>;
 
-	using
-	param_type
-	=
-	sge::noise::sample_parameters<
-		noise_type
-	>;
+  using param_type = sge::noise::sample_parameters<noise_type>;
 
-	noise_type noise_generator(
-		sge::noise::simplex::width(
-			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		)
-	);
+  noise_type noise_generator(sge::noise::simplex::width(
+      128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      ));
 
-	auto const make_color(
-		[
-			&noise_generator
-		](
-			view_type::dim const _current_position
-		)
-		{
-			return
-				sge::image::color::l8(
-					sge::image::color::init::luminance()
-					=
-					static_cast<sge::image::channel8>(
-						256.0F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-						(0.5F + 0.5F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-						sge::noise::sample(
-							fcppt::make_ref(
-								noise_generator
-							),
-							param_type(
-								// TODO(philipp): Simplify this conversion
-								param_type::position_type(
-									noise_type::vector_type(
-										fcppt::cast::int_to_float<
-											noise_type::value_type
-										>(
-											_current_position.at_c<0>()
-										),
-										fcppt::cast::int_to_float<
-											noise_type::value_type
-										>(
-											_current_position.at_c<1>()
-										),
-										fcppt::cast::int_to_float<
-											noise_type::value_type
-										>(
-											_current_position.at_c<2>()
-										)
-									)
-								),
-								param_type::amplitude_type(
-									0.8F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-								),
-								param_type::frequency_type(
-									.005F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-								),
-								param_type::octaves_type(
-									6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-								)
-							)
-						))
-					)
-				);
-		}
-	);
+  auto const make_color(
+      [&noise_generator](view_type::dim const _current_position)
+      {
+        return sge::image::color::l8(
+            sge::image::color::init::luminance() = static_cast<sge::image::channel8>(
+                256.0F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                (0.5F +
+                 0.5F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                     sge::noise::sample(
+                         fcppt::make_ref(noise_generator),
+                         param_type(
+                             // TODO(philipp): Simplify this conversion
+                             param_type::position_type(noise_type::vector_type(
+                                 fcppt::cast::int_to_float<noise_type::value_type>(
+                                     _current_position.at_c<0>()),
+                                 fcppt::cast::int_to_float<noise_type::value_type>(
+                                     _current_position.at_c<1>()),
+                                 fcppt::cast::int_to_float<noise_type::value_type>(
+                                     _current_position.at_c<2>()))),
+                             param_type::amplitude_type(
+                                 0.8F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                                 ),
+                             param_type::frequency_type(
+                                 .005F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                                 ),
+                             param_type::octaves_type(
+                                 6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                                 ))))));
+      });
 
-	store_type const store{
-		store_type::dim(
-			128U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			128U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		),
-		store_type::init_function{
-			[
-				&make_color
-			](
-				view_type const &_view
-			)
-			{
-				mizuiro::image::algorithm::fill_indexed(
-					_view,
-					[
-						&make_color
-					](
-						view_type::dim const _current_position
-					)
-					{
-						return
-							make_color(
-								_current_position
-							);
-					},
-					mizuiro::image::algorithm::uninitialized::yes
-				);
-			}
-		}
-	};
+  store_type const store{
+      store_type::dim(
+          128U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          128U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      store_type::init_function{[&make_color](view_type const &_view)
+                                {
+                                  mizuiro::image::algorithm::fill_indexed(
+                                      _view,
+                                      [&make_color](view_type::dim const _current_position)
+                                      { return make_color(_current_position); },
+                                      mizuiro::image::algorithm::uninitialized::yes);
+                                }}};
 
-	return
-		sge::renderer::texture::create_volume_from_view(
-			_device,
-			sge::image3d::view::const_object(
-				store.const_wrapped_view()
-			),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb::no
-		);
+  return sge::renderer::texture::create_volume_from_view(
+      _device,
+      sge::image3d::view::const_object(store.const_wrapped_view()),
+      sge::renderer::texture::mipmap::off(),
+      sge::renderer::resource_flags_field::null(),
+      sge::renderer::texture::emulate_srgb::no);
 }
 
 }
 
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_window,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_input
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge volume texture example")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::d16,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field{
-					sge::systems::cursor_option::exclusive
-				}
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_window,
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_input> const
+      sys(sge::systems::make_list(
+          sge::systems::window(sge::systems::window_source(sge::systems::original_window(
+              sge::window::title(FCPPT_TEXT("sge volume texture example"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::d16,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::input(
+              sge::systems::cursor_option_field{sge::systems::cursor_option::exclusive})));
 
-	sge::renderer::texture::volume_unique_ptr const texture(
-		create_noise_texture(
-			fcppt::make_ref(
-				sys.renderer_device_core()
-			)
-		)
-	);
+  sge::renderer::texture::volume_unique_ptr const texture(
+      create_noise_texture(fcppt::make_ref(sys.renderer_device_core())));
 
-	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
-		sys.renderer_device_core().create_vertex_declaration(
-			sge::renderer::vertex::declaration_parameters(
-				sge::renderer::vf::dynamic::make_format<
-					vf_format
-				>()
-			)
-		)
-	);
+  sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
+      sys.renderer_device_core().create_vertex_declaration(
+          sge::renderer::vertex::declaration_parameters(
+              sge::renderer::vf::dynamic::make_format<vf_format>())));
 
-	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
-		sys.renderer_device_core().create_vertex_buffer(
-			sge::renderer::vertex::buffer_parameters(
-				fcppt::make_cref(
-					*vertex_declaration
-				),
-				sge::renderer::vf::dynamic::make_part_index<
-					vf_format,
-					vf_part
-				>(),
-				fcppt::strong_typedef_construct_cast<
-					sge::renderer::vertex::count,
-					fcppt::cast::static_cast_fun
-				>(
-					fcppt::array::size<
-						pos_array
-					>::value
-				),
-				sge::renderer::resource_flags_field::null()
-			)
-		)
-	);
+  sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
+      sys.renderer_device_core().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(
+          fcppt::make_cref(*vertex_declaration),
+          sge::renderer::vf::dynamic::make_part_index<vf_format, vf_part>(),
+          fcppt::strong_typedef_construct_cast<
+              sge::renderer::vertex::count,
+              fcppt::cast::static_cast_fun>(fcppt::array::size<pos_array>::value),
+          sge::renderer::resource_flags_field::null())));
 
-	::fill_geometry(
-		*vertex_buffer
-	);
+  ::fill_geometry(*vertex_buffer);
 
-	sge::camera::first_person::object camera(
-		sge::camera::first_person::parameters(
-			sge::camera::first_person::movement_speed(
-				4.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			),
-			sge::camera::coordinate_system::identity()
-		)
-	);
+  sge::camera::first_person::object camera(sge::camera::first_person::parameters(
+      sge::camera::first_person::movement_speed(
+          4.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      sge::camera::coordinate_system::identity()));
 
-	sge::camera::perspective_projection_from_viewport camera_viewport_connection(
-		fcppt::reference_to_base<
-			sge::camera::has_mutable_projection
-		>(
-			fcppt::make_ref(
-				camera
-			)
-		),
-		fcppt::make_ref(
-			sys.viewport_manager()
-		),
-		sge::renderer::projection::near(
-			0.1F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		),
-		sge::renderer::projection::far(
-			1000.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		),
-		sge::renderer::projection::fov(
-			fcppt::math::deg_to_rad(
-				90.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			)
-		)
-	);
+  sge::camera::perspective_projection_from_viewport camera_viewport_connection(
+      fcppt::reference_to_base<sge::camera::has_mutable_projection>(fcppt::make_ref(camera)),
+      fcppt::make_ref(sys.viewport_manager()),
+      sge::renderer::projection::near(
+          0.1F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      sge::renderer::projection::far(
+          1000.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      sge::renderer::projection::fov(fcppt::math::deg_to_rad(
+          90.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          )));
 
-	using
-	timer
-	=
-	sge::timer::basic<
-		sge::timer::clocks::standard
-	>;
+  using timer = sge::timer::basic<sge::timer::clocks::standard>;
 
-	timer frame_timer(
-		timer::parameters(
-			std::chrono::seconds(
-				1
-			)
-		)
-	);
+  timer frame_timer(timer::parameters(std::chrono::seconds(1)));
 
-	sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state(
-		sys.renderer_device_core().create_depth_stencil_state(
-			sge::renderer::state::core::depth_stencil::parameters(
-				sge::renderer::state::core::depth_stencil::depth::variant(
-					sge::renderer::state::core::depth_stencil::depth::enabled(
-						sge::renderer::state::core::depth_stencil::depth::func::less,
-						sge::renderer::state::core::depth_stencil::depth::write_enable(
-							true
-						)
-					)
-				),
-				sge::renderer::state::core::depth_stencil::stencil::variant(
-					sge::renderer::state::core::depth_stencil::stencil::off()
-				)
-			)
-		)
-	);
+  sge::renderer::state::core::depth_stencil::object_unique_ptr const depth_stencil_state(
+      sys.renderer_device_core().create_depth_stencil_state(
+          sge::renderer::state::core::depth_stencil::parameters(
+              sge::renderer::state::core::depth_stencil::depth::variant(
+                  sge::renderer::state::core::depth_stencil::depth::enabled(
+                      sge::renderer::state::core::depth_stencil::depth::func::less,
+                      sge::renderer::state::core::depth_stencil::depth::write_enable(true))),
+              sge::renderer::state::core::depth_stencil::stencil::variant(
+                  sge::renderer::state::core::depth_stencil::stencil::off()))));
 
-	sge::renderer::state::core::sampler::object_unique_ptr const sampler_state(
-		sys.renderer_device_core().create_sampler_state(
-			sge::renderer::state::core::sampler::parameters(
-				sge::renderer::state::core::sampler::address::mode_all(
-					sge::renderer::state::core::sampler::address::mode::clamp
-				),
-				sge::renderer::state::core::sampler::filter::default_()
-			)
-		)
-	);
+  sge::renderer::state::core::sampler::object_unique_ptr const sampler_state(
+      sys.renderer_device_core().create_sampler_state(
+          sge::renderer::state::core::sampler::parameters(
+              sge::renderer::state::core::sampler::address::mode_all(
+                  sge::renderer::state::core::sampler::address::mode::clamp),
+              sge::renderer::state::core::sampler::filter::default_())));
 
-	sge::renderer::state::core::sampler::const_object_ref_map const samplers{
-		sge::renderer::state::core::sampler::const_object_ref_map::value_type{
-			sge::renderer::texture::stage(
-				0U
-			),
-			fcppt::make_cref(
-				*sampler_state
-			)
-		},
-		sge::renderer::state::core::sampler::const_object_ref_map::value_type{
-			sge::renderer::texture::stage(
-				1U
-			),
-			fcppt::make_cref(
-				*sampler_state
-			)
-		}
-	};
+  sge::renderer::state::core::sampler::const_object_ref_map const samplers{
+      sge::renderer::state::core::sampler::const_object_ref_map::value_type{
+          sge::renderer::texture::stage(0U), fcppt::make_cref(*sampler_state)},
+      sge::renderer::state::core::sampler::const_object_ref_map::value_type{
+          sge::renderer::texture::stage(1U), fcppt::make_cref(*sampler_state)}};
 
+  auto const draw_camera(
+      [&sys,
+       &vertex_declaration,
+       &texture,
+       &vertex_buffer,
+       &depth_stencil_state,
+       &samplers,
+       &camera](
+          sge::renderer::context::ffp &_context,
+          sge::camera::projection_matrix const &_projection_matrix)
+      {
+        sge::renderer::vertex::scoped_declaration const scoped_vd(
+            fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+            fcppt::make_cref(*vertex_declaration));
 
-	auto const draw_camera(
-		[
-			&sys,
-			&vertex_declaration,
-			&texture,
-			&vertex_buffer,
-			&depth_stencil_state,
-			&samplers,
-			&camera
-		](
-			sge::renderer::context::ffp &_context,
-			sge::camera::projection_matrix const &_projection_matrix
-		)
-		{
-			sge::renderer::vertex::scoped_declaration const scoped_vd(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						_context
-					)
-				),
-				fcppt::make_cref(
-					*vertex_declaration
-				)
-			);
+        sge::renderer::vertex::scoped_buffer const scoped_vb(
+            fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+            fcppt::make_cref(*vertex_buffer));
 
-			sge::renderer::vertex::scoped_buffer const scoped_vb(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						_context
-					)
-				),
-				fcppt::make_cref(
-					*vertex_buffer
-				)
-			);
+        sge::renderer::texture::scoped const scoped_texture1(
+            fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+            fcppt::reference_to_base<sge::renderer::texture::base const>(
+                fcppt::make_cref(*texture)),
+            sge::renderer::texture::stage(0U));
 
-			sge::renderer::texture::scoped const scoped_texture1(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						_context
-					)
-				),
-				fcppt::reference_to_base<
-					sge::renderer::texture::base const
-				>(
-					fcppt::make_cref(
-						*texture
-					)
-				),
-				sge::renderer::texture::stage(
-					0U
-				)
-			);
+        sge::renderer::texture::scoped const scoped_texture2(
+            fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+            fcppt::reference_to_base<sge::renderer::texture::base const>(
+                fcppt::make_cref(*texture)),
+            sge::renderer::texture::stage(1U));
 
-			sge::renderer::texture::scoped const scoped_texture2(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						_context
-					)
-				),
-				fcppt::reference_to_base<
-					sge::renderer::texture::base const
-				>(
-					fcppt::make_cref(
-						*texture
-					)
-				),
-				sge::renderer::texture::stage(
-					1U
-				)
-			);
+        sge::renderer::state::core::depth_stencil::scoped const scoped_depth_stencil(
+            fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+            fcppt::make_cref(*depth_stencil_state));
 
-			sge::renderer::state::core::depth_stencil::scoped const scoped_depth_stencil(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						_context
-					)
-				),
-				fcppt::make_cref(
-					*depth_stencil_state
-				)
-			);
+        sge::renderer::state::core::sampler::scoped const scoped_sampler(
+            fcppt::reference_to_base<sge::renderer::context::core>(fcppt::make_ref(_context)),
+            samplers);
 
-			sge::renderer::state::core::sampler::scoped const scoped_sampler(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						_context
-					)
-				),
-				samplers
-			);
+        sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
+            sys.renderer_device_ffp().create_transform_state(
+                sge::renderer::state::ffp::transform::parameters(_projection_matrix.get())));
 
-			sge::renderer::state::ffp::transform::object_unique_ptr const projection_state(
-				sys.renderer_device_ffp().create_transform_state(
-					sge::renderer::state::ffp::transform::parameters(
-						_projection_matrix.get()
-					)
-				)
-			);
+        sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
+            sys.renderer_device_ffp().create_transform_state(
+                sge::renderer::state::ffp::transform::parameters(
+                    sge::camera::matrix_conversion::world(camera.coordinate_system()))));
 
-			sge::renderer::state::ffp::transform::object_unique_ptr const world_state(
-				sys.renderer_device_ffp().create_transform_state(
-					sge::renderer::state::ffp::transform::parameters(
-						sge::camera::matrix_conversion::world(
-							camera.coordinate_system()
-						)
-					)
-				)
-			);
+        sge::renderer::state::ffp::transform::scoped const projection_transform(
+            fcppt::make_ref(_context),
+            sge::renderer::state::ffp::transform::mode::projection,
+            fcppt::make_cref(*projection_state));
 
-			sge::renderer::state::ffp::transform::scoped const projection_transform(
-				fcppt::make_ref(
-					_context
-				),
-				sge::renderer::state::ffp::transform::mode::projection,
-				fcppt::make_cref(
-					*projection_state
-				)
-			);
+        sge::renderer::state::ffp::transform::scoped const world_transform(
+            fcppt::make_ref(_context),
+            sge::renderer::state::ffp::transform::mode::world,
+            fcppt::make_cref(*world_state));
 
-			sge::renderer::state::ffp::transform::scoped const world_transform(
-				fcppt::make_ref(
-					_context
-				),
-				sge::renderer::state::ffp::transform::mode::world,
-				fcppt::make_cref(
-					*world_state
-				)
-			);
+        _context.render_nonindexed(
+            sge::renderer::vertex::first(0U),
+            sge::renderer::vertex::count(vertex_buffer->linear_size()),
+            sge::renderer::primitive_type::triangle_list);
+      });
 
-			_context.render_nonindexed(
-				sge::renderer::vertex::first(
-					0U
-				),
-				sge::renderer::vertex::count(
-					vertex_buffer->linear_size()
-				),
-				sge::renderer::primitive_type::triangle_list
-			);
-		}
-	);
+  auto const draw(
+      [&draw_camera, &camera, &frame_timer, &sys](sge::renderer::event::render const &)
+      {
+        camera.update(std::chrono::duration_cast<sge::camera::update_duration>(
+            sge::timer::elapsed_and_reset(frame_timer)));
 
-	auto const draw(
-		[
-			&draw_camera,
-			&camera,
-			&frame_timer,
-			&sys
-		](
-			sge::renderer::event::render const &
-		)
-		{
-			camera.update(
-				std::chrono::duration_cast<
-					sge::camera::update_duration
-				>(
-					sge::timer::elapsed_and_reset(
-						frame_timer
-					)
-				)
-			);
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+        scoped_block.get().clear(
+            sge::renderer::clear::parameters()
+                .back_buffer(sge::image::color::any::object{sge::image::color::predef::black()})
+                .depth_buffer(1.F));
 
-			scoped_block.get().clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-				.depth_buffer(
-					1.F
-				)
-			);
+        fcppt::optional::maybe_void(
+            camera.projection_matrix(),
+            [&draw_camera, &scoped_block](sge::camera::projection_matrix const &_projection)
+            { draw_camera(scoped_block.get(), _projection); });
+      });
 
-			fcppt::optional::maybe_void(
-				camera.projection_matrix(),
-				[
-					&draw_camera,
-					&scoped_block
-				](
-					sge::camera::projection_matrix const &_projection
-				)
-				{
-					draw_camera(
-						scoped_block.get(),
-						_projection
-					);
-				}
-			);
-		}
-	);
+  auto const process_event(
+      [&sys, &draw, &camera](awl::event::base const &_event)
+      {
+        sge::systems::quit_on_escape(sys, _event);
 
-	auto const process_event(
-		[
-			&sys,
-			&draw,
-			&camera
-		](
-			awl::event::base const &_event
-		)
-		{
-			sge::systems::quit_on_escape(
-				sys,
-				_event
-			);
+        fcppt::optional::maybe_void(
+            fcppt::variant::dynamic_cast_<
+                fcppt::mpl::list::
+                    object<sge::renderer::event::render const, sge::input::event_base const>,
+                fcppt::cast::dynamic_fun>(_event),
+            [&draw, &camera](auto const &_variant)
+            {
+              fcppt::variant::match(
+                  _variant,
+                  [&draw](fcppt::reference<sge::renderer::event::render const> const _render_event)
+                  { draw(_render_event.get()); },
+                  [&camera](fcppt::reference<sge::input::event_base const> const _input_event)
+                  { camera.process_event(_input_event.get()); });
+            });
+      });
 
-			fcppt::optional::maybe_void(
-				fcppt::variant::dynamic_cast_<
-					fcppt::mpl::list::object<
-						sge::renderer::event::render const,
-						sge::input::event_base const
-					>,
-					fcppt::cast::dynamic_fun
-				>(
-					_event
-				),
-				[
-					&draw,
-					&camera
-				](
-					auto const &_variant
-				)
-				{
-					fcppt::variant::match(
-						_variant,
-						[
-							&draw
-						](
-							fcppt::reference<
-								sge::renderer::event::render const
-							> const _render_event
-						)
-						{
-							draw(
-								_render_event.get()
-							);
-						},
-						[
-							&camera
-						](
-							fcppt::reference<
-								sge::input::event_base const
-							> const _input_event
-						)
-						{
-							camera.process_event(
-								_input_event.get()
-							);
-						}
-					);
-				}
-			);
-		}
-	);
-
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&process_event
-				](
-					awl::event::base const &_event
-				)
-				{
-					process_event(
-						_event
-					);
-				}
-			}
-		);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{[&process_event](awl::event::base const &_event)
+                                 { process_event(_event); }});
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	fcppt::io::cerr()
-		<<
-		_error.string()
-		<<
-		FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	std::cerr
-		<<
-		_error.what()
-		<<
-		'\n';
+  std::cerr << _error.what() << '\n';
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_TRAITS_VIEW_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_TRAITS_VIEW_FWD_HPP_INCLUDED
 
@@ -11,19 +10,13 @@
 #include <sge/renderer/vertex/tag.hpp>
 #include <sge/renderer/vf/dynamic/view_fwd.hpp>
 
-
 namespace sge::renderer::buffer::traits
 {
 
-template<>
-struct view_tpl<
-	sge::renderer::vertex::tag
->
+template <>
+struct view_tpl<sge::renderer::vertex::tag>
 {
-	using
-	type
-	=
-	sge::renderer::vf::dynamic::view;
+  using type = sge::renderer::vf::dynamic::view;
 };
 
 }

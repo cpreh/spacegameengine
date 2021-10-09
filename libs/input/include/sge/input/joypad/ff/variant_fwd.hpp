@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_FF_VARIANT_FWD_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_VARIANT_FWD_HPP_INCLUDED
 
@@ -13,19 +12,14 @@
 #include <sge/input/joypad/ff/ramp_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
-
 namespace sge::input::joypad::ff
 {
 
-using
-variant
-=
-fcppt::variant::object<
-	sge::input::joypad::ff::constant,
-	sge::input::joypad::ff::ramp,
-	sge::input::joypad::ff::periodic,
-	sge::input::joypad::ff::condition
->;
+using variant = fcppt::variant::object<
+    sge::input::joypad::ff::constant,
+    sge::input::joypad::ff::ramp,
+    sge::input::joypad::ff::periodic,
+    sge::input::joypad::ff::condition>;
 
 }
 

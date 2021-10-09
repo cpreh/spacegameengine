@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_FOG_VARIANT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_FOG_VARIANT_FWD_HPP_INCLUDED
 
@@ -11,17 +10,11 @@
 #include <sge/renderer/state/ffp/fog/off_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
-
 namespace sge::renderer::state::ffp::fog
 {
 
-using
-variant
-=
-fcppt::variant::object<
-	sge::renderer::state::ffp::fog::off,
-	sge::renderer::state::ffp::fog::enabled
->;
+using variant = fcppt::variant::
+    object<sge::renderer::state::ffp::fog::off, sge::renderer::state::ffp::fog::enabled>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CHARCONV_FCPPT_STRING_TO_UTF8_FILE_HPP_INCLUDED
 #define SGE_CHARCONV_FCPPT_STRING_TO_UTF8_FILE_HPP_INCLUDED
 
@@ -13,17 +12,11 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::charconv
 {
 
-[[nodiscard]]
-SGE_CHARCONV_DETAIL_SYMBOL
-bool
-fcppt_string_to_utf8_file(
-	fcppt::string const &,
-	std::filesystem::path const &
-);
+[[nodiscard]] SGE_CHARCONV_DETAIL_SYMBOL bool
+fcppt_string_to_utf8_file(fcppt::string const &, std::filesystem::path const &);
 
 }
 

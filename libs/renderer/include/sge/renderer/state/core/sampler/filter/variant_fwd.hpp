@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_VARIANT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_VARIANT_FWD_HPP_INCLUDED
 
@@ -11,17 +10,12 @@
 #include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
-
 namespace sge::renderer::state::core::sampler::filter
 {
 
-using
-variant
-=
-fcppt::variant::object<
-	sge::renderer::state::core::sampler::filter::anisotropic::parameters,
-	sge::renderer::state::core::sampler::filter::normal::parameters
->;
+using variant = fcppt::variant::object<
+    sge::renderer::state::core::sampler::filter::anisotropic::parameters,
+    sge::renderer::state::core::sampler::filter::normal::parameters>;
 
 }
 

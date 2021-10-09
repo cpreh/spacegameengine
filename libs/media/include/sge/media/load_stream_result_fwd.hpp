@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_LOAD_STREAM_RESULT_FWD_HPP_INCLUDED
 #define SGE_MEDIA_LOAD_STREAM_RESULT_FWD_HPP_INCLUDED
 
@@ -11,22 +10,12 @@
 #include <fcppt/unique_ptr_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
-
 namespace sge::media
 {
 
-template<
-	typename File
->
-using
-load_stream_result
-=
-fcppt::variant::object<
-	sge::media::stream_unique_ptr,
-	fcppt::unique_ptr<
-		File
-	>
->;
+template <typename File>
+using load_stream_result =
+    fcppt::variant::object<sge::media::stream_unique_ptr, fcppt::unique_ptr<File>>;
 
 }
 

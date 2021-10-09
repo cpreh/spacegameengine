@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_DEVICE_FUNCS_ACQUIRE_HPP_INCLUDED
 #define SGE_DINPUT_DEVICE_FUNCS_ACQUIRE_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
-
 
 namespace sge
 {
@@ -19,11 +17,7 @@ namespace device
 namespace funcs
 {
 
-[[nodiscard]]
-bool
-acquire(
-	IDirectInputDevice8 &
-);
+[[nodiscard]] bool acquire(IDirectInputDevice8 &);
 
 }
 }

@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_KEYBOARD_MAKE_INFO_HPP_INCLUDED
 #define SGE_DINPUT_KEYBOARD_MAKE_INFO_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/keyboard/info_fwd.hpp>
-
 
 namespace sge
 {
@@ -18,10 +16,7 @@ namespace dinput
 namespace keyboard
 {
 
-sge::dinput::keyboard::info
-make_info(
-	IDirectInputDevice8 &
-);
+sge::dinput::keyboard::info make_info(IDirectInputDevice8 &);
 
 }
 }

@@ -3,23 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_GUID_TO_STRING_HPP_INCLUDED
 #define SGE_DINPUT_GUID_TO_STRING_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge
 {
 namespace dinput
 {
 
-fcppt::string
-guid_to_string(
-	GUID const &
-);
+fcppt::string guid_to_string(GUID const &);
 
 }
 }

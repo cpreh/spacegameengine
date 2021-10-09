@@ -3,34 +3,24 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/dest.hpp>
 #include <sge/renderer/state/core/blend/source.hpp>
 
-
 sge::renderer::state::core::blend::combined::combined(
-	sge::renderer::state::core::blend::source const _source,
-	sge::renderer::state::core::blend::dest const _dest
-)
-:
-	source_(
-		_source
-	),
-	dest_(
-		_dest
-	)
+    sge::renderer::state::core::blend::source const _source,
+    sge::renderer::state::core::blend::dest const _dest)
+    : source_(_source), dest_(_dest)
 {
 }
 
 sge::renderer::state::core::blend::source
 sge::renderer::state::core::blend::combined::source() const
 {
-	return source_;
+  return source_;
 }
 
-sge::renderer::state::core::blend::dest
-sge::renderer::state::core::blend::combined::dest() const
+sge::renderer::state::core::blend::dest sge::renderer::state::core::blend::combined::dest() const
 {
-	return dest_;
+  return dest_;
 }

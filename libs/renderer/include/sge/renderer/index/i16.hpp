@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_I16_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_I16_HPP_INCLUDED
 
@@ -11,14 +10,10 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::index
 {
 
-using
-i16
-=
-std::uint16_t;
+using i16 = std::uint16_t;
 
 }
 

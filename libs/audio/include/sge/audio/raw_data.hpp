@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_RAW_DATA_HPP_INCLUDED
 #define SGE_AUDIO_RAW_DATA_HPP_INCLUDED
-
 
 namespace sge::audio
 {
 
-using
-raw_data
-=
-unsigned char;
+using raw_data = unsigned char;
 
 }
 

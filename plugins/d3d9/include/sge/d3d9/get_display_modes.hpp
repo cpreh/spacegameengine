@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_GET_DISPLAY_MODES_HPP_INCLUDED
 #define SGE_D3D9_GET_DISPLAY_MODES_HPP_INCLUDED
 
@@ -11,18 +10,13 @@
 #include <sge/d3d9/device_index.hpp>
 #include <sge/renderer/display_mode/container.hpp>
 
-
 namespace sge
 {
 namespace d3d9
 {
 
 sge::renderer::display_mode::container
-get_display_modes(
-	IDirect3D9 &,
-	sge::d3d9::device_index,
-	D3DFORMAT
-);
+get_display_modes(IDirect3D9 &, sge::d3d9::device_index, D3DFORMAT);
 
 }
 }

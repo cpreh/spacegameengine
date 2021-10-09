@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/plugin/capabilities.hpp>
@@ -34,98 +33,41 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::plugin::manager::manager(
-	fcppt::log::context_reference const _log_context,
-	std::filesystem::path const &_path,
-	sge::plugin::optional_cache_ref const &_cache
-)
-:
-	log_{
-		_log_context,
-		sge::log::location(),
-		sge::log::default_parameters(
-			sge::plugin::impl::log_name()
-		)
-	},
-	plugins_(
-		[
-			this,
-			&_path,
-			&_cache
-		]{
-			FCPPT_LOG_DEBUG(
-				this->log_,
-				fcppt::log::out
-					<<
-					FCPPT_TEXT("Scanning for plugins in ")
-					<<
-					fcppt::filesystem::path_to_string(
-						_path
-					)
-			)
+    fcppt::log::context_reference const _log_context,
+    std::filesystem::path const &_path,
+    sge::plugin::optional_cache_ref const &_cache)
+    : log_{_log_context, sge::log::location(), sge::log::default_parameters(sge::plugin::impl::log_name())},
+      plugins_(
+          [this, &_path, &_cache]
+          {
+            FCPPT_LOG_DEBUG(
+                this->log_,
+                fcppt::log::out << FCPPT_TEXT("Scanning for plugins in ")
+                                << fcppt::filesystem::path_to_string(_path))
 
-			return
-				sge::plugin::impl::load_plugins(
-					this->log_,
-					_path,
-					_cache
-				);
-		}()
-	),
-	categories_(
-		fcppt::enum_::array_init<
-			sge::plugin::manager::plugin_map
-		>(
-			[
-				this
-			](
-				sge::plugin::capabilities const _capability
-			)
-			{
-				return
-					fcppt::algorithm::map_optional<
-						sge::plugin::category_array
-					>(
-						plugins_,
-						[
-							_capability
-						](
-							sge::plugin::context_base_unique_ptr const &_context
-						)
-						{
-							using
-							optional_result
-							=
-							fcppt::optional::object<
-								sge::plugin::context_base_ref
-							>;
+            return sge::plugin::impl::load_plugins(this->log_, _path, _cache);
+          }()),
+      categories_(fcppt::enum_::array_init<sge::plugin::manager::plugin_map>(
+          [this](sge::plugin::capabilities const _capability)
+          {
+            return fcppt::algorithm::map_optional<sge::plugin::category_array>(
+                plugins_,
+                [_capability](sge::plugin::context_base_unique_ptr const &_context)
+                {
+                  using optional_result = fcppt::optional::object<sge::plugin::context_base_ref>;
 
-							return
-								_context->info().capabilities()
-								&
-								_capability
-								?
-									optional_result(
-										fcppt::make_ref(
-											*_context
-										)
-									)
-								:
-									optional_result()
-								;
-						}
-					);
-			}
-		)
-	)
+                  return _context->info().capabilities() & _capability
+                             ? optional_result(fcppt::make_ref(*_context))
+                             : optional_result();
+                });
+          }))
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::plugin::manager::~manager()
-= default;
+sge::plugin::manager::~manager() = default;

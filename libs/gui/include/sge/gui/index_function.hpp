@@ -3,22 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_INDEX_FUNCTION_HPP_INCLUDED
 #define SGE_GUI_INDEX_FUNCTION_HPP_INCLUDED
 
 #include <sge/gui/index_fwd.hpp>
 
-
 namespace sge::gui
 {
 
-using
-index_function
-=
-void (
-	sge::gui::index
-);
+using index_function = void(sge::gui::index);
 
 }
 

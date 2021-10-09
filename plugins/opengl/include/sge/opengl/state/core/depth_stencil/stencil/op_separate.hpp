@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_OP_SEPARATE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_OP_SEPARATE_HPP_INCLUDED
 
@@ -14,18 +13,15 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>
 
-
 namespace sge::opengl::state::core::depth_stencil::stencil
 {
 
-sge::opengl::state::actor
-op_separate(
-	sge::opengl::state::core::depth_stencil::stencil::config const &,
-	GLenum side,
-	sge::renderer::state::core::depth_stencil::stencil::fail_op,
-	sge::renderer::state::core::depth_stencil::stencil::depth_fail_op,
-	sge::renderer::state::core::depth_stencil::stencil::pass_op
-);
+sge::opengl::state::actor op_separate(
+    sge::opengl::state::core::depth_stencil::stencil::config const &,
+    GLenum side,
+    sge::renderer::state::core::depth_stencil::stencil::fail_op,
+    sge::renderer::state::core::depth_stencil::stencil::depth_fail_op,
+    sge::renderer::state::core::depth_stencil::stencil::pass_op);
 
 }
 

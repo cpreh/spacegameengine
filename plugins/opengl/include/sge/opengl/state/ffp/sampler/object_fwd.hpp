@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_FFP_SAMPLER_OBJECT_FWD_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_SAMPLER_OBJECT_FWD_HPP_INCLUDED
 
@@ -11,17 +10,11 @@
 #include <sge/opengl/texture/active_level_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/object_fwd.hpp>
 
-
 namespace sge::opengl::state::ffp::sampler
 {
 
-using
-object
-=
-sge::opengl::state::unary_object<
-	sge::renderer::state::ffp::sampler::object,
-	sge::opengl::texture::active_level
->;
+using object = sge::opengl::state::
+    unary_object<sge::renderer::state::ffp::sampler::object, sge::opengl::texture::active_level>;
 
 }
 

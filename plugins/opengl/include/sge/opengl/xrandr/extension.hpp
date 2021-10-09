@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_XRANDR_EXTENSION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_EXTENSION_HPP_INCLUDED
 
@@ -11,28 +10,20 @@
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
 namespace sge::opengl::xrandr
 {
 
 class extension
 {
 public:
-	FCPPT_DECLARE_STRONG_TYPEDEF(
-		int,
-		event_base_type
-	);
+  FCPPT_DECLARE_STRONG_TYPEDEF(int, event_base_type);
 
-	explicit
-	extension(
-		event_base_type
-	);
+  explicit extension(event_base_type);
 
-	[[nodiscard]]
-	event_base_type
-	event_base() const;
+  [[nodiscard]] event_base_type event_base() const;
+
 private:
-	event_base_type event_base_;
+  event_base_type event_base_;
 };
 
 }

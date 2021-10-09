@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/window/dim.hpp>
 #include <sge/window/event_combiner.hpp>
 #include <sge/window/event_function.hpp>
@@ -30,116 +29,49 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::window::object::object(
-	sge::window::system_ref const _system,
-	awl::window::reference const _awl_window
-)
-:
-	system_{
-		_system
-	},
-	awl_object_{
-		_awl_window
-	},
-	event_signal_{
-		event_signal::combiner_function{
-			&sge::window::event_combiner
-		}
-	},
-	connection_{
-		this->system().event_handler(
-			sge::window::system_event_function{
-				[
-					this
-				](
-					awl::event::base const &_event
-				)
-				{
-					return
-						fcppt::optional::maybe(
-							fcppt::cast::dynamic<
-								awl::window::event::base const
-							>(
-								_event
-							),
-							[]{
-								return
-									awl::event::container{};
-							},
-							[
-								this
-							](
-								fcppt::reference<
-									awl::window::event::base const
-								> const _ref
-							)
-							{
-								return
-									this->event_signal_(
-										event_signal::initial_value{
-											awl::event::container{}
-										},
-										_ref.get()
-									);
-							}
-						);
-				}
-			}
-		)
-	}
+    sge::window::system_ref const _system, awl::window::reference const _awl_window)
+    : system_{_system},
+      awl_object_{_awl_window},
+      event_signal_{event_signal::combiner_function{&sge::window::event_combiner}},
+      connection_{this->system().event_handler(sge::window::system_event_function{
+          [this](awl::event::base const &_event)
+          {
+            return fcppt::optional::maybe(
+                fcppt::cast::dynamic<awl::window::event::base const>(_event),
+                [] { return awl::event::container{}; },
+                [this](fcppt::reference<awl::window::event::base const> const _ref) {
+                  return this->event_signal_(
+                      event_signal::initial_value{awl::event::container{}}, _ref.get());
+                });
+          }})}
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::window::object::~object()
-= default;
+sge::window::object::~object() = default;
 
-sge::window::dim
-sge::window::object::size() const
+sge::window::dim sge::window::object::size() const
 {
-	return
-		fcppt::math::dim::structure_cast<
-			sge::window::dim,
-			fcppt::cast::size_fun
-		>(
-			this->awl_object().size()
-		);
+  return fcppt::math::dim::structure_cast<sge::window::dim, fcppt::cast::size_fun>(
+      this->awl_object().size());
 }
 
-void
-sge::window::object::show() // NOLINT(readability-make-member-function-const)
+void sge::window::object::show() // NOLINT(readability-make-member-function-const)
 {
-	this->awl_object().show();
+  this->awl_object().show();
 }
 
-awl::window::object &
-sge::window::object::awl_object() const
-{
-	return
-		this->awl_object_.get();
-}
+awl::window::object &sge::window::object::awl_object() const { return this->awl_object_.get(); }
 
 fcppt::signal::auto_connection
-sge::window::object::event_handler(
-	sge::window::event_function _function
-)
+sge::window::object::event_handler(sge::window::event_function _function)
 {
-	return
-		this->event_signal_.connect(
-			std::move(
-				_function
-			)
-		);
+  return this->event_signal_.connect(std::move(_function));
 }
 
-sge::window::system &
-sge::window::object::system() const
-{
-	return
-		this->system_.get();
-}
+sge::window::system &sge::window::object::system() const { return this->system_.get(); }

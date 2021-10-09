@@ -3,24 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_VIEW_DECLARE_SUB_OUT_OF_RANGE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_DECLARE_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
 #include <sge/image/view/sub_out_of_range.hpp>
 
-
-#define SGE_IMAGE_VIEW_DECLARE_SUB_OUT_OF_RANGE(\
-	tag \
-)\
-extern \
-template \
-class \
-SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
-sge::image::view::sub_out_of_range<\
-	tag \
->
-
+#define SGE_IMAGE_VIEW_DECLARE_SUB_OUT_OF_RANGE(tag) \
+  extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \
+      sge::image::view::sub_out_of_range<tag>
 
 #endif

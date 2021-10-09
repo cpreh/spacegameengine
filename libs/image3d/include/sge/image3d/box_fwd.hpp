@@ -3,22 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE3D_BOX_FWD_HPP_INCLUDED
 #define SGE_IMAGE3D_BOX_FWD_HPP_INCLUDED
 
 #include <sge/image/basic_box_fwd.hpp>
 
-
 namespace sge::image3d
 {
 
-using
-box
-=
-sge::image::basic_box<
-	3
->;
+using box = sge::image::basic_box<3>;
 
 }
 

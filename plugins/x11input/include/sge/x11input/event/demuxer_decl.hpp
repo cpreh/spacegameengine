@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_EVENT_DEMUXER_DECL_HPP_INCLUDED
 #define SGE_X11INPUT_EVENT_DEMUXER_DECL_HPP_INCLUDED
 
@@ -22,76 +21,37 @@
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::event
 {
 
-template<
-	typename Event
->
+template <typename Event>
 class demuxer
 {
-	FCPPT_NONMOVABLE(
-		demuxer
-	);
+  FCPPT_NONMOVABLE(demuxer);
+
 public:
-	using
-	function_type
-	=
-	awl::event::container (
-		Event const &
-	);
+  using function_type = awl::event::container(Event const &);
 
-	using
-	function
-	=
-	fcppt::function<
-		function_type
-	>;
+  using function = fcppt::function<function_type>;
 
-	explicit
-	demuxer(
-		awl::backends::x11::window::const_base_ref
-	);
+  explicit demuxer(awl::backends::x11::window::const_base_ref);
 
-	~demuxer();
+  ~demuxer();
 
-	[[nodiscard]]
-	awl::backends::x11::window::base const &
-	window() const;
+  [[nodiscard]] awl::backends::x11::window::base const &window() const;
 
-	[[nodiscard]]
-	fcppt::signal::auto_connection
-	on_event(
-		sge::x11input::device::id,
-		function
-	);
+  [[nodiscard]] fcppt::signal::auto_connection on_event(sge::x11input::device::id, function);
 
-	[[nodiscard]]
-	awl::event::container
-	call(
-		Event const &
-	);
+  [[nodiscard]] awl::event::container call(Event const &);
+
 private:
-	awl::backends::x11::window::const_base_ref const window_;
+  awl::backends::x11::window::const_base_ref const window_;
 
-	using
-	signal_type
-	=
-	fcppt::signal::object<
-		function_type,
-		fcppt::signal::unregister::base
-	>;
+  using signal_type = fcppt::signal::object<function_type, fcppt::signal::unregister::base>;
 
-	using
-	signal_map
-	=
-	std::unordered_map<
-		sge::x11input::device::id,
-		signal_type
-	>;
+  using signal_map = std::unordered_map<sge::x11input::device::id, signal_type>;
 
-	signal_map signals_;
+  signal_map signals_;
 };
 
 }

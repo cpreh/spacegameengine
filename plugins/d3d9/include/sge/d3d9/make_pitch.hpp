@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_MAKE_PITCH_HPP_INCLUDED
 #define SGE_D3D9_MAKE_PITCH_HPP_INCLUDED
 
@@ -20,18 +19,10 @@ namespace d3d9
 {
 
 sge::image2d::pitch const
-make_pitch(
-	D3DLOCKED_RECT const &,
-	sge::image2d::dim const &,
-	sge::image::color::format
-);
+make_pitch(D3DLOCKED_RECT const &, sge::image2d::dim const &, sge::image::color::format);
 
 sge::image3d::pitch const
-make_pitch(
-	D3DLOCKED_BOX const &,
-	sge::image3d::dim const &,
-	sge::image::color::format
-);
+make_pitch(D3DLOCKED_BOX const &, sge::image3d::dim const &, sge::image::color::format);
 
 }
 }

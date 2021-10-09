@@ -3,16 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/state/unary_object_impl.hpp>
 #include <sge/opengl/state/core/sampler/object.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/renderer/state/core/sampler/object.hpp>
 
-
-template
-class
-sge::opengl::state::unary_object<
-	sge::renderer::state::core::sampler::object,
-	sge::opengl::texture::binding
->;
+template class sge::opengl::state::
+    unary_object<sge::renderer::state::core::sampler::object, sge::opengl::texture::binding>;

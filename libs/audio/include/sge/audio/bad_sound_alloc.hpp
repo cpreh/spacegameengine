@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_BAD_SOUND_ALLOC_HPP_INCLUDED
 #define SGE_AUDIO_BAD_SOUND_ALLOC_HPP_INCLUDED
 
@@ -11,7 +10,6 @@
 #include <sge/audio/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/string.hpp>
-
 
 namespace sge::audio
 {
@@ -22,45 +20,27 @@ namespace sge::audio
  * enough resources for a sound. This happens, for example, when OpenAL cannot
  * create another sound source (because the internal limit is reached).
  */
-class SGE_CORE_DETAIL_CLASS_SYMBOL bad_sound_alloc
-:
-	public sge::audio::exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL bad_sound_alloc : public sge::audio::exception
 {
 public:
-	/// Initialize exception with an error string
-	SGE_AUDIO_DETAIL_SYMBOL
-	explicit
-	bad_sound_alloc(
-		fcppt::string &&
-	);
+  /// Initialize exception with an error string
+  SGE_AUDIO_DETAIL_SYMBOL
+  explicit bad_sound_alloc(fcppt::string &&);
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	bad_sound_alloc(
-		bad_sound_alloc &&
-	)
-	noexcept;
+  SGE_AUDIO_DETAIL_SYMBOL
+  bad_sound_alloc(bad_sound_alloc &&) noexcept;
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	bad_sound_alloc(
-		bad_sound_alloc const &
-	);
+  SGE_AUDIO_DETAIL_SYMBOL
+  bad_sound_alloc(bad_sound_alloc const &);
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	bad_sound_alloc &
-	operator=(
-		bad_sound_alloc &&
-	)
-	noexcept;
+  SGE_AUDIO_DETAIL_SYMBOL
+  bad_sound_alloc &operator=(bad_sound_alloc &&) noexcept;
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	bad_sound_alloc &
-	operator=(
-		bad_sound_alloc const &
-	);
+  SGE_AUDIO_DETAIL_SYMBOL
+  bad_sound_alloc &operator=(bad_sound_alloc const &);
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	~bad_sound_alloc() noexcept
-	override;
+  SGE_AUDIO_DETAIL_SYMBOL
+  ~bad_sound_alloc() noexcept override;
 };
 
 }

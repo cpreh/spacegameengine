@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_CONVERT_FOG_MODE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CONVERT_FOG_MODE_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/state/ffp/fog/mode_fwd.hpp>
 
-
 namespace sge::opengl::state::convert
 {
 
-GLint
-fog_mode(
-	sge::renderer::state::ffp::fog::mode
-);
+GLint fog_mode(sge::renderer::state::ffp::fog::mode);
 
 }
 

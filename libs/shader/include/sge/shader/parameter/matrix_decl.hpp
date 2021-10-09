@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_PARAMETER_MATRIX_DECL_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_MATRIX_DECL_HPP_INCLUDED
 
@@ -16,59 +15,37 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/math/matrix/static_fwd.hpp>
 
-
 namespace sge::shader::parameter
 {
 
-template<
-	typename ValueType,
-	fcppt::math::size_type M,
-	fcppt::math::size_type N
->
+template <typename ValueType, fcppt::math::size_type M, fcppt::math::size_type N>
 class matrix
 {
-	FCPPT_NONMOVABLE(
-		matrix
-	);
+  FCPPT_NONMOVABLE(matrix);
+
 public:
-	using
-	value_type
-	=
-	ValueType;
+  using value_type = ValueType;
 
-	using
-	matrix_type
-	=
-	fcppt::math::matrix::static_<
-		value_type,
-		M,
-		N
-	>;
+  using matrix_type = fcppt::math::matrix::static_<value_type, M, N>;
 
-	static constexpr fcppt::math::size_type const rows =
-		M;
+  static constexpr fcppt::math::size_type const rows = M;
 
-	static constexpr fcppt::math::size_type const columns =
-		N;
+  static constexpr fcppt::math::size_type const columns = N;
 
-	matrix(
-		sge::cg::program::object_ref,
-		sge::shader::parameter::name const &,
-		sge::renderer::device::core const &,
-		sge::shader::parameter::is_projection_matrix const &,
-		matrix_type const &
-	);
+  matrix(
+      sge::cg::program::object_ref,
+      sge::shader::parameter::name const &,
+      sge::renderer::device::core const &,
+      sge::shader::parameter::is_projection_matrix const &,
+      matrix_type const &);
 
-	void
-	set(
-		matrix_type const &
-	);
+  void set(matrix_type const &);
 
-	~matrix(); // NOLINT(performance-trivially-destructible)
+  ~matrix(); // NOLINT(performance-trivially-destructible)
 private:
-	sge::cg::parameter::named const parameter_;
+  sge::cg::parameter::named const parameter_;
 
-	sge::shader::parameter::is_projection_matrix const is_projection_matrix_;
+  sge::shader::parameter::is_projection_matrix const is_projection_matrix_;
 };
 
 }

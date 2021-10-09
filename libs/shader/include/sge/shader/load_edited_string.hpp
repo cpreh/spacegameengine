@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_LOAD_EDITED_STRING_HPP_INCLUDED
 #define SGE_SHADER_LOAD_EDITED_STRING_HPP_INCLUDED
 
@@ -15,19 +14,15 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::shader
 {
 
 SGE_SHADER_DETAIL_SYMBOL
-sge::cg::program::source
-load_edited_string(
-	sge::renderer::device::core &, // NOLINT(google-runtime-references)
-	sge::renderer::vertex::declaration const &,
-	std::istream &
-);
+sge::cg::program::source load_edited_string(
+    sge::renderer::device::core &, // NOLINT(google-runtime-references)
+    sge::renderer::vertex::declaration const &,
+    std::istream &);
 
 }
 
 #endif
-

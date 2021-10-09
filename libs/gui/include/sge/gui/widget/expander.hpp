@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_EXPANDER_HPP_INCLUDED
 #define SGE_GUI_WIDGET_EXPANDER_HPP_INCLUDED
 
@@ -15,34 +14,24 @@
 #include <sge/rucksack/widget/dummy.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class expander
-:
-	public sge::gui::widget::dummy
+class expander : public sge::gui::widget::dummy
 {
-	FCPPT_NONMOVABLE(
-		expander
-	);
+  FCPPT_NONMOVABLE(expander);
+
 public:
-	SGE_GUI_DETAIL_SYMBOL
-	explicit
-	expander(
-		sge::rucksack::axis
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  explicit expander(sge::rucksack::axis);
 
-	SGE_GUI_DETAIL_SYMBOL
-	~expander()
-	override;
+  SGE_GUI_DETAIL_SYMBOL
+  ~expander() override;
+
 private:
-	[[nodiscard]]
-	sge::rucksack::widget::base &
-	layout()
-	override;
+  [[nodiscard]] sge::rucksack::widget::base &layout() override;
 
-	sge::rucksack::widget::dummy layout_;
+  sge::rucksack::widget::dummy layout_;
 };
 
 }

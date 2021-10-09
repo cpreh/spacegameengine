@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PANGO_TEXT_HPP_INCLUDED
 #define SGE_PANGO_TEXT_HPP_INCLUDED
 
@@ -24,62 +23,37 @@
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::pango
 {
 
-class text
-:
-	public sge::font::text
+class text : public sge::font::text
 {
-	FCPPT_NONMOVABLE(
-		text
-	);
+  FCPPT_NONMOVABLE(text);
+
 public:
-	text(
-		PangoLayout &, // NOLINT(google-runtime-references)
-		sge::charconv::utf8_string const &,
-		sge::font::text_parameters const &
-	);
+  text(
+      PangoLayout &, // NOLINT(google-runtime-references)
+      sge::charconv::utf8_string const &,
+      sge::font::text_parameters const &);
 
-	~text()
-	override;
+  ~text() override;
+
 private:
-	void
-	render(
-		sge::font::view const &
-	)
-	override;
+  void render(sge::font::view const &) override;
 
-	[[nodiscard]]
-	sge::font::rect
-	rect() const
-	override;
+  [[nodiscard]] sge::font::rect rect() const override;
 
-	[[nodiscard]]
-	sge::font::dim
-	logical_size() const
-	override;
+  [[nodiscard]] sge::font::dim logical_size() const override;
 
-	[[nodiscard]]
-	sge::font::rect
-	cursor_rect(
-		sge::font::index
-	) const
-	override;
+  [[nodiscard]] sge::font::rect cursor_rect(sge::font::index) const override;
 
-	[[nodiscard]]
-	sge::font::optional_index
-	pos_to_index(
-		sge::font::vector
-	) const
-	override;
+  [[nodiscard]] sge::font::optional_index pos_to_index(sge::font::vector) const override;
 
-	sge::pango::pango_layout_unique_ptr const layout_;
+  sge::pango::pango_layout_unique_ptr const layout_;
 
-	sge::pango::extents const extents_;
+  sge::pango::extents const extents_;
 
-	sge::charconv::index_vector const indices_;
+  sge::charconv::index_vector const indices_;
 };
 
 }

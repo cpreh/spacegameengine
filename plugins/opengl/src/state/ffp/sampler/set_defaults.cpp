@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/ffp/sampler/context.hpp>
@@ -19,74 +18,33 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
-
-void
-sge::opengl::state::ffp::sampler::set_defaults(
-	fcppt::log::object &_log,
-	sge::opengl::context::object &_context
-)
+void sge::opengl::state::ffp::sampler::set_defaults(
+    fcppt::log::object &_log, sge::opengl::context::object &_context)
 {
-	// Samplers are always active in every stage and we must make sure that
-	// the defaults are restored everywhere.
+  // Samplers are always active in every stage and we must make sure that
+  // the defaults are restored everywhere.
 
-	fcppt::optional::maybe_void(
-		sge::opengl::context::use<
-			sge::opengl::texture::multi_context
-		>(
-			fcppt::make_ref(
-				_context
-			),
-			_context.info()
-		).config(),
-		[
-			&_log,
-			&_context
-		](
-			sge::opengl::texture::multi_config const &_config
-		)
-		{
-			sge::opengl::state::ffp::sampler::object const &default_state(
-				sge::opengl::context::use<
-					sge::opengl::state::ffp::sampler::default_context
-				>(
-					fcppt::make_ref(
-						_context
-					)
-				).default_state()
-			);
+  fcppt::optional::maybe_void(
+      sge::opengl::context::use<sge::opengl::texture::multi_context>(
+          fcppt::make_ref(_context), _context.info())
+          .config(),
+      [&_log, &_context](sge::opengl::texture::multi_config const &_config)
+      {
+        sge::opengl::state::ffp::sampler::object const &default_state(
+            sge::opengl::context::use<sge::opengl::state::ffp::sampler::default_context>(
+                fcppt::make_ref(_context))
+                .default_state());
 
-			sge::opengl::context::use<
-				sge::opengl::state::ffp::sampler::context
-			>(
-				fcppt::make_ref(
-					_context
-				)
-			).stages(
-				sge::renderer::texture::stage(
-					0U
-				)
-			);
+        sge::opengl::context::use<sge::opengl::state::ffp::sampler::context>(
+            fcppt::make_ref(_context))
+            .stages(sge::renderer::texture::stage(0U));
 
-			for(
-				sge::renderer::texture::stage const stage
-				:
-				fcppt::make_int_range_count(
-					sge::renderer::texture::stage{
-						_config.max_level().get()
-					}
-				)
-			)
-			{
-				sge::opengl::texture::active_level const active_level(
-					_log,
-					_context,
-					stage
-				);
+        for (sge::renderer::texture::stage const stage :
+             fcppt::make_int_range_count(sge::renderer::texture::stage{_config.max_level().get()}))
+        {
+          sge::opengl::texture::active_level const active_level(_log, _context, stage);
 
-				default_state.set(
-					active_level
-				);
-			}
-		}
-	);
+          default_state.set(active_level);
+        }
+      });
 }

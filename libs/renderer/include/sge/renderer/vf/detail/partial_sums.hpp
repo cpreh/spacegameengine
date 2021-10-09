@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DETAIL_PARTIAL_SUMS_HPP_INCLUDED
 #define SGE_RENDERER_VF_DETAIL_PARTIAL_SUMS_HPP_INCLUDED
 
@@ -23,39 +22,17 @@
 namespace sge::renderer::vf::detail
 {
 
-template<
-	typename Sequence
->
-using
-partial_sums
-=
-fcppt::mpl::list::fold<
-	Sequence,
-	fcppt::mpl::bind<
-		fcppt::mpl::lambda<
-			fcppt::mpl::list::push_back
-		>,
-		fcppt::mpl::arg<2>,
-		fcppt::mpl::bind<
-			fcppt::mpl::lambda<
-				fcppt::mpl::add
-			>,
-			fcppt::mpl::bind<
-				fcppt::mpl::lambda<
-					fcppt::mpl::list::back
-				>,
-				fcppt::mpl::arg<2>
-			>,
-			fcppt::mpl::arg<1>
-		>
-	>,
-    fcppt::mpl::list::object<
-		std::integral_constant<
-			sge::renderer::vf::vertex_size,
-			0U
-		>
-	>
->;
+template <typename Sequence>
+using partial_sums = fcppt::mpl::list::fold<
+    Sequence,
+    fcppt::mpl::bind<
+        fcppt::mpl::lambda<fcppt::mpl::list::push_back>,
+        fcppt::mpl::arg<2>,
+        fcppt::mpl::bind<
+            fcppt::mpl::lambda<fcppt::mpl::add>,
+            fcppt::mpl::bind<fcppt::mpl::lambda<fcppt::mpl::list::back>, fcppt::mpl::arg<2>>,
+            fcppt::mpl::arg<1>>>,
+    fcppt::mpl::list::object<std::integral_constant<sge::renderer::vf::vertex_size, 0U>>>;
 
 }
 

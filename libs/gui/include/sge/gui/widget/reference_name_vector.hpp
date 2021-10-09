@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_REFERENCE_NAME_VECTOR_HPP_INCLUDED
 #define SGE_GUI_WIDGET_REFERENCE_NAME_VECTOR_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::gui::widget
 {
 
-using
-reference_name_vector
-=
-std::vector<
-	sge::gui::widget::reference_name_pair
->;
+using reference_name_vector = std::vector<sge::gui::widget::reference_name_pair>;
 
 }
 

@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_DEVICE_VALUATOR_ABSOLUTE_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_VALUATOR_ABSOLUTE_HPP_INCLUDED
 
 #include <sge/x11input/device/valuator/absolute_fwd.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
-
 
 namespace sge::x11input::device::valuator
 {
@@ -17,16 +15,12 @@ namespace sge::x11input::device::valuator
 class absolute
 {
 public:
-	explicit
-	absolute(
-		sge::x11input::device::valuator::value
-	);
+  explicit absolute(sge::x11input::device::valuator::value);
 
-	[[nodiscard]]
-	sge::x11input::device::valuator::value
-	previous() const;
+  [[nodiscard]] sge::x11input::device::valuator::value previous() const;
+
 private:
-	sge::x11input::device::valuator::value previous_;
+  sge::x11input::device::valuator::value previous_;
 };
 
 }

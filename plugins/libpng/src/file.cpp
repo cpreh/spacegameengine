@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file_exception.hpp>
@@ -28,99 +27,39 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::libpng::file::file(
-	fcppt::log::object_reference const _log,
-	sge::libpng::file_rep &&_rep
-)
-:
-	log_{
-		_log
-	},
-	rep_(
-		std::move(
-			_rep
-		)
-	)
+sge::libpng::file::file(fcppt::log::object_reference const _log, sge::libpng::file_rep &&_rep)
+    : log_{_log}, rep_(std::move(_rep))
 {
 }
 
-sge::libpng::file::~file()
-= default;
+sge::libpng::file::~file() = default;
 
-sge::image2d::view::const_object
-sge::libpng::file::view() const
+sge::image2d::view::const_object sge::libpng::file::view() const
 {
-	return
-		sge::image2d::view::make_const(
-			fcppt::cast::to_char_ptr<
-				sge::image::const_raw_pointer
-			>(
-				rep_.bytes().data()
-			),
-			this->size(),
-			sge::libpng::to_sge_format(
-				rep_.format()
-			),
-			fcppt::math::dim::null<
-				sge::image2d::pitch
-			>()
-		);
+  return sge::image2d::view::make_const(
+      fcppt::cast::to_char_ptr<sge::image::const_raw_pointer>(rep_.bytes().data()),
+      this->size(),
+      sge::libpng::to_sge_format(rep_.format()),
+      fcppt::math::dim::null<sge::image2d::pitch>());
 }
 
-sge::image2d::dim
-sge::libpng::file::size() const
+sge::image2d::dim sge::libpng::file::size() const { return rep_.size(); }
+
+void sge::libpng::file::save(std::filesystem::path const &_path) const
 {
-	return
-		rep_.size();
+  std::ofstream output(_path, std::ios_base::binary);
+
+  sge::media::optional_name const name{sge::media::name{fcppt::filesystem::path_to_string(_path)}};
+
+  if (!output.is_open())
+  {
+    throw sge::image2d::file_exception(name, FCPPT_TEXT("couldn't open file"));
+  }
+
+  sge::libpng::write(log_.get(), output, name, rep_);
 }
 
-void
-sge::libpng::file::save(
-	std::filesystem::path const &_path
-) const
+void sge::libpng::file::save_stream(std::ostream &_stream) const
 {
-	std::ofstream output(
-		_path,
-		std::ios_base::binary
-	);
-
-	sge::media::optional_name const name{
-		sge::media::name{
-			fcppt::filesystem::path_to_string(
-				_path
-			)
-		}
-	};
-
-	if(
-		!output.is_open()
-	)
-	{
-		throw
-			sge::image2d::file_exception(
-				name,
-				FCPPT_TEXT("couldn't open file")
-			);
-	}
-
-	sge::libpng::write(
-		log_.get(),
-		output,
-		name,
-		rep_
-	);
-}
-
-void
-sge::libpng::file::save_stream(
-	std::ostream &_stream
-) const
-{
-	sge::libpng::write(
-		log_.get(),
-		_stream,
-		sge::media::optional_name(),
-		rep_
-	);
+  sge::libpng::write(log_.get(), _stream, sge::media::optional_name(), rep_);
 }

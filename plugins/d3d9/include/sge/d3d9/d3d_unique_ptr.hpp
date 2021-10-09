@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_D3D_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_D3D9_D3D_UNIQUE_PTR_HPP_INCLUDED
 
@@ -11,18 +10,12 @@
 #include <fcppt/com_deleter.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 namespace sge
 {
 namespace d3d9
 {
 
-typedef
-fcppt::unique_ptr<
-	IDirect3D9,
-	fcppt::com_deleter
->
-d3d_unique_ptr;
+typedef fcppt::unique_ptr<IDirect3D9, fcppt::com_deleter> d3d_unique_ptr;
 
 }
 }

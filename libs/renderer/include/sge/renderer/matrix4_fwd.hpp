@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_MATRIX4_FWD_HPP_INCLUDED
 #define SGE_RENDERER_MATRIX4_FWD_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/matrix/static_fwd.hpp>
-
 
 namespace sge::renderer
 {
@@ -19,14 +17,7 @@ namespace sge::renderer
 
 \ingroup sge_renderer
 */
-using
-matrix4
-=
-fcppt::math::matrix::static_<
-	sge::renderer::scalar,
-	4,
-	4
->;
+using matrix4 = fcppt::math::matrix::static_<sge::renderer::scalar, 4, 4>;
 
 }
 

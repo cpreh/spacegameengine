@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
 #include <sge/audio/loader_plugin/collection.hpp>
@@ -69,382 +68,195 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::systems::detail::instance_impl::instance_impl(
-	sge::systems::plugin_path const &_plugin_path,
-	sge::systems::optional_log_context_ref const &_log_context
-)
-:
-	log_context_{
-		_log_context
-	},
-	log_{
-		this->log_context(),
-		sge::log::location(),
-		sge::log::default_parameters(
-			sge::systems::impl::log_name()
-		)
-	},
-	plugin_cache_(),
-	plugin_manager_(
-		this->log_context(),
-		_plugin_path.get(),
-		sge::plugin::optional_cache_ref(
-			fcppt::make_ref(
-				plugin_cache_
-			)
-		)
-	),
-	window_system_(),
-	renderer_system_(),
-	window_object_(),
-	renderer_device_(),
-	input_(),
-	audio_loader_(),
-	audio_player_(),
-	image2d_(),
-	font_()
+    sge::systems::plugin_path const &_plugin_path,
+    sge::systems::optional_log_context_ref const &_log_context)
+    : log_context_{_log_context},
+      log_{
+          this->log_context(),
+          sge::log::location(),
+          sge::log::default_parameters(sge::systems::impl::log_name())},
+      plugin_cache_(),
+      plugin_manager_(
+          this->log_context(),
+          _plugin_path.get(),
+          sge::plugin::optional_cache_ref(fcppt::make_ref(plugin_cache_))),
+      window_system_(),
+      renderer_system_(),
+      window_object_(),
+      renderer_device_(),
+      input_(),
+      audio_loader_(),
+      audio_player_(),
+      image2d_(),
+      font_()
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::systems::detail::instance_impl::~instance_impl()
-= default;
+sge::systems::detail::instance_impl::~instance_impl() = default;
 
-void
-sge::systems::detail::instance_impl::init_window_system(
-	sge::systems::window const &_parameters
-)
+void sge::systems::detail::instance_impl::init_window_system(
+    sge::systems::window const &_parameters)
 {
-	window_system_ =
-		optional_window_system(
-			fcppt::make_unique_ptr<
-				sge::systems::impl::window::system
-			>(
-				this->log_context(),
-				_parameters
-			)
-		);
+  window_system_ = optional_window_system(
+      fcppt::make_unique_ptr<sge::systems::impl::window::system>(this->log_context(), _parameters));
 }
 
-void
-sge::systems::detail::instance_impl::init_renderer_system(
-	sge::systems::detail::renderer const &_parameters,
-	sge::parse::ini::optional_start const &_config
-)
+void sge::systems::detail::instance_impl::init_renderer_system(
+    sge::systems::detail::renderer const &_parameters,
+    sge::parse::ini::optional_start const &_config)
 {
-	renderer_system_ =
-		optional_renderer_system(
-			fcppt::make_unique_ptr<
-				sge::systems::impl::renderer::system
-			>(
-				this->log_context(),
-				plugin_manager_.collection<
-					sge::renderer::core
-				>(),
-				_parameters,
-				_config,
-				*FCPPT_ASSERT_OPTIONAL_ERROR(
-					window_system_
-				)
-			)
-		);
+  renderer_system_ =
+      optional_renderer_system(fcppt::make_unique_ptr<sge::systems::impl::renderer::system>(
+          this->log_context(),
+          plugin_manager_.collection<sge::renderer::core>(),
+          _parameters,
+          _config,
+          *FCPPT_ASSERT_OPTIONAL_ERROR(window_system_)));
 }
 
-void
-sge::systems::detail::instance_impl::init_window_object(
-	sge::systems::window const &_parameters
-)
+void sge::systems::detail::instance_impl::init_window_object(
+    sge::systems::window const &_parameters)
 {
-	window_object_ =
-		optional_window_object(
-			fcppt::make_unique_ptr<
-				sge::systems::impl::window::object
-			>(
-				_parameters,
-				*FCPPT_ASSERT_OPTIONAL_ERROR(
-					window_system_
-				),
-				fcppt::optional::deref(
-					renderer_system_
-				)
-			)
-		);
+  window_object_ =
+      optional_window_object(fcppt::make_unique_ptr<sge::systems::impl::window::object>(
+          _parameters,
+          *FCPPT_ASSERT_OPTIONAL_ERROR(window_system_),
+          fcppt::optional::deref(renderer_system_)));
 }
 
-void
-sge::systems::detail::instance_impl::init_renderer(
-	sge::systems::detail::renderer const &_param
-)
+void sge::systems::detail::instance_impl::init_renderer(
+    sge::systems::detail::renderer const &_param)
 {
-	renderer_device_ =
-		optional_renderer_device(
-			fcppt::make_unique_ptr<
-				sge::systems::impl::renderer::device
-			>(
-				_param,
-				*FCPPT_ASSERT_OPTIONAL_ERROR(
-					renderer_system_
-				),
-				*FCPPT_ASSERT_OPTIONAL_ERROR(
-					window_object_
-				)
-			)
-		);
+  renderer_device_ =
+      optional_renderer_device(fcppt::make_unique_ptr<sge::systems::impl::renderer::device>(
+          _param,
+          *FCPPT_ASSERT_OPTIONAL_ERROR(renderer_system_),
+          *FCPPT_ASSERT_OPTIONAL_ERROR(window_object_)));
 }
 
-void
-sge::systems::detail::instance_impl::init_input(
-	sge::systems::input const &_parameters
-)
+void sge::systems::detail::instance_impl::init_input(sge::systems::input const &_parameters)
 {
-	input_ =
-		optional_input(
-			fcppt::make_unique_ptr<
-				sge::systems::impl::input::object
-			>(
-				this->log_context(),
-				log_,
-				plugin_manager_.collection<
-					sge::input::system
-				>(),
-				_parameters,
-				*FCPPT_ASSERT_OPTIONAL_ERROR(
-					window_object_
-				)
-			)
-		);
+  input_ = optional_input(fcppt::make_unique_ptr<sge::systems::impl::input::object>(
+      this->log_context(),
+      log_,
+      plugin_manager_.collection<sge::input::system>(),
+      _parameters,
+      *FCPPT_ASSERT_OPTIONAL_ERROR(window_object_)));
 }
 
-void
-sge::systems::detail::instance_impl::init_image2d(
-	sge::systems::image2d const &_parameters
-)
+void sge::systems::detail::instance_impl::init_image2d(sge::systems::image2d const &_parameters)
 {
-	image2d_ =
-		optional_image2d(
-			fcppt::make_unique_ptr<
-				sge::systems::impl::image2d::object
-			>(
-				this->log_context(),
-				plugin_manager_.collection<
-					sge::image2d::system
-				>(),
-				_parameters
-			)
-		);
+  image2d_ = optional_image2d(fcppt::make_unique_ptr<sge::systems::impl::image2d::object>(
+      this->log_context(), plugin_manager_.collection<sge::image2d::system>(), _parameters));
 }
 
-void
-sge::systems::detail::instance_impl::init_audio_loader(
-	sge::systems::audio_loader const &_parameters
-)
+void sge::systems::detail::instance_impl::init_audio_loader(
+    sge::systems::audio_loader const &_parameters)
 {
-	audio_loader_ =
-		optional_audio_loader(
-			fcppt::make_unique_ptr<
-				sge::systems::impl::audio::loader
-			>(
-				this->log_context(),
-				plugin_manager_.collection<
-					sge::audio::loader
-				>(),
-				_parameters
-			)
-		);
+  audio_loader_ = optional_audio_loader(fcppt::make_unique_ptr<sge::systems::impl::audio::loader>(
+      this->log_context(), plugin_manager_.collection<sge::audio::loader>(), _parameters));
 }
 
-void
-sge::systems::detail::instance_impl::init_audio_player(
-	sge::systems::audio_player const &_parameters
-)
+void sge::systems::detail::instance_impl::init_audio_player(
+    sge::systems::audio_player const &_parameters)
 {
-	audio_player_ =
-		optional_audio_player(
-			fcppt::make_unique_ptr<
-				sge::systems::impl::audio::player
-			>(
-				this->log_context(),
-				log_,
-				plugin_manager_.collection<
-					sge::audio::player
-				>(),
-				_parameters
-			)
-		);
+  audio_player_ = optional_audio_player(fcppt::make_unique_ptr<sge::systems::impl::audio::player>(
+      this->log_context(), log_, plugin_manager_.collection<sge::audio::player>(), _parameters));
 }
 
-void
-sge::systems::detail::instance_impl::init_font(
-	sge::systems::font const &_parameters
-)
+void sge::systems::detail::instance_impl::init_font(sge::systems::font const &_parameters)
 {
-	font_ =
-		optional_font(
-			fcppt::make_unique_ptr<
-				sge::systems::impl::font::object
-			>(
-				this->log_context(),
-				plugin_manager_.collection<
-					sge::font::system
-				>(),
-				_parameters
-			)
-		);
+  font_ = optional_font(fcppt::make_unique_ptr<sge::systems::impl::font::object>(
+      this->log_context(), plugin_manager_.collection<sge::font::system>(), _parameters));
 }
 
-void
-sge::systems::detail::instance_impl::post_init()
+void sge::systems::detail::instance_impl::post_init()
 {
-	fcppt::optional::maybe_void(
-		window_object_,
-		[](
-			sge::systems::impl::window::object_unique_ptr const &_window_object
-		)
-		{
-			_window_object->post_init();
-		}
-	);
+  fcppt::optional::maybe_void(
+      window_object_,
+      [](sge::systems::impl::window::object_unique_ptr const &_window_object)
+      { _window_object->post_init(); });
 }
 
-fcppt::log::context_reference
-sge::systems::detail::instance_impl::log_context()
+fcppt::log::context_reference sge::systems::detail::instance_impl::log_context()
 {
-	return
-		log_context_.get();
+  return log_context_.get();
 }
 
-fcppt::log::object &
-sge::systems::detail::instance_impl::log()
+fcppt::log::object &sge::systems::detail::instance_impl::log() { return log_; }
+
+sge::plugin::manager &sge::systems::detail::instance_impl::plugin_manager()
 {
-	return
-		log_;
+  return plugin_manager_;
 }
 
-sge::plugin::manager &
-sge::systems::detail::instance_impl::plugin_manager()
+sge::renderer::core &sge::systems::detail::instance_impl::renderer_core() const
 {
-	return
-		plugin_manager_;
+  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_system_)->core();
 }
 
-sge::renderer::core &
-sge::systems::detail::instance_impl::renderer_core() const
+sge::renderer::system &sge::systems::detail::instance_impl::renderer_system() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			renderer_system_
-		)->core();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_system_)->get();
 }
 
-sge::renderer::system &
-sge::systems::detail::instance_impl::renderer_system() const
+sge::renderer::device::ffp &sge::systems::detail::instance_impl::renderer_device_ffp() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			renderer_system_
-		)->get();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_device_)->get_ffp();
 }
 
-sge::renderer::device::ffp &
-sge::systems::detail::instance_impl::renderer_device_ffp() const
+sge::renderer::device::core &sge::systems::detail::instance_impl::renderer_device_core() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			renderer_device_
-		)->get_ffp();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_device_)->get_core();
 }
 
-sge::renderer::device::core &
-sge::systems::detail::instance_impl::renderer_device_core() const
+sge::input::system &sge::systems::detail::instance_impl::input_system() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			renderer_device_
-		)->get_core();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(input_)->system();
 }
 
-sge::input::system &
-sge::systems::detail::instance_impl::input_system() const
+sge::input::processor &sge::systems::detail::instance_impl::input_processor() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			input_
-		)->system();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(input_)->processor();
 }
 
-sge::input::processor &
-sge::systems::detail::instance_impl::input_processor() const
+sge::image2d::system &sge::systems::detail::instance_impl::image_system() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			input_
-		)->processor();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(image2d_)->system();
 }
 
-sge::image2d::system &
-sge::systems::detail::instance_impl::image_system() const
+sge::audio::loader &sge::systems::detail::instance_impl::audio_loader() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			image2d_
-		)->system();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(audio_loader_)->get();
 }
 
-sge::audio::loader &
-sge::systems::detail::instance_impl::audio_loader() const
+sge::audio::player &sge::systems::detail::instance_impl::audio_player() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			audio_loader_
-		)->get();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(audio_player_)->get();
 }
 
-sge::audio::player &
-sge::systems::detail::instance_impl::audio_player() const
+sge::font::system &sge::systems::detail::instance_impl::font_system() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			audio_player_
-		)->get();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(font_)->system();
 }
 
-sge::font::system &
-sge::systems::detail::instance_impl::font_system() const
+sge::window::system &sge::systems::detail::instance_impl::window_system() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			font_
-		)->system();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(window_system_)->get();
 }
 
-sge::window::system &
-sge::systems::detail::instance_impl::window_system() const
+sge::window::object &sge::systems::detail::instance_impl::window() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			window_system_
-		)->get();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(window_object_)->get();
 }
 
-sge::window::object &
-sge::systems::detail::instance_impl::window() const
+sge::viewport::manager &sge::systems::detail::instance_impl::viewport_manager() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			window_object_
-		)->get();
-}
-
-sge::viewport::manager &
-sge::systems::detail::instance_impl::viewport_manager() const
-{
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			renderer_device_
-		)->viewport_manager();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_device_)->viewport_manager();
 }

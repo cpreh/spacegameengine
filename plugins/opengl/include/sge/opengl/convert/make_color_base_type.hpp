@@ -3,29 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_CONVERT_MAKE_COLOR_BASE_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_MAKE_COLOR_BASE_TYPE_HPP_INCLUDED
 
 #include <sge/opengl/color_base_type.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 
-
 namespace sge::opengl::convert
 {
 
-template<
-	int Format
->
-sge::opengl::color_base_type
-make_color_base_type()
+template <int Format>
+sge::opengl::color_base_type make_color_base_type()
 {
-	return
-		sge::opengl::color_base_type{
-			fcppt::cast::to_unsigned(
-				Format
-			)
-		};
+  return sge::opengl::color_base_type{fcppt::cast::to_unsigned(Format)};
 }
 
 }

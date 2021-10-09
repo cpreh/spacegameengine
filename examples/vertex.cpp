@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/color/bgra8_format.hpp>
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/predef.hpp>
@@ -90,348 +89,164 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_window,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::core
-		>,
-		sge::systems::with_input
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge vertex example")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_fullscreen{
-						sge::renderer::display_mode::fullscreen{
-							sge::renderer::display_mode::fullscreen_desktop{}
-						}
-					}
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_window,
+      sge::systems::with_renderer<sge::systems::renderer_caps::core>,
+      sge::systems::with_input> const
+      sys(sge::systems::make_list(sge::systems::window(sge::systems::window_source(
+          sge::systems::original_window(sge::window::title(FCPPT_TEXT("sge vertex example"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_fullscreen{
+                      sge::renderer::display_mode::fullscreen{
+                          sge::renderer::display_mode::fullscreen_desktop{}}}),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::input(sge::systems::cursor_option_field::null())));
 
-//! [position_declaration]
-	using
-	pos3_type
-	=
-	sge::renderer::vf::pos<
-		float,
-		3
-	>;
-//! [position_declaration]
+  //! [position_declaration]
+  using pos3_type = sge::renderer::vf::pos<float, 3>;
+  //! [position_declaration]
 
-//! [color_declaration]
-	using
-	color_format
-	=
-	sge::image::color::bgra8_format;
+  //! [color_declaration]
+  using color_format = sge::image::color::bgra8_format;
 
-	using
-	color_type
-	=
-	sge::renderer::vf::color<
-		color_format
-	>;
-//! [color_declaration]
+  using color_type = sge::renderer::vf::color<color_format>;
+  //! [color_declaration]
 
-//! [format_part_declaration]
-	using
-	format_part
-	=
-	sge::renderer::vf::part<
-		pos3_type,
-		color_type
-	>;
-//! [format_part_declaration]
+  //! [format_part_declaration]
+  using format_part = sge::renderer::vf::part<pos3_type, color_type>;
+  //! [format_part_declaration]
 
-//! [format_declaration]
-	using
-	format
-	=
-	sge::renderer::vf::format<
-		format_part
-	>;
-//! [format_declaration]
+  //! [format_declaration]
+  using format = sge::renderer::vf::format<format_part>;
+  //! [format_declaration]
 
-//! [vertex_declaration]
-	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
-		sys.renderer_device_core().create_vertex_declaration(
-			sge::renderer::vertex::declaration_parameters(
-				sge::renderer::vf::dynamic::make_format<
-					format
-				>()
-			)
-		)
-	);
-//! [vertex_declaration]
+  //! [vertex_declaration]
+  sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
+      sys.renderer_device_core().create_vertex_declaration(
+          sge::renderer::vertex::declaration_parameters(
+              sge::renderer::vf::dynamic::make_format<format>())));
+  //! [vertex_declaration]
 
-//! [vertex_buffer]
-	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
-		sys.renderer_device_core().create_vertex_buffer(
-			sge::renderer::vertex::buffer_parameters(
-				fcppt::make_cref(
-					*vertex_declaration
-				),
-				sge::renderer::vf::dynamic::make_part_index<
-					format,
-					format_part
-				>(),
-				sge::renderer::vertex::count(
-					3U
-				),
-				sge::renderer::resource_flags_field::null()
-			)
-		)
-	);
-//! [vertex_buffer]
+  //! [vertex_buffer]
+  sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
+      sys.renderer_device_core().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(
+          fcppt::make_cref(*vertex_declaration),
+          sge::renderer::vf::dynamic::make_part_index<format, format_part>(),
+          sge::renderer::vertex::count(3U),
+          sge::renderer::resource_flags_field::null())));
+  //! [vertex_buffer]
 
-//! [vblock_declaration]
-	{
-		sge::renderer::vertex::scoped_lock const vblock(
-			fcppt::make_ref(
-				*vertex_buffer
-			),
-			sge::renderer::lock_mode::writeonly
-		);
-//! [vblock_declaration]
+  //! [vblock_declaration]
+  {
+    sge::renderer::vertex::scoped_lock const vblock(
+        fcppt::make_ref(*vertex_buffer), sge::renderer::lock_mode::writeonly);
+    //! [vblock_declaration]
 
-//! [vertex_view_declaration]
-		using
-		vertex_view
-		=
-		sge::renderer::vf::view<
-			format_part
-		>;
+    //! [vertex_view_declaration]
+    using vertex_view = sge::renderer::vf::view<format_part>;
 
-		vertex_view const vertices(
-			vblock.value()
-		);
-//! [vertex_view_declaration]
+    vertex_view const vertices(vblock.value());
+    //! [vertex_view_declaration]
 
-//! [vertex_iterator_declaration]
-		vertex_view::iterator vb_it(
-			vertices.begin()
-		);
-//! [vertex_iterator_declaration]
+    //! [vertex_iterator_declaration]
+    vertex_view::iterator vb_it(vertices.begin());
+    //! [vertex_iterator_declaration]
 
-//! [vertex_write_pos_1]
-		using
-		vec3
-		=
-		pos3_type::packed_type;
+    //! [vertex_write_pos_1]
+    using vec3 = pos3_type::packed_type;
 
-		sge::renderer::vf::set_proxy(
-			*vb_it,
-			sge::renderer::vf::labels::pos{},
-			vec3(-1.F, 1.F, 0.F)
-		);
-//! [vertex_write_pos_1]
+    sge::renderer::vf::set_proxy(*vb_it, sge::renderer::vf::labels::pos{}, vec3(-1.F, 1.F, 0.F));
+    //! [vertex_write_pos_1]
 
-//! [vertex_write_color_1]
-		sge::renderer::vf::set_proxy(
-			*vb_it,
-			sge::renderer::vf::labels::color{},
-			sge::image::color::convert<
-				color_format
-			>(
-				sge::image::color::predef::cyan()
-			)
-		);
-//! [vertex_write_color_1]
+    //! [vertex_write_color_1]
+    sge::renderer::vf::set_proxy(
+        *vb_it,
+        sge::renderer::vf::labels::color{},
+        sge::image::color::convert<color_format>(sge::image::color::predef::cyan()));
+    //! [vertex_write_color_1]
 
-//! [vertex_write_rest]
-		++vb_it;
+    //! [vertex_write_rest]
+    ++vb_it;
 
-		sge::renderer::vf::set_proxy(
-			*vb_it,
-			sge::renderer::vf::labels::pos{},
-			vec3(-1.F, -1.F, 0.F)
-		);
+    sge::renderer::vf::set_proxy(*vb_it, sge::renderer::vf::labels::pos{}, vec3(-1.F, -1.F, 0.F));
 
-		sge::renderer::vf::set_proxy(
-			*vb_it,
-			sge::renderer::vf::labels::color{},
-			sge::image::color::convert<
-				color_format
-			>(
-				sge::image::color::predef::yellow()
-			)
-		);
+    sge::renderer::vf::set_proxy(
+        *vb_it,
+        sge::renderer::vf::labels::color{},
+        sge::image::color::convert<color_format>(sge::image::color::predef::yellow()));
 
-		++vb_it;
+    ++vb_it;
 
-		sge::renderer::vf::set_proxy(
-			*vb_it,
-			sge::renderer::vf::labels::pos{},
-			vec3(1.F, 1.F, 0.F)
-		);
+    sge::renderer::vf::set_proxy(*vb_it, sge::renderer::vf::labels::pos{}, vec3(1.F, 1.F, 0.F));
 
-		sge::renderer::vf::set_proxy(
-			*vb_it,
-			sge::renderer::vf::labels::color{},
-			sge::image::color::convert<
-				color_format
-			>(
-				sge::image::color::predef::magenta()
-			)
-		);
-	}
-//! [vertex_write_rest]
+    sge::renderer::vf::set_proxy(
+        *vb_it,
+        sge::renderer::vf::labels::color{},
+        sge::image::color::convert<color_format>(sge::image::color::predef::magenta()));
+  }
+  //! [vertex_write_rest]
 
-	auto const draw(
-		[
-			&vertex_buffer,
-			&vertex_declaration,
-			&sys
-		]{
-			sge::renderer::context::scoped_core const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_core()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_core().onscreen_target()
-					)
-				)
-			);
+  auto const draw(
+      [&vertex_buffer, &vertex_declaration, &sys]
+      {
+        sge::renderer::context::scoped_core const scoped_block(
+            fcppt::make_ref(sys.renderer_device_core()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_core().onscreen_target())));
 
-			sge::renderer::context::core &context(
-				scoped_block.get()
-			);
+        sge::renderer::context::core &context(scoped_block.get());
 
-			context.clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-			);
+        context.clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::black()}));
 
-//! [scoped_declaration]
-			sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(
-				fcppt::make_ref(
-					context
-				),
-				fcppt::make_cref(
-					*vertex_declaration
-				),
-				sge::renderer::vertex::const_buffer_ref_container{
-					fcppt::make_cref(
-						*vertex_buffer
-					)
-				}
-			);
-//! [scoped_declaration]
+        //! [scoped_declaration]
+        sge::renderer::vertex::scoped_declaration_and_buffers const vb_context(
+            fcppt::make_ref(context),
+            fcppt::make_cref(*vertex_declaration),
+            sge::renderer::vertex::const_buffer_ref_container{fcppt::make_cref(*vertex_buffer)});
+        //! [scoped_declaration]
 
-//! [scoped_block]
-			context.render_nonindexed(
-				sge::renderer::vertex::first(
-					0U
-				),
-				sge::renderer::vertex::count(
-					3U
-				),
-				sge::renderer::primitive_type::triangle_list
-			);
-//! [scoped_block]
-		}
-	);
+        //! [scoped_block]
+        context.render_nonindexed(
+            sge::renderer::vertex::first(0U),
+            sge::renderer::vertex::count(3U),
+            sge::renderer::primitive_type::triangle_list);
+        //! [scoped_block]
+      });
 
-//! [running_block]
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&sys,
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					sge::systems::quit_on_escape(
-						sys,
-						_event
-					);
+  //! [running_block]
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&sys, &draw](awl::event::base const &_event)
+          {
+            sge::systems::quit_on_escape(sys, _event);
 
-					fcppt::optional::maybe_void(
-						fcppt::cast::dynamic<
-							sge::renderer::event::render const
-						>(
-							_event
-						),
-						[
-							&draw
-						](
-							fcppt::reference<
-								sge::renderer::event::render const
-							>
-						)
-						{
-							draw();
-						}
-					);
-				}
-			}
-		);
-//! [running_block]
+            fcppt::optional::maybe_void(
+                fcppt::cast::dynamic<sge::renderer::event::render const>(_event),
+                [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); });
+          }});
+  //! [running_block]
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_IMPL_INFO_CONTAINER_IMPL_HPP_INCLUDED
 #define SGE_INPUT_IMPL_INFO_CONTAINER_IMPL_HPP_INCLUDED
 
@@ -15,97 +14,35 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename Id,
-	typename Obj
->
-sge::input::info::container<
-	Id,
-	Obj
->::container(
-	vector &&_vector
-)
-:
-	vector_(
-		std::move(
-			_vector
-		)
-	)
+template <typename Id, typename Obj>
+sge::input::info::container<Id, Obj>::container(vector &&_vector) : vector_(std::move(_vector))
 {
 }
 
-template<
-	typename Id,
-	typename Obj
->
-fcppt::optional::reference<
-	Obj const
->
-sge::input::info::container<
-	Id,
-	Obj
->::operator[](
-	Id const &_id
-) const
+template <typename Id, typename Obj>
+fcppt::optional::reference<Obj const>
+sge::input::info::container<Id, Obj>::operator[](Id const &_id) const
 {
-	return
-		fcppt::container::at_optional(
-			this->vector_,
-			_id.get()
-		);
+  return fcppt::container::at_optional(this->vector_, _id.get());
 }
 
-template<
-	typename Id,
-	typename Obj
->
-Id
-sge::input::info::container<
-	Id,
-	Obj
->::size() const
+template <typename Id, typename Obj>
+Id sge::input::info::container<Id, Obj>::size() const
 {
-	return
-		Id(
-			fcppt::cast::size<
-				typename Id::value_type
-			>(
-				vector_.size()
-			)
-		);
+  return Id(fcppt::cast::size<typename Id::value_type>(vector_.size()));
 }
 
-template<
-	typename Id,
-	typename Obj
->
-bool
-sge::input::info::container<
-	Id,
-	Obj
->::empty() const
+template <typename Id, typename Obj>
+bool sge::input::info::container<Id, Obj>::empty() const
 {
-	return
-		vector_.empty();
+  return vector_.empty();
 }
 
-template<
-	typename Id,
-	typename Obj
->
-typename
-sge::input::info::container<
-	Id,
-	Obj
->::vector const &
-sge::input::info::container<
-	Id,
-	Obj
->::get() const
+template <typename Id, typename Obj>
+typename sge::input::info::container<Id, Obj>::vector const &
+sge::input::info::container<Id, Obj>::get() const
 {
-	return
-		vector_;
+  return vector_;
 }
 
 #endif

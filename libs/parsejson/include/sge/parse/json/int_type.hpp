@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_INT_TYPE_HPP_INCLUDED
 #define SGE_PARSE_JSON_INT_TYPE_HPP_INCLUDED
 
@@ -11,14 +10,10 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::json
 {
 
-using
-int_type
-=
-std::int64_t;
+using int_type = std::int64_t;
 
 }
 

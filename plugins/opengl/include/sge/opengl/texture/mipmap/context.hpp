@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
 
@@ -16,67 +15,37 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/reference.hpp>
 
-
 namespace sge::opengl::texture::mipmap
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	using
-	parameter
-	=
-	sge::opengl::info::context const &;
+  using parameter = sge::opengl::info::context const &;
 
-	explicit
-	context(
-		sge::opengl::info::context const &
-	);
+  explicit context(sge::opengl::info::context const &);
 
-	~context()
-	override;
+  ~context() override;
 
-	[[nodiscard]]
-	sge::opengl::optional_enum
-	generate_mipmap_flag() const;
+  [[nodiscard]] sge::opengl::optional_enum generate_mipmap_flag() const;
 
-	using
-	gl_generate_mipmap
-	=
-	sge::opengl::fun_ref<
-		PFNGLGENERATEMIPMAPPROC
-	>;
+  using gl_generate_mipmap = sge::opengl::fun_ref<PFNGLGENERATEMIPMAPPROC>;
 
-	using
-	optional_gl_generate_mipmap
-	=
-	fcppt::optional::reference<
-		sge::opengl::fun_ref_value_type<
-			gl_generate_mipmap
-		>
-	>;
+  using optional_gl_generate_mipmap =
+      fcppt::optional::reference<sge::opengl::fun_ref_value_type<gl_generate_mipmap>>;
 
-	using
-	gl_generate_mipmap_ref
-	=
-	optional_gl_generate_mipmap::value_type;
+  using gl_generate_mipmap_ref = optional_gl_generate_mipmap::value_type;
 
-	[[nodiscard]]
-	optional_gl_generate_mipmap const &
-	generate_mipmap() const;
+  [[nodiscard]] optional_gl_generate_mipmap const &generate_mipmap() const;
 
-	static
-	sge::opengl::context::id const
-	static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::opengl::optional_enum const generate_mipmap_flag_;
+  sge::opengl::optional_enum const generate_mipmap_flag_;
 
-	optional_gl_generate_mipmap const generate_mipmap_;
+  optional_gl_generate_mipmap const generate_mipmap_;
 };
 
 }

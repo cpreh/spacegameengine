@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
 #include <sge/graph/color_schemes.hpp>
@@ -74,217 +73,93 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_window
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("graph example")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::config()
-			.log_settings(
-				sge::systems::log_settings(
-					sge::log::option_container{
-						sge::log::option{
-							sge::log::location(),
-							fcppt::log::level::debug
-						}
-					}
-				)
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_window> const
+      sys(sge::systems::make_list(sge::systems::window(sge::systems::window_source(
+          sge::systems::original_window(sge::window::title(FCPPT_TEXT("graph example"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::config().log_settings(sge::systems::log_settings(sge::log::option_container{
+              sge::log::option{sge::log::location(), fcppt::log::level::debug}}))));
 
-	sge::graph::object graph(
-		sge::graph::position(
-			sge::renderer::vector2(
-				100.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-				100.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			)
-		),
-		sge::image2d::dim(
-			512U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		),
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		sge::graph::baseline(
-			20.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		),
-		sge::graph::optional_axis_constraint(),
-		sge::graph::color_schemes::bright()
-	);
+  sge::graph::object graph(
+      sge::graph::position(sge::renderer::vector2(
+          100.F, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          100.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          )),
+      sge::image2d::dim(
+          512U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      fcppt::make_ref(sys.renderer_device_ffp()),
+      sge::graph::baseline(
+          20.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          ),
+      sge::graph::optional_axis_constraint(),
+      sge::graph::color_schemes::bright());
 
-	using
-	generator_type
-	=
-	fcppt::random::generator::minstd_rand;
+  using generator_type = fcppt::random::generator::minstd_rand;
 
-	generator_type generator(
-		fcppt::random::generator::seed_from_chrono<
-			generator_type::seed
-		>()
-	);
+  generator_type generator(fcppt::random::generator::seed_from_chrono<generator_type::seed>());
 
-	using
-	uniform_real
-	=
-	fcppt::random::distribution::basic<
-		fcppt::random::distribution::parameters::uniform_real<
-			double
-		>
-	>;
+  using uniform_real = fcppt::random::distribution::basic<
+      fcppt::random::distribution::parameters::uniform_real<double>>;
 
-	using
-	variate
-	=
-	fcppt::random::variate<
-		generator_type,
-		uniform_real
-	>;
+  using variate = fcppt::random::variate<generator_type, uniform_real>;
 
-	variate rng(
-		fcppt::make_ref(
-			generator
-		),
-		uniform_real(
-			uniform_real::param_type::min(
-				-100.
-			),
-			uniform_real::param_type::sup(
-				100.
-			)
-		)
-	);
+  variate rng(
+      fcppt::make_ref(generator),
+      uniform_real(uniform_real::param_type::min(-100.), uniform_real::param_type::sup(100.)));
 
-	auto const draw(
-		[
-			&graph,
-			&rng,
-			&sys
-		]{
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+  auto const draw(
+      [&graph, &rng, &sys]
+      {
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			sge::renderer::context::ffp &context(
-				scoped_block.get()
-			);
+        sge::renderer::context::ffp &context(scoped_block.get());
 
-			context.clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-			);
+        context.clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::black()}));
 
-			graph.push(
-				rng()
-			);
+        graph.push(rng());
 
-			graph.render(
-				context
-			);
-		}
-	);
+        graph.render(context);
+      });
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					fcppt::optional::maybe_void(
-						fcppt::cast::dynamic<
-							sge::renderer::event::render const
-						>(
-							_event
-						),
-						[
-							&draw
-						](
-							fcppt::reference<
-								sge::renderer::event::render const
-							>
-						)
-						{
-							draw();
-						}
-					);
-				}
-			}
-		);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&draw](awl::event::base const &_event)
+          {
+            fcppt::optional::maybe_void(
+                fcppt::cast::dynamic<sge::renderer::event::render const>(_event),
+                [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); });
+          }});
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

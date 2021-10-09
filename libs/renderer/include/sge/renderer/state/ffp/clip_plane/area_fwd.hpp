@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_CLIP_PLANE_AREA_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_CLIP_PLANE_AREA_FWD_HPP_INCLUDED
 
 #include <sge/renderer/vector4_fwd.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-
 
 namespace sge::renderer::state::ffp::clip_plane
 {
@@ -19,10 +17,7 @@ namespace sge::renderer::state::ffp::clip_plane
 
 A clip plane is a vector of four components, interpreted as a plane equation.
 */
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	sge::renderer::vector4,
-	area
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::renderer::vector4, area);
 
 }
 

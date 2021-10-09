@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_INI_PARSE_STREAM_HPP_INCLUDED
 #define SGE_PARSE_INI_PARSE_STREAM_HPP_INCLUDED
 
@@ -13,15 +12,11 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
-sge::parse::ini::result
-parse_stream(
-	std::istream &
-);
+sge::parse::ini::result parse_stream(std::istream &);
 
 }
 

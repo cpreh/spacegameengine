@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/exception.hpp>
 #include <sge/cg/context/object.hpp>
@@ -17,70 +16,35 @@
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::cg::parameter::created::created(
-	sge::cg::context::object const &_context,
-	sge::cg::parameter::element_type const _element_type
-)
-:
-	parameter_(
-		::cgCreateParameter(
-			_context.get(),
-			sge::cg::impl::parameter::convert_element_type(
-				_element_type
-			)
-		)
-	)
+    sge::cg::context::object const &_context, sge::cg::parameter::element_type const _element_type)
+    : parameter_(::cgCreateParameter(
+          _context.get(),
+          sge::cg::impl::parameter::convert_element_type(
+              _element_type))){SGE_CG_CHECK_STATE(FCPPT_TEXT("cgCreateParameter failed"), sge::cg::exception)}
+
+      sge::cg::parameter::created::~created()
 {
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgCreateParameter failed"),
-		sge::cg::exception
-	)
+  ::cgDestroyParameter(parameter_);
 }
 
-sge::cg::parameter::created::~created()
+sge::cg::parameter::object sge::cg::parameter::created::object() const
 {
-	::cgDestroyParameter(
-		parameter_
-	);
+  return sge::cg::parameter::object(parameter_);
 }
 
-sge::cg::parameter::object
-sge::cg::parameter::created::object() const
+void sge::cg::parameter::created::connect(sge::cg::parameter::named const &_named)
 {
-	return
-		sge::cg::parameter::object(
-			parameter_
-		);
+  ::cgConnectParameter(parameter_, _named.object().get());
+
+  SGE_CG_CHECK_STATE(FCPPT_TEXT("cgConnectParameter failed"), sge::cg::exception)
 }
 
-void
-sge::cg::parameter::created::connect(
-	sge::cg::parameter::named const &_named
-)
+void sge::cg::parameter::created::
+    disconnect( // NOLINT(readability-convert-member-functions-to-static)
+        sge::cg::parameter::named const &_named)
 {
-	::cgConnectParameter(
-		parameter_,
-		_named.object().get()
-	);
+  ::cgDisconnectParameter(_named.object().get());
 
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgConnectParameter failed"),
-		sge::cg::exception
-	)
-}
-
-void
-sge::cg::parameter::created::disconnect( // NOLINT(readability-convert-member-functions-to-static)
-	sge::cg::parameter::named const &_named
-)
-{
-	::cgDisconnectParameter(
-		_named.object().get()
-	);
-
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgDisconnectParameter failed"),
-		sge::cg::exception
-	)
+  SGE_CG_CHECK_STATE(FCPPT_TEXT("cgDisconnectParameter failed"), sge::cg::exception)
 }

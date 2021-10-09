@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_INI_OPTIONAL_VALUE_HPP_INCLUDED
 #define SGE_PARSE_INI_OPTIONAL_VALUE_HPP_INCLUDED
 
 #include <sge/parse/ini/optional_value_fwd.hpp>
 #include <fcppt/optional/object_impl.hpp>
-
 
 #endif

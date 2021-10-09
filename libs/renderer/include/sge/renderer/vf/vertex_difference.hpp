@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_VERTEX_DIFFERENCE_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_DIFFERENCE_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vf
 {
 
-using
-vertex_difference
-=
-std::make_signed_t<
-	sge::renderer::vf::vertex_size
->;
+using vertex_difference = std::make_signed_t<sge::renderer::vf::vertex_size>;
 
 }
 

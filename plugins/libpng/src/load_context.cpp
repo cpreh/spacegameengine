@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image2d/file_exception.hpp>
 #include <sge/libpng/load_context.hpp>
 #include <sge/libpng/png.hpp>
@@ -19,91 +18,40 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::libpng::load_context::load_context(
-	std::istream &_stream,
-	sge::media::optional_name &&_name,
-	sge::libpng::read_ptr const &_read_ptr
-)
-:
-	stream_(
-		_stream
-	),
-	name_(
-		std::move(
-			_name
-		)
-	)
+    std::istream &_stream,
+    sge::media::optional_name &&_name,
+    sge::libpng::read_ptr const &_read_ptr)
+    : stream_(_stream), name_(std::move(_name))
 {
-	::png_set_read_fn(
-		_read_ptr.ptr(),
-		this,
-		&sge::libpng::load_context::handle_read
-	);
+  ::png_set_read_fn(_read_ptr.ptr(), this, &sge::libpng::load_context::handle_read);
 }
 
-sge::libpng::load_context::~load_context()
-= default;
+sge::libpng::load_context::~load_context() = default;
 
-void
-sge::libpng::load_context::handle_read(
-	png_structp const _read_ptr, // NOLINT(misc-misplaced-const)
-	png_bytep const _data, // NOLINT(misc-misplaced-const)
-	png_size_t const _length
-)
+void sge::libpng::load_context::handle_read(
+    png_structp const _read_ptr, // NOLINT(misc-misplaced-const)
+    png_bytep const _data, // NOLINT(misc-misplaced-const)
+    png_size_t const _length)
 {
-	fcppt::cast::from_void_ptr<
-		sge::libpng::load_context *
-	>(
-		::png_get_io_ptr(
-			_read_ptr
-		)
-	)->handle_read_impl(
-		_data,
-		_length
-	);
+  fcppt::cast::from_void_ptr<sge::libpng::load_context *>(::png_get_io_ptr(_read_ptr))
+      ->handle_read_impl(_data, _length);
 }
 
-void
-sge::libpng::load_context::handle_read_impl(
-	png_bytep const _data, // NOLINT(misc-misplaced-const)
-	png_size_t const _length
-)
+void sge::libpng::load_context::handle_read_impl(
+    png_bytep const _data, // NOLINT(misc-misplaced-const)
+    png_size_t const _length)
 {
-	std::streamsize const signed_length(
-		fcppt::cast::to_signed(
-			_length
-		)
-	);
+  std::streamsize const signed_length(fcppt::cast::to_signed(_length));
 
-	if(
-		!stream_.read(
-			fcppt::cast::to_char_ptr<
-				char *
-			>(
-				_data
-			),
-			signed_length
-		)
-	)
-	{
-		throw
-			sge::image2d::file_exception(
-				name_,
-				FCPPT_TEXT("reading failed")
-			);
-	}
+  if (!stream_.read(fcppt::cast::to_char_ptr<char *>(_data), signed_length))
+  {
+    throw sge::image2d::file_exception(name_, FCPPT_TEXT("reading failed"));
+  }
 
-	if(
-		stream_.gcount()
-		<
-		signed_length
-	)
-	{
-		throw
-			sge::image2d::file_exception(
-				name_,
-				FCPPT_TEXT("didn't read as many bytes as supposed to")
-			);
-	}
+  if (stream_.gcount() < signed_length)
+  {
+    throw sge::image2d::file_exception(
+        name_, FCPPT_TEXT("didn't read as many bytes as supposed to"));
+  }
 }

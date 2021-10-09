@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/target/aspect_from_viewport.hpp>
@@ -12,21 +11,10 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/optional/object_impl.hpp>
 
-
-fcppt::optional::object<
-	sge::renderer::scalar
->
-sge::renderer::target::aspect_from_viewport(
-	sge::renderer::target::viewport const &_viewport
-)
+fcppt::optional::object<sge::renderer::scalar>
+sge::renderer::target::aspect_from_viewport(sge::renderer::target::viewport const &_viewport)
 {
-	return
-		sge::renderer::aspect(
-			fcppt::math::dim::structure_cast<
-				sge::renderer::screen_size,
-				fcppt::cast::to_unsigned_fun
-			>(
-				_viewport.get().size()
-			)
-		);
+  return sge::renderer::aspect(
+      fcppt::math::dim::structure_cast<sge::renderer::screen_size, fcppt::cast::to_unsigned_fun>(
+          _viewport.get().size()));
 }

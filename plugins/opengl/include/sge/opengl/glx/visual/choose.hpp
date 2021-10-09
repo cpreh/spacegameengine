@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GLX_VISUAL_CHOOSE_HPP_INCLUDED
 #define SGE_OPENGL_GLX_VISUAL_CHOOSE_HPP_INCLUDED
 
@@ -12,16 +11,13 @@
 #include <awl/backends/x11/screen.hpp>
 #include <awl/backends/x11/visual/info_unique_ptr.hpp>
 
-
 namespace sge::opengl::glx::visual
 {
 
-awl::backends::x11::visual::info_unique_ptr
-choose(
-	awl::backends::x11::display const &,
-	awl::backends::x11::screen,
-	sge::opengl::glx::visual::attribute_container const &
-);
+awl::backends::x11::visual::info_unique_ptr choose(
+    awl::backends::x11::display const &,
+    awl::backends::x11::screen,
+    sge::opengl::glx::visual::attribute_container const &);
 
 }
 

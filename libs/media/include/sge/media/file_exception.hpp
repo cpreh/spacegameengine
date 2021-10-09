@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_FILE_EXCEPTION_HPP_INCLUDED
 #define SGE_MEDIA_FILE_EXCEPTION_HPP_INCLUDED
 
@@ -13,51 +12,30 @@
 #include <sge/media/detail/instantiate/symbol.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge::media
 {
 
-template<
-	typename Base
->
-class SGE_CORE_DETAIL_CLASS_SYMBOL file_exception
-:
-	public Base
+template <typename Base>
+class SGE_CORE_DETAIL_CLASS_SYMBOL file_exception : public Base
 {
 public:
-	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	file_exception(
-		sge::media::optional_name const &,
-		fcppt::string const &
-	);
+  SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+  file_exception(sge::media::optional_name const &, fcppt::string const &);
 
-	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	file_exception(
-		file_exception &&
-	)
-	noexcept;
+  SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+  file_exception(file_exception &&) noexcept;
 
-	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	file_exception(
-		file_exception const &
-	);
+  SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+  file_exception(file_exception const &);
 
-	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	file_exception &
-	operator=(
-		file_exception &&
-	)
-	noexcept;
+  SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+  file_exception &operator=(file_exception &&) noexcept;
 
-	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	file_exception &
-	operator=(
-		file_exception const &
-	);
+  SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+  file_exception &operator=(file_exception const &);
 
-	SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
-	~file_exception() noexcept
-	override;
+  SGE_MEDIA_DETAIL_INSTANTIATE_SYMBOL
+  ~file_exception() noexcept override;
 };
 
 }

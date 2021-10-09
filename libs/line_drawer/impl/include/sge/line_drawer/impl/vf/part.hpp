@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LINE_DRAWER_IMPL_VF_PART_HPP_INCLUDED
 #define SGE_LINE_DRAWER_IMPL_VF_PART_HPP_INCLUDED
 
@@ -11,17 +10,11 @@
 #include <sge/line_drawer/impl/vf/position.hpp>
 #include <sge/renderer/vf/part.hpp>
 
-
 namespace sge::line_drawer::impl::vf
 {
 
-using
-part
-=
-sge::renderer::vf::part<
-	sge::line_drawer::impl::vf::position,
-	sge::line_drawer::impl::vf::color
->;
+using part = sge::renderer::vf::
+    part<sge::line_drawer::impl::vf::position, sge::line_drawer::impl::vf::color>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_VARIANT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_VARIANT_FWD_HPP_INCLUDED
 
@@ -11,17 +10,12 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/separate_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
-
 namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
-using
-enabled_variant
-=
-fcppt::variant::object<
-	sge::renderer::state::core::depth_stencil::stencil::combined,
-	sge::renderer::state::core::depth_stencil::stencil::separate
->;
+using enabled_variant = fcppt::variant::object<
+    sge::renderer::state::core::depth_stencil::stencil::combined,
+    sge::renderer::state::core::depth_stencil::stencil::separate>;
 
 }
 

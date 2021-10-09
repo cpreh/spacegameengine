@@ -3,21 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_CONVERT_MAKE_BUFFER_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CONVERT_MAKE_BUFFER_TYPE_HPP_INCLUDED
 
 #include <sge/opengl/texture/buffer_type.hpp>
 
-
 namespace sge::opengl::texture::convert
 {
 
-sge::opengl::texture::buffer_type
-make_buffer_type(
-	int type
-)
-noexcept;
+sge::opengl::texture::buffer_type make_buffer_type(int type) noexcept;
 
 }
 

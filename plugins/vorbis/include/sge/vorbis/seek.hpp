@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_VORBIS_SEEK_HPP_INCLUDED
 #define SGE_VORBIS_SEEK_HPP_INCLUDED
 
@@ -13,16 +12,10 @@
 #include <vorbis/codec.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::vorbis
 {
 
-void
-seek(
-	sge::vorbis::stream &,
-	sge::media::optional_name const &,
-	ogg_int64_t
-);
+void seek(sge::vorbis::stream &, sge::media::optional_name const &, ogg_int64_t);
 
 }
 

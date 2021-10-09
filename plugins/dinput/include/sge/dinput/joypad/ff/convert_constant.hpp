@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_FF_CONVERT_CONSTANT_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_FF_CONVERT_CONSTANT_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <sge/input/joypad/ff/constant_fwd.hpp>
-
 
 namespace sge
 {
@@ -21,9 +19,7 @@ namespace ff
 {
 
 DICONSTANTFORCE
-convert_constant(
-	sge::input::joypad::ff::constant const &
-);
+convert_constant(sge::input::joypad::ff::constant const &);
 
 }
 }

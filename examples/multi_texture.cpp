@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -120,478 +119,203 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_window,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>,
-		sge::systems::with_input,
-		sge::systems::with_image2d
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::config()
-			.log_settings(
-				sge::systems::log_settings(
-					sge::log::option_container{
-						sge::log::option{
-							sge::log::location(),
-							fcppt::log::level::debug
-						}
-					}
-				)
-			)
-		)
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge multi texture sprite example")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::image2d(
-				sge::media::optional_extension_set(
-					sge::media::extension_set{
-						sge::media::extension(
-							FCPPT_TEXT("png")
-						)
-					}
-				)
-			)
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_window,
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>,
+      sge::systems::with_input,
+      sge::systems::with_image2d> const
+      sys(sge::systems::make_list(
+          sge::systems::config().log_settings(sge::systems::log_settings(sge::log::option_container{
+              sge::log::option{sge::log::location(), fcppt::log::level::debug}})))(
+          sge::systems::window(sge::systems::window_source(sge::systems::original_window(
+              sge::window::title(FCPPT_TEXT("sge multi texture sprite example"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::image2d(sge::media::optional_extension_set(
+              sge::media::extension_set{sge::media::extension(FCPPT_TEXT("png"))})))(
+          sge::systems::input(sge::systems::cursor_option_field::null())));
 
-	sge::renderer::texture::planar_unique_ptr const texture1{
-		sge::renderer::texture::create_planar_from_path(
-			sge::config::media_path()
-			/ FCPPT_TEXT("images")
-			/ FCPPT_TEXT("cloudsquare.png"),
-			fcppt::make_ref(
-				sys.renderer_device_core()
-			),
-			sys.image_system(),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb::yes
-		)
-	};
+  sge::renderer::texture::planar_unique_ptr const texture1{
+      sge::renderer::texture::create_planar_from_path(
+          sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("cloudsquare.png"),
+          fcppt::make_ref(sys.renderer_device_core()),
+          sys.image_system(),
+          sge::renderer::texture::mipmap::off(),
+          sge::renderer::resource_flags_field::null(),
+          sge::renderer::texture::emulate_srgb::yes)};
 
-	sge::renderer::texture::planar_unique_ptr const texture2{
-		sge::renderer::texture::create_planar_from_path(
-			sge::config::media_path()
-			/ FCPPT_TEXT("images")
-			/ FCPPT_TEXT("grass.png"),
-			fcppt::make_ref(
-				sys.renderer_device_core()
-			),
-			sys.image_system(),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb::yes
-		)
-	};
+  sge::renderer::texture::planar_unique_ptr const texture2{
+      sge::renderer::texture::create_planar_from_path(
+          sge::config::media_path() / FCPPT_TEXT("images") / FCPPT_TEXT("grass.png"),
+          fcppt::make_ref(sys.renderer_device_core()),
+          sys.image_system(),
+          sge::renderer::texture::mipmap::off(),
+          sge::renderer::resource_flags_field::null(),
+          sge::renderer::texture::emulate_srgb::yes)};
 
-	using
-	vf_pos
-	=
-	sge::renderer::vf::pos<
-		float,
-		3
-	>;
+  using vf_pos = sge::renderer::vf::pos<float, 3>;
 
-	using
-	vf_texpos0
-	=
-	sge::renderer::vf::texpos<
-		float,
-		2,
-		sge::renderer::vf::index<
-			0
-		>
-	>;
+  using vf_texpos0 = sge::renderer::vf::texpos<float, 2, sge::renderer::vf::index<0>>;
 
-	using
-	vf_texpos1
-	=
-	sge::renderer::vf::texpos<
-		float,
-		2,
-		sge::renderer::vf::index<
-			1
-		>
-	>;
+  using vf_texpos1 = sge::renderer::vf::texpos<float, 2, sge::renderer::vf::index<1>>;
 
-	using
-	vf_format_part
-	=
-	sge::renderer::vf::part<
-		vf_pos,
-		vf_texpos0,
-		vf_texpos1
-	>;
+  using vf_format_part = sge::renderer::vf::part<vf_pos, vf_texpos0, vf_texpos1>;
 
-	using
-	vf_format
-	=
-	sge::renderer::vf::format<
-		vf_format_part
-	>;
+  using vf_format = sge::renderer::vf::format<vf_format_part>;
 
-	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
-		sys.renderer_device_ffp().create_vertex_declaration(
-			sge::renderer::vertex::declaration_parameters(
-				sge::renderer::vf::dynamic::make_format<
-					vf_format
-				>()
-			)
-		)
-	);
+  sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
+      sys.renderer_device_ffp().create_vertex_declaration(
+          sge::renderer::vertex::declaration_parameters(
+              sge::renderer::vf::dynamic::make_format<vf_format>())));
 
-	using
-	vertex
-	=
-	sge::renderer::vf::vertex<
-		vf_format_part
-	>;
+  using vertex = sge::renderer::vf::vertex<vf_format_part>;
 
-	using
-	pos
-	=
-	vf_pos::packed_type;
+  using pos = vf_pos::packed_type;
 
-	using
-	texpos0
-	=
-	vf_texpos0::packed_type;
+  using texpos0 = vf_texpos0::packed_type;
 
-	using
-	texpos1
-	=
-	vf_texpos1::packed_type;
+  using texpos1 = vf_texpos1::packed_type;
 
-	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer{
-		sge::renderer::vertex::create_buffer_from_vertices<
-			vf_format
-		>(
-			fcppt::make_ref(
-				sys.renderer_device_core()
-			),
-			fcppt::make_cref(
-				*vertex_declaration
-			),
-			sge::renderer::resource_flags_field::null(),
-			fcppt::array::make(
-				// top left
-				vertex{
-					sge::renderer::vf::labels::pos{} =
-						pos(-1.F, 1.F, 0.F),
-					sge::renderer::vf::labels::texpos<0>{} =
-						texpos0(0.F, 0.F),
-					sge::renderer::vf::labels::texpos<1>{} =
-						texpos1(0.F, 0.F)
-				},
-				// bottom left
-				vertex{
-					sge::renderer::vf::labels::pos{} =
-						pos(-1.F, -1.F, 0.F),
-					sge::renderer::vf::labels::texpos<0>{} =
-						texpos0(0.F, 1.F),
-					sge::renderer::vf::labels::texpos<1>{} =
-						texpos1(0.F, 1.F)
-				},
-				// top right
-				vertex{
-					sge::renderer::vf::labels::pos{} =
-						pos(1.F, 1.F, 0.F),
-					sge::renderer::vf::labels::texpos<0>{} =
-						texpos0(1.F, 0.F),
-					sge::renderer::vf::labels::texpos<1>{} =
-						texpos1(1.F, 0.F)
-				},
-				// bottom right
-				vertex{
-					sge::renderer::vf::labels::pos{} =
-						pos(1.F, -1.F, 0.F),
-					sge::renderer::vf::labels::texpos<0>{} =
-						texpos0(1.F, 1.F),
-					sge::renderer::vf::labels::texpos<1>{} =
-						texpos1(1.F, 1.F)
-				}
-			)
-		)
-	};
+  sge::renderer::vertex::buffer_unique_ptr const vertex_buffer{
+      sge::renderer::vertex::create_buffer_from_vertices<vf_format>(
+          fcppt::make_ref(sys.renderer_device_core()),
+          fcppt::make_cref(*vertex_declaration),
+          sge::renderer::resource_flags_field::null(),
+          fcppt::array::make(
+              // top left
+              vertex{
+                  sge::renderer::vf::labels::pos{} = pos(-1.F, 1.F, 0.F),
+                  sge::renderer::vf::labels::texpos<0>{} = texpos0(0.F, 0.F),
+                  sge::renderer::vf::labels::texpos<1>{} = texpos1(0.F, 0.F)},
+              // bottom left
+              vertex{
+                  sge::renderer::vf::labels::pos{} = pos(-1.F, -1.F, 0.F),
+                  sge::renderer::vf::labels::texpos<0>{} = texpos0(0.F, 1.F),
+                  sge::renderer::vf::labels::texpos<1>{} = texpos1(0.F, 1.F)},
+              // top right
+              vertex{
+                  sge::renderer::vf::labels::pos{} = pos(1.F, 1.F, 0.F),
+                  sge::renderer::vf::labels::texpos<0>{} = texpos0(1.F, 0.F),
+                  sge::renderer::vf::labels::texpos<1>{} = texpos1(1.F, 0.F)},
+              // bottom right
+              vertex{
+                  sge::renderer::vf::labels::pos{} = pos(1.F, -1.F, 0.F),
+                  sge::renderer::vf::labels::texpos<0>{} = texpos0(1.F, 1.F),
+                  sge::renderer::vf::labels::texpos<1>{} = texpos1(1.F, 1.F)}))};
 
-	using
-	i16
-	=
-	sge::renderer::index::i16;
+  using i16 = sge::renderer::index::i16;
 
-	sge::renderer::index::buffer_unique_ptr const index_buffer{
-		sge::renderer::index::create_buffer_from_indices(
-			fcppt::make_ref(
-				sys.renderer_device_core()
-			),
-			sge::renderer::resource_flags_field::null(),
-			fcppt::array::make(
-				fcppt::literal<i16>(0),
-				fcppt::literal<i16>(1),
-				fcppt::literal<i16>(2),
-				fcppt::literal<i16>(2),
-				fcppt::literal<i16>(3),
-				fcppt::literal<i16>(1)
-			)
-		)
-	};
+  sge::renderer::index::buffer_unique_ptr const index_buffer{
+      sge::renderer::index::create_buffer_from_indices(
+          fcppt::make_ref(sys.renderer_device_core()),
+          sge::renderer::resource_flags_field::null(),
+          fcppt::array::make(
+              fcppt::literal<i16>(0),
+              fcppt::literal<i16>(1),
+              fcppt::literal<i16>(2),
+              fcppt::literal<i16>(2),
+              fcppt::literal<i16>(3),
+              fcppt::literal<i16>(1)))};
 
-	sge::renderer::state::ffp::sampler::object_unique_ptr const sampler0{
-		sys.renderer_device_ffp().create_ffp_sampler_state(
-			sge::renderer::state::ffp::sampler::parameters_both(
-				sge::renderer::state::ffp::sampler::op(
-					sge::renderer::state::ffp::sampler::unary_op(
-						sge::renderer::state::ffp::sampler::unary_op_type::arg,
-						sge::renderer::state::ffp::sampler::arg1(
-							sge::renderer::state::ffp::sampler::arg::texture
-						)
-					)
-				)
-			)
-		)
-	};
+  sge::renderer::state::ffp::sampler::object_unique_ptr const sampler0{
+      sys.renderer_device_ffp().create_ffp_sampler_state(
+          sge::renderer::state::ffp::sampler::parameters_both(
+              sge::renderer::state::ffp::sampler::op(sge::renderer::state::ffp::sampler::unary_op(
+                  sge::renderer::state::ffp::sampler::unary_op_type::arg,
+                  sge::renderer::state::ffp::sampler::arg1(
+                      sge::renderer::state::ffp::sampler::arg::texture)))))};
 
-	sge::renderer::state::ffp::sampler::object_unique_ptr const sampler1{
-		sys.renderer_device_ffp().create_ffp_sampler_state(
-			sge::renderer::state::ffp::sampler::parameters_both(
-				sge::renderer::state::ffp::sampler::op(
-					sge::renderer::state::ffp::sampler::binary_op(
-						sge::renderer::state::ffp::sampler::binary_op_type::modulate,
-						sge::renderer::state::ffp::sampler::arg1(
-							sge::renderer::state::ffp::sampler::arg::previous
-						),
-						sge::renderer::state::ffp::sampler::arg2(
-							sge::renderer::state::ffp::sampler::arg::texture
-						)
-					)
-				)
-			)
-		)
-	};
+  sge::renderer::state::ffp::sampler::object_unique_ptr const sampler1{
+      sys.renderer_device_ffp().create_ffp_sampler_state(
+          sge::renderer::state::ffp::sampler::parameters_both(
+              sge::renderer::state::ffp::sampler::op(sge::renderer::state::ffp::sampler::binary_op(
+                  sge::renderer::state::ffp::sampler::binary_op_type::modulate,
+                  sge::renderer::state::ffp::sampler::arg1(
+                      sge::renderer::state::ffp::sampler::arg::previous),
+                  sge::renderer::state::ffp::sampler::arg2(
+                      sge::renderer::state::ffp::sampler::arg::texture)))))};
 
-	sge::renderer::state::ffp::sampler::const_object_ref_vector const samplers{
-		fcppt::make_cref(
-			*sampler0
-		),
-		fcppt::make_cref(
-			*sampler1
-		)
-	};
+  sge::renderer::state::ffp::sampler::const_object_ref_vector const samplers{
+      fcppt::make_cref(*sampler0), fcppt::make_cref(*sampler1)};
 
-	auto const draw(
-		[
-			&index_buffer,
-			&samplers,
-			&sys,
-			&texture1,
-			&texture2,
-			&vertex_buffer,
-			&vertex_declaration
-		]{
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+  auto const draw(
+      [&index_buffer, &samplers, &sys, &texture1, &texture2, &vertex_buffer, &vertex_declaration]
+      {
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			sge::renderer::vertex::scoped_declaration const vb_declaration_context(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						scoped_block.get()
-					)
-				),
-				fcppt::make_cref(
-					*vertex_declaration
-				)
-			);
+        sge::renderer::vertex::scoped_declaration const vb_declaration_context(
+            fcppt::reference_to_base<sge::renderer::context::core>(
+                fcppt::make_ref(scoped_block.get())),
+            fcppt::make_cref(*vertex_declaration));
 
-			sge::renderer::vertex::scoped_buffer const vb_context(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						scoped_block.get()
-					)
-				),
-				fcppt::make_cref(
-					*vertex_buffer
-				)
-			);
+        sge::renderer::vertex::scoped_buffer const vb_context(
+            fcppt::reference_to_base<sge::renderer::context::core>(
+                fcppt::make_ref(scoped_block.get())),
+            fcppt::make_cref(*vertex_buffer));
 
-			sge::renderer::texture::scoped const tex0_context(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						scoped_block.get()
-					)
-				),
-				fcppt::reference_to_base<
-					sge::renderer::texture::base const
-				>(
-					fcppt::make_cref(
-						*texture1
-					)
-				),
-				sge::renderer::texture::stage(0U)
-			);
+        sge::renderer::texture::scoped const tex0_context(
+            fcppt::reference_to_base<sge::renderer::context::core>(
+                fcppt::make_ref(scoped_block.get())),
+            fcppt::reference_to_base<sge::renderer::texture::base const>(
+                fcppt::make_cref(*texture1)),
+            sge::renderer::texture::stage(0U));
 
-			sge::renderer::texture::scoped const tex1_context(
-				fcppt::reference_to_base<
-					sge::renderer::context::core
-				>(
-					fcppt::make_ref(
-						scoped_block.get()
-					)
-				),
-				fcppt::reference_to_base<
-					sge::renderer::texture::base const
-				>(
-					fcppt::make_cref(
-						*texture2
-					)
-				),
-				sge::renderer::texture::stage(1U)
-			);
+        sge::renderer::texture::scoped const tex1_context(
+            fcppt::reference_to_base<sge::renderer::context::core>(
+                fcppt::make_ref(scoped_block.get())),
+            fcppt::reference_to_base<sge::renderer::texture::base const>(
+                fcppt::make_cref(*texture2)),
+            sge::renderer::texture::stage(1U));
 
-			scoped_block.get().sampler_ffp_state(
-				samplers
-			);
+        scoped_block.get().sampler_ffp_state(samplers);
 
-			scoped_block.get().clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-			);
+        scoped_block.get().clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::black()}));
 
-			scoped_block.get().render_indexed(
-				*index_buffer,
-				sge::renderer::vertex::first(
-					0U
-				),
-				sge::renderer::vertex::count(
-					vertex_buffer->linear_size()
-				),
-				sge::renderer::primitive_type::triangle_list,
-				sge::renderer::index::first(
-					0U
-				),
-				sge::renderer::index::count(
-					index_buffer->linear_size()
-				)
-			);
-		}
-	);
+        scoped_block.get().render_indexed(
+            *index_buffer,
+            sge::renderer::vertex::first(0U),
+            sge::renderer::vertex::count(vertex_buffer->linear_size()),
+            sge::renderer::primitive_type::triangle_list,
+            sge::renderer::index::first(0U),
+            sge::renderer::index::count(index_buffer->linear_size()));
+      });
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&sys,
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					sge::systems::quit_on_escape(
-						sys,
-						_event
-					);
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&sys, &draw](awl::event::base const &_event)
+          {
+            sge::systems::quit_on_escape(sys, _event);
 
-					fcppt::optional::maybe_void(
-						fcppt::cast::dynamic<
-							sge::renderer::event::render const
-						>(
-							_event
-						),
-						[
-							&draw
-						](
-							fcppt::reference<
-								sge::renderer::event::render const
-							>
-						)
-						{
-							draw();
-						}
-					);
-				}
-			}
-		);
+            fcppt::optional::maybe_void(
+                fcppt::cast::dynamic<sge::renderer::event::render const>(_event),
+                [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); });
+          }});
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

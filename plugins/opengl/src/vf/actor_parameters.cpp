@@ -3,48 +3,30 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 
-
 sge::opengl::vf::actor_parameters::actor_parameters(
-	sge::renderer::vf::dynamic::stride const _stride,
-	sge::renderer::vf::dynamic::offset const _offset,
-	sge::opengl::context::object_ref const _context
-)
-:
-	stride_(
-		_stride
-	),
-	offset_(
-		_offset
-	),
-	context_(
-		_context
-	)
+    sge::renderer::vf::dynamic::stride const _stride,
+    sge::renderer::vf::dynamic::offset const _offset,
+    sge::opengl::context::object_ref const _context)
+    : stride_(_stride), offset_(_offset), context_(_context)
 {
 }
 
-sge::renderer::vf::dynamic::stride
-sge::opengl::vf::actor_parameters::stride() const
+sge::renderer::vf::dynamic::stride sge::opengl::vf::actor_parameters::stride() const
 {
-	return
-		stride_;
+  return stride_;
 }
 
-sge::renderer::vf::dynamic::offset
-sge::opengl::vf::actor_parameters::offset() const
+sge::renderer::vf::dynamic::offset sge::opengl::vf::actor_parameters::offset() const
 {
-	return
-		offset_;
+  return offset_;
 }
 
-sge::opengl::context::object &
-sge::opengl::vf::actor_parameters::context() const
+sge::opengl::context::object &sge::opengl::vf::actor_parameters::context() const
 {
-	return
-		context_.get();
+  return context_.get();
 }

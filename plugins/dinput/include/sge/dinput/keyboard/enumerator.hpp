@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_KEYBOARD_ENUMERATOR_HPP_INCLUDED
 #define SGE_DINPUT_KEYBOARD_ENUMERATOR_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <sge/dinput/keyboard/key_map.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace dinput
@@ -20,29 +18,21 @@ namespace dinput
 namespace keyboard
 {
 
-class enumerator
-:
-	public sge::dinput::device::enumerator
+class enumerator : public sge::dinput::device::enumerator
 {
-	FCPPT_NONCOPYABLE(
-		enumerator
-	);
+  FCPPT_NONCOPYABLE(enumerator);
+
 public:
-	enumerator();
+  enumerator();
 
-	~enumerator()
-	override;
+  ~enumerator() override;
 
-	sge::dinput::keyboard::key_map const &
-	key_map() const;
+  sge::dinput::keyboard::key_map const &key_map() const;
+
 private:
-	void
-	dispatch(
-		DIDEVICEOBJECTINSTANCE const &
-	)
-	override;
+  void dispatch(DIDEVICEOBJECTINSTANCE const &) override;
 
-	sge::dinput::keyboard::key_map key_map_;
+  sge::dinput::keyboard::key_map key_map_;
 };
 
 }

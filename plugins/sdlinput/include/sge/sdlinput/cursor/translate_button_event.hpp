@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_CURSOR_TRANSLATE_BUTTON_EVENT_HPP_INCLUDED
 #define SGE_SDLINPUT_CURSOR_TRANSLATE_BUTTON_EVENT_HPP_INCLUDED
 
@@ -13,15 +12,11 @@
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::cursor
 {
 
 awl::event::base_unique_ptr
-translate_button_event(
-	sge::input::cursor::shared_ptr const &,
-	SDL_MouseButtonEvent const &
-);
+translate_button_event(sge::input::cursor::shared_ptr const &, SDL_MouseButtonEvent const &);
 
 }
 

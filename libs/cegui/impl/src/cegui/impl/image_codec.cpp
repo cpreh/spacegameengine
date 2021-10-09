@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/impl/image_codec.hpp>
 #include <sge/cegui/impl/texture.hpp>
@@ -20,64 +19,37 @@
 #include <CEGUI/Texture.h>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::cegui::impl::image_codec::image_codec(
-	sge::image2d::system_ref const _image_system
-)
-:
-	CEGUI::ImageCodec(
-		"sge image codec"
-	),
-	image_system_(
-		_image_system
-	)
+sge::cegui::impl::image_codec::image_codec(sge::image2d::system_ref const _image_system)
+    : CEGUI::ImageCodec("sge image codec"), image_system_(_image_system)
 {
 }
 
-sge::cegui::impl::image_codec::~image_codec()
-= default;
+sge::cegui::impl::image_codec::~image_codec() = default;
 
-CEGUI::Texture *
-sge::cegui::impl::image_codec::load(
-	CEGUI::RawDataContainer const &_data,
-	CEGUI::Texture *const _result_texture
-)
+CEGUI::Texture *sge::cegui::impl::image_codec::load(
+    CEGUI::RawDataContainer const &_data, CEGUI::Texture *const _result_texture)
 {
-	if(
-		_result_texture
-		==
-		nullptr
-	)
-	{
-		throw
-			sge::cegui::exception{
-				FCPPT_TEXT("image_codec::load with nullptr")
-			};
-	}
+  if (_result_texture == nullptr)
+  {
+    throw sge::cegui::exception{FCPPT_TEXT("image_codec::load with nullptr")};
+  }
 
-	dynamic_cast<
-		sge::cegui::impl::texture &
-	>(
-		*_result_texture
-	).create_from_view(
-		sge::image2d::load_raw_exn(
-			image_system_,
-			sge::media::const_raw_range(
-				_data.getDataPtr(),
-				_data.getDataPtr() + _data.getSize() // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-			),
-			sge::media::optional_extension()
-		)
-		->view()
-	);
+  dynamic_cast<sge::cegui::impl::texture &>(*_result_texture)
+      .create_from_view(
+          sge::image2d::load_raw_exn(
+              image_system_,
+              sge::media::const_raw_range(
+                  _data.getDataPtr(),
+                  _data.getDataPtr() +
+                      _data.getSize() // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+                  ),
+              sge::media::optional_extension())
+              ->view());
 
-	return
-		_result_texture;
+  return _result_texture;
 }
 
-sge::image2d::system &
-sge::cegui::impl::image_codec::image_system() const
+sge::image2d::system &sge::cegui::impl::image_codec::image_system() const
 {
-	return
-		image_system_.get();
+  return image_system_.get();
 }

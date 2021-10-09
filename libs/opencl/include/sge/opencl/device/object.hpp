@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_DEVICE_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_DEVICE_OBJECT_HPP_INCLUDED
 
@@ -17,40 +16,28 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opencl::device
 {
 
 class object
 {
 public:
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	cl_device_id
-	impl() const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL cl_device_id impl() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	void
-	output_info(
-		std::ostream &
-	) const;
+  SGE_OPENCL_DETAIL_SYMBOL
+  void output_info(std::ostream &) const;
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	bool
-	is_gpu() const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL bool is_gpu() const;
+
 private:
-	friend class sge::opencl::platform::object;
-	friend class sge::opencl::context::object;
-	friend class sge::opencl::command_queue::object;
-	friend class sge::opencl::program::object;
+  friend class sge::opencl::platform::object;
+  friend class sge::opencl::context::object;
+  friend class sge::opencl::command_queue::object;
+  friend class sge::opencl::program::object;
 
-	cl_device_id device_id_;
+  cl_device_id device_id_;
 
-	explicit
-	object(
-		cl_device_id const &
-	);
+  explicit object(cl_device_id const &);
 };
 
 }

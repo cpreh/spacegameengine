@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/align_h/center_fwd.hpp>
 #include <sge/font/align_h/left_fwd.hpp>
 #include <sge/font/align_h/right_fwd.hpp>
@@ -14,35 +13,11 @@
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
 
-
-PangoAlignment
-sge::pango::convert::alignment(
-	sge::font::align_h::variant const &_alignment
-)
+PangoAlignment sge::pango::convert::alignment(sge::font::align_h::variant const &_alignment)
 {
-	return
-		fcppt::variant::match(
-			_alignment,
-			[](
-				sge::font::align_h::left const &
-			)
-			{
-				return
-					PANGO_ALIGN_LEFT;
-			},
-			[](
-				sge::font::align_h::center const &
-			)
-			{
-				return
-					PANGO_ALIGN_CENTER;
-			},
-			[](
-				sge::font::align_h::right const &
-			)
-			{
-				return
-					PANGO_ALIGN_RIGHT;
-			}
-		);
+  return fcppt::variant::match(
+      _alignment,
+      [](sge::font::align_h::left const &) { return PANGO_ALIGN_LEFT; },
+      [](sge::font::align_h::center const &) { return PANGO_ALIGN_CENTER; },
+      [](sge::font::align_h::right const &) { return PANGO_ALIGN_RIGHT; });
 }

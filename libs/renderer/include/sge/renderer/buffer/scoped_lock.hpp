@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_BUFFER_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_BUFFER_SCOPED_LOCK_HPP_INCLUDED
 
@@ -17,7 +16,6 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::renderer::buffer
 {
 
@@ -29,44 +27,21 @@ namespace sge::renderer::buffer
 Used for locking of buffers readwrite or writeonly. It locks the buffer in the
 constructor and unlocks it in the destructor.
 */
-template<
-	typename Tag
->
+template <typename Tag>
 class scoped_lock
 {
-	FCPPT_NONMOVABLE(
-		scoped_lock
-	);
+  FCPPT_NONMOVABLE(scoped_lock);
+
 public:
-	using
-	buffer_type
-	=
-	sge::renderer::buffer::writable<
-		Tag
-	>;
+  using buffer_type = sge::renderer::buffer::writable<Tag>;
 
-	using
-	buffer_ref
-	=
-	fcppt::reference<
-		buffer_type
-	>;
+  using buffer_ref = fcppt::reference<buffer_type>;
 
-	using
-	lock_area
-	=
-	sge::image::box<
-		Tag
-	>;
+  using lock_area = sge::image::box<Tag>;
 
-	using
-	view
-	=
-	sge::renderer::buffer::traits::view<
-		Tag
-	>;
+  using view = sge::renderer::buffer::traits::view<Tag>;
 
-	/**
+  /**
 	\brief Locks an entire buffer
 
 	\param buffer The buffer to lock
@@ -75,13 +50,10 @@ public:
 
 	\warning The behavior is undefined if the buffer is already locked
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	scoped_lock(
-		buffer_ref buffer,
-		sge::renderer::lock_mode mode
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  scoped_lock(buffer_ref buffer, sge::renderer::lock_mode mode);
 
-	/**
+  /**
 	\brief Locks a portion of a buffer
 
 	Locks the portion of \a buffer described by \a area
@@ -96,35 +68,29 @@ public:
 
 	\warning The behavior is undefined if \a area is out of range
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	scoped_lock(
-		buffer_ref buffer,
-		lock_area const &area,
-		sge::renderer::lock_mode mode
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  scoped_lock(buffer_ref buffer, lock_area const &area, sge::renderer::lock_mode mode);
 
-	/**
+  /**
 	\brief Obtain the view of the locked region
 
 	\return The view of the locked region
 	*/
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	view
-	value() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL view value() const;
 
-	/**
+  /**
 	\brief Unlocks the buffer
 
 	\warning The behavior is undefined if the buffer has been locked again
 	or unlocked in between the constructor and destructor
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	~scoped_lock();
-private:
-	buffer_ref const buffer_;
+  SGE_RENDERER_DETAIL_SYMBOL
+  ~scoped_lock();
 
-	view const view_;
+private:
+  buffer_ref const buffer_;
+
+  view const view_;
 };
 
 }

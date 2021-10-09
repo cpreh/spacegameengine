@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_INI_GRAMMAR_HPP_INCLUDED
 #define SGE_PARSE_INI_GRAMMAR_HPP_INCLUDED
 
@@ -19,47 +18,28 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::ini
 {
 
-class grammar
-:
-	public
-		sge::parse::ini::grammar_base
+class grammar : public sge::parse::ini::grammar_base
 {
-	FCPPT_NONMOVABLE(
-		grammar
-	);
+  FCPPT_NONMOVABLE(grammar);
+
 public:
-	grammar();
+  grammar();
 
-	~grammar();
+  ~grammar();
+
 private:
-	base_type<
-		sge::parse::ini::entry
-	>
-	entry_;
+  base_type<sge::parse::ini::entry> entry_;
 
-	base_type<
-		std::string
-	>
-	header_;
+  base_type<std::string> header_;
 
-	base_type<
-		sge::parse::ini::section
-	>
-	section_;
+  base_type<sge::parse::ini::section> section_;
 
-	base_type<
-		sge::parse::ini::section_vector
-	>
-	section_vector_;
+  base_type<sge::parse::ini::section_vector> section_vector_;
 
-	base_type<
-		sge::parse::ini::start
-	>
-	ini_;
+  base_type<sge::parse::ini::start> ini_;
 };
 
 }

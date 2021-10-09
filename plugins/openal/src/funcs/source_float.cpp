@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/exception.hpp>
 #include <sge/openal/al.hpp>
 #include <sge/openal/check_state.hpp>
@@ -11,22 +10,10 @@
 #include <sge/openal/funcs/source_float.hpp>
 #include <fcppt/text.hpp>
 
-
-void
-sge::openal::funcs::source_float(
-	sge::openal::source_id const _source,
-	ALenum const _what,
-	ALfloat const _value
-)
+void sge::openal::funcs::source_float(
+    sge::openal::source_id const _source, ALenum const _what, ALfloat const _value)
 {
-	::alSourcef(
-		_source.get(),
-		_what,
-		_value
-	);
+  ::alSourcef(_source.get(), _what, _value);
 
-	SGE_OPENAL_CHECK_STATE(
-		FCPPT_TEXT("alSourcef failed"),
-		sge::audio::exception
-	)
+  SGE_OPENAL_CHECK_STATE(FCPPT_TEXT("alSourcef failed"), sge::audio::exception)
 }

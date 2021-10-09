@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/exception.hpp>
 #include <sge/font/view.hpp>
 #include <sge/image/color/format.hpp>
@@ -26,101 +25,44 @@
 #include FT_IMAGE_H
 #include <fcppt/config/external_end.hpp>
 
-
-FT_Bitmap
-sge::pango::freetype::make_bitmap(
-	sge::font::view const &_view
-)
+FT_Bitmap sge::pango::freetype::make_bitmap(sge::font::view const &_view)
 {
-	sge::image2d::dim const size{
-		sge::image2d::view::size(
-			_view
-		)
-	};
+  sge::image2d::dim const size{sge::image2d::view::size(_view)};
 
-	auto const width(
-		fcppt::cast::size<
-			unsigned
-		>(
-			size.w()
-		)
-	);
+  auto const width(fcppt::cast::size<unsigned>(size.w()));
 
-	auto const height(
-		fcppt::cast::size<
-			unsigned
-		>(
-			size.h()
-		)
-	);
+  auto const height(fcppt::cast::size<unsigned>(size.h()));
 
-	FT_Bitmap bitmap;
+  FT_Bitmap bitmap;
 
-	FT_Bitmap_Init(
-		&bitmap
-	);
+  FT_Bitmap_Init(&bitmap);
 
-	bitmap.rows =
-		height;
+  bitmap.rows = height;
 
-	bitmap.width =
-		width;
+  bitmap.width = width;
 
-	int const pitch(
-		fcppt::cast::size<
-			int
-		>(
-			sge::image2d::view::pitch(
-				_view
-			).w()
-		)
-	);
+  int const pitch(fcppt::cast::size<int>(sge::image2d::view::pitch(_view).w()));
 
-	// For FreeType, pitch means the distance from the start of one line to
-	// the start of the next line. If the pitch is positive, the image goes
-	// downwards. Because mizuiro doesn't include the width in this case,
-	// we have to add it. If the pitch is negative, mizuiro already
-	// includes the width (as a negative component), so add it back.
-	bitmap.pitch =
-		pitch
-		+
-		fcppt::cast::to_signed(
-			width
-		);
+  // For FreeType, pitch means the distance from the start of one line to
+  // the start of the next line. If the pitch is positive, the image goes
+  // downwards. Because mizuiro doesn't include the width in this case,
+  // we have to add it. If the pitch is negative, mizuiro already
+  // includes the width (as a negative component), so add it back.
+  bitmap.pitch = pitch + fcppt::cast::to_signed(width);
 
-	bitmap.buffer =
-		sge::image2d::view::data(
-			_view
-		);
+  bitmap.buffer = sge::image2d::view::data(_view);
 
-	bitmap.num_grays =
-		256; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  bitmap.num_grays = 256; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 
-	sge::image::color::format const format{
-		sge::image2d::view::format(
-			_view
-		)
-	};
+  sge::image::color::format const format{sge::image2d::view::format(_view)};
 
-	bitmap.pixel_mode =
-		fcppt::optional::to_exception(
-			sge::pango::freetype::pixel_mode(
-				format
-			),
-			[
-				format
-			]{
-				return
-					sge::font::exception{
-						FCPPT_TEXT("Unsupported image format ")
-						+
-						sge::image::color::format_to_string(
-							format
-						)
-					};
-			}
-		);
+  bitmap.pixel_mode = fcppt::optional::to_exception(
+      sge::pango::freetype::pixel_mode(format),
+      [format]
+      {
+        return sge::font::exception{
+            FCPPT_TEXT("Unsupported image format ") + sge::image::color::format_to_string(format)};
+      });
 
-	return
-		bitmap;
+  return bitmap;
 }

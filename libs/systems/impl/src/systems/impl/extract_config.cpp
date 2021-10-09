@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/systems/config.hpp>
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/any_key.hpp>
@@ -15,37 +14,16 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/variant/to_optional.hpp>
 
-
-sge::systems::config
-sge::systems::impl::extract_config(
-	sge::systems::detail::any_map const &_map
-)
+sge::systems::config sge::systems::impl::extract_config(sge::systems::detail::any_map const &_map)
 {
-	return
-		fcppt::optional::maybe(
-			fcppt::container::find_opt_mapped(
-				_map,
-				sge::systems::detail::any_key::config
-			),
-			[]{
-				return
-					sge::systems::config();
-			},
-			[](
-				fcppt::reference<
-					sge::systems::detail::any const
-				> const _config
-			)
-			{
-				return
-					FCPPT_ASSERT_OPTIONAL_ERROR(
-						fcppt::variant::to_optional<
-							sge::systems::config
-						>(
-							_config.get()
-						)
-					);
-			}
+  return fcppt::optional::maybe(
+      fcppt::container::find_opt_mapped(_map, sge::systems::detail::any_key::config),
+      [] { return sge::systems::config(); },
+      [](fcppt::reference<sge::systems::detail::any const> const _config)
+      {
+        return FCPPT_ASSERT_OPTIONAL_ERROR(
+            fcppt::variant::to_optional<sge::systems::config>(_config.get()));
+      }
 
-		);
+  );
 }

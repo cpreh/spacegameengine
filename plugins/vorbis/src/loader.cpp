@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/file.hpp>
 #include <sge/audio/load_stream_result.hpp>
 #include <sge/audio/loader.hpp>
@@ -32,117 +31,50 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-sge::media::extension
-extension()
+sge::media::extension extension()
 {
-	return
-		sge::media::extension{
-			fcppt::string{
-				FCPPT_TEXT("ogg")
-			}
-		};
+  return sge::media::extension{fcppt::string{FCPPT_TEXT("ogg")}};
 }
 
 }
 
-sge::vorbis::loader::loader(
-	fcppt::log::context_reference const _log_context
-)
-:
-	sge::audio::loader(),
-	log_{
-		_log_context,
-		sge::log::location(),
-		sge::log::default_parameters(
-			fcppt::log::name{
-				FCPPT_TEXT("vorbis")
-			}
-		)
-	}
+sge::vorbis::loader::loader(fcppt::log::context_reference const _log_context)
+    : sge::audio::loader(),
+      log_{
+          _log_context,
+          sge::log::location(),
+          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("vorbis")})}
 {
 }
 
-sge::vorbis::loader::~loader()
-= default;
+sge::vorbis::loader::~loader() = default;
 
-sge::audio::load_stream_result
-sge::vorbis::loader::load_stream(
-	sge::media::stream_unique_ptr &&_stream,
-	sge::media::optional_extension const &_extension,
-	sge::media::optional_name const &_name
-)
+sge::audio::load_stream_result sge::vorbis::loader::load_stream(
+    sge::media::stream_unique_ptr &&_stream,
+    sge::media::optional_extension const &_extension,
+    sge::media::optional_name const &_name)
 {
-	return
-		sge::media::check_extension(
-			extension(),
-			_extension
-		)
-		?
-			fcppt::optional::maybe(
-				sge::vorbis::open(
-					*_stream
-				),
-				[
-					&_stream
-				]{
-					return
-						sge::audio::load_stream_result(
-							std::move(
-								_stream
-							)
-						);
-				},
-				[
-					this,
-					&_stream,
-					&_name
-				](
-					sge::vorbis::stream_unique_ptr &&_vorbis_stream
-				)
-				{
-					return
-						sge::audio::load_stream_result{
-							fcppt::unique_ptr_to_base<
-								sge::audio::file
-							>(
-								fcppt::make_unique_ptr<
-									sge::vorbis::file
-								>(
-									fcppt::make_ref(
-										log_
-									),
-									std::move(
-										_stream
-									),
-									std::move(
-										_vorbis_stream
-									),
-									sge::media::optional_name{
-										_name
-									}
-								)
-							)
-						};
-				}
-			)
-		:
-			sge::audio::load_stream_result(
-				std::move(
-					_stream
-				)
-			)
-		;
+  return sge::media::check_extension(extension(), _extension)
+             ? fcppt::optional::maybe(
+                   sge::vorbis::open(*_stream),
+                   [&_stream] { return sge::audio::load_stream_result(std::move(_stream)); },
+                   [this, &_stream, &_name](sge::vorbis::stream_unique_ptr &&_vorbis_stream)
+                   {
+                     return sge::audio::load_stream_result{
+                         fcppt::unique_ptr_to_base<sge::audio::file>(
+                             fcppt::make_unique_ptr<sge::vorbis::file>(
+                                 fcppt::make_ref(log_),
+                                 std::move(_stream),
+                                 std::move(_vorbis_stream),
+                                 sge::media::optional_name{_name}))};
+                   })
+             : sge::audio::load_stream_result(std::move(_stream));
 }
 
-sge::media::extension_set
-sge::vorbis::loader::extensions() const
+sge::media::extension_set sge::vorbis::loader::extensions() const
 {
-	return
-		sge::media::extension_set{
-			extension()
-		};
+  return sge::media::extension_set{extension()};
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_VIEW_CONST_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_CONST_OBJECT_HPP_INCLUDED
 
@@ -18,111 +17,55 @@
 #include <mizuiro/const_tag.hpp>
 #include <fcppt/variant/from_list.hpp>
 
-
 namespace sge::image::view
 {
 
-template<
-	typename Tag
->
+template <typename Tag>
 class const_object
 {
 public:
-	using
-	nonconst_object
-	=
-	sge::image::view::object<
-		Tag
-	>;
+  using nonconst_object = sge::image::view::object<Tag>;
 
-	using
-	elements
-	=
-	sge::image::view::const_elements<
-		Tag
-	>;
+  using elements = sge::image::view::const_elements<Tag>;
 
-	using
-	variant
-	=
-	fcppt::variant::from_list<
-		elements
-	>;
+  using variant = fcppt::variant::from_list<elements>;
 
-	template<
-		typename Format
-	>
-	explicit
-	const_object(
-		sge::image::view::mizuiro_type<
-			Format,
-			mizuiro::const_tag
-		> const &_view
-	)
-	:
-		const_object(
-			variant{
-				_view
-			}
-		)
-	{
-		static_assert(
-			sge::image::has_format<
-				sge::image::traits::image::color_tag<
-					Tag
-				>,
-				typename
-				Format::color_format
-			>::value,
-			"Invalid format."
-		);
-	}
+  template <typename Format>
+  explicit const_object(sge::image::view::mizuiro_type<Format, mizuiro::const_tag> const &_view)
+      : const_object(variant{_view})
+  {
+    static_assert(
+        sge::image::has_format<
+            sge::image::traits::image::color_tag<Tag>,
+            typename Format::color_format>::value,
+        "Invalid format.");
+  }
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	explicit
-	const_object(
-		variant const &
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  explicit const_object(variant const &);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	explicit
-	const_object(
-		nonconst_object const  &
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  explicit const_object(nonconst_object const &);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	const_object(
-		const_object const &
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  const_object(const_object const &);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	const_object(
-		const_object &&
-	)
-	noexcept;
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  const_object(const_object &&) noexcept;
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	const_object &
-	operator=(
-		const_object const &
-	);
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  const_object &operator=(const_object const &);
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	const_object &
-	operator=(
-		const_object &&
-	)
-	noexcept;
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  const_object &operator=(const_object &&) noexcept;
 
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	~const_object();
+  SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
+  ~const_object();
 
-	[[nodiscard]]
-	SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL
-	variant const &
-	get() const;
+  [[nodiscard]] SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL variant const &get() const;
+
 private:
-	variant variant_;
+  variant variant_;
 };
 
 }

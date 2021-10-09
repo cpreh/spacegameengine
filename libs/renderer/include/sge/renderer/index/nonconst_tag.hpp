@@ -3,10 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_NONCONST_TAG_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_NONCONST_TAG_HPP_INCLUDED
-
 
 namespace sge::renderer::index
 {

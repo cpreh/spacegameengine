@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_PARSE_EXTENSIONS_HPP_INCLUDED
 #define SGE_OPENGL_PARSE_EXTENSIONS_HPP_INCLUDED
 
@@ -16,53 +15,19 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl
 {
 
-template<
-	typename Type
->
-sge::opengl::extension_set<
-	Type
->
-parse_extensions(
-	std::string const &_extensions
-)
+template <typename Type>
+sge::opengl::extension_set<Type> parse_extensions(std::string const &_extensions)
 {
-	std::istringstream stream(
-		_extensions
-	);
+  std::istringstream stream(_extensions);
 
-	using
-	iterator
-	=
-	std::istream_iterator<
-		std::string
-	>;
+  using iterator = std::istream_iterator<std::string>;
 
-	return
-		fcppt::algorithm::map<
-			sge::opengl::extension_set<
-				Type
-			>
-		>(
-			fcppt::iterator::make_range(
-				iterator(
-					stream
-				),
-				iterator()
-			),
-			[](
-				std::string const &_element
-			)
-			{
-				return
-					Type(
-						_element
-					);
-			}
-		);
+  return fcppt::algorithm::map<sge::opengl::extension_set<Type>>(
+      fcppt::iterator::make_range(iterator(stream), iterator()),
+      [](std::string const &_element) { return Type(_element); });
 }
 
 }

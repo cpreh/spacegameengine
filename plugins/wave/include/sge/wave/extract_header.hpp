@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WAVE_EXTRACT_HEADER_HPP_INCLUDED
 #define SGE_WAVE_EXTRACT_HEADER_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::wave
 {
 
-sge::wave::optional_header
-extract_header(
-	std::istream &
-);
+sge::wave::optional_header extract_header(std::istream &);
 
 }
 

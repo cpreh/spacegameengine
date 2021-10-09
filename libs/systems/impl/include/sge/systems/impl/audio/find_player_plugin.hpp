@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_AUDIO_FIND_PLAYER_PLUGIN_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_AUDIO_FIND_PLAYER_PLUGIN_HPP_INCLUDED
 
@@ -13,17 +12,14 @@
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-
 namespace sge::systems::impl::audio
 {
 
-sge::systems::impl::audio::player_pair
-find_player_plugin(
-	fcppt::log::context_reference,
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	sge::audio::player_plugin::collection const &,
-	sge::systems::audio_player const &
-);
+sge::systems::impl::audio::player_pair find_player_plugin(
+    fcppt::log::context_reference,
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    sge::audio::player_plugin::collection const &,
+    sge::systems::audio_player const &);
 
 }
 

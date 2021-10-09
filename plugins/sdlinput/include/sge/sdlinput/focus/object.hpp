@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_FOCUS_OBJECT_HPP_INCLUDED
 #define SGE_SDLINPUT_FOCUS_OBJECT_HPP_INCLUDED
 
@@ -12,33 +11,22 @@
 #include <sge/window/object_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::sdlinput::focus
 {
 
-class object
-:
-	public
-		sge::input::focus::object
+class object : public sge::input::focus::object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	explicit
-	object(
-		sge::window::object_ref
-	);
+  explicit object(sge::window::object_ref);
 
-	~object()
-	override;
+  ~object() override;
 
-	[[nodiscard]]
-	sge::window::object &
-	window() const
-	override;
+  [[nodiscard]] sge::window::object &window() const override;
+
 private:
-	sge::window::object_ref const window_;
+  sge::window::object_ref const window_;
 };
 
 }

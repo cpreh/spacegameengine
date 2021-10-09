@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_FBO_OPTIONAL_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_FBO_OPTIONAL_CONFIG_HPP_INCLUDED
 
 #include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/optional_config_fwd.hpp>
 #include <fcppt/optional/object_impl.hpp>
-
 
 #endif

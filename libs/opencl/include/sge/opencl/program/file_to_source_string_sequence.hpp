@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_PROGRAM_FILE_TO_SOURCE_STRING_SEQUENCE_HPP_INCLUDED
 #define SGE_OPENCL_PROGRAM_FILE_TO_SOURCE_STRING_SEQUENCE_HPP_INCLUDED
 
@@ -13,12 +12,10 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opencl::program
 {
 SGE_OPENCL_DETAIL_SYMBOL program::source_string_sequence
-file_to_source_string_sequence(
-	std::filesystem::path const &);
+file_to_source_string_sequence(std::filesystem::path const &);
 }
 
 #endif

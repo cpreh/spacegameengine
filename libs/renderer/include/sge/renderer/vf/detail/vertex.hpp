@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DETAIL_VERTEX_HPP_INCLUDED
 #define SGE_RENDERER_VF_DETAIL_VERTEX_HPP_INCLUDED
 
@@ -17,45 +16,21 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/from_list_fwd.hpp>
 
-
 namespace sge::renderer::vf::detail
 {
 
-template<
-	typename Type
->
+template <typename Type>
 struct vertex;
 
-template<
-	typename... Elements
->
-struct vertex<
-	sge::renderer::vf::part<
-		Elements...
-	>
->
+template <typename... Elements>
+struct vertex<sge::renderer::vf::part<Elements...>>
 {
-	using
-	type
-	=
-	fcppt::record::from_list<
-		fcppt::mpl::list::map<
-			fcppt::mpl::list::object<
-				Elements...
-			>,
-			fcppt::mpl::bind<
-				fcppt::mpl::lambda<
-					fcppt::record::element
-				>,
-				fcppt::mpl::lambda<
-					sge::renderer::vf::to_label
-				>,
-				fcppt::mpl::lambda<
-					sge::renderer::vf::to_packed_type
-				>
-			>
-		>
-	>;
+  using type = fcppt::record::from_list<fcppt::mpl::list::map<
+      fcppt::mpl::list::object<Elements...>,
+      fcppt::mpl::bind<
+          fcppt::mpl::lambda<fcppt::record::element>,
+          fcppt::mpl::lambda<sge::renderer::vf::to_label>,
+          fcppt::mpl::lambda<sge::renderer::vf::to_packed_type>>>>;
 };
 
 }

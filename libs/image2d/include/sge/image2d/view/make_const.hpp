@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_VIEW_MAKE_CONST_HPP_INCLUDED
 #define SGE_IMAGE2D_VIEW_MAKE_CONST_HPP_INCLUDED
 
@@ -19,23 +18,18 @@
 #include <sge/image2d/traits/dimension.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 
-
 namespace sge::image2d::view
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::view::const_object
-make_const(
-	sge::image::const_raw_pointer,
-	sge::image2d::dim const &,
-	sge::image::color::format,
-	sge::image2d::pitch const &
-);
+sge::image2d::view::const_object make_const(
+    sge::image::const_raw_pointer,
+    sge::image2d::dim const &,
+    sge::image::color::format,
+    sge::image2d::pitch const &);
 
 }
 
-SGE_IMAGE_VIEW_DECLARE_MAKE_CONST(
-	sge::image2d::tag
-);
+SGE_IMAGE_VIEW_DECLARE_MAKE_CONST(sge::image2d::tag);
 
 #endif

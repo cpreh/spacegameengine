@@ -3,22 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_KEY_IS_CONTROL_HPP_INCLUDED
 #define SGE_INPUT_KEY_IS_CONTROL_HPP_INCLUDED
 
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/key/code_fwd.hpp>
 
-
 namespace sge::input::key
 {
 
 SGE_INPUT_DETAIL_SYMBOL
-bool
-is_control(
-	sge::input::key::code
-);
+bool is_control(sge::input::key::code);
 
 }
 

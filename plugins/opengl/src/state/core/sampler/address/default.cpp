@@ -3,14 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/state/core/sampler/address/default.hpp>
 #include <sge/renderer/state/core/sampler/address/mode.hpp>
-
 
 sge::renderer::state::core::sampler::address::mode
 sge::opengl::state::core::sampler::address::default_()
 {
-	return
-		sge::renderer::state::core::sampler::address::mode::repeat;
+  return sge::renderer::state::core::sampler::address::mode::repeat;
 }

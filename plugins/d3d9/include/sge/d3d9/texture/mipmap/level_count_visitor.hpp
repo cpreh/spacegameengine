@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_TEXTURE_MIPMAP_LEVEL_COUNT_VISITOR_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_MIPMAP_LEVEL_COUNT_VISITOR_HPP_INCLUDED
 
@@ -24,22 +23,13 @@ namespace mipmap
 class level_count_visitor
 {
 public:
-	typedef UINT result_type;
+  typedef UINT result_type;
 
-	result_type
-	operator()(
-		renderer::texture::mipmap::all_levels_rep const &
-	) const;
+  result_type operator()(renderer::texture::mipmap::all_levels_rep const &) const;
 
-	result_type
-	operator()(
-		renderer::texture::mipmap::levels_rep const &
-	) const;
+  result_type operator()(renderer::texture::mipmap::levels_rep const &) const;
 
-	result_type
-	operator()(
-		renderer::texture::mipmap::off_rep const &
-	) const;
+  result_type operator()(renderer::texture::mipmap::off_rep const &) const;
 };
 
 }

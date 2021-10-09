@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/sdlinput/same_windows.hpp>
@@ -22,47 +21,20 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::event::container
-sge::sdlinput::translate::keyboard_event(
-	sge::input::focus::shared_ptr const &_focus,
-	sge::input::keyboard::shared_ptr const &_keyboard,
-	awl::backends::sdl::window::object const &_window,
-	SDL_KeyboardEvent const &_event
-)
+awl::event::container sge::sdlinput::translate::keyboard_event(
+    sge::input::focus::shared_ptr const &_focus,
+    sge::input::keyboard::shared_ptr const &_keyboard,
+    awl::backends::sdl::window::object const &_window,
+    SDL_KeyboardEvent const &_event)
 {
-	if(
-		fcppt::not_(
-			sge::sdlinput::same_windows(
-				_window,
-				_event
-			)
-		)
-	)
-	{
-		return
-			awl::event::container{};
-	}
+  if (fcppt::not_(sge::sdlinput::same_windows(_window, _event)))
+  {
+    return awl::event::container{};
+  }
 
-	return
-		fcppt::optional::cat<
-			awl::event::container
-		>(
-			fcppt::container::make<
-				std::vector<
-					awl::event::optional_base_unique_ptr
-				>
-			>(
-				sge::sdlinput::keyboard::translate_event(
-					_keyboard,
-					_event
-				),
-				awl::event::optional_base_unique_ptr{
-					sge::sdlinput::focus::translate_keyboard_event(
-						_focus,
-						_event
-					)
-				}
-			)
-		);
+  return fcppt::optional::cat<awl::event::container>(
+      fcppt::container::make<std::vector<awl::event::optional_base_unique_ptr>>(
+          sge::sdlinput::keyboard::translate_event(_keyboard, _event),
+          awl::event::optional_base_unique_ptr{
+              sge::sdlinput::focus::translate_keyboard_event(_focus, _event)}));
 }

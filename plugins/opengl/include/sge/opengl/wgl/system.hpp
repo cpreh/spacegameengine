@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_WGL_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_WGL_SYSTEM_HPP_INCLUDED
 
@@ -16,7 +15,6 @@
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge
 {
 namespace opengl
@@ -24,35 +22,22 @@ namespace opengl
 namespace wgl
 {
 
-class system
-:
-	public sge::opengl::backend::system
+class system : public sge::opengl::backend::system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
+  FCPPT_NONMOVABLE(system);
+
 public:
-	explicit
-	system(
-		awl::system::object &
-	);
+  explicit system(awl::system::object &);
 
-	~system()
-	override;
+  ~system() override;
+
 private:
-	awl::visual::object_unique_ptr
-	create_visual(
-		sge::renderer::pixel_format::object const &
-	)
-	override;
+  awl::visual::object_unique_ptr
+  create_visual(sge::renderer::pixel_format::object const &) override;
 
-	sge::opengl::backend::context_unique_ptr
-	create_context(
-		sge::window::object_ref
-	)
-	override;
+  sge::opengl::backend::context_unique_ptr create_context(sge::window::object_ref) override;
 
-	sge::opengl::wgl::config const config_;
+  sge::opengl::wgl::config const config_;
 };
 
 }

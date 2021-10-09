@@ -3,33 +3,24 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/cursor/button_code.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
-
-fcppt::string
-sge::input::cursor::button_code_to_string(
-	sge::input::cursor::button_code const _code
-)
+fcppt::string sge::input::cursor::button_code_to_string(sge::input::cursor::button_code const _code)
 {
-#define MAKE_CASE(\
-	name\
-)\
-case sge::input::cursor::button_code::name:\
-	return FCPPT_TEXT(#name);
+#define MAKE_CASE(name) \
+  case sge::input::cursor::button_code::name: \
+    return FCPPT_TEXT(#name);
 
-	switch(
-		_code
-	)
-	{
-	MAKE_CASE(left)
-	MAKE_CASE(right)
-	MAKE_CASE(middle)
-	MAKE_CASE(unknown)
-	}
+  switch (_code)
+  {
+    MAKE_CASE(left)
+    MAKE_CASE(right)
+    MAKE_CASE(middle)
+    MAKE_CASE(unknown)
+  }
 
-	FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_ASSERT_UNREACHABLE;
 }

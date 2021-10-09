@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_BITMAP_IMPL_TEXT_HPP_INCLUDED
 #define SGE_FONT_BITMAP_IMPL_TEXT_HPP_INCLUDED
 
@@ -23,72 +22,42 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-
 namespace sge::font::bitmap::impl
 {
 
-class text
-:
-	public sge::font::text
+class text : public sge::font::text
 {
-	FCPPT_NONMOVABLE(
-		text
-	);
+  FCPPT_NONMOVABLE(text);
+
 public:
-	text(
-		fcppt::log::object &, // NOLINT(google-runtime-references)
-		sge::font::bitmap::impl::char_map const &,
-		sge::font::string const &,
-		sge::font::text_parameters const &,
-		sge::font::bitmap::impl::line_height
-	);
+  text(
+      fcppt::log::object &, // NOLINT(google-runtime-references)
+      sge::font::bitmap::impl::char_map const &,
+      sge::font::string const &,
+      sge::font::text_parameters const &,
+      sge::font::bitmap::impl::line_height);
 
-	~text()
-	override;
+  ~text() override;
+
 private:
-	void
-	render(
-		sge::font::view const &
-	)
-	override;
+  void render(sge::font::view const &) override;
 
-	[[nodiscard]]
-	sge::font::rect
-	rect() const
-	override;
+  [[nodiscard]] sge::font::rect rect() const override;
 
-	[[nodiscard]]
-	sge::font::dim
-	logical_size() const
-	override;
+  [[nodiscard]] sge::font::dim logical_size() const override;
 
-	[[nodiscard]]
-	sge::font::rect
-	cursor_rect(
-		sge::font::index
-	) const
-	override;
+  [[nodiscard]] sge::font::rect cursor_rect(sge::font::index) const override;
 
-	[[nodiscard]]
-	sge::font::optional_index
-	pos_to_index(
-		sge::font::vector
-	) const
-	override;
+  [[nodiscard]] sge::font::optional_index pos_to_index(sge::font::vector) const override;
 
-	template<
-		typename Function
-	>
-	void
-	iterate(
-		Function const &
-	) const;
+  template <typename Function>
+  void iterate(Function const &) const;
 
-	sge::font::bitmap::impl::line_height const line_height_;
+  sge::font::bitmap::impl::line_height const line_height_;
 
-	sge::font::align_h::variant const align_h_;
+  sge::font::align_h::variant const align_h_;
 
-	sge::font::bitmap::impl::rep const rep_;
+  sge::font::bitmap::impl::rep const rep_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/string.hpp>
 #include <sge/gui/widget/reference.hpp>
 #include <sge/gui/widget/reference_name_pair.hpp>
@@ -11,33 +10,15 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::gui::widget::reference_name_pair::reference_name_pair(
-	sge::gui::widget::reference const _reference,
-	sge::font::string &&_name
-)
-:
-	reference_(
-		_reference
-	),
-	name_(
-		std::move(
-			_name
-		)
-	)
+    sge::gui::widget::reference const _reference, sge::font::string &&_name)
+    : reference_(_reference), name_(std::move(_name))
 {
 }
 
-sge::gui::widget::reference
-sge::gui::widget::reference_name_pair::reference() const
+sge::gui::widget::reference sge::gui::widget::reference_name_pair::reference() const
 {
-	return
-		reference_;
+  return reference_;
 }
 
-sge::font::string const &
-sge::gui::widget::reference_name_pair::name() const
-{
-	return
-		name_;
-}
+sge::font::string const &sge::gui::widget::reference_name_pair::name() const { return name_; }

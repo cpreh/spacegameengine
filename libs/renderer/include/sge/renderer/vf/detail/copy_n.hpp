@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DETAIL_COPY_N_HPP_INCLUDED
 #define SGE_RENDERER_VF_DETAIL_COPY_N_HPP_INCLUDED
 
@@ -14,23 +13,15 @@
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vf::detail
 {
 
-inline
-void
-copy_n(
-	sge::renderer::const_raw_pointer const _src,
-	sge::renderer::vf::vertex_size const _sz,
-	sge::renderer::raw_pointer const _dest
-)
+inline void copy_n(
+    sge::renderer::const_raw_pointer const _src,
+    sge::renderer::vf::vertex_size const _sz,
+    sge::renderer::raw_pointer const _dest)
 {
-	std::memcpy(
-		_dest,
-		_src,
-		_sz
-	);
+  std::memcpy(_dest, _src, _sz);
 }
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_VF_TEXTURE_POINT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_TEXTURE_POINT_HPP_INCLUDED
 
@@ -21,47 +20,21 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail::vf
 {
 
-template<
-	typename Choices
->
-using
-texture_point
-=
-fcppt::mpl::list::append<
-	std::conditional_t<
-		sge::sprite::detail::config::has_custom_texture_point_pos<
-			Choices
-		>::value,
-		fcppt::mpl::list::object<
-			sge::sprite::detail::vf::texture_point_pos<
-				Choices
-			>
-		>,
-		fcppt::mpl::list::object<>
-	>,
-	fcppt::mpl::apply<
-		std::conditional_t<
-			sge::sprite::detail::config::has_custom_texture_point_size<
-				Choices
-			>::value,
-			fcppt::mpl::bind<
-				fcppt::mpl::lambda<
-					sge::sprite::detail::vf::texture_point_size
-				>,
-				fcppt::mpl::constant<
-					Choices
-				>
-			>,
-			fcppt::mpl::constant<
-				fcppt::mpl::list::object<>
-			>
-		>
-	>
->;
+template <typename Choices>
+using texture_point = fcppt::mpl::list::append<
+    std::conditional_t<
+        sge::sprite::detail::config::has_custom_texture_point_pos<Choices>::value,
+        fcppt::mpl::list::object<sge::sprite::detail::vf::texture_point_pos<Choices>>,
+        fcppt::mpl::list::object<>>,
+    fcppt::mpl::apply<std::conditional_t<
+        sge::sprite::detail::config::has_custom_texture_point_size<Choices>::value,
+        fcppt::mpl::bind<
+            fcppt::mpl::lambda<sge::sprite::detail::vf::texture_point_size>,
+            fcppt::mpl::constant<Choices>>,
+        fcppt::mpl::constant<fcppt::mpl::list::object<>>>>>;
 
 }
 

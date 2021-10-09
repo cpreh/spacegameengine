@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_DEVICE_INFO_CLASS_MAP_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_INFO_CLASS_MAP_HPP_INCLUDED
 
@@ -14,27 +13,14 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::device::info
 {
 
-using
-class_map
-=
-fcppt::mpl::map::object<
-	SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(
-		XIButtonClass
-	),
-	SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(
-		XIValuatorClass
-	),
-	SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(
-		XIKeyClass
-	),
-	SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(
-		XIScrollClass
-	)
->;
+using class_map = fcppt::mpl::map::object<
+    SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(XIButtonClass),
+    SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(XIValuatorClass),
+    SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(XIKeyClass),
+    SGE_X11INPUT_DEVICE_INFO_MAKE_CLASS_PAIR(XIScrollClass)>;
 
 }
 

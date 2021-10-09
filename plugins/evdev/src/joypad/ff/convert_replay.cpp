@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/joypad/ff/convert_duration.hpp>
 #include <sge/evdev/joypad/ff/convert_replay.hpp>
 #include <sge/input/joypad/ff/delay.hpp>
@@ -15,36 +14,19 @@
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 
-
-ff_replay
-sge::evdev::joypad::ff::convert_replay(
-	sge::input::joypad::ff::optional_duration const &_opt_duration,
-	sge::input::joypad::ff::delay const _delay
-)
+ff_replay sge::evdev::joypad::ff::convert_replay(
+    sge::input::joypad::ff::optional_duration const &_opt_duration,
+    sge::input::joypad::ff::delay const _delay)
 {
-	return
-		ff_replay{
-			fcppt::optional::maybe(
-				_opt_duration,
-				[]{
-					// TODO(philipp): What to put here?
-					return
-						std::numeric_limits<
-							std::uint16_t
-						>::max();
-				},
-				[](
-					sge::input::joypad::ff::duration const _duration
-				)
-				{
-					return
-						sge::evdev::joypad::ff::convert_duration(
-							_duration
-						);
-				}
-			),
-			sge::evdev::joypad::ff::convert_duration(
-				_delay.get()
-			)
-		};
+  return ff_replay{
+      fcppt::optional::maybe(
+          _opt_duration,
+          []
+          {
+            // TODO(philipp): What to put here?
+            return std::numeric_limits<std::uint16_t>::max();
+          },
+          [](sge::input::joypad::ff::duration const _duration)
+          { return sge::evdev::joypad::ff::convert_duration(_duration); }),
+      sge::evdev::joypad::ff::convert_duration(_delay.get())};
 }

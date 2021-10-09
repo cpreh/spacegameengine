@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/screen_size.hpp>
@@ -31,72 +30,30 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/null.hpp>
 
-
-sge::renderer::target::offscreen_unique_ptr
-sge::renderer::target::from_texture(
-	sge::renderer::device::core_ref const _device,
-	sge::renderer::texture::planar_ref const _texture
-)
+sge::renderer::target::offscreen_unique_ptr sge::renderer::target::from_texture(
+    sge::renderer::device::core_ref const _device,
+    sge::renderer::texture::planar_ref const _texture)
 {
-	if(
-		!(
-			_texture.get().capabilities()
-			&
-			sge::renderer::texture::capabilities::render_target
-		)
-	)
-	{
-		throw
-			sge::renderer::exception(
-				FCPPT_TEXT("renderer::target_from_texture() called with a texture ")
-				FCPPT_TEXT("that is not a render target!")
-			);
-	}
+  if (!(_texture.get().capabilities() & sge::renderer::texture::capabilities::render_target))
+  {
+    throw sge::renderer::exception(
+        FCPPT_TEXT("renderer::target_from_texture() called with a texture ")
+            FCPPT_TEXT("that is not a render target!"));
+  }
 
-	sge::renderer::target::offscreen_unique_ptr target(
-		_device.get().create_target()
-	);
+  sge::renderer::target::offscreen_unique_ptr target(_device.get().create_target());
 
-	target->color_surface(
-		sge::renderer::color_buffer::optional_surface_ref(
-			fcppt::reference_to_base<
-				sge::renderer::color_buffer::surface
-			>(
-				fcppt::make_ref(
-					_texture.get().level(
-						sge::renderer::texture::mipmap::level(
-							0U
-						)
-					)
-				)
-			)
-		),
-		sge::renderer::target::surface_index(
-			0U
-		)
-	);
+  target->color_surface(
+      sge::renderer::color_buffer::optional_surface_ref(
+          fcppt::reference_to_base<sge::renderer::color_buffer::surface>(
+              fcppt::make_ref(_texture.get().level(sge::renderer::texture::mipmap::level(0U))))),
+      sge::renderer::target::surface_index(0U));
 
-	target->viewport(
-		sge::renderer::target::viewport(
-			sge::renderer::pixel_rect(
-				fcppt::math::vector::null<
-					sge::renderer::pixel_rect::vector
-				>(),
-				fcppt::math::dim::structure_cast<
-					sge::renderer::pixel_rect::dim,
-					fcppt::cast::to_signed_fun
-				>(
-					fcppt::math::dim::structure_cast<
-						sge::renderer::screen_size,
-						fcppt::cast::size_fun
-					>(
-						_texture.get().size()
-					)
-				)
-			)
-		)
-	);
+  target->viewport(sge::renderer::target::viewport(sge::renderer::pixel_rect(
+      fcppt::math::vector::null<sge::renderer::pixel_rect::vector>(),
+      fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim, fcppt::cast::to_signed_fun>(
+          fcppt::math::dim::structure_cast<sge::renderer::screen_size, fcppt::cast::size_fun>(
+              _texture.get().size())))));
 
-	return
-		target;
+  return target;
 }

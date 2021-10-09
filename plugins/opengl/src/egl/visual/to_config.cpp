@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/egl/attribute_vector.hpp>
 #include <sge/opengl/egl/visual/base.hpp>
 #include <sge/opengl/egl/visual/choose_config.hpp>
@@ -20,49 +19,22 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
-EGLConfig
-sge::opengl::egl::visual::to_config(
-	fcppt::log::object &_log,
-	EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
-	awl::visual::object const &_visual
-)
+EGLConfig sge::opengl::egl::visual::to_config(
+    fcppt::log::object &_log,
+    EGLDisplay const _egl_display, // NOLINT(misc-misplaced-const)
+    awl::visual::object const &_visual)
 {
-	return
-		fcppt::optional::maybe(
-			fcppt::cast::dynamic_cross<
-				sge::opengl::egl::visual::base const
-			>(
-				_visual
-			),
-			[
-				&_log,
-				_egl_display // NOLINT(misc-misplaced-const)
-			]
-			{
-				FCPPT_LOG_WARNING(
-					_log,
-					fcppt::log::out
-						<< FCPPT_TEXT("Visual is not an EGL visual.")
-				);
+  return fcppt::optional::maybe(
+      fcppt::cast::dynamic_cross<sge::opengl::egl::visual::base const>(_visual),
+      [&_log,
+       _egl_display // NOLINT(misc-misplaced-const)
+  ]
+      {
+        FCPPT_LOG_WARNING(_log, fcppt::log::out << FCPPT_TEXT("Visual is not an EGL visual."));
 
-				return
-					sge::opengl::egl::visual::choose_config(
-						_log,
-						_egl_display,
-						sge::opengl::egl::attribute_vector{
-							EGL_NONE
-						}
-					);
-			},
-			[](
-				fcppt::reference<
-					sge::opengl::egl::visual::base const
-				> const _sge_visual
-			)
-			{
-				return
-					_sge_visual.get().config();
-			}
-		);
+        return sge::opengl::egl::visual::choose_config(
+            _log, _egl_display, sge::opengl::egl::attribute_vector{EGL_NONE});
+      },
+      [](fcppt::reference<sge::opengl::egl::visual::base const> const _sge_visual)
+      { return _sge_visual.get().config(); });
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_DEVICE_FD_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_FD_HPP_INCLUDED
 
@@ -14,33 +13,25 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::device
 {
 
 class fd
 {
-	FCPPT_NONMOVABLE(
-		fd
-	);
+  FCPPT_NONMOVABLE(fd);
+
 public:
-	explicit
-	fd(
-		std::filesystem::path const &
-	);
+  explicit fd(std::filesystem::path const &);
 
-	~fd();
+  ~fd();
 
-	// FIXME: Return optional_fd here
-	[[nodiscard]]
-	awl::backends::posix::fd
-	get();
+  // FIXME: Return optional_fd here
+  [[nodiscard]] awl::backends::posix::fd get();
 
-	[[nodiscard]]
-	bool
-	valid() const;
+  [[nodiscard]] bool valid() const;
+
 private:
-	awl::backends::posix::fd const fd_;
+  awl::backends::posix::fd const fd_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_VERSION_HPP_INCLUDED
 #define SGE_OPENGL_EGL_VERSION_HPP_INCLUDED
 
@@ -20,22 +19,16 @@ namespace sge::opengl::egl
 class version
 {
 public:
-	version(
-		sge::opengl::egl::major_version,
-		sge::opengl::egl::minor_version
-	);
+  version(sge::opengl::egl::major_version, sge::opengl::egl::minor_version);
 
-	[[nodiscard]]
-	sge::opengl::egl::major_version
-	major() const;
+  [[nodiscard]] sge::opengl::egl::major_version major() const;
 
-	[[nodiscard]]
-	sge::opengl::egl::minor_version
-	minor() const;
+  [[nodiscard]] sge::opengl::egl::minor_version minor() const;
+
 private:
-	sge::opengl::egl::major_version major_;
+  sge::opengl::egl::major_version major_;
 
-	sge::opengl::egl::minor_version minor_;
+  sge::opengl::egl::minor_version minor_;
 };
 
 }

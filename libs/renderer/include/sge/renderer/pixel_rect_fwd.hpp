@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_PIXEL_RECT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_PIXEL_RECT_FWD_HPP_INCLUDED
 
 #include <sge/renderer/pixel_unit.hpp>
 #include <fcppt/math/box/rect_fwd.hpp>
-
 
 namespace sge::renderer
 {
@@ -19,12 +17,7 @@ namespace sge::renderer
 
 \ingroup sge_renderer
 */
-using
-pixel_rect
-=
-fcppt::math::box::rect<
-	sge::renderer::pixel_unit
->;
+using pixel_rect = fcppt::math::box::rect<sge::renderer::pixel_unit>;
 
 }
 

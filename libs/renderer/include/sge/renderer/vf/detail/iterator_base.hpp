@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DETAIL_ITERATOR_BASE_HPP_INCLUDED
 #define SGE_RENDERER_VF_DETAIL_ITERATOR_BASE_HPP_INCLUDED
 
@@ -16,39 +15,19 @@
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vf::detail
 {
 
-template<
-	typename Part,
-	typename Constness
->
-using
-iterator_base
-=
-fcppt::iterator::base<
-	fcppt::iterator::types<
-		sge::renderer::vf::iterator<
-			Part,
-			Constness
-		>,
-		// TODO(philipp): Should this be renderer::vf::vertex?
-		sge::renderer::vf::proxy<
-			Part,
-			Constness
-		>,
-		sge::renderer::vf::proxy<
-			Part,
-			Constness
-		>,
-		sge::renderer::vf::vertex_difference,
-		// TODO(philipp): output_iterator?
-		std::input_iterator_tag
-	>
->;
+template <typename Part, typename Constness>
+using iterator_base = fcppt::iterator::base<fcppt::iterator::types<
+    sge::renderer::vf::iterator<Part, Constness>,
+    // TODO(philipp): Should this be renderer::vf::vertex?
+    sge::renderer::vf::proxy<Part, Constness>,
+    sge::renderer::vf::proxy<Part, Constness>,
+    sge::renderer::vf::vertex_difference,
+    // TODO(philipp): output_iterator?
+    std::input_iterator_tag>>;
 
 }
 
 #endif
-

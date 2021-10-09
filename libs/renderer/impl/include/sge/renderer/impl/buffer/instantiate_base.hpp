@@ -3,22 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_BASE_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_BASE_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
 #include <sge/renderer/impl/buffer/base_impl.hpp>
 
-
-#define SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_BASE(\
-	tag\
-)\
-template \
-class \
-SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \
-sge::renderer::buffer::base<\
-	tag\
->
+#define SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_BASE(tag) \
+  template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION sge::renderer::buffer::base<tag>
 
 #endif

@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TEXTURE_BASE_REF_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_BASE_REF_HPP_INCLUDED
 
 #include <sge/renderer/texture/base_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::renderer::texture
 {
 
-using
-base_ref
-=
-fcppt::reference<
-	sge::renderer::texture::base
->;
+using base_ref = fcppt::reference<sge::renderer::texture::base>;
 
 }
 

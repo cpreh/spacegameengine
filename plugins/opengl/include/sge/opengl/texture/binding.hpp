@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_BINDING_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BINDING_HPP_INCLUDED
 
@@ -12,30 +11,22 @@
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::texture
 {
 
 class binding
 {
-	FCPPT_NONMOVABLE(
-		binding
-	);
+  FCPPT_NONMOVABLE(binding);
+
 protected:
-	binding();
+  binding();
 
-	virtual
-	~binding();
+  virtual ~binding();
+
 public:
-	[[nodiscard]]
-	virtual
-	sge::renderer::texture::stage
-	stage() const = 0;
+  [[nodiscard]] virtual sge::renderer::texture::stage stage() const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::opengl::texture::type
-	type() const = 0;
+  [[nodiscard]] virtual sge::opengl::texture::type type() const = 0;
 };
 
 }

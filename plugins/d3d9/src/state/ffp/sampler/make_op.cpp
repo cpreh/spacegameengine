@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/state/ffp/sampler/instantiate_op_type.hpp>
 #include <sge/d3d9/state/ffp/sampler/make_op.hpp>
 #include <sge/d3d9/state/ffp/sampler/op_visitor.hpp>
@@ -12,35 +11,15 @@
 #include <sge/renderer/state/ffp/sampler/color_op.hpp>
 #include <fcppt/variant/apply.hpp>
 
-
-template<
-	typename OpType
->
+template <typename OpType>
 sge::d3d9::state::ffp::sampler::state_vector
-sge::d3d9::state::ffp::sampler::make_op(
-	OpType const &_op
-)
+sge::d3d9::state::ffp::sampler::make_op(OpType const &_op)
 {
-	return
-		fcppt::variant::apply(
-			sge::d3d9::state::ffp::sampler::op_visitor<
-				OpType
-			>(),
-			_op.get()
-		);
+  return fcppt::variant::apply(sge::d3d9::state::ffp::sampler::op_visitor<OpType>(), _op.get());
 }
 
-#define SGE_D3D9_STATE_FFP_SAMPLER_INSTANTIATE_MAKE_OP(\
-	op_type\
-)\
-template \
-sge::d3d9::state::ffp::sampler::state_vector \
-sge::d3d9::state::ffp::sampler::make_op<\
-	op_type\
->(\
-	op_type const & \
-)
+#define SGE_D3D9_STATE_FFP_SAMPLER_INSTANTIATE_MAKE_OP(op_type) \
+  template sge::d3d9::state::ffp::sampler::state_vector \
+  sge::d3d9::state::ffp::sampler::make_op<op_type>(op_type const &)
 
-SGE_D3D9_STATE_FFP_SAMPLER_INSTANTIATE_OP_TYPE(
-	SGE_D3D9_STATE_FFP_SAMPLER_INSTANTIATE_MAKE_OP
-);
+SGE_D3D9_STATE_FFP_SAMPLER_INSTANTIATE_OP_TYPE(SGE_D3D9_STATE_FFP_SAMPLER_INSTANTIATE_MAKE_OP);

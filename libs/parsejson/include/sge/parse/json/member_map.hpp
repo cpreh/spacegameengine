@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_MEMBER_MAP_HPP_INCLUDED
 #define SGE_PARSE_JSON_MEMBER_MAP_HPP_INCLUDED
 
@@ -14,19 +13,11 @@
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::json
 {
 
-using
-member_map
-=
-std::unordered_map<
-	sge::charconv::utf8_string,
-	fcppt::recursive<
-		sge::parse::json::value
-	>
->;
+using member_map =
+    std::unordered_map<sge::charconv::utf8_string, fcppt::recursive<sge::parse::json::value>>;
 
 }
 

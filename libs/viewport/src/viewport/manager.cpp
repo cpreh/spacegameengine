@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/manage_callback.hpp>
@@ -17,58 +16,30 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::viewport::manager::manager(
-	sge::renderer::device::core_ref const _device,
-	sge::window::object_ref const _window,
-	sge::viewport::optional_resize_callback &&_resize_callback
-)
-:
-	impl_(
-		fcppt::make_unique_ptr<
-			sge::viewport::detail::manager_impl
-		>(
-			_device,
-			_window,
-			std::move(
-				_resize_callback
-			)
-		)
-	)
+    sge::renderer::device::core_ref const _device,
+    sge::window::object_ref const _window,
+    sge::viewport::optional_resize_callback &&_resize_callback)
+    : impl_(fcppt::make_unique_ptr<sge::viewport::detail::manager_impl>(
+          _device, _window, std::move(_resize_callback)))
 {
 }
 
-sge::viewport::manager::~manager()
-= default;
+sge::viewport::manager::~manager() = default;
 
 fcppt::signal::auto_connection
-sge::viewport::manager::manage_callback(
-	sge::viewport::manage_callback &&_callback
-)
+sge::viewport::manager::manage_callback(sge::viewport::manage_callback &&_callback)
 {
-	return
-		impl_->manage_callback(
-			std::move(
-				_callback
-			)
-		);
+  return impl_->manage_callback(std::move(_callback));
 }
 
-void
-sge::viewport::manager::resize_callback(
-	sge::viewport::optional_resize_callback &&_resize_callback
-)
+void sge::viewport::manager::resize_callback(
+    sge::viewport::optional_resize_callback &&_resize_callback)
 {
-	impl_->resize_callback(
-		std::move(
-			_resize_callback
-		)
-	);
+  impl_->resize_callback(std::move(_resize_callback));
 }
 
-sge::renderer::target::viewport
-sge::viewport::manager::viewport() const
+sge::renderer::target::viewport sge::viewport::manager::viewport() const
 {
-	return
-		impl_->viewport();
+  return impl_->viewport();
 }

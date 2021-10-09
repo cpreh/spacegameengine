@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_MD3_OBJECT_HPP_INCLUDED
 #define SGE_MODEL_MD3_OBJECT_HPP_INCLUDED
 
@@ -20,55 +19,34 @@
 #include <sge/model/md3/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::model::md3
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 protected:
-	SGE_MODEL_MD3_DETAIL_SYMBOL
-	object();
+  SGE_MODEL_MD3_DETAIL_SYMBOL
+  object();
+
 public:
-	[[nodiscard]]
-	virtual
-	sge::model::md3::index_sequence
-	indices(
-		sge::model::md3::string const &name
-	) const = 0;
+  [[nodiscard]] virtual sge::model::md3::index_sequence
+  indices(sge::model::md3::string const &name) const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::model::md3::vertex_sequence
-	vertices(
-		sge::model::md3::string const &name
-	) const = 0;
+  [[nodiscard]] virtual sge::model::md3::vertex_sequence
+  vertices(sge::model::md3::string const &name) const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::model::md3::optional_texcoord_sequence
-	texcoords(
-		sge::model::md3::string const &name
-	) const = 0;
+  [[nodiscard]] virtual sge::model::md3::optional_texcoord_sequence
+  texcoords(sge::model::md3::string const &name) const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::model::md3::optional_normal_sequence
-	normals(
-		sge::model::md3::string const &name
-	) const = 0;
+  [[nodiscard]] virtual sge::model::md3::optional_normal_sequence
+  normals(sge::model::md3::string const &name) const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::model::md3::part_name_sequence
-	part_names() const = 0;
+  [[nodiscard]] virtual sge::model::md3::part_name_sequence part_names() const = 0;
 
-	SGE_MODEL_MD3_DETAIL_SYMBOL
-	virtual
-	~object();
+  SGE_MODEL_MD3_DETAIL_SYMBOL
+  virtual ~object();
 };
 
 }

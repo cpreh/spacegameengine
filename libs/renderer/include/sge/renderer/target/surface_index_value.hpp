@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TARGET_SURFACE_INDEX_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_SURFACE_INDEX_VALUE_HPP_INCLUDED
-
 
 namespace sge::renderer::target
 {
 
-using
-surface_index_value
-=
-unsigned;
+using surface_index_value = unsigned;
 
 }
 

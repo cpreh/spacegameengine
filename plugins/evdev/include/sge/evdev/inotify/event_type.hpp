@@ -3,21 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_INOTIFY_EVENT_TYPE_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_EVENT_TYPE_HPP_INCLUDED
 
 #include <sge/evdev/inotify/event_type_fwd.hpp>
-
 
 namespace sge::evdev::inotify
 {
 
 enum class event_type
 {
-	add,
-	remove,
-	attrib
+  add,
+  remove,
+  attrib
 };
 
 }

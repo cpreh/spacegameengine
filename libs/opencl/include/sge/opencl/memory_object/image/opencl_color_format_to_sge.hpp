@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_OPENCL_COLOR_FORMAT_TO_SGE_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_OPENCL_COLOR_FORMAT_TO_SGE_HPP_INCLUDED
 
@@ -12,9 +11,7 @@
 
 namespace sge::opencl::memory_object::image
 {
-sge::image::color::format
-opencl_color_format_to_sge(
-	cl_image_format const &);
+sge::image::color::format opencl_color_format_to_sge(cl_image_format const &);
 }
 
 #endif

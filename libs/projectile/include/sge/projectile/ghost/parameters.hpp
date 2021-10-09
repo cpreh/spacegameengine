@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_GHOST_PARAMETERS_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_PARAMETERS_HPP_INCLUDED
 
@@ -14,39 +13,28 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-
 namespace sge::projectile::ghost
 {
 
 class parameters
 {
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	parameters(
-		sge::projectile::log const &,
-		sge::projectile::ghost::position,
-		sge::projectile::ghost::size
-	);
+  SGE_PROJECTILE_DETAIL_SYMBOL
+  parameters(
+      sge::projectile::log const &, sge::projectile::ghost::position, sge::projectile::ghost::size);
 
-	[[nodiscard]]
-	fcppt::log::object &
-	log() const;
+  [[nodiscard]] fcppt::log::object &log() const;
 
-	[[nodiscard]]
-	sge::projectile::ghost::position const &
-	position() const;
+  [[nodiscard]] sge::projectile::ghost::position const &position() const;
 
-	[[nodiscard]]
-	sge::projectile::ghost::size const &
-	size() const;
+  [[nodiscard]] sge::projectile::ghost::size const &size() const;
+
 private:
-	fcppt::reference<
-		fcppt::log::object
-	> log_;
+  fcppt::reference<fcppt::log::object> log_;
 
-	sge::projectile::ghost::position position_;
+  sge::projectile::ghost::position position_;
 
-	sge::projectile::ghost::size size_;
+  sge::projectile::ghost::size size_;
 };
 
 }

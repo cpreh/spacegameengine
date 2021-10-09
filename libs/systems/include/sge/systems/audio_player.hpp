@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_AUDIO_PLAYER_HPP_INCLUDED
 #define SGE_SYSTEMS_AUDIO_PLAYER_HPP_INCLUDED
 
@@ -12,28 +11,21 @@
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/detail/symbol.hpp>
 
-
 namespace sge::systems
 {
 
 class audio_player
 {
 public:
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	audio_player();
+  SGE_SYSTEMS_DETAIL_SYMBOL
+  audio_player();
 
-	[[nodiscard]]
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	sge::systems::audio_player
-	name(
-		sge::plugin::name &&
-	) &&;
+  [[nodiscard]] SGE_SYSTEMS_DETAIL_SYMBOL sge::systems::audio_player name(sge::plugin::name &&) &&;
 
-	[[nodiscard]]
-	sge::systems::optional_name const &
-	name() const;
+  [[nodiscard]] sge::systems::optional_name const &name() const;
+
 private:
-	sge::systems::optional_name name_;
+  sge::systems::optional_name name_;
 };
 
 }

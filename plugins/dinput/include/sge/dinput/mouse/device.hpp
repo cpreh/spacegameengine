@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_MOUSE_DEVICE_HPP_INCLUDED
 #define SGE_DINPUT_MOUSE_DEVICE_HPP_INCLUDED
 
@@ -19,7 +18,6 @@
 #include <fcppt/enable_shared_from_this_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace dinput
@@ -27,44 +25,25 @@ namespace dinput
 namespace mouse
 {
 
-class device
-:
-	public
-		sge::input::mouse::device,
-	public
-		sge::dinput::device::object,
-	public
-		fcppt::enable_shared_from_this<
-			sge::dinput::mouse::device
-		>
+class device : public sge::input::mouse::device,
+               public sge::dinput::device::object,
+               public fcppt::enable_shared_from_this<sge::dinput::mouse::device>
 {
-	FCPPT_NONCOPYABLE(
-		device
-	);
+  FCPPT_NONCOPYABLE(device);
+
 public:
-	device(
-		sge::dinput::device::parameters const &,
-		sge::input::info::name const &
-	);
+  device(sge::dinput::device::parameters const &, sge::input::info::name const &);
 
-	~device()
-	override;
+  ~device() override;
+
 private:
-	sge::window::object &
-	window() const
-	override;
+  sge::window::object &window() const override;
 
-	sge::input::mouse::info const &
-	info() const
-	override;
+  sge::input::mouse::info const &info() const override;
 
-	awl::event::optional_base_unique_ptr
-	on_dispatch(
-		DIDEVICEOBJECTDATA const &
-	)
-	override;
+  awl::event::optional_base_unique_ptr on_dispatch(DIDEVICEOBJECTDATA const &) override;
 
-	sge::dinput::mouse::info const info_;
+  sge::dinput::mouse::info const info_;
 };
 
 }

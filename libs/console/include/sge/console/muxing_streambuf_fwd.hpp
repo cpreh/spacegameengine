@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_MUXING_STREAMBUF_FWD_HPP_INCLUDED
 #define SGE_CONSOLE_MUXING_STREAMBUF_FWD_HPP_INCLUDED
 
@@ -11,17 +10,10 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::console
 {
 
-template<
-	typename Char,
-	typename Traits =
-		std::char_traits<
-			Char
-		>
->
+template <typename Char, typename Traits = std::char_traits<Char>>
 class muxing_streambuf;
 
 }

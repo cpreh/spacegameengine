@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONTEXT_HPP_INCLUDED
 
@@ -14,40 +13,27 @@
 #include <sge/opengl/state/core/sampler/filter/optional_anisotropy_config.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::state::core::sampler::filter
 {
 
-class anisotropy_context
-:
-	public sge::opengl::context::base
+class anisotropy_context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		anisotropy_context
-	);
+  FCPPT_NONMOVABLE(anisotropy_context);
+
 public:
-	using
-	parameter
-	=
-	sge::opengl::info::context const &;
+  using parameter = sge::opengl::info::context const &;
 
-	explicit
-	anisotropy_context(
-		sge::opengl::info::context const &
-	);
+  explicit anisotropy_context(sge::opengl::info::context const &);
 
-	~anisotropy_context()
-	override;
+  ~anisotropy_context() override;
 
-	[[nodiscard]]
-	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const &
-	config() const;
+  [[nodiscard]] sge::opengl::state::core::sampler::filter::optional_anisotropy_config const &
+  config() const;
 
-	static
-	sge::opengl::context::id const
-	static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::opengl::state::core::sampler::filter::optional_anisotropy_config const config_;
+  sge::opengl::state::core::sampler::filter::optional_anisotropy_config const config_;
 };
 
 }

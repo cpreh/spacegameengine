@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_CLEAR_STENCIL_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_CLEAR_STENCIL_BUFFER_HPP_INCLUDED
 
 #include <sge/renderer/clear/stencil_buffer_value.hpp>
 
-
 namespace sge::opengl::clear
 {
 
-void
-stencil_buffer(
-	sge::renderer::clear::stencil_buffer_value const &
-);
+void stencil_buffer(sge::renderer::clear::stencil_buffer_value const &);
 
 }
 

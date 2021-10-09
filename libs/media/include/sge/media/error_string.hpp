@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_ERROR_STRING_HPP_INCLUDED
 #define SGE_MEDIA_ERROR_STRING_HPP_INCLUDED
 
@@ -11,16 +10,11 @@
 #include <sge/media/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge::media
 {
 
 SGE_MEDIA_DETAIL_SYMBOL
-fcppt::string
-error_string(
-	sge::media::optional_name const &,
-	fcppt::string const &
-);
+fcppt::string error_string(sge::media::optional_name const &, fcppt::string const &);
 
 }
 

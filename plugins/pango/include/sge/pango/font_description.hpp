@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PANGO_FONT_DESCRIPTION_HPP_INCLUDED
 #define SGE_PANGO_FONT_DESCRIPTION_HPP_INCLUDED
 
@@ -15,43 +14,30 @@
 #include <pango/pango-font.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::pango
 {
 
 class font_description
 {
-	FCPPT_NONMOVABLE(
-		font_description
-	);
+  FCPPT_NONMOVABLE(font_description);
+
 public:
-	font_description();
+  font_description();
 
-	~font_description();
+  ~font_description();
 
-	void
-	ttf_size(
-		sge::font::ttf_size
-	);
+  void ttf_size(sge::font::ttf_size);
 
-	void
-	family(
-		fcppt::string const &
-	);
+  void family(fcppt::string const &);
 
-	void
-	weight(
-		sge::font::weight::unit
-	);
+  void weight(sge::font::weight::unit);
 
-	void
-	italic();
+  void italic();
 
-	[[nodiscard]]
-	PangoFontDescription *
-	get();
+  [[nodiscard]] PangoFontDescription *get();
+
 private:
-	PangoFontDescription *const impl_;
+  PangoFontDescription *const impl_;
 };
 
 }

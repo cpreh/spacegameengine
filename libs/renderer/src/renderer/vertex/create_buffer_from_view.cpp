@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/device/core.hpp>
@@ -22,42 +21,23 @@
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::renderer::vertex::buffer_unique_ptr
-sge::renderer::vertex::create_buffer_from_view(
-	sge::renderer::device::core_ref const _device,
-	sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
-	sge::renderer::vf::dynamic::const_view const &_view,
-	sge::renderer::resource_flags_field const &_resource_flags
-)
+sge::renderer::vertex::buffer_unique_ptr sge::renderer::vertex::create_buffer_from_view(
+    sge::renderer::device::core_ref const _device,
+    sge::renderer::vertex::const_declaration_ref const _vertex_declaration,
+    sge::renderer::vf::dynamic::const_view const &_view,
+    sge::renderer::resource_flags_field const &_resource_flags)
 {
-	sge::renderer::vertex::buffer_unique_ptr buffer(
-		_device.get().create_vertex_buffer(
-			sge::renderer::vertex::buffer_parameters(
-				_vertex_declaration,
-				_view.part_index(),
-				sge::renderer::vertex::count(
-					_view.size()
-				),
-				_resource_flags
-			)
-		)
-	);
+  sge::renderer::vertex::buffer_unique_ptr buffer(
+      _device.get().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(
+          _vertex_declaration,
+          _view.part_index(),
+          sge::renderer::vertex::count(_view.size()),
+          _resource_flags)));
 
-	sge::renderer::vertex::scoped_lock const lock(
-		fcppt::make_ref(
-			*buffer
-		),
-		sge::renderer::lock_mode::writeonly
-	);
+  sge::renderer::vertex::scoped_lock const lock(
+      fcppt::make_ref(*buffer), sge::renderer::lock_mode::writeonly);
 
-	std::memcpy(
-		lock.value().data(),
-		_view.data(),
-		_view.part().stride().get()
-		* _view.size().get()
-	);
+  std::memcpy(lock.value().data(), _view.data(), _view.part().stride().get() * _view.size().get());
 
-	return
-		buffer;
+  return buffer;
 }

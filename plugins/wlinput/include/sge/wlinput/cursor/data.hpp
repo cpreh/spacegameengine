@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_CURSOR_DATA_HPP_INCLUDED
 #define SGE_WLINPUT_CURSOR_DATA_HPP_INCLUDED
 
@@ -14,35 +13,31 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::wlinput::cursor
 {
 
 struct data
 {
-	FCPPT_NONMOVABLE(
-		data
-	);
+  FCPPT_NONMOVABLE(data);
 
-	data(
-		fcppt::reference<
-			sge::wlinput::cursor::object
-		>,
-		awl::backends::wayland::window::object_ref,
-		awl::event::container_reference
-	);
+  data(
+      fcppt::reference<sge::wlinput::cursor::object>,
+      awl::backends::wayland::window::object_ref,
+      awl::event::container_reference);
 
-	~data() = default;
+  ~data() = default;
 
-	fcppt::reference<
-		sge::wlinput::cursor::object
-	> const cursor_; // NOLINT(misc-non-private-member-variables-in-classes)
+  fcppt::reference<sge::wlinput::cursor::object> const
+      cursor_; // NOLINT(misc-non-private-member-variables-in-classes)
 
-	awl::backends::wayland::window::object_ref const window_; // NOLINT(misc-non-private-member-variables-in-classes)
+  awl::backends::wayland::window::object_ref const
+      window_; // NOLINT(misc-non-private-member-variables-in-classes)
 
-	awl::event::container_reference const events_; // NOLINT(misc-non-private-member-variables-in-classes)
+  awl::event::container_reference const
+      events_; // NOLINT(misc-non-private-member-variables-in-classes)
 
-	sge::input::cursor::optional_position position_; // NOLINT(misc-non-private-member-variables-in-classes)
+  sge::input::cursor::optional_position
+      position_; // NOLINT(misc-non-private-member-variables-in-classes)
 };
 
 }

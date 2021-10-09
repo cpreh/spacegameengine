@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_MULTI_SYSTEM_PARAMETERS_FWD_HPP_INCLUDED
 #define SGE_IMAGE2D_MULTI_SYSTEM_PARAMETERS_FWD_HPP_INCLUDED
 
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/media/muxer_parameters_fwd.hpp>
 
-
 namespace sge::image2d
 {
 
-using
-multi_system_parameters
-=
-sge::media::muxer_parameters<
-	sge::image2d::system
->;
+using multi_system_parameters = sge::media::muxer_parameters<sge::image2d::system>;
 
 }
 

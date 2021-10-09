@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/joypad/add.hpp>
 #include <sge/evdev/joypad/create.hpp>
 #include <sge/evdev/joypad/map.hpp>
@@ -25,51 +24,21 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::event::optional_base_unique_ptr
-sge::evdev::joypad::add(
-	fcppt::log::object &_log,
-	sge::window::object_ref const _window,
-	awl::backends::posix::processor_ref const _processor,
-	sge::evdev::joypad::map &_map,
-	std::filesystem::path const &_path
-)
+awl::event::optional_base_unique_ptr sge::evdev::joypad::add(
+    fcppt::log::object &_log,
+    sge::window::object_ref const _window,
+    awl::backends::posix::processor_ref const _processor,
+    sge::evdev::joypad::map &_map,
+    std::filesystem::path const &_path)
 {
-	return
-		fcppt::optional::map(
-			sge::evdev::joypad::create(
-				_log,
-				_window,
-				_processor,
-				_path
-			),
-			[
-				&_map
-			](
-				sge::evdev::joypad::shared_ptr const &_ptr
-			)
-			{
-				FCPPT_ASSERT_ERROR(
-					_map.insert(
-						std::make_pair(
-							_ptr->posix_fd(),
-							_ptr
-						)
-					).second
-				);
+  return fcppt::optional::map(
+      sge::evdev::joypad::create(_log, _window, _processor, _path),
+      [&_map](sge::evdev::joypad::shared_ptr const &_ptr)
+      {
+        FCPPT_ASSERT_ERROR(_map.insert(std::make_pair(_ptr->posix_fd(), _ptr)).second);
 
-				return
-					fcppt::unique_ptr_to_base<
-						awl::event::base
-					>(
-						fcppt::make_unique_ptr<
-							sge::input::joypad::event::discover
-						>(
-							sge::input::joypad::shared_ptr{
-								_ptr
-							}
-						)
-					);
-			}
-		);
+        return fcppt::unique_ptr_to_base<awl::event::base>(
+            fcppt::make_unique_ptr<sge::input::joypad::event::discover>(
+                sge::input::joypad::shared_ptr{_ptr}));
+      });
 }

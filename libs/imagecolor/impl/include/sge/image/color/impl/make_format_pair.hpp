@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR_HPP_INCLUDED
 
@@ -14,19 +13,8 @@
 #include <boost/preprocessor/comma_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
-#define SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR(\
-	s,\
-	_,\
-	index,\
-	name\
-)\
-BOOST_PP_COMMA_IF(\
-	index\
-) \
-SGE_IMAGE_IMPL_MAKE_FORMAT_PAIR(\
-	color,\
-	name\
-)
+#define SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR(s, _, index, name) \
+  BOOST_PP_COMMA_IF(index) \
+  SGE_IMAGE_IMPL_MAKE_FORMAT_PAIR(color, name)
 
 #endif

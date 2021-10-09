@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_C_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_ELEMENT_C_HPP_INCLUDED
 
@@ -12,19 +11,11 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vf::dynamic::detail
 {
 
-template<
-	sge::renderer::vf::dynamic::element_type Elem
->
-using element_c
-=
-std::integral_constant<
-	sge::renderer::vf::dynamic::element_type,
-	Elem
->;
+template <sge::renderer::vf::dynamic::element_type Elem>
+using element_c = std::integral_constant<sge::renderer::vf::dynamic::element_type, Elem>;
 
 }
 

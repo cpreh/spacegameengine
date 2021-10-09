@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_CAPS_DEVICE_OUTPUT_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_DEVICE_OUTPUT_HPP_INCLUDED
 
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/io/ostream_fwd.hpp>
-
 
 namespace sge::renderer::caps
 {
@@ -29,11 +27,7 @@ Prints \a caps to \a stream.
 \return \a stream
 */
 SGE_RENDERER_DETAIL_SYMBOL
-fcppt::io::ostream &
-operator<<(
-	fcppt::io::ostream &stream,
-	sge::renderer::caps::device const &caps
-);
+fcppt::io::ostream &operator<<(fcppt::io::ostream &stream, sge::renderer::caps::device const &caps);
 
 }
 

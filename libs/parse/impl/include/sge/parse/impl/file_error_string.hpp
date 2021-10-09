@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_IMPL_FILE_ERROR_STRING_HPP_INCLUDED
 #define SGE_PARSE_IMPL_FILE_ERROR_STRING_HPP_INCLUDED
 
@@ -14,27 +13,14 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::parse::impl
 {
 
 SGE_PARSE_DETAIL_SYMBOL
-fcppt::string
-file_error_string(
-	std::filesystem::path const &,
-	fcppt::parse::error<
-		char
-	> &&
-);
+fcppt::string file_error_string(std::filesystem::path const &, fcppt::parse::error<char> &&);
 
 SGE_PARSE_DETAIL_SYMBOL
-fcppt::string
-file_error_string(
-	std::filesystem::path const &,
-	fcppt::parse::error<
-		wchar_t
-	> &&
-);
+fcppt::string file_error_string(std::filesystem::path const &, fcppt::parse::error<wchar_t> &&);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_CORE_SAMPLER_STATE_VECTOR_HPP_INCLUDED
 #define SGE_D3D9_STATE_CORE_SAMPLER_STATE_VECTOR_HPP_INCLUDED
 
@@ -11,7 +10,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
-
 
 namespace sge
 {
@@ -24,9 +22,7 @@ namespace core
 namespace sampler
 {
 
-typedef std::vector<
-	sge::d3d9::state::core::sampler::state
-> state_vector;
+typedef std::vector<sge::d3d9::state::core::sampler::state> state_vector;
 
 }
 }

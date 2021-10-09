@@ -3,27 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/exception.hpp>
 #include <sge/openal/alc.hpp>
 #include <sge/openal/check_alc_state.hpp>
 #include <sge/openal/funcs/alc_destroy_context.hpp>
 #include <fcppt/text.hpp>
 
-
-void
-sge::openal::funcs::alc_destroy_context(
-	ALCdevice &_device,
-	ALCcontext &_context
-)
+void sge::openal::funcs::alc_destroy_context(ALCdevice &_device, ALCcontext &_context)
 {
-	::alcDestroyContext(
-		&_context
-	);
+  ::alcDestroyContext(&_context);
 
-	SGE_OPENAL_CHECK_ALC_STATE(
-		_device,
-		FCPPT_TEXT("alcDestroyContext failed"),
-		sge::audio::exception
-	)
+  SGE_OPENAL_CHECK_ALC_STATE(_device, FCPPT_TEXT("alcDestroyContext failed"), sge::audio::exception)
 }

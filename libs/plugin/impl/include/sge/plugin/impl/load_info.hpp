@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_IMPL_LOAD_INFO_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_LOAD_INFO_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::plugin::impl
 {
 
-sge::plugin::info
-load_info(
-	std::filesystem::path const &
-);
+sge::plugin::info load_info(std::filesystem::path const &);
 
 }
 

@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_DEVICEFUNCS_SET_LIGHT_HPP_INCLUDED
 #define SGE_D3D9_DEVICEFUNCS_SET_LIGHT_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/state/index_count.hpp>
-
 
 namespace sge
 {
@@ -18,12 +16,7 @@ namespace d3d9
 namespace devicefuncs
 {
 
-void
-set_light(
-	IDirect3DDevice9 &,
-	sge::renderer::state::index_count,
-	D3DLIGHT9 const &
-);
+void set_light(IDirect3DDevice9 &, sge::renderer::state::index_count, D3DLIGHT9 const &);
 
 }
 }

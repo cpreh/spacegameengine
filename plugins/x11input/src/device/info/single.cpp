@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/info/const_optional_ref.hpp>
 #include <sge/x11input/device/info/multi.hpp>
@@ -15,42 +14,17 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::x11input::device::info::single::single(
-	awl::backends::x11::display_ref const _display,
-	sge::x11input::device::id const _id
-)
-:
-	info_base_(
-		_display
-	),
-	info_(
-		fcppt::optional::deref(
-			fcppt::algorithm::find_if_opt(
-				info_base_,
-				[
-					_id
-				](
-					XIDeviceInfo const &_info
-				)
-				{
-					return
-						_info.deviceid
-						==
-						_id.get();
-				}
-			)
-		)
-	)
+    awl::backends::x11::display_ref const _display, sge::x11input::device::id const _id)
+    : info_base_(_display),
+      info_(fcppt::optional::deref(fcppt::algorithm::find_if_opt(
+          info_base_, [_id](XIDeviceInfo const &_info) { return _info.deviceid == _id.get(); })))
 {
 }
 
-sge::x11input::device::info::single::~single()
-= default;
+sge::x11input::device::info::single::~single() = default;
 
-sge::x11input::device::info::const_optional_ref
-sge::x11input::device::info::single::get() const
+sge::x11input::device::info::const_optional_ref sge::x11input::device::info::single::get() const
 {
-	return
-		info_;
+  return info_;
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_CLIP_PLANE_CONST_OBJECT_REF_VECTOR_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_CLIP_PLANE_CONST_OBJECT_REF_VECTOR_HPP_INCLUDED
 
@@ -12,16 +11,11 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::state::ffp::clip_plane
 {
 
-using
-const_object_ref_vector
-=
-std::vector<
-	sge::renderer::state::ffp::clip_plane::const_object_ref
->;
+using const_object_ref_vector =
+    std::vector<sge::renderer::state::ffp::clip_plane::const_object_ref>;
 
 }
 

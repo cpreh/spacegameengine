@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_VF_POINT_SIZE_EXTRA_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_POINT_SIZE_EXTRA_HPP_INCLUDED
 
@@ -15,58 +14,27 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail::vf
 {
 
-template<
-	typename Choices,
-	typename Enable = void
->
+template <typename Choices, typename Enable = void>
 struct point_size_extra;
 
-template<
-	typename Choices
->
+template <typename Choices>
 struct point_size_extra<
-	Choices,
-	std::enable_if_t<
-		sge::sprite::config::is_point_size<
-			typename
-			Choices::size_choice
-		>::value
-	>
->
+    Choices,
+    std::enable_if_t<sge::sprite::config::is_point_size<typename Choices::size_choice>::value>>
 {
-	using
-	type
-	=
-	fcppt::mpl::list::object<
-		sge::sprite::detail::vf::point_size<
-			Choices
-		>
-	>;
+  using type = fcppt::mpl::list::object<sge::sprite::detail::vf::point_size<Choices>>;
 };
 
-template<
-	typename Choices
->
+template <typename Choices>
 struct point_size_extra<
-	Choices,
-	std::enable_if_t<
-		fcppt::not_(
-			sge::sprite::config::is_point_size<
-				typename
-				Choices::size_choice
-			>::value
-		)
-	>
->
+    Choices,
+    std::enable_if_t<fcppt::not_(
+        sge::sprite::config::is_point_size<typename Choices::size_choice>::value)>>
 {
-	using
-	type
-	=
-	fcppt::mpl::list::object<>;
+  using type = fcppt::mpl::list::object<>;
 };
 
 }

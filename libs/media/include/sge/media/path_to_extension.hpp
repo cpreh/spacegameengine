@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_PATH_TO_EXTENSION_HPP_INCLUDED
 #define SGE_MEDIA_PATH_TO_EXTENSION_HPP_INCLUDED
 
@@ -13,15 +12,11 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::media
 {
 
 SGE_MEDIA_DETAIL_SYMBOL
-sge::media::optional_extension
-path_to_extension(
-	std::filesystem::path const &
-);
+sge::media::optional_extension path_to_extension(std::filesystem::path const &);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_DEVICE_ADD_ELEMENT_HPP_INCLUDED
 #define SGE_DINPUT_DEVICE_ADD_ELEMENT_HPP_INCLUDED
 
@@ -15,7 +14,6 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace dinput
@@ -23,38 +21,18 @@ namespace dinput
 namespace device
 {
 
-template<
-	typename Map,
-	typename Vector,
-	typename Function
->
-void
-add_element(
-	DIDEVICEOBJECTINSTANCE const &_data,
-	Map &_map,
-	Vector &_vector,
-	Function const &_function
-)
+template <typename Map, typename Vector, typename Function>
+void add_element(
+    DIDEVICEOBJECTINSTANCE const &_data, Map &_map, Vector &_vector, Function const &_function)
 {
-	FCPPT_ASSERT_ERROR(
-		_map.insert(
-			std::make_pair(
-				_data.dwOfs,
-				fcppt::strong_typedef_construct_cast<
-					typename Map::mapped_type,
-					fcppt::cast::static_cast_fun
-				>(
-					_vector.size()
-				)
-			)
-		).second
-	);
+  FCPPT_ASSERT_ERROR(_map.insert(std::make_pair(
+                                     _data.dwOfs,
+                                     fcppt::strong_typedef_construct_cast<
+                                         typename Map::mapped_type,
+                                         fcppt::cast::static_cast_fun>(_vector.size())))
+                         .second);
 
-	_vector.push_back(
-		_function(
-			_data
-		)
-	);
+  _vector.push_back(_function(_data));
 }
 
 }

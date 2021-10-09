@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_PARAMETER_DETAIL_CHECK_TYPE_HPP_INCLUDED
 #define SGE_CG_PARAMETER_DETAIL_CHECK_TYPE_HPP_INCLUDED
 
@@ -14,40 +13,19 @@
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cg::parameter::detail
 {
 
-template<
-	typename Type
->
-SGE_CG_DETAIL_SYMBOL
-void
-check_type(
-	sge::cg::parameter::object const &
-);
+template <typename Type>
+SGE_CG_DETAIL_SYMBOL void check_type(sge::cg::parameter::object const &);
 
 }
 
-#define SGE_CG_PARAMETER_DETAIL_DECLARE_CHECK_TYPE(\
-	seq,\
-	_,\
-	base_type\
-)\
-extern \
-template \
-SGE_CG_DETAIL_SYMBOL \
-void \
-sge::cg::parameter::detail::check_type<\
-	base_type\
->(\
-	sge::cg::parameter::object const &\
-);\
+#define SGE_CG_PARAMETER_DETAIL_DECLARE_CHECK_TYPE(seq, _, base_type) \
+  extern template SGE_CG_DETAIL_SYMBOL void sge::cg::parameter::detail::check_type<base_type>( \
+      sge::cg::parameter::object const &);
 
 BOOST_PP_SEQ_FOR_EACH(
-	SGE_CG_PARAMETER_DETAIL_DECLARE_CHECK_TYPE,
-	_,
-	SGE_CG_PARAMETER_DETAIL_PP_TYPES
-)
+    SGE_CG_PARAMETER_DETAIL_DECLARE_CHECK_TYPE, _, SGE_CG_PARAMETER_DETAIL_PP_TYPES)
 
 #endif

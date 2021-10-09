@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_PLUGIN_TRAITS_HPP_INCLUDED
 #define SGE_FONT_PLUGIN_TRAITS_HPP_INCLUDED
 
@@ -14,31 +13,18 @@
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
 
-
 namespace sge::plugin::detail
 {
 
-template<>
-struct traits<
-	sge::font::system
->
+template <>
+struct traits<sge::font::system>
 {
-	[[nodiscard]]
-	SGE_FONT_DETAIL_SYMBOL
-	static
-	sge::plugin::detail::address_name
-	plugin_loader_name();
+  [[nodiscard]] SGE_FONT_DETAIL_SYMBOL static sge::plugin::detail::address_name
+  plugin_loader_name();
 
-	[[nodiscard]]
-	SGE_FONT_DETAIL_SYMBOL
-	static
-	sge::plugin::capabilities
-	plugin_type();
+  [[nodiscard]] SGE_FONT_DETAIL_SYMBOL static sge::plugin::capabilities plugin_type();
 
-	using
-	loader_function
-	=
-	sge::font::system_unique_ptr ();
+  using loader_function = sge::font::system_unique_ptr();
 };
 
 }

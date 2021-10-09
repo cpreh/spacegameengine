@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/event_base.hpp>
 #include <sge/input/mouse/device.hpp>
 #include <sge/input/mouse/shared_ptr.hpp>
@@ -12,28 +11,14 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::input::mouse::event::base::base(
-	sge::input::mouse::shared_ptr _mouse
-)
-:
-	sge::input::event_base{
-		_mouse->window()
-	},
-	mouse_{
-		std::move(
-			_mouse
-		)
-	}
+sge::input::mouse::event::base::base(sge::input::mouse::shared_ptr _mouse)
+    : sge::input::event_base{_mouse->window()}, mouse_{std::move(_mouse)}
 {
 }
 
-sge::input::mouse::event::base::~base()
-= default;
+sge::input::mouse::event::base::~base() = default;
 
-sge::input::mouse::shared_ptr const &
-sge::input::mouse::event::base::mouse() const
+sge::input::mouse::shared_ptr const &sge::input::mouse::event::base::mouse() const
 {
-	return
-		mouse_;
+  return mouse_;
 }

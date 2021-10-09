@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TEXTURE_STAGE_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_STAGE_VALUE_HPP_INCLUDED
 
 #include <sge/renderer/state/index_count.hpp>
 
-
 namespace sge::renderer::texture
 {
 
-using
-stage_value
-=
-sge::renderer::state::index_count;
+using stage_value = sge::renderer::state::index_count;
 
 }
 

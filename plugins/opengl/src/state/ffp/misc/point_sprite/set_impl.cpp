@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
@@ -26,99 +25,33 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/type_iso/strong_typedef.hpp>
 
-
-sge::opengl::state::actor_vector
-sge::opengl::state::ffp::misc::point_sprite::set_impl(
-	fcppt::log::object_reference const _log,
-	sge::opengl::context::object_ref const _context,
-	sge::opengl::state::ffp::misc::point_sprite::const_config_ref const _config,
-	sge::renderer::state::ffp::misc::enable_point_sprites const _enable
-)
+sge::opengl::state::actor_vector sge::opengl::state::ffp::misc::point_sprite::set_impl(
+    fcppt::log::object_reference const _log,
+    sge::opengl::context::object_ref const _context,
+    sge::opengl::state::ffp::misc::point_sprite::const_config_ref const _config,
+    sge::renderer::state::ffp::misc::enable_point_sprites const _enable)
 {
-	return
-		fcppt::container::join(
-			sge::opengl::state::actor_vector{
-				sge::opengl::state::actor{
-					[
-						flag =
-							_config.get().point_sprite_flag(),
-						_enable
-					]{
-						sge::opengl::enable_bool(
-							flag.get(),
-							_enable.get()
-						);
-					}
-				},
-				sge::opengl::state::actor{
-					[
-						flag =
-							_config.get().vertex_shader_size_flag(),
-						_enable
-					]{
-						sge::opengl::enable_bool(
-							flag.get(),
-							_enable.get()
-						);
-					}
-				}
-			},
-			fcppt::algorithm::map<
-				sge::opengl::state::actor_vector
-			>(
-				fcppt::make_int_range_count(
-					fcppt::optional::maybe(
-						sge::opengl::context::use<
-							sge::opengl::texture::multi_context
-						>(
-							_context,
-							_context.get().info()
-						).config(),
-						fcppt::const_(
-							sge::renderer::texture::stage(
-								1U
-							)
-						),
-						[](
-							sge::opengl::texture::multi_config const &_multi_config
-						)
-						{
-							return
-								sge::renderer::texture::stage(
-									_multi_config.max_level().get()
-								);
-						}
-					)
-				),
-				[
-					_log,
-					_enable,
-					_context,
-					_config
-				](
-					sge::renderer::texture::stage const _stage
-				)
-				{
-					return
-						sge::opengl::state::actor{
-							[
-								_log,
-								_context,
-								_config,
-								_stage,
-								_enable
-							]()
-							{
-								sge::opengl::state::ffp::misc::point_sprite::set_texture(
-									_log.get(),
-									_context.get(),
-									_config.get(),
-									_stage,
-									_enable
-								);
-							}
-						};
-				}
-			)
-		);
+  return fcppt::container::join(
+      sge::opengl::state::actor_vector{
+          sge::opengl::state::actor{[flag = _config.get().point_sprite_flag(), _enable]
+                                    { sge::opengl::enable_bool(flag.get(), _enable.get()); }},
+          sge::opengl::state::actor{[flag = _config.get().vertex_shader_size_flag(), _enable]
+                                    { sge::opengl::enable_bool(flag.get(), _enable.get()); }}},
+      fcppt::algorithm::map<sge::opengl::state::actor_vector>(
+          fcppt::make_int_range_count(fcppt::optional::maybe(
+              sge::opengl::context::use<sge::opengl::texture::multi_context>(
+                  _context, _context.get().info())
+                  .config(),
+              fcppt::const_(sge::renderer::texture::stage(1U)),
+              [](sge::opengl::texture::multi_config const &_multi_config)
+              { return sge::renderer::texture::stage(_multi_config.max_level().get()); })),
+          [_log, _enable, _context, _config](sge::renderer::texture::stage const _stage)
+          {
+            return sge::opengl::state::actor{
+                [_log, _context, _config, _stage, _enable]()
+                {
+                  sge::opengl::state::ffp::misc::point_sprite::set_texture(
+                      _log.get(), _context.get(), _config.get(), _stage, _enable);
+                }};
+          }));
 }

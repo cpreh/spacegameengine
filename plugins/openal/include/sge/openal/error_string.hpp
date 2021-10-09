@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_ERROR_STRING_HPP_INCLUDED
 #define SGE_OPENAL_ERROR_STRING_HPP_INCLUDED
 
 #include <sge/openal/al.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge::openal
 {
 
-fcppt::string
-error_string(
-	ALenum error
-);
+fcppt::string error_string(ALenum error);
 
 }
 

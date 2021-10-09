@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/console/impl/eval_grammar.hpp>
 #include <sge/font/char_type.hpp>
 #include <sge/font/lit.hpp>
@@ -22,33 +21,14 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 namespace
 {
 
-using
-literal
-=
-fcppt::parse::basic_literal<
-	sge::font::char_type
->;
+using literal = fcppt::parse::basic_literal<sge::font::char_type>;
 
-using
-char_set
-=
-fcppt::parse::basic_char_set<
-	sge::font::char_type
->;
+using char_set = fcppt::parse::basic_char_set<sge::font::char_type>;
 
-auto
-space()
-{
-	return
-		char_set{
-			SGE_FONT_LIT(' '),
-			SGE_FONT_LIT('\t')
-		};
-}
+auto space() { return char_set{SGE_FONT_LIT(' '), SGE_FONT_LIT('\t')}; }
 
 }
 
@@ -56,54 +36,18 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::console::impl::eval_grammar::eval_grammar()
-:
-	eval_grammar::grammar_base{
-		fcppt::make_cref(
-			this->start_
-		),
-		fcppt::parse::skipper::epsilon()
-	},
-	word_{
-		grammar_base::make_base(
-			+~space()
-		)
-	},
-	quoted_string_{
-		grammar_base::make_base(
-			literal{SGE_FONT_LIT('"')}
-			>>
-			+(~char_set{SGE_FONT_LIT('"')})
-			>>
-			literal{SGE_FONT_LIT('"')}
-		)
-	},
-	argument_{
-		grammar_base::make_base(
-			fcppt::make_cref(
-				this->quoted_string_
-			)
-			|
-			fcppt::make_cref(
-				this->word_
-			)
-		)
-	},
-	start_{
-		grammar_base::make_base(
-			fcppt::parse::separator{
-				fcppt::make_cref(
-					this->argument_
-				),
-				fcppt::parse::make_ignore(
-					+space()
-				)
-			}
-		)
-	}
+    : eval_grammar::grammar_base{fcppt::make_cref(this->start_), fcppt::parse::skipper::epsilon()},
+      word_{grammar_base::make_base(+~space())},
+      quoted_string_{grammar_base::make_base(
+          literal{SGE_FONT_LIT('"')} >> +(~char_set{SGE_FONT_LIT('"')}) >>
+          literal{SGE_FONT_LIT('"')})},
+      argument_{grammar_base::make_base(
+          fcppt::make_cref(this->quoted_string_) | fcppt::make_cref(this->word_))},
+      start_{grammar_base::make_base(fcppt::parse::separator{
+          fcppt::make_cref(this->argument_), fcppt::parse::make_ignore(+space())})}
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::console::impl::eval_grammar::~eval_grammar()
-= default;
+sge::console::impl::eval_grammar::~eval_grammar() = default;

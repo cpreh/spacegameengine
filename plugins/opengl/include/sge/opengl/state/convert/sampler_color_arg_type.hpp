@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_CONVERT_SAMPLER_COLOR_ARG_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CONVERT_SAMPLER_COLOR_ARG_TYPE_HPP_INCLUDED
 
@@ -12,43 +11,28 @@
 #include <sge/renderer/state/ffp/sampler/arg2.hpp>
 #include <sge/renderer/state/ffp/sampler/arg3.hpp>
 
-
 namespace sge::opengl::state::convert
 {
 
-template<
-	typename Arg
->
+template <typename Arg>
 struct sampler_color_arg_type;
 
-template<>
-struct sampler_color_arg_type<
-	sge::renderer::state::ffp::sampler::arg1
->
+template <>
+struct sampler_color_arg_type<sge::renderer::state::ffp::sampler::arg1>
 {
-	static
-	GLenum
-	get();
+  static GLenum get();
 };
 
-template<>
-struct sampler_color_arg_type<
-	sge::renderer::state::ffp::sampler::arg2
->
+template <>
+struct sampler_color_arg_type<sge::renderer::state::ffp::sampler::arg2>
 {
-	static
-	GLenum
-	get();
+  static GLenum get();
 };
 
-template<>
-struct sampler_color_arg_type<
-	sge::renderer::state::ffp::sampler::arg3
->
+template <>
+struct sampler_color_arg_type<sge::renderer::state::ffp::sampler::arg3>
 {
-	static
-	GLenum
-	get();
+  static GLenum get();
 };
 
 }

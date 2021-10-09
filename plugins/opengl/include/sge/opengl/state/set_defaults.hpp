@@ -3,21 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_SET_DEFAULTS_HPP_INCLUDED
 #define SGE_OPENGL_STATE_SET_DEFAULTS_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-
 namespace sge::opengl::state
 {
 
-void
-set_defaults(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	sge::opengl::context::object & // NOLINT(google-runtime-references)
+void set_defaults(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    sge::opengl::context::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WAVE_IGNORE_CHUNKS_UNTIL_HPP_INCLUDED
 #define SGE_WAVE_IGNORE_CHUNKS_UNTIL_HPP_INCLUDED
 
@@ -14,18 +13,14 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::wave
 {
 
-[[nodiscard]]
-bool
-ignore_chunks_until(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	std::istream &,
-	sge::wave::header const &,
-	std::endian
-);
+[[nodiscard]] bool ignore_chunks_until(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    std::istream &,
+    sge::wave::header const &,
+    std::endian);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_INTRUSIVE_DETAIL_OBJECT_BASE_HOOK_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_DETAIL_OBJECT_BASE_HOOK_HPP_INCLUDED
 
@@ -11,18 +10,11 @@
 #include <boost/intrusive/list_hook.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::intrusive::detail
 {
 
-using
-object_base_hook
-=
-boost::intrusive::list_base_hook<
-	boost::intrusive::link_mode<
-		boost::intrusive::auto_unlink
-	>
->;
+using object_base_hook =
+    boost::intrusive::list_base_hook<boost::intrusive::link_mode<boost::intrusive::auto_unlink>>;
 
 }
 

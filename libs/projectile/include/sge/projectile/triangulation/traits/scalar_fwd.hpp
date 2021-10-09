@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_TRIANGULATION_TRAITS_SCALAR_FWD_HPP_INCLUDED
 #define SGE_PROJECTILE_TRIANGULATION_TRAITS_SCALAR_FWD_HPP_INCLUDED
-
 
 namespace sge::projectile::triangulation::traits
 {
 
-template<
-	typename Vertex,
-	typename Tag
->
+template <typename Vertex, typename Tag>
 struct scalar;
 
 }

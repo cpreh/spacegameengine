@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_L8_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_L8_FORMAT_HPP_INCLUDED
 
@@ -11,17 +10,10 @@
 #include <sge/image/homogenous_format.hpp>
 #include <mizuiro/color/layout/l.hpp>
 
-
 namespace sge::image::color
 {
 
-using
-l8_format
-=
-sge::image::homogenous_format<
-	sge::image::channel8,
-	mizuiro::color::layout::l
->;
+using l8_format = sge::image::homogenous_format<sge::image::channel8, mizuiro::color::layout::l>;
 
 }
 

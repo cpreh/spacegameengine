@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/key/pressed.hpp>
 #include <sge/input/keyboard/device.hpp>
 #include <sge/input/keyboard/shared_ptr.hpp>
@@ -37,165 +36,63 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::x11input::keyboard::device::device(
-	sge::window::object_ref const _sge_window,
-	sge::x11input::device::id const _id,
-	awl::backends::x11::window::const_base_ref const _window,
-	sge::x11input::event::window_demuxer_ref const _window_demuxer
-)
-:
-	sge::input::keyboard::device{},
-	fcppt::enable_shared_from_this<
-		sge::x11input::keyboard::device
-	>{},
-	sge_window_{
-		_sge_window
-	},
-	window_{
-		_window
-	},
-	event_connection_{
-		_window_demuxer.get().on_event(
-			_id,
-			sge::x11input::event::device_function{
-				[
-					this
-				](
-					XIDeviceEvent const &_event
-				)
-				{
-					return
-						this->on_event(
-							_event
-						);
-				}
-			}
-		)
-	}
+    sge::window::object_ref const _sge_window,
+    sge::x11input::device::id const _id,
+    awl::backends::x11::window::const_base_ref const _window,
+    sge::x11input::event::window_demuxer_ref const _window_demuxer)
+    : sge::input::keyboard::device{},
+      fcppt::enable_shared_from_this<sge::x11input::keyboard::device>{},
+      sge_window_{_sge_window},
+      window_{_window},
+      event_connection_{_window_demuxer.get().on_event(
+          _id, sge::x11input::event::device_function{[this](XIDeviceEvent const &_event) {
+            return this->on_event(_event);
+          }})}
 {
-	sge::x11input::event::select<
-		fcppt::mpl::list::object<
-			sge::x11input::event::type_c<
-				XI_KeyPress
-			>,
-			sge::x11input::event::type_c<
-				XI_KeyRelease
-			>
-		>
-	>(
-		_window_demuxer.get(),
-		_id
-	);
+  sge::x11input::event::select<fcppt::mpl::list::object<
+      sge::x11input::event::type_c<XI_KeyPress>,
+      sge::x11input::event::type_c<XI_KeyRelease>>>(_window_demuxer.get(), _id);
 }
 
-sge::x11input::keyboard::device::~device()
-= default;
+sge::x11input::keyboard::device::~device() = default;
 
-sge::window::object &
-sge::x11input::keyboard::device::window() const
+sge::window::object &sge::x11input::keyboard::device::window() const { return sge_window_.get(); }
+
+awl::event::container sge::x11input::keyboard::device::on_event(XIDeviceEvent const &_event)
 {
-	return
-		sge_window_.get();
-}
+  switch (_event.evtype)
+  {
+  case XI_KeyPress:
+    return fcppt::optional::to_container<awl::event::container>(this->on_key_press(_event));
+  case XI_KeyRelease:
+    return fcppt::container::make<awl::event::container>(this->on_key_release(_event));
+  }
 
-awl::event::container
-sge::x11input::keyboard::device::on_event(
-	XIDeviceEvent const &_event
-)
-{
-	switch(
-		_event.evtype
-	)
-	{
-	case XI_KeyPress:
-		return
-			fcppt::optional::to_container<
-				awl::event::container
-			>(
-				this->on_key_press(
-					_event
-				)
-			);
-	case XI_KeyRelease:
-		return
-			fcppt::container::make<
-				awl::event::container
-			>(
-				this->on_key_release(
-					_event
-				)
-			);
-	}
-
-	return
-		awl::event::container{};
+  return awl::event::container{};
 }
 
 awl::event::optional_base_unique_ptr
-sge::x11input::keyboard::device::on_key_press(
-	XIDeviceEvent const &_event
-)
+sge::x11input::keyboard::device::on_key_press(XIDeviceEvent const &_event)
 {
-	return
-		fcppt::optional::make_if(
-			!sge::x11input::key::is_repeated(
-				_event
-			).get(),
-			[
-				this,
-				&_event
-			]{
-				return
-					this->make_key_event(
-						_event,
-						sge::input::key::pressed{
-							true
-						}
-					);
-			}
-		);
+  return fcppt::optional::make_if(
+      !sge::x11input::key::is_repeated(_event).get(),
+      [this, &_event] { return this->make_key_event(_event, sge::input::key::pressed{true}); });
 }
 
 awl::event::base_unique_ptr
-sge::x11input::keyboard::device::on_key_release(
-	XIDeviceEvent const &_event
-)
+sge::x11input::keyboard::device::on_key_release(XIDeviceEvent const &_event)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			awl::event::base
-		>(
-			this->make_key_event(
-				_event,
-				sge::input::key::pressed{
-					false
-				}
-			)
-		);
+  return fcppt::unique_ptr_to_base<awl::event::base>(
+      this->make_key_event(_event, sge::input::key::pressed{false}));
 }
 
-awl::event::base_unique_ptr
-sge::x11input::keyboard::device::make_key_event(
-	XIDeviceEvent const &_event,
-	sge::input::key::pressed const _pressed
-)
+awl::event::base_unique_ptr sge::x11input::keyboard::device::make_key_event(
+    XIDeviceEvent const &_event, sge::input::key::pressed const _pressed)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			awl::event::base
-		>(
-			fcppt::make_unique_ptr<
-				sge::input::keyboard::event::key
-			>(
-				sge::input::keyboard::shared_ptr{
-					this->fcppt_shared_from_this()
-				},
-				sge::x11input::keyboard::key_from_event(
-					window_.get().display().get(),
-					_event
-				),
-				_pressed
-			)
-		);
+  return fcppt::unique_ptr_to_base<awl::event::base>(
+      fcppt::make_unique_ptr<sge::input::keyboard::event::key>(
+          sge::input::keyboard::shared_ptr{this->fcppt_shared_from_this()},
+          sge::x11input::keyboard::key_from_event(window_.get().display().get(), _event),
+          _pressed));
 }

@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_COLOR_BUFFER_SCOPED_SURFACE_LOCK_FWD_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_BUFFER_SCOPED_SURFACE_LOCK_FWD_HPP_INCLUDED
 
 #include <sge/image2d/tag.hpp>
 #include <sge/renderer/buffer/scoped_lock_fwd.hpp>
-
 
 namespace sge::renderer::color_buffer
 {
@@ -19,12 +17,7 @@ namespace sge::renderer::color_buffer
 
 \ingroup sge_renderer
 */
-using
-scoped_surface_lock
-=
-sge::renderer::buffer::scoped_lock<
-	sge::image2d::tag
->;
+using scoped_surface_lock = sge::renderer::buffer::scoped_lock<sge::image2d::tag>;
 
 }
 

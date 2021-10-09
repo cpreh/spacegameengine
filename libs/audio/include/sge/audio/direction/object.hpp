@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_DIRECTION_OBJECT_HPP_INCLUDED
 #define SGE_AUDIO_DIRECTION_OBJECT_HPP_INCLUDED
 
@@ -12,44 +11,27 @@
 #include <sge/audio/direction/forward.hpp>
 #include <sge/audio/direction/up.hpp>
 
-
 namespace sge::audio::direction
 {
 
 class object
 {
 public:
-	SGE_AUDIO_DETAIL_SYMBOL
-	object(
-		sge::audio::direction::forward const &,
-		sge::audio::direction::up const &
-	);
+  SGE_AUDIO_DETAIL_SYMBOL
+  object(sge::audio::direction::forward const &, sge::audio::direction::up const &);
 
-	[[nodiscard]]
-	SGE_AUDIO_DETAIL_SYMBOL
-	sge::audio::vector
-	forward() const;
+  [[nodiscard]] SGE_AUDIO_DETAIL_SYMBOL sge::audio::vector forward() const;
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	void
-	forward(
-		sge::audio::vector const &
-	);
+  SGE_AUDIO_DETAIL_SYMBOL
+  void forward(sge::audio::vector const &);
 
-	[[nodiscard]]
-	SGE_AUDIO_DETAIL_SYMBOL
-	sge::audio::vector
-	up() const;
+  [[nodiscard]] SGE_AUDIO_DETAIL_SYMBOL sge::audio::vector up() const;
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	void
-	up(
-		sge::audio::vector const &
-	);
+  SGE_AUDIO_DETAIL_SYMBOL
+  void up(sge::audio::vector const &);
+
 private:
-	sge::audio::vector
-		forward_,
-		up_;
+  sge::audio::vector forward_, up_;
 };
 
 }

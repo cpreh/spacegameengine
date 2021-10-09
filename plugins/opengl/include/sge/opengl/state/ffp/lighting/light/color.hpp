@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_COLOR_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_COLOR_HPP_INCLUDED
 
@@ -11,15 +10,10 @@
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor.hpp>
 
-
 namespace sge::opengl::state::ffp::lighting::light
 {
 
-sge::opengl::state::index_actor
-color(
-	GLenum name,
-	sge::image::color::any::object const &
-);
+sge::opengl::state::index_actor color(GLenum name, sge::image::color::any::object const &);
 
 }
 

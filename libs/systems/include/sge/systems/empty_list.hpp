@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_EMPTY_LIST_HPP_INCLUDED
 #define SGE_SYSTEMS_EMPTY_LIST_HPP_INCLUDED
 
 #include <sge/systems/empty_list_fwd.hpp>
 #include <sge/systems/list_impl.hpp>
 #include <fcppt/tuple/object_impl.hpp>
-
 
 #endif

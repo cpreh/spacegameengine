@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_IMPL_IMAGE_SPRITE_CHOICES_HPP_INCLUDED
 #define SGE_GUI_IMPL_IMAGE_SPRITE_CHOICES_HPP_INCLUDED
 
@@ -19,35 +18,20 @@
 #include <sge/sprite/config/with_texture.hpp>
 #include <fcppt/mpl/list/object.hpp>
 
-
 namespace sge::gui::impl
 {
 
-template<
-	sge::sprite::config::texture_coordinates TextureCoordinates,
-	sge::sprite::config::texture_size_option TextureSize
->
-using
-image_sprite_choices
-=
-sge::sprite::config::choices<
-	sge::gui::impl::sprite_type_choices,
-	sge::sprite::config::pos<
-		sge::sprite::config::pos_option::pos
-	>,
-	sge::sprite::config::normal_size<
-		TextureSize
-	>,
-	fcppt::mpl::list::object<
-		sge::sprite::config::with_texture<
-			sge::sprite::config::texture_level_count<
-				1U
-			>,
-			TextureCoordinates,
-			sge::sprite::config::texture_ownership::reference
-		>
-	>
->;
+template <
+    sge::sprite::config::texture_coordinates TextureCoordinates,
+    sge::sprite::config::texture_size_option TextureSize>
+using image_sprite_choices = sge::sprite::config::choices<
+    sge::gui::impl::sprite_type_choices,
+    sge::sprite::config::pos<sge::sprite::config::pos_option::pos>,
+    sge::sprite::config::normal_size<TextureSize>,
+    fcppt::mpl::list::object<sge::sprite::config::with_texture<
+        sge::sprite::config::texture_level_count<1U>,
+        TextureCoordinates,
+        sge::sprite::config::texture_ownership::reference>>>;
 
 }
 

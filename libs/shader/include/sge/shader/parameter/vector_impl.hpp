@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_PARAMETER_VECTOR_IMPL_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_VECTOR_IMPL_HPP_INCLUDED
 
@@ -14,60 +13,26 @@
 #include <sge/shader/parameter/vector_decl.hpp>
 #include <fcppt/math/size_type.hpp>
 
-
-template<
-	typename ValueType,
-	fcppt::math::size_type N
->
-sge::shader::parameter::vector<
-	ValueType,
-	N
->::vector(
-	sge::cg::program::object_ref const _program,
-	sge::shader::parameter::name const &_name,
-	vector_type const &_initial_value
-)
-:
-	parameter_(
-		_program.get().parameter(
-			_name.get()
-		)
-	)
+template <typename ValueType, fcppt::math::size_type N>
+sge::shader::parameter::vector<ValueType, N>::vector(
+    sge::cg::program::object_ref const _program,
+    sge::shader::parameter::name const &_name,
+    vector_type const &_initial_value)
+    : parameter_(_program.get().parameter(_name.get()))
 {
-	this->set(
-		_initial_value
-	);
+  this->set(_initial_value);
 }
 
-template<
-	typename ValueType,
-	fcppt::math::size_type N
->
-void
-sge::shader::parameter::vector<
-	ValueType,
-	N
->::set(
-	vector_type const &_vector
-)
+template <typename ValueType, fcppt::math::size_type N>
+void sge::shader::parameter::vector<ValueType, N>::set(vector_type const &_vector)
 {
-	sge::cg::parameter::vector::set(
-		parameter_.object(),
-		_vector
-	);
+  sge::cg::parameter::vector::set(parameter_.object(), _vector);
 }
 
 namespace sge::shader::parameter
 {
-template<
-	typename ValueType,
-	fcppt::math::size_type N
->
-vector<
-	ValueType,
-	N
->::~vector()
-= default;
+template <typename ValueType, fcppt::math::size_type N>
+vector<ValueType, N>::~vector() = default;
 }
 
 #endif

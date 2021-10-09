@@ -3,22 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/extension_supported.hpp>
 #include <sge/opengl/wgl/extension.hpp>
 #include <sge/opengl/wgl/extension_set.hpp>
 #include <sge/opengl/wgl/extension_supported.hpp>
 
-
-bool
-sge::opengl::wgl::extension_supported(
-	sge::opengl::wgl::extension_set const &_extensions,
-	sge::opengl::wgl::extension const &_extension
-)
+bool sge::opengl::wgl::extension_supported(
+    sge::opengl::wgl::extension_set const &_extensions,
+    sge::opengl::wgl::extension const &_extension)
 {
-	return
-		sge::opengl::extension_supported(
-			_extensions,
-			_extension
-		);
+  return sge::opengl::extension_supported(_extensions, _extension);
 }

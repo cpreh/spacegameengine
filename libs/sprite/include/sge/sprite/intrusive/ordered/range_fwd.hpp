@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_FWD_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_FWD_HPP_INCLUDED
 
 namespace sge::sprite::intrusive::ordered
 {
 
-template<
-	typename Choices,
-	typename Order,
-	bool IsConst
->
+template <typename Choices, typename Order, bool IsConst>
 class range;
 
 }

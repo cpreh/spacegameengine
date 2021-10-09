@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_WINDOW_BASE_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_WINDOW_BASE_HPP_INCLUDED
 
@@ -11,25 +10,20 @@
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::systems::impl::window
 {
 
 class base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
-protected:
-	base();
-public:
-	virtual
-	~base();
+  FCPPT_NONMOVABLE(base);
 
-	[[nodiscard]]
-	virtual
-	sge::window::object &
-	get() const = 0;
+protected:
+  base();
+
+public:
+  virtual ~base();
+
+  [[nodiscard]] virtual sge::window::object &get() const = 0;
 };
 
 }

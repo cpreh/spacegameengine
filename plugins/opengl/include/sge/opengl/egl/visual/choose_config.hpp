@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_VISUAL_CHOOSE_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_EGL_VISUAL_CHOOSE_CONFIG_HPP_INCLUDED
 
@@ -13,16 +12,13 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::egl::visual
 {
 
-EGLConfig
-choose_config(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	EGLDisplay,
-	sge::opengl::egl::attribute_vector const &
-);
+EGLConfig choose_config(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    EGLDisplay,
+    sge::opengl::egl::attribute_vector const &);
 
 }
 

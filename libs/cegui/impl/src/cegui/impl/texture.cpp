@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/to_fcppt_string.hpp>
@@ -72,7 +71,6 @@
 #include <type_traits>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
-
 
 sge::cegui::impl::texture::texture(
 	fcppt::log::object &_log,
@@ -204,355 +202,150 @@ sge::cegui::impl::texture::texture(
 sge::cegui::impl::texture::~texture()
 = default;
 
-sge::cegui::impl::texture::optional_planar_texture_ref
-sge::cegui::impl::texture::impl()
+sge::cegui::impl::texture::optional_planar_texture_ref sge::cegui::impl::texture::impl()
 {
-	return
-		fcppt::optional::deref(
-			texture_
-		);
+  return fcppt::optional::deref(texture_);
 }
 
-void
-sge::cegui::impl::texture::create_from_view(
-	sge::image2d::view::const_object const &_view
-)
+void sge::cegui::impl::texture::create_from_view(sge::image2d::view::const_object const &_view)
 {
-	if(
-		texture_.has_value()
-		||
-		size_.has_value()
-		||
-		texel_scaling_.get().has_value()
-	)
-	{
-		throw
-			sge::cegui::exception{
-				FCPPT_TEXT("texture::create_from_view called, but texture is already set!")
-			};
-	}
+  if (texture_.has_value() || size_.has_value() || texel_scaling_.get().has_value())
+  {
+    throw sge::cegui::exception{
+        FCPPT_TEXT("texture::create_from_view called, but texture is already set!")};
+  }
 
-	CEGUI::Sizef const new_size(
-		sge::cegui::impl::to_cegui_size(
-			fcppt::math::dim::structure_cast<
-				fcppt::math::dim::static_<
-					CEGUI::Sizef::value_type,
-					2
-				>,
-				fcppt::cast::int_to_float_fun
-			>(
-				sge::image2d::view::size(
-					_view
-				)
-			)
-		)
-	);
+  CEGUI::Sizef const new_size(sge::cegui::impl::to_cegui_size(
+      fcppt::math::dim::structure_cast<
+          fcppt::math::dim::static_<CEGUI::Sizef::value_type, 2>,
+          fcppt::cast::int_to_float_fun>(sge::image2d::view::size(_view))));
 
-	size_ =
-		sge::cegui::impl::texture::optional_sizef(
-			new_size
-		);
+  size_ = sge::cegui::impl::texture::optional_sizef(new_size);
 
-	texel_scaling_ =
-		sge::cegui::impl::texture::optional_texel_scaling{
-			sge::cegui::impl::texture::optional_vector2f{
-				sge::cegui::impl::texel_scaling(
-					new_size
-				)
-			}
-		};
+  texel_scaling_ = sge::cegui::impl::texture::optional_texel_scaling{
+      sge::cegui::impl::texture::optional_vector2f{sge::cegui::impl::texel_scaling(new_size)}};
 
-	texture_ =
-		optional_planar_unique_ptr(
-			sge::renderer::texture::create_planar_from_view(
-				fcppt::reference_to_base<
-					sge::renderer::device::core
-				>(
-					fcppt::make_ref(
-						texture_parameters_.renderer()
-					)
-				),
-				_view,
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null(),
-				texture_parameters_.emulate_srgb()
-			)
-		);
+  texture_ = optional_planar_unique_ptr(sge::renderer::texture::create_planar_from_view(
+      fcppt::reference_to_base<sge::renderer::device::core>(
+          fcppt::make_ref(texture_parameters_.renderer())),
+      _view,
+      sge::renderer::texture::mipmap::off(),
+      sge::renderer::resource_flags_field::null(),
+      texture_parameters_.emulate_srgb()));
 }
 
-CEGUI::String const &
-sge::cegui::impl::texture::getName() const
+CEGUI::String const &sge::cegui::impl::texture::getName() const { return name_; }
+
+CEGUI::Sizef const &sge::cegui::impl::texture::getSize() const
 {
-	return
-		name_;
+  return FCPPT_ASSERT_OPTIONAL_ERROR(size_);
 }
 
-CEGUI::Sizef const &
-sge::cegui::impl::texture::getSize() const
+CEGUI::Sizef const &sge::cegui::impl::texture::getOriginalDataSize() const
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			size_
-		);
+  return this->getSize();
 }
 
-CEGUI::Sizef const &
-sge::cegui::impl::texture::getOriginalDataSize() const
+CEGUI::Vector2f const &sge::cegui::impl::texture::getTexelScaling() const
 {
-	return
-		this->getSize();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(texel_scaling_.get());
 }
 
-CEGUI::Vector2f const &
-sge::cegui::impl::texture::getTexelScaling() const
+void sge::cegui::impl::texture::loadFromFile(
+    CEGUI::String const &_filename, CEGUI::String const &_resource_group)
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			texel_scaling_.get()
-		);
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("texture(") << this << FCPPT_TEXT(")::loadFromFile(")
+                      << fcppt::optional::from(
+                             sge::cegui::to_fcppt_string(_filename),
+                             [] { return fcppt::string{FCPPT_TEXT("Failed to convert filename")}; })
+                      << FCPPT_TEXT(", ")
+                      << fcppt::optional::from(
+                             sge::cegui::to_fcppt_string(_resource_group),
+                             [] {
+                               return fcppt::string{FCPPT_TEXT("Failed to convert resource name")};
+                             })
+                      << FCPPT_TEXT(')'))
+
+  this->create_from_view(
+      sge::image2d::load_exn(
+          fcppt::make_ref(texture_parameters_.image_system()),
+          sge::cegui::impl::to_absolute_path(texture_parameters_.prefix(), _filename))
+          ->view());
 }
 
-void
-sge::cegui::impl::texture::loadFromFile(
-	CEGUI::String const &_filename,
-	CEGUI::String const &_resource_group
-)
+void sge::cegui::impl::texture::loadFromMemory(
+    void const *const _buffer,
+    CEGUI::Sizef const &_buffer_size,
+    CEGUI::Texture::PixelFormat const _pixel_format)
 {
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<<
-			FCPPT_TEXT("texture(")
-			<<
-			this
-			<<
-			FCPPT_TEXT(")::loadFromFile(")
-			<<
-			fcppt::optional::from(
-				sge::cegui::to_fcppt_string(
-					_filename
-				),
-				[]{
-					return
-						fcppt::string{
-							FCPPT_TEXT("Failed to convert filename")
-						};
-				}
-			)
-			<<
-			FCPPT_TEXT(", ")
-			<<
-			fcppt::optional::from(
-				sge::cegui::to_fcppt_string(
-					_resource_group
-				),
-				[]{
-					return
-						fcppt::string{
-							FCPPT_TEXT("Failed to convert resource name")
-						};
-				}
-			)
-			<<
-			FCPPT_TEXT(')')
-	)
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("texture(") << this << FCPPT_TEXT(")::loadFromMemory(")
+                      << sge::cegui::impl::from_cegui_size(_buffer_size) << FCPPT_TEXT(')'))
 
-	this->create_from_view(
-		sge::image2d::load_exn(
-			fcppt::make_ref(
-				texture_parameters_.image_system()
-			),
-			sge::cegui::impl::to_absolute_path(
-				texture_parameters_.prefix(),
-				_filename
-			)
-		)->view()
-	);
+  using signed_dim = fcppt::math::dim::static_<std::make_signed_t<sge::renderer::size_type>, 2>;
+
+  if (fcppt::math::dim::structure_cast<signed_dim, fcppt::cast::float_to_int_fun>(
+          sge::cegui::impl::from_cegui_size(this->getSize())) !=
+      fcppt::math::dim::structure_cast<signed_dim, fcppt::cast::float_to_int_fun>(
+          sge::cegui::impl::from_cegui_size(_buffer_size)))
+  {
+    throw sge::cegui::exception{FCPPT_TEXT("texture::loadFromMemory: Invalid buffer size!")};
+  }
+
+  sge::image::color::optional_format const format(
+      sge::cegui::impl::convert_pixel_format(_pixel_format));
+
+  sge::renderer::texture::scoped_planar_lock const lock(
+      fcppt::make_ref(FCPPT_ASSERT_OPTIONAL_ERROR(this->impl()).get()),
+      sge::renderer::lock_mode::writeonly);
+
+  sge::image2d::algorithm::copy_and_convert(
+      sge::image2d::view::make_const(
+          fcppt::cast::from_void_ptr<sge::image::const_raw_pointer>(_buffer),
+          fcppt::math::dim::to_unsigned(
+              fcppt::math::dim::structure_cast<
+                  fcppt::math::dim::static_<sge::image::difference_type, 2>,
+                  fcppt::cast::float_to_int_fun>(sge::cegui::impl::from_cegui_size(_buffer_size))),
+          FCPPT_ASSERT_OPTIONAL_ERROR(format),
+          fcppt::math::dim::null<sge::image2d::pitch>()),
+      lock.value(),
+      sge::image::algorithm::may_overlap::no,
+      sge::image::algorithm::uninitialized::yes);
 }
 
-void
-sge::cegui::impl::texture::loadFromMemory(
-	void const *const _buffer,
-	CEGUI::Sizef const &_buffer_size,
-	CEGUI::Texture::PixelFormat const _pixel_format
-)
+void sge::cegui::impl::texture::blitFromMemory(void const *, CEGUI::Rectf const &)
 {
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<<
-			FCPPT_TEXT("texture(")
-			<<
-			this
-			<<
-			FCPPT_TEXT(")::loadFromMemory(")
-			<<
-			sge::cegui::impl::from_cegui_size(
-				_buffer_size
-			)
-			<<
-			FCPPT_TEXT(')')
-	)
-
-	using
-	signed_dim
-	=
-	fcppt::math::dim::static_<
-		std::make_signed_t<
-			sge::renderer::size_type
-		>,
-		2
-	>;
-
-	if(
-		fcppt::math::dim::structure_cast<
-			signed_dim,
-			fcppt::cast::float_to_int_fun
-		>(
-			sge::cegui::impl::from_cegui_size(
-				this->getSize()
-			)
-		)
-		!=
-		fcppt::math::dim::structure_cast<
-			signed_dim,
-			fcppt::cast::float_to_int_fun
-		>(
-			sge::cegui::impl::from_cegui_size(
-				_buffer_size
-			)
-		)
-	)
-	{
-		throw
-			sge::cegui::exception{
-				FCPPT_TEXT("texture::loadFromMemory: Invalid buffer size!")
-			};
-	}
-
-	sge::image::color::optional_format const format(
-		sge::cegui::impl::convert_pixel_format(
-			_pixel_format
-		)
-	);
-
-	sge::renderer::texture::scoped_planar_lock const lock(
-		fcppt::make_ref(
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				this->impl()
-			).get()
-		),
-		sge::renderer::lock_mode::writeonly
-	);
-
-	sge::image2d::algorithm::copy_and_convert(
-		sge::image2d::view::make_const(
-			fcppt::cast::from_void_ptr<
-				sge::image::const_raw_pointer
-			>(
-				_buffer
-			),
-			fcppt::math::dim::to_unsigned(
-				fcppt::math::dim::structure_cast<
-					fcppt::math::dim::static_<
-						sge::image::difference_type,
-						2
-					>,
-					fcppt::cast::float_to_int_fun
-				>(
-					sge::cegui::impl::from_cegui_size(
-						_buffer_size
-					)
-				)
-			),
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				format
-			),
-			fcppt::math::dim::null<
-				sge::image2d::pitch
-			>()
-		),
-		lock.value(),
-		sge::image::algorithm::may_overlap::no,
-		sge::image::algorithm::uninitialized::yes
-	);
+  // Nothing ever calls this
+  throw sge::cegui::exception{FCPPT_TEXT("texture::blitFromMemory() is not implemented yet")};
 }
 
-void
-sge::cegui::impl::texture::blitFromMemory(
-	void const *,
-	CEGUI::Rectf const &
-)
+void sge::cegui::impl::texture::blitToMemory(void *)
 {
-	// Nothing ever calls this
-	throw
-		sge::cegui::exception{
-			FCPPT_TEXT("texture::blitFromMemory() is not implemented yet")
-		};
+  // Nothing ever calls this
+  throw sge::cegui::exception{FCPPT_TEXT("texture::blitToMemory() is not implemented yet")};
 }
 
-void
-sge::cegui::impl::texture::blitToMemory(
-	void *
-)
+bool sge::cegui::impl::texture::isPixelFormatSupported(
+    CEGUI::Texture::PixelFormat const _format) const
 {
-	// Nothing ever calls this
-	throw
-		sge::cegui::exception{
-			FCPPT_TEXT("texture::blitToMemory() is not implemented yet")
-		};
-}
-
-bool
-sge::cegui::impl::texture::isPixelFormatSupported(
-	CEGUI::Texture::PixelFormat const _format
-) const
-{
-	return
-		sge::cegui::impl::convert_pixel_format(
-			_format
-		).has_value();
+  return sge::cegui::impl::convert_pixel_format(_format).has_value();
 }
 
 sge::cegui::impl::texture::texture(
-	fcppt::log::object &_log,
-	sge::cegui::impl::texture_parameters _texture_parameters,
-	CEGUI::String const &_name,
-	sge::cegui::impl::texture::optional_sizef _size,
-	sge::cegui::impl::texture::optional_texel_scaling _texel_scaling,
-	sge::cegui::impl::texture::optional_planar_unique_ptr &&_texture
-)
-:
-	log_{
-		_log,
-		sge::log::default_parameters(
-			fcppt::log::name{
-				FCPPT_TEXT("texture")
-			}
-		)
-	},
-	texture_parameters_{
-		std::move(
-			_texture_parameters
-		)
-	},
-	name_{
-		_name
-	},
-	size_{
-		std::move(
-			_size
-		)
-	},
-	texel_scaling_{
-		std::move(
-			_texel_scaling
-		)
-	},
-	texture_{
-		std::move(
-			_texture
-		)
-	}
+    fcppt::log::object &_log,
+    sge::cegui::impl::texture_parameters _texture_parameters,
+    CEGUI::String const &_name,
+    sge::cegui::impl::texture::optional_sizef _size,
+    sge::cegui::impl::texture::optional_texel_scaling _texel_scaling,
+    sge::cegui::impl::texture::optional_planar_unique_ptr &&_texture)
+    : log_{_log, sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("texture")})},
+      texture_parameters_{std::move(_texture_parameters)},
+      name_{_name},
+      size_{std::move(_size)},
+      texel_scaling_{std::move(_texel_scaling)},
+      texture_{std::move(_texture)}
 {
 }

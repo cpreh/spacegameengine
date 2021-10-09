@@ -3,17 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/company_name.hpp>
 #include <sge/config/own_company_name.hpp>
 #include <fcppt/text.hpp>
 
-
-sge::config::company_name
-sge::config::own_company_name()
+sge::config::company_name sge::config::own_company_name()
 {
-	return
-		sge::config::company_name(
-			FCPPT_TEXT("spacegameengine")
-		);
+  return sge::config::company_name(FCPPT_TEXT("spacegameengine"));
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_STATE_IS_WITH_TRANSFORM_HPP_INCLUDED
 #define SGE_SPRITE_STATE_IS_WITH_TRANSFORM_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace sprite
@@ -20,21 +18,13 @@ namespace sprite
 namespace state
 {
 
-template<
-	typename Type
->
-struct is_with_transform
-:
-std::false_type
+template <typename Type>
+struct is_with_transform : std::false_type
 {
 };
 
-template<>
-struct is_with_transform<
-	sge::sprite::state::with_transform
->
-:
-std::true_type
+template <>
+struct is_with_transform<sge::sprite::state::with_transform> : std::true_type
 {
 };
 

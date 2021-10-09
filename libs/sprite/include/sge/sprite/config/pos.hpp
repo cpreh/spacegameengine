@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_POS_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_POS_HPP_INCLUDED
 
@@ -15,36 +14,18 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::config
 {
 
-template<
-	sge::sprite::config::pos_option Option
->
-struct pos final
-:
-	sge::sprite::config::pos_choice
+template <sge::sprite::config::pos_option Option>
+struct pos final : sge::sprite::config::pos_choice
 {
-	using
-	option
-	=
-	std::integral_constant<
-		sge::sprite::config::pos_option,
-		Option
-	>;
+  using option = std::integral_constant<sge::sprite::config::pos_option, Option>;
 
-	template<
-		typename Choices
-	>
-	struct apply
-	:
-	sge::sprite::detail::primitives::pos<
-		Choices,
-		Option
-	>
-	{
-	};
+  template <typename Choices>
+  struct apply : sge::sprite::detail::primitives::pos<Choices, Option>
+  {
+  };
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_JOYPAD_DEVICE_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_DEVICE_HPP_INCLUDED
 
@@ -26,73 +25,41 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::joypad
 {
 
-class device
-:
-	public
-		sge::input::joypad::device
+class device : public sge::input::joypad::device
 {
-	FCPPT_NONMOVABLE(
-		device
-	);
+  FCPPT_NONMOVABLE(device);
+
 public:
-	device(
-		sge::window::object_ref,
-		sge::sdlinput::joypad::device_id
-	);
+  device(sge::window::object_ref, sge::sdlinput::joypad::device_id);
 
-	~device()
-	override;
+  ~device() override;
 
-	[[nodiscard]]
-	sge::window::object &
-	window() const
-	override;
+  [[nodiscard]] sge::window::object &window() const override;
 
-	[[nodiscard]]
-	sge::input::joypad::info const &
-	info() const
-	override;
+  [[nodiscard]] sge::input::joypad::info const &info() const override;
 
-	[[nodiscard]]
-	sge::input::joypad::ff::effect_unique_ptr
-	create_ff_effect(
-		sge::input::joypad::ff::parameters const &
-	)
-	override;
+  [[nodiscard]] sge::input::joypad::ff::effect_unique_ptr
+  create_ff_effect(sge::input::joypad::ff::parameters const &) override;
 
-	[[nodiscard]]
-	SDL_JoystickID
-	id() const;
+  [[nodiscard]] SDL_JoystickID id() const;
 
-	[[nodiscard]]
-	sge::input::joypad::absolute_axis
-	axis(
-		std::uint8_t
-	) const;
+  [[nodiscard]] sge::input::joypad::absolute_axis axis(std::uint8_t) const;
 
-	[[nodiscard]]
-	sge::input::joypad::relative_axis
-	ball_axis(
-		std::uint8_t,
-		sge::sdlinput::joypad::ball_direction
-	) const;
+  [[nodiscard]] sge::input::joypad::relative_axis
+      ball_axis(std::uint8_t, sge::sdlinput::joypad::ball_direction) const;
 
-	[[nodiscard]]
-	sge::input::joypad::absolute_axis
-	hat_axis(
-		std::uint8_t,
-		sge::sdlinput::joypad::hat_direction
-	) const;
+  [[nodiscard]] sge::input::joypad::absolute_axis
+      hat_axis(std::uint8_t, sge::sdlinput::joypad::hat_direction) const;
+
 private:
-	sge::sdlinput::joypad::instance const instance_;
+  sge::sdlinput::joypad::instance const instance_;
 
-	sge::window::object_ref const window_;
+  sge::window::object_ref const window_;
 
-	sge::input::joypad::info const info_;
+  sge::input::joypad::info const info_;
 };
 
 }

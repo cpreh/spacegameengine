@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GLX_CURRENT_DRAWABLE_HPP_INCLUDED
 #define SGE_OPENGL_GLX_CURRENT_DRAWABLE_HPP_INCLUDED
 
@@ -11,12 +10,10 @@
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::glx
 {
 
-GLXDrawable
-current_drawable();
+GLXDrawable current_drawable();
 
 }
 

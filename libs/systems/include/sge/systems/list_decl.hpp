@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_LIST_DECL_HPP_INCLUDED
 #define SGE_SYSTEMS_LIST_DECL_HPP_INCLUDED
 
@@ -13,46 +12,25 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::systems
 {
 
-template<
-	typename Inits
->
+template <typename Inits>
 class list
 {
 public:
-	explicit
-	list(
-		Inits &&
-	);
+  explicit list(Inits &&);
 
-	template<
-		typename Param
-	>
-	[[nodiscard]]
-	list<
-		fcppt::tuple::push_back_result<
-			Inits,
-			std::remove_cvref_t<
-				Param
-			>
-		>
-	>
-	operator()(
-		Param &&
-	) const;
+  template <typename Param>
+  [[nodiscard]] list<fcppt::tuple::push_back_result<Inits, std::remove_cvref_t<Param>>>
+  operator()(Param &&) const;
 
-	[[nodiscard]]
-	Inits &
-	get();
+  [[nodiscard]] Inits &get();
 
-	[[nodiscard]]
-	Inits const &
-	get() const;
+  [[nodiscard]] Inits const &get() const;
+
 private:
-	Inits inits_;
+  Inits inits_;
 };
 
 }

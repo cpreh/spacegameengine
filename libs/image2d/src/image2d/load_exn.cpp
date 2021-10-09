@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image2d/exception.hpp>
 #include <sge/image2d/file.hpp>
 #include <sge/image2d/file_exception.hpp>
@@ -16,19 +15,9 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::image2d::file_unique_ptr
-sge::image2d::load_exn(
-	sge::image2d::system_ref const _system,
-	std::filesystem::path const &_path
-)
+sge::image2d::load_exn(sge::image2d::system_ref const _system, std::filesystem::path const &_path)
 {
-	return
-		sge::media::impl::load_exn<
-			sge::image2d::file_unique_ptr,
-			sge::image2d::exception
-		>(
-			_system,
-			_path
-		);
+  return sge::media::impl::load_exn<sge::image2d::file_unique_ptr, sge::image2d::exception>(
+      _system, _path);
 }

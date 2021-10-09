@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_COPY_AND_CONVERT_HPP_INCLUDED
 
@@ -20,52 +19,28 @@
 #include <mizuiro/nonconst_tag.hpp>
 #include <fcppt/variant/apply.hpp>
 
-
 namespace sge::image::color::impl::dynamic::algorithm
 {
 
-template<
-	typename Tag
->
-void
-copy_and_convert(
-	sge::image::view::const_object<
-		Tag
-	> const &_source,
-	sge::image::view::object<
-		Tag
-	> const &_dest,
-	sge::image::algorithm::may_overlap const _overlap,
-	sge::image::algorithm::uninitialized const _uninitialized
-)
+template <typename Tag>
+void copy_and_convert(
+    sge::image::view::const_object<Tag> const &_source,
+    sge::image::view::object<Tag> const &_dest,
+    sge::image::algorithm::may_overlap const _overlap,
+    sge::image::algorithm::uninitialized const _uninitialized)
 {
-	using
-	dim
-	=
-	sge::image::traits::image::dimension<
-		Tag
-	>;
+  using dim = sge::image::traits::image::dimension<Tag>;
 
-	fcppt::variant::apply(
-		sge::image::color::impl::dynamic::algorithm::cac::visitor(
-			_overlap,
-			_uninitialized
-		),
-		fcppt::variant::apply(
-			sge::image::color::impl::dynamic::view::from_static_visitor<
-				dim::value,
-				mizuiro::const_tag
-			>(),
-			_source.get()
-		),
-		fcppt::variant::apply(
-			sge::image::color::impl::dynamic::view::from_static_visitor<
-				dim::value,
-				mizuiro::nonconst_tag
-			>(),
-			_dest.get()
-		)
-	);
+  fcppt::variant::apply(
+      sge::image::color::impl::dynamic::algorithm::cac::visitor(_overlap, _uninitialized),
+      fcppt::variant::apply(
+          sge::image::color::impl::dynamic::view::
+              from_static_visitor<dim::value, mizuiro::const_tag>(),
+          _source.get()),
+      fcppt::variant::apply(
+          sge::image::color::impl::dynamic::view::
+              from_static_visitor<dim::value, mizuiro::nonconst_tag>(),
+          _dest.get()));
 }
 
 }

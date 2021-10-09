@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_DUMMY_HPP_INCLUDED
 #define SGE_GUI_WIDGET_DUMMY_HPP_INCLUDED
 
@@ -13,29 +12,20 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class dummy
-:
-	public sge::gui::widget::base
+class dummy : public sge::gui::widget::base
 {
-	FCPPT_NONMOVABLE(
-		dummy
-	);
-public:
-	dummy();
+  FCPPT_NONMOVABLE(dummy);
 
-	~dummy()
-	override;
+public:
+  dummy();
+
+  ~dummy() override;
+
 private:
-	void
-	on_draw(
-		sge::gui::renderer::base &,
-		sge::renderer::context::ffp &
-	)
-	override;
+  void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
 };
 
 }

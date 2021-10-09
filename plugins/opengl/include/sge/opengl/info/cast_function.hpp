@@ -3,31 +3,20 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_INFO_CAST_FUNCTION_HPP_INCLUDED
 #define SGE_OPENGL_INFO_CAST_FUNCTION_HPP_INCLUDED
 
 #include <sge/opengl/backend/fun_ptr.hpp>
 
-
 namespace sge::opengl::info
 {
 
-template<
-	typename Ret
->
-Ret
-cast_function(
-	sge::opengl::backend::fun_ptr const _function
-)
+template <typename Ret>
+Ret cast_function(sge::opengl::backend::fun_ptr const _function)
 {
-	return
-		// NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
-		reinterpret_cast<
-			Ret
-		>(
-			_function
-		);
+  return
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+      reinterpret_cast<Ret>(_function);
 }
 
 }

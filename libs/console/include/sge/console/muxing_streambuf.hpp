@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_MUXING_STREAMBUF_HPP_INCLUDED
 #define SGE_CONSOLE_MUXING_STREAMBUF_HPP_INCLUDED
 
@@ -20,7 +19,6 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::console
 {
 /**
@@ -36,81 +34,39 @@ A console (an sge::console::object, to be precise), might be present, however.
 So it would be great if you could redirect the output of the given ostream to
 the console. This is what the muxing_streambuf does.
 */
-template<
-	typename Char,
-	typename Traits
->
-class muxing_streambuf
-:
-	std::basic_streambuf<
-		Char,
-		Traits
-	>
+template <typename Char, typename Traits>
+class muxing_streambuf : std::basic_streambuf<Char, Traits>
 {
-	FCPPT_NONMOVABLE(
-		muxing_streambuf
-	);
+  FCPPT_NONMOVABLE(muxing_streambuf);
+
 public:
-	using
-	streambuf_base
-	=
-	std::basic_streambuf<
-		Char,
-		Traits
-	>;
+  using streambuf_base = std::basic_streambuf<Char, Traits>;
 
-	using
-	int_type
-	=
-	typename
-	streambuf_base::int_type;
+  using int_type = typename streambuf_base::int_type;
 
-	SGE_CONSOLE_DETAIL_SYMBOL
-	muxing_streambuf(
-		fcppt::reference<
-			std::basic_ostream<
-				Char,
-				Traits
-			>
-		>,
-		sge::console::object_ref,
-		sge::console::muxing
-	);
+  SGE_CONSOLE_DETAIL_SYMBOL
+  muxing_streambuf(
+      fcppt::reference<std::basic_ostream<Char, Traits>>,
+      sge::console::object_ref,
+      sge::console::muxing);
 
-	SGE_CONSOLE_DETAIL_SYMBOL
-	~muxing_streambuf()
-	override;
+  SGE_CONSOLE_DETAIL_SYMBOL
+  ~muxing_streambuf() override;
+
 private:
-	bool in_progress_;
+  bool in_progress_;
 
-	sge::console::object_ref const object_;
+  sge::console::object_ref const object_;
 
-	fcppt::reference<
-		std::basic_ostream<
-			Char,
-			Traits
-		>
-	> const stream_;
+  fcppt::reference<std::basic_ostream<Char, Traits>> const stream_;
 
-	fcppt::unique_ptr<
-		std::basic_streambuf<
-			Char,
-			Traits
-		>
-	> old_streambuf_;
+  fcppt::unique_ptr<std::basic_streambuf<Char, Traits>> old_streambuf_;
 
-	sge::console::muxing const does_muxing_;
+  sge::console::muxing const does_muxing_;
 
-	std::basic_string<
-		Char,
-		Traits
-	> buffer_;
+  std::basic_string<Char, Traits> buffer_;
 
-	int_type
-	overflow(
-		int_type
-	)
-	override;
+  int_type overflow(int_type) override;
 };
 
 }

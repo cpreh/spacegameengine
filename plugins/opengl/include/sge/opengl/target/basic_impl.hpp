@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TARGET_BASIC_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_BASIC_IMPL_HPP_INCLUDED
 
@@ -24,246 +23,116 @@
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
-
-template<
-	typename Base
->
-sge::opengl::target::basic<
-	Base
->::basic(
-	sge::opengl::context::object_ref const _context,
-	sge::renderer::target::viewport const &_viewport
-)
-:
-	Base(),
-	sge::opengl::target::base(),
-	context_(
-		sge::opengl::context::use<
-			sge::opengl::target::context
-		>(
-			_context
-		)
-	),
-	active_(
-		false
-	),
-	viewport_(
-		_viewport
-	),
-	scissor_area_(
-		sge::renderer::target::scissor_area(
-			_viewport.get()
-		)
-	)
+template <typename Base>
+sge::opengl::target::basic<Base>::basic(
+    sge::opengl::context::object_ref const _context,
+    sge::renderer::target::viewport const &_viewport)
+    : Base(),
+      sge::opengl::target::base(),
+      context_(sge::opengl::context::use<sge::opengl::target::context>(_context)),
+      active_(false),
+      viewport_(_viewport),
+      scissor_area_(sge::renderer::target::scissor_area(_viewport.get()))
 {
 }
 
 namespace sge::opengl::target
 {
-template<
-	typename Base
->
-basic<
-	Base
->::~basic()
-= default;
+template <typename Base>
+basic<Base>::~basic() = default;
 }
 
-template<
-	typename Base
->
-void
-sge::opengl::target::basic<
-	Base
->::bind()
+template <typename Base>
+void sge::opengl::target::basic<Base>::bind()
 {
-	active_ =
-		true;
+  active_ = true;
 
-	this->on_bind();
+  this->on_bind();
 
-	this->set_viewport();
+  this->set_viewport();
 
-	this->set_scissor_area();
+  this->set_scissor_area();
 
-	context_.last_target(
-		sge::opengl::target::optional_base_ref(
-			fcppt::reference_to_base<
-				sge::opengl::target::base
-			>(
-				fcppt::make_ref(
-					*this
-				)
-			)
-		)
-	);
+  context_.last_target(sge::opengl::target::optional_base_ref(
+      fcppt::reference_to_base<sge::opengl::target::base>(fcppt::make_ref(*this))));
 }
 
-template<
-	typename Base
->
-void
-sge::opengl::target::basic<
-	Base
->::unbind()
+template <typename Base>
+void sge::opengl::target::basic<Base>::unbind()
 {
-	active_ =
-		false;
+  active_ = false;
 
-	this->on_unbind();
+  this->on_unbind();
 
-	context_.last_target(
-		sge::opengl::target::optional_base_ref()
-	);
+  context_.last_target(sge::opengl::target::optional_base_ref());
 }
 
-template<
-	typename Base
->
-void
-sge::opengl::target::basic<
-	Base
->::viewport(
-	sge::renderer::target::viewport const &_viewport
-)
+template <typename Base>
+void sge::opengl::target::basic<Base>::viewport(sge::renderer::target::viewport const &_viewport)
 {
-	viewport_ =
-		_viewport;
+  viewport_ = _viewport;
 
-	if(
-		active_
-	)
-	{
-		this->set_viewport();
-	}
+  if (active_)
+  {
+    this->set_viewport();
+  }
 }
 
-template<
-	typename Base
->
-sge::renderer::target::viewport
-sge::opengl::target::basic<
-	Base
->::viewport() const
+template <typename Base>
+sge::renderer::target::viewport sge::opengl::target::basic<Base>::viewport() const
 {
-	return
-		viewport_;
+  return viewport_;
 }
 
-template<
-	typename Base
->
-void
-sge::opengl::target::basic<
-	Base
->::scissor_area(
-	sge::renderer::target::scissor_area const &_scissor_area
-)
+template <typename Base>
+void sge::opengl::target::basic<Base>::scissor_area(
+    sge::renderer::target::scissor_area const &_scissor_area)
 {
-	scissor_area_ =
-		_scissor_area;
+  scissor_area_ = _scissor_area;
 
-	if(
-		active_
-	)
-	{
-		this->set_scissor_area();
-	}
+  if (active_)
+  {
+    this->set_scissor_area();
+  }
 }
 
-template<
-	typename Base
->
-sge::renderer::target::scissor_area
-sge::opengl::target::basic<
-	Base
->::scissor_area() const
+template <typename Base>
+sge::renderer::target::scissor_area sge::opengl::target::basic<Base>::scissor_area() const
 {
-	return
-		scissor_area_;
+  return scissor_area_;
 }
 
-template<
-	typename Base
->
-void
-sge::opengl::target::basic<
-	Base
->::clear(
-	sge::renderer::clear::parameters const &_param
-)
+template <typename Base>
+void sge::opengl::target::basic<Base>::clear(sge::renderer::clear::parameters const &_param)
 {
-	sge::opengl::target::optional_base_ref const last_target(
-		context_.last_target()
-	);
+  sge::opengl::target::optional_base_ref const last_target(context_.last_target());
 
-	fcppt::optional::maybe_void(
-		last_target,
-		[](
-			fcppt::reference<
-				sge::opengl::target::base
-			> const _target
-		)
-		{
-			_target.get().unbind();
-		}
-	);
+  fcppt::optional::maybe_void(
+      last_target,
+      [](fcppt::reference<sge::opengl::target::base> const _target) { _target.get().unbind(); });
 
-	{
-		sge::opengl::target::scoped const scoped(
-			fcppt::reference_to_base<
-				sge::opengl::target::base
-			>(
-				fcppt::make_ref(
-					*this
-				)
-			)
-		);
+  {
+    sge::opengl::target::scoped const scoped(
+        fcppt::reference_to_base<sge::opengl::target::base>(fcppt::make_ref(*this)));
 
-		sge::opengl::clear::set(
-			_param
-		);
-	}
+    sge::opengl::clear::set(_param);
+  }
 
-	fcppt::optional::maybe_void(
-		last_target,
-		[](
-			fcppt::reference<
-				sge::opengl::target::base
-			> const _target
-		)
-		{
-			_target.get().bind();
-		}
-	);
+  fcppt::optional::maybe_void(
+      last_target,
+      [](fcppt::reference<sge::opengl::target::base> const _target) { _target.get().bind(); });
 }
 
-template<
-	typename Base
->
-void
-sge::opengl::target::basic<
-	Base
->::set_viewport()
+template <typename Base>
+void sge::opengl::target::basic<Base>::set_viewport()
 {
-	sge::opengl::target::viewport(
-		viewport_,
-		this->height()
-	);
+  sge::opengl::target::viewport(viewport_, this->height());
 }
 
-template<
-	typename Base
->
-void
-sge::opengl::target::basic<
-	Base
->::set_scissor_area()
+template <typename Base>
+void sge::opengl::target::basic<Base>::set_scissor_area()
 {
-	sge::opengl::target::set_scissor_area(
-		scissor_area_,
-		this->height()
-	);
+  sge::opengl::target::set_scissor_area(scissor_area_, this->height());
 }
 
 #endif

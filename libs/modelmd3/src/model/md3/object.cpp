@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/model/md3/object.hpp>
 
+sge::model::md3::object::object() = default;
 
-sge::model::md3::object::object()
-= default;
-
-sge::model::md3::object::~object()
-= default;
+sge::model::md3::object::~object() = default;

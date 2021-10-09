@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TIMER_PARAMETERS_HPP_INCLUDED
 #define SGE_TIMER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/timer/parameters_decl.hpp>
 #include <sge/timer/parameters_fwd.hpp>
 #include <sge/timer/parameters_impl.hpp>
-
 
 #endif

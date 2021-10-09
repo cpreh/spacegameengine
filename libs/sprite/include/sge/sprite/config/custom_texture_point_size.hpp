@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace sprite
@@ -21,20 +19,12 @@ namespace sprite
 namespace config
 {
 
-template<
-	fcppt::mpl::list::object_concept AttributeNames
->
+template <fcppt::mpl::list::object_concept AttributeNames>
 struct custom_texture_point_size
 {
-	using
-	is_texture_point_size
-	=
-	std::true_type;
+  using is_texture_point_size = std::true_type;
 
-	using
-	attribute_indices
-	=
-	AttributeNames;
+  using attribute_indices = AttributeNames;
 };
 
 }

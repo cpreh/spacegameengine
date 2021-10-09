@@ -3,31 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/devicefuncs/set_sampler_state.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/text.hpp>
 
-
-void
-sge::d3d9::devicefuncs::set_sampler_state(
-	IDirect3DDevice9 &_device,
-	sge::renderer::texture::stage const _stage,
-	D3DSAMPLERSTATETYPE const _type,
-	DWORD const _value
-)
+void sge::d3d9::devicefuncs::set_sampler_state(
+    IDirect3DDevice9 &_device,
+    sge::renderer::texture::stage const _stage,
+    D3DSAMPLERSTATETYPE const _type,
+    DWORD const _value)
 {
-	if(
-		_device.SetSamplerState(
-			_stage.get(),
-			_type,
-			_value
-		)
-		!= D3D_OK
-	)
-		throw sge::renderer::exception(
-			FCPPT_TEXT("SetSamplerState() failed!")
-		);
+  if (_device.SetSamplerState(_stage.get(), _type, _value) != D3D_OK)
+    throw sge::renderer::exception(FCPPT_TEXT("SetSamplerState() failed!"));
 }

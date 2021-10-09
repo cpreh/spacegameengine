@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_RENDER_RANGE_PART_VECTOR_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_PART_VECTOR_HPP_INCLUDED
 
@@ -12,20 +11,11 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::render
 {
 
-template<
-	typename Choices
->
-using range_part_vector
-=
-std::vector<
-	sge::sprite::render::range_part<
-		Choices
-	>
->;
+template <typename Choices>
+using range_part_vector = std::vector<sge::sprite::render::range_part<Choices>>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_BITMAP_CREATE_HPP_INCLUDED
 #define SGE_FONT_BITMAP_CREATE_HPP_INCLUDED
 
@@ -15,17 +14,12 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::font::bitmap
 {
 
 SGE_FONT_BITMAP_DETAIL_SYMBOL
 sge::font::object_unique_ptr
-create(
-	fcppt::log::context_reference,
-	std::filesystem::path const &,
-	sge::image2d::system_ref
-);
+create(fcppt::log::context_reference, std::filesystem::path const &, sge::image2d::system_ref);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/color/a8_format.hpp>
 #include <sge/image/color/bgr32f_format.hpp>
 #include <sge/image/color/bgr8_format.hpp>
@@ -50,106 +49,46 @@
 #include <sge/image/color/impl/dynamic/format/srgb_c8_4.hpp>
 #include <sge/image/color/impl/dynamic/format/srgba8.hpp>
 
+#define SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(dformat, sformat) \
+  sge::image::color::impl::dynamic::format::dformat const & \
+  sge::image::color::impl::dynamic::format::from_static( \
+      sge::image::color::sformat##_format const &) \
+  { \
+    return sge::image::color::impl::dynamic::format::sformat; \
+  }
 
-#define SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(\
-	dformat,\
-	sformat\
-)\
-sge::image::color::impl::dynamic::format::dformat const & \
-sge::image::color::impl::dynamic::format::from_static(\
-	sge::image::color::sformat ## _format const &\
-)\
-{\
-	return \
-		sge::image::color::impl::dynamic::format::sformat;\
-}
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(empty_c8_1, a8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	empty_c8_1,
-	a8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(luminance_c8_1, l8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	luminance_c8_1,
-	l8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(r_c32f_1, r32f)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	r_c32f_1,
-	r32f
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(luminance_c8_2, la8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	luminance_c8_2,
-	la8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c8_3, rgb8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c8_3,
-	rgb8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c8_3, bgr8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c8_3,
-	bgr8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c8_4, rgba8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c8_4,
-	rgba8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c8_4, rgbx8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c8_4,
-	rgbx8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c8_4, bgra8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c8_4,
-	bgra8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c8_4, bgrx8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c8_4,
-	bgrx8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c32f_3, rgb32f)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c32f_3,
-	rgb32f
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c32f_3, bgr32f)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c32f_3,
-	bgr32f
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c32f_4, rgba32f)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c32f_4,
-	rgba32f
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(rgb_c32f_4, bgra32f)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	rgb_c32f_4,
-	bgra32f
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(srgb_c8_3, srgb8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	srgb_c8_3,
-	srgb8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(srgb_c8_4, srgba8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	srgb_c8_4,
-	srgba8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(srgb_c8_3, sbgr8)
 
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	srgb_c8_3,
-	sbgr8
-)
-
-SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(
-	srgb_c8_4,
-	sbgra8
-)
+SGE_IMAGE_DYNAMIC_COLOR_DEFINE_FUNCTION(srgb_c8_4, sbgra8)

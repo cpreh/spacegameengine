@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -63,160 +62,77 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
-int
-main()
+int main()
 try
 {
-	sge::systems::instance<
-		sge::systems::with_window,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::core
-		>
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("sge opengl example")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{}
-			)
-			.caps(
-				sge::renderer::caps::system_field{
-					sge::renderer::caps::system::opengl
-				}
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_window,
+      sge::systems::with_renderer<sge::systems::renderer_caps::core>> const
+      sys(sge::systems::make_list(sge::systems::window(sge::systems::window_source(
+          sge::systems::original_window(sge::window::title(FCPPT_TEXT("sge opengl example"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{})
+              .caps(sge::renderer::caps::system_field{sge::renderer::caps::system::opengl})));
 
-	sge::renderer::texture::planar_unique_ptr const texture(
-		sys.renderer_device_core().create_planar_texture(
-			sge::renderer::texture::planar_parameters(
-				sge::renderer::dim2(
-					256U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-					256U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-				),
-				sge::renderer::texture::color_format(
-					sge::image::color::format::rgba8,
-					sge::renderer::texture::emulate_srgb::no
-				),
-				sge::renderer::texture::mipmap::off(),
-				sge::renderer::resource_flags_field::null(),
-				sge::renderer::texture::capabilities_field::null()
-			)
-		)
-	);
+  sge::renderer::texture::planar_unique_ptr const texture(
+      sys.renderer_device_core().create_planar_texture(sge::renderer::texture::planar_parameters(
+          sge::renderer::dim2(
+              256U, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              256U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              ),
+          sge::renderer::texture::color_format(
+              sge::image::color::format::rgba8, sge::renderer::texture::emulate_srgb::no),
+          sge::renderer::texture::mipmap::off(),
+          sge::renderer::resource_flags_field::null(),
+          sge::renderer::texture::capabilities_field::null())));
 
-	auto const &opengl_texture(
-		dynamic_cast<
-			sge::renderer::opengl::texture::base const &
-		>(
-			*texture
-		)
-	);
+  auto const &opengl_texture(dynamic_cast<sge::renderer::opengl::texture::base const &>(*texture));
 
-	fcppt::io::cout()
-		<< FCPPT_TEXT("Opengl texture id is ")
-		<< opengl_texture.id()
-		<< FCPPT_TEXT('\n');
+  fcppt::io::cout() << FCPPT_TEXT("Opengl texture id is ") << opengl_texture.id()
+                    << FCPPT_TEXT('\n');
 
-	using
-	vf_part
-	=
-	sge::renderer::vf::part<
-		sge::renderer::vf::pos<
-			float,
-			3
-		>
-	>;
+  using vf_part = sge::renderer::vf::part<sge::renderer::vf::pos<float, 3>>;
 
-	using
-	vf_format
-	=
-	sge::renderer::vf::format<
-		vf_part
-	>;
+  using vf_format = sge::renderer::vf::format<vf_part>;
 
-	sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
-		sys.renderer_device_core().create_vertex_declaration(
-			sge::renderer::vertex::declaration_parameters(
-				sge::renderer::vf::dynamic::make_format<
-					vf_format
-				>()
-			)
-		)
-	);
+  sge::renderer::vertex::declaration_unique_ptr const vertex_declaration(
+      sys.renderer_device_core().create_vertex_declaration(
+          sge::renderer::vertex::declaration_parameters(
+              sge::renderer::vf::dynamic::make_format<vf_format>())));
 
-	sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
-		sys.renderer_device_core().create_vertex_buffer(
-			sge::renderer::vertex::buffer_parameters(
-				fcppt::make_cref(
-					*vertex_declaration
-				),
-				sge::renderer::vf::dynamic::make_part_index<
-					vf_format,
-					vf_part
-				>(),
-				sge::renderer::vertex::count(
-					3U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-				),
-				sge::renderer::resource_flags_field::null()
-			)
-		)
-	);
+  sge::renderer::vertex::buffer_unique_ptr const vertex_buffer(
+      sys.renderer_device_core().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(
+          fcppt::make_cref(*vertex_declaration),
+          sge::renderer::vf::dynamic::make_part_index<vf_format, vf_part>(),
+          sge::renderer::vertex::count(
+              3U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              ),
+          sge::renderer::resource_flags_field::null())));
 
-	auto const &opengl_buffer(
-		dynamic_cast<
-			sge::renderer::opengl::buffer::base const &
-		>(
-			*vertex_buffer
-		)
-	);
+  auto const &opengl_buffer(
+      dynamic_cast<sge::renderer::opengl::buffer::base const &>(*vertex_buffer));
 
-	fcppt::io::cout()
-		<< FCPPT_TEXT("Opengl buffer id is ")
-		<< opengl_buffer.id()
-		<< FCPPT_TEXT(" and native is ")
-		<< std::boolalpha
-		<< opengl_buffer.native()
-		<< FCPPT_TEXT('\n');
+  fcppt::io::cout() << FCPPT_TEXT("Opengl buffer id is ") << opengl_buffer.id()
+                    << FCPPT_TEXT(" and native is ") << std::boolalpha << opengl_buffer.native()
+                    << FCPPT_TEXT('\n');
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
 
-	return EXIT_FAILURE;
+  return EXIT_FAILURE;
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+  std::cerr << _error.what() << '\n';
 
-	return EXIT_FAILURE;
+  return EXIT_FAILURE;
 }

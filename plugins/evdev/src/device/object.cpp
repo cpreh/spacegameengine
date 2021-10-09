@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
@@ -26,118 +25,43 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::evdev::device::object::object(
-	sge::evdev::device::fd_unique_ptr &&_fd,
-	awl::backends::posix::processor_ref const _processor,
-	std::filesystem::path &&_path
-)
-:
-	fd_{
-		std::move(
-			_fd
-		)
-	},
-	fd_connection_{
-		_processor.get().register_fd(
-			this->fd_->get()
-		)
-	},
-	path_{
-		std::move(
-			_path
-		)
-	}
+    sge::evdev::device::fd_unique_ptr &&_fd,
+    awl::backends::posix::processor_ref const _processor,
+    std::filesystem::path &&_path)
+    : fd_{std::move(_fd)},
+      fd_connection_{_processor.get().register_fd(this->fd_->get())},
+      path_{std::move(_path)}
 {
 }
 
-sge::evdev::device::object::~object()
-= default;
+sge::evdev::device::object::~object() = default;
 
-awl::event::container
-sge::evdev::device::object::on_event()
+awl::event::container sge::evdev::device::object::on_event()
 {
-	ssize_t result{
-		-1
-	};
+  ssize_t result{-1};
 
-	input_event event{};
+  input_event event{};
 
-	awl::event::container events{};
+  awl::event::container events{};
 
-	while(
-		(
-			result
-			=
-			::read(
-				fd_->get().get(),
-				&event,
-				sizeof(
-					event
-				)
-			)
-		)
-		> 0
-	)
-	{
-		fcppt::optional::maybe_void(
-			this->process_event(
-				sge::evdev::device::event(
-					event
-				)
-			),
-			[
-				&events
-			](
-				awl::event::base_unique_ptr &&_event
-			)
-			{
-				events.push_back(
-					std::move(
-						_event
-					)
-				);
-			}
-		);
-	}
+  while ((result = ::read(fd_->get().get(), &event, sizeof(event))) > 0)
+  {
+    fcppt::optional::maybe_void(
+        this->process_event(sge::evdev::device::event(event)),
+        [&events](awl::event::base_unique_ptr &&_event) { events.push_back(std::move(_event)); });
+  }
 
-	if(
-		result
-		==
-		-1
-		&&
-		errno
-		!=
-		EAGAIN
-	)
-	{
-		throw
-			sge::input::exception{
-				FCPPT_TEXT("Reading a device failed")
-			};
-	}
+  if (result == -1 && errno != EAGAIN)
+  {
+    throw sge::input::exception{FCPPT_TEXT("Reading a device failed")};
+  }
 
-	return
-		events;
+  return events;
 }
 
-awl::backends::posix::fd
-sge::evdev::device::object::posix_fd()
-{
-	return
-		this->fd().get();
-}
+awl::backends::posix::fd sge::evdev::device::object::posix_fd() { return this->fd().get(); }
 
-std::filesystem::path const &
-sge::evdev::device::object::path() const
-{
-	return
-		path_;
-}
+std::filesystem::path const &sge::evdev::device::object::path() const { return path_; }
 
-sge::evdev::device::fd &
-sge::evdev::device::object::fd()
-{
-	return
-		*fd_;
-}
+sge::evdev::device::fd &sge::evdev::device::object::fd() { return *fd_; }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_XRANDR_MAKE_DISPLAY_MODE_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_MAKE_DISPLAY_MODE_HPP_INCLUDED
 
@@ -13,15 +12,11 @@
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::xrandr
 {
 
 sge::renderer::display_mode::object
-make_display_mode(
-	XRRScreenSize const &,
-	sge::opengl::xrandr::refresh_rate
-);
+make_display_mode(XRRScreenSize const &, sge::opengl::xrandr::refresh_rate);
 
 }
 

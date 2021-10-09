@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin/collection_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
@@ -12,31 +11,16 @@
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-
 sge::systems::impl::audio::player::player(
-	fcppt::log::context_reference const _log_context,
-	fcppt::log::object &_log,
-	sge::audio::player_plugin::collection const &_collection,
-	sge::systems::audio_player const &_parameters
-)
-:
-	player_pair_(
-		sge::systems::impl::audio::find_player_plugin(
-			_log_context,
-			_log,
-			_collection,
-			_parameters
-		)
-	)
+    fcppt::log::context_reference const _log_context,
+    fcppt::log::object &_log,
+    sge::audio::player_plugin::collection const &_collection,
+    sge::systems::audio_player const &_parameters)
+    : player_pair_(sge::systems::impl::audio::find_player_plugin(
+          _log_context, _log, _collection, _parameters))
 {
 }
 
-sge::systems::impl::audio::player::~player()
-= default;
+sge::systems::impl::audio::player::~player() = default;
 
-sge::audio::player &
-sge::systems::impl::audio::player::get() const
-{
-	return
-		player_pair_.system();
-}
+sge::audio::player &sge::systems::impl::audio::player::get() const { return player_pair_.system(); }

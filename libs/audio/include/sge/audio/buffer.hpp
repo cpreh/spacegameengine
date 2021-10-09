@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_BUFFER_HPP_INCLUDED
 #define SGE_AUDIO_BUFFER_HPP_INCLUDED
 
@@ -14,7 +13,6 @@
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/nonmovable.hpp>
-
 
 namespace sge::audio
 {
@@ -30,36 +28,29 @@ namespace sge::audio
  */
 class SGE_CORE_DETAIL_CLASS_SYMBOL buffer
 {
-	FCPPT_NONMOVABLE(
-		buffer
-	);
+  FCPPT_NONMOVABLE(buffer);
+
 public:
-	/// Create a positional sound
-	/**
+  /// Create a positional sound
+  /**
 	 * For an introduction to positional (3D) sounds, see \ref audio_positional
 	 */
-	virtual
-	sge::audio::sound::positional_unique_ptr
-	create_positional(
-		sge::audio::sound::positional_parameters const &
-	) = 0;
+  virtual sge::audio::sound::positional_unique_ptr
+  create_positional(sge::audio::sound::positional_parameters const &) = 0;
 
-	/// Create a nonpositional sound
-	/**
+  /// Create a nonpositional sound
+  /**
 	 * For an introduction to nonpositional sounds, see \ref audio_example
 	 */
-	virtual
-	sge::audio::sound::base_unique_ptr
-	create_nonpositional(
-		sge::audio::sound::nonpositional_parameters const &
-	) = 0;
+  virtual sge::audio::sound::base_unique_ptr
+  create_nonpositional(sge::audio::sound::nonpositional_parameters const &) = 0;
 
-	SGE_AUDIO_DETAIL_SYMBOL
-	virtual
-	~buffer();
+  SGE_AUDIO_DETAIL_SYMBOL
+  virtual ~buffer();
+
 protected:
-	SGE_AUDIO_DETAIL_SYMBOL
-	buffer();
+  SGE_AUDIO_DETAIL_SYMBOL
+  buffer();
 };
 
 }

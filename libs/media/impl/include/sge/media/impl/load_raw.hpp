@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_IMPL_LOAD_RAW_HPP_INCLUDED
 #define SGE_MEDIA_IMPL_LOAD_RAW_HPP_INCLUDED
 
@@ -19,43 +18,19 @@
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::media::impl
 {
 
-template<
-	typename Result,
-	typename System
->
-fcppt::optional::object<
-	Result
->
-load_raw(
-	fcppt::reference<
-		System
-	> const _system,
-	sge::media::const_raw_range const &_range,
-	sge::media::optional_extension const &_extension
-)
+template <typename Result, typename System>
+fcppt::optional::object<Result> load_raw(
+    fcppt::reference<System> const _system,
+    sge::media::const_raw_range const &_range,
+    sge::media::optional_extension const &_extension)
 {
-	sge::media::impl::raw_streambuf buf{
-		_range
-	};
+  sge::media::impl::raw_streambuf buf{_range};
 
-	return
-		fcppt::variant::to_optional<
-			Result
-		>(
-			_system.get().load_stream(
-				fcppt::make_unique_ptr<
-					std::istream
-				>(
-					&buf
-				),
-				_extension,
-				sge::media::optional_name()
-			)
-		);
+  return fcppt::variant::to_optional<Result>(_system.get().load_stream(
+      fcppt::make_unique_ptr<std::istream>(&buf), _extension, sge::media::optional_name()));
 }
 
 }

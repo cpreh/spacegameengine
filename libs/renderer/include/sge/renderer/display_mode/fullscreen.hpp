@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_DISPLAY_MODE_FULLSCREEN_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_FULLSCREEN_HPP_INCLUDED
 
@@ -11,6 +10,5 @@
 #include <sge/renderer/display_mode/fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <fcppt/variant/object_impl.hpp>
-
 
 #endif

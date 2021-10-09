@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/dinput/processor.hpp>
 #include <sge/dinput/system.hpp>
 #include <sge/input/capabilities.hpp>
@@ -20,54 +19,27 @@
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 
-
-sge::dinput::system::system(
-	fcppt::log::context_reference const _log_context
-)
-:
-	log_{
-		_log_context,
-		sge::log::location(),
-		sge::log::default_parameters(
-			fcppt::log::name{
-				FCPPT_TEXT("dinput")
-			}
-		)
-	}
+sge::dinput::system::system(fcppt::log::context_reference const _log_context)
+    : log_{
+          _log_context,
+          sge::log::location(),
+          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("dinput")})}
 {
 }
 
-sge::dinput::system::~system()
-{
-}
+sge::dinput::system::~system() {}
 
 sge::input::processor_unique_ptr
-sge::dinput::system::create_processor(
-	sge::window::object_ref const _window
-)
+sge::dinput::system::create_processor(sge::window::object_ref const _window)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::input::processor
-		>(
-			fcppt::make_unique_ptr<
-				sge::dinput::processor
-			>(
-				fcppt::make_ref(
-					log_
-				),
-				_window
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::input::processor>(
+      fcppt::make_unique_ptr<sge::dinput::processor>(fcppt::make_ref(log_), _window));
 }
 
-sge::input::capabilities_field
-sge::dinput::system::capabilities() const
+sge::input::capabilities_field sge::dinput::system::capabilities() const
 {
-	return
-		sge::input::capabilities_field{
-			sge::input::capabilities::keyboard,
-			sge::input::capabilities::mouse,
-			sge::input::capabilities::joypad
-		};
+  return sge::input::capabilities_field{
+      sge::input::capabilities::keyboard,
+      sge::input::capabilities::mouse,
+      sge::input::capabilities::joypad};
 }

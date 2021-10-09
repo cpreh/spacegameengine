@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LIBPNG_MAKE_ROW_VECTOR_HPP_INCLUDED
 #define SGE_LIBPNG_MAKE_ROW_VECTOR_HPP_INCLUDED
 
@@ -12,16 +11,11 @@
 #include <sge/libpng/png.hpp>
 #include <sge/libpng/row_vector.hpp>
 
-
 namespace sge::libpng
 {
 
 sge::libpng::row_vector
-make_row_vector(
-	sge::image2d::dim const &,
-	png_bytep,
-	sge::libpng::bytes_per_pixel
-);
+make_row_vector(sge::image2d::dim const &, png_bytep, sge::libpng::bytes_per_pixel);
 
 }
 

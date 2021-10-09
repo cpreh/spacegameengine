@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_LOAD_HPP_INCLUDED
 #define SGE_AUDIO_LOAD_HPP_INCLUDED
 
@@ -14,16 +13,11 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::audio
 {
 
 SGE_AUDIO_DETAIL_SYMBOL
-sge::audio::optional_file_unique_ptr
-load(
-	sge::audio::loader_ref,
-	std::filesystem::path const &
-);
+sge::audio::optional_file_unique_ptr load(sge::audio::loader_ref, std::filesystem::path const &);
 
 }
 

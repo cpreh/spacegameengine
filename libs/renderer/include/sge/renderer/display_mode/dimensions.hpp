@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_DISPLAY_MODE_DIMENSIONS_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_DIMENSIONS_HPP_INCLUDED
 
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/display_mode/dimensions_fwd.hpp>
-
 
 #endif

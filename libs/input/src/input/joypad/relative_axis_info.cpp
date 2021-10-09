@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/joypad/axis_code.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <fcppt/optional_string.hpp>
@@ -11,31 +10,12 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::input::joypad::relative_axis_info::relative_axis_info(
-	sge::input::joypad::axis_code const _code,
-	fcppt::optional_string &&_name
-)
-:
-	code_(
-		_code
-	),
-	name_(
-		_name
-	)
+    sge::input::joypad::axis_code const _code, fcppt::optional_string &&_name)
+    : code_(_code), name_(_name)
 {
 }
 
-sge::input::joypad::axis_code
-sge::input::joypad::relative_axis_info::code() const
-{
-	return
-		code_;
-}
+sge::input::joypad::axis_code sge::input::joypad::relative_axis_info::code() const { return code_; }
 
-fcppt::optional_string const &
-sge::input::joypad::relative_axis_info::name() const
-{
-	return
-		name_;
-}
+fcppt::optional_string const &sge::input::joypad::relative_axis_info::name() const { return name_; }

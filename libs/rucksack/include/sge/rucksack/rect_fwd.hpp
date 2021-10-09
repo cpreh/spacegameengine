@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_RECT_FWD_HPP_INCLUDED
 #define SGE_RUCKSACK_RECT_FWD_HPP_INCLUDED
 
 #include <sge/rucksack/scalar.hpp>
 #include <fcppt/math/box/rect_fwd.hpp>
 
-
 namespace sge::rucksack
 {
 
-using
-rect
-=
-fcppt::math::box::rect<
-	sge::rucksack::scalar
->;
+using rect = fcppt::math::box::rect<sge::rucksack::scalar>;
 
 }
 

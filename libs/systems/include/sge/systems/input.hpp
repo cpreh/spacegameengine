@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_INPUT_HPP_INCLUDED
 #define SGE_SYSTEMS_INPUT_HPP_INCLUDED
 
@@ -11,24 +10,19 @@
 #include <sge/systems/input_fwd.hpp>
 #include <sge/systems/detail/symbol.hpp>
 
-
 namespace sge::systems
 {
 
 class input
 {
 public:
-	SGE_SYSTEMS_DETAIL_SYMBOL
-	explicit
-	input(
-		sge::systems::cursor_option_field const &
-	);
+  SGE_SYSTEMS_DETAIL_SYMBOL
+  explicit input(sge::systems::cursor_option_field const &);
 
-	[[nodiscard]]
-	sge::systems::cursor_option_field const &
-	cursor_options() const;
+  [[nodiscard]] sge::systems::cursor_option_field const &cursor_options() const;
+
 private:
-	sge::systems::cursor_option_field cursor_options_;
+  sge::systems::cursor_option_field cursor_options_;
 };
 
 }

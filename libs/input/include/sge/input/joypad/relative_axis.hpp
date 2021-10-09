@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_RELATIVE_AXIS_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_RELATIVE_AXIS_HPP_INCLUDED
 
@@ -12,32 +11,23 @@
 #include <sge/input/joypad/relative_axis_fwd.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
 
-
 namespace sge::input::joypad
 {
 
 class relative_axis
 {
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	relative_axis(
-		sge::input::joypad::axis_code,
-		sge::input::joypad::relative_axis_id
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  relative_axis(sge::input::joypad::axis_code, sge::input::joypad::relative_axis_id);
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::axis_code
-	code() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::axis_code code() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::relative_axis_id
-	id() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::relative_axis_id id() const;
+
 private:
-	sge::input::joypad::axis_code code_;
+  sge::input::joypad::axis_code code_;
 
-	sge::input::joypad::relative_axis_id id_;
+  sge::input::joypad::relative_axis_id id_;
 };
 
 }

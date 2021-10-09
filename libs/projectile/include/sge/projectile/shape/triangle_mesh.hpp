@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_SHAPE_TRIANGLE_MESH_HPP_INCLUDED
 #define SGE_PROJECTILE_SHAPE_TRIANGLE_MESH_HPP_INCLUDED
 
@@ -17,7 +16,6 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 class btCollisionShape;
 class btTriangleIndexVertexArray;
 class btBvhTriangleMeshShape;
@@ -25,45 +23,29 @@ class btBvhTriangleMeshShape;
 namespace sge::projectile::shape
 {
 
-class triangle_mesh
-:
-	public sge::projectile::shape::base
+class triangle_mesh : public sge::projectile::shape::base
 {
-	FCPPT_NONMOVABLE(
-		triangle_mesh
-	);
+  FCPPT_NONMOVABLE(triangle_mesh);
+
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	triangle_mesh(
-		sge::projectile::log const &,
-		sge::projectile::shape::triangle_sequence const &
-	);
+  SGE_PROJECTILE_DETAIL_SYMBOL
+  triangle_mesh(sge::projectile::log const &, sge::projectile::shape::triangle_sequence const &);
 
-	[[nodiscard]]
-	btCollisionShape &
-	bullet_shape()
-	override;
+  [[nodiscard]] btCollisionShape &bullet_shape() override;
 
-	[[nodiscard]]
-	btCollisionShape const &
-	bullet_shape() const
-	override;
+  [[nodiscard]] btCollisionShape const &bullet_shape() const override;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	~triangle_mesh()
-	override;
+  SGE_PROJECTILE_DETAIL_SYMBOL
+  ~triangle_mesh() override;
+
 private:
-	sge::projectile::shape::detail::scalar_container scalars_;
+  sge::projectile::shape::detail::scalar_container scalars_;
 
-	sge::projectile::shape::detail::index_container indices_;
+  sge::projectile::shape::detail::index_container indices_;
 
-	fcppt::unique_ptr<
-		btTriangleIndexVertexArray
-	> const mesh_;
+  fcppt::unique_ptr<btTriangleIndexVertexArray> const mesh_;
 
-	fcppt::unique_ptr<
-		btBvhTriangleMeshShape
-	> const bullet_shape_;
+  fcppt::unique_ptr<btBvhTriangleMeshShape> const bullet_shape_;
 };
 
 }

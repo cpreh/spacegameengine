@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/ffp/lighting/material/create_default.hpp>
 #include <sge/d3d9/state/ffp/lighting/material/make_states.hpp>
@@ -13,19 +12,11 @@
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
-
 sge::d3d9::state::ffp::lighting::material::object_unique_ptr
-sge::d3d9::state::ffp::lighting::material::create_default(
-	IDirect3DDevice9 &_device
-)
+sge::d3d9::state::ffp::lighting::material::create_default(IDirect3DDevice9 &_device)
 {
-	return
-		fcppt::make_unique_ptr<
-			sge::d3d9::state::ffp::lighting::material::object
-		>(
-			_device,
-			sge::d3d9::state::ffp::lighting::material::make_states(
-				sge::renderer::state::ffp::lighting::material::default_()
-			)
-		);
+  return fcppt::make_unique_ptr<sge::d3d9::state::ffp::lighting::material::object>(
+      _device,
+      sge::d3d9::state::ffp::lighting::material::make_states(
+          sge::renderer::state::ffp::lighting::material::default_()));
 }

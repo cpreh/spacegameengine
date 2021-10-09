@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_SOURCE_HPP_INCLUDED
 #define SGE_OPENAL_SOURCE_HPP_INCLUDED
 
@@ -21,167 +20,81 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
 
-
 namespace sge::openal
 {
 
-class source
-:
-	public sge::audio::sound::positional
+class source : public sge::audio::sound::positional
 {
-	FCPPT_NONMOVABLE(
-		source
-	);
+  FCPPT_NONMOVABLE(source);
+
 public:
-	source(
-		fcppt::log::object_reference,
-		sge::audio::sound::nonpositional_parameters const &,
-		sge::openal::buffer_id
-	);
+  source(
+      fcppt::log::object_reference,
+      sge::audio::sound::nonpositional_parameters const &,
+      sge::openal::buffer_id);
 
-	source(
-		fcppt::log::object_reference,
-		sge::audio::sound::positional_parameters const &,
-		sge::openal::buffer_id
-	);
+  source(
+      fcppt::log::object_reference,
+      sge::audio::sound::positional_parameters const &,
+      sge::openal::buffer_id);
 
-	source(
-		fcppt::log::object_reference,
-		sge::audio::sound::nonpositional_parameters const &
-	);
+  source(fcppt::log::object_reference, sge::audio::sound::nonpositional_parameters const &);
 
-	source(
-		fcppt::log::object_reference,
-		sge::audio::sound::positional_parameters const &
-	);
+  source(fcppt::log::object_reference, sge::audio::sound::positional_parameters const &);
 
-	~source()
-	override;
+  ~source() override;
 
-	void
-	play(
-		sge::audio::sound::repeat
-	)
-	override;
+  void play(sge::audio::sound::repeat) override;
 
-	void
-	toggle_pause()
-	override;
+  void toggle_pause() override;
 
-	[[nodiscard]]
-	sge::audio::sound::play_status
-	status() const
-	override;
+  [[nodiscard]] sge::audio::sound::play_status status() const override;
 
-	void
-	stop()
-	override;
+  void stop() override;
 
-	void
-	update()
-	override;
+  void update() override;
 
-	void
-	position(
-		sge::audio::vector const &
-	)
-	override;
+  void position(sge::audio::vector const &) override;
 
-	void
-	linear_velocity(
-		sge::audio::vector const &
-	)
-	override;
+  void linear_velocity(sge::audio::vector const &) override;
 
-	void
-	gain(
-		sge::audio::scalar
-	)
-	override;
+  void gain(sge::audio::scalar) override;
 
-	void
-	pitch(
-		sge::audio::scalar
-	)
-	override;
+  void pitch(sge::audio::scalar) override;
 
-	void
-	rolloff_factor(
-		sge::audio::scalar
-	)
-	override;
+  void rolloff_factor(sge::audio::scalar) override;
 
-	void
-	reference_distance(
-		sge::audio::scalar
-	)
-	override;
+  void reference_distance(sge::audio::scalar) override;
 
-	void
-	max_distance(
-		sge::audio::scalar
-	)
-	override;
+  void max_distance(sge::audio::scalar) override;
 
-	void
-	direction(
-		sge::audio::sound::optional_direction const &
-	)
-	override;
+  void direction(sge::audio::sound::optional_direction const &) override;
 
-	void
-	inner_cone_angle(
-		sge::audio::scalar
-	)
-	override;
+  void inner_cone_angle(sge::audio::scalar) override;
 
-	void
-	outer_cone_angle(
-		sge::audio::scalar
-	)
-	override;
+  void outer_cone_angle(sge::audio::scalar) override;
 
-	void
-	outer_cone_gain(
-		sge::audio::scalar
-	)
-	override;
+  void outer_cone_gain(sge::audio::scalar) override;
+
 protected:
-	virtual
-	void
-	do_play();
+  virtual void do_play();
 
-	[[nodiscard]]
-	sge::openal::source_id
-	source_id() const;
+  [[nodiscard]] sge::openal::source_id source_id() const;
 
-	[[nodiscard]]
-	sge::audio::sound::repeat
-	repeat() const;
+  [[nodiscard]] sge::audio::sound::repeat repeat() const;
+
 private:
-	explicit
-	source(
-		fcppt::log::object_reference
-	);
+  explicit source(fcppt::log::object_reference);
 
-	source(
-		fcppt::log::object_reference,
-		sge::openal::buffer_id
-	);
+  source(fcppt::log::object_reference, sge::openal::buffer_id);
 
-	sge::openal::source_holder const source_;
+  sge::openal::source_holder const source_;
 
-	sge::audio::sound::repeat repeat_;
+  sge::audio::sound::repeat repeat_;
 
-	void
-	init(
-		sge::audio::sound::positional_parameters const &
-	);
+  void init(sge::audio::sound::positional_parameters const &);
 
-	void
-	init(
-		sge::audio::sound::nonpositional_parameters const &
-	);
+  void init(sge::audio::sound::nonpositional_parameters const &);
 };
 
 }

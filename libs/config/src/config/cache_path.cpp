@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/app_name.hpp>
 #include <sge/config/cache_path.hpp>
 #include <sge/config/impl/try_create_path.hpp>
@@ -23,57 +22,21 @@
 #include <sge/config/impl/getenv_exn.hpp>
 #endif
 
-
-std::filesystem::path
-sge::config::cache_path(
-	sge::config::app_name const &_app_name
-)
+std::filesystem::path sge::config::cache_path(sge::config::app_name const &_app_name)
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	return
-		sge::config::impl::try_create_path(
-			std::filesystem::path(
-				sge::config::impl::getenv_exn(
-					FCPPT_TEXT("APPDATA")
-				)
-			)
-			/
-			_app_name.get()
-		);
+  return sge::config::impl::try_create_path(
+      std::filesystem::path(sge::config::impl::getenv_exn(FCPPT_TEXT("APPDATA"))) /
+      _app_name.get());
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	fcppt::optional_string const xdg_cache_path(
-		sge::config::getenv(
-			FCPPT_TEXT("XDG_CACHE_HOME")
-		)
-	);
+  fcppt::optional_string const xdg_cache_path(sge::config::getenv(FCPPT_TEXT("XDG_CACHE_HOME")));
 
-	std::filesystem::path const path(
-		fcppt::optional::maybe(
-			xdg_cache_path,
-			[]{
-				return
-					sge::config::homedir()
-					/
-					FCPPT_TEXT(".cache");
-			},
-			[](
-				fcppt::string const &_path
-			)
-			{
-				return
-					std::filesystem::path(
-						_path
-					);
-			}
-		)
-	);
+  std::filesystem::path const path(fcppt::optional::maybe(
+      xdg_cache_path,
+      [] { return sge::config::homedir() / FCPPT_TEXT(".cache"); },
+      [](fcppt::string const &_path) { return std::filesystem::path(_path); }));
 
-	return
-		sge::config::impl::try_create_path(
-			path
-			/
-			_app_name.get()
-		);
+  return sge::config::impl::try_create_path(path / _app_name.get());
 #else
 #error "don't know how to find a cache path"
 #endif

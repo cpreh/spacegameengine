@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_TREE_HPP_INCLUDED
 #define SGE_GUI_WIDGET_TREE_HPP_INCLUDED
 
@@ -15,29 +14,22 @@
 #include <sge/gui/widget/unique_ptr_vector.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class tree
-:
-	public sge::gui::widget::box_container
+class tree : public sge::gui::widget::box_container
 {
-	FCPPT_NONMOVABLE(
-		tree
-	);
-public:
-	SGE_GUI_DETAIL_SYMBOL
-	tree(
-		sge::gui::context_ref,
-		sge::gui::widget::reference_tree_vector const &
-	);
+  FCPPT_NONMOVABLE(tree);
 
-	SGE_GUI_DETAIL_SYMBOL
-	~tree()
-	override;
+public:
+  SGE_GUI_DETAIL_SYMBOL
+  tree(sge::gui::context_ref, sge::gui::widget::reference_tree_vector const &);
+
+  SGE_GUI_DETAIL_SYMBOL
+  ~tree() override;
+
 private:
-	sge::gui::widget::unique_ptr_vector boxes_;
+  sge::gui::widget::unique_ptr_vector boxes_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_LIBRARY_LOAD_FUNCTION_HPP_INCLUDED
 
@@ -13,30 +12,16 @@
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::plugin::impl::library
 {
 
-template<
-	typename Function
->
-Function
-load_function(
-	fcppt::reference<
-		sge::plugin::library::object
-	> const _object,
-	sge::plugin::library::symbol_string const &_symbol
-)
+template <typename Function>
+Function load_function(
+    fcppt::reference<sge::plugin::library::object> const _object,
+    sge::plugin::library::symbol_string const &_symbol)
 {
-	return
-		sge::plugin::impl::library::from_function_base_unsafe<
-			Function
-		>(
-			sge::plugin::impl::library::load_function_base(
-				_object,
-				_symbol
-			)
-		);
+  return sge::plugin::impl::library::from_function_base_unsafe<Function>(
+      sge::plugin::impl::library::load_function_base(_object, _symbol));
 }
 
 }

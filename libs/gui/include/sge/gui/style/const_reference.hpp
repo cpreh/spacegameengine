@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_STYLE_CONST_REFERENCE_HPP_INCLUDED
 #define SGE_GUI_STYLE_CONST_REFERENCE_HPP_INCLUDED
 
 #include <sge/gui/style/base_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::gui::style
 {
 
-using
-const_reference
-=
-fcppt::reference<
-	sge::gui::style::base const
->;
+using const_reference = fcppt::reference<sge::gui::style::base const>;
 
 }
 

@@ -3,64 +3,56 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/camera/spherical/action/mapping.hpp>
 
 sge::camera::spherical::action::mapping::mapping(
-	action::increase_azimuth const &_increase_azimuth,
-	action::decrease_azimuth const &_decrease_azimuth,
-	action::increase_inclination const &_increase_inclination,
-	action::decrease_inclination const &_decrease_inclination,
-	action::increase_radius const &_increase_radius,
-	action::decrease_radius const &_decrease_radius)
-:
-	increase_azimuth_(
-		_increase_azimuth),
-	decrease_azimuth_(
-		_decrease_azimuth),
-	increase_inclination_(
-		_increase_inclination),
-	decrease_inclination_(
-		_decrease_inclination),
-	increase_radius_(
-		_increase_radius),
-	decrease_radius_(
-		_decrease_radius)
+    action::increase_azimuth const &_increase_azimuth,
+    action::decrease_azimuth const &_decrease_azimuth,
+    action::increase_inclination const &_increase_inclination,
+    action::decrease_inclination const &_decrease_inclination,
+    action::increase_radius const &_increase_radius,
+    action::decrease_radius const &_decrease_radius)
+    : increase_azimuth_(_increase_azimuth),
+      decrease_azimuth_(_decrease_azimuth),
+      increase_inclination_(_increase_inclination),
+      decrease_inclination_(_decrease_inclination),
+      increase_radius_(_increase_radius),
+      decrease_radius_(_decrease_radius)
 {
 }
 
 sge::camera::spherical::action::increase_azimuth const &
 sge::camera::spherical::action::mapping::increase_azimuth() const
 {
-	return increase_azimuth_;
+  return increase_azimuth_;
 }
 
 sge::camera::spherical::action::decrease_azimuth const &
 sge::camera::spherical::action::mapping::decrease_azimuth() const
 {
-	return decrease_azimuth_;
+  return decrease_azimuth_;
 }
 
 sge::camera::spherical::action::increase_inclination const &
 sge::camera::spherical::action::mapping::increase_inclination() const
 {
-	return increase_inclination_;
+  return increase_inclination_;
 }
 
 sge::camera::spherical::action::decrease_inclination const &
 sge::camera::spherical::action::mapping::decrease_inclination() const
 {
-	return decrease_inclination_;
+  return decrease_inclination_;
 }
 
 sge::camera::spherical::action::increase_radius const &
 sge::camera::spherical::action::mapping::increase_radius() const
 {
-	return increase_radius_;
+  return increase_radius_;
 }
 
 sge::camera::spherical::action::decrease_radius const &
 sge::camera::spherical::action::mapping::decrease_radius() const
 {
-	return decrease_radius_;
+  return decrease_radius_;
 }

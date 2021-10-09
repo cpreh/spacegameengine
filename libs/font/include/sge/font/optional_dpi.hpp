@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_OPTIONAL_DPI_HPP_INCLUDED
 #define SGE_FONT_OPTIONAL_DPI_HPP_INCLUDED
 
 #include <sge/font/dpi.hpp>
 #include <sge/font/optional_dpi_fwd.hpp>
 #include <fcppt/optional/object_impl.hpp>
-
 
 #endif

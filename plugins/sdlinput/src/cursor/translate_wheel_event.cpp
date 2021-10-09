@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
@@ -17,57 +16,24 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::event::container
-sge::sdlinput::cursor::translate_wheel_event(
-	sge::input::cursor::shared_ptr const &_cursor,
-	SDL_MouseWheelEvent const &_event
-)
+awl::event::container sge::sdlinput::cursor::translate_wheel_event(
+    sge::input::cursor::shared_ptr const &_cursor, SDL_MouseWheelEvent const &_event)
 {
-	awl::event::container result{};
+  awl::event::container result{};
 
-	auto const make_event(
-		[
-			&result,
-			&_cursor
-		](
-			sge::input::cursor::scroll_code const _code,
-			std::int32_t const _value
-		)
-		{
-			if(
-				_value
-				!=
-				0
-			)
-			{
-				result.push_back(
-					fcppt::unique_ptr_to_base<
-						awl::event::base
-					>(
-						fcppt::make_unique_ptr<
-							sge::input::cursor::event::scroll
-						>(
-							_cursor,
-							_code,
-							_value
-						)
-					)
-				);
-			}
-		}
-	);
+  auto const make_event(
+      [&result, &_cursor](sge::input::cursor::scroll_code const _code, std::int32_t const _value)
+      {
+        if (_value != 0)
+        {
+          result.push_back(fcppt::unique_ptr_to_base<awl::event::base>(
+              fcppt::make_unique_ptr<sge::input::cursor::event::scroll>(_cursor, _code, _value)));
+        }
+      });
 
-	make_event(
-		sge::input::cursor::scroll_code::horizontal,
-		_event.x
-	);
+  make_event(sge::input::cursor::scroll_code::horizontal, _event.x);
 
-	make_event(
-		sge::input::cursor::scroll_code::vertical,
-		_event.y
-	);
+  make_event(sge::input::cursor::scroll_code::vertical, _event.y);
 
-	return
-		result;
+  return result;
 }

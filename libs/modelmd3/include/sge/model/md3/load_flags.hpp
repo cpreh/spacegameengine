@@ -3,20 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_MD3_LOAD_FLAGS_HPP_INCLUDED
 #define SGE_MODEL_MD3_LOAD_FLAGS_HPP_INCLUDED
 
 #include <sge/model/md3/load_flags_fwd.hpp>
-
 
 namespace sge::model::md3
 {
 
 enum class load_flags
 {
-	switch_yz,
-	fcppt_maximum = switch_yz
+  switch_yz,
+  fcppt_maximum = switch_yz
 };
 
 }

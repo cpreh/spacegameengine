@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_WITH_COLOR_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_WITH_COLOR_HPP_INCLUDED
 
@@ -13,37 +12,21 @@
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
 
-
 namespace sge::sprite::config
 {
 
-template<
-	typename ColorFormat
->
+template <typename ColorFormat>
 struct with_color
 {
-	using
-	color_format
-	=
-	ColorFormat;
+  using color_format = ColorFormat;
 
-	template<
-		typename Choices
-	>
-	struct apply
-	{
-		using
-		type
-		=
-		fcppt::mpl::list::object<
-			fcppt::record::element<
-				sge::sprite::roles::color,
-				sge::image::pixel::mizuiro_type<
-					color_format
-				>
-			>
-		>;
-	};
+  template <typename Choices>
+  struct apply
+  {
+    using type = fcppt::mpl::list::object<fcppt::record::element<
+        sge::sprite::roles::color,
+        sge::image::pixel::mizuiro_type<color_format>>>;
+  };
 };
 
 }

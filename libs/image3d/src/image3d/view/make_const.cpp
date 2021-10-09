@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/impl/traits/format_map.hpp>
@@ -18,26 +17,13 @@
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/make_const.hpp>
 
-
-sge::image3d::view::const_object
-sge::image3d::view::make_const(
-	sge::image::const_raw_pointer const _data,
-	sge::image3d::dim const &_dim,
-	sge::image::color::format const _format,
-	sge::image3d::pitch const &_pitch
-)
+sge::image3d::view::const_object sge::image3d::view::make_const(
+    sge::image::const_raw_pointer const _data,
+    sge::image3d::dim const &_dim,
+    sge::image::color::format const _format,
+    sge::image3d::pitch const &_pitch)
 {
-	return
-		sge::image::view::make_const<
-			sge::image3d::tag
-		>(
-			_data,
-			_dim,
-			_format,
-			_pitch
-		);
+  return sge::image::view::make_const<sge::image3d::tag>(_data, _dim, _format, _pitch);
 }
 
-SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE_CONST(
-	sge::image3d::tag
-);
+SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE_CONST(sge::image3d::tag);

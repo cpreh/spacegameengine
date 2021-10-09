@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_BASIC_PART_RAW_HPP_INCLUDED
 #define SGE_TEXTURE_BASIC_PART_RAW_HPP_INCLUDED
 
@@ -18,86 +17,44 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
-
 namespace sge::texture
 {
 
-template<
-	typename Ref
->
-class basic_part_raw
-:
-	public sge::texture::part
+template <typename Ref>
+class basic_part_raw : public sge::texture::part
 {
-	FCPPT_NONMOVABLE(
-		basic_part_raw
-	);
+  FCPPT_NONMOVABLE(basic_part_raw);
+
 public:
-	using
-	ref_type
-	=
-	Ref;
+  using ref_type = Ref;
 
-	SGE_TEXTURE_DETAIL_SYMBOL
-	explicit
-	basic_part_raw(
-		ref_type
-	);
+  SGE_TEXTURE_DETAIL_SYMBOL
+  explicit basic_part_raw(ref_type);
 
-	SGE_TEXTURE_DETAIL_SYMBOL
-	basic_part_raw(
-		ref_type,
-		sge::renderer::lock_rect const &
-	);
+  SGE_TEXTURE_DETAIL_SYMBOL
+  basic_part_raw(ref_type, sge::renderer::lock_rect const &);
 
-	SGE_TEXTURE_DETAIL_SYMBOL
-	~basic_part_raw()
-	override;
+  SGE_TEXTURE_DETAIL_SYMBOL
+  ~basic_part_raw() override;
 
-	SGE_TEXTURE_DETAIL_SYMBOL
-	void
-	data(
-		sge::image2d::view::const_object const &,
-		sge::image::algorithm::uninitialized
-	)
-	override;
+  SGE_TEXTURE_DETAIL_SYMBOL
+  void
+  data(sge::image2d::view::const_object const &, sge::image::algorithm::uninitialized) override;
 
-	[[nodiscard]]
-	SGE_TEXTURE_DETAIL_SYMBOL
-	sge::renderer::lock_rect
-	area() const
-	override;
+  [[nodiscard]] SGE_TEXTURE_DETAIL_SYMBOL sge::renderer::lock_rect area() const override;
 
-	[[nodiscard]]
-	SGE_TEXTURE_DETAIL_SYMBOL
-	sge::renderer::texture::planar &
-	texture() const
-	override;
+  [[nodiscard]] SGE_TEXTURE_DETAIL_SYMBOL sge::renderer::texture::planar &texture() const override;
 
-	[[nodiscard]]
-	SGE_TEXTURE_DETAIL_SYMBOL
-	bool
-	repeatable() const
-	override;
+  [[nodiscard]] SGE_TEXTURE_DETAIL_SYMBOL bool repeatable() const override;
+
 private:
-	using
-	store_type
-	=
-	typename
-	sge::texture::detail::ref_store_type<
-		Ref
-	>::type;
+  using store_type = typename sge::texture::detail::ref_store_type<Ref>::type;
 
-	store_type texture_;
+  store_type texture_;
 
-	using
-	optional_rect
-	=
-	fcppt::optional::object<
-		sge::renderer::lock_rect
-	>;
+  using optional_rect = fcppt::optional::object<sge::renderer::lock_rect>;
 
-	optional_rect const area_;
+  optional_rect const area_;
 };
 
 }

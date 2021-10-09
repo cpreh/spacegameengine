@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_INOTIFY_WATCH_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_WATCH_HPP_INCLUDED
 
@@ -15,26 +14,22 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::inotify
 {
 
 class watch
 {
-	FCPPT_NONMOVABLE(
-		watch
-	);
+  FCPPT_NONMOVABLE(watch);
+
 public:
-	watch(
-		std::filesystem::path const &,
-		sge::evdev::inotify::object_ref
-	);
+  watch(std::filesystem::path const &, sge::evdev::inotify::object_ref);
 
-	~watch();
+  ~watch();
+
 private:
-	sge::evdev::inotify::object_ref const object_;
+  sge::evdev::inotify::object_ref const object_;
 
-	awl::backends::posix::fd const fd_;
+  awl::backends::posix::fd const fd_;
 };
 
 }

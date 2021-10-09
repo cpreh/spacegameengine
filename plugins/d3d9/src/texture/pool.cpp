@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/resource_flags_to_pool.hpp>
 #include <sge/d3d9/texture/pool.hpp>
@@ -12,23 +11,12 @@
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 
-
 D3DPOOL
 sge::d3d9::texture::pool(
-	sge::renderer::resource_flags_field const &_flags,
-	sge::renderer::texture::capabilities_field const &_caps
-)
+    sge::renderer::resource_flags_field const &_flags,
+    sge::renderer::texture::capabilities_field const &_caps)
 {
-	return
-		(
-			_caps
-			&
-			sge::renderer::texture::capabilities::render_target
-		)
-		?
-			D3DPOOL_DEFAULT
-		:
-			sge::d3d9::convert::resource_flags_to_pool(
-				_flags
-			);
+  return (_caps & sge::renderer::texture::capabilities::render_target)
+             ? D3DPOOL_DEFAULT
+             : sge::d3d9::convert::resource_flags_to_pool(_flags);
 }

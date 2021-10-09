@@ -3,18 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/wininput/cursor/set_capture.hpp>
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/window/object.hpp>
 
-
-void
-sge::wininput::cursor::set_capture(
-	awl::backends::windows::window::object &_window
-)
+void sge::wininput::cursor::set_capture(awl::backends::windows::window::object &_window)
 {
-	::SetCapture(
-		_window.hwnd()
-	);
+  ::SetCapture(_window.hwnd());
 }

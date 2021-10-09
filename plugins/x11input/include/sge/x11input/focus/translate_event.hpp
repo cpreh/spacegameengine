@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_FOCUS_TRANSLATE_EVENT_HPP_INCLUDED
 #define SGE_X11INPUT_FOCUS_TRANSLATE_EVENT_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::focus
 {
 
-XKeyEvent
-translate_event(
-	XIDeviceEvent const &
-);
+XKeyEvent translate_event(XIDeviceEvent const &);
 
 }
 

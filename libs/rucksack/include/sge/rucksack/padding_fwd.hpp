@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_PADDING_FWD_HPP_INCLUDED
 #define SGE_RUCKSACK_PADDING_FWD_HPP_INCLUDED
 
 #include <sge/rucksack/scalar.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 
-
 namespace sge::rucksack
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	sge::rucksack::scalar,
-	padding
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::rucksack::scalar, padding);
 
 }
 

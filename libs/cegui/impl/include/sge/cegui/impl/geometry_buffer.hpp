@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_IMPL_GEOMETRY_BUFFER_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_GEOMETRY_BUFFER_HPP_INCLUDED
 
@@ -31,7 +30,6 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace CEGUI
 {
 class RenderEffect;
@@ -42,164 +40,85 @@ class Texture;
 namespace sge::cegui::impl
 {
 
-class geometry_buffer
-:
-	public CEGUI::GeometryBuffer
+class geometry_buffer : public CEGUI::GeometryBuffer
 {
-	FCPPT_NONMOVABLE(
-		geometry_buffer
-	);
+  FCPPT_NONMOVABLE(geometry_buffer);
+
 public:
-	geometry_buffer(
-		fcppt::log::object &, // NOLINT(google-runtime-references)
-		sge::renderer::device::ffp_ref,
-		sge::renderer::vertex::const_declaration_ref,
-		fcppt::reference<
-			sge::cegui::impl::optional_render_context_ref const
-		>
-	);
+  geometry_buffer(
+      fcppt::log::object &, // NOLINT(google-runtime-references)
+      sge::renderer::device::ffp_ref,
+      sge::renderer::vertex::const_declaration_ref,
+      fcppt::reference<sge::cegui::impl::optional_render_context_ref const>);
 
-	~geometry_buffer()
-	override;
+  ~geometry_buffer() override;
+
 private:
-	void
-	draw() const
-	override;
+  void draw() const override;
 
-	void
-	setTranslation(
-		CEGUI::Vector3f const &
-	)
-	override;
+  void setTranslation(CEGUI::Vector3f const &) override;
 
-	void
-	setRotation(
-		CEGUI::Quaternion const &
-	)
-	override;
+  void setRotation(CEGUI::Quaternion const &) override;
 
-	void
-	setPivot(
-		CEGUI::Vector3f const &
-	)
-	override;
+  void setPivot(CEGUI::Vector3f const &) override;
 
-	void
-	setClippingRegion(
-		CEGUI::Rectf const &
-	)
-	override;
+  void setClippingRegion(CEGUI::Rectf const &) override;
 
-	void
-	appendVertex(
-		CEGUI::Vertex const &
-	)
-	override;
+  void appendVertex(CEGUI::Vertex const &) override;
 
-	void
-	appendGeometry(
-		CEGUI::Vertex const *,
-		CEGUI::uint vertex_count
-	)
-	override;
+  void appendGeometry(CEGUI::Vertex const *, CEGUI::uint vertex_count) override;
 
-	void
-	setActiveTexture(
-		CEGUI::Texture *
-	)
-	override;
+  void setActiveTexture(CEGUI::Texture *) override;
 
-	void
-	reset()
-	override;
+  void reset() override;
 
-	[[nodiscard]]
-	CEGUI::Texture *
-	getActiveTexture() const
-	override;
+  [[nodiscard]] CEGUI::Texture *getActiveTexture() const override;
 
-	[[nodiscard]]
-	CEGUI::uint
-	getVertexCount() const
-	override;
+  [[nodiscard]] CEGUI::uint getVertexCount() const override;
 
-	[[nodiscard]]
-	CEGUI::uint
-	getBatchCount() const
-	override;
+  [[nodiscard]] CEGUI::uint getBatchCount() const override;
 
-	void
-	setRenderEffect(
-		CEGUI::RenderEffect *
-	)
-	override;
+  void setRenderEffect(CEGUI::RenderEffect *) override;
 
-	[[nodiscard]]
-	CEGUI::RenderEffect *
-	getRenderEffect()
-	override;
+  [[nodiscard]] CEGUI::RenderEffect *getRenderEffect() override;
 
-	void
-	setClippingActive(
-		bool
-	)
-	override;
+  void setClippingActive(bool) override;
 
-	[[nodiscard]]
-	bool
-	isClippingActive() const
-	override;
+  [[nodiscard]] bool isClippingActive() const override;
 
-	mutable fcppt::log::object log_;
+  mutable fcppt::log::object log_;
 
-	using
-	batch_sequence
-	=
-	std::vector<
-		sge::cegui::impl::batch
-	>;
+  using batch_sequence = std::vector<sge::cegui::impl::batch>;
 
-	batch_sequence batches_;
+  batch_sequence batches_;
 
-	sge::renderer::device::ffp_ref const renderer_;
+  sge::renderer::device::ffp_ref const renderer_;
 
-	sge::renderer::vertex::const_declaration_ref const vertex_declaration_;
+  sge::renderer::vertex::const_declaration_ref const vertex_declaration_;
 
-	using
-	optional_texture_ref
-	=
-	fcppt::optional::reference<
-		sge::cegui::impl::texture
-	>;
+  using optional_texture_ref = fcppt::optional::reference<sge::cegui::impl::texture>;
 
-	optional_texture_ref active_texture_;
+  optional_texture_ref active_texture_;
 
-	sge::renderer::vector3 translation_;
+  sge::renderer::vector3 translation_;
 
-	sge::renderer::vector3 pivot_;
+  sge::renderer::vector3 pivot_;
 
-	CEGUI::Quaternion rotation_;
+  CEGUI::Quaternion rotation_;
 
-	sge::renderer::target::scissor_area scissor_area_;
+  sge::renderer::target::scissor_area scissor_area_;
 
-	fcppt::reference<
-		sge::cegui::impl::optional_render_context_ref const
-	> const render_context_;
+  fcppt::reference<sge::cegui::impl::optional_render_context_ref const> const render_context_;
 
-	sge::cegui::impl::clip clip_;
+  sge::cegui::impl::clip clip_;
 
-	using
-	optional_render_effect_ref
-	=
-	fcppt::optional::reference<
-		CEGUI::RenderEffect
-	>;
+  using optional_render_effect_ref = fcppt::optional::reference<CEGUI::RenderEffect>;
 
-	optional_render_effect_ref render_effect_;
+  optional_render_effect_ref render_effect_;
 
-	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_scissor_on_;
+  sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_scissor_on_;
 
-	sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_scissor_off_;
+  sge::renderer::state::core::rasterizer::object_unique_ptr const rasterizer_scissor_off_;
 };
 
 }

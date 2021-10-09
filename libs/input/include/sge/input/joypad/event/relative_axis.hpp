@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_JOYPAD_EVENT_RELATIVE_AXIS_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_EVENT_RELATIVE_AXIS_HPP_INCLUDED
 
@@ -16,42 +15,31 @@
 #include <sge/input/joypad/event/relative_axis_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::joypad::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL relative_axis
-:
-	public sge::input::joypad::event::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL relative_axis : public sge::input::joypad::event::base
 {
-	FCPPT_NONMOVABLE(
-		relative_axis
-	);
+  FCPPT_NONMOVABLE(relative_axis);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	relative_axis(
-		sge::input::joypad::shared_ptr,
-		sge::input::joypad::relative_axis const &,
-		sge::input::joypad::axis_value
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  relative_axis(
+      sge::input::joypad::shared_ptr,
+      sge::input::joypad::relative_axis const &,
+      sge::input::joypad::axis_value);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~relative_axis()
-	override;
+  SGE_INPUT_DETAIL_SYMBOL
+  ~relative_axis() override;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::relative_axis const &
-	axis() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::relative_axis const &axis() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::joypad::axis_value
-	value() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::joypad::axis_value value() const;
+
 private:
-	sge::input::joypad::relative_axis const axis_;
+  sge::input::joypad::relative_axis const axis_;
 
-	sge::input::joypad::axis_value const axis_value_;
+  sge::input::joypad::axis_value const axis_value_;
 };
 
 }

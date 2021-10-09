@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_TRANSFORM_OPTIONAL_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_TRANSFORM_OPTIONAL_OBJECT_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/transform/optional_object_unique_ptr_fwd.hpp>
 #include <fcppt/optional/object_impl.hpp>
-
 
 #endif

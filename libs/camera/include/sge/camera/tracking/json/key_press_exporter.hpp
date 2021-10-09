@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_TRACKING_JSON_KEY_PRESS_EXPORTER_HPP_INCLUDED
 #define SGE_CAMERA_TRACKING_JSON_KEY_PRESS_EXPORTER_HPP_INCLUDED
 
@@ -23,63 +22,49 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::camera::tracking::json
 {
 
 class key_press_exporter
 {
-	FCPPT_NONMOVABLE(
-		key_press_exporter
-	);
+  FCPPT_NONMOVABLE(key_press_exporter);
+
 public:
-	FCPPT_DECLARE_STRONG_TYPEDEF(
-		sge::input::key::code,
-		keyframe_keypress
-	);
+  FCPPT_DECLARE_STRONG_TYPEDEF(sge::input::key::code, keyframe_keypress);
 
-	FCPPT_DECLARE_STRONG_TYPEDEF(
-		sge::input::key::code,
-		export_keypress
-	);
+  FCPPT_DECLARE_STRONG_TYPEDEF(sge::input::key::code, export_keypress);
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	key_press_exporter(
-		fcppt::log::context_reference,
-		sge::camera::base const &,
-		std::filesystem::path &&,
-		sge::camera::update_duration const &,
-		keyframe_keypress const &,
-		export_keypress const &
-	);
+  SGE_CAMERA_DETAIL_SYMBOL
+  key_press_exporter(
+      fcppt::log::context_reference,
+      sge::camera::base const &,
+      std::filesystem::path &&,
+      sge::camera::update_duration const &,
+      keyframe_keypress const &,
+      export_keypress const &);
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	~key_press_exporter();
+  SGE_CAMERA_DETAIL_SYMBOL
+  ~key_press_exporter();
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	void
-	process_event(
-		sge::input::event_base const &
-	);
+  SGE_CAMERA_DETAIL_SYMBOL
+  void process_event(sge::input::event_base const &);
+
 private:
-	fcppt::log::object log_;
+  fcppt::log::object log_;
 
-	sge::camera::base const &camera_;
+  sge::camera::base const &camera_;
 
-	std::filesystem::path const target_path_;
+  std::filesystem::path const target_path_;
 
-	sge::camera::update_duration const duration_;
+  sge::camera::update_duration const duration_;
 
-	keyframe_keypress const keyframe_keypress_;
+  keyframe_keypress const keyframe_keypress_;
 
-	export_keypress const export_keypress_;
+  export_keypress const export_keypress_;
 
-	sge::camera::tracking::keyframe_sequence keyframes_;
+  sge::camera::tracking::keyframe_sequence keyframes_;
 
-	void
-	key_event(
-		sge::input::keyboard::event::key const &
-	);
+  void key_event(sge::input::keyboard::event::key const &);
 };
 
 }

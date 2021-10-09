@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_SIGNAL_HPP_INCLUDED
 #define SGE_CONSOLE_SIGNAL_HPP_INCLUDED
 
 #include <sge/console/signal_fwd.hpp>
 #include <fcppt/signal/object.hpp>
 #include <fcppt/signal/unregister/base.hpp>
-
 
 #endif

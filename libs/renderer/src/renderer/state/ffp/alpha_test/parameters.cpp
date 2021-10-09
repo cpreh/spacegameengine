@@ -3,24 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/state/ffp/alpha_test/parameters.hpp>
 #include <sge/renderer/state/ffp/alpha_test/variant.hpp>
 
-
 sge::renderer::state::ffp::alpha_test::parameters::parameters(
-	sge::renderer::state::ffp::alpha_test::variant const &_variant
-)
-:
-	variant_(
-		_variant
-	)
+    sge::renderer::state::ffp::alpha_test::variant const &_variant)
+    : variant_(_variant)
 {
 }
 
 sge::renderer::state::ffp::alpha_test::variant const &
 sge::renderer::state::ffp::alpha_test::parameters::variant() const
 {
-	return
-		variant_;
+  return variant_;
 }

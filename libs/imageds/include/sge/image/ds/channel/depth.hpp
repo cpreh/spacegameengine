@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_DS_CHANNEL_DEPTH_HPP_INCLUDED
 #define SGE_IMAGE_DS_CHANNEL_DEPTH_HPP_INCLUDED
 
@@ -13,18 +12,13 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 namespace sge::image::ds::channel
 {
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-struct depth
-:
-mizuiro::color::channel::tag<
-	depth
->
+struct depth : mizuiro::color::channel::tag<depth>
 {
 };
 

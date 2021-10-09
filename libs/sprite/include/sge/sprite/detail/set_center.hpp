@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_SET_CENTER_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_SET_CENTER_HPP_INCLUDED
 
@@ -17,72 +16,30 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail
 {
 
-template<
-	typename Choices,
-	typename Elements
->
-inline
-typename
-std::enable_if<
-	Choices::pos_choice::option::value
-	==
-	sge::sprite::config::pos_option::center
-	,
-	void
->::type
+template <typename Choices, typename Elements>
+inline typename std::enable_if<
+    Choices::pos_choice::option::value == sge::sprite::config::pos_option::center,
+    void>::type
 set_center(
-	Elements &_elements,
-	sge::sprite::types::center<
-		typename
-		Choices::type_choices
-	> const _center
+    Elements &_elements, sge::sprite::types::center<typename Choices::type_choices> const _center
 
 )
 {
-	fcppt::record::set<
-		sge::sprite::roles::center
-	>(
-		_elements,
-		_center.get()
-	);
+  fcppt::record::set<sge::sprite::roles::center>(_elements, _center.get());
 }
 
-template<
-	typename Choices,
-	typename Elements
->
-inline
-typename
-std::enable_if<
-	Choices::pos_choice::option::value
-	==
-	sge::sprite::config::pos_option::pos_or_center
-	,
-	void
->::type
+template <typename Choices, typename Elements>
+inline typename std::enable_if<
+    Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos_or_center,
+    void>::type
 set_center(
-	Elements &_elements,
-	sge::sprite::types::center<
-		typename
-		Choices::type_choices
-	> const _center
-)
+    Elements &_elements, sge::sprite::types::center<typename Choices::type_choices> const _center)
 {
-	fcppt::record::set<
-		sge::sprite::roles::pos_or_center
-	>(
-		_elements,
-		sge::sprite::types::pos_or_center<
-			typename
-			Choices::type_choices
-		>(
-			_center
-		)
-	);
+  fcppt::record::set<sge::sprite::roles::pos_or_center>(
+      _elements, sge::sprite::types::pos_or_center<typename Choices::type_choices>(_center));
 }
 
 }

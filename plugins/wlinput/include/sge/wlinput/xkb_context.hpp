@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_XKB_CONTEXT_HPP_INCLUDED
 #define SGE_WLINPUT_XKB_CONTEXT_HPP_INCLUDED
 
@@ -13,25 +12,22 @@
 #include <xkbcommon/xkbcommon.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::wlinput
 {
 
 class xkb_context
 {
-	FCPPT_NONMOVABLE(
-		xkb_context
-	);
+  FCPPT_NONMOVABLE(xkb_context);
+
 public:
-	xkb_context();
+  xkb_context();
 
-	~xkb_context();
+  ~xkb_context();
 
-	[[nodiscard]]
-	::xkb_context *
-	get() const;
+  [[nodiscard]] ::xkb_context *get() const;
+
 private:
-	::xkb_context *context_;
+  ::xkb_context *context_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
@@ -14,22 +13,12 @@
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 
-
-void
-sge::opengl::vf::enable_vertex_attrib_array(
-	sge::opengl::vf::attribute_context const &_context,
-	GLuint const _index
-)
+void sge::opengl::vf::enable_vertex_attrib_array(
+    sge::opengl::vf::attribute_context const &_context, GLuint const _index)
 {
-	sge::opengl::call_fun_ref(
-		sge::opengl::vf::get_attribute_config(
-			_context
-		).enable_vertex_attrib_array(),
-		_index
-	);
+  sge::opengl::call_fun_ref(
+      sge::opengl::vf::get_attribute_config(_context).enable_vertex_attrib_array(), _index);
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("Enabling a vertex attrib array failed"),
-		sge::renderer::exception
-	)
+  SGE_OPENGL_CHECK_STATE(
+      FCPPT_TEXT("Enabling a vertex attrib array failed"), sge::renderer::exception)
 }

@@ -3,22 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_BODY_POSITION_CHANGE_FN_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_POSITION_CHANGE_FN_HPP_INCLUDED
 
 #include <sge/projectile/body/position.hpp>
 
-
 namespace sge::projectile::body
 {
 
-using
-position_change_fn
-=
-void (
-	sge::projectile::body::position const &
-);
+using position_change_fn = void(sge::projectile::body::position const &);
 
 }
 

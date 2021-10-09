@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/point.hpp>
 #include <sge/renderer/state/core/sampler/filter/variant.hpp>
@@ -12,18 +11,13 @@
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
 
-
 sge::renderer::state::core::sampler::filter::parameters
 sge::renderer::state::core::sampler::filter::point()
 {
-	return
-		sge::renderer::state::core::sampler::filter::parameters(
-			sge::renderer::state::core::sampler::filter::variant{
-				sge::renderer::state::core::sampler::filter::normal::parameters(
-					sge::renderer::state::core::sampler::filter::normal::mag::point,
-					sge::renderer::state::core::sampler::filter::normal::min::point,
-					sge::renderer::state::core::sampler::filter::normal::mip::off
-				)
-			}
-		);
+  return sge::renderer::state::core::sampler::filter::parameters(
+      sge::renderer::state::core::sampler::filter::variant{
+          sge::renderer::state::core::sampler::filter::normal::parameters(
+              sge::renderer::state::core::sampler::filter::normal::mag::point,
+              sge::renderer::state::core::sampler::filter::normal::min::point,
+              sge::renderer::state::core::sampler::filter::normal::mip::off)});
 }

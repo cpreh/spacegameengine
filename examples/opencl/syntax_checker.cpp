@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/log/default_level.hpp>
 #include <sge/log/default_level_streams.hpp>
 #include <sge/opencl/log_location.hpp>
@@ -69,418 +68,172 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-int
-main_program(
-	std::filesystem::path const &_target_file_name,
-	std::vector<
-		fcppt::string
-	> const &_additional_args
-)
+int main_program(
+    std::filesystem::path const &_target_file_name,
+    std::vector<fcppt::string> const &_additional_args)
 {
-	fcppt::log::context log_context(
-		sge::log::default_level(),
-		sge::log::default_level_streams()
-	);
+  fcppt::log::context log_context(sge::log::default_level(), sge::log::default_level_streams());
 
-	log_context.set(
-		sge::opencl::log_location(),
-		fcppt::log::optional_level{
-			fcppt::log::level::verbose
-		}
-	);
+  log_context.set(
+      sge::opencl::log_location(), fcppt::log::optional_level{fcppt::log::level::verbose});
 
-	sge::opencl::single_device_system::object opencl_system{
-		fcppt::make_ref(
-			log_context
-		),
-		sge::opencl::single_device_system::parameters()
-	};
+  sge::opencl::single_device_system::object opencl_system{
+      fcppt::make_ref(log_context), sge::opencl::single_device_system::parameters()};
 
-	auto stream(
-		fcppt::filesystem::open_exn<
-			std::ifstream
-		>(
-			_target_file_name,
-			std::ios_base::in
-		)
-	);
+  auto stream(fcppt::filesystem::open_exn<std::ifstream>(_target_file_name, std::ios_base::in));
 
-	sge::opencl::program::object main_program(
-		fcppt::make_ref(
-			log_context
-		),
-		fcppt::make_ref(
-			opencl_system.context()
-		),
-		sge::opencl::program::source_string_sequence{
-			fcppt::optional::to_exception(
-				fcppt::io::stream_to_string(
-					stream
-				),
-				[
-					&_target_file_name
-				]{
-					return
-						fcppt::exception{
-							FCPPT_TEXT("Failed to load ")
-							+
-							fcppt::filesystem::path_to_string(
-								_target_file_name
-							)
-						};
-				}
-			)
-		},
-		sge::opencl::program::optional_build_parameters()
-	);
+  sge::opencl::program::object main_program(
+      fcppt::make_ref(log_context),
+      fcppt::make_ref(opencl_system.context()),
+      sge::opencl::program::source_string_sequence{fcppt::optional::to_exception(
+          fcppt::io::stream_to_string(stream),
+          [&_target_file_name]
+          {
+            return fcppt::exception{
+                FCPPT_TEXT("Failed to load ") +
+                fcppt::filesystem::path_to_string(_target_file_name)};
+          })},
+      sge::opencl::program::optional_build_parameters());
 
-	try
-	{
-		fcppt::io::cout()
-			<<
-			FCPPT_TEXT("Compiling ")
-			<<
-			fcppt::filesystem::path_to_string(
-				_target_file_name
-			)
-			<<
-			FCPPT_TEXT("...")
-			<<
-			std::endl;
+  try
+  {
+    fcppt::io::cout() << FCPPT_TEXT("Compiling ")
+                      << fcppt::filesystem::path_to_string(_target_file_name) << FCPPT_TEXT("...")
+                      << std::endl;
 
-		main_program.build(
-			sge::opencl::program::build_parameters()
-				.options(
-					fcppt::algorithm::fold(
-						_additional_args,
-						std::string{},
-						[](
-							fcppt::string const &_arg,
-							std::string &&_state
-						)
-						{
-							return
-								std::move(
-									_state
-								)
-								+=
-								" "
-								+
-								fcppt::optional::to_exception(
-									fcppt::to_std_string(
-										_arg
-									),
-									[
-										&_arg
-									]{
-										return
-											fcppt::exception{
-												FCPPT_TEXT("Unable to convert to std::string: ")
-												+
-												_arg
-											};
-									}
-								);
-						}
-					)
-				)
-		);
+    main_program.build(sge::opencl::program::build_parameters().options(fcppt::algorithm::fold(
+        _additional_args,
+        std::string{},
+        [](fcppt::string const &_arg, std::string &&_state)
+        {
+          return std::move(_state) +=
+                 " " + fcppt::optional::to_exception(
+                           fcppt::to_std_string(_arg),
+                           [&_arg] {
+                             return fcppt::exception{
+                                 FCPPT_TEXT("Unable to convert to std::string: ") + _arg};
+                           });
+        })));
 
-		fcppt::io::cout()
-			<<
-			FCPPT_TEXT("Done, 0 errors!\n");
-	}
-	catch(
-		sge::opencl::program::build_error const &_error
-	)
-	{
-		using
-		line_sequence
-		=
-		std::vector<
-			fcppt::string
-		>;
+    fcppt::io::cout() << FCPPT_TEXT("Done, 0 errors!\n");
+  }
+  catch (sge::opencl::program::build_error const &_error)
+  {
+    using line_sequence = std::vector<fcppt::string>;
 
-		line_sequence lines;
+    line_sequence lines;
 
-		boost::algorithm::split(
-			lines,
-			_error.message(),
-			boost::is_any_of(
-				FCPPT_TEXT("\n")
-			)
-		);
+    boost::algorithm::split(lines, _error.message(), boost::is_any_of(FCPPT_TEXT("\n")));
 
-FCPPT_PP_PUSH_WARNING
+    FCPPT_PP_PUSH_WARNING
 #if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
-FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
+    FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
 #endif
 
-		boost::xpressive::basic_regex<
-			fcppt::string::const_iterator
-		> const broken_error_indicator_regex{
-			boost::xpressive::bos >>
-			FCPPT_TEXT(':') >>
-			+boost::xpressive::_d >>
-			FCPPT_TEXT(':') >>
-			+boost::xpressive::_d >>
-			FCPPT_TEXT(':')
-		};
+    boost::xpressive::basic_regex<fcppt::string::const_iterator> const broken_error_indicator_regex{
+        boost::xpressive::bos >> FCPPT_TEXT(':') >> +boost::xpressive::_d >> FCPPT_TEXT(':') >>
+        +boost::xpressive::_d >> FCPPT_TEXT(':')};
 
-		boost::xpressive::basic_regex<
-			fcppt::string::const_iterator
-		> const builtin_error_string{
-			boost::xpressive::bos >>
-			FCPPT_TEXT("<built-in>:") >>
-			+boost::xpressive::_d >>
-			FCPPT_TEXT(':') >>
-			+boost::xpressive::_d >>
-			FCPPT_TEXT(':')
-		};
+    boost::xpressive::basic_regex<fcppt::string::const_iterator> const builtin_error_string{
+        boost::xpressive::bos >> FCPPT_TEXT("<built-in>:") >> +boost::xpressive::_d >>
+        FCPPT_TEXT(':') >> +boost::xpressive::_d >> FCPPT_TEXT(':')};
 
+    for (fcppt::string const &line : lines)
+    {
+      boost::xpressive::match_results<fcppt::string::const_iterator> what;
 
-		for(
-			fcppt::string const &line
-			:
-			lines
-		)
-		{
-			boost::xpressive::match_results<
-				fcppt::string::const_iterator
-			> what;
+      if (boost::xpressive::regex_search(line, what, broken_error_indicator_regex))
+      {
+        fcppt::io::cerr() << fcppt::filesystem::path_to_string(_target_file_name) << line
+                          << FCPPT_TEXT('\n');
+      }
+      else if (boost::xpressive::regex_search(line, what, builtin_error_string))
+      {
+        fcppt::io::cerr() << boost::xpressive::regex_replace(
+                                 line, builtin_error_string, FCPPT_TEXT("<built-in>:"))
+                          << FCPPT_TEXT('\n');
+      }
+      else
+      {
+        fcppt::io::cerr() << line << FCPPT_TEXT('\n');
+      }
+    }
+    FCPPT_PP_POP_WARNING
 
-			if(
-				boost::xpressive::regex_search(
-					line,
-					what,
-					broken_error_indicator_regex
-				)
-			)
-			{
-				fcppt::io::cerr()
-					<<
-					fcppt::filesystem::path_to_string(
-						_target_file_name
-					)
-					<<
-					line
-					<<
-					FCPPT_TEXT('\n');
-			}
-			else if(
-				boost::xpressive::regex_search(
-					line,
-					what,
-					builtin_error_string
-				)
-			)
-			{
-				fcppt::io::cerr()
-					<<
-					boost::xpressive::regex_replace(
-						line,
-						builtin_error_string,
-						FCPPT_TEXT("<built-in>:")
-					)
-					<<
-					FCPPT_TEXT('\n');
-			}
-			else
-			{
-				fcppt::io::cerr()
-					<<
-					line
-					<<
-					FCPPT_TEXT('\n');
-			}
-		}
-FCPPT_PP_POP_WARNING
+    return EXIT_FAILURE;
+  }
 
-		return
-			EXIT_FAILURE;
-	}
+  opencl_system.update();
 
-	opencl_system.update();
-
-	return
-		EXIT_SUCCESS;
+  return EXIT_SUCCESS;
 }
 
-FCPPT_RECORD_MAKE_LABEL(
-	argument_label
-);
+FCPPT_RECORD_MAKE_LABEL(argument_label);
 
-FCPPT_RECORD_MAKE_LABEL(
-	path_label
-);
+FCPPT_RECORD_MAKE_LABEL(path_label);
 
 }
 
-int
-FCPPT_MAIN(
-	int argc,
-	fcppt::args_char *argv[]
-)
+int FCPPT_MAIN(int argc, fcppt::args_char *argv[])
 try
 {
-	auto const parser(
-		fcppt::options::apply(
-			fcppt::options::argument<
-				path_label,
-				fcppt::string
-			>{
-				fcppt::options::long_name{
-					FCPPT_TEXT("cl-file")
-				},
-				fcppt::options::optional_help_text{
-					fcppt::options::help_text{
-						FCPPT_TEXT("path to the opencl file")
-					}
-				}
-			},
-			fcppt::options::make_many(
-				fcppt::options::argument<
-					argument_label,
-					fcppt::string
-				>{
-					fcppt::options::long_name{
-						FCPPT_TEXT("additional-argument")
-					},
-					fcppt::options::optional_help_text{
-						fcppt::options::help_text{
-							FCPPT_TEXT("additional argument to the opencl program")
-						}
-					}
-				}
-			)
-		)
-	);
+  auto const parser(fcppt::options::apply(
+      fcppt::options::argument<path_label, fcppt::string>{
+          fcppt::options::long_name{FCPPT_TEXT("cl-file")},
+          fcppt::options::optional_help_text{
+              fcppt::options::help_text{FCPPT_TEXT("path to the opencl file")}}},
+      fcppt::options::make_many(fcppt::options::argument<argument_label, fcppt::string>{
+          fcppt::options::long_name{FCPPT_TEXT("additional-argument")},
+          fcppt::options::optional_help_text{fcppt::options::help_text{
+              FCPPT_TEXT("additional argument to the opencl program")}}})));
 
-	using
-	result_type
-	=
-	fcppt::options::result_of<
-		decltype(
-			parser
-		)
-	>;
+  using result_type = fcppt::options::result_of<decltype(parser)>;
 
-	auto const handle_options(
-		[](
-			fcppt::options::result<
-				result_type
-			> const &_result
-		)
-		{
-			return
-				fcppt::either::match(
-					_result,
-					[](
-						fcppt::options::error const &_error
-					)
-					{
-						fcppt::io::cerr()
-							<<
-							_error
-							<<
-							FCPPT_TEXT('\n');
+  auto const handle_options(
+      [](fcppt::options::result<result_type> const &_result)
+      {
+        return fcppt::either::match(
+            _result,
+            [](fcppt::options::error const &_error)
+            {
+              fcppt::io::cerr() << _error << FCPPT_TEXT('\n');
 
-						return
-							EXIT_FAILURE;
-					},
-					[](
-						fcppt::options::result_of<
-							decltype(
-								parser
-							)
-						> const &_value
-					)
-					{
-						return
-							main_program(
-								fcppt::record::get<
-									path_label
-								>(
-									_value
-								),
-								fcppt::record::get<
-									argument_label
-								>(
-									_value
-								)
-							);
-					}
-				);
-		}
-	);
+              return EXIT_FAILURE;
+            },
+            [](fcppt::options::result_of<decltype(parser)> const &_value)
+            {
+              return main_program(
+                  fcppt::record::get<path_label>(_value),
+                  fcppt::record::get<argument_label>(_value));
+            });
+      });
 
-	return
-		fcppt::variant::match(
-			fcppt::options::parse_help(
-				fcppt::options::default_help_switch(),
-				parser,
-				fcppt::args_from_second(
-					argc,
-					argv
-				)
-			),
-			[
-				&handle_options
-			](
-				fcppt::options::result<
-					result_type
-				> const &_result
-			)
-			{
-				return
-					handle_options(
-						_result
-					);
-			},
-			[](
-				fcppt::options::help_text const &_help_text
-			)
-			{
-				fcppt::io::cout()
-					<<
-					FCPPT_TEXT("This program loads and builds a program. It outputs the syntax errors encountered.\n\n")
-					<<
-					_help_text
-					<<
-					FCPPT_TEXT('\n');
+  return fcppt::variant::match(
+      fcppt::options::parse_help(
+          fcppt::options::default_help_switch(), parser, fcppt::args_from_second(argc, argv)),
+      [&handle_options](fcppt::options::result<result_type> const &_result)
+      { return handle_options(_result); },
+      [](fcppt::options::help_text const &_help_text)
+      {
+        fcppt::io::cout() << FCPPT_TEXT("This program loads and builds a program. It outputs the "
+                                        "syntax errors encountered.\n\n")
+                          << _help_text << FCPPT_TEXT('\n');
 
-				return
-					EXIT_SUCCESS;
-			}
-		);
+        return EXIT_SUCCESS;
+      });
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	fcppt::io::cerr()
-		<<
-		_error.string()
-		<<
-		FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	std::cerr
-		<<
-		_error.what()
-		<<
-		'\n';
+  std::cerr << _error.what() << '\n';
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }

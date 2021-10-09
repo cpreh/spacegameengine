@@ -3,24 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_MEMORY_OBJECT_FLAGS_FIELD_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_FLAGS_FIELD_HPP_INCLUDED
 
 #include <sge/opencl/memory_object/flags.hpp>
 #include <fcppt/container/bitfield/object_impl.hpp>
 
-
 namespace sge::opencl::memory_object
 {
 
 // TODO(philipp): fwd header!
-using
-flags_field
-=
-fcppt::container::bitfield::object<
-	sge::opencl::memory_object::flags
->;
+using flags_field = fcppt::container::bitfield::object<sge::opencl::memory_object::flags>;
 
 }
 

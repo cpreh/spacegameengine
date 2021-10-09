@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/platform/device_state.hpp>
 
+sge::opengl::platform::device_state::device_state() = default;
 
-sge::opengl::platform::device_state::device_state()
-= default;
-
-sge::opengl::platform::device_state::~device_state()
-= default;
+sge::opengl::platform::device_state::~device_state() = default;

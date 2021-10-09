@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/texture/basic_buffer_impl.hpp>
 #include <sge/d3d9/texture/planar_types.hpp>
 #include <sge/d3d9/texture/volume_buffer.hpp>
@@ -12,9 +11,4 @@
 #include <sge/image3d/view/object.hpp>
 #include <sge/renderer/color_buffer/writable_volume.hpp>
 
-
-template
-class
-sge::d3d9::texture::basic_buffer<
-	sge::d3d9::texture::volume_types
->;
+template class sge::d3d9::texture::basic_buffer<sge::d3d9::texture::volume_types>;

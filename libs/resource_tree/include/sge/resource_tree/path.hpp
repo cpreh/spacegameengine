@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RESOURCE_TREE_PATH_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_PATH_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
-
 
 namespace sge::resource_tree
 {
@@ -32,73 +30,39 @@ sge::resource_tree::path() / FCPPT_TEXT("foo") / FCPPT_TEXT("bar")
 class path
 {
 private:
-	using
-	element_sequence
-	=
-	std::vector<
-		fcppt::string
-	>;
+  using element_sequence = std::vector<fcppt::string>;
+
 public:
-	using
-	iterator
-	=
-	element_sequence::iterator;
+  using iterator = element_sequence::iterator;
 
-	using
-	const_iterator
-	=
-	element_sequence::const_iterator;
+  using const_iterator = element_sequence::const_iterator;
 
-	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	path();
+  SGE_RESOURCE_TREE_DETAIL_SYMBOL
+  path();
 
-	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	path &
-	operator/=(
-		fcppt::string const &
-	);
+  SGE_RESOURCE_TREE_DETAIL_SYMBOL
+  path &operator/=(fcppt::string const &);
 
-	[[nodiscard]]
-	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	path
-	operator/(
-		fcppt::string const &
-	) const;
+  [[nodiscard]] SGE_RESOURCE_TREE_DETAIL_SYMBOL path operator/(fcppt::string const &) const;
 
-	[[nodiscard]]
-	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	const_iterator
-	begin() const;
+  [[nodiscard]] SGE_RESOURCE_TREE_DETAIL_SYMBOL const_iterator begin() const;
 
-	[[nodiscard]]
-	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	const_iterator
-	end() const;
+  [[nodiscard]] SGE_RESOURCE_TREE_DETAIL_SYMBOL const_iterator end() const;
 
-	[[nodiscard]]
-	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	bool
-	operator==(
-		path const &
-	) const;
+  [[nodiscard]] SGE_RESOURCE_TREE_DETAIL_SYMBOL bool operator==(path const &) const;
 
-	/**
+  /**
 	\brief Return the last element of the path
 	*/
-	[[nodiscard]]
-	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	fcppt::string const &
-	back() const;
+  [[nodiscard]] SGE_RESOURCE_TREE_DETAIL_SYMBOL fcppt::string const &back() const;
 
-	/**
+  /**
 	\brief Output the path as a string for display in error messages
 	*/
-	[[nodiscard]]
-	SGE_RESOURCE_TREE_DETAIL_SYMBOL
-	fcppt::string
-	string() const;
+  [[nodiscard]] SGE_RESOURCE_TREE_DETAIL_SYMBOL fcppt::string string() const;
+
 private:
-	element_sequence elements_;
+  element_sequence elements_;
 };
 
 }

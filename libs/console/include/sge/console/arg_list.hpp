@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_ARG_LIST_HPP_INCLUDED
 #define SGE_CONSOLE_ARG_LIST_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::console
 {
 
-using
-arg_list
-=
-std::vector<
-	sge::font::string
->;
+using arg_list = std::vector<sge::font::string>;
 
 }
 

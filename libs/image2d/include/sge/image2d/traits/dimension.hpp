@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_TRAITS_DIMENSION_HPP_INCLUDED
 #define SGE_IMAGE2D_TRAITS_DIMENSION_HPP_INCLUDED
 
@@ -11,21 +10,13 @@
 #include <sge/image/traits/image/dimension_tpl_fwd.hpp>
 #include <sge/image2d/tag.hpp>
 
-
 namespace sge::image::traits::image
 {
 
-template<>
-struct dimension_tpl<
-	sge::image2d::tag
->
+template <>
+struct dimension_tpl<sge::image2d::tag>
 {
-	using
-	type
-	=
-	sge::image::dimension_integral_c<
-		2
-	>;
+  using type = sge::image::dimension_integral_c<2>;
 };
 
 }

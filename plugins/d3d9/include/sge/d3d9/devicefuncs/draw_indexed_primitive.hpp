@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_DEVICEFUNCS_DRAW_INDEXED_PRIMITIVE_HPP_INCLUDED
 #define SGE_D3D9_DEVICEFUNCS_DRAW_INDEXED_PRIMITIVE_HPP_INCLUDED
 
@@ -14,7 +13,6 @@
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -22,15 +20,13 @@ namespace d3d9
 namespace devicefuncs
 {
 
-void
-draw_indexed_primitive(
-	IDirect3DDevice9 &,
-	sge::renderer::vertex::first,
-	sge::renderer::vertex::count,
-	sge::renderer::primitive_type,
-	sge::renderer::index::first,
-	sge::renderer::index::count
-);
+void draw_indexed_primitive(
+    IDirect3DDevice9 &,
+    sge::renderer::vertex::first,
+    sge::renderer::vertex::count,
+    sge::renderer::primitive_type,
+    sge::renderer::index::first,
+    sge::renderer::index::count);
 
 }
 }

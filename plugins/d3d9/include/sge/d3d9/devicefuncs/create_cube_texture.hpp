@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_DEVICEFUNCS_CREATE_CUBE_TEXTURE_HPP_INCLUDED
 #define SGE_D3D9_DEVICEFUNCS_CREATE_CUBE_TEXTURE_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <sge/d3d9/texture/d3d_cube_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -20,14 +18,12 @@ namespace d3d9
 namespace devicefuncs
 {
 
-sge::d3d9::texture::d3d_cube_texture_unique_ptr
-create_cube_texture(
-	IDirect3DDevice9 &,
-	sge::renderer::texture::cube_parameters const &,
-	D3DFORMAT,
-	D3DPOOL,
-	sge::d3d9::usage
-);
+sge::d3d9::texture::d3d_cube_texture_unique_ptr create_cube_texture(
+    IDirect3DDevice9 &,
+    sge::renderer::texture::cube_parameters const &,
+    D3DFORMAT,
+    D3DPOOL,
+    sge::d3d9::usage);
 
 }
 }

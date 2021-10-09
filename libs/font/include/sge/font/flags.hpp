@@ -3,21 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_FLAGS_HPP_INCLUDED
 #define SGE_FONT_FLAGS_HPP_INCLUDED
 
 #include <sge/font/flags_fwd.hpp>
-
 
 namespace sge::font
 {
 
 enum class flags
 {
-	no_multi_line,
-	no_word_wrap,
-	fcppt_maximum = no_word_wrap
+  no_multi_line,
+  no_word_wrap,
+  fcppt_maximum = no_word_wrap
 };
 
 }

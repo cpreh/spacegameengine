@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/exception.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
 #include <sge/x11input/device/info/class_maybe.hpp>
@@ -20,61 +19,18 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::input::mouse::button_info_container
-sge::x11input::mouse::make_button_infos(
-	awl::backends::x11::display &_display,
-	XIDeviceInfo const &_info
-)
+sge::input::mouse::button_info_container sge::x11input::mouse::make_button_infos(
+    awl::backends::x11::display &_display, XIDeviceInfo const &_info)
 {
-	return
-		sge::input::mouse::button_info_container(
-			fcppt::optional::to_exception(
-				fcppt::algorithm::find_by_opt<
-					sge::input::mouse::button_info_container::vector
-				>(
-					fcppt::make_int_range_count(
-						_info.num_classes
-					),
-					[
-						&_display,
-						&_info
-					](
-						int const _index
-					)
-					{
-						return
-							fcppt::optional::map(
-								sge::x11input::device::info::class_maybe<
-									XIButtonClassInfo
-								>(
-									*_info.classes[
-										_index
-									]
-								),
-								[
-									&_display
-								](
-									fcppt::reference<
-										XIButtonClassInfo const
-									> const _button_class
-								)
-								{
-									return
-										sge::x11input::mouse::button_infos(
-											_button_class.get(),
-											_display
-										);
-								}
-							);
-					}
-				),
-				[]{
-					return
-						sge::input::exception{
-							FCPPT_TEXT("No button class found")
-						};
-				}
-			)
-		);
+  return sge::input::mouse::button_info_container(fcppt::optional::to_exception(
+      fcppt::algorithm::find_by_opt<sge::input::mouse::button_info_container::vector>(
+          fcppt::make_int_range_count(_info.num_classes),
+          [&_display, &_info](int const _index)
+          {
+            return fcppt::optional::map(
+                sge::x11input::device::info::class_maybe<XIButtonClassInfo>(*_info.classes[_index]),
+                [&_display](fcppt::reference<XIButtonClassInfo const> const _button_class)
+                { return sge::x11input::mouse::button_infos(_button_class.get(), _display); });
+          }),
+      [] { return sge::input::exception{FCPPT_TEXT("No button class found")}; }));
 }

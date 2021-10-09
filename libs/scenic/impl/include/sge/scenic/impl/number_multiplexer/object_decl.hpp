@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_DECL_HPP_INCLUDED
 #define SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_DECL_HPP_INCLUDED
 
@@ -14,49 +13,30 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::scenic::impl::number_multiplexer
 {
 
-template<
-	typename T
->
+template <typename T>
 class object
 {
-	static_assert(
-		std::is_unsigned_v<T>,
-		"number_multiplexer only works on unsigned types"
-	);
+  static_assert(std::is_unsigned_v<T>, "number_multiplexer only works on unsigned types");
+
 public:
-	using
-	value_type
-	=
-	T;
+  using value_type = T;
 
-	FCPPT_DECLARE_STRONG_TYPEDEF(
-		value_type,
-		bit_count
-	);
+  FCPPT_DECLARE_STRONG_TYPEDEF(value_type, bit_count);
 
-	object();
+  object();
 
-	explicit
-	object(
-		value_type
-	);
+  explicit object(value_type);
 
-	object &
-	append(
-		bit_count const &,
-		value_type
-	);
+  object &append(bit_count const &, value_type);
 
-	[[nodiscard]]
-	value_type
-	value() const;
+  [[nodiscard]] value_type value() const;
+
 private:
-	value_type value_;
-	value_type last_bit_set_;
+  value_type value_;
+  value_type last_bit_set_;
 };
 
 }

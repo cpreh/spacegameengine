@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_RENDER_QUEUE_STATE_CHANGE_COUNT_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_QUEUE_STATE_CHANGE_COUNT_HPP_INCLUDED
 
@@ -12,9 +11,7 @@
 
 namespace sge::scenic::render_queue
 {
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	unsigned,
-	state_change_count);
+FCPPT_DECLARE_STRONG_TYPEDEF(unsigned, state_change_count);
 }
 
 #endif

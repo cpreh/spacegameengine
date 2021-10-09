@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_DETAIL_CONTEXT_BASE_VECTOR_HPP_INCLUDED
 #define SGE_PLUGIN_DETAIL_CONTEXT_BASE_VECTOR_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::plugin::detail
 {
 
-using
-context_base_vector
-=
-std::vector<
-	sge::plugin::context_base_unique_ptr
->;
+using context_base_vector = std::vector<sge::plugin::context_base_unique_ptr>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/discover.hpp>
 #include <sge/sdlinput/joypad/device.hpp>
@@ -24,52 +23,20 @@
 #include <SDL_events.h>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::event::container
-sge::sdlinput::joypad::discover(
-	fcppt::reference<
-		sge::sdlinput::joypad::map
-	> const _joypads,
-	sge::window::object_ref const _window,
-	SDL_JoyDeviceEvent const &_event
-)
+awl::event::container sge::sdlinput::joypad::discover(
+    fcppt::reference<sge::sdlinput::joypad::map> const _joypads,
+    sge::window::object_ref const _window,
+    SDL_JoyDeviceEvent const &_event)
 {
-	sge::sdlinput::joypad::shared_ptr const result{
-		fcppt::make_shared_ptr<
-			sge::sdlinput::joypad::device
-		>(
-			_window,
-			sge::sdlinput::joypad::device_id{
-				_event.which
-			}
-		)
-	};
+  sge::sdlinput::joypad::shared_ptr const result{
+      fcppt::make_shared_ptr<sge::sdlinput::joypad::device>(
+          _window, sge::sdlinput::joypad::device_id{_event.which})};
 
-	return
-		fcppt::container::insert(
-			_joypads.get(),
-			sge::sdlinput::joypad::map::value_type{
-				result->id(),
-				result
-			}
-		)
-		?
-			fcppt::container::make<
-				awl::event::container
-			>(
-				fcppt::unique_ptr_to_base<
-					awl::event::base
-				>(
-					fcppt::make_unique_ptr<
-						sge::input::joypad::event::discover
-					>(
-						sge::input::joypad::shared_ptr{
-							result
-						}
-					)
-				)
-			)
-		:
-			awl::event::container{}
-		;
+  return fcppt::container::insert(
+             _joypads.get(), sge::sdlinput::joypad::map::value_type{result->id(), result})
+             ? fcppt::container::make<awl::event::container>(
+                   fcppt::unique_ptr_to_base<awl::event::base>(
+                       fcppt::make_unique_ptr<sge::input::joypad::event::discover>(
+                           sge::input::joypad::shared_ptr{result})))
+             : awl::event::container{};
 }

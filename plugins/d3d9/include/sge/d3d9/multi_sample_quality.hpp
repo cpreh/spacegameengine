@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_MULTI_SAMPLE_QUALITY_HPP_INCLUDED
 #define SGE_D3D9_MULTI_SAMPLE_QUALITY_HPP_INCLUDED
 
@@ -11,16 +10,12 @@
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
 namespace sge
 {
 namespace d3d9
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	DWORD,
-	multi_sample_quality
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(DWORD, multi_sample_quality);
 
 }
 }

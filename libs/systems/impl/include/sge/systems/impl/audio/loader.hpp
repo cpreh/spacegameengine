@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_AUDIO_LOADER_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_AUDIO_LOADER_HPP_INCLUDED
 
@@ -15,36 +14,27 @@
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 
-
 namespace sge::systems::impl::audio
 {
 
 class loader
 {
-	FCPPT_NONMOVABLE(
-		loader
-	);
+  FCPPT_NONMOVABLE(loader);
+
 public:
-	loader(
-		fcppt::log::context_reference,
-		sge::audio::loader_plugin::collection const &,
-		sge::systems::audio_loader const &
-	);
+  loader(
+      fcppt::log::context_reference,
+      sge::audio::loader_plugin::collection const &,
+      sge::systems::audio_loader const &);
 
-	~loader();
+  ~loader();
 
-	[[nodiscard]]
-	sge::audio::loader &
-	get() const;
+  [[nodiscard]] sge::audio::loader &get() const;
+
 private:
-	using
-	audio_multi_loader_ptr
-	=
-	fcppt::unique_ptr<
-		sge::audio::multi_loader
-	>;
+  using audio_multi_loader_ptr = fcppt::unique_ptr<sge::audio::multi_loader>;
 
-	audio_multi_loader_ptr const audio_multi_loader_;
+  audio_multi_loader_ptr const audio_multi_loader_;
 };
 
 }

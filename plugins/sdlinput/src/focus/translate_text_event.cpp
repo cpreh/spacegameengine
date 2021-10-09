@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/text.hpp>
 #include <sge/sdlinput/same_windows.hpp>
@@ -21,46 +20,17 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::event::container
-sge::sdlinput::focus::translate_text_event(
-	sge::input::focus::shared_ptr const &_focus,
-	awl::backends::sdl::window::object const &_window,
-	SDL_TextInputEvent const &_event
-)
+awl::event::container sge::sdlinput::focus::translate_text_event(
+    sge::input::focus::shared_ptr const &_focus,
+    awl::backends::sdl::window::object const &_window,
+    SDL_TextInputEvent const &_event)
 {
-	if(
-		fcppt::not_(
-			sge::sdlinput::same_windows(
-				_window,
-				_event
-			)
-		)
-	)
-	{
-		return
-			awl::event::container{};
-	}
+  if (fcppt::not_(sge::sdlinput::same_windows(_window, _event)))
+  {
+    return awl::event::container{};
+  }
 
-	return
-		fcppt::container::make<
-			awl::event::container
-		>(
-			fcppt::unique_ptr_to_base<
-				awl::event::base
-			>(
-				fcppt::make_unique_ptr<
-					sge::input::focus::event::text
-				>(
-					_focus,
-					fcppt::widen(
-						std::string{
-							std::data(
-								_event.text
-							)
-						}
-					)
-				)
-			)
-		);
+  return fcppt::container::make<awl::event::container>(fcppt::unique_ptr_to_base<awl::event::base>(
+      fcppt::make_unique_ptr<sge::input::focus::event::text>(
+          _focus, fcppt::widen(std::string{std::data(_event.text)}))));
 }

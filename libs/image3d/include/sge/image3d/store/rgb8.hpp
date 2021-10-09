@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE3D_STORE_RGB8_HPP_INCLUDED
 #define SGE_IMAGE3D_STORE_RGB8_HPP_INCLUDED
 
@@ -12,9 +11,6 @@
 #include <sge/image3d/rgb8_format.hpp>
 #include <sge/image3d/store/rgb8_fwd.hpp>
 
-
-SGE_IMAGE_STORE_DECLARE_BASIC(
-	sge::image3d::rgb8_format
-);
+SGE_IMAGE_STORE_DECLARE_BASIC(sge::image3d::rgb8_format);
 
 #endif

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_CREATE_FUNCTION_HPP_INCLUDED
 #define SGE_WLINPUT_CREATE_FUNCTION_HPP_INCLUDED
 
@@ -11,23 +10,11 @@
 #include <fcppt/function_impl.hpp>
 #include <fcppt/unique_ptr_fwd.hpp>
 
-
 namespace sge::wlinput
 {
 
-template<
-	typename Type
->
-using
-create_function
-=
-fcppt::function<
-	fcppt::unique_ptr<
-		Type
-	>(
-		awl::backends::wayland::seat_ref
-	)
->;
+template <typename Type>
+using create_function = fcppt::function<fcppt::unique_ptr<Type>(awl::backends::wayland::seat_ref)>;
 
 }
 

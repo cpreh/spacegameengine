@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/discover.hpp>
@@ -11,18 +10,9 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::input::cursor::event::discover::discover(
-	sge::input::cursor::shared_ptr _cursor
-)
-:
-	sge::input::cursor::event::base{
-		std::move(
-			_cursor
-		)
-	}
+sge::input::cursor::event::discover::discover(sge::input::cursor::shared_ptr _cursor)
+    : sge::input::cursor::event::base{std::move(_cursor)}
 {
 }
 
-sge::input::cursor::event::discover::~discover()
-= default;
+sge::input::cursor::event::discover::~discover() = default;

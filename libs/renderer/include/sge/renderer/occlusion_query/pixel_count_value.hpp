@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_OCCLUSION_QUERY_PIXEL_COUNT_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_OCCLUSION_QUERY_PIXEL_COUNT_VALUE_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
 
-
 namespace sge::renderer::occlusion_query
 {
 
-using
-pixel_count_value
-=
-sge::renderer::size_type;
+using pixel_count_value = sge::renderer::size_type;
 
 }
 

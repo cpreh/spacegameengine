@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_MD3_IMPL_LOADER_HPP_INCLUDED
 #define SGE_MODEL_MD3_IMPL_LOADER_HPP_INCLUDED
 
@@ -18,44 +17,26 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
-
 namespace sge::model::md3::impl
 {
 
-class loader
-:
-	public sge::model::md3::loader
+class loader : public sge::model::md3::loader
 {
-	FCPPT_NONMOVABLE(
-		loader
-	);
+  FCPPT_NONMOVABLE(loader);
+
 public:
-	explicit
-	loader(
-		fcppt::log::context_reference
-	);
+  explicit loader(fcppt::log::context_reference);
 
-	~loader()
-	override;
+  ~loader() override;
+
 private:
-	[[nodiscard]]
-	sge::model::md3::object_unique_ptr
-	load(
-		std::filesystem::path const &,
-		sge::model::md3::load_flags_field
-	)
-	override;
+  [[nodiscard]] sge::model::md3::object_unique_ptr
+  load(std::filesystem::path const &, sge::model::md3::load_flags_field) override;
 
-	[[nodiscard]]
-	sge::model::md3::object_unique_ptr
-	load_stream(
-		std::istream &,
-		sge::model::md3::load_flags_field
-	)
-	override;
+  [[nodiscard]] sge::model::md3::object_unique_ptr
+  load_stream(std::istream &, sge::model::md3::load_flags_field) override;
 
-	fcppt::log::object log_;
+  fcppt::log::object log_;
 };
 
 }

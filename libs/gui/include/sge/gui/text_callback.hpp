@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_TEXT_CALLBACK_HPP_INCLUDED
 #define SGE_GUI_TEXT_CALLBACK_HPP_INCLUDED
 
 #include <sge/gui/text_function.hpp>
 #include <fcppt/function_impl.hpp>
 
-
 namespace sge::gui
 {
 
-using
-text_callback
-=
-fcppt::function<
-	sge::gui::text_function
->;
+using text_callback = fcppt::function<sge::gui::text_function>;
 
 }
 

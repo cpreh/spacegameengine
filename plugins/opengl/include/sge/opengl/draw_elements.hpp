@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
 #define SGE_OPENGL_DRAW_ELEMENTS_HPP_INCLUDED
 
@@ -16,21 +15,18 @@
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/log/object_fwd.hpp>
 
-
 namespace sge::opengl
 {
 
-void
-draw_elements(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	sge::opengl::context::object &, // NOLINT(google-runtime-references)
-	sge::renderer::index::buffer const &,
-	sge::renderer::vertex::first,
-	sge::renderer::vertex::count,
-	sge::renderer::primitive_type,
-	sge::renderer::index::first,
-	sge::renderer::index::count
-);
+void draw_elements(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    sge::opengl::context::object &, // NOLINT(google-runtime-references)
+    sge::renderer::index::buffer const &,
+    sge::renderer::vertex::first,
+    sge::renderer::vertex::count,
+    sge::renderer::primitive_type,
+    sge::renderer::index::first,
+    sge::renderer::index::count);
 
 }
 

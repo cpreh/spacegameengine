@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_SYSTEM_HPP_INCLUDED
 #define SGE_INPUT_SYSTEM_HPP_INCLUDED
 
@@ -15,34 +14,25 @@
 #include <sge/window/object_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL system
 {
-	FCPPT_NONMOVABLE(
-		system
-	);
+  FCPPT_NONMOVABLE(system);
+
 protected:
-	SGE_INPUT_DETAIL_SYMBOL
-	system();
+  SGE_INPUT_DETAIL_SYMBOL
+  system();
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	virtual
-	~system();
+  SGE_INPUT_DETAIL_SYMBOL
+  virtual ~system();
 
-	[[nodiscard]]
-	virtual
-	sge::input::processor_unique_ptr
-	create_processor(
-		sge::window::object_ref
-	) = 0;
+  [[nodiscard]] virtual sge::input::processor_unique_ptr
+      create_processor(sge::window::object_ref) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::input::capabilities_field
-	capabilities() const = 0;
+  [[nodiscard]] virtual sge::input::capabilities_field capabilities() const = 0;
 };
 
 }

@@ -3,32 +3,20 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/float_to_dword.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
 
-
 DWORD
-sge::d3d9::state::convert::float_to_dword(
-	float const _value
-)
+sge::d3d9::state::convert::float_to_dword(float const _value)
 {
-	static_assert(
-		sizeof(float)
-		== sizeof(DWORD),
-		"float and DWORD must be of the same size"
-	);
+  static_assert(sizeof(float) == sizeof(DWORD), "float and DWORD must be of the same size");
 
-	DWORD dest;
+  DWORD dest;
 
-	std::memcpy(
-		&dest,
-		&_value,
-		sizeof(DWORD)
-	);
+  std::memcpy(&dest, &_value, sizeof(DWORD));
 
-	return dest;
+  return dest;
 }

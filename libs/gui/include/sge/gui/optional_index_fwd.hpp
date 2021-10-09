@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_OPTIONAL_INDEX_FWD_HPP_INCLUDED
 #define SGE_GUI_OPTIONAL_INDEX_FWD_HPP_INCLUDED
 
 #include <sge/gui/index_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::gui
 {
 
-using
-optional_index
-=
-fcppt::optional::object<
-	sge::gui::index
->;
+using optional_index = fcppt::optional::object<sge::gui::index>;
 
 }
 

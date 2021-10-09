@@ -3,17 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef EXAMPLE_MAIN_HPP_INCLUDED
 #define EXAMPLE_MAIN_HPP_INCLUDED
 
 #include <awl/main/exit_code.hpp>
 #include <awl/main/function_context_fwd.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-);
+awl::main::exit_code example_main(awl::main::function_context const &);
 
 #endif

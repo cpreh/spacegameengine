@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VF_COLOR_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_COLOR_ACTOR_HPP_INCLUDED
 
@@ -15,35 +14,24 @@
 #include <sge/renderer/vf/dynamic/color_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::vf
 {
 
-class color_actor
-:
-	public sge::opengl::vf::fp_actor
+class color_actor : public sge::opengl::vf::fp_actor
 {
-	FCPPT_NONMOVABLE(
-		color_actor
-	);
+  FCPPT_NONMOVABLE(color_actor);
+
 public:
-	color_actor(
-		sge::opengl::vf::actor_parameters const &,
-		sge::renderer::vf::dynamic::color const &
-	);
+  color_actor(sge::opengl::vf::actor_parameters const &, sge::renderer::vf::dynamic::color const &);
 
-	~color_actor()
-	override;
+  ~color_actor() override;
+
 private:
-	void
-	on_use(
-		sge::opengl::vf::pointer
-	) const
-	override;
+  void on_use(sge::opengl::vf::pointer) const override;
 
-	GLint const elements_;
+  GLint const elements_;
 
-	sge::opengl::color_base_type const format_;
+  sge::opengl::color_base_type const format_;
 };
 
 }

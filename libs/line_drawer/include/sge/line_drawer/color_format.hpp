@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LINE_DRAWER_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_LINE_DRAWER_COLOR_FORMAT_HPP_INCLUDED
 
 #include <sge/image/color/rgba8_format.hpp>
 
-
 namespace sge::line_drawer
 {
 
-using
-color_format
-=
-sge::image::color::rgba8_format;
+using color_format = sge::image::color::rgba8_format;
 
 }
 

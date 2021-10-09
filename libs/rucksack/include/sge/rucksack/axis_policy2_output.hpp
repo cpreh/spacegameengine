@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_AXIS_POLICY2_OUTPUT_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_POLICY2_OUTPUT_HPP_INCLUDED
 
@@ -13,33 +12,15 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::rucksack
 {
 
-template<
-	typename Ch,
-	typename Traits
->
-std::basic_ostream<
-	Ch,
-	Traits
-> &
-operator<<(
-	std::basic_ostream<
-		Ch,
-		Traits
-	> &_stream,
-	sge::rucksack::axis_policy2 const &_policy
-)
+template <typename Ch, typename Traits>
+std::basic_ostream<Ch, Traits> &
+operator<<(std::basic_ostream<Ch, Traits> &_stream, sge::rucksack::axis_policy2 const &_policy)
 {
-	return
-		_stream
-			<< _stream.widen('(')
-			<< _policy.x()
-			<< _stream.widen(',')
-			<< _policy.y()
-			<< _stream.widen(')');
+  return _stream << _stream.widen('(') << _policy.x() << _stream.widen(',') << _policy.y()
+                 << _stream.widen(')');
 }
 
 }

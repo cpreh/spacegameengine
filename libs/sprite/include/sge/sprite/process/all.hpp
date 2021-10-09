@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_PROCESS_ALL_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_ALL_HPP_INCLUDED
 
@@ -16,46 +15,26 @@
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::process
 {
 
-template<
-	typename Range,
-	typename Buffers,
-	typename Compare,
-	typename StateChoices
->
-void
-all(
-	sge::sprite::state::render_context<
-		StateChoices
-	> &_render_context,
-	Range const &_range,
-	Buffers &_buffers,
-	Compare const &_compare,
-	sge::sprite::state::object<
-		StateChoices
-	> &_states
-)
+template <typename Range, typename Buffers, typename Compare, typename StateChoices>
+void all(
+    sge::sprite::state::render_context<StateChoices> &_render_context,
+    Range const &_range,
+    Buffers &_buffers,
+    Compare const &_compare,
+    sge::sprite::state::object<StateChoices> &_states)
 {
-	sge::sprite::process::with_options<
-		sge::sprite::process::default_options<
-			typename std::iterator_traits<
-				typename Range::iterator
-			>::value_type::choices,
-			Compare
-		>
-	>(
-		_render_context,
-		_range,
-		_buffers,
-		_compare,
-		_states,
-		sge::sprite::state::default_options<
-			StateChoices
-		>()
-	);
+  sge::sprite::process::with_options<sge::sprite::process::default_options<
+      typename std::iterator_traits<typename Range::iterator>::value_type::choices,
+      Compare>>(
+      _render_context,
+      _range,
+      _buffers,
+      _compare,
+      _states,
+      sge::sprite::state::default_options<StateChoices>());
 }
 
 }

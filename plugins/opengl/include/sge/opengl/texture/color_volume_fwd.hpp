@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_COLOR_VOLUME_FWD_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_COLOR_VOLUME_FWD_HPP_INCLUDED
 
 #include <sge/opengl/texture/basic_buffer_fwd.hpp>
 #include <sge/opengl/texture/color_volume_types_fwd.hpp>
 
-
 namespace sge::opengl::texture
 {
 
-using
-color_volume
-=
-sge::opengl::texture::basic_buffer<
-	sge::opengl::texture::color_volume_types
->;
+using color_volume = sge::opengl::texture::basic_buffer<sge::opengl::texture::color_volume_types>;
 
 }
 

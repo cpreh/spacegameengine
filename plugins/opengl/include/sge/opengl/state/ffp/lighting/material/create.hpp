@@ -3,21 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_FFP_LIGHTING_MATERIAL_CREATE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_LIGHTING_MATERIAL_CREATE_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
 
-
 namespace sge::opengl::state::ffp::lighting::material
 {
 
 sge::renderer::state::ffp::lighting::material::object_unique_ptr
-create(
-	sge::renderer::state::ffp::lighting::material::parameters const &
-);
+create(sge::renderer::state::ffp::lighting::material::parameters const &);
 
 }
 

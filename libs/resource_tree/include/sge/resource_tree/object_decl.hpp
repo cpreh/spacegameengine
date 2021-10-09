@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RESOURCE_TREE_OBJECT_DECL_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_OBJECT_DECL_HPP_INCLUDED
 
@@ -16,7 +15,6 @@
 #include <filesystem>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
-
 
 namespace sge::resource_tree
 {
@@ -119,71 +117,37 @@ was decided to store the resources in a list of
 sge::resource_tree::element objects. Continue to the documentation for
 that class for more information about the internal structure of the tree.
 */
-template<
-	typename T,
-	typename Rng
->
+template <typename T, typename Rng>
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	using
-	value_type
-	=
-	T;
+  using value_type = T;
 
-	using
-	rng_type
-	=
-	Rng;
+  using rng_type = Rng;
 
-	using
-	path_to_resource_function
-	=
-	sge::resource_tree::path_to_resource_function<
-		value_type
-	>;
+  using path_to_resource_function = sge::resource_tree::path_to_resource_function<value_type>;
 
-	/**
+  /**
 	\brief Construct a new resource tree
 	*/
-	object(
-		std::filesystem::path const &,
-		path_to_resource_function const &,
-		fcppt::reference<
-			rng_type
-		>
-	);
+  object(
+      std::filesystem::path const &, path_to_resource_function const &, fcppt::reference<rng_type>);
 
-	~object();
+  ~object();
 
-	/**
+  /**
 	\brief Retrieve a resource
 	*/
-	[[nodiscard]]
-	value_type const &
-	get(
-		sge::resource_tree::path const &
-	) const;
+  [[nodiscard]] value_type const &get(sge::resource_tree::path const &) const;
+
 private:
-	using
-	element_type
-	=
-	sge::resource_tree::detail::element<
-		T,
-		Rng
-	>;
+  using element_type = sge::resource_tree::detail::element<T, Rng>;
 
-	using
-	element_sequence
-	=
-	std::vector<
-		element_type
-	>;
+  using element_sequence = std::vector<element_type>;
 
-	element_sequence const elements_;
+  element_sequence const elements_;
 };
 
 }

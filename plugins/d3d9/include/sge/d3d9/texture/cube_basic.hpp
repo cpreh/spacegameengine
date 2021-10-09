@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_TEXTURE_CUBE_BASIC_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_CUBE_BASIC_HPP_INCLUDED
 
@@ -17,9 +16,7 @@ namespace d3d9
 namespace texture
 {
 
-typedef texture::basic<
-	texture::cube_types
-> cube_basic;
+typedef texture::basic<texture::cube_types> cube_basic;
 
 }
 }

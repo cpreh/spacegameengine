@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_SIZE_FROM_TEXTURE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_SIZE_FROM_TEXTURE_HPP_INCLUDED
 
@@ -16,39 +15,18 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/record/get.hpp>
 
-
 namespace sge::sprite::detail
 {
 
-template<
-	typename Choices,
-	typename Elements
->
-inline
-sge::sprite::types::dim<
-	typename
-	Choices::type_choices
->
-size_from_texture(
-	Elements const &_elements
-)
+template <typename Choices, typename Elements>
+inline sge::sprite::types::dim<typename Choices::type_choices>
+size_from_texture(Elements const &_elements)
 {
-	return
-		fcppt::math::dim::structure_cast<
-			sge::sprite::types::dim<
-				typename
-				Choices::type_choices
-			>,
-			fcppt::cast::static_cast_fun
-		>(
-			sge::sprite::deref_texture(
-				fcppt::record::get<
-					sge::sprite::roles::texture0
-				>(
-					_elements
-				)
-			).size()
-		);
+  return fcppt::math::dim::structure_cast<
+      sge::sprite::types::dim<typename Choices::type_choices>,
+      fcppt::cast::static_cast_fun>(
+      sge::sprite::deref_texture(fcppt::record::get<sge::sprite::roles::texture0>(_elements))
+          .size());
 }
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONFIG_GETENV_HPP_INCLUDED
 #define SGE_CONFIG_GETENV_HPP_INCLUDED
 
@@ -11,15 +10,11 @@
 #include <fcppt/optional_string_fwd.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge::config
 {
 
 SGE_CONFIG_DETAIL_SYMBOL
-fcppt::optional_string
-getenv(
-	fcppt::string const &
-);
+fcppt::optional_string getenv(fcppt::string const &);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_PARAMETER_MATRIX_FWD_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_MATRIX_FWD_HPP_INCLUDED
 
@@ -11,12 +10,7 @@
 
 namespace sge::shader::parameter
 {
-template
-<
-	typename ValueType,
-	fcppt::math::size_type M,
-	fcppt::math::size_type N
->
+template <typename ValueType, fcppt::math::size_type M, fcppt::math::size_type N>
 class matrix;
 }
 

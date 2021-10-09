@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/info/id.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_id.hpp>
@@ -35,191 +34,86 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::sdlinput::joypad::device::device(
-	sge::window::object_ref const _window,
-	sge::sdlinput::joypad::device_id const _id
-)
-:
-	sge::input::joypad::device{},
-	instance_{
-		_id
-	},
-	window_{
-		_window
-	},
-	info_{
-		sge::sdlinput::joypad::make_info(
-			instance_.get()
-		)
-	}
+    sge::window::object_ref const _window, sge::sdlinput::joypad::device_id const _id)
+    : sge::input::joypad::device{},
+      instance_{_id},
+      window_{_window},
+      info_{sge::sdlinput::joypad::make_info(instance_.get())}
 {
 }
 
-sge::sdlinput::joypad::device::~device()
-= default;
+sge::sdlinput::joypad::device::~device() = default;
 
-sge::window::object &
-sge::sdlinput::joypad::device::window() const
+sge::window::object &sge::sdlinput::joypad::device::window() const { return this->window_.get(); }
+
+sge::input::joypad::info const &sge::sdlinput::joypad::device::info() const { return this->info_; }
+
+sge::input::joypad::ff::effect_unique_ptr sge::sdlinput::joypad::device::create_ff_effect(
+    sge::input::joypad::ff::parameters const &_parameters)
 {
-	return
-		this->window_.get();
+  return fcppt::unique_ptr_to_base<sge::input::joypad::ff::effect>(
+      fcppt::make_unique_ptr<sge::sdlinput::joypad::ff_effect>(this->instance_.get(), _parameters));
 }
 
-sge::input::joypad::info const &
-sge::sdlinput::joypad::device::info() const
+SDL_JoystickID sge::sdlinput::joypad::device::id() const
 {
-	return
-		this->info_;
+  return sge::sdlinput::joypad::instance_id(this->instance_.get());
 }
 
-sge::input::joypad::ff::effect_unique_ptr
-sge::sdlinput::joypad::device::create_ff_effect(
-	sge::input::joypad::ff::parameters const &_parameters
-)
+sge::input::joypad::absolute_axis sge::sdlinput::joypad::device::axis(std::uint8_t const _id) const
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::input::joypad::ff::effect
-		>(
-			fcppt::make_unique_ptr<
-				sge::sdlinput::joypad::ff_effect
-			>(
-				this->instance_.get(),
-				_parameters
-			)
-		);
+  sge::input::joypad::absolute_axis_id const axis_id{_id};
+
+  return sge::input::joypad::absolute_axis{
+      FCPPT_ASSERT_OPTIONAL_ERROR(this->info().absolute_axes()[axis_id]).get().code(), axis_id};
 }
 
-SDL_JoystickID
-sge::sdlinput::joypad::device::id() const
+sge::input::joypad::relative_axis sge::sdlinput::joypad::device::ball_axis(
+    std::uint8_t const _id, sge::sdlinput::joypad::ball_direction const _direction) const
 {
-	return
-		sge::sdlinput::joypad::instance_id(
-			this->instance_.get()
-		);
+  auto const ball_mult(
+      [_direction]() -> sge::input::info::id
+      {
+        switch (_direction)
+        {
+        case sge::sdlinput::joypad::ball_direction::x:
+          return 0U;
+        case sge::sdlinput::joypad::ball_direction::y:
+          return 1U;
+        }
+
+        FCPPT_ASSERT_UNREACHABLE;
+      });
+
+  sge::input::joypad::relative_axis_id const axis_id{
+      _id + sge::sdlinput::joypad::num_balls(this->instance_.get()) * ball_mult()};
+
+  return sge::input::joypad::relative_axis{
+      FCPPT_ASSERT_OPTIONAL_ERROR(this->info().relative_axes()[axis_id]).get().code(), axis_id};
 }
 
-sge::input::joypad::absolute_axis
-sge::sdlinput::joypad::device::axis(
-	std::uint8_t const _id
-) const
+sge::input::joypad::absolute_axis sge::sdlinput::joypad::device::hat_axis(
+    std::uint8_t const _id, sge::sdlinput::joypad::hat_direction const _direction) const
 {
-	sge::input::joypad::absolute_axis_id const axis_id{
-		_id
-	};
+  auto const hat_mult(
+      [_direction]() -> sge::input::info::id
+      {
+        switch (_direction)
+        {
+        case sge::sdlinput::joypad::hat_direction::x:
+          return 0U;
+        case sge::sdlinput::joypad::hat_direction::y:
+          return 1U;
+        }
 
-	return
-		sge::input::joypad::absolute_axis{
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				this->info().absolute_axes()[
-					axis_id
-				]
-			).get().code(),
-			axis_id
-		};
-}
+        FCPPT_ASSERT_UNREACHABLE;
+      });
 
-sge::input::joypad::relative_axis
-sge::sdlinput::joypad::device::ball_axis(
-	std::uint8_t const _id,
-	sge::sdlinput::joypad::ball_direction const _direction
-) const
-{
-	auto const ball_mult(
-		[
-			_direction
-		]()
-		->
-		sge::input::info::id
-		{
-			switch(
-				_direction
-			)
-			{
-			case sge::sdlinput::joypad::ball_direction::x:
-				return
-					0U;
-			case sge::sdlinput::joypad::ball_direction::y:
-				return
-					1U;
-			}
+  sge::input::joypad::absolute_axis_id const axis_id{
+      sge::sdlinput::joypad::num_axes(this->instance_.get()) + _id +
+      sge::sdlinput::joypad::num_hats(this->instance_.get()) * hat_mult()};
 
-			FCPPT_ASSERT_UNREACHABLE;
-		}
-	);
-
-	sge::input::joypad::relative_axis_id const axis_id{
-		_id
-		+
-		sge::sdlinput::joypad::num_balls(
-			this->instance_.get()
-		)
-		*
-		ball_mult()
-	};
-
-	return
-		sge::input::joypad::relative_axis{
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				this->info().relative_axes()[
-					axis_id
-				]
-			).get().code(),
-			axis_id
-		};
-}
-
-sge::input::joypad::absolute_axis
-sge::sdlinput::joypad::device::hat_axis(
-	std::uint8_t const _id,
-	sge::sdlinput::joypad::hat_direction const _direction
-) const
-{
-	auto const hat_mult(
-		[
-			_direction
-		]()
-		->
-		sge::input::info::id
-		{
-			switch(
-				_direction
-			)
-			{
-			case sge::sdlinput::joypad::hat_direction::x:
-				return
-					0U;
-			case sge::sdlinput::joypad::hat_direction::y:
-				return
-					1U;
-			}
-
-			FCPPT_ASSERT_UNREACHABLE;
-		}
-	);
-
-	sge::input::joypad::absolute_axis_id const axis_id{
-		sge::sdlinput::joypad::num_axes(
-			this->instance_.get()
-		)
-		+
-		_id
-		+
-		sge::sdlinput::joypad::num_hats(
-			this->instance_.get()
-		)
-		*
-		hat_mult()
-	};
-
-	return
-		sge::input::joypad::absolute_axis{
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-					this->info().absolute_axes()[
-					axis_id
-				]
-			).get().code(),
-			axis_id
-		};
+  return sge::input::joypad::absolute_axis{
+      FCPPT_ASSERT_OPTIONAL_ERROR(this->info().absolute_axes()[axis_id]).get().code(), axis_id};
 }

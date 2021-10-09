@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_STREAM_SOUND_HPP_INCLUDED
 #define SGE_OPENAL_STREAM_SOUND_HPP_INCLUDED
 
@@ -18,69 +17,53 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
 
-
 namespace sge::openal
 {
 
-class stream_sound
-:
-	public sge::openal::source
+class stream_sound : public sge::openal::source
 {
-	FCPPT_NONMOVABLE(
-		stream_sound
-	);
+  FCPPT_NONMOVABLE(stream_sound);
+
 public:
-	stream_sound(
-		fcppt::log::object_reference,
-		sge::audio::sound::nonpositional_parameters const &,
-		sge::audio::file_ref
-	);
+  stream_sound(
+      fcppt::log::object_reference,
+      sge::audio::sound::nonpositional_parameters const &,
+      sge::audio::file_ref);
 
-	stream_sound(
-		fcppt::log::object_reference,
-		sge::audio::sound::positional_parameters const &,
-		sge::audio::file_ref
-	);
+  stream_sound(
+      fcppt::log::object_reference,
+      sge::audio::sound::positional_parameters const &,
+      sge::audio::file_ref);
 
-	~stream_sound()
-	override;
+  ~stream_sound() override;
 
-	void
-	update()
-	override;
+  void update() override;
 
-	void
-	do_play()
-	override;
+  void do_play() override;
+
 private:
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	sge::audio::file_ref const audio_file_;
+  sge::audio::file_ref const audio_file_;
 
-	sge::audio::sample_count const buffer_samples_;
+  sge::audio::sample_count const buffer_samples_;
 
-	ALenum const format_;
+  ALenum const format_;
 
-	sge::openal::multi_buffer_holder buffers_;
+  sge::openal::multi_buffer_holder buffers_;
 
-	bool
-	fill_buffer(
-		sge::openal::buffer_id
-	);
+  bool fill_buffer(sge::openal::buffer_id);
 
-	struct unified_ctor
-	{
-	};
+  struct unified_ctor
+  {
+  };
 
-	template<
-		typename Parameters
-	>
-	stream_sound(
-		fcppt::log::object_reference,
-		Parameters const &,
-		sge::audio::file_ref,
-		sge::openal::stream_sound::unified_ctor
-	);
+  template <typename Parameters>
+  stream_sound(
+      fcppt::log::object_reference,
+      Parameters const &,
+      sge::audio::file_ref,
+      sge::openal::stream_sound::unified_ctor);
 };
 
 }

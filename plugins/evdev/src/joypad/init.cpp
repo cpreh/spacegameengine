@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/joypad/create.hpp>
 #include <sge/evdev/joypad/init.hpp>
 #include <sge/evdev/joypad/map.hpp>
@@ -24,65 +23,27 @@
 #include <system_error>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::evdev::joypad::map
-sge::evdev::joypad::init(
-	fcppt::log::object &_log,
-	sge::window::object_ref const _window,
-	awl::backends::posix::processor_ref const _processor,
-	std::filesystem::path const &_path
-)
+sge::evdev::joypad::map sge::evdev::joypad::init(
+    fcppt::log::object &_log,
+    sge::window::object_ref const _window,
+    awl::backends::posix::processor_ref const _processor,
+    std::filesystem::path const &_path)
 {
-	return
-		fcppt::algorithm::map_optional<
-			sge::evdev::joypad::map
-		>(
-			fcppt::either::to_exception(
-				fcppt::filesystem::make_directory_range(
-					_path,
-					std::filesystem::directory_options::none
-				),
-				[](
-					std::error_code const _error
-				)
-				{
-					return
-						sge::input::exception{
-							FCPPT_TEXT("Cannot access joystick directory: ")
-							+
-							fcppt::error_code_to_string(
-								_error
-							)
-						};
-				}
-			),
-			[
-				&_log,
-				_window,
-				&_processor
-			](
-				std::filesystem::path const &_cur
-			)
-			{
-				return
-					fcppt::optional::map(
-						sge::evdev::joypad::create(
-							_log,
-							_window,
-							_processor,
-							_cur
-						),
-						[](
-							sge::evdev::joypad::shared_ptr const &_ptr
-						)
-						{
-							return
-								sge::evdev::joypad::map::value_type{
-									_ptr->posix_fd(),
-									_ptr
-								};
-						}
-					);
-			}
-		);
+  return fcppt::algorithm::map_optional<sge::evdev::joypad::map>(
+      fcppt::either::to_exception(
+          fcppt::filesystem::make_directory_range(_path, std::filesystem::directory_options::none),
+          [](std::error_code const _error)
+          {
+            return sge::input::exception{
+                FCPPT_TEXT("Cannot access joystick directory: ") +
+                fcppt::error_code_to_string(_error)};
+          }),
+      [&_log, _window, &_processor](std::filesystem::path const &_cur)
+      {
+        return fcppt::optional::map(
+            sge::evdev::joypad::create(_log, _window, _processor, _cur),
+            [](sge::evdev::joypad::shared_ptr const &_ptr) {
+              return sge::evdev::joypad::map::value_type{_ptr->posix_fd(), _ptr};
+            });
+      });
 }

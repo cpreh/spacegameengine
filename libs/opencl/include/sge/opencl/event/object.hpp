@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_EVENT_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_EVENT_OBJECT_HPP_INCLUDED
 
@@ -11,34 +10,27 @@
 #include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opencl::event
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	SGE_OPENCL_DETAIL_SYMBOL
-	object();
+  SGE_OPENCL_DETAIL_SYMBOL
+  object();
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	cl_event &
-	handle();
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL cl_event &handle();
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	cl_event const &
-	handle() const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL cl_event const &handle() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	~object();
+  SGE_OPENCL_DETAIL_SYMBOL
+  ~object();
+
 private:
-	cl_event handle_;
-	mutable bool handle_retrieved_;
+  cl_event handle_;
+  mutable bool handle_retrieved_;
 };
 
 }

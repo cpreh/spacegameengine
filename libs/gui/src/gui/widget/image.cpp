@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/gui/impl/draw_image.hpp>
 #include <sge/gui/renderer/base.hpp>
 #include <sge/gui/style/base.hpp>
@@ -36,105 +35,42 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::image::image(
-	sge::gui::style::const_reference const _style,
-	sge::texture::const_part_ref const _texture
-)
-:
-	style_(
-		_style
-	),
-	texture_(
-		_texture
-	),
-	layout_{
-		sge::rucksack::make_axis_policy(
-			sge::rucksack::axis_policy_function{
-				[
-					this
-				](
-					sge::rucksack::axis const _axis
-				)
-				{
-					return
-						sge::rucksack::axis_policy{
-							sge::rucksack::preferred_size{
-								fcppt::cast::size<
-									sge::rucksack::scalar
-								>(
-									fcppt::cast::to_signed(
-										sge::rucksack::access_axis(
-											this->texture_.get().size(),
-											_axis
-										)
-									)
-								)
-								+
-								sge::rucksack::access_axis(
-									this->style_.get().image_spacing(),
-									_axis
-								)
-							}
-						};
-				}
-			}
-		)
-	}
+    sge::gui::style::const_reference const _style, sge::texture::const_part_ref const _texture)
+    : style_(_style),
+      texture_(_texture),
+      layout_{sge::rucksack::make_axis_policy(sge::rucksack::axis_policy_function{
+          [this](sge::rucksack::axis const _axis)
+          {
+            return sge::rucksack::axis_policy{sge::rucksack::preferred_size{
+                fcppt::cast::size<sge::rucksack::scalar>(fcppt::cast::to_signed(
+                    sge::rucksack::access_axis(this->texture_.get().size(), _axis))) +
+                sge::rucksack::access_axis(this->style_.get().image_spacing(), _axis)}};
+          }})}
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::gui::widget::image::~image()
-= default;
+sge::gui::widget::image::~image() = default;
 
-sge::rucksack::widget::base &
-sge::gui::widget::image::layout()
+sge::rucksack::widget::base &sge::gui::widget::image::layout() { return layout_; }
+
+void sge::gui::widget::image::on_draw(
+    sge::gui::renderer::base &_renderer, sge::renderer::context::ffp &_context)
 {
-	return
-		layout_;
-}
+  style_.get().draw_image(_renderer, _context, this->layout().area());
 
-void
-sge::gui::widget::image::on_draw(
-	sge::gui::renderer::base &_renderer,
-	sge::renderer::context::ffp &_context
-)
-{
-	style_.get().draw_image(
-		_renderer,
-		_context,
-		this->layout().area()
-	);
-
-	_renderer.draw_image(
-		_context,
-		texture_.get(),
-		layout_.position()
-		+
-		(
-			(
-				layout_.size()
-				-
-				fcppt::math::dim::structure_cast<
-					sge::rucksack::dim,
-					fcppt::cast::size_fun
-				>(
-					fcppt::math::dim::to_signed(
-						texture_.get().area().size()
-					)
-				)
-			)
-			/
-			fcppt::literal<
-				sge::rucksack::scalar
-			>(
-				2
-			)
-		).get_unsafe()
-	);
+  _renderer.draw_image(
+      _context,
+      texture_.get(),
+      layout_.position() +
+          ((layout_.size() -
+            fcppt::math::dim::structure_cast<sge::rucksack::dim, fcppt::cast::size_fun>(
+                fcppt::math::dim::to_signed(texture_.get().area().size()))) /
+           fcppt::literal<sge::rucksack::scalar>(2))
+              .get_unsafe());
 }

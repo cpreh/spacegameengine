@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_RESOURCE_HPP_INCLUDED
 #define SGE_D3D9_RESOURCE_HPP_INCLUDED
 
@@ -18,7 +17,6 @@
 #include <boost/intrusive/list_hook.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -28,52 +26,33 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 FCPPT_PP_DISABLE_GCC_WARNING(-Wnon-virtual-dtor)
 
-class resource
-:
-	public boost::intrusive::list_base_hook<
-		boost::intrusive::link_mode<
-			boost::intrusive::auto_unlink
-		>
-	>
+class resource : public boost::intrusive::list_base_hook<
+                     boost::intrusive::link_mode<boost::intrusive::auto_unlink>>
 {
-	FCPPT_NONCOPYABLE(
-		resource
-	);
+  FCPPT_NONCOPYABLE(resource);
+
 public:
-	explicit
-	resource(
-		D3DPOOL
-	);
+  explicit resource(D3DPOOL);
 
-	explicit
-	resource(
-		sge::d3d9::needs_reset
-	);
+  explicit resource(sge::d3d9::needs_reset);
 
-	virtual
-	~resource() = 0;
+  virtual ~resource() = 0;
 
-	void
-	loss();
+  void loss();
 
-	void
-	reset();
+  void reset();
 
-	D3DPOOL
-	pool() const;
+  D3DPOOL
+  pool() const;
 
-	bool
-	needs_reset() const ;
+  bool needs_reset() const;
+
 private:
-	virtual
-	void
-	on_loss() = 0;
+  virtual void on_loss() = 0;
 
-	virtual
-	void
-	on_reset() = 0;
+  virtual void on_reset() = 0;
 
-	D3DPOOL const pool_;
+  D3DPOOL const pool_;
 };
 
 FCPPT_PP_POP_WARNING

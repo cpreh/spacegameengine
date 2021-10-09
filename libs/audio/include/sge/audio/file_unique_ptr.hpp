@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_FILE_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_AUDIO_FILE_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/audio/file_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 namespace sge::audio
 {
 
-using
-file_unique_ptr
-=
-fcppt::unique_ptr<
-	sge::audio::file
->;
+using file_unique_ptr = fcppt::unique_ptr<sge::audio::file>;
 
 }
 

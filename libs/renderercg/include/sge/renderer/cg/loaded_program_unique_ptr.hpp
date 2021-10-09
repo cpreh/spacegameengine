@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_CG_LOADED_PROGRAM_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_RENDERER_CG_LOADED_PROGRAM_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 namespace sge::renderer::cg
 {
 
-using
-loaded_program_unique_ptr
-=
-fcppt::unique_ptr<
-	sge::renderer::cg::loaded_program
->;
+using loaded_program_unique_ptr = fcppt::unique_ptr<sge::renderer::cg::loaded_program>;
 
 }
 

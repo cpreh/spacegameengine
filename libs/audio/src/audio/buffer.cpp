@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/buffer.hpp>
 
+sge::audio::buffer::~buffer() = default;
 
-sge::audio::buffer::~buffer()
-= default;
-
-sge::audio::buffer::buffer()
-= default;
+sge::audio::buffer::buffer() = default;

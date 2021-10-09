@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_MATRIX_CONVERSION_ROTATION_HPP_INCLUDED
 #define SGE_CAMERA_MATRIX_CONVERSION_ROTATION_HPP_INCLUDED
 
@@ -11,15 +10,11 @@
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/renderer/matrix4.hpp>
 
-
 namespace sge::camera::matrix_conversion
 {
 
 SGE_CAMERA_DETAIL_SYMBOL
-sge::renderer::matrix4
-rotation(
-	sge::camera::coordinate_system::object const &
-);
+sge::renderer::matrix4 rotation(sge::camera::coordinate_system::object const &);
 
 }
 

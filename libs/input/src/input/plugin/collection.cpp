@@ -3,13 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/system.hpp>
 #include <sge/input/plugin/iterator.hpp>
 #include <sge/input/plugin/traits.hpp>
 #include <sge/plugin/impl/instantiate_collection.hpp>
 
-
-SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION(
-	sge::input::system
-);
+SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION(sge::input::system);

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_ITERATOR_DECL_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ITERATOR_DECL_HPP_INCLUDED
 
@@ -14,101 +13,43 @@
 #include <sge/renderer/index/detail/iterator_base.hpp>
 #include <fcppt/iterator/base_impl.hpp>
 
-
 namespace sge::renderer::index
 {
 
-template<
-	typename Format,
-	typename Constness
->
-class iterator final
-:
-	public
-		sge::renderer::index::detail::iterator_base<
-			Format,
-			Constness
-		>
+template <typename Format, typename Constness>
+class iterator final : public sge::renderer::index::detail::iterator_base<Format, Constness>
 {
-	using
-	base
-	=
-	sge::renderer::index::detail::iterator_base<
-		Format,
-		Constness
-	>;
+  using base = sge::renderer::index::detail::iterator_base<Format, Constness>;
 
-	static_assert(
-		sge::renderer::index::is_format<
-			Format
-		>::value
-	);
+  static_assert(sge::renderer::index::is_format<Format>::value);
 
-	static_assert(
-		sge::renderer::index::is_const_tag<
-			Constness
-		>::value
-	);
+  static_assert(sge::renderer::index::is_const_tag<Constness>::value);
+
 public:
-	using
-	value_type
-	=
-	typename
-	base::value_type;
+  using value_type = typename base::value_type;
 
-	using
-	reference
-	=
-	typename
-	base::reference;
+  using reference = typename base::reference;
 
-	using
-	pointer
-	=
-	sge::renderer::index::pointer<
-		Constness
-	>;
+  using pointer = sge::renderer::index::pointer<Constness>;
 
-	using
-	difference_type
-	=
-	typename
-	base::difference_type;
+  using difference_type = typename base::difference_type;
 
-	using
-	iterator_category
-	=
-	typename
-	base::iterator_category;
+  using iterator_category = typename base::iterator_category;
 
-	explicit
-	iterator(
-		pointer
-	);
+  explicit iterator(pointer);
 
-	[[nodiscard]]
-	pointer
-	data() const;
+  [[nodiscard]] pointer data() const;
 
-	iterator &
-	operator+=(
-		difference_type
-	);
+  iterator &operator+=(difference_type);
 
-	void
-	increment();
+  void increment();
 
-	[[nodiscard]]
-	bool
-	equal(
-		iterator const &
-	) const;
+  [[nodiscard]] bool equal(iterator const &) const;
 
-	[[nodiscard]]
-	reference
-	dereference() const;
+  [[nodiscard]] reference dereference() const;
+
 private:
-	pointer data_;
+  pointer data_;
 };
 
 }

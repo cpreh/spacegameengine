@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_CURSOR_OBJECT_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_OBJECT_HPP_INCLUDED
 
@@ -31,143 +30,84 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::cursor
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
-:
-	public
-		sge::input::cursor::object,
-	public
-		fcppt::enable_shared_from_this<
-			object
-		>
+    : public sge::input::cursor::object,
+      public fcppt::enable_shared_from_this<object>
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	object(
-		sge::window::object_ref,
-		fcppt::log::object_reference,
-		awl::backends::x11::window::const_base_ref,
-		XIDeviceInfo const &,
-		sge::x11input::event::window_demuxer_ref,
-		awl::backends::x11::cursor::object_ref
-	);
+  object(
+      sge::window::object_ref,
+      fcppt::log::object_reference,
+      awl::backends::x11::window::const_base_ref,
+      XIDeviceInfo const &,
+      sge::x11input::event::window_demuxer_ref,
+      awl::backends::x11::cursor::object_ref);
 
-	~object()
-	override;
+  ~object() override;
+
 private:
-	[[nodiscard]]
-	sge::window::object &
-	window() const
-	override;
+  [[nodiscard]] sge::window::object &window() const override;
 
-	[[nodiscard]]
-	sge::input::cursor::optional_position
-	position() const
-	override;
+  [[nodiscard]] sge::input::cursor::optional_position position() const override;
 
-	void
-	mode(
-		sge::input::cursor::mode
-	)
-	override;
+  void mode(sge::input::cursor::mode) override;
 
-	[[nodiscard]]
-	awl::event::container
-	on_event(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::container on_event(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::container
-	on_paired_event(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::container on_paired_event(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::container
-	on_motion(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::container on_motion(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::base_unique_ptr
-	on_enter(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::base_unique_ptr on_enter(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::base_unique_ptr
-	on_leave(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::base_unique_ptr on_leave(XIDeviceEvent const &);
 
-	void
-	on_focus_out();
+  void on_focus_out();
 
-	[[nodiscard]]
-	awl::event::base_unique_ptr
-	update_position(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::base_unique_ptr update_position(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::base_unique_ptr
-	make_position_event();
+  [[nodiscard]] awl::event::base_unique_ptr make_position_event();
 
-	[[nodiscard]]
-	awl::event::optional_base_unique_ptr
-	on_button_down(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::optional_base_unique_ptr on_button_down(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::optional_base_unique_ptr
-	on_button_up(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::optional_base_unique_ptr on_button_up(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::optional_base_unique_ptr
-	button_event(
-		XIDeviceEvent const &,
-		sge::input::cursor::button_pressed
-	);
+  [[nodiscard]] awl::event::optional_base_unique_ptr
+  button_event(XIDeviceEvent const &, sge::input::cursor::button_pressed);
 
-	void
-	grab();
+  void grab();
 
-	void
-	ungrab();
+  void ungrab();
 
-	sge::window::object_ref const sge_window_;
+  sge::window::object_ref const sge_window_;
 
-	sge::x11input::device::id const id_;
+  sge::x11input::device::id const id_;
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	awl::backends::x11::window::const_base_ref const window_;
+  awl::backends::x11::window::const_base_ref const window_;
 
-	awl::backends::x11::cursor::object_ref const cursor_;
+  awl::backends::x11::cursor::object_ref const cursor_;
 
-	// TODO(philipp): Get rid of this
-	sge::input::cursor::optional_position position_;
+  // TODO(philipp): Get rid of this
+  sge::input::cursor::optional_position position_;
 
-	bool first_enter_;
+  bool first_enter_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
 
-	fcppt::signal::auto_connection const paired_event_connection_;
+  fcppt::signal::auto_connection const paired_event_connection_;
 
-	sge::input::cursor::mode mode_;
+  sge::input::cursor::mode mode_;
 
-	sge::x11input::cursor::scroll_valuator_map scroll_valuators_;
+  sge::x11input::cursor::scroll_valuator_map scroll_valuators_;
 
-	sge::x11input::cursor::optional_grab_unique_ptr cursor_grab_;
+  sge::x11input::cursor::optional_grab_unique_ptr cursor_grab_;
 };
 
 }

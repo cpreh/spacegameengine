@@ -3,18 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LIBPNG_SRGB_GAMMA_HPP_INCLUDED
 #define SGE_LIBPNG_SRGB_GAMMA_HPP_INCLUDED
 
 #include <sge/libpng/gamma.hpp>
 
-
 namespace sge::libpng
 {
 
-sge::libpng::gamma
-srgb_gamma();
+sge::libpng::gamma srgb_gamma();
 
 }
 

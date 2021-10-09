@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_SCENE_MATERIAL_FILE_SEQUENCE_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_MATERIAL_FILE_SEQUENCE_HPP_INCLUDED
 
@@ -20,9 +19,7 @@ namespace scene
 {
 namespace material
 {
-typedef
-std::vector<std::filesystem::path>
-file_sequence;
+typedef std::vector<std::filesystem::path> file_sequence;
 }
 }
 }

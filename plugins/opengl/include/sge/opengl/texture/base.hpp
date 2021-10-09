@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_BASE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASE_HPP_INCLUDED
 
@@ -14,39 +13,27 @@
 #include <sge/renderer/opengl/texture/base.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::texture
 {
 
-class base
-:
-	public sge::renderer::opengl::texture::base
+class base : public sge::renderer::opengl::texture::base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 public:
-	[[nodiscard]]
-	sge::opengl::texture::type
-	type() const
-	override;
+  [[nodiscard]] sge::opengl::texture::type type() const override;
 
-	[[nodiscard]]
-	sge::opengl::texture::id
-	id() const
-	override;
+  [[nodiscard]] sge::opengl::texture::id id() const override;
 
-	~base()
-	override = 0;
+  ~base() override = 0;
+
 protected:
-	explicit
-	base(
-		sge::opengl::texture::type
-	);
-private:
-	sge::opengl::texture::type const type_;
+  explicit base(sge::opengl::texture::type);
 
-	sge::opengl::texture::holder const holder_;
+private:
+  sge::opengl::texture::type const type_;
+
+  sge::opengl::texture::holder const holder_;
 };
 
 }

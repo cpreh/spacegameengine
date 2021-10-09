@@ -3,11 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/impl/index/dynamic/instantiate_basic_view.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 
-
-SGE_RENDERER_IMPL_INDEX_DYNAMIC_INSTANTIATE_BASIC_VIEW(
-	false
-);
+SGE_RENDERER_IMPL_INDEX_DYNAMIC_INSTANTIATE_BASIC_VIEW(false);

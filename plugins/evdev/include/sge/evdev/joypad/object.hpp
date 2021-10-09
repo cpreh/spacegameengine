@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_OBJECT_HPP_INCLUDED
 
@@ -26,59 +25,39 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::joypad
 {
 
 class object // NOLINT(fuchsia-multiple-inheritance)
-:
-	public
-		sge::input::joypad::device,
-	public
-		sge::evdev::device::object,
-	public
-		fcppt::enable_shared_from_this<
-			sge::evdev::joypad::object
-		>
+    : public sge::input::joypad::device,
+      public sge::evdev::device::object,
+      public fcppt::enable_shared_from_this<sge::evdev::joypad::object>
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	object(
-		sge::evdev::device::fd_unique_ptr &&,
-		std::filesystem::path &&,
-		sge::window::object_ref,
-		awl::backends::posix::processor_ref,
-		sge::evdev::joypad::info &&
-	);
+  object(
+      sge::evdev::device::fd_unique_ptr &&,
+      std::filesystem::path &&,
+      sge::window::object_ref,
+      awl::backends::posix::processor_ref,
+      sge::evdev::joypad::info &&);
 
-	~object()
-	override;
+  ~object() override;
+
 private:
-	sge::window::object &
-	window() const
-	override;
+  sge::window::object &window() const override;
 
-	sge::input::joypad::info const &
-	info() const
-	override;
+  sge::input::joypad::info const &info() const override;
 
-	awl::event::optional_base_unique_ptr
-	process_event(
-		sge::evdev::device::event const &
-	)
-	override;
+  awl::event::optional_base_unique_ptr process_event(sge::evdev::device::event const &) override;
 
-	sge::input::joypad::ff::effect_unique_ptr
-	create_ff_effect(
-		sge::input::joypad::ff::parameters const &
-	)
-	override;
+  sge::input::joypad::ff::effect_unique_ptr
+  create_ff_effect(sge::input::joypad::ff::parameters const &) override;
 
-	sge::window::object_ref const window_;
+  sge::window::object_ref const window_;
 
-	sge::evdev::joypad::info const info_;
+  sge::evdev::joypad::info const info_;
 };
 
 }

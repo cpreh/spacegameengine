@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_IS_NORMAL_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_IS_NORMAL_SIZE_HPP_INCLUDED
 
@@ -13,29 +12,16 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::config
 {
 
-template<
-	typename T
->
-struct is_normal_size
-:
-std::false_type
+template <typename T>
+struct is_normal_size : std::false_type
 {
 };
 
-template<
-	sge::sprite::config::texture_size_option Option
->
-struct is_normal_size<
-	sge::sprite::config::normal_size<
-		Option
-	>
->
-:
-std::true_type
+template <sge::sprite::config::texture_size_option Option>
+struct is_normal_size<sge::sprite::config::normal_size<Option>> : std::true_type
 {
 };
 

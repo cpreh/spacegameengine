@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/app_name.hpp>
 #include <sge/config/company_name.hpp>
 #include <sge/config/log_path.hpp>
@@ -14,19 +13,10 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
-int
-main()
+int main()
 {
-	fcppt::io::cout()
-		<<
-		sge::config::log_path(
-			sge::config::company_name(
-				FCPPT_TEXT("spacegameengine")
-			),
-			sge::config::app_name(
-				FCPPT_TEXT("log_path")
-			)
-		)
-		<< FCPPT_TEXT('\n');
+  fcppt::io::cout() << sge::config::log_path(
+                           sge::config::company_name(FCPPT_TEXT("spacegameengine")),
+                           sge::config::app_name(FCPPT_TEXT("log_path")))
+                    << FCPPT_TEXT('\n');
 }

@@ -3,13 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/loader_plugin/context.hpp>
 #include <sge/audio/loader_plugin/iterator.hpp>
 #include <sge/plugin/impl/instantiate_iterator.hpp>
 
-
-SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR(
-	sge::audio::loader
-);
+SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR(sge::audio::loader);

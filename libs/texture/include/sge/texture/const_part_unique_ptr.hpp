@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_CONST_PART_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_TEXTURE_CONST_PART_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 
-
 namespace sge::texture
 {
 
-using
-const_part_unique_ptr
-=
-fcppt::unique_ptr<
-	sge::texture::part const
->;
+using const_part_unique_ptr = fcppt::unique_ptr<sge::texture::part const>;
 
 }
 

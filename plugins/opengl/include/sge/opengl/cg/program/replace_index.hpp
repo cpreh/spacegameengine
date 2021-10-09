@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_CG_PROGRAM_REPLACE_INDEX_HPP_INCLUDED
 #define SGE_OPENGL_CG_PROGRAM_REPLACE_INDEX_HPP_INCLUDED
 
 #include <sge/cg/string.hpp>
 #include <sge/cg/program/extra_index.hpp>
 
-
 namespace sge::opengl::cg::program
 {
 
-sge::cg::string
-replace_index(
-	sge::cg::program::extra_index
-);
+sge::cg::string replace_index(sge::cg::program::extra_index);
 
 }
 

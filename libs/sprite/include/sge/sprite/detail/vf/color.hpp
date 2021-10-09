@@ -3,29 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_VF_COLOR_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_COLOR_HPP_INCLUDED
 
 #include <sge/renderer/vf/color.hpp>
 #include <sge/sprite/detail/config/color_format.hpp>
 
-
 namespace sge::sprite::detail::vf
 {
 
-template<
-	typename Choices
->
-using
-color
-=
-sge::renderer::vf::color<
-	typename
-	sge::sprite::detail::config::color_format<
-		Choices
-	>::type
->;
+template <typename Choices>
+using color =
+    sge::renderer::vf::color<typename sge::sprite::detail::config::color_format<Choices>::type>;
 
 }
 

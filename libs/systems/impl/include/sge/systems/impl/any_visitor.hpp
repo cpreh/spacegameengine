@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_IMPL_ANY_VISITOR_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_ANY_VISITOR_HPP_INCLUDED
 
@@ -18,63 +17,32 @@
 #include <sge/systems/detail/renderer_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::systems::impl
 {
 
 class any_visitor
 {
 public:
-	explicit
-	any_visitor(
-		fcppt::reference<
-			sge::systems::detail::instance_impl
-		>
-	);
+  explicit any_visitor(fcppt::reference<sge::systems::detail::instance_impl>);
 
-	void
-	operator()(
-		sge::systems::config const &
-	) const;
+  void operator()(sge::systems::config const &) const;
 
-	void
-	operator()(
-		sge::systems::detail::renderer const &
-	) const;
+  void operator()(sge::systems::detail::renderer const &) const;
 
-	void
-	operator()(
-		sge::systems::window const &
-	) const;
+  void operator()(sge::systems::window const &) const;
 
-	void
-	operator()(
-		sge::systems::image2d const &
-	) const;
+  void operator()(sge::systems::image2d const &) const;
 
-	void
-	operator()(
-		sge::systems::audio_loader const &
-	) const;
+  void operator()(sge::systems::audio_loader const &) const;
 
-	void
-	operator()(
-		sge::systems::audio_player const &
-	) const;
+  void operator()(sge::systems::audio_player const &) const;
 
-	void
-	operator()(
-		sge::systems::input const &
-	) const;
+  void operator()(sge::systems::input const &) const;
 
-	void
-	operator()(
-		sge::systems::font const &
-	) const;
+  void operator()(sge::systems::font const &) const;
+
 private:
-	fcppt::reference<
-		sge::systems::detail::instance_impl
-	> impl_;
+  fcppt::reference<sge::systems::detail::instance_impl> impl_;
 };
 
 }

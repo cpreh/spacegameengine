@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_TRANSLATE_PRESSED_HPP_INCLUDED
 #define SGE_SDLINPUT_TRANSLATE_PRESSED_HPP_INCLUDED
 
@@ -12,22 +11,13 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::translate
 {
 
-template<
-	typename Event
->
-bool
-pressed(
-	Event const &_event
-)
+template <typename Event>
+bool pressed(Event const &_event)
 {
-	return
-		sge::sdlinput::translate::pressed_impl(
-			_event.state
-		);
+  return sge::sdlinput::translate::pressed_impl(_event.state);
 }
 
 }

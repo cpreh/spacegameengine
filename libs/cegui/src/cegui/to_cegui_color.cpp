@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/to_cegui_color.hpp>
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
@@ -16,33 +15,14 @@
 #include <CEGUI/Colour.h>
 #include <fcppt/config/external_end.hpp>
 
-
-CEGUI::Colour
-sge::cegui::to_cegui_color(
-	sge::image::color::any::object const &_color
-)
+CEGUI::Colour sge::cegui::to_cegui_color(sge::image::color::any::object const &_color)
 {
-	sge::image::color::rgba32f const dest(
-		sge::image::color::any::convert<
-			sge::image::color::rgba32f_format
-		>(
-			_color
-		)
-	);
+  sge::image::color::rgba32f const dest(
+      sge::image::color::any::convert<sge::image::color::rgba32f_format>(_color));
 
-	return
-		CEGUI::Colour(
-			dest.get(
-				mizuiro::color::channel::red()
-			),
-			dest.get(
-				mizuiro::color::channel::green()
-			),
-			dest.get(
-				mizuiro::color::channel::blue()
-			),
-			dest.get(
-				mizuiro::color::channel::alpha()
-			)
-		);
+  return CEGUI::Colour(
+      dest.get(mizuiro::color::channel::red()),
+      dest.get(mizuiro::color::channel::green()),
+      dest.get(mizuiro::color::channel::blue()),
+      dest.get(mizuiro::color::channel::alpha()));
 }

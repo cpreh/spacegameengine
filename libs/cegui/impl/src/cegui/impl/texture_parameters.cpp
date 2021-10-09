@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/impl/prefix.hpp>
 #include <sge/cegui/impl/texture_parameters.hpp>
 #include <sge/image2d/system_fwd.hpp>
@@ -15,55 +14,34 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::cegui::impl::texture_parameters::texture_parameters(
-	sge::cegui::impl::prefix &&_prefix,
-	sge::image2d::system_ref const _image_system,
-	sge::renderer::device::ffp_ref const _renderer,
-	sge::renderer::texture::emulate_srgb const _emulate_srgb
-)
-:
-	prefix_(
-		std::move(
-			_prefix
-		)
-	),
-	image_system_(
-		_image_system
-	),
-	renderer_(
-		_renderer
-	),
-	emulate_srgb_(
-		_emulate_srgb
-	)
+    sge::cegui::impl::prefix &&_prefix,
+    sge::image2d::system_ref const _image_system,
+    sge::renderer::device::ffp_ref const _renderer,
+    sge::renderer::texture::emulate_srgb const _emulate_srgb)
+    : prefix_(std::move(_prefix)),
+      image_system_(_image_system),
+      renderer_(_renderer),
+      emulate_srgb_(_emulate_srgb)
 {
 }
 
-sge::cegui::impl::prefix const &
-sge::cegui::impl::texture_parameters::prefix() const
+sge::cegui::impl::prefix const &sge::cegui::impl::texture_parameters::prefix() const
 {
-	return
-		prefix_;
+  return prefix_;
 }
 
-sge::image2d::system &
-sge::cegui::impl::texture_parameters::image_system() const
+sge::image2d::system &sge::cegui::impl::texture_parameters::image_system() const
 {
-	return
-		image_system_.get();
+  return image_system_.get();
 }
 
-sge::renderer::device::ffp &
-sge::cegui::impl::texture_parameters::renderer() const
+sge::renderer::device::ffp &sge::cegui::impl::texture_parameters::renderer() const
 {
-	return
-		renderer_.get();
+  return renderer_.get();
 }
 
-sge::renderer::texture::emulate_srgb
-sge::cegui::impl::texture_parameters::emulate_srgb() const
+sge::renderer::texture::emulate_srgb sge::cegui::impl::texture_parameters::emulate_srgb() const
 {
-	return
-		emulate_srgb_;
+  return emulate_srgb_;
 }

@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_CALLBACK_FUNCTION_HPP_INCLUDED
 #define SGE_CONSOLE_CALLBACK_FUNCTION_HPP_INCLUDED
 
 #include <sge/console/callback/function_type.hpp>
 #include <fcppt/function_impl.hpp>
 
-
 namespace sge::console::callback
 {
 
-using
-function
-=
-fcppt::function<
-	sge::console::callback::function_type
->;
+using function = fcppt::function<sge::console::callback::function_type>;
 
 }
 

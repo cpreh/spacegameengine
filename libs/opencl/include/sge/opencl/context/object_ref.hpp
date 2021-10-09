@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_CONTEXT_OBJECT_REF_HPP_INCLUDED
 #define SGE_OPENCL_CONTEXT_OBJECT_REF_HPP_INCLUDED
 
 #include <sge/opencl/context/object_fwd.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::opencl::context
 {
 
-using
-object_ref
-=
-fcppt::reference<
-	sge::opencl::context::object
->;
+using object_ref = fcppt::reference<sge::opencl::context::object>;
 
 }
 

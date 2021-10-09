@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_PLUGIN_CONTEXT_HPP_INCLUDED
 #define SGE_RENDERER_PLUGIN_CONTEXT_HPP_INCLUDED
 
@@ -11,9 +10,6 @@
 #include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/plugin/context_fwd.hpp>
 
-
-SGE_PLUGIN_DECLARE_CONTEXT(
-	sge::renderer::core
-);
+SGE_PLUGIN_DECLARE_CONTEXT(sge::renderer::core);
 
 #endif

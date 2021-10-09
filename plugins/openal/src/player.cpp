@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/buffer.hpp>
 #include <sge/audio/buffer_unique_ptr.hpp>
 #include <sge/audio/file_fwd.hpp>
@@ -39,212 +38,72 @@
 #include <fcppt/log/name.hpp>
 #include <fcppt/math/vector/null.hpp>
 
-
-sge::openal::player::player(
-	fcppt::log::context_reference const _log_context
-)
-:
-	log_{
-		_log_context,
-		sge::log::location(),
-		sge::log::default_parameters(
-			fcppt::log::name{
-				FCPPT_TEXT("openal")
-			}
-		)
-	},
-	device_(
-		nullptr
-	),
-	context_(
-		fcppt::make_ref(
-			device_
-		)
-	),
-	current_context_(
-		fcppt::make_ref(
-			log_
-		),
-		fcppt::make_ref(
-			context_
-		)
-	),
-	listener_()
+sge::openal::player::player(fcppt::log::context_reference const _log_context)
+    : log_{_log_context, sge::log::location(), sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("openal")})},
+      device_(nullptr),
+      context_(fcppt::make_ref(device_)),
+      current_context_(fcppt::make_ref(log_), fcppt::make_ref(context_)),
+      listener_()
 {
-	// set our own speed of sound standard rather than relying on OpenAL
-	sge::openal::player::set_speed_of_sound(
-		343.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-	);
+  // set our own speed of sound standard rather than relying on OpenAL
+  sge::openal::player::set_speed_of_sound(
+      343.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  );
 
-	this->get_listener().position(
-		fcppt::math::vector::null<
-			sge::audio::vector
-		>()
-	);
+  this->get_listener().position(fcppt::math::vector::null<sge::audio::vector>());
 
-	this->get_listener().linear_velocity(
-		fcppt::math::vector::null<
-			sge::audio::vector
-		>()
-	);
+  this->get_listener().linear_velocity(fcppt::math::vector::null<sge::audio::vector>());
 
-	this->get_listener().direction(
-		sge::audio::direction::object(
-			sge::audio::direction::forward(
-				sge::audio::vector(
-					0.F,
-					0.F,
-					1.F
-				)
-			),
-			sge::audio::direction::up(
-				sge::audio::vector(
-					0.F,
-					1.F,
-					0.F
-				)
-			)
-		)
-	);
+  this->get_listener().direction(sge::audio::direction::object(
+      sge::audio::direction::forward(sge::audio::vector(0.F, 0.F, 1.F)),
+      sge::audio::direction::up(sge::audio::vector(0.F, 1.F, 0.F))));
 }
 
-sge::openal::player::~player()
-= default;
+sge::openal::player::~player() = default;
 
-sge::audio::listener &
-sge::openal::player::listener()
+sge::audio::listener &sge::openal::player::listener() { return this->get_listener(); }
+
+void sge::openal::player::speed_of_sound(sge::audio::scalar const _value)
 {
-	return
-		this->get_listener();
+  sge::openal::player::set_speed_of_sound(_value);
 }
 
-void
-sge::openal::player::speed_of_sound(
-	sge::audio::scalar const _value
-)
+void sge::openal::player::doppler_factor(sge::audio::scalar const _value)
 {
-	sge::openal::player::set_speed_of_sound(
-		_value
-	);
+  sge::openal::funcs::doppler_factor(fcppt::cast::size<ALfloat>(_value));
 }
 
-void
-sge::openal::player::doppler_factor(
-	sge::audio::scalar const _value
-)
+void sge::openal::player::gain(sge::audio::scalar const _value)
 {
-	sge::openal::funcs::doppler_factor(
-		fcppt::cast::size<
-			ALfloat
-		>(
-			_value
-		)
-	);
+  sge::openal::funcs::listener_float(AL_GAIN, fcppt::cast::size<ALfloat>(_value));
 }
 
-void
-sge::openal::player::gain(
-	sge::audio::scalar const _value
-)
+sge::audio::buffer_unique_ptr sge::openal::player::create_buffer(sge::audio::file &_file)
 {
-	sge::openal::funcs::listener_float(
-		AL_GAIN,
-		fcppt::cast::size<
-			ALfloat
-		>(
-			_value
-		)
-	);
+  return fcppt::unique_ptr_to_base<sge::audio::buffer>(
+      fcppt::make_unique_ptr<sge::openal::buffer>(fcppt::make_ref(log_), _file));
 }
 
-sge::audio::buffer_unique_ptr
-sge::openal::player::create_buffer(
-	sge::audio::file &_file
-)
+sge::audio::sound::positional_unique_ptr sge::openal::player::create_positional_stream(
+    sge::audio::file_ref const _file, sge::audio::sound::positional_parameters const &_parameters)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::audio::buffer
-		>(
-			fcppt::make_unique_ptr<
-				sge::openal::buffer
-			>(
-				fcppt::make_ref(
-					log_
-				),
-				_file
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::audio::sound::positional>(
+      fcppt::make_unique_ptr<sge::openal::stream_sound>(fcppt::make_ref(log_), _parameters, _file));
 }
 
-sge::audio::sound::positional_unique_ptr
-sge::openal::player::create_positional_stream(
-	sge::audio::file_ref const _file,
-	sge::audio::sound::positional_parameters const &_parameters
-)
+sge::audio::sound::base_unique_ptr sge::openal::player::create_nonpositional_stream(
+    sge::audio::file_ref const _file,
+    sge::audio::sound::nonpositional_parameters const &_parameters)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::audio::sound::positional
-		>(
-			fcppt::make_unique_ptr<
-				sge::openal::stream_sound
-			>(
-				fcppt::make_ref(
-					log_
-				),
-				_parameters,
-				_file
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::audio::sound::base>(
+      fcppt::make_unique_ptr<sge::openal::stream_sound>(fcppt::make_ref(log_), _parameters, _file));
 }
 
-sge::audio::sound::base_unique_ptr
-sge::openal::player::create_nonpositional_stream(
-	sge::audio::file_ref const _file,
-	sge::audio::sound::nonpositional_parameters const &_parameters
-)
-{
-	return
-		fcppt::unique_ptr_to_base<
-			sge::audio::sound::base
-		>(
-			fcppt::make_unique_ptr<
-				sge::openal::stream_sound
-			>(
-				fcppt::make_ref(
-					log_
-				),
-				_parameters,
-				_file
-			)
-		);
-}
+bool sge::openal::player::is_null() const { return false; }
 
-bool
-sge::openal::player::is_null() const
-{
-	return
-		false;
-}
+sge::audio::listener &sge::openal::player::get_listener() { return listener_; }
 
-sge::audio::listener &
-sge::openal::player::get_listener()
+void sge::openal::player::set_speed_of_sound(sge::audio::scalar const _value)
 {
-	return
-		listener_;
-}
-
-void
-sge::openal::player::set_speed_of_sound(
-	sge::audio::scalar const _value
-)
-{
-	sge::openal::funcs::speed_of_sound(
-		fcppt::cast::size<
-			ALfloat
-		>(
-			_value
-		)
-	);
+  sge::openal::funcs::speed_of_sound(fcppt::cast::size<ALfloat>(_value));
 }

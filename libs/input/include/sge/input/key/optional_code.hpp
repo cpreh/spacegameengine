@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_KEY_OPTIONAL_CODE_HPP_INCLUDED
 #define SGE_INPUT_KEY_OPTIONAL_CODE_HPP_INCLUDED
 
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/optional_code_fwd.hpp>
 #include <fcppt/optional/object_impl.hpp>
-
 
 #endif

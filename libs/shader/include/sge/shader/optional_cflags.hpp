@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_OPTIONAL_CFLAGS_HPP_INCLUDED
 #define SGE_SHADER_OPTIONAL_CFLAGS_HPP_INCLUDED
 
 #include <sge/cg/program/compile_options.hpp>
 
-
 namespace sge::shader
 {
 
-using
-optional_cflags
-=
-sge::cg::program::compile_options;
+using optional_cflags = sge::cg::program::compile_options;
 
 }
 

@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_FF_OPTIONAL_ENVELOPE_FWD_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_FF_OPTIONAL_ENVELOPE_FWD_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <fcppt/optional/object_fwd.hpp>
-
 
 namespace sge
 {
@@ -20,11 +18,7 @@ namespace joypad
 namespace ff
 {
 
-typedef
-fcppt::optional::object<
-	DIENVELOPE
->
-optional_envelope;
+typedef fcppt::optional::object<DIENVELOPE> optional_envelope;
 
 }
 }

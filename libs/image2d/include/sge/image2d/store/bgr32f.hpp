@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_STORE_BGR32F_HPP_INCLUDED
 #define SGE_IMAGE2D_STORE_BGR32F_HPP_INCLUDED
 
@@ -12,9 +11,6 @@
 #include <sge/image2d/bgr32f_format.hpp>
 #include <sge/image2d/store/bgr32f_fwd.hpp>
 
-
-SGE_IMAGE_STORE_DECLARE_BASIC(
-	sge::image2d::bgr32f_format
-);
+SGE_IMAGE_STORE_DECLARE_BASIC(sge::image2d::bgr32f_format);
 
 #endif

@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_TO_CEGUI_STRING_HPP_INCLUDED
 #define SGE_CEGUI_TO_CEGUI_STRING_HPP_INCLUDED
 
 #include <sge/cegui/detail/symbol.hpp>
 #include <fcppt/string.hpp>
-
 
 namespace CEGUI
 {
@@ -20,10 +18,7 @@ namespace sge::cegui
 {
 
 SGE_CEGUI_DETAIL_SYMBOL
-CEGUI::String
-to_cegui_string(
-	fcppt::string const &
-);
+CEGUI::String to_cegui_string(fcppt::string const &);
 
 }
 

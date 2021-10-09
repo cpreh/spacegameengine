@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_OBJ_FACE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_FACE_HPP_INCLUDED
 
@@ -12,17 +11,10 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::model::obj
 {
 
-using
-face
-=
-fcppt::array::object<
-	std::size_t,
-	3U
->;
+using face = fcppt::array::object<std::size_t, 3U>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PANGO_CONVERT_ALIGNMENT_HPP_INCLUDED
 #define SGE_PANGO_CONVERT_ALIGNMENT_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::pango::convert
 {
 
-PangoAlignment
-alignment(
-	sge::font::align_h::variant const &
-);
+PangoAlignment alignment(sge::font::align_h::variant const &);
 
 }
 

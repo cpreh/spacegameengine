@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VF_EXTRA_ELEMENTS_HPP_INCLUDED
 #define SGE_OPENGL_VF_EXTRA_ELEMENTS_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
 
-
 namespace sge::opengl::vf
 {
 
-GLint
-extra_elements(
-	sge::renderer::vf::dynamic::extra_any const &
-);
+GLint extra_elements(sge::renderer::vf::dynamic::extra_any const &);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_VF_ELEMENT_VECTOR_HPP_INCLUDED
 #define SGE_D3D9_VF_ELEMENT_VECTOR_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -20,11 +18,7 @@ namespace d3d9
 namespace vf
 {
 
-typedef
-std::vector<
-	D3DVERTEXELEMENT9
->
-element_vector;
+typedef std::vector<D3DVERTEXELEMENT9> element_vector;
 
 }
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/sample_container.hpp>
@@ -29,118 +28,45 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 
-
-sge::openal::buffer::buffer(
-	fcppt::log::object_reference const _log,
-	sge::audio::file &_file
-)
-:
-	log_{
-		_log
-	},
-	holder_{
-		_log
-	}
+sge::openal::buffer::buffer(fcppt::log::object_reference const _log, sge::audio::file &_file)
+    : log_{_log}, holder_{_log}
 {
-	FCPPT_LOG_DEBUG(
-		log_.get(),
-		fcppt::log::out
-			<< FCPPT_TEXT("Reading a whole file into a buffer")
-	)
+  FCPPT_LOG_DEBUG(log_.get(), fcppt::log::out << FCPPT_TEXT("Reading a whole file into a buffer"))
 
-	sge::audio::sample_container data(
-		_file.read_all()
-	);
+  sge::audio::sample_container data(_file.read_all());
 
-	FCPPT_LOG_DEBUG(
-		log_.get(),
-		fcppt::log::out
-			<<
-			FCPPT_TEXT("creating buffer of size ")
-			<<
-			data.size()
-			<<
-			FCPPT_TEXT(" and format ")
-			<<
-			sge::openal::file_format(
-				_file
-			)
-			<<
-			FCPPT_TEXT(" and sample rate ")
-			<<
-			_file.sample_rate()
-	)
+  FCPPT_LOG_DEBUG(
+      log_.get(),
+      fcppt::log::out << FCPPT_TEXT("creating buffer of size ") << data.size()
+                      << FCPPT_TEXT(" and format ") << sge::openal::file_format(_file)
+                      << FCPPT_TEXT(" and sample rate ") << _file.sample_rate())
 
-	if(
-		data.empty()
-	)
-	{
-		throw
-			sge::audio::exception{
-				FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!")
-			};
-	}
+  if (data.empty())
+  {
+    throw sge::audio::exception{
+        FCPPT_TEXT("tried to create empty nonstreaming sound, that's not possible!")};
+  }
 
-	sge::openal::funcs::buffer_data(
-		holder_.get(),
-		sge::openal::file_format(
-			_file
-		),
-		data.data(),
-		fcppt::cast::size<
-			ALsizei
-		>(
-			fcppt::cast::to_signed(
-				data.size()
-			)
-		),
-		fcppt::cast::size<
-			ALsizei
-		>(
-			fcppt::cast::to_signed(
-				_file.sample_rate().get()
-			)
-		)
-	);
+  sge::openal::funcs::buffer_data(
+      holder_.get(),
+      sge::openal::file_format(_file),
+      data.data(),
+      fcppt::cast::size<ALsizei>(fcppt::cast::to_signed(data.size())),
+      fcppt::cast::size<ALsizei>(fcppt::cast::to_signed(_file.sample_rate().get())));
 }
 
 sge::audio::sound::positional_unique_ptr
-sge::openal::buffer::create_positional(
-	sge::audio::sound::positional_parameters const &_param
-)
+sge::openal::buffer::create_positional(sge::audio::sound::positional_parameters const &_param)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::audio::sound::positional
-		>(
-			fcppt::make_unique_ptr<
-				sge::openal::source
-			>(
-				log_,
-				_param,
-				holder_.get()
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::audio::sound::positional>(
+      fcppt::make_unique_ptr<sge::openal::source>(log_, _param, holder_.get()));
 }
 
 sge::audio::sound::base_unique_ptr
-sge::openal::buffer::create_nonpositional(
-	sge::audio::sound::nonpositional_parameters const &_param
-)
+sge::openal::buffer::create_nonpositional(sge::audio::sound::nonpositional_parameters const &_param)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::audio::sound::base
-		>(
-			fcppt::make_unique_ptr<
-				sge::openal::source
-			>(
-				log_,
-				_param,
-				holder_.get()
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::audio::sound::base>(
+      fcppt::make_unique_ptr<sge::openal::source>(log_, _param, holder_.get()));
 }
 
-sge::openal::buffer::~buffer()
-= default;
+sge::openal::buffer::~buffer() = default;

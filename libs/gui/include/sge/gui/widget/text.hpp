@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_TEXT_HPP_INCLUDED
 #define SGE_GUI_WIDGET_TEXT_HPP_INCLUDED
 
@@ -23,74 +22,52 @@
 #include <sge/rucksack/widget/dummy.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class text
-:
-	public sge::gui::widget::base
+class text : public sge::gui::widget::base
 {
-	FCPPT_NONMOVABLE(
-		text
-	);
+  FCPPT_NONMOVABLE(text);
+
 public:
-	SGE_GUI_DETAIL_SYMBOL
-	text(
-		sge::gui::style::const_reference,
-		sge::renderer::device::ffp_ref,
-		sge::font::object_ref,
-		sge::font::string &&,
-		sge::gui::text_color,
-		sge::gui::optional_needed_width
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  text(
+      sge::gui::style::const_reference,
+      sge::renderer::device::ffp_ref,
+      sge::font::object_ref,
+      sge::font::string &&,
+      sge::gui::text_color,
+      sge::gui::optional_needed_width);
 
-	SGE_GUI_DETAIL_SYMBOL
-	~text()
-	override;
+  SGE_GUI_DETAIL_SYMBOL
+  ~text() override;
 
-	SGE_GUI_DETAIL_SYMBOL
-	void
-	value(
-		sge::font::string &&
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  void value(sge::font::string &&);
 
-	SGE_GUI_DETAIL_SYMBOL
-	void
-	text_color(
-		sge::gui::text_color const &
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  void text_color(sge::gui::text_color const &);
 
-	[[nodiscard]]
-	SGE_GUI_DETAIL_SYMBOL
-	sge::rucksack::widget::base &
-	layout()
-	override;
+  [[nodiscard]] SGE_GUI_DETAIL_SYMBOL sge::rucksack::widget::base &layout() override;
+
 private:
-	void
-	on_draw(
-		sge::gui::renderer::base &,
-		sge::renderer::context::ffp &
-	)
-	override;
+  void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
 
-	[[nodiscard]]
-	sge::rucksack::axis_policy
-	horizontal_policy() const;
+  [[nodiscard]] sge::rucksack::axis_policy horizontal_policy() const;
 
-	sge::gui::style::const_reference const style_;
+  sge::gui::style::const_reference const style_;
 
-	sge::renderer::device::ffp_ref const renderer_;
+  sge::renderer::device::ffp_ref const renderer_;
 
-	sge::font::object_ref const font_;
+  sge::font::object_ref const font_;
 
-	sge::gui::text_color text_color_;
+  sge::gui::text_color text_color_;
 
-	sge::gui::optional_needed_width const needed_width_;
+  sge::gui::optional_needed_width const needed_width_;
 
-	sge::font::string value_;
+  sge::font::string value_;
 
-	sge::rucksack::widget::dummy layout_;
+  sge::rucksack::widget::dummy layout_;
 };
 
 }

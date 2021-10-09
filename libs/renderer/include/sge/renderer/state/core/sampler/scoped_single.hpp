@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_SCOPED_SINGLE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_SCOPED_SINGLE_HPP_INCLUDED
 
@@ -14,29 +13,27 @@
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::renderer::state::core::sampler
 {
 
 class scoped_single
 {
-	FCPPT_NONMOVABLE(
-		scoped_single
-	);
+  FCPPT_NONMOVABLE(scoped_single);
+
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	scoped_single(
-		sge::renderer::context::core_ref,
-		sge::renderer::texture::stage,
-		sge::renderer::state::core::sampler::const_object_ref
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  scoped_single(
+      sge::renderer::context::core_ref,
+      sge::renderer::texture::stage,
+      sge::renderer::state::core::sampler::const_object_ref);
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	~scoped_single();
+  SGE_RENDERER_DETAIL_SYMBOL
+  ~scoped_single();
+
 private:
-	sge::renderer::context::core_ref const context_;
+  sge::renderer::context::core_ref const context_;
 
-	sge::renderer::texture::stage const stage_;
+  sge::renderer::texture::stage const stage_;
 };
 
 }

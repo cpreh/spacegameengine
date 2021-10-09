@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/check_state_listing.hpp>
 #include <sge/cg/exception.hpp>
@@ -25,182 +24,84 @@
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-void
-assert_program(
-	sge::cg::context::object const &,
-	CGprogram,
-	fcppt::string const &
-);
+void assert_program(sge::cg::context::object const &, CGprogram, fcppt::string const &);
 
 }
 
-sge::cg::program::object::object(
-	sge::cg::program::from_string_parameters const &_parameters
-)
-:
-	profile_(
-		_parameters.profile()
-	),
-	program_(
-		::cgCreateProgram(
-			_parameters.context().get(),
-			sge::cg::impl::program::convert_source_type(
-				_parameters.source_type()
-			),
-			_parameters.source().get().c_str(),
-			profile_.get(),
-			_parameters.main_function().get().c_str(),
-			_parameters.compile_options().pointers().data()
-		)
-	)
+sge::cg::program::object::object(sge::cg::program::from_string_parameters const &_parameters)
+    : profile_(_parameters.profile()),
+      program_(::cgCreateProgram(
+          _parameters.context().get(),
+          sge::cg::impl::program::convert_source_type(_parameters.source_type()),
+          _parameters.source().get().c_str(),
+          profile_.get(),
+          _parameters.main_function().get().c_str(),
+          _parameters.compile_options().pointers().data()))
 {
-	::assert_program(
-		_parameters.context(),
-		program_,
-		FCPPT_TEXT("cgCreateProgram")
-	);
+  ::assert_program(_parameters.context(), program_, FCPPT_TEXT("cgCreateProgram"));
 }
 
-sge::cg::program::object::object(
-	sge::cg::program::from_file_parameters const &_parameters
-)
-:
-	profile_(
-		_parameters.profile()
-	),
-	program_(
-		::cgCreateProgramFromFile(
-			_parameters.context().get(),
-			sge::cg::impl::program::convert_source_type(
-				_parameters.source_type()
-			),
-			_parameters.path().string().c_str(),
-			profile_.get(),
-			_parameters.main_function().get().c_str(),
-			_parameters.compile_options().pointers().data()
-		)
-	)
+sge::cg::program::object::object(sge::cg::program::from_file_parameters const &_parameters)
+    : profile_(_parameters.profile()),
+      program_(::cgCreateProgramFromFile(
+          _parameters.context().get(),
+          sge::cg::impl::program::convert_source_type(_parameters.source_type()),
+          _parameters.path().string().c_str(),
+          profile_.get(),
+          _parameters.main_function().get().c_str(),
+          _parameters.compile_options().pointers().data()))
 {
-	::assert_program(
-		_parameters.context(),
-		program_,
-		FCPPT_TEXT("cgCreateProgramFromFile")
-	);
+  ::assert_program(_parameters.context(), program_, FCPPT_TEXT("cgCreateProgramFromFile"));
 }
 
-sge::cg::program::object::~object()
-{
-	::cgDestroyProgram(
-		program_
-	);
-}
+sge::cg::program::object::~object() { ::cgDestroyProgram(program_); }
 
-sge::cg::profile::object const &
-sge::cg::program::object::profile() const
-{
-	return
-		profile_;
-}
+sge::cg::profile::object const &sge::cg::program::object::profile() const { return profile_; }
 
-sge::cg::parameter::named
-sge::cg::program::object::parameter(
-	sge::cg::string const &_name
-) const
+sge::cg::parameter::named sge::cg::program::object::parameter(sge::cg::string const &_name) const
 {
-	return
-		fcppt::optional::to_exception(
-			this->parameter_opt(
-				_name
-			),
-			[
-				&_name
-			]{
-				return
-					sge::cg::exception(
-						FCPPT_TEXT("Parameter with name '")
-						+
-						sge::cg::to_fcppt_string(
-							_name
-						)
-						+
-						FCPPT_TEXT("' not found")
-					);
-			}
-		);
+  return fcppt::optional::to_exception(
+      this->parameter_opt(_name),
+      [&_name]
+      {
+        return sge::cg::exception(
+            FCPPT_TEXT("Parameter with name '") + sge::cg::to_fcppt_string(_name) +
+            FCPPT_TEXT("' not found"));
+      });
 }
 
 sge::cg::parameter::optional_named
-sge::cg::program::object::parameter_opt(
-	sge::cg::string const &_name
-) const
+sge::cg::program::object::parameter_opt(sge::cg::string const &_name) const
 {
-	CGparameter const ret( // NOLINT(misc-misplaced-const)
-		::cgGetNamedParameter(
-			this->get(),
-			_name.c_str()
-		)
-	);
+  CGparameter const ret( // NOLINT(misc-misplaced-const)
+      ::cgGetNamedParameter(this->get(), _name.c_str()));
 
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgGetNamedParameter failed"),
-		sge::cg::exception
-	)
+  SGE_CG_CHECK_STATE(FCPPT_TEXT("cgGetNamedParameter failed"), sge::cg::exception)
 
-	return
-		ret
-		==
-		nullptr
-		?
-			sge::cg::parameter::optional_named()
-		:
-			sge::cg::parameter::optional_named(
-				sge::cg::parameter::named(
-					sge::cg::parameter::object(
-						ret
-					)
-				)
-			)
-		;
+  return ret == nullptr ? sge::cg::parameter::optional_named()
+                        : sge::cg::parameter::optional_named(
+                              sge::cg::parameter::named(sge::cg::parameter::object(ret)));
 }
 
-CGprogram
-sge::cg::program::object::get() const
-{
-	return
-		program_;
-}
+CGprogram sge::cg::program::object::get() const { return program_; }
 
 namespace
 {
 
-void
-assert_program(
-	sge::cg::context::object const &_context,
-	CGprogram const _program, // NOLINT(misc-misplaced-const)
-	fcppt::string const &_what
-)
+void assert_program(
+    sge::cg::context::object const &_context,
+    CGprogram const _program, // NOLINT(misc-misplaced-const)
+    fcppt::string const &_what)
 {
-	SGE_CG_CHECK_STATE_LISTING(
-		_context,
-		_what,
-		sge::cg::exception
-	)
+  SGE_CG_CHECK_STATE_LISTING(_context, _what, sge::cg::exception)
 
-	if(
-		_program
-		==
-		nullptr
-	)
-	{
-		throw
-			sge::cg::exception{
-				FCPPT_TEXT("Program is null!")
-			};
-	}
+  if (_program == nullptr)
+  {
+    throw sge::cg::exception{FCPPT_TEXT("Program is null!")};
+  }
 }
 
 }

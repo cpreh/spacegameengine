@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/default_cursor.hpp>
 #include <sge/cegui/syringe.hpp>
 #include <sge/cegui/syringe_ref.hpp>
@@ -18,17 +17,11 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 
-
-sge::cegui::default_cursor::default_cursor(
-	sge::cegui::syringe_ref const _syringe
-)
-:
-	syringe_{
-		_syringe
-	}
+sge::cegui::default_cursor::default_cursor(sge::cegui::syringe_ref const _syringe)
+    : syringe_{_syringe}
 {
-	// FIXME
-	/*
+  // FIXME
+  /*
 	fcppt::optional::maybe_void(
 		_cursor.position(),
 		[
@@ -44,70 +37,26 @@ sge::cegui::default_cursor::default_cursor(
 	);*/
 }
 
-sge::cegui::default_cursor::~default_cursor()
-= default;
+sge::cegui::default_cursor::~default_cursor() = default;
 
-void
-sge::cegui::default_cursor::process_event(
-	sge::input::event_base const &_event
-)
+void sge::cegui::default_cursor::process_event(sge::input::event_base const &_event)
 {
-	fcppt::optional::maybe_void(
-		fcppt::variant::dynamic_cast_<
-			fcppt::mpl::list::object<
-				sge::input::cursor::event::button const,
-				sge::input::cursor::event::move const,
-				sge::input::cursor::event::scroll const
-			>,
-			fcppt::cast::dynamic_fun
-		>(
-			_event
-		),
-		[
-			this
-		](
-			auto const &_variant
-		)
-		{
-			fcppt::variant::match(
-				_variant,
-				[
-					this
-				](
-					fcppt::reference<
-						sge::input::cursor::event::button const
-					> const _button_event
-				)
-				{
-					this->syringe_.get().inject(
-						_button_event.get()
-					);
-				},
-				[
-					this
-				](
-					fcppt::reference<
-						sge::input::cursor::event::move const
-					> const _move_event
-				)
-				{
-					this->syringe_.get().inject(
-						_move_event.get()
-					);
-				},
-				[
-					this
-				](
-					fcppt::reference<
-						sge::input::cursor::event::scroll const
-					> const _scroll_event
-				)
-				{
-					this->syringe_.get().inject(
-						_scroll_event.get()
-					);
-				}
-			);
-		}
-	);
+  fcppt::optional::maybe_void(
+      fcppt::variant::dynamic_cast_<
+          fcppt::mpl::list::object<
+              sge::input::cursor::event::button const,
+              sge::input::cursor::event::move const,
+              sge::input::cursor::event::scroll const>,
+          fcppt::cast::dynamic_fun>(_event),
+      [this](auto const &_variant)
+      {
+        fcppt::variant::match(
+            _variant,
+            [this](fcppt::reference<sge::input::cursor::event::button const> const _button_event)
+            { this->syringe_.get().inject(_button_event.get()); },
+            [this](fcppt::reference<sge::input::cursor::event::move const> const _move_event)
+            { this->syringe_.get().inject(_move_event.get()); },
+            [this](fcppt::reference<sge::input::cursor::event::scroll const> const _scroll_event)
+            { this->syringe_.get().inject(_scroll_event.get()); });
+      });
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_PLUGIN_OBJECT_HPP_INCLUDED
 #define SGE_RENDERER_PLUGIN_OBJECT_HPP_INCLUDED
 
@@ -12,9 +11,6 @@
 #include <sge/renderer/plugin/object_fwd.hpp>
 #include <sge/renderer/plugin/traits.hpp>
 
-
-SGE_PLUGIN_DECLARE_OBJECT(
-	sge::renderer::core
-);
+SGE_PLUGIN_DECLARE_OBJECT(sge::renderer::core);
 
 #endif

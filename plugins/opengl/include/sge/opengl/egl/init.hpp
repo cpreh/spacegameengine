@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_INIT_HPP_INCLUDED
 #define SGE_OPENGL_EGL_INIT_HPP_INCLUDED
 
@@ -14,30 +13,24 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::egl
 {
 
 class init
 {
-	FCPPT_NONMOVABLE(
-		init
-	);
+  FCPPT_NONMOVABLE(init);
+
 public:
-	explicit
-	init(
-		EGLDisplay
-	);
+  explicit init(EGLDisplay);
 
-	~init();
+  ~init();
 
-	[[nodiscard]]
-	sge::opengl::egl::version
-	version() const;
+  [[nodiscard]] sge::opengl::egl::version version() const;
+
 private:
-	EGLDisplay const display_; // NOLINT(misc-misplaced-const)
+  EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 
-	sge::opengl::egl::version const version_;
+  sge::opengl::egl::version const version_;
 };
 
 }

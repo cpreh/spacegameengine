@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_POS_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_POS_HPP_INCLUDED
 
@@ -12,22 +11,13 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::config
 {
 
-template<
-	bool CustomTexturePoint
->
+template <bool CustomTexturePoint>
 struct custom_texture_point_pos
 {
-	using
-	type
-	=
-	std::integral_constant<
-		bool,
-		CustomTexturePoint
-	>;
+  using type = std::integral_constant<bool, CustomTexturePoint>;
 };
 
 }

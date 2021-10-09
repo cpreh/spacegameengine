@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_WIDGET_TAB_HPP_INCLUDED
 #define SGE_GUI_WIDGET_TAB_HPP_INCLUDED
 
@@ -18,34 +17,28 @@
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::widget
 {
 
-class tab
-:
-	public sge::gui::widget::box_container
+class tab : public sge::gui::widget::box_container
 {
-	FCPPT_NONMOVABLE(
-		tab
-	);
+  FCPPT_NONMOVABLE(tab);
+
 public:
-	SGE_GUI_DETAIL_SYMBOL
-	tab(
-		sge::gui::context_ref,
-		sge::gui::style::const_reference,
-		sge::renderer::device::ffp_ref,
-		sge::font::object_ref,
-		sge::gui::widget::reference_name_vector const &
-	);
+  SGE_GUI_DETAIL_SYMBOL
+  tab(sge::gui::context_ref,
+      sge::gui::style::const_reference,
+      sge::renderer::device::ffp_ref,
+      sge::font::object_ref,
+      sge::gui::widget::reference_name_vector const &);
 
-	SGE_GUI_DETAIL_SYMBOL
-	~tab()
-	override;
+  SGE_GUI_DETAIL_SYMBOL
+  ~tab() override;
+
 private:
-	sge::gui::widget::unique_ptr_vector top_buttons_;
+  sge::gui::widget::unique_ptr_vector top_buttons_;
 
-	sge::gui::widget::box_container top_buttons_box_;
+  sge::gui::widget::box_container top_buttons_box_;
 };
 
 }

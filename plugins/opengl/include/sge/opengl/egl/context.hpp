@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_EGL_CONTEXT_HPP_INCLUDED
 
@@ -16,43 +15,28 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::egl
 {
 
-class context
-:
-	public sge::opengl::backend::context
+class context : public sge::opengl::backend::context
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	context(
-		EGLDisplay,
-		EGLConfig,
-		sge::opengl::egl::surface_unique_ptr &&
-	);
+  context(EGLDisplay, EGLConfig, sge::opengl::egl::surface_unique_ptr &&);
 
-	~context()
-	override;
+  ~context() override;
+
 private:
-	[[nodiscard]]
-	sge::opengl::backend::current_unique_ptr
-	activate()
-	override;
+  [[nodiscard]] sge::opengl::backend::current_unique_ptr activate() override;
 
-	void
-	deactivate(
-		sge::opengl::backend::current_unique_ptr &&
-	)
-	override;
+  void deactivate(sge::opengl::backend::current_unique_ptr &&) override;
 
-	EGLDisplay const display_; // NOLINT(misc-misplaced-const)
+  EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 
-	sge::opengl::egl::surface_unique_ptr const surface_;
+  sge::opengl::egl::surface_unique_ptr const surface_;
 
-	sge::opengl::egl::context_impl context_;
+  sge::opengl::egl::context_impl context_;
 };
 
 }

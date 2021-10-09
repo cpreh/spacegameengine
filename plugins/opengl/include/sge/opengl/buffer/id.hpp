@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BUFFER_ID_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_ID_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/opengl/buffer/id.hpp>
 
-
 namespace sge::opengl::buffer
 {
 
-using
-id
-=
-sge::renderer::opengl::buffer::id;
+using id = sge::renderer::opengl::buffer::id;
 
 }
 

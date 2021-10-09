@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_GFX_OUTPUT_LINE_LIMIT_FWD_HPP_INCLUDED
 #define SGE_CONSOLE_GFX_OUTPUT_LINE_LIMIT_FWD_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::console::gfx
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	std::size_t,
-	output_line_limit
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(std::size_t, output_line_limit);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_DETAIL_ANY_FWD_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ANY_FWD_HPP_INCLUDED
 
@@ -17,23 +16,18 @@
 #include <sge/systems/detail/renderer_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
-
 namespace sge::systems::detail
 {
 
-using
-any
-=
-fcppt::variant::object<
-	sge::systems::config,
-	sge::systems::window,
-	sge::systems::detail::renderer,
-	sge::systems::image2d,
-	sge::systems::audio_loader,
-	sge::systems::audio_player,
-	sge::systems::input,
-	sge::systems::font
->;
+using any = fcppt::variant::object<
+    sge::systems::config,
+    sge::systems::window,
+    sge::systems::detail::renderer,
+    sge::systems::image2d,
+    sge::systems::audio_loader,
+    sge::systems::audio_player,
+    sge::systems::input,
+    sge::systems::font>;
 
 }
 

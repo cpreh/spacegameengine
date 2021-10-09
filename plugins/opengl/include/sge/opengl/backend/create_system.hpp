@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BACKEND_CREATE_SYSTEM_HPP_INCLUDED
 #define SGE_OPENGL_BACKEND_CREATE_SYSTEM_HPP_INCLUDED
 
@@ -11,15 +10,11 @@
 #include <awl/system/object_ref.hpp>
 #include <fcppt/log/object_reference.hpp>
 
-
 namespace sge::opengl::backend
 {
 
 sge::opengl::backend::system_unique_ptr
-create_system(
-	fcppt::log::object_reference,
-	awl::system::object_ref
-);
+    create_system(fcppt::log::object_reference, awl::system::object_ref);
 
 }
 

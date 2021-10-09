@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/exception.hpp>
 #include <sge/openal/alc.hpp>
 #include <sge/openal/check_alc_state.hpp>
@@ -11,22 +10,11 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 
-
-void
-sge::openal::funcs::alc_make_context_current(
-	fcppt::reference<
-		ALCdevice
-	> const _device,
-	ALCcontext *const _context
-)
+void sge::openal::funcs::alc_make_context_current(
+    fcppt::reference<ALCdevice> const _device, ALCcontext *const _context)
 {
-	::alcMakeContextCurrent(
-		_context
-	);
+  ::alcMakeContextCurrent(_context);
 
-	SGE_OPENAL_CHECK_ALC_STATE(
-		_device.get(),
-		FCPPT_TEXT("alcMakeContextCurrent failed"),
-		sge::audio::exception
-	)
+  SGE_OPENAL_CHECK_ALC_STATE(
+      _device.get(), FCPPT_TEXT("alcMakeContextCurrent failed"), sge::audio::exception)
 }

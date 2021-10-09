@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_RENDER_UNSET_TEXTURES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_UNSET_TEXTURES_HPP_INCLUDED
 
@@ -16,46 +15,26 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail::render
 {
 
-template<
-	typename Choices
->
+template <typename Choices>
 std::enable_if_t<
-	sge::sprite::detail::config::has_texture_levels<
-		Choices
-	>::value,
-	void
->
-unset_textures(
-	sge::renderer::context::core &_render_context // NOLINT(google-runtime-references)
+    sge::sprite::detail::config::has_texture_levels<Choices>::value,
+    void>
+unset_textures(sge::renderer::context::core &_render_context // NOLINT(google-runtime-references)
 )
 {
-	sge::sprite::detail::render::unset_texture_stages<
-		sge::sprite::detail::config::texture_levels<
-			Choices
-		>
-	>(
-		_render_context
-	);
+  sge::sprite::detail::render::unset_texture_stages<
+      sge::sprite::detail::config::texture_levels<Choices>>(_render_context);
 }
 
-template<
-	typename Choices
->
+template <typename Choices>
 std::enable_if_t<
-	fcppt::not_(
-		sge::sprite::detail::config::has_texture_levels<
-			Choices
-		>::value
-	),
-	void
->
-unset_textures(
-	sge::renderer::context::core & // NOLINT(google-runtime-references)
-) // NOLINT(google-runtime-references)
+    fcppt::not_(sge::sprite::detail::config::has_texture_levels<Choices>::value),
+    void>
+unset_textures(sge::renderer::context::core & // NOLINT(google-runtime-references)
+               ) // NOLINT(google-runtime-references)
 {
 }
 

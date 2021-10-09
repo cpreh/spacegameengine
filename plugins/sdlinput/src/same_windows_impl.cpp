@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/sdlinput/same_windows_impl.hpp>
 #include <awl/backends/sdl/window/from_id.hpp>
 #include <awl/backends/sdl/window/object.hpp>
@@ -15,33 +14,12 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
-bool
-sge::sdlinput::same_windows_impl(
-	awl::backends::sdl::window::object const &_window,
-	std::uint32_t const _id
-)
+bool sge::sdlinput::same_windows_impl(
+    awl::backends::sdl::window::object const &_window, std::uint32_t const _id)
 {
-	return
-		fcppt::optional::maybe(
-			awl::backends::sdl::window::from_id(
-				_id
-			),
-			fcppt::const_(
-				false
-			),
-			[
-				&_window
-			](
-				fcppt::reference<
-					SDL_Window
-				> const _other
-			)
-			{
-				return
-					&_other.get()
-					==
-					&_window.get().get();
-			}
-		);
+  return fcppt::optional::maybe(
+      awl::backends::sdl::window::from_id(_id),
+      fcppt::const_(false),
+      [&_window](fcppt::reference<SDL_Window> const _other)
+      { return &_other.get() == &_window.get().get(); });
 }

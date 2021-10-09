@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_OCCLUSION_QUERY_OBJECT_HPP_INCLUDED
 #define SGE_RENDERER_OCCLUSION_QUERY_OBJECT_HPP_INCLUDED
 
@@ -14,44 +13,38 @@
 #include <sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::renderer::occlusion_query
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
-protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	object();
-public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	virtual
-	~object();
+  FCPPT_NONMOVABLE(object);
 
-	/**
+protected:
+  SGE_RENDERER_DETAIL_SYMBOL
+  object();
+
+public:
+  SGE_RENDERER_DETAIL_SYMBOL
+  virtual ~object();
+
+  /**
 	\brief Begins the query
 
 	Every pixel that passes the depth test starting from here on
 	will increase the result value by one.
 	*/
-	virtual
-	void
-	begin() = 0;
+  virtual void begin() = 0;
 
-	/**
+  /**
 	\brief Stops the query
 
 	The result can then be obtained using the <code>result()</code>
 	function.
 	*/
-	virtual
-	void
-	end() = 0;
+  virtual void end() = 0;
 
-	/**
+  /**
 	\brief Returns the result of the query, if available
 
 	After a call to <code>end()</code> the result can be obtained using
@@ -66,12 +59,8 @@ public:
 	\return The number of pixels that passed the depth test or an empty
 	optional if the result could not be obtained
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::occlusion_query::optional_pixel_count
-	result(
-		sge::renderer::occlusion_query::blocking_wait block
-	) const = 0;
+  [[nodiscard]] virtual sge::renderer::occlusion_query::optional_pixel_count
+  result(sge::renderer::occlusion_query::blocking_wait block) const = 0;
 };
 
 }

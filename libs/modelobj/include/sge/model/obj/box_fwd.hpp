@@ -3,24 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_OBJ_BOX_FWD_HPP_INCLUDED
 #define SGE_MODEL_OBJ_BOX_FWD_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/math/box/object_fwd.hpp>
 
-
 namespace sge::model::obj
 {
 
-using
-box
-=
-fcppt::math::box::object<
-	sge::renderer::scalar,
-	3
->;
+using box = fcppt::math::box::object<sge::renderer::scalar, 3>;
 
 }
 

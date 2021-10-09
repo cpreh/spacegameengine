@@ -3,13 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_PP_DIMS_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_PP_DIMS_HPP_INCLUDED
 
-
-#define SGE_OPENGL_TEXTURE_PP_DIMS \
-	(2) \
-	(3)
+#define SGE_OPENGL_TEXTURE_PP_DIMS (2)(3)
 
 #endif

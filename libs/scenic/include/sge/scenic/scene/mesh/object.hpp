@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_SCENE_MESH_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_MESH_OBJECT_HPP_INCLUDED
 
@@ -19,73 +18,48 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 
-
 namespace sge::scenic::scene::mesh
 {
 
 class object
 {
-	FCPPT_NONCOPYABLE(
-		object
-	);
+  FCPPT_NONCOPYABLE(object);
+
 public:
-	SGE_SCENIC_DETAIL_SYMBOL
-	object(
-		sge::renderer::device::core_ref,
-		sge::renderer::vertex::const_declaration_ref,
-		sge::model::obj::prototype const &
-	);
+  SGE_SCENIC_DETAIL_SYMBOL
+  object(
+      sge::renderer::device::core_ref,
+      sge::renderer::vertex::const_declaration_ref,
+      sge::model::obj::prototype const &);
 
-	SGE_SCENIC_DETAIL_SYMBOL
-	object(
-		object &&
-	)
-	noexcept;
+  SGE_SCENIC_DETAIL_SYMBOL
+  object(object &&) noexcept;
 
-	SGE_SCENIC_DETAIL_SYMBOL
-	object &
-	operator=(
-		object &&
-	)
-	noexcept;
+  SGE_SCENIC_DETAIL_SYMBOL
+  object &operator=(object &&) noexcept;
 
-	[[nodiscard]]
-	SGE_SCENIC_DETAIL_SYMBOL
-	sge::renderer::vertex::buffer &
-	vertex_buffer();
+  [[nodiscard]] SGE_SCENIC_DETAIL_SYMBOL sge::renderer::vertex::buffer &vertex_buffer();
 
-	[[nodiscard]]
-	SGE_SCENIC_DETAIL_SYMBOL
-	sge::renderer::index::buffer &
-	index_buffer();
+  [[nodiscard]] SGE_SCENIC_DETAIL_SYMBOL sge::renderer::index::buffer &index_buffer();
 
-	[[nodiscard]]
-	SGE_SCENIC_DETAIL_SYMBOL
-	sge::scenic::scene::mesh::material_to_index_buffer_range const &
-	parts();
+  [[nodiscard]] SGE_SCENIC_DETAIL_SYMBOL
+      sge::scenic::scene::mesh::material_to_index_buffer_range const &
+      parts();
 
-	[[nodiscard]]
-	SGE_SCENIC_DETAIL_SYMBOL
-	sge::scenic::box const &
-	bounding_box() const;
+  [[nodiscard]] SGE_SCENIC_DETAIL_SYMBOL sge::scenic::box const &bounding_box() const;
 
-	SGE_SCENIC_DETAIL_SYMBOL
-	~object();
+  SGE_SCENIC_DETAIL_SYMBOL
+  ~object();
+
 private:
-	sge::renderer::vertex::buffer_unique_ptr vertex_buffer_;
-	sge::renderer::index::buffer_unique_ptr index_buffer_;
-	sge::scenic::scene::mesh::material_to_index_buffer_range parts_;
-	sge::scenic::box bounding_box_;
+  sge::renderer::vertex::buffer_unique_ptr vertex_buffer_;
+  sge::renderer::index::buffer_unique_ptr index_buffer_;
+  sge::scenic::scene::mesh::material_to_index_buffer_range parts_;
+  sge::scenic::box bounding_box_;
 
-	void
-	fill_vertex_buffer(
-		sge::model::obj::prototype const &
-	);
+  void fill_vertex_buffer(sge::model::obj::prototype const &);
 
-	void
-	fill_index_buffer(
-		sge::model::obj::prototype const &
-	);
+  void fill_index_buffer(sge::model::obj::prototype const &);
 };
 
 }

@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/texture/fragmented.hpp>
 
+sge::texture::fragmented::fragmented() = default;
 
-sge::texture::fragmented::fragmented()
-= default;
-
-sge::texture::fragmented::~fragmented()
-= default;
+sge::texture::fragmented::~fragmented() = default;

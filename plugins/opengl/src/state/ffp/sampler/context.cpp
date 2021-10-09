@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
@@ -13,41 +12,24 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
+sge::opengl::state::ffp::sampler::context::context() : sge::opengl::context::base(), stages_(0U) {}
 
-sge::opengl::state::ffp::sampler::context::context()
-:
-	sge::opengl::context::base(),
-	stages_(
-		0U
-	)
+sge::opengl::state::ffp::sampler::context::~context() = default;
+
+sge::renderer::texture::stage sge::opengl::state::ffp::sampler::context::stages() const
 {
+  return stages_;
 }
 
-sge::opengl::state::ffp::sampler::context::~context()
-= default;
-
-sge::renderer::texture::stage
-sge::opengl::state::ffp::sampler::context::stages() const
+void sge::opengl::state::ffp::sampler::context::stages(sge::renderer::texture::stage const _stages)
 {
-	return
-		stages_;
-}
-
-void
-sge::opengl::state::ffp::sampler::context::stages(
-	sge::renderer::texture::stage const _stages
-)
-{
-	stages_ =
-		_stages;
+  stages_ = _stages;
 }
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wglobal-constructors)
 
 sge::opengl::context::id const
-sge::opengl::state::ffp::sampler::context::static_id(
-	sge::opengl::context::make_id()
-);
+    sge::opengl::state::ffp::sampler::context::static_id(sge::opengl::context::make_id());
 
 FCPPT_PP_POP_WARNING

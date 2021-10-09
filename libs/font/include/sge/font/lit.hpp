@@ -3,11 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_FONT_LIT_HPP_INCLUDED
 #define SGE_FONT_LIT_HPP_INCLUDED
 
-
-#define SGE_FONT_LIT(x) L ## x
+#define SGE_FONT_LIT(x) L##x
 
 #endif

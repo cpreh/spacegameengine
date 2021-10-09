@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_RENDER_CONTEXT_MANAGER_BASE_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_MANAGER_BASE_HPP_INCLUDED
 
@@ -13,27 +12,21 @@
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::scenic::render_context
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL manager_base
 {
-	FCPPT_NONMOVABLE(
-		manager_base
-	);
-public:
-	[[nodiscard]]
-	virtual
-	sge::scenic::render_context::base_unique_ptr
-	create_context(
-		sge::renderer::context::core_ref
-	) = 0;
+  FCPPT_NONMOVABLE(manager_base);
 
-	virtual
-	~manager_base();
+public:
+  [[nodiscard]] virtual sge::scenic::render_context::base_unique_ptr
+      create_context(sge::renderer::context::core_ref) = 0;
+
+  virtual ~manager_base();
+
 protected:
-	manager_base();
+  manager_base();
 };
 
 }

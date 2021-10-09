@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CAMERA_PERSPECTIVE_PROJECTION_FROM_VIEWPORT_HPP_INCLUDED
 #define SGE_CAMERA_PERSPECTIVE_PROJECTION_FROM_VIEWPORT_HPP_INCLUDED
 
@@ -18,46 +17,37 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge::camera
 {
 
 class perspective_projection_from_viewport
 {
-	FCPPT_NONMOVABLE(
-		perspective_projection_from_viewport
-	);
+  FCPPT_NONMOVABLE(perspective_projection_from_viewport);
+
 public:
-	SGE_CAMERA_DETAIL_SYMBOL
-	perspective_projection_from_viewport(
-		fcppt::reference<
-			sge::camera::has_mutable_projection
-		>,
-		sge::viewport::manager_ref,
-		sge::renderer::projection::near,
-		sge::renderer::projection::far,
-		sge::renderer::projection::fov
-	);
+  SGE_CAMERA_DETAIL_SYMBOL
+  perspective_projection_from_viewport(
+      fcppt::reference<sge::camera::has_mutable_projection>,
+      sge::viewport::manager_ref,
+      sge::renderer::projection::near,
+      sge::renderer::projection::far,
+      sge::renderer::projection::fov);
 
-	SGE_CAMERA_DETAIL_SYMBOL
-	~perspective_projection_from_viewport();
+  SGE_CAMERA_DETAIL_SYMBOL
+  ~perspective_projection_from_viewport();
+
 private:
-	fcppt::reference<
-		sge::camera::has_mutable_projection
-	> const camera_;
+  fcppt::reference<sge::camera::has_mutable_projection> const camera_;
 
-	sge::renderer::projection::near const near_;
+  sge::renderer::projection::near const near_;
 
-	sge::renderer::projection::far const far_;
+  sge::renderer::projection::far const far_;
 
-	sge::renderer::projection::fov const fov_;
+  sge::renderer::projection::fov const fov_;
 
-	fcppt::signal::auto_connection const viewport_callback_connection_;
+  fcppt::signal::auto_connection const viewport_callback_connection_;
 
-	void
-	viewport_callback(
-		sge::renderer::target::viewport const &
-	);
+  void viewport_callback(sge::renderer::target::viewport const &);
 };
 
 }

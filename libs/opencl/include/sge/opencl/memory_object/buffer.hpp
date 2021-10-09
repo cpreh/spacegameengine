@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_MEMORY_OBJECT_BUFFER_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_BUFFER_HPP_INCLUDED
 
@@ -17,49 +16,35 @@
 #include <sge/renderer/vertex/buffer_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opencl::memory_object
 {
 
-class buffer
-:
-	public sge::opencl::memory_object::base
+class buffer : public sge::opencl::memory_object::base
 {
-	FCPPT_NONMOVABLE(
-		buffer
-	);
+  FCPPT_NONMOVABLE(buffer);
+
 public:
-	SGE_OPENCL_DETAIL_SYMBOL
-	buffer(
-		sge::opencl::context::object_ref,
-		memory_object::flags_field const &,
-		memory_object::byte_size const &
-	);
+  SGE_OPENCL_DETAIL_SYMBOL
+  buffer(
+      sge::opencl::context::object_ref,
+      memory_object::flags_field const &,
+      memory_object::byte_size const &);
 
-	SGE_OPENCL_DETAIL_SYMBOL explicit
-	buffer(
-		sge::opencl::context::object_ref,
-		sge::renderer::vertex::buffer_ref,
-		memory_object::renderer_buffer_lock_mode
-	);
+  SGE_OPENCL_DETAIL_SYMBOL explicit buffer(
+      sge::opencl::context::object_ref,
+      sge::renderer::vertex::buffer_ref,
+      memory_object::renderer_buffer_lock_mode);
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	cl_mem
-	impl()
-	override;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL cl_mem impl() override;
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	sge::opencl::memory_object::byte_size
-	byte_size() const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL sge::opencl::memory_object::byte_size byte_size() const;
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	~buffer()
-	override;
+  SGE_OPENCL_DETAIL_SYMBOL
+  ~buffer() override;
+
 private:
-	cl_mem impl_;
-	sge::opencl::memory_object::byte_size const byte_size_;
+  cl_mem impl_;
+  sge::opencl::memory_object::byte_size const byte_size_;
 };
 
 }

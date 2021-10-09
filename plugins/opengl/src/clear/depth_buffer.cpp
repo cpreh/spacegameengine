@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/common.hpp>
@@ -13,23 +12,9 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 
-
-void
-sge::opengl::clear::depth_buffer(
-	sge::renderer::clear::depth_buffer_value const &_value
-)
+void sge::opengl::clear::depth_buffer(sge::renderer::clear::depth_buffer_value const &_value)
 {
-	sge::opengl::call(
-		::glClearDepth,
-		fcppt::cast::size<
-			GLdouble
-		>(
-			_value
-		)
-	);
+  sge::opengl::call(::glClearDepth, fcppt::cast::size<GLdouble>(_value));
 
-	SGE_OPENGL_CHECK_STATE(
-		FCPPT_TEXT("glClearDepth failed"),
-		sge::renderer::exception
-	)
+  SGE_OPENGL_CHECK_STATE(FCPPT_TEXT("glClearDepth failed"), sge::renderer::exception)
 }

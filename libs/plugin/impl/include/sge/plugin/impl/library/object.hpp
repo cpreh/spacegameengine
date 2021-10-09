@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_IMPL_LIBRARY_OBJECT_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_LIBRARY_OBJECT_HPP_INCLUDED
 
@@ -22,47 +21,36 @@
 #include <fcppt/unique_ptr_decl.hpp>
 #endif
 
-
 namespace sge::plugin::library
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	SGE_PLUGIN_DETAIL_SYMBOL
-	explicit
-	object(
-		std::filesystem::path &&
-	);
+  SGE_PLUGIN_DETAIL_SYMBOL
+  explicit object(std::filesystem::path &&);
 
-	SGE_PLUGIN_DETAIL_SYMBOL
-	~object();
+  SGE_PLUGIN_DETAIL_SYMBOL
+  ~object();
 
-	[[nodiscard]]
-	sge::plugin::impl::library::loaded_symbol
-	load(
-		sge::plugin::library::symbol_string const &
-	);
+  [[nodiscard]] sge::plugin::impl::library::loaded_symbol
+  load(sge::plugin::library::symbol_string const &);
 
-	[[nodiscard]]
-	std::filesystem::path const &
-	name() const;
+  [[nodiscard]] std::filesystem::path const &name() const;
+
 private:
-	std::filesystem::path const name_;
+  std::filesystem::path const name_;
 
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-	HMODULE const handle_;
+  HMODULE const handle_;
 
-	struct destroyer;
+  struct destroyer;
 
-	fcppt::unique_ptr<
-		destroyer
-	> const destroyer_;
+  fcppt::unique_ptr<destroyer> const destroyer_;
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-	void *const handle_;
+  void *const handle_;
 #else
 #error "Don't know how to implement plugin::library!"
 #endif

@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_DEVICE_ENUMERATOR_HPP_INCLUDED
 #define SGE_DINPUT_DEVICE_ENUMERATOR_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/enumerator_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 namespace sge
 {
@@ -21,20 +19,15 @@ namespace device
 
 class enumerator
 {
-	FCPPT_NONCOPYABLE(
-		enumerator
-	);
-protected:
-	enumerator();
-public:
-	virtual
-	~enumerator() = 0;
+  FCPPT_NONCOPYABLE(enumerator);
 
-	virtual
-	void
-	dispatch(
-		DIDEVICEOBJECTINSTANCE const &
-	) = 0;
+protected:
+  enumerator();
+
+public:
+  virtual ~enumerator() = 0;
+
+  virtual void dispatch(DIDEVICEOBJECTINSTANCE const &) = 0;
 };
 
 }

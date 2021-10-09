@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/grammar.hpp>
@@ -31,16 +30,10 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 namespace
 {
 
-fcppt::parse::char_set
-eol()
-{
-	return
-		fcppt::parse::char_set{'\n'};
-}
+fcppt::parse::char_set eol() { return fcppt::parse::char_set{'\n'}; }
 
 }
 
@@ -48,86 +41,33 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::parse::ini::grammar::grammar()
-:
-	sge::parse::ini::grammar_base{
-		fcppt::make_cref(
-			this->ini_
-		),
-		sge::parse::ini::skipper()
-	},
-	entry_{
-		sge::parse::ini::grammar_base::make_base(
-			fcppt::parse::as_struct<
-				sge::parse::ini::entry
-			>(
-				!fcppt::parse::literal{'['}
-				>>
-				fcppt::parse::construct<
-					sge::parse::ini::entry_name
-				>(
-					+~fcppt::parse::char_set{'='}
-				)
-				>>
-				fcppt::parse::literal{'='}
-				>>
-				fcppt::parse::construct<
-					sge::parse::ini::value
-				>(
-					fcppt::parse::make_lexeme(
-						*~eol()
-					)
-				)
-				>> fcppt::parse::make_ignore(+eol())
-			)
-		)
-	},
-	header_{
-		sge::parse::ini::grammar_base::make_base(
-			fcppt::parse::make_lexeme(
-				fcppt::parse::literal{'['}
-				>> +(
-					~fcppt::parse::char_set{']', '\n'}
-					// TODO(philipp)
-	//				-
-	//				eol()
-				)
-				>> fcppt::parse::literal{']'}
-			)
-			>> fcppt::parse::make_ignore(+eol())
-		)
-	},
-	section_{
-		sge::parse::ini::grammar_base::make_base(
-			fcppt::parse::as_struct<
-				sge::parse::ini::section
-			>(
-				fcppt::parse::construct<
-					sge::parse::ini::section_name
-				>(
-					fcppt::make_cref(this->header_)
-				)
-				>> *fcppt::make_cref(this->entry_)
-			)
-		)
-	},
-	section_vector_{
-		sge::parse::ini::grammar_base::make_base(
-			*fcppt::make_cref(this->section_)
-		)
-	},
-	ini_{
-		sge::parse::ini::grammar_base::make_base(
-			fcppt::parse::construct<
-				sge::parse::ini::start
-			>(
-				fcppt::make_cref(this->section_vector_)
-			)
-		)
-	}
+    : sge::parse::ini::grammar_base{fcppt::make_cref(this->ini_), sge::parse::ini::skipper()},
+      entry_{
+          sge::parse::ini::grammar_base::make_base(fcppt::parse::as_struct<sge::parse::ini::entry>(
+              !fcppt::parse::literal{'['} >>
+              fcppt::parse::construct<sge::parse::ini::entry_name>(+~fcppt::parse::char_set{'='}) >>
+              fcppt::parse::literal{'='} >>
+              fcppt::parse::construct<sge::parse::ini::value>(fcppt::parse::make_lexeme(*~eol())) >>
+              fcppt::parse::make_ignore(+eol())))},
+      header_{sge::parse::ini::grammar_base::make_base(
+          fcppt::parse::make_lexeme(
+              fcppt::parse::literal{'['} >> +(~fcppt::parse::char_set{']', '\n'} // TODO(philipp)
+                                              //				-
+                                              //				eol()
+                                              ) >>
+              fcppt::parse::literal{']'}) >>
+          fcppt::parse::make_ignore(+eol()))},
+      section_{sge::parse::ini::grammar_base::make_base(
+          fcppt::parse::as_struct<sge::parse::ini::section>(
+              fcppt::parse::construct<sge::parse::ini::section_name>(
+                  fcppt::make_cref(this->header_)) >>
+              *fcppt::make_cref(this->entry_)))},
+      section_vector_{sge::parse::ini::grammar_base::make_base(*fcppt::make_cref(this->section_))},
+      ini_{sge::parse::ini::grammar_base::make_base(
+          fcppt::parse::construct<sge::parse::ini::start>(fcppt::make_cref(this->section_vector_)))}
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::parse::ini::grammar::~grammar()
-= default;
+sge::parse::ini::grammar::~grammar() = default;

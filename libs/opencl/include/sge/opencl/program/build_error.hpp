@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_PROGRAM_BUILD_ERROR_HPP_INCLUDED
 #define SGE_OPENCL_PROGRAM_BUILD_ERROR_HPP_INCLUDED
 
@@ -12,55 +11,34 @@
 #include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge::opencl::program
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL build_error
-:
-	public sge::opencl::exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL build_error : public sge::opencl::exception
 {
 public:
-	SGE_OPENCL_DETAIL_SYMBOL
-	explicit
-	build_error(
-		fcppt::string const &
-	);
+  SGE_OPENCL_DETAIL_SYMBOL
+  explicit build_error(fcppt::string const &);
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	build_error(
-		build_error &&
-	)
-	noexcept;
+  SGE_OPENCL_DETAIL_SYMBOL
+  build_error(build_error &&) noexcept;
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	build_error(
-		build_error const &
-	);
+  SGE_OPENCL_DETAIL_SYMBOL
+  build_error(build_error const &);
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	build_error &
-	operator=(
-		build_error &&
-	)
-	noexcept;
+  SGE_OPENCL_DETAIL_SYMBOL
+  build_error &operator=(build_error &&) noexcept;
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	build_error &
-	operator=(
-		build_error const &
-	);
+  SGE_OPENCL_DETAIL_SYMBOL
+  build_error &operator=(build_error const &);
 
-	SGE_OPENCL_DETAIL_SYMBOL
-	~build_error() noexcept
-	override;
+  SGE_OPENCL_DETAIL_SYMBOL
+  ~build_error() noexcept override;
 
-	[[nodiscard]]
-	SGE_OPENCL_DETAIL_SYMBOL
-	fcppt::string const &
-	message() const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL fcppt::string const &message() const;
+
 private:
-	fcppt::string message_;
+  fcppt::string message_;
 };
 
 }

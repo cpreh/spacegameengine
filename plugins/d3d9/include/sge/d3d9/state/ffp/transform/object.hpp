@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_FFP_TRANSFORM_OBJECT_HPP_INCLUDED
 #define SGE_D3D9_STATE_FFP_TRANSFORM_OBJECT_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 namespace sge
 {
@@ -26,29 +24,21 @@ namespace ffp
 namespace transform
 {
 
-class object
-:
-	public sge::renderer::state::ffp::transform::object
+class object : public sge::renderer::state::ffp::transform::object
 {
-	FCPPT_NONCOPYABLE(
-		object
-	);
+  FCPPT_NONCOPYABLE(object);
+
 public:
-	object(
-		IDirect3DDevice9 &,
-		sge::d3d9::state::ffp::transform::state const &
-	);
+  object(IDirect3DDevice9 &, sge::d3d9::state::ffp::transform::state const &);
 
-	~object();
+  ~object();
 
-	void
-	set(
-		sge::renderer::state::ffp::transform::mode
-	) const;
+  void set(sge::renderer::state::ffp::transform::mode) const;
+
 private:
-	IDirect3DDevice9 &device_;
+  IDirect3DDevice9 &device_;
 
-	sge::d3d9::state::ffp::transform::state const state_;
+  sge::d3d9::state::ffp::transform::state const state_;
 };
 
 }

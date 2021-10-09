@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/dinput/create_dinput.hpp>
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/dinput_unique_ptr.hpp>
@@ -12,34 +11,17 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 
-
-sge::dinput::dinput_unique_ptr
-sge::dinput::create_dinput()
+sge::dinput::dinput_unique_ptr sge::dinput::create_dinput()
 {
-	LPVOID ret(
-		nullptr
-	);
+  LPVOID ret(nullptr);
 
-	if(
-		::DirectInput8Create(
-			awl::backends::windows::module_handle(),
-			DIRECTINPUT_VERSION,
-			IID_IDirectInput8,
-			&ret,
-			nullptr
-		)
-		!= DI_OK
-	)
-		throw sge::input::exception(
-			FCPPT_TEXT("Cannot create DirectInput!")
-		);
+  if (::DirectInput8Create(
+          awl::backends::windows::module_handle(),
+          DIRECTINPUT_VERSION,
+          IID_IDirectInput8,
+          &ret,
+          nullptr) != DI_OK)
+    throw sge::input::exception(FCPPT_TEXT("Cannot create DirectInput!"));
 
-	return
-		sge::dinput::dinput_unique_ptr(
-			fcppt::cast::from_void_ptr<
-				IDirectInput8 *
-			>(
-				ret
-			)
-		);
+  return sge::dinput::dinput_unique_ptr(fcppt::cast::from_void_ptr<IDirectInput8 *>(ret));
 }

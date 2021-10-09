@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_X11INPUT_PROCESSOR_HPP_INCLUDED
 
@@ -49,189 +48,93 @@
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input
 {
 
-class processor
-:
-	public sge::input::processor
+class processor : public sge::input::processor
 {
-	FCPPT_NONMOVABLE(
-		processor
-	);
+  FCPPT_NONMOVABLE(processor);
+
 public:
-	processor(
-		fcppt::log::object_reference,
-		sge::window::object_ref,
-		sge::x11input::opcode
-	);
+  processor(fcppt::log::object_reference, sge::window::object_ref, sge::x11input::opcode);
 
-	~processor()
-	override;
+  ~processor() override;
+
 private:
-	[[nodiscard]]
-	sge::window::object &
-	window() const
-	override;
+  [[nodiscard]] sge::window::object &window() const override;
 
-	[[nodiscard]]
-	sge::input::cursor::container
-	cursors() const
-	override;
+  [[nodiscard]] sge::input::cursor::container cursors() const override;
 
-	[[nodiscard]]
-	sge::input::focus::container
-	foci() const
-	override;
+  [[nodiscard]] sge::input::focus::container foci() const override;
 
-	[[nodiscard]]
-	sge::input::joypad::container
-	joypads() const
-	override;
+  [[nodiscard]] sge::input::joypad::container joypads() const override;
 
-	[[nodiscard]]
-	sge::input::keyboard::container
-	keyboards() const
-	override;
+  [[nodiscard]] sge::input::keyboard::container keyboards() const override;
 
-	[[nodiscard]]
-	sge::input::mouse::container
-	mice() const
-	override;
+  [[nodiscard]] sge::input::mouse::container mice() const override;
 
-	using
-	optional_event_container
-	=
-	fcppt::optional::object<
-		awl::event::container
-	>;
+  using optional_event_container = fcppt::optional::object<awl::event::container>;
 
-	[[nodiscard]]
-	awl::event::container
-	system_event(
-		awl::event::base const &
-	);
+  [[nodiscard]] awl::event::container system_event(awl::event::base const &);
 
-	[[nodiscard]]
-	optional_event_container
-	extension_event(
-		awl::backends::x11::system::event::generic const &
-	);
+  [[nodiscard]] optional_event_container
+  extension_event(awl::backends::x11::system::event::generic const &);
 
-	[[nodiscard]]
-	awl::event::container
-	hierarchy_event(
-		XIHierarchyEvent const &
-	);
+  [[nodiscard]] awl::event::container hierarchy_event(XIHierarchyEvent const &);
 
-	[[nodiscard]]
-	awl::event::optional_base_unique_ptr
-	hierarchy_info(
-		XIHierarchyInfo const &
-	);
+  [[nodiscard]] awl::event::optional_base_unique_ptr hierarchy_info(XIHierarchyInfo const &);
 
-	[[nodiscard]]
-	awl::event::optional_base_unique_ptr
-	add_device(
-		XIDeviceInfo const &
-	);
+  [[nodiscard]] awl::event::optional_base_unique_ptr add_device(XIDeviceInfo const &);
 
-	[[nodiscard]]
-	awl::event::optional_base_unique_ptr
-	remove_device(
-		XIHierarchyInfo const &
-	);
+  [[nodiscard]] awl::event::optional_base_unique_ptr remove_device(XIHierarchyInfo const &);
 
-	[[nodiscard]]
-	sge::input::focus::shared_ptr
-	add_focus(
-		XIDeviceInfo const &
-	);
+  [[nodiscard]] sge::input::focus::shared_ptr add_focus(XIDeviceInfo const &);
 
-	[[nodiscard]]
-	sge::input::keyboard::shared_ptr
-	add_keyboard(
-		XIDeviceInfo const &
-	);
+  [[nodiscard]] sge::input::keyboard::shared_ptr add_keyboard(XIDeviceInfo const &);
 
-	[[nodiscard]]
-	sge::input::cursor::shared_ptr
-	add_cursor(
-		XIDeviceInfo const &
-	);
+  [[nodiscard]] sge::input::cursor::shared_ptr add_cursor(XIDeviceInfo const &);
 
-	[[nodiscard]]
-	sge::input::mouse::shared_ptr
-	add_mouse(
-		XIDeviceInfo const &
-	);
+  [[nodiscard]] sge::input::mouse::shared_ptr add_mouse(XIDeviceInfo const &);
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	sge::x11input::opcode const opcode_;
+  sge::x11input::opcode const opcode_;
 
-	sge::window::object_ref const window_;
+  sge::window::object_ref const window_;
 
-	awl::backends::x11::window::object_ref const x11_window_;
+  awl::backends::x11::window::object_ref const x11_window_;
 
-	awl::backends::x11::window::base_unique_ptr const root_window_;
+  awl::backends::x11::window::base_unique_ptr const root_window_;
 
-	awl::backends::x11::cursor::object_unique_ptr const invisible_cursor_;
+  awl::backends::x11::cursor::object_unique_ptr const invisible_cursor_;
 
-	sge::x11input::xim::optional_method_unique_ptr const xim_method_;
+  sge::x11input::xim::optional_method_unique_ptr const xim_method_;
 
-	sge::x11input::event::window_demuxer window_demuxer_;
+  sge::x11input::event::window_demuxer window_demuxer_;
 
-	sge::x11input::event::raw_demuxer raw_demuxer_;
+  sge::x11input::event::raw_demuxer raw_demuxer_;
 
-	using
-	focus_map
-	=
-	sge::x11input::device::map<
-		sge::input::focus::object
-	>;
+  using focus_map = sge::x11input::device::map<sge::input::focus::object>;
 
-	using
-	keyboard_map
-	=
-	sge::x11input::device::map<
-		sge::input::keyboard::device
-	>;
+  using keyboard_map = sge::x11input::device::map<sge::input::keyboard::device>;
 
-	using
-	cursor_map
-	=
-	sge::x11input::device::map<
-		sge::input::cursor::object
-	>;
+  using cursor_map = sge::x11input::device::map<sge::input::cursor::object>;
 
-	using
-	mouse_map
-	=
-	sge::x11input::device::map<
-		sge::input::mouse::device
-	>;
+  using mouse_map = sge::x11input::device::map<sge::input::mouse::device>;
 
-	focus_map foci_;
+  focus_map foci_;
 
-	keyboard_map keyboards_;
+  keyboard_map keyboards_;
 
-	cursor_map cursors_;
+  cursor_map cursors_;
 
-	mouse_map mice_;
+  mouse_map mice_;
 
-	using
-	handler_map
-	=
-	std::unordered_map<
-		sge::x11input::event::type,
-		sge::x11input::event::handler
-	>;
+  using handler_map = std::unordered_map<sge::x11input::event::type, sge::x11input::event::handler>;
 
-	handler_map const handlers_;
+  handler_map const handlers_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
 };
 
 }

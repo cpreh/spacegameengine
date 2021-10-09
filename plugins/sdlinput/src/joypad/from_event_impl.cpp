@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/sdlinput/joypad/from_event_impl.hpp>
 #include <sge/sdlinput/joypad/map.hpp>
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
@@ -13,18 +12,8 @@
 #include <SDL_joystick.h>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::sdlinput::joypad::shared_ptr
-sge::sdlinput::joypad::from_event_impl(
-	sge::sdlinput::joypad::map const &_joypads,
-	SDL_JoystickID const _id
-)
+sge::sdlinput::joypad::shared_ptr sge::sdlinput::joypad::from_event_impl(
+    sge::sdlinput::joypad::map const &_joypads, SDL_JoystickID const _id)
 {
-	return
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			fcppt::container::find_opt_mapped(
-				_joypads,
-				_id
-			)
-		).get();
+  return FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::container::find_opt_mapped(_joypads, _id)).get();
 }

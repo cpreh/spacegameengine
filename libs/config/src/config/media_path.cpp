@@ -3,17 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/build/media_path.hpp>
 #include <sge/config/media_path.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
-std::filesystem::path
-sge::config::media_path()
-{
-	return
-		sge::build_media_path();
-}
+std::filesystem::path sge::config::media_path() { return sge::build_media_path(); }

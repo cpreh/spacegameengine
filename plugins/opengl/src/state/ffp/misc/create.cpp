@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/ffp/misc/create.hpp>
 #include <sge/opengl/state/ffp/misc/make_actors.hpp>
@@ -15,26 +14,12 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/object_reference.hpp>
 
-
-sge::renderer::state::ffp::misc::object_unique_ptr
-sge::opengl::state::ffp::misc::create(
-	fcppt::log::object_reference const _log,
-	sge::opengl::context::object_ref const _context,
-	sge::renderer::state::ffp::misc::parameters const &_parameters
-)
+sge::renderer::state::ffp::misc::object_unique_ptr sge::opengl::state::ffp::misc::create(
+    fcppt::log::object_reference const _log,
+    sge::opengl::context::object_ref const _context,
+    sge::renderer::state::ffp::misc::parameters const &_parameters)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::renderer::state::ffp::misc::object
-		>(
-			fcppt::make_unique_ptr<
-				sge::opengl::state::ffp::misc::object
-			>(
-				sge::opengl::state::ffp::misc::make_actors(
-					_log,
-					_context,
-					_parameters
-				)
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::renderer::state::ffp::misc::object>(
+      fcppt::make_unique_ptr<sge::opengl::state::ffp::misc::object>(
+          sge::opengl::state::ffp::misc::make_actors(_log, _context, _parameters)));
 }

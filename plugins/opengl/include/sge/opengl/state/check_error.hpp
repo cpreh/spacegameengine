@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_CHECK_ERROR_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CHECK_ERROR_HPP_INCLUDED
 
@@ -15,27 +14,19 @@
 #include <fcppt/text.hpp>
 #endif
 
-
 namespace sge::opengl::state
 {
 
-inline
-void
-check_error(
+inline void check_error(
 #if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
-	fcppt::string const &_what
+    fcppt::string const &_what
 #else
-	fcppt::string const &
+    fcppt::string const &
 #endif
 )
 {
 #if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
-	SGE_OPENGL_CHECK_STATE(
-		_what
-		+
-		FCPPT_TEXT(" failed!"),
-		sge::renderer::exception
-	)
+  SGE_OPENGL_CHECK_STATE(_what + FCPPT_TEXT(" failed!"), sge::renderer::exception)
 #endif
 }
 

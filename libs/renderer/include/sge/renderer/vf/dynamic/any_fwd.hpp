@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DYNAMIC_ANY_FWD_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_ANY_FWD_HPP_INCLUDED
 
@@ -14,20 +13,15 @@
 #include <sge/renderer/vf/dynamic/texpos_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
-
 namespace sge::renderer::vf::dynamic
 {
 
-using
-any
-=
-fcppt::variant::object<
-	sge::renderer::vf::dynamic::pos,
-	sge::renderer::vf::dynamic::normal,
-	sge::renderer::vf::dynamic::color,
-	sge::renderer::vf::dynamic::texpos,
-	sge::renderer::vf::dynamic::extra
->;
+using any = fcppt::variant::object<
+    sge::renderer::vf::dynamic::pos,
+    sge::renderer::vf::dynamic::normal,
+    sge::renderer::vf::dynamic::color,
+    sge::renderer::vf::dynamic::texpos,
+    sge::renderer::vf::dynamic::extra>;
 
 }
 

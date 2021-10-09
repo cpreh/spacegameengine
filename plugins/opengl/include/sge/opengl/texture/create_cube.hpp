@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CREATE_CUBE_HPP_INCLUDED
 
@@ -11,15 +10,12 @@
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
 
-
 namespace sge::opengl::texture
 {
 
-sge::renderer::texture::cube_unique_ptr
-create_cube(
-	sge::opengl::texture::basic_parameters const &,
-	sge::renderer::texture::cube_parameters const &
-);
+sge::renderer::texture::cube_unique_ptr create_cube(
+    sge::opengl::texture::basic_parameters const &,
+    sge::renderer::texture::cube_parameters const &);
 
 }
 

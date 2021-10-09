@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WLINPUT_CURSOR_HOLDER_HPP_INCLUDED
 #define SGE_WLINPUT_CURSOR_HOLDER_HPP_INCLUDED
 
@@ -13,28 +12,22 @@
 #include <wayland-client-protocol.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::wlinput::cursor
 {
 
 class holder
 {
-	FCPPT_NONMOVABLE(
-		holder
-	);
+  FCPPT_NONMOVABLE(holder);
+
 public:
-	explicit
-	holder(
-		awl::backends::wayland::seat_ref
-	);
+  explicit holder(awl::backends::wayland::seat_ref);
 
-	~holder();
+  ~holder();
 
-	[[nodiscard]]
-	wl_pointer *
-	get() const;
+  [[nodiscard]] wl_pointer *get() const;
+
 private:
-	wl_pointer *const impl_;
+  wl_pointer *const impl_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LINE_DRAWER_RENDER_TO_SCREEN_HPP_INCLUDED
 #define SGE_LINE_DRAWER_RENDER_TO_SCREEN_HPP_INCLUDED
 
@@ -12,16 +11,14 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 
-
 namespace sge::line_drawer
 {
 
 SGE_LINE_DRAWER_DETAIL_SYMBOL
-void
-render_to_screen(
-	sge::renderer::device::ffp &, // NOLINT(google-runtime-references)
-	sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-	sge::line_drawer::object & // NOLINT(google-runtime-references)
+void render_to_screen(
+    sge::renderer::device::ffp &, // NOLINT(google-runtime-references)
+    sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+    sge::line_drawer::object & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
 }

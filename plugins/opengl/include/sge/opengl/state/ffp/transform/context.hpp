@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_FFP_TRANSFORM_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_TRANSFORM_CONTEXT_HPP_INCLUDED
 
@@ -16,70 +15,39 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/reference.hpp>
 
-
 namespace sge::opengl::state::ffp::transform
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	using
-	parameter
-	=
-	sge::opengl::info::context const &;
+  using parameter = sge::opengl::info::context const &;
 
-	explicit
-	context(
-		sge::opengl::info::context const &
-	);
+  explicit context(sge::opengl::info::context const &);
 
-	~context()
-	override;
+  ~context() override;
 
-	// TODO(philipp): Mesa hides this
-	//PFNGLLOADTRANSPOSEMATRIXFPROC
-	using
-	gl_load_transpose_matrix_proc
-	=
-	PFNGLLOADTRANSPOSEMATRIXFARBPROC;
+  // TODO(philipp): Mesa hides this
+  //PFNGLLOADTRANSPOSEMATRIXFPROC
+  using gl_load_transpose_matrix_proc = PFNGLLOADTRANSPOSEMATRIXFARBPROC;
 
-	using
-	gl_load_transpose_matrix_f
-	=
-	sge::opengl::fun_ref<
-		gl_load_transpose_matrix_proc
-	>;
+  using gl_load_transpose_matrix_f = sge::opengl::fun_ref<gl_load_transpose_matrix_proc>;
 
-	using
-	optional_load_transpose_matrix_f
-	=
-	fcppt::optional::reference<
-		sge::opengl::fun_ref_value_type<
-			gl_load_transpose_matrix_f
-		>
-	>;
+  using optional_load_transpose_matrix_f =
+      fcppt::optional::reference<sge::opengl::fun_ref_value_type<gl_load_transpose_matrix_f>>;
 
-	using
-	load_transpose_matrix_f_ref
-	=
-	optional_load_transpose_matrix_f::value_type;
+  using load_transpose_matrix_f_ref = optional_load_transpose_matrix_f::value_type;
 
-	[[nodiscard]]
-	optional_load_transpose_matrix_f
-	load_transpose_matrix_f() const;
+  [[nodiscard]] optional_load_transpose_matrix_f load_transpose_matrix_f() const;
 
-	[[nodiscard]]
-	bool
-	have_transpose() const;
+  [[nodiscard]] bool have_transpose() const;
 
-	static sge::opengl::context::id const static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	optional_load_transpose_matrix_f const load_transpose_matrix_f_;
+  optional_load_transpose_matrix_f const load_transpose_matrix_f_;
 };
 
 }

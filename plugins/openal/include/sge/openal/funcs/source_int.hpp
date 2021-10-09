@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_FUNCS_SOURCE_INT_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_SOURCE_INT_HPP_INCLUDED
 
 #include <sge/openal/al.hpp>
 #include <sge/openal/source_id.hpp>
 
-
 namespace sge::openal::funcs
 {
 
-void
-source_int(
-	sge::openal::source_id,
-	ALenum what,
-	ALint value
-);
+void source_int(sge::openal::source_id, ALenum what, ALint value);
 
 }
 

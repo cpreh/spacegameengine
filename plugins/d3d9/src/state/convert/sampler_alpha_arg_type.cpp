@@ -3,34 +3,26 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/sampler_alpha_arg_type.hpp>
 #include <sge/renderer/state/ffp/sampler/arg1.hpp>
 #include <sge/renderer/state/ffp/sampler/arg2.hpp>
 #include <sge/renderer/state/ffp/sampler/arg3.hpp>
 
-
 D3DTEXTURESTAGESTATETYPE
-sge::d3d9::state::convert::sampler_alpha_arg_type<
-	sge::renderer::state::ffp::sampler::arg1
->::get()
+sge::d3d9::state::convert::sampler_alpha_arg_type<sge::renderer::state::ffp::sampler::arg1>::get()
 {
-	return D3DTSS_ALPHAARG1;
+  return D3DTSS_ALPHAARG1;
 }
 
 D3DTEXTURESTAGESTATETYPE
-sge::d3d9::state::convert::sampler_alpha_arg_type<
-	sge::renderer::state::ffp::sampler::arg2
->::get()
+sge::d3d9::state::convert::sampler_alpha_arg_type<sge::renderer::state::ffp::sampler::arg2>::get()
 {
-	return D3DTSS_ALPHAARG2;
+  return D3DTSS_ALPHAARG2;
 }
 
 D3DTEXTURESTAGESTATETYPE
-sge::d3d9::state::convert::sampler_alpha_arg_type<
-	sge::renderer::state::ffp::sampler::arg3
->::get()
+sge::d3d9::state::convert::sampler_alpha_arg_type<sge::renderer::state::ffp::sampler::arg3>::get()
 {
-	return D3DTSS_ALPHAARG0;
+  return D3DTSS_ALPHAARG0;
 }

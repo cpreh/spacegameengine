@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/json/grammar.hpp>
 #include <sge/parse/json/parse_string.hpp>
 #include <sge/parse/json/result.hpp>
@@ -13,17 +12,7 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::parse::json::result
-sge::parse::json::parse_string(
-	std::string &&_string
-)
+sge::parse::json::result sge::parse::json::parse_string(std::string &&_string)
 {
-	return
-		fcppt::parse::grammar_parse_string(
-			std::move(
-				_string
-			),
-			sge::parse::json::grammar{}
-		);
+  return fcppt::parse::grammar_parse_string(std::move(_string), sge::parse::json::grammar{});
 }

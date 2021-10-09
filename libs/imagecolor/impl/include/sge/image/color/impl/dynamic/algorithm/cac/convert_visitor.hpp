@@ -3,56 +3,30 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_CONVERT_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_CONVERT_VISITOR_HPP_INCLUDED
 
 #include <sge/image/mizuiro_color_traits.hpp>
 
-
 namespace sge::image::color::impl::dynamic::algorithm::cac
 {
 
-template<
-	typename Function
->
+template <typename Function>
 class convert_visitor
 {
 public:
-	explicit
-	convert_visitor(
-		Function const &_function
-	)
-	:
-		function_(
-			_function
-		)
-	{
-	}
+  explicit convert_visitor(Function const &_function) : function_(_function) {}
 
-	using
-	result_type
-	=
-	void;
+  using result_type = void;
 
-	template<
-		typename Src,
-		typename Dest
-	>
-	result_type
-	operator()(
-		Src const &_src,
-		Dest const &_dest
-	) const
-	{
-		_dest =
-			function_(
-				_src,
-				_dest.format_store()
-			);
-	}
+  template <typename Src, typename Dest>
+  result_type operator()(Src const &_src, Dest const &_dest) const
+  {
+    _dest = function_(_src, _dest.format_store());
+  }
+
 private:
-	Function function_;
+  Function function_;
 };
 
 }

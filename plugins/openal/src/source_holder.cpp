@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/openal/source_holder.hpp>
 #include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/delete_source.hpp>
@@ -13,36 +12,16 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 
-
-sge::openal::source_holder::source_holder(
-	fcppt::log::object_reference const _log
-)
-:
-	log_{
-		_log
-	},
-	value_(
-		sge::openal::funcs::gen_source()
-	)
+sge::openal::source_holder::source_holder(fcppt::log::object_reference const _log)
+    : log_{_log}, value_(sge::openal::funcs::gen_source())
 {
 }
 
 sge::openal::source_holder::~source_holder()
 {
-	FCPPT_LOG_DEBUG(
-		log_.get(),
-		fcppt::log::out
-			<< FCPPT_TEXT("Deleting a source")
-	)
+  FCPPT_LOG_DEBUG(log_.get(), fcppt::log::out << FCPPT_TEXT("Deleting a source"))
 
-	sge::openal::funcs::delete_source(
-		value_
-	);
+  sge::openal::funcs::delete_source(value_);
 }
 
-sge::openal::source_id
-sge::openal::source_holder::get() const
-{
-	return
-		value_;
-}
+sge::openal::source_id sge::openal::source_holder::get() const { return value_; }

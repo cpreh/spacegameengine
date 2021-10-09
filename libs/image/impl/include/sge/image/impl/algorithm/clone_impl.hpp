@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_CLONE_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_CLONE_IMPL_HPP_INCLUDED
 
@@ -17,45 +16,18 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename Tag
->
-sge::image::store::object<
-	Tag
->
-sge::image::algorithm::clone(
-	sge::image::view::const_object<
-		Tag
-	> const &_view
-)
+template <typename Tag>
+sge::image::store::object<Tag>
+sge::image::algorithm::clone(sge::image::view::const_object<Tag> const &_view)
 {
-	return
-		fcppt::variant::apply(
-			[](
-				auto const &_inner_view
-			)
-			{
-				return
-					sge::image::store::object<
-						Tag
-					>{
-						sge::image::store::basic<
-							typename
-							std::decay<
-								decltype(
-									_inner_view
-								)
-							>::type::format
-						>(
-							mizuiro::image::algorithm::clone(
-								_inner_view
-							)
-						)
-					};
-			},
-			_view.get()
-		);
+  return fcppt::variant::apply(
+      [](auto const &_inner_view)
+      {
+        return sge::image::store::object<Tag>{
+            sge::image::store::basic<typename std::decay<decltype(_inner_view)>::type::format>(
+                mizuiro::image::algorithm::clone(_inner_view))};
+      },
+      _view.get());
 }
 
 #endif

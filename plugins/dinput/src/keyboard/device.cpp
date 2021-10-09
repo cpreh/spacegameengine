@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/dinput/is_down.hpp>
 #include <sge/dinput/keyboard/device.hpp>
 #include <sge/dinput/keyboard/key_map.hpp>
@@ -31,92 +30,38 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
-sge::dinput::keyboard::device::device(
-	dinput::device::parameters const &_parameters
-)
-:
-	sge::input::keyboard::device{},
-	sge::dinput::device::object{
-		_parameters,
-		c_dfDIKeyboard
-	},
-	fcppt::enable_shared_from_this<
-		sge::dinput::keyboard::device
-	>{},
-	info_{
-		sge::dinput::keyboard::make_info(
-			this->get()
-		)
-	}
+sge::dinput::keyboard::device::device(dinput::device::parameters const &_parameters)
+    : sge::input::keyboard::device{},
+      sge::dinput::device::object{_parameters, c_dfDIKeyboard},
+      fcppt::enable_shared_from_this<sge::dinput::keyboard::device>{},
+      info_{sge::dinput::keyboard::make_info(this->get())}
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::dinput::keyboard::device::~device()
-{
-}
+sge::dinput::keyboard::device::~device() {}
 
-sge::window::object &
-sge::dinput::keyboard::device::window() const
-{
-	return
-		this->sge_window();
-}
+sge::window::object &sge::dinput::keyboard::device::window() const { return this->sge_window(); }
 
 awl::event::optional_base_unique_ptr
-sge::dinput::keyboard::device::on_dispatch(
-	DIDEVICEOBJECTDATA const &_data
-)
+sge::dinput::keyboard::device::on_dispatch(DIDEVICEOBJECTDATA const &_data)
 {
-	DWORD const offset(
-		_data.dwOfs
-	);
+  DWORD const offset(_data.dwOfs);
 
-	sge::input::key::pressed const key_value{
-		sge::dinput::is_down(
-			_data.dwData
-		)
-	};
+  sge::input::key::pressed const key_value{sge::dinput::is_down(_data.dwData)};
 
-	sge::input::keyboard::key const key{
-		fcppt::optional::from(
-			fcppt::optional::copy_value(
-				fcppt::container::find_opt_mapped(
-					info_.key_map(),
-					offset
-				)
-			),
-			fcppt::const_(
-				sge::input::key::code::unknown
-			)
-		),
-		fcppt::strong_typedef_construct_cast<
-			sge::input::keyboard::key_id,
-			fcppt::cast::size_fun
-		>(
-			offset
-		)
-	};
+  sge::input::keyboard::key const key{
+      fcppt::optional::from(
+          fcppt::optional::copy_value(fcppt::container::find_opt_mapped(info_.key_map(), offset)),
+          fcppt::const_(sge::input::key::code::unknown)),
+      fcppt::strong_typedef_construct_cast<sge::input::keyboard::key_id, fcppt::cast::size_fun>(
+          offset)};
 
-	return
-		awl::event::optional_base_unique_ptr{
-			fcppt::unique_ptr_to_base<
-				awl::event::base
-			>(
-				fcppt::make_unique_ptr<
-					sge::input::keyboard::event::key
-				>(
-					sge::input::keyboard::shared_ptr{
-						this->fcppt_shared_from_this()
-					},
-					key,
-					key_value
-				)
-			)
-		};
+  return awl::event::optional_base_unique_ptr{fcppt::unique_ptr_to_base<awl::event::base>(
+      fcppt::make_unique_ptr<sge::input::keyboard::event::key>(
+          sge::input::keyboard::shared_ptr{this->fcppt_shared_from_this()}, key, key_value))};
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VERTEX_SCOPED_DECLARATION_AND_BUFFERS_HPP_INCLUDED
 #define SGE_RENDERER_VERTEX_SCOPED_DECLARATION_AND_BUFFERS_HPP_INCLUDED
 
@@ -19,7 +18,6 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vertex
 {
 
@@ -31,11 +29,10 @@ constructor and unsets them in the reverse order in the destructor.
 */
 class scoped_declaration_and_buffers
 {
-	FCPPT_NONMOVABLE(
-		scoped_declaration_and_buffers
-	);
+  FCPPT_NONMOVABLE(scoped_declaration_and_buffers);
+
 public:
-	/**
+  /**
 	\brief Sets the vertex declaration and buffers
 
 	Sets \a vertex_declaration following by all vertex buffers in \a
@@ -48,36 +45,26 @@ public:
 
 	\param vertex_buffers The vertex buffers to set
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	scoped_declaration_and_buffers(
-		sge::renderer::context::core_ref context,
-		sge::renderer::vertex::const_declaration_ref vertex_declaration,
-		sge::renderer::vertex::const_buffer_ref_container const &vertex_buffers
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  scoped_declaration_and_buffers(
+      sge::renderer::context::core_ref context,
+      sge::renderer::vertex::const_declaration_ref vertex_declaration,
+      sge::renderer::vertex::const_buffer_ref_container const &vertex_buffers);
 
-	/**
+  /**
 	\brief Unsets the vertex buffers following by the vertex declaration
 	*/
-	SGE_RENDERER_DETAIL_SYMBOL
-	~scoped_declaration_and_buffers();
+  SGE_RENDERER_DETAIL_SYMBOL
+  ~scoped_declaration_and_buffers();
+
 private:
-	sge::renderer::vertex::scoped_declaration const scoped_declaration_;
+  sge::renderer::vertex::scoped_declaration const scoped_declaration_;
 
-	using
-	scoped_buffer_ptr
-	=
-	fcppt::unique_ptr<
-		sge::renderer::vertex::scoped_buffer
-	>;
+  using scoped_buffer_ptr = fcppt::unique_ptr<sge::renderer::vertex::scoped_buffer>;
 
-	using
-	scoped_buffer_vector
-	=
-	std::vector<
-		scoped_buffer_ptr
-	>;
+  using scoped_buffer_vector = std::vector<scoped_buffer_ptr>;
 
-	scoped_buffer_vector const scoped_buffers_;
+  scoped_buffer_vector const scoped_buffers_;
 };
 
 }

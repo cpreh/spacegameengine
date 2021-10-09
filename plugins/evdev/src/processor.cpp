@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/processor.hpp>
 #include <sge/evdev/inotify/event.hpp>
 #include <sge/evdev/inotify/event_type.hpp>
@@ -53,276 +52,109 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::evdev::processor::processor(
-	fcppt::log::object_reference const _log,
-	sge::window::object_ref const _window
-)
-:
-	sge::input::processor{},
-	log_{
-		_log
-	},
-	path_{
-		"/dev/input"
-	},
-	window_{
-		_window
-	},
-	processor_{
-		fcppt::make_ref(
-			fcppt::optional::to_exception(
-				fcppt::cast::dynamic_cross<
-					awl::backends::posix::processor_base
-				>(
-					window_.get().system().awl_system().processor()
-				),
-				[]{
-					return
-						sge::input::exception{
-							FCPPT_TEXT("System processor is not a POSIX processor.")
-						};
-				}
-			)->fd_processor()
-		)
-	},
-	dev_watch_{
-		this->path_
-	},
-	dev_watch_connection_{
-		this->processor_.get().register_fd(
-			this->dev_watch_.fd()
-		)
-	},
-	joypads_{
-		sge::evdev::joypad::init(
-			this->log_.get(),
-			this->window_,
-			this->processor_,
-			this->path_
-		)
-	},
-	event_connection_{
-		window_.get().system().event_handler(
-			sge::window::system_event_function{
-				[
-					this
-				](
-					awl::event::base const &_event
-				)
-				{
-					return
-						this->system_event(
-							_event
-						);
-				}
-			}
-		)
-	}
+    fcppt::log::object_reference const _log, sge::window::object_ref const _window)
+    : sge::input::processor{},
+      log_{_log},
+      path_{"/dev/input"},
+      window_{_window},
+      processor_{
+          fcppt::make_ref(fcppt::optional::to_exception(
+                              fcppt::cast::dynamic_cross<awl::backends::posix::processor_base>(
+                                  window_.get().system().awl_system().processor()),
+                              [] {
+                                return sge::input::exception{
+                                    FCPPT_TEXT("System processor is not a POSIX processor.")};
+                              })
+                              ->fd_processor())},
+      dev_watch_{this->path_},
+      dev_watch_connection_{this->processor_.get().register_fd(this->dev_watch_.fd())},
+      joypads_{
+          sge::evdev::joypad::init(this->log_.get(), this->window_, this->processor_, this->path_)},
+      event_connection_{window_.get().system().event_handler(sge::window::system_event_function{
+          [this](awl::event::base const &_event) { return this->system_event(_event); }})}
 {
 }
 
-sge::evdev::processor::~processor()
-= default;
+sge::evdev::processor::~processor() = default;
 
-sge::window::object &
-sge::evdev::processor::window() const
+sge::window::object &sge::evdev::processor::window() const { return this->window_.get(); }
+
+sge::input::cursor::container sge::evdev::processor::cursors() const
 {
-	return
-		this->window_.get();
+  return sge::input::cursor::container{};
 }
 
-sge::input::cursor::container
-sge::evdev::processor::cursors() const
+sge::input::focus::container sge::evdev::processor::foci() const
 {
-	return
-		sge::input::cursor::container{};
+  return sge::input::focus::container{};
 }
 
-sge::input::focus::container
-sge::evdev::processor::foci() const
+sge::input::joypad::container sge::evdev::processor::joypads() const
 {
-	return
-		sge::input::focus::container{};
+  return fcppt::algorithm::map<sge::input::joypad::container>(
+      fcppt::container::map_values_copy<std::vector<sge::evdev::joypad::shared_ptr>>(
+          this->joypads_),
+      [](sge::evdev::joypad::shared_ptr const &_ptr)
+      { return sge::input::joypad::shared_ptr{_ptr}; });
 }
 
-sge::input::joypad::container
-sge::evdev::processor::joypads() const
+sge::input::keyboard::container sge::evdev::processor::keyboards() const
 {
-	return
-		fcppt::algorithm::map<
-			sge::input::joypad::container
-		>(
-			fcppt::container::map_values_copy<
-				std::vector<
-					sge::evdev::joypad::shared_ptr
-				>
-			>(
-				this->joypads_
-			),
-			[](
-				sge::evdev::joypad::shared_ptr const &_ptr
-			)
-			{
-				return
-					sge::input::joypad::shared_ptr{
-						_ptr
-					};
-			}
-		);
+  return sge::input::keyboard::container{};
 }
 
-sge::input::keyboard::container
-sge::evdev::processor::keyboards() const
+sge::input::mouse::container sge::evdev::processor::mice() const
 {
-	return
-		sge::input::keyboard::container{};
+  return sge::input::mouse::container{};
 }
 
-sge::input::mouse::container
-sge::evdev::processor::mice() const
+awl::event::container sge::evdev::processor::system_event(awl::event::base const &_event)
 {
-	return
-		sge::input::mouse::container{};
+  return fcppt::optional::from(
+      fcppt::optional::map(
+          fcppt::cast::dynamic<awl::backends::posix::event const>(_event),
+          [this](fcppt::reference<awl::backends::posix::event const> const _posix_event)
+          { return this->fd_event(_posix_event.get()); }),
+      [] { return awl::event::container(); });
 }
 
-awl::event::container
-sge::evdev::processor::system_event(
-	awl::event::base const &_event
-)
+awl::event::container sge::evdev::processor::fd_event(awl::backends::posix::event const &_event)
 {
-	return
-		fcppt::optional::from(
-			fcppt::optional::map(
-				fcppt::cast::dynamic<
-					awl::backends::posix::event const
-				>(
-					_event
-				),
-				[
-					this
-				](
-					fcppt::reference<
-						awl::backends::posix::event const
-					> const _posix_event
-				)
-				{
-					return
-						this->fd_event(
-							_posix_event.get()
-						);
-				}
-			),
-			[]{
-				return
-					awl::event::container();
-			}
-		);
-}
-
-awl::event::container
-sge::evdev::processor::fd_event(
-	awl::backends::posix::event const &_event
-)
-{
-	return
-		_event.fd()
-		==
-		this->dev_watch_.fd()
-		?
-			fcppt::algorithm::map_optional<
-				awl::event::container
-			>(
-				this->dev_watch_.on_event(),
-				[
-					this
-				](
-					sge::evdev::inotify::event const &_inotify_event
-				)
-				{
-					return
-						this->inotify_event(
-							_inotify_event
-						);
-				}
-			)
-		:
-			this->device_event(
-				_event
-			)
-		;
+  return _event.fd() == this->dev_watch_.fd()
+             ? fcppt::algorithm::map_optional<awl::event::container>(
+                   this->dev_watch_.on_event(),
+                   [this](sge::evdev::inotify::event const &_inotify_event)
+                   { return this->inotify_event(_inotify_event); })
+             : this->device_event(_event);
 }
 
 awl::event::optional_base_unique_ptr
-sge::evdev::processor::inotify_event(
-	sge::evdev::inotify::event const &_event
-)
+sge::evdev::processor::inotify_event(sge::evdev::inotify::event const &_event)
 {
-	std::filesystem::path const file_path(
-		this->path_
-		/
-		_event.filename()
-	);
+  std::filesystem::path const file_path(this->path_ / _event.filename());
 
-	switch(
-		_event.event_type()
-	)
-	{
-	case sge::evdev::inotify::event_type::add:
-		return
-			sge::evdev::joypad::add(
-				this->log_.get(),
-				this->window_,
-				this->processor_,
-				this->joypads_,
-				file_path
-			);
-	case sge::evdev::inotify::event_type::remove:
-		return
-			sge::evdev::joypad::remove(
-				this->joypads_,
-				file_path
-			);
-	case sge::evdev::inotify::event_type::attrib:
-		return
-			sge::evdev::joypad::attrib(
-				this->log_.get(),
-				this->window_,
-				this->processor_,
-				this->joypads_,
-				file_path
-			);
-	}
+  switch (_event.event_type())
+  {
+  case sge::evdev::inotify::event_type::add:
+    return sge::evdev::joypad::add(
+        this->log_.get(), this->window_, this->processor_, this->joypads_, file_path);
+  case sge::evdev::inotify::event_type::remove:
+    return sge::evdev::joypad::remove(this->joypads_, file_path);
+  case sge::evdev::inotify::event_type::attrib:
+    return sge::evdev::joypad::attrib(
+        this->log_.get(), this->window_, this->processor_, this->joypads_, file_path);
+  }
 
-	return
-		awl::event::optional_base_unique_ptr{};
+  return awl::event::optional_base_unique_ptr{};
 }
 
-awl::event::container
-sge::evdev::processor::device_event(
-	awl::backends::posix::event const &_event
-)
+awl::event::container sge::evdev::processor::device_event(awl::backends::posix::event const &_event)
 {
-	return
-		fcppt::optional::from(
-			fcppt::optional::map(
-				fcppt::container::find_opt_mapped(
-					this->joypads_,
-					_event.fd()
-				),
-				[](
-					fcppt::reference<
-						sge::evdev::joypad::shared_ptr
-					> const _joypad
-				)
-				{
-					return
-						_joypad.get()->on_event();
-				}
-			),
-			[]{
-				return
-					awl::event::container{};
-			}
-		);
+  return fcppt::optional::from(
+      fcppt::optional::map(
+          fcppt::container::find_opt_mapped(this->joypads_, _event.fd()),
+          [](fcppt::reference<sge::evdev::joypad::shared_ptr> const _joypad)
+          { return _joypad.get()->on_event(); }),
+      [] { return awl::event::container{}; });
 }

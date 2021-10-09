@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_FILE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CREATE_PLANAR_FROM_FILE_HPP_INCLUDED
 
@@ -15,19 +14,16 @@
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 
-
 namespace sge::renderer::texture
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::texture::planar_unique_ptr
-create_planar_from_file(
-	sge::renderer::device::core_ref,
-	sge::image2d::file &, // NOLINT(google-runtime-references)
-	sge::renderer::texture::mipmap::object const &,
-	sge::renderer::resource_flags_field const &,
-	sge::renderer::texture::emulate_srgb
-);
+sge::renderer::texture::planar_unique_ptr create_planar_from_file(
+    sge::renderer::device::core_ref,
+    sge::image2d::file &, // NOLINT(google-runtime-references)
+    sge::renderer::texture::mipmap::object const &,
+    sge::renderer::resource_flags_field const &,
+    sge::renderer::texture::emulate_srgb);
 
 }
 

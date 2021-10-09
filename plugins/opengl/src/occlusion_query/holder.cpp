@@ -3,40 +3,21 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/occlusion_query/const_config_ref.hpp>
 #include <sge/opengl/occlusion_query/create_id.hpp>
 #include <sge/opengl/occlusion_query/delete_id.hpp>
 #include <sge/opengl/occlusion_query/holder.hpp>
 #include <sge/opengl/occlusion_query/id.hpp>
 
-
 sge::opengl::occlusion_query::holder::holder(
-	sge::opengl::occlusion_query::const_config_ref const _config
-)
-:
-	config_(
-		_config
-	),
-	id_(
-		sge::opengl::occlusion_query::create_id(
-			config_.get()
-		)
-	)
+    sge::opengl::occlusion_query::const_config_ref const _config)
+    : config_(_config), id_(sge::opengl::occlusion_query::create_id(config_.get()))
 {
 }
 
 sge::opengl::occlusion_query::holder::~holder()
 {
-	sge::opengl::occlusion_query::delete_id(
-		config_.get(),
-		id_
-	);
+  sge::opengl::occlusion_query::delete_id(config_.get(), id_);
 }
 
-sge::opengl::occlusion_query::id
-sge::opengl::occlusion_query::holder::id() const
-{
-	return
-		id_;
-}
+sge::opengl::occlusion_query::id sge::opengl::occlusion_query::holder::id() const { return id_; }

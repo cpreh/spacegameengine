@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_BUFFERS_ZERO_OFFSET_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_BUFFERS_ZERO_OFFSET_HPP_INCLUDED
 
@@ -16,64 +15,28 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail::buffers
 {
 
-template<
-	typename Choices
->
-inline
-std::enable_if_t<
-	sge::sprite::detail::config::needs_index_buffer<
-		Choices
-	>::value,
-	sge::sprite::buffers::offset_object<
-		Choices
-	>
->
+template <typename Choices>
+inline std::enable_if_t<
+    sge::sprite::detail::config::needs_index_buffer<Choices>::value,
+    sge::sprite::buffers::offset_object<Choices>>
 zero_offset()
 {
-	return
-		sge::sprite::buffers::offset_object<
-			Choices
-		>(
-			sge::sprite::buffers::roles::first_vertex{} =
-				sge::renderer::vertex::first{
-					0U
-				},
-			sge::sprite::buffers::roles::first_index{} =
-				sge::renderer::index::first{
-					0U
-				}
-		);
+  return sge::sprite::buffers::offset_object<Choices>(
+      sge::sprite::buffers::roles::first_vertex{} = sge::renderer::vertex::first{0U},
+      sge::sprite::buffers::roles::first_index{} = sge::renderer::index::first{0U});
 }
 
-template<
-	typename Choices
->
-inline
-std::enable_if_t<
-	fcppt::not_(
-		sge::sprite::detail::config::needs_index_buffer<
-			Choices
-		>::value
-	),
-	sge::sprite::buffers::offset_object<
-		Choices
-	>
->
+template <typename Choices>
+inline std::enable_if_t<
+    fcppt::not_(sge::sprite::detail::config::needs_index_buffer<Choices>::value),
+    sge::sprite::buffers::offset_object<Choices>>
 zero_offset()
 {
-	return
-		sge::sprite::buffers::offset_object<
-			Choices
-		>(
-			sge::sprite::buffers::roles::first_vertex{} =
-				sge::renderer::vertex::first{
-					0U
-				}
-		);
+  return sge::sprite::buffers::offset_object<Choices>(
+      sge::sprite::buffers::roles::first_vertex{} = sge::renderer::vertex::first{0U});
 }
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/gui/background/base.hpp>
 #include <sge/gui/background/none.hpp>
 #include <sge/gui/main_area/reference.hpp>
@@ -11,25 +10,14 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/rect.hpp>
 
-
-sge::gui::background::none::none(
-	sge::gui::main_area::reference const _main_area
-)
-:
-	sge::gui::background::base(
-		_main_area
-	)
+sge::gui::background::none::none(sge::gui::main_area::reference const _main_area)
+    : sge::gui::background::base(_main_area)
 {
 }
 
-sge::gui::background::none::~none()
-= default;
+sge::gui::background::none::~none() = default;
 
-void
-sge::gui::background::none::on_draw(
-	sge::gui::renderer::base &,
-	sge::renderer::context::ffp &,
-	sge::rucksack::rect const &
-)
+void sge::gui::background::none::on_draw(
+    sge::gui::renderer::base &, sge::renderer::context::ffp &, sge::rucksack::rect const &)
 {
 }

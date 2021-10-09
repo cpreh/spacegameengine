@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_INI_GET_OR_CREATE_SECTION_HPP_INCLUDED
 #define SGE_PARSE_INI_GET_OR_CREATE_SECTION_HPP_INCLUDED
 
@@ -13,20 +12,12 @@
 #include <sge/parse/ini/detail/symbol.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::parse::ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
-fcppt::reference<
-	sge::parse::ini::section
->
-get_or_create_section(
-	fcppt::reference<
-		sge::parse::ini::start
-	>,
-	sge::parse::ini::section_name const &
-);
+fcppt::reference<sge::parse::ini::section> get_or_create_section(
+    fcppt::reference<sge::parse::ini::start>, sge::parse::ini::section_name const &);
 
 }
 

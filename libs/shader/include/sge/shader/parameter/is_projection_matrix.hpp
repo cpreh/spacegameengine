@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SHADER_PARAMETER_IS_PROJECTION_MATRIX_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_IS_PROJECTION_MATRIX_HPP_INCLUDED
 
@@ -12,9 +11,7 @@
 
 namespace sge::shader::parameter
 {
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	bool,
-	is_projection_matrix);
+FCPPT_DECLARE_STRONG_TYPEDEF(bool, is_projection_matrix);
 }
 
 #endif

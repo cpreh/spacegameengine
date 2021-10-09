@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/added.hpp>
 #include <sge/font/exception.hpp>
 #include <sge/gdifont/added.hpp>
@@ -16,47 +15,16 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::gdifont::added::added(
-	std::filesystem::path const &_path
-)
-:
-	path_(
-		_path
-	)
+sge::gdifont::added::added(std::filesystem::path const &_path) : path_(_path)
 {
-	if(
-		AddFontResourceEx(
-			fcppt::filesystem::path_to_string(
-				_path
-			).c_str(),
-			FR_PRIVATE,
-			nullptr
-		)
-		==
-		0
-	)
-		throw
-			sge::font::exception{
-				FCPPT_TEXT("Unable to add font ")
-				+
-				fcppt::filesystem::path_to_string(
-					_path
-				)
-			};
+  if (AddFontResourceEx(fcppt::filesystem::path_to_string(_path).c_str(), FR_PRIVATE, nullptr) == 0)
+    throw sge::font::exception{
+        FCPPT_TEXT("Unable to add font ") + fcppt::filesystem::path_to_string(_path)};
 }
 
 sge::gdifont::added::~added()
 {
-	FCPPT_ASSERT_ERROR(
-		RemoveFontResourceEx(
-			fcppt::filesystem::path_to_string(
-				path_
-			).c_str(),
-			FR_PRIVATE,
-			nullptr
-		)
-		!=
-		0
-	);
+  FCPPT_ASSERT_ERROR(
+      RemoveFontResourceEx(fcppt::filesystem::path_to_string(path_).c_str(), FR_PRIVATE, nullptr) !=
+      0);
 }

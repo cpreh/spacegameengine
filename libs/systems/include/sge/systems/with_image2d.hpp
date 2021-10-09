@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_WITH_IMAGE2D_HPP_INCLUDED
 #define SGE_SYSTEMS_WITH_IMAGE2D_HPP_INCLUDED
 
@@ -14,26 +13,16 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::systems
 {
 
 struct with_image2d
 {
-	using
-	needs_init
-	=
-	std::true_type;
+  using needs_init = std::true_type;
 
-	using
-	parameter_type
-	=
-	sge::systems::image2d;
+  using parameter_type = sge::systems::image2d;
 
-	using
-	needs_before
-	=
-	fcppt::mpl::list::object<>;
+  using needs_before = fcppt::mpl::list::object<>;
 };
 
 }

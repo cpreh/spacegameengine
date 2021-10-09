@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/move.hpp>
@@ -25,98 +24,39 @@
 #include <SDL_video.h>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::event::container
-sge::sdlinput::translate::window_event(
-	sge::input::cursor::shared_ptr const &_cursor,
-	sge::input::focus::shared_ptr const &_focus,
-	awl::backends::sdl::window::object const &_window,
-	SDL_WindowEvent const &_event
-)
+awl::event::container sge::sdlinput::translate::window_event(
+    sge::input::cursor::shared_ptr const &_cursor,
+    sge::input::focus::shared_ptr const &_focus,
+    awl::backends::sdl::window::object const &_window,
+    SDL_WindowEvent const &_event)
 {
-	if(
-		fcppt::not_(
-			sge::sdlinput::same_windows(
-				_window,
-				_event
-			)
-		)
-	)
-	{
-		return
-			awl::event::container{};
-	}
+  if (fcppt::not_(sge::sdlinput::same_windows(_window, _event)))
+  {
+    return awl::event::container{};
+  }
 
-	switch(
-		_event.event
-	)
-	{
-	case SDL_WINDOWEVENT_ENTER:
-		return
-			fcppt::container::make<
-				awl::event::container
-			>(
-				fcppt::unique_ptr_to_base<
-					awl::event::base
-				>(
-					fcppt::make_unique_ptr<
-						sge::input::cursor::event::move
-					>(
-						_cursor,
-						sge::input::cursor::optional_position{
-							sge::sdlinput::cursor::get_position()
-						}
-					)
-				)
-			);
-	case SDL_WINDOWEVENT_LEAVE:
-		return
-			fcppt::container::make<
-				awl::event::container
-			>(
-				fcppt::unique_ptr_to_base<
-					awl::event::base
-				>(
-					fcppt::make_unique_ptr<
-						sge::input::cursor::event::move
-					>(
-						_cursor,
-						sge::input::cursor::optional_position()
-					)
-				)
-			);
-	case SDL_WINDOWEVENT_FOCUS_GAINED:
-		return
-			fcppt::container::make<
-				awl::event::container
-			>(
-				fcppt::unique_ptr_to_base<
-					awl::event::base
-				>(
-					fcppt::make_unique_ptr<
-						sge::input::focus::event::in
-					>(
-						_focus
-					)
-				)
-			);
-	case SDL_WINDOWEVENT_FOCUS_LOST:
-		return
-			fcppt::container::make<
-				awl::event::container
-			>(
-				fcppt::unique_ptr_to_base<
-					awl::event::base
-				>(
-					fcppt::make_unique_ptr<
-						sge::input::focus::event::out
-					>(
-						_focus
-					)
-				)
-			);
-	}
+  switch (_event.event)
+  {
+  case SDL_WINDOWEVENT_ENTER:
+    return fcppt::container::make<awl::event::container>(
+        fcppt::unique_ptr_to_base<awl::event::base>(
+            fcppt::make_unique_ptr<sge::input::cursor::event::move>(
+                _cursor,
+                sge::input::cursor::optional_position{sge::sdlinput::cursor::get_position()})));
+  case SDL_WINDOWEVENT_LEAVE:
+    return fcppt::container::make<awl::event::container>(
+        fcppt::unique_ptr_to_base<awl::event::base>(
+            fcppt::make_unique_ptr<sge::input::cursor::event::move>(
+                _cursor, sge::input::cursor::optional_position())));
+  case SDL_WINDOWEVENT_FOCUS_GAINED:
+    return fcppt::container::make<awl::event::container>(
+        fcppt::unique_ptr_to_base<awl::event::base>(
+            fcppt::make_unique_ptr<sge::input::focus::event::in>(_focus)));
+  case SDL_WINDOWEVENT_FOCUS_LOST:
+    return fcppt::container::make<awl::event::container>(
+        fcppt::unique_ptr_to_base<awl::event::base>(
+            fcppt::make_unique_ptr<sge::input::focus::event::out>(_focus)));
+  }
 
-	return
-		awl::event::container{};
+  return awl::event::container{};
 }

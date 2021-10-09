@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PANGO_GET_EXTENTS_HPP_INCLUDED
 #define SGE_PANGO_GET_EXTENTS_HPP_INCLUDED
 
@@ -12,13 +11,10 @@
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::pango
 {
 
-sge::pango::extents
-get_extents(
-	PangoLayout & // NOLINT(google-runtime-references)
+sge::pango::extents get_extents(PangoLayout & // NOLINT(google-runtime-references)
 ); // NOLINT(google-runtime-references)
 
 }

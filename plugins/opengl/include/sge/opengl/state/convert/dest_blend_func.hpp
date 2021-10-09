@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CONVERT_DEST_BLEND_FUNC_HPP_INCLUDED
 
 #include <sge/opengl/common.hpp>
 #include <sge/renderer/state/core/blend/dest_fwd.hpp>
 
-
 namespace sge::opengl::state::convert
 {
 
-GLenum
-dest_blend_func(
-	sge::renderer::state::core::blend::dest
-);
+GLenum dest_blend_func(sge::renderer::state::core::blend::dest);
 
 }
 

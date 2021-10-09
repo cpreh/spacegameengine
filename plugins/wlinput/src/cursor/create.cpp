@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/window/object_ref.hpp>
 #include <sge/wlinput/cursor/create.hpp>
 #include <sge/wlinput/cursor/create_function.hpp>
@@ -13,33 +12,15 @@
 #include <awl/event/container_reference.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 
-
-sge::wlinput::cursor::create_function
-sge::wlinput::cursor::create(
-	sge::window::object_ref const _sge_window,
-	awl::backends::wayland::window::object_ref const _window,
-	awl::event::container_reference const _events
-)
+sge::wlinput::cursor::create_function sge::wlinput::cursor::create(
+    sge::window::object_ref const _sge_window,
+    awl::backends::wayland::window::object_ref const _window,
+    awl::event::container_reference const _events)
 {
-	return
-		sge::wlinput::cursor::create_function{
-			[
-				_sge_window,
-				_window,
-				_events
-			](
-				awl::backends::wayland::seat_ref const _seat
-			)
-			{
-				return
-					fcppt::make_unique_ptr<
-						sge::wlinput::cursor::object
-					>(
-						_sge_window,
-						_window,
-						_events,
-						_seat
-					);
-			}
-		};
+  return sge::wlinput::cursor::create_function{
+      [_sge_window, _window, _events](awl::backends::wayland::seat_ref const _seat)
+      {
+        return fcppt::make_unique_ptr<sge::wlinput::cursor::object>(
+            _sge_window, _window, _events, _seat);
+      }};
 }

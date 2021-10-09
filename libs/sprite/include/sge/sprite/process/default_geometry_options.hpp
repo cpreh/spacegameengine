@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_PROCESS_DEFAULT_GEOMETRY_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_DEFAULT_GEOMETRY_OPTIONS_HPP_INCLUDED
 
@@ -17,63 +16,35 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::process
 {
 
-template<
-	typename Choices,
-	typename Compare,
-	typename Enable = void
->
+template <typename Choices, typename Compare, typename Enable = void>
 struct default_geometry_options;
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Weffc++)
 
-template<
-	typename Choices,
-	typename Compare
->
+template <typename Choices, typename Compare>
 struct default_geometry_options<
-	Choices,
-	Compare,
-	std::enable_if_t<
-		sge::sprite::detail::process::do_default_sort<
-			Choices,
-			Compare
-		>::value
-	>
->
-:
-std::integral_constant<
-	sge::sprite::process::geometry_options,
-	sge::sprite::process::geometry_options::sort_and_update
->
+    Choices,
+    Compare,
+    std::enable_if_t<sge::sprite::detail::process::do_default_sort<Choices, Compare>::value>>
+    : std::integral_constant<
+          sge::sprite::process::geometry_options,
+          sge::sprite::process::geometry_options::sort_and_update>
 {
 };
 
-template<
-	typename Choices,
-	typename Compare
->
+template <typename Choices, typename Compare>
 struct default_geometry_options<
-	Choices,
-	Compare,
-	std::enable_if_t<
-		fcppt::not_(
-			sge::sprite::detail::process::do_default_sort<
-				Choices,
-				Compare
-			>::value
-		)
-	>
->
-:
-std::integral_constant<
-	sge::sprite::process::geometry_options,
-	sge::sprite::process::geometry_options::update
->
+    Choices,
+    Compare,
+    std::enable_if_t<fcppt::not_(
+        sge::sprite::detail::process::do_default_sort<Choices, Compare>::value)>>
+    : std::integral_constant<
+          sge::sprite::process::geometry_options,
+          sge::sprite::process::geometry_options::update>
 {
 };
 

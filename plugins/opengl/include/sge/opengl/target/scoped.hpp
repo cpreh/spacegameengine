@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_TARGET_SCOPED_HPP_INCLUDED
 #define SGE_OPENGL_TARGET_SCOPED_HPP_INCLUDED
 
@@ -12,28 +11,22 @@
 #include <sge/opengl/target/scoped_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::target
 {
 
 class scoped
 {
-	FCPPT_NONMOVABLE(
-		scoped
-	);
+  FCPPT_NONMOVABLE(scoped);
+
 public:
-	explicit
-	scoped(
-		sge::opengl::target::base_ref
-	);
+  explicit scoped(sge::opengl::target::base_ref);
 
-	~scoped();
+  ~scoped();
 
-	[[nodiscard]]
-	sge::opengl::target::base &
-	get() const;
+  [[nodiscard]] sge::opengl::target::base &get() const;
+
 private:
-	sge::opengl::target::base_ref const target_;
+  sge::opengl::target::base_ref const target_;
 };
 
 }

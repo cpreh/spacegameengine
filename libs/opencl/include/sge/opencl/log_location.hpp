@@ -3,20 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_LOG_LOCATION_HPP_INCLUDED
 #define SGE_OPENCL_LOG_LOCATION_HPP_INCLUDED
 
 #include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/log/location.hpp>
 
-
 namespace sge::opencl
 {
 
 SGE_OPENCL_DETAIL_SYMBOL
-fcppt::log::location
-log_location();
+fcppt::log::location log_location();
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/parse/impl/parse_file.hpp>
 #include <sge/parse/ini/file_result.hpp>
 #include <sge/parse/ini/grammar.hpp>
@@ -12,15 +11,7 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::parse::ini::file_result
-sge::parse::ini::parse_file(
-	std::filesystem::path const &_path
-)
+sge::parse::ini::file_result sge::parse::ini::parse_file(std::filesystem::path const &_path)
 {
-	return
-		sge::parse::impl::parse_file(
-			_path,
-			sge::parse::ini::grammar{}
-		);
+  return sge::parse::impl::parse_file(_path, sge::parse::ini::grammar{});
 }

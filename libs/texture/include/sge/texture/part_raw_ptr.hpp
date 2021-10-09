@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_PART_RAW_PTR_HPP_INCLUDED
 #define SGE_TEXTURE_PART_RAW_PTR_HPP_INCLUDED
 
@@ -14,13 +13,10 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
 
-SGE_TEXTURE_DETAIL_DECLARE_BASIC_PART_RAW(
-	sge::renderer::texture::planar_unique_ptr &&
-);
+SGE_TEXTURE_DETAIL_DECLARE_BASIC_PART_RAW(sge::renderer::texture::planar_unique_ptr &&);
 
 FCPPT_PP_POP_WARNING
 

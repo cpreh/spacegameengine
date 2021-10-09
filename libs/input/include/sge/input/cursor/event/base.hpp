@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_CURSOR_EVENT_BASE_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_EVENT_BASE_HPP_INCLUDED
 
@@ -14,34 +13,24 @@
 #include <sge/input/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::cursor::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL base
-:
-	public sge::input::event_base
+class SGE_CORE_DETAIL_CLASS_SYMBOL base : public sge::input::event_base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	explicit
-	base(
-		sge::input::cursor::shared_ptr
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  explicit base(sge::input::cursor::shared_ptr);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~base()
-	override;
+  SGE_INPUT_DETAIL_SYMBOL
+  ~base() override;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::cursor::shared_ptr const &
-	cursor() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::cursor::shared_ptr const &cursor() const;
+
 private:
-	sge::input::cursor::shared_ptr const cursor_;
+  sge::input::cursor::shared_ptr const cursor_;
 };
 
 }

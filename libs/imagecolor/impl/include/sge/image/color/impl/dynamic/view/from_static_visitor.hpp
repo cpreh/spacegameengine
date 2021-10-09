@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_VIEW_FROM_STATIC_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_VIEW_FROM_STATIC_VISITOR_HPP_INCLUDED
 
@@ -11,39 +10,19 @@
 #include <sge/image/color/impl/dynamic/view/basic_variant.hpp>
 #include <sge/image/color/impl/dynamic/view/from_static.hpp>
 
-
 namespace sge::image::color::impl::dynamic::view
 {
 
-template<
-	sge::image::size_type Dim,
-	typename Constness
->
+template <sge::image::size_type Dim, typename Constness>
 struct from_static_visitor
 {
-	using
-	result_type
-	=
-	sge::image::color::impl::dynamic::view::basic_variant<
-		Dim,
-		Constness
-	>;
+  using result_type = sge::image::color::impl::dynamic::view::basic_variant<Dim, Constness>;
 
-	template<
-		typename View
-	>
-	result_type
-	operator()(
-		View const &_view
-	) const
-	{
-		return
-			result_type(
-				sge::image::color::impl::dynamic::view::from_static(
-					_view
-				)
-			);
-	}
+  template <typename View>
+  result_type operator()(View const &_view) const
+  {
+    return result_type(sge::image::color::impl::dynamic::view::from_static(_view));
+  }
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_PROJECTION_ORTHOGONAL_VIEWPORT_HPP_INCLUDED
 #define SGE_RENDERER_PROJECTION_ORTHOGONAL_VIEWPORT_HPP_INCLUDED
 
@@ -13,17 +12,14 @@
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 
-
 namespace sge::renderer::projection
 {
 
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::optional_matrix4
-orthogonal_viewport(
-	sge::renderer::target::viewport const &,
-	sge::renderer::projection::near,
-	sge::renderer::projection::far
-);
+sge::renderer::optional_matrix4 orthogonal_viewport(
+    sge::renderer::target::viewport const &,
+    sge::renderer::projection::near,
+    sge::renderer::projection::far);
 
 }
 

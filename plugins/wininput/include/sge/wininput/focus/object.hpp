@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WININPUT_FOCUS_OBJECT_HPP_INCLUDED
 #define SGE_WININPUT_FOCUS_OBJECT_HPP_INCLUDED
 
@@ -21,7 +20,6 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge
 {
 namespace wininput
@@ -29,50 +27,30 @@ namespace wininput
 namespace focus
 {
 
-class object
-:
-	public
-		sge::input::focus::object,
-	public
-		fcppt::enable_shared_from_this<
-			sge::wininput::focus::object
-		>
+class object : public sge::input::focus::object,
+               public fcppt::enable_shared_from_this<sge::wininput::focus::object>
 {
-	FCPPT_NONCOPYABLE(
-		object
-	);
+  FCPPT_NONCOPYABLE(object);
+
 public:
-	explicit
-	object(
-		sge::window::object_ref
-	);
+  explicit object(sge::window::object_ref);
 
-	~object()
-	override;
+  ~object() override;
 
-	sge::window::object &
-	window() const
-	override;
+  sge::window::object &window() const override;
+
 private:
-	awl::event::container
-	on_event(
-		awl::window::event::base const &
-	);
+  awl::event::container on_event(awl::window::event::base const &);
 
-	awl::event::optional_base_unique_ptr
-	on_window_event(
-		awl::backends::windows::window::event::generic const &
-	);
+  awl::event::optional_base_unique_ptr
+  on_window_event(awl::backends::windows::window::event::generic const &);
 
-	awl::event::base_unique_ptr
-	on_key(
-		awl::backends::windows::window::event::generic const &,
-		sge::input::key::pressed
-	);
+  awl::event::base_unique_ptr
+  on_key(awl::backends::windows::window::event::generic const &, sge::input::key::pressed);
 
-	sge::window::object_ref const window_;
+  sge::window::object_ref const window_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
 };
 
 }

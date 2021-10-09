@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_STREAM_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_MEDIA_STREAM_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/media/stream_unique_ptr_fwd.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-
 
 #endif

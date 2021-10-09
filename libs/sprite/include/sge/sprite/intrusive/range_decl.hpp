@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_INTRUSIVE_RANGE_DECL_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_RANGE_DECL_HPP_INCLUDED
 
@@ -15,77 +14,37 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::intrusive
 {
 
-template<
-	typename Choices,
-	bool IsConst
->
+template <typename Choices, bool IsConst>
 class range
 {
-	using
-	list
-	=
-	sge::sprite::intrusive::detail::list<
-		Choices
-	>;
+  using list = sge::sprite::intrusive::detail::list<Choices>;
+
 public:
-	using
-	reference
-	=
-	fcppt::reference<
-		std::conditional_t<
-			IsConst,
-			list const,
-			list
-		>
-	>;
+  using reference = fcppt::reference<std::conditional_t<IsConst, list const, list>>;
 
-	using
-	iterator
-	=
-	std::conditional_t<
-		IsConst,
-		typename
-		list::const_iterator,
-		typename
-		list::iterator
-	>;
+  using iterator =
+      std::conditional_t<IsConst, typename list::const_iterator, typename list::iterator>;
 
-	range(
-		reference,
-		sge::sprite::count
-	);
+  range(reference, sge::sprite::count);
 
-	[[nodiscard]]
-	iterator
-	begin() const;
+  [[nodiscard]] iterator begin() const;
 
-	[[nodiscard]]
-	iterator
-	end() const;
+  [[nodiscard]] iterator end() const;
 
-	[[nodiscard]]
-	sge::sprite::count
-	size() const;
+  [[nodiscard]] sge::sprite::count size() const;
 
-	[[nodiscard]]
-	bool
-	empty() const;
+  [[nodiscard]] bool empty() const;
 
-	template<
-		typename Equal
-	>
-	void
-	sort(
-		Equal const &
-	) const;
+  template <typename Equal>
+  void sort(Equal const &) const;
+
 private:
-	reference list_;
+  reference list_;
 
-	sge::sprite::count size_;
+  sge::sprite::count size_;
 };
 
 }

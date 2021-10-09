@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_GHOST_BODY_ENTER_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_BODY_ENTER_HPP_INCLUDED
 
 #include <sge/projectile/ghost/body_enter_fn.hpp>
 #include <fcppt/function_impl.hpp>
 
-
 namespace sge::projectile::ghost
 {
 
-using
-body_enter
-=
-fcppt::function<
-	sge::projectile::ghost::body_enter_fn
->;
+using body_enter = fcppt::function<sge::projectile::ghost::body_enter_fn>;
 
 }
 

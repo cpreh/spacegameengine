@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_ATLASING_MAKE_INNER_RECT_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_MAKE_INNER_RECT_HPP_INCLUDED
 
@@ -11,15 +10,11 @@
 #include <sge/texture/atlasing/outer_rect_fwd.hpp>
 #include <sge/texture/detail/symbol.hpp>
 
-
 namespace sge::texture::atlasing
 {
 
 SGE_TEXTURE_DETAIL_SYMBOL
-sge::texture::atlasing::inner_rect
-make_inner_rect(
-	sge::texture::atlasing::outer_rect const &
-);
+sge::texture::atlasing::inner_rect make_inner_rect(sge::texture::atlasing::outer_rect const &);
 
 }
 

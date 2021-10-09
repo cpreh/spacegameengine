@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
@@ -29,67 +28,27 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	sge::systems::instance<
-		sge::systems::with_window,
-		sge::systems::with_input
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window{
-				sge::systems::window_source{
-					sge::systems::original_window{
-						sge::window::title{
-							FCPPT_TEXT("sge input-only example")
-						}
-					}
-				}
-			}
-		)
-		(
-			sge::systems::input(
-				sge::systems::cursor_option_field::null()
-			)
-		)
-	);
+  sge::systems::instance<sge::systems::with_window, sge::systems::with_input> const sys(
+      sge::systems::make_list(
+          sge::systems::window{sge::systems::window_source{sge::systems::original_window{
+              sge::window::title{FCPPT_TEXT("sge input-only example")}}}})(
+          sge::systems::input(sge::systems::cursor_option_field::null())));
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[](
-					awl::event::base const &
-				)
-				{
-				}
-			}
-		);
+  return sge::window::loop(
+      sys.window_system(), sge::window::loop_function{[](awl::event::base const &) {}});
 }
-catch(
-	fcppt::exception const &_exception
-)
+catch (fcppt::exception const &_exception)
 {
-	awl::show_error(
-		_exception.string()
-	);
+  awl::show_error(_exception.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_exception
-)
+catch (std::exception const &_exception)
 {
-	awl::show_error_narrow(
-		_exception.what()
-	);
+  awl::show_error_narrow(_exception.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

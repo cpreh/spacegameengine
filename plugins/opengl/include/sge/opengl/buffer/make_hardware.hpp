@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BUFFER_MAKE_HARDWARE_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_MAKE_HARDWARE_HPP_INCLUDED
 
@@ -17,43 +16,20 @@
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 
-
 namespace sge::opengl::buffer
 {
 
-template<
-	typename... Args
->
-fcppt::array::object<
-	sge::opengl::buffer::base_unique_ptr,
-	sizeof...(Args)
->
-make_hardware(
-	sge::opengl::buffer::const_hardware_config_ref const _config,
-	Args const ..._args
-)
+template <typename... Args>
+fcppt::array::object<sge::opengl::buffer::base_unique_ptr, sizeof...(Args)>
+make_hardware(sge::opengl::buffer::const_hardware_config_ref const _config, Args const... _args)
 {
-	return
-		fcppt::array::object<
-			sge::opengl::buffer::base_unique_ptr,
-			sizeof...(Args)
-		>{
-			fcppt::unique_ptr_to_base<
-				sge::opengl::buffer::base
-			>(
-				fcppt::make_unique_ptr<
-					sge::opengl::buffer::hardware
-				>(
-					fcppt::strong_typedef_construct_cast<
-						sge::opengl::buffer::type,
-						fcppt::cast::static_cast_fun
-					>(
-						_args
-					),
-					_config
-				)
-			)...
-		};
+  return fcppt::array::object<sge::opengl::buffer::base_unique_ptr, sizeof...(Args)>{
+      fcppt::unique_ptr_to_base<sge::opengl::buffer::base>(
+          fcppt::make_unique_ptr<sge::opengl::buffer::hardware>(
+              fcppt::strong_typedef_construct_cast<
+                  sge::opengl::buffer::type,
+                  fcppt::cast::static_cast_fun>(_args),
+              _config))...};
 }
 
 }

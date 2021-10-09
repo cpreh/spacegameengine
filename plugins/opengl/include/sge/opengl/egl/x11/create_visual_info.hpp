@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_X11_CREATE_VISUAL_INFO_HPP_INCLUDED
 #define SGE_OPENGL_EGL_X11_CREATE_VISUAL_INFO_HPP_INCLUDED
 
@@ -13,16 +12,11 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::egl::x11
 {
 
 awl::backends::x11::visual::info_unique_ptr
-create_visual_info(
-	awl::backends::x11::const_display_ref,
-	EGLDisplay,
-	EGLConfig
-);
+    create_visual_info(awl::backends::x11::const_display_ref, EGLDisplay, EGLConfig);
 
 }
 

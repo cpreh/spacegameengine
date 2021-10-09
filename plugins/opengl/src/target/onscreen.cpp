@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/current_ref.hpp>
 #include <sge/opengl/context/object_ref.hpp>
@@ -24,82 +23,40 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-
 sge::opengl::target::onscreen::onscreen(
-	sge::opengl::context::object_ref const _context,
-	sge::opengl::backend::current_ref const _current,
-	awl::window::object_ref const _window
-)
-:
-	base(
-		_context,
-		sge::renderer::target::viewport(
-			fcppt::math::box::null<
-				sge::renderer::pixel_rect
-			>()
-		)
-	),
-	current_(
-		_current
-	),
-	main_surface_(
-		fcppt::unique_ptr_to_base<
-			sge::renderer::color_buffer::readable_surface
-		>(
-			fcppt::make_unique_ptr<
-				sge::opengl::target::onscreen_surface
-			>(
-				_window
-			)
-		)
-	)
+    sge::opengl::context::object_ref const _context,
+    sge::opengl::backend::current_ref const _current,
+    awl::window::object_ref const _window)
+    : base(
+          _context,
+          sge::renderer::target::viewport(fcppt::math::box::null<sge::renderer::pixel_rect>())),
+      current_(_current),
+      main_surface_(fcppt::unique_ptr_to_base<sge::renderer::color_buffer::readable_surface>(
+          fcppt::make_unique_ptr<sge::opengl::target::onscreen_surface>(_window)))
 {
 }
 
-sge::opengl::target::onscreen::~onscreen()
-= default;
+sge::opengl::target::onscreen::~onscreen() = default;
 
-void
-sge::opengl::target::onscreen::on_bind()
+void sge::opengl::target::onscreen::on_bind() {}
+
+void sge::opengl::target::onscreen::on_unbind() {}
+
+void sge::opengl::target::onscreen::end_rendering() { current_.get().end_rendering(); }
+
+sge::renderer::color_buffer::readable_surface const &sge::opengl::target::onscreen::surface() const
 {
+  return *main_surface_;
 }
 
-void
-sge::opengl::target::onscreen::on_unbind()
+sge::renderer::screen_unit sge::opengl::target::onscreen::height() const
 {
-}
-
-void
-sge::opengl::target::onscreen::end_rendering()
-{
-	current_.get().end_rendering();
-}
-
-sge::renderer::color_buffer::readable_surface const &
-sge::opengl::target::onscreen::surface() const
-{
-	return
-		*main_surface_;
-}
-
-sge::renderer::screen_unit
-sge::opengl::target::onscreen::height() const
-{
-	return
-		fcppt::cast::size<
-			sge::renderer::screen_unit
-		>(
-			main_surface_->size().h()
-		);
+  return fcppt::cast::size<sge::renderer::screen_unit>(main_surface_->size().h());
 }
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
 
-template
-class
-sge::opengl::target::basic<
-	sge::renderer::target::onscreen
->;
+template class sge::opengl::target::basic<sge::renderer::target::onscreen>;
 
 FCPPT_PP_POP_WARNING

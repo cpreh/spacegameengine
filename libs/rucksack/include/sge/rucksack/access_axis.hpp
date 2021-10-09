@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_ACCESS_AXIS_HPP_INCLUDED
 #define SGE_RUCKSACK_ACCESS_AXIS_HPP_INCLUDED
 
@@ -11,34 +10,15 @@
 #include <sge/rucksack/axis_to_index.hpp>
 #include <fcppt/enum/size.hpp>
 
-
 namespace sge::rucksack
 {
 
-template<
-	typename Value
->
-typename
-Value::value_type
-access_axis(
-	Value const &_value,
-	sge::rucksack::axis const _axis
-)
+template <typename Value>
+typename Value::value_type access_axis(Value const &_value, sge::rucksack::axis const _axis)
 {
-	static_assert(
-		Value::static_size::value
-		==
-		fcppt::enum_::size<
-			sge::rucksack::axis
-		>::value
-	);
+  static_assert(Value::static_size::value == fcppt::enum_::size<sge::rucksack::axis>::value);
 
-	return
-		_value.get_unsafe(
-			sge::rucksack::axis_to_index(
-				_axis
-			)
-		);
+  return _value.get_unsafe(sge::rucksack::axis_to_index(_axis));
 }
 
 }

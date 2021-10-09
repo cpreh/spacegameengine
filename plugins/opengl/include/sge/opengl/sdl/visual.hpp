@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_SDL_VISUAL_HPP_INCLUDED
 #define SGE_OPENGL_SDL_VISUAL_HPP_INCLUDED
 
@@ -11,32 +10,22 @@
 #include <awl/backends/sdl/visual/object.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::sdl
 {
 
-class visual
-:
-	public
-		awl::backends::sdl::visual::object
+class visual : public awl::backends::sdl::visual::object
 {
-	FCPPT_NONMOVABLE(
-		visual
-	);
+  FCPPT_NONMOVABLE(visual);
+
 public:
-	explicit
-	visual(
-		sge::renderer::pixel_format::object const &
-	);
+  explicit visual(sge::renderer::pixel_format::object const &);
 
-	~visual()
-	override;
+  ~visual() override;
 
-	void
-	apply() const
-	override;
+  void apply() const override;
+
 private:
-	sge::renderer::pixel_format::object const pixel_format_;
+  sge::renderer::pixel_format::object const pixel_format_;
 };
 
 }

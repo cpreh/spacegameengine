@@ -3,24 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_TYPES_BASIC_UNIT_DIM_FWD_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_UNIT_DIM_FWD_HPP_INCLUDED
 
 #include <sge/sprite/types/basic/dim_fwd.hpp>
 
-
 namespace sge::sprite::types::basic
 {
 
-template<
-	typename TypeChoices
->
-using unit_dim
-=
-sge::sprite::types::basic::dim<
-	typename TypeChoices::unit_type
->;
+template <typename TypeChoices>
+using unit_dim = sge::sprite::types::basic::dim<typename TypeChoices::unit_type>;
 
 }
 

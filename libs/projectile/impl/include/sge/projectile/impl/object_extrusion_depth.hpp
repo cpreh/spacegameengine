@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_IMPL_OBJECT_EXTRUSION_DEPTH_HPP_INCLUDED
 #define SGE_PROJECTILE_IMPL_OBJECT_EXTRUSION_DEPTH_HPP_INCLUDED
 
@@ -11,12 +10,10 @@
 #include <LinearMath/btScalar.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::projectile::impl
 {
 
-btScalar
-object_extrusion_depth();
+btScalar object_extrusion_depth();
 
 }
 

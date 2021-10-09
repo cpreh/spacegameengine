@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CONSOLE_SHORT_DESCRIPTION_HPP_INCLUDED
 #define SGE_CONSOLE_SHORT_DESCRIPTION_HPP_INCLUDED
 
 #include <sge/console/short_description_fwd.hpp>
 #include <fcppt/strong_typedef.hpp>
-
 
 #endif

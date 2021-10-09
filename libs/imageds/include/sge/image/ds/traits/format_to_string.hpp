@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_DS_TRAITS_FORMAT_TO_STRING_HPP_INCLUDED
 #define SGE_IMAGE_DS_TRAITS_FORMAT_TO_STRING_HPP_INCLUDED
 
@@ -13,21 +12,14 @@
 #include <sge/image/traits/pixel/format_to_string_tpl_fwd.hpp>
 #include <fcppt/string.hpp>
 
-
 namespace sge::image::traits::pixel
 {
 
-template<>
-struct format_to_string_tpl<
-	sge::image::ds::tag
->
+template <>
+struct format_to_string_tpl<sge::image::ds::tag>
 {
-	SGE_IMAGE_DS_DETAIL_SYMBOL
-	static
-	fcppt::string
-	execute(
-		sge::image::ds::format
-	);
+  SGE_IMAGE_DS_DETAIL_SYMBOL
+  static fcppt::string execute(sge::image::ds::format);
 };
 
 }

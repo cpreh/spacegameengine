@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_CREATE_BUFFER_FROM_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_CREATE_BUFFER_FROM_VIEW_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/const_view_fwd.hpp>
-
 
 namespace sge::renderer::index
 {
@@ -33,12 +31,10 @@ Creates an index buffer copied from \a view with resource flags \a flags.
 \throw Anything that sge::renderer::device::create_index_buffer throws
 */
 SGE_RENDERER_DETAIL_SYMBOL
-sge::renderer::index::buffer_unique_ptr
-create_buffer_from_view(
-	sge::renderer::device::core_ref device,
-	sge::renderer::index::dynamic::const_view const &view,
-	sge::renderer::resource_flags_field const &flags
-);
+sge::renderer::index::buffer_unique_ptr create_buffer_from_view(
+    sge::renderer::device::core_ref device,
+    sge::renderer::index::dynamic::const_view const &view,
+    sge::renderer::resource_flags_field const &flags);
 
 }
 

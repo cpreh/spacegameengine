@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_VOLUMEFUNCS_DIM_HPP_INCLUDED
 #define SGE_D3D9_VOLUMEFUNCS_DIM_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/dim3_fwd.hpp>
-
 
 namespace sge
 {
@@ -18,10 +16,7 @@ namespace d3d9
 namespace volumefuncs
 {
 
-sge::renderer::dim3 const
-dim(
-	IDirect3DVolume9 &
-);
+sge::renderer::dim3 const dim(IDirect3DVolume9 &);
 
 }
 }

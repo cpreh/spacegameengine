@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_SURFACE_OPTIONAL_D3D_REF_HPP_INCLUDED
 #define SGE_D3D9_SURFACE_OPTIONAL_D3D_REF_HPP_INCLUDED
 
 #include <sge/d3d9/surface/optional_d3d_ref_fwd.hpp>
 #include <fcppt/optional/reference.hpp>
-
 
 #endif

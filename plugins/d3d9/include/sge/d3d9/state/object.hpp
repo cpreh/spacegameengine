@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_OBJECT_HPP_INCLUDED
 #define SGE_D3D9_STATE_OBJECT_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <sge/d3d9/state/render_vector.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace d3d9
@@ -20,30 +18,22 @@ namespace d3d9
 namespace state
 {
 
-template<
-	typename State
->
-class object
-:
-	public State
+template <typename State>
+class object : public State
 {
-	FCPPT_NONCOPYABLE(
-		object
-	);
+  FCPPT_NONCOPYABLE(object);
+
 public:
-	object(
-		IDirect3DDevice9 &,
-		sge::d3d9::state::render_vector const &
-	);
+  object(IDirect3DDevice9 &, sge::d3d9::state::render_vector const &);
 
-	~object();
+  ~object();
 
-	void
-	set() const;
+  void set() const;
+
 private:
-	IDirect3DDevice9 &device_;
+  IDirect3DDevice9 &device_;
 
-	sge::d3d9::state::render_vector const states_;
+  sge::d3d9::state::render_vector const states_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_ALPHA_TEST_PARAMETERS_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_PARAMETERS_HPP_INCLUDED
 
@@ -11,25 +10,20 @@
 #include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/alpha_test/variant.hpp>
 
-
 namespace sge::renderer::state::ffp::alpha_test
 {
 
 class parameters
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	explicit
-	parameters(
-		sge::renderer::state::ffp::alpha_test::variant const &
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  explicit parameters(sge::renderer::state::ffp::alpha_test::variant const &);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::alpha_test::variant const &
-	variant() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::alpha_test::variant const &
+  variant() const;
+
 private:
-	sge::renderer::state::ffp::alpha_test::variant variant_;
+  sge::renderer::state::ffp::alpha_test::variant variant_;
 };
 
 }

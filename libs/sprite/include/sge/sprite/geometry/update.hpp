@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_GEOMETRY_UPDATE_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_UPDATE_HPP_INCLUDED
 
 #include <sge/sprite/geometry/fill.hpp>
 #include <sge/sprite/render/range_impl.hpp>
-
 
 namespace sge::sprite::geometry
 {
@@ -30,38 +28,13 @@ together
 
 \return A render range which describes how the sprites are rendered
 */
-template<
-	typename Range,
-	typename Compare,
-	typename Buffers
->
-inline
-sge::sprite::render::range<
-	typename
-	Buffers::choices
->
-update(
-	Range const &_range,
-	Compare const &_compare,
-	Buffers &_buffers
-)
+template <typename Range, typename Compare, typename Buffers>
+inline sge::sprite::render::range<typename Buffers::choices>
+update(Range const &_range, Compare const &_compare, Buffers &_buffers)
 {
-	return
-		_range.empty()
-		?
-			sge::sprite::render::range<
-				typename
-				Buffers::choices
-			>()
-		:
-			sge::sprite::geometry::fill(
-				_range,
-				_compare,
-				_buffers.allocate(
-					_range.size()
-				)
-			)
-		;
+  return _range.empty()
+             ? sge::sprite::render::range<typename Buffers::choices>()
+             : sge::sprite::geometry::fill(_range, _compare, _buffers.allocate(_range.size()));
 }
 
 }

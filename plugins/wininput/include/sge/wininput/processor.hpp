@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_WININPUT_PROCESSOR_HPP_INCLUDED
 #define SGE_WININPUT_PROCESSOR_HPP_INCLUDED
 
@@ -24,86 +23,52 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-
 namespace sge
 {
 namespace wininput
 {
 
-class processor
-:
-	public sge::input::processor
+class processor : public sge::input::processor
 {
-	FCPPT_NONCOPYABLE(
-		processor
-	);
+  FCPPT_NONCOPYABLE(processor);
+
 public:
-	processor(
-		fcppt::log::object_reference,
-		sge::window::object_ref
-	);
+  processor(fcppt::log::object_reference, sge::window::object_ref);
 
-	~processor()
-	override;
+  ~processor() override;
 
-	sge::window::object &
-	window() const
-	override;
+  sge::window::object &window() const override;
 
-	sge::input::cursor::container
-	cursors() const
-	override;
+  sge::input::cursor::container cursors() const override;
 
-	sge::input::focus::container
-	foci() const
-	override;
+  sge::input::focus::container foci() const override;
 
-	sge::input::joypad::container
-	joypads() const
-	override;
+  sge::input::joypad::container joypads() const override;
 
-	sge::input::keyboard::container
-	keyboards() const
-	override;
+  sge::input::keyboard::container keyboards() const override;
 
-	sge::input::mouse::container
-	mice() const
-	override;
+  sge::input::mouse::container mice() const override;
+
 private:
-	awl::event::container
-	on_event(
-		awl::window::event::base const &
-	);
+  awl::event::container on_event(awl::window::event::base const &);
 
-	void
-	on_window_event(
-		awl::backends::windows::window::event::generic const &
-	);
+  void on_window_event(awl::backends::windows::window::event::generic const &);
 
-	void
-	on_focus_out();
+  void on_focus_out();
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	sge::window::object_ref const window_;
+  sge::window::object_ref const window_;
 
-	typedef
-	fcppt::shared_ptr<
-		sge::wininput::cursor::object
-	>
-	cursor_shared_ptr;
+  typedef fcppt::shared_ptr<sge::wininput::cursor::object> cursor_shared_ptr;
 
-	cursor_shared_ptr const cursor_;
+  cursor_shared_ptr const cursor_;
 
-	typedef
-	fcppt::shared_ptr<
-		sge::wininput::focus::object
-	>
-	focus_shared_ptr;
+  typedef fcppt::shared_ptr<sge::wininput::focus::object> focus_shared_ptr;
 
-	focus_shared_ptr const focus_;
+  focus_shared_ptr const focus_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
 };
 
 }

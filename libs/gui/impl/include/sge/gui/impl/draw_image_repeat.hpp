@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_IMPL_DRAW_IMAGE_REPEAT_HPP_INCLUDED
 #define SGE_GUI_IMPL_DRAW_IMAGE_REPEAT_HPP_INCLUDED
 
@@ -12,17 +11,14 @@
 #include <sge/rucksack/rect_fwd.hpp>
 #include <sge/texture/part_fwd.hpp>
 
-
 namespace sge::gui::impl
 {
 
-void
-draw_image_repeat(
-	sge::renderer::device::core &, // NOLINT(google-runtime-references)
-	sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-	sge::texture::part const &,
-	sge::rucksack::rect
-);
+void draw_image_repeat(
+    sge::renderer::device::core &, // NOLINT(google-runtime-references)
+    sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+    sge::texture::part const &,
+    sge::rucksack::rect);
 
 }
 

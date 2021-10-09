@@ -3,25 +3,23 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TEXTURE_EMULATE_SRGB_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_EMULATE_SRGB_HPP_INCLUDED
 
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp>
-
 
 namespace sge::renderer::texture
 {
 
 enum class emulate_srgb
 {
-	/**
+  /**
 	\brief srgb color formats will be created as srgb textures
 
 	This option should be used when hardware gamma correction is available.
 	*/
-	no,
-	/**
+  no,
+  /**
 	\brief srgb color formats will be created as normal rgb textures
 
 	When a texture is mapped, the color format will still be srgb, so the
@@ -29,7 +27,7 @@ enum class emulate_srgb
 	However, gamma correction will not work at all. This compatibility
 	option should be used when hardware gamma correction is not available.
 	*/
-	yes
+  yes
 };
 
 }

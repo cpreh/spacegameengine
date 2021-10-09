@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GUI_IMPL_RENDERER_STATELESS_HPP_INCLUDED
 #define SGE_GUI_IMPL_RENDERER_STATELESS_HPP_INCLUDED
 
@@ -17,58 +16,39 @@
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::gui::impl::renderer
 {
 
-class stateless
-:
-	public sge::gui::renderer::base
+class stateless : public sge::gui::renderer::base
 {
-	FCPPT_NONMOVABLE(
-		stateless
-	);
+  FCPPT_NONMOVABLE(stateless);
+
 public:
-	explicit
-	stateless(
-		sge::renderer::device::core_ref
-	);
+  explicit stateless(sge::renderer::device::core_ref);
 
-	~stateless()
-	override;
+  ~stateless() override;
+
 private:
-	void
-	fill_rect(
-		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-		sge::rucksack::rect const &,
-		sge::image::color::any::object const &
-	)
-	override;
+  void fill_rect(
+      sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+      sge::rucksack::rect const &,
+      sge::image::color::any::object const &) override;
 
-	void
-	draw_image(
-		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-		sge::texture::part const &,
-		sge::rucksack::vector const &
-	)
-	override;
+  void draw_image(
+      sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+      sge::texture::part const &,
+      sge::rucksack::vector const &) override;
 
-	void
-	draw_image_repeat(
-		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-		sge::texture::part const &,
-		sge::rucksack::rect const &
-	)
-	override;
+  void draw_image_repeat(
+      sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+      sge::texture::part const &,
+      sge::rucksack::rect const &) override;
 
-	void
-	draw_static_text(
-		sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
-		sge::font::draw::static_text const &
-	)
-	override;
+  void draw_static_text(
+      sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
+      sge::font::draw::static_text const &) override;
 
-	sge::renderer::device::core_ref const renderer_;
+  sge::renderer::device::core_ref const renderer_;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_EGL_VISUAL_BASE_HPP_INCLUDED
 #define SGE_OPENGL_EGL_VISUAL_BASE_HPP_INCLUDED
 
@@ -16,33 +15,26 @@
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::egl::visual
 {
 
-class base
-:
-	public sge::renderer::visual_base
+class base : public sge::renderer::visual_base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 public:
-	base(
-		fcppt::log::object &, // NOLINT(google-runtime-references)
-		EGLDisplay,
-		sge::renderer::pixel_format::object const &
-	);
+  base(
+      fcppt::log::object &, // NOLINT(google-runtime-references)
+      EGLDisplay,
+      sge::renderer::pixel_format::object const &);
 
-	~base()
-	override;
+  ~base() override;
 
-	[[nodiscard]]
-	EGLConfig
-	config() const;
+  [[nodiscard]] EGLConfig config() const;
+
 private:
-	// NOLINTNEXTLINE(misc-misplaced-const)
-	EGLConfig const config_;
+  // NOLINTNEXTLINE(misc-misplaced-const)
+  EGLConfig const config_;
 };
 
 }

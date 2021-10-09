@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_IMPL_TO_CEGUI_SIZE_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_TO_CEGUI_SIZE_HPP_INCLUDED
 
@@ -12,30 +11,13 @@
 #include <CEGUI/Size.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cegui::impl
 {
 
-template<
-	typename ValueType
->
-CEGUI::Size<
-	ValueType
->
-to_cegui_size(
-	fcppt::math::dim::static_<
-		ValueType,
-		2
-	> const &_container
-)
+template <typename ValueType>
+CEGUI::Size<ValueType> to_cegui_size(fcppt::math::dim::static_<ValueType, 2> const &_container)
 {
-	return
-		CEGUI::Size<
-			ValueType
-		>(
-			_container.w(),
-			_container.h()
-		);
+  return CEGUI::Size<ValueType>(_container.w(), _container.h());
 }
 
 }

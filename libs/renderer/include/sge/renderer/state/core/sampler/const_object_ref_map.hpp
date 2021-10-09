@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_CONST_OBJECT_REF_MAP_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_CONST_OBJECT_REF_MAP_HPP_INCLUDED
 
@@ -13,17 +12,11 @@
 #include <map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::state::core::sampler
 {
 
-using
-const_object_ref_map
-=
-std::map<
-	sge::renderer::texture::stage,
-	sge::renderer::state::core::sampler::const_object_ref
->;
+using const_object_ref_map =
+    std::map<sge::renderer::texture::stage, sge::renderer::state::core::sampler::const_object_ref>;
 
 }
 

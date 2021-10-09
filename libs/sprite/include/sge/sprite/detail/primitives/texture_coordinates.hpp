@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PRIMITIVES_TEXTURE_COORDINATES_HPP_INCLUDED
 
@@ -13,42 +12,21 @@
 #include <fcppt/mpl/lambda.hpp>
 #include <fcppt/record/element.hpp>
 
-
 namespace sge::sprite::detail::primitives
 {
 
-template<
-	typename Choices,
-	typename Levels
->
+template <typename Choices, typename Levels>
 struct texture_coordinates
 {
 private:
-	template<
-		typename Level
-	>
-	using
-	make_role
-	=
-	fcppt::record::element<
-		sge::sprite::roles::texture_coordinates<
-			Level::value
-		>,
-		sge::sprite::types::texture_coordinates<
-			typename
-			Choices::type_choices
-		>
-	>;
+  template <typename Level>
+  using make_role = fcppt::record::element<
+      sge::sprite::roles::texture_coordinates<Level::value>,
+      sge::sprite::types::texture_coordinates<typename Choices::type_choices>>;
+
 public:
-	using
-	type
-	=
-	sge::sprite::detail::transform_texture_levels_static<
-		fcppt::mpl::lambda<
-			make_role
-		>,
-		Levels
-	>;
+  using type =
+      sge::sprite::detail::transform_texture_levels_static<fcppt::mpl::lambda<make_role>, Levels>;
 };
 
 }

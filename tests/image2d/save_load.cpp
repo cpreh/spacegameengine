@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/plugin_path.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
@@ -60,165 +59,68 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"save_load rgba",
-	"[sge]"
-)
+TEST_CASE("save_load rgba", "[sge]")
 {
-	fcppt::log::context log_context{
-		sge::log::default_level(),
-		sge::log::default_level_streams()
-	};
+  fcppt::log::context log_context{sge::log::default_level(), sge::log::default_level_streams()};
 
-	using
-	store_type
-	=
-	sge::image2d::store::rgba8;
+  using store_type = sge::image2d::store::rgba8;
 
-	store_type const store{
-		store_type::dim(
-			1U,
-			1U
-		),
-		sge::image::color::rgba8(
-			(sge::image::color::init::red() %= 0.5)
-			(sge::image::color::init::blue() %= 0.3)
-			(sge::image::color::init::green() %= 0.2)
-			(sge::image::color::init::alpha() %= 0.1)
-		)
-	};
+  store_type const store{
+      store_type::dim(1U, 1U),
+      sge::image::color::rgba8(
+          (sge::image::color::init::red() %= 0.5)(sge::image::color::init::blue() %= 0.3)(
+              sge::image::color::init::green() %= 0.2)(sge::image::color::init::alpha() %= 0.1))};
 
-	sge::plugin::manager plugins(
-		fcppt::make_ref(
-			log_context
-		),
-		sge::config::plugin_path(),
-		sge::plugin::optional_cache_ref()
-	);
+  sge::plugin::manager plugins(
+      fcppt::make_ref(log_context), sge::config::plugin_path(), sge::plugin::optional_cache_ref());
 
-	for(
-		sge::plugin::context<
-			sge::image2d::system
-		> const &element
-		:
-		plugins.collection<
-			sge::image2d::system
-		>()
-	)
-	{
-		sge::image2d::plugin::object const plugin(
-			element.load()
-		);
+  for (sge::plugin::context<sge::image2d::system> const &element :
+       plugins.collection<sge::image2d::system>())
+  {
+    sge::image2d::plugin::object const plugin(element.load());
 
-		sge::image2d::system_unique_ptr const system(
-			plugin.get()(
-				fcppt::make_ref(
-					log_context
-				)
-			)
-		);
+    sge::image2d::system_unique_ptr const system(plugin.get()(fcppt::make_ref(log_context)));
 
-		auto stream(
-			fcppt::make_unique_ptr<
-				std::stringstream
-			>()
-		);
+    auto stream(fcppt::make_unique_ptr<std::stringstream>());
 
-		sge::image2d::view::const_object const source_view(
-			sge::image2d::view::const_object(
-				store.const_wrapped_view()
-			)
-		);
+    sge::image2d::view::const_object const source_view(
+        sge::image2d::view::const_object(store.const_wrapped_view()));
 
-		sge::image2d::file_unique_ptr const created(
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				system->create(
-					source_view,
-					// FIXME: Iterate over all supported formats
-					sge::media::extension{
-						FCPPT_TEXT("png")
-					}
-				)
-			)
-		);
+    sge::image2d::file_unique_ptr const created(FCPPT_ASSERT_OPTIONAL_ERROR(system->create(
+        source_view,
+        // FIXME: Iterate over all supported formats
+        sge::media::extension{FCPPT_TEXT("png")})));
 
-		created->save_stream(
-			*stream
-		);
+    created->save_stream(*stream);
 
-		sge::image2d::file_unique_ptr const file(
-			FCPPT_ASSERT_OPTIONAL_ERROR(
-				fcppt::variant::to_optional<
-					sge::image2d::file_unique_ptr
-				>(
-					system->load_stream(
-						fcppt::unique_ptr_to_base<
-							std::istream
-						>(
-							std::move(
-								stream
-							)
-						),
-						sge::media::optional_extension(),
-						sge::media::optional_name()
-					)
-				)
-			)
-		);
+    sge::image2d::file_unique_ptr const file(FCPPT_ASSERT_OPTIONAL_ERROR(
+        fcppt::variant::to_optional<sge::image2d::file_unique_ptr>(system->load_stream(
+            fcppt::unique_ptr_to_base<std::istream>(std::move(stream)),
+            sge::media::optional_extension(),
+            sge::media::optional_name()))));
 
-		sge::image2d::view::const_object const dest_view(
-			file->view()
-		);
+    sge::image2d::view::const_object const dest_view(file->view());
 
-		REQUIRE(
-			sge::image2d::view::size(
-				source_view
-			)
-			==
-			sge::image2d::view::size(
-				dest_view
-			)
-		);
+    REQUIRE(sge::image2d::view::size(source_view) == sge::image2d::view::size(dest_view));
 
-		store_type const store_back{
-			store.size(),
-			store_type::init_function{
-				[
-					&dest_view
-				](
-					store_type::view_type const &_dest
-				)
-				{
-					sge::image2d::algorithm::copy_and_convert(
-						dest_view,
-						sge::image2d::view::object(
-							sge::image::view::wrap(
-								_dest
-							)
-						),
-						sge::image::algorithm::may_overlap::no,
-						sge::image::algorithm::uninitialized::yes
-					);
-				}
-			}
-		};
+    store_type const store_back{
+        store.size(),
+        store_type::init_function{[&dest_view](store_type::view_type const &_dest)
+                                  {
+                                    sge::image2d::algorithm::copy_and_convert(
+                                        dest_view,
+                                        sge::image2d::view::object(sge::image::view::wrap(_dest)),
+                                        sge::image::algorithm::may_overlap::no,
+                                        sge::image::algorithm::uninitialized::yes);
+                                  }}};
 
-		sge::image2d::view::const_object const store_back_view(
-			sge::image2d::view::const_object(
-				store_back.const_wrapped_view()
-			)
-		);
+    sge::image2d::view::const_object const store_back_view(
+        sge::image2d::view::const_object(store_back.const_wrapped_view()));
 
-		CHECK(
-			sge::image2d::algorithm::compare(
-				source_view,
-				store_back_view
-			)
-		);
-	}
+    CHECK(sge::image2d::algorithm::compare(source_view, store_back_view));
+  }
 }
 
 FCPPT_CATCH_END

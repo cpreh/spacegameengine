@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/context/base.hpp>
 
+sge::opengl::context::base::base() = default;
 
-sge::opengl::context::base::base()
-= default;
-
-sge::opengl::context::base::~base()
-= default;
+sge::opengl::context::base::~base() = default;

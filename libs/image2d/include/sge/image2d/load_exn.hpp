@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_LOAD_EXN_HPP_INCLUDED
 #define SGE_IMAGE2D_LOAD_EXN_HPP_INCLUDED
 
@@ -14,16 +13,11 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::image2d
 {
 
 SGE_IMAGE2D_DETAIL_SYMBOL
-sge::image2d::file_unique_ptr
-load_exn(
-	sge::image2d::system_ref,
-	std::filesystem::path const &
-);
+sge::image2d::file_unique_ptr load_exn(sge::image2d::system_ref, std::filesystem::path const &);
 
 }
 

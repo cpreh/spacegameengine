@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VF_NORMAL_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_NORMAL_ACTOR_HPP_INCLUDED
 
@@ -14,33 +13,23 @@
 #include <sge/renderer/vf/dynamic/normal_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::vf
 {
 
-class normal_actor
-:
-	public sge::opengl::vf::fp_actor
+class normal_actor : public sge::opengl::vf::fp_actor
 {
-	FCPPT_NONMOVABLE(
-		normal_actor
-	);
+  FCPPT_NONMOVABLE(normal_actor);
+
 public:
-	normal_actor(
-		sge::opengl::vf::actor_parameters const &,
-		sge::renderer::vf::dynamic::normal const &
-	);
+  normal_actor(
+      sge::opengl::vf::actor_parameters const &, sge::renderer::vf::dynamic::normal const &);
 
-	~normal_actor()
-	override;
+  ~normal_actor() override;
+
 private:
-	void
-	on_use(
-		sge::opengl::vf::pointer
-	) const
-	override;
+  void on_use(sge::opengl::vf::pointer) const override;
 
-	GLenum const format_;
+  GLenum const format_;
 };
 
 }

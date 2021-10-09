@@ -3,20 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cg/string.hpp>
 #include <sge/cg/to_fcppt_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 
-
-fcppt::string
-sge::cg::to_fcppt_string(
-	sge::cg::string const &_string
-)
+fcppt::string sge::cg::to_fcppt_string(sge::cg::string const &_string)
 {
-	return
-		fcppt::from_std_string(
-			_string
-		);
+  return fcppt::from_std_string(_string);
 }

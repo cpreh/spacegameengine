@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 
@@ -14,41 +13,22 @@
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>
 
-
 namespace sge::sprite::config
 {
 
-template<
-	typename Index
->
-struct point_size
-:
-	sge::sprite::config::size_choice
+template <typename Index>
+struct point_size : sge::sprite::config::size_choice
 {
 public:
-	using
-	attribute_index
-	=
-	Index;
+  using attribute_index = Index;
 
-	template<
-		typename Choices
-	>
-	struct apply
-	{
-		using
-		type
-		=
-		fcppt::mpl::list::object<
-			fcppt::record::element<
-				sge::sprite::roles::point_size,
-				sge::sprite::types::point_size<
-					typename
-					Choices::type_choices
-				>
-			>
-		>;
-	};
+  template <typename Choices>
+  struct apply
+  {
+    using type = fcppt::mpl::list::object<fcppt::record::element<
+        sge::sprite::roles::point_size,
+        sge::sprite::types::point_size<typename Choices::type_choices>>>;
+  };
 };
 
 }

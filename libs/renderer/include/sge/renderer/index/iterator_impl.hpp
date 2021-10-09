@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_INDEX_ITERATOR_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ITERATOR_IMPL_HPP_INCLUDED
 
@@ -12,119 +11,44 @@
 #include <sge/renderer/index/proxy_impl.hpp>
 #include <fcppt/cast/to_signed.hpp>
 
-
-template<
-	typename Format,
-	typename Constness
->
-sge::renderer::index::iterator<
-	Format,
-	Constness
->::iterator(
-	pointer const _data
-)
-:
-	data_{
-		_data
-	}
+template <typename Format, typename Constness>
+sge::renderer::index::iterator<Format, Constness>::iterator(pointer const _data) : data_{_data}
 {
 }
 
-template<
-	typename Format,
-	typename Constness
->
-typename
-sge::renderer::index::iterator<
-	Format,
-	Constness
->::pointer
-sge::renderer::index::iterator<
-	Format,
-	Constness
->::data() const
+template <typename Format, typename Constness>
+typename sge::renderer::index::iterator<Format, Constness>::pointer
+sge::renderer::index::iterator<Format, Constness>::data() const
 {
-	return
-		this->data_;
+  return this->data_;
 }
 
-template<
-	typename Format,
-	typename Constness
->
-sge::renderer::index::iterator<
-	Format,
-	Constness
-> &
-sge::renderer::index::iterator<
-	Format,
-	Constness
->::operator+=(
-	difference_type const _diff
-)
+template <typename Format, typename Constness>
+sge::renderer::index::iterator<Format, Constness> &
+sge::renderer::index::iterator<Format, Constness>::operator+=(difference_type const _diff)
 {
-	this->data_ +=
-		_diff
-		*
-		fcppt::cast::to_signed(
-			sizeof(
-				value_type
-			)
-		);
+  this->data_ += _diff * fcppt::cast::to_signed(sizeof(value_type));
 
-	return
-		*this;
+  return *this;
 }
 
-template<
-	typename Format,
-	typename Constness
->
-void
-sge::renderer::index::iterator<
-	Format,
-	Constness
->::increment()
+template <typename Format, typename Constness>
+void sge::renderer::index::iterator<Format, Constness>::increment()
 {
-	(*this) += 1;
+  (*this) += 1;
 }
 
-template<
-	typename Format,
-	typename Constness
->
-bool
-sge::renderer::index::iterator<
-	Format,
-	Constness
->::equal(
-	iterator const &_other
-) const
+template <typename Format, typename Constness>
+bool sge::renderer::index::iterator<Format, Constness>::equal(iterator const &_other) const
 {
-	return
-		this->data_
-		==
-		_other.data_;
+  return this->data_ == _other.data_;
 }
 
-template<
-	typename Format,
-	typename Constness
->
-typename
-sge::renderer::index::iterator<
-	Format,
-	Constness
->::reference
-sge::renderer::index::iterator<
-	Format,
-	Constness
->::dereference() const
+template <typename Format, typename Constness>
+typename sge::renderer::index::iterator<Format, Constness>::reference
+sge::renderer::index::iterator<Format, Constness>::dereference() const
 {
-	return
-		reference(
-			this->data_
-		);
+  return reference(this->data_);
 }
 
 #endif

@@ -3,18 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_TEXTURE_MIPMAP_LEVEL_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_MIPMAP_LEVEL_TYPE_HPP_INCLUDED
-
 
 namespace sge::renderer::texture::mipmap
 {
 
-using
-level_type
-=
-unsigned;
+using level_type = unsigned;
 
 }
 

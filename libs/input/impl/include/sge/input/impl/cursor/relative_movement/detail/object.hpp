@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_IMPL_CURSOR_RELATIVE_MOVEMENT_DETAIL_OBJECT_HPP_INCLUDED
 #define SGE_INPUT_IMPL_CURSOR_RELATIVE_MOVEMENT_DETAIL_OBJECT_HPP_INCLUDED
 
@@ -23,51 +22,32 @@
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::input::cursor::relative_movement::detail
 {
 
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	explicit
-	object(
-		sge::input::processor_ref
-	);
+  explicit object(sge::input::processor_ref);
 
-	~object();
+  ~object();
+
 private:
-	using
-	optional_difference
-	=
-	fcppt::optional::object<
-		sge::input::cursor::relative_movement::difference
-	>;
+  using optional_difference =
+      fcppt::optional::object<sge::input::cursor::relative_movement::difference>;
 
-	awl::event::container
-	on_event(
-		awl::window::event::base const &
-	);
+  awl::event::container on_event(awl::window::event::base const &);
 
-	optional_difference
-	update_pos(
-		sge::input::cursor::event::move const &
-	);
+  optional_difference update_pos(sge::input::cursor::event::move const &);
 
-	using
-	position_map
-	=
-	std::unordered_map<
-		sge::input::cursor::shared_ptr,
-		sge::input::cursor::optional_position
-	>;
+  using position_map =
+      std::unordered_map<sge::input::cursor::shared_ptr, sge::input::cursor::optional_position>;
 
-	position_map positions_;
+  position_map positions_;
 
-	fcppt::signal::auto_connection const connection_;
+  fcppt::signal::auto_connection const connection_;
 };
 
 }

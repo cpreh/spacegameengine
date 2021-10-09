@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/resize_callback.hpp>
@@ -13,30 +12,14 @@
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 
-
-sge::viewport::resize_callback
-sge::viewport::center_on_resize(
-	sge::window::dim const &_dim
-)
+sge::viewport::resize_callback sge::viewport::center_on_resize(sge::window::dim const &_dim)
 {
-	return
-		sge::viewport::resize_callback{
-			[
-				_dim
-			](
-				awl::window::event::resize const &_resize
-			)
-			{
-				return
-					sge::viewport::impl::center(
-						_dim,
-						fcppt::math::dim::structure_cast<
-							sge::window::dim,
-							fcppt::cast::size_fun
-						>(
-							_resize.dim()
-						)
-					);
-			}
-		};
+  return sge::viewport::resize_callback{
+      [_dim](awl::window::event::resize const &_resize)
+      {
+        return sge::viewport::impl::center(
+            _dim,
+            fcppt::math::dim::structure_cast<sge::window::dim, fcppt::cast::size_fun>(
+                _resize.dim()));
+      }};
 }

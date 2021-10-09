@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/parse_extensions.hpp>
 #include <sge/opengl/glx/extension.hpp>
 #include <sge/opengl/glx/extension_set.hpp>
@@ -15,37 +14,16 @@
 #include <GL/glx.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::opengl::glx::extension_set
-sge::opengl::glx::get_extensions(
-	awl::backends::x11::display_ref const _display
-)
+sge::opengl::glx::get_extensions(awl::backends::x11::display_ref const _display)
 {
 #if defined(GLX_VERSION_1_1)
-	const char *const result(
-		::glXQueryExtensionsString(
-			_display.get().get(),
-			awl::backends::x11::default_screen(
-				_display
-			).get()
-		)
-	);
+  const char *const result(::glXQueryExtensionsString(
+      _display.get().get(), awl::backends::x11::default_screen(_display).get()));
 
-	return
-		result
-		==
-		nullptr
-		?
-			sge::opengl::glx::extension_set()
-		:
-			sge::opengl::parse_extensions<
-				sge::opengl::glx::extension
-			>(
-				result
-			)
-		;
+  return result == nullptr ? sge::opengl::glx::extension_set()
+                           : sge::opengl::parse_extensions<sge::opengl::glx::extension>(result);
 #else
-	return
-		sge::opengl::glx::extension_set();
+  return sge::opengl::glx::extension_set();
 #endif
 }

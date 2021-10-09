@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/config/app_name.hpp>
 #include <sge/config/log_path.hpp>
 #include <sge/config/own_company_name.hpp>
@@ -12,15 +11,7 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
-std::filesystem::path
-sge::config::own_log_path(
-	sge::config::app_name const &_app_name
-)
+std::filesystem::path sge::config::own_log_path(sge::config::app_name const &_app_name)
 {
-	return
-		sge::config::log_path(
-			sge::config::own_company_name(),
-			_app_name
-		);
+  return sge::config::log_path(sge::config::own_company_name(), _app_name);
 }

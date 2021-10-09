@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_CURSOR_OPTIONAL_POSITION_FWD_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_OPTIONAL_POSITION_FWD_HPP_INCLUDED
 
 #include <sge/input/cursor/position_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::input::cursor
 {
 
-using
-optional_position
-=
-fcppt::optional::object<
-	sge::input::cursor::position
->;
+using optional_position = fcppt::optional::object<sge::input::cursor::position>;
 
 }
 

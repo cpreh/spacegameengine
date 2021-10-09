@@ -3,22 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_INIT_MULTI_SAMPLING_HPP_INCLUDED
 #define SGE_OPENGL_INIT_MULTI_SAMPLING_HPP_INCLUDED
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples_fwd.hpp>
 
-
 namespace sge::opengl
 {
 
-void
-init_multi_sampling(
-	sge::opengl::context::object &, // NOLINT(google-runtime-references)
-	sge::renderer::pixel_format::optional_multi_samples const &
-);
+void init_multi_sampling(
+    sge::opengl::context::object &, // NOLINT(google-runtime-references)
+    sge::renderer::pixel_format::optional_multi_samples const &);
 
 }
 

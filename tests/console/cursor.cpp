@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/console/gfx/cursor.hpp>
 #include <sge/font/lit.hpp>
 #include <fcppt/catch/begin.hpp>
@@ -12,271 +11,133 @@
 #include <catch2/catch.hpp>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_CATCH_BEGIN
 
-TEST_CASE(
-	"console cursor",
-	"[sge]"
-)
+TEST_CASE("console cursor", "[sge]")
 {
-	sge::console::gfx::cursor c;
+  sge::console::gfx::cursor c;
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("_")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("_"));
 
-	REQUIRE(
-		c.empty()
-	);
+  REQUIRE(c.empty());
 
-	c.insert(
-		SGE_FONT_LIT('f')
-	);
+  c.insert(SGE_FONT_LIT('f'));
 
-	c.insert(
-		SGE_FONT_LIT('o')
-	);
-	c.insert(
-		SGE_FONT_LIT('o')
-	);
+  c.insert(SGE_FONT_LIT('o'));
+  c.insert(SGE_FONT_LIT('o'));
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("foo_")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("foo_"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("foo")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT("foo"));
 
-	c.erase_word();
+  c.erase_word();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("_")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("_"));
 
-	REQUIRE(
-		c.empty()
-	);
+  REQUIRE(c.empty());
 
-	c.string(
-		SGE_FONT_LIT("bar")
-	);
+  c.string(SGE_FONT_LIT("bar"));
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("bar_")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("bar_"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("bar")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT("bar"));
 
-	c.left();
-	c.left();
-	c.left();
-	c.left();
+  c.left();
+  c.left();
+  c.left();
+  c.left();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("_ar")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("_ar"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("bar")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT("bar"));
 
-	c.erase_char();
+  c.erase_char();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("_r")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("_r"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("ar")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT("ar"));
 
-	c.erase_char();
-	c.erase_char();
-	c.erase_char();
+  c.erase_char();
+  c.erase_char();
+  c.erase_char();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("_")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("_"));
 
-	REQUIRE(
-		c.empty()
-	);
+  REQUIRE(c.empty());
 
-	c.string(
-		SGE_FONT_LIT("foo")
-	);
+  c.string(SGE_FONT_LIT("foo"));
 
-	c.left();
-	c.left();
+  c.left();
+  c.left();
 
-	c.insert(
-		SGE_FONT_LIT('b')
-	);
+  c.insert(SGE_FONT_LIT('b'));
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("fb_o")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("fb_o"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("fboo")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT("fboo"));
 
-	c.left();
+  c.left();
 
-	c.insert(
-		SGE_FONT_LIT('r')
-	);
+  c.insert(SGE_FONT_LIT('r'));
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("fr_oo")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("fr_oo"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("frboo")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT("frboo"));
 
-	c.right();
-	c.right();
-	c.right();
-	c.right();
-	c.right();
-	c.right();
-	c.right();
+  c.right();
+  c.right();
+  c.right();
+  c.right();
+  c.right();
+  c.right();
+  c.right();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("frboo_")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("frboo_"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("frboo")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT("frboo"));
 
-	c.to_start();
+  c.to_start();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("_rboo")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("_rboo"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("frboo")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT("frboo"));
 
-	c.to_end();
+  c.to_end();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("frboo_")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("frboo_"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT("frboo")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT("frboo"));
 
-	c.string(
-		SGE_FONT_LIT("foo bar")
-	);
+  c.string(SGE_FONT_LIT("foo bar"));
 
-	c.left();
-	c.left();
-	c.left();
-	c.left();
-	c.erase_word();
+  c.left();
+  c.left();
+  c.left();
+  c.left();
+  c.erase_word();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("_bar")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("_bar"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT(" bar")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT(" bar"));
 
-	c.erase_word();
+  c.erase_word();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("_bar")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("_bar"));
 
-	REQUIRE(
-		c.string()
-		==
-		SGE_FONT_LIT(" bar")
-	);
+  REQUIRE(c.string() == SGE_FONT_LIT(" bar"));
 
-	c.string(
-		SGE_FONT_LIT("foo")
-	);
+  c.string(SGE_FONT_LIT("foo"));
 
-	c.left();
-	c.left();
+  c.left();
+  c.left();
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("f_o")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("f_o"));
 
-	c.insert(
-		SGE_FONT_LIT('a')
-	);
+  c.insert(SGE_FONT_LIT('a'));
 
-	REQUIRE(
-		c.edited()
-		==
-		SGE_FONT_LIT("fa_o")
-	);
+  REQUIRE(c.edited() == SGE_FONT_LIT("fa_o"));
 
-	// TODO(philipp): Add complete_word tests
+  // TODO(philipp): Add complete_word tests
 }
 
 FCPPT_CATCH_END

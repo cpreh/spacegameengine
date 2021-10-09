@@ -3,23 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_PARAMETER_SCALAR_DETAIL_SET_FLOAT_HPP_INCLUDED
 #define SGE_CG_PARAMETER_SCALAR_DETAIL_SET_FLOAT_HPP_INCLUDED
 
 #include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 
-
 namespace sge::cg::parameter::scalar::detail
 {
 
 SGE_CG_DETAIL_SYMBOL
-void
-set_float(
-	sge::cg::parameter::object const &,
-	float
-);
+void set_float(sge::cg::parameter::object const &, float);
 
 }
 

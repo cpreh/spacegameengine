@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_ERROR_HANDLER_HPP_INCLUDED
 #define SGE_OPENGL_STATE_ERROR_HANDLER_HPP_INCLUDED
 
@@ -16,7 +15,6 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::state
 {
 
@@ -24,54 +22,27 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4626)
 FCPPT_PP_DISABLE_VC_WARNING(5027)
 
-template<
-	typename Actor
->
+template <typename Actor>
 class error_handler
 {
 public:
-	error_handler(
-		Actor &&_actor,
-		fcppt::string &&_name
-	)
-	:
-		actor_{
-			std::move(
-				_actor
-			)
-		},
-		name_{
-			std::move(
-				_name
-			)
-		}
-	{
-	}
+  error_handler(Actor &&_actor, fcppt::string &&_name)
+      : actor_{std::move(_actor)}, name_{std::move(_name)}
+  {
+  }
 
-	template<
-		typename... Args
-	>
-	void
-	operator()(
-		Args && ..._args
-	) const
-	{
-		actor_(
-			std::forward<
-				Args
-			>(
-				_args
-			)...
-		);
+  template <typename... Args>
+  void operator()(Args &&..._args) const
+  {
+    actor_(std::forward<Args>(_args)...);
 
-		sge::opengl::state::check_error(
-			name_
-		);
-	}
+    sge::opengl::state::check_error(name_);
+  }
+
 private:
-	Actor actor_;
+  Actor actor_;
 
-	fcppt::string name_;
+  fcppt::string name_;
 };
 
 FCPPT_PP_POP_WARNING

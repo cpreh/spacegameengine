@@ -3,35 +3,25 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/texture/buffer_volume_types.hpp>
 #include <sge/opengl/texture/funcs/set_3d.hpp>
 #include <sge/opengl/texture/funcs/set_box.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <fcppt/make_ref.hpp>
 
-
-sge::renderer::size_type
-sge::opengl::texture::buffer_volume_types::min_size()
+sge::renderer::size_type sge::opengl::texture::buffer_volume_types::min_size()
 {
-	return
-		16U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  return 16U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 }
 
 sge::opengl::texture::buffer_volume_types::init_function_type
 sge::opengl::texture::buffer_volume_types::init_function()
 {
-	return
-		fcppt::make_ref(
-			sge::opengl::texture::funcs::set_3d
-		);
+  return fcppt::make_ref(sge::opengl::texture::funcs::set_3d);
 }
 
 sge::opengl::texture::buffer_volume_types::sub_function_type
 sge::opengl::texture::buffer_volume_types::sub_function()
 {
-	return
-		fcppt::make_ref(
-			sge::opengl::texture::funcs::set_box
-		);
+  return fcppt::make_ref(sge::opengl::texture::funcs::set_box);
 }

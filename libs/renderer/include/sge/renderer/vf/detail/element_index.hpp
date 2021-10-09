@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DETAIL_ELEMENT_INDEX_HPP_INCLUDED
 #define SGE_RENDERER_VF_DETAIL_ELEMENT_INDEX_HPP_INCLUDED
 
@@ -16,31 +15,16 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vf::detail
 {
 
-template<
-	typename Elements,
-	typename Label
->
-using
-element_index
-=
-fcppt::mpl::list::index_of_if<
-	Elements,
-	fcppt::mpl::bind<
-		fcppt::mpl::lambda<
-			std::is_same
-		>,
-		fcppt::mpl::constant<
-			Label
-		>,
-		fcppt::mpl::lambda<
-			sge::renderer::vf::to_label
-		>
-	>
->;
+template <typename Elements, typename Label>
+using element_index = fcppt::mpl::list::index_of_if<
+    Elements,
+    fcppt::mpl::bind<
+        fcppt::mpl::lambda<std::is_same>,
+        fcppt::mpl::constant<Label>,
+        fcppt::mpl::lambda<sge::renderer::vf::to_label>>>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_BUFFER_MAKE_SOFTWARE_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_MAKE_SOFTWARE_HPP_INCLUDED
 
@@ -13,31 +12,18 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/array/init.hpp>
 
-
 namespace sge::opengl::buffer
 {
 
-template<
-	typename Array
->
-Array
-make_software()
+template <typename Array>
+Array make_software()
 {
-	return
-		fcppt::array::init<
-			Array
-		>(
-			[](auto){
-				return
-					fcppt::unique_ptr_to_base<
-						sge::opengl::buffer::base
-					>(
-						fcppt::make_unique_ptr<
-							sge::opengl::buffer::software
-						>()
-					);
-			}
-		);
+  return fcppt::array::init<Array>(
+      [](auto)
+      {
+        return fcppt::unique_ptr_to_base<sge::opengl::buffer::base>(
+            fcppt::make_unique_ptr<sge::opengl::buffer::software>());
+      });
 }
 
 }

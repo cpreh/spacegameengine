@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_MOUSE_DEVICE_HPP_INCLUDED
 #define SGE_X11INPUT_MOUSE_DEVICE_HPP_INCLUDED
 
@@ -29,99 +28,57 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::mouse
 {
 
 class device // NOLINT(fuchsia-multiple-inheritance)
-:
-	public
-		sge::input::mouse::device,
-	public
-		fcppt::enable_shared_from_this<
-			sge::x11input::mouse::device
-		 >
+    : public sge::input::mouse::device,
+      public fcppt::enable_shared_from_this<sge::x11input::mouse::device>
 {
-	FCPPT_NONMOVABLE(
-		device
-	);
+  FCPPT_NONMOVABLE(device);
+
 public:
-	device(
-		sge::window::object_ref,
-		fcppt::log::object_reference,
-		awl::backends::x11::window::const_base_ref,
-		XIDeviceInfo const &,
-		sge::x11input::event::window_demuxer_ref,
-		sge::x11input::event::raw_demuxer_ref
-	);
+  device(
+      sge::window::object_ref,
+      fcppt::log::object_reference,
+      awl::backends::x11::window::const_base_ref,
+      XIDeviceInfo const &,
+      sge::x11input::event::window_demuxer_ref,
+      sge::x11input::event::raw_demuxer_ref);
 
-	~device()
-	override;
+  ~device() override;
+
 private:
-	[[nodiscard]]
-	sge::window::object &
-	window() const
-	override;
+  [[nodiscard]] sge::window::object &window() const override;
 
-	[[nodiscard]]
-	sge::input::mouse::info const &
-	info() const
-	override;
+  [[nodiscard]] sge::input::mouse::info const &info() const override;
 
-	[[nodiscard]]
-	awl::event::container
-	on_event(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::container on_event(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::container
-	on_raw_event(
-		XIRawEvent const &
-	);
+  [[nodiscard]] awl::event::container on_raw_event(XIRawEvent const &);
 
-	[[nodiscard]]
-	awl::event::container
-	on_motion(
-		XIRawEvent const &
-	);
+  [[nodiscard]] awl::event::container on_motion(XIRawEvent const &);
 
-	[[nodiscard]]
-	awl::event::base_unique_ptr
-	process_valuator(
-		sge::x11input::device::valuator::pair
-	);
+  [[nodiscard]] awl::event::base_unique_ptr process_valuator(sge::x11input::device::valuator::pair);
 
-	[[nodiscard]]
-	awl::event::optional_base_unique_ptr
-	on_button_down(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::optional_base_unique_ptr on_button_down(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::optional_base_unique_ptr
-	on_button_up(
-		XIDeviceEvent const &
-	);
+  [[nodiscard]] awl::event::optional_base_unique_ptr on_button_up(XIDeviceEvent const &);
 
-	[[nodiscard]]
-	awl::event::optional_base_unique_ptr
-	button_event(
-		XIDeviceEvent const &,
-		sge::input::mouse::button_pressed
-	);
+  [[nodiscard]] awl::event::optional_base_unique_ptr
+  button_event(XIDeviceEvent const &, sge::input::mouse::button_pressed);
 
-	sge::window::object_ref const sge_window_;
+  sge::window::object_ref const sge_window_;
 
-	fcppt::log::object_reference const log_;
+  fcppt::log::object_reference const log_;
 
-	sge::x11input::device::valuator::accu_map accus_;
+  sge::x11input::device::valuator::accu_map accus_;
 
-	sge::input::mouse::info const info_;
+  sge::input::mouse::info const info_;
 
-	fcppt::signal::auto_connection const event_connection_;
+  fcppt::signal::auto_connection const event_connection_;
 
-	fcppt::signal::auto_connection const raw_event_connection_;
+  fcppt::signal::auto_connection const raw_event_connection_;
 };
 
 }

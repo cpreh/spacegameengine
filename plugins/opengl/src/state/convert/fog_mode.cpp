@@ -3,29 +3,22 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/fog_mode.hpp>
 #include <sge/renderer/state/ffp/fog/mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
-
-GLint
-sge::opengl::state::convert::fog_mode(
-	sge::renderer::state::ffp::fog::mode const _mode
-)
+GLint sge::opengl::state::convert::fog_mode(sge::renderer::state::ffp::fog::mode const _mode)
 {
-	switch(
-		_mode
-	)
-	{
-	case sge::renderer::state::ffp::fog::mode::linear:
-		return GL_LINEAR;
-	case sge::renderer::state::ffp::fog::mode::exp:
-		return GL_EXP;
-	case sge::renderer::state::ffp::fog::mode::exp2:
-		return GL_EXP2;
-	}
+  switch (_mode)
+  {
+  case sge::renderer::state::ffp::fog::mode::linear:
+    return GL_LINEAR;
+  case sge::renderer::state::ffp::fog::mode::exp:
+    return GL_EXP;
+  case sge::renderer::state::ffp::fog::mode::exp2:
+    return GL_EXP2;
+  }
 
-	FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_ASSERT_UNREACHABLE;
 }

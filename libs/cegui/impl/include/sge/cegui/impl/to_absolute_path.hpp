@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_IMPL_TO_ABSOLUTE_PATH_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_TO_ABSOLUTE_PATH_HPP_INCLUDED
 
@@ -11,7 +10,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
-
 
 namespace CEGUI
 {
@@ -22,10 +20,7 @@ namespace sge::cegui::impl
 {
 
 std::filesystem::path
-to_absolute_path(
-	sge::cegui::impl::prefix const &,
-	CEGUI::String const &filename
-);
+to_absolute_path(sge::cegui::impl::prefix const &, CEGUI::String const &filename);
 
 }
 

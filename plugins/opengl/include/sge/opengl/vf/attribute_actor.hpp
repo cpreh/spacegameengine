@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
 
@@ -18,48 +17,32 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::opengl::vf
 {
 
-class attribute_actor
-:
-	public sge::opengl::vf::pointer_actor
+class attribute_actor : public sge::opengl::vf::pointer_actor
 {
-	FCPPT_NONMOVABLE(
-		attribute_actor
-	);
+  FCPPT_NONMOVABLE(attribute_actor);
+
 public:
-	attribute_actor(
-		sge::opengl::vf::actor_parameters const &,
-		sge::renderer::vf::dynamic::extra const &
-	);
+  attribute_actor(
+      sge::opengl::vf::actor_parameters const &, sge::renderer::vf::dynamic::extra const &);
 
-	~attribute_actor()
-	override;
+  ~attribute_actor() override;
+
 private:
-	void
-	operator()(
-		sge::opengl::vf::client_state_combiner_ref,
-		sge::opengl::vf::pointer
-	) const
-	override;
+  void
+  operator()(sge::opengl::vf::client_state_combiner_ref, sge::opengl::vf::pointer) const override;
 
-	void
-	unuse(
-		sge::opengl::vf::client_state_combiner_ref
-	) const
-	override;
+  void unuse(sge::opengl::vf::client_state_combiner_ref) const override;
 
-	fcppt::reference<
-		sge::opengl::vf::attribute_config const
-	> const attribute_config_;
+  fcppt::reference<sge::opengl::vf::attribute_config const> const attribute_config_;
 
-	GLint const elements_;
+  GLint const elements_;
 
-	GLenum const format_;
+  GLenum const format_;
 
-	GLuint const location_;
+  GLuint const location_;
 };
 
 }

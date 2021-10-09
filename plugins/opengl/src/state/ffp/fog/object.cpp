@@ -3,14 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/state/object_impl.hpp>
 #include <sge/opengl/state/ffp/fog/object.hpp>
 #include <sge/renderer/state/ffp/fog/object.hpp>
 
-
-template
-class
-sge::opengl::state::object<
-	sge::renderer::state::ffp::fog::object
->;
+template class sge::opengl::state::object<sge::renderer::state::ffp::fog::object>;

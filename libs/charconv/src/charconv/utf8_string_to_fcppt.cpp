@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/charconv/impl/fcppt_is_utf8.hpp>
@@ -15,29 +14,14 @@
 #include <fcppt/from_std_wstring.hpp>
 #endif
 
-
 fcppt::optional_string
-sge::charconv::utf8_string_to_fcppt(
-	sge::charconv::utf8_string const &_string
-)
+sge::charconv::utf8_string_to_fcppt(sge::charconv::utf8_string const &_string)
 {
 #if defined(SGE_CHARCONV_IMPL_FCPPT_IS_UTF8)
-	return
-		fcppt::optional_string{
-			fcppt::string{
-				_string.begin(),
-				_string.end()
-			}
-		};
+  return fcppt::optional_string{fcppt::string{_string.begin(), _string.end()}};
 #else
-	return
-		fcppt::from_std_wstring(
-			sge::charconv::convert<
-				sge::charconv::encoding::wchar,
-				sge::charconv::encoding::utf8
-			>(
-				_string
-			)
-		);
+  return fcppt::from_std_wstring(
+      sge::charconv::convert<sge::charconv::encoding::wchar, sge::charconv::encoding::utf8>(
+          _string));
 #endif
 }

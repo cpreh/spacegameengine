@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CG_STRING_HPP_INCLUDED
 #define SGE_CG_STRING_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cg
 {
 
-using
-string
-=
-std::basic_string<
-	sge::cg::char_type
->;
+using string = std::basic_string<sge::cg::char_type>;
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/pixel_store_context.hpp>
 #include <sge/opengl/pixel_store_int.hpp>
@@ -13,38 +12,18 @@
 #include <sge/opengl/context/use.hpp>
 #include <fcppt/make_ref.hpp>
 
-
-void
-sge::opengl::set_unpack_alignment(
-	sge::opengl::context::object &_context,
-	sge::opengl::unpack_alignment const _alignment
-)
+void sge::opengl::set_unpack_alignment(
+    sge::opengl::context::object &_context, sge::opengl::unpack_alignment const _alignment)
 {
-	sge::opengl::pixel_store_context &context(
-		sge::opengl::context::use<
-			sge::opengl::pixel_store_context
-		>(
-			fcppt::make_ref(
-				_context
-			)
-		)
-	);
+  sge::opengl::pixel_store_context &context(
+      sge::opengl::context::use<sge::opengl::pixel_store_context>(fcppt::make_ref(_context)));
 
-	if(
-		context.unpack_alignment()
-		==
-		_alignment
-	)
-	{
-		return;
-	}
+  if (context.unpack_alignment() == _alignment)
+  {
+    return;
+  }
 
-	sge::opengl::pixel_store_int(
-		GL_UNPACK_ALIGNMENT,
-		_alignment.get()
-	);
+  sge::opengl::pixel_store_int(GL_UNPACK_ALIGNMENT, _alignment.get());
 
-	context.unpack_alignment(
-		_alignment
-	);
+  context.unpack_alignment(_alignment);
 }

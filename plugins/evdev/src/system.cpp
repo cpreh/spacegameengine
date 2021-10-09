@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/evdev/processor.hpp>
 #include <sge/evdev/system.hpp>
 #include <sge/input/capabilities.hpp>
@@ -21,52 +20,25 @@
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 
-
-sge::evdev::system::system(
-	fcppt::log::context_reference const _log_context
-)
-:
-	sge::input::system(),
-	log_{
-		_log_context,
-		sge::log::location(),
-		sge::log::default_parameters(
-			fcppt::log::name{
-				FCPPT_TEXT("evdev")
-			}
-		)
-	}
+sge::evdev::system::system(fcppt::log::context_reference const _log_context)
+    : sge::input::system(),
+      log_{
+          _log_context,
+          sge::log::location(),
+          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("evdev")})}
 {
 }
 
-sge::evdev::system::~system()
-= default;
+sge::evdev::system::~system() = default;
 
 sge::input::processor_unique_ptr
-sge::evdev::system::create_processor(
-	sge::window::object_ref const _window
-)
+sge::evdev::system::create_processor(sge::window::object_ref const _window)
 {
-	return
-		fcppt::unique_ptr_to_base<
-			sge::input::processor
-		>(
-			fcppt::make_unique_ptr<
-				sge::evdev::processor
-			>(
-				fcppt::make_ref(
-					log_
-				),
-				_window
-			)
-		);
+  return fcppt::unique_ptr_to_base<sge::input::processor>(
+      fcppt::make_unique_ptr<sge::evdev::processor>(fcppt::make_ref(log_), _window));
 }
 
-sge::input::capabilities_field
-sge::evdev::system::capabilities() const
+sge::input::capabilities_field sge::evdev::system::capabilities() const
 {
-	return
-		sge::input::capabilities_field{
-			sge::input::capabilities::joypad
-		};
+  return sge::input::capabilities_field{sge::input::capabilities::joypad};
 }

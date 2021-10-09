@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_DIMENSION_INTEGRAL_C_HPP_INCLUDED
 #define SGE_IMAGE_DIMENSION_INTEGRAL_C_HPP_INCLUDED
 
@@ -12,20 +11,11 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::image
 {
 
-template<
-	sge::image::dimension_count Count
->
-using
-dimension_integral_c
-=
-std::integral_constant<
-	sge::image::dimension_count,
-	Count
->;
+template <sge::image::dimension_count Count>
+using dimension_integral_c = std::integral_constant<sge::image::dimension_count, Count>;
 
 }
 

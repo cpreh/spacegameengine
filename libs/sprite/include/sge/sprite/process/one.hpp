@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_PROCESS_ONE_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_ONE_HPP_INCLUDED
 
@@ -15,42 +14,23 @@
 #include <sge/sprite/state/object_fwd.hpp>
 #include <sge/sprite/state/render_context.hpp>
 
-
 namespace sge::sprite::process
 {
 
-template<
-	typename RenderContext,
-	typename Choices,
-	typename StateChoices,
-	typename Buffers
->
-inline
-void
-one(
-	RenderContext &_render_context,
-	sge::sprite::object<
-		Choices
-	> const &_sprite,
-	Buffers &_buffers,
-	sge::sprite::state::object<
-		StateChoices
-	> &_sprite_state
-)
+template <typename RenderContext, typename Choices, typename StateChoices, typename Buffers>
+inline void
+one(RenderContext &_render_context,
+    sge::sprite::object<Choices> const &_sprite,
+    Buffers &_buffers,
+    sge::sprite::state::object<StateChoices> &_sprite_state)
 {
-	sge::sprite::process::one_with_options<
-		sge::sprite::process::options<
-			sge::sprite::process::geometry_options::update
-		>
-	>(
-		_render_context,
-		_sprite,
-		_buffers,
-		_sprite_state,
-		sge::sprite::state::default_options<
-			StateChoices
-		>()
-	);
+  sge::sprite::process::one_with_options<
+      sge::sprite::process::options<sge::sprite::process::geometry_options::update>>(
+      _render_context,
+      _sprite,
+      _buffers,
+      _sprite_state,
+      sge::sprite::state::default_options<StateChoices>());
 }
 
 }

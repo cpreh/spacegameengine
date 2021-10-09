@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/impl/from_cegui_rect.hpp>
 #include <sge/cegui/impl/from_cegui_size.hpp>
@@ -71,497 +70,222 @@
 #include <CEGUI/String.h>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::cegui::impl::texture_target::texture_target(
-	fcppt::log::object_reference const _main_log,
-	sge::cegui::impl::texture_parameters const &_texture_parameters,
-	sge::cegui::impl::optional_render_context_ref const &_render_context
-)
-:
-	main_log_{
-		_main_log
-	},
-	log_{
-		_main_log.get(),
-		sge::log::default_parameters(
-			fcppt::log::name{
-				FCPPT_TEXT("texture_target")
-			}
-		)
-	},
-	texture_parameters_(
-		_texture_parameters
-	),
-	target_(
-		texture_parameters_.renderer().create_target()
-	),
-	render_context_(
-		_render_context
-	),
-	texture_(),
-	// This is exactly what cegui does and it avoids certain bugs :/
-	area_(
-		0,
-		0,
-		0,
-		0
-	),
-	is_inverted_(
-		_texture_parameters.renderer().caps().render_target_inverted()
-	),
-	transform_state_()
+    fcppt::log::object_reference const _main_log,
+    sge::cegui::impl::texture_parameters const &_texture_parameters,
+    sge::cegui::impl::optional_render_context_ref const &_render_context)
+    : main_log_{_main_log},
+      log_{
+          _main_log.get(),
+          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("texture_target")})},
+      texture_parameters_(_texture_parameters),
+      target_(texture_parameters_.renderer().create_target()),
+      render_context_(_render_context),
+      texture_(),
+      // This is exactly what cegui does and it avoids certain bugs :/
+      area_(0, 0, 0, 0),
+      is_inverted_(_texture_parameters.renderer().caps().render_target_inverted()),
+      transform_state_(){FCPPT_LOG_DEBUG(
+          log_,
+          fcppt::log::out << FCPPT_TEXT("texture_target(") << this
+                          << FCPPT_TEXT(")::texture_target"))}
+
+      sge::cegui::impl::texture_target::~texture_target() = default;
+
+void sge::cegui::impl::texture_target::draw(CEGUI::GeometryBuffer const &_buffer)
 {
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("texture_target(")
-			<< this
-			<< FCPPT_TEXT(")::texture_target")
-	)
+  if (!FCPPT_ASSERT_OPTIONAL_ERROR(texture_)->impl().has_value())
+  {
+    return;
+  }
+
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("texture_target(") << this
+                      << FCPPT_TEXT(")::draw(GeometryBuffer)"))
+
+  _buffer.draw();
 }
 
-sge::cegui::impl::texture_target::~texture_target()
-= default;
-
-void
-sge::cegui::impl::texture_target::draw(
-	CEGUI::GeometryBuffer const &_buffer
-)
+void sge::cegui::impl::texture_target::draw(CEGUI::RenderQueue const &_queue)
 {
-	if(
-		!FCPPT_ASSERT_OPTIONAL_ERROR(
-			texture_
-		)->impl().has_value()
-	)
-	{
-		return;
-	}
+  if (!FCPPT_ASSERT_OPTIONAL_ERROR(texture_)->impl().has_value())
+  {
+    return;
+  }
 
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("texture_target(")
-			<< this
-			<< FCPPT_TEXT(")::draw(GeometryBuffer)")
-	)
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("texture_target(") << this
+                      << FCPPT_TEXT(")::draw(RenderQueue)"))
 
-	_buffer.draw();
+  _queue.draw();
 }
 
-void
-sge::cegui::impl::texture_target::draw(
-	CEGUI::RenderQueue const &_queue
-)
+void sge::cegui::impl::texture_target::setArea(CEGUI::Rectf const &_area)
 {
-	if(
-		!FCPPT_ASSERT_OPTIONAL_ERROR(
-			texture_
-		)->impl().has_value()
-	)
-	{
-		return;
-	}
+  {
+    auto const area(
+        fcppt::math::box::structure_cast<sge::renderer::pixel_rect, fcppt::cast::float_to_int_fun>(
+            sge::cegui::impl::from_cegui_rect(_area)));
 
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("texture_target(")
-			<< this
-			<< FCPPT_TEXT(")::draw(RenderQueue)")
-	)
+    FCPPT_LOG_DEBUG(
+        log_,
+        fcppt::log::out << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::setArea(")
+                        << area << FCPPT_TEXT(')'))
+  }
 
-	_queue.draw();
+  area_ = _area;
+
+  if (area_.getWidth() * area_.getHeight() <
+      0.01F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  )
+  {
+    transform_state_ = sge::renderer::state::ffp::transform::optional_object_unique_ptr();
+
+    return;
+  }
+
+  transform_state_ = sge::renderer::state::ffp::transform::optional_object_unique_ptr(
+      texture_parameters_.renderer().create_transform_state(
+          sge::renderer::state::ffp::transform::parameters(sge::renderer::projection::orthogonal(
+              sge::cegui::impl::from_cegui_rect(area_),
+              sge::renderer::projection::near(0.F),
+              sge::renderer::projection::far(
+                  2.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                  )))));
 }
 
-void
-sge::cegui::impl::texture_target::setArea(
-	CEGUI::Rectf const &_area
-)
+CEGUI::Rectf const &sge::cegui::impl::texture_target::getArea() const { return area_; }
+
+bool sge::cegui::impl::texture_target::isImageryCache() const { return true; }
+
+void sge::cegui::impl::texture_target::activate()
 {
-	{
-		auto const area(
-			fcppt::math::box::structure_cast<
-				sge::renderer::pixel_rect,
-				fcppt::cast::float_to_int_fun
-			>(
-				sge::cegui::impl::from_cegui_rect(
-					_area
-				)
-			)
-		);
+  if (!FCPPT_ASSERT_OPTIONAL_ERROR(texture_)->impl().has_value())
+  {
+    return;
+  }
 
-		FCPPT_LOG_DEBUG(
-			log_,
-			fcppt::log::out
-				<<
-				FCPPT_TEXT("texture_target(")
-				<<
-				this
-				<<
-				FCPPT_TEXT(")::setArea(")
-				<<
-				area
-				<<
-				FCPPT_TEXT(')')
-		)
-	}
+  FCPPT_LOG_DEBUG(
+      log_, fcppt::log::out << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::activate()"))
 
-	area_ =
-		_area;
+  sge::renderer::context::ffp &render_context(FCPPT_ASSERT_OPTIONAL_ERROR(render_context_).get());
 
-	if(
-		area_.getWidth()
-		*
-		area_.getHeight()
-		<
-		0.01F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-	)
-	{
-		transform_state_ =
-			sge::renderer::state::ffp::transform::optional_object_unique_ptr();
+  render_context.offscreen_target(
+      sge::renderer::target::optional_offscreen_ref(fcppt::make_ref(*target_)));
 
-		return;
-	}
+  target_->viewport(sge::renderer::target::viewport(
+      fcppt::math::box::structure_cast<sge::renderer::pixel_rect, fcppt::cast::float_to_int_fun>(
+          sge::cegui::impl::from_cegui_rect(area_))));
 
-	transform_state_ =
-		sge::renderer::state::ffp::transform::optional_object_unique_ptr(
-			texture_parameters_.renderer().create_transform_state(
-				sge::renderer::state::ffp::transform::parameters(
-					sge::renderer::projection::orthogonal(
-						sge::cegui::impl::from_cegui_rect(
-							area_
-						),
-						sge::renderer::projection::near(
-							0.F
-						),
-						sge::renderer::projection::far(
-							2.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-						)
-					)
-				)
-			)
-		);
+  render_context.transform(
+      sge::renderer::state::ffp::transform::mode::projection,
+      sge::renderer::state::ffp::transform::const_optional_object_ref(
+          fcppt::make_cref(*FCPPT_ASSERT_OPTIONAL_ERROR(transform_state_))));
 }
 
-CEGUI::Rectf const &
-sge::cegui::impl::texture_target::getArea() const
+void sge::cegui::impl::texture_target::deactivate()
 {
-	return
-		area_;
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::deactivate()"))
+
+  if (!FCPPT_ASSERT_OPTIONAL_ERROR(texture_)->impl().has_value())
+  {
+    return;
+  }
+
+  sge::renderer::context::ffp &render_context(FCPPT_ASSERT_OPTIONAL_ERROR(render_context_).get());
+
+  render_context.transform(
+      sge::renderer::state::ffp::transform::mode::projection,
+      sge::renderer::state::ffp::transform::const_optional_object_ref());
+
+  render_context.offscreen_target(sge::renderer::target::optional_offscreen_ref());
 }
 
-bool
-sge::cegui::impl::texture_target::isImageryCache() const
+void sge::cegui::impl::texture_target::unprojectPoint(
+    CEGUI::GeometryBuffer const &, CEGUI::Vector2f const &, CEGUI::Vector2f &) const
 {
-	return
-		true;
+  throw sge::cegui::exception{FCPPT_TEXT("texture_target::unprojectPoint not implemented yet")};
 }
 
-void
-sge::cegui::impl::texture_target::activate()
+void sge::cegui::impl::texture_target::clear()
 {
-	if(
-		!FCPPT_ASSERT_OPTIONAL_ERROR(
-			texture_
-		)->impl().has_value()
-	)
-	{
-		return;
-	}
+  FCPPT_LOG_DEBUG(
+      log_, fcppt::log::out << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::clear()"))
 
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("texture_target(")
-			<< this
-			<< FCPPT_TEXT(")::activate()")
-	)
+  sge::cegui::impl::texture &texture(*FCPPT_ASSERT_OPTIONAL_ERROR(texture_));
 
-	sge::renderer::context::ffp &render_context(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			render_context_
-		).get()
-	);
+  fcppt::optional::maybe_void(
+      texture.impl(),
+      [this](fcppt::reference<sge::renderer::texture::planar> const _texture)
+      {
+        // Make sure we clear everything
 
-	render_context.offscreen_target(
-		sge::renderer::target::optional_offscreen_ref(
-			fcppt::make_ref(
-				*target_
-			)
-		)
-	);
+        sge::renderer::pixel_rect const rect(
+            fcppt::math::vector::null<sge::renderer::pixel_rect::vector>(),
+            fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim, fcppt::cast::size_fun>(
+                fcppt::math::dim::to_signed(_texture.get().size())));
 
-	target_->viewport(
-		sge::renderer::target::viewport(
-			fcppt::math::box::structure_cast<
-				sge::renderer::pixel_rect,
-				fcppt::cast::float_to_int_fun
-			>(
-				sge::cegui::impl::from_cegui_rect(
-					area_
-				)
-			)
-		)
-	);
+        target_->viewport(sge::renderer::target::viewport(rect));
 
-	render_context.transform(
-		sge::renderer::state::ffp::transform::mode::projection,
-		sge::renderer::state::ffp::transform::const_optional_object_ref(
-			fcppt::make_cref(
-				*FCPPT_ASSERT_OPTIONAL_ERROR(
-					transform_state_
-				)
-			)
-		)
-	);
+        target_->scissor_area(sge::renderer::target::scissor_area(rect));
+
+        target_->clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::transparent()}));
+      });
 }
 
-void
-sge::cegui::impl::texture_target::deactivate()
+CEGUI::Texture &sge::cegui::impl::texture_target::getTexture() const
 {
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("texture_target(")
-			<< this
-			<< FCPPT_TEXT(")::deactivate()")
-	)
-
-	if(
-		!FCPPT_ASSERT_OPTIONAL_ERROR(
-			texture_
-		)->impl().has_value()
-	)
-	{
-		return;
-	}
-
-	sge::renderer::context::ffp &render_context(
-		FCPPT_ASSERT_OPTIONAL_ERROR(
-			render_context_
-		).get()
-	);
-
-	render_context.transform(
-		sge::renderer::state::ffp::transform::mode::projection,
-		sge::renderer::state::ffp::transform::const_optional_object_ref()
-	);
-
-	render_context.offscreen_target(
-		sge::renderer::target::optional_offscreen_ref()
-	);
+  return *FCPPT_ASSERT_OPTIONAL_ERROR(texture_);
 }
 
-void
-sge::cegui::impl::texture_target::unprojectPoint(
-	CEGUI::GeometryBuffer const &,
-	CEGUI::Vector2f const &,
-	CEGUI::Vector2f &
-) const
+void sge::cegui::impl::texture_target::declareRenderSize(CEGUI::Sizef const &_size)
 {
-	throw
-		sge::cegui::exception{
-			FCPPT_TEXT("texture_target::unprojectPoint not implemented yet")
-		};
+  FCPPT_LOG_DEBUG(
+      log_,
+      fcppt::log::out << FCPPT_TEXT("texture_target(") << this
+                      << FCPPT_TEXT(")::declareRenderSize(")
+                      << sge::cegui::impl::from_cegui_size(_size) << FCPPT_TEXT(')'))
+
+  this->setArea(CEGUI::Rectf(area_.getPosition(), _size));
+
+  CEGUI::String const texture_name("sge texture target");
+
+  // The size here could be (0,0), for example if the viewport hasn't
+  // been initialized yet. If that's the case, create an empty texture.
+
+  using signed_dim = fcppt::math::dim::static_<std::make_signed_t<sge::renderer::size_type>, 2>;
+
+  texture_unique_ptr &texture(fcppt::optional::assign(
+      texture_,
+      fcppt::math::dim::structure_cast<signed_dim, fcppt::cast::float_to_int_fun>(
+          sge::cegui::impl::from_cegui_size(_size)) == fcppt::math::dim::null<signed_dim>()
+          ? fcppt::make_unique_ptr<sge::cegui::impl::texture>(
+                main_log_.get(), texture_parameters_, texture_name)
+          : fcppt::make_unique_ptr<sge::cegui::impl::texture>(
+                main_log_.get(),
+                texture_parameters_,
+                texture_name,
+                _size,
+                sge::renderer::texture::capabilities_field{
+                    sge::renderer::texture::capabilities::render_target})));
+
+  fcppt::optional::maybe_void(
+      texture->impl(),
+      [this](fcppt::reference<sge::renderer::texture::planar> const _texture)
+      {
+        target_->color_surface(
+            sge::renderer::color_buffer::optional_surface_ref(
+                fcppt::reference_to_base<sge::renderer::color_buffer::surface>(fcppt::make_ref(
+                    _texture.get().level(sge::renderer::texture::mipmap::level(0U))))),
+            sge::renderer::target::surface_index(0U));
+
+        this->clear();
+      });
 }
 
-void
-sge::cegui::impl::texture_target::clear()
-{
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<< FCPPT_TEXT("texture_target(")
-			<< this
-			<< FCPPT_TEXT(")::clear()")
-	)
-
-	sge::cegui::impl::texture &texture(
-		*FCPPT_ASSERT_OPTIONAL_ERROR(
-			texture_
-		)
-	);
-
-	fcppt::optional::maybe_void(
-		texture.impl(),
-		[
-			this
-		](
-			fcppt::reference<
-				sge::renderer::texture::planar
-			> const _texture
-		)
-		{
-			// Make sure we clear everything
-
-			sge::renderer::pixel_rect const rect(
-				fcppt::math::vector::null<
-					sge::renderer::pixel_rect::vector
-				>(),
-				fcppt::math::dim::structure_cast<
-					sge::renderer::pixel_rect::dim,
-					fcppt::cast::size_fun
-				>(
-					fcppt::math::dim::to_signed(
-						_texture.get().size()
-					)
-				)
-			);
-
-			target_->viewport(
-				sge::renderer::target::viewport(
-					rect
-				)
-			);
-
-			target_->scissor_area(
-				sge::renderer::target::scissor_area(
-					rect
-				)
-			);
-
-			target_->clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::transparent()
-					}
-				)
-			);
-		}
-	);
-}
-
-CEGUI::Texture &
-sge::cegui::impl::texture_target::getTexture() const
-{
-	return
-		*FCPPT_ASSERT_OPTIONAL_ERROR(
-			texture_
-		);
-}
-
-void
-sge::cegui::impl::texture_target::declareRenderSize(
-	CEGUI::Sizef const &_size
-)
-{
-	FCPPT_LOG_DEBUG(
-		log_,
-		fcppt::log::out
-			<<
-			FCPPT_TEXT("texture_target(")
-			<<
-			this
-			<<
-			FCPPT_TEXT(")::declareRenderSize(")
-			<<
-			sge::cegui::impl::from_cegui_size(
-				_size
-			)
-			<<
-			FCPPT_TEXT(')')
-	)
-
-	this->setArea(
-		CEGUI::Rectf(
-			area_.getPosition(),
-			_size
-		)
-	);
-
-	CEGUI::String const texture_name(
-		"sge texture target"
-	);
-
-	// The size here could be (0,0), for example if the viewport hasn't
-	// been initialized yet. If that's the case, create an empty texture.
-
-	using
-	signed_dim
-	=
-	fcppt::math::dim::static_<
-		std::make_signed_t<
-			sge::renderer::size_type
-		>,
-		2
-	>;
-
-	texture_unique_ptr &texture(
-		fcppt::optional::assign(
-			texture_,
-			fcppt::math::dim::structure_cast<
-				signed_dim,
-				fcppt::cast::float_to_int_fun
-			>(
-				sge::cegui::impl::from_cegui_size(
-					_size
-				)
-			)
-			==
-			fcppt::math::dim::null<
-				signed_dim
-			>()
-			?
-				fcppt::make_unique_ptr<
-					sge::cegui::impl::texture
-				>(
-					main_log_.get(),
-					texture_parameters_,
-					texture_name
-				)
-			:
-				fcppt::make_unique_ptr<
-					sge::cegui::impl::texture
-				>(
-					main_log_.get(),
-					texture_parameters_,
-					texture_name,
-					_size,
-					sge::renderer::texture::capabilities_field{
-						sge::renderer::texture::capabilities::render_target
-					}
-				)
-		)
-	);
-
-	fcppt::optional::maybe_void(
-		texture->impl(),
-		[
-			this
-		](
-			fcppt::reference<
-				sge::renderer::texture::planar
-			> const _texture
-		)
-		{
-			target_->color_surface(
-				sge::renderer::color_buffer::optional_surface_ref(
-					fcppt::reference_to_base<
-						sge::renderer::color_buffer::surface
-					>(
-						fcppt::make_ref(
-							_texture.get().level(
-								sge::renderer::texture::mipmap::level(
-									0U
-								)
-							)
-						)
-					)
-				),
-				sge::renderer::target::surface_index(
-					0U
-				)
-			);
-
-			this->clear();
-		}
-	);
-}
-
-bool
-sge::cegui::impl::texture_target::isRenderingInverted() const
-{
-	return
-		is_inverted_.get();
-}
+bool sge::cegui::impl::texture_target::isRenderingInverted() const { return is_inverted_.get(); }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GDIFONT_TEXT_HPP_INCLUDED
 #define SGE_GDIFONT_TEXT_HPP_INCLUDED
 
@@ -21,66 +20,44 @@
 #include <sge/gdifont/include_windows.hpp>
 #include <fcppt/noncopyable.hpp>
 
-
 namespace sge
 {
 namespace gdifont
 {
 
-class text
-:
-	public sge::font::text
+class text : public sge::font::text
 {
-	FCPPT_NONCOPYABLE(
-		text
-	);
+  FCPPT_NONCOPYABLE(text);
+
 public:
-	text(
-		sge::gdifont::device_context const &,
-		HFONT,
-		sge::font::string const &,
-		sge::font::text_parameters const &
-	);
+  text(
+      sge::gdifont::device_context const &,
+      HFONT,
+      sge::font::string const &,
+      sge::font::text_parameters const &);
 
-	~text()
-	override;
+  ~text() override;
+
 private:
-	void
-	render(
-		sge::font::view const &
-	)
-	override;
+  void render(sge::font::view const &) override;
 
-	sge::font::rect
-	rect() const
-	override;
+  sge::font::rect rect() const override;
 
-	sge::font::dim
-	logical_size() const
-	override;
+  sge::font::dim logical_size() const override;
 
-	sge::font::rect
-	cursor_rect(
-		sge::font::index
-	) const
-	override;
+  sge::font::rect cursor_rect(sge::font::index) const override;
 
-	sge::font::optional_index
-	pos_to_index(
-		sge::font::vector
-	) const
-	override;
+  sge::font::optional_index pos_to_index(sge::font::vector) const override;
 
-	sge::gdifont::device_context const &device_context_;
+  sge::gdifont::device_context const &device_context_;
 
-	HFONT const hfont_;
+  HFONT const hfont_;
 
-	sge::font::string const string_;
+  sge::font::string const string_;
 
-	sge::gdifont::format const render_flags_;
+  sge::gdifont::format const render_flags_;
 
-	sge::font::rect const rect_;
-
+  sge::font::rect const rect_;
 };
 
 }

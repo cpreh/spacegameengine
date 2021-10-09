@@ -3,13 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_FWD_HPP_INCLUDED
 #define SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_FWD_HPP_INCLUDED
 
 namespace sge::scenic::impl::number_multiplexer
 {
-template<typename T>
+template <typename T>
 class number_multiplexer;
 }
 

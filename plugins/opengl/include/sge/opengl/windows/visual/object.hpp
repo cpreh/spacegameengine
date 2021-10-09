@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_WINDOWS_VISUAL_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_WINDOWS_VISUAL_OBJECT_HPP_INCLUDED
 
@@ -12,7 +11,6 @@
 #include <awl/backends/windows/windows.hpp>
 #include <awl/backends/windows/visual/object.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 namespace sge
 {
@@ -23,31 +21,21 @@ namespace windows
 namespace visual
 {
 
-class object
-:
-	public awl::backends::windows::visual::object
+class object : public awl::backends::windows::visual::object
 {
-	FCPPT_NONCOPYABLE(
-		object
-	);
+  FCPPT_NONCOPYABLE(object);
+
 public:
-	object(
-		sge::opengl::wgl::visual::config const &,
-		sge::renderer::pixel_format::object const &
-	);
+  object(sge::opengl::wgl::visual::config const &, sge::renderer::pixel_format::object const &);
 
-	~object()
-	override;
+  ~object() override;
+
 private:
-	void
-	apply(
-		HWND
-	) const
-	override;
+  void apply(HWND) const override;
 
-	sge::opengl::wgl::visual::config const &config_;
+  sge::opengl::wgl::visual::config const &config_;
 
-	sge::renderer::pixel_format::object const format_;
+  sge::renderer::pixel_format::object const format_;
 };
 
 }

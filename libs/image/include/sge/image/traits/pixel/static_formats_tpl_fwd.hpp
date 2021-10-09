@@ -3,17 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_TRAITS_PIXEL_STATIC_FORMATS_TPL_FWD_HPP_INCLUDED
 #define SGE_IMAGE_TRAITS_PIXEL_STATIC_FORMATS_TPL_FWD_HPP_INCLUDED
-
 
 namespace sge::image::traits::pixel
 {
 
-template<
-	typename Format
->
+template <typename Format>
 struct static_formats_tpl;
 
 }

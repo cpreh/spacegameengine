@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_IMPL_VF_DYNAMIC_ELEMENT_CONVERTER_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_VF_DYNAMIC_ELEMENT_CONVERTER_HPP_INCLUDED
 
@@ -18,45 +17,36 @@
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 
-
 namespace sge::renderer::impl::vf::dynamic
 {
 
 class element_converter
 {
 public:
-	FCPPT_DECLARE_STRONG_TYPEDEF(
-		sge::image::color::format,
-		original_format
-	);
+  FCPPT_DECLARE_STRONG_TYPEDEF(sge::image::color::format, original_format);
 
-	FCPPT_DECLARE_STRONG_TYPEDEF(
-		sge::image::color::format,
-		backend_format
-	);
+  FCPPT_DECLARE_STRONG_TYPEDEF(sge::image::color::format, backend_format);
 
-	element_converter(
-		original_format,
-		backend_format,
-		sge::renderer::vf::dynamic::stride,
-		sge::renderer::vf::dynamic::offset
-	);
+  element_converter(
+      original_format,
+      backend_format,
+      sge::renderer::vf::dynamic::stride,
+      sge::renderer::vf::dynamic::offset);
 
-	void
-	convert(
-		sge::renderer::impl::vf::dynamic::lock_interval const &,
-		sge::renderer::raw_pointer data,
-		sge::renderer::vertex::first,
-		sge::renderer::impl::vf::dynamic::unlock
-	) const;
+  void convert(
+      sge::renderer::impl::vf::dynamic::lock_interval const &,
+      sge::renderer::raw_pointer data,
+      sge::renderer::vertex::first,
+      sge::renderer::impl::vf::dynamic::unlock) const;
+
 private:
-	original_format original_format_;
+  original_format original_format_;
 
-	backend_format backend_format_;
+  backend_format backend_format_;
 
-	sge::renderer::vf::dynamic::stride stride_;
+  sge::renderer::vf::dynamic::stride stride_;
 
-	sge::renderer::vf::dynamic::offset offset_;
+  sge::renderer::vf::dynamic::offset offset_;
 };
 
 }

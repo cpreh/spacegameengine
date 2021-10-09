@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/text.hpp>
 
+sge::font::text::text() = default;
 
-sge::font::text::text()
-= default;
-
-sge::font::text::~text()
-= default;
+sge::font::text::~text() = default;

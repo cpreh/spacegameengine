@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GLX_PROC_ADDRESS_HPP_INCLUDED
 #define SGE_OPENGL_GLX_PROC_ADDRESS_HPP_INCLUDED
 
@@ -13,15 +12,11 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::glx
 {
 
 sge::opengl::glx::optional_raw_function
-proc_address(
-	sge::opengl::glx::proc_address_function,
-	std::string const &
-);
+proc_address(sge::opengl::glx::proc_address_function, std::string const &);
 
 }
 

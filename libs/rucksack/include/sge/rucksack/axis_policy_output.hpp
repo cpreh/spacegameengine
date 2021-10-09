@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_AXIS_POLICY_OUTPUT_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_POLICY_OUTPUT_HPP_INCLUDED
 
@@ -16,52 +15,20 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::rucksack
 {
 
-template<
-	typename Ch,
-	typename Traits
->
-std::basic_ostream<
-	Ch,
-	Traits
-> &
-operator<<(
-	std::basic_ostream<
-		Ch,
-		Traits
-	> &_stream,
-	sge::rucksack::axis_policy const &_policy
-)
+template <typename Ch, typename Traits>
+std::basic_ostream<Ch, Traits> &
+operator<<(std::basic_ostream<Ch, Traits> &_stream, sge::rucksack::axis_policy const &_policy)
 {
-	fcppt::variant::match(
-		_policy,
-		[
-			&_stream
-		](
-			sge::rucksack::minimum_size const _min
-		)
-		{
-			_stream
-				<< _stream.widen('m')
-				<< _min;
-		},
-		[
-			&_stream
-		](
-			sge::rucksack::preferred_size const _pref
-		)
-		{
-			_stream
-				<< _stream.widen('p')
-				<< _pref;
-		}
-	);
+  fcppt::variant::match(
+      _policy,
+      [&_stream](sge::rucksack::minimum_size const _min) { _stream << _stream.widen('m') << _min; },
+      [&_stream](sge::rucksack::preferred_size const _pref)
+      { _stream << _stream.widen('p') << _pref; });
 
-	return
-		_stream;
+  return _stream;
 }
 
 }

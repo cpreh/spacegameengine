@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_FOCUS_LOOKUP_STRING_HPP_INCLUDED
 #define SGE_X11INPUT_FOCUS_LOOKUP_STRING_HPP_INCLUDED
 
@@ -14,16 +13,13 @@
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::x11input::focus
 {
 
-sge::x11input::focus::looked_up_string
-lookup_string(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	sge::x11input::xim::context const &,
-	XIDeviceEvent const &
-);
+sge::x11input::focus::looked_up_string lookup_string(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    sge::x11input::xim::context const &,
+    XIDeviceEvent const &);
 
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_map.hpp>
@@ -27,118 +26,41 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(
-	sge::charconv::utf8_string,
-	double_insert
-);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::charconv::utf8_string, double_insert);
 
-sge::parse::json::member_map
-make_members_impl(
-	sge::parse::json::impl::member_vector &&_args
-)
+sge::parse::json::member_map make_members_impl(sge::parse::json::impl::member_vector &&_args)
 {
-	return
-		fcppt::algorithm::fold(
-			fcppt::container::make_move_range(
-				std::move(
-					_args
-				)
-			),
-			sge::parse::json::member_map{},
-			[](
-				fcppt::tuple::object<
-					sge::charconv::utf8_string,
-					fcppt::recursive<
-						sge::parse::json::value
-					>
-				> &&_element,
-				sge::parse::json::member_map &&_state
-			)
-			{
-				if(
-					fcppt::not_(
-						fcppt::container::insert(
-							_state,
-							sge::parse::json::member{
-								fcppt::tuple::get<
-									0
-								>(
-									_element
-								),
-								std::move(
-									fcppt::tuple::get<
-										1
-									>(
-										_element
-									)
-								)
-							}
-						)
-					)
-				)
-				{
-					throw // NOLINT(hicpp-exception-baseclass)
-						double_insert{ // NOLINT(hicpp-exception-baseclass)
-							std::move(
-								fcppt::tuple::get<
-									0
-								>(
-									_element
-								)
-							)
-						};
-				}
+  return fcppt::algorithm::fold(
+      fcppt::container::make_move_range(std::move(_args)),
+      sge::parse::json::member_map{},
+      [](fcppt::tuple::object<sge::charconv::utf8_string, fcppt::recursive<sge::parse::json::value>>
+             &&_element,
+         sge::parse::json::member_map &&_state)
+      {
+        if (fcppt::not_(fcppt::container::insert(
+                _state,
+                sge::parse::json::member{
+                    fcppt::tuple::get<0>(_element), std::move(fcppt::tuple::get<1>(_element))})))
+        {
+          throw // NOLINT(hicpp-exception-baseclass)
+              double_insert{// NOLINT(hicpp-exception-baseclass)
+                            std::move(fcppt::tuple::get<0>(_element))};
+        }
 
-			return
-				std::move(
-					_state
-				);
-			}
-		);
+        return std::move(_state);
+      });
 }
 
 }
 
-fcppt::parse::result<
-	char,
-	sge::parse::json::member_map
->
-sge::parse::json::impl::make_members(
-	sge::parse::json::impl::member_vector &&_args
-)
+fcppt::parse::result<char, sge::parse::json::member_map>
+sge::parse::json::impl::make_members(sge::parse::json::impl::member_vector &&_args)
 {
-	return
-		fcppt::either::try_call<
-			double_insert
-		>(
-			[
-				&_args
-			]{
-				return
-					make_members_impl(
-						std::move(
-							_args
-						)
-					);
-			},
-			[](
-				double_insert const &_error
-			)
-			{
-				return
-					fcppt::parse::error<
-						char
-					>{
-						std::string{
-							"Duplicate object name: "
-						}
-						+
-						_error.get()
-					};
-			}
-		);
+  return fcppt::either::try_call<double_insert>(
+      [&_args] { return make_members_impl(std::move(_args)); },
+      [](double_insert const &_error)
+      { return fcppt::parse::error<char>{std::string{"Duplicate object name: "} + _error.get()}; });
 }

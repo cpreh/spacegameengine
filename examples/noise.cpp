@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/image/channel8.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -107,423 +106,195 @@
 #include <exception>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
 struct interpolator
 {
-	template<
-		typename Float,
-		typename Value
-	>
-	Value
-	operator()(
-		Float const _f,
-		Value const _v1,
-		Value const _v2
-	) const
-	{
-		return
-			fcppt::math::interpolation::perlin_fifth_degree(
-				_f,
-				_v1,
-				_v2
-			);
-	}
+  template <typename Float, typename Value>
+  Value operator()(Float const _f, Value const _v1, Value const _v2) const
+  {
+    return fcppt::math::interpolation::perlin_fifth_degree(_f, _v1, _v2);
+  }
 };
 
-void
-fill_texture(
-	sge::image2d::store::l8::view_type _view
-)
+void fill_texture(sge::image2d::store::l8::view_type _view)
 {
-	using
-	dim_type
-	=
-	sge::image2d::store::l8::view_type::dim;
+  using dim_type = sge::image2d::store::l8::view_type::dim;
 
-	using
-	dim_value_type
-	=
-	dim_type::value_type;
+  using dim_value_type = dim_type::value_type;
 
-	/*
+  /*
 	typedef
 	sge::noise::simplex::object<double,2>
 	noise_type;
 	*/
-	using
-	noise_type
-	=
-	sge::noise::perlin::object<
-		double,
-		2,
-		interpolator
-	>;
+  using noise_type = sge::noise::perlin::object<double, 2, interpolator>;
 
-	using
-	param_type
-	=
-	sge::noise::sample_parameters<
-		noise_type
-	>;
+  using param_type = sge::noise::sample_parameters<noise_type>;
 
-	fcppt::random::generator::minstd_rand rng(
-		fcppt::random::generator::seed_from_chrono<fcppt::random::generator::minstd_rand::seed>());
+  fcppt::random::generator::minstd_rand rng(
+      fcppt::random::generator::seed_from_chrono<fcppt::random::generator::minstd_rand::seed>());
 
-	/*
+  /*
 	noise_type noise_generator(
 		sge::noise::simplex::width(
 			128u));
 			*/
-	noise_type noise_generator(
-		noise_type::dim(
-			_view.size()[0]/100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			_view.size()[1]/100), // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		fcppt::make_ref(
-			rng
-		)
-	);
+  noise_type noise_generator(
+      noise_type::dim(
+          _view.size()[0] /
+              100, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+          _view.size()[1] /
+              100), // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      fcppt::make_ref(rng));
 
-	// TODO(philipp): Refactor this
-	for (dim_value_type y = 0; y < _view.size()[1]; ++y)
-	{
-		for (dim_value_type x = 0; x < _view.size()[0]; ++x)
-		{
-			_view[
-				sge::image2d::store::l8::view_type::dim(
-					x,
-					y
-				)
-			].set(
-				mizuiro::color::channel::luminance(),
-				static_cast<sge::image::channel8>(
-					256.0 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-					(
-						0.5 + 0.5 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-						sge::noise::sample(
-							fcppt::make_ref(
-								noise_generator
-							),
-							param_type(
-								param_type::position_type(
-									noise_type::vector_type(
-										static_cast<noise_type::value_type>(
-											x),
-										static_cast<noise_type::value_type>(
-											y))),
-								param_type::amplitude_type(
-									0.8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-								),
-								param_type::frequency_type(
-									.005 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-								),
-								param_type::octaves_type(
-									6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-								)
-							)
-						)
-					)
-				)
-			);
-		}
-	}
+  // TODO(philipp): Refactor this
+  for (dim_value_type y = 0; y < _view.size()[1]; ++y)
+  {
+    for (dim_value_type x = 0; x < _view.size()[0]; ++x)
+    {
+      _view[sge::image2d::store::l8::view_type::dim(x, y)].set(
+          mizuiro::color::channel::luminance(),
+          static_cast<sge::image::channel8>(
+              256.0 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+              (0.5 +
+               0.5 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                   sge::noise::sample(
+                       fcppt::make_ref(noise_generator),
+                       param_type(
+                           param_type::position_type(noise_type::vector_type(
+                               static_cast<noise_type::value_type>(x),
+                               static_cast<noise_type::value_type>(y))),
+                           param_type::amplitude_type(
+                               0.8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                               ),
+                           param_type::frequency_type(
+                               .005 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                               ),
+                           param_type::octaves_type(
+                               6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                               ))))));
+    }
+  }
 }
 
 }
 
-awl::main::exit_code
-example_main(
-	awl::main::function_context const &
-)
+awl::main::exit_code example_main(awl::main::function_context const &)
 try
 {
-	using
-	noise_type
-	=
-	sge::noise::simplex::object<
-		double,
-		2
-	>;
+  using noise_type = sge::noise::simplex::object<double, 2>;
 
-	noise_type noise_generator(
-		sge::noise::simplex::width(
-			128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-		)
-	);
+  noise_type noise_generator(sge::noise::simplex::width(
+      128U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      ));
 
-	fcppt::io::cout()
-		<< FCPPT_TEXT("raw noise generator spit out: ")
-		<< noise_generator.sample(
-			noise_type::vector_type(
-				23.0, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-				42.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-			)
-		)
-		<< FCPPT_TEXT('\n');
+  fcppt::io::cout()
+      << FCPPT_TEXT("raw noise generator spit out: ")
+      << noise_generator.sample(noise_type::vector_type(
+             23.0, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+             42.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+             ))
+      << FCPPT_TEXT('\n');
 
-	sge::systems::instance<
-		sge::systems::with_window,
-		sge::systems::with_renderer<
-			sge::systems::renderer_caps::ffp
-		>
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::window(
-				sge::systems::window_source(
-					sge::systems::original_window(
-						sge::window::title(
-							FCPPT_TEXT("noisetest")
-						)
-					)
-				)
-			)
-		)
-		(
-			sge::systems::renderer(
-				sge::renderer::pixel_format::object(
-					sge::renderer::pixel_format::color::depth32,
-					sge::renderer::pixel_format::depth_stencil::off,
-					sge::renderer::pixel_format::optional_multi_samples(),
-					sge::renderer::pixel_format::srgb::no
-				),
-				sge::renderer::display_mode::parameters(
-					sge::renderer::display_mode::vsync::on,
-					sge::renderer::display_mode::optional_object()
-				),
-				sge::viewport::optional_resize_callback{
-					sge::viewport::fill_on_resize()
-				}
-			)
-		)
-		(
-			sge::systems::config()
-			.log_settings(
-				sge::systems::log_settings(
-					sge::log::option_container{
-						sge::log::option{
-							sge::log::location(),
-							fcppt::log::level::debug
-						}
-					}
-				)
-			)
-		)
-	);
+  sge::systems::instance<
+      sge::systems::with_window,
+      sge::systems::with_renderer<sge::systems::renderer_caps::ffp>> const
+      sys(sge::systems::make_list(sge::systems::window(sge::systems::window_source(
+          sge::systems::original_window(sge::window::title(FCPPT_TEXT("noisetest"))))))(
+          sge::systems::renderer(
+              sge::renderer::pixel_format::object(
+                  sge::renderer::pixel_format::color::depth32,
+                  sge::renderer::pixel_format::depth_stencil::off,
+                  sge::renderer::pixel_format::optional_multi_samples(),
+                  sge::renderer::pixel_format::srgb::no),
+              sge::renderer::display_mode::parameters(
+                  sge::renderer::display_mode::vsync::on,
+                  sge::renderer::display_mode::optional_object()),
+              sge::viewport::optional_resize_callback{sge::viewport::fill_on_resize()}))(
+          sge::systems::config().log_settings(sge::systems::log_settings(sge::log::option_container{
+              sge::log::option{sge::log::location(), fcppt::log::level::debug}}))));
 
-	using
-	sprite_choices
-	=
-	sge::sprite::config::choices<
-		sge::sprite::config::type_choices<
-			sge::sprite::config::unit_type<
-				int
-			>,
-			sge::sprite::config::float_type<
-				float
-			>
-		>,
-		sge::sprite::config::pos<
-			sge::sprite::config::pos_option::pos
-		>,
-		sge::sprite::config::normal_size<
-			sge::sprite::config::texture_size_option::always
-		>,
-		fcppt::mpl::list::object<
-			sge::sprite::config::with_texture<
-				sge::sprite::config::texture_level_count<
-					1U
-				>,
-				sge::sprite::config::texture_coordinates::automatic,
-				sge::sprite::config::texture_ownership::shared
-			>
-		>
-	>;
+  using sprite_choices = sge::sprite::config::choices<
+      sge::sprite::config::
+          type_choices<sge::sprite::config::unit_type<int>, sge::sprite::config::float_type<float>>,
+      sge::sprite::config::pos<sge::sprite::config::pos_option::pos>,
+      sge::sprite::config::normal_size<sge::sprite::config::texture_size_option::always>,
+      fcppt::mpl::list::object<sge::sprite::config::with_texture<
+          sge::sprite::config::texture_level_count<1U>,
+          sge::sprite::config::texture_coordinates::automatic,
+          sge::sprite::config::texture_ownership::shared>>>;
 
-	using
-	sprite_buffers_type
-	=
-	sge::sprite::buffers::with_declaration<
-		sge::sprite::buffers::single<
-			sprite_choices
-		>
-	>;
+  using sprite_buffers_type =
+      sge::sprite::buffers::with_declaration<sge::sprite::buffers::single<sprite_choices>>;
 
-	using
-	sprite_object
-	=
-	sge::sprite::object<
-		sprite_choices
-	>;
+  using sprite_object = sge::sprite::object<sprite_choices>;
 
-	sprite_buffers_type sprite_buffers(
-		fcppt::make_ref(
-			sys.renderer_device_core()
-		),
-		sge::sprite::buffers::option::dynamic);
+  sprite_buffers_type sprite_buffers(
+      fcppt::make_ref(sys.renderer_device_core()), sge::sprite::buffers::option::dynamic);
 
-	using
-	sprite_state_choices
-	=
-	sge::sprite::state::all_choices;
+  using sprite_state_choices = sge::sprite::state::all_choices;
 
-	using
-	sprite_state_object
-	=
-	sge::sprite::state::object<
-		sprite_state_choices
-	>;
+  using sprite_state_object = sge::sprite::state::object<sprite_state_choices>;
 
-	using
-	sprite_state_parameters
-	=
-	sge::sprite::state::parameters<
-		sprite_state_choices
-	>;
+  using sprite_state_parameters = sge::sprite::state::parameters<sprite_state_choices>;
 
-	sprite_state_object sprite_state(
-		fcppt::make_ref(
-			sys.renderer_device_ffp()
-		),
-		sprite_state_parameters()
-	);
+  sprite_state_object sprite_state(
+      fcppt::make_ref(sys.renderer_device_ffp()), sprite_state_parameters());
 
-	using
-	store_type
-	=
-	sge::image2d::store::l8;
+  using store_type = sge::image2d::store::l8;
 
-	store_type const store{
-		fcppt::math::dim::fill<
-			sge::image2d::dim
-		>(
-			1024
-		),
-		store_type::init_function{
-			&fill_texture
-		}
-	};
+  store_type const store{
+      fcppt::math::dim::fill<sge::image2d::dim>(1024), store_type::init_function{&fill_texture}};
 
-	sge::renderer::texture::planar_unique_ptr const noise_texture(
-		sge::renderer::texture::create_planar_from_view(
-			fcppt::make_ref(
-				sys.renderer_device_core()
-			),
-			sge::image2d::view::const_object(
-				store.const_wrapped_view()
-			),
-			sge::renderer::texture::mipmap::off(),
-			sge::renderer::resource_flags_field::null(),
-			sge::renderer::texture::emulate_srgb::no
-		)
-	);
+  sge::renderer::texture::planar_unique_ptr const noise_texture(
+      sge::renderer::texture::create_planar_from_view(
+          fcppt::make_ref(sys.renderer_device_core()),
+          sge::image2d::view::const_object(store.const_wrapped_view()),
+          sge::renderer::texture::mipmap::off(),
+          sge::renderer::resource_flags_field::null(),
+          sge::renderer::texture::emulate_srgb::no));
 
-	sprite_object const spr(
-		sge::sprite::roles::pos{} =
-			fcppt::math::vector::null<
-				sprite_object::vector
-			>(),
-		sge::sprite::roles::texture0{} =
-			sprite_object::texture_type{
-				fcppt::make_shared_ptr<
-					sge::texture::part_raw_ref
-				>(
-					*noise_texture
-				)
-			}
-	);
+  sprite_object const spr(
+      sge::sprite::roles::pos{} = fcppt::math::vector::null<sprite_object::vector>(),
+      sge::sprite::roles::texture0{} = sprite_object::texture_type{
+          fcppt::make_shared_ptr<sge::texture::part_raw_ref>(*noise_texture)});
 
-	auto const draw(
-		[
-			&spr,
-			&sprite_buffers,
-			&sprite_state,
-			&sys
-		]{
-			sge::renderer::context::scoped_ffp const scoped_block(
-				fcppt::make_ref(
-					sys.renderer_device_ffp()
-				),
-				fcppt::reference_to_base<
-					sge::renderer::target::base
-				>(
-					fcppt::make_ref(
-						sys.renderer_device_ffp().onscreen_target()
-					)
-				)
-			);
+  auto const draw(
+      [&spr, &sprite_buffers, &sprite_state, &sys]
+      {
+        sge::renderer::context::scoped_ffp const scoped_block(
+            fcppt::make_ref(sys.renderer_device_ffp()),
+            fcppt::reference_to_base<sge::renderer::target::base>(
+                fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-			scoped_block.get().clear(
-				sge::renderer::clear::parameters()
-				.back_buffer(
-					sge::image::color::any::object{
-						sge::image::color::predef::black()
-					}
-				)
-			);
+        scoped_block.get().clear(sge::renderer::clear::parameters().back_buffer(
+            sge::image::color::any::object{sge::image::color::predef::black()}));
 
-			sge::sprite::process::one(
-				scoped_block.get(),
-				spr,
-				sprite_buffers,
-				sprite_state
-			);
-		}
-	);
+        sge::sprite::process::one(scoped_block.get(), spr, sprite_buffers, sprite_state);
+      });
 
-	return
-		sge::window::loop(
-			sys.window_system(),
-			sge::window::loop_function{
-				[
-					&draw
-				](
-					awl::event::base const &_event
-				)
-				{
-					fcppt::optional::maybe_void(
-						fcppt::cast::dynamic<
-							sge::renderer::event::render const
-						>(
-							_event
-						),
-						[
-							&draw
-						](
-							fcppt::reference<
-								sge::renderer::event::render const
-							>
-						)
-						{
-							draw();
-						}
-					);
-				}
-			}
-		);
-//! [running_block]
+  return sge::window::loop(
+      sys.window_system(),
+      sge::window::loop_function{
+          [&draw](awl::event::base const &_event)
+          {
+            fcppt::optional::maybe_void(
+                fcppt::cast::dynamic<sge::renderer::event::render const>(_event),
+                [&draw](fcppt::reference<sge::renderer::event::render const>) { draw(); });
+          }});
+  //! [running_block]
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	awl::show_error(
-		_error.string()
-	);
+  awl::show_error(_error.string());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	awl::show_error_narrow(
-		_error.what()
-	);
+  awl::show_error_narrow(_error.what());
 
-	return
-		awl::main::exit_failure();
+  return awl::main::exit_failure();
 }

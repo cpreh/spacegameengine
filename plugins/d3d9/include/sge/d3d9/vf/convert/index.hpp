@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_VF_CONVERT_INDEX_HPP_INCLUDED
 #define SGE_D3D9_VF_CONVERT_INDEX_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/vf/texture_coordinate_count.hpp>
 #include <sge/renderer/vf/dynamic/element_fwd.hpp>
-
 
 namespace sge
 {
@@ -21,11 +19,7 @@ namespace vf
 namespace convert
 {
 
-BYTE
-index(
-	sge::renderer::vf::dynamic::element const &,
-	sge::d3d9::vf::texture_coordinate_count
-);
+BYTE index(sge::renderer::vf::dynamic::element const &, sge::d3d9::vf::texture_coordinate_count);
 
 }
 }

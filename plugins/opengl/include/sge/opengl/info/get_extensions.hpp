@@ -3,21 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_INFO_GET_EXTENSIONS_HPP_INCLUDED
 #define SGE_OPENGL_INFO_GET_EXTENSIONS_HPP_INCLUDED
 
 #include <sge/opengl/backend/current_fwd.hpp>
 #include <sge/opengl/info/extension_set.hpp>
 
-
 namespace sge::opengl::info
 {
 
-sge::opengl::info::extension_set
-get_extensions(
-	sge::opengl::backend::current const &
-);
+sge::opengl::info::extension_set get_extensions(sge::opengl::backend::current const &);
 
 }
 

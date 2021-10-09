@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_TYPES_BASIC_VECTOR_DECL_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_VECTOR_DECL_HPP_INCLUDED
 
 #include <sge/sprite/types/basic/vector_fwd.hpp>
 #include <fcppt/math/vector/static_decl.hpp>
-
 
 #endif

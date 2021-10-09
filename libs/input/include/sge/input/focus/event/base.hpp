@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_FOCUS_EVENT_BASE_HPP_INCLUDED
 #define SGE_INPUT_FOCUS_EVENT_BASE_HPP_INCLUDED
 
@@ -14,34 +13,24 @@
 #include <sge/input/focus/event/base_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::focus::event
 {
 
-class SGE_CORE_DETAIL_CLASS_SYMBOL base
-:
-	public sge::input::event_base
+class SGE_CORE_DETAIL_CLASS_SYMBOL base : public sge::input::event_base
 {
-	FCPPT_NONMOVABLE(
-		base
-	);
+  FCPPT_NONMOVABLE(base);
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	explicit
-	base(
-		sge::input::focus::shared_ptr
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  explicit base(sge::input::focus::shared_ptr);
 
-	SGE_INPUT_DETAIL_SYMBOL
-	~base()
-	override;
+  SGE_INPUT_DETAIL_SYMBOL
+  ~base() override;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::focus::shared_ptr const &
-	focus() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::focus::shared_ptr const &focus() const;
+
 private:
-	sge::input::focus::shared_ptr const focus_;
+  sge::input::focus::shared_ptr const focus_;
 };
 
 }

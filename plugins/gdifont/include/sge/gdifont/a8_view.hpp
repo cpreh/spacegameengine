@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_GDIFONT_A8_VIEW_HPP_INCLUDED
 #define SGE_GDIFONT_A8_VIEW_HPP_INCLUDED
 
@@ -12,21 +11,15 @@
 #include <sge/image/view/mizuiro_type.hpp>
 #include <mizuiro/nonconst_tag.hpp>
 
-
 namespace sge
 {
 namespace gdifont
 {
 
-typedef
-sge::image::view::mizuiro_type<
-	sge::image::view::basic_format<
-		2,
-		sge::image::color::a8_format
-	>,
-	mizuiro::nonconst_tag
->
-a8_view;
+typedef sge::image::view::mizuiro_type<
+    sge::image::view::basic_format<2, sge::image::color::a8_format>,
+    mizuiro::nonconst_tag>
+    a8_view;
 
 }
 }

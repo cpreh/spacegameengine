@@ -3,21 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_POSITION_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_POSITION_HPP_INCLUDED
 
 #include <sge/opengl/state/index_actor.hpp>
 #include <sge/renderer/state/ffp/lighting/light/position_fwd.hpp>
 
-
 namespace sge::opengl::state::ffp::lighting::light
 {
 
 sge::opengl::state::index_actor
-position(
-	sge::renderer::state::ffp::lighting::light::position const &
-);
+position(sge::renderer::state::ffp::lighting::light::position const &);
 
 }
 

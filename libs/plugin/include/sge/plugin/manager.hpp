@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_MANAGER_HPP_INCLUDED
 #define SGE_PLUGIN_MANAGER_HPP_INCLUDED
 
@@ -23,48 +22,34 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::plugin
 {
 
 class manager
 {
-	FCPPT_NONMOVABLE(
-		manager
-	);
+  FCPPT_NONMOVABLE(manager);
+
 public:
-	SGE_PLUGIN_DETAIL_SYMBOL
-	manager(
-		fcppt::log::context_reference,
-		std::filesystem::path const &,
-		sge::plugin::optional_cache_ref const &
-	);
+  SGE_PLUGIN_DETAIL_SYMBOL
+  manager(
+      fcppt::log::context_reference,
+      std::filesystem::path const &,
+      sge::plugin::optional_cache_ref const &);
 
-	SGE_PLUGIN_DETAIL_SYMBOL
-	~manager();
+  SGE_PLUGIN_DETAIL_SYMBOL
+  ~manager();
 
-	template<
-		typename Type
-	>
-	SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
-	sge::plugin::collection<
-		Type
-	>
-	collection();
+  template <typename Type>
+  SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL sge::plugin::collection<Type> collection();
+
 private:
-	fcppt::log::object log_;
+  fcppt::log::object log_;
 
-	using
-	plugin_map
-	=
-	fcppt::enum_::array<
-		sge::plugin::capabilities,
-		sge::plugin::category_array
-	>;
+  using plugin_map = fcppt::enum_::array<sge::plugin::capabilities, sge::plugin::category_array>;
 
-	sge::plugin::detail::context_base_vector const plugins_;
+  sge::plugin::detail::context_base_vector const plugins_;
 
-	plugin_map const categories_;
+  plugin_map const categories_;
 };
 
 }

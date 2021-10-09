@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_CEGUI_IMPL_TO_BLEND_PARAMETERS_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_TO_BLEND_PARAMETERS_HPP_INCLUDED
 
@@ -12,14 +11,10 @@
 #include <CEGUI/Renderer.h>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::cegui::impl
 {
 
-sge::renderer::state::core::blend::alpha_enabled
-to_blend_parameters(
-	CEGUI::BlendMode
-);
+sge::renderer::state::core::blend::alpha_enabled to_blend_parameters(CEGUI::BlendMode);
 
 }
 

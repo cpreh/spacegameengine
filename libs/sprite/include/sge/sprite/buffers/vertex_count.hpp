@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_VERTEX_COUNT_HPP_INCLUDED
 
@@ -11,27 +10,14 @@
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
 
-
 namespace sge::sprite::buffers
 {
 
-template<
-	typename Choices
->
-inline
-sge::renderer::vertex::count
-vertex_count(
-	sge::sprite::count const _sprites
-)
+template <typename Choices>
+inline sge::renderer::vertex::count vertex_count(sge::sprite::count const _sprites)
 {
-	return
-		sge::renderer::vertex::count(
-			_sprites.get()
-			*
-			sge::sprite::geometry::detail::vertices_per_sprite<
-				Choices
-			>::value
-		);
+  return sge::renderer::vertex::count(
+      _sprites.get() * sge::sprite::geometry::detail::vertices_per_sprite<Choices>::value);
 }
 
 }

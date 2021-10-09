@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_DETAIL_PROCESS_DO_DEFAULT_SORT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_PROCESS_DO_DEFAULT_SORT_HPP_INCLUDED
 
@@ -12,26 +11,13 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::detail::process
 {
 
-template<
-	typename Choices,
-	typename Compare
->
-using do_default_sort
-=
-std::conjunction<
-	sge::sprite::detail::config::has_texture_levels<
-		Choices
-	>,
-	std::negation<
-		typename Compare:: template is_trivial<
-			Choices
-		>::type
-	>
->;
+template <typename Choices, typename Compare>
+using do_default_sort = std::conjunction<
+    sge::sprite::detail::config::has_texture_levels<Choices>,
+    std::negation<typename Compare::template is_trivial<Choices>::type>>;
 
 }
 

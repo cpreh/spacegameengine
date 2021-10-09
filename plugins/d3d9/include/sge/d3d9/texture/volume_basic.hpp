@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_TEXTURE_VOLUME_BASIC_HPP_INCLUDED
 #define SGE_D3D9_TEXTURE_VOLUME_BASIC_HPP_INCLUDED
 
 #include <sge/d3d9/texture/basic_fwd.hpp>
 #include <sge/d3d9/texture/volume_types.hpp>
-
 
 namespace sge
 {
@@ -18,11 +16,7 @@ namespace d3d9
 namespace texture
 {
 
-typedef
-sge::d3d9::texture::basic<
-	sge::d3d9::texture::volume_types
->
-volume_basic;
+typedef sge::d3d9::texture::basic<sge::d3d9::texture::volume_types> volume_basic;
 
 }
 }

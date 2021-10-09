@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_MISC_OBJECT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_MISC_OBJECT_HPP_INCLUDED
 
@@ -12,22 +11,20 @@
 #include <sge/renderer/state/ffp/misc/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::renderer::state::ffp::misc
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	object();
+  SGE_RENDERER_DETAIL_SYMBOL
+  object();
+
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	virtual
-	~object();
+  SGE_RENDERER_DETAIL_SYMBOL
+  virtual ~object();
 };
 
 }

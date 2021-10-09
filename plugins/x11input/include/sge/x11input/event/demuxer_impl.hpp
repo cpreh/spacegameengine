@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_X11INPUT_EVENT_DEMUXER_IMPL_HPP_INCLUDED
 #define SGE_X11INPUT_EVENT_DEMUXER_IMPL_HPP_INCLUDED
 
@@ -31,155 +30,69 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
-template<
-	typename Event
->
-sge::x11input::event::demuxer<
-	Event
->::demuxer(
-	awl::backends::x11::window::const_base_ref const _window
-)
-:
-	window_{
-		_window
-	},
-	signals_{}
+template <typename Event>
+sge::x11input::event::demuxer<Event>::demuxer(
+    awl::backends::x11::window::const_base_ref const _window)
+    : window_{_window}, signals_{}
 {
 }
 
 namespace sge::x11input::event
 {
-template<
-	typename Event
->
-demuxer<
-	Event
->::~demuxer()
-= default;
+template <typename Event>
+demuxer<Event>::~demuxer() = default;
 }
 
-template<
-	typename Event
->
-awl::backends::x11::window::base const &
-sge::x11input::event::demuxer<
-	Event
->::window() const
+template <typename Event>
+awl::backends::x11::window::base const &sge::x11input::event::demuxer<Event>::window() const
 {
-	return
-		window_.get();
+  return window_.get();
 }
 
-template<
-	typename Event
->
-fcppt::signal::auto_connection
-sge::x11input::event::demuxer<
-	Event
->::on_event(
-	sge::x11input::device::id const _id,
-	function _function
-)
+template <typename Event>
+fcppt::signal::auto_connection sge::x11input::event::demuxer<Event>::on_event(
+    sge::x11input::device::id const _id, function _function)
 {
-	FCPPT_PP_PUSH_WARNING
-	FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
 
-	return
-		fcppt::container::get_or_insert(
-			signals_,
-			_id,
-			[](
-				sge::x11input::device::id
-			)
-			{
-				return
-					signal_type{
-						typename
-						signal_type::combiner_function{
-							&sge::window::event_combiner
-						}
-					};
-			}
-		).connect(
-			std::move(
-				_function
-			),
-			fcppt::signal::unregister::function{
-				[
-					this,
-					_id
-				]()
-				{
-					fcppt::optional::maybe_void(
-						fcppt::container::find_opt_iterator(
-							signals_,
-							_id
-						),
-						[
-							this
-						](
-							typename
-							signal_map::iterator const _it
-						)
-						{
-							if(
-								_it->second.empty()
-							)
-							{
-								signals_.erase(
-									_it
-								);
-							}
-						}
-					);
-				}
-			}
-		);
+  return fcppt::container::get_or_insert(
+             signals_,
+             _id,
+             [](sge::x11input::device::id) {
+               return signal_type{
+                   typename signal_type::combiner_function{&sge::window::event_combiner}};
+             })
+      .connect(
+          std::move(_function),
+          fcppt::signal::unregister::function{
+              [this, _id]()
+              {
+                fcppt::optional::maybe_void(
+                    fcppt::container::find_opt_iterator(signals_, _id),
+                    [this](typename signal_map::iterator const _it)
+                    {
+                      if (_it->second.empty())
+                      {
+                        signals_.erase(_it);
+                      }
+                    });
+              }});
 
-	FCPPT_PP_POP_WARNING
+  FCPPT_PP_POP_WARNING
 }
 
-template<
-	typename Event
->
-awl::event::container
-sge::x11input::event::demuxer<
-	Event
->::call(
-	Event const &_event
-)
+template <typename Event>
+awl::event::container sge::x11input::event::demuxer<Event>::call(Event const &_event)
 {
-	return
-		fcppt::optional::maybe(
-			fcppt::container::find_opt_mapped(
-				signals_,
-				sge::x11input::device::id{
-					_event.deviceid
-				}
-			),
-			[]{
-				return
-					awl::event::container{};
-			},
-			[
-				&_event
-			](
-				fcppt::reference<
-					signal_type
-				> const _device_signal
-			)
-			{
-				return
-					_device_signal.get()(
-						typename
-						signal_type::initial_value{
-							awl::event::container{}
-						},
-						_event
-					);
-			}
-		);
+  return fcppt::optional::maybe(
+      fcppt::container::find_opt_mapped(signals_, sge::x11input::device::id{_event.deviceid}),
+      [] { return awl::event::container{}; },
+      [&_event](fcppt::reference<signal_type> const _device_signal)
+      {
+        return _device_signal.get()(
+            typename signal_type::initial_value{awl::event::container{}}, _event);
+      });
 }
 
 #endif

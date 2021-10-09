@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_TYPES_TEXTURE_COORDINATES_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_TEXTURE_COORDINATES_HPP_INCLUDED
 
 #include <sge/sprite/types/texture_coordinates_fwd.hpp>
 #include <sge/sprite/types/basic/float_vector.hpp>
 #include <sge/sprite/types/basic/homogenous_pair_impl.hpp>
-
 
 #endif

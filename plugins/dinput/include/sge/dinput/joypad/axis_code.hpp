@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <sge/input/joypad/axis_code_fwd.hpp>
-
 
 namespace sge
 {
@@ -18,10 +16,7 @@ namespace dinput
 namespace joypad
 {
 
-sge::input::joypad::axis_code
-axis_code(
-	DWORD
-);
+sge::input::joypad::axis_code axis_code(DWORD);
 
 }
 }

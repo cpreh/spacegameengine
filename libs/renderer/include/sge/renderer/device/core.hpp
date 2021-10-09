@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_DEVICE_CORE_HPP_INCLUDED
 #define SGE_RENDERER_DEVICE_CORE_HPP_INCLUDED
 
@@ -61,7 +60,6 @@
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #endif
 
-
 namespace sge::renderer::device
 {
 
@@ -72,14 +70,14 @@ The core device provides creation of resources and a core rendering context.
 */
 class SGE_CORE_DETAIL_CLASS_SYMBOL core
 {
-	FCPPT_NONMOVABLE(
-		core
-	);
+  FCPPT_NONMOVABLE(core);
+
 protected:
-	SGE_RENDERER_DETAIL_SYMBOL
-	core();
+  SGE_RENDERER_DETAIL_SYMBOL
+  core();
+
 public:
-	/**
+  /**
 	\brief Begins the rendering operation
 
 	To end the rendering process and present it, use device::end_rendering.
@@ -92,14 +90,10 @@ public:
 	\warning The behavior is undefined if this function is called more than
 	once before a call to device::end_rendering
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::context::core_unique_ptr
-	begin_rendering(
-		sge::renderer::target::base_ref target
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::context::core_unique_ptr
+  begin_rendering(sge::renderer::target::base_ref target) = 0;
 
-	/**
+  /**
 	\brief Ends the rendering operation
 
 	Use this function to present the rendered scene which has been rendered
@@ -109,13 +103,11 @@ public:
 
 	\warning The behavior is undefined if begin_rendering wasn't called
 	*/
-	virtual
-	void
-	end_rendering(
-		sge::renderer::context::core &context // NOLINT(google-runtime-references)
-	) = 0;
+  virtual void
+  end_rendering(sge::renderer::context::core &context // NOLINT(google-runtime-references)
+                ) = 0;
 
-	/**
+  /**
 	\brief Creates a render target
 
 	Creates an empty render target.
@@ -127,12 +119,9 @@ public:
 	\warning The behavior is undefined if
 	sge::renderer::caps::object::render_target_supported is false
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::target::offscreen_unique_ptr
-	create_target() = 0;
+  [[nodiscard]] virtual sge::renderer::target::offscreen_unique_ptr create_target() = 0;
 
-	/**
+  /**
 	\brief Creates a planar texture
 
 	Creates a planar texture from \a parameters. Initially, the contents
@@ -148,14 +137,10 @@ public:
 
 	\throw sge::renderer::exception if anything goes wrong
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::texture::planar_unique_ptr
-	create_planar_texture(
-		sge::renderer::texture::planar_parameters const &parameters
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::texture::planar_unique_ptr
+  create_planar_texture(sge::renderer::texture::planar_parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Creates a depth stencil texture
 
 	Creates a depth stencil texture from \a parameters.
@@ -171,14 +156,11 @@ public:
 
 	\throw sge::renderer::exception if anything goes wrong
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::texture::depth_stencil_unique_ptr
-	create_depth_stencil_texture(
-		sge::renderer::texture::depth_stencil_parameters const &parameters
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::texture::depth_stencil_unique_ptr
+  create_depth_stencil_texture(
+      sge::renderer::texture::depth_stencil_parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Creates a depth stencil surface
 
 	Creates a depth stencil surface with dimension \a size and format \a
@@ -191,14 +173,11 @@ public:
 
 	\throw sge::renderer::exception if anything goes wrong
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::depth_stencil_buffer::surface_unique_ptr
-	create_depth_stencil_surface(
-		sge::renderer::depth_stencil_buffer::surface_parameters const &parameters
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::depth_stencil_buffer::surface_unique_ptr
+  create_depth_stencil_surface(
+      sge::renderer::depth_stencil_buffer::surface_parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Creates a volume texture
 
 	Creates a volume texture from \a parameters.  Initially, the contents
@@ -214,14 +193,10 @@ public:
 
 	\throw sge::renderer::exception if anything goes wrong
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::texture::volume_unique_ptr
-	create_volume_texture(
-		sge::renderer::texture::volume_parameters const &parameters
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::texture::volume_unique_ptr
+  create_volume_texture(sge::renderer::texture::volume_parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Creates a cube texture
 
 	Creates a cube texture from \a parameters. Initially, the contents of
@@ -235,14 +210,10 @@ public:
 
 	\throw sge::renderer::exception if anything goes wrong
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::texture::cube_unique_ptr
-	create_cube_texture(
-		sge::renderer::texture::cube_parameters const &parameters
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::texture::cube_unique_ptr
+  create_cube_texture(sge::renderer::texture::cube_parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Creates a vertex declaration
 
 	Creates a vertex declaration described by \a parameters
@@ -253,14 +224,10 @@ public:
 
 	\throw sge::renderer::exception if anything goes wrong
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::vertex::declaration_unique_ptr
-	create_vertex_declaration(
-		sge::renderer::vertex::declaration_parameters const &parameters
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::vertex::declaration_unique_ptr
+  create_vertex_declaration(sge::renderer::vertex::declaration_parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Creates a vertex buffer
 
 	Creates a vertex buffer that is going to hold data described by \a
@@ -272,14 +239,10 @@ public:
 
 	\throw sge::renderer::exception if anything goes wrong
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::vertex::buffer_unique_ptr
-	create_vertex_buffer(
-		sge::renderer::vertex::buffer_parameters const &parameters
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::vertex::buffer_unique_ptr
+  create_vertex_buffer(sge::renderer::vertex::buffer_parameters const &parameters) = 0;
 
-	/**
+  /**
 	\brief Creates an index buffer
 
 	Creates an index buffer describes by \a parameters Initially, the
@@ -289,106 +252,55 @@ public:
 
 	\throw sge::renderer::exception if anything goes wrong
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::index::buffer_unique_ptr
-	create_index_buffer(
-		sge::renderer::index::buffer_parameters const &
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::index::buffer_unique_ptr
+  create_index_buffer(sge::renderer::index::buffer_parameters const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::occlusion_query::object_unique_ptr
-	create_occlusion_query() = 0;
+  [[nodiscard]] virtual sge::renderer::occlusion_query::object_unique_ptr
+  create_occlusion_query() = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::state::core::blend::object_unique_ptr
-	create_blend_state(
-		sge::renderer::state::core::blend::parameters const &
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::state::core::blend::object_unique_ptr
+  create_blend_state(sge::renderer::state::core::blend::parameters const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::state::core::depth_stencil::object_unique_ptr
-	create_depth_stencil_state(
-		sge::renderer::state::core::depth_stencil::parameters const &
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::state::core::depth_stencil::object_unique_ptr
+  create_depth_stencil_state(sge::renderer::state::core::depth_stencil::parameters const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::state::core::rasterizer::object_unique_ptr
-	create_rasterizer_state(
-		sge::renderer::state::core::rasterizer::parameters const &
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::state::core::rasterizer::object_unique_ptr
+  create_rasterizer_state(sge::renderer::state::core::rasterizer::parameters const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::state::core::sampler::object_unique_ptr
-	create_sampler_state(
-		sge::renderer::state::core::sampler::parameters const &
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::state::core::sampler::object_unique_ptr
+  create_sampler_state(sge::renderer::state::core::sampler::parameters const &) = 0;
 
 #if defined(SGE_RENDERER_HAVE_CG)
-	[[nodiscard]]
-	virtual
-	sge::cg::profile::object
-	create_cg_profile(
-		sge::cg::profile::shader_type
-	) = 0;
+  [[nodiscard]] virtual sge::cg::profile::object
+      create_cg_profile(sge::cg::profile::shader_type) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::cg::program::compile_options
-	cg_compile_options(
-		sge::cg::context::object const &,
-		sge::cg::profile::object const &
-	) = 0;
+  [[nodiscard]] virtual sge::cg::program::compile_options
+  cg_compile_options(sge::cg::context::object const &, sge::cg::profile::object const &) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::cg::loaded_program_unique_ptr
-	load_cg_program(
-		sge::cg::program::object_ref
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::cg::loaded_program_unique_ptr
+      load_cg_program(sge::cg::program::object_ref) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::renderer::cg::loaded_texture_unique_ptr
-	load_cg_texture(
-		sge::cg::parameter::object const &,
-		sge::renderer::texture::base_ref
-	) = 0;
+  [[nodiscard]] virtual sge::renderer::cg::loaded_texture_unique_ptr
+  load_cg_texture(sge::cg::parameter::object const &, sge::renderer::texture::base_ref) = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::cg::program::source
-	transform_cg_vertex_program(
-		sge::renderer::vertex::declaration const &,
-		sge::cg::program::source const &
-	) = 0;
+  [[nodiscard]] virtual sge::cg::program::source transform_cg_vertex_program(
+      sge::renderer::vertex::declaration const &, sge::cg::program::source const &) = 0;
 #endif
 
-	/**
+  /**
 	\brief Returns the onscreen target
 
 	A device always has an onscreen target even though another render
 	target has been set.
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::target::onscreen &
-	onscreen_target() const = 0;
+  [[nodiscard]] virtual sge::renderer::target::onscreen &onscreen_target() const = 0;
 
-	/**
+  /**
 	\brief Returns the capabilities of the device
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::caps::device const &
-	caps() const = 0;
+  [[nodiscard]] virtual sge::renderer::caps::device const &caps() const = 0;
 
-	/**
+  /**
 	\brief Returns the current display mode.
 
 	The display mode can change over time (for example, if the window is
@@ -396,12 +308,9 @@ public:
 	calculations. Note, that it is possible to have no current display mode
 	(e.g. if the window is invisible).
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::display_mode::optional_object
-	display_mode() const = 0;
+  [[nodiscard]] virtual sge::renderer::display_mode::optional_object display_mode() const = 0;
 
-	/**
+  /**
 	\brief Tries to set a new display mode
 
 	Tries to set the display mode of the monitor the window is on to \a
@@ -409,26 +318,18 @@ public:
 
 	\throw sge::renderer::exception If the display mode cannot be set.
 	*/
-	virtual
-	void
-	fullscreen(
-		sge::renderer::display_mode::optional_fullscreen const &
-	) = 0;
+  virtual void fullscreen(sge::renderer::display_mode::optional_fullscreen const &) = 0;
 
-	/**
+  /**
 	\brief Queries the available display modes of a device
 
 	Returns the display modes currently available for this device. Can be
 	empty.
 	*/
-	[[nodiscard]]
-	virtual
-	sge::renderer::display_mode::container
-	display_modes() const = 0;
+  [[nodiscard]] virtual sge::renderer::display_mode::container display_modes() const = 0;
 
-	SGE_RENDERER_DETAIL_SYMBOL
-	virtual
-	~core();
+  SGE_RENDERER_DETAIL_SYMBOL
+  virtual ~core();
 };
 
 }

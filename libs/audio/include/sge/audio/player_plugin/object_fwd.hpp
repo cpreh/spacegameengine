@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_AUDIO_PLAYER_PLUGIN_OBJECT_FWD_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_PLUGIN_OBJECT_FWD_HPP_INCLUDED
 
 #include <sge/audio/player_fwd.hpp>
 #include <sge/plugin/object.hpp>
 
-
 namespace sge::audio::player_plugin
 {
 
-using
-object
-=
-sge::plugin::object<
-	sge::audio::player
->;
+using object = sge::plugin::object<sge::audio::player>;
 
 }
 

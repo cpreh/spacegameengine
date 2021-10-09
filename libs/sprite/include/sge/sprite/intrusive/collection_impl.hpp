@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_INTRUSIVE_COLLECTION_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_COLLECTION_IMPL_HPP_INCLUDED
 
@@ -16,102 +15,39 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 
-
-template<
-	typename Choices
->
-sge::sprite::intrusive::collection<
-	Choices
->::collection()
-:
-	sprites_(),
-	count_(
-		0U
-	),
-	connection_(
-		fcppt::make_ref(
-			sprites_
-		),
-		fcppt::make_ref(
-			count_
-		)
-	)
+template <typename Choices>
+sge::sprite::intrusive::collection<Choices>::collection()
+    : sprites_(), count_(0U), connection_(fcppt::make_ref(sprites_), fcppt::make_ref(count_))
 {
 }
 
 namespace sge::sprite::intrusive
 {
-template<
-	typename Choices
->
-collection<
-	Choices
->::~collection()
-= default;
+template <typename Choices>
+collection<Choices>::~collection() = default;
 }
 
-template<
-	typename Choices
->
-typename
-sge::sprite::intrusive::collection<
-	Choices
->::connection_ref
-sge::sprite::intrusive::collection<
-	Choices
->::connection()
+template <typename Choices>
+typename sge::sprite::intrusive::collection<Choices>::connection_ref
+sge::sprite::intrusive::collection<Choices>::connection()
 {
-	using
-	connection_base_ref
-	=
-	sge::sprite::intrusive::connection<
-		Choices
-	> &;
+  using connection_base_ref = sge::sprite::intrusive::connection<Choices> &;
 
-	return
-		fcppt::make_ref(
-			connection_base_ref(
-				connection_
-			)
-		);
+  return fcppt::make_ref(connection_base_ref(connection_));
 }
 
-template<
-	typename Choices
->
-typename sge::sprite::intrusive::collection<
-	Choices
->::range_type
-sge::sprite::intrusive::collection<
-	Choices
->::range()
+template <typename Choices>
+typename sge::sprite::intrusive::collection<Choices>::range_type
+sge::sprite::intrusive::collection<Choices>::range()
 {
-	return
-		range_type(
-			fcppt::make_ref(
-				sprites_
-			),
-			count_
-		);
+  return range_type(fcppt::make_ref(sprites_), count_);
 }
 
-template<
-	typename Choices
->
-typename sge::sprite::intrusive::collection<
-	Choices
->::const_range_type
-sge::sprite::intrusive::collection<
-	Choices
->::range() const
+template <typename Choices>
+typename sge::sprite::intrusive::collection<Choices>::const_range_type
+sge::sprite::intrusive::collection<Choices>::range() const
 {
-	return
-		const_range_type(
-			fcppt::make_cref(
-				sprites_
-			),
-			count_
-		);
+  return const_range_type(fcppt::make_cref(sprites_), count_);
 }
 
 #endif

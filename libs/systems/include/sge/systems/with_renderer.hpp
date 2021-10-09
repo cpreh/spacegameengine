@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SYSTEMS_WITH_RENDERER_HPP_INCLUDED
 #define SGE_SYSTEMS_WITH_RENDERER_HPP_INCLUDED
 
@@ -16,39 +15,19 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::systems
 {
 
-template<
-	sge::systems::renderer_caps Caps
->
+template <sge::systems::renderer_caps Caps>
 struct with_renderer
 {
-	using
-	caps
-	=
-	std::integral_constant<
-		sge::systems::renderer_caps,
-		Caps
-	>;
+  using caps = std::integral_constant<sge::systems::renderer_caps, Caps>;
 
-	using
-	needs_init
-	=
-	std::true_type;
+  using needs_init = std::true_type;
 
-	using
-	parameter_type
-	=
-	sge::systems::renderer;
+  using parameter_type = sge::systems::renderer;
 
-	using
-	needs_before
-	=
-	fcppt::mpl::list::object<
-		sge::systems::with_window
-	>;
+  using needs_before = fcppt::mpl::list::object<sge::systems::with_window>;
 };
 
 }

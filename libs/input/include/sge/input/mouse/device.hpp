@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_MOUSE_DEVICE_HPP_INCLUDED
 #define SGE_INPUT_MOUSE_DEVICE_HPP_INCLUDED
 
@@ -14,32 +13,24 @@
 #include <sge/window/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::input::mouse
 {
 
 class SGE_CORE_DETAIL_CLASS_SYMBOL device
 {
-	FCPPT_NONMOVABLE(
-		device
-	);
+  FCPPT_NONMOVABLE(device);
+
 protected:
-	SGE_INPUT_DETAIL_SYMBOL
-	device();
+  SGE_INPUT_DETAIL_SYMBOL
+  device();
+
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	virtual
-	~device();
+  SGE_INPUT_DETAIL_SYMBOL
+  virtual ~device();
 
-	[[nodiscard]]
-	virtual
-	sge::window::object &
-	window() const = 0;
+  [[nodiscard]] virtual sge::window::object &window() const = 0;
 
-	[[nodiscard]]
-	virtual
-	sge::input::mouse::info const &
-	info() const = 0;
+  [[nodiscard]] virtual sge::input::mouse::info const &info() const = 0;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
 #define SGE_OPENGL_STATE_WRAP_ERROR_HANDLER_HPP_INCLUDED
 
@@ -14,38 +13,17 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::opengl::state
 {
 
-template<
-	typename Result,
-	typename Actor
->
-Result
-wrap_error_handler(
-	Actor &&_actor,
-	// TODO(philipp): Pass a function returning a string here
-	fcppt::string &&_name
-)
+template <typename Result, typename Actor>
+Result wrap_error_handler(
+    Actor &&_actor,
+    // TODO(philipp): Pass a function returning a string here
+    fcppt::string &&_name)
 {
-	return
-		Result{
-			sge::opengl::state::error_handler<
-				std::remove_cvref_t<
-					Actor
-				>
-			>(
-				std::forward<
-					Actor
-				>(
-					_actor
-				),
-				std::move(
-					_name
-				)
-			)
-		};
+  return Result{sge::opengl::state::error_handler<std::remove_cvref_t<Actor>>(
+      std::forward<Actor>(_actor), std::move(_name))};
 }
 
 }

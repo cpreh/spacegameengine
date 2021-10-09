@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/context/object.hpp>
 #include <sge/cg/profile/object.hpp>
@@ -17,33 +16,15 @@
 #include <Cg/cgGL.h>
 #include <fcppt/config/external_end.hpp>
 
-
-sge::cg::program::compile_options
-sge::opengl::cg::program::optimal_options(
-	sge::cg::context::object const &_context,
-	sge::cg::profile::object const &_profile
-)
+sge::cg::program::compile_options sge::opengl::cg::program::optimal_options(
+    sge::cg::context::object const &_context, sge::cg::profile::object const &_profile)
 {
-	sge::cg::char_type const ** const ret{
-		::cgGLGetContextOptimalOptions(
-			_context.get(),
-			_profile.get()
-		)
-	};
+  sge::cg::char_type const **const ret{
+      ::cgGLGetContextOptimalOptions(_context.get(), _profile.get())};
 
-	SGE_CG_CHECK_STATE(
-		FCPPT_TEXT("cgGLGetContextOptimalOptions failed"),
-		sge::renderer::exception
-	)
+  SGE_CG_CHECK_STATE(FCPPT_TEXT("cgGLGetContextOptimalOptions failed"), sge::renderer::exception)
 
-	FCPPT_ASSERT_ERROR(
-		ret
-		!=
-		nullptr
-	);
+  FCPPT_ASSERT_ERROR(ret != nullptr);
 
-	return
-		sge::cg::program::compile_options(
-			ret
-		);
+  return sge::cg::program::compile_options(ret);
 }

@@ -3,29 +3,18 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PLUGIN_LOADER_FUNCTION_HPP_INCLUDED
 #define SGE_PLUGIN_LOADER_FUNCTION_HPP_INCLUDED
 
 #include <sge/plugin/detail/loader_function.hpp>
 #include <sge/plugin/detail/traits.hpp>
 
-
 namespace sge::plugin
 {
 
-template<
-	typename Type
->
-using
-loader_function
-=
-sge::plugin::detail::loader_function<
-	typename
-	sge::plugin::detail::traits<
-		Type
-	>::loader_function
-> *;
+template <typename Type>
+using loader_function = sge::plugin::detail::loader_function<
+    typename sge::plugin::detail::traits<Type>::loader_function> *;
 
 }
 

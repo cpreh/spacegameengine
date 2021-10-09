@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TEXTURE_CONST_OPTIONAL_PART_REF_FWD_HPP_INCLUDED
 #define SGE_TEXTURE_CONST_OPTIONAL_PART_REF_FWD_HPP_INCLUDED
 
 #include <sge/texture/part_fwd.hpp>
 #include <fcppt/optional/reference_fwd.hpp>
 
-
 namespace sge::texture
 {
 
-using
-const_optional_part_ref
-=
-fcppt::optional::reference<
-	sge::texture::part const
->;
+using const_optional_part_ref = fcppt::optional::reference<sge::texture::part const>;
 
 }
 

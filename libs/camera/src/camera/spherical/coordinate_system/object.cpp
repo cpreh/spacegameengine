@@ -3,64 +3,48 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/camera/spherical/coordinate_system/object.hpp>
 
 sge::camera::spherical::coordinate_system::object::object(
-	spherical::coordinate_system::azimuth const &_azimuth,
-	spherical::coordinate_system::inclination const &_inclination,
-	spherical::coordinate_system::radius const &_radius)
-:
-	azimuth_(
-		_azimuth),
-	inclination_(
-		_inclination),
-	radius_(
-		_radius)
+    spherical::coordinate_system::azimuth const &_azimuth,
+    spherical::coordinate_system::inclination const &_inclination,
+    spherical::coordinate_system::radius const &_radius)
+    : azimuth_(_azimuth), inclination_(_inclination), radius_(_radius)
 {
 }
 
 sge::camera::spherical::coordinate_system::azimuth const &
 sge::camera::spherical::coordinate_system::object::azimuth() const
 {
-	return
-		azimuth_;
+  return azimuth_;
 }
 
-void
-sge::camera::spherical::coordinate_system::object::azimuth(
-	spherical::coordinate_system::azimuth const &_azimuth)
+void sge::camera::spherical::coordinate_system::object::azimuth(
+    spherical::coordinate_system::azimuth const &_azimuth)
 {
-	azimuth_ =
-		_azimuth;
+  azimuth_ = _azimuth;
 }
 
 sge::camera::spherical::coordinate_system::inclination const &
 sge::camera::spherical::coordinate_system::object::inclination() const
 {
-	return
-		inclination_;
+  return inclination_;
 }
 
-void
-sge::camera::spherical::coordinate_system::object::inclination(
-	spherical::coordinate_system::inclination const &_inclination)
+void sge::camera::spherical::coordinate_system::object::inclination(
+    spherical::coordinate_system::inclination const &_inclination)
 {
-	inclination_ =
-		_inclination;
+  inclination_ = _inclination;
 }
 
 sge::camera::spherical::coordinate_system::radius const &
 sge::camera::spherical::coordinate_system::object::radius() const
 {
-	return
-		radius_;
+  return radius_;
 }
 
-void
-sge::camera::spherical::coordinate_system::object::radius(
-	spherical::coordinate_system::radius const &_radius)
+void sge::camera::spherical::coordinate_system::object::radius(
+    spherical::coordinate_system::radius const &_radius)
 {
-	radius_ =
-		_radius;
+  radius_ = _radius;
 }

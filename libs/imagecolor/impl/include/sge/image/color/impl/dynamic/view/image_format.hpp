@@ -3,25 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_VIEW_IMAGE_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_VIEW_IMAGE_FORMAT_HPP_INCLUDED
-
 
 namespace sge::image::color::impl::dynamic::view
 {
 
-template<
-	typename View
->
-typename
-View::format
-image_format(
-	View const &_view
-)
+template <typename View>
+typename View::format image_format(View const &_view)
 {
-	return
-		_view.format_store().get();
+  return _view.format_store().get();
 }
 
 }

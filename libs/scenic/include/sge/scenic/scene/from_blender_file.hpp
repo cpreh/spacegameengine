@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SCENIC_SCENE_FROM_BLENDER_FILE_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_FROM_BLENDER_FILE_HPP_INCLUDED
 
@@ -13,13 +12,10 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::scenic::scene
 {
 SGE_SCENIC_DETAIL_SYMBOL
-sge::scenic::scene::prototype_unique_ptr
-from_blender_file(
-	std::filesystem::path const &);
+sge::scenic::scene::prototype_unique_ptr from_blender_file(std::filesystem::path const &);
 }
 
 #endif

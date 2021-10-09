@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_PLUGIN_TRAITS_HPP_INCLUDED
 #define SGE_RENDERER_PLUGIN_TRAITS_HPP_INCLUDED
 
@@ -14,31 +13,18 @@
 #include <sge/renderer/core_unique_ptr.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 
-
 namespace sge::plugin::detail
 {
 
-template<>
-struct traits<
-	sge::renderer::core
->
+template <>
+struct traits<sge::renderer::core>
 {
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	static
-	sge::plugin::detail::address_name
-	plugin_loader_name();
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL static sge::plugin::detail::address_name
+  plugin_loader_name();
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	static
-	sge::plugin::capabilities
-	plugin_type();
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL static sge::plugin::capabilities plugin_type();
 
-	using
-	loader_function
-	=
-	sge::renderer::core_unique_ptr ();
+  using loader_function = sge::renderer::core_unique_ptr();
 };
 
 }

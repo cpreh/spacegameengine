@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LIBPNG_OPTIONAL_FORMAT_FWD_HPP_INCLUDED
 #define SGE_LIBPNG_OPTIONAL_FORMAT_FWD_HPP_INCLUDED
 
 #include <sge/libpng/format_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::libpng
 {
 
-using
-optional_format
-=
-fcppt::optional::object<
-	sge::libpng::format
->;
+using optional_format = fcppt::optional::object<sge::libpng::format>;
 
 }
 

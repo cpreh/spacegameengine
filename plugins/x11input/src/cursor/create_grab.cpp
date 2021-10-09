@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/input/exception.hpp>
 #include <sge/x11input/cursor/create_grab.hpp>
 #include <sge/x11input/cursor/grab.hpp>
@@ -16,38 +15,19 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 
-
-sge::x11input::cursor::optional_grab_unique_ptr
-sge::x11input::cursor::create_grab(
-	fcppt::log::object &_log,
-	awl::backends::x11::window::const_base_ref const _window,
-	sge::x11input::device::id const _id,
-	awl::backends::x11::cursor::object_ref const _cursor
-)
+sge::x11input::cursor::optional_grab_unique_ptr sge::x11input::cursor::create_grab(
+    fcppt::log::object &_log,
+    awl::backends::x11::window::const_base_ref const _window,
+    sge::x11input::device::id const _id,
+    awl::backends::x11::cursor::object_ref const _cursor)
 try
 {
-	return
-		sge::x11input::cursor::optional_grab_unique_ptr{
-			fcppt::make_unique_ptr<
-				sge::x11input::cursor::grab
-			>(
-				_window,
-				_id,
-				_cursor
-			)
-		};
+  return sge::x11input::cursor::optional_grab_unique_ptr{
+      fcppt::make_unique_ptr<sge::x11input::cursor::grab>(_window, _id, _cursor)};
 }
-catch(
-	sge::input::exception const &_error
-)
+catch (sge::input::exception const &_error)
 {
-	FCPPT_LOG_ERROR(
-		_log,
-		fcppt::log::out
-			<<
-			_error.string()
-	)
+  FCPPT_LOG_ERROR(_log, fcppt::log::out << _error.string())
 
-	return
-		sge::x11input::cursor::optional_grab_unique_ptr{};
+  return sge::x11input::cursor::optional_grab_unique_ptr{};
 }

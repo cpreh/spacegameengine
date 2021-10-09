@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/dim.hpp>
 #include <sge/font/flags.hpp>
 #include <sge/font/flags_field.hpp>
@@ -54,206 +53,91 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::button::button(
-	sge::gui::style::const_reference const _style,
-	sge::renderer::device::ffp_ref const _renderer,
-	sge::font::object_ref const _font,
-	sge::font::string const &_text,
-	sge::gui::optional_needed_width const _opt_needed_width
-)
-:
-	sge::gui::widget::base(),
-	style_(
-		_style
-	),
-	renderer_(
-		_renderer
-	),
-	font_(
-		_font
-	),
-	text_(
-		_text
-	),
-	static_text_(
-		this->make_static_text(
-			_text
-		)
-	),
-	layout_{
-		sge::rucksack::axis_policy2{
-			sge::rucksack::axis_policy{
-				sge::rucksack::preferred_size{
-					fcppt::optional::maybe(
-						_opt_needed_width,
-						[
-							this
-						]{
-							return
-								this->static_text_.logical_size().w();
-						},
-						[](
-							sge::gui::needed_width const _needed_width
-						)
-						{
-							return
-								_needed_width.get();
-						}
-					)
-					+
-					_style.get().button_spacing().w()
-				}
-			},
-			sge::rucksack::axis_policy{
-				sge::rucksack::preferred_size{
-					_font.get().metrics().height().get()
-					+
-					_style.get().button_spacing().h()
-				}
-			}
-		}
-	},
-	click_()
+    sge::gui::style::const_reference const _style,
+    sge::renderer::device::ffp_ref const _renderer,
+    sge::font::object_ref const _font,
+    sge::font::string const &_text,
+    sge::gui::optional_needed_width const _opt_needed_width)
+    : sge::gui::widget::base(),
+      style_(_style),
+      renderer_(_renderer),
+      font_(_font),
+      text_(_text),
+      static_text_(this->make_static_text(_text)),
+      layout_{sge::rucksack::axis_policy2{
+          sge::rucksack::axis_policy{sge::rucksack::preferred_size{
+              fcppt::optional::maybe(
+                  _opt_needed_width,
+                  [this] { return this->static_text_.logical_size().w(); },
+                  [](sge::gui::needed_width const _needed_width) { return _needed_width.get(); }) +
+              _style.get().button_spacing().w()}},
+          sge::rucksack::axis_policy{sge::rucksack::preferred_size{
+              _font.get().metrics().height().get() + _style.get().button_spacing().h()}}}},
+      click_()
 {
 }
 
 FCPPT_PP_POP_WARNING
 
-sge::gui::widget::button::~button()
-= default;
+sge::gui::widget::button::~button() = default;
 
-fcppt::signal::auto_connection
-sge::gui::widget::button::click(
-	sge::gui::click_callback &&_callback
-)
+fcppt::signal::auto_connection sge::gui::widget::button::click(sge::gui::click_callback &&_callback)
 {
-	return
-		click_.connect(
-			std::move(
-				_callback
-			)
-		);
+  return click_.connect(std::move(_callback));
 }
 
-sge::font::string const &
-sge::gui::widget::button::text() const
+sge::font::string const &sge::gui::widget::button::text() const { return text_; }
+
+void sge::gui::widget::button::text(sge::font::string const &_text)
 {
-	return
-		text_;
+  static_text_ = this->make_static_text(_text);
 }
 
-void
-sge::gui::widget::button::text(
-	sge::font::string const &_text
-)
+sge::rucksack::widget::base &sge::gui::widget::button::layout() { return layout_; }
+
+void sge::gui::widget::button::on_draw(
+    sge::gui::renderer::base &_renderer, sge::renderer::context::ffp &_context)
 {
-	static_text_ =
-		this->make_static_text(
-			_text
-		);
+  style_.get().draw_button(_renderer, _context, this->layout().area());
+
+  static_text_.pos(
+      fcppt::math::vector::structure_cast<sge::font::vector, fcppt::cast::size_fun>(
+          layout_.position() + (style_.get().button_spacing() / 2).get_unsafe()) +
+      sge::font::vector(
+          0,
+          sge::font::v_center(
+              font_.get().metrics().height(),
+              layout_.size().h() - style_.get().button_spacing().h())));
+
+  _renderer.draw_static_text(_context, static_text_);
 }
 
-sge::rucksack::widget::base &
-sge::gui::widget::button::layout()
+sge::gui::get_focus sge::gui::widget::button::on_click(sge::rucksack::vector const &)
 {
-	return
-		layout_;
-}
+  if (!this->enabled())
+  {
+    return sge::gui::get_focus(false);
+  }
 
-void
-sge::gui::widget::button::on_draw(
-	sge::gui::renderer::base &_renderer,
-	sge::renderer::context::ffp &_context
-)
-{
-	style_.get().draw_button(
-		_renderer,
-		_context,
-		this->layout().area()
-	);
+  click_();
 
-	static_text_.pos(
-		fcppt::math::vector::structure_cast<
-			sge::font::vector,
-			fcppt::cast::size_fun
-		>(
-			layout_.position()
-			+
-			(
-				style_.get().button_spacing()
-				/
-				2
-			).get_unsafe()
-		)
-		+
-		sge::font::vector(
-			0,
-			sge::font::v_center(
-				font_.get().metrics().height(),
-				layout_.size().h()
-				-
-				style_.get().button_spacing().h()
-			)
-		)
-	);
-
-	_renderer.draw_static_text(
-		_context,
-		static_text_
-	);
-}
-
-sge::gui::get_focus
-sge::gui::widget::button::on_click(
-	sge::rucksack::vector const &
-)
-{
-	if(
-		!this->enabled()
-	)
-	{
-		return
-			sge::gui::get_focus(
-				false
-			);
-	}
-
-	click_();
-
-	return
-		sge::gui::get_focus(
-			true
-		);
+  return sge::gui::get_focus(true);
 }
 
 sge::font::draw::static_text
-sge::gui::widget::button::make_static_text(
-	sge::font::string const &_text
-)
+sge::gui::widget::button::make_static_text(sge::font::string const &_text)
 {
-	return
-		sge::font::draw::static_text(
-			renderer_,
-			font_,
-			_text,
-			sge::font::text_parameters(
-				sge::font::align_h::variant{
-					sge::font::align_h::left()
-				}
-			)
-			.flags(
-				sge::font::flags_field{
-					sge::font::flags::no_multi_line
-				}
-			),
-			fcppt::math::vector::null<
-				sge::font::vector
-			>(),
-			style_.get().text_color().get(),
-			sge::renderer::texture::emulate_srgb::no
-		);
+  return sge::font::draw::static_text(
+      renderer_,
+      font_,
+      _text,
+      sge::font::text_parameters(sge::font::align_h::variant{sge::font::align_h::left()})
+          .flags(sge::font::flags_field{sge::font::flags::no_multi_line}),
+      fcppt::math::vector::null<sge::font::vector>(),
+      style_.get().text_color().get(),
+      sge::renderer::texture::emulate_srgb::no);
 }

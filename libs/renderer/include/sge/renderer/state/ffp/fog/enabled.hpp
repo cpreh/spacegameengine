@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_FOG_ENABLED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_FOG_ENABLED_HPP_INCLUDED
 
@@ -15,56 +14,40 @@
 #include <sge/renderer/state/ffp/fog/mode.hpp>
 #include <sge/renderer/state/ffp/fog/start.hpp>
 
-
 namespace sge::renderer::state::ffp::fog
 {
 
 class enabled
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	enabled(
-		sge::renderer::state::ffp::fog::mode,
-		sge::renderer::state::ffp::fog::start,
-		sge::renderer::state::ffp::fog::end,
-		sge::renderer::state::ffp::fog::density,
-		sge::renderer::state::ffp::fog::color
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  enabled(
+      sge::renderer::state::ffp::fog::mode,
+      sge::renderer::state::ffp::fog::start,
+      sge::renderer::state::ffp::fog::end,
+      sge::renderer::state::ffp::fog::density,
+      sge::renderer::state::ffp::fog::color);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::fog::mode
-	mode() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::fog::mode mode() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::fog::start
-	start() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::fog::start start() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::fog::end
-	end() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::fog::end end() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::fog::density
-	density() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::fog::density density() const;
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::fog::color
-	color() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL sge::renderer::state::ffp::fog::color color() const;
+
 private:
-	sge::renderer::state::ffp::fog::mode mode_;
+  sge::renderer::state::ffp::fog::mode mode_;
 
-	sge::renderer::state::ffp::fog::start start_;
+  sge::renderer::state::ffp::fog::start start_;
 
-	sge::renderer::state::ffp::fog::end end_;
+  sge::renderer::state::ffp::fog::end end_;
 
-	sge::renderer::state::ffp::fog::density density_;
+  sge::renderer::state::ffp::fog::density density_;
 
-	sge::renderer::state::ffp::fog::color color_;
+  sge::renderer::state::ffp::fog::color color_;
 };
 
 }

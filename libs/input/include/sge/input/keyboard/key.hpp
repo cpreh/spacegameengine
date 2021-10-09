@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_KEYBOARD_KEY_HPP_INCLUDED
 #define SGE_INPUT_KEYBOARD_KEY_HPP_INCLUDED
 
@@ -12,47 +11,30 @@
 #include <sge/input/keyboard/key_fwd.hpp>
 #include <sge/input/keyboard/key_id.hpp>
 
-
 namespace sge::input::keyboard
 {
 
 class key
 {
 public:
-	SGE_INPUT_DETAIL_SYMBOL
-	key(
-		sge::input::key::code,
-		sge::input::keyboard::key_id
-	);
+  SGE_INPUT_DETAIL_SYMBOL
+  key(sge::input::key::code, sge::input::keyboard::key_id);
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::key::code
-	code() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::key::code code() const;
 
-	[[nodiscard]]
-	SGE_INPUT_DETAIL_SYMBOL
-	sge::input::keyboard::key_id
-	id() const;
+  [[nodiscard]] SGE_INPUT_DETAIL_SYMBOL sge::input::keyboard::key_id id() const;
+
 private:
-	sge::input::key::code code_;
+  sge::input::key::code code_;
 
-	sge::input::keyboard::key_id id_;
+  sge::input::keyboard::key_id id_;
 };
 
 SGE_INPUT_DETAIL_SYMBOL
-bool
-operator==(
-	sge::input::keyboard::key const &,
-	sge::input::keyboard::key const &
-);
+bool operator==(sge::input::keyboard::key const &, sge::input::keyboard::key const &);
 
 SGE_INPUT_DETAIL_SYMBOL
-bool
-operator!=(
-	sge::input::keyboard::key const &,
-	sge::input::keyboard::key const &
-);
+bool operator!=(sge::input::keyboard::key const &, sge::input::keyboard::key const &);
 
 }
 

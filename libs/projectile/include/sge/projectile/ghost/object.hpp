@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PROJECTILE_GHOST_OBJECT_HPP_INCLUDED
 #define SGE_PROJECTILE_GHOST_OBJECT_HPP_INCLUDED
 
@@ -23,7 +22,6 @@
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 
-
 class btCollisionShape;
 class btPairCachingGhostObject;
 
@@ -31,62 +29,39 @@ namespace sge::projectile::ghost
 {
 class object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	explicit
-	object(
-		sge::projectile::ghost::parameters const &
-	);
+  SGE_PROJECTILE_DETAIL_SYMBOL
+  explicit object(sge::projectile::ghost::parameters const &);
 
-	[[nodiscard]]
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	sge::projectile::vector2
-	position() const;
+  [[nodiscard]] SGE_PROJECTILE_DETAIL_SYMBOL sge::projectile::vector2 position() const;
 
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	void
-	position(
-		sge::projectile::vector2 const &
-	);
+  SGE_PROJECTILE_DETAIL_SYMBOL
+  void position(sge::projectile::vector2 const &);
 
-	[[nodiscard]]
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	fcppt::signal::auto_connection
-	body_enter(
-		sge::projectile::ghost::body_enter &&
-	);
+  [[nodiscard]] SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
+  body_enter(sge::projectile::ghost::body_enter &&);
 
-	[[nodiscard]]
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	fcppt::signal::auto_connection
-	body_exit(
-		sge::projectile::ghost::body_exit &&
-	);
+  [[nodiscard]] SGE_PROJECTILE_DETAIL_SYMBOL fcppt::signal::auto_connection
+  body_exit(sge::projectile::ghost::body_exit &&);
 
-	SGE_PROJECTILE_DETAIL_SYMBOL
-	~object();
+  SGE_PROJECTILE_DETAIL_SYMBOL
+  ~object();
+
 private:
-	friend class sge::projectile::ghost::detail::pair_callback;
-	friend class sge::projectile::world;
+  friend class sge::projectile::ghost::detail::pair_callback;
+  friend class sge::projectile::world;
 
-	fcppt::log::object &log_;
-	fcppt::signal::object<sge::projectile::ghost::body_enter_fn> body_enter_;
-	fcppt::signal::object<sge::projectile::ghost::body_exit_fn> body_exit_;
-	fcppt::unique_ptr<btCollisionShape> const box_shape_;
-	fcppt::unique_ptr<btPairCachingGhostObject> const ghost_object_;
+  fcppt::log::object &log_;
+  fcppt::signal::object<sge::projectile::ghost::body_enter_fn> body_enter_;
+  fcppt::signal::object<sge::projectile::ghost::body_exit_fn> body_exit_;
+  fcppt::unique_ptr<btCollisionShape> const box_shape_;
+  fcppt::unique_ptr<btPairCachingGhostObject> const ghost_object_;
 
-	void
-	enter_internal(
-		sge::projectile::body::object const &
-	);
+  void enter_internal(sge::projectile::body::object const &);
 
-	void
-	exit_internal(
-		sge::projectile::body::object const &
-	);
+  void exit_internal(sge::projectile::body::object const &);
 };
 
 }

@@ -3,18 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENAL_FUNCS_GEN_SOURCE_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_GEN_SOURCE_HPP_INCLUDED
 
 #include <sge/openal/source_id.hpp>
 
-
 namespace sge::openal::funcs
 {
 
-sge::openal::source_id
-gen_source();
+sge::openal::source_id gen_source();
 
 }
 

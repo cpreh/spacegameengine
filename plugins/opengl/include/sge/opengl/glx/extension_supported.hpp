@@ -3,22 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_GLX_EXTENSION_SUPPORTED_HPP_INCLUDED
 #define SGE_OPENGL_GLX_EXTENSION_SUPPORTED_HPP_INCLUDED
 
 #include <sge/opengl/glx/extension.hpp>
 #include <sge/opengl/glx/extension_set.hpp>
 
-
 namespace sge::opengl::glx
 {
 
-bool
-extension_supported(
-	sge::opengl::glx::extension_set const &,
-	sge::opengl::glx::extension const &
-);
+bool extension_supported(
+    sge::opengl::glx::extension_set const &, sge::opengl::glx::extension const &);
 
 }
 

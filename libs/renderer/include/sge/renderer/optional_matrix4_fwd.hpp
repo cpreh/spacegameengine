@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_OPTIONAL_MATRIX4_FWD_HPP_INCLUDED
 #define SGE_RENDERER_OPTIONAL_MATRIX4_FWD_HPP_INCLUDED
 
 #include <sge/renderer/matrix4_fwd.hpp>
 #include <fcppt/optional/object_fwd.hpp>
-
 
 namespace sge::renderer
 {
@@ -19,12 +17,7 @@ namespace sge::renderer
 
 \ingroup sge_renderer
 */
-using
-optional_matrix4
-=
-fcppt::optional::object<
-	sge::renderer::matrix4
->;
+using optional_matrix4 = fcppt::optional::object<sge::renderer::matrix4>;
 
 }
 

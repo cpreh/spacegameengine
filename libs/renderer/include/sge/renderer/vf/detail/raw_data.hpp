@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_VF_DETAIL_RAW_DATA_HPP_INCLUDED
 #define SGE_RENDERER_VF_DETAIL_RAW_DATA_HPP_INCLUDED
 
@@ -15,90 +14,33 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::renderer::vf::detail
 {
 
-template<
-	typename T
->
-inline
-std::enable_if_t<
-	fcppt::math::vector::is_vector<
-		std::remove_const_t<
-			T
-		>
-	>::value,
-	sge::renderer::vf::detail::raw_data_type<
-		T
-	>
->
-raw_data(
-	T &_value
-)
+template <typename T>
+inline std::enable_if_t<
+    fcppt::math::vector::is_vector<std::remove_const_t<T>>::value,
+    sge::renderer::vf::detail::raw_data_type<T>>
+raw_data(T &_value)
 {
-	return
-		fcppt::cast::to_char_ptr<
-			sge::renderer::vf::detail::raw_data_type<
-				T
-			>
-		>(
-			_value.storage().data()
-		);
+  return fcppt::cast::to_char_ptr<sge::renderer::vf::detail::raw_data_type<T>>(
+      _value.storage().data());
 }
 
-template<
-	typename T
->
-inline
-std::enable_if_t<
-	std::is_fundamental_v<
-		T
-	>,
-	sge::renderer::vf::detail::raw_data_type<
-		T
-	>
->
-raw_data(
-	T &_value
-)
+template <typename T>
+inline std::enable_if_t<std::is_fundamental_v<T>, sge::renderer::vf::detail::raw_data_type<T>>
+raw_data(T &_value)
 {
-	return
-		fcppt::cast::to_char_ptr<
-			sge::renderer::vf::detail::raw_data_type<
-				T
-			>
-		>(
-			&_value
-		);
+  return fcppt::cast::to_char_ptr<sge::renderer::vf::detail::raw_data_type<T>>(&_value);
 }
 
-template<
-	typename T
->
-inline
-std::enable_if_t<
-	mizuiro::color::is_color<
-		std::remove_const_t<
-			T
-		>
-	>::value,
-	sge::renderer::vf::detail::raw_data_type<
-		T
-	>
->
-raw_data(
-	T &_value
-)
+template <typename T>
+inline std::enable_if_t<
+    mizuiro::color::is_color<std::remove_const_t<T>>::value,
+    sge::renderer::vf::detail::raw_data_type<T>>
+raw_data(T &_value)
 {
-	return
-		fcppt::cast::to_char_ptr<
-			sge::renderer::vf::detail::raw_data_type<
-				T
-			>
-		>(
-			_value.data()
-		);
+  return fcppt::cast::to_char_ptr<sge::renderer::vf::detail::raw_data_type<T>>(_value.data());
 }
 
 }

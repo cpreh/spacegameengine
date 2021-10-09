@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/audio/file.hpp>
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load_exn.hpp>
@@ -49,143 +48,53 @@
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 
-
-int
-main()
+int main()
 try
 {
-	sge::systems::instance<
-		sge::systems::with_audio_loader,
-		sge::systems::with_audio_player
-	> const sys(
-		sge::systems::make_list
-		(
-			sge::systems::audio_player_default()
-		)
-		(
-			sge::systems::audio_loader(
-				sge::media::optional_extension_set(
-					sge::media::extension_set{
-						sge::media::extension(
-							FCPPT_TEXT("wav")
-						)
-					}
-				)
-			)
-		)
-	);
+  sge::systems::instance<sge::systems::with_audio_loader, sge::systems::with_audio_player> const
+      sys(sge::systems::make_list(sge::systems::audio_player_default())(
+          sge::systems::audio_loader(sge::media::optional_extension_set(
+              sge::media::extension_set{sge::media::extension(FCPPT_TEXT("wav"))}))));
 
-	sge::audio::file_unique_ptr const file(
-		sge::audio::load_exn(
-			fcppt::make_ref(
-				sys.audio_loader()
-			),
-			sge::config::media_path()
-			/	FCPPT_TEXT("sounds")
-			/ FCPPT_TEXT("ding.wav")
-		)
-	);
+  sge::audio::file_unique_ptr const file(sge::audio::load_exn(
+      fcppt::make_ref(sys.audio_loader()),
+      sge::config::media_path() / FCPPT_TEXT("sounds") / FCPPT_TEXT("ding.wav")));
 
-	sge::audio::sound::positional_unique_ptr const sound(
-		sys.audio_player().create_positional_stream(
-			fcppt::make_ref(
-				*file
-			),
-			sge::audio::sound::positional_parameters{
-				sge::audio::position{
-					fcppt::math::vector::null<
-						sge::audio::vector
-					>()
-				}
-			}
-		)
-	);
+  sge::audio::sound::positional_unique_ptr const sound(sys.audio_player().create_positional_stream(
+      fcppt::make_ref(*file),
+      sge::audio::sound::positional_parameters{
+          sge::audio::position{fcppt::math::vector::null<sge::audio::vector>()}}));
 
-	sound->play(
-		sge::audio::sound::repeat::loop
-	);
+  sound->play(sge::audio::sound::repeat::loop);
 
-	sge::timer::basic<
-		sge::timer::clocks::standard
-	> frame_timer(
-		sge::timer::parameters<
-			sge::timer::clocks::standard
-		>(
-			std::chrono::seconds(
-				1
-			)
-		)
-	);
+  sge::timer::basic<sge::timer::clocks::standard> frame_timer(
+      sge::timer::parameters<sge::timer::clocks::standard>(std::chrono::seconds(1)));
 
-	sge::audio::scalar const rpm(
-		fcppt::literal<
-			sge::audio::scalar
-		>(
-			1
-		)
-	);
+  sge::audio::scalar const rpm(fcppt::literal<sge::audio::scalar>(1));
 
-	sge::audio::scalar const speed(
-		std::numbers::pi_v<
-			sge::audio::scalar
-		>
-		*
-		fcppt::literal<
-			sge::audio::scalar
-		>(
-			2
-		)
-		*
-		rpm
-	);
+  sge::audio::scalar const speed(
+      std::numbers::pi_v<sge::audio::scalar> * fcppt::literal<sge::audio::scalar>(2) * rpm);
 
-	for(;;)
-	{
-		sge::audio::scalar const angle(
-			sge::timer::elapsed_fractional<
-				sge::audio::scalar
-			>(
-				frame_timer
-			)
-			*
-			speed
-		);
+  for (;;)
+  {
+    sge::audio::scalar const angle(
+        sge::timer::elapsed_fractional<sge::audio::scalar>(frame_timer) * speed);
 
-		sound->position(
-			sge::audio::vector2_to_vector(
-				sge::audio::vector2{
-					std::sin(
-						angle
-					),
-					std::cos(
-						angle
-					)
-				}
-			)
-		);
+    sound->position(
+        sge::audio::vector2_to_vector(sge::audio::vector2{std::sin(angle), std::cos(angle)}));
 
-		sound->update();
-	}
+    sound->update();
+  }
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	fcppt::io::cerr()
-		<< _error.string()
-		<< FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	std::cerr
-		<< _error.what()
-		<< '\n';
+  std::cerr << _error.what() << '\n';
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }

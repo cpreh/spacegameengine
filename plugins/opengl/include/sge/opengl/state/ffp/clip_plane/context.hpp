@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_STATE_FFP_CLIP_PLANE_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_CLIP_PLANE_CONTEXT_HPP_INCLUDED
 
@@ -12,42 +11,28 @@
 #include <sge/renderer/state/index_count.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::state::ffp::clip_plane
 {
 
-class context
-:
-	public sge::opengl::context::base
+class context : public sge::opengl::context::base
 {
-	FCPPT_NONMOVABLE(
-		context
-	);
+  FCPPT_NONMOVABLE(context);
+
 public:
-	using
-	parameter
-	=
-	void;
+  using parameter = void;
 
-	context();
+  context();
 
-	~context()
-	override;
+  ~context() override;
 
-	[[nodiscard]]
-	sge::renderer::state::index_count
-	indices() const;
+  [[nodiscard]] sge::renderer::state::index_count indices() const;
 
-	void
-	indices(
-		sge::renderer::state::index_count
-	);
+  void indices(sge::renderer::state::index_count);
 
-	static
-	sge::opengl::context::id const
-	static_id;
+  static sge::opengl::context::id const static_id;
+
 private:
-	sge::renderer::state::index_count indices_;
+  sge::renderer::state::index_count indices_;
 };
 
 }

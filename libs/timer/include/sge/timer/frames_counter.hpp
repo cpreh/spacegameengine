@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TIMER_FRAMES_COUNTER_HPP_INCLUDED
 #define SGE_TIMER_FRAMES_COUNTER_HPP_INCLUDED
 
@@ -17,53 +16,37 @@
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::timer
 {
 
 class frames_counter
 {
-	FCPPT_NONMOVABLE(
-		frames_counter
-	);
+  FCPPT_NONMOVABLE(frames_counter);
+
 public:
-	using
-	clock
-	=
-	sge::timer::clocks::standard;
+  using clock = sge::timer::clocks::standard;
 
-	using
-	counter
-	=
-	std::uint64_t;
+  using counter = std::uint64_t;
 
-	SGE_TIMER_DETAIL_SYMBOL
-	frames_counter();
+  SGE_TIMER_DETAIL_SYMBOL
+  frames_counter();
 
-	SGE_TIMER_DETAIL_SYMBOL
-	void
-	update();
+  SGE_TIMER_DETAIL_SYMBOL
+  void update();
 
-	[[nodiscard]]
-	SGE_TIMER_DETAIL_SYMBOL
-	counter
-	frames() const;
+  [[nodiscard]] SGE_TIMER_DETAIL_SYMBOL counter frames() const;
 
-	[[nodiscard]]
-	SGE_TIMER_DETAIL_SYMBOL
-	fcppt::string
-	frames_str() const;
+  [[nodiscard]] SGE_TIMER_DETAIL_SYMBOL fcppt::string frames_str() const;
 
-	SGE_TIMER_DETAIL_SYMBOL
-	~frames_counter();
+  SGE_TIMER_DETAIL_SYMBOL
+  ~frames_counter();
+
 private:
-	sge::timer::basic<
-		clock
-	> timer_;
+  sge::timer::basic<clock> timer_;
 
-	counter current_frames_;
+  counter current_frames_;
 
-	counter display_frames_;
+  counter display_frames_;
 };
 
 }

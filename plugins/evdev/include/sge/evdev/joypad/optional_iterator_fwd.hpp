@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_JOYPAD_OPTIONAL_ITERATOR_FWD_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_OPTIONAL_ITERATOR_FWD_HPP_INCLUDED
 
 #include <sge/evdev/joypad/map.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 
-
 namespace sge::evdev::joypad
 {
 
-using
-optional_iterator
-=
-fcppt::optional::object<
-	sge::evdev::joypad::map::iterator
->;
+using optional_iterator = fcppt::optional::object<sge::evdev::joypad::map::iterator>;
 
 }
 

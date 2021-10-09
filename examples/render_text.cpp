@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/object_unique_ptr.hpp>
@@ -79,130 +78,48 @@
 #include <iostream>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace
 {
 
-FCPPT_RECORD_MAKE_LABEL(
-	text_label
-);
+FCPPT_RECORD_MAKE_LABEL(text_label);
 
-FCPPT_RECORD_MAKE_LABEL(
-	output_file_label
-);
+FCPPT_RECORD_MAKE_LABEL(output_file_label);
 
-FCPPT_RECORD_MAKE_LABEL(
-	log_level_label
-);
+FCPPT_RECORD_MAKE_LABEL(log_level_label);
 
-using
-argument_record
-=
-fcppt::record::object<
-	fcppt::record::element<
-		text_label,
-		fcppt::string
-	>,
-	fcppt::record::element<
-		output_file_label,
-		fcppt::string
-	>,
-	fcppt::record::element<
-		log_level_label,
-		fcppt::log::level
-	>
->;
+using argument_record = fcppt::record::object<
+    fcppt::record::element<text_label, fcppt::string>,
+    fcppt::record::element<output_file_label, fcppt::string>,
+    fcppt::record::element<log_level_label, fcppt::log::level>>;
 
-void
-render_text_main(
-	argument_record const &_args
-)
+void render_text_main(argument_record const &_args)
 {
-	sge::systems::instance<
-		sge::systems::with_image2d,
-		sge::systems::with_font
-	> const sys{
-		sge::systems::make_list
-		(
-			sge::systems::image2d(
-				sge::media::optional_extension_set()
-			)
-		)(
-			sge::systems::font()
-		)
-		(
-			sge::systems::config()
-			.log_settings(
-				sge::systems::log_settings(
-					sge::log::option_container{
-						sge::log::option{
-							sge::log::location(),
-							fcppt::record::get<
-								log_level_label
-							>(
-								_args
-							)
-						}
-					}
-				)
-			)
-		)
-	};
+  sge::systems::instance<sge::systems::with_image2d, sge::systems::with_font> const sys{
+      sge::systems::make_list(sge::systems::image2d(sge::media::optional_extension_set()))(
+          sge::systems::font())(sge::systems::config().log_settings(
+          sge::systems::log_settings(sge::log::option_container{sge::log::option{
+              sge::log::location(), fcppt::record::get<log_level_label>(_args)}})))};
 
-	sge::font::object_unique_ptr const font{
-		sys.font_system().create_font(
-			// TODO(philipp): Add options for this
-			sge::font::parameters{}
-		)
-	};
+  sge::font::object_unique_ptr const font{sys.font_system().create_font(
+      // TODO(philipp): Add options for this
+      sge::font::parameters{})};
 
-	sge::font::text_unique_ptr const text{
-		font->create_text(
-			sge::font::from_fcppt_string(
-				fcppt::record::get<
-					text_label
-				>(
-					_args
-				)
-			),
-			sge::font::text_parameters{
-				sge::font::align_h::variant{
-					sge::font::align_h::left{}
-				}
-			}
-		)
-	};
+  sge::font::text_unique_ptr const text{font->create_text(
+      sge::font::from_fcppt_string(fcppt::record::get<text_label>(_args)),
+      sge::font::text_parameters{sge::font::align_h::variant{sge::font::align_h::left{}}})};
 
-	sge::image2d::store::l8 store{
-		fcppt::math::dim::structure_cast<
-			sge::image2d::dim,
-			fcppt::cast::size_fun
-		>(
-			text->rect().size()
-		),
-		// TODO(philipp): Initialize with something?
-		fcppt::no_init{}
-	};
+  sge::image2d::store::l8 store{
+      fcppt::math::dim::structure_cast<sge::image2d::dim, fcppt::cast::size_fun>(
+          text->rect().size()),
+      // TODO(philipp): Initialize with something?
+      fcppt::no_init{}};
 
-	text->render(
-		sge::image2d::view::object(
-			store.wrapped_view()
-		)
-	);
+  text->render(sge::image2d::view::object(store.wrapped_view()));
 
-	sge::image2d::save_from_view(
-		sys.image_system(),
-		sge::image2d::view::const_object{
-			store.const_wrapped_view()
-		},
-		std::filesystem::path{
-			fcppt::record::get<
-				output_file_label
-			>(
-				_args
-			)
-		}
-	);
+  sge::image2d::save_from_view(
+      sys.image_system(),
+      sge::image2d::view::const_object{store.const_wrapped_view()},
+      std::filesystem::path{fcppt::record::get<output_file_label>(_args)});
 }
 
 }
@@ -210,167 +127,67 @@ render_text_main(
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wmissing-declarations)
 
-int
-FCPPT_MAIN(
-	int argc,
-	fcppt::args_char **argv
-)
+int FCPPT_MAIN(int argc, fcppt::args_char **argv)
 try
 {
-	auto const parser{
-		fcppt::options::apply(
-			fcppt::options::argument<
-				text_label,
-				fcppt::string
-			>{
-				fcppt::options::long_name{
-					FCPPT_TEXT("text")
-				},
-				fcppt::options::optional_help_text{
-					fcppt::options::help_text{
-						FCPPT_TEXT("The text to render.")
-					}
-				}
-			},
-			fcppt::options::argument<
-				output_file_label,
-				fcppt::string
-			>{
-				fcppt::options::long_name{
-					FCPPT_TEXT("output-file")
-				},
-				fcppt::options::optional_help_text{
-					fcppt::options::help_text{
-						FCPPT_TEXT("Path to the output file.")
-					}
-				}
-			},
-			fcppt::options::option<
-				log_level_label,
-				fcppt::log::level
-			>{
-				fcppt::options::optional_short_name{},
-				fcppt::options::long_name{
-					FCPPT_TEXT("log-level")
-				},
-				fcppt::options::make_default_value(
-					fcppt::optional::make(
-						fcppt::log::level::debug
-					)
-				),
-				fcppt::options::optional_help_text{
-					fcppt::options::help_text{
-						FCPPT_TEXT("The log level to use.")
-					}
-				}
-			}
-		)
-	};
+  auto const parser{fcppt::options::apply(
+      fcppt::options::argument<text_label, fcppt::string>{
+          fcppt::options::long_name{FCPPT_TEXT("text")},
+          fcppt::options::optional_help_text{
+              fcppt::options::help_text{FCPPT_TEXT("The text to render.")}}},
+      fcppt::options::argument<output_file_label, fcppt::string>{
+          fcppt::options::long_name{FCPPT_TEXT("output-file")},
+          fcppt::options::optional_help_text{
+              fcppt::options::help_text{FCPPT_TEXT("Path to the output file.")}}},
+      fcppt::options::option<log_level_label, fcppt::log::level>{
+          fcppt::options::optional_short_name{},
+          fcppt::options::long_name{FCPPT_TEXT("log-level")},
+          fcppt::options::make_default_value(fcppt::optional::make(fcppt::log::level::debug)),
+          fcppt::options::optional_help_text{
+              fcppt::options::help_text{FCPPT_TEXT("The log level to use.")}}})};
 
-	using
-	result_type
-	=
-	fcppt::options::result_of<
-		decltype(
-			parser
-		)
-	>;
+  using result_type = fcppt::options::result_of<decltype(parser)>;
 
-	fcppt::options::help_result<
-		result_type
-	> const result{
-		fcppt::options::parse_help(
-			fcppt::options::default_help_switch(),
-			parser,
-			fcppt::args_from_second(
-				argc,
-				argv
-			)
-		)
-	};
+  fcppt::options::help_result<result_type> const result{fcppt::options::parse_help(
+      fcppt::options::default_help_switch(), parser, fcppt::args_from_second(argc, argv))};
 
-	return
-		fcppt::variant::match(
-			result,
-			[](
-				fcppt::options::result<
-					result_type
-				> const &_result
-			)
-			{
-				return
-					fcppt::either::match(
-						_result,
-						[](
-							fcppt::options::error const &_error
-						)
-						{
-							fcppt::io::cerr()
-								<<
-								_error
-								<<
-								FCPPT_TEXT('\n');
+  return fcppt::variant::match(
+      result,
+      [](fcppt::options::result<result_type> const &_result)
+      {
+        return fcppt::either::match(
+            _result,
+            [](fcppt::options::error const &_error)
+            {
+              fcppt::io::cerr() << _error << FCPPT_TEXT('\n');
 
-							return
-								EXIT_FAILURE;
-						},
-						[](
-							result_type const &_args
-						)
-						{
-							render_text_main(
-								fcppt::record::permute<
-									argument_record
-								>(
-									_args
-								)
-							);
+              return EXIT_FAILURE;
+            },
+            [](result_type const &_args)
+            {
+              render_text_main(fcppt::record::permute<argument_record>(_args));
 
-							return
-								EXIT_SUCCESS;
-						}
-					);
-			},
-			[](
-				fcppt::options::help_text const &_help_text
-			)
-			{
-				fcppt::io::cout()
-					<<
-					_help_text
-					<<
-					FCPPT_TEXT('\n');
+              return EXIT_SUCCESS;
+            });
+      },
+      [](fcppt::options::help_text const &_help_text)
+      {
+        fcppt::io::cout() << _help_text << FCPPT_TEXT('\n');
 
-				return
-					EXIT_SUCCESS;
-			}
-		);
+        return EXIT_SUCCESS;
+      });
 }
-catch(
-	fcppt::exception const &_error
-)
+catch (fcppt::exception const &_error)
 {
-	fcppt::io::cerr()
-		<<
-		_error.string()
-		<<
-		FCPPT_TEXT('\n');
+  fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }
-catch(
-	std::exception const &_error
-)
+catch (std::exception const &_error)
 {
-	std::cerr
-		<<
-		_error.what()
-		<<
-		'\n';
+  std::cerr << _error.what() << '\n';
 
-	return
-		EXIT_FAILURE;
+  return EXIT_FAILURE;
 }
 
 FCPPT_PP_POP_WARNING

@@ -3,34 +3,26 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/address_mode_type.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_s.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_t.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_u.hpp>
 
-
-GLenum
-sge::opengl::state::convert::address_mode_type<
-	sge::renderer::state::core::sampler::address::mode_s
->::get()
+GLenum sge::opengl::state::convert::address_mode_type<
+    sge::renderer::state::core::sampler::address::mode_s>::get()
 {
-	return GL_TEXTURE_WRAP_S;
+  return GL_TEXTURE_WRAP_S;
 }
 
-GLenum
-sge::opengl::state::convert::address_mode_type<
-	sge::renderer::state::core::sampler::address::mode_t
->::get()
+GLenum sge::opengl::state::convert::address_mode_type<
+    sge::renderer::state::core::sampler::address::mode_t>::get()
 {
-	return GL_TEXTURE_WRAP_T;
+  return GL_TEXTURE_WRAP_T;
 }
 
-GLenum
-sge::opengl::state::convert::address_mode_type<
-	sge::renderer::state::core::sampler::address::mode_u
->::get()
+GLenum sge::opengl::state::convert::address_mode_type<
+    sge::renderer::state::core::sampler::address::mode_u>::get()
 {
-	return GL_TEXTURE_WRAP_R;
+  return GL_TEXTURE_WRAP_R;
 }

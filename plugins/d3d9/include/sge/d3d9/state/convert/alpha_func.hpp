@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_CONVERT_ALPHA_FUNC_HPP_INCLUDED
 #define SGE_D3D9_STATE_CONVERT_ALPHA_FUNC_HPP_INCLUDED
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/renderer/state/ffp/alpha_test/func_fwd.hpp>
-
 
 namespace sge
 {
@@ -21,9 +19,7 @@ namespace convert
 {
 
 D3DCMPFUNC
-alpha_func(
-	sge::renderer::state::ffp::alpha_test::func
-);
+alpha_func(sge::renderer::state::ffp::alpha_test::func);
 
 }
 }

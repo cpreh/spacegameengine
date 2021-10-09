@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MEDIA_STREAM_UNIQUE_PTR_FWD_HPP_INCLUDED
 #define SGE_MEDIA_STREAM_UNIQUE_PTR_FWD_HPP_INCLUDED
 
@@ -12,16 +11,10 @@
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::media
 {
 
-using
-stream_unique_ptr
-=
-fcppt::unique_ptr<
-	std::istream
->;
+using stream_unique_ptr = fcppt::unique_ptr<std::istream>;
 
 }
 

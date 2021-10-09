@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_FWD_HPP_INCLUDED
 #define SGE_PARSE_JSON_CONFIG_USER_CONFIG_VARIABLE_FWD_HPP_INCLUDED
 
@@ -15,7 +14,7 @@ namespace json
 {
 namespace config
 {
-template<typename T>
+template <typename T>
 class user_config_variable;
 }
 }

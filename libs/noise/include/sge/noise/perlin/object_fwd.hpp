@@ -3,23 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_NOISE_PERLIN_OBJECT_FWD_HPP_INCLUDED
 #define SGE_NOISE_PERLIN_OBJECT_FWD_HPP_INCLUDED
 
 #include <fcppt/math/size_type.hpp>
 
-
 namespace sge::noise::perlin
 {
-template
-<
-	typename Float,
-	fcppt::math::size_type N,
-	typename Interpolator
->
+template <typename Float, fcppt::math::size_type N, typename Interpolator>
 class object;
 }
 
 #endif
-

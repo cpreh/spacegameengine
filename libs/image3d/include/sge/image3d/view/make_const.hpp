@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE3D_VIEW_MAKE_CONST_HPP_INCLUDED
 #define SGE_IMAGE3D_VIEW_MAKE_CONST_HPP_INCLUDED
 
@@ -18,23 +17,18 @@
 #include <sge/image3d/traits/dimension.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 
-
 namespace sge::image3d::view
 {
 
 SGE_IMAGE3D_DETAIL_SYMBOL
-sge::image3d::view::const_object
-make_const(
-	sge::image::const_raw_pointer,
-	sge::image3d::dim const &,
-	sge::image::color::format,
-	sge::image3d::pitch const &
-);
+sge::image3d::view::const_object make_const(
+    sge::image::const_raw_pointer,
+    sge::image3d::dim const &,
+    sge::image::color::format,
+    sge::image3d::pitch const &);
 
 }
 
-SGE_IMAGE_VIEW_DECLARE_MAKE_CONST(
-	sge::image3d::tag
-);
+SGE_IMAGE_VIEW_DECLARE_MAKE_CONST(sge::image3d::tag);
 
 #endif

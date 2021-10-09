@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RUCKSACK_WIDGET_MASTER_AND_SLAVES_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_MASTER_AND_SLAVES_HPP_INCLUDED
 
@@ -22,7 +21,6 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::rucksack::widget
 {
 /**
@@ -32,82 +30,48 @@ namespace sge::rucksack::widget
  * The widget has a "master widget" and multiple "subwidgets". The master
  * widget is displayed in a column on the left, the subwidgets are displayed on the right
  */
-class SGE_CORE_DETAIL_CLASS_SYMBOL master_and_slaves
-:
-	public sge::rucksack::widget::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL master_and_slaves : public sge::rucksack::widget::base
 {
-	FCPPT_NONMOVABLE(
-		master_and_slaves
-	);
+  FCPPT_NONMOVABLE(master_and_slaves);
+
 public:
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	explicit
-	master_and_slaves(
-		sge::rucksack::padding const &
-	);
+  SGE_RUCKSACK_DETAIL_SYMBOL
+  explicit master_and_slaves(sge::rucksack::padding const &);
 
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	void
-	size(
-		sge::rucksack::dim const &
-	)
-	override;
+  SGE_RUCKSACK_DETAIL_SYMBOL
+  void size(sge::rucksack::dim const &) override;
 
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	void
-	position(
-		sge::rucksack::vector const &
-	)
-	override;
+  SGE_RUCKSACK_DETAIL_SYMBOL
+  void position(sge::rucksack::vector const &) override;
 
-	[[nodiscard]]
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	sge::rucksack::dim
-	size() const
-	override;
+  [[nodiscard]] SGE_RUCKSACK_DETAIL_SYMBOL sge::rucksack::dim size() const override;
 
-	[[nodiscard]]
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	sge::rucksack::vector
-	position() const
-	override;
+  [[nodiscard]] SGE_RUCKSACK_DETAIL_SYMBOL sge::rucksack::vector position() const override;
 
-	[[nodiscard]]
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	sge::rucksack::axis_policy2
-	axis_policy() const
-	override;
+  [[nodiscard]] SGE_RUCKSACK_DETAIL_SYMBOL sge::rucksack::axis_policy2 axis_policy() const override;
 
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	void
-	relayout()
-	override;
+  SGE_RUCKSACK_DETAIL_SYMBOL
+  void relayout() override;
 
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	void
-	master_pane(
-		sge::rucksack::widget::reference
-	);
+  SGE_RUCKSACK_DETAIL_SYMBOL
+  void master_pane(sge::rucksack::widget::reference);
 
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	void
-	push_back_child(
-		sge::rucksack::widget::reference
-	);
+  SGE_RUCKSACK_DETAIL_SYMBOL
+  void push_back_child(sge::rucksack::widget::reference);
 
-	SGE_RUCKSACK_DETAIL_SYMBOL
-	~master_and_slaves()
-	override;
+  SGE_RUCKSACK_DETAIL_SYMBOL
+  ~master_and_slaves() override;
+
 private:
-	sge::rucksack::widget::box surrounding_box_;
+  sge::rucksack::widget::box surrounding_box_;
 
-	sge::rucksack::widget::optional_ref master_pane_;
+  sge::rucksack::widget::optional_ref master_pane_;
 
-	sge::rucksack::widget::enumeration enumeration_;
+  sge::rucksack::widget::enumeration enumeration_;
 
-	sge::rucksack::vector position_;
+  sge::rucksack::vector position_;
 
-	sge::rucksack::dim size_;
+  sge::rucksack::dim size_;
 };
 
 }

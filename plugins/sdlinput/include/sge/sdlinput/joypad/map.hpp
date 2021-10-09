@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SDLINPUT_JOYPAD_MAP_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_MAP_HPP_INCLUDED
 
@@ -13,17 +12,10 @@
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sdlinput::joypad
 {
 
-using
-map
-=
-std::unordered_map<
-	SDL_JoystickID,
-	sge::sdlinput::joypad::shared_ptr
->;
+using map = std::unordered_map<SDL_JoystickID, sge::sdlinput::joypad::shared_ptr>;
 
 }
 

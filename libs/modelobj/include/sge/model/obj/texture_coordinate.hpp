@@ -3,20 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_MODEL_OBJ_TEXTURE_COORDINATE_HPP_INCLUDED
 #define SGE_MODEL_OBJ_TEXTURE_COORDINATE_HPP_INCLUDED
 
 #include <sge/renderer/vector2.hpp>
 
-
 namespace sge::model::obj
 {
 
-using
-texture_coordinate
-=
-sge::renderer::vector2;
+using texture_coordinate = sge::renderer::vector2;
 
 }
 

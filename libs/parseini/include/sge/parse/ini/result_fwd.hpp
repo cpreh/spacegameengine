@@ -3,24 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PARSE_INI_RESULT_FWD_HPP_INCLUDED
 #define SGE_PARSE_INI_RESULT_FWD_HPP_INCLUDED
 
 #include <sge/parse/ini/start_fwd.hpp>
 #include <fcppt/parse/result_fwd.hpp>
 
-
 namespace sge::parse::ini
 {
 
-using
-result
-=
-fcppt::parse::result<
-	char,
-	sge::parse::ini::start
->;
+using result = fcppt::parse::result<char, sge::parse::ini::start>;
 
 }
 

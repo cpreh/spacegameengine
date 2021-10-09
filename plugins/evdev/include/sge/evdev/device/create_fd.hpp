@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_EVDEV_DEVICE_CREATE_FD_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_CREATE_FD_HPP_INCLUDED
 
@@ -13,15 +12,12 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::evdev::device
 {
 
-sge::evdev::device::optional_fd_unique_ptr
-create_fd(
-	fcppt::log::object &, // NOLINT(google-runtime-references)
-	std::filesystem::path const &
-);
+sge::evdev::device::optional_fd_unique_ptr create_fd(
+    fcppt::log::object &, // NOLINT(google-runtime-references)
+    std::filesystem::path const &);
 
 }
 

@@ -3,12 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_COLOR_HPP_INCLUDED
 #define SGE_SPRITE_COLOR_HPP_INCLUDED
 
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <sge/sprite/color_fwd.hpp>
-
 
 #endif

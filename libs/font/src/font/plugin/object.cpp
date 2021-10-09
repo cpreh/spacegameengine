@@ -3,13 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/system_fwd.hpp>
 #include <sge/font/plugin/object.hpp>
 #include <sge/font/plugin/traits.hpp>
 #include <sge/plugin/impl/instantiate_object.hpp>
 
-
-SGE_PLUGIN_IMPL_INSTANTIATE_OBJECT(
-	sge::font::system
-);
+SGE_PLUGIN_IMPL_INSTANTIATE_OBJECT(sge::font::system);

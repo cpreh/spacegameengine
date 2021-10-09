@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_DIRECTIONAL_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_DIRECTIONAL_HPP_INCLUDED
 
@@ -11,25 +10,21 @@
 #include <sge/renderer/state/ffp/lighting/light/direction.hpp>
 #include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
 
-
 namespace sge::renderer::state::ffp::lighting::light
 {
 
 class directional
 {
 public:
-	SGE_RENDERER_DETAIL_SYMBOL
-	explicit
-	directional(
-		sge::renderer::state::ffp::lighting::light::direction
-	);
+  SGE_RENDERER_DETAIL_SYMBOL
+  explicit directional(sge::renderer::state::ffp::lighting::light::direction);
 
-	[[nodiscard]]
-	SGE_RENDERER_DETAIL_SYMBOL
-	sge::renderer::state::ffp::lighting::light::direction const &
-	direction() const;
+  [[nodiscard]] SGE_RENDERER_DETAIL_SYMBOL
+      sge::renderer::state::ffp::lighting::light::direction const &
+      direction() const;
+
 private:
-	sge::renderer::state::ffp::lighting::light::direction direction_;
+  sge::renderer::state::ffp::lighting::light::direction direction_;
 };
 
 }

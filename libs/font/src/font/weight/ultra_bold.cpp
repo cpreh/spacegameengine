@@ -3,14 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/font/weight/ultra_bold.hpp>
 #include <sge/font/weight/unit.hpp>
 
-
-sge::font::weight::unit
-sge::font::weight::ultra_bold()
+sge::font::weight::unit sge::font::weight::ultra_bold()
 {
-	return
-		800U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  return 800U; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
 }

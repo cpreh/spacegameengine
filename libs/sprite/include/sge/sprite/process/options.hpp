@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_SPRITE_PROCESS_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_OPTIONS_HPP_INCLUDED
 
@@ -13,22 +12,14 @@
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::sprite::process
 {
 
-template<
-	sge::sprite::process::geometry_options GeometryOptions
->
+template <sge::sprite::process::geometry_options GeometryOptions>
 struct options
 {
-	using
-	geometry_options
-	=
-	std::integral_constant<
-		sge::sprite::process::geometry_options,
-		GeometryOptions
-	>;
+  using geometry_options =
+      std::integral_constant<sge::sprite::process::geometry_options, GeometryOptions>;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_PANGO_ADDED_HPP_INCLUDED
 #define SGE_PANGO_ADDED_HPP_INCLUDED
 
@@ -13,25 +12,17 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-
 namespace sge::pango
 {
 
-class added
-:
-	public sge::font::added
+class added : public sge::font::added
 {
-	FCPPT_NONMOVABLE(
-		added
-	);
-public:
-	explicit
-	added(
-		std::filesystem::path const &
-	);
+  FCPPT_NONMOVABLE(added);
 
-	~added()
-	override;
+public:
+  explicit added(std::filesystem::path const &);
+
+  ~added() override;
 };
 
 }

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/charconv/index_vector.hpp>
 #include <sge/charconv/utf8_indices.hpp>
 #include <sge/charconv/utf8_string.hpp>
@@ -43,162 +42,64 @@
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
-
 sge::pango::text::text(
-	PangoLayout &_layout,
-	sge::charconv::utf8_string const &_string,
-	sge::font::text_parameters const &_text_parameters
-)
-:
-	layout_(
-		sge::pango::create_text_layout(
-			_layout,
-			_string,
-			_text_parameters
-		)
-	),
-	extents_(
-		sge::pango::get_extents(
-			*layout_
-		)
-	),
-	indices_(
-		sge::charconv::utf8_indices(
-			_string
-		)
-	)
+    PangoLayout &_layout,
+    sge::charconv::utf8_string const &_string,
+    sge::font::text_parameters const &_text_parameters)
+    : layout_(sge::pango::create_text_layout(_layout, _string, _text_parameters)),
+      extents_(sge::pango::get_extents(*layout_)),
+      indices_(sge::charconv::utf8_indices(_string))
 {
 }
 
-sge::pango::text::~text()
-= default;
+sge::pango::text::~text() = default;
 
-void
-sge::pango::text::render(
-	sge::font::view const &_view
-)
+void sge::pango::text::render(sge::font::view const &_view)
 {
-	FT_Bitmap bitmap(
-		sge::pango::freetype::make_bitmap(
-			_view
-		)
-	);
+  FT_Bitmap bitmap(sge::pango::freetype::make_bitmap(_view));
 
-	sge::image2d::algorithm::fill(
-		_view,
-		sge::image::color::any::clear(
-			sge::image2d::view::format(
-				_view
-			)
-		),
-		sge::image::algorithm::uninitialized::yes
-	);
+  sge::image2d::algorithm::fill(
+      _view,
+      sge::image::color::any::clear(sge::image2d::view::format(_view)),
+      sge::image::algorithm::uninitialized::yes);
 
-	::pango_ft2_render_layout(
-		&bitmap,
-		layout_.get_pointer(),
-		fcppt::cast::size<
-			int
-		>(
-			- extents_.ink_rect().get().left()
-		),
-		fcppt::cast::size<
-			int
-		>(
-			- extents_.ink_rect().get().top()
-		)
-	);
+  ::pango_ft2_render_layout(
+      &bitmap,
+      layout_.get_pointer(),
+      fcppt::cast::size<int>(-extents_.ink_rect().get().left()),
+      fcppt::cast::size<int>(-extents_.ink_rect().get().top()));
 }
 
-sge::font::rect
-sge::pango::text::rect() const
+sge::font::rect sge::pango::text::rect() const { return extents_.ink_rect().get(); }
+
+sge::font::dim sge::pango::text::logical_size() const
 {
-	return
-		extents_.ink_rect().get();
+  return extents_.logical_rect().get().size();
 }
 
-sge::font::dim
-sge::pango::text::logical_size() const
+sge::font::rect sge::pango::text::cursor_rect(sge::font::index const _index) const
 {
-	return
-		extents_.logical_rect().get().size();
+  return sge::pango::convert::from_rect_scale(sge::pango::get_strong_cursor_pos(
+      *layout_,
+      fcppt::cast::size<int>(fcppt::cast::to_signed(
+          FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::container::at_optional(indices_, _index)).get()))));
 }
 
-sge::font::rect
-sge::pango::text::cursor_rect(
-	sge::font::index const _index
-) const
+sge::font::optional_index sge::pango::text::pos_to_index(sge::font::vector const _pos) const
 {
-	return
-		sge::pango::convert::from_rect_scale(
-			sge::pango::get_strong_cursor_pos(
-				*layout_,
-				fcppt::cast::size<
-					int
-				>(
-					fcppt::cast::to_signed(
-						FCPPT_ASSERT_OPTIONAL_ERROR(
-							fcppt::container::at_optional(
-								indices_,
-								_index
-							)
-						).get()
-					)
-				)
-			)
-		);
-}
-
-sge::font::optional_index
-sge::pango::text::pos_to_index(
-	sge::font::vector const _pos
-) const
-{
-	return
-		fcppt::optional::bind(
-			sge::pango::xy_to_index(
-				*layout_,
-				_pos
-			),
-			[
-				this
-			](
-				sge::pango::index const _index
-			)
-			{
-				return
-					fcppt::optional::map(
-						fcppt::algorithm::binary_search(
-							indices_,
-							fcppt::cast::size<
-								sge::charconv::index
-							>(
-								fcppt::cast::to_unsigned(
-									_index.trailing().get()
-									+
-									_index.result().get()
-								)
-							)
-						),
-						[
-							this
-						](
-							sge::charconv::index_vector::const_iterator const _it
-						)
-						{
-							return
-								fcppt::cast::size<
-									sge::font::index
-								>(
-									fcppt::cast::to_unsigned(
-										std::distance(
-											indices_.begin(),
-											_it
-										)
-									)
-								);
-						}
-					);
-			}
-		);
+  return fcppt::optional::bind(
+      sge::pango::xy_to_index(*layout_, _pos),
+      [this](sge::pango::index const _index)
+      {
+        return fcppt::optional::map(
+            fcppt::algorithm::binary_search(
+                indices_,
+                fcppt::cast::size<sge::charconv::index>(
+                    fcppt::cast::to_unsigned(_index.trailing().get() + _index.result().get()))),
+            [this](sge::charconv::index_vector::const_iterator const _it)
+            {
+              return fcppt::cast::size<sge::font::index>(
+                  fcppt::cast::to_unsigned(std::distance(indices_.begin(), _it)));
+            });
+      });
 }

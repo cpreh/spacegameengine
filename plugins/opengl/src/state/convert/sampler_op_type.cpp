@@ -3,25 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/sampler_op_type.hpp>
 #include <sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
 
-
 GLenum
-sge::opengl::state::convert::sampler_op_type<
-	sge::renderer::state::ffp::sampler::alpha_op
->::get()
+sge::opengl::state::convert::sampler_op_type<sge::renderer::state::ffp::sampler::alpha_op>::get()
 {
-	return GL_COMBINE_ALPHA;
+  return GL_COMBINE_ALPHA;
 }
 
 GLenum
-sge::opengl::state::convert::sampler_op_type<
-	sge::renderer::state::ffp::sampler::color_op
->::get()
+sge::opengl::state::convert::sampler_op_type<sge::renderer::state::ffp::sampler::color_op>::get()
 {
-	return GL_COMBINE_RGB;
+  return GL_COMBINE_RGB;
 }

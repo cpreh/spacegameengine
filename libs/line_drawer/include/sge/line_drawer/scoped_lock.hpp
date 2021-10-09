@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_LINE_DRAWER_SCOPED_LOCK_HPP_INCLUDED
 #define SGE_LINE_DRAWER_SCOPED_LOCK_HPP_INCLUDED
 
@@ -14,35 +13,24 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 
-
 namespace sge::line_drawer
 {
 
 class scoped_lock
 {
-	FCPPT_NONMOVABLE(
-		scoped_lock
-	);
+  FCPPT_NONMOVABLE(scoped_lock);
+
 public:
-	SGE_LINE_DRAWER_DETAIL_SYMBOL
-	explicit
-	scoped_lock(
-		fcppt::reference<
-			sge::line_drawer::object
-		>
-	);
+  SGE_LINE_DRAWER_DETAIL_SYMBOL
+  explicit scoped_lock(fcppt::reference<sge::line_drawer::object>);
 
-	[[nodiscard]]
-	SGE_LINE_DRAWER_DETAIL_SYMBOL
-	sge::line_drawer::line_sequence &
-	value() const;
+  [[nodiscard]] SGE_LINE_DRAWER_DETAIL_SYMBOL sge::line_drawer::line_sequence &value() const;
 
-	SGE_LINE_DRAWER_DETAIL_SYMBOL
-	~scoped_lock();
+  SGE_LINE_DRAWER_DETAIL_SYMBOL
+  ~scoped_lock();
+
 private:
-	fcppt::reference<
-		sge::line_drawer::object
-	> const object_;
+  fcppt::reference<sge::line_drawer::object> const object_;
 };
 
 }

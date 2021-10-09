@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_INPUT_PLUGIN_TRAITS_HPP_INCLUDED
 #define SGE_INPUT_PLUGIN_TRAITS_HPP_INCLUDED
 
@@ -14,29 +13,19 @@
 #include <sge/plugin/detail/address_name.hpp>
 #include <sge/plugin/detail/traits.hpp>
 
-
 namespace sge::plugin::detail
 {
 
-template<>
-struct traits<
-	sge::input::system
->
+template <>
+struct traits<sge::input::system>
 {
-	SGE_INPUT_DETAIL_SYMBOL
-	static
-	sge::plugin::detail::address_name
-	plugin_loader_name();
+  SGE_INPUT_DETAIL_SYMBOL
+  static sge::plugin::detail::address_name plugin_loader_name();
 
-	SGE_INPUT_DETAIL_SYMBOL
-	static
-	sge::plugin::capabilities
-	plugin_type();
+  SGE_INPUT_DETAIL_SYMBOL
+  static sge::plugin::capabilities plugin_type();
 
-	using
-	loader_function
-	=
-	sge::input::system_unique_ptr();
+  using loader_function = sge::input::system_unique_ptr();
 };
 
 }

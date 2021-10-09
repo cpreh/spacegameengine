@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENGL_OCCLUSION_QUERY_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_OCCLUSION_QUERY_OBJECT_HPP_INCLUDED
 
@@ -14,44 +13,29 @@
 #include <sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
-
 namespace sge::opengl::occlusion_query
 {
 
-class object
-:
-	public sge::renderer::occlusion_query::object
+class object : public sge::renderer::occlusion_query::object
 {
-	FCPPT_NONMOVABLE(
-		object
-	);
+  FCPPT_NONMOVABLE(object);
+
 public:
-	explicit
-	object(
-		sge::opengl::occlusion_query::const_config_ref
-	);
+  explicit object(sge::opengl::occlusion_query::const_config_ref);
 
-	~object()
-	override;
+  ~object() override;
+
 private:
-	void
-	begin()
-	override;
+  void begin() override;
 
-	void
-	end()
-	override;
+  void end() override;
 
-	[[nodiscard]]
-	sge::renderer::occlusion_query::optional_pixel_count
-	result(
-		sge::renderer::occlusion_query::blocking_wait
-	) const
-	override;
+  [[nodiscard]] sge::renderer::occlusion_query::optional_pixel_count
+      result(sge::renderer::occlusion_query::blocking_wait) const override;
 
-	sge::opengl::occlusion_query::const_config_ref const config_;
+  sge::opengl::occlusion_query::const_config_ref const config_;
 
-	sge::opengl::occlusion_query::holder const holder_;
+  sge::opengl::occlusion_query::holder const holder_;
 };
 
 }

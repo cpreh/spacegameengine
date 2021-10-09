@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/gui/impl/draw_sprite.hpp>
 #include <sge/gui/impl/fill_rect.hpp>
 #include <sge/gui/impl/sprite_type_choices.hpp>
@@ -26,69 +25,34 @@
 #include <sge/sprite/roles/size.hpp>
 #include <fcppt/mpl/list/object.hpp>
 
-
-void
-sge::gui::impl::fill_rect(
-	sge::renderer::device::core &_renderer,
-	sge::renderer::context::ffp &_context,
-	sge::rucksack::rect const &_rect,
-	sge::image::color::any::object const &_color
-)
+void sge::gui::impl::fill_rect(
+    sge::renderer::device::core &_renderer,
+    sge::renderer::context::ffp &_context,
+    sge::rucksack::rect const &_rect,
+    sge::image::color::any::object const &_color)
 {
-	{
-		sge::rucksack::dim const size(
-			_rect.size()
-		);
+  {
+    sge::rucksack::dim const size(_rect.size());
 
-		if(
-			size.w() <= -0
-			||
-			size.h() <= 0
-		)
-		{
-			return;
-		}
-	}
+    if (size.w() <= -0 || size.h() <= 0)
+    {
+      return;
+    }
+  }
 
-	using
-	color_format
-	=
-	sge::image::color::rgba8_format;
+  using color_format = sge::image::color::rgba8_format;
 
-	using
-	choices
-	=
-	sge::sprite::config::choices<
-		sge::gui::impl::sprite_type_choices,
-		sge::sprite::config::pos<
-			sge::sprite::config::pos_option::pos
-		>,
-		sge::sprite::config::normal_size<
-			sge::sprite::config::texture_size_option::never
-		>,
-		fcppt::mpl::list::object<
-			sge::sprite::config::with_color<
-				color_format
-			>
-		>
-	>;
+  using choices = sge::sprite::config::choices<
+      sge::gui::impl::sprite_type_choices,
+      sge::sprite::config::pos<sge::sprite::config::pos_option::pos>,
+      sge::sprite::config::normal_size<sge::sprite::config::texture_size_option::never>,
+      fcppt::mpl::list::object<sge::sprite::config::with_color<color_format>>>;
 
-	sge::gui::impl::draw_sprite(
-		_renderer,
-		_context,
-		sge::sprite::object<
-			choices
-		>(
-			sge::sprite::roles::pos{} =
-				_rect.pos(),
-			sge::sprite::roles::size{} =
-				_rect.size(),
-			sge::sprite::roles::color{} =
-				sge::image::color::any::convert<
-					color_format
-				>(
-					_color
-				)
-		)
-	);
+  sge::gui::impl::draw_sprite(
+      _renderer,
+      _context,
+      sge::sprite::object<choices>(
+          sge::sprite::roles::pos{} = _rect.pos(),
+          sge::sprite::roles::size{} = _rect.size(),
+          sge::sprite::roles::color{} = sge::image::color::any::convert<color_format>(_color)));
 }

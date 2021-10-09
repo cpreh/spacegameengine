@@ -3,13 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_TIMER_ABSOLUTE_HPP_INCLUDED
 #define SGE_TIMER_ABSOLUTE_HPP_INCLUDED
 
 #include <sge/timer/absolute_decl.hpp>
 #include <sge/timer/absolute_fwd.hpp>
 #include <sge/timer/absolute_impl.hpp>
-
 
 #endif

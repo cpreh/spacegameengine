@@ -3,12 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #include <sge/renderer/device/ffp.hpp>
 
+sge::renderer::device::ffp::ffp() = default;
 
-sge::renderer::device::ffp::ffp()
-= default;
-
-sge::renderer::device::ffp::~ffp()
-= default;
+sge::renderer::device::ffp::~ffp() = default;

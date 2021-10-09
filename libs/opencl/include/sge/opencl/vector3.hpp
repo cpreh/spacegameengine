@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_OPENCL_VECTOR3_HPP_INCLUDED
 #define SGE_OPENCL_VECTOR3_HPP_INCLUDED
 
@@ -14,11 +13,8 @@ namespace sge
 {
 namespace opencl
 {
-typedef
-fcppt::math::vector::static_<sge::opencl::size_type,3>
-vector3;
+typedef fcppt::math::vector::static_<sge::opencl::size_type, 3> vector3;
 }
 }
 
 #endif
-

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_D3D9_STATE_FFP_SAMPLER_OBJECT_HPP_INCLUDED
 #define SGE_D3D9_STATE_FFP_SAMPLER_OBJECT_HPP_INCLUDED
 
@@ -13,7 +12,6 @@
 #include <sge/renderer/state/ffp/sampler/object.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/noncopyable.hpp>
-
 
 namespace sge
 {
@@ -26,29 +24,21 @@ namespace ffp
 namespace sampler
 {
 
-class object
-:
-	public sge::renderer::state::ffp::sampler::object
+class object : public sge::renderer::state::ffp::sampler::object
 {
-	FCPPT_NONCOPYABLE(
-		object
-	);
+  FCPPT_NONCOPYABLE(object);
+
 public:
-	object(
-		IDirect3DDevice9 &,
-		sge::d3d9::state::ffp::sampler::state_vector const &
-	);
+  object(IDirect3DDevice9 &, sge::d3d9::state::ffp::sampler::state_vector const &);
 
-	~object();
+  ~object();
 
-	void
-	set(
-		sge::renderer::texture::stage
-	) const;
+  void set(sge::renderer::texture::stage) const;
+
 private:
-	IDirect3DDevice9 &device_;
+  IDirect3DDevice9 &device_;
 
-	sge::d3d9::state::ffp::sampler::state_vector const states_;
+  sge::d3d9::state::ffp::sampler::state_vector const states_;
 };
 
 }

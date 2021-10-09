@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_DINPUT_JOYPAD_MAKE_INFO_HPP_INCLUDED
 #define SGE_DINPUT_JOYPAD_MAKE_INFO_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/joypad/info_fwd.hpp>
 #include <sge/input/info/name.hpp>
-
 
 namespace sge
 {
@@ -20,11 +18,7 @@ namespace joypad
 {
 
 sge::dinput::joypad::info
-make_info(
-	IDirectInputDevice8 &,
-	sge::input::info::name const &,
-	GUID const &
-);
+make_info(IDirectInputDevice8 &, sge::input::info::name const &, GUID const &);
 
 }
 }

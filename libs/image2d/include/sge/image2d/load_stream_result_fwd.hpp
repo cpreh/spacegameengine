@@ -3,23 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-
 #ifndef SGE_IMAGE2D_LOAD_STREAM_RESULT_FWD_HPP_INCLUDED
 #define SGE_IMAGE2D_LOAD_STREAM_RESULT_FWD_HPP_INCLUDED
 
 #include <sge/image2d/file_fwd.hpp>
 #include <sge/media/load_stream_result_fwd.hpp>
 
-
 namespace sge::image2d
 {
 
-using
-load_stream_result
-=
-sge::media::load_stream_result<
-	sge::image2d::file
->;
+using load_stream_result = sge::media::load_stream_result<sge::image2d::file>;
 
 }
 
