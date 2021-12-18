@@ -90,8 +90,6 @@ TEST_CASE("parse_ini", "[sge]")
                       sge::parse::ini::value{std::string{}}}}}}}));
 }
 
-FCPPT_CATCH_BEGIN
-
 TEST_CASE("parse_ini error", "[sge]")
 {
   CHECK(sge::parse::ini::parse_string(std::string{"garbage"}).has_failure());

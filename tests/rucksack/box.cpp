@@ -109,8 +109,6 @@ TEST_CASE("rucksack::box", "[sge]")
       });
 }
 
-FCPPT_CATCH_BEGIN
-
 TEST_CASE("rucksack::box in box", "[sge]")
 {
   sge::rucksack::widget::dummy child_x_1{sge::rucksack::axis_policy2{

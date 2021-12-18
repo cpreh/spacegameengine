@@ -52,8 +52,6 @@ TEST_CASE("timer::basic", "[sge]")
   );
 }
 
-FCPPT_CATCH_BEGIN
-
 TEST_CASE("timer::absolute", "[sge]")
 {
   using clock = sge::timer::clocks::delta<std::chrono::milliseconds>;

@@ -93,8 +93,6 @@ TEST_CASE("rgba_to_bgra", "[sge]")
   );
 }
 
-FCPPT_CATCH_BEGIN
-
 TEST_CASE("rgb_to_rgba", "[sge]")
 {
   test_conversion<

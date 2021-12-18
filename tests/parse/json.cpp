@@ -107,8 +107,6 @@ TEST_CASE("parse_json object", "[sge]")
                               fcppt::make_recursive(sge::parse::json::make_value(true))}}}))}}}}}));
 }
 
-FCPPT_CATCH_BEGIN
-
 TEST_CASE("parse_json array", "[sge]")
 {
   CHECK(
@@ -123,8 +121,6 @@ TEST_CASE("parse_json array", "[sge]")
                   sge::parse::json::make_value(sge::parse::json::int_type{100}))}}}}));
 }
 
-FCPPT_CATCH_BEGIN
-
 TEST_CASE("parse_json empty object", "[sge]")
 {
   CHECK(
@@ -133,8 +129,6 @@ TEST_CASE("parse_json empty object", "[sge]")
           sge::parse::json::object{sge::parse::json::member_map{}}}}));
 }
 
-FCPPT_CATCH_BEGIN
-
 TEST_CASE("parse_json empty array", "[sge]")
 {
   CHECK(
@@ -142,8 +136,6 @@ TEST_CASE("parse_json empty array", "[sge]")
       fcppt::parse::make_success<char>(sge::parse::json::start{sge::parse::json::array_or_object{
           sge::parse::json::array{sge::parse::json::element_vector{}}}}));
 }
-
-FCPPT_CATCH_BEGIN
 
 TEST_CASE("parse_json error", "[sge]")
 {
