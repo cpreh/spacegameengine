@@ -83,8 +83,9 @@ sge::plugin::library::object::object(std::filesystem::path &&_name)
 {
   if (handle_ == nullptr)
   {
-    throw sge::plugin::library::exception{fcppt::string(
-        FCPPT_TEXT("Failed to load library::object: ") + sge::plugin::impl::library::error())};
+    throw sge::plugin::library::exception{
+        fcppt::string{FCPPT_TEXT("Failed to load library::object: ")} +
+        sge::plugin::impl::library::error()};
   }
 }
 
