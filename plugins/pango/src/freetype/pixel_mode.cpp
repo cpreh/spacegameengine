@@ -9,7 +9,8 @@
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ft2build.h>
-#include FT_IMAGE_H
+#include <freetype/freetype.h>
+#include <freetype/ftimage.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::pango::freetype::optional_pixel_mode

@@ -21,8 +21,9 @@
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ft2build.h>
-#include FT_BITMAP_H
-#include FT_IMAGE_H
+#include <freetype/freetype.h>
+#include <freetype/ftbitmap.h>
+#include <freetype/ftimage.h>
 #include <fcppt/config/external_end.hpp>
 
 FT_Bitmap sge::pango::freetype::make_bitmap(sge::font::view const &_view)
