@@ -17,9 +17,9 @@ namespace sge::renderer::vf::dynamic::detail
 template <typename Format, sge::renderer::vf::element_count_type NumSubElements>
 sge::renderer::vf::dynamic::vector make_vector()
 {
-  return sge::renderer::vf::dynamic::vector(
+  return sge::renderer::vf::dynamic::vector{
       sge::renderer::vf::dynamic::detail::format_to_element<Format>::value,
-      sge::renderer::vf::dynamic::element_count(NumSubElements));
+      sge::renderer::vf::dynamic::element_count{NumSubElements}};
 }
 
 }
