@@ -53,7 +53,7 @@
 #include <fcppt/math/dim/output.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <istream>
 #include <sstream>
 #include <utility>

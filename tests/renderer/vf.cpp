@@ -55,7 +55,7 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <catch2/catch.hpp>
+#include <catch2/catch_test_macros.hpp>
 #include <cstddef>
 #include <cstring>
 #include <type_traits>
