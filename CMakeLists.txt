@@ -40,10 +40,6 @@ find_package(
 	REQUIRED
 )
 
-include(
-	SGEFunctions
-)
-
 # TODO: Remove default arguments eventually.
 set(
 	FCPPT_UTILS_CLANG_TIDY_ADDITIONAL_CHECKS
@@ -58,6 +54,10 @@ set(
 	"awl"
 	"mizuiro"
 	"sge"
+)
+
+include(
+	SGEFunctions
 )
 
 include(
