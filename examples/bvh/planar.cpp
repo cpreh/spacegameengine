@@ -188,8 +188,10 @@ public:
 
   [[nodiscard]] sprite_sequence sprites() const
   {
-    bvh_tree_traits::tree_representation const &tree(
-        FCPPT_ASSERT_OPTIONAL_ERROR(current_tree_).get());
+    bvh_tree_traits::tree_representation const &tree{
+        fcppt::optional::to_exception(
+            current_tree_, [] { return fcppt::exception{FCPPT_TEXT("No current tree.")}; })
+            .get()};
 
     sprite_sequence result{};
 
@@ -272,7 +274,9 @@ public:
   void key_event(sge::input::keyboard::event::key const &_event)
   {
     bvh_tree_traits::tree_representation const &tree{
-        FCPPT_ASSERT_OPTIONAL_ERROR(current_tree_).get()};
+        fcppt::optional::to_exception(
+            current_tree_, [] { return fcppt::exception{FCPPT_TEXT("No current tree.")}; })
+            .get()};
 
     if (!_event.pressed())
     {

@@ -175,7 +175,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -196,6 +195,7 @@
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/make.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/options/apply.hpp>
 #include <fcppt/options/default_help_switch.hpp>
 #include <fcppt/options/error.hpp>
@@ -298,7 +298,7 @@ compiled_model::compiled_model(
     sge::renderer::device::core_ref const _renderer,
     sge::renderer::vertex::const_declaration_ref const _vd,
     sge::model::md3::object const &_model)
-    : compiled_model(
+    : compiled_model{
           _renderer,
           _vd,
           _model,
@@ -307,8 +307,10 @@ compiled_model::compiled_model(
             sge::model::md3::part_name_sequence const parts(_model.part_names());
 
             return sge::model::md3::string(
-                FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::container::maybe_front(parts)).get());
-          }())
+                fcppt::optional::to_exception(fcppt::container::maybe_front(parts),
+                []{ return fcppt::exception{FCPPT_TEXT("Missing MD3 string.")}; }
+                ).get());
+          }()}
 {
 }
 
@@ -360,8 +362,9 @@ compiled_model::compiled_model(
 
     sge::model::md3::vertex_sequence const model_vertices{_model.vertices(_first_part)};
 
-    sge::model::md3::normal_sequence const model_normals{
-        FCPPT_ASSERT_OPTIONAL_ERROR(_model.normals(_first_part))};
+    sge::model::md3::normal_sequence const model_normals{fcppt::optional::to_exception(
+        _model.normals(_first_part),
+        [] { return fcppt::exception{FCPPT_TEXT("Missing MD3 normals.")}; })};
 
     sge::model::md3::normal_sequence::const_iterator current_model_normal{model_normals.begin()};
 
