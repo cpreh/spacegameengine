@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/core/exception.hpp>
 #include <sge/graph/background_alt_color.hpp>
 #include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline_color.hpp>
@@ -13,8 +14,9 @@
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_from_hex_string.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/either/success_opt.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 namespace
 {
@@ -24,8 +26,10 @@ constexpr sge::image::color::rgba8::format::channel_type const full_alpha{255};
 sge::image::color::rgba8 get_rgba_color(
     std::string const &_value, sge::image::color::rgba8::format::channel_type const _alpha)
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(
-      fcppt::either::success_opt(sge::image::color::rgba8_from_hex_string(_value, _alpha)));
+  return fcppt::optional::to_exception(
+      fcppt::either::success_opt(sge::image::color::rgba8_from_hex_string(_value, _alpha)),
+      [] { return sge::core::exception{FCPPT_TEXT("Broken graph color scheme.")}; }
+      );
 }
 
 }

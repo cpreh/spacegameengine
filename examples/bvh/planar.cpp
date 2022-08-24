@@ -5,9 +5,14 @@
 
 #include <sge/bvh/dummy_node.hpp>
 #include <sge/bvh/object_impl.hpp>
+#include <sge/image/channel8.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/image/color/rgba8_from_hex_string.hpp>
+#include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/image/color/init/alpha.hpp>
+#include <sge/image/color/init/blue.hpp>
+#include <sge/image/color/init/green.hpp>
+#include <sge/image/color/init/red.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/event/key.hpp>
 #include <sge/media/extension.hpp>
@@ -90,11 +95,9 @@
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/tree/depth.hpp>
-#include <fcppt/either/success_opt.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/bind.hpp>
@@ -193,16 +196,14 @@ public:
             current_tree_, [] { return fcppt::exception{FCPPT_TEXT("No current tree.")}; })
             .get()};
 
-    sprite_sequence result{};
-
     // First, render the background
-    result.push_back(create_sprite(
+    sprite_sequence result{create_sprite(
         fcppt::variant::get_unsafe<bvh_tree_traits::node_wrapper>(tree.value()).bounding_box(),
-        FCPPT_ASSERT_OPTIONAL_ERROR(
-            fcppt::either::success_opt(sge::image::color::rgba8_from_hex_string(
-                std::string("2e2621"),
-                255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                )))));
+        sge::image::color::rgba8{
+            (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0x2eU))
+            (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0x26U))
+            (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0x21U))
+            (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))})};
 
     fcppt::optional::maybe_void(
         fcppt::optional::bind(
@@ -215,11 +216,11 @@ public:
         {
           result.push_back(create_sprite(
               _wrapper.bounding_box(),
-              FCPPT_ASSERT_OPTIONAL_ERROR(
-                  fcppt::either::success_opt(sge::image::color::rgba8_from_hex_string(
-                      std::string("bee8e0"),
-                      255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                      )))));
+              sge::image::color::rgba8{
+                  (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0xbeU))
+                  (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0xe8U))
+                  (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0xe0U))
+                  (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))}));
         });
 
     fcppt::optional::maybe_void(
@@ -233,11 +234,11 @@ public:
         {
           result.push_back(create_sprite(
               _wrapper.bounding_box(),
-              FCPPT_ASSERT_OPTIONAL_ERROR(
-                  fcppt::either::success_opt(sge::image::color::rgba8_from_hex_string(
-                      std::string("ff5e00"),
-                      255 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                      )))));
+              sge::image::color::rgba8{
+                  (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0xffU))
+                  (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0x5eU))
+                  (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0x00U))
+                  (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))}));
         });
 
     fcppt::optional::maybe_void(
@@ -247,11 +248,11 @@ public:
           this->add_children(
               fcppt::make_ref(result),
               _front.get(),
-              FCPPT_ASSERT_OPTIONAL_ERROR(
-                  fcppt::either::success_opt(sge::image::color::rgba8_from_hex_string(
-                      std::string("373c40"),
-                      204 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                      ))));
+              sge::image::color::rgba8{
+                  (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0x37U))
+                  (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0x3cU))
+                  (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0x40U))
+                  (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))});
         });
 
     fcppt::optional::maybe_void(
@@ -261,11 +262,11 @@ public:
           this->add_children(
               fcppt::make_ref(result),
               _back.get(),
-              FCPPT_ASSERT_OPTIONAL_ERROR(
-                  fcppt::either::success_opt(sge::image::color::rgba8_from_hex_string(
-                      std::string("73320b"),
-                      204 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                      ))));
+              sge::image::color::rgba8{
+                  (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0x73U))
+                  (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0x32U))
+                  (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0x0bU))
+                  (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))});
         });
 
     return result;
