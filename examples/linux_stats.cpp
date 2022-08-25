@@ -90,8 +90,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/array/object_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/size.hpp>
@@ -102,7 +100,12 @@
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/div.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/make.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/maybe_void_multi.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object.hpp>
 #include <fcppt/options/apply.hpp>
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/default_help_switch.hpp>
@@ -160,7 +163,7 @@ public:
   template <typename Float>
   [[nodiscard]] Float work_percentage() const
   {
-    static_assert(std::is_floating_point<Float>::value, "Float must be a floating point type");
+    static_assert(std::is_floating_point_v<Float>, "Float must be a floating point type");
 
     return total_.get() != fcppt::literal<value_type>(0)
                ? fcppt::cast::int_to_float<Float>(work_.get()) /
@@ -178,40 +181,42 @@ private:
 };
 
 // Source: http://stackoverflow.com/questions/3017162/how-to-get-total-cpu-usage-in-linux-c
-jiffies count_jiffies()
+fcppt::optional::object<jiffies> count_jiffies()
 {
-  std::ifstream cpuinfo{FCPPT_ASSERT_OPTIONAL_ERROR(
-      fcppt::filesystem::open<std::ifstream>("/proc/stat", std::ios_base::in))};
+  return fcppt::optional::bind(
+      fcppt::filesystem::open<std::ifstream>("/proc/stat", std::ios_base::in),
+      [](std::ifstream &&cpuinfo)
+      {
+        std::string first_word{};
 
-  std::string first_word{};
+        cpuinfo >> first_word;
 
-  cpuinfo >> first_word;
+        if (first_word != "cpu")
+        {
+          return fcppt::optional::object<jiffies>{};
+        }
 
-  if (first_word != "cpu")
-  {
-    std::terminate();
-  }
+        using jiffies_array = fcppt::array::object<
+            jiffies::value_type,
+            7U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+            >;
 
-  using jiffies_array = fcppt::array::object<
-      jiffies::value_type,
-      7U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-      >;
+        jiffies_array current_jiffies{fcppt::no_init{}};
 
-  jiffies_array current_jiffies{fcppt::no_init{}};
+        for (auto &jiffie : current_jiffies)
+        {
+          if (!(cpuinfo >> jiffie))
+          {
+            return fcppt::optional::object<jiffies>{};
+          }
+        }
 
-  // TODO(philipp): Use optionals
-  for (auto &jiffie : current_jiffies)
-  {
-    if (!(cpuinfo >> jiffie))
-    {
-      std::terminate();
-    }
-  }
-
-  return jiffies(
-      jiffies::total_type(std::accumulate(current_jiffies.begin(), current_jiffies.end(), 0UL)),
-      jiffies::work_type(
-          std::accumulate(current_jiffies.begin(), current_jiffies.begin() + 3, 0UL)));
+        return fcppt::optional::make(jiffies{
+            jiffies::total_type(
+                std::accumulate(current_jiffies.begin(), current_jiffies.end(), 0UL)),
+            jiffies::work_type(
+                std::accumulate(current_jiffies.begin(), current_jiffies.begin() + 3, 0UL))});
+      });
 }
 
 class graph_with_label
@@ -242,107 +247,112 @@ private:
   fcppt::unique_ptr<sge::font::draw::static_text> label_;
 };
 
-double count_memory()
+fcppt::optional::object<double> count_memory()
 {
-  std::ifstream meminfo(FCPPT_ASSERT_OPTIONAL_ERROR(
-      fcppt::filesystem::open<std::ifstream>("/proc/meminfo", std::ios_base::in)));
+  return fcppt::optional::bind(
+      fcppt::filesystem::open<std::ifstream>("/proc/meminfo", std::ios_base::in),
+      [](std::ifstream &&meminfo)
+      {
+        unsigned total{0};
+        unsigned free{0};
+        unsigned buffers{0};
+        unsigned cached{0};
+        unsigned slab{0};
 
-  unsigned total{0};
-  unsigned free{0};
-  unsigned buffers{0};
-  unsigned cached{0};
-  unsigned slab{0};
+        std::string first_word{};
+        std::string last_word{};
 
-  std::string first_word{};
-  std::string last_word{};
+        unsigned value{};
 
-  unsigned value{};
+        while ((meminfo >> first_word >> value)
+                   .ignore(std::numeric_limits<std::streamsize>::max(), '\n'))
+        {
+          if (first_word == "MemTotal:")
+          {
+            total = value;
+          }
+          else if (first_word == "MemFree:")
+          {
+            free = value;
+          }
+          else if (first_word == "Buffers:")
+          {
+            buffers = value;
+          }
+          else if (first_word == "Cached:")
+          {
+            cached = value;
+          }
+          else if (first_word == "Slab:")
+          {
+            slab = value;
+          }
+        }
 
-  // TODO(philipp): Use optionals
-  while ((meminfo >> first_word >> value).ignore(std::numeric_limits<std::streamsize>::max(), '\n'))
-  {
-    if (first_word == "MemTotal:")
-    {
-      total = value;
-    }
-    else if (first_word == "MemFree:")
-    {
-      free = value;
-    }
-    else if (first_word == "Buffers:")
-    {
-      buffers = value;
-    }
-    else if (first_word == "Cached:")
-    {
-      cached = value;
-    }
-    else if (first_word == "Slab:")
-    {
-      slab = value;
-    }
-  }
+        unsigned const used{total - free - buffers - cached - slab};
 
-  unsigned const used{total - free - buffers - cached - slab};
-
-  return 100.0 *
-         FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::div(
-             fcppt::cast::int_to_float<double>(used), fcppt::cast::int_to_float<double>(total)));
+        return fcppt::optional::map(
+            fcppt::math::div(
+                fcppt::cast::int_to_float<double>(used), fcppt::cast::int_to_float<double>(total)),
+            [](double const _div) { return 100.0 * _div; });
+      });
 }
 
-std::vector<std::string> network_devices()
+fcppt::optional::object<std::vector<std::string>> network_devices()
 {
-  std::ifstream netinfo{FCPPT_ASSERT_OPTIONAL_ERROR(
-      fcppt::filesystem::open<std::ifstream>("/proc/net/dev", std::ios_base::in))};
+  return fcppt::optional::map(
+      fcppt::filesystem::open<std::ifstream>("/proc/net/dev", std::ios_base::in),
+      [](std::ifstream &&netinfo)
+      {
+        // skip the first two lines
+        netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  // skip the first two lines
-  netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::string device{};
 
-  std::string device{};
+        std::vector<std::string> result{};
 
-  std::vector<std::string> result{};
+        while ((netinfo >> device).ignore(std::numeric_limits<std::streamsize>::max(), '\n'))
+        {
+          if (device != "lo:")
+          {
+            result.push_back(device);
+          }
+        }
 
-  // TODO(philipp): Use optionals
-  while ((netinfo >> device).ignore(std::numeric_limits<std::streamsize>::max(), '\n'))
-  {
-    if (device != "lo:")
-    {
-      result.push_back(device);
-    }
-  }
-
-  return result;
+        return result;
+      });
 }
 
-unsigned long // NOLINT(google-runtime-int)
+fcppt::optional::object<unsigned long> // NOLINT(google-runtime-int)
 count_traffic(std::string const &_device)
 {
-  std::ifstream netinfo{FCPPT_ASSERT_OPTIONAL_ERROR(
-      fcppt::filesystem::open<std::ifstream>("/proc/net/dev", std::ios_base::in))};
+  return fcppt::optional::bind(
+      fcppt::filesystem::open<std::ifstream>("/proc/net/dev", std::ios_base::in),
+      [&_device](std::ifstream &&netinfo)
+      {
+        std::vector<std::string> result{};
 
-  std::vector<std::string> result{};
+        // skip the first two lines
+        netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  // skip the first two lines
-  netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
-  netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::string device{};
 
-  std::string device{};
+        unsigned long value{}; // NOLINT(google-runtime-int)
 
-  unsigned long value{}; // NOLINT(google-runtime-int)
-
-  // TODO(philipp): Use optionals
-  while ((netinfo >> device >> value).ignore(std::numeric_limits<std::streamsize>::max(), '\n'))
-  {
-    if (device == _device + ':')
-    {
-      return value;
-    }
-  }
-
-  FCPPT_ASSERT_UNREACHABLE;
+        while (
+            (netinfo >> device >> value).ignore(std::numeric_limits<std::streamsize>::max(), '\n'))
+        {
+          if (device == _device + ':')
+          {
+            return fcppt::optional::make(value);
+          }
+        }
+        return fcppt::optional::object<unsigned long>{};
+      });
 }
 
 FCPPT_RECORD_MAKE_LABEL(width_label);
@@ -358,7 +368,7 @@ awl::main::exit_code main_program(arg_type const &_args)
   sge::window::dim const graph_dim{
       fcppt::record::get<width_label>(_args), fcppt::record::get<height_label>(_args)};
 
-  std::vector<std::string> const devices{::network_devices()};
+  fcppt::optional::object<std::vector<std::string>> const devices{::network_devices()};
 
   std::map<
       std::string,
@@ -434,43 +444,53 @@ awl::main::exit_code main_program(arg_type const &_args)
           )),
       sge::graph::color_schemes::default_());
 
-  jiffies last_jiffies{count_jiffies()};
+  fcppt::optional::object<jiffies> last_jiffies{count_jiffies()};
 
   using device_to_graph = std::map<std::string, graph_with_label>;
 
-  device_to_graph device_map;
+  fcppt::optional::object<device_to_graph> const device_map{fcppt::optional::map(
+      devices,
+      [&device_totals, &graph_dim, &sys, &font](
+          std::vector<std::string> const &_devices)
+      {
+        device_to_graph result{};
+        for (auto it(_devices.begin()); it != _devices.end(); ++it)
+        {
+          auto const &device{*it};
 
-  for (auto it(devices.begin()); it != devices.end(); ++it)
-  {
-    auto const &device(*it);
+          sge::font::unit const y{
+              fcppt::cast::size<sge::font::unit>(2 + it - _devices.begin()) *
+              fcppt::cast::size<sge::font::unit>(fcppt::cast::to_signed(graph_dim.h()))};
 
-    sge::font::unit const y{
-        fcppt::cast::size<sge::font::unit>(2 + it - devices.begin()) *
-        fcppt::cast::size<sge::font::unit>(fcppt::cast::to_signed(graph_dim.h()))};
+          result.insert(std::make_pair(
+              device,
+              graph_with_label(
+                  fcppt::make_unique_ptr<sge::graph::object>(
+                      sge::graph::position(sge::renderer::vector2(
+                          0.0F, fcppt::cast::int_to_float<sge::renderer::scalar>(y))),
+                      fcppt::math::dim::structure_cast<sge::image2d::dim, fcppt::cast::size_fun>(
+                          graph_dim),
+                      fcppt::make_ref(sys.renderer_device_ffp()),
+                      sge::graph::baseline(0.0),
+                      sge::graph::optional_axis_constraint(),
+                      sge::graph::color_schemes::bright()),
+                  fcppt::make_unique_ptr<sge::font::draw::static_text>(
+                      fcppt::make_ref(sys.renderer_device_ffp()),
+                      fcppt::make_ref(*font),
+                      sge::font::from_fcppt_string(fcppt::from_std_string(device)),
+                      sge::font::text_parameters(
+                          sge::font::align_h::variant(sge::font::align_h::left())),
+                      sge::font::vector(0, y),
+                      sge::image::color::any::object{sge::image::color::predef::white()},
+                      sge::renderer::texture::emulate_srgb::yes))));
 
-    device_map.insert(std::make_pair(
-        device,
-        graph_with_label(
-            fcppt::make_unique_ptr<sge::graph::object>(
-                sge::graph::position(sge::renderer::vector2(
-                    0.0F, fcppt::cast::int_to_float<sge::renderer::scalar>(y))),
-                fcppt::math::dim::structure_cast<sge::image2d::dim, fcppt::cast::size_fun>(
-                    graph_dim),
-                fcppt::make_ref(sys.renderer_device_ffp()),
-                sge::graph::baseline(0.0),
-                sge::graph::optional_axis_constraint(),
-                sge::graph::color_schemes::bright()),
-            fcppt::make_unique_ptr<sge::font::draw::static_text>(
-                fcppt::make_ref(sys.renderer_device_ffp()),
-                fcppt::make_ref(*font),
-                sge::font::from_fcppt_string(fcppt::from_std_string(device)),
-                sge::font::text_parameters(sge::font::align_h::variant(sge::font::align_h::left())),
-                sge::font::vector(0, y),
-                sge::image::color::any::object{sge::image::color::predef::white()},
-                sge::renderer::texture::emulate_srgb::yes))));
-
-    device_totals[device] = ::count_traffic(device);
-  }
+          fcppt::optional::maybe_void(
+              ::count_traffic(device),
+              [&device_totals, &device](unsigned long const _traffic)
+              { device_totals[device] = _traffic; });
+        }
+        return result;
+      })};
 
   auto const draw(
       [&cpugraph,
@@ -487,9 +507,13 @@ awl::main::exit_code main_program(arg_type const &_args)
             fcppt::reference_to_base<sge::renderer::target::base>(
                 fcppt::make_ref(sys.renderer_device_ffp().onscreen_target())));
 
-        jiffies const current_jiffies{count_jiffies()};
+        fcppt::optional::object<jiffies> const current_jiffies{count_jiffies()};
 
-        cpugraph.push((current_jiffies - last_jiffies).work_percentage<sge::graph::scalar>());
+        fcppt::optional::maybe_void_multi(
+            [&cpugraph](jiffies const &_last, jiffies const &_current)
+            { cpugraph.push((_current - _last).work_percentage<sge::graph::scalar>()); },
+            last_jiffies,
+            current_jiffies);
 
         last_jiffies = current_jiffies;
 
@@ -497,27 +521,35 @@ awl::main::exit_code main_program(arg_type const &_args)
 
         cpu_label.draw(scoped_block.get());
 
-        memgraph.push(count_memory());
+        fcppt::optional::maybe_void(
+            count_memory(), [&memgraph](double const _memory) { memgraph.push(_memory); });
 
         memgraph.render(scoped_block.get());
 
         mem_label.draw(scoped_block.get());
 
         // network
-        for (auto const &device : device_map)
-        {
-          unsigned long const traffic{// NOLINT(google-runtime-int)
-                                      ::count_traffic(device.first)};
+        fcppt::optional::maybe_void(
+            device_map,
+            [&device_totals,&scoped_block](device_to_graph const &_devices)
+            {
+              for (auto const &device : _devices)
+              {
+                fcppt::optional::maybe_void(
+                    ::count_traffic(device.first),
+                    [&device,&device_totals,&scoped_block](unsigned long const traffic) // NOLINT(google-runtime-int)
+                    {
+                      device.second.get_graph().push(fcppt::cast::int_to_float<sge::graph::scalar>(
+                          traffic - device_totals[device.first]));
 
-          device.second.get_graph().push(
-              fcppt::cast::int_to_float<sge::graph::scalar>(traffic - device_totals[device.first]));
+                      device_totals[device.first] = traffic;
 
-          device_totals[device.first] = traffic;
+                      device.second.get_graph().render(scoped_block.get());
 
-          device.second.get_graph().render(scoped_block.get());
-
-          device.second.get_label().draw(scoped_block.get());
-        }
+                      device.second.get_label().draw(scoped_block.get());
+                    });
+              }
+            });
       });
 
   return sge::window::loop(
@@ -536,7 +568,7 @@ awl::main::exit_code main_program(arg_type const &_args)
 awl::main::exit_code example_main(awl::main::function_context const &_function_context)
 try
 {
-  auto const parser(fcppt::options::apply(
+  auto const parser{fcppt::options::apply(
       fcppt::options::argument<width_label, sge::window::dim::value_type>{
           fcppt::options::long_name{FCPPT_TEXT("width")},
           fcppt::options::optional_help_text{
@@ -544,7 +576,7 @@ try
       fcppt::options::argument<height_label, sge::window::dim::value_type>{
           fcppt::options::long_name{FCPPT_TEXT("height")},
           fcppt::options::optional_help_text{
-              fcppt::options::help_text{FCPPT_TEXT("The graph height")}}}));
+              fcppt::options::help_text{FCPPT_TEXT("The graph height")}}})};
 
   using parser_type = decltype(parser);
 
