@@ -33,6 +33,7 @@
 #include <sge/renderer/plugin/manager.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
+#include <sge/systems/exception.hpp>
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/image2d_fwd.hpp>
 #include <sge/systems/input_fwd.hpp>
@@ -58,12 +59,13 @@
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -112,12 +114,15 @@ void sge::systems::detail::instance_impl::init_renderer_system(
     sge::parse::ini::optional_start const &_config)
 {
   renderer_system_ =
-      optional_renderer_system(fcppt::make_unique_ptr<sge::systems::impl::renderer::system>(
+      optional_renderer_system{fcppt::make_unique_ptr<sge::systems::impl::renderer::system>(
           this->log_context(),
           plugin_manager_.collection<sge::renderer::core>(),
           _parameters,
           _config,
-          *FCPPT_ASSERT_OPTIONAL_ERROR(window_system_)));
+          *fcppt::optional::to_exception(
+              this->window_system_,
+              []
+              { return sge::systems::exception{FCPPT_TEXT("Window system not initialized!")}; }))};
 }
 
 void sge::systems::detail::instance_impl::init_window_object(
@@ -126,7 +131,10 @@ void sge::systems::detail::instance_impl::init_window_object(
   window_object_ =
       optional_window_object(fcppt::make_unique_ptr<sge::systems::impl::window::object>(
           _parameters,
-          *FCPPT_ASSERT_OPTIONAL_ERROR(window_system_),
+          *fcppt::optional::to_exception(
+              this->window_system_,
+              []
+              { return sge::systems::exception{FCPPT_TEXT("Window system not initialized!")}; }),
           fcppt::optional::deref(renderer_system_)));
 }
 
@@ -134,20 +142,28 @@ void sge::systems::detail::instance_impl::init_renderer(
     sge::systems::detail::renderer const &_param)
 {
   renderer_device_ =
-      optional_renderer_device(fcppt::make_unique_ptr<sge::systems::impl::renderer::device>(
+      optional_renderer_device{fcppt::make_unique_ptr<sge::systems::impl::renderer::device>(
           _param,
-          *FCPPT_ASSERT_OPTIONAL_ERROR(renderer_system_),
-          *FCPPT_ASSERT_OPTIONAL_ERROR(window_object_)));
+          *fcppt::optional::to_exception(
+              this->renderer_system_,
+              []
+              { return sge::systems::exception{FCPPT_TEXT("Renderer system not initialized!")}; }),
+          *fcppt::optional::to_exception(
+              this->window_object_,
+              []
+              { return sge::systems::exception{FCPPT_TEXT("Window object not initialized!")}; }))};
 }
 
 void sge::systems::detail::instance_impl::init_input(sge::systems::input const &_parameters)
 {
-  input_ = optional_input(fcppt::make_unique_ptr<sge::systems::impl::input::object>(
+  input_ = optional_input{fcppt::make_unique_ptr<sge::systems::impl::input::object>(
       this->log_context(),
       log_,
       plugin_manager_.collection<sge::input::system>(),
       _parameters,
-      *FCPPT_ASSERT_OPTIONAL_ERROR(window_object_)));
+      *fcppt::optional::to_exception(
+          this->window_object_,
+          [] { return sge::systems::exception{FCPPT_TEXT("Window object not initialized!")}; }))};
 }
 
 void sge::systems::detail::instance_impl::init_image2d(sge::systems::image2d const &_parameters)
@@ -198,65 +214,104 @@ sge::plugin::manager &sge::systems::detail::instance_impl::plugin_manager()
 
 sge::renderer::core &sge::systems::detail::instance_impl::renderer_core() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_system_)->core();
+  return fcppt::optional::to_exception(
+             this->renderer_system_,
+             []{ return sge::systems::exception{FCPPT_TEXT("Renderer system initialized!")}; })
+      ->core();
 }
 
 sge::renderer::system &sge::systems::detail::instance_impl::renderer_system() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_system_)->get();
+  return fcppt::optional::to_exception(
+             this->renderer_system_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Renderer system initialized!")}; })
+      ->get();
 }
 
 sge::renderer::device::ffp &sge::systems::detail::instance_impl::renderer_device_ffp() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_device_)->get_ffp();
+  return fcppt::optional::to_exception(
+             this->renderer_device_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Renderer device initialized!")}; })
+      ->get_ffp();
 }
 
 sge::renderer::device::core &sge::systems::detail::instance_impl::renderer_device_core() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_device_)->get_core();
+  return fcppt::optional::to_exception(
+             this->renderer_device_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Renderer device initialized!")}; })
+      ->get_core();
 }
 
 sge::input::system &sge::systems::detail::instance_impl::input_system() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(input_)->system();
+  return fcppt::optional::to_exception(
+             this->input_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Input not initialized!")}; })
+      ->system();
 }
 
 sge::input::processor &sge::systems::detail::instance_impl::input_processor() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(input_)->processor();
+  return fcppt::optional::to_exception(
+             this->input_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Input not initialized!")}; })
+      ->processor();
 }
 
 sge::image2d::system &sge::systems::detail::instance_impl::image_system() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(image2d_)->system();
+  return fcppt::optional::to_exception(
+             this->image2d_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Image2d not initialized!")}; })
+      ->system();
 }
 
 sge::audio::loader &sge::systems::detail::instance_impl::audio_loader() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(audio_loader_)->get();
+  return fcppt::optional::to_exception(
+             this->audio_loader_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Audio loader not initialized!")}; })
+      ->get();
 }
 
 sge::audio::player &sge::systems::detail::instance_impl::audio_player() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(audio_player_)->get();
+  return fcppt::optional::to_exception(
+             this->audio_player_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Audio player not initialized!")}; })
+      ->get();
 }
 
 sge::font::system &sge::systems::detail::instance_impl::font_system() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(font_)->system();
+  return fcppt::optional::to_exception(
+             this->font_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Font not initialized!")}; })
+      ->system();
 }
 
 sge::window::system &sge::systems::detail::instance_impl::window_system() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(window_system_)->get();
+  return fcppt::optional::to_exception(
+             this->window_system_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Window system not initialized!")}; })
+      ->get();
 }
 
 sge::window::object &sge::systems::detail::instance_impl::window() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(window_object_)->get();
+  return fcppt::optional::to_exception(
+             this->window_object_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Window object not initialized!")}; })
+      ->get();
 }
 
 sge::viewport::manager &sge::systems::detail::instance_impl::viewport_manager() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(renderer_device_)->viewport_manager();
+  return fcppt::optional::to_exception(
+             this->renderer_device_,
+             [] { return sge::systems::exception{FCPPT_TEXT("Renderer device not initialized!")}; })
+      ->viewport_manager();
 }
