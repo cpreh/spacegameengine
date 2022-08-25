@@ -17,7 +17,6 @@
 #include <sge/renderer/vector4.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
@@ -185,13 +184,17 @@ void sge::camera::first_person::object::rotate_on_x(sge::renderer::scalar const 
 
   sge::renderer::vector4 const rotated_forward{rotation_matrix * widened_forward};
 
-  coordinate_system_.forward(sge::camera::coordinate_system::forward(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::vector::normalize(
-          fcppt::math::vector::narrow_cast<sge::renderer::vector3>(rotated_forward)))));
+  fcppt::optional::maybe_void(
+      fcppt::math::vector::normalize(
+          fcppt::math::vector::narrow_cast<sge::renderer::vector3>(rotated_forward)),
+      [this](sge::renderer::vector3 const _forward)
+      { this->coordinate_system_.forward(sge::camera::coordinate_system::forward{_forward}); });
 
-  coordinate_system_.right(sge::camera::coordinate_system::right(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::vector::normalize(
-          fcppt::math::vector::cross(y_axis, coordinate_system_.forward().get())))));
+  fcppt::optional::maybe_void(
+      fcppt::math::vector::normalize(
+          fcppt::math::vector::cross(y_axis, coordinate_system_.forward().get())),
+      [this](sge::renderer::vector3 const _right)
+      { this->coordinate_system_.right(sge::camera::coordinate_system::right{_right}); });
 
   // No need to normalize here, forward and right have 90 degree angles.
   coordinate_system_.up(sge::camera::coordinate_system::up(fcppt::math::vector::cross(
@@ -220,13 +223,17 @@ void sge::camera::first_person::object::rotate_on_y(sge::renderer::scalar const 
 
   sge::renderer::vector4 const rotated_forward{rotation_matrix * widened_forward};
 
-  coordinate_system_.forward(sge::camera::coordinate_system::forward(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::vector::normalize(
-          fcppt::math::vector::narrow_cast<sge::renderer::vector3>(rotated_forward)))));
+  fcppt::optional::maybe_void(
+      fcppt::math::vector::normalize(
+          fcppt::math::vector::narrow_cast<sge::renderer::vector3>(rotated_forward)),
+      [this](sge::renderer::vector3 const _forward)
+      { this->coordinate_system_.forward(sge::camera::coordinate_system::forward{_forward}); });
 
-  coordinate_system_.up(sge::camera::coordinate_system::up(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::vector::normalize(fcppt::math::vector::cross(
-          coordinate_system_.forward().get(), coordinate_system_.right().get())))));
+  fcppt::optional::maybe_void(
+      fcppt::math::vector::normalize(fcppt::math::vector::cross(
+          coordinate_system_.forward().get(), coordinate_system_.right().get())),
+      [this](sge::renderer::vector3 const _up)
+      { this->coordinate_system_.up(sge::camera::coordinate_system::up{_up}); });
 
   // No need to normalize here
   coordinate_system_.right(sge::camera::coordinate_system::right(fcppt::math::vector::cross(
