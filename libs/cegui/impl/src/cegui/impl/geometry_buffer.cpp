@@ -75,7 +75,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
@@ -94,6 +93,7 @@
 #include <fcppt/optional/from_pointer.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/optional/to_pointer.hpp>
 #include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -140,8 +140,11 @@ sge::cegui::impl::geometry_buffer::geometry_buffer(
 
 void sge::cegui::impl::geometry_buffer::draw() const
 {
-  sge::renderer::context::ffp &render_context(
-      FCPPT_ASSERT_OPTIONAL_ERROR(render_context_.get()).get());
+  sge::renderer::context::ffp &render_context{
+      fcppt::optional::to_exception(
+          render_context_.get(),
+          [] { return sge::cegui::exception{FCPPT_TEXT("Render context not set!")}; })
+          .get()};
 
   FCPPT_LOG_DEBUG(
       log_, fcppt::log::out << FCPPT_TEXT("geometry_buffer(") << this << FCPPT_TEXT(")::draw()"))
@@ -279,12 +282,18 @@ void sge::cegui::impl::geometry_buffer::appendVertex(CEGUI::Vertex const &_verte
 void sge::cegui::impl::geometry_buffer::appendGeometry(
     CEGUI::Vertex const *const _vertices, CEGUI::uint const _vertex_count)
 {
-  sge::cegui::impl::texture &active_texture{FCPPT_ASSERT_OPTIONAL_ERROR(active_texture_).get()};
+  sge::cegui::impl::texture &active_texture{
+      fcppt::optional::to_exception(
+          this->active_texture_,
+          [] { return sge::cegui::exception{FCPPT_TEXT("Active texture not set!")}; })
+          .get()};
 
   batches_.push_back(sge::cegui::impl::batch{
       fcppt::reference_to_base<sge::renderer::device::core>(renderer_),
       vertex_declaration_,
-      FCPPT_ASSERT_OPTIONAL_ERROR(active_texture.impl()),
+      fcppt::optional::to_exception(
+          active_texture.impl(),
+          [] { return sge::cegui::exception{FCPPT_TEXT("Active texture impl not set!")}; }),
       sge::renderer::vertex::count(_vertex_count),
       clip_});
 

@@ -44,7 +44,6 @@
 #include <fcppt/reference.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/debug.hpp>
@@ -64,6 +63,7 @@
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/reference.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GeometryBuffer.h>
 #include <CEGUI/RenderQueue.h>
@@ -94,7 +94,11 @@ sge::cegui::impl::texture_target::texture_target(
 
 void sge::cegui::impl::texture_target::draw(CEGUI::GeometryBuffer const &_buffer)
 {
-  if (!FCPPT_ASSERT_OPTIONAL_ERROR(texture_)->impl().has_value())
+  if (!fcppt::optional::to_exception(
+           this->texture_,
+           [] { return sge::cegui::exception{FCPPT_TEXT("Texture target texture not set!")}; })
+           ->impl()
+           .has_value())
   {
     return;
   }
@@ -109,7 +113,11 @@ void sge::cegui::impl::texture_target::draw(CEGUI::GeometryBuffer const &_buffer
 
 void sge::cegui::impl::texture_target::draw(CEGUI::RenderQueue const &_queue)
 {
-  if (!FCPPT_ASSERT_OPTIONAL_ERROR(texture_)->impl().has_value())
+  if (!fcppt::optional::to_exception(
+           texture_,
+           [] { return sge::cegui::exception{FCPPT_TEXT("Texture target texture not set!")}; })
+           ->impl()
+           .has_value())
   {
     return;
   }
@@ -162,7 +170,11 @@ bool sge::cegui::impl::texture_target::isImageryCache() const { return true; }
 
 void sge::cegui::impl::texture_target::activate()
 {
-  if (!FCPPT_ASSERT_OPTIONAL_ERROR(texture_)->impl().has_value())
+  if (!fcppt::optional::to_exception(
+           texture_,
+           [] { return sge::cegui::exception{FCPPT_TEXT("Texture target texture not set!")}; })
+           ->impl()
+           .has_value())
   {
     return;
   }
@@ -170,7 +182,12 @@ void sge::cegui::impl::texture_target::activate()
   FCPPT_LOG_DEBUG(
       log_, fcppt::log::out << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::activate()"))
 
-  sge::renderer::context::ffp &render_context(FCPPT_ASSERT_OPTIONAL_ERROR(render_context_).get());
+  sge::renderer::context::ffp &render_context{
+      fcppt::optional::to_exception(
+          render_context_,
+          []
+          { return sge::cegui::exception{FCPPT_TEXT("Texture target render context not set!")}; })
+          .get()};
 
   render_context.offscreen_target(
       sge::renderer::target::optional_offscreen_ref(fcppt::make_ref(*target_)));
@@ -181,8 +198,12 @@ void sge::cegui::impl::texture_target::activate()
 
   render_context.transform(
       sge::renderer::state::ffp::transform::mode::projection,
-      sge::renderer::state::ffp::transform::const_optional_object_ref(
-          fcppt::make_cref(*FCPPT_ASSERT_OPTIONAL_ERROR(transform_state_))));
+      sge::renderer::state::ffp::transform::const_optional_object_ref{
+          fcppt::make_cref(*fcppt::optional::to_exception(
+              transform_state_,
+              [] {
+                return sge::cegui::exception{FCPPT_TEXT("Texture target transform state not set!")};
+              }))});
 }
 
 void sge::cegui::impl::texture_target::deactivate()
@@ -191,12 +212,21 @@ void sge::cegui::impl::texture_target::deactivate()
       log_,
       fcppt::log::out << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::deactivate()"))
 
-  if (!FCPPT_ASSERT_OPTIONAL_ERROR(texture_)->impl().has_value())
+  if (!fcppt::optional::to_exception(
+           texture_,
+           [] { return sge::cegui::exception{FCPPT_TEXT("Texture target texture not set!")}; })
+           ->impl()
+           .has_value())
   {
     return;
   }
 
-  sge::renderer::context::ffp &render_context(FCPPT_ASSERT_OPTIONAL_ERROR(render_context_).get());
+  sge::renderer::context::ffp &render_context{
+      fcppt::optional::to_exception(
+          render_context_,
+          []
+          { return sge::cegui::exception{FCPPT_TEXT("Texture target render context not set!")}; })
+          .get()};
 
   render_context.transform(
       sge::renderer::state::ffp::transform::mode::projection,
@@ -216,7 +246,9 @@ void sge::cegui::impl::texture_target::clear()
   FCPPT_LOG_DEBUG(
       log_, fcppt::log::out << FCPPT_TEXT("texture_target(") << this << FCPPT_TEXT(")::clear()"))
 
-  sge::cegui::impl::texture &texture(*FCPPT_ASSERT_OPTIONAL_ERROR(texture_));
+  sge::cegui::impl::texture &texture{*fcppt::optional::to_exception(
+      texture_,
+      [] { return sge::cegui::exception{FCPPT_TEXT("Texture target texture not set!")}; })};
 
   fcppt::optional::maybe_void(
       texture.impl(),
@@ -240,7 +272,9 @@ void sge::cegui::impl::texture_target::clear()
 
 CEGUI::Texture &sge::cegui::impl::texture_target::getTexture() const
 {
-  return *FCPPT_ASSERT_OPTIONAL_ERROR(texture_);
+  return *fcppt::optional::to_exception(
+      this->texture_,
+      [] { return sge::cegui::exception{FCPPT_TEXT("Texture target texture not set!")}; });
 }
 
 void sge::cegui::impl::texture_target::declareRenderSize(CEGUI::Sizef const &_size)

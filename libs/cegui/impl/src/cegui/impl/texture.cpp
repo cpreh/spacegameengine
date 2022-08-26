@@ -45,7 +45,6 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
@@ -63,6 +62,7 @@
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/reference.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Size.h>
 #include <CEGUI/String.h>
@@ -238,7 +238,8 @@ CEGUI::String const &sge::cegui::impl::texture::getName() const { return name_; 
 
 CEGUI::Sizef const &sge::cegui::impl::texture::getSize() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(size_);
+  return fcppt::optional::to_exception(
+      this->size_, [] { return sge::cegui::exception{FCPPT_TEXT("Texture size not set!")}; });
 }
 
 CEGUI::Sizef const &sge::cegui::impl::texture::getOriginalDataSize() const
@@ -248,7 +249,9 @@ CEGUI::Sizef const &sge::cegui::impl::texture::getOriginalDataSize() const
 
 CEGUI::Vector2f const &sge::cegui::impl::texture::getTexelScaling() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(texel_scaling_.get());
+  return fcppt::optional::to_exception(
+      this->texel_scaling_.get(),
+      [] { return sge::cegui::exception{FCPPT_TEXT("Texture texel scaling not set!")}; });
 }
 
 void sge::cegui::impl::texture::loadFromFile(
@@ -295,11 +298,14 @@ void sge::cegui::impl::texture::loadFromMemory(
     throw sge::cegui::exception{FCPPT_TEXT("texture::loadFromMemory: Invalid buffer size!")};
   }
 
-  sge::image::color::optional_format const format(
-      sge::cegui::impl::convert_pixel_format(_pixel_format));
+  sge::image::color::optional_format const format{
+      sge::cegui::impl::convert_pixel_format(_pixel_format)};
 
   sge::renderer::texture::scoped_planar_lock const lock(
-      fcppt::make_ref(FCPPT_ASSERT_OPTIONAL_ERROR(this->impl()).get()),
+      fcppt::make_ref(fcppt::optional::to_exception(
+                          this->impl(),
+                          [] { return sge::cegui::exception{FCPPT_TEXT("Texture impl not set!")}; })
+                          .get()),
       sge::renderer::lock_mode::writeonly);
 
   sge::image2d::algorithm::copy_and_convert(
@@ -309,7 +315,9 @@ void sge::cegui::impl::texture::loadFromMemory(
               fcppt::math::dim::structure_cast<
                   fcppt::math::dim::static_<sge::image::difference_type, 2>,
                   fcppt::cast::float_to_int_fun>(sge::cegui::impl::from_cegui_size(_buffer_size))),
-          FCPPT_ASSERT_OPTIONAL_ERROR(format),
+          fcppt::optional::to_exception(
+              format,
+              [] { return sge::cegui::exception{FCPPT_TEXT("Invalid texture image format!")}; }),
           fcppt::math::dim::null<sge::image2d::pitch>()),
       lock.value(),
       sge::image::algorithm::may_overlap::no,

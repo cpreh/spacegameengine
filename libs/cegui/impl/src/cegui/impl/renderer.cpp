@@ -32,9 +32,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/assert/error_message.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -51,6 +48,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
 #include <algorithm>
@@ -238,7 +236,8 @@ void sge::cegui::impl::renderer::destroyTexture(CEGUI::Texture &_texture)
       [&sge_texture](texture_map::value_type const &_entry)
       { return _entry.second.get_pointer() == &sge_texture; })};
 
-  textures_.erase(FCPPT_ASSERT_OPTIONAL_ERROR(result));
+  textures_.erase(fcppt::optional::to_exception(
+      result, [] { return sge::cegui::exception{FCPPT_TEXT("Texture to destroy not found!")}; }));
 }
 
 void sge::cegui::impl::renderer::destroyTexture(CEGUI::String const &_name)
@@ -270,7 +269,9 @@ void sge::cegui::impl::renderer::destroyAllTextures()
 CEGUI::Texture &sge::cegui::impl::renderer::getTexture(CEGUI::String const &_name) const
 {
   return *const_cast<CEGUI::Texture *>(static_cast<CEGUI::Texture const *>(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::container::find_opt_mapped(textures_, _name))
+      fcppt::optional::to_exception(
+          fcppt::container::find_opt_mapped(textures_, _name),
+          [] { return sge::cegui::exception{FCPPT_TEXT("Texture not found!")}; })
           .get()
           .get_pointer()));
 }

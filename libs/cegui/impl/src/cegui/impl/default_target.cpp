@@ -25,7 +25,6 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
@@ -34,6 +33,7 @@
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GeometryBuffer.h>
 #include <CEGUI/Rect.h>
@@ -120,7 +120,9 @@ void sge::cegui::impl::default_target::activate()
       transform_,
       [this](sge::renderer::state::ffp::transform::object_unique_ptr const &_transform)
       {
-        FCPPT_ASSERT_OPTIONAL_ERROR(render_context_.get())
+        fcppt::optional::to_exception(
+            render_context_.get(),
+            [] { return sge::cegui::exception{FCPPT_TEXT("Render context not set!")}; })
             .get()
             .transform(
                 sge::renderer::state::ffp::transform::mode::projection,
@@ -135,7 +137,9 @@ void sge::cegui::impl::default_target::deactivate()
       log_,
       fcppt::log::out << FCPPT_TEXT("default_target(") << this << FCPPT_TEXT(")::deactivate()"))
 
-  FCPPT_ASSERT_OPTIONAL_ERROR(render_context_.get())
+  fcppt::optional::to_exception(
+      render_context_.get(),
+      [] { return sge::cegui::exception{FCPPT_TEXT("Render context not set!")}; })
       .get()
       .transform(
           sge::renderer::state::ffp::transform::mode::projection,
