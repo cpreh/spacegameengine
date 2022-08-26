@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/exception.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
@@ -14,10 +15,11 @@
 #include <sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp>
 #include <sge/input/event_base.hpp>
 #include <sge/input/keyboard/event/key.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/matrix/rotation_axis.hpp>
@@ -28,6 +30,7 @@
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -66,8 +69,10 @@ FCPPT_PP_POP_WARNING
 
 sge::camera::coordinate_system::object sge::camera::spherical::object::coordinate_system() const
 {
-  return sge::camera::spherical::coordinate_system::to_camera_coordinate_system(
-      coordinate_system_, origin_);
+  return fcppt::optional::to_exception(
+      sge::camera::spherical::coordinate_system::to_camera_coordinate_system(
+          coordinate_system_, origin_),
+      [] { return sge::camera::exception{FCPPT_TEXT("Broken spherical coordinate system!")}; });
 }
 
 sge::camera::optional_projection_matrix sge::camera::spherical::object::projection_matrix() const
@@ -104,12 +109,15 @@ void sge::camera::spherical::object::update(sge::camera::update_duration const _
        acceleration_factor_.get().radius() * acceleration_.radius() *
            sge::camera::spherical::coordinate_system::radius(_time_delta.count())));
 
-  coordinate_system_.radius(sge::camera::spherical::coordinate_system::radius(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::clamp(
+  fcppt::optional::maybe_void(
+      fcppt::math::clamp(
           coordinate_system_.radius().get() +
               _time_delta.count() * movement_speed_.get().radius().get() * velocity_.radius().get(),
           minimum_radius_.get(),
-          maximum_radius_.get()))));
+          maximum_radius_.get()),
+      [this](sge::renderer::scalar const _radius) {
+        this->coordinate_system_.radius(sge::camera::spherical::coordinate_system::radius(_radius));
+      });
 
   coordinate_system_.azimuth(sge::camera::spherical::coordinate_system::azimuth(
       coordinate_system_.azimuth().get() +
@@ -117,13 +125,18 @@ void sge::camera::spherical::object::update(sge::camera::update_duration const _
 
   constexpr sge::renderer::scalar const inclination_epsilon{0.01F};
 
-  coordinate_system_.inclination(sge::camera::spherical::coordinate_system::inclination(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::clamp(
+  fcppt::optional::maybe_void(
+      fcppt::math::clamp(
           coordinate_system_.inclination().get() + _time_delta.count() *
                                                        movement_speed_.get().inclination().get() *
                                                        velocity_.inclination().get(),
           -std::numbers::pi_v<sge::renderer::scalar> + inclination_epsilon,
-          -inclination_epsilon))));
+          -inclination_epsilon),
+      [this](sge::renderer::scalar const _inclination)
+      {
+        this->coordinate_system_.inclination(
+            sge::camera::spherical::coordinate_system::inclination{_inclination});
+      });
 }
 
 void sge::camera::spherical::object::process_event(sge::input::event_base const &_event)

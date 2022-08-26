@@ -16,10 +16,10 @@
 #include <sge/renderer/exception.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/to_void_ptr.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/from.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 sge::opengl::buffer::hardware::hardware(
     sge::opengl::buffer::type const _type,
@@ -79,7 +79,9 @@ GLvoid *sge::opengl::buffer::hardware::map_buffer_range(
     GLbitfield const _flags, GLintptr const _first, GLsizeiptr const _size)
 {
   GLvoid *const ret(sge::opengl::call_fun_ref(
-      FCPPT_ASSERT_OPTIONAL_ERROR(this->config_.get().map_buffer_range()),
+      fcppt::optional::to_exception(
+          this->config_.get().map_buffer_range(),
+          [] { return sge::renderer::exception{FCPPT_TEXT("GL map buffer range not set!")}; }),
       this->type_.get(),
       _first,
       _size,

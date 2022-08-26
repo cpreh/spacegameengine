@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/exception.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
@@ -17,7 +18,7 @@
 #include <sge/camera/tracking/alexa/lerp.hpp>
 #include <sge/input/event_base_fwd.hpp>
 #include <fcppt/cyclic_iterator_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/container/maybe_front.hpp>
@@ -26,6 +27,7 @@
 #include <fcppt/math/matrix/static.hpp>
 #include <fcppt/math/matrix/structure_cast.hpp>
 #include <fcppt/math/vector/output.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/tuple/get.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
@@ -65,7 +67,9 @@ sge::camera::tracking::object::object(
       current_keyframe_{
           keyframes_.begin(), cyclic_iterator::boundary{keyframes_.begin(), keyframes_.end()}},
       current_time_point_{0.0F},
-      coordinate_system_{FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::container::maybe_front(keyframes_))
+      coordinate_system_{fcppt::optional::to_exception(
+                             fcppt::container::maybe_front(keyframes_),
+                             [] { return sge::camera::exception{FCPPT_TEXT("Empty keyframes!")}; })
                              .get()
                              .coordinate_system()},
       finished_{false}

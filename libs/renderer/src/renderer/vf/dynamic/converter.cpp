@@ -16,9 +16,10 @@
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/optional/get_or_assign.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -63,24 +64,24 @@ void sge::renderer::vf::dynamic::converter::lock(
 
 void sge::renderer::vf::dynamic::converter::unlock()
 {
-  sge::renderer::vf::dynamic::locked_part const &cur_locked_part(
-      FCPPT_ASSERT_OPTIONAL_ERROR(locked_part_));
+  sge::renderer::vf::dynamic::locked_part const &cur_locked_part{fcppt::optional::to_exception(
+      this->locked_part_,
+      [] { return sge::renderer::exception{FCPPT_TEXT("vf::dynamic::converter: Not locked!")}; })};
 
-  if (!converter_.has_value())
-  {
-    converter_ = optional_converter_unique_ptr(
-        fcppt::make_unique_ptr<sge::renderer::vf::dynamic::detail::converter_impl>(
-            part_.get(), accepted_formats_));
-  }
+  converter_unique_ptr const &converter{fcppt::optional::get_or_assign(
+      this->converter_,
+      [this]
+      {
+        return fcppt::make_unique_ptr<sge::renderer::vf::dynamic::detail::converter_impl>(
+            this->part_.get(), this->accepted_formats_);
+      })};
 
   if (sge::renderer::lock_flags::write(cur_locked_part.lock_flags()))
   {
-    converter_unique_ptr const &cur_converter(FCPPT_ASSERT_OPTIONAL_ERROR(converter_));
-
     sge::renderer::impl::vf::dynamic::lock_interval const current_unlock(
         sge::renderer::impl::vf::dynamic::locked_part_interval(cur_locked_part));
 
-    cur_converter->convert_unlock(cur_locked_part.data(), cur_locked_part.pos(), current_unlock);
+    converter->convert_unlock(cur_locked_part.data(), cur_locked_part.pos(), current_unlock);
 
     written_intervals_.insert(current_unlock);
   }

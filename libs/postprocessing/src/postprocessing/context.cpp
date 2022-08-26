@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/config/media_path.hpp>
+#include <sge/core/exception.hpp>
 #include <sge/image/ds/format.hpp>
 #include <sge/postprocessing/context.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -61,7 +62,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
@@ -70,6 +71,7 @@
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -121,13 +123,18 @@ FCPPT_PP_POP_WARNING
 
 sge::renderer::context::scoped_core_unique_ptr sge::postprocessing::context::create_render_context()
 {
-  this->switch_target_texture(
-      fcppt::make_ref(*FCPPT_ASSERT_OPTIONAL_ERROR(rendering_result_texture_)));
+  this->switch_target_texture(fcppt::make_ref(*fcppt::optional::to_exception(
+      rendering_result_texture_,
+      [] { return sge::core::exception{FCPPT_TEXT("Postprocessing result texture not set!")}; })));
 
   return fcppt::make_unique_ptr<sge::renderer::context::scoped_core>(
       renderer_,
       fcppt::reference_to_base<sge::renderer::target::base>(
-          fcppt::make_ref(*FCPPT_ASSERT_OPTIONAL_ERROR(offscreen_target_))));
+          fcppt::make_ref(*fcppt::optional::to_exception(
+              offscreen_target_,
+              [] {
+                return sge::core::exception{FCPPT_TEXT("Postprocessing offscreen target not set!")};
+              }))));
 }
 
 void sge::postprocessing::context::render() { this->render_and_return_overlay(); }
@@ -242,18 +249,20 @@ sge::postprocessing::context::switch_downsampled_target_texture(
 void sge::postprocessing::context::switch_target_texture(
     sge::renderer::texture::planar_ref const _new_texture)
 {
-  FCPPT_ASSERT_OPTIONAL_ERROR(offscreen_target_)
-      ->color_surface(
-          sge::renderer::color_buffer::optional_surface_ref(
-              fcppt::reference_to_base<sge::renderer::color_buffer::surface>(fcppt::make_ref(
-                  _new_texture.get().level(sge::renderer::texture::mipmap::level(0U))))),
-          sge::renderer::target::surface_index(0U));
+  sge::renderer::target::offscreen_unique_ptr const &target{fcppt::optional::to_exception(
+      this->offscreen_target_,
+      [] { return sge::core::exception{FCPPT_TEXT("Postprocessing offscreen target not set!")}; })};
 
-  FCPPT_ASSERT_OPTIONAL_ERROR(offscreen_target_)
-      ->viewport(sge::renderer::target::viewport(sge::renderer::pixel_rect(
-          fcppt::math::vector::null<sge::renderer::pixel_rect::vector>(),
-          fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim, fcppt::cast::size_fun>(
-              fcppt::math::dim::to_signed(_new_texture.get().size())))));
+  target->color_surface(
+      sge::renderer::color_buffer::optional_surface_ref(
+          fcppt::reference_to_base<sge::renderer::color_buffer::surface>(fcppt::make_ref(
+              _new_texture.get().level(sge::renderer::texture::mipmap::level(0U))))),
+      sge::renderer::target::surface_index(0U));
+
+  target->viewport(sge::renderer::target::viewport(sge::renderer::pixel_rect(
+      fcppt::math::vector::null<sge::renderer::pixel_rect::vector>(),
+      fcppt::math::dim::structure_cast<sge::renderer::pixel_rect::dim, fcppt::cast::size_fun>(
+          fcppt::math::dim::to_signed(_new_texture.get().size())))));
 }
 
 /*

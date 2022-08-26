@@ -71,7 +71,7 @@ add_sge_base_library(
 	"rucksack"
 	HAS_IMPL_DIR
 	SGE_DEPS
-		sgecore_interface
+		sgecore
 	TRANSITIVE_SGE_DEPS
 		sgecore_interface
 	ADDITIONAL_DEPS

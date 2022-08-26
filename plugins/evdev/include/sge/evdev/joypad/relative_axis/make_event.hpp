@@ -10,12 +10,12 @@
 #include <sge/input/joypad/relative_axis_id.hpp>
 #include <sge/input/joypad/relative_axis_info_container_fwd.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
-#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
 
 namespace sge::evdev::joypad::relative_axis
 {
 
-awl::event::base_unique_ptr make_event(
+awl::event::optional_base_unique_ptr make_event(
     sge::input::joypad::shared_ptr const &,
     sge::input::joypad::relative_axis_id,
     sge::input::joypad::relative_axis_info_container const &,

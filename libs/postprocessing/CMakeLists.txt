@@ -17,6 +17,7 @@ add_sge_base_library(
 	SGE_DEPS
 		sgecg
 		sgeconfig
+		sgecore
 		sgerenderer
 		sgerenderercg
 		sgeshader

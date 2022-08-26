@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/core/exception.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/impl/vf/format.hpp>
@@ -46,11 +47,12 @@
 #include <fcppt/const.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 sge::line_drawer::object::object(sge::renderer::device::core_ref const _renderer)
     : renderer_(_renderer),
@@ -123,10 +125,10 @@ void sge::line_drawer::object::unlock()
             sge::renderer::resource_flags_field::null())));
   }
 
+  // TODO(philipp): Better optional support for this
   sge::renderer::vertex::scoped_lock const vblock{
-      fcppt::make_ref(
-          // TODO(philipp): Better optional support for this
-          *FCPPT_ASSERT_OPTIONAL_ERROR(vb_)),
+      fcppt::make_ref(*fcppt::optional::to_exception(
+          this->vb_, [] { return sge::core::exception{FCPPT_TEXT("Line drawer VB not set!")}; })),
       sge::renderer::lock_mode::writeonly};
 
   sge::line_drawer::impl::vf::vertex_view const vertices{vblock.value()};

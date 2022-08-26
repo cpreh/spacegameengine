@@ -36,7 +36,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/box/output.hpp>
 #include <fcppt/math/dim/comparison.hpp>
@@ -49,6 +48,7 @@
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -106,7 +106,9 @@ sge::opengl::texture::basic_lockable_buffer<Types>::lock_c(lock_area const &_are
 template <typename Types>
 void sge::opengl::texture::basic_lockable_buffer<Types>::unlock() const
 {
-  lock_unique_ptr const &cur_lock(FCPPT_ASSERT_OPTIONAL_ERROR(lock_));
+  lock_unique_ptr const &cur_lock{fcppt::optional::to_exception(
+      this->lock_,
+      [] { return sge::renderer::exception{FCPPT_TEXT("Opengl texture not locked!")}; })};
 
   cur_lock->pre_unlock();
 
@@ -208,7 +210,9 @@ template <typename Types>
 typename sge::opengl::texture::basic_lockable_buffer<Types>::view
 sge::opengl::texture::basic_lockable_buffer<Types>::lock_view()
 {
-  lock_unique_ptr const &cur_lock(FCPPT_ASSERT_OPTIONAL_ERROR(lock_));
+  lock_unique_ptr const &cur_lock{fcppt::optional::to_exception(
+      this->lock_,
+      [] { return sge::renderer::exception{FCPPT_TEXT("Opengl texture not locked!")}; })};
 
   // If we are currently reading a texture, we have mapped the whole
   // texture and have to take a sub view. Also, opengl reads the image

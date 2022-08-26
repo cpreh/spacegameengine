@@ -24,6 +24,7 @@ add_sge_base_library(
 	line_drawer
 	HAS_IMPL_DIR
 	SGE_DEPS
+		sgecore
 		sgeimagecolor
 		sgerenderer
 	TRANSITIVE_SGE_DEPS

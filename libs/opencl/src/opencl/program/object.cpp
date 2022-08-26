@@ -18,7 +18,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
 #include <fcppt/container/data.hpp>
@@ -249,5 +248,10 @@ void sge::opencl::program::object::notification_callback(cl_program, void *user_
 
   program->check_program_return_values();
 
-  FCPPT_ASSERT_OPTIONAL_ERROR(program->notification_callback_)();
+  fcppt::optional::maybe_void(
+    program->notification_callback_,
+    [](sge::opencl::program::notification_callback const &_callback)
+    {
+      _callback();
+    });
 }

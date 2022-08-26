@@ -11,17 +11,18 @@
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/button.hpp>
 #include <awl/event/base.hpp>
-#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
+#include <fcppt/optional/make.hpp>
 
-awl::event::base_unique_ptr sge::evdev::joypad::button::make_event(
+awl::event::optional_base_unique_ptr sge::evdev::joypad::button::make_event(
     sge::input::joypad::shared_ptr const &_joypad,
     sge::input::joypad::button_id const _id,
     sge::input::joypad::button_info_container const &,
     sge::evdev::device::event const _event)
 {
-  return fcppt::unique_ptr_to_base<awl::event::base>(
+  return fcppt::optional::make(fcppt::unique_ptr_to_base<awl::event::base>(
       fcppt::make_unique_ptr<sge::input::joypad::event::button>(
-          _joypad, _id, sge::input::joypad::button_pressed{_event.get().value != 0}));
+          _joypad, _id, sge::input::joypad::button_pressed{_event.get().value != 0})));
 }

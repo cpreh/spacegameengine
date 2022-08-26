@@ -12,6 +12,7 @@
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/graph/impl/detail/draw_visitor.hpp>
+#include <sge/image/difference_type.hpp>
 #include <sge/image/size_type.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/any/convert.hpp>
@@ -47,11 +48,17 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
+#include <fcppt/cast/int_to_float.hpp>
+#include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/clamp.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/maybe_void_multi.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
@@ -175,18 +182,23 @@ void draw_rectangle(
       _view, sge::image2d::vector(_corner2.x(), _corner1.y()), _corner2, _color, _color);
 }
 
-sge::image2d::vector::value_type fit_into_scale(
+fcppt::optional::object<sge::image2d::vector::value_type> fit_into_scale(
     sge::graph::scalar const _value,
     sge::graph::scalar const _min,
     sge::graph::scalar const _max,
     sge::renderer::dim2::value_type const _height)
 {
-  using value_type = sge::image2d::vector::value_type;
-
-  return static_cast<value_type>(FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::clamp(
-      static_cast<sge::graph::scalar>(_height - 1) * (1.0 - normalize(_value, _min, _max)),
-      0.0,
-      static_cast<sge::graph::scalar>(_height - 1))));
+  return fcppt::optional::map(
+      fcppt::math::clamp(
+          fcppt::cast::int_to_float<sge::graph::scalar>(_height - 1) *
+              (1.0 - normalize(_value, _min, _max)),
+          0.0,
+          fcppt::cast::int_to_float<sge::graph::scalar>(_height - 1)),
+      [](sge::graph::scalar const _clamped)
+      {
+        return fcppt::cast::to_unsigned(
+            fcppt::cast::float_to_int<sge::image::difference_type>(_clamped));
+      });
 }
 
 }
@@ -295,50 +307,69 @@ void sge::graph::object::draw_data(View const &_view)
 
   using value_type = sge::image2d::vector::value_type;
 
-  value_type const baseline = fit_into_scale(
-      baseline_, current_axis_constraint.min(), current_axis_constraint.max(), dim_.h());
+  fcppt::optional::maybe_void_multi(
+      [this, &_view, &current_axis_constraint](value_type const _baseline, value_type const _zero)
+      {
+        for (auto const index : fcppt::make_int_range_count(this->data_buffer_.size()))
+        {
+          sge::graph::scalar const cur{this->data_buffer_[index]};
 
-  value_type const zero =
-      fit_into_scale(0.0, current_axis_constraint.min(), current_axis_constraint.max(), dim_.h());
+          fcppt::optional::maybe_void(
+              fcppt::math::clamp(cur, current_axis_constraint.min(), current_axis_constraint.max()),
+              [this, cur, &_view, index, _zero, &current_axis_constraint](
+                  sge::graph::scalar const _clamped)
+              {
+                fcppt::optional::maybe_void(
+                    fit_into_scale(
+                        _clamped,
+                        current_axis_constraint.min(),
+                        current_axis_constraint.max(),
+                        this->dim_.h()),
+                    [this, cur, &_view, index, _zero](value_type const _value)
+                    {
+                      bool const above{cur > 0.0};
 
-  for (auto const index : fcppt::make_int_range_count(data_buffer_.size()))
-  {
-    sge::graph::scalar const cur{data_buffer_[index]};
+                      sge::graph::color const &col1{
+                          above ? this->color_scheme_.foreground_color()
+                                : this->color_scheme_.foreground_alt_color()};
 
-    value_type const value = fit_into_scale(
-        FCPPT_ASSERT_OPTIONAL_ERROR(
-            fcppt::math::clamp(cur, current_axis_constraint.min(), current_axis_constraint.max())),
-        current_axis_constraint.min(),
-        current_axis_constraint.max(),
-        dim_.h());
+                      sge::graph::color const &col2{
+                          above ? this->color_scheme_.foreground_alt_color()
+                                : this->color_scheme_.foreground_color()};
 
-    bool const above{cur > 0.0};
+                      adapted_bresenham(
+                          _view,
+                          sge::image2d::vector(index, _zero),
+                          sge::image2d::vector(index, _value),
+                          col1,
+                          col2);
+                    });
+              });
+        }
 
-    sge::graph::color const &col1(
-        above ? color_scheme_.foreground_color() : color_scheme_.foreground_alt_color());
+        // zero line
+        adapted_bresenham(
+            _view,
+            sge::image2d::vector(0U, _zero),
+            sge::image2d::vector(dim_.w() - 1U, _zero),
+            color_scheme_.foreground_alt_color(),
+            color_scheme_.foreground_alt_color());
 
-    sge::graph::color const &col2(
-        above ? color_scheme_.foreground_alt_color() : color_scheme_.foreground_color());
-
-    adapted_bresenham(
-        _view, sge::image2d::vector(index, zero), sge::image2d::vector(index, value), col1, col2);
-  }
-
-  // zero line
-  adapted_bresenham(
-      _view,
-      sge::image2d::vector(0U, zero),
-      sge::image2d::vector(dim_.w() - 1U, zero),
-      color_scheme_.foreground_alt_color(),
-      color_scheme_.foreground_alt_color());
-
-  // baseline
-  adapted_bresenham(
-      _view,
-      sge::image2d::vector(0U, baseline),
-      sge::image2d::vector(dim_.w() - 1U, baseline),
-      color_scheme_.baseline_color(),
-      color_scheme_.baseline_color());
+        // baseline
+        adapted_bresenham(
+            _view,
+            sge::image2d::vector(0U, _baseline),
+            sge::image2d::vector(dim_.w() - 1U, _baseline),
+            color_scheme_.baseline_color(),
+            color_scheme_.baseline_color());
+      },
+      fit_into_scale(
+          this->baseline_,
+          current_axis_constraint.min(),
+          current_axis_constraint.max(),
+          this->dim_.h()),
+      fit_into_scale(
+          0.0, current_axis_constraint.min(), current_axis_constraint.max(), this->dim_.h()));
 }
 
 sge::graph::object::~object() = default;

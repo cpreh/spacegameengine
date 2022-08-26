@@ -8,25 +8,32 @@
 #include <sge/input/exception.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
+#include <sge/input/joypad/relative_axis_info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/relative_axis.hpp>
 #include <awl/event/base.hpp>
-#include <awl/event/base_unique_ptr.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/optional/map.hpp>
 
-awl::event::base_unique_ptr sge::evdev::joypad::relative_axis::make_event(
+awl::event::optional_base_unique_ptr sge::evdev::joypad::relative_axis::make_event(
     sge::input::joypad::shared_ptr const &_joypad,
     sge::input::joypad::relative_axis_id const _id,
     sge::input::joypad::relative_axis_info_container const &_info,
     sge::evdev::device::event const _event)
 {
-  return fcppt::unique_ptr_to_base<awl::event::base>(
-      fcppt::make_unique_ptr<sge::input::joypad::event::relative_axis>(
-          _joypad,
-          sge::input::joypad::relative_axis(FCPPT_ASSERT_OPTIONAL_ERROR(_info[_id])->code(), _id),
-          _event.get().value));
+  return fcppt::optional::map(
+      _info[_id],
+      [&_joypad, _id, &_event](
+          fcppt::reference<sge::input::joypad::relative_axis_info const> const &_axis_info)
+      {
+        return fcppt::unique_ptr_to_base<awl::event::base>(
+            fcppt::make_unique_ptr<sge::input::joypad::event::relative_axis>(
+                _joypad,
+                sge::input::joypad::relative_axis{_axis_info->code(), _id},
+                _event.get().value));
+      });
 }

@@ -40,17 +40,18 @@
 #include <sge/plugin/iterator.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
+#include <fcppt/exception.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/output.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
@@ -88,18 +89,21 @@ TEST_CASE("save_load rgba", "[sge]")
     sge::image2d::view::const_object const source_view(
         sge::image2d::view::const_object(store.const_wrapped_view()));
 
-    sge::image2d::file_unique_ptr const created(FCPPT_ASSERT_OPTIONAL_ERROR(system->create(
-        source_view,
-        // FIXME: Iterate over all supported formats
-        sge::media::extension{FCPPT_TEXT("png")})));
+    sge::image2d::file_unique_ptr const created{fcppt::optional::to_exception(
+        system->create(
+            source_view,
+            // FIXME: Iterate over all supported formats
+            sge::media::extension{FCPPT_TEXT("png")}),
+        [] { return fcppt::exception{FCPPT_TEXT("No image loader!")}; })};
 
     created->save_stream(*stream);
 
-    sge::image2d::file_unique_ptr const file(FCPPT_ASSERT_OPTIONAL_ERROR(
+    sge::image2d::file_unique_ptr const file{fcppt::optional::to_exception(
         fcppt::variant::to_optional<sge::image2d::file_unique_ptr>(system->load_stream(
             fcppt::unique_ptr_to_base<std::istream>(std::move(stream)),
             sge::media::optional_extension(),
-            sge::media::optional_name()))));
+            sge::media::optional_name())),
+        [] { return fcppt::exception{FCPPT_TEXT("Unable to load file!")}; })};
 
     sge::image2d::view::const_object const dest_view(file->view());
 

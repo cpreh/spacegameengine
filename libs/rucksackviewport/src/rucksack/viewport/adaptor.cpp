@@ -134,13 +134,16 @@ void sge::rucksack::viewport::adaptor::manage_callback()
 
 void sge::rucksack::viewport::adaptor::resize_child()
 {
-  sge::rucksack::widget::base &cur_child(FCPPT_ASSERT_OPTIONAL_ERROR(child_).get());
+  fcppt::optional::maybe_void(
+      this->child_,
+      [this](fcppt::reference<sge::rucksack::widget::base> const _child)
+      {
+        _child->position(fcppt::math::vector::null<sge::rucksack::vector>());
 
-  cur_child.position(fcppt::math::vector::null<sge::rucksack::vector>());
+        _child->size(this->size());
 
-  cur_child.size(this->size());
-
-  cur_child.relayout();
+        _child->relayout();
+      });
 }
 
 void sge::rucksack::viewport::adaptor::child_destroyed(sge::rucksack::widget::base &)

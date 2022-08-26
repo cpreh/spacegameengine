@@ -23,8 +23,6 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/output_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/at_optional.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
@@ -201,8 +199,13 @@ void sge::console::object::man_callback(sge::console::arg_list const &_args)
 
 void sge::console::object::remove_function(sge::font::string const &_name)
 {
-  function_map::iterator const it(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::container::find_opt_iterator(funcs_, _name)));
+  function_map::iterator const it{fcppt::optional::to_exception(
+      fcppt::container::find_opt_iterator(funcs_, _name),
+      [&_name]
+      {
+        return sge::console::exception{
+            SGE_FONT_LIT("Console function ") + _name + SGE_FONT_LIT(" cannot be removed!")};
+      })};
 
   if (it->second.signal().empty())
   {

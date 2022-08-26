@@ -11,6 +11,7 @@
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
+#include <sge/scenic/exception.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
@@ -26,7 +27,7 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/identity.hpp>
 #include <fcppt/math/matrix/inverse.hpp>
@@ -35,6 +36,7 @@
 #include <fcppt/math/vector/narrow_cast.hpp>
 #include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -226,7 +228,11 @@ void sge::scenic::render_context::cg::object::render(
       _index_buffer,
       sge::renderer::vertex::first(0U),
       sge::renderer::vertex::count(
-          FCPPT_ASSERT_OPTIONAL_ERROR(current_vertex_buffer_).get().linear_size()),
+          fcppt::optional::to_exception(
+              current_vertex_buffer_,
+              [] { return sge::scenic::exception{FCPPT_TEXT("Vertex buffer not set!")}; })
+              .get()
+              .linear_size()),
       sge::renderer::primitive_type::triangle_list,
       _index_buffer_range.first_index(),
       _index_buffer_range.index_count());

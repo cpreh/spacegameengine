@@ -12,7 +12,7 @@
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
-#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/bind.hpp>
 
 namespace sge::evdev::device
 {
@@ -26,7 +26,7 @@ awl::event::optional_base_unique_ptr conditional_event(
     Info const &_info,
     Function const &_function)
 {
-  return fcppt::optional::map(
+  return fcppt::optional::bind(
       fcppt::container::find_opt_mapped(_map, sge::evdev::device::event_type(_event.get().code)),
       [_ptr, &_function, _info, _event](auto const &_mapped)
       { return _function(_ptr, _mapped.get(), _info, _event); });

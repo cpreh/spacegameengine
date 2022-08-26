@@ -13,6 +13,8 @@
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/hypersphere_to_cartesian.hpp>
 #include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 namespace
 {
@@ -29,25 +31,28 @@ spherical_coordinates(sge::camera::spherical::coordinate_system::object const &_
 }
 }
 
-sge::camera::coordinate_system::object
+fcppt::optional::object<sge::camera::coordinate_system::object>
 sge::camera::spherical::coordinate_system::to_camera_coordinate_system(
     spherical::coordinate_system::object const &_coordinate_system,
     spherical::origin const &_origin)
 {
-  sge::camera::coordinate_system::forward const forward_vector(
-      spherical_coordinates(_coordinate_system));
+  sge::camera::coordinate_system::forward const forward_vector{
+      spherical_coordinates(_coordinate_system)};
 
-  sge::camera::coordinate_system::position const position_vector(
-      _origin.get() + _coordinate_system.radius().get() * forward_vector.get());
+  sge::camera::coordinate_system::position const position_vector{
+      _origin.get() + _coordinate_system.radius().get() * forward_vector.get()};
 
-  sge::camera::coordinate_system::right const right_vector(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::vector::normalize(fcppt::math::vector::cross(
-          forward_vector.get(), sge::renderer::vector3{0.0F, 1.0F, 0.0F}))));
+  return fcppt::optional::map(
+      fcppt::math::vector::normalize(fcppt::math::vector::cross(
+          forward_vector.get(), sge::renderer::vector3{0.0F, 1.0F, 0.0F})),
+      [&forward_vector,&position_vector](sge::renderer::vector3 const _right)
+      {
+        sge::camera::coordinate_system::right const right_vector{_right};
+        // No need to normalize here
+        sge::camera::coordinate_system::up const up_vector{
+            fcppt::math::vector::cross(right_vector.get(), forward_vector.get())};
 
-  // No need to normalize here
-  sge::camera::coordinate_system::up const up_vector(
-      fcppt::math::vector::cross(right_vector.get(), forward_vector.get()));
-
-  return sge::camera::coordinate_system::object(
-      right_vector, up_vector, forward_vector, position_vector);
+        return sge::camera::coordinate_system::object(
+            right_vector, up_vector, forward_vector, position_vector);
+      });
 }

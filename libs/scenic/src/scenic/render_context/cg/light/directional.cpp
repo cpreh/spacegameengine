@@ -10,9 +10,9 @@
 #include <sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
 #include <fcppt/output_to_std_string.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 namespace
 {
@@ -70,8 +70,10 @@ void sge::scenic::render_context::cg::light::directional::ambient_color(
 void sge::scenic::render_context::cg::light::directional::camera_space_direction(
     sge::scenic::render_context::light::direction const &_camera_space_direction)
 {
-  camera_space_direction_.set(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::vector::normalize(_camera_space_direction.get())));
+  fcppt::optional::maybe_void(
+      fcppt::math::vector::normalize(_camera_space_direction.get()),
+      [this](sge::renderer::vector3 const _direction)
+      { this->camera_space_direction_.set(_direction); });
 }
 
 sge::scenic::render_context::cg::light::directional::~directional() = default;

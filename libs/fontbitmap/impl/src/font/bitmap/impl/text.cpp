@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/font/dim.hpp>
+#include <sge/font/exception.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index.hpp>
 #include <sge/font/rect.hpp>
@@ -37,7 +38,7 @@
 #include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <fcppt/loop.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -49,6 +50,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/to_unsigned.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/match.hpp>
 
 sge::font::bitmap::impl::text::text(
@@ -111,7 +113,7 @@ sge::font::rect sge::font::bitmap::impl::text::cursor_rect(sge::font::index cons
 
   using optional_rect = fcppt::optional::object<sge::font::rect>;
 
-  optional_rect result;
+  optional_rect result{};
 
   sge::font::index index{0U};
 
@@ -134,7 +136,8 @@ sge::font::rect sge::font::bitmap::impl::text::cursor_rect(sge::font::index cons
         return fcppt::loop::continue_;
       });
 
-  return FCPPT_ASSERT_OPTIONAL_ERROR(result);
+  return fcppt::optional::to_exception(
+      result, [] { return sge::font::exception{FCPPT_TEXT("Unable to calculate cursor_rect!")}; });
 }
 
 sge::font::optional_index

@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/core/exception.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/dim.hpp>
@@ -18,10 +19,11 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_opt.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <fcppt/config/external_end.hpp>
@@ -108,6 +110,7 @@ sge::rucksack::widget::enumeration::~enumeration()
 
 void sge::rucksack::widget::enumeration::child_destroyed(sge::rucksack::widget::base &_child)
 {
-  children_.erase(
-      FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::algorithm::find_opt(children_, fcppt::make_ref(_child))));
+  children_.erase(fcppt::optional::to_exception(
+      fcppt::algorithm::find_opt(children_, fcppt::make_ref(_child)),
+      [] { return sge::core::exception{FCPPT_TEXT("Child not found!")}; }));
 }

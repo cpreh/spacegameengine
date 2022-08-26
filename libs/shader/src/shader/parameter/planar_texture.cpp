@@ -25,10 +25,10 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 sge::shader::parameter::planar_texture::planar_texture(
     sge::cg::program::object_ref const _program,
@@ -118,7 +118,9 @@ sge::shader::parameter::planar_texture::loaded_texture()
 
 sge::renderer::texture::stage sge::shader::parameter::planar_texture::stage() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(scoped_texture_)->stage();
+  return fcppt::optional::to_exception(
+             scoped_texture_, [] { return sge::shader::exception{FCPPT_TEXT("Texture not set!")}; })
+      ->stage();
 }
 
 sge::shader::parameter::planar_texture::~planar_texture()

@@ -4,14 +4,16 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/systems/config.hpp>
+#include <sge/systems/exception.hpp>
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
 #include <sge/systems/impl/extract_config.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/to_optional.hpp>
 
 sge::systems::config sge::systems::impl::extract_config(sge::systems::detail::any_map const &_map)
@@ -21,9 +23,8 @@ sge::systems::config sge::systems::impl::extract_config(sge::systems::detail::an
       [] { return sge::systems::config(); },
       [](fcppt::reference<sge::systems::detail::any const> const _config)
       {
-        return FCPPT_ASSERT_OPTIONAL_ERROR(
-            fcppt::variant::to_optional<sge::systems::config>(_config.get()));
-      }
-
-  );
+        return fcppt::optional::to_exception(
+            fcppt::variant::to_optional<sge::systems::config>(_config.get()),
+            [] { return sge::systems::exception{FCPPT_TEXT("Invalid config element!")}; });
+      });
 }
