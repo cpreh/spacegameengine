@@ -68,7 +68,7 @@ void sge::renderer::vf::dynamic::converter::unlock()
       this->locked_part_,
       [] { return sge::renderer::exception{FCPPT_TEXT("vf::dynamic::converter: Not locked!")}; })};
 
-  converter_unique_ptr const &converter{fcppt::optional::get_or_assign(
+  converter_unique_ptr const &conv{fcppt::optional::get_or_assign(
       this->converter_,
       [this]
       {
@@ -81,7 +81,7 @@ void sge::renderer::vf::dynamic::converter::unlock()
     sge::renderer::impl::vf::dynamic::lock_interval const current_unlock(
         sge::renderer::impl::vf::dynamic::locked_part_interval(cur_locked_part));
 
-    converter->convert_unlock(cur_locked_part.data(), cur_locked_part.pos(), current_unlock);
+    conv->convert_unlock(cur_locked_part.data(), cur_locked_part.pos(), current_unlock);
 
     written_intervals_.insert(current_unlock);
   }
