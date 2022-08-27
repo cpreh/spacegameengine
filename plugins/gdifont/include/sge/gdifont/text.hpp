@@ -9,6 +9,7 @@
 #include <sge/font/dim_fwd.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index_fwd.hpp>
+#include <sge/font/optional_rect_fwd.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -45,7 +46,7 @@ private:
 
   sge::font::dim logical_size() const override;
 
-  sge::font::rect cursor_rect(sge::font::index) const override;
+  sge::font::optional_rect cursor_rect(sge::font::index) const override;
 
   sge::font::optional_index pos_to_index(sge::font::vector) const override;
 

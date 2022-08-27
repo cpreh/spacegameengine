@@ -3,12 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/charconv/index.hpp>
 #include <sge/charconv/index_vector.hpp>
 #include <sge/charconv/utf8_indices.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/font/dim.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index.hpp>
+#include <sge/font/optional_rect.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
@@ -27,9 +29,8 @@
 #include <sge/pango/xy_to_index.hpp>
 #include <sge/pango/convert/from_rect_scale.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
+#include <fcppt/reference.hpp>
 #include <fcppt/algorithm/binary_search.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -77,12 +78,15 @@ sge::font::dim sge::pango::text::logical_size() const
   return extents_.logical_rect().get().size();
 }
 
-sge::font::rect sge::pango::text::cursor_rect(sge::font::index const _index) const
+sge::font::optional_rect sge::pango::text::cursor_rect(sge::font::index const _index) const
 {
-  return sge::pango::convert::from_rect_scale(sge::pango::get_strong_cursor_pos(
-      *layout_,
-      fcppt::cast::size<int>(fcppt::cast::to_signed(
-          FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::container::at_optional(indices_, _index)).get()))));
+  return fcppt::optional::map(
+      fcppt::container::at_optional(this->indices_, _index),
+      [this](fcppt::reference<sge::charconv::index const> const _pos) -> sge::font::rect
+      {
+        return sge::pango::convert::from_rect_scale(sge::pango::get_strong_cursor_pos(
+            *this->layout_, fcppt::cast::size<int>(fcppt::cast::to_signed(_pos.get()))));
+      });
 }
 
 sge::font::optional_index sge::pango::text::pos_to_index(sge::font::vector const _pos) const

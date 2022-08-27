@@ -46,6 +46,8 @@ set(
 	libs/font/include/sge/font/optional_family_fwd.hpp
 	libs/font/include/sge/font/optional_index.hpp
 	libs/font/include/sge/font/optional_index_fwd.hpp
+	libs/font/include/sge/font/optional_rect.hpp
+	libs/font/include/sge/font/optional_rect_fwd.hpp
 	libs/font/include/sge/font/optional_ttf_size.hpp
 	libs/font/include/sge/font/optional_ttf_size_fwd.hpp
 	libs/font/include/sge/font/parameters.hpp

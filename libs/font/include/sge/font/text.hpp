@@ -10,6 +10,7 @@
 #include <sge/font/dim_fwd.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index_fwd.hpp>
+#include <sge/font/optional_rect_fwd.hpp>
 #include <sge/font/rect_fwd.hpp>
 #include <sge/font/text_fwd.hpp>
 #include <sge/font/vector_fwd.hpp>
@@ -38,7 +39,7 @@ public:
 
   [[nodiscard]] virtual sge::font::dim logical_size() const = 0;
 
-  [[nodiscard]] virtual sge::font::rect cursor_rect(sge::font::index) const = 0;
+  [[nodiscard]] virtual sge::font::optional_rect cursor_rect(sge::font::index) const = 0;
 
   [[nodiscard]] virtual sge::font::optional_index pos_to_index(sge::font::vector) const = 0;
 };

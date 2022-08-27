@@ -7,6 +7,7 @@
 #include <sge/font/exception.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index.hpp>
+#include <sge/font/optional_rect.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -84,10 +85,10 @@ sge::font::rect sge::gdifont::text::rect() const { return rect_; }
 
 sge::font::dim sge::gdifont::text::logical_size() const { return rect_.size(); }
 
-sge::font::rect sge::gdifont::text::cursor_rect(sge::font::index const _index) const
+sge::font::optional_rect sge::gdifont::text::cursor_rect(sge::font::index const _index) const
 {
   // FIXME
-  return fcppt::math::box::null<sge::font::rect>();
+  return sge::font::optional_rect{};
 }
 
 sge::font::optional_index sge::gdifont::text::pos_to_index(sge::font::vector const _pos) const

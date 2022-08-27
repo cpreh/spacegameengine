@@ -4,9 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/font/dim.hpp>
-#include <sge/font/exception.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/optional_index.hpp>
+#include <sge/font/optional_rect.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text.hpp>
@@ -38,7 +38,6 @@
 #include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <fcppt/loop.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/object_fwd.hpp>
@@ -49,8 +48,6 @@
 #include <fcppt/math/dim/to_unsigned.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/to_unsigned.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/match.hpp>
 
 sge::font::bitmap::impl::text::text(
@@ -107,13 +104,11 @@ sge::font::rect sge::font::bitmap::impl::text::rect() const { return rep_.rect()
 
 sge::font::dim sge::font::bitmap::impl::text::logical_size() const { return this->rect().size(); }
 
-sge::font::rect sge::font::bitmap::impl::text::cursor_rect(sge::font::index const _index) const
+sge::font::optional_rect sge::font::bitmap::impl::text::cursor_rect(sge::font::index const _index) const
 {
   // TODO(philipp): This code would better be expressed using ranges.
 
-  using optional_rect = fcppt::optional::object<sge::font::rect>;
-
-  optional_rect result{};
+  sge::font::optional_rect result{};
 
   sge::font::index index{0U};
 
@@ -136,8 +131,7 @@ sge::font::rect sge::font::bitmap::impl::text::cursor_rect(sge::font::index cons
         return fcppt::loop::continue_;
       });
 
-  return fcppt::optional::to_exception(
-      result, [] { return sge::font::exception{FCPPT_TEXT("Unable to calculate cursor_rect!")}; });
+  return result;
 }
 
 sge::font::optional_index
@@ -145,7 +139,7 @@ sge::font::bitmap::impl::text::pos_to_index(sge::font::vector const _pos) const
 {
   // TODO(philipp): This code would better be expressed using ranges.
 
-  sge::font::optional_index result;
+  sge::font::optional_index result{};
 
   sge::font::index index{0U};
 

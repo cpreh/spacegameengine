@@ -65,6 +65,7 @@
 #include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/maybe.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -153,17 +154,20 @@ void sge::gui::widget::edit::on_draw(
     return;
   }
 
-  sge::font::rect const cursor_rect(static_text_.text().cursor_rect(position_));
-
-  _renderer.fill_rect(
-      _context,
-      sge::rucksack::rect(
-          cursor_rect.pos() + static_text_.pos(),
-          sge::font::dim(
-              // TODO(philipp): How do we specify the width?
-              2,
-              cursor_rect.size().h())),
-      style_.get().text_color().get());
+  fcppt::optional::maybe_void(
+      this->static_text_.text().cursor_rect(this->position_),
+      [&_renderer, &_context, this](sge::font::rect const _cursor_rect)
+      {
+        _renderer.fill_rect(
+            _context,
+            sge::rucksack::rect(
+                _cursor_rect.pos() + this->static_text_.pos(),
+                sge::font::dim(
+                    // TODO(philipp): How do we specify the width?
+                    2,
+                    _cursor_rect.size().h())),
+            this->style_.get().text_color().get());
+      });
 }
 
 sge::gui::get_focus sge::gui::widget::edit::on_click(sge::rucksack::vector const &_pos)
