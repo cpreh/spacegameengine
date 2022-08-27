@@ -22,16 +22,18 @@
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
+#include <sge/renderer/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 sge::d3d9::surface::color::color(
     IDirect3DDevice9 &_device,
@@ -52,14 +54,12 @@ sge::d3d9::surface::color::~color() {}
 sge::d3d9::surface::color::const_view
 sge::d3d9::surface::color::lock_c(lock_area const &_rect) const
 {
-  sge::d3d9::surface::color_holder const &holder(*FCPPT_ASSERT_OPTIONAL_ERROR(color_holder_));
-
-  if (holder.is_render_target())
+  if (this->color_holder().is_render_target())
   {
     sge::d3d9::surface::d3d_unique_ptr const &temp_surface(fcppt::optional::assign(
         temp_surface_,
         sge::d3d9::devicefuncs::create_offscreen_plain_surface(
-            device_, holder.size(), format_, D3DPOOL_SYSTEMMEM)));
+            device_, this->color_holder().size(), format_, D3DPOOL_SYSTEMMEM)));
 
     sge::d3d9::devicefuncs::get_render_target_data(device_, this->surface(), *temp_surface);
   }
@@ -83,27 +83,40 @@ void sge::d3d9::surface::color::unlock() const
 {
   sge::d3d9::surfacefuncs::unlock_rect(this->lock_surface());
 
-  if (FCPPT_ASSERT_OPTIONAL_ERROR(color_holder_)->is_render_target())
+  if (this->color_holder().is_render_target())
+  {
     temp_surface_ = sge::d3d9::surface::optional_d3d_unique_ptr();
+  }
 }
 
 sge::d3d9::surface::color::dim sge::d3d9::surface::color::size() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(color_holder_)->size();
+  return this->color_holder().size();
 }
 
 sge::image::color::format sge::d3d9::surface::color::format() const { return format_; }
 
 IDirect3DSurface9 &sge::d3d9::surface::color::surface() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(color_holder_)->get();
+  return this->color_holder().get();
 }
 
 IDirect3DSurface9 &sge::d3d9::surface::color::lock_surface() const
 {
-  return FCPPT_ASSERT_OPTIONAL_ERROR(color_holder_)->is_render_target()
-             ? *FCPPT_ASSERT_OPTIONAL_ERROR(temp_surface_)
-             : this->surface();
+  return this->color_holder().is_render_target() ? *fcppt::optional::to_exception(
+                                                       this->temp_surface_,
+                                                       [] {
+                                                         return sge::renderer::exception{FCPPT_TEXT(
+                                                             "d3d9 color temp surface not set!")};
+                                                       })
+                                                 : this->surface();
+}
+
+sge::d3d9::surface::color_holder &sge::d3d9::surface::color::color_holder() const
+{
+  return *fcppt::optional::to_exception(
+      this->color_holder_,
+      [] { return sge::renderer::exception{FCPPT_TEXT("d3d9 color surface not set!")}; });
 }
 
 void sge::d3d9::surface::color::init()

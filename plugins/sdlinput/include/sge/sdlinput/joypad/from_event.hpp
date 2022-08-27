@@ -9,12 +9,13 @@
 #include <sge/sdlinput/joypad/from_event_impl.hpp>
 #include <sge/sdlinput/joypad/map.hpp>
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 namespace sge::sdlinput::joypad
 {
 
 template <typename Event>
-sge::sdlinput::joypad::shared_ptr
+fcppt::optional::object<sge::sdlinput::joypad::shared_ptr>
 from_event(sge::sdlinput::joypad::map const &_joypads, Event const &_event)
 {
   return sge::sdlinput::joypad::from_event_impl(_joypads, _event.which);

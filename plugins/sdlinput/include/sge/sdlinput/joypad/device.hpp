@@ -20,6 +20,7 @@
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/object_ref.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
 #include <cstdint>
@@ -46,12 +47,12 @@ public:
 
   [[nodiscard]] SDL_JoystickID id() const;
 
-  [[nodiscard]] sge::input::joypad::absolute_axis axis(std::uint8_t) const;
+  [[nodiscard]] fcppt::optional::object<sge::input::joypad::absolute_axis> axis(std::uint8_t) const;
 
-  [[nodiscard]] sge::input::joypad::relative_axis
+  [[nodiscard]] fcppt::optional::object<sge::input::joypad::relative_axis>
       ball_axis(std::uint8_t, sge::sdlinput::joypad::ball_direction) const;
 
-  [[nodiscard]] sge::input::joypad::absolute_axis
+  [[nodiscard]] fcppt::optional::object<sge::input::joypad::absolute_axis>
       hat_axis(std::uint8_t, sge::sdlinput::joypad::hat_direction) const;
 
 private:

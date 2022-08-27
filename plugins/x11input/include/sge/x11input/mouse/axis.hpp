@@ -9,11 +9,12 @@
 #include <sge/input/mouse/axis_fwd.hpp>
 #include <sge/input/mouse/axis_info_container_fwd.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 namespace sge::x11input::mouse
 {
 
-sge::input::mouse::axis
+fcppt::optional::object<sge::input::mouse::axis>
 axis(sge::x11input::device::valuator::index, sge::input::mouse::axis_info_container const &);
 
 }

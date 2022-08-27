@@ -35,7 +35,6 @@
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/base.hpp>
-#include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
@@ -49,6 +48,7 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/mpl/list/object.hpp>
+#include <fcppt/optional/cat.hpp>
 #include <fcppt/optional/join.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
@@ -56,6 +56,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 sge::x11input::mouse::device::device(
@@ -116,31 +117,37 @@ awl::event::container sge::x11input::mouse::device::on_raw_event(XIRawEvent cons
 
 awl::event::container sge::x11input::mouse::device::on_motion(XIRawEvent const &_event)
 {
-  return fcppt::algorithm::map<awl::event::container>(
-      sge::x11input::device::valuator::range(fcppt::make_cref(_event.valuators)),
-      [this](sge::x11input::device::valuator::pair const _valuator)
-      { return this->process_valuator(_valuator); });
+  return fcppt::optional::cat<awl::event::container>(
+      fcppt::algorithm::map<std::vector<awl::event::optional_base_unique_ptr>>(
+          sge::x11input::device::valuator::range(fcppt::make_cref(_event.valuators)),
+          [this](sge::x11input::device::valuator::pair const _valuator)
+          { return this->process_valuator(_valuator); }));
 }
 
-awl::event::base_unique_ptr sge::x11input::mouse::device::process_valuator(
+awl::event::optional_base_unique_ptr sge::x11input::mouse::device::process_valuator(
     sge::x11input::device::valuator::pair const _valuator)
 {
-  sge::x11input::device::valuator::accu &accu(fcppt::container::get_or_insert(
-      accus_,
-      _valuator.index(),
-      [](sge::x11input::device::valuator::index)
-      { return sge::x11input::device::valuator::accu{0.}; }));
+  return fcppt::optional::map(
+      sge::x11input::mouse::axis(_valuator.index(), this->info_.axes()),
+      [this, &_valuator](sge::input::mouse::axis const _axis)
+      {
+        sge::x11input::device::valuator::accu &accu{fcppt::container::get_or_insert(
+            this->accus_,
+            _valuator.index(),
+            [](sge::x11input::device::valuator::index)
+            { return sge::x11input::device::valuator::accu{0.}; })};
 
-  sge::x11input::mouse::axis_value_accu_pair const result{
-      sge::x11input::mouse::axis_value(accu, _valuator.value())};
+        sge::x11input::mouse::axis_value_accu_pair const result{
+            sge::x11input::mouse::axis_value(accu, _valuator.value())};
 
-  accu = result.second;
+        accu = result.second;
 
-  return fcppt::unique_ptr_to_base<awl::event::base>(
-      fcppt::make_unique_ptr<sge::input::mouse::event::axis>(
-          sge::input::mouse::shared_ptr{this->fcppt_shared_from_this()},
-          sge::x11input::mouse::axis(_valuator.index(), info_.axes()),
-          result.first));
+        return fcppt::unique_ptr_to_base<awl::event::base>(
+            fcppt::make_unique_ptr<sge::input::mouse::event::axis>(
+                sge::input::mouse::shared_ptr{this->fcppt_shared_from_this()},
+                _axis,
+                result.first));
+      });
 }
 
 awl::event::optional_base_unique_ptr

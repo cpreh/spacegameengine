@@ -16,6 +16,7 @@
 #include <sge/input/info/name.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_id.hpp>
+#include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/axis_value.hpp>
 #include <sge/input/joypad/button_id.hpp>
 #include <sge/input/joypad/button_pressed.hpp>
@@ -23,6 +24,7 @@
 #include <sge/input/joypad/info_fwd.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
+#include <sge/input/joypad/relative_axis_info.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/absolute_axis.hpp>
 #include <sge/input/joypad/event/button.hpp>
@@ -38,9 +40,9 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/alternative.hpp>
+#include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
@@ -81,20 +83,25 @@ sge::dinput::joypad::device::create_ff_effect(sge::input::joypad::ff::parameters
 awl::event::optional_base_unique_ptr
 sge::dinput::joypad::device::on_dispatch(DIDEVICEOBJECTDATA const &_data)
 {
-  auto const absolute_axis_event(
-      [&_data, this](sge::input::joypad::absolute_axis_id const _id) -> awl::event::base_unique_ptr
+  auto const absolute_axis_event{
+      [&_data,
+       this](sge::input::joypad::absolute_axis_id const _id) -> awl::event::optional_base_unique_ptr
       {
-        return fcppt::unique_ptr_to_base<awl::event::base>(
-            fcppt::make_unique_ptr<sge::input::joypad::event::absolute_axis>(
-                sge::input::joypad::shared_ptr{this->fcppt_shared_from_this()},
-                sge::input::joypad::absolute_axis(
-                    FCPPT_ASSERT_OPTIONAL_ERROR(info_.input_info().absolute_axes()[_id])->code(),
-                    _id),
-                // TODO: Conversion function
-                static_cast<sge::input::joypad::axis_value>(_data.dwData)));
-      });
+        return fcppt::optional::map(
+            this->info_.input_info().absolute_axes()[_id],
+            [this, _id, &_data](
+                fcppt::reference<sge::input::joypad::absolute_axis_info const> const _info)
+            {
+              return fcppt::unique_ptr_to_base<awl::event::base>(
+                  fcppt::make_unique_ptr<sge::input::joypad::event::absolute_axis>(
+                      sge::input::joypad::shared_ptr{this->fcppt_shared_from_this()},
+                      sge::input::joypad::absolute_axis{_info->code(), _id},
+                      // TODO: Conversion function
+                      static_cast<sge::input::joypad::axis_value>(_data.dwData)));
+            });
+      }};
 
-  auto const button_event(
+  auto const button_event{
       [this, &_data](sge::input::joypad::button_id const _id) -> awl::event::base_unique_ptr
       {
         return fcppt::unique_ptr_to_base<awl::event::base>(
@@ -102,23 +109,28 @@ sge::dinput::joypad::device::on_dispatch(DIDEVICEOBJECTDATA const &_data)
                 sge::input::joypad::shared_ptr{this->fcppt_shared_from_this()},
                 _id,
                 sge::input::joypad::button_pressed{sge::dinput::is_down(_data.dwData)}));
-      });
+      }};
 
   auto const relative_axis_event(
-      [this, &_data](sge::input::joypad::relative_axis_id const _id) -> awl::event::base_unique_ptr
+      [this, &_data](
+          sge::input::joypad::relative_axis_id const _id) -> awl::event::optional_base_unique_ptr
       {
-        return fcppt::unique_ptr_to_base<awl::event::base>(
-            fcppt::make_unique_ptr<sge::input::joypad::event::relative_axis>(
-                sge::input::joypad::shared_ptr{this->fcppt_shared_from_this()},
-                sge::input::joypad::relative_axis(
-                    FCPPT_ASSERT_OPTIONAL_ERROR(info_.input_info().relative_axes()[_id])->code(),
-                    _id),
-                // TODO: Conversion function
-                static_cast<sge::input::joypad::axis_value>(_data.dwData)));
+        return fcppt::optional::map(
+            this->info_.input_info().relative_axes()[_id],
+            [this, _id, &_data](
+                fcppt::reference<sge::input::joypad::relative_axis_info const> const _info)
+            {
+              return fcppt::unique_ptr_to_base<awl::event::base>(
+                  fcppt::make_unique_ptr<sge::input::joypad::event::relative_axis>(
+                      sge::input::joypad::shared_ptr{this->fcppt_shared_from_this()},
+                      sge::input::joypad::relative_axis{_info->code(), _id},
+                      // TODO: Conversion function
+                      static_cast<sge::input::joypad::axis_value>(_data.dwData)));
+            });
       });
 
   return fcppt::optional::alternative(
-      fcppt::optional::map(
+      fcppt::optional::bind(
           fcppt::optional::copy_value(
               fcppt::container::find_opt_mapped(this->info_.absolute_axis_map(), _data.dwOfs)),
           absolute_axis_event),
@@ -131,7 +143,7 @@ sge::dinput::joypad::device::on_dispatch(DIDEVICEOBJECTDATA const &_data)
                 button_event),
             [&relative_axis_event, &_data, this]
             {
-              return fcppt::optional::map(
+              return fcppt::optional::bind(
                   fcppt::optional::copy_value(fcppt::container::find_opt_mapped(
                       this->info_.relative_axis_map(), _data.dwOfs)),
                   relative_axis_event);

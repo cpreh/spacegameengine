@@ -13,17 +13,22 @@
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
 #include <sge/sdlinput/joypad/translate_hat_event.hpp>
 #include <awl/event/base.hpp>
-#include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/container/make.hpp>
+#include <fcppt/optional/cat.hpp>
+#include <fcppt/optional/make.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/maybe_multi.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_events.h>
 #include <SDL_joystick.h>
 #include <cstdint>
 #include <utility>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 namespace
@@ -31,33 +36,33 @@ namespace
 
 using axes_direction = std::pair<sge::input::joypad::axis_value, sge::input::joypad::axis_value>;
 
-axes_direction axes_values(std::uint8_t const _value)
+fcppt::optional::object<axes_direction> axes_values(std::uint8_t const _value)
 {
   switch (_value)
   {
   case SDL_HAT_LEFTUP: // NOLINT(hicpp-signed-bitwise)
-    return axes_direction{-1, -1};
+    return fcppt::optional::make(axes_direction{-1, -1});
   case SDL_HAT_UP:
-    return axes_direction{0, -1};
+    return fcppt::optional::make(axes_direction{0, -1});
   case SDL_HAT_RIGHTUP: // NOLINT(hicpp-signed-bitwise)
-    return axes_direction{1, -1};
+    return fcppt::optional::make(axes_direction{1, -1});
   case SDL_HAT_LEFT:
-    return axes_direction{-1, 0};
+    return fcppt::optional::make(axes_direction{-1, 0});
   case SDL_HAT_CENTERED:
-    return axes_direction{0, 0};
+    return fcppt::optional::make(axes_direction{0, 0});
   case SDL_HAT_RIGHT:
-    return axes_direction{1, 0};
+    return fcppt::optional::make(axes_direction{1, 0});
   case SDL_HAT_LEFTDOWN: // NOLINT(hicpp-signed-bitwise)
-    return axes_direction{-1, 1};
+    return fcppt::optional::make(axes_direction{-1, 1});
   case SDL_HAT_DOWN:
-    return axes_direction{0, 1};
+    return fcppt::optional::make(axes_direction{0, 1});
   case SDL_HAT_RIGHTDOWN: // NOLINT(hicpp-signed-bitwise)
-    return axes_direction{1, 1};
+    return fcppt::optional::make(axes_direction{1, 1});
   default:
     break;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  return fcppt::optional::object<axes_direction>{};
 }
 
 }
@@ -65,24 +70,30 @@ axes_direction axes_values(std::uint8_t const _value)
 awl::event::container sge::sdlinput::joypad::translate_hat_event(
     sge::sdlinput::joypad::map const &_joypads, SDL_JoyHatEvent const &_event)
 {
-  sge::sdlinput::joypad::shared_ptr const joypad{
-      sge::sdlinput::joypad::from_event(_joypads, _event)};
-
-  axes_direction const axes{axes_values(_event.value)};
-
-  auto const make_event(
-      [&joypad, &_event](
-          sge::sdlinput::joypad::hat_direction const _direction,
-          sge::input::joypad::axis_value const _value) -> awl::event::base_unique_ptr
+  return fcppt::optional::maybe_multi(
+      [] { return awl::event::container{}; },
+      [&_event](axes_direction const _axes, sge::sdlinput::joypad::shared_ptr const _joypad)
       {
-        return fcppt::unique_ptr_to_base<awl::event::base>(
-            fcppt::make_unique_ptr<sge::input::joypad::event::absolute_axis>(
-                sge::input::joypad::shared_ptr{joypad},
-                joypad->hat_axis(_event.hat, _direction),
-                _value));
-      });
+        auto const make_event{
+            [&_joypad, &_event](
+                sge::sdlinput::joypad::hat_direction const _direction,
+                sge::input::joypad::axis_value const _value) -> awl::event::optional_base_unique_ptr
+            {
+              return fcppt::optional::map(
+                  _joypad->hat_axis(_event.hat, _direction),
+                  [&_joypad, _value](sge::input::joypad::absolute_axis const &_axis)
+                  {
+                    return fcppt::unique_ptr_to_base<awl::event::base>(
+                        fcppt::make_unique_ptr<sge::input::joypad::event::absolute_axis>(
+                            sge::input::joypad::shared_ptr{_joypad}, _axis, _value));
+                  });
+            }};
 
-  return fcppt::container::make<awl::event::container>(
-      make_event(sge::sdlinput::joypad::hat_direction::x, axes.first),
-      make_event(sge::sdlinput::joypad::hat_direction::y, axes.second));
+        return fcppt::optional::cat<awl::event::container>(
+            fcppt::container::make<std::vector<awl::event::optional_base_unique_ptr>>(
+                make_event(sge::sdlinput::joypad::hat_direction::x, _axes.first),
+                make_event(sge::sdlinput::joypad::hat_direction::y, _axes.second)));
+      },
+      axes_values(_event.value),
+      sge::sdlinput::joypad::from_event(_joypads, _event));
 }

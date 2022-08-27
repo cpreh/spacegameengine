@@ -16,16 +16,18 @@
 #include <sge/image/view/make.hpp>
 #include <sge/image/view/make_const.hpp>
 #include <sge/renderer/basic_lock_box.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 template <typename Types>
 sge::d3d9::texture::basic_buffer<Types>::basic_buffer(
@@ -66,7 +68,9 @@ sge::d3d9::texture::basic_buffer<Types>::lock_c(lock_area const &_area) const
 template <typename Types>
 void sge::d3d9::texture::basic_buffer<Types>::unlock() const
 {
-  Types::unlock(*FCPPT_ASSERT_OPTIONAL_ERROR(buffer_));
+  Types::unlock(*fcppt::optional::to_exception(
+      this->buffer_,
+      [] { return sge::renderer::exception{FCPPT_TEXT("d3d9 texture not locked!")}; }));
 
   buffer_ = optional_d3d_buffer_unique_ptr();
 

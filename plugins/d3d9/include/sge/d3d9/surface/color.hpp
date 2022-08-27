@@ -53,6 +53,8 @@ public:
 private:
   IDirect3DSurface9 &lock_surface() const;
 
+  sge::d3d9::surface::color_holder &color_holder() const;
+
   void init();
 
   void on_loss() override;

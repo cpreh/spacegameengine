@@ -10,10 +10,10 @@
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/math/ceil_div.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
 #include <type_traits>
@@ -24,20 +24,22 @@ sge::wininput::cursor::pixmap::pixmap()
     : cursor_(
           []
           {
-            int const cursor_width(awl::backends::windows::system_metrics(SM_CXCURSOR)),
-                cursor_height(awl::backends::windows::system_metrics(SM_CYCURSOR));
+            int const cursor_width{awl::backends::windows::system_metrics(SM_CXCURSOR)};
+            int const cursor_height{awl::backends::windows::system_metrics(SM_CYCURSOR)};
 
-            typedef std::vector<BYTE> byte_vector;
+            using byte_vector = std::vector<BYTE>;
 
-            static_assert(std::is_unsigned<BYTE>::value, "BYTE should be unsigned");
+            static_assert(std::is_unsigned_v<BYTE>, "BYTE should be unsigned");
 
-            byte_vector::size_type const size(FCPPT_ASSERT_OPTIONAL_ERROR(fcppt::math::ceil_div(
-                fcppt::cast::size<byte_vector::size_type>(
-                    fcppt::cast::to_unsigned(cursor_width * cursor_height)),
-                fcppt::cast::size<byte_vector::size_type>(std::numeric_limits<BYTE>::digits))));
+            byte_vector::size_type const size{fcppt::optional::to_exception(
+                fcppt::math::ceil_div(
+                    fcppt::cast::size<byte_vector::size_type>(
+                        fcppt::cast::to_unsigned(cursor_width * cursor_height)),
+                    fcppt::cast::size<byte_vector::size_type>(std::numeric_limits<BYTE>::digits)),
+                [] { return sge::input::exception{FCPPT_TEXT("Div by zero!")}; })};
 
-            byte_vector const and_values(size, std::numeric_limits<BYTE>::max()),
-                xor_values(size, fcppt::literal<BYTE>(0u));
+            byte_vector const and_values(size, std::numeric_limits<BYTE>::max());
+            byte_vector const xor_values(size, fcppt::literal<BYTE>(0u));
 
             return ::CreateCursor(
                 awl::backends::windows::module_handle(),
@@ -49,11 +51,13 @@ sge::wininput::cursor::pixmap::pixmap()
                 xor_values.data());
           }())
 {
-  if (cursor_ == NULL)
+  if (this->cursor_ == NULL)
+  {
     throw sge::input::exception(FCPPT_TEXT("CreateCursor() failed!"));
+  }
 }
 
-sge::wininput::cursor::pixmap::~pixmap() { ::DestroyCursor(cursor_); }
+sge::wininput::cursor::pixmap::~pixmap() { ::DestroyCursor(this->cursor_); }
 
 HCURSOR
-sge::wininput::cursor::pixmap::get() const { return cursor_; }
+sge::wininput::cursor::pixmap::get() const { return this->cursor_; }

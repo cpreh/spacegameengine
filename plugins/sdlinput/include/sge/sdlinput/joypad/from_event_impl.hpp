@@ -8,6 +8,7 @@
 
 #include <sge/sdlinput/joypad/map.hpp>
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
 #include <fcppt/config/external_end.hpp>
@@ -15,7 +16,7 @@
 namespace sge::sdlinput::joypad
 {
 
-sge::sdlinput::joypad::shared_ptr
+fcppt::optional::object<sge::sdlinput::joypad::shared_ptr>
 from_event_impl(sge::sdlinput::joypad::map const &, SDL_JoystickID);
 
 }

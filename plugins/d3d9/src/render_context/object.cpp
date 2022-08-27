@@ -67,9 +67,9 @@
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/d3d9/cg/program/activate.hpp>
@@ -125,7 +125,13 @@ void sge::d3d9::render_context::object::offscreen_target(
       [this]
       {
         {
-          sge::d3d9::target::base &cur_target(FCPPT_ASSERT_OPTIONAL_ERROR(offscreen_target_).get());
+          sge::d3d9::target::base &cur_target{
+              fcppt::optional::to_exception(
+                  this->offscreen_target_,
+                  [] {
+                    return sge::renderer::exception{FCPPT_TEXT("d3d9 offscreen target not set!")};
+                  })
+                  .get()};
 
           cur_target.active(false);
         }

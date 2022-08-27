@@ -6,10 +6,12 @@
 #include <sge/input/info/id.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_id.hpp>
+#include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/device.hpp>
 #include <sge/input/joypad/info.hpp>
 #include <sge/input/joypad/relative_axis.hpp>
 #include <sge/input/joypad/relative_axis_id.hpp>
+#include <sge/input/joypad/relative_axis_info.hpp>
 #include <sge/input/joypad/ff/effect.hpp>
 #include <sge/input/joypad/ff/effect_unique_ptr.hpp>
 #include <sge/input/joypad/ff/parameters_fwd.hpp>
@@ -25,10 +27,14 @@
 #include <sge/sdlinput/joypad/num_hats.hpp>
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/object_ref.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assert/optional_error.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/optional/bind.hpp>
+#include <fcppt/optional/make.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
 #include <cstdint>
@@ -61,59 +67,79 @@ SDL_JoystickID sge::sdlinput::joypad::device::id() const
   return sge::sdlinput::joypad::instance_id(this->instance_.get());
 }
 
-sge::input::joypad::absolute_axis sge::sdlinput::joypad::device::axis(std::uint8_t const _id) const
+fcppt::optional::object<sge::input::joypad::absolute_axis>
+sge::sdlinput::joypad::device::axis(std::uint8_t const _id) const
 {
   sge::input::joypad::absolute_axis_id const axis_id{_id};
 
-  return sge::input::joypad::absolute_axis{
-      FCPPT_ASSERT_OPTIONAL_ERROR(this->info().absolute_axes()[axis_id]).get().code(), axis_id};
+  return fcppt::optional::map(
+      this->info().absolute_axes()[axis_id],
+      [axis_id](fcppt::reference<sge::input::joypad::absolute_axis_info const> const _info) {
+        return sge::input::joypad::absolute_axis{_info->code(), axis_id};
+      });
 }
 
-sge::input::joypad::relative_axis sge::sdlinput::joypad::device::ball_axis(
+fcppt::optional::object<sge::input::joypad::relative_axis> sge::sdlinput::joypad::device::ball_axis(
     std::uint8_t const _id, sge::sdlinput::joypad::ball_direction const _direction) const
 {
-  auto const ball_mult(
-      [_direction]() -> sge::input::info::id
+  auto const ball_mult{
+      [_direction]() -> fcppt::optional::object<sge::input::info::id>
       {
         switch (_direction)
         {
         case sge::sdlinput::joypad::ball_direction::x:
-          return 0U;
+          return fcppt::optional::make(fcppt::literal<sge::input::info::id>(0U));
         case sge::sdlinput::joypad::ball_direction::y:
-          return 1U;
+          return fcppt::optional::make(fcppt::literal<sge::input::info::id>(1U));
         }
 
-        FCPPT_ASSERT_UNREACHABLE;
+        return fcppt::optional::object<sge::input::info::id>{};
+      }};
+
+  return fcppt::optional::bind(
+      ball_mult(),
+      [this, _id](sge::input::info::id const _mult)
+      {
+        sge::input::joypad::relative_axis_id const axis_id{
+            _id + sge::sdlinput::joypad::num_balls(this->instance_.get()) * _mult};
+
+        return fcppt::optional::map(
+            this->info().relative_axes()[axis_id],
+            [axis_id](fcppt::reference<sge::input::joypad::relative_axis_info const> const _info) {
+              return sge::input::joypad::relative_axis{_info->code(), axis_id};
+            });
       });
-
-  sge::input::joypad::relative_axis_id const axis_id{
-      _id + sge::sdlinput::joypad::num_balls(this->instance_.get()) * ball_mult()};
-
-  return sge::input::joypad::relative_axis{
-      FCPPT_ASSERT_OPTIONAL_ERROR(this->info().relative_axes()[axis_id]).get().code(), axis_id};
 }
 
-sge::input::joypad::absolute_axis sge::sdlinput::joypad::device::hat_axis(
+fcppt::optional::object<sge::input::joypad::absolute_axis> sge::sdlinput::joypad::device::hat_axis(
     std::uint8_t const _id, sge::sdlinput::joypad::hat_direction const _direction) const
 {
-  auto const hat_mult(
-      [_direction]() -> sge::input::info::id
+  auto const hat_mult{
+      [_direction]() -> fcppt::optional::object<sge::input::info::id>
       {
         switch (_direction)
         {
         case sge::sdlinput::joypad::hat_direction::x:
-          return 0U;
+          return fcppt::optional::make(fcppt::literal<sge::input::info::id>(0U));
         case sge::sdlinput::joypad::hat_direction::y:
-          return 1U;
+          return fcppt::optional::make(fcppt::literal<sge::input::info::id>(1U));
         }
 
-        FCPPT_ASSERT_UNREACHABLE;
+        return fcppt::optional::object<sge::input::info::id>{};
+      }};
+
+  return fcppt::optional::bind(
+      hat_mult(),
+      [this, _id](sge::input::info::id const _mult)
+      {
+        sge::input::joypad::absolute_axis_id const axis_id{
+            sge::sdlinput::joypad::num_axes(this->instance_.get()) + _id +
+            sge::sdlinput::joypad::num_hats(this->instance_.get()) * _mult};
+
+        return fcppt::optional::map(
+            this->info().absolute_axes()[axis_id],
+            [axis_id](fcppt::reference<sge::input::joypad::absolute_axis_info const> const _info) {
+              return sge::input::joypad::absolute_axis{_info->code(), axis_id};
+            });
       });
-
-  sge::input::joypad::absolute_axis_id const axis_id{
-      sge::sdlinput::joypad::num_axes(this->instance_.get()) + _id +
-      sge::sdlinput::joypad::num_hats(this->instance_.get()) * hat_mult()};
-
-  return sge::input::joypad::absolute_axis{
-      FCPPT_ASSERT_OPTIONAL_ERROR(this->info().absolute_axes()[axis_id]).get().code(), axis_id};
 }

@@ -13,9 +13,11 @@
 #include <sge/d3d9/surfacefuncs/dim.hpp>
 #include <sge/image/ds/format.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 sge::d3d9::surface::depth_stencil_offscreen::depth_stencil_offscreen(
     IDirect3DDevice9 &_device,
@@ -48,7 +50,9 @@ sge::image::ds::format sge::d3d9::surface::depth_stencil_offscreen::format() con
 
 IDirect3DSurface9 &sge::d3d9::surface::depth_stencil_offscreen::surface() const
 {
-  return *FCPPT_ASSERT_OPTIONAL_ERROR(surface_);
+  return *fcppt::optional::to_exception(
+      this->surface_,
+      [] { return sge::renderer::exception{FCPPT_TEXT("d3d9 ds surface not set!")}; });
 }
 
 void sge::d3d9::surface::depth_stencil_offscreen::init()

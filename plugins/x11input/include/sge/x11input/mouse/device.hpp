@@ -17,7 +17,6 @@
 #include <sge/x11input/event/window_demuxer_ref.hpp>
 #include <sge/x11input/mouse/device_fwd.hpp>
 #include <awl/backends/x11/window/const_base_ref.hpp>
-#include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/enable_shared_from_this_decl.hpp>
@@ -59,7 +58,8 @@ private:
 
   [[nodiscard]] awl::event::container on_motion(XIRawEvent const &);
 
-  [[nodiscard]] awl::event::base_unique_ptr process_valuator(sge::x11input::device::valuator::pair);
+  [[nodiscard]] awl::event::optional_base_unique_ptr
+      process_valuator(sge::x11input::device::valuator::pair);
 
   [[nodiscard]] awl::event::optional_base_unique_ptr on_button_down(XIDeviceEvent const &);
 

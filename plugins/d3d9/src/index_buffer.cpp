@@ -25,10 +25,10 @@
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 sge::d3d9::index_buffer::index_buffer(
     IDirect3DDevice9 &_device, sge::renderer::index::buffer_parameters const &_parameters)
@@ -88,7 +88,9 @@ sge::renderer::index::dynamic::format sge::d3d9::index_buffer::format() const { 
 
 IDirect3DIndexBuffer9 &sge::d3d9::index_buffer::get() const
 {
-  return *FCPPT_ASSERT_OPTIONAL_ERROR(buffer_);
+  return *fcppt::optional::to_exception(
+      this->buffer_,
+      [] { return sge::renderer::exception{FCPPT_TEXT("d3d9 index buffer not set!")}; });
 }
 
 void sge::d3d9::index_buffer::init()

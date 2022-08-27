@@ -29,10 +29,10 @@
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 sge::d3d9::vertex::buffer::buffer(
     IDirect3DDevice9 &_device,
@@ -112,7 +112,9 @@ sge::renderer::vf::dynamic::stride sge::d3d9::vertex::buffer::stride() const
 
 IDirect3DVertexBuffer9 &sge::d3d9::vertex::buffer::get() const
 {
-  return *FCPPT_ASSERT_OPTIONAL_ERROR(buffer_);
+  return *fcppt::optional::to_exception(
+      this->buffer_,
+      [] { return sge::renderer::exception{FCPPT_TEXT("d3d9 vertex buffer not set!")}; });
 }
 
 void sge::d3d9::vertex::buffer::init()

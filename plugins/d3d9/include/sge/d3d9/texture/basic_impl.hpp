@@ -14,13 +14,15 @@
 #include <sge/d3d9/texture/usage.hpp>
 #include <sge/d3d9/texturefuncs/get_level_count.hpp>
 #include <sge/image/color/format.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/translate_srgb_emulation.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
-#include <fcppt/assert/optional_error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/to_exception.hpp>
 
 template <typename Types>
 sge::d3d9::texture::basic<Types>::basic(
@@ -79,7 +81,8 @@ sge::renderer::texture::mipmap::level_count sge::d3d9::texture::basic<Types>::le
 template <typename Types>
 typename sge::d3d9::texture::basic<Types>::d3d_type &sge::d3d9::texture::basic<Types>::get() const
 {
-  return *FCPPT_ASSERT_OPTIONAL_ERROR(texture_);
+  return *fcppt::optional::to_exception(
+      this->texture_, [] { return sge::renderer::exception{FCPPT_TEXT("d3d9 texture not set!")}; });
 }
 
 template <typename Types>
