@@ -11,11 +11,10 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/contains_if.hpp>
+#include <fcppt/algorithm/split_string.hpp>
 #include <fcppt/container/dynamic_array.hpp>
 #include <fcppt/container/buffer/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <cstddef>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -79,12 +78,9 @@ std::string sge::opencl::platform::object::name() const
 
 sge::opencl::platform::extension_sequence sge::opencl::platform::object::extensions() const
 {
-  sge::opencl::platform::extension_sequence result;
+  std::string const info_string{platform_info_string(platform_id_, CL_PLATFORM_EXTENSIONS)};
 
-  std::string const info_string(platform_info_string(platform_id_, CL_PLATFORM_EXTENSIONS));
-
-  boost::algorithm::split(result, info_string, boost::algorithm::is_any_of(" "));
-  return result;
+  return fcppt::algorithm::split_string(info_string, ' ');
 }
 
 bool sge::opencl::platform::object::supports_memory_sharing_with(
