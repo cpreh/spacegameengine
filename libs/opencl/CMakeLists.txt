@@ -216,6 +216,7 @@ add_sge_base_library(
 		${fcppt_core_TARGET}
 		${fcppt_filesystem_TARGET}
 		${fcppt_log_TARGET}
+		fcppt_parse_interface
 		${OpenCL_LIBRARIES}
 		OpenGL::GL
 		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}

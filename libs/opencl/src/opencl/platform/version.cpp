@@ -5,80 +5,51 @@
 
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/platform/version.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/either/to_exception.hpp>
+#include <fcppt/parse/char.hpp>
+#include <fcppt/parse/error.hpp>
+#include <fcppt/parse/literal.hpp>
+#include <fcppt/parse/uint.hpp>
+#include <fcppt/parse/parse_string.hpp>
+#include <fcppt/parse/string.hpp>
+#include <fcppt/parse/operators/repetition.hpp>
+#include <fcppt/parse/operators/sequence.hpp>
+#include <fcppt/tuple/get.hpp>
 #include <fcppt/config/compiler.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/fusion/container/vector/vector10.hpp>
-#include <boost/fusion/sequence/intrinsic/at_c.hpp>
-#include <boost/spirit/include/qi_char.hpp>
-#include <boost/spirit/include/qi_lit.hpp>
-#include <boost/spirit/include/qi_operator.hpp>
-#include <boost/spirit/include/qi_parse.hpp>
-#include <boost/spirit/include/qi_uint.hpp>
-#include <boost/spirit/include/support_standard.hpp>
 #include <string>
-#include <vector>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
-// TODO(philipp): Initialize this directly
 sge::opencl::platform::version::version(std::string const &_version_string)
-    : major_(), minor_(), platform_specific_()
+    : info_{fcppt::either::to_exception(
+          fcppt::parse::parse_string(
+              fcppt::parse::string{"OpenCL "} >> fcppt::parse::uint<unit>{} >>
+                  fcppt::parse::literal{'.'} >> fcppt::parse::uint<unit>{} >>
+                  fcppt::parse::literal{' '} >> *fcppt::parse::char_{},
+              std::string{_version_string}),
+          [](fcppt::parse::error<char> &&_error)
+          {
+            return sge::opencl::exception{
+                FCPPT_TEXT("Failed to parse version: ") +
+                fcppt::from_std_string(std::move(_error.get()))};
+          })}
 {
-  // TODO(philipp): Use fcppt::parse
-
-  namespace qi = boost::spirit::qi;
-
-  std::string::const_iterator begin{_version_string.begin()};
-
-  std::string::const_iterator end{_version_string.end()};
-
-  FCPPT_PP_PUSH_WARNING
-#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
-  FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
-#endif
-
-  qi::uint_parser<version::unit> unit_parser;
-
-  using output_type = boost::fusion::vector3<version::unit, version::unit, std::vector<char>>;
-
-  output_type output;
-
-  bool const res{qi::parse(
-      begin,
-      end,
-      qi::lit("OpenCL ") >> unit_parser >> qi::lit(".") >> unit_parser >> qi::lit(" ") >>
-          (*boost::spirit::standard::char_),
-      output)};
-
-  major_ = boost::fusion::at_c<0>(output);
-
-  minor_ = boost::fusion::at_c<1>(output);
-
-  platform_specific_ =
-      std::string(boost::fusion::at_c<2>(output).begin(), boost::fusion::at_c<2>(output).end());
-
-  if (!(begin == end && res))
-  {
-    throw sge::opencl::exception{FCPPT_TEXT("Failed to parse version")};
-  }
-
-  FCPPT_PP_POP_WARNING
 }
 
 sge::opencl::platform::version::unit sge::opencl::platform::version::major_part() const
 {
-  return major_;
+  return fcppt::tuple::get<0U>(this->info_);
 }
 
 sge::opencl::platform::version::unit sge::opencl::platform::version::minor_part() const
 {
-  return minor_;
+  return fcppt::tuple::get<1U>(this->info_);
 }
 
 std::string const &sge::opencl::platform::version::platform_specific() const
 {
-  return platform_specific_;
+  return fcppt::tuple::get<2U>(this->info_);
 }
