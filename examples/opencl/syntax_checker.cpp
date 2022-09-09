@@ -23,6 +23,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/split_string.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/filesystem/open_exn.hpp>
@@ -53,8 +54,6 @@
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/algorithm/string/classification.hpp>
-#include <boost/algorithm/string/split.hpp>
 #include <boost/xpressive/xpressive.hpp>
 #include <cstdlib>
 #include <exception>
@@ -124,15 +123,14 @@ int main_program(
   {
     using line_sequence = std::vector<fcppt::string>;
 
-    line_sequence lines;
-
-    boost::algorithm::split(lines, _error.message(), boost::is_any_of(FCPPT_TEXT("\n")));
+    line_sequence const lines{fcppt::algorithm::split_string(_error.message(), '\n')};
 
     FCPPT_PP_PUSH_WARNING
 #if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
     FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
 #endif
 
+    // TODO(philipp): Use fcppt::parse
     boost::xpressive::basic_regex<fcppt::string::const_iterator> const broken_error_indicator_regex{
         boost::xpressive::bos >> FCPPT_TEXT(':') >> +boost::xpressive::_d >> FCPPT_TEXT(':') >>
         +boost::xpressive::_d >> FCPPT_TEXT(':')};
