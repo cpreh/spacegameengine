@@ -8,7 +8,6 @@
 #include <sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/cross.hpp>
 #include <fcppt/math/vector/hypersphere_to_cartesian.hpp>

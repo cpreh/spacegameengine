@@ -9,7 +9,6 @@
 #include <sge/input/mouse/button_info_container.hpp>
 #include <sge/x11input/mouse/button.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/assert/optional_error.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/make_if.hpp>
