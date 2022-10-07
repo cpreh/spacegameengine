@@ -16,13 +16,11 @@ namespace sge::gui::main_area
 class base
 {
   FCPPT_NONMOVABLE(base);
-
-protected:
+public:
   base();
 
   virtual ~base();
 
-public:
   virtual sge::gui::widget::base &widget() = 0;
 
   virtual void relayout() = 0;
