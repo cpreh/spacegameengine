@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/charconv/utf8_string.hpp>
-#include <sge/parse/exception.hpp>
 #include <sge/parse/json/array.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/get_exn_message.hpp>
@@ -22,7 +22,6 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/fold.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/type_info.hpp>
@@ -50,7 +49,10 @@ object_reference create_or_navigate_path(
                 sge::parse::json::make_value(
                     sge::parse::json::object{sge::parse::json::member_map{}})))};
 
-        FCPPT_ASSERT_ERROR(insert_ret.second);
+        if (!insert_ret.second)
+        {
+          throw sge::parse::json::exception{FCPPT_TEXT("Failed to insert path!")};
+        }
 
         return sge::parse::json::get_exn<sge::parse::json::object>(
             fcppt::make_ref(insert_ret.first->second.get()));

@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/charconv/fcppt_string_to_utf8.hpp>
-#include <sge/parse/exception.hpp>
+#include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/member.hpp>
@@ -23,7 +23,6 @@
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/container/maybe_front.hpp>
 #include <fcppt/either/to_exception.hpp>
@@ -69,7 +68,7 @@ void process_option(
           fcppt::string{_input}),
       [&_input](fcppt::parse::error<fcppt::char_type> &&_error)
       {
-        return sge::parse::exception{
+        return sge::parse::json::exception{
             FCPPT_TEXT("The command line parameter \"") + _input +
             FCPPT_TEXT("\" has an invalid format. See --help. The error is: ") +
             std::move(_error.get())};
@@ -79,7 +78,10 @@ void process_option(
 
   // If this is true, we have no left hand side of the '=' sign, which
   // cannot be!
-  FCPPT_ASSERT_ERROR(!first.empty());
+  if (first.empty())
+  {
+    throw sge::parse::json::exception{FCPPT_TEXT("Missing = sign on the left-hand side!")};
+  }
 
   fcppt::string const element{first.back()};
 
@@ -101,7 +103,7 @@ void process_option(
           fcppt::make_ref(target.get().members), sge::charconv::fcppt_string_to_utf8(element)),
       [&target, &element]
       {
-        return sge::parse::exception{
+        return sge::parse::json::exception{
             FCPPT_TEXT("Couldn't find member \"") + element +
             FCPPT_TEXT("\", available members are: ") +
             fcppt::algorithm::join_strings(
