@@ -57,6 +57,7 @@ set(
 	libs/projectile/include/sge/projectile/dim2.hpp
 	libs/projectile/include/sge/projectile/dim2_fwd.hpp
 	libs/projectile/include/sge/projectile/duration.hpp
+	libs/projectile/include/sge/projectile/exception.hpp
 	libs/projectile/include/sge/projectile/fixed_timestep.hpp
 	libs/projectile/include/sge/projectile/ghost/body_enter.hpp
 	libs/projectile/include/sge/projectile/ghost/body_enter_fn.hpp
@@ -118,6 +119,7 @@ set(
 	libs/projectile/src/projectile/body/scoped.cpp
 	libs/projectile/src/projectile/body/solidity/solid.cpp
 	libs/projectile/src/projectile/debug_drawer.cpp
+	libs/projectile/src/projectile/exception.cpp
 	libs/projectile/src/projectile/ghost/detail/pair_callback.cpp
 	libs/projectile/src/projectile/ghost/object.cpp
 	libs/projectile/src/projectile/ghost/parameters.cpp

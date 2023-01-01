@@ -3,11 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/projectile/exception.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/impl/ghost/detail/pair_callback.hpp>
-#include <fcppt/assert/error.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/BroadphaseCollision/btBroadphaseProxy.h>
 #include <BulletCollision/CollisionDispatch/btCollisionObject.h>
@@ -34,10 +34,19 @@ btBroadphasePair *sge::projectile::ghost::detail::pair_callback::addOverlappingP
   {
     if (ghost1 == nullptr)
     {
-      FCPPT_ASSERT_ERROR(ghost0->getUserPointer());
+      if(ghost0->getUserPointer() == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("ghost0 has no user pointer!")};
+      }
       void *user_pointer0 = ghost0->getUserPointer();
-      FCPPT_ASSERT_ERROR(col_obj1);
-      FCPPT_ASSERT_ERROR(col_obj1->getUserPointer());
+      if(col_obj1 == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("Collision object1 is null!")};
+      }
+      if(col_obj1->getUserPointer() == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("Collision object1 has no user pointer!")};
+      }
       void *user_pointer1 = col_obj1->getUserPointer();
 
       static_cast<object *>(user_pointer0)
@@ -50,10 +59,19 @@ btBroadphasePair *sge::projectile::ghost::detail::pair_callback::addOverlappingP
   {
     if (ghost0 == nullptr)
     {
-      FCPPT_ASSERT_ERROR(ghost1->getUserPointer());
+      if(ghost1->getUserPointer() == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("ghost1 has no user pointer!")};
+      }
       void *user_pointer1 = ghost1->getUserPointer();
-      FCPPT_ASSERT_ERROR(col_obj0);
-      FCPPT_ASSERT_ERROR(col_obj0->getUserPointer());
+      if(col_obj0 == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("Collision object0 is null!")};
+      }
+      if(col_obj0->getUserPointer() == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("Collision object0 has no user pointer!")};
+      }
       void *user_pointer0 = col_obj0->getUserPointer();
 
       static_cast<object *>(user_pointer1)
@@ -81,10 +99,19 @@ void *sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
   {
     if (ghost1 == nullptr)
     {
-      FCPPT_ASSERT_ERROR(ghost0->getUserPointer());
+      if(ghost0->getUserPointer() == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("ghost0 has no user pointer!")};
+      }
       void *user_pointer0 = ghost0->getUserPointer();
-      FCPPT_ASSERT_ERROR(col_obj1);
-      FCPPT_ASSERT_ERROR(col_obj1->getUserPointer());
+      if(col_obj1 == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("Collision object1 is null!")};
+      }
+      if(col_obj1->getUserPointer() == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("Collision object1 has no user pointer!")};
+      }
       void *user_pointer1 = col_obj1->getUserPointer();
 
       static_cast<object *>(user_pointer0)
@@ -97,10 +124,19 @@ void *sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
   {
     if (ghost0 == nullptr)
     {
-      FCPPT_ASSERT_ERROR(ghost1->getUserPointer());
+      if(ghost1->getUserPointer() == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("ghost1 has no user pointer!")};
+      }
       void *user_pointer1 = ghost1->getUserPointer();
-      FCPPT_ASSERT_ERROR(col_obj0);
-      FCPPT_ASSERT_ERROR(col_obj0->getUserPointer());
+      if(col_obj0 == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("Collision object0 is null!")};
+      }
+      if(col_obj0->getUserPointer() == nullptr)
+      {
+        throw sge::projectile::exception{FCPPT_TEXT("Collision object0 has no user pointer!")};
+      }
       void *user_pointer0 = col_obj0->getUserPointer();
 
       static_cast<object *>(user_pointer1)
@@ -115,5 +151,5 @@ void *sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
 void sge::projectile::ghost::detail::pair_callback::removeOverlappingPairsContainingProxy(
     btBroadphaseProxy *, btDispatcher *)
 {
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::projectile::exception{FCPPT_TEXT("removeOverlappingPairs called!")};
 }
