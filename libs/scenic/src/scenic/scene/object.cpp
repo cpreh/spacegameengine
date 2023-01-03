@@ -30,7 +30,8 @@
 #include <sge/viewport/manager_ref.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/text.hpp>
+#include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
@@ -38,6 +39,7 @@
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -160,13 +162,10 @@ void sge::scenic::scene::object::render_entity(
 
   for (auto const &material_name_and_index_buffer_range : mesh.parts())
   {
-    // TODO(philipp): find_opt
-    auto const material_name_and_material =
-        materials_.find(material_name_and_index_buffer_range.first);
-
-    FCPPT_ASSERT_ERROR(material_name_and_material != materials_.end());
-
-    sge::scenic::scene::material::object const &material(material_name_and_material->second);
+    sge::scenic::scene::material::object const &material{fcppt::optional::to_exception(
+        fcppt::container::find_opt_mapped(
+            this->materials_, material_name_and_index_buffer_range.first),
+        [] { return sge::scenic::exception{FCPPT_TEXT("Material not found!")}; }).get()};
 
     _context.current_material(material);
 
