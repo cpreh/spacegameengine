@@ -7,7 +7,9 @@
 #include <sge/dinput/joypad/ff/scoped_download.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <exception>
+#include <fcppt/config/external_end.hpp>
 
 sge::dinput::joypad::ff::scoped_download::scoped_download(IDirectInputEffect &_effect)
     : effect_{_effect}
@@ -25,5 +27,8 @@ sge::dinput::joypad::ff::scoped_download::scoped_download(IDirectInputEffect &_e
 
 sge::dinput::joypad::ff::scoped_download::~scoped_download()
 {
-  FCPPT_ASSERT_ERROR(effect_.Unload() == DI_OK);
+  if(effect_.Unload() != DI_OK)
+  {
+    std::terminate();
+  }
 }

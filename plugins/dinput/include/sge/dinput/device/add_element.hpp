@@ -7,8 +7,10 @@
 #define SGE_DINPUT_DEVICE_ADD_ELEMENT_HPP_INCLUDED
 
 #include <sge/dinput/di.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -25,12 +27,15 @@ template <typename Map, typename Vector, typename Function>
 void add_element(
     DIDEVICEOBJECTINSTANCE const &_data, Map &_map, Vector &_vector, Function const &_function)
 {
-  FCPPT_ASSERT_ERROR(_map.insert(std::make_pair(
-                                     _data.dwOfs,
-                                     fcppt::strong_typedef_construct_cast<
-                                         typename Map::mapped_type,
-                                         fcppt::cast::static_cast_fun>(_vector.size())))
-                         .second);
+  if (fcppt::not_(_map.insert(std::make_pair(
+                                  _data.dwOfs,
+                                  fcppt::strong_typedef_construct_cast<
+                                      typename Map::mapped_type,
+                                      fcppt::cast::static_cast_fun>(_vector.size())))
+                      .second))
+  {
+    throw sge::input::exception{FCPPT_TEXT("Multiple device inserts in dinput!")};
+  }
 
   _vector.push_back(_function(_data));
 }
