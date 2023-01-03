@@ -9,7 +9,6 @@
 #include <sge/d3d9/cg/profile/vertex.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <Cg/cgD3D9.h>
@@ -17,11 +16,14 @@
 
 sge::cg::profile::object const sge::d3d9::cg::profile::vertex(sge::d3d9::cg::scoped_device const &)
 {
-  CGprofile const ret(::cgD3D9GetLatestVertexProfile());
+  CGprofile const ret{::cgD3D9GetLatestVertexProfile()};
 
   SGE_CG_CHECK_STATE(FCPPT_TEXT("cgD3D9GetLatestVertexProfile failed"), sge::renderer::exception)
 
-  FCPPT_ASSERT_ERROR(ret != CG_PROFILE_UNKNOWN);
+  if (ret == CG_PROFILE_UNKNOWN)
+  {
+    throw sge::renderer::exception{FCPPT_TEXT("Unknown d3d9 vertex profile!")};
+  }
 
-  return sge::cg::profile::object(ret);
+  return sge::cg::profile::object{ret};
 }

@@ -11,7 +11,6 @@
 #include <sge/d3d9/cg/program/optimal_options.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cgD3D9.h>
 #include <fcppt/config/external_end.hpp>
@@ -19,13 +18,16 @@
 sge::cg::program::compile_options const sge::d3d9::cg::program::optimal_options(
     IDirect3DDevice9 &_device, sge::cg::profile::object const &_profile)
 {
-  sge::d3d9::cg::scoped_device const context(_device);
+  sge::d3d9::cg::scoped_device const context{_device};
 
-  char const **const ret = ::cgD3D9GetOptimalOptions(_profile.get());
+  char const **const ret{::cgD3D9GetOptimalOptions(_profile.get())};
 
   SGE_CG_CHECK_STATE(FCPPT_TEXT("cgD3D9GetOptimalOptions failed"), sge::renderer::exception)
 
-  FCPPT_ASSERT_ERROR(ret != nullptr);
+  if (ret == nullptr)
+  {
+    throw sge::renderer::exception{FCPPT_TEXT("d3d9 cg optimal options returned null!")};
+  }
 
   return sge::cg::program::compile_options(ret);
 }
