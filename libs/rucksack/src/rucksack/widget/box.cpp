@@ -9,6 +9,7 @@
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/axis_policy_function.hpp>
 #include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/exception.hpp>
 #include <sge/rucksack/make_axis_policy.hpp>
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/padding.hpp>
@@ -25,11 +26,12 @@
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -356,7 +358,10 @@ sge::rucksack::axis sge::rucksack::widget::box::minor_axis() const
 
 void sge::rucksack::widget::box::child_destroyed(sge::rucksack::widget::base &_child)
 {
-  FCPPT_ASSERT_ERROR(fcppt::algorithm::remove_if(
-      children_,
-      [&_child](child_pair const &_pair) { return _pair.first == fcppt::make_ref(_child); }));
+  if (fcppt::not_(fcppt::algorithm::remove_if(
+          children_,
+          [&_child](child_pair const &_pair) { return _pair.first == fcppt::make_ref(_child); })))
+  {
+    throw sge::rucksack::exception{FCPPT_TEXT("Failed to remove a child widget!")};
+  }
 }

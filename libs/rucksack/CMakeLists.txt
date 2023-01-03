@@ -22,6 +22,7 @@ set(
 	libs/rucksack/include/sge/rucksack/dim.hpp
 	libs/rucksack/include/sge/rucksack/dim_fwd.hpp
 	libs/rucksack/include/sge/rucksack/dim_size.hpp
+	libs/rucksack/include/sge/rucksack/exception.hpp
 	libs/rucksack/include/sge/rucksack/make_axis_policy.hpp
 	libs/rucksack/include/sge/rucksack/minimum_size.hpp
 	libs/rucksack/include/sge/rucksack/minimum_size_fwd.hpp
@@ -56,6 +57,7 @@ set(
 	libs/rucksack/src/rucksack/axis_policy2.cpp
 	libs/rucksack/src/rucksack/axis_policy2_comparison.cpp
 	libs/rucksack/src/rucksack/axis_to_index.cpp
+	libs/rucksack/src/rucksack/exception.cpp
 	libs/rucksack/src/rucksack/make_axis_policy.cpp
 	libs/rucksack/src/rucksack/widget/base.cpp
 	libs/rucksack/src/rucksack/widget/box.cpp
