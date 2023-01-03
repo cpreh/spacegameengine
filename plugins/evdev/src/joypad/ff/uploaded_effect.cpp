@@ -9,10 +9,10 @@
 #include <sge/evdev/joypad/ff/uploaded_effect.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <sys/ioctl.h>
+#include <exception>
 #include <fcppt/config/external_end.hpp>
 
 sge::evdev::joypad::ff::uploaded_effect::uploaded_effect(
@@ -22,9 +22,9 @@ sge::evdev::joypad::ff::uploaded_effect::uploaded_effect(
   effect_.id = -1;
 
   if (::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
-          fd_.get().get().get(),
+          this->fd_.get().get().get(),
           EVIOCSFF, // NOLINT(hicpp-signed-bitwise)
-          &effect_) == -1)
+          &this->effect_) == -1)
   {
     throw sge::input::exception{FCPPT_TEXT("Uploading a FF effect failed")};
   }
@@ -33,14 +33,16 @@ sge::evdev::joypad::ff::uploaded_effect::uploaded_effect(
 sge::evdev::joypad::ff::uploaded_effect::~uploaded_effect()
 {
   // NOLINTNEXTLINE(hicpp-signed-bitwise)
-  FCPPT_ASSERT_ERROR(
-      ::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
-          fd_.get().get().get(),
+  if (::ioctl( // NOLINT(cppcoreguidelines-pro-type-vararg,hicpp-vararg)
+          this->fd_.get().get().get(),
           EVIOCRMFF,
-          &effect_) != -1);
+          &this->effect_) == -1)
+  {
+    std::terminate();
+  }
 }
 
 sge::evdev::joypad::ff::id sge::evdev::joypad::ff::uploaded_effect::id() const
 {
-  return sge::evdev::joypad::ff::id{effect_.id};
+  return sge::evdev::joypad::ff::id{this->effect_.id};
 }

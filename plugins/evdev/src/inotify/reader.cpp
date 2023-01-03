@@ -7,11 +7,12 @@
 #include <sge/evdev/inotify/event.hpp>
 #include <sge/evdev/inotify/event_container.hpp>
 #include <sge/evdev/inotify/reader.hpp>
+#include <sge/input/exception.hpp>
 #include <awl/backends/posix/fd.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/no_init.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/array/object_impl.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unistd.h>
 #include <linux/limits.h>
@@ -36,9 +37,12 @@ sge::evdev::inotify::event_container sge::evdev::inotify::reader::on_event()
 
   buffer_array buffer{fcppt::no_init{}};
 
-  ssize_t ret(::read(object_.fd().get(), buffer.data(), buffer.size()));
+  ssize_t const ret{::read(this->object_.fd().get(), buffer.data(), buffer.size())};
 
-  FCPPT_ASSERT_ERROR(ret != -1);
+  if(ret == -1)
+  {
+    throw sge::input::exception{FCPPT_TEXT("inotify read returned -1!")};
+  }
 
   auto const bytes(static_cast<std::size_t>(ret));
 
@@ -48,7 +52,10 @@ sge::evdev::inotify::event_container sge::evdev::inotify::reader::on_event()
 
   while (index < bytes)
   {
-    FCPPT_ASSERT_ERROR(bytes - index >= sizeof(inotify_event));
+    if(bytes - index < sizeof(inotify_event))
+    {
+      throw sge::input::exception{FCPPT_TEXT("inotify event too big!")};
+    }
 
     inotify_event event{};
 
@@ -57,7 +64,10 @@ sge::evdev::inotify::event_container sge::evdev::inotify::reader::on_event()
         buffer.data() + index, // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         sizeof(inotify_event));
 
-    FCPPT_ASSERT_ERROR(event.len != 0U);
+    if(event.len == 0U)
+    {
+      throw sge::input::exception{FCPPT_TEXT("inotify event size is 0!")};
+    }
 
     index += sizeof(inotify_event);
 
@@ -71,7 +81,10 @@ sge::evdev::inotify::event_container sge::evdev::inotify::reader::on_event()
     index += event.len;
   }
 
-  FCPPT_ASSERT_ERROR(index == bytes);
+  if(index != bytes)
+  {
+    throw sge::input::exception{FCPPT_TEXT("inotify bytes not completely read!")};
+  }
 
   return result;
 }
