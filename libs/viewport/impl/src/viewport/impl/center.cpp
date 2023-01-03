@@ -7,9 +7,11 @@
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/target/viewport.hpp>
+#include <sge/viewport/exception.hpp>
 #include <sge/viewport/impl/center.hpp>
 #include <sge/window/dim.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/not.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>
@@ -23,7 +25,11 @@ sge::renderer::pixel_unit center_position(
     sge::window::dim::value_type const _target_size,
     sge::window::dim::value_type const _window_size)
 {
-  FCPPT_ASSERT_ERROR(_window_size >= _target_size);
+  if (fcppt::not_(_window_size >= _target_size))
+  {
+    throw sge::viewport::exception{
+        FCPPT_TEXT("Window size must be at least the size of the viewport!")};
+  }
 
   return fcppt::cast::size<sge::renderer::pixel_unit>(
       fcppt::cast::to_signed((_window_size - _target_size) / 2U));
