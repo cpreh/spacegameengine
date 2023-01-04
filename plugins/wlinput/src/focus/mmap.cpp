@@ -7,11 +7,11 @@
 #include <sge/wlinput/focus/mmap.hpp>
 #include <awl/backends/posix/fd.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <sys/mman.h>
 #include <cstdint>
+#include <exception>
 #include <fcppt/config/external_end.hpp>
 
 sge::wlinput::focus::mmap::mmap(awl::backends::posix::fd const _fd, std::uint32_t const _size)
@@ -26,6 +26,12 @@ sge::wlinput::focus::mmap::mmap(awl::backends::posix::fd const _fd, std::uint32_
   }
 }
 
-sge::wlinput::focus::mmap::~mmap() { FCPPT_ASSERT_ERROR(::munmap(string_, size_) == 0); }
+sge::wlinput::focus::mmap::~mmap()
+{
+  if (::munmap(string_, size_) != 0)
+  {
+    std::terminate();
+  }
+}
 
 char const *sge::wlinput::focus::mmap::string() const { return string_; }

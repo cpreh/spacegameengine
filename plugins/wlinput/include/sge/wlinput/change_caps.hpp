@@ -6,6 +6,7 @@
 #ifndef SGE_WLINPUT_CHANGE_CAPS_HPP_INCLUDED
 #define SGE_WLINPUT_CHANGE_CAPS_HPP_INCLUDED
 
+#include <sge/input/exception.hpp>
 #include <sge/wlinput/create_function.hpp>
 #include <sge/wlinput/map.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
@@ -17,9 +18,10 @@
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/optional/make_if.hpp>
@@ -61,7 +63,10 @@ awl::event::optional_base_unique_ptr change_caps(
                   _map.get().insert(std::make_pair(
                       _seat.get().name(), _create_function(fcppt::make_ref(_seat.get().get()))))};
 
-              FCPPT_ASSERT_ERROR(result.second);
+              if (fcppt::not_(result.second))
+              {
+                throw sge::input::exception{FCPPT_TEXT("Double insert in wlinput!")};
+              }
 
               return fcppt::unique_ptr_to_base<awl::event::base>(
                   fcppt::make_unique_ptr<Discover>(BasePtr{result.first->second}));
