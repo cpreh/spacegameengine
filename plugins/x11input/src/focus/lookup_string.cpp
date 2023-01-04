@@ -12,9 +12,9 @@
 #include <sge/x11input/key/translate_sym.hpp>
 #include <sge/x11input/xim/context.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
@@ -55,7 +55,10 @@ sge::x11input::focus::looked_up_string sge::x11input::focus::lookup_string(
 
   XKeyPressedEvent xev(sge::x11input::focus::translate_event(_event));
 
-  FCPPT_ASSERT_ERROR(xev.type == KeyPress);
+  if (xev.type != KeyPress)
+  {
+    throw sge::input::exception{FCPPT_TEXT("Invalid x11input event for lookup_string!")};
+  }
 
   auto const get_size(
       [&_input_context, &xev]
@@ -73,7 +76,10 @@ sge::x11input::focus::looked_up_string sge::x11input::focus::lookup_string(
             fcppt::make_ref(key_sym),
             fcppt::make_ref(status))};
 
-        FCPPT_ASSERT_ERROR(needed_chars == 0 || status == XBufferOverflow);
+        if (fcppt::not_(needed_chars == 0 || status == XBufferOverflow))
+        {
+          throw sge::input::exception{FCPPT_TEXT("x11input lookup chars failed!")};
+        }
 
         return needed_chars;
       });
@@ -97,7 +103,10 @@ sge::x11input::focus::looked_up_string sge::x11input::focus::lookup_string(
       fcppt::make_ref(key_sym),
       fcppt::make_ref(status)));
 
-  FCPPT_ASSERT_ERROR(chars_return >= 0);
+  if (chars_return < 0)
+  {
+    throw sge::input::exception{FCPPT_TEXT("< 0 chars returned in x11input!")};
+  }
 
   // less chars might be returned here if the locale doesn't support it
   buffer.written(fcppt::cast::size<buffer_type::size_type>(fcppt::cast::to_unsigned(chars_return)));
