@@ -6,6 +6,7 @@
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/code_to_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 fcppt::string sge::input::key::code_to_string(sge::input::key::code const _code)

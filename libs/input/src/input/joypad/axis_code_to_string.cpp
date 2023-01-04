@@ -6,6 +6,7 @@
 #include <sge/input/joypad/axis_code.hpp>
 #include <sge/input/joypad/axis_code_to_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 fcppt::string sge::input::joypad::axis_code_to_string(sge::input::joypad::axis_code const _code)

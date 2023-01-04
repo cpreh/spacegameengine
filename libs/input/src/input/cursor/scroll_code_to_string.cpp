@@ -6,6 +6,7 @@
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/scroll_code_to_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 fcppt::string sge::input::cursor::scroll_code_to_string(sge::input::cursor::scroll_code const _code)

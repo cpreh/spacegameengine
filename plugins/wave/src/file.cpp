@@ -20,7 +20,6 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
