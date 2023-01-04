@@ -10,7 +10,6 @@
 #include <sge/core/detail/symbol.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/assert/information_fwd.hpp>
 
 namespace sge::core
 {
@@ -20,9 +19,6 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL exception : public fcppt::exception
 public:
   SGE_CORE_DETAIL_SYMBOL
   explicit exception(fcppt::string &&);
-
-  SGE_CORE_DETAIL_SYMBOL
-  explicit exception(fcppt::assert_::information const &);
 
   SGE_CORE_DETAIL_SYMBOL
   exception(exception &&) noexcept;

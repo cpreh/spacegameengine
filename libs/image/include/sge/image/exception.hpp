@@ -11,7 +11,6 @@
 #include <sge/image/exception_fwd.hpp>
 #include <sge/image/detail/symbol.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/assert/information_fwd.hpp>
 
 namespace sge::image
 {
@@ -21,9 +20,6 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL exception : public sge::core::exception
 public:
   SGE_IMAGE_DETAIL_SYMBOL
   explicit exception(fcppt::string &&);
-
-  SGE_IMAGE_DETAIL_SYMBOL
-  explicit exception(fcppt::assert_::information const &);
 
   SGE_IMAGE_DETAIL_SYMBOL
   exception(exception &&) noexcept;

@@ -10,7 +10,6 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/resource_tree/detail/symbol.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/assert/information_fwd.hpp>
 
 namespace sge::resource_tree
 {
@@ -20,9 +19,6 @@ class SGE_CORE_DETAIL_CLASS_SYMBOL exception : public sge::core::exception
 public:
   SGE_RESOURCE_TREE_DETAIL_SYMBOL
   explicit exception(fcppt::string &&);
-
-  SGE_RESOURCE_TREE_DETAIL_SYMBOL
-  explicit exception(fcppt::assert_::information const &);
 
   SGE_RESOURCE_TREE_DETAIL_SYMBOL
   exception(exception &&) noexcept;

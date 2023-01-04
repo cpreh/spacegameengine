@@ -7,18 +7,12 @@
 #include <sge/image2d/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 sge::image2d::exception::exception(fcppt::string &&_what)
     : sge::image::exception(FCPPT_TEXT("2d: ") + std::move(_what))
-{
-}
-
-sge::image2d::exception::exception(fcppt::assert_::information const &_information)
-    : sge::image::exception(_information)
 {
 }
 

@@ -7,18 +7,12 @@
 #include <sge/core/exception.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/information_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 sge::cg::exception::exception(fcppt::string &&_what)
     : sge::core::exception(FCPPT_TEXT("cg: ") + std::move(_what))
-{
-}
-
-sge::cg::exception::exception(fcppt::assert_::information const &_info)
-    : sge::core::exception(_info)
 {
 }
 
