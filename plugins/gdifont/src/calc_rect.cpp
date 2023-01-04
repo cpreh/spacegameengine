@@ -51,7 +51,7 @@ sge::font::rect sge::gdifont::calc_rect(
 
   if (fcppt::not_(result.left == zero && result.top == zero))
   {
-    throw sge::font::exception{FCPPT_TEXT("gdifont result rect does not start at (0,0)!)};
+    throw sge::font::exception{FCPPT_TEXT("gdifont result rect does not start at (0,0)!")};
   }
 
   LONG const width{result.right};
