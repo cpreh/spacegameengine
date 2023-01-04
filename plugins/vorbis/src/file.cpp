@@ -6,6 +6,7 @@
 #include <sge/audio/bits_per_sample.hpp>
 #include <sge/audio/bytes_per_sample.hpp>
 #include <sge/audio/channel_count.hpp>
+#include <sge/audio/exception.hpp>
 #include <sge/audio/file.hpp>
 #include <sge/audio/sample_buffer.hpp>
 #include <sge/audio/sample_container.hpp>
@@ -21,7 +22,7 @@
 #include <sge/vorbis/stream_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/buffer/append_from.hpp>
@@ -29,6 +30,7 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
+#include <istream>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -69,7 +71,10 @@ sge::audio::sample_count sge::vorbis::file::read(
         std::size_t const bytes_read(sge::vorbis::read(log_.get(), *stream_, name_, _data, _size));
 
         // FIXME: This might not be true if a file is truncated?
-        FCPPT_ASSERT_ERROR(bytes_read % bytes_per_sample == 0U);
+        if (bytes_read % bytes_per_sample != 0U)
+        {
+          throw sge::audio::exception{FCPPT_TEXT("Vorbis bytes per sample don't fit.")};
+        }
 
         return bytes_read;
       });
