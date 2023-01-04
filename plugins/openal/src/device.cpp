@@ -7,8 +7,10 @@
 #include <sge/openal/device.hpp>
 #include <sge/openal/funcs/alc_close_device.hpp>
 #include <sge/openal/funcs/alc_open_device.hpp>
-#include <fcppt/text.hpp>
-#include <fcppt/assert/error_message.hpp>
+#include <fcppt/not.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <exception>
+#include <fcppt/config/external_end.hpp>
 
 sge::openal::device::device(ALCchar const *const _specifier)
     : device_(sge::openal::funcs::alc_open_device(_specifier))
@@ -19,8 +21,8 @@ ALCdevice &sge::openal::device::aldevice() { return *device_; }
 
 sge::openal::device::~device()
 {
-  FCPPT_ASSERT_ERROR_MESSAGE(
-      sge::openal::funcs::alc_close_device(this->aldevice()),
-      FCPPT_TEXT("Error closing audio device. This means you tried to close the device before "
-                 "unloading all contexts and buffers."));
+  if (fcppt::not_(sge::openal::funcs::alc_close_device(this->aldevice())))
+  {
+    std::terminate();
+  }
 }
