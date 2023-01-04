@@ -5,10 +5,17 @@
 
 #include <sge/gdifont/delete_object_deleter.hpp>
 #include <sge/gdifont/include_windows.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <exception>
+#include <fcppt/config/external_end.hpp>
 
-void sge::gdifont::delete_object_deleter::operator()(HGDIOBJ const _object) const
+void sge::gdifont::delete_object_deleter::operator()(HGDIOBJ const _object) const noexcept
 {
   if (_object != nullptr)
-    FCPPT_ASSERT_ERROR(::DeleteObject(_object) != 0);
+  {
+    if(::DeleteObject(_object) == 0)
+    {
+      std::terminate();
+    }
+  }
 }

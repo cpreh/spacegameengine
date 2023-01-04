@@ -16,7 +16,7 @@ namespace gdifont
 
 struct delete_object_deleter
 {
-  void operator()(HGDIOBJ) const;
+  void operator()(HGDIOBJ) const noexcept;
 };
 
 }

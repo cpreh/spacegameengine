@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/font/exception.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/align_h/center.hpp>
@@ -17,7 +18,8 @@
 #include <sge/gdifont/include_windows.hpp>
 #include <sge/gdifont/scoped_select.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/not.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/variant/match.hpp>
@@ -47,7 +49,10 @@ sge::font::rect sge::gdifont::calc_rect(
           zero},
       _format.get() | DT_CALCRECT)};
 
-  FCPPT_ASSERT_ERROR(result.left == zero && result.top == zero);
+  if (fcppt::not_(result.left == zero && result.top == zero))
+  {
+    throw sge::font::exception{FCPPT_TEXT("gdifont result rect does not start at (0,0)!)};
+  }
 
   LONG const width{result.right};
 
@@ -66,4 +71,4 @@ sge::font::rect sge::gdifont::calc_rect(
       sge::font::rect::dim(
           fcppt::cast::size<sge::font::rect::value_type>(pos_x + width),
           fcppt::cast::size<sge::font::rect::value_type>(result.bottom)));
-}
+  }
