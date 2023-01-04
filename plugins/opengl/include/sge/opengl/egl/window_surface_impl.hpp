@@ -10,8 +10,8 @@
 #include <sge/opengl/egl/window_surface_decl.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <exception>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -39,7 +39,10 @@ namespace sge::opengl::egl
 template <typename NativeWindow>
 window_surface<NativeWindow>::~window_surface()
 {
-  FCPPT_ASSERT_ERROR(::eglDestroySurface(display_, surface_) == EGL_TRUE);
+  if(::eglDestroySurface(display_, surface_) != EGL_TRUE)
+  {
+    std::terminate();
+  }
 }
 }
 

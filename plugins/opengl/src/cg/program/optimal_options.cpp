@@ -4,13 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/cg/check_state.hpp>
+#include <sge/cg/exception.hpp>
 #include <sge/cg/context/object.hpp>
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <sge/opengl/cg/program/optimal_options.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <Cg/cgGL.h>
@@ -24,7 +24,10 @@ sge::cg::program::compile_options sge::opengl::cg::program::optimal_options(
 
   SGE_CG_CHECK_STATE(FCPPT_TEXT("cgGLGetContextOptimalOptions failed"), sge::renderer::exception)
 
-  FCPPT_ASSERT_ERROR(ret != nullptr);
+  if(ret == nullptr)
+  {
+    throw sge::cg::exception{FCPPT_TEXT("Cg GL optimal options are null!")};
+  }
 
   return sge::cg::program::compile_options(ret);
 }

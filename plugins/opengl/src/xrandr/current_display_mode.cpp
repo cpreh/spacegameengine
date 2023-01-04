@@ -14,6 +14,7 @@
 #include <sge/opengl/xrandr/outputs_view.hpp>
 #include <sge/opengl/xrandr/refresh_rate_from_mode.hpp>
 #include <sge/opengl/xrandr/screen_resources.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
@@ -23,7 +24,7 @@
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/rect.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/assert/error.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/math/box/intersects.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/contents.hpp>
@@ -93,7 +94,12 @@ sge::opengl::xrandr::current_display_mode(awl::backends::x11::window::base const
   fcppt::optional::maybe_void(
       dimensions,
       [](sge::renderer::display_mode::dimensions const &_dim)
-      { FCPPT_ASSERT_ERROR(fcppt::math::dim::contents(_dim.get()) != 0U); });
+      {
+        if (fcppt::math::dim::contents(_dim.get()) == 0U)
+        {
+          throw sge::renderer::exception{FCPPT_TEXT("xrandr dimension is zero!")};
+        }
+      });
 
   return fcppt::optional::map(
       pixel_size,

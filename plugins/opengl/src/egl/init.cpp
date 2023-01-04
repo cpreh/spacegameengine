@@ -6,8 +6,8 @@
 #include <sge/opengl/egl/init.hpp>
 #include <sge/opengl/egl/initialize.hpp>
 #include <sge/opengl/egl/version.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <exception>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -17,6 +17,12 @@ sge::opengl::egl::init::init(EGLDisplay const _display // NOLINT(misc-misplaced-
 {
 }
 
-sge::opengl::egl::init::~init() { FCPPT_ASSERT_ERROR(::eglTerminate(display_) == EGL_TRUE); }
+sge::opengl::egl::init::~init()
+{
+  if (::eglTerminate(display_) != EGL_TRUE)
+  {
+    std::terminate();
+  }
+}
 
 sge::opengl::egl::version sge::opengl::egl::init::version() const { return version_; }

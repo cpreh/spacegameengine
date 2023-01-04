@@ -10,8 +10,8 @@
 #include <sge/opengl/egl/no_surface.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/error.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <exception>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -34,7 +34,10 @@ sge::opengl::egl::context_impl::context_impl(
 
 sge::opengl::egl::context_impl::~context_impl()
 {
-  FCPPT_ASSERT_ERROR(::eglDestroyContext(display_, context_) == EGL_TRUE);
+  if(::eglDestroyContext(display_, context_) != EGL_TRUE)
+  {
+    std::terminate();
+  }
 }
 
 void sge::opengl::egl::context_impl::activate(
