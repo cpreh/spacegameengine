@@ -5,13 +5,13 @@
 
 #include <sge/parse/ini/grammar.hpp>
 #include <sge/parse/ini/parse_stream.hpp>
-#include <sge/parse/ini/result.hpp>
+#include <sge/parse/ini/stream_result.hpp>
 #include <fcppt/parse/grammar_parse_stream.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
-sge::parse::ini::result sge::parse::ini::parse_stream(std::istream &_stream)
+sge::parse::ini::stream_result sge::parse::ini::parse_stream(std::istream &_stream)
 {
   return fcppt::parse::grammar_parse_stream(_stream, sge::parse::ini::grammar{});
 }

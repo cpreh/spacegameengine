@@ -32,8 +32,9 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/parse/error.hpp>
 #include <fcppt/parse/grammar_parse_string.hpp>
+#include <fcppt/parse/parse_string_error.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -124,11 +125,11 @@ void sge::console::object::eval(sge::font::string const &_sp)
 
         fcppt::either::match(
             fcppt::parse::grammar_parse_string(_sp.substr(1), sge::console::impl::eval_grammar{}),
-            [this](fcppt::parse::error<sge::font::char_type> &&_error)
+            [this](fcppt::parse::parse_string_error<sge::font::char_type> const &_error)
             {
               this->emit_error(
-                  SGE_FONT_LIT("Failed to parse command \"") + std::move(_error.get()) +
-                  SGE_FONT_LIT('"'));
+                  SGE_FONT_LIT("Failed to parse command \"") +
+                  fcppt::output_to_string<sge::font::string>(_error) + SGE_FONT_LIT('"'));
             },
             [this](sge::console::arg_list const &_args) { this->eval(_args); });
       });

@@ -10,7 +10,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/parse/error.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <utility>
@@ -28,16 +27,16 @@ fcppt::string common_error(std::filesystem::path const &_path)
 }
 
 fcppt::string sge::parse::impl::file_error_string(
-    std::filesystem::path const &_path, fcppt::parse::error<char> &&_error)
+    std::filesystem::path const &_path, std::string &&_error)
 {
-  return common_error(_path) + fcppt::from_std_string(std::move(_error.get()));
+  return common_error(_path) + fcppt::from_std_string(_error);
 }
 
 fcppt::string sge::parse::impl::file_error_string(
-    std::filesystem::path const &_path, fcppt::parse::error<wchar_t> &&_error)
+    std::filesystem::path const &_path, std::wstring &&_error)
 {
   return fcppt::optional::maybe(
-      fcppt::from_std_wstring(std::move(_error.get())),
+      fcppt::from_std_wstring(_error),
       [&_path] { return common_error(_path) + FCPPT_TEXT("Failed to convert error message!"); },
       [&_path](fcppt::string &&_fcppt_error)
       { return common_error(_path) + std::move(_fcppt_error); });

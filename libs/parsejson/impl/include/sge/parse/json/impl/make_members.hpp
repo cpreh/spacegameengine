@@ -8,14 +8,15 @@
 
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/impl/member_vector.hpp>
-#include <fcppt/parse/result.hpp>
+#include <fcppt/either/object_impl.hpp>
+#include <fcppt/parse/custom_error_impl.hpp>
+#include <fcppt/parse/position_fwd.hpp>
 
 namespace sge::parse::json::impl
 {
 
-fcppt::parse::result<char, sge::parse::json::member_map>
-make_members(sge::parse::json::impl::member_vector &&);
-
+fcppt::either::object<fcppt::parse::custom_error<char>, sge::parse::json::member_map>
+make_members(fcppt::parse::position<char>, sge::parse::json::impl::member_vector &&);
 }
 
 #endif

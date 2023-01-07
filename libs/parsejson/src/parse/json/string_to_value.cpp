@@ -11,8 +11,10 @@
 #include <sge/parse/json/value.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/either/to_exception.hpp>
-#include <fcppt/parse/error.hpp>
+#include <fcppt/parse/parse_string_error.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <utility>
@@ -24,9 +26,9 @@ sge::parse::json::value sge::parse::json::string_to_value(std::string &&_string)
              fcppt::make_cref(
                  fcppt::either::to_exception(
                      sge::parse::json::parse_string("{ \"value\" : " + std::move(_string) + " }"),
-                     [](fcppt::parse::error<char> &&_error) {
+                     [](fcppt::parse::parse_string_error<char> &&_error) {
                        return sge::parse::exception{
-                           fcppt::from_std_string(std::move(_error.get()))};
+                           fcppt::from_std_string(fcppt::output_to_std_string(_error))};
                      })
                      .object()
                      .members),

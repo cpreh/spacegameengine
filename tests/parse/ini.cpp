@@ -19,7 +19,7 @@
 #include <fcppt/catch/end.hpp>
 #include <fcppt/catch/strong_typedef.hpp>
 #include <fcppt/either/comparison.hpp>
-#include <fcppt/parse/make_success.hpp>
+#include <fcppt/parse/make_parse_string_success.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <string>
@@ -70,24 +70,25 @@ TEST_CASE("parse_ini", "[sge]")
                                                 "foo4=bar4\n"
                                                 "\n"
                                                 "empty=\n"}) ==
-      fcppt::parse::make_success<char>(sge::parse::ini::start{sge::parse::ini::section_vector{
-          sge::parse::ini::section{
-              sge::parse::ini::section_name{std::string{"section"}},
-              sge::parse::ini::entry_vector{sge::parse::ini::entry{
-                  sge::parse::ini::entry_name{std::string{"foo1"}},
-                  sge::parse::ini::value{std::string{"bar1"}}}}},
-          sge::parse::ini::section{
-              sge::parse::ini::section_name{std::string{"sectionfoo"}},
-              sge::parse::ini::entry_vector{
-                  sge::parse::ini::entry{
-                      sge::parse::ini::entry_name{std::string{"foo3"}},
-                      sge::parse::ini::value{std::string{"bar3"}}},
-                  sge::parse::ini::entry{
-                      sge::parse::ini::entry_name{std::string{"foo4"}},
-                      sge::parse::ini::value{std::string{"bar4"}}},
-                  sge::parse::ini::entry{
-                      sge::parse::ini::entry_name{std::string{"empty"}},
-                      sge::parse::ini::value{std::string{}}}}}}}));
+      fcppt::parse::make_parse_string_success<char>(
+          sge::parse::ini::start{sge::parse::ini::section_vector{
+              sge::parse::ini::section{
+                  sge::parse::ini::section_name{std::string{"section"}},
+                  sge::parse::ini::entry_vector{sge::parse::ini::entry{
+                      sge::parse::ini::entry_name{std::string{"foo1"}},
+                      sge::parse::ini::value{std::string{"bar1"}}}}},
+              sge::parse::ini::section{
+                  sge::parse::ini::section_name{std::string{"sectionfoo"}},
+                  sge::parse::ini::entry_vector{
+                      sge::parse::ini::entry{
+                          sge::parse::ini::entry_name{std::string{"foo3"}},
+                          sge::parse::ini::value{std::string{"bar3"}}},
+                      sge::parse::ini::entry{
+                          sge::parse::ini::entry_name{std::string{"foo4"}},
+                          sge::parse::ini::value{std::string{"bar4"}}},
+                      sge::parse::ini::entry{
+                          sge::parse::ini::entry_name{std::string{"empty"}},
+                          sge::parse::ini::value{std::string{}}}}}}}));
 }
 
 TEST_CASE("parse_ini error", "[sge]")

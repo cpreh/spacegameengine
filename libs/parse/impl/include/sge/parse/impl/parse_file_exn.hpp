@@ -14,10 +14,10 @@
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/parse/error.hpp>
 #include <fcppt/parse/grammar_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <string>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -30,13 +30,13 @@ Result parse_file_exn(
 {
   return fcppt::either::to_exception(
       sge::parse::impl::parse_file(_path, _grammar),
-      [&_path](fcppt::optional::object<fcppt::parse::error<Ch>> &&_error)
+      [&_path](fcppt::optional::object<std::basic_string<Ch>> &&_error)
       {
         return sge::parse::exception{fcppt::optional::maybe(
             std::move(_error),
             [&_path]
             { return FCPPT_TEXT("Failed to open ") + fcppt::filesystem::path_to_string(_path); },
-            [&_path](fcppt::parse::error<Ch> &&_parse_error)
+            [&_path](std::basic_string<Ch> &&_parse_error)
             { return sge::parse::impl::file_error_string(_path, std::move(_parse_error)); })};
       });
 }

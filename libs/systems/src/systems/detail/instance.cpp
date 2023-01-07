@@ -48,8 +48,10 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object.hpp>
-#include <fcppt/parse/error.hpp>
 #include <fcppt/variant/apply.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 sge::systems::detail::instance::instance(sge::systems::detail::list const &_list)
     : impl_(fcppt::make_unique_ptr<sge::systems::detail::instance_impl>(
@@ -69,19 +71,20 @@ sge::systems::detail::instance::instance(sge::systems::detail::list const &_list
           [](sge::systems::log_settings const &_settings) -> sge::log::option_container
           { return _settings.options(); }));
 
-  sge::parse::ini::file_result const ini_result_value(sge::parse::ini::parse_file(
-      sge::config::config_path(sge::config::own_app_name()) / FCPPT_TEXT("systems.ini")));
+  sge::parse::ini::file_result const ini_result_value{sge::parse::ini::parse_file(
+      sge::config::config_path(sge::config::own_app_name()) / FCPPT_TEXT("systems.ini"))};
 
   fcppt::optional::maybe_void(
       fcppt::either::failure_opt(ini_result_value),
-      [this](fcppt::optional::object<fcppt::parse::error<char>> const &_error)
+      [this](fcppt::optional::object<std::string> const &_error)
       {
         fcppt::optional::maybe_void(
             _error,
-            [this](fcppt::parse::error<char> const &_parse_error)
+            [this](std::string const &_parse_error)
             {
               FCPPT_LOG_ERROR(
-                  this->impl_->log(), fcppt::log::out << fcppt::from_std_string(_parse_error.get()))
+                  this->impl_->log(),
+                  fcppt::log::out << fcppt::from_std_string(_parse_error))
             });
       });
 

@@ -17,6 +17,7 @@
 #include <fcppt/args_vector.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
@@ -32,8 +33,9 @@
 #include <fcppt/parse/basic_char.hpp>
 #include <fcppt/parse/basic_char_set.hpp>
 #include <fcppt/parse/basic_literal.hpp>
-#include <fcppt/parse/error.hpp>
 #include <fcppt/parse/parse_string.hpp>
+#include <fcppt/parse/parse_string_error.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp>
 #include <fcppt/parse/separator.hpp>
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
@@ -66,12 +68,12 @@ void process_option(
               *~char_set{FCPPT_TEXT('/'), FCPPT_TEXT('=')}, literal{FCPPT_TEXT('/')}} >>
               literal{FCPPT_TEXT('=')} >> *char_{},
           fcppt::string{_input}),
-      [&_input](fcppt::parse::error<fcppt::char_type> &&_error)
+      [&_input](fcppt::parse::parse_string_error<fcppt::char_type> const &_error)
       {
         return sge::parse::json::exception{
             FCPPT_TEXT("The command line parameter \"") + _input +
             FCPPT_TEXT("\" has an invalid format. See --help. The error is: ") +
-            std::move(_error.get())};
+            fcppt::output_to_fcppt_string(_error)};
       })};
 
   string_vector &first(fcppt::tuple::get<0>(result));

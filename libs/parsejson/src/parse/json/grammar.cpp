@@ -68,15 +68,16 @@ sge::parse::json::grammar::grammar()
               literal{','},
               literal(']')}))},
       object_{sge::parse::json::grammar_base::make_base(
-          fcppt::parse::construct<sge::parse::json::object>(fcppt::parse::make_convert_if(
-              fcppt::parse::list{
-                  literal{'{'},
-                  fcppt::parse::make_fatal(
-                      fcppt::make_cref(this->quoted_string_) >> literal{':'} >>
-                      fcppt::parse::make_recursive(fcppt::make_cref(this->value_))),
-                  literal{','},
-                  literal{'}'}},
-              &sge::parse::json::impl::make_members)))},
+          fcppt::parse::construct<sge::parse::json::object>(
+              fcppt::parse::make_convert_if<sge::charconv::utf8_char>(
+                  fcppt::parse::list{
+                      literal{'{'},
+                      fcppt::parse::make_fatal(
+                          fcppt::make_cref(this->quoted_string_) >> literal{':'} >>
+                          fcppt::parse::make_recursive(fcppt::make_cref(this->value_))),
+                      literal{','},
+                      literal{'}'}},
+                  &sge::parse::json::impl::make_members)))},
       value_{sge::parse::json::grammar_base::make_base(
           fcppt::parse::make_fatal(fcppt::parse::construct<sge::parse::json::value>(
               fcppt::make_cref(this->object_) | fcppt::make_cref(this->array_) |

@@ -7,10 +7,12 @@
 #include <sge/parse/ini/start_fwd.hpp>
 #include <sge/parse/ini/output/to_stream.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
-#include <fcppt/parse/error.hpp>
+#include <fcppt/parse/parse_string_error.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
 #include <iostream>
@@ -23,9 +25,10 @@ int main()
       sge::parse::ini::parse_string(
           std::string{"[blabla]\nfoo = 42\nconfuse=5\nbar=3.4\nimagepath=/tmp/test\n"
                       "[section2]\nblubb=bar\n"}),
-      [](fcppt::parse::error<char> const &_error)
+      [](fcppt::parse::parse_string_error<char> const &_error)
       {
-        fcppt::io::cerr() << fcppt::from_std_string(_error.get()) << FCPPT_TEXT('\n');
+        fcppt::io::cerr() << fcppt::from_std_string(fcppt::output_to_std_string(_error))
+                          << FCPPT_TEXT('\n');
 
         return EXIT_FAILURE;
       },

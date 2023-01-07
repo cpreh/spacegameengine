@@ -23,8 +23,6 @@ set(
 	libs/parseini/include/sge/parse/ini/parse_file.hpp
 	libs/parseini/include/sge/parse/ini/parse_stream.hpp
 	libs/parseini/include/sge/parse/ini/parse_string.hpp
-	libs/parseini/include/sge/parse/ini/result.hpp
-	libs/parseini/include/sge/parse/ini/result_fwd.hpp
 	libs/parseini/include/sge/parse/ini/section.hpp
 	libs/parseini/include/sge/parse/ini/section_fwd.hpp
 	libs/parseini/include/sge/parse/ini/section_name.hpp
@@ -34,6 +32,10 @@ set(
 	libs/parseini/include/sge/parse/ini/skipper.hpp
 	libs/parseini/include/sge/parse/ini/start.hpp
 	libs/parseini/include/sge/parse/ini/start_fwd.hpp
+	libs/parseini/include/sge/parse/ini/stream_result.hpp
+	libs/parseini/include/sge/parse/ini/stream_result_fwd.hpp
+	libs/parseini/include/sge/parse/ini/string_result.hpp
+	libs/parseini/include/sge/parse/ini/string_result_fwd.hpp
 	libs/parseini/include/sge/parse/ini/value.hpp
 	libs/parseini/src/parse/ini/entry.cpp
 	libs/parseini/src/parse/ini/entry_name_equal.cpp

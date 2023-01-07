@@ -7,6 +7,7 @@
 #define SGE_PARSE_IMPL_PARSE_FILE_HPP_INCLUDED
 
 #include <sge/parse/file_result.hpp>
+#include <fcppt/output_to_string.hpp>
 #include <fcppt/string_literal.hpp>
 #include <fcppt/either/make_failure.hpp>
 #include <fcppt/either/map_failure.hpp>
@@ -14,14 +15,16 @@
 #include <fcppt/optional/make.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/parse/error.hpp>
 #include <fcppt/parse/grammar_fwd.hpp>
 #include <fcppt/parse/grammar_parse_stream.hpp>
+#include <fcppt/parse/parse_stream_error.hpp>
+#include <fcppt/parse/parse_stream_error_output.hpp>
 #include <fcppt/parse/result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fstream>
 #include <ios>
+#include <string>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -36,7 +39,7 @@ sge::parse::file_result<Ch, Result> parse_file(
       fcppt::filesystem::open<std::basic_ifstream<Ch>>(_path, std::ios_base::binary),
       [] {
         return fcppt::either::make_failure<Result>(
-            fcppt::optional::object<fcppt::parse::error<Ch>>{});
+            fcppt::optional::object<std::basic_string<Ch>>{});
       },
       [&_grammar, &_path](std::basic_istream<Ch> &&_ifs)
       {
@@ -44,11 +47,13 @@ sge::parse::file_result<Ch, Result> parse_file(
 
         return fcppt::either::map_failure(
             fcppt::parse::grammar_parse_stream(_ifs, _grammar),
-            [&_path](fcppt::parse::error<Ch> &&_failure)
+            [&_path](fcppt::parse::parse_stream_error<Ch> &&_failure)
             {
-              return fcppt::optional::make(fcppt::parse::error<Ch>{
+              // TODO: This is a workaround for now. We should use better error types here.
+              return fcppt::optional::make(
                   FCPPT_STRING_LITERAL(Ch, "Failed to parse \"") + _path.string<Ch>() +
-                  FCPPT_STRING_LITERAL(Ch, "\": ") + std::move(_failure.get())});
+                  FCPPT_STRING_LITERAL(Ch, "\": ") +
+                  fcppt::output_to_string<std::basic_string<Ch>>(_failure));
             });
       });
 }

@@ -5,14 +5,14 @@
 
 #include <sge/parse/ini/grammar.hpp>
 #include <sge/parse/ini/parse_string.hpp>
-#include <sge/parse/ini/result.hpp>
+#include <sge/parse/ini/string_result.hpp>
 #include <fcppt/parse/grammar_parse_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-sge::parse::ini::result sge::parse::ini::parse_string(std::string &&_string)
+sge::parse::ini::string_result sge::parse::ini::parse_string(std::string &&_string)
 {
   return fcppt::parse::grammar_parse_string(std::move(_string), sge::parse::ini::grammar{});
 }

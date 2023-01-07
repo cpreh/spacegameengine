@@ -3,11 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef SGE_PARSE_INI_RESULT_HPP_INCLUDED
-#define SGE_PARSE_INI_RESULT_HPP_INCLUDED
+#ifndef SGE_PARSE_INI_STREAM_RESULT_HPP_INCLUDED
+#define SGE_PARSE_INI_STREAM_RESULT_HPP_INCLUDED
 
-#include <sge/parse/ini/result_fwd.hpp>
 #include <sge/parse/ini/start.hpp>
-#include <fcppt/parse/result.hpp>
+#include <sge/parse/ini/stream_result_fwd.hpp>
+#include <fcppt/either/object_impl.hpp>
+#include <fcppt/parse/parse_stream_error.hpp>
 
 #endif

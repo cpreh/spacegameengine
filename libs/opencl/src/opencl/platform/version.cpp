@@ -6,13 +6,15 @@
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/platform/version.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/parse/char.hpp>
-#include <fcppt/parse/error.hpp>
 #include <fcppt/parse/literal.hpp>
 #include <fcppt/parse/uint.hpp>
 #include <fcppt/parse/parse_string.hpp>
+#include <fcppt/parse/parse_string_error.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp>
 #include <fcppt/parse/string.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
 #include <fcppt/parse/operators/sequence.hpp>
@@ -20,7 +22,6 @@
 #include <fcppt/config/compiler.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 sge::opencl::platform::version::version(std::string const &_version_string)
@@ -30,11 +31,11 @@ sge::opencl::platform::version::version(std::string const &_version_string)
                   fcppt::parse::literal{'.'} >> fcppt::parse::uint<unit>{} >>
                   fcppt::parse::literal{' '} >> *fcppt::parse::char_{},
               std::string{_version_string}),
-          [](fcppt::parse::error<char> &&_error)
+          [](fcppt::parse::parse_string_error<char> &&_error)
           {
             return sge::opencl::exception{
                 FCPPT_TEXT("Failed to parse version: ") +
-                fcppt::from_std_string(std::move(_error.get()))};
+                fcppt::from_std_string(fcppt::output_to_std_string(_error))};
           })}
 {
 }

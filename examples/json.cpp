@@ -12,11 +12,13 @@
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/parse/error.hpp>
+#include <fcppt/parse/parse_string_error.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
 #include <exception>
@@ -31,9 +33,10 @@ try
   return fcppt::either::match(
       sge::parse::json::parse_string(
           std::string{R"({ "foo": 42, "bar" : { "inner" : 5.5, "booltest" : true } })"}),
-      [](fcppt::parse::error<char> const &_error)
+      [](fcppt::parse::parse_string_error<char> const &_error)
       {
-        fcppt::io::cerr() << fcppt::from_std_string(_error.get()) << FCPPT_TEXT('\n');
+        fcppt::io::cerr() << fcppt::from_std_string(fcppt::output_to_std_string(_error))
+                          << FCPPT_TEXT('\n');
 
         return EXIT_FAILURE;
       },

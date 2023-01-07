@@ -6,7 +6,7 @@
 #ifndef SGE_PARSE_JSON_PARSE_STRING_HPP_INCLUDED
 #define SGE_PARSE_JSON_PARSE_STRING_HPP_INCLUDED
 
-#include <sge/parse/json/result.hpp>
+#include <sge/parse/json/string_result.hpp>
 #include <sge/parse/json/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -16,7 +16,7 @@ namespace sge::parse::json
 {
 
 SGE_PARSE_JSON_DETAIL_SYMBOL
-sge::parse::json::result parse_string(std::string &&);
+sge::parse::json::string_result parse_string(std::string &&);
 
 }
 

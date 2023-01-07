@@ -6,7 +6,7 @@
 #ifndef SGE_PARSE_INI_PARSE_STRING_HPP_INCLUDED
 #define SGE_PARSE_INI_PARSE_STRING_HPP_INCLUDED
 
-#include <sge/parse/ini/result.hpp>
+#include <sge/parse/ini/string_result.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
@@ -16,7 +16,7 @@ namespace sge::parse::ini
 {
 
 SGE_PARSE_INI_DETAIL_SYMBOL
-sge::parse::ini::result parse_string(std::string &&);
+sge::parse::ini::string_result parse_string(std::string &&);
 
 }
 

@@ -74,11 +74,13 @@ set(
 	libs/parsejson/include/sge/parse/json/path.hpp
 	libs/parsejson/include/sge/parse/json/path_fwd.hpp
 	libs/parsejson/include/sge/parse/json/path_to_string.hpp
-	libs/parsejson/include/sge/parse/json/result.hpp
-	libs/parsejson/include/sge/parse/json/result_fwd.hpp
 	libs/parsejson/include/sge/parse/json/skipper.hpp
 	libs/parsejson/include/sge/parse/json/start.hpp
 	libs/parsejson/include/sge/parse/json/start_fwd.hpp
+	libs/parsejson/include/sge/parse/json/stream_result.hpp
+	libs/parsejson/include/sge/parse/json/stream_result_fwd.hpp
+	libs/parsejson/include/sge/parse/json/string_result.hpp
+	libs/parsejson/include/sge/parse/json/string_result_fwd.hpp
 	libs/parsejson/include/sge/parse/json/string_to_path.hpp
 	libs/parsejson/include/sge/parse/json/string_to_value.hpp
 	libs/parsejson/include/sge/parse/json/value.hpp
