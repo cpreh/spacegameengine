@@ -110,6 +110,7 @@
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/default_help_switch.hpp>
 #include <fcppt/options/error.hpp>
+#include <fcppt/options/error_output.hpp>
 #include <fcppt/options/help_text.hpp>
 #include <fcppt/options/long_name.hpp>
 #include <fcppt/options/make_default_value.hpp>

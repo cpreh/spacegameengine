@@ -20,6 +20,7 @@
 #include <fcppt/main.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/algorithm/fold.hpp>
