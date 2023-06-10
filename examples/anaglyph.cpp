@@ -200,7 +200,6 @@
 #include <fcppt/options/default_help_switch.hpp>
 #include <fcppt/options/error.hpp>
 #include <fcppt/options/error_output.hpp>
-#include <fcppt/options/help_text.hpp>
 #include <fcppt/options/long_name.hpp>
 #include <fcppt/options/make_default_value.hpp>
 #include <fcppt/options/option.hpp>
@@ -209,6 +208,8 @@
 #include <fcppt/options/parse_help.hpp>
 #include <fcppt/options/result.hpp>
 #include <fcppt/options/result_of.hpp>
+#include <fcppt/options/usage.hpp>
+#include <fcppt/options/usage_output.hpp>
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
 #include <fcppt/random/distribution/parameters/uniform_real.hpp>
@@ -877,9 +878,9 @@ try
             [](fcppt::options::result_of<parser_type> const &_args) -> awl::main::exit_code
             { return main_program(fcppt::record::permute<options_record>(_args)); });
       },
-      [](fcppt::options::help_text const &_help_text)
+      [](fcppt::options::usage const &_usage)
       {
-        awl::show_message(fcppt::output_to_fcppt_string(_help_text));
+        awl::show_message(fcppt::output_to_fcppt_string(_usage));
 
         return awl::main::exit_success();
       });

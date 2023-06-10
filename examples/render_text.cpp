@@ -62,6 +62,8 @@
 #include <fcppt/options/parse_help.hpp>
 #include <fcppt/options/result.hpp>
 #include <fcppt/options/result_of.hpp>
+#include <fcppt/options/usage.hpp>
+#include <fcppt/options/usage_output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -171,9 +173,9 @@ try
               return EXIT_SUCCESS;
             });
       },
-      [](fcppt::options::help_text const &_help_text)
+      [](fcppt::options::usage const &_usage)
       {
-        fcppt::io::cout() << _help_text << FCPPT_TEXT('\n');
+        fcppt::io::cout() << _usage << FCPPT_TEXT('\n');
 
         return EXIT_SUCCESS;
       });

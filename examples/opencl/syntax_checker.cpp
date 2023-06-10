@@ -48,6 +48,8 @@
 #include <fcppt/options/parse_help.hpp>
 #include <fcppt/options/result.hpp>
 #include <fcppt/options/result_of.hpp>
+#include <fcppt/options/usage.hpp>
+#include <fcppt/options/usage_output.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -215,11 +217,11 @@ try
           fcppt::options::default_help_switch(), parser, fcppt::args_from_second(argc, argv)),
       [&handle_options](fcppt::options::result<result_type> const &_result)
       { return handle_options(_result); },
-      [](fcppt::options::help_text const &_help_text)
+      [](fcppt::options::usage const &_usage)
       {
         fcppt::io::cout() << FCPPT_TEXT("This program loads and builds a program. It outputs the "
                                         "syntax errors encountered.\n\n")
-                          << _help_text << FCPPT_TEXT('\n');
+                          << _usage << FCPPT_TEXT('\n');
 
         return EXIT_SUCCESS;
       });

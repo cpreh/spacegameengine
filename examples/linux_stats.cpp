@@ -117,6 +117,8 @@
 #include <fcppt/options/parse_help.hpp>
 #include <fcppt/options/result.hpp>
 #include <fcppt/options/result_of.hpp>
+#include <fcppt/options/usage.hpp>
+#include <fcppt/options/usage_output.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
@@ -599,9 +601,9 @@ try
             [](fcppt::options::result_of<parser_type> const &_args) -> awl::main::exit_code
             { return main_program(fcppt::record::permute<arg_type>(_args)); });
       },
-      [](fcppt::options::help_text const &_help_text)
+      [](fcppt::options::usage const &_usage)
       {
-        awl::show_message(fcppt::output_to_fcppt_string(_help_text));
+        awl::show_message(fcppt::output_to_fcppt_string(_usage));
 
         return awl::main::exit_success();
       });
