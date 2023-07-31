@@ -12,9 +12,15 @@
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 namespace sge::sprite::geometry::detail
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 template <typename Choices>
 class index_generator
@@ -53,6 +59,8 @@ private:
 
   mutable typename index_array_type::const_iterator ptr_;
 };
+
+FCPPT_PP_POP_WARNING
 
 }
 

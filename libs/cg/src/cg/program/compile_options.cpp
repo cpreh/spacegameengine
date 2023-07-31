@@ -7,11 +7,17 @@
 #include <sge/cg/string.hpp>
 #include <sge/cg/program/compile_options.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
 sge::cg::program::compile_options::compile_options() : value_() {}
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 sge::cg::program::compile_options::compile_options(sge::cg::char_type const **_pointers) : value_()
 {
@@ -20,9 +26,12 @@ sge::cg::program::compile_options::compile_options(sge::cg::char_type const **_p
        ++_pointers // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   )
   {
-    value_.push_back(sge::cg::string(*_pointers));
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
+    value_.push_back(sge::cg::string{*_pointers});
   }
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::cg::program::compile_options::compile_options(string_sequence _value)
     : value_(std::move(_value))

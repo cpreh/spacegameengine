@@ -233,8 +233,7 @@ sge::renderer::depth_stencil_buffer::surface_unique_ptr
 sge::opengl::device::create_depth_stencil_surface(
     sge::renderer::depth_stencil_buffer::surface_parameters const &_parameters)
 {
-  return sge::renderer::depth_stencil_buffer::surface_unique_ptr(
-      sge::opengl::fbo::create_depth_stencil_surface(fcppt::make_ref(context_), _parameters));
+   return sge::opengl::fbo::create_depth_stencil_surface(fcppt::make_ref(context_), _parameters);
 }
 
 sge::renderer::texture::volume_unique_ptr sge::opengl::device::create_volume_texture(

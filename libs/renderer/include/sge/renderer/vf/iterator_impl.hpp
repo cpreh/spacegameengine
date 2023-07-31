@@ -9,6 +9,9 @@
 #include <sge/renderer/vf/iterator_decl.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/iterator/base_impl.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 template <typename Part, typename Constness>
 typename sge::renderer::vf::iterator<Part, Constness>::difference_type
@@ -21,6 +24,9 @@ template <typename Part, typename Constness>
 sge::renderer::vf::iterator<Part, Constness>::iterator(internal_pointer const _data) : data_(_data)
 {
 }
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 template <typename Part, typename Constness>
 void sge::renderer::vf::iterator<Part, Constness>::increment()
@@ -49,5 +55,7 @@ sge::renderer::vf::iterator<Part, Constness>::operator+=(difference_type const _
 
   return *this;
 }
+
+FCPPT_PP_POP_WARNING
 
 #endif

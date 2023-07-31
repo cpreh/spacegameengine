@@ -95,11 +95,13 @@ sge::model::md3::impl::object::object(
   _stream.seekg(start + ofs_frames, std::ios_base::beg);
 
   fcppt::algorithm::repeat(
+  // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
       num_frames, [&_stream, this] { frames_.push_back(sge::model::md3::impl::frame(_stream)); });
 
   _stream.seekg(start + ofs_tags, std::ios_base::beg);
 
   fcppt::algorithm::repeat(
+  // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
       num_tags, [&_stream, this] { tags_.push_back(sge::model::md3::impl::tag(_stream)); });
 
   _stream.seekg(start + ofs_surfaces, std::ios_base::beg);
@@ -128,9 +130,9 @@ sge::model::md3::impl::object::~object() = default;
 sge::model::md3::index_sequence
 sge::model::md3::impl::object::indices(sge::model::md3::string const &_name) const
 {
-  sge::model::md3::index_sequence result;
+  sge::model::md3::index_sequence result{};
 
-  sge::model::md3::index ib_offset(0);
+  sge::model::md3::index const ib_offset(0);
 
   sge::model::md3::impl::surface_vector::const_reference surf(this->surface_by_name(_name));
 

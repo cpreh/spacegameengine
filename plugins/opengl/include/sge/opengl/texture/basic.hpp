@@ -35,9 +35,10 @@ protected:
       sge::opengl::texture::basic_parameters const &,
       sge::opengl::texture::type,
       parameters_type const &);
-
+public:
   ~basic() override;
 
+protected:
   using base_type = typename Types::base;
 
   [[nodiscard]] sge::renderer::resource_flags_field resource_flags() const override;

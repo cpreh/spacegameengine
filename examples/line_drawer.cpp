@@ -192,10 +192,12 @@ try
                     // (in the lock's destructor), all the geometry will be updated at
                     // once.
                     _last.get() = sge::line_drawer::line{
-                        _last.get().begin(),
-                        cursor_position_to_vector3(_pos),
-                        sge::image::color::any::object(_last.get().begin_color()),
-                        sge::image::color::any::object(_last.get().end_color())};
+                        sge::line_drawer::line::begin_type{_last.get().begin()},
+                        sge::line_drawer::line::end_type{cursor_position_to_vector3(_pos)},
+                        sge::line_drawer::line::begin_color_type{
+                            sge::image::color::any::object{_last.get().begin_color()}},
+                        sge::line_drawer::line::end_color_type{
+                            sge::image::color::any::object{_last.get().end_color()}}};
                   });
             });
       });
@@ -214,21 +216,25 @@ try
             fcppt::container::maybe_back(lock.value()),
             [&_event, &lock]
             {
-              sge::renderer::vector3 const pos3(cursor_position_to_vector3(_event.position()));
+              sge::renderer::vector3 const pos3{cursor_position_to_vector3(_event.position())};
 
-              lock.value().push_back(sge::line_drawer::line(
-                  pos3,
-                  pos3,
-                  sge::image::color::any::object{sge::image::color::predef::red()},
-                  sge::image::color::any::object{sge::image::color::predef::blue()}));
+              lock.value().push_back(sge::line_drawer::line{
+                  sge::line_drawer::line::begin_type{pos3},
+                  sge::line_drawer::line::end_type{pos3},
+                  sge::line_drawer::line::begin_color_type{
+                      sge::image::color::any::object{sge::image::color::predef::red()}},
+                  sge::line_drawer::line::end_color_type{
+                      sge::image::color::any::object{sge::image::color::predef::blue()}}});
             },
             [&lock](fcppt::reference<sge::line_drawer::line> const _last)
             {
-              lock.value().push_back(sge::line_drawer::line(
-                  _last.get().end(),
-                  _last.get().end(),
-                  sge::image::color::any::object(_last.get().end_color()),
-                  sge::image::color::any::object(_last.get().begin_color())));
+              lock.value().push_back(sge::line_drawer::line{
+                  sge::line_drawer::line::begin_type{_last.get().end()},
+                  sge::line_drawer::line::end_type{_last.get().end()},
+                  sge::line_drawer::line::begin_color_type{
+                      sge::image::color::any::object(_last.get().end_color())},
+                  sge::line_drawer::line::end_color_type{
+                      sge::image::color::any::object(_last.get().begin_color())}});
             });
       });
 

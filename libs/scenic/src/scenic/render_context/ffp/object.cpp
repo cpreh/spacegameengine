@@ -115,9 +115,8 @@ sge::scenic::render_context::ffp::object::object(
       current_material_(),
       diffuse_texture_sampler_(manager_.get().renderer_.get().create_sampler_state(
           sge::renderer::state::core::sampler::parameters(
-              sge::renderer::state::core::sampler::address::parameters(
-                  sge::renderer::state::core::sampler::address::mode_all(
-                      sge::renderer::state::core::sampler::address::mode::repeat)),
+              sge::renderer::state::core::sampler::address::mode_all(
+                  sge::renderer::state::core::sampler::address::mode::repeat),
               sge::renderer::state::core::sampler::filter::trilinear()))),
       scoped_sampler_{
           fcppt::reference_to_base<sge::renderer::context::core>(_context),
@@ -227,7 +226,7 @@ void sge::scenic::render_context::ffp::object::material(
 
   context_.get().texture(
       fcppt::optional::map(
-          _material.diffuse_texture(),
+          _material.diffuse_texture().get(),
           [](fcppt::reference<sge::renderer::texture::planar> const _texture)
           { return fcppt::reference_to_base<sge::renderer::texture::base const>(_texture); }),
       sge::renderer::texture::stage(0U));

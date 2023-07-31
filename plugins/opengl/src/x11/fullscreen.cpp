@@ -18,6 +18,9 @@
 #include <awl/backends/x11/window/event/object.hpp>
 #include <awl/backends/x11/window/event/send.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
 #include <X11/Xatom.h>
@@ -26,6 +29,9 @@
 
 namespace
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 void set_property(
     awl::backends::x11::window::base &_window, // NOLINT(google-runtime-references)
@@ -87,6 +93,8 @@ void send_event(
       },
       awl::backends::x11::window::event::object{event});
 }
+
+FCPPT_PP_POP_WARNING
 
 }
 

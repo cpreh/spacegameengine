@@ -76,6 +76,7 @@ void sge::camera::tracking::json::key_press_exporter::key_event(
   {
     FCPPT_LOG_INFO(log_, fcppt::log::out << FCPPT_TEXT("Storing keyframe..."))
 
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     keyframes_.push_back(sge::camera::tracking::keyframe(duration_, camera_.coordinate_system()));
 
     FCPPT_LOG_INFO(log_, fcppt::log::out << FCPPT_TEXT("Done!"))

@@ -11,6 +11,9 @@
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/buffer/object.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <cstring>
@@ -237,7 +240,10 @@ std::string max_work_item_sizes_to_string(cl_device_id const device // NOLINT(mi
 
   sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetDeviceInfo(option value)"));
 
-  std::string result;
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
+  std::string result{};
   // TODO(philipp): Refactor this
   result += '(';
   for (size_vector::const_iterator it = sizes.begin(); it != sizes.end(); ++it)
@@ -250,6 +256,8 @@ std::string max_work_item_sizes_to_string(cl_device_id const device // NOLINT(mi
     }
   }
   result += ')';
+
+FCPPT_PP_POP_WARNING
 
   return result;
 }

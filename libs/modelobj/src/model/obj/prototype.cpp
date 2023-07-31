@@ -229,6 +229,7 @@ sge::model::obj::prototype::prototype(
       }
 
       // Flip y
+      // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
       texture_coordinates_.push_back(sge::renderer::vector2(
           tex_coord.x(),
           //1.0f - tex_coord.y()));

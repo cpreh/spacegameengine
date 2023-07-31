@@ -15,10 +15,12 @@
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/model/obj/impl/log_name.hpp>
 #include <sge/renderer/vector3.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/context_reference.hpp>
@@ -86,9 +88,9 @@ public:
       this->throw_error_if(
           first_space_position == std::string::npos, FCPPT_TEXT("No prefix found"));
 
-      std::string const prefix = line.substr(0, first_space_position);
+      prefix_type const prefix{line.substr(0, first_space_position)};
 
-      std::string const rest_of_line(line.substr(first_space_position + 1U));
+      rest_of_line_type const rest_of_line{line.substr(first_space_position + 1U)};
 
       this->parse_line(prefix, rest_of_line);
     }
@@ -110,11 +112,14 @@ public:
     }
   }
 
-  void parse_line(std::string const &_prefix, std::string const &_rest_of_line)
+  FCPPT_DECLARE_STRONG_TYPEDEF(std::string, prefix_type);
+  FCPPT_DECLARE_STRONG_TYPEDEF(std::string, rest_of_line_type);
+
+  void parse_line(prefix_type const &_prefix, rest_of_line_type const &_rest_of_line)
   {
-    if (_prefix == "Ns")
+    if (_prefix.get() == "Ns")
     {
-      std::istringstream ss(_rest_of_line);
+      std::istringstream ss{_rest_of_line.get()};
 
       sge::renderer::scalar new_shininess; // NOLINT(cppcoreguidelines-init-variables)
 
@@ -122,9 +127,9 @@ public:
 
       shininess_ = optional_shininess(new_shininess);
     }
-    else if (_prefix == "Ka")
+    else if (_prefix.get() == "Ka")
     {
-      std::istringstream ss(_rest_of_line);
+      std::istringstream ss{_rest_of_line.get()};
 
       sge::renderer::vector3 new_ambient{fcppt::no_init()};
 
@@ -134,9 +139,9 @@ public:
 
       ambient_ = optional_color(new_ambient);
     }
-    else if (_prefix == "Ke")
+    else if (_prefix.get() == "Ke")
     {
-      std::istringstream ss(_rest_of_line);
+      std::istringstream ss{_rest_of_line.get()};
 
       sge::renderer::scalar new_emissive; // NOLINT(cppcoreguidelines-init-variables)
 
@@ -144,9 +149,9 @@ public:
 
       emissive_ = optional_color(sge::renderer::vector3(new_emissive, new_emissive, new_emissive));
     }
-    else if (_prefix == "Kd")
+    else if (_prefix.get() == "Kd")
     {
-      std::istringstream ss(_rest_of_line);
+      std::istringstream ss{_rest_of_line.get()};
 
       sge::renderer::vector3 new_diffuse{fcppt::no_init()};
 
@@ -156,9 +161,9 @@ public:
 
       diffuse_ = optional_color(new_diffuse);
     }
-    else if (_prefix == "Ks")
+    else if (_prefix.get() == "Ks")
     {
-      std::istringstream ss(_rest_of_line);
+      std::istringstream ss{_rest_of_line.get()};
 
       sge::renderer::vector3 new_specular{fcppt::no_init()};
 
@@ -168,13 +173,13 @@ public:
 
       specular_ = optional_color(new_specular);
     }
-    else if (_prefix == "Ni")
+    else if (_prefix.get() == "Ni")
     {
       // Not usable
     }
-    else if (_prefix == "d")
+    else if (_prefix.get() == "d")
     {
-      std::istringstream ss(_rest_of_line);
+      std::istringstream ss{_rest_of_line.get()};
 
       sge::renderer::scalar dissolve; // NOLINT(cppcoreguidelines-init-variables)
 
@@ -194,9 +199,9 @@ public:
 						FCPPT_TEXT(": Invalid dissolve value (!= 1, not supported)."));
 			*/
     }
-    else if (_prefix == "illum")
+    else if (_prefix.get() == "illum")
     {
-      std::istringstream ss(_rest_of_line);
+      std::istringstream ss{_rest_of_line.get()};
 
       unsigned light_model; // NOLINT(cppcoreguidelines-init-variables)
 
@@ -218,15 +223,15 @@ public:
         break;
       }
     }
-    else if (_prefix == "map_Kd")
+    else if (_prefix.get() == "map_Kd")
     {
-      diffuse_texture_ = optional_path(parent_path_ / std::filesystem::path(_rest_of_line));
+      diffuse_texture_ = optional_path(parent_path_ / std::filesystem::path(_rest_of_line.get()));
     }
-    else if (_prefix == "map_Ks")
+    else if (_prefix.get() == "map_Ks")
     {
-      specular_texture_ = optional_path(parent_path_ / std::filesystem::path(_rest_of_line));
+      specular_texture_ = optional_path(parent_path_ / std::filesystem::path(_rest_of_line.get()));
     }
-    else if (_prefix == "newmtl")
+    else if (_prefix.get() == "newmtl")
     {
       // First material we see? Do nothing.
       if (!current_material_.get().empty())
@@ -235,7 +240,7 @@ public:
       }
 
       current_material_ = sge::model::obj::identifier(
-          sge::charconv::utf8_string(_rest_of_line.begin(), _rest_of_line.end()));
+          sge::charconv::utf8_string(_rest_of_line.get().begin(), _rest_of_line.get().end()));
     }
     else
     {
@@ -319,7 +324,7 @@ private:
 sge::model::obj::material_map sge::model::obj::parse_mtllib(
     fcppt::log::context_reference const _log_context, std::filesystem::path const &_filename)
 {
-  parser p(_log_context, _filename);
+  parser const p{_log_context, _filename};
 
   return p.result();
 }

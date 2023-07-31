@@ -182,7 +182,7 @@ CEGUI::Texture &sge::cegui::impl::renderer::createTexture(CEGUI::String const &_
 }
 
 CEGUI::Texture &sge::cegui::impl::renderer::createTexture(
-    CEGUI::String const &_name,
+    CEGUI::String const &_name, // NOLINT(bugprone-easily-swappable-parameters)
     CEGUI::String const &_filename,
     CEGUI::String const &_resource_group)
 {

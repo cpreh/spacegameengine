@@ -292,10 +292,10 @@ awl::main::exit_code main_program(options_record const &_options)
           1.F / 30.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
           )},
       sge::graph::optional_axis_constraint{sge::graph::axis_constraint{
-          fcppt::literal<sge::graph::scalar>(0.F),
-          fcppt::literal<sge::graph::scalar>(
+          sge::graph::axis_constraint::min_type{fcppt::literal<sge::graph::scalar>(0.F)},
+          sge::graph::axis_constraint::max_type{fcppt::literal<sge::graph::scalar>(
               0.1F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-              )}},
+              )}}},
       sge::graph::color_schemes::default_()};
 
   /*

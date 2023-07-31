@@ -29,12 +29,12 @@ void sge::opencl::memory_object::image::read_planar(
     sge::image2d::view::object const &_view,
     sge::opencl::memory_object::rect const &_rect)
 {
-  sge::opencl::command_queue::scoped_planar_mapping scoped_map(
+  sge::opencl::command_queue::scoped_planar_mapping const scoped_map{
       _queue,
       fcppt::make_ref(const_cast<sge::opencl::memory_object::image::planar &>(_image)),
       sge::opencl::command_queue::map_flags::read,
       _rect,
-      sge::opencl::event::sequence());
+      sge::opencl::event::sequence()};
 
   sge::image2d::algorithm::copy_and_convert(
       sge::image2d::view::make_const(

@@ -124,7 +124,7 @@ FCPPT_PP_POP_WARNING
 
 void sge::opencl::single_device_system::object::update()
 {
-  std::lock_guard<std::mutex> l(error_mutex_);
+  std::lock_guard<std::mutex> const l{error_mutex_};
 
   if (!error_occured_)
   {
@@ -197,14 +197,14 @@ sge::opencl::single_device_system::object::~object()
   // triggers an exception. This causes single_device_system to be
   // destroyed. But the mutex might still be locked in thread B! So we
   // have to wait here.
-  std::lock_guard<std::mutex> l(error_mutex_);
+  std::lock_guard<std::mutex> const l{error_mutex_};
 }
 
 void sge::opencl::single_device_system::object::error_callback(
     sge::opencl::error_information_string const &_error_information,
     sge::opencl::binary_error_data const &_error_data)
 {
-  std::lock_guard<std::mutex> l(error_mutex_);
+  std::lock_guard<std::mutex> const l{error_mutex_};
 
   error_information_ = _error_information;
 

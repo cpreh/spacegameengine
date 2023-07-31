@@ -53,7 +53,7 @@ sge::opengl::target::onscreen_surface::lock_c(
     throw sge::renderer::exception(FCPPT_TEXT("renderer::target()::lock(): already locked!"));
   }
 
-  buffer_type &buffer{fcppt::optional::assign(
+  buffer_type const &buffer{fcppt::optional::assign(
       buffer_,
       fcppt::container::buffer::read_from<buffer_type>(
           fcppt::math::dim::contents(_dest.size()) *

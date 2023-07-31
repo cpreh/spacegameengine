@@ -24,6 +24,9 @@
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::renderer::impl::vf::dynamic::element_converter::element_converter(
     original_format const _original_format,
@@ -42,6 +45,9 @@ sge::renderer::impl::vf::dynamic::element_converter::element_converter(
         FCPPT_TEXT("vf::dynamic::element_converter: Cannot handle different format strides!")};
   }
 }
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 void sge::renderer::impl::vf::dynamic::element_converter::convert(
     sge::renderer::impl::vf::dynamic::lock_interval const &_interval,
@@ -77,3 +83,5 @@ void sge::renderer::impl::vf::dynamic::element_converter::convert(
       sge::image::algorithm::may_overlap::yes,
       sge::image::algorithm::uninitialized::no);
 }
+
+FCPPT_PP_POP_WARNING

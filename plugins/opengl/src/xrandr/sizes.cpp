@@ -7,6 +7,9 @@
 #include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/sizes.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -17,6 +20,9 @@ sge::opengl::xrandr::sizes::sizes(sge::opengl::xrandr::const_configuration_ref c
 }
 
 sge::opengl::xrandr::sizes::iterator sge::opengl::xrandr::sizes::begin() const { return sizes_; }
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 sge::opengl::xrandr::sizes::iterator sge::opengl::xrandr::sizes::end() const
 {
@@ -29,6 +35,8 @@ sge::opengl::xrandr::sizes::operator[](sge::opengl::xrandr::mode_index const _in
 {
   return *(this->begin() + _index.get());
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::opengl::xrandr::mode_index sge::opengl::xrandr::sizes::size() const
 {

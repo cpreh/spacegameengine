@@ -20,6 +20,9 @@
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/verbose.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -235,6 +238,9 @@ void sge::projectile::world::internal_tick_callback_static(
   static_cast<world *>(w->getWorldUserInfo())->internal_tick_callback(time_step);
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
 void sge::projectile::world::internal_tick_callback(btScalar /* time_step */)
 {
   for (
@@ -276,3 +282,5 @@ void sge::projectile::world::internal_tick_callback(btScalar /* time_step */)
 		*/
   }
 }
+
+FCPPT_PP_POP_WARNING

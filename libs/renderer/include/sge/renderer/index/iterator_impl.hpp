@@ -10,6 +10,12 @@
 #include <sge/renderer/index/iterator_decl.hpp>
 #include <sge/renderer/index/proxy_impl.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 template <typename Format, typename Constness>
 sge::renderer::index::iterator<Format, Constness>::iterator(pointer const _data) : data_{_data}
@@ -50,5 +56,7 @@ sge::renderer::index::iterator<Format, Constness>::dereference() const
 {
   return reference(this->data_);
 }
+
+FCPPT_PP_POP_WARNING
 
 #endif

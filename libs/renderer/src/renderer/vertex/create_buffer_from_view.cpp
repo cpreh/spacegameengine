@@ -31,7 +31,7 @@ sge::renderer::vertex::buffer_unique_ptr sge::renderer::vertex::create_buffer_fr
       _device.get().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(
           _vertex_declaration,
           _view.part_index(),
-          sge::renderer::vertex::count(_view.size()),
+          sge::renderer::vertex::count{_view.size()},
           _resource_flags)));
 
   sge::renderer::vertex::scoped_lock const lock(

@@ -427,10 +427,10 @@ awl::main::exit_code main_program(arg_type const &_args)
       sge::graph::baseline(
           50.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
           ),
-      sge::graph::optional_axis_constraint(sge::graph::axis_constraint(
-          0.0,
-          100.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-          )),
+      sge::graph::optional_axis_constraint{sge::graph::axis_constraint{
+          sge::graph::axis_constraint::min_type{0.0},
+          sge::graph::axis_constraint::max_type{
+              100.0}}}, // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
       sge::graph::color_schemes::default_());
 
   sge::graph::object memgraph(
@@ -441,10 +441,11 @@ awl::main::exit_code main_program(arg_type const &_args)
       sge::graph::baseline(
           50.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
           ),
-      sge::graph::optional_axis_constraint(sge::graph::axis_constraint(
-          0.0,
-          100.0 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-          )),
+      sge::graph::optional_axis_constraint{sge::graph::axis_constraint{
+          sge::graph::axis_constraint::min_type{0.0},
+          sge::graph::axis_constraint::max_type{
+              100.0} // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+      }},
       sge::graph::color_schemes::default_());
 
   fcppt::optional::object<jiffies> last_jiffies{count_jiffies()};

@@ -5,17 +5,17 @@
 
 #include <sge/viewport/fractional_aspect.hpp>
 
-sge::viewport::fractional_aspect::fractional_aspect(value_type const _num, value_type const _denom)
-    : num_(_num), denom_(_denom)
+sge::viewport::fractional_aspect::fractional_aspect(num_type const _num, denom_type const _denom)
+    : num_{_num.get()}, denom_{_denom.get()}
 {
 }
 
 sge::viewport::fractional_aspect::value_type sge::viewport::fractional_aspect::num() const
 {
-  return num_;
+  return this->num_;
 }
 
 sge::viewport::fractional_aspect::value_type sge::viewport::fractional_aspect::denom() const
 {
-  return denom_;
+  return this->denom_;
 }

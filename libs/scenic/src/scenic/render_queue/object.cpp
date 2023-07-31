@@ -10,6 +10,7 @@
 #include <sge/scenic/texture_manager.hpp>
 #include <sge/scenic/texture_manager_ref.hpp>
 #include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_context/optional_planar_texture.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_queue/object.hpp>
 #include <sge/scenic/scene/material/object.hpp>
@@ -56,20 +57,26 @@ sge::scenic::render_queue::object::object(sge::scenic::texture_manager_ref const
 void sge::scenic::render_queue::object::current_material(
     sge::scenic::scene::material::object const &_material)
 {
-  sge::scenic::render_context::material::object const renderable_material(
+  sge::scenic::render_context::material::object const renderable_material{
       sge::scenic::render_context::diffuse_color(_material.diffuse_color().get()),
       sge::scenic::render_context::ambient_color(_material.ambient_color().get()),
       sge::scenic::render_context::specular_color(_material.specular_color().get()),
       sge::scenic::render_context::emissive_color(_material.emissive_color().get()),
       sge::scenic::render_context::material::shininess(_material.shininess().get()),
       _material.diffuse_texture().get().empty()
-          ? sge::scenic::render_context::material::diffuse_texture()
-          : sge::scenic::render_context::material::diffuse_texture(fcppt::make_ref(
-                texture_manager_.get().texture_for_path(_material.diffuse_texture().get()))),
+          ? sge::scenic::render_context::material::
+                diffuse_texture{sge::scenic::render_context::optional_planar_texture{}}
+          : sge::scenic::render_context::material::
+                diffuse_texture{sge::scenic::render_context::optional_planar_texture{
+                    fcppt::make_ref(texture_manager_.get().texture_for_path(
+                        _material.diffuse_texture().get()))}},
       _material.specular_texture().get().empty()
-          ? sge::scenic::render_context::material::specular_texture()
-          : sge::scenic::render_context::material::specular_texture(fcppt::make_ref(
-                texture_manager_.get().texture_for_path(_material.specular_texture().get()))));
+          ? sge::scenic::render_context::material::
+                specular_texture{sge::scenic::render_context::material::specular_texture{
+                    sge::scenic::render_context::optional_planar_texture{}}}
+          : sge::scenic::render_context::material::specular_texture{
+                sge::scenic::render_context::optional_planar_texture{fcppt::make_ref(
+                    texture_manager_.get().texture_for_path(_material.specular_texture().get()))}}};
 
   current_material_ = change_context_state(fcppt::make_ref(materials_), renderable_material);
 }
@@ -86,6 +93,7 @@ void sge::scenic::render_queue::object::add_mesh(
     sge::renderer::index::buffer_ref const _index_buffer,
     sge::scenic::index_buffer_range const &_index_buffer_range)
 {
+  // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
   meshes_.push_back(sge::scenic::render_queue::mesh(
       current_material_, current_vertex_buffer_, _modelview, _index_buffer, _index_buffer_range));
 }

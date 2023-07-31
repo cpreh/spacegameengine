@@ -85,6 +85,7 @@ sge::font::bitmap::impl::rep sge::font::bitmap::impl::make_rep(
 
     sge::font::bitmap::impl::char_metric const &metric(char_it->second);
 
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     current_line.push_back(sge::font::bitmap::impl::char_metric_ref(metric));
 
     current_x += metric.x_advance();

@@ -41,6 +41,7 @@ void sge::camera::tracking::json::interval_exporter::update()
     return;
   }
 
+  // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
   keyframes_.push_back(sge::camera::tracking::keyframe(
       std::chrono::duration_cast<sge::camera::update_duration>(update_timer_.interval()),
       camera_.get().coordinate_system()));

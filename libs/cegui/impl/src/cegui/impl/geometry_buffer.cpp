@@ -96,6 +96,7 @@
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/optional/to_pointer.hpp>
 #include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -212,7 +213,7 @@ void sge::cegui::impl::geometry_buffer::draw() const
           sge::renderer::texture::stage(0U));
 
       {
-        sge::renderer::state::core::rasterizer::const_optional_object_ref new_state(
+        sge::renderer::state::core::rasterizer::const_optional_object_ref const new_state(
             fcppt::make_cref(
                 batch.clip().get() ? *rasterizer_scissor_on_ : *rasterizer_scissor_off_));
 
@@ -279,6 +280,9 @@ void sge::cegui::impl::geometry_buffer::appendVertex(CEGUI::Vertex const &_verte
   this->appendGeometry(&_vertex, 1U);
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
 void sge::cegui::impl::geometry_buffer::appendGeometry(
     CEGUI::Vertex const *const _vertices, CEGUI::uint const _vertex_count)
 {
@@ -288,6 +292,7 @@ void sge::cegui::impl::geometry_buffer::appendGeometry(
           [] { return sge::cegui::exception{FCPPT_TEXT("Active texture not set!")}; })
           .get()};
 
+  // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
   batches_.push_back(sge::cegui::impl::batch{
       fcppt::reference_to_base<sge::renderer::device::core>(renderer_),
       vertex_declaration_,
@@ -320,6 +325,8 @@ void sge::cegui::impl::geometry_buffer::appendGeometry(
                     sge::image::color::init::alpha() %= _vertex.colour_val.getAlpha()))};
       });
 }
+
+FCPPT_PP_POP_WARNING
 
 void sge::cegui::impl::geometry_buffer::setActiveTexture(CEGUI::Texture *const _tex)
 {

@@ -25,6 +25,9 @@
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
@@ -38,6 +41,10 @@ sge::sprite::render::range<Choices> fill_vertices(
     Compare const &_compare,
     sge::sprite::buffers::slice<Choices> const &_slice)
 {
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
   using result_type = sge::sprite::render::range<Choices>;
 
   using iterator = typename Range::iterator;
@@ -104,6 +111,8 @@ sge::sprite::render::range<Choices> fill_vertices(
   }
 
   return result_type(_slice.buffer_object(), std::move(result));
+
+FCPPT_PP_POP_WARNING
 }
 
 }

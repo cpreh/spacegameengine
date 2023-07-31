@@ -19,6 +19,9 @@
 #include <fcppt/algorithm/loop_break_mpl.hpp>
 #include <fcppt/mpl/list/at.hpp>
 #include <fcppt/mpl/set/to_list.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/label_set.hpp>
 
 template <typename Part, typename Constness>
@@ -43,6 +46,9 @@ sge::renderer::vf::proxy<Part, Constness>::operator=(vertex_type const &_value)
 
   return *this;
 }
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 template <typename Part, typename Constness>
 template <typename Label>
@@ -83,5 +89,7 @@ sge::renderer::vf::proxy<Part, Constness>::get() const
 
   return ret.get();
 }
+
+FCPPT_PP_POP_WARNING
 
 #endif

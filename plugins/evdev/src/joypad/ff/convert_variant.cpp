@@ -14,12 +14,18 @@
 #include <sge/input/joypad/ff/periodic_fwd.hpp>
 #include <sge/input/joypad/ff/ramp_fwd.hpp>
 #include <sge/input/joypad/ff/variant.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/match.hpp>
 
 sge::evdev::joypad::ff::variant
 sge::evdev::joypad::ff::convert_variant(sge::input::joypad::ff::variant const &_variant)
 {
   sge::evdev::joypad::ff::variant result;
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
   fcppt::variant::match(
       _variant,
@@ -39,6 +45,8 @@ sge::evdev::joypad::ff::convert_variant(sge::input::joypad::ff::variant const &_
 
         result.condition[1] = effect;
       });
+
+FCPPT_PP_POP_WARNING
 
   return result;
 }

@@ -117,18 +117,18 @@ void sge::scenic::render_context::cg::object::material(
 
   manager_.get().material_shininess_.set(_material.shininess().get());
 
-  manager_.get().use_diffuse_texture_.set(_material.diffuse_texture().has_value());
+  manager_.get().use_diffuse_texture_.set(_material.diffuse_texture().get().has_value());
 
   manager_.get().diffuse_texture_.set(
-      _material.diffuse_texture().has_value()
-          ? sge::shader::parameter::planar_texture::optional_value(_material.diffuse_texture())
+      _material.diffuse_texture().get().has_value()
+          ? sge::shader::parameter::planar_texture::optional_value(_material.diffuse_texture().get())
           : sge::shader::parameter::planar_texture::optional_value());
 
-  manager_.get().use_specular_texture_.set(_material.specular_texture().has_value());
+  manager_.get().use_specular_texture_.set(_material.specular_texture().get().has_value());
 
   manager_.get().specular_texture_.set(
-      _material.specular_texture().has_value()
-          ? sge::shader::parameter::planar_texture::optional_value(_material.specular_texture())
+      _material.specular_texture().get().has_value()
+          ? sge::shader::parameter::planar_texture::optional_value(_material.specular_texture().get())
           : sge::shader::parameter::planar_texture::optional_value());
 }
 

@@ -7,12 +7,13 @@
 #define SGE_SCENIC_RENDER_CONTEXT_MATERIAL_DIFFUSE_TEXTURE_HPP_INCLUDED
 
 #include <sge/scenic/render_context/optional_planar_texture.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
 
 namespace sge::scenic::render_context::material
 {
 
-using diffuse_texture = sge::scenic::render_context::optional_planar_texture;
-
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::scenic::render_context::optional_planar_texture, diffuse_texture);
 }
 
 #endif

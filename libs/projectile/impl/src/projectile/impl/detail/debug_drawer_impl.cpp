@@ -130,17 +130,17 @@ void sge::projectile::detail::debug_drawer_impl::drawLine(
                       fcppt::math::vector::static_<btScalar, 3U>{_s.x(), _s.y(), _s.z()});
             });
 
-        _lock->value().push_back(sge::line_drawer::line(
-            make_vector(_from),
-            make_vector(_to),
-            sge::image::color::any::object(
-                sge::image::color::rgb8((sge::image::color::init::red() %= _from_color.getX())(
+        _lock->value().push_back(sge::line_drawer::line{
+            sge::line_drawer::line::begin_type{make_vector(_from)},
+            sge::line_drawer::line::end_type{make_vector(_to)},
+            sge::line_drawer::line::begin_color_type{sge::image::color::any::object{
+                sge::image::color::rgb8{(sge::image::color::init::red() %= _from_color.getX())(
                     sge::image::color::init::green() %=
-                    _from_color.getY())(sge::image::color::init::blue() %= _from_color.getZ()))),
-            sge::image::color::any::object(
-                sge::image::color::rgb8((sge::image::color::init::red() %= _to_color.getX())(
+                    _from_color.getY())(sge::image::color::init::blue() %= _from_color.getZ())}}},
+            sge::line_drawer::line::end_color_type{sge::image::color::any::object{
+                sge::image::color::rgb8{(sge::image::color::init::red() %= _to_color.getX())(
                     sge::image::color::init::green() %=
-                    _to_color.getY())(sge::image::color::init::blue() %= _to_color.getZ())))));
+                    _to_color.getY())(sge::image::color::init::blue() %= _to_color.getZ())}}}});
       });
 }
 

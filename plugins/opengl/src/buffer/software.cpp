@@ -19,10 +19,16 @@
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 sge::opengl::buffer::software::software()
     : sge::opengl::buffer::base(), bound_buffer_(), nextid_(0U), buffers_()
@@ -137,3 +143,5 @@ sge::opengl::buffer::software::buffer_object(sge::opengl::buffer::id const _id) 
       // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
       const_cast<sge::opengl::buffer::software &>(*this).buffer_object(_id);
 }
+
+FCPPT_PP_POP_WARNING

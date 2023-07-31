@@ -13,6 +13,9 @@
 #include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/array/object_impl.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unistd.h>
 #include <linux/limits.h>
@@ -30,6 +33,9 @@ sge::evdev::inotify::reader::reader(std::filesystem::path const &_path)
 
 sge::evdev::inotify::reader::~reader() = default;
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
 sge::evdev::inotify::event_container sge::evdev::inotify::reader::on_event()
 {
   // The manpage says that this is enough to read at least one inotify event
@@ -44,11 +50,11 @@ sge::evdev::inotify::event_container sge::evdev::inotify::reader::on_event()
     throw sge::input::exception{FCPPT_TEXT("inotify read returned -1!")};
   }
 
-  auto const bytes(static_cast<std::size_t>(ret));
+  auto const bytes{static_cast<std::size_t>(ret)};
 
-  std::size_t index(0U);
+  std::size_t index{0U};
 
-  sge::evdev::inotify::event_container result;
+  sge::evdev::inotify::event_container result{};
 
   while (index < bytes)
   {
@@ -75,6 +81,7 @@ sge::evdev::inotify::event_container sge::evdev::inotify::reader::on_event()
         buffer.data() + index // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     );
 
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     result.push_back(sge::evdev::inotify::event{
         std::filesystem::path(path_name), sge::evdev::inotify::convert_event_type(event.mask)});
 
@@ -88,5 +95,8 @@ sge::evdev::inotify::event_container sge::evdev::inotify::reader::on_event()
 
   return result;
 }
+
+FCPPT_PP_POP_WARNING
+
 
 awl::backends::posix::fd sge::evdev::inotify::reader::fd() { return object_.fd(); }

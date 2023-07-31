@@ -8,6 +8,9 @@
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/rates.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
@@ -23,8 +26,13 @@ sge::opengl::xrandr::rates::iterator sge::opengl::xrandr::rates::begin() const {
 
 sge::opengl::xrandr::rates::iterator sge::opengl::xrandr::rates::end() const
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
   return rates_ + // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
          size_;
+
+FCPPT_PP_POP_WARNING
 }
 
 sge::opengl::xrandr::rates::size_type sge::opengl::xrandr::rates::size() const

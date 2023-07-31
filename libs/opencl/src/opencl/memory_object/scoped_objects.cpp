@@ -25,7 +25,7 @@ sge::opencl::memory_object::scoped_objects::scoped_objects(
     sge::opencl::memory_object::base_ref_sequence &&_objects)
     : queue_(_queue), objects_(std::move(_objects))
 {
-  if (_objects.empty())
+  if (this->objects_.empty())
   {
     throw sge::opencl::exception{FCPPT_TEXT("memory_object::scoped_objects: Empty sequence")};
   }

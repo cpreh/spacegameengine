@@ -105,14 +105,14 @@ void bresenham(
   int_type y = y0;
   int_type const ystep = (y0 < y1) ? 1 : -1;
 
-  double length = static_cast<double>(x1 - x0) * static_cast<double>(x1 - x0) +
-                  static_cast<double>(y1 - y0) * static_cast<double>(y1 - y0);
+  double const length = static_cast<double>(x1 - x0) * static_cast<double>(x1 - x0) +
+                        static_cast<double>(y1 - y0) * static_cast<double>(y1 - y0);
 
   for (int_type x = x0; x <= x1; ++x)
   {
-    double pos = static_cast<double>(x - x0) * static_cast<double>(x - x0) +
-                 static_cast<double>(y - y0) * static_cast<double>(y - y0);
-    double t = std::sqrt(pos / length);
+    double const pos = static_cast<double>(x - x0) * static_cast<double>(x - x0) +
+                       static_cast<double>(y - y0) * static_cast<double>(y - y0);
+    double const t = std::sqrt(pos / length);
 
     Color c = t * c1 + (1.0 - t) * c0;
 
@@ -217,8 +217,7 @@ sge::graph::object::object(
               sge::image::color::format::rgba8, sge::renderer::texture::emulate_srgb::no),
           sge::renderer::texture::mipmap::off(),
           sge::renderer::resource_flags_field::null(),
-          sge::renderer::texture::capabilities_field(
-              sge::renderer::texture::capabilities_field::null())))),
+          sge::renderer::texture::capabilities_field::null()))),
       sprite_object_{
           sge::sprite::roles::pos{} = fcppt::math::vector::
               structure_cast<sprite_object::vector, fcppt::cast::float_to_int_fun>(_position.get()),
@@ -295,15 +294,15 @@ void sge::graph::object::draw_data(View const &_view)
 {
   this->clear(_view);
 
-  sge::graph::axis_constraint const current_axis_constraint(
-      fcppt::optional::maybe(
+  sge::graph::axis_constraint const current_axis_constraint{
+      sge::graph::axis_constraint::min_type{fcppt::optional::maybe(
           axis_constraint_,
           fcppt::const_(current_min_),
-          [](sge::graph::axis_constraint const _cur) { return _cur.min(); }),
-      fcppt::optional::maybe(
+          [](sge::graph::axis_constraint const _cur) { return _cur.min(); })},
+      sge::graph::axis_constraint::max_type{fcppt::optional::maybe(
           axis_constraint_,
           fcppt::const_(current_max_),
-          [](sge::graph::axis_constraint const _cur) { return _cur.max(); }));
+          [](sge::graph::axis_constraint const _cur) { return _cur.max(); })}};
 
   using value_type = sge::image2d::vector::value_type;
 

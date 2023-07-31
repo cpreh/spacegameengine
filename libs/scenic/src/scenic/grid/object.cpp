@@ -7,6 +7,7 @@
 #include <sge/camera/const_base_ref.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -75,34 +76,34 @@ sge::scenic::grid::object::object(
       camera_(_camera),
       line_drawer_(fcppt::reference_to_base<sge::renderer::device::core>(_renderer))
 {
-  sge::line_drawer::scoped_lock llock(fcppt::make_ref(line_drawer_));
+  sge::line_drawer::scoped_lock const llock{fcppt::make_ref(line_drawer_)};
 
   for (sge::renderer::scalar y = _rect.pos().y(); y <= _rect.pos().y() + _rect.size().h();
        y += _spacing.get().h())
   {
-    llock.value().push_back(sge::line_drawer::line(
-        permute_vector_according_to_orientation(
-            _orientation, sge::renderer::vector3(_rect.pos().x(), y, _distance_to_origin.get())),
-        permute_vector_according_to_orientation(
+    llock.value().push_back(sge::line_drawer::line{
+        sge::line_drawer::line::begin_type{permute_vector_according_to_orientation(
+            _orientation, sge::renderer::vector3(_rect.pos().x(), y, _distance_to_origin.get()))},
+        sge::line_drawer::line::end_type{permute_vector_according_to_orientation(
             _orientation,
             sge::renderer::vector3(
-                _rect.pos().x() + _rect.size().w(), y, _distance_to_origin.get())),
-        _color,
-        _color));
+                _rect.pos().x() + _rect.size().w(), y, _distance_to_origin.get()))},
+        sge::line_drawer::line::begin_color_type{_color},
+        sge::line_drawer::line::end_color_type{_color}});
   }
 
   for (sge::renderer::scalar x = _rect.pos().x(); x <= _rect.pos().x() + _rect.size().w();
        x += _spacing.get().w())
   {
-    llock.value().push_back(sge::line_drawer::line(
-        permute_vector_according_to_orientation(
-            _orientation, sge::renderer::vector3(x, _rect.pos().y(), _distance_to_origin.get())),
-        permute_vector_according_to_orientation(
+    llock.value().push_back(sge::line_drawer::line{
+        sge::line_drawer::line::begin_type{permute_vector_according_to_orientation(
+            _orientation, sge::renderer::vector3(x, _rect.pos().y(), _distance_to_origin.get()))},
+        sge::line_drawer::line::end_type{permute_vector_according_to_orientation(
             _orientation,
             sge::renderer::vector3(
-                x, _rect.pos().y() + _rect.size().h(), _distance_to_origin.get())),
-        _color,
-        _color));
+                x, _rect.pos().y() + _rect.size().h(), _distance_to_origin.get()))},
+        sge::line_drawer::line::begin_color_type{_color},
+        sge::line_drawer::line::end_color_type{_color}});
   }
 }
 

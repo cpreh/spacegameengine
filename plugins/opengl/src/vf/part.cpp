@@ -16,6 +16,9 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/log/object_reference.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -40,6 +43,9 @@ sge::opengl::vf::part::~part() = default;
 
 sge::renderer::vf::dynamic::part const &sge::opengl::vf::part::get() const { return part_; }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
 void sge::opengl::vf::part::use_me(sge::opengl::vf::pointer const _src) const
 {
   sge::opengl::vf::client_state_combiner states(log_, context_);
@@ -51,6 +57,8 @@ void sge::opengl::vf::part::use_me(sge::opengl::vf::pointer const _src) const
         fcppt::cast::from_void_ptr<unsigned char const *>(_src) + actor->offset().get());
   }
 }
+
+FCPPT_PP_POP_WARNING
 
 void sge::opengl::vf::part::unuse_me() const
 {

@@ -12,6 +12,8 @@ sge::viewport::fractional_aspect
 sge::viewport::aspect_from_screen_size(sge::renderer::screen_size const &_screen_size)
 {
   return sge::viewport::fractional_aspect{
-      fcppt::cast::size<sge::viewport::fractional_aspect::value_type>(_screen_size.w()),
-      fcppt::cast::size<sge::viewport::fractional_aspect::value_type>(_screen_size.h())};
+      sge::viewport::fractional_aspect::num_type{
+          fcppt::cast::size<sge::viewport::fractional_aspect::value_type>(_screen_size.w())},
+      sge::viewport::fractional_aspect::denom_type{
+          fcppt::cast::size<sge::viewport::fractional_aspect::value_type>(_screen_size.h())}};
 }

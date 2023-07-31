@@ -25,14 +25,14 @@ void sge::font::draw::simple(
     sge::image::color::any::object const &_color,
     sge::renderer::texture::emulate_srgb const _emulate_srgb)
 {
-  sge::font::draw::static_text text(
+  sge::font::draw::static_text const text{
       fcppt::make_ref(_renderer),
       fcppt::make_ref(_font),
       _string,
       _parameters,
       _pos,
       _color,
-      _emulate_srgb);
+      _emulate_srgb};
 
   text.draw(_render_context);
 }

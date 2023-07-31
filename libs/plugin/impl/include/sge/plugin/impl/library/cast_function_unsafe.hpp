@@ -7,7 +7,7 @@
 #define SGE_PLUGIN_IMPL_LIBRARY_CAST_FUNCTION_UNSAFE_HPP_INCLUDED
 
 #include <sge/plugin/impl/library/is_function_ptr.hpp>
-#include <fcppt/config/gcc_version_at_least.hpp>
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -29,9 +29,8 @@ inline Target cast_function_unsafe(Source const _function)
 
   FCPPT_PP_PUSH_WARNING
   FCPPT_PP_DISABLE_VC_WARNING(4191)
-#if FCPPT_CONFIG_GCC_VERSION_AT_LEAST(8, 0)
   FCPPT_PP_DISABLE_GCC_WARNING(-Wcast-function-type)
-#endif
+  FCPPT_PP_DISABLE_CLANG_WARNING(-Wcast-function-type-strict)
   return
       // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
       reinterpret_cast<Target>(_function);

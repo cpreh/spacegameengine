@@ -244,7 +244,7 @@ void load_light(
 
   sge::scenic::render_context::specular_color const specular_color{converted_color};
 
-  sge::scenic::render_context::ambient_color ambient_color{
+  sge::scenic::render_context::ambient_color const ambient_color{
       sge::image::color::any::object{sge::image::color::predef::black()}};
 
   if (light_type == "directional")

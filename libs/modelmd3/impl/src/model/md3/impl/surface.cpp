@@ -77,6 +77,7 @@ sge::model::md3::impl::surface::surface(
   // TODO(philipp): map
   for (s32 i = 0; i < num_triangles; ++i)
   {
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     triangles_.push_back(sge::model::md3::impl::triangle(_stream));
   }
 
@@ -85,6 +86,7 @@ sge::model::md3::impl::surface::surface(
   // TODO(philipp): map
   for (s32 i = 0; i < num_shaders; ++i)
   {
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     shaders_.push_back(sge::model::md3::impl::shader(_stream));
   }
 
@@ -93,6 +95,7 @@ sge::model::md3::impl::surface::surface(
   // TODO(philipp): map
   for (s32 i = 0; i < num_verts; ++i)
   {
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     texpos_.push_back(sge::model::md3::impl::texpos(_stream));
   }
 
@@ -101,6 +104,7 @@ sge::model::md3::impl::surface::surface(
   // TODO(philipp): map
   for (s32 i = 0; i < num_verts; ++i)
   {
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     transformed_vertices_.push_back(
         sge::model::md3::impl::transformed_vertex(sge::model::md3::impl::vertex(_stream, _flags)));
   }

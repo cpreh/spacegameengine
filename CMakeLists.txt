@@ -47,6 +47,7 @@ set(
 	"-fuchsia-default-arguments-calls"
 	"-fuchsia-default-arguments-declarations"
 	"-fuchsia-virtual-inheritance"
+	"-misc-misplaced-const"
 )
 
 set(
