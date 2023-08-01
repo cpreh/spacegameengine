@@ -87,10 +87,9 @@ sge::audio::sample_container sge::vorbis::file::read_all()
   sge::audio::sample_buffer result{0U};
 
   while (this->read(
-             sge::audio::sample_count{
-                 16U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                 * 4096U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-             },
+             sge::audio::sample_count{16U} // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+             * sge::audio::sample_count{4096U} // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+             ,
              fcppt::make_ref(result)) != sge::audio::sample_count{0U})
   {
   }

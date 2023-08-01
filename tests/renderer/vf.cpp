@@ -49,6 +49,7 @@
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/are_equivalent.hpp>
@@ -78,6 +79,7 @@ using static_size = std::integral_constant<sge::renderer::vf::vertex_size, Size>
 }
 
 FCPPT_CATCH_BEGIN
+// NOLINTBEGIN(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 
 TEST_CASE("renderer/vf/pos color interleaved", "[sge]")
 {
@@ -176,6 +178,9 @@ TEST_CASE("renderer/vf/pos color interleaved", "[sge]")
 
   // TODO(philipp): Test get
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
   auto const vec3_from(
       [&test_data](std::size_t const _index)
       {
@@ -190,6 +195,8 @@ TEST_CASE("renderer/vf/pos color interleaved", "[sge]")
         return result;
       });
 
+  FCPPT_PP_POP_WARNING
+
   FCPPT_PP_PUSH_WARNING
   FCPPT_PP_DISABLE_GCC_WARNING(-Wfloat-equal)
 
@@ -203,4 +210,5 @@ TEST_CASE("renderer/vf/pos color interleaved", "[sge]")
   FCPPT_PP_POP_WARNING
 }
 
+// NOLINTEND(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 FCPPT_CATCH_END

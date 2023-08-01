@@ -17,6 +17,7 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -51,6 +52,7 @@ void sge::x11input::event::select_unsafe(
     FCPPT_PP_PUSH_WARNING
     FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
     FCPPT_PP_DISABLE_GCC_WARNING(-Wconversion)
+    FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
     XISetMask( // NOLINT(hicpp-signed-bitwise, cppcoreguidelines-pro-bounds-pointer-arithmetic)
         mask_data.data(),
         event.get());

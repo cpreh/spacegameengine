@@ -26,5 +26,7 @@ sge::opengl::xrandr::version sge::opengl::xrandr::get_version(
     throw sge::renderer::exception(FCPPT_TEXT("Querying the xrandr version failed!"));
   }
 
-  return sge::opengl::xrandr::version(major, minor);
+  return sge::opengl::xrandr::version{
+      sge::opengl::xrandr::version::major_type{major},
+      sge::opengl::xrandr::version::minor_type{minor}};
 }

@@ -30,6 +30,9 @@
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <bit>
@@ -76,6 +79,9 @@ void sge::wave::file::reset()
 
   samples_read_ = 0U;
 }
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 sge::audio::sample_count sge::wave::file::read(
     sge::audio::sample_count const _sample_count,
@@ -126,6 +132,8 @@ sge::audio::sample_count sge::wave::file::read(
   // FIXME: What do we do if the file was truncated?
   return samples_to_read;
 }
+
+FCPPT_PP_POP_WARNING
 
 sge::audio::sample_container sge::wave::file::read_all()
 {

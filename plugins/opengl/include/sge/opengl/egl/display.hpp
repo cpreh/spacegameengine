@@ -28,7 +28,7 @@ protected:
   display();
 
 public:
-  virtual ~display() = 0;
+  virtual ~display();
 
   [[nodiscard]] virtual EGLDisplay get() const = 0;
 

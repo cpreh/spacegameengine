@@ -89,6 +89,9 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
@@ -210,6 +213,9 @@ sge::x11input::processor::extension_event(awl::backends::x11::system::event::gen
 
 awl::event::container sge::x11input::processor::hierarchy_event(XIHierarchyEvent const &_event)
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
   return fcppt::optional::cat<awl::event::container>(
       fcppt::algorithm::map<std::vector<awl::event::optional_base_unique_ptr>>(
           fcppt::make_int_range_count(_event.num_info),
@@ -219,6 +225,8 @@ awl::event::container sge::x11input::processor::hierarchy_event(XIHierarchyEvent
                 // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
                 _event.info[_index]);
           }));
+
+FCPPT_PP_POP_WARNING
 }
 
 awl::event::optional_base_unique_ptr

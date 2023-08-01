@@ -11,6 +11,12 @@
 #include <sge/libpng/row_vector.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/algorithm/map.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 sge::libpng::row_vector sge::libpng::make_row_vector(
     sge::image2d::dim const &_size,
@@ -24,3 +30,5 @@ sge::libpng::row_vector sge::libpng::make_row_vector(
       [_data, // NOLINT(misc-misplaced-const)
        stride](sge::image::size_type const _index) { return _data + _index * stride; });
 }
+
+FCPPT_PP_POP_WARNING

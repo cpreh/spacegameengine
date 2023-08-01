@@ -158,7 +158,7 @@ void fill_texture(sge::image2d::store::l8::view_type _view)
           mizuiro::color::channel::luminance(),
           static_cast<sge::image::channel8>(
               256.0 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-              (0.5 +
+              (0.5 + // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                0.5 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                    sge::noise::sample(
                        fcppt::make_ref(noise_generator),

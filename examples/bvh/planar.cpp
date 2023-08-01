@@ -202,9 +202,13 @@ public:
     sprite_sequence result{create_sprite(
         fcppt::variant::get_unsafe<bvh_tree_traits::node_wrapper>(tree.value()).bounding_box(),
         sge::image::color::rgba8{
+            // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
             (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0x2eU))
+            // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
             (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0x26U))
+            // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
             (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0x21U))
+            // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
             (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))})};
 
     fcppt::optional::maybe_void(
@@ -219,9 +223,13 @@ public:
           result.push_back(create_sprite(
               _wrapper.bounding_box(),
               sge::image::color::rgba8{
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0xbeU))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0xe8U))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0xe0U))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))}));
         });
 
@@ -237,9 +245,13 @@ public:
           result.push_back(create_sprite(
               _wrapper.bounding_box(),
               sge::image::color::rgba8{
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0xffU))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0x5eU))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0x00U))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))}));
         });
 
@@ -251,9 +263,13 @@ public:
               fcppt::make_ref(result),
               _front.get(),
               sge::image::color::rgba8{
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0x37U))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0x3cU))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0x40U))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))});
         });
 
@@ -265,9 +281,13 @@ public:
               fcppt::make_ref(result),
               _back.get(),
               sge::image::color::rgba8{
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::red() = fcppt::literal<sge::image::channel8>(0x73U))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::green() = fcppt::literal<sge::image::channel8>(0x32U))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::blue() = fcppt::literal<sge::image::channel8>(0x0bU))
+                  // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                   (sge::image::color::init::alpha() = fcppt::literal<sge::image::channel8>(255U))});
         });
 

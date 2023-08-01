@@ -263,7 +263,6 @@ fcppt::optional::object<double> count_memory()
         unsigned slab{0};
 
         std::string first_word{};
-        std::string last_word{};
 
         unsigned value{};
 
@@ -335,8 +334,6 @@ count_traffic(std::string const &_device)
       fcppt::filesystem::open<std::ifstream>("/proc/net/dev", std::ios_base::in),
       [&_device](std::ifstream &&netinfo)
       {
-        std::vector<std::string> result{};
-
         // skip the first two lines
         netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 

@@ -130,8 +130,8 @@ void pointer_axis_stop(void *, wl_pointer *, std::uint32_t, std::uint32_t) {}
 void pointer_axis_discrete(
     void *const _data, wl_pointer *, std::uint32_t const _axis, std::int32_t const _discrete)
 {
-  sge::wlinput::cursor::data &data(
-      *fcppt::cast::from_void_ptr<sge::wlinput::cursor::data *>(_data));
+  sge::wlinput::cursor::data const &data{
+      *fcppt::cast::from_void_ptr<sge::wlinput::cursor::data *>(_data)};
 
   if (data.position_.has_value())
   {

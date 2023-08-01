@@ -20,6 +20,9 @@
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
 #include <utility>
@@ -30,6 +33,9 @@ sge::x11input::xim::optional_method_unique_ptr sge::x11input::xim::create_method
 try
 {
   sge::x11input::xim::method_unique_ptr result{sge::x11input::xim::create_method(_log, _display)};
+
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
   sge::x11input::xim::supported_styles_unique_ptr const styles{
       sge::x11input::xim::get_supported_styles(*result)};
@@ -47,6 +53,8 @@ try
   {
     return sge::x11input::xim::optional_method_unique_ptr{std::move(result)};
   }
+
+FCPPT_PP_POP_WARNING
 
   FCPPT_LOG_ERROR(
       _log,

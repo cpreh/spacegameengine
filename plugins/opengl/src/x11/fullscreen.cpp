@@ -79,8 +79,8 @@ void send_event(
   event.xclient.format =
       32; // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
   event.xclient.data.l[0] = _value ? 1 : 0; // NOLINT(cppcoreguidelines-pro-type-union-access)
-  event.xclient.data.l[1] = fcppt::cast::to_signed(
-      _wm_state.get().get()); // NOLINT(cppcoreguidelines-pro-type-union-access)
+  event.xclient.data.l[1] = fcppt::cast::to_signed( // NOLINT(cppcoreguidelines-pro-type-union-access)
+      _wm_state.get().get());
   event.xclient.data.l[2] = 0L; // NOLINT(cppcoreguidelines-pro-type-union-access)
   event.xclient.data.l[3] = 0L; // NOLINT(cppcoreguidelines-pro-type-union-access)
   event.xclient.data.l[4] = 0L; // NOLINT(cppcoreguidelines-pro-type-union-access)

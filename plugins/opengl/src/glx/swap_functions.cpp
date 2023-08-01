@@ -24,6 +24,7 @@ fcppt::reference<Ret> cast_function(sge::opengl::glx::raw_function_ref const _fu
 {
   FCPPT_PP_PUSH_WARNING
   FCPPT_PP_DISABLE_CLANG_WARNING(-Wundefined-reinterpret-cast)
+  FCPPT_PP_DISABLE_CLANG_WARNING(-Wcast-function-type-strict)
 
   return fcppt::make_ref(
       // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)

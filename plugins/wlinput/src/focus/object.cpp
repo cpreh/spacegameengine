@@ -116,7 +116,7 @@ void keyboard_keymap(
   }
   catch (fcppt::exception const &_error)
   {
-    FCPPT_LOG_ERROR(data.log_.get(), fcppt::log::out << _error.string());
+    FCPPT_LOG_ERROR(data.log_.get(), fcppt::log::out << _error.string())
 
     remove_xkb();
   }

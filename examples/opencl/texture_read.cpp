@@ -122,9 +122,10 @@ void main_program(std::filesystem::path const &_target_file_path)
 
   fcppt::io::cout() << FCPPT_TEXT("Kernel created, executing it\n");
 
-  sge::opencl::command_queue::scoped scoped_queue(fcppt::make_ref(opencl_system.command_queue()));
+  sge::opencl::command_queue::scoped const scoped_queue(
+      fcppt::make_ref(opencl_system.command_queue()));
 
-  sge::opencl::event::sequence events{fcppt::container::make<sge::opencl::event::sequence>(
+  sge::opencl::event::sequence const events{fcppt::container::make<sge::opencl::event::sequence>(
       sge::opencl::command_queue::enqueue_kernel(
           fcppt::make_ref(opencl_system.command_queue()),
           fcppt::make_ref(main_kernel),

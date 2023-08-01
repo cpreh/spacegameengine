@@ -325,7 +325,7 @@ awl::main::exit_code input_main(options_result const &_args)
 
   sge::console::object console(sge::console::prefix(SGE_FONT_LIT('/')));
 
-  sge::console::muxing_fcppt_streambuf muxing_streambuf(
+  sge::console::muxing_fcppt_streambuf const muxing_streambuf(
       fcppt::make_ref(fcppt::io::cout()), fcppt::make_ref(console), sge::console::muxing::enabled);
 
   sge::font::object_unique_ptr const font(sys.font_system().create_font(sge::font::parameters()));

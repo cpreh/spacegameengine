@@ -7,6 +7,8 @@
 #define SGE_OPENGL_XRANDR_VERSION_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/version_fwd.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
 #include <fcppt/io/ostream_fwd.hpp>
 
 #undef major
@@ -18,7 +20,10 @@ namespace sge::opengl::xrandr
 class version
 {
 public:
-  version(int major, int minor);
+  FCPPT_DECLARE_STRONG_TYPEDEF(int, major_type);
+  FCPPT_DECLARE_STRONG_TYPEDEF(int, minor_type);
+
+  version(major_type, minor_type);
 
   [[nodiscard]] int major() const;
 

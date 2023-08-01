@@ -155,6 +155,7 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
+#include <cstddef>
 #include <chrono>
 #include <exception>
 #include <iostream>
@@ -178,7 +179,8 @@ using pos_vector = vf_pos::packed_type;
 
 using pos_array = fcppt::array::object<
     pos_vector,
-    2 * 3 * 6 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    // NOLINTNEXTLINE(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    std::size_t{2U} * std::size_t{3U} * std::size_t{6U}
     >;
 
 void fill_geometry(
@@ -289,7 +291,7 @@ create_noise_texture(sge::renderer::device::core_ref const _device)
         return sge::image::color::l8(
             sge::image::color::init::luminance() = static_cast<sge::image::channel8>(
                 256.0F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                (0.5F +
+                (0.5F + // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                  0.5F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                      sge::noise::sample(
                          fcppt::make_ref(noise_generator),

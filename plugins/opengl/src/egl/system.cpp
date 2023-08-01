@@ -36,7 +36,7 @@ sge::opengl::egl::system::system(
       egl_display_(sge::opengl::egl::create_display(_log, _awl_system)),
       init_(egl_display_->get())
 {
-  FCPPT_LOG_INFO(_log.get(), fcppt::log::out << FCPPT_TEXT("EGL version is ") << init_.version());
+  FCPPT_LOG_INFO(_log.get(), fcppt::log::out << FCPPT_TEXT("EGL version is ") << init_.version())
 
   sge::opengl::egl::bind_api(EGL_OPENGL_API);
 }

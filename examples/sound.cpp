@@ -54,8 +54,10 @@
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/range/iterator_range.hpp>
 #include <algorithm>
 #include <chrono>
 #include <cmath>
@@ -86,6 +88,9 @@ load_raw(std::filesystem::path const &_path, sge::audio::loader_ref const _audio
   raw_byte_container raw_bytes{
       std::istreambuf_iterator<char>(raw_stream), std::istreambuf_iterator<char>()};
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
   return sge::audio::load_raw_exn(
       _audio_loader,
       sge::media::const_raw_range(
@@ -94,6 +99,9 @@ load_raw(std::filesystem::path const &_path, sge::audio::loader_ref const _audio
               raw_bytes.data() + // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
               raw_bytes.size())),
       sge::media::optional_extension());
+
+FCPPT_PP_POP_WARNING
+
 }
 
 }

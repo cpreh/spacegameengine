@@ -12,6 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 FCPPT_CATCH_BEGIN
+// NOLINTBEGIN(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 
 TEST_CASE("console cursor", "[sge]")
 {
@@ -140,4 +141,5 @@ TEST_CASE("console cursor", "[sge]")
   // TODO(philipp): Add complete_word tests
 }
 
+// NOLINTEND(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 FCPPT_CATCH_END

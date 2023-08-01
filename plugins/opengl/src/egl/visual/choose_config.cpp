@@ -38,7 +38,7 @@ EGLConfig sge::opengl::egl::visual::choose_config(
     FCPPT_LOG_WARNING(
         _log,
         fcppt::log::out << FCPPT_TEXT(
-            "Multiple EGL configs are matching. Choosing the first one."));
+            "Multiple EGL configs are matching. Choosing the first one."))
   }
 
   return result;

@@ -201,29 +201,25 @@ try
 
   fcppt::io::cout() << FCPPT_TEXT("Platform listing end\n");
 
-  sge::opencl::platform::object_sequence::size_type chosen_platform_index{};
-  if (platforms.size() == 1)
-  {
-    chosen_platform_index = 0;
-  }
-  else
+  sge::opencl::platform::object_sequence::size_type chosen_platform_index{0U};
+  if (platforms.size() > 1U)
   {
     fcppt::io::cout() << FCPPT_TEXT("Your choice: ");
-    do
+    while (chosen_platform_index >= platforms.size())
     {
       chosen_platform_index =
           query_value_from_user<sge::opencl::platform::object_sequence::size_type>(
               fcppt::io::cin());
-    } while (chosen_platform_index >= platforms.size());
+    }
   }
 
   fcppt::io::cout() << FCPPT_TEXT("List devices with properties? [y/n] ");
 
   fcppt::char_type list_devices{};
-  do
+  while (list_devices != FCPPT_TEXT('y') && list_devices != FCPPT_TEXT('n'))
   {
     list_devices = query_value_from_user<fcppt::char_type>(fcppt::io::cin());
-  } while (list_devices != FCPPT_TEXT('y') && list_devices != FCPPT_TEXT('n'));
+  }
 
   sge::opencl::platform::object &chosen_platform = platforms[chosen_platform_index];
 

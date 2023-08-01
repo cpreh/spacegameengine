@@ -53,7 +53,7 @@ sge::libpng::optional_file_rep sge::libpng::file_rep_from_stream(
 
   ::png_set_sig_bytes(read_ptr.ptr(), sge::libpng::header_bytes::value);
 
-  sge::libpng::load_context load_context(_stream, sge::media::optional_name{_name}, read_ptr);
+  sge::libpng::load_context const load_context{_stream, sge::media::optional_name{_name}, read_ptr};
 
   ::png_read_info(read_ptr.ptr(), info.get());
 

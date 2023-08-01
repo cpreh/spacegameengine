@@ -23,7 +23,7 @@ protected:
   surface();
 
 public:
-  virtual ~surface() = 0;
+  virtual ~surface();
 
   [[nodiscard]] virtual EGLSurface get() const = 0;
 };

@@ -40,7 +40,7 @@ void sge::libpng::write(
 
   sge::libpng::info const info(write_ptr.ptr());
 
-  sge::libpng::write_context context(sge::media::optional_name{_name}, _stream, write_ptr);
+  sge::libpng::write_context const context{sge::media::optional_name{_name}, _stream, write_ptr};
 
   ::png_set_IHDR(
       write_ptr.ptr(),

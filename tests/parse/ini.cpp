@@ -59,6 +59,7 @@ struct StringMaker<sge::parse::ini::entry>
 }
 
 FCPPT_CATCH_BEGIN
+// NOLINTBEGIN(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 
 TEST_CASE("parse_ini", "[sge]")
 {
@@ -100,4 +101,5 @@ TEST_CASE("parse_ini error", "[sge]")
   CHECK(sge::parse::ini::parse_string(std::string{"[foo]\n invalid name=foo"}).has_failure());
 }
 
+// NOLINTEND(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 FCPPT_CATCH_END

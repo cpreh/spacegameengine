@@ -659,7 +659,7 @@ awl::main::exit_code main_program(options_record const &_options)
           ),
       sge::camera::coordinate_system::identity()}};
 
-  sge::camera::perspective_projection_from_viewport camera_viewport_connection(
+  sge::camera::perspective_projection_from_viewport const camera_viewport_connection(
       fcppt::reference_to_base<sge::camera::has_mutable_projection>(fcppt::make_ref(camera)),
       fcppt::make_ref(sys.viewport_manager()),
       sge::renderer::projection::near(
@@ -681,7 +681,7 @@ awl::main::exit_code main_program(options_record const &_options)
   sge::model::md3::loader_unique_ptr const md3_loader(sge::model::md3::create(sys.log_context()));
 
   // Create a model and a model collection
-  compiled_model main_model(
+  compiled_model const main_model(
       fcppt::make_ref(sys.renderer_device_core()),
       fcppt::make_cref(*vertex_declaration),
       *md3_loader->load(

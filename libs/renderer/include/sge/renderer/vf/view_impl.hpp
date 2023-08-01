@@ -9,6 +9,9 @@
 #include <sge/renderer/vf/iterator_impl.hpp>
 #include <sge/renderer/vf/view_decl.hpp>
 #include <sge/renderer/vf/dynamic/basic_view.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 template <typename Part, typename Constness>
 sge::renderer::vf::view<Part, Constness>::view(dynamic_view_type const &_view)
@@ -35,7 +38,12 @@ template <typename Part, typename Constness>
 typename sge::renderer::vf::view<Part, Constness>::iterator
 sge::renderer::vf::view<Part, Constness>::end() const
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
   return iterator(data_ + size_.get());
+
+FCPPT_PP_POP_WARNING
 }
 
 #endif

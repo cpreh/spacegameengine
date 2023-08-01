@@ -30,7 +30,7 @@ EGLConfig sge::opengl::egl::visual::to_config(
        _egl_display // NOLINT(misc-misplaced-const)
   ]
       {
-        FCPPT_LOG_WARNING(_log, fcppt::log::out << FCPPT_TEXT("Visual is not an EGL visual."));
+        FCPPT_LOG_WARNING(_log, fcppt::log::out << FCPPT_TEXT("Visual is not an EGL visual."))
 
         return sge::opengl::egl::visual::choose_config(
             _log, _egl_display, sge::opengl::egl::attribute_vector{EGL_NONE});

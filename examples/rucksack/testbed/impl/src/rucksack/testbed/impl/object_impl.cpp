@@ -102,6 +102,7 @@ sge::rucksack::testbed::object_impl::object_impl(sge::window::title &&_window_ti
 void sge::rucksack::testbed::object_impl::add_widget(
     sge::rucksack::widget::reference const _widget, sge::image::color::any::object const &_color)
 {
+  // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
   sprites_.push_back(std::make_pair(
       _widget,
       sprite_object(

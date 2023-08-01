@@ -13,14 +13,14 @@
 #undef major
 #undef minor
 
-sge::opengl::xrandr::version::version(int const _major, int const _minor)
-    : major_(_major), minor_(_minor)
+sge::opengl::xrandr::version::version(major_type const _major, minor_type const _minor)
+    : major_{_major.get()}, minor_{_minor.get()}
 {
 }
 
-int sge::opengl::xrandr::version::major() const { return major_; }
+int sge::opengl::xrandr::version::major() const { return this->major_; }
 
-int sge::opengl::xrandr::version::minor() const { return minor_; }
+int sge::opengl::xrandr::version::minor() const { return this->minor_; }
 
 bool sge::opengl::xrandr::operator<(
     sge::opengl::xrandr::version const &_left, sge::opengl::xrandr::version const &_right)

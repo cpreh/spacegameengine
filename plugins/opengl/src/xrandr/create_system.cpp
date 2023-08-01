@@ -31,10 +31,12 @@ sge::opengl::xrandr::optional_system_unique_ptr sge::opengl::xrandr::create_syst
       },
       [&_log, &_display](sge::opengl::xrandr::extension const _extension)
       {
-        sge::opengl::xrandr::version const version(
-            sge::opengl::xrandr::get_version(_extension, _display));
+        sge::opengl::xrandr::version const version{
+            sge::opengl::xrandr::get_version(_extension, _display)};
 
-        if (version < sge::opengl::xrandr::version(1, 3))
+        if (version < sge::opengl::xrandr::version{
+                          sge::opengl::xrandr::version::major_type{1},
+                          sge::opengl::xrandr::version::minor_type{3}})
         {
           FCPPT_LOG_WARNING(
               _log.get(),

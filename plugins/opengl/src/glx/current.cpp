@@ -53,7 +53,7 @@ sge::opengl::glx::current::load_function(std::string const &_name) const
   // TODO(philipp): Use optionals
   return fcppt::optional::maybe(
       proc_address_,
-      [] { return sge::opengl::backend::fun_ptr(nullptr); },
+      [] { return sge::opengl::backend::fun_ptr{nullptr}; },
       [&_name](sge::opengl::glx::proc_address_function_ref const _proc_address)
       { return _proc_address.get()(fcppt::cast::to_char_ptr<GLubyte const *>(_name.c_str())); });
 }
