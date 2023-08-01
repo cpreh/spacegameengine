@@ -14,6 +14,7 @@
 #include <sge/sprite/intrusive/detail/connection_impl.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/reference_to_base.hpp>
 
 template <typename Choices>
 sge::sprite::intrusive::collection<Choices>::collection()
@@ -31,9 +32,8 @@ template <typename Choices>
 typename sge::sprite::intrusive::collection<Choices>::connection_ref
 sge::sprite::intrusive::collection<Choices>::connection()
 {
-  using connection_base_ref = sge::sprite::intrusive::connection<Choices> &;
-
-  return fcppt::make_ref(connection_base_ref(connection_));
+  return fcppt::reference_to_base<sge::sprite::intrusive::connection<Choices>>(
+      fcppt::make_ref(this->connection_));
 }
 
 template <typename Choices>
