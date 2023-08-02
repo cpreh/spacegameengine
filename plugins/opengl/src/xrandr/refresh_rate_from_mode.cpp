@@ -9,10 +9,12 @@
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/cast/int_to_float.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
+#include <cstdint>
 #include <cmath>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -20,9 +22,11 @@
 sge::renderer::display_mode::optional_refresh_rate
 sge::opengl::xrandr::refresh_rate_from_mode(XRRModeInfo const &_info)
 {
-  using unsigned_type = unsigned long long;
+  using unsigned_type = std::uint64_t;
 
-  unsigned_type const denom(_info.hTotal * _info.vTotal);
+  unsigned_type const denom{
+      fcppt::cast::size<unsigned_type>(_info.hTotal) *
+      fcppt::cast::size<unsigned_type>(_info.vTotal)};
 
   using float_type = double;
 
