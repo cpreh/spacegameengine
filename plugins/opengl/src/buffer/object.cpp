@@ -11,6 +11,8 @@
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/range_lock_method.hpp>
+#include <sge/opengl/buffer/size.hpp>
+#include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/convert/resource_flags.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -20,21 +22,24 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::opengl::buffer::object::object(
     sge::opengl::buffer::base_ref const _base,
-    size_type const _size,
-    size_type const _stride,
+    sge::opengl::buffer::size const _size,
+    sge::opengl::buffer::stride const _stride,
     sge::renderer::resource_flags_field const &_flags,
     const_pointer const _src)
-    : base_(_base),
-      size_(_size),
-      stride_(_stride),
-      flags_(_flags),
-      dest_(nullptr),
-      holder_(base_),
-      lock_offset_(0),
-      lock_size_(0)
+    : base_{_base},
+      size_{_size.get()},
+      stride_{_stride.get()},
+      flags_{_flags},
+      dest_{nullptr},
+      holder_{this->base_},
+      lock_offset_{0},
+      lock_size_{0}
 {
   size_type const new_size(this->size() * this->stride());
 
@@ -162,6 +167,9 @@ sge::renderer::resource_flags_field const &sge::opengl::buffer::object::flags() 
 
 sge::opengl::buffer::object::pointer sge::opengl::buffer::object::data()
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
+
   if (dest_ == nullptr)
   {
     throw sge::renderer::exception(
@@ -169,6 +177,8 @@ sge::opengl::buffer::object::pointer sge::opengl::buffer::object::data()
   }
 
   return dest_ + lock_offset_;
+
+FCPPT_PP_POP_WARNING
 }
 
 sge::opengl::buffer::object::const_pointer sge::opengl::buffer::object::data() const

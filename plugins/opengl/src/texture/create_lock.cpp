@@ -3,13 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/lock_base_unique_ptr.hpp>
+#include <sge/opengl/texture/read_size.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
 #include <sge/opengl/texture/readwrite_lock.hpp>
 #include <sge/opengl/texture/writeonly_lock.hpp>
+#include <sge/opengl/texture/write_size.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -19,9 +22,9 @@
 sge::opengl::texture::lock_base_unique_ptr sge::opengl::texture::create_lock(
     sge::opengl::context::object_ref const _context,
     sge::renderer::lock_flags::method const _method,
-    sge::opengl::texture::lock_base::size_type const _read_size,
-    sge::opengl::texture::lock_base::size_type const _write_size,
-    sge::opengl::texture::lock_base::size_type const _stride,
+    sge::opengl::texture::read_size const _read_size,
+    sge::opengl::texture::write_size const _write_size,
+    sge::opengl::buffer::stride const _stride,
     sge::renderer::resource_flags_field const &_flags)
 {
   switch (_method)

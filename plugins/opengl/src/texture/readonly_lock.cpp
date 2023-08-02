@@ -4,8 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/buffer/pbo_context.hpp>
+#include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/opengl/texture/read_size.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_ref.hpp>
@@ -13,14 +15,14 @@
 
 sge::opengl::texture::readonly_lock::readonly_lock(
     sge::opengl::context::object_ref const _context,
-    size_type const _whole_size,
-    size_type const _stride,
+    sge::opengl::texture::read_size const _whole_size,
+    sge::opengl::buffer::stride const _stride,
     sge::renderer::resource_flags_field const &_flags)
     : buffer_(
           fcppt::make_ref(
               sge::opengl::context::use<sge::opengl::buffer::pbo_context>(_context, _context)
                   .pack_buffer()),
-          _whole_size,
+          _whole_size.get(),
           _stride,
           _flags,
           nullptr)

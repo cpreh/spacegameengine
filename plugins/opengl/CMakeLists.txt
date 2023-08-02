@@ -41,7 +41,9 @@ set(
 	plugins/opengl/include/sge/opengl/buffer/optional_id_fwd.hpp
 	plugins/opengl/include/sge/opengl/buffer/pbo_context.hpp
 	plugins/opengl/include/sge/opengl/buffer/range_lock_method.hpp
+	plugins/opengl/include/sge/opengl/buffer/size.hpp
 	plugins/opengl/include/sge/opengl/buffer/software.hpp
+	plugins/opengl/include/sge/opengl/buffer/stride.hpp
 	plugins/opengl/include/sge/opengl/buffer/type.hpp
 	plugins/opengl/include/sge/opengl/buffer/vbo_context.hpp
 	plugins/opengl/include/sge/opengl/buffer/wrapper.hpp
@@ -596,6 +598,7 @@ set(
 	plugins/opengl/include/sge/opengl/texture/planar_types.hpp
 	plugins/opengl/include/sge/opengl/texture/planar_types_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/pp_dims.hpp
+	plugins/opengl/include/sge/opengl/texture/read_size.hpp
 	plugins/opengl/include/sge/opengl/texture/readonly_lock.hpp
 	plugins/opengl/include/sge/opengl/texture/readwrite_lock.hpp
 	plugins/opengl/include/sge/opengl/texture/render_binding.hpp
@@ -620,6 +623,7 @@ set(
 	plugins/opengl/include/sge/opengl/texture/volume_types_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/warn_min.hpp
 	plugins/opengl/include/sge/opengl/texture/warn_pow2.hpp
+	plugins/opengl/include/sge/opengl/texture/write_size.hpp
 	plugins/opengl/include/sge/opengl/texture/writeonly_lock.hpp
 	plugins/opengl/include/sge/opengl/unpack_alignment.hpp
 	plugins/opengl/include/sge/opengl/vector3f.hpp

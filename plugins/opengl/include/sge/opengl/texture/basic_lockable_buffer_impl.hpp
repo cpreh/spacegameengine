@@ -17,11 +17,15 @@
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/set_unpack_alignment.hpp>
 #include <sge/opengl/stride_to_unpack_alignment.hpp>
+#include <sge/opengl/buffer/size.hpp>
+#include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/basic_lockable_buffer.hpp>
 #include <sge/opengl/texture/create_lock.hpp>
 #include <sge/opengl/texture/is_render_target.hpp>
+#include <sge/opengl/texture/read_size.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
+#include <sge/opengl/texture/write_size.hpp>
 #include <sge/opengl/texture/funcs/get_image.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
@@ -175,15 +179,17 @@ void sge::opengl::texture::basic_lockable_buffer<Types>::lock_me(
             .str());
   }
 
-  lock_unique_ptr const &cur_lock(fcppt::optional::assign(
-      lock_,
+  lock_unique_ptr const &cur_lock{fcppt::optional::assign(
+      this->lock_,
       sge::opengl::texture::create_lock(
-          context_,
+          this->context_,
           _method,
-          fcppt::math::dim::contents(this->size()),
-          fcppt::math::dim::contents(_lock_area.size()),
-          stride_,
-          resource_flags_)));
+          sge::opengl::texture::read_size{
+              sge::opengl::buffer::size{fcppt::math::dim::contents(this->size())}},
+          sge::opengl::texture::write_size{
+              sge::opengl::buffer::size{fcppt::math::dim::contents(_lock_area.size())}},
+          sge::opengl::buffer::stride{this->stride_},
+          this->resource_flags_))};
 
   if (sge::renderer::lock_flags::read(_method))
   {

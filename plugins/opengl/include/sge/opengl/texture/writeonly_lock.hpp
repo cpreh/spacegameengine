@@ -7,8 +7,10 @@
 #define SGE_OPENGL_TEXTURE_WRITEONLY_LOCK_HPP_INCLUDED
 
 #include <sge/opengl/buffer/object.hpp>
+#include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
+#include <sge/opengl/texture/write_size.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
@@ -23,8 +25,8 @@ class writeonly_lock : public sge::opengl::texture::lock_base
 public:
   writeonly_lock(
       sge::opengl::context::object_ref,
-      size_type lock_size,
-      size_type stride,
+      sge::opengl::texture::write_size,
+      sge::opengl::buffer::stride,
       sge::renderer::resource_flags_field const &);
 
   ~writeonly_lock() override;

@@ -7,8 +7,10 @@
 #define SGE_OPENGL_TEXTURE_READONLY_LOCK_HPP_INCLUDED
 
 #include <sge/opengl/buffer/object.hpp>
+#include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
+#include <sge/opengl/texture/read_size.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
@@ -23,8 +25,8 @@ class readonly_lock : public sge::opengl::texture::lock_base
 public:
   readonly_lock(
       sge::opengl::context::object_ref,
-      size_type whole_size,
-      size_type stride,
+      sge::opengl::texture::read_size,
+      sge::opengl::buffer::stride,
       sge::renderer::resource_flags_field const &);
 
   ~readonly_lock() override;

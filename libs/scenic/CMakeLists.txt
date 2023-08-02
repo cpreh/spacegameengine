@@ -67,9 +67,11 @@ set(
 	libs/scenic/include/sge/scenic/render_context/manager_base.hpp
 	libs/scenic/include/sge/scenic/render_context/manager_base_fwd.hpp
 	libs/scenic/include/sge/scenic/render_context/manager_base_unique_ptr.hpp
+	libs/scenic/include/sge/scenic/render_context/material/diffuse_texture.hpp
 	libs/scenic/include/sge/scenic/render_context/material/object.hpp
 	libs/scenic/include/sge/scenic/render_context/material/object_fwd.hpp
 	libs/scenic/include/sge/scenic/render_context/material/shininess.hpp
+	libs/scenic/include/sge/scenic/render_context/material/specular_texture.hpp
 	libs/scenic/include/sge/scenic/render_context/optional_planar_texture.hpp
 	libs/scenic/include/sge/scenic/render_context/specular_color.hpp
 	libs/scenic/include/sge/scenic/render_context/transform_matrix_type.hpp

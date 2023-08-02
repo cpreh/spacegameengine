@@ -11,6 +11,8 @@
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/object_fwd.hpp>
 #include <sge/opengl/buffer/optional_id_fwd.hpp>
+#include <sge/opengl/buffer/size.hpp>
+#include <sge/opengl/buffer/stride.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
@@ -37,8 +39,8 @@ public:
 
   object(
       sge::opengl::buffer::base_ref,
-      size_type size,
-      size_type stride,
+      sge::opengl::buffer::size,
+      sge::opengl::buffer::stride,
       sge::renderer::resource_flags_field const &,
       const_pointer src);
 

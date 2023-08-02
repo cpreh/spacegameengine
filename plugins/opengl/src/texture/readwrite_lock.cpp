@@ -3,19 +3,22 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/context/object_ref.hpp>
+#include <sge/opengl/texture/read_size.hpp>
 #include <sge/opengl/texture/readwrite_lock.hpp>
+#include <sge/opengl/texture/write_size.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 
 sge::opengl::texture::readwrite_lock::readwrite_lock(
     sge::opengl::context::object_ref const _context,
-    size_type const _read_size,
-    size_type const _write_size,
-    size_type const _stride,
+    sge::opengl::texture::read_size const _read_size,
+    sge::opengl::texture::write_size const _write_size,
+    sge::opengl::buffer::stride const _stride,
     sge::renderer::resource_flags_field const &_flags)
-    : read_lock_(_context, _read_size, _stride, _flags),
-      write_lock_(_context, _write_size, _stride, _flags)
+    : read_lock_{_context, _read_size, _stride, _flags},
+      write_lock_{_context, _write_size, _stride, _flags}
 {
 }
 

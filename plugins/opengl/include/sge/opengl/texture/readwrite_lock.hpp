@@ -6,10 +6,13 @@
 #ifndef SGE_OPENGL_TEXTURE_READWRITE_LOCK_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_READWRITE_LOCK_HPP_INCLUDED
 
+#include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
+#include <sge/opengl/texture/read_size.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
 #include <sge/opengl/texture/writeonly_lock.hpp>
+#include <sge/opengl/texture/write_size.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
@@ -24,9 +27,9 @@ class readwrite_lock : public sge::opengl::texture::lock_base
 public:
   readwrite_lock(
       sge::opengl::context::object_ref,
-      size_type read_size,
-      size_type write_size,
-      size_type stride,
+      sge::opengl::texture::read_size,
+      sge::opengl::texture::write_size,
+      sge::opengl::buffer::stride,
       sge::renderer::resource_flags_field const &);
 
   ~readwrite_lock() override;
