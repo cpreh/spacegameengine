@@ -377,10 +377,10 @@ sge::renderer::context::scoped_core_unique_ptr sge::postprocessing::context::fin
           fcppt::reference_to_base<sge::renderer::target::base>(
               fcppt::make_ref(renderer_.get().onscreen_target()))));
 
-  sge::shader::scoped_pair scoped_shader(
+  sge::shader::scoped_pair const scoped_shader(
       fcppt::make_ref(result->get()), fcppt::make_ref(finalize_shader_));
 
-  sge::renderer::state::core::sampler::scoped scoped_filter(
+  sge::renderer::state::core::sampler::scoped const scoped_filter(
       fcppt::make_ref(result->get()),
       sge::renderer::state::core::sampler::const_object_ref_map{
           sge::renderer::state::core::sampler::const_object_ref_map::value_type{
