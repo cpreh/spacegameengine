@@ -34,6 +34,9 @@
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::d3d9::surface::color::color(
     IDirect3DDevice9 &_device,
@@ -56,10 +59,13 @@ sge::d3d9::surface::color::lock_c(lock_area const &_rect) const
 {
   if (this->color_holder().is_render_target())
   {
-    sge::d3d9::surface::d3d_unique_ptr const &temp_surface(fcppt::optional::assign(
+    FCPPT_PP_PUSH_WARNING
+    FCPPT_PP_IGNORE_DANGLING_REFERENCE
+    sge::d3d9::surface::d3d_unique_ptr const &temp_surface{fcppt::optional::assign(
         temp_surface_,
         sge::d3d9::devicefuncs::create_offscreen_plain_surface(
-            device_, this->color_holder().size(), format_, D3DPOOL_SYSTEMMEM)));
+            device_, this->color_holder().size(), format_, D3DPOOL_SYSTEMMEM))};
+    FCPPT_PP_POP_WARNING
 
     sge::d3d9::devicefuncs::get_render_target_data(device_, this->surface(), *temp_surface);
   }

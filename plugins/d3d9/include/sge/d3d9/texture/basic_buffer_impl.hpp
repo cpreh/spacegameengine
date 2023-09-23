@@ -28,6 +28,9 @@
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 template <typename Types>
 sge::d3d9::texture::basic_buffer<Types>::basic_buffer(
@@ -97,7 +100,10 @@ View sge::d3d9::texture::basic_buffer<Types>::lock_impl(
     lock_area const &_area,
     sge::renderer::lock_flags::method const _method) const
 {
-  d3d_buffer_unique_ptr const &buffer(fcppt::optional::assign(buffer_, buffer_create_()));
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_DANGLING_REFERENCE
+  d3d_buffer_unique_ptr const &buffer{fcppt::optional::assign(buffer_, buffer_create_())};
+  FCPPT_PP_POP_WARNING
 
   typedef typename Types::lock_dest lock_dest;
 
