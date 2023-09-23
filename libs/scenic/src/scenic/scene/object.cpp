@@ -40,6 +40,9 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -162,10 +165,13 @@ void sge::scenic::scene::object::render_entity(
 
   for (auto const &material_name_and_index_buffer_range : mesh.parts())
   {
+    FCPPT_PP_PUSH_WARNING
+    FCPPT_PP_IGNORE_DANGLING_REFERENCE
     sge::scenic::scene::material::object const &material{fcppt::optional::to_exception(
         fcppt::container::find_opt_mapped(
             this->materials_, material_name_and_index_buffer_range.first),
         [] { return sge::scenic::exception{FCPPT_TEXT("Material not found!")}; }).get()};
+    FCPPT_PP_POP_WARNING
 
     _context.current_material(material);
 

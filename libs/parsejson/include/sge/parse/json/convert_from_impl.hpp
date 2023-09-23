@@ -33,6 +33,9 @@
 #include <fcppt/math/to_array_type.hpp>
 #include <fcppt/math/matrix/init.hpp>
 #include <fcppt/math/matrix/is_matrix.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <string>
@@ -151,8 +154,11 @@ struct convert_from_impl<Result, std::enable_if_t<fcppt::array::is_object<Result
 {
   static Result execute(sge::parse::json::value const &_value)
   {
-    auto const &array(
-        sge::parse::json::get_exn<sge::parse::json::array>(fcppt::make_cref(_value)).get());
+    FCPPT_PP_PUSH_WARNING
+    FCPPT_PP_IGNORE_DANGLING_REFERENCE
+    auto const &array{
+        sge::parse::json::get_exn<sge::parse::json::array>(fcppt::make_cref(_value)).get()};
+    FCPPT_PP_POP_WARNING
 
     if (fcppt::array::size<Result>::value != array.elements.size())
     {

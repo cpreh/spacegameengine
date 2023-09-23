@@ -32,6 +32,9 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
 #include <LinearMath/btScalar.h>
@@ -59,9 +62,12 @@ sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
 void sge::projectile::detail::debug_drawer_impl::update()
 {
   {
-    scoped_lock_unique_ptr const &lock(fcppt::optional::assign(
+    FCPPT_PP_PUSH_WARNING
+    FCPPT_PP_IGNORE_DANGLING_REFERENCE
+    scoped_lock_unique_ptr const &lock{fcppt::optional::assign(
         scoped_lock_,
-        fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(fcppt::make_ref(line_drawer_))));
+        fcppt::make_unique_ptr<sge::line_drawer::scoped_lock>(fcppt::make_ref(line_drawer_)))};
+    FCPPT_PP_POP_WARNING
 
     FCPPT_LOG_DEBUG(log_, fcppt::log::out << FCPPT_TEXT("acquired lock"))
 

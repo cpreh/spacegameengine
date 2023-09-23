@@ -59,6 +59,9 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/apply.hpp>
 
 namespace
@@ -170,11 +173,14 @@ void sge::scenic::render_context::ffp::object::transform(
   {
   case sge::scenic::render_context::transform_matrix_type::projection:
   {
-    sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform(
+    FCPPT_PP_PUSH_WARNING
+    FCPPT_PP_IGNORE_DANGLING_REFERENCE
+    sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform{
         fcppt::optional::assign(
             projection_transform_,
             manager_.get().renderer_.get().create_transform_state(
-                sge::renderer::state::ffp::transform::parameters(_matrix))));
+                sge::renderer::state::ffp::transform::parameters(_matrix)))};
+    FCPPT_PP_POP_WARNING
 
     context_.get().transform(
         sge::renderer::state::ffp::transform::mode::projection,
@@ -185,11 +191,14 @@ void sge::scenic::render_context::ffp::object::transform(
   }
   case sge::scenic::render_context::transform_matrix_type::world:
   {
-    sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform(
+    FCPPT_PP_PUSH_WARNING
+    FCPPT_PP_IGNORE_DANGLING_REFERENCE
+    sge::renderer::state::ffp::transform::object_unique_ptr const &cur_transform{
         fcppt::optional::assign(
             world_transform_,
             manager_.get().renderer_.get().create_transform_state(
-                sge::renderer::state::ffp::transform::parameters(_matrix))));
+                sge::renderer::state::ffp::transform::parameters(_matrix)))};
+    FCPPT_PP_POP_WARNING
 
     context_.get().transform(
         sge::renderer::state::ffp::transform::mode::world,
@@ -204,7 +213,9 @@ void sge::scenic::render_context::ffp::object::transform(
 void sge::scenic::render_context::ffp::object::material(
     sge::scenic::render_context::material::object const &_material)
 {
-  sge::renderer::state::ffp::lighting::material::object_unique_ptr const &current_material(
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_DANGLING_REFERENCE
+  sge::renderer::state::ffp::lighting::material::object_unique_ptr const &current_material{
       fcppt::optional::assign(
           current_material_,
           manager_.get().renderer_.get().create_material_state(
@@ -218,7 +229,8 @@ void sge::scenic::render_context::ffp::object::material(
                   sge::renderer::state::ffp::lighting::material::emissive_color(
                       _material.emissive_color().get()),
                   sge::renderer::state::ffp::lighting::material::shininess(
-                      _material.shininess().get())))));
+                      _material.shininess().get()))))};
+  FCPPT_PP_POP_WARNING
 
   context_.get().material_state(
       sge::renderer::state::ffp::lighting::material::const_optional_object_ref(

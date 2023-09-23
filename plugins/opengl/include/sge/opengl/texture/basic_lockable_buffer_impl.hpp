@@ -54,6 +54,7 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
@@ -179,6 +180,8 @@ void sge::opengl::texture::basic_lockable_buffer<Types>::lock_me(
             .str());
   }
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_DANGLING_REFERENCE
   lock_unique_ptr const &cur_lock{fcppt::optional::assign(
       this->lock_,
       sge::opengl::texture::create_lock(
@@ -190,6 +193,7 @@ void sge::opengl::texture::basic_lockable_buffer<Types>::lock_me(
               sge::opengl::buffer::size{fcppt::math::dim::contents(_lock_area.size())}},
           sge::opengl::buffer::stride{this->stride_},
           this->resource_flags_))};
+  FCPPT_PP_POP_WARNING
 
   if (sge::renderer::lock_flags::read(_method))
   {

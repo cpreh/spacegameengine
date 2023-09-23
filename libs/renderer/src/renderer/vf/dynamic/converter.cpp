@@ -20,6 +20,9 @@
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -68,6 +71,8 @@ void sge::renderer::vf::dynamic::converter::unlock()
       this->locked_part_,
       [] { return sge::renderer::exception{FCPPT_TEXT("vf::dynamic::converter: Not locked!")}; })};
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_DANGLING_REFERENCE
   converter_unique_ptr const &conv{fcppt::optional::get_or_assign(
       this->converter_,
       [this]
@@ -75,6 +80,7 @@ void sge::renderer::vf::dynamic::converter::unlock()
         return fcppt::make_unique_ptr<sge::renderer::vf::dynamic::detail::converter_impl>(
             this->part_.get(), this->accepted_formats_);
       })};
+  FCPPT_PP_POP_WARNING
 
   if (sge::renderer::lock_flags::write(cur_locked_part.lock_flags()))
   {

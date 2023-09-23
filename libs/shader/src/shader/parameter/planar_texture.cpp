@@ -29,6 +29,9 @@
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::shader::parameter::planar_texture::planar_texture(
     sge::cg::program::object_ref const _program,
@@ -63,12 +66,15 @@ void sge::shader::parameter::planar_texture::set(optional_value const &_value)
             value_,
             [_render_context, this](fcppt::reference<sge::renderer::texture::planar> const _texture)
             {
-              sge::renderer::cg::loaded_texture_unique_ptr const &cur_loaded_texture(
+              FCPPT_PP_PUSH_WARNING
+              FCPPT_PP_IGNORE_DANGLING_REFERENCE
+              sge::renderer::cg::loaded_texture_unique_ptr const &cur_loaded_texture{
                   fcppt::optional::assign(
                       loaded_texture_,
                       renderer_.get().load_cg_texture(
                           parameter_.object(),
-                          fcppt::reference_to_base<sge::renderer::texture::base>(_texture))));
+                          fcppt::reference_to_base<sge::renderer::texture::base>(_texture)))};
+              FCPPT_PP_POP_WARNING
 
               scoped_texture_ = optional_scoped_texture_ptr(
                   fcppt::make_unique_ptr<sge::renderer::cg::scoped_texture>(

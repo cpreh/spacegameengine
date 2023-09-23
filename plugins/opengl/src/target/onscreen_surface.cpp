@@ -36,6 +36,9 @@
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/nothing.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::opengl::target::onscreen_surface::onscreen_surface(awl::window::object_ref const _window)
     : sge::renderer::color_buffer::readable_surface(), window_(_window), buffer_()
@@ -53,6 +56,8 @@ sge::opengl::target::onscreen_surface::lock_c(
     throw sge::renderer::exception(FCPPT_TEXT("renderer::target()::lock(): already locked!"));
   }
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_DANGLING_REFERENCE
   buffer_type const &buffer{fcppt::optional::assign(
       buffer_,
       fcppt::container::buffer::read_from<buffer_type>(
@@ -72,6 +77,7 @@ sge::opengl::target::onscreen_surface::lock_c(
 
             return _size;
           }))};
+  FCPPT_PP_POP_WARNING
 
   return sge::image2d::view::flipped(sge::image2d::view::make_const(
       buffer.read_data(),

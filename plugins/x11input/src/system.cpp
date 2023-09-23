@@ -28,6 +28,9 @@
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::x11input::system::system(fcppt::log::context_reference const _log_context)
     : sge::input::system(),
@@ -43,7 +46,9 @@ sge::x11input::system::~system() = default;
 sge::input::processor_unique_ptr
 sge::x11input::system::create_processor(sge::window::object_ref const _window)
 {
-  awl::backends::x11::window::object const &x11_window(
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_DANGLING_REFERENCE
+  awl::backends::x11::window::object const &x11_window{
       fcppt::optional::to_exception(
           fcppt::cast::dynamic<awl::backends::x11::window::object const>(
               _window.get().awl_object()),
@@ -52,11 +57,12 @@ sge::x11input::system::create_processor(sge::window::object_ref const _window)
             return sge::input::exception{
                 FCPPT_TEXT("Window passed to x11input::system is not an X11 window.")};
           })
-          .get());
+          .get()};
+  FCPPT_PP_POP_WARNING
 
-  sge::x11input::opcode const opcode(fcppt::optional::to_exception(
+  sge::x11input::opcode const opcode{fcppt::optional::to_exception(
       sge::x11input::xi_opcode(x11_window.display().get()),
-      [] { return sge::input::exception{FCPPT_TEXT("X Input extension not available!")}; }));
+      [] { return sge::input::exception{FCPPT_TEXT("X Input extension not available!")}; })};
 
   // The first supported version we ask for and that is supported will be used
   if (!sge::x11input::xi_version(x11_window.display().get(), 2, 1))

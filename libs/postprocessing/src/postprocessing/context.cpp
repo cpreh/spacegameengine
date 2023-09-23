@@ -73,6 +73,7 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
+#include <fcppt/preprocessor/ignore_dangling_reference.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/connection.hpp>
@@ -183,7 +184,9 @@ void sge::postprocessing::context::viewport_callback()
 					sge::renderer::texture::capabilities::render_target))));
 	*/
 
-  sge::renderer::texture::planar_unique_ptr const &result_texture(fcppt::optional::assign(
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_DANGLING_REFERENCE
+  sge::renderer::texture::planar_unique_ptr const &result_texture{fcppt::optional::assign(
       rendering_result_texture_,
       renderer_.get().create_planar_texture(sge::renderer::texture::planar_parameters(
           target_size,
@@ -192,7 +195,8 @@ void sge::postprocessing::context::viewport_callback()
           sge::renderer::texture::mipmap::off(),
           sge::renderer::resource_flags_field::null(),
           sge::renderer::texture::capabilities_field{
-              sge::renderer::texture::capabilities::render_target}))));
+              sge::renderer::texture::capabilities::render_target})))};
+  FCPPT_PP_POP_WARNING
 
   finalize_input_texture_parameter_.set(
       sge::shader::parameter::planar_texture::optional_value(fcppt::make_ref(*result_texture)));
@@ -202,9 +206,12 @@ void sge::postprocessing::context::viewport_callback()
 		*downsampled_texture_0_);
 		*/
 
-  sge::renderer::target::offscreen_unique_ptr const &offscreen_target(fcppt::optional::assign(
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_DANGLING_REFERENCE
+  sge::renderer::target::offscreen_unique_ptr const &offscreen_target{fcppt::optional::assign(
       offscreen_target_,
-      sge::renderer::target::from_texture(renderer_, fcppt::make_ref(*result_texture))));
+      sge::renderer::target::from_texture(renderer_, fcppt::make_ref(*result_texture)))};
+  FCPPT_PP_POP_WARNING
 
   /*
 	offscreen_downsampled_target_.take(
@@ -213,12 +220,14 @@ void sge::postprocessing::context::viewport_callback()
 			*downsampled_texture_0_));
 			*/
 
-  sge::renderer::depth_stencil_buffer::surface_unique_ptr const &depth_stencil_surface(
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_IGNORE_DANGLING_REFERENCE
+  sge::renderer::depth_stencil_buffer::surface_unique_ptr const &depth_stencil_surface{
       fcppt::optional::assign(
           depth_stencil_surface_,
           renderer_.get().create_depth_stencil_surface(
               sge::renderer::depth_stencil_buffer::surface_parameters(
-                  target_size, sge::image::ds::format::d32))));
+                  target_size, sge::image::ds::format::d32)))};
 
   offscreen_target->depth_stencil_surface(sge::renderer::depth_stencil_buffer::optional_surface_ref(
       fcppt::make_ref(*depth_stencil_surface)));
