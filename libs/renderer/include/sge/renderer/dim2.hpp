@@ -7,6 +7,6 @@
 #define SGE_RENDERER_DIM2_HPP_INCLUDED
 
 #include <sge/renderer/basic_dim.hpp>
-#include <sge/renderer/dim2_fwd.hpp>
+#include <sge/renderer/dim2_fwd.hpp> // IWYU pragma: export
 
 #endif

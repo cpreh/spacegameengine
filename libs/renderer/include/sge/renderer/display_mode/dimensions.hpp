@@ -7,6 +7,6 @@
 #define SGE_RENDERER_DISPLAY_MODE_DIMENSIONS_HPP_INCLUDED
 
 #include <sge/renderer/screen_size.hpp>
-#include <sge/renderer/display_mode/dimensions_fwd.hpp>
+#include <sge/renderer/display_mode/dimensions_fwd.hpp> // IWYU pragma: export
 
 #endif

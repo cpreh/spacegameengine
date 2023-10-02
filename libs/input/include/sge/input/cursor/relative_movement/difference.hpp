@@ -7,7 +7,7 @@
 #define SGE_INPUT_CURSOR_RELATIVE_MOVEMENT_DIFFERENCE_HPP_INCLUDED
 
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/relative_movement/difference_fwd.hpp>
+#include <sge/input/cursor/relative_movement/difference_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

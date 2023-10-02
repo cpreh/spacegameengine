@@ -20,9 +20,9 @@ namespace sge::sprite::detail
 {
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos,
-    void>::type
+    void>
 set_pos(
     Elements &_elements, sge::sprite::types::pos<typename Choices::type_choices> const _pos
 
@@ -32,9 +32,9 @@ set_pos(
 }
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos_or_center,
-    void>::type
+    void>
 set_pos(Elements &_elements, sge::sprite::types::pos<typename Choices::type_choices> const _pos)
 {
   fcppt::record::set<sge::sprite::roles::pos_or_center>(

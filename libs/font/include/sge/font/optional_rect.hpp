@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_OPTIONAL_RECT_HPP_INCLUDED
 #define SGE_FONT_OPTIONAL_RECT_HPP_INCLUDED
 
-#include <sge/font/optional_rect_fwd.hpp>
+#include <sge/font/optional_rect_fwd.hpp> // IWYU pragma: export
 #include <sge/font/rect.hpp>
 #include <fcppt/optional/object_impl.hpp>
 

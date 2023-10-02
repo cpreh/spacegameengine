@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/input/event_base.hpp>
-#include <sge/input/keyboard/device.hpp>
+#include <sge/input/keyboard/device.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/keyboard/shared_ptr.hpp>
 #include <sge/input/keyboard/event/base.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -14,9 +14,9 @@
 #include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/input/plugin/collection.hpp>
 #include <sge/input/plugin/context.hpp>
-#include <sge/input/plugin/iterator.hpp>
+#include <sge/input/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/plugin/object.hpp>
-#include <sge/input/plugin/traits.hpp>
+#include <sge/input/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/window/object_ref.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_DIM_HPP_INCLUDED
 #define SGE_FONT_DIM_HPP_INCLUDED
 
-#include <sge/font/dim_fwd.hpp>
+#include <sge/font/dim_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/dim/static.hpp>
 
 #endif

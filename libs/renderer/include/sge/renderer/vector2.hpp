@@ -7,6 +7,6 @@
 #define SGE_RENDERER_VECTOR2_HPP_INCLUDED
 
 #include <sge/renderer/basic_vector.hpp>
-#include <sge/renderer/vector2_fwd.hpp>
+#include <sge/renderer/vector2_fwd.hpp> // IWYU pragma: export
 
 #endif

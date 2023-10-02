@@ -5,7 +5,7 @@
 
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/scoped_core.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/base_ref.hpp>
 

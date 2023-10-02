@@ -11,7 +11,7 @@
 #include <fcppt/cast/int_to_float_fun.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
+#include <fcppt/math/dim/arithmetic.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/dim/static.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>

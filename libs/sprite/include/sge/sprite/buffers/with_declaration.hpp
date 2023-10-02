@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_BUFFERS_WITH_DECLARATION_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_HPP_INCLUDED
 
-#include <sge/sprite/buffers/with_declaration_decl.hpp>
+#include <sge/sprite/buffers/with_declaration_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/buffers/with_declaration_fwd.hpp>
 #include <sge/sprite/buffers/with_declaration_impl.hpp>
 

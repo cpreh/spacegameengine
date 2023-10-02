@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/context/core_ref.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref.hpp>
-#include <sge/renderer/state/core/sampler/object_fwd.hpp>
 #include <sge/renderer/state/core/sampler/scoped_single.hpp>
 #include <sge/renderer/state/core/sampler/single.hpp>
 #include <sge/renderer/texture/stage.hpp>

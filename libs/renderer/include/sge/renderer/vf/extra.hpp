@@ -24,7 +24,7 @@ template <typename Format, sge::renderer::vf::element_count_type NumSubElements,
 struct extra<sge::renderer::vf::vector<Format, NumSubElements>, Index>
     : sge::renderer::vf::extra_base<sge::renderer::vf::vector_base<Format, NumSubElements>, Index>
 {
-  static_assert(std::is_fundamental<Format>::value, "Format must be fundamental");
+  static_assert(std::is_fundamental_v<Format>, "Format must be fundamental");
 
   static_assert(
       NumSubElements >= 1 && NumSubElements <= 4, "NumSubElements mut be between 1 and 4");

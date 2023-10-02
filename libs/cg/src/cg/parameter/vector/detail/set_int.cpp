@@ -4,6 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/cg/impl/parameter/vector/set_impl.hpp>
-#include <sge/cg/parameter/vector/detail/set_int.hpp>
+#include <sge/cg/parameter/vector/detail/set_int.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_CG_IMPL_PARAMETER_VECTOR_SET_IMPL(int, i)

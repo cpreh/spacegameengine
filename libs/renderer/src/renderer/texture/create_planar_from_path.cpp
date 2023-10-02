@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/load_exn.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
@@ -11,7 +11,7 @@
 #include <sge/renderer/texture/create_planar_from_file.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <fcppt/make_ref.hpp>

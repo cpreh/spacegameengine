@@ -5,21 +5,20 @@
 
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image3d/dim.hpp>
 #include <sge/image3d/algorithm/copy_and_convert.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/format.hpp>
 #include <sge/image3d/view/size.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/scoped_volume_lock.hpp>
-#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/volume.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/volume_parameters.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>

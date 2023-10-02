@@ -18,9 +18,11 @@ namespace sge::parse::impl::output
 {
 
 template <typename Ch, typename ToStream, typename Data>
-bool to_file(ToStream const &_to_stream, std::filesystem::path const &_path, Data const &_data)
+[[nodiscard]] bool
+to_file(ToStream const &_to_stream, std::filesystem::path const &_path, Data const &_data)
 {
   // TODO(philipp): Should we return false instead of throwing an exception?
+  // NOLINTNEXTLINE(misc-const-correctness)
   std::basic_ofstream<Ch> ofs{
       fcppt::filesystem::open_exn<std::basic_ofstream<Ch>, sge::parse::exception>(
           _path, std::ios_base::binary)};
@@ -29,7 +31,6 @@ bool to_file(ToStream const &_to_stream, std::filesystem::path const &_path, Dat
 
   return ofs.good();
 }
-
 }
 
 #endif

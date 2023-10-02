@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/plugin/impl/instantiate_from_loader_function.hpp>
-#include <sge/renderer/core_fwd.hpp>
-#include <sge/renderer/plugin/traits.hpp>
+#include <sge/renderer/core_fwd.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_PLUGIN_IMPL_INSTANTIATE_FROM_LOADER_FUNCTION(sge::renderer::core);

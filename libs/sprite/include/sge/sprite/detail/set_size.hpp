@@ -20,9 +20,9 @@ namespace sge::sprite::detail
 {
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::size_choice::texture_option::value == sge::sprite::config::texture_size_option::never,
-    void>::type
+    void>
 set_size(
     Elements &_elements, sge::sprite::types::dim<typename Choices::type_choices> const _size
 
@@ -32,9 +32,9 @@ set_size(
 }
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::size_choice::texture_option::value == sge::sprite::config::texture_size_option::maybe,
-    void>::type
+    void>
 set_size(Elements &_elements, sge::sprite::types::dim<typename Choices::type_choices> const _size)
 {
   fcppt::record::set<sge::sprite::roles::size_or_texture_size>(

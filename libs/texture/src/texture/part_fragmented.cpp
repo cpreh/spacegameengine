@@ -7,7 +7,7 @@
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/fragmented.hpp>
+#include <sge/texture/fragmented.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/texture/fragmented_ref.hpp>
 #include <sge/texture/part_fragmented.hpp>
 #include <sge/texture/sub_data.hpp>

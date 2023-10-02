@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_CAPABILITIES_FIELD_HPP_INCLUDED
 #define SGE_INPUT_CAPABILITIES_FIELD_HPP_INCLUDED
 
-#include <sge/input/capabilities_field_fwd.hpp>
+#include <sge/input/capabilities_field_fwd.hpp> // IWYU pragma: export
 #include <fcppt/container/bitfield/object.hpp>
 
 #endif

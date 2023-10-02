@@ -44,9 +44,9 @@ public:
 private:
   sge::timer::basic<clock> timer_;
 
-  counter current_frames_;
+  counter current_frames_; // NOLINT(cppcoreguidelines-use-default-member-init)
 
-  counter display_frames_;
+  counter display_frames_; // NOLINT(cppcoreguidelines-use-default-member-init)
 };
 
 }

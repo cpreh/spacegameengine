@@ -6,7 +6,7 @@
 #ifndef SGE_TEXTURE_OPTIONAL_PART_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_TEXTURE_OPTIONAL_PART_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/texture/optional_part_unique_ptr_fwd.hpp>
+#include <sge/texture/optional_part_unique_ptr_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

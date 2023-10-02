@@ -5,7 +5,9 @@
 
 #include <sge/build/plugin_path.hpp>
 #include <sge/config/plugin_path.hpp>
+#if defined(SGE_CONFIG_LOCAL_BUILD) && defined(CMAKE_INTDIR)
 #include <fcppt/from_std_string.hpp>
+#endif
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>

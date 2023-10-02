@@ -7,7 +7,7 @@
 #define SGE_PARSE_JSON_FILE_RESULT_HPP_INCLUDED
 
 #include <sge/parse/file_result.hpp>
-#include <sge/parse/json/file_result_fwd.hpp>
+#include <sge/parse/json/file_result_fwd.hpp> // IWYU pragma: export
 #include <sge/parse/json/start.hpp>
 
 #endif

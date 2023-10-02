@@ -11,8 +11,8 @@
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>
+#include <sge/font/unit.hpp>
 #include <sge/font/bitmap/impl/char_map.hpp>
-#include <sge/font/bitmap/impl/char_metric.hpp>
 #include <sge/font/bitmap/impl/double_insert.hpp>
 #include <sge/font/bitmap/impl/load_one_file.hpp>
 #include <sge/font/bitmap/impl/log_name.hpp>
@@ -21,7 +21,7 @@
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_to_string.hpp>
 #include <sge/image/color/optional_format.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system_ref.hpp>
 #include <sge/image2d/view/format.hpp>

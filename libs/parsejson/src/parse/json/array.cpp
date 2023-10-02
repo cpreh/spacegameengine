@@ -5,8 +5,8 @@
 
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
-#include <sge/parse/json/value.hpp>
-#include <fcppt/recursive_comparison.hpp>
+#include <sge/parse/json/value.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/recursive_comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

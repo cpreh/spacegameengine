@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/model/md3/exception.hpp>
+#include <sge/model/md3/index.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/load_flags_field.hpp>
 #include <sge/model/md3/normal_sequence.hpp>
@@ -38,6 +39,7 @@
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <ios>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 
@@ -110,6 +112,7 @@ sge::model::md3::impl::object::object(
       num_surfaces,
       [&_stream, _flags, num_frames, this]
       {
+        // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
         surfaces_.push_back(sge::model::md3::impl::surface(
             _stream, _flags, sge::model::md3::impl::surface::num_frames{num_frames}));
 

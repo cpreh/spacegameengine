@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_INDEX_ITERATOR_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ITERATOR_HPP_INCLUDED
 
-#include <sge/renderer/index/iterator_decl.hpp>
+#include <sge/renderer/index/iterator_decl.hpp> // IWYU pragma: export
 #include <sge/renderer/index/iterator_fwd.hpp>
 #include <sge/renderer/index/iterator_impl.hpp>
 

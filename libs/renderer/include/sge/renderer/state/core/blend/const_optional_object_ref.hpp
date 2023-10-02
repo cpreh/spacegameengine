@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
 
-#include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/core/blend/const_optional_object_ref_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/reference.hpp>
 
 #endif

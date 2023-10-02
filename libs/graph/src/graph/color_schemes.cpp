@@ -17,6 +17,9 @@
 #include <fcppt/text.hpp>
 #include <fcppt/either/success_opt.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

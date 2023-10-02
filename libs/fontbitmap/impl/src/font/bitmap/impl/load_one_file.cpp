@@ -8,7 +8,6 @@
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/core/exception.hpp>
 #include <sge/font/char_type.hpp>
-#include <sge/font/exception.hpp>
 #include <sge/font/from_std_wstring.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/to_fcppt_string.hpp>
@@ -19,18 +18,15 @@
 #include <sge/font/bitmap/impl/load_offset.hpp>
 #include <sge/font/bitmap/impl/load_one_file.hpp>
 #include <sge/font/bitmap/impl/load_rect.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
-#include <sge/image2d/rect.hpp>
 #include <sge/image2d/system_ref.hpp>
 #include <sge/image2d/view/checked_sub.hpp>
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/find_member_value_exn.hpp>
 #include <sge/parse/json/get_exn.hpp>
-#include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/convert/to_int.hpp>

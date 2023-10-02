@@ -3,11 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/fog/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/fog/object_fwd.hpp>
 #include <sge/renderer/state/ffp/fog/scoped.hpp>
+#include <fcppt/reference_impl.hpp>
 
 sge::renderer::state::ffp::fog::scoped::scoped(
     sge::renderer::context::ffp_ref const _context,

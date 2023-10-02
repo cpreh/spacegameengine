@@ -8,7 +8,7 @@
 
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
 #include <sge/renderer/state/ffp/lighting/off.hpp>
-#include <sge/renderer/state/ffp/lighting/variant_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/variant_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

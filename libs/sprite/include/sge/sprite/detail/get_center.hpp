@@ -24,9 +24,9 @@ namespace sge::sprite::detail
 {
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos,
-    sge::sprite::types::vector<typename Choices::type_choices>>::type
+    sge::sprite::types::vector<typename Choices::type_choices>>
 get_center(Elements const &_elements)
 {
   return sge::sprite::detail::center_from_pos<Choices>(
@@ -36,18 +36,18 @@ get_center(Elements const &_elements)
 }
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::pos_choice::option::value == sge::sprite::config::pos_option::center,
-    sge::sprite::types::vector<typename Choices::type_choices>>::type
+    sge::sprite::types::vector<typename Choices::type_choices>>
 get_center(Elements const &_elements)
 {
   return fcppt::record::get<sge::sprite::roles::center>(_elements);
 }
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos_or_center,
-    sge::sprite::types::vector<typename Choices::type_choices>>::type
+    sge::sprite::types::vector<typename Choices::type_choices>>
 get_center(Elements const &_elements)
 {
   return fcppt::variant::match(

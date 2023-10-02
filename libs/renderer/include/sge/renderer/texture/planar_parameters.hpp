@@ -8,7 +8,7 @@
 
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/texture/color_format.hpp>
-#include <sge/renderer/texture/planar_parameters_fwd.hpp>
+#include <sge/renderer/texture/planar_parameters_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/texture/detail/declare_basic_parameters.hpp>
 
 SGE_RENDERER_TEXTURE_DETAIL_DECLARE_BASIC_PARAMETERS(

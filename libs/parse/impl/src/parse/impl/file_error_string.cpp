@@ -12,6 +12,7 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <string>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -27,13 +28,13 @@ fcppt::string common_error(std::filesystem::path const &_path)
 }
 
 fcppt::string sge::parse::impl::file_error_string(
-    std::filesystem::path const &_path, std::string &&_error)
+    std::filesystem::path const &_path, std::string const &_error)
 {
   return common_error(_path) + fcppt::from_std_string(_error);
 }
 
 fcppt::string sge::parse::impl::file_error_string(
-    std::filesystem::path const &_path, std::wstring &&_error)
+    std::filesystem::path const &_path, std::wstring const &_error)
 {
   return fcppt::optional::maybe(
       fcppt::from_std_wstring(_error),

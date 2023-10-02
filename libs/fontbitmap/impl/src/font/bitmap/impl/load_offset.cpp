@@ -10,7 +10,6 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/member_map.hpp>
-#include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/convert/to_int.hpp>
 #include <fcppt/make_cref.hpp>

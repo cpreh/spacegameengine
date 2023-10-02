@@ -5,7 +5,7 @@
 
 #include <sge/renderer/cg/const_loaded_program_ref.hpp>
 #include <sge/renderer/cg/scoped_program.hpp>
-#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/context/core_ref.hpp>
 
 sge::renderer::cg::scoped_program::scoped_program(

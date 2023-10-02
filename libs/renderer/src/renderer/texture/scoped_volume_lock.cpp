@@ -5,7 +5,7 @@
 
 #include <sge/image3d/tag.hpp>
 #include <sge/renderer/impl/texture/instantiate_basic_scoped_lock.hpp>
-#include <sge/renderer/texture/scoped_volume_lock.hpp>
-#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/scoped_volume_lock.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/texture/volume.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_SCOPED_LOCK(sge::image3d::tag);

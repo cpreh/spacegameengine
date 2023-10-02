@@ -8,16 +8,14 @@
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/size.hpp>
-#include <sge/renderer/dim2.hpp>
 #include <sge/texture/fragmented.hpp>
 #include <sge/texture/fragmented_unique_ptr.hpp>
 #include <sge/texture/image_too_big.hpp>
 #include <sge/texture/manager.hpp>
 #include <sge/texture/on_alloc_callback.hpp>
 #include <sge/texture/optional_part_unique_ptr.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/texture/part.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/texture/part_unique_ptr.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/algorithm/map_iteration_second.hpp>
 #include <fcppt/algorithm/update_action.hpp>

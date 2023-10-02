@@ -5,6 +5,7 @@
 
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/image/color/rgb32f.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
@@ -12,15 +13,25 @@
 #include <sge/log/location.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/identifier.hpp>
+#include <sge/model/obj/material_map.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
+#include <sge/model/obj/material/ambient_color.hpp>
+#include <sge/model/obj/material/diffuse_color.hpp>
+#include <sge/model/obj/material/diffuse_texture_path.hpp>
+#include <sge/model/obj/material/emissive_color.hpp>
+#include <sge/model/obj/material/object.hpp>
+#include <sge/model/obj/material/shininess.hpp>
+#include <sge/model/obj/material/specular_color.hpp>
+#include <sge/model/obj/material/specular_texture_path.hpp>
 #include <sge/model/obj/impl/log_name.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/strong_typedef_impl.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/context_reference.hpp>
@@ -28,7 +39,7 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/math/vector/null.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
@@ -294,7 +305,7 @@ private:
 
   sge::model::obj::material_map result_;
 
-  unsigned current_line_;
+  unsigned current_line_; // NOLINT(cppcoreguidelines-use-default-member-init)
 
   sge::model::obj::identifier current_material_;
 

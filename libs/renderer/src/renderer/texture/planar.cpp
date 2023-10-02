@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image2d/tag.hpp>
-#include <sge/renderer/color_buffer/readable_surface.hpp>
+#include <sge/renderer/color_buffer/readable_surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/impl/texture/instantiate_basic_lockable_box.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_LOCKABLE_BOX(sge::image2d::tag);

@@ -13,12 +13,11 @@
 #include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 #include <sge/renderer/vf/dynamic/converter.hpp>
 #include <sge/renderer/vf/dynamic/locked_part.hpp>
-#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/get_or_assign.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/ignore_dangling_reference.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

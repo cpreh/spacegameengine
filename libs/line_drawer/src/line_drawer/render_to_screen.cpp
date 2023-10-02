@@ -6,7 +6,6 @@
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/renderer/matrix4.hpp>
-#include <sge/renderer/optional_matrix4.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/projection/far.hpp>
@@ -14,12 +13,12 @@
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
-#include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/target/viewport.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/optional/maybe_void.hpp>

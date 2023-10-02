@@ -8,7 +8,7 @@
 
 #include <sge/renderer/state/ffp/fog/enabled.hpp>
 #include <sge/renderer/state/ffp/fog/off.hpp>
-#include <sge/renderer/state/ffp/fog/variant_fwd.hpp>
+#include <sge/renderer/state/ffp/fog/variant_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

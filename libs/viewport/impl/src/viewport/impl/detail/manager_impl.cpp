@@ -3,15 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/manage_callback.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/viewport/resize_callback.hpp>
 #include <sge/viewport/impl/detail/manager_impl.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/event_function.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
 #include <awl/event/container.hpp>
 #include <awl/window/event/base.hpp>
@@ -23,7 +24,7 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

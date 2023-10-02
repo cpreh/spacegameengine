@@ -11,7 +11,7 @@
 #include <sge/imageds2d/dim_fwd.hpp>
 #include <sge/imageds2d/pitch_fwd.hpp>
 #include <sge/imageds2d/detail/symbol.hpp>
-#include <sge/imageds2d/view/object_fwd.hpp>
+#include <sge/imageds2d/view/object.hpp>
 
 namespace sge::imageds2d::view
 {

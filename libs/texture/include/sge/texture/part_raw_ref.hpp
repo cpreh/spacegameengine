@@ -7,7 +7,7 @@
 #define SGE_TEXTURE_PART_RAW_REF_HPP_INCLUDED
 
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/part_raw_ref_fwd.hpp>
+#include <sge/texture/part_raw_ref_fwd.hpp> // IWYU pragma: export
 #include <sge/texture/detail/declare_basic_part_raw.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

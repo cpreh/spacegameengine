@@ -10,7 +10,7 @@
 #include <sge/input/joypad/ff/constant.hpp>
 #include <sge/input/joypad/ff/periodic.hpp>
 #include <sge/input/joypad/ff/ramp.hpp>
-#include <sge/input/joypad/ff/variant_fwd.hpp>
+#include <sge/input/joypad/ff/variant_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

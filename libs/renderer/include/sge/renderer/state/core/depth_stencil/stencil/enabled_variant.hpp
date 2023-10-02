@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_VARIANT_HPP_INCLUDED
 
 #include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/state/core/depth_stencil/stencil/separate.hpp>
 #include <fcppt/variant/object_impl.hpp>
 

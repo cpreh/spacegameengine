@@ -4,7 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/display_mode/desired_fps.hpp>
+#include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
+#include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <sge/renderer/display_mode/refresh_rate_value.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/optional/bind.hpp>

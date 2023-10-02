@@ -15,7 +15,7 @@
 #include <sge/sprite/buffers/allocate.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
-#include <sge/sprite/buffers/single_decl.hpp>
+#include <sge/sprite/buffers/single_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/buffers/slice_impl.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/zero_offset.hpp>

@@ -12,7 +12,7 @@
 
 sge::input::joypad::relative_axis_info::relative_axis_info(
     sge::input::joypad::axis_code const _code, fcppt::optional_string &&_name)
-    : code_(_code), name_(_name)
+    : code_{_code}, name_{std::move(_name)}
 {
 }
 

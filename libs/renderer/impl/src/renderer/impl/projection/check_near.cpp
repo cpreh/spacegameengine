@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/impl/is_epsilon_equal.hpp>
 #include <sge/renderer/impl/projection/check_near.hpp>
 #include <sge/renderer/projection/near.hpp>

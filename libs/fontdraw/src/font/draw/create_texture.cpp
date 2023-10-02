@@ -17,7 +17,7 @@
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/texture/part.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/texture/part_unique_ptr.hpp>
 #include <sge/texture/wrap_npot.hpp>
 #include <fcppt/make_ref.hpp>

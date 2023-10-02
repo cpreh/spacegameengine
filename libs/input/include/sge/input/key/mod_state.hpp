@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_KEY_MOD_STATE_HPP_INCLUDED
 #define SGE_INPUT_KEY_MOD_STATE_HPP_INCLUDED
 
-#include <sge/input/key/mod_state_fwd.hpp>
+#include <sge/input/key/mod_state_fwd.hpp> // IWYU pragma: export
 #include <fcppt/container/bitfield/object.hpp>
 
 #endif

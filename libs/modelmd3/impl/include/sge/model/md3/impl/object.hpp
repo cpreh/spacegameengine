@@ -54,9 +54,9 @@ private:
 
   [[nodiscard]] sge::model::md3::part_name_sequence part_names() const override;
 
-  std::size_t vertices_;
+  std::size_t vertices_; // NOLINT(cppcoreguidelines-use-default-member-init)
 
-  std::size_t indices_;
+  std::size_t indices_; // NOLINT(cppcoreguidelines-use-default-member-init)
 
   sge::model::md3::string name_;
 

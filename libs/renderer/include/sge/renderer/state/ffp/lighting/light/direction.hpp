@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_DIRECTION_HPP_INCLUDED
 
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/state/ffp/lighting/light/direction_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/direction_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

@@ -7,7 +7,7 @@
 #define SGE_INPUT_PLUGIN_CONTEXT_HPP_INCLUDED
 
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/plugin/context_fwd.hpp>
+#include <sge/input/plugin/context_fwd.hpp> // IWYU pragma: export
 #include <sge/input/plugin/traits.hpp>
 #include <sge/plugin/declare_context.hpp>
 

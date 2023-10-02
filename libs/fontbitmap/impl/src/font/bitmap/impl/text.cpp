@@ -9,7 +9,6 @@
 #include <sge/font/optional_rect.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
-#include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
@@ -26,11 +25,9 @@
 #include <sge/font/bitmap/impl/make_rep.hpp>
 #include <sge/font/bitmap/impl/position.hpp>
 #include <sge/font/bitmap/impl/text.hpp>
-#include <sge/image/size_type.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/any/clear.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/image2d/rect.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
@@ -38,14 +35,13 @@
 #include <sge/image2d/view/size.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <fcppt/loop.hpp>
-#include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/math/box/contains_point.hpp>
-#include <fcppt/math/box/null.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
+#include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/to_unsigned.hpp>
 #include <fcppt/variant/match.hpp>

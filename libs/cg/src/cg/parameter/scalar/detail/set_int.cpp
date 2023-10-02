@@ -4,6 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/cg/impl/parameter/scalar/set_impl.hpp>
-#include <sge/cg/parameter/scalar/detail/set_int.hpp>
+#include <sge/cg/parameter/scalar/detail/set_int.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_CG_IMPL_PARAMETER_SCALAR_SET_IMPL(int, i)

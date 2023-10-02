@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_ANY_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic/any_fwd.hpp>
+#include <sge/renderer/vf/dynamic/any_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/normal.hpp>

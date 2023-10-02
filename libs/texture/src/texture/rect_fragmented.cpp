@@ -4,8 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/color_format_fwd.hpp>

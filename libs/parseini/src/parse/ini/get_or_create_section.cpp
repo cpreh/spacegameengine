@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/entry.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/parse/ini/get_or_create_section.hpp>
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/section_name.hpp>
@@ -34,6 +34,7 @@ fcppt::reference<sge::parse::ini::section> sge::parse::ini::get_or_create_sectio
           }),
       [&_section_name, &sections]
       {
+        // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
         sections.push_back(sge::parse::ini::section(sge::parse::ini::section_name{_section_name}));
 
         return fcppt::make_ref(sections.back());

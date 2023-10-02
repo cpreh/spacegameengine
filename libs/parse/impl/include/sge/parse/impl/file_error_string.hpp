@@ -17,10 +17,10 @@ namespace sge::parse::impl
 {
 
 SGE_PARSE_DETAIL_SYMBOL
-fcppt::string file_error_string(std::filesystem::path const &, std::string &&);
+fcppt::string file_error_string(std::filesystem::path const &, std::string const &);
 
 SGE_PARSE_DETAIL_SYMBOL
-fcppt::string file_error_string(std::filesystem::path const &, std::wstring &&);
+fcppt::string file_error_string(std::filesystem::path const &, std::wstring const &);
 
 }
 

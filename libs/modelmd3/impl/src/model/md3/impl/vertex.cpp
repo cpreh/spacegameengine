@@ -8,7 +8,6 @@
 #include <sge/model/md3/impl/read_s16.hpp>
 #include <sge/model/md3/impl/s16.hpp>
 #include <sge/model/md3/impl/vertex.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -6,7 +6,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/impl/texture/instantiate_basic_parameters.hpp>
 #include <sge/renderer/texture/color_format.hpp>
-#include <sge/renderer/texture/planar_parameters.hpp>
+#include <sge/renderer/texture/planar_parameters.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_PARAMETERS(
     sge::renderer::dim2, sge::renderer::texture::color_format);

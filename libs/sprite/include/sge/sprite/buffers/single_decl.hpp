@@ -52,7 +52,7 @@ private:
 
   sge::sprite::buffers::option const buffers_option_;
 
-  optional_buffers_object buffers_object_;
+  optional_buffers_object buffers_object_; // NOLINT(cppcoreguidelines-use-default-member-init)
 };
 
 }

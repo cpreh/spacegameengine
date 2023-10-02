@@ -6,7 +6,7 @@
 #ifndef SGE_MODEL_MD3_IMPL_VEC3_HPP_INCLUDED
 #define SGE_MODEL_MD3_IMPL_VEC3_HPP_INCLUDED
 
-#include <sge/model/md3/impl/vec3_fwd.hpp>
+#include <sge/model/md3/impl/vec3_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/vector/static.hpp>
 
 #endif

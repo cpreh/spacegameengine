@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_JOYPAD_FF_OFFSET_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_OFFSET_HPP_INCLUDED
 
-#include <sge/input/joypad/ff/offset_fwd.hpp>
+#include <sge/input/joypad/ff/offset_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

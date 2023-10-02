@@ -3,17 +3,33 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/charconv/utf8_string.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
+#include <sge/model/obj/box.hpp>
 #include <sge/model/obj/exception.hpp>
+#include <sge/model/obj/face.hpp>
 #include <sge/model/obj/face_vertex.hpp>
-#include <sge/model/obj/face_vertex_hash.hpp>
+#include <sge/model/obj/face_vertex_hash.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/model/obj/face_vertex_sequence.hpp>
+#include <sge/model/obj/identifier.hpp>
+#include <sge/model/obj/material_to_face_sequence.hpp>
+#include <sge/model/obj/normal.hpp>
+#include <sge/model/obj/normal_index.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
 #include <sge/model/obj/prototype.hpp>
+#include <sge/model/obj/texture_coordinate.hpp>
+#include <sge/model/obj/texture_coordinate_index.hpp>
+#include <sge/model/obj/texture_coordinate_sequence.hpp>
+#include <sge/model/obj/vertex_coordinate.hpp>
+#include <sge/model/obj/vertex_coordinate_index.hpp>
+#include <sge/model/obj/vertex_coordinate_sequence.hpp>
 #include <sge/model/obj/impl/log_name.hpp>
+#include <sge/model/obj/material/file_sequence.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -25,13 +41,15 @@
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
 #include <cstddef>
 #include <cstdint>
 #include <filesystem>
 #include <fstream>
+#include <istream>
+#include <sstream>
 #include <string>
 #include <unordered_map>
+#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 namespace

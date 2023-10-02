@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/font/system.hpp>
-#include <sge/font/plugin/iterator.hpp>
-#include <sge/font/plugin/traits.hpp>
+#include <sge/font/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/font/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/plugin/impl/instantiate_collection.hpp>
 
 SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION(sge::font::system);

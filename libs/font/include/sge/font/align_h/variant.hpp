@@ -9,7 +9,7 @@
 #include <sge/font/align_h/center.hpp>
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/right.hpp>
-#include <sge/font/align_h/variant_fwd.hpp>
+#include <sge/font/align_h/variant_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

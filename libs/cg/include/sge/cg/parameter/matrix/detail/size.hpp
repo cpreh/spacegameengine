@@ -6,7 +6,7 @@
 #ifndef SGE_CG_PARAMETER_MATRIX_DETAIL_SIZE_HPP_INCLUDED
 #define SGE_CG_PARAMETER_MATRIX_DETAIL_SIZE_HPP_INCLUDED
 
-#include <sge/cg/parameter/matrix/detail/size_fwd.hpp>
+#include <sge/cg/parameter/matrix/detail/size_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/dim/static.hpp>
 
 #endif

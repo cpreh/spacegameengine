@@ -7,10 +7,10 @@
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/make_recursive_objects.hpp>
-#include <sge/parse/json/member.hpp>
-#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
+#include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/config/modify_user_value.hpp>
 #include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -19,7 +19,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/container/get_or_insert_with_result.hpp>
-#include <fcppt/variant/object_impl.hpp>
 #include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>

@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/font/dim.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/object_ref.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
@@ -17,40 +17,37 @@
 #include <sge/font/draw/set_matrices_fwd.hpp>
 #include <sge/font/draw/set_states_fwd.hpp>
 #include <sge/font/draw/impl/detail/static_text_impl.hpp>
-#include <sge/image/color/optional_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
-#include <sge/renderer/state/ffp/sampler/object.hpp>
+#include <sge/renderer/state/ffp/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped.hpp>
 #include <sge/renderer/state/ffp/sampler/scoped_unique_ptr.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/single_impl.hpp>
-#include <sge/sprite/buffers/with_declaration_impl.hpp>
+#include <sge/sprite/buffers/single_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/sprite/buffers/with_declaration_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sprite/geometry/update_one.hpp>
-#include <sge/sprite/render/range_impl.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/texture0.hpp>
-#include <sge/sprite/state/object_impl.hpp>
-#include <sge/sprite/state/options_impl.hpp>
-#include <sge/sprite/state/parameters_impl.hpp>
+#include <sge/sprite/state/object_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/sprite/state/options_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/sprite/state/parameters_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sprite/state/vertex_options.hpp>
 #include <sge/sprite/state/roles/blend.hpp>
 #include <sge/sprite/state/roles/rasterizer.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
-#include <sge/sprite/types/vector.hpp>
 #include <sge/texture/const_part_ref.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/texture/part.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_to_base.hpp>

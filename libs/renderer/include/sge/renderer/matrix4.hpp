@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_MATRIX4_HPP_INCLUDED
 #define SGE_RENDERER_MATRIX4_HPP_INCLUDED
 
-#include <sge/renderer/matrix4_fwd.hpp>
+#include <sge/renderer/matrix4_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/matrix/static.hpp>
 
 #endif

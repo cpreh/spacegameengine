@@ -6,7 +6,7 @@
 #ifndef SGE_VIEWPORT_IMPL_MAINTAIN_ASPECT_FUNCTION_HPP_INCLUDED
 #define SGE_VIEWPORT_IMPL_MAINTAIN_ASPECT_FUNCTION_HPP_INCLUDED
 
-#include <sge/renderer/target/viewport_fwd.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/fractional_aspect.hpp>
 #include <awl/window/event/resize_fwd.hpp>
 

@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_ALPHA_ENABLED_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_ALPHA_ENABLED_HPP_INCLUDED
 
-#include <sge/renderer/state/core/blend/alpha_enabled_fwd.hpp>
+#include <sge/renderer/state/core/blend/alpha_enabled_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/separate.hpp>
 #include <fcppt/variant/object_impl.hpp>

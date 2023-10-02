@@ -5,7 +5,7 @@
 
 #include <sge/renderer/cg/const_loaded_texture_ref.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
-#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
 

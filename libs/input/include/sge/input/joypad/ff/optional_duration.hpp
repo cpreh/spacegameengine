@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_JOYPAD_FF_OPTIONAL_DURATION_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_OPTIONAL_DURATION_HPP_INCLUDED
 
-#include <sge/input/joypad/ff/optional_duration_fwd.hpp>
+#include <sge/input/joypad/ff/optional_duration_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

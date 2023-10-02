@@ -8,7 +8,7 @@
 
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/variant_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

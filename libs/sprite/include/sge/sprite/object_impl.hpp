@@ -7,7 +7,7 @@
 #define SGE_SPRITE_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/color.hpp>
-#include <sge/sprite/object_decl.hpp>
+#include <sge/sprite/object_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/config/is_normal_size.hpp>
 #include <sge/sprite/detail/assign_post.hpp>

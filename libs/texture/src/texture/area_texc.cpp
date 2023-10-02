@@ -6,7 +6,7 @@
 #include <sge/core/impl/export_function_instantiation.hpp>
 #include <sge/renderer/is_valid_float_type.hpp>
 #include <sge/renderer/lock_rect_to_coords.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/texture/area_texc.hpp>
 #include <sge/texture/exception.hpp>
 #include <sge/texture/part.hpp>
@@ -14,15 +14,13 @@
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/rect.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/componentwise_equal.hpp>
-#include <fcppt/math/vector/dim.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/dim.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/math/vector/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/to_dim.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
-#include <ostream>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

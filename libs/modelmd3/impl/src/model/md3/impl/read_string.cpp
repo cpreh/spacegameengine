@@ -5,7 +5,7 @@
 
 #include <sge/model/md3/exception.hpp>
 #include <sge/model/md3/string.hpp>
-#include <sge/model/md3/impl/max_qpath.hpp>
+#include <sge/model/md3/impl/max_qpath.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/model/md3/impl/read_string.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>

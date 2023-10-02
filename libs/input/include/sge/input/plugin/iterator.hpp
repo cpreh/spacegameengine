@@ -7,7 +7,7 @@
 #define SGE_INPUT_PLUGIN_ITERATOR_HPP_INCLUDED
 
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/plugin/iterator_fwd.hpp>
+#include <sge/input/plugin/iterator_fwd.hpp> // IWYU pragma: export
 #include <sge/plugin/declare_iterator.hpp>
 
 SGE_PLUGIN_DECLARE_ITERATOR(sge::input::system);

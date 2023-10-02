@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/parse/ini/entry.hpp>
+#include <sge/parse/ini/entry.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/get_or_create.hpp>
 #include <sge/parse/ini/get_or_create_entry.hpp>

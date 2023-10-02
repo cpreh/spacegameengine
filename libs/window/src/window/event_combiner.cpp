@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/window/event_combiner.hpp>
-#include <awl/event/base.hpp>
+#include <awl/event/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/container.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/config/external_begin.hpp>

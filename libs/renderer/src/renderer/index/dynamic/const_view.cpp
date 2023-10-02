@@ -4,6 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/impl/index/dynamic/instantiate_basic_view.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_RENDERER_IMPL_INDEX_DYNAMIC_INSTANTIATE_BASIC_VIEW(true);

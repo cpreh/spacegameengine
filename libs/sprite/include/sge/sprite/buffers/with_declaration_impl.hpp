@@ -13,7 +13,7 @@
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/make_vertex_format.hpp>
 #include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/with_declaration_decl.hpp>
+#include <sge/sprite/buffers/with_declaration_decl.hpp> // IWYU pragma: export
 #include <fcppt/make_cref.hpp>
 
 template <typename Buffers>

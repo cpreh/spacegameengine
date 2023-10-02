@@ -8,7 +8,6 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <functional>
 #include <iterator>
 #include <numeric>
 #include <fcppt/config/external_end.hpp>

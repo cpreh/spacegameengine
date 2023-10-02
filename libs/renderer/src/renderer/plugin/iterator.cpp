@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/plugin/impl/instantiate_iterator.hpp>
-#include <sge/renderer/core_fwd.hpp>
-#include <sge/renderer/plugin/context.hpp>
-#include <sge/renderer/plugin/iterator.hpp>
+#include <sge/renderer/core_fwd.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR(sge::renderer::core);

@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/charconv/utf8_string.hpp>
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get_exn.hpp>
@@ -23,8 +22,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/variant/object_impl.hpp>
-#include <fcppt/variant/type_info.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

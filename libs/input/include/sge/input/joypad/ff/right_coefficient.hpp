@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_JOYPAD_FF_RIGHT_COEFFICIENT_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_RIGHT_COEFFICIENT_HPP_INCLUDED
 
-#include <sge/input/joypad/ff/right_coefficient_fwd.hpp>
+#include <sge/input/joypad/ff/right_coefficient_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

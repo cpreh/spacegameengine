@@ -6,7 +6,7 @@
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/impl/texture/instantiate_basic_parameters.hpp>
 #include <sge/renderer/texture/color_format.hpp>
-#include <sge/renderer/texture/volume_parameters.hpp>
+#include <sge/renderer/texture/volume_parameters.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_PARAMETERS(
     sge::renderer::dim3, sge::renderer::texture::color_format);

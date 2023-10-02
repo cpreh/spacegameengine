@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_RENDER_RANGE_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_RANGE_HPP_INCLUDED
 
-#include <sge/sprite/render/range_decl.hpp>
+#include <sge/sprite/render/range_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/render/range_fwd.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 

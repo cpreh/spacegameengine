@@ -5,6 +5,7 @@
 
 #include <sge/renderer/aspect.hpp>
 #include <sge/renderer/scalar.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/target/aspect_from_viewport.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/cast/to_unsigned_fun.hpp>

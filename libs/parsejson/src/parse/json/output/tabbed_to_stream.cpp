@@ -20,7 +20,8 @@
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/format.hpp>
+#include <boost/format.hpp> // NOLINT(misc-include-cleaner)
+#include <boost/format/format_fwd.hpp>
 #include <iterator>
 #include <ostream>
 #include <string>

@@ -7,7 +7,7 @@
 #define SGE_SPRITE_PROJECTION_DIM_HPP_INCLUDED
 
 #include <sge/renderer/screen_size.hpp>
-#include <sge/sprite/projection_dim_fwd.hpp>
+#include <sge/sprite/projection_dim_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

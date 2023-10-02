@@ -3,9 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/input/processor.hpp>
+#include <sge/input/processor.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/processor_ref.hpp>
-#include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/move.hpp>
@@ -26,7 +26,6 @@
 #include <fcppt/optional/apply.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

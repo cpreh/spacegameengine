@@ -4,9 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/model/obj/face_vertex.hpp>
-#include <sge/model/obj/face_vertex_hash.hpp>
+#include <sge/model/obj/face_vertex_hash.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/hash_combine.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <cstddef>
 #include <functional>
 #include <fcppt/config/external_end.hpp>
 

@@ -8,7 +8,7 @@
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/ostream.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 
 fcppt::io::ostream &sge::renderer::caps::operator<<(
     fcppt::io::ostream &_stream, sge::renderer::caps::device const &_caps)

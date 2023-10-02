@@ -23,26 +23,26 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object_impl.hpp>
 #include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/single_impl.hpp>
-#include <sge/sprite/buffers/with_declaration_impl.hpp>
+#include <sge/sprite/buffers/single_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/sprite/buffers/with_declaration_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sprite/process/one.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/texture0.hpp>
-#include <sge/sprite/state/object_impl.hpp>
-#include <sge/sprite/state/parameters_impl.hpp>
+#include <sge/sprite/state/object_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/sprite/state/parameters_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/texture/part_raw_ref.hpp>
-#include <mizuiro/color/operators.hpp>
+#include <mizuiro/color/operators.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/const.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>

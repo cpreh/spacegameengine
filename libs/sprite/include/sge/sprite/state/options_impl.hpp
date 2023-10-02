@@ -8,7 +8,7 @@
 
 #include <sge/sprite/optional_projection_dim.hpp>
 #include <sge/sprite/projection_dim.hpp>
-#include <sge/sprite/state/options_decl.hpp>
+#include <sge/sprite/state/options_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/state/vertex_options.hpp>
 #include <sge/sprite/state/detail/init_options.hpp>
 #include <sge/sprite/state/roles/blend.hpp>

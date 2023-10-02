@@ -6,7 +6,7 @@
 #ifndef SGE_VIEWPORT_IMPL_CENTER_HPP_INCLUDED
 #define SGE_VIEWPORT_IMPL_CENTER_HPP_INCLUDED
 
-#include <sge/renderer/target/viewport_fwd.hpp>
+#include <sge/renderer/target/viewport.hpp>
 #include <sge/window/dim.hpp>
 
 namespace sge::viewport::impl

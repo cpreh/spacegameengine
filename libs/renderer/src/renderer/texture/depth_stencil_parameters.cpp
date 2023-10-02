@@ -6,6 +6,6 @@
 #include <sge/image/ds/format.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/impl/texture/instantiate_basic_parameters.hpp>
-#include <sge/renderer/texture/depth_stencil_parameters.hpp>
+#include <sge/renderer/texture/depth_stencil_parameters.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_PARAMETERS(sge::renderer::dim2, sge::image::ds::format);

@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_RECT_HPP_INCLUDED
 #define SGE_FONT_RECT_HPP_INCLUDED
 
-#include <sge/font/rect_fwd.hpp>
+#include <sge/font/rect_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/box/rect.hpp>
 
 #endif

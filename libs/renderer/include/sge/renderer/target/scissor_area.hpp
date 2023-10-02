@@ -7,7 +7,7 @@
 #define SGE_RENDERER_TARGET_SCISSOR_AREA_HPP_INCLUDED
 
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/target/scissor_area_fwd.hpp>
+#include <sge/renderer/target/scissor_area_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

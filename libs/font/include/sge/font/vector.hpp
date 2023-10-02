@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_VECTOR_HPP_INCLUDED
 #define SGE_FONT_VECTOR_HPP_INCLUDED
 
-#include <sge/font/vector_fwd.hpp>
+#include <sge/font/vector_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/vector/static.hpp>
 
 #endif

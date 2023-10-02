@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/image3d/view/const_object.hpp>
-#include <sge/renderer/color_buffer/readable_volume.hpp>
+#include <sge/image3d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/color_buffer/readable_volume.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 #include <sge/renderer/impl/buffer/instantiate_readable.hpp>
 

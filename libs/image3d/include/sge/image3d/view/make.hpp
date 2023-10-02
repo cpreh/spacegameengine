@@ -16,7 +16,7 @@
 #include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/traits/color_tag.hpp>
 #include <sge/image3d/traits/dimension.hpp>
-#include <sge/image3d/view/object_fwd.hpp>
+#include <sge/image3d/view/object.hpp>
 
 namespace sge::image3d::view
 {

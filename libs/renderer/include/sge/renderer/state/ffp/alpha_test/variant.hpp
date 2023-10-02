@@ -8,7 +8,7 @@
 
 #include <sge/renderer/state/ffp/alpha_test/enabled.hpp>
 #include <sge/renderer/state/ffp/alpha_test/off.hpp>
-#include <sge/renderer/state/ffp/alpha_test/variant_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/variant_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

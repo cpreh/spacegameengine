@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/font/system_fwd.hpp>
-#include <sge/font/plugin/context.hpp>
-#include <sge/font/plugin/iterator.hpp>
+#include <sge/font/plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/font/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/plugin/impl/instantiate_iterator.hpp>
 
 SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR(sge::font::system);

@@ -8,7 +8,7 @@
 
 #include <sge/image3d/tag.hpp>
 #include <sge/renderer/color_buffer/scoped_volume_lock.hpp>
-#include <sge/renderer/texture/scoped_volume_lock_fwd.hpp>
+#include <sge/renderer/texture/scoped_volume_lock_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/texture/detail/declare_basic_scoped_lock.hpp>
 
 SGE_RENDERER_TEXTURE_DETAIL_DECLARE_BASIC_SCOPED_LOCK(sge::image3d::tag);

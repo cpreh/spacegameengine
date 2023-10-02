@@ -22,7 +22,7 @@
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/container/get_or_insert.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/enum/array_impl.hpp>
+#include <fcppt/enum/array_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/enum/make_range.hpp>
 #include <fcppt/mpl/list/object.hpp>

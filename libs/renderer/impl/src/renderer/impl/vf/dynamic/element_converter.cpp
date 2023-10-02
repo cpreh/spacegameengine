@@ -5,15 +5,12 @@
 
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make.hpp>
 #include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/object.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/impl/vf/dynamic/element_converter.hpp>

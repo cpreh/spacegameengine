@@ -7,6 +7,7 @@
 #define SGE_RENDERER_OPTIONAL_MATRIX4_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/optional_matrix4_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_JOYPAD_FF_DEADBAND_SIZE_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_DEADBAND_SIZE_HPP_INCLUDED
 
-#include <sge/input/joypad/ff/deadband_size_fwd.hpp>
+#include <sge/input/joypad/ff/deadband_size_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

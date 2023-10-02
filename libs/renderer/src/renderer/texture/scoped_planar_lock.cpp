@@ -5,7 +5,7 @@
 
 #include <sge/image2d/tag.hpp>
 #include <sge/renderer/impl/texture/instantiate_basic_scoped_lock.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/scoped_planar_lock.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/texture/scoped_planar_lock.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_SCOPED_LOCK(sge::image2d::tag);

@@ -8,7 +8,6 @@
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/member.hpp>
-#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/string_to_value.hpp>
 #include <sge/parse/json/config/help_needed_exception.hpp>
@@ -24,7 +23,6 @@
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/config/compiler.hpp>
 #include <fcppt/container/maybe_front.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/io/cout.hpp>
@@ -35,7 +33,7 @@
 #include <fcppt/parse/basic_literal.hpp>
 #include <fcppt/parse/parse_string.hpp>
 #include <fcppt/parse/parse_string_error.hpp>
-#include <fcppt/parse/parse_string_error_output.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/parse/separator.hpp>
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/repetition.hpp>

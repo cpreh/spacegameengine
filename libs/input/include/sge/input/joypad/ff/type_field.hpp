@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_JOYPAD_FF_TYPE_FIELD_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_TYPE_FIELD_HPP_INCLUDED
 
-#include <sge/input/joypad/ff/type_field_fwd.hpp>
+#include <sge/input/joypad/ff/type_field_fwd.hpp> // IWYU pragma: export
 #include <fcppt/container/bitfield/object.hpp>
 
 #endif

@@ -16,7 +16,7 @@
 #include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/traits/color_tag.hpp>
 #include <sge/image2d/traits/dimension.hpp>
-#include <sge/image2d/view/object_fwd.hpp>
+#include <sge/image2d/view/object.hpp>
 
 namespace sge::image2d::view
 {

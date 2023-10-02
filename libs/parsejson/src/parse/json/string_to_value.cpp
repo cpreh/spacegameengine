@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/parse/exception.hpp>
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_value_exn.hpp>
 #include <sge/parse/json/parse_string.hpp>
 #include <sge/parse/json/string_to_value.hpp>
@@ -14,7 +13,7 @@
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/parse/parse_string_error.hpp>
-#include <fcppt/parse/parse_string_error_output.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <utility>
@@ -26,6 +25,7 @@ sge::parse::json::value sge::parse::json::string_to_value(std::string &&_string)
              fcppt::make_cref(
                  fcppt::either::to_exception(
                      sge::parse::json::parse_string("{ \"value\" : " + std::move(_string) + " }"),
+                     // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
                      [](fcppt::parse::parse_string_error<char> &&_error) {
                        return sge::parse::exception{
                            fcppt::from_std_string(fcppt::output_to_std_string(_error))};

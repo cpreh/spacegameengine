@@ -7,9 +7,9 @@
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/caps/device.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/texture/next_power_of_2.hpp>
 #include <sge/texture/part.hpp>

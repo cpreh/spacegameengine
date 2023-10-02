@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/input/event_base.hpp>
-#include <sge/input/joypad/device.hpp>
+#include <sge/input/joypad/device.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/base.hpp>
 #include <fcppt/config/external_begin.hpp>

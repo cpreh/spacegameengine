@@ -7,6 +7,6 @@
 #define SGE_RENDERER_LOCK_BOX_HPP_INCLUDED
 
 #include <sge/renderer/basic_lock_box.hpp>
-#include <sge/renderer/lock_box_fwd.hpp>
+#include <sge/renderer/lock_box_fwd.hpp> // IWYU pragma: export
 
 #endif

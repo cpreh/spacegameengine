@@ -7,7 +7,7 @@
 #define SGE_GRAPH_OPTIONAL_AXIS_CONSTRAINT_HPP_INCLUDED
 
 #include <sge/graph/axis_constraint.hpp>
-#include <sge/graph/optional_axis_constraint_fwd.hpp>
+#include <sge/graph/optional_axis_constraint_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

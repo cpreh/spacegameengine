@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/imageds2d/tag.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/impl/buffer/instantiate_base.hpp>
 
 SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_BASE(sge::imageds2d::tag);

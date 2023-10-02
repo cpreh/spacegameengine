@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_OPTIONAL_INDEX_HPP_INCLUDED
 #define SGE_FONT_OPTIONAL_INDEX_HPP_INCLUDED
 
-#include <sge/font/optional_index_fwd.hpp>
+#include <sge/font/optional_index_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

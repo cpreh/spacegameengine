@@ -23,6 +23,7 @@
 #include <sge/model/md3/impl/vertex.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <ios>
 #include <istream>
 #include <fcppt/config/external_end.hpp>
 

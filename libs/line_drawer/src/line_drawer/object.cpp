@@ -7,38 +7,37 @@
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/impl/vf/format.hpp>
+#include <sge/line_drawer/impl/vf/part.hpp>
 #include <sge/line_drawer/impl/vf/vertex_view.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/context/core.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant.hpp>
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/dest.hpp>
-#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
 #include <sge/renderer/state/core/blend/source.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
-#include <sge/renderer/texture/const_optional_base_ref.hpp>
-#include <sge/renderer/texture/planar.hpp>
-#include <sge/renderer/texture/stage.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/vertex/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/proxy.hpp>
+#include <sge/renderer/vf/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/vf/proxy.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
@@ -51,7 +50,7 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/to_exception.hpp>
 
 sge::line_drawer::object::object(sge::renderer::device::core_ref const _renderer)

@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/texture/const_base_ref.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>

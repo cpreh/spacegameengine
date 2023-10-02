@@ -5,9 +5,9 @@
 
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
-#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/index/count.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_DISPLAY_MODE_OPTIONAL_REFRESH_RATE_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_OPTIONAL_REFRESH_RATE_HPP_INCLUDED
 
-#include <sge/renderer/display_mode/optional_refresh_rate_fwd.hpp>
+#include <sge/renderer/display_mode/optional_refresh_rate_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

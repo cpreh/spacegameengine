@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_OPTIONAL_PROJECTION_DIM_HPP_INCLUDED
 #define SGE_SPRITE_OPTIONAL_PROJECTION_DIM_HPP_INCLUDED
 
-#include <sge/sprite/optional_projection_dim_fwd.hpp>
+#include <sge/sprite/optional_projection_dim_fwd.hpp> // IWYU pragma: export
 #include <sge/sprite/projection_dim.hpp>
 #include <fcppt/optional/object_impl.hpp>
 

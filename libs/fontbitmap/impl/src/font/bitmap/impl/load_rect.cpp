@@ -12,7 +12,6 @@
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/int_type.hpp>
 #include <sge/parse/json/member_map.hpp>
-#include <sge/parse/json/object.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 

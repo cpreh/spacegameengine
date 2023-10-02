@@ -8,7 +8,6 @@
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/resize_callback.hpp>
-#include <sge/window/dim.hpp>
 #include <awl/window/event/resize.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/cast/to_signed_fun.hpp>

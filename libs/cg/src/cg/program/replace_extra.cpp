@@ -9,15 +9,15 @@
 #include <sge/cg/program/replace_extra_callback.hpp>
 #include <sge/cg/program/source.hpp>
 #include <fcppt/function_impl.hpp>
-#include <fcppt/config/compiler.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/xpressive/basic_regex.hpp>
+#include <boost/xpressive/basic_regex.hpp> // NOLINT(misc-include-cleaner)
 #include <boost/xpressive/regex_actions.hpp>
 #include <boost/xpressive/regex_algorithms.hpp>
 #include <boost/xpressive/regex_primitives.hpp>
+#include <boost/xpressive/xpressive_fwd.hpp>
 #include <fcppt/config/external_end.hpp>
 
 sge::cg::program::source sge::cg::program::replace_extra(
@@ -29,9 +29,7 @@ sge::cg::program::source sge::cg::program::replace_extra(
       boost::xpressive::as_xpr('$'));
 
   FCPPT_PP_PUSH_WARNING
-#if !defined(FCPPT_CONFIG_CLANG_COMPILER)
-  FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
-#endif
+  FCPPT_PP_DISABLE_GNU_GCC_WARNING(-Wzero-as-null-pointer-constant)
 
   return sge::cg::program::source(boost::xpressive::regex_replace(
       _source.get(),

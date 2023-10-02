@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_DRAW_SET_MATRICES_HPP_INCLUDED
 #define SGE_FONT_DRAW_SET_MATRICES_HPP_INCLUDED
 
-#include <sge/font/draw/set_matrices_fwd.hpp>
+#include <sge/font/draw/set_matrices_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

@@ -12,7 +12,7 @@
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/recursive_impl.hpp>
-#include <fcppt/strong_typedef_impl.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/container/insert.hpp>
 #include <fcppt/container/make_move_range.hpp>
@@ -38,7 +38,7 @@ sge::parse::json::member_map make_members_impl(sge::parse::json::impl::member_ve
       fcppt::container::make_move_range(std::move(_args)),
       sge::parse::json::member_map{},
       [](fcppt::tuple::object<sge::charconv::utf8_string, fcppt::recursive<sge::parse::json::value>>
-             &&_element,
+             &&_element, // NOLINT(cppcoreguidelines-rvalue-reference-param-not-moved)
          sge::parse::json::member_map &&_state)
       {
         if (fcppt::not_(fcppt::container::insert(

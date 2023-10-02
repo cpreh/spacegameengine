@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image2d/save_from_view.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/renderer/screenshot.hpp>
 #include <sge/renderer/color_buffer/const_scoped_surface_lock.hpp>
 #include <sge/renderer/device/core.hpp>

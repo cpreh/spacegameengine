@@ -7,7 +7,7 @@
 #define SGE_IMAGE2D_VIEW_SIZE_HPP_INCLUDED
 
 #include <sge/image/view/declare_size.hpp>
-#include <sge/image2d/dim_fwd.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/traits/dimension.hpp>

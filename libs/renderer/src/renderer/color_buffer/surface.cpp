@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 #include <sge/renderer/impl/buffer/instantiate_base.hpp>
 

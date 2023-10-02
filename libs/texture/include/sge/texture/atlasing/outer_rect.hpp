@@ -7,7 +7,7 @@
 #define SGE_TEXTURE_ATLASING_OUTER_RECT_HPP_INCLUDED
 
 #include <sge/renderer/lock_rect.hpp>
-#include <sge/texture/atlasing/outer_rect_fwd.hpp>
+#include <sge/texture/atlasing/outer_rect_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

@@ -7,6 +7,7 @@
 #include <sge/font/object_ref.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
+#include <sge/font/text.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/draw/set_matrices.hpp>

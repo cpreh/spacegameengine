@@ -22,27 +22,27 @@ namespace sge::sprite::detail
 {
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::size_choice::texture_option::value == sge::sprite::config::texture_size_option::always,
-    sge::sprite::types::dim<typename Choices::type_choices>>::type
+    sge::sprite::types::dim<typename Choices::type_choices>>
 get_size(Elements const &_elements)
 {
   return sge::sprite::detail::size_from_texture<Choices>(_elements);
 }
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::size_choice::texture_option::value == sge::sprite::config::texture_size_option::never,
-    sge::sprite::types::dim<typename Choices::type_choices>>::type
+    sge::sprite::types::dim<typename Choices::type_choices>>
 get_size(Elements const &_elements)
 {
   return fcppt::record::get<sge::sprite::roles::size>(_elements);
 }
 
 template <typename Choices, typename Elements>
-inline typename std::enable_if<
+inline std::enable_if_t<
     Choices::size_choice::texture_option::value == sge::sprite::config::texture_size_option::maybe,
-    sge::sprite::types::dim<typename Choices::type_choices>>::type
+    sge::sprite::types::dim<typename Choices::type_choices>>
 get_size(Elements const &_elements)
 {
   return fcppt::variant::match(

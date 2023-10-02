@@ -8,7 +8,7 @@
 
 #include <sge/image3d/tag.hpp>
 #include <sge/image3d/traits/dimension.hpp>
-#include <sge/renderer/texture/volume_fwd.hpp>
+#include <sge/renderer/texture/volume_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/texture/detail/declare_basic_lockable_box.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

@@ -7,7 +7,7 @@
 #define SGE_RENDERER_DISPLAY_MODE_OPTIONAL_DIMENSIONS_HPP_INCLUDED
 
 #include <sge/renderer/display_mode/dimensions.hpp>
-#include <sge/renderer/display_mode/optional_dimensions_fwd.hpp>
+#include <sge/renderer/display_mode/optional_dimensions_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

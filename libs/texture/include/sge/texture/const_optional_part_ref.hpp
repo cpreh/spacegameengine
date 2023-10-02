@@ -6,7 +6,7 @@
 #ifndef SGE_TEXTURE_CONST_OPTIONAL_PART_REF_HPP_INCLUDED
 #define SGE_TEXTURE_CONST_OPTIONAL_PART_REF_HPP_INCLUDED
 
-#include <sge/texture/const_optional_part_ref_fwd.hpp>
+#include <sge/texture/const_optional_part_ref_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/reference.hpp>
 
 #endif

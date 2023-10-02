@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/renderer/dim2.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/dim2.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/depth_stencil_buffer/surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/depth_stencil.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>

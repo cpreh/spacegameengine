@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_VIEW_HPP_INCLUDED
 #define SGE_FONT_VIEW_HPP_INCLUDED
 
-#include <sge/font/view_fwd.hpp>
+#include <sge/font/view_fwd.hpp> // IWYU pragma: export
 #include <sge/image2d/view/object.hpp>
 
 #endif

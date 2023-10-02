@@ -23,9 +23,9 @@ template <typename Clock>
 struct is_stateful<
     Clock,
     std::enable_if_t<
-        std::is_same<std::chrono::high_resolution_clock, Clock>::value ||
-        std::is_same<std::chrono::steady_clock, Clock>::value ||
-        std::is_same<std::chrono::system_clock, Clock>::value>> : std::false_type
+        std::is_same_v<std::chrono::high_resolution_clock, Clock> ||
+        std::is_same_v<std::chrono::steady_clock, Clock> ||
+        std::is_same_v<std::chrono::system_clock, Clock>>> : std::false_type
 {
 };
 

@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_STATE_FFP_ALPHA_TEST_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/reference.hpp>
 
 #endif

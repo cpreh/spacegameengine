@@ -10,7 +10,7 @@
 #include <sge/image2d/traits/color_tag.hpp>
 #include <sge/image2d/traits/dimension.hpp>
 #include <sge/renderer/buffer/detail/declare_readable.hpp>
-#include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
+#include <sge/renderer/color_buffer/readable_surface_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

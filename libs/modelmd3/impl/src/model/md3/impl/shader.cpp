@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/model/md3/impl/endian.hpp>
 #include <sge/model/md3/impl/max_qpath.hpp>
 #include <sge/model/md3/impl/read_s32.hpp>
 #include <sge/model/md3/impl/read_string.hpp>

@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/lighting/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/lighting/object_fwd.hpp>

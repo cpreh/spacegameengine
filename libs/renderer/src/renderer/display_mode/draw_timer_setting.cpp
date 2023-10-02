@@ -7,6 +7,7 @@
 #include <sge/renderer/display_mode/refresh_rate.hpp>
 #include <awl/timer/duration.hpp>
 #include <awl/timer/period.hpp>
+#include <awl/timer/setting.hpp>
 #include <awl/timer/setting_no_delay.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_INDEX_DYNAMIC_CONST_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DYNAMIC_CONST_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/const_view_fwd.hpp>
+#include <sge/renderer/index/dynamic/const_view_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/index/dynamic/detail/declare_basic_view.hpp>
 
 SGE_RENDERER_INDEX_DYNAMIC_DETAIL_DECLARE_BASIC_VIEW(true);

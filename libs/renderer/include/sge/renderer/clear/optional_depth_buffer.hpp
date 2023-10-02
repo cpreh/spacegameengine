@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_CLEAR_OPTIONAL_DEPTH_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_CLEAR_OPTIONAL_DEPTH_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/clear/optional_depth_buffer_fwd.hpp>
+#include <sge/renderer/clear/optional_depth_buffer_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

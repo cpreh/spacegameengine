@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_CURSOR_POSITION_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_POSITION_HPP_INCLUDED
 
-#include <sge/input/cursor/position_fwd.hpp>
+#include <sge/input/cursor/position_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/vector/static.hpp>
 
 #endif

@@ -6,7 +6,7 @@
 #ifndef SGE_CG_PARAMETER_OPTIONAL_NAMED_HPP_INCLUDED
 #define SGE_CG_PARAMETER_OPTIONAL_NAMED_HPP_INCLUDED
 
-#include <sge/cg/parameter/optional_named_fwd.hpp>
+#include <sge/cg/parameter/optional_named_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

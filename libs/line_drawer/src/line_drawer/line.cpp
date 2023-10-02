@@ -7,6 +7,7 @@
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/line_drawer/color.hpp>
+#include <sge/line_drawer/color_format.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/renderer/vector3.hpp>
 

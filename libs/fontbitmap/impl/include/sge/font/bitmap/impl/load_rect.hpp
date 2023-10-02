@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_BITMAP_IMPL_LOAD_RECT_HPP_INCLUDED
 #define SGE_FONT_BITMAP_IMPL_LOAD_RECT_HPP_INCLUDED
 
-#include <sge/image2d/rect_fwd.hpp>
+#include <sge/image2d/rect.hpp>
 #include <sge/parse/json/member_map.hpp>
 
 namespace sge::font::bitmap::impl

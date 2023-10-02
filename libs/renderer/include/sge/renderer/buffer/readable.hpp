@@ -18,6 +18,7 @@ namespace sge::renderer::buffer
 {
 
 template <typename ImageTag>
+// NOLINTNEXTLINE(cppcoreguidelines-virtual-class-destructor)
 class SGE_CORE_DETAIL_CLASS_SYMBOL readable : public sge::renderer::buffer::base<ImageTag>
 {
   FCPPT_NONMOVABLE(readable);

@@ -12,7 +12,7 @@
 #include <sge/renderer/buffer/detail/declare_writable.hpp>
 #include <sge/renderer/color_buffer/readable_volume.hpp>
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>
-#include <sge/renderer/color_buffer/writable_volume_fwd.hpp>
+#include <sge/renderer/color_buffer/writable_volume_fwd.hpp> // IWYU pragma: export
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

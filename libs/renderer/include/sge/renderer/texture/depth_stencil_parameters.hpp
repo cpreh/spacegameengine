@@ -8,7 +8,7 @@
 
 #include <sge/image/ds/format_fwd.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
+#include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/texture/detail/declare_basic_parameters.hpp>
 
 SGE_RENDERER_TEXTURE_DETAIL_DECLARE_BASIC_PARAMETERS(sge::renderer::dim2, sge::image::ds::format);

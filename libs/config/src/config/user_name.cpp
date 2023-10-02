@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/config/user_name.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)
 #include <sge/config/exception.hpp>
@@ -13,9 +14,10 @@
 #include <fcppt/container/dynamic_array.hpp>
 #include <fcppt/error/strerrno.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <string>
 #include <pwd.h>
 #include <unistd.h>
-#include <sys/types.h>
+#include <sys/types.h> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/config/exception.hpp>

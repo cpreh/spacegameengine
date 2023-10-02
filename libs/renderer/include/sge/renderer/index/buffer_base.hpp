@@ -9,7 +9,7 @@
 #include <sge/renderer/buffer/detail/declare_base.hpp>
 #include <sge/renderer/buffer/detail/declare_readable.hpp>
 #include <sge/renderer/buffer/detail/declare_writable.hpp>
-#include <sge/renderer/index/buffer_base_fwd.hpp>
+#include <sge/renderer/index/buffer_base_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/index/tag.hpp>
 #include <sge/renderer/index/traits/color_tag.hpp>
 #include <sge/renderer/index/traits/const_view_fwd.hpp>

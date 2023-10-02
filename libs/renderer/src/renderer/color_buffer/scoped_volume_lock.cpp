@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image3d/tag.hpp>
-#include <sge/renderer/color_buffer/scoped_volume_lock.hpp>
-#include <sge/renderer/color_buffer/writable_volume.hpp>
+#include <sge/renderer/color_buffer/scoped_volume_lock.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/color_buffer/writable_volume.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/impl/buffer/instantiate_scoped_lock.hpp>
 
 SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_SCOPED_LOCK(sge::image3d::tag);

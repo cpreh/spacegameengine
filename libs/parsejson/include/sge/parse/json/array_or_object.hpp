@@ -7,7 +7,7 @@
 #define SGE_PARSE_JSON_ARRAY_OR_OBJECT_HPP_INCLUDED
 
 #include <sge/parse/json/array.hpp>
-#include <sge/parse/json/array_or_object_fwd.hpp>
+#include <sge/parse/json/array_or_object_fwd.hpp> // IWYU pragma: export
 #include <sge/parse/json/object.hpp>
 #include <fcppt/variant/object_impl.hpp>
 

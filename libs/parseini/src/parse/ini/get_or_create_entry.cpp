@@ -35,6 +35,7 @@ fcppt::reference<sge::parse::ini::entry> sge::parse::ini::get_or_create_entry(
           }),
       [&entries, &_entry_name, &_value]
       {
+        // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
         entries.push_back(sge::parse::ini::entry(
             sge::parse::ini::entry_name{_entry_name}, sge::parse::ini::value{_value}));
 

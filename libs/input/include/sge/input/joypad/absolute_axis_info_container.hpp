@@ -9,7 +9,7 @@
 #include <sge/input/info/detail/declare_container.hpp>
 #include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
-#include <sge/input/joypad/absolute_axis_info_container_fwd.hpp>
+#include <sge/input/joypad/absolute_axis_info_container_fwd.hpp> // IWYU pragma: export
 
 SGE_INPUT_INFO_DETAIL_DECLARE_CONTAINER(
     sge::input::joypad::absolute_axis_id, sge::input::joypad::absolute_axis_info);

@@ -7,13 +7,13 @@
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/index/const_tag.hpp>
-#include <sge/renderer/index/iterator.hpp>
+#include <sge/renderer/index/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/view.hpp>
 #include <sge/renderer/index/detail/pp_formats.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/index/dynamic/make_format.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
+#include <sge/renderer/index/dynamic/view.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>

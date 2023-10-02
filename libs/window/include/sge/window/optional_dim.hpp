@@ -7,7 +7,7 @@
 #define SGE_WINDOW_OPTIONAL_DIM_HPP_INCLUDED
 
 #include <sge/window/dim.hpp>
-#include <sge/window/optional_dim_fwd.hpp>
+#include <sge/window/optional_dim_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

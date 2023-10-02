@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/context/core.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/cull_mode.hpp>

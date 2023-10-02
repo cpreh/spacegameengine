@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_PROJECTION_RECT_HPP_INCLUDED
 #define SGE_RENDERER_PROJECTION_RECT_HPP_INCLUDED
 
-#include <sge/renderer/projection/rect_fwd.hpp>
+#include <sge/renderer/projection/rect_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/box/rect.hpp>
 
 #endif

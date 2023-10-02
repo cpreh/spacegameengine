@@ -6,7 +6,7 @@
 #ifndef SGE_TIMER_PARAMETERS_HPP_INCLUDED
 #define SGE_TIMER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/timer/parameters_decl.hpp>
+#include <sge/timer/parameters_decl.hpp> // IWYU pragma: export
 #include <sge/timer/parameters_fwd.hpp>
 #include <sge/timer/parameters_impl.hpp>
 

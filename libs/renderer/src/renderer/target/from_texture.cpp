@@ -8,17 +8,17 @@
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
-#include <sge/renderer/color_buffer/writable_surface.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/color_buffer/writable_surface.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/from_texture.hpp>
-#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/offscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/make_ref.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_JOYPAD_FF_DIRECTION_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_DIRECTION_HPP_INCLUDED
 
-#include <sge/input/joypad/ff/direction_fwd.hpp>
+#include <sge/input/joypad/ff/direction_fwd.hpp> // IWYU pragma: export
 #include <sge/input/joypad/ff/milli_degrees.hpp>
 #include <fcppt/strong_typedef.hpp>
 

@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/impl/buffer/instantiate_const_scoped_lock.hpp>
-#include <sge/renderer/index/buffer.hpp>
-#include <sge/renderer/index/buffer_ref.hpp>
+#include <sge/renderer/index/buffer.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/index/const_buffer_ref.hpp>
 #include <sge/renderer/index/const_scoped_lock.hpp>
 #include <sge/renderer/index/tag.hpp>
 #include <fcppt/reference_to_base.hpp>

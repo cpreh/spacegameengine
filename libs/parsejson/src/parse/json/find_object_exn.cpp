@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/parse/exception.hpp>
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_object.hpp>
 #include <sge/parse/json/find_object_exn.hpp>
 #include <sge/parse/json/object.hpp>

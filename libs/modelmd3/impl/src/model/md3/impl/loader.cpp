@@ -17,6 +17,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fstream>
+#include <istream>
 #include <ios>
 #include <fcppt/config/external_end.hpp>
 

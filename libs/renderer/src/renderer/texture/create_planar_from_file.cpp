@@ -4,13 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image2d/file.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/create_planar_from_file.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 

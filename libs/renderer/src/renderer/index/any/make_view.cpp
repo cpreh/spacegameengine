@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/index/nonconst_tag.hpp>
-#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/view.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/index/any/make_view.hpp>
 #include <sge/renderer/index/any/view.hpp>
 #include <sge/renderer/index/any/detail/make_view_element.hpp>

@@ -7,7 +7,7 @@
 #include <sge/input/cursor/relative_movement/object.hpp>
 #include <sge/input/impl/cursor/relative_movement/detail/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp> // NOLINT(misc-include-cleaner)
 
 sge::input::cursor::relative_movement::object::object(sge::input::processor_ref const _processor)
     : impl_{

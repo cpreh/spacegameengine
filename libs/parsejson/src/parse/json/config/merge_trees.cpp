@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/charconv/utf8_string.hpp>
-#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/make_value.hpp>
 #include <sge/parse/json/member.hpp>
+#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/parse/json/config/merge_trees.hpp>
@@ -18,9 +18,6 @@
 #include <fcppt/optional/combine.hpp>
 #include <fcppt/optional/copy_value.hpp>
 #include <fcppt/optional/map.hpp>
-#include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>

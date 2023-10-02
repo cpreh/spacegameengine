@@ -20,7 +20,6 @@
 #include <fcppt/parse/literal.hpp>
 #include <fcppt/parse/make_ignore.hpp>
 #include <fcppt/parse/make_lexeme.hpp>
-#include <fcppt/parse/result_of.hpp>
 #include <fcppt/parse/operators/complement.hpp>
 #include <fcppt/parse/operators/not.hpp>
 #include <fcppt/parse/operators/repetition.hpp>

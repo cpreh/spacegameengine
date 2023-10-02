@@ -8,7 +8,7 @@
 
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/alpha_off.hpp>
-#include <sge/renderer/state/core/blend/alpha_variant_fwd.hpp>
+#include <sge/renderer/state/core/blend/alpha_variant_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

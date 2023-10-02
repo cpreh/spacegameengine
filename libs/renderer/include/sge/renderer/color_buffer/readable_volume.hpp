@@ -10,7 +10,7 @@
 #include <sge/image3d/traits/color_tag.hpp>
 #include <sge/image3d/traits/dimension.hpp>
 #include <sge/renderer/buffer/detail/declare_readable.hpp>
-#include <sge/renderer/color_buffer/readable_volume_fwd.hpp>
+#include <sge/renderer/color_buffer/readable_volume_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 #include <sge/renderer/color_buffer/volume.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

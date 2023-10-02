@@ -6,7 +6,7 @@
 #ifndef SGE_TIMER_BASIC_HPP_INCLUDED
 #define SGE_TIMER_BASIC_HPP_INCLUDED
 
-#include <sge/timer/basic_decl.hpp>
+#include <sge/timer/basic_decl.hpp> // IWYU pragma: export
 #include <sge/timer/basic_fwd.hpp>
 #include <sge/timer/basic_impl.hpp>
 

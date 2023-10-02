@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_decl.hpp>
+#include <sge/renderer/vf/vertex_decl.hpp> // IWYU pragma: export
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/label_value_type.hpp>
 #include <fcppt/record/set.hpp>

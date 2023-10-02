@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_STATE_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_STATE_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/state/options_decl.hpp>
+#include <sge/sprite/state/options_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/state/options_fwd.hpp>
 #include <sge/sprite/state/options_impl.hpp>
 

@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/impl/buffer/instantiate_const_scoped_lock.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/const_buffer_ref.hpp>
 #include <sge/renderer/vertex/const_scoped_lock.hpp>
 #include <sge/renderer/vertex/tag.hpp>

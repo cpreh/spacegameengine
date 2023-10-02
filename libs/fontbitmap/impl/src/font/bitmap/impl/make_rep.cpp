@@ -13,17 +13,20 @@
 #include <sge/font/align_h/center.hpp>
 #include <sge/font/align_h/extract_max_width.hpp>
 #include <sge/font/align_h/left.hpp>
+#include <sge/font/align_h/max_width.hpp>
 #include <sge/font/align_h/optional_max_width.hpp>
 #include <sge/font/align_h/right.hpp>
 #include <sge/font/bitmap/impl/char_map.hpp>
 #include <sge/font/bitmap/impl/char_metric.hpp>
 #include <sge/font/bitmap/impl/char_metric_ref.hpp>
+#include <sge/font/bitmap/impl/char_metric_ref_vector.hpp>
 #include <sge/font/bitmap/impl/line.hpp>
 #include <sge/font/bitmap/impl/line_height.hpp>
 #include <sge/font/bitmap/impl/line_vector.hpp>
 #include <sge/font/bitmap/impl/make_rep.hpp>
 #include <sge/font/bitmap/impl/rep.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -36,6 +39,7 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <cctype>
 #include <iterator>
 #include <locale>
 #include <utility>
@@ -128,6 +132,7 @@ sge::font::bitmap::impl::rep sge::font::bitmap::impl::make_rep(
 
     if (new_line)
     {
+      // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
       lines.push_back(sge::font::bitmap::impl::line{
           // TODO(philipp): Avoid this copy?
           sge::font::bitmap::impl::char_metric_ref_vector{current_line},

@@ -8,7 +8,6 @@
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/start.hpp>
-#include <sge/parse/json/value.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/comparison.hpp>

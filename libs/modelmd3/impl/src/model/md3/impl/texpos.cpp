@@ -6,7 +6,6 @@
 #include <sge/model/md3/texcoord.hpp>
 #include <sge/model/md3/impl/read_scalar.hpp>
 #include <sge/model/md3/impl/texpos.hpp>
-#include <fcppt/io/read.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>

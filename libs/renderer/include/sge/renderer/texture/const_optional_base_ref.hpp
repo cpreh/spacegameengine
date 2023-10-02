@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_TEXTURE_CONST_OPTIONAL_BASE_REF_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CONST_OPTIONAL_BASE_REF_HPP_INCLUDED
 
-#include <sge/renderer/texture/const_optional_base_ref_fwd.hpp>
+#include <sge/renderer/texture/const_optional_base_ref_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/reference.hpp>
 
 #endif

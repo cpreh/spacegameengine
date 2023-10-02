@@ -5,7 +5,7 @@
 
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/impl/buffer/instantiate_scoped_lock.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/buffer_ref.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vertex/tag.hpp>

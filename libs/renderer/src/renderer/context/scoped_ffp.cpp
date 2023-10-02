@@ -5,7 +5,7 @@
 
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/target/base_ref.hpp>
 

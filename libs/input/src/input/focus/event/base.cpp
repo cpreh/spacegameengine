@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/input/event_base.hpp>
-#include <sge/input/focus/object.hpp>
+#include <sge/input/focus/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base.hpp>
 #include <fcppt/config/external_begin.hpp>

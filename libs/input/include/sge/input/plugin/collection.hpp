@@ -7,7 +7,7 @@
 #define SGE_INPUT_PLUGIN_COLLECTION_HPP_INCLUDED
 
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/plugin/collection_fwd.hpp>
+#include <sge/input/plugin/collection_fwd.hpp> // IWYU pragma: export
 #include <sge/plugin/declare_collection.hpp>
 
 SGE_PLUGIN_DECLARE_COLLECTION(sge::input::system);

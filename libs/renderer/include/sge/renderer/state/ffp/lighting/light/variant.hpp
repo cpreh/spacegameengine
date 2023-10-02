@@ -9,7 +9,7 @@
 #include <sge/renderer/state/ffp/lighting/light/directional.hpp>
 #include <sge/renderer/state/ffp/lighting/light/point.hpp>
 #include <sge/renderer/state/ffp/lighting/light/spot.hpp>
-#include <sge/renderer/state/ffp/lighting/light/variant_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/variant_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

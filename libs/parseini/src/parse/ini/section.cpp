@@ -10,12 +10,14 @@
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
+// NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
 sge::parse::ini::section::section(sge::parse::ini::section_name &&_name)
     : name{std::move(_name.get())}, entries{}
 {
 }
 
 sge::parse::ini::section::section(
+    // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
     sge::parse::ini::section_name &&_name, sge::parse::ini::entry_vector &&_entries)
     : name{std::move(_name.get())}, entries{std::move(_entries)}
 {

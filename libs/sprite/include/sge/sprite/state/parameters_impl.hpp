@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_STATE_PARAMETERS_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_PARAMETERS_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/state/parameters_decl.hpp>
+#include <sge/sprite/state/parameters_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/state/detail/parameters_init.hpp>
 #include <sge/sprite/state/roles/blend_write_mask.hpp>
 #include <sge/sprite/state/roles/enable_scissor_test.hpp>
@@ -46,7 +46,7 @@ sge::sprite::state::parameters<StateChoices> &sge::sprite::state::parameters<Sta
   return fcppt::record::set<Role>(
       elements_,
       fcppt::optional::object<
-          typename std::decay<fcppt::record::label_value_type<elements_type, Role>>::type>(_value));
+          std::decay_t<fcppt::record::label_value_type<elements_type, Role>>>(_value));
 }
 
 template <typename StateChoices>

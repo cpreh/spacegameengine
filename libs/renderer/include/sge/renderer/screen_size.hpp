@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_SCREEN_SIZE_HPP_INCLUDED
 #define SGE_RENDERER_SCREEN_SIZE_HPP_INCLUDED
 
-#include <sge/renderer/screen_size_fwd.hpp>
+#include <sge/renderer/screen_size_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/dim/static.hpp>
 
 #endif

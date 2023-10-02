@@ -6,7 +6,7 @@
 #include <sge/input/exception.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
-#include <sge/input/system.hpp>
+#include <sge/input/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/system_unique_ptr.hpp>
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/focus/container.hpp>
@@ -16,7 +16,8 @@
 #include <sge/input/keyboard/container.hpp>
 #include <sge/input/mouse/container.hpp>
 #include <sge/window/object_fwd.hpp>
-#include <fcppt/function_impl.hpp>
+#include <sge/window/object_ref.hpp>
+#include <fcppt/function_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_concat.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
