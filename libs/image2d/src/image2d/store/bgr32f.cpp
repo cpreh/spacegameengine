@@ -5,6 +5,6 @@
 
 #include <sge/image/impl/store/instantiate_basic.hpp>
 #include <sge/image2d/bgr32f_format.hpp>
-#include <sge/image2d/store/bgr32f.hpp>
+#include <sge/image2d/store/bgr32f.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_IMAGE_IMPL_STORE_INSTANTIATE_BASIC(sge::image2d::bgr32f_format);

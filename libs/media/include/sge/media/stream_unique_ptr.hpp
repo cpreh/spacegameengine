@@ -6,7 +6,7 @@
 #ifndef SGE_MEDIA_STREAM_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_MEDIA_STREAM_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/media/stream_unique_ptr_fwd.hpp>
+#include <sge/media/stream_unique_ptr_fwd.hpp> // IWYU pragma: export
 #include <fcppt/unique_ptr_impl.hpp>
 
 #endif

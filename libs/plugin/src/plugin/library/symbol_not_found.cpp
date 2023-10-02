@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/plugin/impl/library/error.hpp>
+#include <sge/plugin/library/exception.hpp>
 #include <sge/plugin/library/symbol_not_found.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/from_std_string.hpp>

@@ -7,6 +7,6 @@
 #define SGE_IMAGE2D_DIM_HPP_INCLUDED
 
 #include <sge/image/basic_dim.hpp>
-#include <sge/image2d/dim_fwd.hpp>
+#include <sge/image2d/dim_fwd.hpp> // IWYU pragma: export
 
 #endif

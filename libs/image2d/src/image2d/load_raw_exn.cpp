@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image2d/exception.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_raw_exn.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/system_ref.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension_fwd.hpp>

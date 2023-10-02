@@ -7,6 +7,6 @@
 #define SGE_IMAGEDS2D_PITCH_HPP_INCLUDED
 
 #include <sge/image/basic_pitch.hpp>
-#include <sge/imageds2d/pitch_fwd.hpp>
+#include <sge/imageds2d/pitch_fwd.hpp> // IWYU pragma: export
 
 #endif

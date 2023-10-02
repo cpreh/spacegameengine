@@ -6,7 +6,7 @@
 #ifndef SGE_MEDIA_EXTENSION_HPP_INCLUDED
 #define SGE_MEDIA_EXTENSION_HPP_INCLUDED
 
-#include <sge/media/extension_fwd.hpp>
+#include <sge/media/extension_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

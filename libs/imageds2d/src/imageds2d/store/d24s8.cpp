@@ -5,6 +5,6 @@
 
 #include <sge/image/impl/store/instantiate_basic.hpp>
 #include <sge/imageds2d/d24s8_format.hpp>
-#include <sge/imageds2d/store/d24s8.hpp>
+#include <sge/imageds2d/store/d24s8.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_IMAGE_IMPL_STORE_INSTANTIATE_BASIC(sge::imageds2d::d24s8_format);

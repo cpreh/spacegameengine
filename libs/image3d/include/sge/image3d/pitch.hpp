@@ -7,6 +7,6 @@
 #define SGE_IMAGE3D_PITCH_HPP_INCLUDED
 
 #include <sge/image/basic_pitch.hpp>
-#include <sge/image3d/pitch_fwd.hpp>
+#include <sge/image3d/pitch_fwd.hpp> // IWYU pragma: export
 
 #endif

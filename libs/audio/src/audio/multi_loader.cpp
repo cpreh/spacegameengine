@@ -3,21 +3,21 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/audio/file.hpp>
+#include <sge/audio/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/load_stream_result.hpp>
 #include <sge/audio/loader.hpp>
 #include <sge/audio/multi_loader.hpp>
 #include <sge/audio/multi_loader_parameters.hpp>
-#include <sge/audio/loader_plugin/collection.hpp>
-#include <sge/audio/loader_plugin/context.hpp>
-#include <sge/audio/loader_plugin/iterator.hpp>
-#include <sge/audio/loader_plugin/object.hpp>
-#include <sge/audio/loader_plugin/traits.hpp>
+#include <sge/audio/loader_plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/loader_plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/loader_plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/loader_plugin/object.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/loader_plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
-#include <sge/media/impl/muxer_impl.hpp>
+#include <sge/media/impl/muxer_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

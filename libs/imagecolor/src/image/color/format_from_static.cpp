@@ -9,8 +9,8 @@
 #include <sge/image/color/format_from_static.hpp>
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/detail/pp_formats.hpp>
-#include <sge/image/color/impl/traits/format_map.hpp>
-#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image/color/impl/traits/format_map.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image/color/traits/format_fwd.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image/impl/format_from_static_impl.hpp>
 #include <sge/image/impl/instantiate_format_from_static.hpp>
 #include <fcppt/config/external_begin.hpp>

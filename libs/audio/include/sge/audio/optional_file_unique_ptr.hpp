@@ -6,7 +6,7 @@
 #ifndef SGE_AUDIO_OPTIONAL_FILE_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_AUDIO_OPTIONAL_FILE_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/audio/optional_file_unique_ptr_fwd.hpp>
+#include <sge/audio/optional_file_unique_ptr_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

@@ -6,7 +6,7 @@
 #include <sge/log/apply_options.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
-#include <fcppt/log/context.hpp>
+#include <fcppt/log/context.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/optional_level.hpp>
 

@@ -3,9 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/image/color/impl/traits/format_map.hpp>
+#include <sge/image/color/impl/traits/format_map.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image/impl/store/instantiate_object.hpp>
 #include <sge/image2d/tag.hpp>
-#include <sge/image2d/store/object.hpp>
+#include <sge/image2d/store/object.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_IMAGE_IMPL_STORE_INSTANTIATE_OBJECT(sge::image2d::tag);

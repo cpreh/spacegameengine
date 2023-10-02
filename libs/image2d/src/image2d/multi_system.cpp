@@ -3,26 +3,29 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/load_stream_result.hpp>
 #include <sge/image2d/multi_system.hpp>
 #include <sge/image2d/multi_system_parameters.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
-#include <sge/image2d/plugin/collection.hpp>
-#include <sge/image2d/plugin/context.hpp>
-#include <sge/image2d/plugin/iterator.hpp>
-#include <sge/image2d/plugin/object.hpp>
-#include <sge/image2d/plugin/traits.hpp>
+#include <sge/image2d/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/object.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/media/extension_fwd.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
-#include <sge/media/impl/muxer_impl.hpp>
+#include <sge/media/impl/muxer_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/bind.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 sge::image2d::multi_system::multi_system(sge::image2d::multi_system_parameters const &_params)
     : sge::image2d::system(), muxer_(_params)

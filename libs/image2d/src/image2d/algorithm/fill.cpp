@@ -4,7 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/convert.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image/color/any/object.hpp>
 #include <sge/image/impl/algorithm/fill_impl.hpp>
 #include <sge/image/impl/algorithm/instantiate_fill.hpp>
 #include <sge/image2d/tag.hpp>

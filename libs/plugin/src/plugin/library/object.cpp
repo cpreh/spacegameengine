@@ -4,14 +4,22 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/plugin/impl/library/error.hpp>
+#include <sge/plugin/impl/library/loaded_symbol.hpp>
 #include <sge/plugin/impl/library/object.hpp>
 #include <sge/plugin/library/exception.hpp>
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/from_std_string.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
+#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#include <exception>
+#include <vector>
+#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#include <dlfcn.h>
+#endif
 #include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
@@ -21,14 +29,7 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <exception>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
-#include <fcppt/config/external_begin.hpp>
-#include <dlfcn.h>
-#include <fcppt/config/external_end.hpp>
 #else
 #error "Implement me!"
 #endif

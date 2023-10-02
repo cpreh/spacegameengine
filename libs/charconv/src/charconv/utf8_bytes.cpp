@@ -7,7 +7,6 @@
 #include <sge/charconv/utf8_bytes.hpp>
 #include <sge/charconv/utf8_char.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
 
 unsigned sge::charconv::utf8_bytes(sge::charconv::utf8_char const _ch)
 {

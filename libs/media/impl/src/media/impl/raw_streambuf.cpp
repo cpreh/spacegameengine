@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/media/const_raw_pointer.hpp>
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/impl/raw_streambuf.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>

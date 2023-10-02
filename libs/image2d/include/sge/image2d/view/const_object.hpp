@@ -11,7 +11,7 @@
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/traits/color_tag.hpp>
 #include <sge/image2d/traits/dimension.hpp>
-#include <sge/image2d/view/const_object_fwd.hpp>
+#include <sge/image2d/view/const_object_fwd.hpp> // IWYU pragma: export
 
 SGE_IMAGE_VIEW_DECLARE_CONST_OBJECT(sge::image2d::tag);
 

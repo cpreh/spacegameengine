@@ -5,14 +5,14 @@
 
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/ds/traits/format_fwd.hpp>
+#include <sge/image/ds/traits/format_fwd.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image/impl/algorithm/copy_impl.hpp>
 #include <sge/image/impl/algorithm/instantiate_copy.hpp>
 #include <sge/imageds2d/tag.hpp>
 #include <sge/imageds2d/algorithm/copy.hpp>
-#include <sge/imageds2d/algorithm/invalid_copy.hpp>
+#include <sge/imageds2d/algorithm/invalid_copy.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/imageds2d/view/const_object.hpp>
-#include <sge/imageds2d/view/format.hpp>
+#include <sge/imageds2d/view/format.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/imageds2d/view/object.hpp>
 
 void sge::imageds2d::algorithm::copy(

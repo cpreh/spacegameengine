@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/impl/traits/format_map.hpp>
-#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image/color/impl/traits/format_map.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image/color/traits/format_fwd.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image/impl/view/format_impl.hpp>
 #include <sge/image/impl/view/instantiate_format.hpp>
 #include <sge/image2d/tag.hpp>

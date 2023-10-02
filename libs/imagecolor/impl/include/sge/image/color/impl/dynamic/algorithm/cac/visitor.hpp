@@ -33,7 +33,7 @@ public:
   using result_type = void;
 
   template <typename Source, typename Dest>
-  std::enable_if_t<std::is_same<typename Source::format, typename Dest::format>::value, result_type>
+  std::enable_if_t<std::is_same_v<typename Source::format, typename Dest::format>, result_type>
   operator()(Source const &_source, Dest const &_dest) const
   {
     if (sge::image::color::impl::dynamic::algorithm::cac::permutate_compare(
@@ -51,7 +51,7 @@ public:
 
   template <typename Source, typename Dest>
   std::enable_if_t<
-      fcppt::not_(std::is_same<typename Source::format, typename Dest::format>::value),
+      fcppt::not_(std::is_same_v<typename Source::format, typename Dest::format>),
       result_type>
   operator()(Source const &_source, Dest const &_dest) const
   {

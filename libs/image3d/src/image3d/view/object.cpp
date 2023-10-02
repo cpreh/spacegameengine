@@ -5,6 +5,6 @@
 
 #include <sge/image/impl/view/instantiate_object.hpp>
 #include <sge/image3d/tag.hpp>
-#include <sge/image3d/view/object.hpp>
+#include <sge/image3d/view/object.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_IMAGE_IMPL_VIEW_INSTANTIATE_OBJECT(sge::image3d::tag);

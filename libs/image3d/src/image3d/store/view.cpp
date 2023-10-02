@@ -23,3 +23,5 @@ sge::image3d::store::view(fcppt::reference<sge::image3d::store::object const> co
 {
   return sge::image::store::view<sge::image3d::tag>(_store);
 }
+
+SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW(sge::image3d::tag);

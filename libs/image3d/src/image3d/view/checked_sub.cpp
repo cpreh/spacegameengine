@@ -10,9 +10,9 @@
 #include <sge/image3d/view/checked_sub.hpp>
 #include <sge/image3d/view/const_object.hpp>
 #include <sge/image3d/view/object.hpp>
-#include <sge/image3d/view/size.hpp>
-#include <sge/image3d/view/sub.hpp>
-#include <sge/image3d/view/sub_out_of_range.hpp>
+#include <sge/image3d/view/size.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image3d/view/sub.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image3d/view/sub_out_of_range.hpp> // NOLINT(misc-include-cleaner)
 
 sge::image3d::view::object sge::image3d::view::checked_sub(
     sge::image3d::view::object const &_view, sge::image3d::box const &_box)

@@ -9,19 +9,13 @@
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/detail/symbol.hpp>
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color::predef
 {
 
 #define SGE_IMAGE_COLOR_DECLARE_PREDEF(name) \
   SGE_IMAGE_COLOR_DETAIL_SYMBOL \
   sge::image::color::rgba8 name();
 
-namespace predef
-{
 SGE_IMAGE_COLOR_DECLARE_PREDEF(aliceblue)
 SGE_IMAGE_COLOR_DECLARE_PREDEF(antiquewhite)
 SGE_IMAGE_COLOR_DECLARE_PREDEF(aqua)
@@ -170,10 +164,7 @@ SGE_IMAGE_COLOR_DECLARE_PREDEF(whitesmoke)
 SGE_IMAGE_COLOR_DECLARE_PREDEF(yellow)
 SGE_IMAGE_COLOR_DECLARE_PREDEF(yellowgreen)
 SGE_IMAGE_COLOR_DECLARE_PREDEF(transparent)
-}
 
-}
-}
 }
 
 #undef SGE_IMAGE_COLOR_DECLARE_PREDEF

@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_COLOR_RGBA32F_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_RGBA32F_HPP_INCLUDED
 
-#include <sge/image/color/rgba32f_fwd.hpp>
+#include <sge/image/color/rgba32f_fwd.hpp> // IWYU pragma: export
 #include <sge/image/pixel/mizuiro_type.hpp>
 
 #endif

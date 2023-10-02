@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/plugin/impl/library/error.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/format_message.hpp>

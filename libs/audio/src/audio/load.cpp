@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/audio/exception.hpp>
-#include <sge/audio/file.hpp>
-#include <sge/audio/file_exception.hpp>
+#include <sge/audio/file.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/file_exception.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load.hpp>
-#include <sge/audio/loader.hpp>
+#include <sge/audio/loader.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/loader_ref.hpp>
 #include <sge/audio/optional_file_unique_ptr.hpp>
 #include <sge/media/impl/load.hpp>

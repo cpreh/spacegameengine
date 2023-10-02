@@ -22,6 +22,7 @@
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <ios>
 #include <istream>
 #include <sstream>
 #include <string>

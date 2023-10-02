@@ -6,7 +6,7 @@
 #ifndef SGE_MEDIA_NAME_HPP_INCLUDED
 #define SGE_MEDIA_NAME_HPP_INCLUDED
 
-#include <sge/media/name_fwd.hpp>
+#include <sge/media/name_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

@@ -6,7 +6,7 @@
 #ifndef SGE_PLUGIN_OPTIONAL_CACHE_REF_HPP_INCLUDED
 #define SGE_PLUGIN_OPTIONAL_CACHE_REF_HPP_INCLUDED
 
-#include <sge/plugin/optional_cache_ref_fwd.hpp>
+#include <sge/plugin/optional_cache_ref_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/reference.hpp>
 
 #endif

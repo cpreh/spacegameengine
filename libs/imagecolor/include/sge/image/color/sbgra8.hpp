@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_COLOR_SBGRA8_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_SBGRA8_HPP_INCLUDED
 
-#include <sge/image/color/sbgra8_fwd.hpp>
+#include <sge/image/color/sbgra8_fwd.hpp> // IWYU pragma: export
 #include <sge/image/pixel/mizuiro_type.hpp>
 
 #endif

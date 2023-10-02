@@ -5,15 +5,15 @@
 
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/color/impl/traits/dynamic_copy_and_convert.hpp>
-#include <sge/image/color/impl/traits/static_converter.hpp>
+#include <sge/image/color/impl/traits/dynamic_copy_and_convert.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image/color/impl/traits/static_converter.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image/impl/algorithm/copy_and_convert_impl.hpp>
 #include <sge/image/impl/algorithm/instantiate_copy_and_convert.hpp>
-#include <sge/image2d/dim.hpp>
+#include <sge/image2d/dim.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/tag.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/traits/color_tag.hpp>
-#include <sge/image2d/traits/dimension.hpp>
+#include <sge/image2d/traits/color_tag.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/traits/dimension.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 

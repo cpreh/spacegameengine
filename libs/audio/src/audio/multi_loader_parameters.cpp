@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/audio/loader_fwd.hpp>
-#include <sge/audio/multi_loader_parameters.hpp>
-#include <sge/audio/loader_plugin/collection.hpp>
+#include <sge/audio/multi_loader_parameters.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/loader_plugin/collection.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/media/impl/instantiate_muxer_parameters.hpp>
 
 SGE_MEDIA_IMPL_INSTANTIATE_MUXER_PARAMETERS(sge::audio::loader);

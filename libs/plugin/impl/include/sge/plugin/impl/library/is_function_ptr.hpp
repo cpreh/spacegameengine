@@ -14,7 +14,7 @@ namespace sge::plugin::impl::library
 {
 
 template <typename Function>
-using is_function_ptr = std::is_function<typename std::remove_pointer<Function>::type>;
+using is_function_ptr = std::is_function<std::remove_pointer_t<Function>>;
 
 }
 

@@ -5,6 +5,7 @@
 
 #include <sge/plugin/cache.hpp>
 #include <sge/plugin/flags.hpp>
+#include <sge/plugin/info.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/plugin/impl/context_base.hpp>
 #include <sge/plugin/impl/load_info.hpp>
@@ -12,9 +13,8 @@
 #include <sge/plugin/library/object_shared_ptr.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/weak_ptr_impl.hpp>
+#include <fcppt/weak_ptr_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/io/ostream.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>

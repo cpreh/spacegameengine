@@ -5,15 +5,15 @@
 
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/impl/traits/format_map.hpp>
-#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image/color/impl/traits/format_map.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image/color/traits/format_fwd.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image/impl/view/instantiate_make.hpp>
 #include <sge/image/impl/view/make_impl.hpp>
 #include <sge/image3d/dim.hpp>
 #include <sge/image3d/pitch.hpp>
 #include <sge/image3d/tag.hpp>
-#include <sge/image3d/traits/color_tag.hpp>
-#include <sge/image3d/traits/dimension.hpp>
+#include <sge/image3d/traits/color_tag.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image3d/traits/dimension.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image3d/view/make.hpp>
 #include <sge/image3d/view/object.hpp>
 

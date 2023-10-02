@@ -5,6 +5,6 @@
 
 #include <sge/image/impl/store/instantiate_basic.hpp>
 #include <sge/image2d/rgb8_format.hpp>
-#include <sge/image2d/store/rgb8.hpp>
+#include <sge/image2d/store/rgb8.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_IMAGE_IMPL_STORE_INSTANTIATE_BASIC(sge::image2d::rgb8_format);

@@ -18,7 +18,7 @@
 #include <sge/image2d/store/bgrx8.hpp>
 #include <sge/image2d/store/l8.hpp>
 #include <sge/image2d/store/la8.hpp>
-#include <sge/image2d/store/object_fwd.hpp>
+#include <sge/image2d/store/object_fwd.hpp> // IWYU pragma: export
 #include <sge/image2d/store/r32f.hpp>
 #include <sge/image2d/store/rgb32f.hpp>
 #include <sge/image2d/store/rgb8.hpp>

@@ -10,9 +10,9 @@
 #include <sge/image2d/view/checked_sub.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/image2d/view/size.hpp>
-#include <sge/image2d/view/sub.hpp>
-#include <sge/image2d/view/sub_out_of_range.hpp>
+#include <sge/image2d/view/size.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/view/sub.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/view/sub_out_of_range.hpp> // NOLINT(misc-include-cleaner)
 
 sge::image2d::view::object sge::image2d::view::checked_sub(
     sge::image2d::view::object const &_view, sge::image2d::rect const &_rect)

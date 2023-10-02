@@ -7,7 +7,7 @@
 #include <sge/image/impl/view/sub_impl.hpp>
 #include <sge/imageds2d/rect.hpp>
 #include <sge/imageds2d/tag.hpp>
-#include <sge/imageds2d/traits/dimension.hpp>
+#include <sge/imageds2d/traits/dimension.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/imageds2d/view/const_object.hpp>
 #include <sge/imageds2d/view/object.hpp>
 #include <sge/imageds2d/view/sub.hpp>

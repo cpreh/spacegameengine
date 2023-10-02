@@ -11,13 +11,12 @@
 #include <sge/image/store/object_fwd.hpp>
 #include <sge/image/view/const_object_fwd.hpp>
 #include <sge/image/view/object_fwd.hpp>
-
-#define SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW_BASE(tag, ref_operator, view_type) \
-  template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::view::view_type<tag> \
-  sge::image::store::view<tag>(sge::image::store::object<tag> ref_operator)
+#include <fcppt/reference_impl.hpp>
 
 #define SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW(tag) \
-  SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW_BASE(tag, &, object); \
-  SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW_BASE(tag, const &, const_object)
+  template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::view::object<tag> \
+  sge::image::store::view<tag>(fcppt::reference<sge::image::store::object<tag>>); \
+  template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::view::const_object<tag> \
+  sge::image::store::view<tag>(fcppt::reference<sge::image::store::object<tag> const>)
 
 #endif

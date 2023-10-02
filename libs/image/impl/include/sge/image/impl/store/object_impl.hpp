@@ -34,7 +34,7 @@ sge::image::store::object<Tag>::object(
           {
             return variant{sge::image::store::basic<sge::image::impl::view::to_static_format<
                 Tag,
-                typename std::decay<decltype(_static_format)>::type>>(_size, fcppt::no_init{})};
+                std::decay_t<decltype(_static_format)>>>(_size, fcppt::no_init{})};
           })}
 {
 }

@@ -5,6 +5,6 @@
 
 #include <sge/image/impl/view/instantiate_object.hpp>
 #include <sge/imageds2d/tag.hpp>
-#include <sge/imageds2d/view/object.hpp>
+#include <sge/imageds2d/view/object.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_IMAGE_IMPL_VIEW_INSTANTIATE_OBJECT(sge::imageds2d::tag);

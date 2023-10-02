@@ -5,7 +5,7 @@
 
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/impl/dynamic/format/bgra8.hpp>
-#include <sge/image/color/impl/dynamic/format/object_impl.hpp>
+#include <sge/image/color/impl/dynamic/format/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image/color/impl/dynamic/format/rgb_c8_4.hpp>
 #include <mizuiro/color/layout/bgra.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

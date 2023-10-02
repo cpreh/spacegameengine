@@ -7,7 +7,7 @@
 #define SGE_AUDIO_MULTI_LOADER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/audio/loader_fwd.hpp>
-#include <sge/audio/multi_loader_parameters_fwd.hpp>
+#include <sge/audio/multi_loader_parameters_fwd.hpp> // IWYU pragma: export
 #include <sge/audio/loader_plugin/collection.hpp>
 #include <sge/media/declare_muxer_parameters.hpp>
 

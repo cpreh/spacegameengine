@@ -5,7 +5,7 @@
 
 #include <sge/image/impl/view/instantiate_const_object.hpp>
 #include <sge/imageds2d/tag.hpp>
-#include <sge/imageds2d/view/const_object.hpp>
-#include <sge/imageds2d/view/to_const.hpp>
+#include <sge/imageds2d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/imageds2d/view/to_const.hpp> // NOLINT(misc-include-cleaner)
 
 SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_OBJECT(sge::imageds2d::tag);

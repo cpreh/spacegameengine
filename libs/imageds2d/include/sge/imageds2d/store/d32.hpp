@@ -7,6 +7,6 @@
 #define SGE_IMAGEDS2D_STORE_D32_HPP_INCLUDED
 
 #include <sge/image/store/basic.hpp>
-#include <sge/imageds2d/store/d32_fwd.hpp>
+#include <sge/imageds2d/store/d32_fwd.hpp> // IWYU pragma: export
 
 #endif

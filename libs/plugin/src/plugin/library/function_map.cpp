@@ -4,7 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/plugin/library/exception.hpp>
+#include <sge/plugin/library/function_base.hpp>
 #include <sge/plugin/library/function_map.hpp>
+#include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>

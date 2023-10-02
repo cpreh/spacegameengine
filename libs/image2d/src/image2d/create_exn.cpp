@@ -6,9 +6,9 @@
 #include <sge/image/color/format_to_string.hpp>
 #include <sge/image2d/create_exn.hpp>
 #include <sge/image2d/exception.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/file_unique_ptr.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/system_ref.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/format.hpp>

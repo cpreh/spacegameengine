@@ -7,7 +7,7 @@
 #include <sge/image/ds/format_to_string.hpp>
 #include <sge/image/ds/tag.hpp>
 #include <sge/image/ds/traits/format_to_string.hpp>
-#include <sge/image/traits/pixel/format_to_string_tpl_fwd.hpp>
+#include <sge/image/traits/pixel/format_to_string_tpl_fwd.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/string.hpp>
 
 fcppt::string sge::image::traits::pixel::format_to_string_tpl<sge::image::ds::tag>::execute(

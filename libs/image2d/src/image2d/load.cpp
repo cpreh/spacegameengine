@@ -4,12 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image2d/exception.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/file_exception.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/file_exception.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/system_ref.hpp>
 #include <sge/media/impl/load.hpp>
 #include <fcppt/config/external_begin.hpp>

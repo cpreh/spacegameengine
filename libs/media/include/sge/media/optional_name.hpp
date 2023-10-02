@@ -7,7 +7,7 @@
 #define SGE_MEDIA_OPTIONAL_NAME_HPP_INCLUDED
 
 #include <sge/media/name.hpp>
-#include <sge/media/optional_name_fwd.hpp>
+#include <sge/media/optional_name_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

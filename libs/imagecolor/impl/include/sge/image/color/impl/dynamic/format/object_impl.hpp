@@ -7,7 +7,7 @@
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_FORMAT_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/image/color/impl/dynamic/format/object_base_impl.hpp>
-#include <sge/image/color/impl/dynamic/format/object_decl.hpp>
+#include <sge/image/color/impl/dynamic/format/object_decl.hpp> // IWYU pragma: export
 #include <mizuiro/size_type.hpp>
 
 template <typename Space, typename BaseType, mizuiro::size_type NumChannels>

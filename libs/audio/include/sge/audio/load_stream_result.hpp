@@ -6,7 +6,7 @@
 #ifndef SGE_AUDIO_LOAD_STREAM_RESULT_HPP_INCLUDED
 #define SGE_AUDIO_LOAD_STREAM_RESULT_HPP_INCLUDED
 
-#include <sge/audio/load_stream_result_fwd.hpp>
+#include <sge/audio/load_stream_result_fwd.hpp> // IWYU pragma: export
 #include <sge/media/load_stream_result.hpp>
 
 #endif

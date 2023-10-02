@@ -7,7 +7,6 @@
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <fcppt/optional_string.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fstream>

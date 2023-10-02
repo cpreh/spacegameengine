@@ -6,7 +6,7 @@
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/impl/dynamic/format/a8.hpp>
 #include <sge/image/color/impl/dynamic/format/empty_c8_1.hpp>
-#include <sge/image/color/impl/dynamic/format/object_impl.hpp>
+#include <sge/image/color/impl/dynamic/format/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <mizuiro/color/layout/alpha.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

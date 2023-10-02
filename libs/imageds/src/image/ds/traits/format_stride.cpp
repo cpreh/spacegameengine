@@ -8,7 +8,7 @@
 #include <sge/image/ds/format_stride.hpp>
 #include <sge/image/ds/tag.hpp>
 #include <sge/image/ds/traits/format_stride.hpp>
-#include <sge/image/traits/pixel/format_stride_tpl_fwd.hpp>
+#include <sge/image/traits/pixel/format_stride_tpl_fwd.hpp> // NOLINT(misc-include-cleaner)
 
 sge::image::size_type sge::image::traits::pixel::format_stride_tpl<sge::image::ds::tag>::execute(
     sge::image::ds::format const _format)

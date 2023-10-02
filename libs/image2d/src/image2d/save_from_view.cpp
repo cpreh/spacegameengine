@@ -5,7 +5,7 @@
 
 #include <sge/image2d/create_exn.hpp>
 #include <sge/image2d/exception.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>

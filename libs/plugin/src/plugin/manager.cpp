@@ -12,14 +12,14 @@
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref_fwd.hpp>
-#include <sge/plugin/impl/context_base.hpp>
+#include <sge/plugin/impl/context_base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/plugin/impl/load_plugins.hpp>
 #include <sge/plugin/impl/log_name.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/enum/array_impl.hpp>
+#include <fcppt/enum/array_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/context_reference.hpp>

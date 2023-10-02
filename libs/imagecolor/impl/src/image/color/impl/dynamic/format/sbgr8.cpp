@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/impl/dynamic/format/object_impl.hpp>
+#include <sge/image/color/impl/dynamic/format/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image/color/impl/dynamic/format/sbgr8.hpp>
 #include <sge/image/color/impl/dynamic/format/srgb_c8_3.hpp>
 #include <mizuiro/color/layout/s_bgr.hpp>
