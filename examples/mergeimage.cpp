@@ -54,6 +54,9 @@
 #include <fcppt/options/optional_help_text.hpp>
 #include <fcppt/options/parse.hpp>
 #include <fcppt/options/result_of.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -187,6 +190,9 @@ FCPPT_RECORD_MAKE_LABEL(path_label);
 
 }
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GCC_WARNING(-Wmissing-declarations)
+
 int FCPPT_MAIN(int argc, fcppt::args_char **argv)
 try
 {
@@ -222,3 +228,5 @@ catch (std::exception const &_exception)
 
   return EXIT_FAILURE;
 }
+
+FCPPT_PP_POP_WARNING
