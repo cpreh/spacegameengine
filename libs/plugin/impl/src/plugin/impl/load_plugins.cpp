@@ -11,9 +11,7 @@
 #include <sge/plugin/detail/context_base_vector.hpp>
 #include <sge/plugin/impl/context_base.hpp>
 #include <sge/plugin/impl/load_plugins.hpp>
-#include <sge/plugin/library/symbol_not_found.hpp>
 #include <fcppt/error_code_to_string.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
@@ -65,16 +63,6 @@ sge::plugin::detail::context_base_vector sge::plugin::impl::load_plugins(
         {
           return optional_result(fcppt::make_unique_ptr<sge::plugin::context_base>(
               _cache, std::filesystem::path{_cur_path}));
-        }
-        catch (sge::plugin::library::symbol_not_found const &_exception)
-        {
-          FCPPT_LOG_WARNING(
-              _log,
-              fcppt::log::out << fcppt::filesystem::path_to_string(_cur_path)
-                              << FCPPT_TEXT(" doesn't seem to be a valid sge plugin")
-                              << FCPPT_TEXT(" because the symbol \"")
-                              << fcppt::from_std_string(_exception.symbol())
-                              << FCPPT_TEXT("\" is missing!"))
         }
         catch (sge::core::exception const &_exception)
         {

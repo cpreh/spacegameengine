@@ -11,6 +11,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -30,6 +31,7 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#include <fcppt/optional/maybe_void.hpp>
 #else
 #error "Implement me!"
 #endif
@@ -86,7 +88,9 @@ sge::plugin::library::object::object(std::filesystem::path &&_name)
   {
     throw sge::plugin::library::exception{
         fcppt::string{FCPPT_TEXT("Failed to load library::object: ")} +
-        sge::plugin::impl::library::error()};
+        fcppt::optional::from(
+            sge::plugin::impl::library::error(),
+            [] { return fcppt::string{FCPPT_TEXT("No error")}; })};
   }
 }
 
@@ -104,9 +108,13 @@ sge::plugin::library::object::~object()
   // If we destroy the DLL here, the catch of
   // exception will crash.
   if (std::uncaught_exceptions() > 0)
+  {
     libraries.push_back(fcppt::make_unique_ptr<context>(handle_));
+  }
   else
+  {
     free_library(handle_);
+  }
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
   ::dlclose(handle_);
 #endif
@@ -118,25 +126,30 @@ sge::plugin::impl::library::loaded_symbol
 sge::plugin::library::object::load(sge::plugin::library::symbol_string const &_fun)
 {
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-  FARPROC const ret(::GetProcAddress(handle_, _fun.c_str()));
+  FARPROC const ret{::GetProcAddress(this->handle_, _fun.c_str())};
 
-  if (!ret)
+  if (ret == nullptr)
+  {
     throw sge::plugin::library::exception{
         FCPPT_TEXT("Function ") + fcppt::from_std_string(_fun) + FCPPT_TEXT(" not found in ") +
         fcppt::filesystem::path_to_string(this->name())};
+  };
 
   return ret;
 #elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+  // NOLINTNEXTLINE(concurrency-mt-unsafe)
   ::dlerror(); // clear last error
 
-  void *const ret(::dlsym(handle_, _fun.c_str()));
+  void *const ret{::dlsym(this->handle_, _fun.c_str())};
 
-  if (::dlerror() != nullptr)
-  {
-    throw sge::plugin::library::exception{
-        fcppt::from_std_string(_fun) + FCPPT_TEXT(" not found in library ") +
-        fcppt::filesystem::path_to_string(this->name())};
-  }
+  fcppt::optional::maybe_void(
+      sge::plugin::impl::library::error(),
+      [&_fun, this](fcppt::string &&_error)
+      {
+        throw sge::plugin::library::exception{
+            fcppt::from_std_string(_fun) + FCPPT_TEXT(" not found in library ") +
+            fcppt::filesystem::path_to_string(this->name()) + FCPPT_TEXT(": ") + std::move(_error)};
+      });
 
   return ret;
 #endif

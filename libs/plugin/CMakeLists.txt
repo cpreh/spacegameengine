@@ -82,7 +82,6 @@ set(
 	libs/plugin/include/sge/plugin/library/make_interface.hpp
 	libs/plugin/include/sge/plugin/library/object_fwd.hpp
 	libs/plugin/include/sge/plugin/library/object_shared_ptr.hpp
-	libs/plugin/include/sge/plugin/library/symbol_not_found.hpp
 	libs/plugin/include/sge/plugin/library/symbol_string.hpp
 	libs/plugin/include/sge/plugin/loader_function.hpp
 	libs/plugin/include/sge/plugin/log_location.hpp
@@ -104,7 +103,6 @@ set(
 	libs/plugin/src/plugin/library/exception.cpp
 	libs/plugin/src/plugin/library/function_map.cpp
 	libs/plugin/src/plugin/library/object.cpp
-	libs/plugin/src/plugin/library/symbol_not_found.cpp
 	libs/plugin/src/plugin/log_location.cpp
 	libs/plugin/src/plugin/manager.cpp
 )

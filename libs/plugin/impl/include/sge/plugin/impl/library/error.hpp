@@ -6,12 +6,12 @@
 #ifndef SGE_PLUGIN_IMPL_LIBRARY_ERROR_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_LIBRARY_ERROR_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
+#include <fcppt/optional_string.hpp>
 
 namespace sge::plugin::impl::library
 {
 
-fcppt::string error();
+[[nodiscard]] fcppt::optional_string error();
 
 }
 
