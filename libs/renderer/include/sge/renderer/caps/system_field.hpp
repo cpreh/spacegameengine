@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_CAPS_SYSTEM_FIELD_HPP_INCLUDED
 #define SGE_RENDERER_CAPS_SYSTEM_FIELD_HPP_INCLUDED
 
-#include <sge/renderer/caps/system_field_fwd.hpp>
+#include <sge/renderer/caps/system_field_fwd.hpp> // IWYU pragma: export
 #include <fcppt/container/bitfield/object.hpp>
 
 #endif

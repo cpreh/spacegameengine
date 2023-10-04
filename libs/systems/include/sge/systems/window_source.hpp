@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_WINDOW_SOURCE_HPP_INCLUDED
 
 #include <sge/systems/original_window.hpp>
-#include <sge/systems/window_source_fwd.hpp>
+#include <sge/systems/window_source_fwd.hpp> // IWYU pragma: export
 #include <sge/systems/wrapped_window.hpp>
 #include <fcppt/variant/object_impl.hpp>
 

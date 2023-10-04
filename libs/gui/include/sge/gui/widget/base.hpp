@@ -66,7 +66,7 @@ private:
 
   sge::gui::widget::optional_ref parent_;
 
-  bool enabled_;
+  bool enabled_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

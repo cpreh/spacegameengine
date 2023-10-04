@@ -6,26 +6,26 @@
 #include <sge/cursor/hotspot.hpp>
 #include <sge/cursor/impl/detail/object.hpp>
 #include <sge/input/const_processor_ref.hpp>
-#include <sge/input/processor.hpp>
-#include <sge/input/cursor/object.hpp>
+#include <sge/input/processor.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/input/cursor/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
-#include <sge/input/cursor/position_unit.hpp>
+#include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/ffp_ref.hpp>
-#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/single_impl.hpp>
-#include <sge/sprite/buffers/with_declaration_impl.hpp>
+#include <sge/sprite/buffers/single_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/sprite/buffers/with_declaration_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sprite/compare/default.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/texture0.hpp>
-#include <sge/sprite/state/object_impl.hpp>
-#include <sge/sprite/state/parameters_impl.hpp>
+#include <sge/sprite/state/object_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/sprite/state/parameters_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/texture/const_part_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
@@ -34,7 +34,7 @@
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/to_signed.hpp>
 #include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

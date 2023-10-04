@@ -9,7 +9,7 @@
 #include <sge/font/flags_field.hpp>
 #include <sge/font/index.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/object_ref.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
@@ -28,14 +28,12 @@
 #include <sge/gui/get_focus.hpp>
 #include <sge/gui/text_callback.hpp>
 #include <sge/gui/text_color.hpp>
-#include <sge/gui/text_function.hpp>
-#include <sge/gui/impl/fill_rect.hpp>
 #include <sge/gui/renderer/base.hpp>
-#include <sge/gui/style/base.hpp>
+#include <sge/gui/style/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/edit.hpp>
-#include <sge/gui/widget/optional_focus.hpp>
+#include <sge/gui/widget/optional_focus.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/input/key/code.hpp>
@@ -47,13 +45,12 @@
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/preferred_size.hpp>
 #include <sge/rucksack/rect.hpp>
-#include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/timer/basic_impl.hpp>
 #include <sge/timer/reset_when_expired.hpp>
-#include <sge/timer/clocks/delta_impl.hpp>
+#include <sge/timer/clocks/delta_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/literal.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
@@ -71,11 +68,11 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <cctype>
 #include <chrono>
-#include <locale>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

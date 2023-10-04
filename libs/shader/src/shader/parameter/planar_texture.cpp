@@ -4,20 +4,22 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/cg/parameter/named.hpp>
-#include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/cg/program/object_ref.hpp>
-#include <sge/renderer/cg/loaded_texture.hpp>
+#include <sge/renderer/cg/loaded_texture.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_ref.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/shader/exception.hpp>
-#include <sge/shader/pair.hpp>
+#include <sge/shader/pair.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/shader/pair_ref.hpp>
+#include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>

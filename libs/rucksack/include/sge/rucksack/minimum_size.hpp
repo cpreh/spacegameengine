@@ -6,7 +6,7 @@
 #ifndef SGE_RUCKSACK_MINIMUM_SIZE_HPP_INCLUDED
 #define SGE_RUCKSACK_MINIMUM_SIZE_HPP_INCLUDED
 
-#include <sge/rucksack/minimum_size_fwd.hpp>
+#include <sge/rucksack/minimum_size_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

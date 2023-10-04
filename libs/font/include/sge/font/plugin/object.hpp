@@ -7,7 +7,7 @@
 #define SGE_FONT_PLUGIN_OBJECT_HPP_INCLUDED
 
 #include <sge/font/system_fwd.hpp>
-#include <sge/font/plugin/object_fwd.hpp>
+#include <sge/font/plugin/object_fwd.hpp> // IWYU pragma: export
 #include <sge/font/plugin/traits.hpp>
 #include <sge/plugin/declare_object.hpp>
 

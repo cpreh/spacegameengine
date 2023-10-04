@@ -4,26 +4,49 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/config/media_path.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/renderer/context/core_ref.hpp>
-#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/alpha_off.hpp>
+#include <sge/renderer/state/core/blend/alpha_variant.hpp>
+#include <sge/renderer/state/core/blend/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
-#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
-#include <sge/renderer/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
-#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/state/core/sampler/address/default.hpp>
 #include <sge/renderer/state/core/sampler/filter/mipmap.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
+#include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_context/base_unique_ptr.hpp>
+#include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
+#include <sge/scenic/render_context/cg/light/index.hpp>
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/shader/context.hpp>
 #include <sge/shader/context_ref.hpp>
+#include <sge/shader/optional_cflags.hpp>
+#include <sge/shader/pixel_program_path.hpp>
+#include <sge/shader/vertex_program_path.hpp>
+#include <sge/shader/parameter/is_projection_matrix.hpp>
+#include <sge/shader/parameter/name.hpp>
+#include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/output_to_std_string.hpp>

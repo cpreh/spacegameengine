@@ -5,8 +5,7 @@
 
 #include <sge/font/system.hpp>
 #include <sge/font/plugin/collection_fwd.hpp>
-#include <sge/font/plugin/traits.hpp>
-#include <sge/plugin/object.hpp>
+#include <sge/font/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/systems/font_fwd.hpp>
 #include <sge/systems/impl/font/find_plugin.hpp>
 #include <sge/systems/impl/font/object.hpp>

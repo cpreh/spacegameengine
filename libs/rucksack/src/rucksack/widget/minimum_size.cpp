@@ -14,6 +14,7 @@
 #include <sge/rucksack/impl/extract_size.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/minimum_size.hpp>
+#include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>

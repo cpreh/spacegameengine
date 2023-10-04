@@ -14,6 +14,7 @@
 #include <fcppt/config/external_end.hpp>
 
 sge::console::callback::parameters::parameters(
+    // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
     sge::console::callback::function &&_function, sge::console::callback::name &&_name)
     : function_(std::move(_function)),
       name_(std::move(_name.get())),

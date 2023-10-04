@@ -86,7 +86,7 @@ private:
 
   sge::font::string text_;
 
-  sge::font::string::size_type position_;
+  sge::font::string::size_type position_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   sge::rucksack::widget::dummy layout_;
 
@@ -100,9 +100,9 @@ private:
 
   diff_timer cursor_blink_timer_;
 
-  bool has_focus_;
+  bool has_focus_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  bool show_cursor_;
+  bool show_cursor_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   using text_signal = fcppt::signal::object<sge::gui::text_function>;
 

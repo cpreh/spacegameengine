@@ -3,12 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/camera/ortho_freelook/action/activate_pan.hpp>
 #include <sge/camera/ortho_freelook/action/mapping.hpp>
+#include <sge/camera/ortho_freelook/action/zoom_in.hpp>
+#include <sge/camera/ortho_freelook/action/zoom_out.hpp>
 
 sge::camera::ortho_freelook::action::mapping::mapping(
-    action::zoom_in const &_zoom_in,
-    action::zoom_out const &_zoom_out,
-    action::activate_pan const &_activate_pan)
+    sge::camera::ortho_freelook::action::zoom_in const &_zoom_in,
+    sge::camera::ortho_freelook::action::zoom_out const &_zoom_out,
+    sge::camera::ortho_freelook::action::activate_pan const &_activate_pan)
     : zoom_in_(_zoom_in), zoom_out_(_zoom_out), activate_pan_(_activate_pan)
 {
 }

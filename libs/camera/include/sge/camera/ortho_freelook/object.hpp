@@ -81,11 +81,11 @@ private:
 
   sge::renderer::projection::far far_;
 
-  bool zoom_in_pressed_;
+  bool zoom_in_pressed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  bool zoom_out_pressed_;
+  bool zoom_out_pressed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  bool pan_pressed_;
+  bool pan_pressed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   void mouse_axis_event(sge::input::mouse::event::axis const &);
 

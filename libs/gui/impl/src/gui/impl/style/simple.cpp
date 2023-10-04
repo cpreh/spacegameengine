@@ -9,7 +9,6 @@
 #include <sge/gui/impl/shrink_rect.hpp>
 #include <sge/gui/impl/style/background_color.hpp>
 #include <sge/gui/impl/style/border_color.hpp>
-#include <sge/gui/impl/style/inner_border.hpp>
 #include <sge/gui/impl/style/outer_border.hpp>
 #include <sge/gui/impl/style/simple.hpp>
 #include <sge/gui/impl/style/spacing.hpp>

@@ -3,32 +3,48 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/camera/base.hpp>
+#include <sge/camera/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/camera/const_base_ref.hpp>
-#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/projection_matrix.hpp>
+#include <sge/camera/coordinate_system/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/ffp_ref.hpp>
-#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
-#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
+#include <sge/scenic/grid/depth_test.hpp>
+#include <sge/scenic/grid/distance_to_origin.hpp>
 #include <sge/scenic/grid/object.hpp>
 #include <sge/scenic/grid/orientation.hpp>
+#include <sge/scenic/grid/rect.hpp>
+#include <sge/scenic/grid/spacing.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/array/get.hpp>
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/enum/array_impl.hpp>
 #include <fcppt/math/size_type.hpp>
@@ -81,6 +97,7 @@ sge::scenic::grid::object::object(
   for (sge::renderer::scalar y = _rect.pos().y(); y <= _rect.pos().y() + _rect.size().h();
        y += _spacing.get().h())
   {
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     llock.value().push_back(sge::line_drawer::line{
         sge::line_drawer::line::begin_type{permute_vector_according_to_orientation(
             _orientation, sge::renderer::vector3(_rect.pos().x(), y, _distance_to_origin.get()))},
@@ -95,6 +112,7 @@ sge::scenic::grid::object::object(
   for (sge::renderer::scalar x = _rect.pos().x(); x <= _rect.pos().x() + _rect.size().w();
        x += _spacing.get().w())
   {
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     llock.value().push_back(sge::line_drawer::line{
         sge::line_drawer::line::begin_type{permute_vector_according_to_orientation(
             _orientation, sge::renderer::vector3(x, _rect.pos().y(), _distance_to_origin.get()))},

@@ -6,7 +6,7 @@
 #ifndef SGE_CONSOLE_PREFIX_HPP_INCLUDED
 #define SGE_CONSOLE_PREFIX_HPP_INCLUDED
 
-#include <sge/console/prefix_fwd.hpp>
+#include <sge/console/prefix_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

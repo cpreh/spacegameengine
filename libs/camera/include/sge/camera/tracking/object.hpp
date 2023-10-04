@@ -73,7 +73,7 @@ private:
 
   sge::camera::coordinate_system::object coordinate_system_;
 
-  bool finished_;
+  bool finished_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

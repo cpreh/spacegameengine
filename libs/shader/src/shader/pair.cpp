@@ -3,9 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/cg/program/compile_options.hpp>
 #include <sge/cg/program/from_string_parameters.hpp>
 #include <sge/cg/program/main_function.hpp>
 #include <sge/cg/program/object.hpp>
+#include <sge/cg/program/source_type.hpp>
 #include <sge/renderer/cg/loaded_program.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
@@ -19,6 +21,7 @@
 #include <sge/shader/pixel_program_stream.hpp>
 #include <sge/shader/vertex_program_path.hpp>
 #include <sge/shader/vertex_program_stream.hpp>
+#include <sge/shader/parameter/planar_texture_fwd.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -27,7 +30,6 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fstream>

@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/gui/context_fwd.hpp>
+#include <sge/gui/context_ref.hpp>
 #include <sge/gui/gravity.hpp>
 #include <sge/gui/impl/gravity_east.hpp>
 #include <sge/gui/impl/gravity_south.hpp>

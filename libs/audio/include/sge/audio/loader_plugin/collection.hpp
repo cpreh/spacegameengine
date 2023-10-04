@@ -7,7 +7,7 @@
 #define SGE_AUDIO_LOADER_PLUGIN_COLLECTION_HPP_INCLUDED
 
 #include <sge/audio/loader_fwd.hpp>
-#include <sge/audio/loader_plugin/collection_fwd.hpp>
+#include <sge/audio/loader_plugin/collection_fwd.hpp> // IWYU pragma: export
 #include <sge/plugin/declare_collection.hpp>
 
 SGE_PLUGIN_DECLARE_COLLECTION(sge::audio::loader);

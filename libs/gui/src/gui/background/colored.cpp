@@ -5,10 +5,8 @@
 
 #include <sge/gui/background/base.hpp>
 #include <sge/gui/background/colored.hpp>
-#include <sge/gui/impl/fill_rect.hpp>
 #include <sge/gui/main_area/reference.hpp>
 #include <sge/gui/renderer/base.hpp>
-#include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/init/alpha.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_SYSTEMS_IMPL_PLUGIN_PAIR_IMPL_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_PLUGIN_PAIR_IMPL_HPP_INCLUDED
 
-#include <sge/systems/impl/plugin_pair_decl.hpp>
+#include <sge/systems/impl/plugin_pair_decl.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

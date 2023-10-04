@@ -66,7 +66,7 @@ private:
 
   using size_type = sge::font::string::size_type;
 
-  size_type pos_;
+  size_type pos_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

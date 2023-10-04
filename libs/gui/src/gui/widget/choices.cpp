@@ -14,8 +14,8 @@
 #include <sge/gui/optional_index.hpp>
 #include <sge/gui/optional_needed_width.hpp>
 #include <sge/gui/string_container.hpp>
-#include <sge/gui/text_color.hpp>
-#include <sge/gui/style/base.hpp>
+#include <sge/gui/text_color.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/gui/style/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/box_container.hpp>
 #include <sge/gui/widget/choices.hpp>
@@ -32,7 +32,7 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

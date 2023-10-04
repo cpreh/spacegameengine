@@ -6,7 +6,7 @@
 #ifndef SGE_CONSOLE_LONG_DESCRIPTION_HPP_INCLUDED
 #define SGE_CONSOLE_LONG_DESCRIPTION_HPP_INCLUDED
 
-#include <sge/console/long_description_fwd.hpp>
+#include <sge/console/long_description_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

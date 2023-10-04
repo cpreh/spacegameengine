@@ -8,7 +8,7 @@
 
 #include <sge/audio/player_plugin/object.hpp>
 #include <sge/systems/impl/plugin_pair_decl.hpp>
-#include <sge/systems/impl/audio/player_pair_fwd.hpp>
+#include <sge/systems/impl/audio/player_pair_fwd.hpp> // IWYU pragma: export
 
 extern template class sge::systems::impl::plugin_pair<sge::audio::player>;
 

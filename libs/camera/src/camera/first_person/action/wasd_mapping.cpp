@@ -3,7 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/camera/first_person/action/backward.hpp>
+#include <sge/camera/first_person/action/down.hpp>
+#include <sge/camera/first_person/action/forward.hpp>
+#include <sge/camera/first_person/action/left.hpp>
 #include <sge/camera/first_person/action/mapping.hpp>
+#include <sge/camera/first_person/action/right.hpp>
+#include <sge/camera/first_person/action/up.hpp>
 #include <sge/camera/first_person/action/wasd_mapping.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/optional_code.hpp>

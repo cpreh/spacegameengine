@@ -6,7 +6,7 @@
 #ifndef SGE_SYSTEMS_OPTIONAL_PLUGIN_PATH_HPP_INCLUDED
 #define SGE_SYSTEMS_OPTIONAL_PLUGIN_PATH_HPP_INCLUDED
 
-#include <sge/systems/optional_plugin_path_fwd.hpp>
+#include <sge/systems/optional_plugin_path_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

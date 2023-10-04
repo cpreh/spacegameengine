@@ -9,7 +9,7 @@
 #include <sge/systems/original_window_fwd.hpp>
 #include <awl/cursor/const_optional_object_ref_fwd.hpp>
 #include <awl/visual/object_fwd.hpp>
-#include <awl/window/parameters_fwd.hpp>
+#include <awl/window/parameters.hpp>
 
 namespace sge::systems::impl::window
 {

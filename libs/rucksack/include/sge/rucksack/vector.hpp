@@ -6,7 +6,7 @@
 #ifndef SGE_RUCKSACK_VECTOR_HPP_INCLUDED
 #define SGE_RUCKSACK_VECTOR_HPP_INCLUDED
 
-#include <sge/rucksack/vector_fwd.hpp>
+#include <sge/rucksack/vector_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/vector/static.hpp>
 
 #endif

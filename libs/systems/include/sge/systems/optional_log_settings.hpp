@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_OPTIONAL_LOG_SETTINGS_HPP_INCLUDED
 
 #include <sge/systems/log_settings.hpp>
-#include <sge/systems/optional_log_settings_fwd.hpp>
+#include <sge/systems/optional_log_settings_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

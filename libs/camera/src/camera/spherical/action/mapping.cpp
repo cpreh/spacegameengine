@@ -3,15 +3,21 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/camera/spherical/action/decrease_azimuth.hpp>
+#include <sge/camera/spherical/action/decrease_inclination.hpp>
+#include <sge/camera/spherical/action/decrease_radius.hpp>
 #include <sge/camera/spherical/action/mapping.hpp>
+#include <sge/camera/spherical/action/increase_azimuth.hpp>
+#include <sge/camera/spherical/action/increase_inclination.hpp>
+#include <sge/camera/spherical/action/increase_radius.hpp>
 
 sge::camera::spherical::action::mapping::mapping(
-    action::increase_azimuth const &_increase_azimuth,
-    action::decrease_azimuth const &_decrease_azimuth,
-    action::increase_inclination const &_increase_inclination,
-    action::decrease_inclination const &_decrease_inclination,
-    action::increase_radius const &_increase_radius,
-    action::decrease_radius const &_decrease_radius)
+    sge::camera::spherical::action::increase_azimuth const &_increase_azimuth,
+    sge::camera::spherical::action::decrease_azimuth const &_decrease_azimuth,
+    sge::camera::spherical::action::increase_inclination const &_increase_inclination,
+    sge::camera::spherical::action::decrease_inclination const &_decrease_inclination,
+    sge::camera::spherical::action::increase_radius const &_increase_radius,
+    sge::camera::spherical::action::decrease_radius const &_decrease_radius)
     : increase_azimuth_(_increase_azimuth),
       decrease_azimuth_(_decrease_azimuth),
       increase_inclination_(_increase_inclination),

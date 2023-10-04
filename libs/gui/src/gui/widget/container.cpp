@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/gui/context.hpp>
+#include <sge/gui/context.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/context_ref.hpp>
 #include <sge/gui/duration.hpp>
 #include <sge/gui/get_focus.hpp>
@@ -16,17 +16,16 @@
 #include <sge/gui/widget/reference.hpp>
 #include <sge/gui/widget/reference_vector.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/rucksack/rect.hpp>
+#include <sge/rucksack/rect.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_comparison.hpp>
+#include <fcppt/reference_comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/box/contains_point.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>

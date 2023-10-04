@@ -26,7 +26,7 @@ class scalar
 
 public:
   static_assert(
-      std::is_same<ValueType, bool>::value ||
+      std::is_same_v<ValueType, bool> ||
           sge::cg::parameter::is_int_float_double<ValueType>::value,
       "Shader parameters must be either bool, int, float or double");
 

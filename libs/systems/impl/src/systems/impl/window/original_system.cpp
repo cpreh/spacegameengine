@@ -7,8 +7,7 @@
 #include <sge/systems/impl/window/system_base.hpp>
 #include <sge/window/system.hpp>
 #include <awl/system/create.hpp>
-#include <awl/system/object.hpp>
-#include <awl/system/event/processor.hpp>
+#include <awl/system/object.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_ref.hpp>
 #include <fcppt/log/context_reference.hpp>
 

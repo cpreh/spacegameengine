@@ -9,6 +9,7 @@
 #include <sge/camera/first_person/mouse_speed_multiplier.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/first_person/action/mapping.hpp>
 #include <sge/camera/first_person/action/wasd_mapping.hpp>
 
 sge::camera::first_person::parameters::parameters(

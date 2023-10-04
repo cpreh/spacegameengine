@@ -7,7 +7,7 @@
 #define SGE_FONT_PLUGIN_ITERATOR_HPP_INCLUDED
 
 #include <sge/font/system_fwd.hpp>
-#include <sge/font/plugin/iterator_fwd.hpp>
+#include <sge/font/plugin/iterator_fwd.hpp> // IWYU pragma: export
 #include <sge/plugin/declare_iterator.hpp>
 
 SGE_PLUGIN_DECLARE_ITERATOR(sge::font::system);

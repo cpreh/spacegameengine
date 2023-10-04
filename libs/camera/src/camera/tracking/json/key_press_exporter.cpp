@@ -5,7 +5,9 @@
 
 #include <sge/camera/base.hpp>
 #include <sge/camera/exception.hpp>
+#include <sge/camera/update_duration.hpp>
 #include <sge/camera/impl/log_name.hpp>
+#include <sge/camera/tracking/keyframe.hpp>
 #include <sge/camera/tracking/json/key_press_exporter.hpp>
 #include <sge/camera/tracking/json/keyframes_to_json.hpp>
 #include <sge/input/event_base.hpp>
@@ -14,7 +16,6 @@
 #include <sge/log/location.hpp>
 #include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/start.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/output/to_file.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
@@ -28,6 +29,7 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

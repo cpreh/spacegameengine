@@ -8,7 +8,7 @@
 
 #include <sge/plugin/declare_collection.hpp>
 #include <sge/renderer/core_fwd.hpp>
-#include <sge/renderer/plugin/collection_fwd.hpp>
+#include <sge/renderer/plugin/collection_fwd.hpp> // IWYU pragma: export
 
 SGE_PLUGIN_DECLARE_COLLECTION(sge::renderer::core);
 

@@ -3,8 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/systems/audio_loader.hpp>
+#include <sge/systems/audio_player.hpp>
+#include <sge/systems/config.hpp>
+#include <sge/systems/font.hpp>
+#include <sge/systems/image2d.hpp>
+#include <sge/systems/input.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/systems/detail/any.hpp>
 #include <sge/systems/detail/any_key.hpp>
+#include <sge/systems/detail/renderer.hpp>
 #include <sge/systems/impl/make_any_key.hpp>
 #include <fcppt/variant/apply.hpp>
 

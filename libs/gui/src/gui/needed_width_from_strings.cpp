@@ -8,7 +8,7 @@
 #include <sge/font/flags_field.hpp>
 #include <sge/font/object.hpp>
 #include <sge/font/string.hpp>
-#include <sge/font/text.hpp>
+#include <sge/font/text.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/variant.hpp>

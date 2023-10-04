@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/camera/tracking/keyframe_sequence.hpp>
 #include <sge/camera/tracking/json/keyframe_from_json.hpp>
 #include <sge/camera/tracking/json/keyframes_from_json.hpp>
 #include <sge/parse/json/array.hpp>

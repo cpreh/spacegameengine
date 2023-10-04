@@ -5,10 +5,9 @@
 
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_plugin/collection.hpp>
-#include <sge/audio/player_plugin/context.hpp>
-#include <sge/audio/player_plugin/iterator.hpp>
-#include <sge/audio/player_plugin/traits.hpp>
-#include <sge/plugin/manager_fwd.hpp>
+#include <sge/audio/player_plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/player_plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/player_plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/systems/audio_player.hpp>
 #include <sge/systems/impl/find_plugin.hpp>
 #include <sge/systems/impl/find_plugin_opt.hpp>

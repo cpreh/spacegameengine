@@ -7,10 +7,7 @@
 #include <sge/font/plugin/context.hpp>
 #include <sge/font/plugin/iterator.hpp>
 #include <sge/font/plugin/object.hpp>
-#include <sge/plugin/collection.hpp>
-#include <sge/plugin/context.hpp>
 #include <sge/plugin/info.hpp>
-#include <sge/plugin/iterator.hpp>
 #include <sge/plugin/name.hpp>
 #include <sge/systems/exception.hpp>
 #include <sge/systems/font.hpp>

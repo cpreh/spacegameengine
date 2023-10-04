@@ -54,7 +54,7 @@ public:
   ~muxing_streambuf() override;
 
 private:
-  bool in_progress_;
+  bool in_progress_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   sge::console::object_ref const object_;
 

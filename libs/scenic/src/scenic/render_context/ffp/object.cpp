@@ -5,41 +5,77 @@
 
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/core.hpp>
-#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/context/ffp_ref.hpp>
-#include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/state/core/blend/alpha_off.hpp>
+#include <sge/renderer/state/core/blend/alpha_variant.hpp>
+#include <sge/renderer/state/core/blend/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
-#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
-#include <sge/renderer/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
+#include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
-#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
+#include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/sampler/parameters.hpp>
+#include <sge/renderer/state/core/sampler/address/mode.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_all.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/trilinear.hpp>
+#include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
+#include <sge/renderer/state/ffp/lighting/const_optional_object_ref.hpp>
+#include <sge/renderer/state/ffp/lighting/diffuse_color.hpp>
 #include <sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
-#include <sge/renderer/state/ffp/lighting/object.hpp>
+#include <sge/renderer/state/ffp/lighting/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
+#include <sge/renderer/state/ffp/lighting/specular_color.hpp>
+#include <sge/renderer/state/ffp/lighting/variant.hpp>
+#include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
-#include <sge/renderer/state/ffp/lighting/light/object.hpp>
+#include <sge/renderer/state/ffp/lighting/light/constant_attenuation.hpp>
+#include <sge/renderer/state/ffp/lighting/light/direction.hpp>
+#include <sge/renderer/state/ffp/lighting/light/directional.hpp>
+#include <sge/renderer/state/ffp/lighting/light/linear_attenuation.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
-#include <sge/renderer/state/ffp/lighting/material/object.hpp>
+#include <sge/renderer/state/ffp/lighting/light/point.hpp>
+#include <sge/renderer/state/ffp/lighting/light/position.hpp>
+#include <sge/renderer/state/ffp/lighting/light/quadratic_attenuation.hpp>
+#include <sge/renderer/state/ffp/lighting/light/variant.hpp>
+#include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref.hpp>
+#include <sge/renderer/state/ffp/lighting/material/emissive_color.hpp>
+#include <sge/renderer/state/ffp/lighting/material/shininess.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
+#include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
@@ -49,9 +85,13 @@
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/ffp/manager.hpp>
 #include <sge/scenic/render_context/ffp/object.hpp>
+#include <sge/scenic/render_context/fog/optional_properties.hpp>
+#include <sge/scenic/render_context/light/directional.hpp>
+#include <sge/scenic/render_context/light/object.hpp>
+#include <sge/scenic/render_context/light/point.hpp>
+#include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <fcppt/make_cref.hpp>
-#include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>

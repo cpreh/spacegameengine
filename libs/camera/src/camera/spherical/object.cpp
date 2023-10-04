@@ -8,27 +8,26 @@
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
+#include <sge/camera/update_duration.hpp>
+#include <sge/camera/coordinate_system/object.hpp>
 #include <sge/camera/impl/set_pressed_if_appropriate.hpp>
 #include <sge/camera/spherical/object.hpp>
 #include <sge/camera/spherical/parameters.hpp>
+#include <sge/camera/spherical/coordinate_system/azimuth.hpp>
+#include <sge/camera/spherical/coordinate_system/inclination.hpp>
 #include <sge/camera/spherical/coordinate_system/null.hpp>
+#include <sge/camera/spherical/coordinate_system/radius.hpp>
 #include <sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp>
 #include <sge/input/event_base.hpp>
 #include <sge/input/keyboard/event/key.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/vector4.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/clamp.hpp>
-#include <fcppt/math/matrix/rotation_axis.hpp>
-#include <fcppt/math/matrix/vector.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/cross.hpp>
-#include <fcppt/math/vector/length.hpp>
-#include <fcppt/math/vector/narrow_cast.hpp>
-#include <fcppt/math/vector/normalize.hpp>
+#include <fcppt/math/matrix/vector.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/math/vector/arithmetic.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>

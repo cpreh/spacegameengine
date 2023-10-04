@@ -6,7 +6,7 @@
 #ifndef SGE_RUCKSACK_PADDING_HPP_INCLUDED
 #define SGE_RUCKSACK_PADDING_HPP_INCLUDED
 
-#include <sge/rucksack/padding_fwd.hpp>
+#include <sge/rucksack/padding_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

@@ -6,7 +6,7 @@
 #include <sge/window/loop.hpp>
 #include <sge/window/loop_function.hpp>
 #include <sge/window/system.hpp>
-#include <awl/event/base.hpp>
+#include <awl/event/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/main/exit_code.hpp>

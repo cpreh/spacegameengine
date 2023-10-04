@@ -5,7 +5,7 @@
 
 #include <sge/rucksack/access_axis.hpp>
 #include <sge/rucksack/axis.hpp>
-#include <sge/rucksack/dim.hpp>
+#include <sge/rucksack/dim.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/rect.hpp>
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/vector.hpp>
@@ -13,6 +13,7 @@
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/enum/size.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
 void sge::rucksack::widget::base::size(

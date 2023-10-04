@@ -6,7 +6,7 @@
 #ifndef SGE_CONSOLE_SHORT_DESCRIPTION_HPP_INCLUDED
 #define SGE_CONSOLE_SHORT_DESCRIPTION_HPP_INCLUDED
 
-#include <sge/console/short_description_fwd.hpp>
+#include <sge/console/short_description_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

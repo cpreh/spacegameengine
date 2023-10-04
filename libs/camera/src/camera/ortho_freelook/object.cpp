@@ -17,6 +17,7 @@
 #include <sge/camera/ortho_freelook/zoom_speed.hpp>
 #include <sge/input/event_base.hpp>
 #include <sge/input/keyboard/event/key.hpp>
+#include <sge/input/mouse/axis_code.hpp>
 #include <sge/input/mouse/event/axis.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -24,6 +25,7 @@
 #include <sge/renderer/projection/rect.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/math/box/stretch_relative.hpp>

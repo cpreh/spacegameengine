@@ -3,14 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/gui/impl/draw_image.hpp>
 #include <sge/gui/renderer/base.hpp>
-#include <sge/gui/style/base.hpp>
+#include <sge/gui/style/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/style/const_reference.hpp>
-#include <sge/gui/widget/base.hpp>
+#include <sge/gui/widget/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/widget/image.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/access_axis.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
@@ -18,11 +17,11 @@
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/make_axis_policy.hpp>
 #include <sge/rucksack/preferred_size.hpp>
-#include <sge/rucksack/rect.hpp>
+#include <sge/rucksack/rect.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/texture/const_part_ref.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/texture/part.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/literal.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -40,7 +39,8 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 sge::gui::widget::image::image(
     sge::gui::style::const_reference const _style, sge::texture::const_part_ref const _texture)
-    : style_(_style),
+    : sge::gui::widget::base{},
+      style_(_style),
       texture_(_texture),
       layout_{sge::rucksack::make_axis_policy(sge::rucksack::axis_policy_function{
           [this](sge::rucksack::axis const _axis)

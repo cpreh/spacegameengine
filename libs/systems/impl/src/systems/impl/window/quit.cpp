@@ -5,9 +5,9 @@
 
 #include <sge/systems/impl/window/quit.hpp>
 #include <sge/window/event_function.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/system_ref.hpp>
 #include <awl/event/container.hpp>
 #include <awl/main/exit_success.hpp>
@@ -20,7 +20,6 @@
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 
 FCPPT_PP_PUSH_WARNING

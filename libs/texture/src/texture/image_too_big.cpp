@@ -8,7 +8,7 @@
 #include <sge/texture/image_too_big.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 
 sge::texture::image_too_big::image_too_big(sge::renderer::dim2 const &_size)
     : sge::texture::exception(

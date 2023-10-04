@@ -25,6 +25,7 @@
 #include <sge/rucksack/widget/reference_alignment.hpp>
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/reference_comparison.hpp>
@@ -35,7 +36,6 @@
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/variant/apply.hpp>

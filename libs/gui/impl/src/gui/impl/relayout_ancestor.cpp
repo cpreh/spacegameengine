@@ -5,7 +5,7 @@
 
 #include <sge/gui/impl/relayout_ancestor.hpp>
 #include <sge/gui/widget/base.hpp>
-#include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/widget/optional_ref.hpp>
 #include <fcppt/make_ref.hpp>
 

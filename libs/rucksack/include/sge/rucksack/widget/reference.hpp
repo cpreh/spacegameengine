@@ -6,7 +6,7 @@
 #ifndef SGE_RUCKSACK_WIDGET_REFERENCE_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_REFERENCE_HPP_INCLUDED
 
-#include <sge/rucksack/widget/reference_fwd.hpp>
+#include <sge/rucksack/widget/reference_fwd.hpp> // IWYU pragma: export
 #include <fcppt/reference_impl.hpp>
 
 #endif

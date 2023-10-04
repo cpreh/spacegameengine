@@ -6,7 +6,7 @@
 #ifndef SGE_GUI_INDEX_HPP_INCLUDED
 #define SGE_GUI_INDEX_HPP_INCLUDED
 
-#include <sge/gui/index_fwd.hpp>
+#include <sge/gui/index_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

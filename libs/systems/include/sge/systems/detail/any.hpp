@@ -13,7 +13,7 @@
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/window.hpp>
-#include <sge/systems/detail/any_fwd.hpp>
+#include <sge/systems/detail/any_fwd.hpp> // IWYU pragma: export
 #include <sge/systems/detail/renderer.hpp>
 #include <fcppt/variant/object_impl.hpp>
 

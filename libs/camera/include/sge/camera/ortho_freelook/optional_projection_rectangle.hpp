@@ -6,7 +6,7 @@
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_OPTIONAL_PROJECTION_RECTANGLE_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_OPTIONAL_PROJECTION_RECTANGLE_HPP_INCLUDED
 
-#include <sge/camera/ortho_freelook/optional_projection_rectangle_fwd.hpp>
+#include <sge/camera/ortho_freelook/optional_projection_rectangle_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/projection/rect.hpp>
 #include <fcppt/optional/object_impl.hpp>
 

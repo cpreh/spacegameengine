@@ -4,10 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/system.hpp>
-#include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/detail/renderer.hpp>

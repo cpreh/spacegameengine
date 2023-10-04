@@ -7,7 +7,7 @@
 #define SGE_AUDIO_PLAYER_PLUGIN_CONTEXT_HPP_INCLUDED
 
 #include <sge/audio/player_fwd.hpp>
-#include <sge/audio/player_plugin/context_fwd.hpp>
+#include <sge/audio/player_plugin/context_fwd.hpp> // IWYU pragma: export
 #include <sge/plugin/declare_context.hpp>
 
 SGE_PLUGIN_DECLARE_CONTEXT(sge::audio::player);

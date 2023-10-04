@@ -7,7 +7,7 @@
 #define SGE_FONT_PLUGIN_COLLECTION_HPP_INCLUDED
 
 #include <sge/font/system_fwd.hpp>
-#include <sge/font/plugin/collection_fwd.hpp>
+#include <sge/font/plugin/collection_fwd.hpp> // IWYU pragma: export
 #include <sge/plugin/declare_collection.hpp>
 
 SGE_PLUGIN_DECLARE_COLLECTION(sge::font::system);

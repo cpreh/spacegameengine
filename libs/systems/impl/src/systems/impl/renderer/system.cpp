@@ -13,8 +13,8 @@
 #include <sge/systems/impl/renderer/find_plugin.hpp>
 #include <sge/systems/impl/renderer/system.hpp>
 #include <sge/systems/impl/window/system.hpp>
-#include <sge/window/system.hpp>
-#include <awl/visual/object.hpp>
+#include <sge/window/system.hpp> // NOLINT(misc-include-cleaner)
+#include <awl/visual/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/log/context_reference.hpp>

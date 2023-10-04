@@ -3,13 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/gui/context.hpp>
+#include <sge/gui/context.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/context_ref.hpp>
 #include <sge/gui/draw.hpp>
 #include <sge/gui/duration.hpp>
 #include <sge/gui/master.hpp>
+#include <sge/gui/background/base_fwd.hpp>
 #include <sge/gui/impl/renderer/scoped.hpp>
-#include <sge/gui/main_area/base.hpp>
+#include <sge/gui/main_area/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/main_area/reference.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/widget/base.hpp>
@@ -17,7 +18,7 @@
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/input/event_base.hpp>
 #include <sge/input/cursor/button_code.hpp>
-#include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/event/button.hpp>
 #include <sge/input/focus/char_type.hpp>
@@ -28,7 +29,7 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
 #include <sge/rucksack/vector.hpp>
-#include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/base.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>

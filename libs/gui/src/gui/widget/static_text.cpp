@@ -6,16 +6,16 @@
 #include <sge/font/flags.hpp>
 #include <sge/font/flags_field.hpp>
 #include <sge/font/metrics.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/object_ref.hpp>
-#include <sge/font/rect.hpp>
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/align_h/left.hpp>
 #include <sge/font/align_h/variant.hpp>
+#include <sge/gui/text_color.hpp>
 #include <sge/gui/renderer/base.hpp>
-#include <sge/gui/style/base.hpp>
+#include <sge/gui/style/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/static_text.hpp>
@@ -25,6 +25,7 @@
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/preferred_size.hpp>
+#include <sge/rucksack/rect.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <fcppt/cast/size_fun.hpp>

@@ -5,7 +5,6 @@
 
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/detail/renderer.hpp>
 #include <sge/systems/impl/renderer/create_device.hpp>
 #include <sge/systems/impl/renderer/device.hpp>
@@ -13,7 +12,6 @@
 #include <sge/systems/impl/window/object.hpp>
 #include <sge/viewport/manager.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/dim.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/cast/static_downcast.hpp>
 

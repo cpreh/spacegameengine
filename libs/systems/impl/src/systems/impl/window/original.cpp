@@ -10,17 +10,15 @@
 #include <sge/systems/impl/window/original.hpp>
 #include <sge/systems/impl/window/to_awl_parameters.hpp>
 #include <sge/window/object.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/system_ref.hpp>
 #include <awl/cursor/const_optional_object_ref.hpp>
-#include <awl/cursor/object.hpp>
+#include <awl/cursor/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/cursor/optional_type.hpp>
 #include <awl/cursor/type.hpp>
 #include <awl/system/object.hpp>
-#include <awl/system/event/processor.hpp>
-#include <awl/visual/object.hpp>
-#include <awl/window/object.hpp>
-#include <awl/window/parameters.hpp>
+#include <awl/visual/object.hpp> // NOLINT(misc-include-cleaner)
+#include <awl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>

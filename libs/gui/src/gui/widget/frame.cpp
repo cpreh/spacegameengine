@@ -7,18 +7,19 @@
 #include <sge/gui/focus_change.hpp>
 #include <sge/gui/get_focus.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
-#include <sge/gui/style/base.hpp>
+#include <sge/gui/style/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/gui/widget/frame.hpp>
-#include <sge/gui/widget/optional_focus.hpp>
+#include <sge/gui/widget/optional_focus.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/gui/widget/reference.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/rucksack/padding.hpp>
-#include <sge/rucksack/rect.hpp>
+#include <sge/rucksack/padding.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/rucksack/rect.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>

@@ -4,15 +4,23 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/cg/program/object_ref.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/vector4.hpp>
 #include <sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp>
+#include <sge/scenic/render_context/ambient_color.hpp>
+#include <sge/scenic/render_context/diffuse_color.hpp>
+#include <sge/scenic/render_context/specular_color.hpp>
 #include <sge/scenic/render_context/cg/light/directional.hpp>
+#include <sge/scenic/render_context/cg/light/index.hpp>
+#include <sge/scenic/render_context/light/direction.hpp>
+#include <sge/shader/parameter/name.hpp>
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/math/vector/normalize.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <string>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

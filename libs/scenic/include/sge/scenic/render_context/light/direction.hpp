@@ -7,7 +7,7 @@
 #define SGE_SCENIC_RENDER_CONTEXT_LIGHT_DIRECTION_HPP_INCLUDED
 
 #include <sge/renderer/vector3.hpp>
-#include <sge/scenic/render_context/light/direction_fwd.hpp>
+#include <sge/scenic/render_context/light/direction_fwd.hpp> // IWYU pragma: export
 #include <fcppt/strong_typedef.hpp>
 
 #endif

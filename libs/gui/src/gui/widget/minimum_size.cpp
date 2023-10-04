@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/gui/widget/base.hpp>
+#include <sge/gui/widget/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/widget/dummy.hpp>
 #include <sge/gui/widget/minimum_size.hpp>
 #include <sge/gui/widget/reference.hpp>

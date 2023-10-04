@@ -82,11 +82,11 @@ private:
 
   sge::camera::spherical::coordinate_system::object velocity_;
 
-  bool increase_azimuth_pressed_, decrease_azimuth_pressed_;
+  bool increase_azimuth_pressed_, decrease_azimuth_pressed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  bool increase_inclination_pressed_, decrease_inclination_pressed_;
+  bool increase_inclination_pressed_, decrease_inclination_pressed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  bool increase_radius_pressed_, decrease_radius_pressed_;
+  bool increase_radius_pressed_, decrease_radius_pressed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   void key_event(sge::input::keyboard::event::key const &);
 };

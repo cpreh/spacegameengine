@@ -3,40 +3,48 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/cg/string.hpp>
 #include <sge/config/media_path.hpp>
 #include <sge/core/exception.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image/ds/format.hpp>
 #include <sge/postprocessing/context.hpp>
+#include <sge/postprocessing/fullscreen_quad.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
-#include <sge/renderer/color_buffer/writable_surface.hpp>
-#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/color_buffer/writable_surface.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/context/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/context/scoped_core.hpp>
+#include <sge/renderer/context/scoped_core_unique_ptr.hpp>
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
-#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/state/core/sampler/address/default.hpp>
 #include <sge/renderer/state/core/sampler/filter/point.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/from_texture.hpp>
-#include <sge/renderer/target/offscreen.hpp>
-#include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/target/onscreen_unique_ptr.hpp>
+#include <sge/renderer/target/offscreen.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/target/offscreen_unique_ptr.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
+#include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
@@ -45,9 +53,9 @@
 #include <sge/renderer/texture/address_mode2.hpp>
 #include <sge/renderer/texture/set_address_mode2.hpp>
 	*/
+#include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/vertex/declaration.hpp>
-#include <sge/renderer/vertex/scoped_declaration.hpp>
+#include <sge/renderer/vertex/declaration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/shader/context_ref.hpp>
 #include <sge/shader/optional_cflags.hpp>
 #include <sge/shader/pixel_program_path.hpp>
@@ -56,7 +64,7 @@
 #include <sge/shader/parameter/name.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <sge/viewport/manage_callback.hpp>
-#include <sge/viewport/manager.hpp>
+#include <sge/viewport/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/viewport/manager_ref.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
@@ -64,19 +72,17 @@
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/assign.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/ignore_dangling_reference.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/connection.hpp>
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)

@@ -6,7 +6,7 @@
 #include <sge/systems/window_fwd.hpp>
 #include <sge/systems/impl/window/make_system_base.hpp>
 #include <sge/systems/impl/window/system.hpp>
-#include <sge/systems/impl/window/system_base.hpp>
+#include <sge/systems/impl/window/system_base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/system_fwd.hpp>
 #include <fcppt/log/context_reference.hpp>
 

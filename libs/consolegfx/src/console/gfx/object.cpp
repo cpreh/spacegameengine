@@ -43,7 +43,6 @@
 #include <fcppt/iterator/make_range.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/null.hpp>
-#include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
@@ -53,6 +52,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <cctype>
 #include <locale>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

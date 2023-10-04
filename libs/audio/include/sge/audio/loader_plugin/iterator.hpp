@@ -7,7 +7,7 @@
 #define SGE_AUDIO_LOADER_PLUGIN_ITERATOR_HPP_INCLUDED
 
 #include <sge/audio/loader_fwd.hpp>
-#include <sge/audio/loader_plugin/iterator_fwd.hpp>
+#include <sge/audio/loader_plugin/iterator_fwd.hpp> // IWYU pragma: export
 #include <sge/plugin/declare_iterator.hpp>
 
 SGE_PLUGIN_DECLARE_ITERATOR(sge::audio::loader);

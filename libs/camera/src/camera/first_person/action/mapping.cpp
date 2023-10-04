@@ -3,15 +3,21 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/camera/first_person/action/backward.hpp>
+#include <sge/camera/first_person/action/down.hpp>
+#include <sge/camera/first_person/action/forward.hpp>
+#include <sge/camera/first_person/action/left.hpp>
 #include <sge/camera/first_person/action/mapping.hpp>
+#include <sge/camera/first_person/action/right.hpp>
+#include <sge/camera/first_person/action/up.hpp>
 
 sge::camera::first_person::action::mapping::mapping(
-    action::left const &_left,
-    action::right const &_right,
-    action::up const &_up,
-    action::down const &_down,
-    action::forward const &_forward,
-    action::backward const &_backward)
+    sge::camera::first_person::action::left const &_left,
+    sge::camera::first_person::action::right const &_right,
+    sge::camera::first_person::action::up const &_up,
+    sge::camera::first_person::action::down const &_down,
+    sge::camera::first_person::action::forward const &_forward,
+    sge::camera::first_person::action::backward const &_backward)
     : left_(_left), right_(_right), up_(_up), down_(_down), forward_(_forward), backward_(_backward)
 {
 }

@@ -8,7 +8,7 @@
 
 #include <sge/plugin/declare_iterator.hpp>
 #include <sge/renderer/core_fwd.hpp>
-#include <sge/renderer/plugin/iterator_fwd.hpp>
+#include <sge/renderer/plugin/iterator_fwd.hpp> // IWYU pragma: export
 
 SGE_PLUGIN_DECLARE_ITERATOR(sge::renderer::core);
 

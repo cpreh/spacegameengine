@@ -60,7 +60,7 @@ private:
 
   sge::font::weight::optional_unit weight_;
 
-  bool italic_; // NOLINT(cppcoreguidelines-use-default-member-init)
+  bool italic_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

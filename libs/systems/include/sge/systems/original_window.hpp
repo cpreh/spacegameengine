@@ -46,7 +46,7 @@ private:
 
   sge::window::optional_dim dim_;
 
-  bool hide_cursor_;
+  bool hide_cursor_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

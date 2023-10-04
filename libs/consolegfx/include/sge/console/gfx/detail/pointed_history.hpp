@@ -51,7 +51,7 @@ private:
 
   size_type limit_;
 
-  size_type point_;
+  size_type point_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

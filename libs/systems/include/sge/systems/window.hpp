@@ -34,9 +34,9 @@ public:
 private:
   sge::systems::window_source source_;
 
-  bool show_;
+  bool show_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  bool quit_;
+  bool quit_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

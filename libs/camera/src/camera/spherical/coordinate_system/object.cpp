@@ -3,12 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/camera/spherical/coordinate_system/azimuth.hpp>
+#include <sge/camera/spherical/coordinate_system/inclination.hpp>
 #include <sge/camera/spherical/coordinate_system/object.hpp>
+#include <sge/camera/spherical/coordinate_system/radius.hpp>
 
 sge::camera::spherical::coordinate_system::object::object(
-    spherical::coordinate_system::azimuth const &_azimuth,
-    spherical::coordinate_system::inclination const &_inclination,
-    spherical::coordinate_system::radius const &_radius)
+    sge::camera::spherical::coordinate_system::azimuth const &_azimuth,
+    sge::camera::spherical::coordinate_system::inclination const &_inclination,
+    sge::camera::spherical::coordinate_system::radius const &_radius)
     : azimuth_(_azimuth), inclination_(_inclination), radius_(_radius)
 {
 }

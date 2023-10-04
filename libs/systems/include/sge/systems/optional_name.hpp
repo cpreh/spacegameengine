@@ -6,7 +6,7 @@
 #ifndef SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
 #define SGE_SYSTEMS_OPTIONAL_NAME_HPP_INCLUDED
 
-#include <sge/systems/optional_name_fwd.hpp>
+#include <sge/systems/optional_name_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

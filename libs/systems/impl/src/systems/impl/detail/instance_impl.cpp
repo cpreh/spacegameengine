@@ -5,32 +5,31 @@
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player_fwd.hpp>
-#include <sge/audio/loader_plugin/collection.hpp>
-#include <sge/audio/loader_plugin/manager.hpp>
-#include <sge/audio/player_plugin/collection.hpp>
-#include <sge/audio/player_plugin/manager.hpp>
+#include <sge/audio/loader_plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/loader_plugin/manager.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/player_plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/player_plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/system_fwd.hpp>
-#include <sge/font/plugin/collection.hpp>
-#include <sge/font/plugin/manager.hpp>
+#include <sge/font/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/font/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/image2d/plugin/collection.hpp>
-#include <sge/image2d/plugin/manager.hpp>
+#include <sge/image2d/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/processor_fwd.hpp>
 #include <sge/input/system_fwd.hpp>
-#include <sge/input/plugin/collection.hpp>
-#include <sge/input/plugin/manager.hpp>
+#include <sge/input/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/input/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
-#include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/renderer/plugin/collection.hpp>
-#include <sge/renderer/plugin/manager.hpp>
+#include <sge/renderer/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/systems/audio_loader_fwd.hpp>
 #include <sge/systems/audio_player_fwd.hpp>
 #include <sge/systems/exception.hpp>
@@ -49,7 +48,6 @@
 #include <sge/systems/impl/image2d/object.hpp>
 #include <sge/systems/impl/input/object.hpp>
 #include <sge/systems/impl/renderer/device.hpp>
-#include <sge/systems/impl/renderer/optional_system_ref.hpp>
 #include <sge/systems/impl/renderer/system.hpp>
 #include <sge/systems/impl/window/object.hpp>
 #include <sge/systems/impl/window/object_unique_ptr.hpp>
@@ -60,11 +58,11 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/log/context.hpp>
+#include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

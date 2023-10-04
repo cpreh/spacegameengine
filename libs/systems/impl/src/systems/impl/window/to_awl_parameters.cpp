@@ -5,10 +5,10 @@
 
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/impl/window/to_awl_parameters.hpp>
+#include <sge/window/dim.hpp>
 #include <awl/cursor/const_optional_object_ref_fwd.hpp>
 #include <awl/cursor/object_fwd.hpp>
 #include <awl/visual/object_fwd.hpp>
-#include <awl/window/dim.hpp>
 #include <awl/window/parameters.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>

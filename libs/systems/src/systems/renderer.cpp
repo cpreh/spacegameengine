@@ -7,7 +7,6 @@
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
-#include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/optional_name.hpp>
 #include <sge/systems/renderer.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>

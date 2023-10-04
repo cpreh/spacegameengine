@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_REPETITION_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_REPETITION_HPP_INCLUDED
 
-#include <sge/sprite/types/repetition_fwd.hpp>
+#include <sge/sprite/types/repetition_fwd.hpp> // IWYU pragma: export
 #include <sge/sprite/types/basic/float_vector.hpp>
 
 #endif

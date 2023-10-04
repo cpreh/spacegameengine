@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/input/capabilities.hpp>
-#include <sge/input/capabilities_field.hpp>
+#include <sge/input/capabilities_field.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/capabilities_to_string.hpp>
 #include <sge/input/create_multi_system.hpp>
 #include <sge/input/processor.hpp>
@@ -13,7 +13,6 @@
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/impl/input/cursor_modifier.hpp>
-#include <sge/systems/impl/input/cursor_modifier_unique_ptr.hpp>
 #include <sge/systems/impl/input/object.hpp>
 #include <sge/systems/impl/window/object.hpp>
 #include <fcppt/make_ref.hpp>
@@ -26,7 +25,7 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/warning.hpp>
 #include <fcppt/optional/make_if.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

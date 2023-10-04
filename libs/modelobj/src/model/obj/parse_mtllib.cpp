@@ -305,7 +305,7 @@ private:
 
   sge::model::obj::material_map result_;
 
-  unsigned current_line_; // NOLINT(cppcoreguidelines-use-default-member-init)
+  unsigned current_line_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   sge::model::obj::identifier current_material_;
 

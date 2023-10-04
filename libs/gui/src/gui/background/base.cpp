@@ -4,12 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/gui/background/base.hpp>
-#include <sge/gui/main_area/base.hpp>
+#include <sge/gui/main_area/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/main_area/reference.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/widget/base.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/rucksack/rect.hpp>
+#include <sge/rucksack/rect.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/widget/base.hpp>
 
 sge::gui::background::base::base(sge::gui::main_area::reference const _main_area)

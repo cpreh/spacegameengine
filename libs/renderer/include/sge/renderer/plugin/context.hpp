@@ -8,7 +8,7 @@
 
 #include <sge/plugin/declare_context.hpp>
 #include <sge/renderer/core_fwd.hpp>
-#include <sge/renderer/plugin/context_fwd.hpp>
+#include <sge/renderer/plugin/context_fwd.hpp> // IWYU pragma: export
 
 SGE_PLUGIN_DECLARE_CONTEXT(sge::renderer::core);
 

@@ -6,7 +6,7 @@
 #include <sge/gui/fill_color.hpp>
 #include <sge/gui/fill_level.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
-#include <sge/gui/style/base.hpp>
+#include <sge/gui/style/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/bar.hpp>
 #include <sge/gui/widget/base.hpp>
@@ -19,7 +19,7 @@
 #include <sge/rucksack/make_axis_policy.hpp>
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/preferred_size.hpp>
-#include <sge/rucksack/rect.hpp>
+#include <sge/rucksack/rect.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <fcppt/config/external_begin.hpp>

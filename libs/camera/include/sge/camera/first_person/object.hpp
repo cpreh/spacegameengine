@@ -75,11 +75,11 @@ private:
 
   sge::camera::optional_projection_matrix projection_matrix_;
 
-  bool left_pressed_, right_pressed_;
+  bool left_pressed_, right_pressed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  bool up_pressed_, down_pressed_;
+  bool up_pressed_, down_pressed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  bool forward_pressed_, backward_pressed_;
+  bool forward_pressed_, backward_pressed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   void key_event(sge::input::keyboard::event::key const &);
 

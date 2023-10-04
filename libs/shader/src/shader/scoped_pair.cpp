@@ -4,8 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/renderer/context/core_ref.hpp>
-#include <sge/shader/context.hpp>
-#include <sge/shader/pair.hpp>
+#include <sge/shader/pair.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/shader/scoped_pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/make_cref.hpp>

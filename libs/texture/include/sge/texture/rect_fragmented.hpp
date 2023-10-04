@@ -51,15 +51,15 @@ private:
 
   [[nodiscard]] bool empty() const override;
 
-  sge::renderer::size_type cur_x_; // NOLINT(cppcoreguidelines-use-default-member-init)
+  sge::renderer::size_type cur_x_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  sge::renderer::size_type cur_y_; // NOLINT(cppcoreguidelines-use-default-member-init)
+  sge::renderer::size_type cur_y_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  sge::renderer::size_type cur_height_; // NOLINT(cppcoreguidelines-use-default-member-init)
+  sge::renderer::size_type cur_height_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   sge::renderer::texture::planar_unique_ptr const texture_;
 
-  sge::renderer::size_type texture_count_; // NOLINT(cppcoreguidelines-use-default-member-init)
+  sge::renderer::size_type texture_count_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

@@ -23,6 +23,7 @@
 #include <sge/systems/config.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/optional_log_settings.hpp>
+#include <sge/systems/window.hpp>
 #include <sge/systems/detail/any_key.hpp>
 #include <sge/systems/detail/any_map.hpp>
 #include <sge/systems/detail/instance.hpp>
@@ -39,6 +40,7 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/either/failure_opt.hpp>
 #include <fcppt/either/success_opt.hpp>
 #include <fcppt/log/context_reference.hpp>

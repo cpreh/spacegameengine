@@ -6,10 +6,10 @@
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/renderer/plugin/collection.hpp>
-#include <sge/renderer/plugin/context.hpp>
-#include <sge/renderer/plugin/iterator.hpp>
-#include <sge/renderer/plugin/traits.hpp>
+#include <sge/renderer/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/systems/optional_name_fwd.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/impl/find_plugin.hpp>

@@ -15,6 +15,7 @@
 #include <sge/console/prefix.hpp>
 #include <sge/console/signal.hpp>
 #include <sge/console/callback/function.hpp>
+#include <sge/console/callback/name.hpp>
 #include <sge/console/callback/parameters.hpp>
 #include <sge/console/impl/eval_grammar.hpp>
 #include <sge/font/char_type.hpp>
@@ -34,12 +35,12 @@
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/parse/grammar_parse_string.hpp>
 #include <fcppt/parse/parse_string_error.hpp>
-#include <fcppt/parse/parse_string_error_output.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/signal/unregister/function.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
@@ -75,6 +76,7 @@ FCPPT_PP_POP_WARNING
 sge::console::object::~object() = default;
 
 fcppt::signal::auto_connection
+// NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
 sge::console::object::insert(sge::console::callback::parameters &&_params)
 {
   return fcppt::container::get_or_insert(

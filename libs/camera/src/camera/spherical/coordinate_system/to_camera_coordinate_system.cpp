@@ -3,7 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/camera/coordinate_system/forward.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/coordinate_system/position.hpp>
+#include <sge/camera/coordinate_system/right.hpp>
+#include <sge/camera/coordinate_system/up.hpp>
+#include <sge/camera/spherical/origin.hpp>
 #include <sge/camera/spherical/coordinate_system/object.hpp>
 #include <sge/camera/spherical/coordinate_system/to_camera_coordinate_system.hpp>
 #include <sge/renderer/vector2.hpp>
@@ -32,8 +37,8 @@ spherical_coordinates(sge::camera::spherical::coordinate_system::object const &_
 
 fcppt::optional::object<sge::camera::coordinate_system::object>
 sge::camera::spherical::coordinate_system::to_camera_coordinate_system(
-    spherical::coordinate_system::object const &_coordinate_system,
-    spherical::origin const &_origin)
+    sge::camera::spherical::coordinate_system::object const &_coordinate_system,
+    sge::camera::spherical::origin const &_origin)
 {
   sge::camera::coordinate_system::forward const forward_vector{
       spherical_coordinates(_coordinate_system)};

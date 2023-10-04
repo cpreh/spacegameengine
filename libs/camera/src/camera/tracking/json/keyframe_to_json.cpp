@@ -13,7 +13,6 @@
 #include <sge/parse/json/member.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
-#include <sge/parse/json/value.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <fcppt/make_recursive.hpp>
 #include <fcppt/config/external_begin.hpp>

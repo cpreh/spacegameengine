@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/gui/impl/style/simple.hpp>
+#include <sge/gui/style/base.hpp>
 #include <sge/gui/style/base_unique_ptr.hpp>
 #include <sge/gui/style/create.hpp>
 #include <fcppt/make_unique_ptr.hpp>

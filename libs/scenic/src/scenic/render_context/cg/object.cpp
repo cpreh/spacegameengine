@@ -3,17 +3,24 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector3.hpp>
+#include <sge/renderer/context/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/context/core_ref.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/scenic/exception.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp>
+#include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/cg/manager.hpp>
 #include <sge/scenic/render_context/cg/object.hpp>
@@ -22,8 +29,13 @@
 #include <sge/scenic/render_context/cg/light/point.hpp>
 #include <sge/scenic/render_context/fog/optional_properties.hpp>
 #include <sge/scenic/render_context/fog/properties.hpp>
+#include <sge/scenic/render_context/light/direction.hpp>
+#include <sge/scenic/render_context/light/directional.hpp>
+#include <sge/scenic/render_context/light/point.hpp>
 #include <sge/scenic/render_context/light/object.hpp>
+#include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
+#include <sge/shader/parameter/planar_texture.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
