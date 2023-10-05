@@ -7,7 +7,6 @@
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_PLANAR_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/dim2.hpp>
 #include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
@@ -16,11 +15,13 @@
 #include <sge/opencl/memory_object/image/planar_pitch.hpp>
 #include <sge/renderer/texture/planar_ref.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::memory_object::image
 {
-class SGE_CORE_DETAIL_CLASS_SYMBOL planar : public memory_object::base
+class SGE_CORE_DETAIL_CLASS_SYMBOL planar : public sge::opencl::memory_object::base
 {
   FCPPT_NONMOVABLE(planar);
 

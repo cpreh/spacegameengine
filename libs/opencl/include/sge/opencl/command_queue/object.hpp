@@ -6,7 +6,6 @@
 #ifndef SGE_OPENCL_COMMAND_QUEUE_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_OBJECT_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/execution_mode_fwd.hpp>
 #include <sge/opencl/command_queue/profiling_mode_fwd.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
@@ -15,6 +14,9 @@
 #include <sge/opencl/device/object_fwd.hpp>
 #include <sge/opencl/device/object_ref.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::command_queue
 {
@@ -46,7 +48,7 @@ public:
 private:
   sge::opencl::context::object_ref const context_;
   sge::opencl::device::object_ref const device_;
-  cl_command_queue queue_;
+  cl_command_queue queue_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

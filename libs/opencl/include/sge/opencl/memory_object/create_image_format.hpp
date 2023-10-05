@@ -6,8 +6,10 @@
 #ifndef SGE_OPENCL_MEMORY_OBJECT_CREATE_IMAGE_FORMAT_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_CREATE_IMAGE_FORMAT_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/detail/symbol.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::memory_object
 {

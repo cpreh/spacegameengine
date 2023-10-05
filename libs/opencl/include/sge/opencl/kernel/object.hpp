@@ -6,7 +6,6 @@
 #ifndef SGE_OPENCL_KERNEL_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_KERNEL_OBJECT_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/device/object_fwd.hpp>
 #include <sge/opencl/kernel/argument_index.hpp>
@@ -18,6 +17,8 @@
 #include <sge/opencl/program/object_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -50,8 +51,7 @@ public:
   argument(sge::opencl::kernel::argument_index const &, sge::opencl::kernel::local_buffer const &);
 
   [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL std::size_t
-  work_group_size(sge::opencl::device::object & // NOLINT(google-runtime-references)
-  ) const; // NOLINT(google-runtime-references)
+  work_group_size(sge::opencl::device::object &) const; // NOLINT(google-runtime-references)
 
   [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL sge::opencl::kernel::name::value_type const &name() const;
 
@@ -62,8 +62,8 @@ public:
 
 private:
   sge::opencl::kernel::name name_;
-  cl_kernel kernel_;
-  cl_uint argument_count_;
+  cl_kernel kernel_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
+  cl_uint argument_count_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

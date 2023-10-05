@@ -7,6 +7,7 @@
 #include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object_fwd.hpp>
 #include <mizuiro/color/channel/alpha.hpp>
 #include <mizuiro/color/channel/blue.hpp>
 #include <mizuiro/color/channel/green.hpp>

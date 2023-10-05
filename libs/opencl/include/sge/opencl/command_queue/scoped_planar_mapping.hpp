@@ -8,7 +8,6 @@
 
 #include <sge/image/color/format.hpp>
 #include <sge/image2d/view/object.hpp>
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/map_flags_fwd.hpp>
 #include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
@@ -18,6 +17,7 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -50,8 +50,8 @@ private:
   sge::opencl::memory_object::rect rect_;
   sge::image::color::format sge_image_format_;
   cl_mem image_;
-  void *ptr_;
-  std::size_t pitch_;
+  void *ptr_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
+  std::size_t pitch_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 }
 

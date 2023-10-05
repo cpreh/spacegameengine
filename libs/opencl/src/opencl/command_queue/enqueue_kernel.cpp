@@ -6,25 +6,40 @@
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/size_type.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
-#include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/global_dim1.hpp>
+#include <sge/opencl/command_queue/global_dim2.hpp>
+#include <sge/opencl/command_queue/global_dim3.hpp>
+#include <sge/opencl/command_queue/local_dim1.hpp>
+#include <sge/opencl/command_queue/local_dim2.hpp>
+#include <sge/opencl/command_queue/local_dim3.hpp>
+#include <sge/opencl/command_queue/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/event/object.hpp>
+#include <sge/opencl/event/object_unique_ptr.hpp>
+#include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/event/flatten_sequence.hpp>
-#include <sge/opencl/kernel/object.hpp>
+#include <sge/opencl/kernel/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/kernel/object_ref.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
+#include <fcppt/string.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/contents.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/dim/static.hpp>
 #include <fcppt/optional/make.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {

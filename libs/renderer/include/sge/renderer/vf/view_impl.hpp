@@ -7,7 +7,7 @@
 #define SGE_RENDERER_VF_VIEW_IMPL_HPP_INCLUDED
 
 #include <sge/renderer/vf/iterator_impl.hpp>
-#include <sge/renderer/vf/view_decl.hpp>
+#include <sge/renderer/vf/view_decl.hpp> // IWYU pragma: export
 #include <sge/renderer/vf/dynamic/basic_view.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

@@ -5,6 +5,7 @@
 
 #include <sge/opencl/memory_object/image/format_output.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 

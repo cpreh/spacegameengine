@@ -7,6 +7,9 @@
 #include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opencl::event::object::object() : handle_(), handle_retrieved_(false) {}
 

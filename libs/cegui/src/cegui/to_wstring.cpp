@@ -8,7 +8,6 @@
 #include <sge/charconv/encoding.hpp>
 #include <sge/charconv/string_type.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUI/Base.h>
 #include <CEGUI/String.h>
 #include <string>
 #include <fcppt/config/external_end.hpp>

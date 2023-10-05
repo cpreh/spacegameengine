@@ -6,11 +6,14 @@
 #ifndef SGE_OPENCL_COMMAND_QUEUE_MAP_FLAGS_TO_NATIVE_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_MAP_FLAGS_TO_NATIVE_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/map_flags_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::command_queue
 {
+// TODO(philipp): Move this to impl/
 // There's no DETAIL_SYMBOL missing here, this header is private. However, I didn't
 // want to add a src/ and include/ directory to the implementation, so I put it
 // here.

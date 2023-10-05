@@ -3,34 +3,42 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opencl/clinclude.hpp>
+#include <sge/opencl/binary_error_data.hpp>
 #include <sge/opencl/config.hpp>
+#include <sge/opencl/error_information_string.hpp>
 #include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/context/parameters.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/memory_object/image/format_sequence.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #if defined(SGE_OPENCL_HAVE_GLX)
-#include <fcppt/config/external_begin.hpp>
-#include <GL/glx.h>
-#include <fcppt/config/external_end.hpp>
 #elif defined(SGE_OPENCL_HAVE_WINDOWS)
+// FIXME(philipp)
 #include <sge/src/include_windows.hpp>
 #else
 #error "Don't know what to include for opencl platform code"
 #endif
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_gl.h>
+#include <CL/cl_platform.h>
+#include <cstddef>
 #include <vector>
+#if defined(SGE_OPENCL_HAVE_GLX)
+#include <GL/glx.h>
+#endif
 #include <fcppt/config/external_end.hpp>
 
 sge::opencl::context::object::object(opencl::context::parameters const &_params)
@@ -155,7 +163,7 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 void sge::opencl::context::object::error_callback(
     char const *const _error_info_string,
     void const *const _bindata,
-    size_t const _size_of_bindata,
+    std::size_t const _size_of_bindata,
     void *const _user_data)
 {
   fcppt::optional::maybe_void(

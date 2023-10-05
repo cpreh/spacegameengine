@@ -14,12 +14,12 @@ namespace sge::opencl::kernel
 class local_buffer
 {
 public:
-  SGE_OPENCL_DETAIL_SYMBOL explicit local_buffer(memory_object::byte_size const &);
+  SGE_OPENCL_DETAIL_SYMBOL explicit local_buffer(sge::opencl::memory_object::byte_size const &);
 
-  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL memory_object::byte_size::value_type byte_size() const;
+  [[nodiscard]] SGE_OPENCL_DETAIL_SYMBOL sge::opencl::memory_object::byte_size::value_type byte_size() const;
 
 private:
-  memory_object::byte_size byte_size_;
+  sge::opencl::memory_object::byte_size byte_size_;
 };
 }
 

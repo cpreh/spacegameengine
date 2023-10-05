@@ -6,20 +6,23 @@
 #include <sge/log/default_parameters.hpp>
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/log_location.hpp>
-#include <sge/opencl/context/object.hpp>
+#include <sge/opencl/context/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/device/object.hpp>
+#include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
-#include <sge/opencl/program/build_error.hpp>
+//#include <sge/opencl/program/build_error.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
+#include <sge/opencl/program/notification_callback.hpp>
 #include <sge/opencl/program/object.hpp>
+#include <sge/opencl/program/optional_build_parameters.hpp>
+#include <sge/opencl/program/source_string_sequence.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/config/gcc_version_at_least.hpp>
 #include <fcppt/container/data.hpp>
 #include <fcppt/container/buffer/object.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
@@ -30,10 +33,12 @@
 #include <fcppt/log/verbose.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
-#include <fcppt/preprocessor/pop_warning.hpp>
-#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
+#include <cstddef>
+#include <string>
+#include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -46,7 +51,7 @@ sge::opencl::program::object::object(
 {
   using string_ptr_vector = std::vector<char const *>;
 
-  using length_vector = std::vector<size_t>;
+  using length_vector = std::vector<std::size_t>;
 
   string_ptr_vector strings;
 
@@ -61,7 +66,7 @@ sge::opencl::program::object::object(
   {
     strings.push_back(source_string.c_str());
 
-    lengths.push_back(static_cast<size_t>(source_string.length()));
+    lengths.push_back(static_cast<std::size_t>(source_string.length()));
   }
 
   cl_int error_code{};
@@ -157,7 +162,7 @@ sge::opencl::program::object::device_id_vector sge::opencl::program::object::pro
   cl_int const error_code2 = clGetProgramInfo(
       program_,
       CL_PROGRAM_DEVICES,
-      static_cast<size_t>(sizeof(cl_device_id) * devices.write_size()),
+      static_cast<std::size_t>(sizeof(cl_device_id) * devices.write_size()),
       devices.write_data(),
       nullptr);
 

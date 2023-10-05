@@ -6,7 +6,6 @@
 #ifndef SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 #define SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <fcppt/config/gcc_version_at_least.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/mpl/list/unique.hpp>
@@ -14,6 +13,9 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/from_list.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::kernel
 {

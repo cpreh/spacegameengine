@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/command_queue/scoped.hpp>
 

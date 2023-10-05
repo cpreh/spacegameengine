@@ -16,6 +16,7 @@
 #include <sge/charconv/encoding.hpp>
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <sge/input/cursor/position.hpp>
+#include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/event/button.hpp>
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/input/cursor/event/scroll.hpp>

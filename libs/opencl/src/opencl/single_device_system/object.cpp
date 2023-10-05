@@ -9,14 +9,19 @@
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/system.hpp>
+#include <sge/opencl/command_queue/execution_mode.hpp>
 #include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/object.hpp>
 #include <sge/opencl/context/parameters.hpp>
+#include <sge/opencl/device/object.hpp>
 #include <sge/opencl/device/object_ref.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/platform/object_ref.hpp>
+#include <sge/opencl/platform/object_sequence.hpp>
 #include <sge/opencl/single_device_system/object.hpp>
+#include <sge/opencl/single_device_system/optional_renderer.hpp>
 #include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/from_std_string.hpp>
@@ -37,7 +42,6 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/trim.hpp>
-#include <boost/thread/locks.hpp>
 #include <mutex>
 #include <fcppt/config/external_end.hpp>
 

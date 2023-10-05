@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/model/obj/material/object.hpp>
 #include <sge/scenic/scene/identifier.hpp>
 #include <sge/scenic/scene/material/ambient_color.hpp>
 #include <sge/scenic/scene/material/diffuse_color.hpp>

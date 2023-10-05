@@ -9,7 +9,7 @@
 #include <fcppt/config/platform.hpp>
 #if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
 #include <fcppt/config/external_begin.hpp>
-#include <OpenGL/gl.h>
+#include <OpenGL/gl.h> // IWYU pragma: export
 #include <fcppt/config/external_end.hpp>
 #else
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
@@ -20,11 +20,11 @@
 #define NOMINMAX
 #endif
 #include <fcppt/config/external_begin.hpp>
-#include <windows.h>
+#include <windows.h> // IWYU pragma: export
 #include <fcppt/config/external_end.hpp>
 #endif
 #include <fcppt/config/external_begin.hpp>
-#include <GL/gl.h>
+#include <GL/gl.h> // IWYU pragma: export
 #include <fcppt/config/external_end.hpp>
 #endif
 

@@ -7,7 +7,7 @@
 #define SGE_CEGUI_IMPL_MAKE_RASTERIZER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
-#include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters.hpp>
 
 namespace sge::cegui::impl
 {

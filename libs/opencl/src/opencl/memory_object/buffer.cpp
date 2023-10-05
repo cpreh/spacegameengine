@@ -3,23 +3,30 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opencl/context/object.hpp>
+#include <sge/opencl/context/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/memory_object/renderer_buffer_lock_mode_to_cl_mem_flags.hpp>
 #include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <sge/opencl/memory_object/buffer.hpp>
+#include <sge/opencl/memory_object/byte_size.hpp>
+#include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/renderer_buffer_lock_mode.hpp>
 #include <sge/renderer/opengl/buffer/base.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/buffer_ref.hpp>
-#include <sge/renderer/vf/dynamic/part.hpp>
+#include <sge/renderer/vf/dynamic/part.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_gl.h>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opencl::memory_object::buffer::buffer(
     sge::opencl::context::object_ref const _context,
-    memory_object::flags_field const &_flags,
-    memory_object::byte_size const &_byte_size)
+    sge::opencl::memory_object::flags_field const &_flags,
+    sge::opencl::memory_object::byte_size const &_byte_size)
     : impl_(nullptr), byte_size_(_byte_size)
 {
   cl_int error_code{};
@@ -30,13 +37,13 @@ sge::opencl::memory_object::buffer::buffer(
       nullptr,
       &error_code);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clCreateBuffer"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clCreateBuffer"));
 }
 
 sge::opencl::memory_object::buffer::buffer(
     sge::opencl::context::object_ref const _context,
     sge::renderer::vertex::buffer_ref const _vb,
-    memory_object::renderer_buffer_lock_mode const _lock_mode)
+    sge::opencl::memory_object::renderer_buffer_lock_mode const _lock_mode)
     : impl_(nullptr),
       byte_size_(static_cast<byte_size::value_type>(
           _vb.get().linear_size() * _vb.get().format().get().stride().get()))
@@ -49,7 +56,7 @@ sge::opencl::memory_object::buffer::buffer(
       dynamic_cast<sge::renderer::opengl::buffer::base &>(_vb.get()).id().get(),
       &error_code);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clCreateFromGLBuffer"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clCreateFromGLBuffer"));
 }
 
 cl_mem sge::opencl::memory_object::buffer::impl() { return impl_; }
@@ -68,5 +75,5 @@ sge::opencl::memory_object::buffer::~buffer()
 
   cl_int const error_code = clReleaseMemObject(impl_);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clReleaseMemObject(buffer)"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clReleaseMemObject(buffer)"));
 }

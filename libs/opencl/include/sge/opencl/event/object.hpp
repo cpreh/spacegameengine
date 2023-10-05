@@ -6,9 +6,11 @@
 #ifndef SGE_OPENCL_EVENT_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_EVENT_OBJECT_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::event
 {
@@ -29,8 +31,8 @@ public:
   ~object();
 
 private:
-  cl_event handle_;
-  mutable bool handle_retrieved_;
+  cl_event handle_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
+  mutable bool handle_retrieved_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

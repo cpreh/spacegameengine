@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/cegui/impl/optional_render_context_ref.hpp>
-#include <sge/cegui/impl/renderer.hpp>
+#include <sge/cegui/impl/renderer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/cegui/impl/renderer_ref.hpp>
 #include <sge/cegui/impl/scoped_render_context.hpp>
 #include <sge/renderer/context/ffp_ref.hpp>

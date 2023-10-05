@@ -6,9 +6,9 @@
 #ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 

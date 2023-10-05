@@ -3,8 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
+#include <sge/renderer/index/buffer_ref.hpp>
+#include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/impl/number_multiplexer/object_impl.hpp>
+#include <sge/scenic/render_queue/index_type.hpp>
 #include <sge/scenic/render_queue/mesh.hpp>
+#include <sge/scenic/render_queue/sort_index.hpp>
 
 namespace
 {

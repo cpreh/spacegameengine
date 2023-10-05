@@ -17,7 +17,6 @@
 #include <sge/scenic/render_queue/state_change_count.hpp>
 #include <sge/scenic/scene/material/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/optional/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -41,8 +40,7 @@ public:
       sge::scenic::index_buffer_range const &);
 
   [[nodiscard]] sge::scenic::render_queue::state_change_count
-  render(sge::scenic::render_context::base & // NOLINT(google-runtime-references)
-  ); // NOLINT(google-runtime-references)
+  render(sge::scenic::render_context::base &); // NOLINT(google-runtime-references)
 
   ~object();
 

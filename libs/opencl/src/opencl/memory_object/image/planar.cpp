@@ -3,28 +3,35 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opencl/dim2.hpp>
 #include <sge/opencl/exception.hpp>
-#include <sge/opencl/context/object.hpp>
+#include <sge/opencl/context/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
+#include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
+#include <sge/opencl/memory_object/image/planar_pitch.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_ref.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_gl.h>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opencl::memory_object::image::planar::planar(
     sge::opencl::context::object_ref const _context,
-    memory_object::flags_field const &_mem_flags,
+    sge::opencl::memory_object::flags_field const &_mem_flags,
     cl_image_format const &_image_format,
     sge::opencl::dim2 const _size,
-    image::planar_pitch const &_pitch)
+    sge::opencl::memory_object::image::planar_pitch const &_pitch)
     : impl_(), image_format_(_image_format), size_(_size)
 {
   if (fcppt::not_(

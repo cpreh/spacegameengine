@@ -9,9 +9,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/to_std_wstring.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <CEGUI/Base.h>
 #include <CEGUI/String.h>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 CEGUI::String sge::cegui::to_cegui_string(fcppt::string const &_string)

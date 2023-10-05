@@ -3,12 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/platform/object.hpp>
+#include <sge/opencl/platform/object_sequence.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/buffer/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opencl::system::system()
     : // TODO(philipp): Direct initialization
@@ -24,7 +28,7 @@ sge::opencl::system::system()
       nullptr,
       &number_of_platforms);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetplatformIDs"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetplatformIDs"));
 
   if (number_of_platforms == 0)
   {
@@ -45,7 +49,7 @@ sge::opencl::system::system()
 
   platform_ids.written(platform_ids.write_size());
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetplatformIDs"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetplatformIDs"));
 
   // TODO(philipp): map
   for (auto const &platform : platform_ids)

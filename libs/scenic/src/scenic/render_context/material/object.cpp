@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/color/any/compare.hpp>
-#include <sge/image/color/any/object_fwd.hpp>
 #include <sge/scenic/render_context/ambient_color.hpp>
 #include <sge/scenic/render_context/diffuse_color.hpp>
 #include <sge/scenic/render_context/emissive_color.hpp>
@@ -13,8 +12,8 @@
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/scenic/render_context/material/shininess.hpp>
 #include <sge/scenic/render_context/material/specular_texture.hpp>
-#include <fcppt/reference_comparison.hpp>
-#include <fcppt/optional/comparison.hpp>
+#include <fcppt/reference_comparison.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/optional/comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
 #include <type_traits>
@@ -33,7 +32,7 @@ bool compare_floats(float const _a, float const _b)
 struct compare_channels
 {
   template <typename T>
-  std::enable_if_t<std::is_integral<T>::value, bool> operator()(T const _a, T const _b) const
+  std::enable_if_t<std::is_integral_v<T>, bool> operator()(T const _a, T const _b) const
   {
     return _a == _b;
   }

@@ -41,8 +41,7 @@ public:
       sge::scenic::scene::prototype_unique_ptr);
 
   SGE_SCENIC_DETAIL_SYMBOL
-  void render(sge::scenic::render_context::base & // NOLINT(google-runtime-references)
-  ); // NOLINT(google-runtime-references)
+  void render(sge::scenic::render_context::base &); // NOLINT(google-runtime-references)
 
   SGE_SCENIC_DETAIL_SYMBOL
   ~object();
@@ -60,17 +59,13 @@ private:
   sge::camera::perspective_projection_from_viewport camera_viewport_connection_;
   mesh_map mesh_name_to_instance_;
   material_map materials_;
-  unsigned state_changes_;
+  unsigned state_changes_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   void load_entities();
 
-  void activate_lights(sge::scenic::render_context::base & // NOLINT(google-runtime-references)
-  ); // NOLINT(google-runtime-references)
+  void activate_lights(sge::scenic::render_context::base &); // NOLINT(google-runtime-references)
 
-  void render_entity(
-      sge::scenic::scene::entity const &,
-      sge::scenic::render_queue::object & // NOLINT(google-runtime-references)
-  ); // NOLINT(google-runtime-references)
+  void render_entity(sge::scenic::scene::entity const &, sge::scenic::render_queue::object &); // NOLINT(google-runtime-references)
 };
 
 }

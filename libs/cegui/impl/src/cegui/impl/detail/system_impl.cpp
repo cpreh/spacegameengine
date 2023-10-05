@@ -20,13 +20,13 @@
 #include <sge/log/location.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/target/viewport_is_null.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/viewport/manage_callback.hpp>
-#include <sge/viewport/manager.hpp>
+#include <sge/viewport/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/viewport/manager_ref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
@@ -37,9 +37,9 @@
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/out.hpp>
-#include <fcppt/math/box/comparison.hpp>
+#include <fcppt/math/box/comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/box/null.hpp>
-#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/box/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/dim/fill.hpp>
@@ -49,7 +49,6 @@
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Font.h>
 #include <CEGUI/FontManager.h>
@@ -57,6 +56,7 @@
 #include <CEGUI/MouseCursor.h>
 #include <CEGUI/Rect.h>
 #include <CEGUI/Scheme.h>
+#include <CEGUI/SchemeManager.h>
 #include <CEGUI/System.h>
 #include <CEGUI/falagard/WidgetLookManager.h>
 #include <fcppt/config/external_end.hpp>

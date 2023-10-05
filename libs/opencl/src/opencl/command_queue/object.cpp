@@ -12,6 +12,10 @@
 #include <sge/opencl/device/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opencl::command_queue::object::object(
     sge::opencl::device::object_ref const _device,

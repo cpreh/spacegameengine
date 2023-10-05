@@ -3,7 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/camera/coordinate_system/forward.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/coordinate_system/position.hpp>
+#include <sge/camera/coordinate_system/right.hpp>
+#include <sge/camera/coordinate_system/up.hpp>
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/charconv/utf8_string_to_fcppt.hpp>
 #include <sge/image/color/predef.hpp>
@@ -12,19 +16,48 @@
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
+#include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_and_convert_member.hpp>
 #include <sge/parse/json/get_exn.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
+#include <sge/parse/json/path.hpp>
 #include <sge/parse/json/start.hpp>
 #include <sge/parse/json/value.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/vector4.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/scenic/exception.hpp>
+#include <sge/scenic/render_context/ambient_color.hpp>
+#include <sge/scenic/render_context/diffuse_color.hpp>
+#include <sge/scenic/render_context/specular_color.hpp>
+#include <sge/scenic/render_context/fog/color.hpp>
+#include <sge/scenic/render_context/fog/end.hpp>
+#include <sge/scenic/render_context/fog/optional_properties.hpp>
+#include <sge/scenic/render_context/fog/properties.hpp>
+#include <sge/scenic/render_context/fog/start.hpp>
+#include <sge/scenic/render_context/light/attenuation.hpp>
+#include <sge/scenic/render_context/light/constant_attenuation.hpp>
+#include <sge/scenic/render_context/light/direction.hpp>
+#include <sge/scenic/render_context/light/directional.hpp>
+#include <sge/scenic/render_context/light/quadratic_attenuation.hpp>
+#include <sge/scenic/render_context/light/linear_attenuation.hpp>
+#include <sge/scenic/render_context/light/object.hpp>
+#include <sge/scenic/render_context/light/point.hpp>
+#include <sge/scenic/render_context/light/position.hpp>
+#include <sge/scenic/render_context/light/variant.hpp>
+#include <sge/scenic/scene/camera_properties.hpp>
 #include <sge/scenic/scene/entity.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
+#include <sge/scenic/scene/mesh_path.hpp>
+#include <sge/scenic/scene/position.hpp>
 #include <sge/scenic/scene/prototype.hpp>
+#include <sge/scenic/scene/prototype_unique_ptr.hpp>
+#include <sge/scenic/scene/rotation.hpp>
+#include <sge/scenic/scene/scale.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -33,17 +66,15 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/rotation_x.hpp>
 #include <fcppt/math/matrix/rotation_y.hpp>
 #include <fcppt/math/matrix/rotation_z.hpp>
 #include <fcppt/math/matrix/transform_direction.hpp>
-#include <fcppt/math/matrix/vector.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
-#include <fcppt/math/vector/narrow_cast.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/optional/from.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <filesystem>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -159,6 +190,7 @@ void load_entity(
     fcppt::reference<sge::scenic::scene::prototype> const _scene,
     sge::parse::json::object const &_json_entity)
 {
+  // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
   _scene.get().entities().push_back(sge::scenic::scene::entity{
       sge::scenic::scene::mesh_path{
           _base_path /
@@ -249,6 +281,7 @@ void load_light(
 
   if (light_type == "directional")
   {
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     _scene.get().lights().push_back(sge::scenic::render_context::light::object(
         diffuse_color,
         specular_color,
@@ -258,6 +291,7 @@ void load_light(
   }
   else if (light_type == "point")
   {
+    // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
     _scene.get().lights().push_back(sge::scenic::render_context::light::object(
         diffuse_color,
         specular_color,

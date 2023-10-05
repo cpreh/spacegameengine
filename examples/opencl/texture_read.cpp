@@ -9,7 +9,6 @@
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/to_const.hpp>
 #include <sge/media/all_extensions.hpp>
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/dim2.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
 #include <sge/opencl/command_queue/map_flags.hpp>
@@ -54,6 +53,7 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
 #include <cstdlib>
 #include <exception>
 #include <filesystem>

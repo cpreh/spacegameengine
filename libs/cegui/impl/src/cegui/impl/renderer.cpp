@@ -7,28 +7,30 @@
 #include <sge/cegui/to_fcppt_string.hpp>
 #include <sge/cegui/impl/from_cegui_size.hpp>
 #include <sge/cegui/impl/geometry_buffer.hpp>
+#include <sge/cegui/impl/optional_render_context_ref.hpp>
 #include <sge/cegui/impl/renderer.hpp>
 #include <sge/cegui/impl/texture.hpp>
+#include <sge/cegui/impl/texture_parameters.hpp>
 #include <sge/cegui/impl/texture_target.hpp>
 #include <sge/cegui/impl/to_cegui_rect.hpp>
 #include <sge/cegui/impl/to_cegui_vector2.hpp>
 #include <sge/cegui/impl/vf/format.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/renderer/caps/device.hpp>
-#include <sge/renderer/context/ffp.hpp>
+#include <sge/renderer/context/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/ffp.hpp>
-#include <sge/renderer/display_mode/object.hpp>
+#include <sge/renderer/display_mode/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/display_mode/to_dpi.hpp>
 #include <sge/renderer/target/onscreen.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
-#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/not.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
@@ -39,10 +41,11 @@
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/log/object.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/math/box/rect.hpp>
 #include <fcppt/math/box/structure_cast.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/dim/to_vector.hpp>
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -51,6 +54,9 @@
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Base.h>
+#include <CEGUI/Rect.h>
+#include <CEGUI/Size.h>
+#include <CEGUI/Vector.h>
 #include <algorithm>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

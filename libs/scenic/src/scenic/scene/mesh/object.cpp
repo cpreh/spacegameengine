@@ -3,10 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/model/obj/face_sequence.hpp>
 #include <sge/model/obj/face_vertex.hpp>
+#include <sge/model/obj/material_to_face_sequence.hpp>
+#include <sge/model/obj/normal_sequence.hpp>
 #include <sge/model/obj/prototype.hpp>
+#include <sge/model/obj/texture_coordinate_sequence.hpp>
+#include <sge/model/obj/vertex_coordinate_sequence.hpp>
 #include <sge/renderer/lock_mode.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_parameters.hpp>
@@ -17,27 +24,28 @@
 #include <sge/renderer/index/iterator.hpp>
 #include <sge/renderer/index/nonconst_tag.hpp>
 #include <sge/renderer/index/scoped_lock.hpp>
+#include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
-#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <sge/renderer/vf/labels/normal.hpp>
 #include <sge/renderer/vf/labels/pos.hpp>
 #include <sge/renderer/vf/labels/texpos.hpp>
+#include <sge/scenic/box.hpp>
+#include <sge/scenic/index_buffer_range.hpp>
+#include <sge/scenic/scene/identifier.hpp>
+#include <sge/scenic/scene/mesh/material_to_index_buffer_range.hpp>
 #include <sge/scenic/scene/mesh/object.hpp>
 #include <sge/scenic/vf/format.hpp>
 #include <sge/scenic/vf/format_part.hpp>
-#include <sge/scenic/vf/normal.hpp>
-#include <sge/scenic/vf/position.hpp>
-#include <sge/scenic/vf/texcoord.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

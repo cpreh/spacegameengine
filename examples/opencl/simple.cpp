@@ -5,7 +5,6 @@
 
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/dim1.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/system.hpp>
@@ -96,6 +95,7 @@
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/join.hpp>
+#include <CL/cl.h>
 #include <cstdlib>
 #include <ios>
 #include <iostream>

@@ -6,7 +6,7 @@
 #ifndef SGE_CEGUI_IMPL_OPTIONAL_KEY_SCAN_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_OPTIONAL_KEY_SCAN_HPP_INCLUDED
 
-#include <sge/cegui/impl/optional_key_scan_fwd.hpp>
+#include <sge/cegui/impl/optional_key_scan_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

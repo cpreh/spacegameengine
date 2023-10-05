@@ -6,8 +6,10 @@
 #ifndef SGE_OPENCL_IMPL_HANDLE_ERROR_HPP_INCLUDED
 #define SGE_OPENCL_IMPL_HANDLE_ERROR_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::impl
 {

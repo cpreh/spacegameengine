@@ -3,7 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opencl/command_queue/execution_mode.hpp>
+#include <sge/opencl/command_queue/profiling_mode.hpp>
+#include <sge/opencl/context/error_callback.hpp>
+#include <sge/opencl/context/optional_error_callback.hpp>
+#include <sge/opencl/single_device_system/optional_renderer.hpp>
 #include <sge/opencl/single_device_system/parameters.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 
 sge::opencl::single_device_system::parameters::parameters()
     : renderer_(),
@@ -32,7 +38,7 @@ sge::opencl::single_device_system::parameters::enable_profiling()
 
 sge::opencl::single_device_system::parameters &
 sge::opencl::single_device_system::parameters::context_error_callback(
-    opencl::context::error_callback const &_error_callback)
+    sge::opencl::context::error_callback const &_error_callback)
 {
   error_callback_ = opencl::context::optional_error_callback(_error_callback);
   return *this;

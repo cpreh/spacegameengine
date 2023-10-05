@@ -6,20 +6,26 @@
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/kernel/argument_index.hpp>
 #include <sge/opencl/kernel/local_buffer.hpp>
 #include <sge/opencl/kernel/name.hpp>
+#include <sge/opencl/kernel/numeric_type.hpp>
 #include <sge/opencl/kernel/object.hpp>
-#include <sge/opencl/memory_object/base.hpp>
+#include <sge/opencl/memory_object/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/memory_object/base_ref.hpp>
-#include <sge/opencl/program/object.hpp>
+#include <sge/opencl/memory_object/byte_size.hpp>
+#include <sge/opencl/program/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/program/object_ref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
+#include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -41,7 +47,7 @@ sge::opencl::kernel::object::object(
         FCPPT_TEXT("\" is invalid."));
   }
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clCreateKernel"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clCreateKernel"));
 
   error_code = clGetKernelInfo(
       kernel_,
@@ -51,7 +57,7 @@ sge::opencl::kernel::object::object(
       // Pointer to the argument size
       nullptr);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetKernelInfo(number of arguments)"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetKernelInfo(number of arguments)"));
 }
 
 sge::opencl::kernel::name::value_type const &sge::opencl::kernel::object::name() const
@@ -62,7 +68,7 @@ sge::opencl::kernel::name::value_type const &sge::opencl::kernel::object::name()
 cl_kernel sge::opencl::kernel::object::impl() { return kernel_; }
 
 void sge::opencl::kernel::object::argument(
-    kernel::argument_index const &index, sge::opencl::memory_object::base_ref const _memory)
+    sge::opencl::kernel::argument_index const &index, sge::opencl::memory_object::base_ref const _memory)
 {
   if (index.get() >= argument_count_)
   {
@@ -108,23 +114,23 @@ void sge::opencl::kernel::object::argument(
 }
 
 void sge::opencl::kernel::object::argument(
-    kernel::argument_index const &index,
+    sge::opencl::kernel::argument_index const &index,
     unsigned char const *const _data,
-    memory_object::byte_size const &_bytes)
+    sge::opencl::memory_object::byte_size const &_bytes)
 {
   cl_int const error_code =
       clSetKernelArg(kernel_, static_cast<cl_uint>(index.get()), _bytes.get(), _data);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clSetKernelArg(arbitrary data)"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clSetKernelArg(arbitrary data)"));
 }
 
 void sge::opencl::kernel::object::argument(
-    kernel::argument_index const &index, kernel::local_buffer const &_local_buffer)
+    sge::opencl::kernel::argument_index const &index, sge::opencl::kernel::local_buffer const &_local_buffer)
 {
   cl_int const error_code = clSetKernelArg(
       kernel_, static_cast<cl_uint>(index.get()), _local_buffer.byte_size(), nullptr);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clSetKernelArg(local buffer)"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clSetKernelArg(local buffer)"));
 }
 
 std::size_t sge::opencl::kernel::object::work_group_size(sge::opencl::device::object &_device) const
@@ -134,7 +140,7 @@ std::size_t sge::opencl::kernel::object::work_group_size(sge::opencl::device::ob
   cl_int const error_code = clGetKernelWorkGroupInfo(
       kernel_, _device.impl(), CL_KERNEL_WORK_GROUP_SIZE, sizeof(std::size_t), &result, nullptr);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetKernelWorkGroupInfo()"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetKernelWorkGroupInfo()"));
 
   return result;
 }
@@ -148,5 +154,5 @@ sge::opencl::kernel::object::~object()
 
   cl_int const error_code = clReleaseKernel(kernel_);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clReleaseKernel"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clReleaseKernel"));
 }

@@ -22,7 +22,9 @@
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Rect.h>
+#include <CEGUI/Size.h>
 #include <CEGUI/TextureTarget.h>
+#include <CEGUI/Vector.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace CEGUI

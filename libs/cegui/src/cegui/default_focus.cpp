@@ -4,8 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/cegui/default_focus.hpp>
-#include <sge/cegui/syringe.hpp>
+#include <sge/cegui/syringe.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/cegui/syringe_ref.hpp>
+#include <sge/input/event_base.hpp>
 #include <sge/input/focus/event/key.hpp>
 #include <sge/input/focus/event/key_repeat.hpp>
 #include <sge/input/focus/event/text.hpp>

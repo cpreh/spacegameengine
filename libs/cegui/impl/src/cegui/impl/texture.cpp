@@ -6,12 +6,11 @@
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/to_cegui_string.hpp>
 #include <sge/cegui/to_fcppt_string.hpp>
-#include <sge/cegui/unit.hpp>
 #include <sge/cegui/impl/convert_pixel_format.hpp>
 #include <sge/cegui/impl/from_cegui_size.hpp>
-#include <sge/cegui/impl/prefix.hpp>
 #include <sge/cegui/impl/texel_scaling.hpp>
 #include <sge/cegui/impl/texture.hpp>
+#include <sge/cegui/impl/texture_parameters.hpp>
 #include <sge/cegui/impl/to_absolute_path.hpp>
 #include <sge/cegui/impl/to_cegui_size.hpp>
 #include <sge/image/const_raw_pointer.hpp>
@@ -20,13 +19,12 @@
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/optional_format.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/load_exn.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/pitch.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/pitch.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/renderer/lock_mode.hpp>
@@ -37,13 +35,13 @@
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
-#include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/scoped_planar_lock.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/float_to_int_fun.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
@@ -54,16 +52,17 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/null.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/dim/static.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_unsigned.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/object_impl.hpp>
-#include <fcppt/optional/reference.hpp>
+#include <fcppt/optional/reference.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CEGUI/Rect.h>
 #include <CEGUI/Size.h>
 #include <CEGUI/String.h>
 #include <CEGUI/Texture.h>
@@ -143,9 +142,9 @@ sge::cegui::impl::texture::texture(
 					fcppt::math::dim::to_unsigned(
 						fcppt::math::dim::structure_cast<
 							fcppt::math::dim::static_<
-								std::make_signed<
+								std::make_signed_t<
 									sge::renderer::size_type
-								>::type,
+								>,
 								2
 							>,
 							fcppt::cast::float_to_int_fun

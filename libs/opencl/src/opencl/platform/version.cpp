@@ -14,12 +14,11 @@
 #include <fcppt/parse/uint.hpp>
 #include <fcppt/parse/parse_string.hpp>
 #include <fcppt/parse/parse_string_error.hpp>
-#include <fcppt/parse/parse_string_error_output.hpp>
+#include <fcppt/parse/parse_string_error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/parse/string.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
 #include <fcppt/parse/operators/sequence.hpp>
 #include <fcppt/tuple/get.hpp>
-#include <fcppt/config/compiler.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -31,6 +30,7 @@ sge::opencl::platform::version::version(std::string const &_version_string)
                   fcppt::parse::literal{'.'} >> fcppt::parse::uint<unit>{} >>
                   fcppt::parse::literal{' '} >> *fcppt::parse::char_{},
               std::string{_version_string}),
+              // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
           [](fcppt::parse::parse_string_error<char> &&_error)
           {
             return sge::opencl::exception{

@@ -3,23 +3,28 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opencl/context/object.hpp>
+#include <sge/opencl/dim3.hpp>
+#include <sge/opencl/context/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
+#include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/opencl/memory_object/image/volume.hpp>
 #include <sge/renderer/opengl/texture/base.hpp>
-#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/volume.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/volume_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_gl.h>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opencl::memory_object::image::volume::volume(
     sge::opencl::context::object_ref const _context,
-    memory_object::flags_field const &_mem_flags,
+    sge::opencl::memory_object::flags_field const &_mem_flags,
     sge::renderer::texture::volume_ref const _renderer_texture)
     : impl_(),
       image_format_(),
@@ -30,18 +35,18 @@ sge::opencl::memory_object::image::volume::volume(
   impl_ = clCreateFromGLTexture3D(
       _context.get().impl(),
       sge::opencl::impl::memory_object::to_opencl_mem_flags(_mem_flags),
-      dynamic_cast<renderer::opengl::texture::base &>(_renderer_texture.get()).type().get(),
+      dynamic_cast<sge::renderer::opengl::texture::base &>(_renderer_texture.get()).type().get(),
       // mip level
       0,
-      dynamic_cast<renderer::opengl::texture::base &>(_renderer_texture.get()).id().get(),
+      dynamic_cast<sge::renderer::opengl::texture::base &>(_renderer_texture.get()).id().get(),
       &error_code);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clCreateFromGLTexture3D()"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clCreateFromGLTexture3D()"));
 
   error_code =
       clGetImageInfo(impl_, CL_IMAGE_FORMAT, sizeof(cl_image_format), &image_format_, nullptr);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetImageInfo(image format)"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetImageInfo(image format)"));
 }
 
 cl_mem sge::opencl::memory_object::image::volume::impl() { return impl_; }
@@ -57,5 +62,5 @@ sge::opencl::memory_object::image::volume::~volume()
 {
   cl_int const error_code = clReleaseMemObject(impl_);
 
-  opencl::impl::handle_error(error_code, FCPPT_TEXT("clReleaseMemObject(volume texture)"));
+  sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clReleaseMemObject(volume texture)"));
 }

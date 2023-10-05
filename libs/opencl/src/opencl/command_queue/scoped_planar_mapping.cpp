@@ -5,17 +5,21 @@
 
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format_stride.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/image2d/pitch.hpp>
 #include <sge/image2d/view/make.hpp>
+#include <sge/image2d/view/object.hpp>
 #include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/map_flags_to_native.hpp>
-#include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
+#include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/event/flatten_sequence.hpp>
+#include <sge/opencl/memory_object/rect.hpp>
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
-#include <sge/opencl/memory_object/image/planar.hpp>
+#include <sge/opencl/memory_object/image/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/memory_object/image/planar_ref.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
@@ -23,6 +27,11 @@
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstddef>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(
     sge::opencl::command_queue::object_ref const _queue,

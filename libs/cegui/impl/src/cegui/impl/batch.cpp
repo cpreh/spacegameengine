@@ -6,8 +6,9 @@
 #include <sge/cegui/impl/batch.hpp>
 #include <sge/cegui/impl/clip.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/core_ref.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_ref.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>

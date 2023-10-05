@@ -8,7 +8,6 @@ set(
 	libs/opencl/impl/src/opencl/impl/handle_error.cpp
 	libs/opencl/impl/src/opencl/impl/memory_object/to_opencl_mem_flags.cpp
 	libs/opencl/include/sge/opencl/binary_error_data.hpp
-	libs/opencl/include/sge/opencl/clinclude.hpp
 	libs/opencl/include/sge/opencl/command_queue/enqueue_kernel.hpp
 	libs/opencl/include/sge/opencl/command_queue/execution_mode.hpp
 	libs/opencl/include/sge/opencl/command_queue/execution_mode_fwd.hpp

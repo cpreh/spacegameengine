@@ -6,9 +6,9 @@
 #ifndef SGE_OPENCL_IMPL_EVENT_FLATTEN_SEQUENCE_HPP_INCLUDED
 #define SGE_OPENCL_IMPL_EVENT_FLATTEN_SEQUENCE_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/event/sequence.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 

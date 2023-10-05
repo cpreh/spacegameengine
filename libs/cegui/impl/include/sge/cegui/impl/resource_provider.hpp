@@ -27,8 +27,7 @@ class resource_provider : public CEGUI::ResourceProvider
   FCPPT_NONMOVABLE(resource_provider);
 
 public:
-  explicit resource_provider(fcppt::log::object & // NOLINT(google-runtime-references)
-  ); // NOLINT(google-runtime-references)
+  explicit resource_provider(fcppt::log::object &); // NOLINT(google-runtime-references)
 
   ~resource_provider() override;
 

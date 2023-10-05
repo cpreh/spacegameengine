@@ -3,12 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/event/object.hpp>
+#include <sge/opencl/event/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/event/object_unique_ptr.hpp>
+#include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/impl/event/flatten_sequence.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 

@@ -3,19 +3,32 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/context/core.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/index/buffer_ref.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/buffer_ref.hpp>
-#include <sge/scenic/texture_manager.hpp>
+#include <sge/scenic/index_buffer_range.hpp>
+#include <sge/scenic/texture_manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/scenic/texture_manager_ref.hpp>
+#include <sge/scenic/render_context/ambient_color.hpp>
+#include <sge/scenic/render_context/diffuse_color.hpp>
 #include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_context/emissive_color.hpp>
 #include <sge/scenic/render_context/optional_planar_texture.hpp>
+#include <sge/scenic/render_context/specular_color.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
+#include <sge/scenic/render_context/material/diffuse_texture.hpp>
+#include <sge/scenic/render_context/material/object.hpp>
+#include <sge/scenic/render_context/material/shininess.hpp>
+#include <sge/scenic/render_context/material/specular_texture.hpp>
+#include <sge/scenic/render_queue/index_type.hpp>
+#include <sge/scenic/render_queue/mesh.hpp>
 #include <sge/scenic/render_queue/object.hpp>
+#include <sge/scenic/render_queue/state_change_count.hpp>
 #include <sge/scenic/scene/material/object.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iterator>

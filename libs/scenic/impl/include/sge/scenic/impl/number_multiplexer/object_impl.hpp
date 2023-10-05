@@ -6,7 +6,7 @@
 #ifndef SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_SCENIC_IMPL_NUMBER_MULTIPLEXER_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/scenic/impl/number_multiplexer/object_decl.hpp>
+#include <sge/scenic/impl/number_multiplexer/object_decl.hpp> // IWYU pragma: export
 #include <sge/scenic/impl/number_multiplexer/set_bits.hpp>
 #include <fcppt/literal.hpp>
 

@@ -5,6 +5,7 @@
 
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/impl/batch.hpp>
+#include <sge/cegui/impl/clip.hpp>
 #include <sge/cegui/impl/from_cegui_rect.hpp>
 #include <sge/cegui/impl/from_cegui_vector2.hpp>
 #include <sge/cegui/impl/from_cegui_vector3.hpp>
@@ -25,26 +26,23 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/pixel_rect.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant.hpp>
-#include <sge/renderer/state/core/blend/const_optional_object_ref.hpp>
-#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
 #include <sge/renderer/state/core/blend/write_mask_all.hpp>
 #include <sge/renderer/state/core/rasterizer/const_optional_object_ref.hpp>
 #include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
-#include <sge/renderer/state/core/rasterizer/object.hpp>
-#include <sge/renderer/state/core/rasterizer/parameters.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
@@ -52,8 +50,9 @@
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/scoped_scissor_area.hpp>
 #include <sge/renderer/texture/base.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/scoped.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
@@ -61,8 +60,8 @@
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/proxy.hpp>
+#include <sge/renderer/vf/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/vf/proxy.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/labels/color.hpp>
 #include <sge/renderer/vf/labels/pos.hpp>
@@ -71,7 +70,7 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/reference_comparison.hpp>
+#include <fcppt/reference_comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/text.hpp>
@@ -81,14 +80,14 @@
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/math/box/null.hpp>
-#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/box/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/box/structure_cast.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/translation.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/null.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/comparison.hpp>
 #include <fcppt/optional/from_pointer.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -104,6 +103,7 @@
 #include <CEGUI/Quaternion.h>
 #include <CEGUI/Rect.h>
 #include <CEGUI/RenderEffect.h>
+#include <CEGUI/Renderer.h>
 #include <CEGUI/Vector.h>
 #include <CEGUI/Vertex.h>
 #include <algorithm>

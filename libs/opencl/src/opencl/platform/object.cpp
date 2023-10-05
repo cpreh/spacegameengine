@@ -3,11 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opencl/clinclude.hpp>
-#include <sge/opencl/context/object.hpp>
+#include <sge/opencl/device/object.hpp>
+#include <sge/opencl/device/object_sequence.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
+#include <sge/opencl/platform/extension_sequence.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/platform/profile_type.hpp>
+#include <sge/opencl/platform/version.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/contains_if.hpp>
@@ -15,6 +18,8 @@
 #include <fcppt/container/dynamic_array.hpp>
 #include <fcppt/container/buffer/object.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
 #include <cstddef>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -84,7 +89,7 @@ sge::opencl::platform::extension_sequence sge::opencl::platform::object::extensi
 }
 
 bool sge::opencl::platform::object::supports_memory_sharing_with(
-    renderer::device::core const &) const
+    sge::renderer::device::core const &) const
 {
   return fcppt::algorithm::contains(this->extensions(), "cl_khr_gl_sharing");
 }

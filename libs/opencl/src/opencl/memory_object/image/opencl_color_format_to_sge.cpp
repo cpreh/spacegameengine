@@ -4,9 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/color/format.hpp>
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::image::color::format
 sge::opencl::memory_object::image::opencl_color_format_to_sge(cl_image_format const &f)

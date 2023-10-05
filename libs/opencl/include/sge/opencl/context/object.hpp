@@ -6,7 +6,6 @@
 #ifndef SGE_OPENCL_CONTEXT_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_CONTEXT_OBJECT_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
 #include <sge/opencl/context/optional_error_callback.hpp>
 #include <sge/opencl/context/parameters_fwd.hpp>
@@ -16,6 +15,7 @@
 #include <sge/opencl/program/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
@@ -46,10 +46,10 @@ private:
   friend class sge::opencl::command_queue::object;
   friend class sge::opencl::program::object;
 
-  cl_context context_;
+  cl_context context_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
   sge::opencl::context::optional_error_callback const error_callback_;
 
-  static void error_callback(char const *, void const *, size_t, void *);
+  static void error_callback(char const *, void const *, std::size_t, void *);
 };
 
 }

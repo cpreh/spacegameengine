@@ -16,6 +16,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/Rect.h>
 #include <CEGUI/RenderTarget.h>
+#include <CEGUI/Vector.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace CEGUI

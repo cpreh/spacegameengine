@@ -6,7 +6,6 @@
 #ifndef SGE_OPENCL_PROGRAM_OBJECT_HPP_INCLUDED
 #define SGE_OPENCL_PROGRAM_OBJECT_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/kernel/object_fwd.hpp>
@@ -18,7 +17,9 @@
 #include <fcppt/container/raw_vector/object_fwd.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
-#include <fcppt/optional/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::program
 {

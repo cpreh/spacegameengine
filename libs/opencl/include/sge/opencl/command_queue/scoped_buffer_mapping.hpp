@@ -6,7 +6,6 @@
 #ifndef SGE_OPENCL_COMMAND_QUEUE_SCOPED_BUFFER_MAPPING_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_SCOPED_BUFFER_MAPPING_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/command_queue/map_flags_fwd.hpp>
 #include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
@@ -15,6 +14,9 @@
 #include <sge/opencl/memory_object/byte_offset.hpp>
 #include <sge/opencl/memory_object/byte_size.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::command_queue
 {
@@ -41,7 +43,7 @@ public:
 private:
   sge::opencl::command_queue::object_ref const queue_;
   cl_mem buffer_;
-  void *ptr_;
+  void *ptr_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

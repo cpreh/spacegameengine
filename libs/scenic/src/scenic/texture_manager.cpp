@@ -10,8 +10,10 @@
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
+#include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/scenic/texture_manager.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

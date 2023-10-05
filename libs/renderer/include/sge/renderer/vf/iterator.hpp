@@ -8,6 +8,6 @@
 
 #include <sge/renderer/vf/iterator_decl.hpp>
 #include <sge/renderer/vf/iterator_fwd.hpp>
-#include <sge/renderer/vf/iterator_impl.hpp>
+#include <sge/renderer/vf/iterator_impl.hpp> // IWYU pragma: export
 
 #endif

@@ -20,10 +20,12 @@
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CEGUI/Base.h>
 #include <cstddef>
 #include <filesystem>
 #include <fstream>
 #include <ios>
+#include <iosfwd>
 #include <string>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

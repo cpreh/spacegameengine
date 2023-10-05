@@ -6,14 +6,14 @@
 #include <sge/cegui/exception.hpp>
 #include <sge/cegui/impl/image_codec.hpp>
 #include <sge/cegui/impl/texture.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/load_raw_exn.hpp>
+#include <sge/image2d/system_fwd.hpp>
 #include <sge/image2d/system_ref.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/media/const_raw_range.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

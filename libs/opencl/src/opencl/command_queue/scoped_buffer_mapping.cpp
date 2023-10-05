@@ -5,14 +5,21 @@
 
 #include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/map_flags_to_native.hpp>
-#include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/command_queue/scoped_buffer_mapping.hpp>
+#include <sge/opencl/event/sequence.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/impl/event/flatten_sequence.hpp>
-#include <sge/opencl/memory_object/buffer.hpp>
+#include <sge/opencl/memory_object/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/memory_object/buffer_ref.hpp>
+#include <sge/opencl/memory_object/byte_offset.hpp>
+#include <sge/opencl/memory_object/byte_size.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opencl::command_queue::scoped_buffer_mapping::scoped_buffer_mapping(
     sge::opencl::command_queue::object_ref const _queue,

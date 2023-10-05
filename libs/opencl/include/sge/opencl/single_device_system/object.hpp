@@ -70,7 +70,7 @@ private:
   fcppt::unique_ptr<sge::opencl::context::object> const context_;
   fcppt::unique_ptr<sge::opencl::command_queue::object> const queue_;
   std::mutex error_mutex_;
-  bool error_occured_;
+  bool error_occured_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
   sge::opencl::error_information_string error_information_;
   sge::opencl::binary_error_data error_data_;
   sge::opencl::context::optional_error_callback const error_callback_;

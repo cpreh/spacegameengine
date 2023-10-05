@@ -5,7 +5,9 @@
 
 #include <sge/scenic/render_context/ambient_color.hpp>
 #include <sge/scenic/render_context/fog/optional_properties.hpp>
+#include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/scene/camera_properties.hpp>
+#include <sge/scenic/scene/entity_sequence.hpp>
 #include <sge/scenic/scene/prototype.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>

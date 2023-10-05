@@ -4,8 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opencl/kernel/local_buffer.hpp>
+#include <sge/opencl/memory_object/byte_size.hpp>
 
-sge::opencl::kernel::local_buffer::local_buffer(memory_object::byte_size const &_byte_size)
+sge::opencl::kernel::local_buffer::local_buffer(sge::opencl::memory_object::byte_size const &_byte_size)
     : byte_size_(_byte_size)
 {
 }

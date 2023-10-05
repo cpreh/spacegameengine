@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_VF_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_VF_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/vf/view_decl.hpp>
+#include <sge/renderer/vf/view_decl.hpp> // IWYU pragma: export
 #include <sge/renderer/vf/view_fwd.hpp>
 #include <sge/renderer/vf/view_impl.hpp>
 

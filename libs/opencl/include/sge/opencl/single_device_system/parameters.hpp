@@ -8,11 +8,11 @@
 
 #include <sge/opencl/command_queue/execution_mode.hpp>
 #include <sge/opencl/command_queue/profiling_mode.hpp>
+#include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/optional_error_callback.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/single_device_system/optional_renderer.hpp>
 #include <sge/renderer/device/core_ref.hpp>
-#include <fcppt/optional/object_impl.hpp>
 
 namespace sge::opencl::single_device_system
 {
@@ -55,9 +55,9 @@ public:
 private:
   sge::opencl::single_device_system::optional_renderer renderer_;
   sge::opencl::context::optional_error_callback error_callback_;
-  sge::opencl::command_queue::profiling_mode profiling_;
-  sge::opencl::command_queue::execution_mode execution_mode_;
-  bool prefers_gpu_;
+  sge::opencl::command_queue::profiling_mode profiling_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
+  sge::opencl::command_queue::execution_mode execution_mode_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
+  bool prefers_gpu_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 }
 

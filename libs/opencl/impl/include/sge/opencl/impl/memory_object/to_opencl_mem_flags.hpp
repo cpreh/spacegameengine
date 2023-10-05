@@ -6,8 +6,10 @@
 #ifndef SGE_OPENCL_IMPL_MEMORY_OBJECT_TO_OPENCL_MEM_FLAGS_HPP_INCLUDED
 #define SGE_OPENCL_IMPL_MEMORY_OBJECT_TO_OPENCL_MEM_FLAGS_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::impl::memory_object
 {

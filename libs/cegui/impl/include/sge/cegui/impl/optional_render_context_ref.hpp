@@ -6,7 +6,7 @@
 #ifndef SGE_CEGUI_IMPL_OPTIONAL_RENDER_CONTEXT_REF_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_OPTIONAL_RENDER_CONTEXT_REF_HPP_INCLUDED
 
-#include <sge/cegui/impl/optional_render_context_ref_fwd.hpp>
+#include <sge/cegui/impl/optional_render_context_ref_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/reference.hpp>
 
 #endif

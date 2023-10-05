@@ -6,7 +6,7 @@
 #ifndef SGE_CEGUI_IMPL_OPTIONAL_MOUSE_BUTTON_HPP_INCLUDED
 #define SGE_CEGUI_IMPL_OPTIONAL_MOUSE_BUTTON_HPP_INCLUDED
 
-#include <sge/cegui/impl/optional_mouse_button_fwd.hpp>
+#include <sge/cegui/impl/optional_mouse_button_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

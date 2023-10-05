@@ -19,7 +19,7 @@
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/color_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/color_buffer/surface.hpp>
-#include <sge/renderer/color_buffer/writable_surface.hpp>
+#include <sge/renderer/color_buffer/writable_surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/device/ffp.hpp>
 #include <sge/renderer/projection/far.hpp>
@@ -27,11 +27,12 @@
 #include <sge/renderer/projection/orthogonal.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/optional_object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
-#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/offscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/target/optional_offscreen_ref.hpp>
+#include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
@@ -51,23 +52,27 @@
 #include <fcppt/log/object.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
-#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/box/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/dim/comparison.hpp>
 #include <fcppt/math/dim/null.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/math/dim/static.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/dim/to_signed.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/optional/reference.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CEGUI/GeometryBuffer.h>
+#include <CEGUI/Rect.h>
 #include <CEGUI/RenderQueue.h>
+#include <CEGUI/Size.h>
 #include <CEGUI/String.h>
+#include <CEGUI/Vector.h>
+#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 sge::cegui::impl::texture_target::texture_target(

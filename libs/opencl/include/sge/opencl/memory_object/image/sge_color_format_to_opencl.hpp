@@ -7,8 +7,10 @@
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_SGE_COLOR_FORMAT_TO_OPENCL_HPP_INCLUDED
 
 #include <sge/image/color/format_fwd.hpp>
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/detail/symbol.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::memory_object::image
 {

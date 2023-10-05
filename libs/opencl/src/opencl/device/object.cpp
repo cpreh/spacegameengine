@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/output_to_std_string.hpp>
@@ -15,9 +14,12 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
 #include <cstddef>
 #include <cstring>
 #include <iterator>
+#include <ostream>
 #include <string>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -90,6 +92,7 @@ std::string device_type_to_string(cl_device_type const dt)
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_DEVICE_TYPE_ACCELERATOR); // NOLINT(hicpp-signed-bitwise)
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_DEVICE_TYPE_DEFAULT); // NOLINT(hicpp-signed-bitwise)
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_DEVICE_TYPE_ALL); // NOLINT(hicpp-signed-bitwise)
+    default: break;
   }
   FCPPT_ASSERT_UNREACHABLE;
 }
@@ -180,6 +183,7 @@ std::string device_mem_cache_type_to_string(cl_device_mem_cache_type const dt)
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_NONE);
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_READ_ONLY_CACHE);
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_READ_WRITE_CACHE);
+    default: break;
   }
   FCPPT_ASSERT_UNREACHABLE;
 }
@@ -191,6 +195,7 @@ std::string device_local_mem_type_to_string(cl_device_local_mem_type const dt)
   {
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_LOCAL);
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_GLOBAL);
+    default: break;
   }
   FCPPT_ASSERT_UNREACHABLE;
 }

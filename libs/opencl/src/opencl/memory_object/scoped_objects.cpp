@@ -3,12 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/exception.hpp>
-#include <sge/opencl/command_queue/object.hpp>
+#include <sge/opencl/command_queue/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opencl/command_queue/object_ref.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <sge/opencl/memory_object/base.hpp>
+#include <sge/opencl/memory_object/base_ref_sequence.hpp>
 #include <sge/opencl/memory_object/scoped_objects.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/reference.hpp>
@@ -16,6 +16,9 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <CL/cl_platform.h>
+#include <CL/cl_gl.h>
 #include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

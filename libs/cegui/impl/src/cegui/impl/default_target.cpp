@@ -10,15 +10,15 @@
 #include <sge/log/default_parameters.hpp>
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/context/ffp.hpp>
-#include <sge/renderer/device/ffp.hpp>
+#include <sge/renderer/context/ffp.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/device/ffp.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/target/viewport.hpp>
@@ -39,6 +39,7 @@
 #include <CEGUI/Rect.h>
 #include <CEGUI/RenderQueue.h>
 #include <CEGUI/RenderTarget.h>
+#include <CEGUI/Vector.h>
 #include <fcppt/config/external_end.hpp>
 
 // cegui's internal OpenGL renderer uses a static viewport (I

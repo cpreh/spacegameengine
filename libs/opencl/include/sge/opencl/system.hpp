@@ -30,7 +30,7 @@ public:
   ~system();
 
 private:
-  opencl::platform::object_sequence platforms_;
+  sge::opencl::platform::object_sequence platforms_;
 };
 }
 

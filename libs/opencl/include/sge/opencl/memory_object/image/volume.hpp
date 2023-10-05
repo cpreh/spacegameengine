@@ -6,14 +6,15 @@
 #ifndef SGE_OPENCL_MEMORY_OBJECT_IMAGE_VOLUME_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_IMAGE_VOLUME_HPP_INCLUDED
 
-#include <sge/opencl/clinclude.hpp>
 #include <sge/opencl/dim3.hpp>
 #include <sge/opencl/context/object_ref.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
 #include <sge/renderer/texture/volume_ref.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <CL/cl.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::memory_object::image
 {
@@ -39,7 +40,7 @@ public:
   ~volume() override;
 
 private:
-  cl_mem impl_;
+  cl_mem impl_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
   cl_image_format image_format_;
   sge::opencl::dim3 size_;
 };

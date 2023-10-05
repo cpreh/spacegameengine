@@ -3,30 +3,30 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/camera/base.hpp>
+#include <sge/camera/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/camera/base_ref.hpp>
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/projection_matrix.hpp>
-#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/coordinate_system/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/camera/matrix_conversion/world.hpp>
+#include <sge/model/obj/material_map.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
 #include <sge/model/obj/prototype.hpp>
-#include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/viewport_size.hpp>
-#include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/scenic/exception.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
-#include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_queue/object.hpp>
-#include <sge/scenic/scene/manager.hpp>
+#include <sge/scenic/scene/entity.hpp>
+#include <sge/scenic/scene/identifier.hpp>
+#include <sge/scenic/scene/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/scenic/scene/manager_ref.hpp>
 #include <sge/scenic/scene/object.hpp>
-#include <sge/scenic/scene/prototype.hpp>
+#include <sge/scenic/scene/prototype.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/scenic/scene/prototype_unique_ptr.hpp>
 #include <sge/scenic/scene/material/from_obj_material.hpp>
+#include <sge/scenic/scene/material/object.hpp>
 #include <sge/scenic/scene/mesh/object.hpp>
-#include <sge/scenic/vf/format.hpp>
 #include <sge/viewport/manager_ref.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
@@ -37,13 +37,13 @@
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/matrix/translation.hpp>
-#include <fcppt/math/vector/output.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/ignore_dangling_reference.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
