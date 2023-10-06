@@ -5,7 +5,6 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/clear/back_buffer.hpp>
 #include <sge/opengl/clear/depth_buffer.hpp>
 #include <sge/opengl/clear/set.hpp>
@@ -15,6 +14,7 @@
 #include <sge/renderer/clear/depth_buffer_value.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/clear/stencil_buffer_value.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/glx/current.hpp>
@@ -12,6 +11,7 @@
 #include <sge/opengl/glx/swap_functions.hpp>
 #include <sge/opengl/glx/vsync.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <awl/backends/x11/display.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/base_ref.hpp>

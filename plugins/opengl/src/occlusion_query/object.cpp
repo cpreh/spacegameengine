@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/occlusion_query/begin.hpp>
 #include <sge/opengl/occlusion_query/config.hpp>
 #include <sge/opengl/occlusion_query/const_config_ref.hpp>
@@ -15,6 +14,7 @@
 #include <sge/renderer/occlusion_query/object.hpp>
 #include <sge/renderer/occlusion_query/optional_pixel_count.hpp>
 #include <sge/renderer/occlusion_query/pixel_count.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 sge::opengl::occlusion_query::object::object(
     sge::opengl::occlusion_query::const_config_ref const _config)

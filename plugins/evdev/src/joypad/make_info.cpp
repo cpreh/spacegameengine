@@ -17,6 +17,9 @@
 #include <sge/evdev/joypad/relative_axis/info_container.hpp>
 #include <sge/evdev/joypad/relative_axis/make_info_container.hpp>
 #include <sge/input/joypad/info.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 sge::evdev::joypad::info sge::evdev::joypad::make_info(sge::evdev::device::fd &_fd)
 {

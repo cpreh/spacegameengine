@@ -5,9 +5,10 @@
 
 #include <sge/image/ds/format.hpp>
 #include <sge/opengl/color_order.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/convert/depth_stencil_order.hpp>
 #include <sge/opengl/convert/make_color_order.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::color_order

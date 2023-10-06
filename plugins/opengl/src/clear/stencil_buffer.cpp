@@ -5,10 +5,10 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/clear/stencil_buffer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/clear/stencil_buffer_value.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 void sge::opengl::clear::stencil_buffer(sge::renderer::clear::stencil_buffer_value const &_value)

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/planar.hpp>
@@ -11,6 +10,7 @@
 #include <sge/opengl/texture/planar_types.hpp>
 #include <sge/opengl/texture/surface_context.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <fcppt/make_ref.hpp>

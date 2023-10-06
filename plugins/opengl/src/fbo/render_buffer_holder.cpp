@@ -3,11 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/delete_render_buffer.hpp>
 #include <sge/opengl/fbo/gen_render_buffer.hpp>
 #include <sge/opengl/fbo/render_buffer_holder.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 sge::opengl::fbo::render_buffer_holder::render_buffer_holder(
     sge::opengl::fbo::const_config_ref const _context)

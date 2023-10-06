@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>
@@ -13,6 +13,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/size_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>

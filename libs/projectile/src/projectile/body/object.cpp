@@ -3,10 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/projectile/scalar.hpp>
 #include <sge/projectile/vector2.hpp>
-#include <sge/projectile/vector3.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/parameters.hpp>
+#include <sge/projectile/body/position.hpp>
+#include <sge/projectile/body/position_change.hpp>
+#include <sge/projectile/body/rotation.hpp>
+#include <sge/projectile/body/rotation_change.hpp>
+#include <sge/projectile/body/user_data.hpp>
+#include <sge/projectile/body/solidity/variant.hpp>
+#include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <sge/projectile/impl/bullet_to_vector2.hpp>
 #include <sge/projectile/impl/vector2_to_bullet.hpp>
 #include <sge/projectile/impl/body/detail/motion_state.hpp>
@@ -17,19 +24,23 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/debug.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/log/verbose.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
+#include <BulletCollision/CollisionDispatch/btCollisionObject.h>
 #include <BulletCollision/CollisionShapes/btCollisionShape.h>
 #include <BulletDynamics/Dynamics/btRigidBody.h>
 #include <LinearMath/btMatrix3x3.h>
+#include <LinearMath/btScalar.h>
 #include <LinearMath/btTransform.h>
+#include <LinearMath/btVector3.h>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -72,7 +83,7 @@ btMatrix3x3 create_rotation_matrix(btScalar const angle)
 
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_VC_WARNING(4355)
-sge::projectile::body::object::object(parameters const &p)
+sge::projectile::body::object::object(sge::projectile::body::parameters const &p)
     : log_{p.log()},
       transformation_(fcppt::make_unique_ptr<btTransform>(
           create_rotation_matrix(p.rotation().get()),
@@ -132,7 +143,7 @@ sge::projectile::vector2 sge::projectile::body::object::position() const
   return sge::projectile::impl::bullet_to_vector2(transformation_->getOrigin());
 }
 
-void sge::projectile::body::object::position(vector2 const &p)
+void sge::projectile::body::object::position(sge::projectile::vector2 const &p)
 {
   FCPPT_LOG_VERBOSE(
       log_, fcppt::log::out << this << FCPPT_TEXT(": Somebody reset the body's position to ") << p)

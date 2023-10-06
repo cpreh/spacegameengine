@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_INTERNAL_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_INTERNAL_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
 

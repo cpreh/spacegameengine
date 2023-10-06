@@ -5,9 +5,9 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/pixel_store_int.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 void sge::opengl::pixel_store_int(GLenum const _what, GLint const _value)

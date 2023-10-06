@@ -5,7 +5,7 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/call_fun_ref.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>

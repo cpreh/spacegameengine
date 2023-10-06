@@ -13,11 +13,12 @@
 #include <sge/line_drawer/scoped_lock.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/projectile/log_location.hpp>
-#include <sge/projectile/world.hpp>
+#include <sge/projectile/world.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/projectile/world_ref.hpp>
 #include <sge/projectile/impl/detail/debug_drawer_impl.hpp>
 #include <sge/renderer/vector3.hpp>
-#include <sge/renderer/context/core_ref.hpp>
-#include <sge/renderer/device/core_fwd.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
+#include <sge/renderer/device/core_ref.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -36,7 +37,9 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <BulletDynamics/Dynamics/btDiscreteDynamicsWorld.h>
+#include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btScalar.h>
 #include <LinearMath/btVector3.h>
 #include <fcppt/config/external_end.hpp>
@@ -45,7 +48,11 @@ sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
     fcppt::log::context_reference const _log_context,
     sge::projectile::world_ref const _world,
     sge::renderer::device::core_ref const _renderer)
-    : log_{_log_context, sge::projectile::log_location(), sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("debug_drawer_impl")})},
+    : btIDebugDraw{},
+      log_{
+          _log_context,
+          sge::projectile::log_location(),
+          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("debug_drawer_impl")})},
       world_(*_world.get().world_),
       debug_mode_(btIDebugDraw::DBG_NoDebug), // should be zero
       line_drawer_(_renderer),
@@ -136,6 +143,7 @@ void sge::projectile::detail::debug_drawer_impl::drawLine(
                       fcppt::math::vector::static_<btScalar, 3U>{_s.x(), _s.y(), _s.z()});
             });
 
+        // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
         _lock->value().push_back(sge::line_drawer::line{
             sge::line_drawer::line::begin_type{make_vector(_from)},
             sge::line_drawer::line::end_type{make_vector(_to)},

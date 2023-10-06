@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/evdev/device/create_fd.hpp>
-#include <sge/evdev/device/fd.hpp>
+#include <sge/evdev/device/fd.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/joypad/create.hpp>
 #include <sge/evdev/joypad/info.hpp>

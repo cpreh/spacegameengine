@@ -5,9 +5,9 @@
 
 #include <sge/image/color/format.hpp>
 #include <sge/opengl/color_base_type.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_base_type_sge.hpp>
 #include <sge/opengl/convert/make_color_base_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::color_base_type

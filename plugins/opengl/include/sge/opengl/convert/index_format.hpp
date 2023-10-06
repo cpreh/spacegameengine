@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_CONVERT_INDEX_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_INDEX_FORMAT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/index/dynamic/format_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::convert
 {

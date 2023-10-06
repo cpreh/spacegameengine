@@ -4,9 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/color/element_count.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/convert_color_format.hpp>
 #include <sge/opengl/vf/extra_elements.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>

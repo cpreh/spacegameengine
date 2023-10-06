@@ -3,13 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/core/rasterizer/cull_mode.hpp>
 #include <sge/opengl/state/core/rasterizer/fill_mode.hpp>
 #include <sge/opengl/state/core/rasterizer/make_actors.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <fcppt/container/join.hpp>
 

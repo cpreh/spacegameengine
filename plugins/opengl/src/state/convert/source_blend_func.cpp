@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/source_blend_func.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/blend/source.hpp>
 #include <fcppt/assert/unreachable.hpp>
 

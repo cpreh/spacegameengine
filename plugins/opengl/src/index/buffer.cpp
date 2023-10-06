@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/size.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
@@ -24,6 +23,7 @@
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/make_ref.hpp>
 
 sge::opengl::index::buffer::buffer(

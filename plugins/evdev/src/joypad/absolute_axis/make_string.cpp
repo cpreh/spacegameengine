@@ -58,6 +58,7 @@ sge::evdev::joypad::absolute_axis::make_string(sge::evdev::joypad::absolute_axis
     SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(ABS_MT_TRACKING_ID);
     SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(ABS_MT_PRESSURE);
     SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(ABS_MT_DISTANCE);
+    default: break;
   }
 
   return fcppt::optional_string{};

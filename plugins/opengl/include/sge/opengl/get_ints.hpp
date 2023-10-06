@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_GET_INTS_HPP_INCLUDED
 #define SGE_OPENGL_GET_INTS_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl
 {

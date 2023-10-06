@@ -6,7 +6,6 @@
 #include <sge/image/color/element_count.hpp>
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_base_type_sge.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/color_actor.hpp>
@@ -14,6 +13,7 @@
 #include <sge/opengl/vf/fp_actor.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>

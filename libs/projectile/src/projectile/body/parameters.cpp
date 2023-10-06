@@ -11,7 +11,6 @@
 #include <sge/projectile/body/rotation.hpp>
 #include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/body/solidity/variant.hpp>
-#include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>

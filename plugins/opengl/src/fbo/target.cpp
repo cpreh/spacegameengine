@@ -5,7 +5,6 @@
 
 #include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/fbo/attachment.hpp>
@@ -34,6 +33,7 @@
 #include <sge/renderer/color_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>

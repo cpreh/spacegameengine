@@ -7,9 +7,9 @@
 #include <sge/opengl/check_state_once.hpp>
 #if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/error_string.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #endif
@@ -19,10 +19,12 @@ void sge::opengl::check_state_once()
 #if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
   GLenum ret(GL_NO_ERROR);
 
-  fcppt::string errors;
+  fcppt::string errors{};
 
   while ((ret = sge::opengl::call(::glGetError)) != GL_NO_ERROR)
+  {
     errors += sge::opengl::error_string(ret) + FCPPT_TEXT(", ");
+  }
 
   if (ret != GL_NO_ERROR)
   {

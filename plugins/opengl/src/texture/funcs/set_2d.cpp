@@ -7,7 +7,6 @@
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_order.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
@@ -15,6 +14,7 @@
 #include <sge/opengl/texture/funcs/set_2d.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/dim2.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/creation_failed.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/text.hpp>

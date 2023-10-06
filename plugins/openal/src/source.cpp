@@ -6,7 +6,6 @@
 #include <sge/audio/position.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
-#include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/optional_direction.hpp>
 #include <sge/audio/sound/play_status.hpp>
@@ -32,6 +31,9 @@
 #include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/from.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::openal::source::source(
     fcppt::log::object_reference const _log,
@@ -109,6 +111,7 @@ sge::audio::sound::play_status sge::openal::source::status() const
     return sge::audio::sound::play_status::paused;
   case AL_PLAYING:
     return sge::audio::sound::play_status::playing;
+  default: break;
   }
 
   FCPPT_ASSERT_UNREACHABLE;

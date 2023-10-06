@@ -5,13 +5,13 @@
 
 #include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>

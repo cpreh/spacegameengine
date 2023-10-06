@@ -6,7 +6,6 @@
 #ifndef SGE_OPENGL_BUFFER_WRAPPER_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_WRAPPER_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/object_fwd.hpp>
 #include <sge/renderer/opengl/buffer/base.hpp>
 #include <sge/renderer/opengl/buffer/id.hpp>
@@ -21,9 +20,9 @@ class wrapper : public sge::renderer::opengl::buffer::base
 
 protected:
   wrapper();
-
+public:
   ~wrapper() override = 0;
-
+protected:
   [[nodiscard]] virtual sge::opengl::buffer::object const &get() const = 0;
 
 private:

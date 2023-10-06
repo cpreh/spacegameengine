@@ -1,7 +1,5 @@
 set(
 	SGE_OPENAL_FILES
-	plugins/openal/include/sge/openal/al.hpp
-	plugins/openal/include/sge/openal/alc.hpp
 	plugins/openal/include/sge/openal/alc_error_string.hpp
 	plugins/openal/include/sge/openal/buffer.hpp
 	plugins/openal/include/sge/openal/buffer_holder.hpp

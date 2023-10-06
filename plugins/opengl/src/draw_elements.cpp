@@ -5,7 +5,6 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/draw_context.hpp>
 #include <sge/opengl/draw_elements.hpp>
 #include <sge/opengl/context/object.hpp>
@@ -18,6 +17,7 @@
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/first.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/make_ref.hpp>

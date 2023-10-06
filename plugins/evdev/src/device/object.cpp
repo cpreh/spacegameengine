@@ -9,17 +9,18 @@
 #include <sge/evdev/device/object.hpp>
 #include <sge/input/exception.hpp>
 #include <awl/backends/posix/fd.hpp>
-#include <awl/backends/posix/processor.hpp>
+#include <awl/backends/posix/processor.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/posix/processor_ref.hpp>
-#include <awl/event/base.hpp>
+#include <awl/event/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/base_unique_ptr.hpp>
-#include <awl/event/connection.hpp>
+#include <awl/event/connection.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/container.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unistd.h>
 #include <linux/input.h>
+#include <sys/types.h>
 #include <cerrno>
 #include <filesystem>
 #include <utility>

@@ -7,10 +7,12 @@
 #include <sge/projectile/impl/shape/triangle_indices.hpp>
 #include <sge/projectile/impl/shape/triangle_scalars.hpp>
 #include <sge/projectile/shape/triangle_mesh.hpp>
+#include <sge/projectile/shape/triangle_sequence.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionShapes/btBvhTriangleMeshShape.h>
 #include <BulletCollision/CollisionShapes/btTriangleIndexVertexArray.h>
+#include <LinearMath/btScalar.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::projectile::shape::triangle_mesh::triangle_mesh(

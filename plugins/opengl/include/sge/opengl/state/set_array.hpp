@@ -6,9 +6,9 @@
 #ifndef SGE_OPENGL_STATE_SET_ARRAY_HPP_INCLUDED
 #define SGE_OPENGL_STATE_SET_ARRAY_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/index_count.hpp>
 
 namespace sge::opengl::state

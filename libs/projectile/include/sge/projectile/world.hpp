@@ -48,7 +48,10 @@ public:
   explicit world(sge::projectile::log const &);
 
   SGE_PROJECTILE_DETAIL_SYMBOL
-  void update_discrete(time_increment const &, fixed_timestep const &, maximum_substeps const &);
+  void update_discrete(
+      sge::projectile::time_increment const &,
+      sge::projectile::fixed_timestep const &,
+      sge::projectile::maximum_substeps const &);
 
   SGE_PROJECTILE_DETAIL_SYMBOL
   void update_continuous(sge::projectile::time_increment const &);

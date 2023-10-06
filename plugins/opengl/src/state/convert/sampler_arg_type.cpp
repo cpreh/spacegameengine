@@ -3,10 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/sampler_alpha_arg_type.hpp>
 #include <sge/opengl/state/convert/sampler_arg_type.hpp>
 #include <sge/opengl/state/convert/sampler_color_arg_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>

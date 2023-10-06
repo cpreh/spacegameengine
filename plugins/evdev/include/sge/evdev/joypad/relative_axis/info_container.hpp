@@ -7,7 +7,7 @@
 #define SGE_EVDEV_JOYPAD_RELATIVE_AXIS_INFO_CONTAINER_HPP_INCLUDED
 
 #include <sge/evdev/device/basic_info_decl.hpp>
-#include <sge/evdev/joypad/relative_axis/info_container_fwd.hpp>
+#include <sge/evdev/joypad/relative_axis/info_container_fwd.hpp> // IWYU pragma: export
 #include <sge/input/joypad/relative_axis_id.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>

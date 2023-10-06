@@ -21,9 +21,7 @@
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
-#include <sge/openal/al.hpp>
 #include <sge/openal/buffer.hpp>
-#include <sge/openal/file_format.hpp>
 #include <sge/openal/player.hpp>
 #include <sge/openal/stream_sound.hpp>
 #include <sge/openal/funcs/doppler_factor.hpp>
@@ -37,6 +35,9 @@
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/log/name.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::openal::player::player(fcppt::log::context_reference const _log_context)
     : log_{_log_context, sge::log::location(), sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("openal")})},

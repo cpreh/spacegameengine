@@ -3,9 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/primitive_type.hpp>
 #include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 GLenum sge::opengl::convert::primitive_type(sge::renderer::primitive_type const _primitive_type)

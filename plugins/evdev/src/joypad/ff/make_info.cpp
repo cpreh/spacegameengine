@@ -15,6 +15,7 @@
 #include <fcppt/container/bitfield/init.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <linux/input-event-codes.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace

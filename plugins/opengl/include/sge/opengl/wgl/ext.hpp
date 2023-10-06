@@ -6,9 +6,9 @@
 #ifndef SGE_OPENGL_WGL_EXT_HPP_INCLUDED
 #define SGE_OPENGL_WGL_EXT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <GL/wglext.h>
+#include <GL/wglext.h> // IWYU pragma: export
 #include <fcppt/config/external_end.hpp>
 
 #endif

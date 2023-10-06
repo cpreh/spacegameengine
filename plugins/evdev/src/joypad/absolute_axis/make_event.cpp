@@ -5,7 +5,6 @@
 
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/joypad/absolute_axis/make_event.hpp>
-#include <sge/input/exception.hpp>
 #include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>

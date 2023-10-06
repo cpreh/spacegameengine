@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_FBO_ERROR_STRING_MAP_HPP_INCLUDED
 #define SGE_OPENGL_FBO_ERROR_STRING_MAP_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>

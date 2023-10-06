@@ -5,7 +5,7 @@
 
 #include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/const_hardware_config_ref.hpp>
 #include <sge/opengl/buffer/hardware.hpp>
@@ -14,6 +14,7 @@
 #include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_void_ptr.hpp>

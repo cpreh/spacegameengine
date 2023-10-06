@@ -3,10 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/deref_fun_ptr.hpp>
 #include <sge/opengl/buffer/context.hpp>
 #include <sge/opengl/buffer/hardware_config.hpp>
+#include <sge/opengl/buffer/is_native.hpp>
 #include <sge/opengl/buffer/optional_hardware_config.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>

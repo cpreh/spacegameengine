@@ -5,10 +5,10 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/binding.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 void sge::opengl::texture::funcs::parameter_int(

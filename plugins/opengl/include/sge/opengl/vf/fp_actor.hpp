@@ -6,11 +6,11 @@
 #ifndef SGE_OPENGL_VF_FP_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_FP_ACTOR_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::opengl::vf
@@ -27,7 +27,8 @@ protected:
   fp_actor(sge::opengl::vf::actor_parameters const &, GLenum client_state);
 
 private:
-  void operator()(sge::opengl::vf::client_state_combiner_ref, vf::pointer) const override;
+  void
+  operator()(sge::opengl::vf::client_state_combiner_ref, sge::opengl::vf::pointer) const override;
 
   void unuse(sge::opengl::vf::client_state_combiner_ref) const override;
 

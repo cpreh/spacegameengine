@@ -3,8 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/state/convert/sampler_ternary_op.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/sampler/ternary_op_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
 

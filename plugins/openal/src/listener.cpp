@@ -3,15 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/audio/exception.hpp>
 #include <sge/audio/vector_fwd.hpp>
 #include <sge/audio/direction/object.hpp>
-#include <sge/openal/al.hpp>
 #include <sge/openal/listener.hpp>
 #include <sge/openal/to_vector3.hpp>
 #include <sge/openal/vector3.hpp>
 #include <sge/openal/funcs/listener_float_ptr.hpp>
 #include <fcppt/array/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::openal::listener::listener() = default;
 

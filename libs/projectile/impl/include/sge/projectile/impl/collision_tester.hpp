@@ -9,7 +9,12 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+#include <LinearMath/btScalar.h>
 #include <fcppt/config/external_end.hpp>
+
+struct btCollisionObjectWrapper;
+struct btBroadphaseProxy;
+class btManifoldPoint;
 
 namespace sge::projectile::impl
 {
@@ -37,7 +42,7 @@ private:
       int partId1,
       int index1) override;
 
-  bool result_;
+  bool result_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

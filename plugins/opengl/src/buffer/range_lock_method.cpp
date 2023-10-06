@@ -3,9 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/buffer/range_lock_method.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 GLenum sge::opengl::buffer::range_lock_method(sge::renderer::lock_flags::method const _method)

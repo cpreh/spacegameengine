@@ -4,9 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/size_type.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/stride_to_unpack_alignment.hpp>
 #include <sge/opengl/unpack_alignment.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/disable_client_state.hpp>
 #include <sge/opengl/enable_client_state.hpp>
 #include <sge/opengl/context/object.hpp>
@@ -16,6 +15,7 @@
 #include <sge/opengl/vf/disable_vertex_attrib_array.hpp>
 #include <sge/opengl/vf/enable_texcoords.hpp>
 #include <sge/opengl/vf/enable_vertex_attrib_array.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/container/set_difference.hpp>
 #include <fcppt/log/object_reference.hpp>

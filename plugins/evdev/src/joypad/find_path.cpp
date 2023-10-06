@@ -5,7 +5,7 @@
 
 #include <sge/evdev/joypad/find_path.hpp>
 #include <sge/evdev/joypad/map.hpp>
-#include <sge/evdev/joypad/object.hpp>
+#include <sge/evdev/joypad/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/evdev/joypad/optional_iterator.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/optional/make_if.hpp>

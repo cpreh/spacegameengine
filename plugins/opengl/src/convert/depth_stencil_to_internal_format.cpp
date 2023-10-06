@@ -4,9 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/ds/format.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/convert/depth_stencil_to_internal_format.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::internal_color_format

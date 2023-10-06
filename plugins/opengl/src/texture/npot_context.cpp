@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>

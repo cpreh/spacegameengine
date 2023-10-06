@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/convert/min_filter.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/min.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
 #include <fcppt/assert/unreachable.hpp>

@@ -6,7 +6,9 @@
 #ifndef SGE_OPENAL_FUNCS_ALC_OPEN_DEVICE_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_ALC_OPEN_DEVICE_HPP_INCLUDED
 
-#include <sge/openal/alc.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <alc.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::openal::funcs
 {

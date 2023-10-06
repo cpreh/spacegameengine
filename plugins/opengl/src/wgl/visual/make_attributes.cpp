@@ -3,12 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/wgl/visual/attribute_container.hpp>
 #include <sge/opengl/wgl/visual/config.hpp>
 #include <sge/opengl/wgl/visual/make_attributes.hpp>
 #include <sge/opengl/wgl/visual/pixel_format_types.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/pixel_format/bit_count.hpp>
 #include <sge/renderer/pixel_format/color_bits.hpp>
 #include <sge/renderer/pixel_format/depth_bits.hpp>

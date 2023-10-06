@@ -9,7 +9,7 @@
 #include <sge/input/exception.hpp>
 #include <sge/input/joypad/button_id.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/optional/deref.hpp>

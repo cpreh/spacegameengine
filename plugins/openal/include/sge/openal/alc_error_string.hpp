@@ -6,13 +6,15 @@
 #ifndef SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
 #define SGE_OPENAL_ALC_ERROR_STRING_HPP_INCLUDED
 
-#include <sge/openal/al.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <alc.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::openal
 {
 
-fcppt::string alc_error_string(ALenum error);
+fcppt::string alc_error_string(ALCenum error);
 
 }
 

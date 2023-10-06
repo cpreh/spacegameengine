@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/attribute_actor.hpp>
@@ -18,6 +17,7 @@
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
 #include <sge/opengl/vf/vertex_attrib_pointer.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/vf/dynamic/extra.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/cast/size.hpp>

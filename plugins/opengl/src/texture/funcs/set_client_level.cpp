@@ -5,7 +5,6 @@
 
 #include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/multi_config.hpp>

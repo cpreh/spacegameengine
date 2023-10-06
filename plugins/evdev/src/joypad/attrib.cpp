@@ -9,7 +9,7 @@
 #include <sge/evdev/joypad/map.hpp>
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/processor_ref.hpp>
-#include <awl/event/base.hpp>
+#include <awl/event/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/join.hpp>

@@ -4,12 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/fill_mode.hpp>
 #include <sge/opengl/state/core/rasterizer/fill_mode.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::state::actor sge::opengl::state::core::rasterizer::fill_mode(

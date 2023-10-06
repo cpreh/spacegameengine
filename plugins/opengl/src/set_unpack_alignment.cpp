@@ -3,13 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/pixel_store_context.hpp>
 #include <sge/opengl/pixel_store_int.hpp>
 #include <sge/opengl/set_unpack_alignment.hpp>
 #include <sge/opengl/unpack_alignment.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/make_ref.hpp>
 
 void sge::opengl::set_unpack_alignment(

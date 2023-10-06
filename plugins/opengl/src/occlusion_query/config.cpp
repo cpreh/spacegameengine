@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/occlusion_query/config.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 sge::opengl::occlusion_query::config::config(
     gl_gen_queries _gen_queries,

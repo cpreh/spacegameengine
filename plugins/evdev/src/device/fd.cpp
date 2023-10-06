@@ -10,8 +10,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <fcntl.h>
 #include <unistd.h>
-#include <sys/stat.h>
-#include <sys/types.h>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 

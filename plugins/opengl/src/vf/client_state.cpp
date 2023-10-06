@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/client_state.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>

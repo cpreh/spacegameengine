@@ -4,10 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/audio/exception.hpp>
-#include <sge/openal/al.hpp>
 #include <sge/openal/check_state.hpp>
 #include <sge/openal/funcs/speed_of_sound.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 void sge::openal::funcs::speed_of_sound(ALfloat const _value)
 {

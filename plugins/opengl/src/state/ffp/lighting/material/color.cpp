@@ -8,10 +8,10 @@
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/lighting/material/color.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::state::actor sge::opengl::state::ffp::lighting::material::color(

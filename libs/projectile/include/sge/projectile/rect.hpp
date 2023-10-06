@@ -6,7 +6,7 @@
 #ifndef SGE_PROJECTILE_RECT_HPP_INCLUDED
 #define SGE_PROJECTILE_RECT_HPP_INCLUDED
 
-#include <sge/projectile/rect_fwd.hpp>
+#include <sge/projectile/rect_fwd.hpp> // IWYU pragma: export
 #include <fcppt/math/box/rect.hpp>
 
 #endif

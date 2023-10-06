@@ -5,11 +5,11 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/draw_arrays.hpp>
 #include <sge/opengl/convert/primitive_type.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/primitive_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/text.hpp>

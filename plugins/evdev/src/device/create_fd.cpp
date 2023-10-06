@@ -7,7 +7,6 @@
 #include <sge/evdev/device/fd.hpp>
 #include <sge/evdev/device/fd_unique_ptr.hpp>
 #include <sge/evdev/device/optional_fd_unique_ptr.hpp>
-#include <sge/input/exception.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/error/strerrno.hpp>

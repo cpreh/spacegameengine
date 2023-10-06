@@ -3,11 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::fbo::config::config(

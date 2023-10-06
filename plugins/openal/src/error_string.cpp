@@ -3,10 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/openal/al.hpp>
 #include <sge/openal/error_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 fcppt::string sge::openal::error_string(ALenum const _error)
 {

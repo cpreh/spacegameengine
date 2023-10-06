@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/convert/mag_filter.hpp>
@@ -15,6 +14,7 @@
 #include <sge/opengl/state/core/sampler/filter/normal.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/parameters.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/optional/maybe_void.hpp>

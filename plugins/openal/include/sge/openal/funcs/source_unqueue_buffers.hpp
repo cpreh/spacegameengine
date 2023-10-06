@@ -6,9 +6,11 @@
 #ifndef SGE_OPENAL_FUNCS_SOURCE_UNQUEUE_BUFFERS_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_SOURCE_UNQUEUE_BUFFERS_HPP_INCLUDED
 
-#include <sge/openal/al.hpp>
 #include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/source_id.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::openal::funcs
 {

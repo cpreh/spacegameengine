@@ -4,9 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/get_string.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/config/external_begin.hpp>

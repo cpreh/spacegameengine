@@ -7,7 +7,9 @@
 #define SGE_OPENAL_FILE_FORMAT_HPP_INCLUDED
 
 #include <sge/audio/file_fwd.hpp>
-#include <sge/openal/al.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::openal
 {

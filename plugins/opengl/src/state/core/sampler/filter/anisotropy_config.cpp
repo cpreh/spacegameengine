@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_config.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 sge::opengl::state::core::sampler::filter::anisotropy_config::anisotropy_config(
     GLenum const _anisotropy_flag, GLenum const _max_anisotropy_flag)

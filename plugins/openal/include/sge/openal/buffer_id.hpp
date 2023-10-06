@@ -6,9 +6,11 @@
 #ifndef SGE_OPENAL_BUFFER_ID_HPP_INCLUDED
 #define SGE_OPENAL_BUFFER_ID_HPP_INCLUDED
 
-#include <sge/openal/al.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::openal
 {

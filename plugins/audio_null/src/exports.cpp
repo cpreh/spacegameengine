@@ -5,7 +5,7 @@
 
 #include <sge/audio/player.hpp>
 #include <sge/audio/player_unique_ptr.hpp>
-#include <sge/audio/player_plugin/traits.hpp>
+#include <sge/audio/player_plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio_null/player.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -50,5 +50,5 @@ sge::audio::player_unique_ptr create_audio_player(fcppt::log::context_reference)
 
 }
 
-// NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects)
+// NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects,cppcoreguidelines-avoid-non-const-global-variables)
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(info, ((sge::audio::player, create_audio_player)))

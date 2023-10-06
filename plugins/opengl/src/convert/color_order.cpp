@@ -5,9 +5,10 @@
 
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_order.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/convert/color_order.hpp>
 #include <sge/opengl/convert/make_color_order.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::color_order sge::opengl::convert::color_order(sge::opengl::color_format const _format)

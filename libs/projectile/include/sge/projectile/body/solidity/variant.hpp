@@ -9,7 +9,7 @@
 #include <sge/projectile/body/solidity/nonsolid.hpp>
 #include <sge/projectile/body/solidity/solid.hpp>
 #include <sge/projectile/body/solidity/static.hpp>
-#include <sge/projectile/body/solidity/variant_fwd.hpp>
+#include <sge/projectile/body/solidity/variant_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

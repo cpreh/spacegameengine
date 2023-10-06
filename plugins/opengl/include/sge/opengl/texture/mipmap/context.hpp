@@ -6,6 +6,7 @@
 #ifndef SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_MIPMAP_CONTEXT_HPP_INCLUDED
 
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/fun_ref_value_type.hpp>
 #include <sge/opengl/optional_enum.hpp>

@@ -6,7 +6,6 @@
 #ifndef SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 #define SGE_OPENGL_INDEX_BUFFER_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
 #include <sge/opengl/context/object_ref.hpp>
@@ -21,6 +20,7 @@
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <sge/renderer/index/dynamic/view_fwd.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::opengl::index

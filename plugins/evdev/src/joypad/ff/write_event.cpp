@@ -12,10 +12,11 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <time.h> // NOLINT(hicpp-deprecated-headers,modernize-deprecated-headers)
+#include <ctime>
 #include <unistd.h>
 #include <linux/input.h>
-#include <sys/time.h>
+#include <linux/input-event-codes.h>
+#include <sys/time.h> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_end.hpp>
 
 void sge::evdev::joypad::ff::write_event(
@@ -24,7 +25,8 @@ void sge::evdev::joypad::ff::write_event(
     sge::evdev::device::event_value const _value)
 {
   input_event const event{
-      timeval{fcppt::literal<time_t>(0), fcppt::literal<suseconds_t>(0)},
+      // NOLINTNEXTLINE(misc-include-cleaner)
+      timeval{fcppt::literal<std::time_t>(0), fcppt::literal<suseconds_t>(0)},
       EV_FF,
       fcppt::cast::to_unsigned(_id.get()),
       _value};

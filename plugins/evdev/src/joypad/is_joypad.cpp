@@ -12,7 +12,7 @@
 #include <fcppt/algorithm/fold_break.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <linux/input.h>
+#include <linux/input-event-codes.h>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

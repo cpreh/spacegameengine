@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_STATE_CONVERT_CLIP_PLANE_INDEX_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CONVERT_CLIP_PLANE_INDEX_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/index_count.hpp>
 
 namespace sge::opengl::state::convert

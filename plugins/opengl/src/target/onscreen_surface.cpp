@@ -11,7 +11,6 @@
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/image2d/view/pitch.hpp>
 #include <sge/opengl/color_format.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_base_type.hpp>
 #include <sge/opengl/convert/color_format.hpp>
 #include <sge/opengl/convert/color_order.hpp>

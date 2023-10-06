@@ -3,9 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/opengl/texture/volume_config.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 sge::opengl::texture::volume_config::volume_config(
     sge::opengl::texture::type const _volume_texture_type,

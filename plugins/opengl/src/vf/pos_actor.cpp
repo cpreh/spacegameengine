@@ -5,13 +5,13 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/convert_element_type.hpp>
 #include <sge/opengl/vf/fp_actor.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pos_actor.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/vf/dynamic/pos.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
 #include <fcppt/text.hpp>

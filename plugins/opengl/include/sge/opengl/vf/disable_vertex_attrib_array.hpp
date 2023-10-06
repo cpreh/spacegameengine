@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_VF_DISABLE_VERTEX_ATTRIB_ARRAY_HPP_INCLUDED
 #define SGE_OPENGL_VF_DISABLE_VERTEX_ATTRIB_ARRAY_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::vf
 {

@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_CONVERT_TO_GL_BOOL_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_TO_GL_BOOL_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::convert
 {

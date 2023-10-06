@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_STATE_CONVERT_DEPTH_FUNC_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CONVERT_DEPTH_FUNC_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/func_fwd.hpp>
 
 namespace sge::opengl::state::convert

@@ -6,7 +6,7 @@
 #include <sge/evdev/joypad/create.hpp>
 #include <sge/evdev/joypad/init.hpp>
 #include <sge/evdev/joypad/map.hpp>
-#include <sge/evdev/joypad/object.hpp>
+#include <sge/evdev/joypad/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/input/exception.hpp>
 #include <sge/window/object_ref.hpp>

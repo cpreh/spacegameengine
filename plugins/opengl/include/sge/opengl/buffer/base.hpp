@@ -6,11 +6,12 @@
 #ifndef SGE_OPENGL_BUFFER_BASE_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_BASE_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/buffer/base_fwd.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id_fwd.hpp>
 #include <sge/opengl/buffer/type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::opengl::buffer

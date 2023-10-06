@@ -3,7 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/evdev/inotify/object.hpp>
+#include <sge/evdev/inotify/object.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/evdev/inotify/object_ref.hpp>
 #include <sge/evdev/inotify/watch.hpp>
 #include <sge/input/exception.hpp>
 #include <fcppt/text.hpp>

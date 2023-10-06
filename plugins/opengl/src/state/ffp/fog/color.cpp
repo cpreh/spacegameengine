@@ -7,11 +7,11 @@
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/fog/color.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/fog/color.hpp>
 #include <fcppt/text.hpp>
 

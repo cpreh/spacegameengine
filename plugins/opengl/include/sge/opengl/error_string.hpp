@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_ERROR_STRING_HPP_INCLUDED
 #define SGE_OPENGL_ERROR_STRING_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/string.hpp>
 
 namespace sge::opengl

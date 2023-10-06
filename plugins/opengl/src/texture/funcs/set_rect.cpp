@@ -6,7 +6,6 @@
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_order.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
@@ -20,6 +19,7 @@
 #include <sge/renderer/dim2.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/make_ref.hpp>

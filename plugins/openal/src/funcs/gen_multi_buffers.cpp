@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/openal/al.hpp>
 #include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/funcs/gen_buffers.hpp>
 #include <sge/openal/funcs/gen_multi_buffers.hpp>
@@ -12,6 +11,9 @@
 #include <fcppt/container/buffer/object_impl.hpp>
 #include <fcppt/container/buffer/read_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::openal::buffer_id_container
 sge::openal::funcs::gen_multi_buffers(sge::openal::buffer_id_container::size_type const _size)

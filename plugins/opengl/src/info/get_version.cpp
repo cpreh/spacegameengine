@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/get_string.hpp>
 #include <sge/opengl/backend/current_fwd.hpp>
 #include <sge/opengl/info/get_version.hpp>
@@ -12,6 +11,7 @@
 #include <sge/opengl/info/version.hpp>
 #include <sge/opengl/info/version_type.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/expect.hpp>
 #include <fcppt/config/external_begin.hpp>

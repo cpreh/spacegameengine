@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_BUFFER_OPTIONAL_ID_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_OPTIONAL_ID_HPP_INCLUDED
 
-#include <sge/opengl/buffer/optional_id_fwd.hpp>
+#include <sge/opengl/buffer/optional_id_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

@@ -3,9 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/get_int.hpp>
 #include <sge/opengl/get_ints.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 GLint sge::opengl::get_int(GLenum const _what)
 {

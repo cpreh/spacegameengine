@@ -85,8 +85,7 @@ private:
   sge::projectile::body::user_data user_data_;
 
   // @override
-  void getWorldTransform(btTransform & // NOLINT(google-runtime-references)
-  ) const; // NOLINT(google-runtime-references)
+  void getWorldTransform(btTransform &) const; // NOLINT(google-runtime-references)
 
   // @override
   void setWorldTransform(btTransform const &);

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/state/ffp/sampler/actor.hpp>
 #include <sge/opengl/state/ffp/sampler/set_one.hpp>
@@ -12,6 +11,7 @@
 #include <sge/opengl/texture/funcs/env_int.hpp>
 #include <sge/opengl/texture/funcs/env_int_value.hpp>
 #include <sge/opengl/texture/funcs/env_target.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 sge::opengl::state::ffp::sampler::actor sge::opengl::state::ffp::sampler::set_one(
     sge::opengl::texture::funcs::env_arg const _arg,

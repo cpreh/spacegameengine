@@ -7,7 +7,6 @@
 #define SGE_OPENGL_FBO_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
 #include <sge/image/ds/format.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface_fwd.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>

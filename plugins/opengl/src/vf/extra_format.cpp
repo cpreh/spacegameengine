@@ -3,11 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/color_base_type_sge.hpp>
 #include <sge/opengl/vf/convert_color_format.hpp>
 #include <sge/opengl/vf/convert_element_type.hpp>
 #include <sge/opengl/vf/extra_format.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/vf/dynamic/color.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>

@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/target/set_flipped_area.hpp>
 #include <sge/opengl/target/set_scissor_area.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_unit.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <fcppt/text.hpp>
 

@@ -5,7 +5,6 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/multi_config.hpp>
@@ -18,6 +17,7 @@
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/texpos_actor.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>

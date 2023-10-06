@@ -3,13 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/core/blend/alpha.hpp>
 #include <sge/opengl/state/core/blend/alpha_enabled.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled_fwd.hpp>
 #include <sge/renderer/state/core/blend/alpha_off_fwd.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant.hpp>

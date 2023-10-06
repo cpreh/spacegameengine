@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
@@ -20,6 +19,7 @@
 #include <sge/opengl/state/core/depth_stencil/stencil/op_separate.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/write_mask.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/combined.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>

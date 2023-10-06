@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
 #define SGE_OPENGL_VF_CLIENT_STATE_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>

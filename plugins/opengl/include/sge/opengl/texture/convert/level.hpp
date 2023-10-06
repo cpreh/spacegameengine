@@ -6,13 +6,13 @@
 #ifndef SGE_OPENGL_TEXTURE_CONVERT_LEVEL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CONVERT_LEVEL_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
 namespace sge::opengl::texture::convert
 {
 
-GLenum level(renderer::texture::stage);
+GLenum level(sge::renderer::texture::stage);
 
 }
 

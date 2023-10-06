@@ -3,6 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/projectile/vector2.hpp>
+#include <sge/projectile/body/object_fwd.hpp>
+#include <sge/projectile/ghost/body_enter.hpp>
+#include <sge/projectile/ghost/body_exit.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/ghost/parameters.hpp>
 #include <sge/projectile/impl/bullet_to_vector2.hpp>
@@ -13,13 +17,17 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/out.hpp>
-#include <fcppt/math/dim/output.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/math/vector/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
+#include <BulletCollision/CollisionDispatch/btCollisionObject.h>
 #include <BulletCollision/CollisionDispatch/btGhostObject.h>
 #include <BulletCollision/CollisionShapes/btBoxShape.h>
+#include <LinearMath/btMatrix3x3.h>
+#include <LinearMath/btTransform.h>
+#include <LinearMath/btVector3.h>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -76,6 +84,12 @@ sge::projectile::ghost::object::body_exit(sge::projectile::ghost::body_exit &&f)
 
 sge::projectile::ghost::object::~object() = default;
 
-void sge::projectile::ghost::object::enter_internal(body::object const &b) { body_enter_(b); }
+void sge::projectile::ghost::object::enter_internal(sge::projectile::body::object const &b)
+{
+  body_enter_(b);
+}
 
-void sge::projectile::ghost::object::exit_internal(body::object const &b) { body_exit_(b); }
+void sge::projectile::ghost::object::exit_internal(sge::projectile::body::object const &b)
+{
+  body_exit_(b);
+}

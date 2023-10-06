@@ -3,12 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/openal/al.hpp>
 #include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/funcs/delete_buffers.hpp>
 #include <sge/openal/funcs/delete_multi_buffers.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 void sge::openal::funcs::delete_multi_buffers(sge::openal::buffer_id_container const &_ids)
 {

@@ -5,9 +5,10 @@
 
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/parameter/object.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/cg/texture/assigned_stage.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/text.hpp>

@@ -10,7 +10,7 @@
 #include <sge/evdev/joypad/add.hpp>
 #include <sge/evdev/joypad/attrib.hpp>
 #include <sge/evdev/joypad/init.hpp>
-#include <sge/evdev/joypad/object.hpp>
+#include <sge/evdev/joypad/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/evdev/joypad/remove.hpp>
 #include <sge/evdev/joypad/shared_ptr.hpp>
 #include <sge/input/exception.hpp>
@@ -26,14 +26,14 @@
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
 #include <awl/backends/posix/event.hpp>
-#include <awl/backends/posix/processor.hpp>
+#include <awl/backends/posix/processor.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/posix/processor_base.hpp>
 #include <awl/event/base.hpp>
-#include <awl/event/connection.hpp>
+#include <awl/event/connection.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <awl/system/object.hpp>
-#include <awl/system/event/processor.hpp>
+#include <awl/system/event/processor.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>

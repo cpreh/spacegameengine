@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_STATE_FFP_CLIP_PLANE_OBJECT_FWD_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_CLIP_PLANE_OBJECT_FWD_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/unary_object_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/clip_plane/object_fwd.hpp>
 
 namespace sge::opengl::state::ffp::clip_plane

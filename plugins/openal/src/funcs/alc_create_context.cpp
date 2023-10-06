@@ -4,12 +4,14 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/audio/exception.hpp>
-#include <sge/openal/alc.hpp>
 #include <sge/openal/check_alc_state.hpp>
 #include <sge/openal/funcs/alc_create_context.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/array/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <alc.h>
+#include <fcppt/config/external_end.hpp>
 
 ALCcontext *sge::openal::funcs::alc_create_context(fcppt::reference<ALCdevice> const _device)
 {

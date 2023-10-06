@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/projectile/world.hpp>
+#include <sge/projectile/world.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/projectile/world_ref.hpp>
 #include <sge/projectile/ghost/object_ref.hpp>
 #include <sge/projectile/ghost/scoped.hpp>

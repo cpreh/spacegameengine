@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_STATE_CONVERT_MIN_FILTER_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CONVERT_MIN_FILTER_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/min_fwd.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip_fwd.hpp>
 

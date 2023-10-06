@@ -3,16 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/context.hpp>
+#include <sge/opengl/buffer/hardware_config.hpp>
 #include <sge/opengl/buffer/make_hardware.hpp>
 #include <sge/opengl/buffer/make_software.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
-#include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <fcppt/make_cref.hpp>

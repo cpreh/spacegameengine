@@ -3,8 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
-#include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/buffer/base_ref.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/normal_lock_method.hpp>
@@ -15,8 +14,10 @@
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/convert/resource_flags.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/size.hpp>

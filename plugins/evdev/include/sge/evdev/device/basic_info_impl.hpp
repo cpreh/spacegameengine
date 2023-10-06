@@ -6,7 +6,7 @@
 #ifndef SGE_EVDEV_DEVICE_BASIC_INFO_IMPL_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_BASIC_INFO_IMPL_HPP_INCLUDED
 
-#include <sge/evdev/device/basic_info_decl.hpp>
+#include <sge/evdev/device/basic_info_decl.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

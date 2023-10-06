@@ -3,11 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/ffp/lighting/material/color.hpp>
 #include <sge/opengl/state/ffp/lighting/material/float.hpp>
 #include <sge/opengl/state/ffp/lighting/material/make_actors.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
 #include <fcppt/cast/size.hpp>
 

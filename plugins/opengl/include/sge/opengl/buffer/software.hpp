@@ -6,12 +6,12 @@
 #ifndef SGE_OPENGL_BUFFER_SOFTWARE_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_SOFTWARE_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/raw_pointer.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>

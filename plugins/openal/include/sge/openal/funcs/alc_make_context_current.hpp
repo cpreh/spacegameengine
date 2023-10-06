@@ -6,8 +6,10 @@
 #ifndef SGE_OPENAL_FUNCS_ALC_MAKE_CONTEXT_CURRENT_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_ALC_MAKE_CONTEXT_CURRENT_HPP_INCLUDED
 
-#include <sge/openal/alc.hpp>
 #include <fcppt/reference_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <alc.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::openal::funcs
 {

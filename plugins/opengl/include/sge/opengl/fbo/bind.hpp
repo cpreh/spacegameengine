@@ -6,7 +6,6 @@
 #ifndef SGE_OPENGL_FBO_BIND_HPP_INCLUDED
 #define SGE_OPENGL_FBO_BIND_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/id.hpp>
 

@@ -3,13 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor_vector.hpp>
 #include <sge/opengl/state/ffp/lighting/light/color.hpp>
 #include <sge/opengl/state/ffp/lighting/light/directional.hpp>
 #include <sge/opengl/state/ffp/lighting/light/make_actors.hpp>
 #include <sge/opengl/state/ffp/lighting/light/point.hpp>
 #include <sge/opengl/state/ffp/lighting/light/spot.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/variant/match.hpp>

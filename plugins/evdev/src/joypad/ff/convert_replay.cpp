@@ -11,6 +11,7 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <cstdint>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 

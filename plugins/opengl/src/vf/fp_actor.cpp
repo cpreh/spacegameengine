@@ -3,13 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/client_state_combiner.hpp>
 #include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/fp_actor.hpp>
 #include <sge/opengl/vf/pointer.hpp>
 #include <sge/opengl/vf/pointer_actor.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 sge::opengl::vf::fp_actor::~fp_actor() = default;
 

@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
@@ -15,6 +14,7 @@
 #include <sge/opengl/state/ffp/fog/color.hpp>
 #include <sge/opengl/state/ffp/fog/float.hpp>
 #include <sge/opengl/state/ffp/fog/make_actors.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/fog/enabled.hpp>
 #include <sge/renderer/state/ffp/fog/off_fwd.hpp>
 #include <sge/renderer/state/ffp/fog/parameters.hpp>

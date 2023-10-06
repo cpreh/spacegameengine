@@ -6,7 +6,6 @@
 #ifndef SGE_OPENGL_TEXTURE_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/opengl/texture/type.hpp>
 
 namespace sge::opengl::texture

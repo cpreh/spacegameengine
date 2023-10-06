@@ -4,14 +4,19 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/core/exception.hpp>
+#include <sge/projectile/fixed_timestep.hpp>
 #include <sge/projectile/log.hpp>
+#include <sge/projectile/maximum_substeps.hpp>
+#include <sge/projectile/time_increment.hpp>
 #include <sge/projectile/world.hpp>
+#include <sge/projectile/body/collision.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/object_ref.hpp>
 #include <sge/projectile/ghost/object.hpp>
+#include <sge/projectile/ghost/object_ref.hpp>
 #include <sge/projectile/group/id.hpp>
 #include <sge/projectile/group/object.hpp>
-#include <sge/projectile/group/object_ref.hpp>
+#include <sge/projectile/group/sequence.hpp>
 #include <sge/projectile/impl/collision_tester.hpp>
 #include <sge/projectile/impl/ghost/detail/pair_callback.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -24,7 +29,7 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/BroadphaseCollision/btDbvtBroadphase.h>
 #include <BulletCollision/CollisionDispatch/btCollisionDispatcher.h>

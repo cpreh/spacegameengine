@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/evdev/device/fd.hpp>
+#include <sge/evdev/device/fd.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/evdev/device/fd_ref.hpp>
 #include <sge/evdev/joypad/ff/id.hpp>
 #include <sge/evdev/joypad/ff/uploaded_effect.hpp>

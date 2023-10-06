@@ -60,7 +60,6 @@ set(
 	plugins/opengl/include/sge/opengl/color_format.hpp
 	plugins/opengl/include/sge/opengl/color_format_fwd.hpp
 	plugins/opengl/include/sge/opengl/color_order.hpp
-	plugins/opengl/include/sge/opengl/common.hpp
 	plugins/opengl/include/sge/opengl/context/base.hpp
 	plugins/opengl/include/sge/opengl/context/base_fwd.hpp
 	plugins/opengl/include/sge/opengl/context/base_unique_ptr.hpp
@@ -108,6 +107,7 @@ set(
 	plugins/opengl/include/sge/opengl/enable_client_state.hpp
 	plugins/opengl/include/sge/opengl/error_string.hpp
 	plugins/opengl/include/sge/opengl/event_handler.hpp
+	plugins/opengl/include/sge/opengl/ext.hpp
 	plugins/opengl/include/sge/opengl/extension_set.hpp
 	plugins/opengl/include/sge/opengl/extension_supported.hpp
 	plugins/opengl/include/sge/opengl/fbo/attach_render_buffer.hpp
@@ -626,8 +626,6 @@ set(
 	plugins/opengl/include/sge/opengl/texture/write_size.hpp
 	plugins/opengl/include/sge/opengl/texture/writeonly_lock.hpp
 	plugins/opengl/include/sge/opengl/unpack_alignment.hpp
-	plugins/opengl/include/sge/opengl/vector3f.hpp
-	plugins/opengl/include/sge/opengl/vector3f_fwd.hpp
 	plugins/opengl/include/sge/opengl/vector4f.hpp
 	plugins/opengl/include/sge/opengl/vector4f_fwd.hpp
 	plugins/opengl/include/sge/opengl/vertex/buffer.hpp

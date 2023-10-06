@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
@@ -12,6 +12,7 @@
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>

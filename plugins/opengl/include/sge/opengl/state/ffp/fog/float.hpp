@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_STATE_FFP_FOG_FLOAT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_FOG_FLOAT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/opengl/state/actor.hpp>
 
 namespace sge::opengl::state::ffp::fog

@@ -18,6 +18,9 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/match.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <linux/input.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::evdev::joypad::ff::variant
 sge::evdev::joypad::ff::convert_variant(sge::input::joypad::ff::variant const &_variant)

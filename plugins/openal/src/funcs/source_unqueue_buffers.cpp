@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/openal/al.hpp>
 #include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/source_unqueue_buffers.hpp>
@@ -14,6 +13,9 @@
 #include <fcppt/container/buffer/object_impl.hpp>
 #include <fcppt/container/buffer/read_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::openal::buffer_id_container sge::openal::funcs::source_unqueue_buffers(
     sge::openal::source_id const _source, ALsizei const _size)

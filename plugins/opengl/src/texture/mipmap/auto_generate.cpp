@@ -3,13 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/opengl/texture/mipmap/auto_generate.hpp>
 #include <sge/opengl/texture/mipmap/context.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>

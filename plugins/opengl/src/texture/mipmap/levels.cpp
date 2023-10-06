@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
@@ -11,6 +11,7 @@
 #include <sge/opengl/texture/mipmap/generate_levels.hpp>
 #include <sge/opengl/texture/mipmap/levels.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/renderer/texture/mipmap/levels_rep.hpp>
 #include <fcppt/cast/to_signed.hpp>

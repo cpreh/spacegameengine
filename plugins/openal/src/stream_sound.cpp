@@ -3,19 +3,19 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/audio/file.hpp>
+#include <sge/audio/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/file_ref.hpp>
 #include <sge/audio/sample_buffer.hpp>
 #include <sge/audio/sample_container.hpp>
 #include <sge/audio/sample_count.hpp>
-#include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/play_status.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
-#include <sge/openal/al.hpp>
+#include <sge/audio/sound/repeat.hpp>
 #include <sge/openal/buffer_id.hpp>
 #include <sge/openal/file_format.hpp>
 #include <sge/openal/multi_buffer_holder.hpp>
+#include <sge/openal/source.hpp>
 #include <sge/openal/stream_sound.hpp>
 #include <sge/openal/funcs/buffer_data.hpp>
 #include <sge/openal/funcs/get_source_int.hpp>
@@ -29,7 +29,7 @@
 #include <fcppt/loop.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/loop_break.hpp>
 #include <fcppt/cast/size.hpp>
@@ -42,6 +42,10 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/nothing.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 sge::openal::stream_sound::stream_sound(
     fcppt::log::object_reference const _log,

@@ -5,9 +5,9 @@
 
 #include <sge/image/ds/format.hpp>
 #include <sge/opengl/color_base_type.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/depth_stencil_base_type.hpp>
 #include <sge/opengl/convert/make_color_base_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::color_base_type

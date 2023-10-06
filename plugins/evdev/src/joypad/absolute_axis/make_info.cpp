@@ -12,7 +12,6 @@
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/axis_max.hpp>
 #include <sge/input/joypad/axis_min.hpp>
-#include <fcppt/optional_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -7,10 +7,10 @@
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor.hpp>
 #include <sge/opengl/state/ffp/lighting/light/color.hpp>
 #include <sge/opengl/state/ffp/lighting/light/float_ptr.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 sge::opengl::state::index_actor sge::opengl::state::ffp::lighting::light::color(
     GLenum const _name, sge::image::color::any::object const &_color)

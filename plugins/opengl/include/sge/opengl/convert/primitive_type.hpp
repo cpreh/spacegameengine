@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_CONVERT_PRIMITIVE_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_PRIMITIVE_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/primitive_type_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::convert
 {

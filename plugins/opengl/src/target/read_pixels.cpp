@@ -7,12 +7,12 @@
 #include <sge/opengl/check_state.hpp>
 #include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_order.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/target/read_pixels.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>

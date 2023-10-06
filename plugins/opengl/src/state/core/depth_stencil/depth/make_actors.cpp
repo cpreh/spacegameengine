@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/state/actor.hpp>
@@ -13,6 +12,7 @@
 #include <sge/opengl/state/convert/depth_func.hpp>
 #include <sge/opengl/state/core/depth_stencil/depth/make_actors.hpp>
 #include <sge/opengl/state/core/depth_stencil/depth/write_enable.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/off_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_OPENAL_BUFFER_ID_CONTAINER_HPP_INCLUDED
 #define SGE_OPENAL_BUFFER_ID_CONTAINER_HPP_INCLUDED
 
-#include <sge/openal/buffer_id_container_fwd.hpp>
+#include <sge/openal/buffer_id_container_fwd.hpp> // IWYU pragma: export
 #include <fcppt/container/raw_vector/object_impl.hpp>
 
 #endif

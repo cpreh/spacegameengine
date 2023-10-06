@@ -14,6 +14,7 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 ff_trigger sge::evdev::joypad::ff::convert_trigger(

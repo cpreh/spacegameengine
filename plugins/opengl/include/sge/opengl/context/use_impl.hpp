@@ -18,6 +18,7 @@ namespace sge::opengl::context
 {
 
 template <typename Type, typename Parameter>
+// NOLINTNEXTLINE(cppcoreguidelines-missing-std-forward)
 [[nodiscard]] Type &use_impl(sge::opengl::context::object_ref const _object, Parameter &&_parameter)
 {
   return fcppt::cast::static_downcast<Type &>(

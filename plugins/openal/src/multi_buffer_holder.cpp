@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/openal/buffer_id_container.hpp>
 #include <sge/openal/multi_buffer_holder.hpp>
 #include <sge/openal/funcs/delete_multi_buffers.hpp>
 #include <sge/openal/funcs/gen_multi_buffers.hpp>

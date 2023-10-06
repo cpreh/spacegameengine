@@ -3,13 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/init_srgb.hpp>
 #include <sge/opengl/srgb_context.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>

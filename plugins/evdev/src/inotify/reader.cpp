@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <linux/limits.h>
 #include <sys/inotify.h>
+#include <sys/types.h>
 #include <cstddef>
 #include <cstring>
 #include <filesystem>

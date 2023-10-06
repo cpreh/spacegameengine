@@ -3,13 +3,15 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/openal/alc.hpp>
 #include <sge/openal/context.hpp>
 #include <sge/openal/device.hpp>
 #include <sge/openal/funcs/alc_create_context.hpp>
 #include <sge/openal/funcs/alc_destroy_context.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <alc.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::openal::context::context(fcppt::reference<sge::openal::device> const _device)
     : device_(_device),

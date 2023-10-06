@@ -10,7 +10,6 @@
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
-#include <fcppt/log/verbose.hpp>
 
 sge::projectile::shape::detail::index_container sge::projectile::impl::shape::triangle_indices(
     fcppt::log::object &_log, sge::projectile::shape::triangle_sequence const &_triangles)

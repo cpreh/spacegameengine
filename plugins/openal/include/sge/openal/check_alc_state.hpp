@@ -7,14 +7,16 @@
 #define SGE_OPENAL_CHECK_ALC_STATE_HPP_INCLUDED
 
 #include <sge/core/check_state.hpp>
-#include <sge/openal/alc.hpp>
 #include <sge/openal/alc_error_string.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <alc.h>
+#include <fcppt/config/external_end.hpp>
 
 #define SGE_OPENAL_CHECK_ALC_STATE(device, message, exception) \
   SGE_CORE_CHECK_STATE( \
       exception, \
       message, \
-      ALenum, \
+      ALCenum, \
       ::alcGetError(&device), \
       ALC_NO_ERROR, \
       sge::openal::alc_error_string)

@@ -5,8 +5,8 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/enable.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>

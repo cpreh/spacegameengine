@@ -6,11 +6,13 @@
 #ifndef SGE_OPENAL_CONTEXT_HPP_INCLUDED
 #define SGE_OPENAL_CONTEXT_HPP_INCLUDED
 
-#include <sge/openal/alc.hpp>
 #include <sge/openal/context_fwd.hpp>
 #include <sge/openal/device_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <alc.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::openal
 {

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/get_device_caps.hpp>
 #include <sge/opengl/get_int.hpp>
 #include <sge/opengl/get_string.hpp>
@@ -37,6 +36,7 @@
 #include <sge/renderer/caps/render_target_supported.hpp>
 #include <sge/renderer/caps/srgb_framebuffer.hpp>
 #include <sge/renderer/caps/target_surface_indices.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_ref.hpp>

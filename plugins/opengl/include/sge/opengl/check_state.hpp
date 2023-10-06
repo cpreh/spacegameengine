@@ -8,8 +8,8 @@
 
 #include <sge/core/check_state.hpp>
 #include <sge/opengl/check_state_always.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/error_string.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 #if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
 #define SGE_OPENGL_CHECK_STATE(message, exception) \

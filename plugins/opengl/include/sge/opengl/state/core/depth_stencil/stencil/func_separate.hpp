@@ -6,9 +6,9 @@
 #ifndef SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_FUNC_SEPARATE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_DEPTH_STENCIL_STENCIL_FUNC_SEPARATE_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func_fwd.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>

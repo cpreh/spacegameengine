@@ -4,12 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/call_fun_ref.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/stencil_op.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/config.hpp>
 #include <sge/opengl/state/core/depth_stencil/stencil/op_separate.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>

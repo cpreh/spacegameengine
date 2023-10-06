@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/multi_sample_context.hpp>
 #include <sge/opengl/optional_enum.hpp>
 #include <sge/opengl/context/base.hpp>

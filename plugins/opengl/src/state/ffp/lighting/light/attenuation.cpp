@@ -3,10 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/state/index_actor_vector.hpp>
 #include <sge/opengl/state/ffp/lighting/light/attenuation.hpp>
 #include <sge/opengl/state/ffp/lighting/light/float.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
 
 sge::opengl::state::index_actor_vector sge::opengl::state::ffp::lighting::light::attenuation(

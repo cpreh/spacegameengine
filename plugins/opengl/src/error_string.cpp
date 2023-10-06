@@ -3,8 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/error_string.hpp>
+#include <sge/opengl/ext.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 

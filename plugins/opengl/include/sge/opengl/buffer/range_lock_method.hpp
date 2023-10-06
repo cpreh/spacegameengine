@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_BUFFER_RANGE_LOCK_METHOD_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_RANGE_LOCK_METHOD_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::buffer
 {

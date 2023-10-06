@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_STATE_CONVERT_SAMPLER_COLOR_ARG_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CONVERT_SAMPLER_COLOR_ARG_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/sampler/arg1.hpp>
 #include <sge/renderer/state/ffp/sampler/arg2.hpp>
 #include <sge/renderer/state/ffp/sampler/arg3.hpp>

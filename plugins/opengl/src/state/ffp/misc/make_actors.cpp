@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/enable_bool.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
@@ -13,6 +12,7 @@
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/misc/make_actors.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/set.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/join.hpp>

@@ -18,7 +18,7 @@
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
-#include <fcppt/config/platform.hpp>
+#include <fcppt/config/platform.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/either/first_success.hpp>
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/either/to_exception.hpp>

@@ -6,7 +6,7 @@
 #include <sge/evdev/system.hpp>
 #include <sge/input/system.hpp>
 #include <sge/input/system_unique_ptr.hpp>
-#include <sge/input/plugin/traits.hpp>
+#include <sge/input/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/description.hpp>
@@ -51,5 +51,5 @@ sge::input::system_unique_ptr create_input_system(fcppt::log::context_reference 
 
 }
 
-// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp,cppcoreguidelines-avoid-non-const-global-variables)
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(info, ((sge::input::system, create_input_system)))

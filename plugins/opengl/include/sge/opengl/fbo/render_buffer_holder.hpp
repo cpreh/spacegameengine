@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_FBO_RENDER_BUFFER_HOLDER_HPP_INCLUDED
 #define SGE_OPENGL_FBO_RENDER_BUFFER_HOLDER_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/fbo/const_config_ref.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::opengl::fbo

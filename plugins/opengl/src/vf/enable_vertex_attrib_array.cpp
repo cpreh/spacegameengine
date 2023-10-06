@@ -5,12 +5,12 @@
 
 #include <sge/opengl/call_fun_ref.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/vf/attribute_config.hpp>
 #include <sge/opengl/vf/attribute_context_fwd.hpp>
 #include <sge/opengl/vf/enable_vertex_attrib_array.hpp>
 #include <sge/opengl/vf/get_attribute_config.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 void sge::opengl::vf::enable_vertex_attrib_array(

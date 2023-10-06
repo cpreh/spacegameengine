@@ -12,21 +12,22 @@
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
-#include <sge/openal/al.hpp>
 #include <sge/openal/buffer.hpp>
-#include <sge/openal/check_state.hpp>
 #include <sge/openal/file_format.hpp>
 #include <sge/openal/source.hpp>
 #include <sge/openal/funcs/buffer_data.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::openal::buffer::buffer(fcppt::log::object_reference const _log, sge::audio::file &_file)
     : log_{_log}, holder_{_log}

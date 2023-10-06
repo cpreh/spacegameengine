@@ -91,13 +91,13 @@ private:
 
   sge::renderer::resource_flags_field const flags_;
 
-  pointer dest_;
+  pointer dest_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   sge::opengl::buffer::holder const holder_;
 
-  size_type lock_offset_;
+  size_type lock_offset_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  size_type lock_size_;
+  size_type lock_size_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

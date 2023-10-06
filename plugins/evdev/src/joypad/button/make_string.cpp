@@ -47,6 +47,7 @@ sge::evdev::joypad::button::make_string(sge::evdev::joypad::button::code const _
     SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(BTN_MODE);
     SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(BTN_THUMBL);
     SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(BTN_THUMBR);
+    default: break;
   }
 
   return fcppt::optional_string();

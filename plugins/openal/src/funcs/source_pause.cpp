@@ -8,6 +8,9 @@
 #include <sge/openal/source_id.hpp>
 #include <sge/openal/funcs/source_pause.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 void sge::openal::funcs::source_pause(sge::openal::source_id const _id)
 {

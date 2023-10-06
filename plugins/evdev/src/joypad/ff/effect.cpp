@@ -18,7 +18,6 @@
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <linux/input.h>
 #include <limits>
 #include <fcppt/config/external_end.hpp>
 

@@ -6,12 +6,13 @@
 #ifndef SGE_OPENGL_FBO_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_FBO_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::fbo
 {

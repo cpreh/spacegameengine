@@ -6,7 +6,9 @@
 #ifndef SGE_OPENAL_FUNCS_DELETE_BUFFERS_HPP_INCLUDED
 #define SGE_OPENAL_FUNCS_DELETE_BUFFERS_HPP_INCLUDED
 
-#include <sge/openal/al.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <al.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::openal::funcs
 {

@@ -6,9 +6,17 @@
 #include <sge/projectile/impl/collision_tester.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
+#include <LinearMath/btScalar.h>
 #include <fcppt/config/external_end.hpp>
 
-sge::projectile::impl::collision_tester::collision_tester() : result_(false) {}
+struct btCollisionObjectWrapper;
+struct btBroadphaseProxy;
+class btManifoldPoint;
+
+sge::projectile::impl::collision_tester::collision_tester()
+    : btCollisionWorld::ContactResultCallback{}, result_{false}
+{
+}
 
 sge::projectile::impl::collision_tester::~collision_tester() = default;
 

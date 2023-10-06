@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
 #define SGE_OPENGL_CONVERT_RESOURCE_FLAGS_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::convert
 {

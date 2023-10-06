@@ -28,6 +28,7 @@ sge::evdev::joypad::relative_axis::make_string(sge::evdev::joypad::relative_axis
     SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(REL_DIAL);
     SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(REL_WHEEL);
     SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(REL_MISC);
+    default: break;
   }
 
   return fcppt::optional_string{};

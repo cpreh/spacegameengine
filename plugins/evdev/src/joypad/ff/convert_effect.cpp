@@ -14,7 +14,7 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
-#include <cstddef>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 ff_effect sge::evdev::joypad::ff::convert_effect(

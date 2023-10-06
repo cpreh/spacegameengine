@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/convert/anisotropic_mip_filter.hpp>
@@ -14,6 +13,7 @@
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>

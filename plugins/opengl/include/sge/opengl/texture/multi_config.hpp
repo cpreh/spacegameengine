@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_TEXTURE_MULTI_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_MULTI_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/texture/multi_config_fwd.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>

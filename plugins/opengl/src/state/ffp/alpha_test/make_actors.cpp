@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/state/actor.hpp>
@@ -12,6 +11,7 @@
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/convert/alpha_func.hpp>
 #include <sge/opengl/state/ffp/alpha_test/make_actors.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/alpha_test/enabled.hpp>
 #include <sge/renderer/state/ffp/alpha_test/off_fwd.hpp>
 #include <sge/renderer/state/ffp/alpha_test/parameters.hpp>

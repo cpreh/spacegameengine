@@ -7,7 +7,6 @@
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/opengl/call.hpp>
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/disable.hpp>
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/enable_bool.hpp>
@@ -16,6 +15,7 @@
 #include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/wrap_error_handler.hpp>
 #include <sge/opengl/state/ffp/lighting/make_actors.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
 #include <sge/renderer/state/ffp/lighting/off_fwd.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>

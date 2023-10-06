@@ -3,9 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/convert/index_format.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/assert/unreachable.hpp>
 
 GLenum sge::opengl::convert::index_format(sge::renderer::index::dynamic::format const _format)

@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_STATE_INDEX_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_STATE_INDEX_ACTOR_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/function_impl.hpp>
 
 namespace sge::opengl::state

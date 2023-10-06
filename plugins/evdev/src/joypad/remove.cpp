@@ -5,7 +5,7 @@
 
 #include <sge/evdev/joypad/find_path.hpp>
 #include <sge/evdev/joypad/map.hpp>
-#include <sge/evdev/joypad/object.hpp>
+#include <sge/evdev/joypad/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/evdev/joypad/remove.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/remove.hpp>

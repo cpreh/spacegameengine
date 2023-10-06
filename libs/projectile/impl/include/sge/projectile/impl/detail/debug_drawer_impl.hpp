@@ -20,7 +20,10 @@
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <LinearMath/btIDebugDraw.h>
 #include <LinearMath/btVector3.h>
+#include <LinearMath/btScalar.h>
 #include <fcppt/config/external_end.hpp>
+
+class btCollisionWorld;
 
 namespace sge::projectile::detail
 {
@@ -35,8 +38,7 @@ public:
 
   void update();
 
-  void render(sge::renderer::context::core & // NOLINT(google-runtime-references)
-  ); // NOLINT(google-runtime-references)
+  void render(sge::renderer::context::core &); // NOLINT(google-runtime-references)
 
   void active(bool);
 
@@ -49,7 +51,7 @@ private:
 
   btCollisionWorld &world_;
 
-  int debug_mode_;
+  int debug_mode_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   sge::line_drawer::object line_drawer_;
 

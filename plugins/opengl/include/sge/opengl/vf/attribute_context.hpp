@@ -6,7 +6,6 @@
 #ifndef SGE_OPENGL_VF_ATTRIBUTE_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_VF_ATTRIBUTE_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/common.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>

@@ -7,7 +7,7 @@
 #define SGE_OPENGL_TARGET_AREA_FUNCTION_HPP_INCLUDED
 
 #include <sge/opengl/apientry.hpp>
-#include <sge/opengl/common.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::target
 {
