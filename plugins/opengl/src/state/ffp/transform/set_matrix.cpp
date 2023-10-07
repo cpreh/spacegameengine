@@ -11,6 +11,7 @@
 #include <sge/opengl/state/ffp/transform/set_matrix.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe.hpp>

@@ -9,16 +9,15 @@
 #include <sge/opengl/x11/fullscreen_atom.hpp>
 #include <sge/opengl/x11/state_atom.hpp>
 #include <sge/opengl/xrandr/optional_system_ref.hpp>
-#include <sge/opengl/xrandr/resolution.hpp>
-#include <sge/opengl/xrandr/state.hpp>
-#include <sge/opengl/xrandr/state_unique_ptr.hpp>
+#include <sge/opengl/xrandr/resolution.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/opengl/xrandr/state.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/xrandr/system.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/display_mode/fullscreen.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <fcppt/reference_impl.hpp>

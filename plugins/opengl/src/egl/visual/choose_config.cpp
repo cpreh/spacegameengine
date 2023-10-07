@@ -12,6 +12,7 @@
 #include <fcppt/log/warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
+#include <EGL/eglplatform.h>
 #include <fcppt/config/external_end.hpp>
 
 EGLConfig sge::opengl::egl::visual::choose_config(

@@ -38,7 +38,6 @@
 #include <sge/renderer/target/surface_index.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/const.hpp>
-#include <fcppt/format.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
@@ -57,7 +56,7 @@
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

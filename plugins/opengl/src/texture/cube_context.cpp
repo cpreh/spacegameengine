@@ -19,6 +19,7 @@
 #include <sge/opengl/texture/optional_cube_config.hpp>
 #include <sge/opengl/texture/convert/make_buffer_type.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

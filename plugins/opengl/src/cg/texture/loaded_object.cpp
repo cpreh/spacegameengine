@@ -18,7 +18,7 @@
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/render_binding.hpp>
 #include <sge/opengl/texture/set_samplers.hpp>
-#include <sge/renderer/texture/base.hpp>
+#include <sge/renderer/texture/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/log/object_reference.hpp>

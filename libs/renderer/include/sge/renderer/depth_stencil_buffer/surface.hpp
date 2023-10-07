@@ -11,7 +11,7 @@
 #include <sge/imageds2d/traits/color_tag.hpp>
 #include <sge/imageds2d/traits/dimension.hpp>
 #include <sge/renderer/buffer/detail/declare_base.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp> // IWYU pragma: export
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

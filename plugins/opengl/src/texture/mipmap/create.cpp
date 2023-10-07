@@ -8,7 +8,12 @@
 #include <sge/opengl/texture/mipmap/all_levels.hpp>
 #include <sge/opengl/texture/mipmap/create.hpp>
 #include <sge/opengl/texture/mipmap/levels.hpp>
+#include <sge/opengl/texture/mipmap/parameters.hpp>
+#include <sge/renderer/texture/mipmap/all_levels_rep.hpp>
+#include <sge/renderer/texture/mipmap/levels_rep.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
+#include <sge/renderer/texture/mipmap/off_rep.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>

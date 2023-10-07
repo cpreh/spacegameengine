@@ -6,7 +6,6 @@
 #include <sge/opengl/target/area_function.hpp>
 #include <sge/opengl/target/set_flipped_area.hpp>
 #include <sge/renderer/pixel_rect.hpp>
-#include <sge/renderer/pixel_unit.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/cast/size.hpp>

@@ -11,7 +11,6 @@
 #include <sge/renderer/texture/mipmap/levels_rep.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <sge/renderer/texture/mipmap/off_rep_fwd.hpp>
-#include <sge/renderer/texture/mipmap/variant.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/math/log2.hpp>

@@ -10,7 +10,7 @@
 #include <sge/opengl/xrandr/rotation.hpp>
 #include <sge/opengl/xrandr/set_resolution.hpp>
 #include <sge/renderer/exception.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/base.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/optional/maybe.hpp>

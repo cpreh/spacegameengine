@@ -12,8 +12,8 @@
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/default.hpp>
-#include <sge/renderer/state/core/sampler/object.hpp>
-#include <sge/renderer/state/core/sampler/parameters.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/state/core/sampler/parameters.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>

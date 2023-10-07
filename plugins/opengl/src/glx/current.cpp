@@ -12,8 +12,8 @@
 #include <sge/opengl/glx/vsync.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
+#include <awl/backends/x11/window/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/base_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
@@ -22,7 +22,7 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <string>

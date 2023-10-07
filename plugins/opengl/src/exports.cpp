@@ -16,7 +16,7 @@
 #include <sge/plugin/library/make_interface.hpp>
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/core_unique_ptr.hpp>
-#include <sge/renderer/plugin/traits.hpp>
+#include <sge/renderer/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -53,5 +53,5 @@ create_renderer_core(fcppt::log::context_reference const _log_context)
 
 }
 
-// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp,cppcoreguidelines-avoid-non-const-global-variables)
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(info, ((sge::renderer::core, create_renderer_core)))

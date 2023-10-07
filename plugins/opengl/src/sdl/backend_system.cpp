@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opengl/backend/context.hpp>
 #include <sge/opengl/backend/context_unique_ptr.hpp>
 #include <sge/opengl/backend/system.hpp>
 #include <sge/opengl/sdl/backend_system.hpp>
@@ -11,6 +12,7 @@
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/system/object_ref.hpp>
+#include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>

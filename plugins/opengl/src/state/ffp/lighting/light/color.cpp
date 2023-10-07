@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/image/color/rgba32f.hpp>
 #include <sge/image/color/rgba32f_format.hpp>
 #include <sge/image/color/any/convert.hpp>
 #include <sge/image/color/any/object_fwd.hpp>

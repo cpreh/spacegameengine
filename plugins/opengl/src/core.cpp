@@ -12,7 +12,7 @@
 #include <sge/renderer/system_unique_ptr.hpp>
 #include <sge/renderer/caps/system.hpp>
 #include <sge/renderer/caps/system_field.hpp>
-#include <sge/window/system.hpp>
+#include <sge/window/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/system_ref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>

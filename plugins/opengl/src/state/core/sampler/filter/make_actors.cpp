@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/core/sampler/actor_vector.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropic.hpp>
 #include <sge/opengl/state/core/sampler/filter/make_actors.hpp>

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/image/color/format.hpp>
 #include <sge/opengl/color_base_type.hpp>
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>

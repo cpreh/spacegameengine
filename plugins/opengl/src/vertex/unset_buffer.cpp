@@ -7,7 +7,7 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vertex/buffer.hpp>
 #include <sge/opengl/vertex/context.hpp>
-#include <sge/opengl/vertex/declaration.hpp>
+#include <sge/opengl/vertex/declaration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/vertex/buffer.hpp>

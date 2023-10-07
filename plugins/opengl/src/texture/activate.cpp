@@ -10,6 +10,7 @@
 #include <sge/opengl/texture/base.hpp>
 #include <sge/opengl/texture/bind_context.hpp>
 #include <sge/opengl/texture/bind_level.hpp>
+#include <sge/opengl/texture/const_optional_base_ref.hpp>
 #include <sge/opengl/texture/disable.hpp>
 #include <sge/opengl/texture/enable.hpp>
 #include <sge/opengl/texture/get_stage_type.hpp>
@@ -22,6 +23,7 @@
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 

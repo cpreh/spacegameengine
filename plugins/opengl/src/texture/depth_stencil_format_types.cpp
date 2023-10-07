@@ -7,7 +7,7 @@
 #include <sge/opengl/convert/depth_stencil_order.hpp>
 #include <sge/opengl/convert/depth_stencil_to_internal_format.hpp>
 #include <sge/opengl/texture/depth_stencil_format_types.hpp>
-#include <sge/opengl/texture/format_result_impl.hpp>
+#include <sge/opengl/texture/format_result_impl.hpp> // NOLINT(misc-include-cleaner)
 
 sge::opengl::texture::depth_stencil_format_types::convert_order_function_type
 sge::opengl::texture::depth_stencil_format_types::convert_order()

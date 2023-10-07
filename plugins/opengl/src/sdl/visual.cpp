@@ -10,6 +10,7 @@
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/pixel_format/bit_count.hpp>
 #include <sge/renderer/pixel_format/depth_bits.hpp>
+#include <sge/renderer/pixel_format/multi_samples.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/pixel_format/stencil_bits.hpp>

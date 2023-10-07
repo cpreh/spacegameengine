@@ -8,6 +8,7 @@
 #include <sge/opengl/glx/raw_function_ref.hpp>
 #include <sge/opengl/glx/swap_functions.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

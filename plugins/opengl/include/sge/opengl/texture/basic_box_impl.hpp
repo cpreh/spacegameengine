@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_TEXTURE_BASIC_BOX_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_BOX_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_box.hpp>
+#include <sge/opengl/texture/basic_box.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/config_fwd.hpp>

@@ -7,7 +7,7 @@
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/const_render_buffer_ref.hpp>
-#include <sge/opengl/fbo/render_buffer.hpp>
+#include <sge/opengl/fbo/render_buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/fbo/render_buffer_binding.hpp>
 
 sge::opengl::fbo::render_buffer_binding::render_buffer_binding(

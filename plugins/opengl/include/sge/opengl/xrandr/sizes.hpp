@@ -34,7 +34,7 @@ public:
   [[nodiscard]] sge::opengl::xrandr::mode_index size() const;
 
 private:
-  int size_;
+  int size_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   XRRScreenSize const *sizes_;
 };

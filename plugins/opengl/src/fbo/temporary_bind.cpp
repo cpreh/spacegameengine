@@ -5,7 +5,7 @@
 
 #include <sge/opengl/fbo/bind.hpp>
 #include <sge/opengl/fbo/const_config_ref.hpp>
-#include <sge/opengl/fbo/last_context.hpp>
+#include <sge/opengl/fbo/last_context.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/fbo/last_context_ref.hpp>
 #include <sge/opengl/fbo/object.hpp>
 #include <sge/opengl/fbo/temporary_bind.hpp>

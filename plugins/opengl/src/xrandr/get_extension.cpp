@@ -6,10 +6,11 @@
 #include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/get_extension.hpp>
 #include <sge/opengl/xrandr/optional_extension.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
+#include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::opengl::xrandr::optional_extension

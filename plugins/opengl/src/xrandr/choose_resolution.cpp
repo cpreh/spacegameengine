@@ -6,7 +6,6 @@
 #include <sge/opengl/xrandr/choose_resolution.hpp>
 #include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/current_mode.hpp>
-#include <sge/opengl/xrandr/mode.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/resolution.hpp>
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
@@ -16,7 +15,7 @@
 #include <sge/renderer/display_mode/object.hpp>
 #include <awl/backends/x11/window/const_base_ref.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
@@ -27,7 +26,7 @@
 #include <fcppt/math/dim/to_unsigned.hpp>
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/type_iso/strong_typedef.hpp>
+#include <fcppt/type_iso/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>

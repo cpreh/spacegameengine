@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/error_string.hpp>
-#include <sge/opengl/ext.hpp>
+#include <sge/opengl/ext.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>

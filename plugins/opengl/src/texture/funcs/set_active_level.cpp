@@ -15,7 +15,7 @@
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>

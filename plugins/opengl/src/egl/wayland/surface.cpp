@@ -11,7 +11,7 @@
 #include <sge/opengl/egl/window_surface_impl.hpp>
 #include <sge/opengl/egl/wayland/surface.hpp>
 #include <sge/window/object_ref.hpp>
-#include <awl/backends/wayland/window/object.hpp>
+#include <awl/backends/wayland/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <fcppt/config/external_end.hpp>

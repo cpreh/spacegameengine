@@ -9,7 +9,7 @@
 #include <sge/opengl/convert/internal_color_format.hpp>
 #include <sge/opengl/texture/best_color_format.hpp>
 #include <sge/opengl/texture/color_format_types.hpp>
-#include <sge/opengl/texture/format_result_impl.hpp>
+#include <sge/opengl/texture/format_result_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/translate_srgb_emulation.hpp>
 

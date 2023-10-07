@@ -8,6 +8,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
+#include <X11/X.h>
 #include <fcppt/config/external_end.hpp>
 
 GLXDrawable sge::opengl::glx::current_drawable()

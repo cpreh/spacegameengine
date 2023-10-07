@@ -4,6 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/context/object_fwd.hpp>
+#include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>

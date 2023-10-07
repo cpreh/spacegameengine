@@ -7,7 +7,7 @@
 #define SGE_OPENGL_STATE_FFP_CLIP_PLANE_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/state/unary_object.hpp>
-#include <sge/opengl/state/ffp/clip_plane/object_fwd.hpp>
+#include <sge/opengl/state/ffp/clip_plane/object_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/clip_plane/object.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

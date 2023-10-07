@@ -6,7 +6,7 @@
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/core/sampler/context.hpp>
-#include <sge/opengl/state/core/sampler/object.hpp>
+#include <sge/opengl/state/core/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/state/core/sampler/set.hpp>
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/get_stage_type.hpp>

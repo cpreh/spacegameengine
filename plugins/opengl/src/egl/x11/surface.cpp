@@ -4,9 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/egl/surface.hpp>
-#include <sge/opengl/egl/window_surface_impl.hpp>
+#include <sge/opengl/egl/window_surface_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/egl/x11/surface.hpp>
-#include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/const_base_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>

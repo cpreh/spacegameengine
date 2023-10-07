@@ -32,7 +32,7 @@ public:
   static sge::opengl::context::id const static_id;
 
 private:
-  sge::renderer::state::index_count indices_;
+  sge::renderer::state::index_count indices_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

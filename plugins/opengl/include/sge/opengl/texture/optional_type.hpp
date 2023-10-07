@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_TEXTURE_OPTIONAL_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_OPTIONAL_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/texture/optional_type_fwd.hpp>
+#include <sge/opengl/texture/optional_type_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

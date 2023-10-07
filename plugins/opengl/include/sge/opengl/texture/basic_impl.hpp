@@ -8,7 +8,7 @@
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/texture/base.hpp>
-#include <sge/opengl/texture/basic.hpp>
+#include <sge/opengl/texture/basic.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/basic_parameters.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/type.hpp>

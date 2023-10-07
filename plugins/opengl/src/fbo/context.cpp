@@ -10,8 +10,8 @@
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
+#include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/context.hpp>
-#include <sge/opengl/fbo/error_string_map.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <sge/opengl/fbo/optional_config.hpp>
 #include <sge/opengl/info/cast_function.hpp>

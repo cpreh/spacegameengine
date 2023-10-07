@@ -10,6 +10,7 @@
 #include <sge/opengl/visual/convert_color.hpp>
 #include <sge/opengl/visual/rgb_triple.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/pixel_format/bit_count.hpp>
 #include <sge/renderer/pixel_format/depth_bits.hpp>
 #include <sge/renderer/pixel_format/multi_samples.hpp>
@@ -18,16 +19,18 @@
 #include <sge/renderer/pixel_format/stencil_bits.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
+#include <X11/X.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::opengl::glx::visual::attribute_container sge::opengl::glx::visual::make_attributes(
     sge::opengl::glx::visual::optional_srgb_flag const _srgb_flag,
     sge::renderer::pixel_format::object const &_format)
 {
-  sge::opengl::glx::visual::attribute_container ret;
+  sge::opengl::glx::visual::attribute_container ret{};
 
   ret.push_back(GLX_RGBA);
 

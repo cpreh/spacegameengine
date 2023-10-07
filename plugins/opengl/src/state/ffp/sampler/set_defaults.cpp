@@ -12,8 +12,9 @@
 #include <sge/opengl/texture/active_level.hpp>
 #include <sge/opengl/texture/multi_config.hpp>
 #include <sge/opengl/texture/multi_context.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_ref.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>

@@ -5,7 +5,7 @@
 
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/color_order.hpp>
-#include <sge/opengl/ext.hpp>
+#include <sge/opengl/ext.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/convert/color_order.hpp>
 #include <sge/opengl/convert/make_color_order.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>

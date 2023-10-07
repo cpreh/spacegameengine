@@ -9,16 +9,16 @@
 #include <sge/opengl/egl/bind_api.hpp>
 #include <sge/opengl/egl/context.hpp>
 #include <sge/opengl/egl/create_display.hpp>
-#include <sge/opengl/egl/display.hpp>
-#include <sge/opengl/egl/surface.hpp>
+#include <sge/opengl/egl/display.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/opengl/egl/surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/egl/system.hpp>
-#include <sge/opengl/egl/version_output.hpp>
+#include <sge/opengl/egl/version_output.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/egl/visual/to_config.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
 #include <awl/system/object_ref.hpp>
-#include <awl/visual/object.hpp>
+#include <awl/visual/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/visual/object_unique_ptr.hpp>
 #include <awl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -27,6 +27,9 @@
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <EGL/egl.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::opengl::egl::system::system(
     fcppt::log::object_reference const _log, awl::system::object_ref const _awl_system)

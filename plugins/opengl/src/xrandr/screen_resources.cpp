@@ -5,8 +5,8 @@
 
 #include <sge/opengl/xrandr/screen_resources.hpp>
 #include <sge/renderer/exception.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
+#include <awl/backends/x11/window/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/const_base_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -15,9 +15,7 @@
 
 sge::opengl::xrandr::screen_resources::screen_resources(
     awl::backends::x11::window::const_base_ref const _window)
-    : resources_(::XRRGetScreenResources(_window.get().display().get().get(), _window.get().get())
-
-      )
+    : resources_{::XRRGetScreenResources(_window.get().display().get().get(), _window.get().get())}
 {
   if (resources_ == nullptr)
   {

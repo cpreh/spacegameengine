@@ -10,7 +10,8 @@
 #include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
 #include <sge/opengl/glx/visual/srgb_flag.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <GL/glx.h>
+#include <GL/glx.h> // NOLINT(misc-include-cleaner)
+#include <GL/glxext.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::opengl::glx::visual::optional_srgb_flag

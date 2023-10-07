@@ -7,7 +7,7 @@
 #define SGE_OPENGL_STATE_FFP_FOG_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/state/object.hpp>
-#include <sge/opengl/state/ffp/fog/object_fwd.hpp>
+#include <sge/opengl/state/ffp/fog/object_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/state/ffp/fog/object.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

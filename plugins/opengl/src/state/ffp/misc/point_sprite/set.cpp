@@ -12,7 +12,7 @@
 #include <sge/opengl/state/ffp/misc/point_sprite/set_impl.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
-#include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>

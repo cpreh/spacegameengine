@@ -10,6 +10,7 @@
 #include <sge/opengl/vf/disable_vertex_attrib_array.hpp>
 #include <sge/opengl/vf/get_attribute_config.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 void sge::opengl::vf::disable_vertex_attrib_array(

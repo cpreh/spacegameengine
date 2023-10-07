@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_OCCLUSION_QUERY_OPTIONAL_PIXEL_COUNT_HPP_INCLUDED
 #define SGE_RENDERER_OCCLUSION_QUERY_OPTIONAL_PIXEL_COUNT_HPP_INCLUDED
 
-#include <sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp>
+#include <sge/renderer/occlusion_query/optional_pixel_count_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

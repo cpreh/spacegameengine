@@ -8,6 +8,7 @@
 #include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/gen_render_buffer.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 GLuint sge::opengl::fbo::gen_render_buffer(sge::opengl::fbo::config const &_config)

@@ -18,9 +18,9 @@
 #include <sge/renderer/pixel_format/object_fwd.hpp>
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/wayland/display.hpp>
-#include <awl/backends/wayland/system/object.hpp>
+#include <awl/backends/wayland/system/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/wayland/system/object_ref.hpp>
-#include <awl/backends/wayland/window/object.hpp>
+#include <awl/backends/wayland/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>

@@ -10,7 +10,7 @@
 #include <sge/opengl/state/ffp/alpha_test/make_actors.hpp>
 #include <sge/opengl/state/ffp/alpha_test/object.hpp>
 #include <sge/renderer/state/ffp/alpha_test/default.hpp>
-#include <sge/renderer/state/ffp/alpha_test/parameters.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

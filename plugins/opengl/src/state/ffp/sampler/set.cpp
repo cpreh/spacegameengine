@@ -14,7 +14,7 @@
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/make_int_range.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -26,9 +26,9 @@ void sge::opengl::state::ffp::sampler::set(
     sge::opengl::context::object &_context,
     sge::renderer::state::ffp::sampler::const_object_ref_vector const &_samplers)
 {
-  auto const count(
+  auto const count{
       fcppt::strong_typedef_construct_cast<sge::renderer::texture::stage, fcppt::cast::size_fun>(
-          _samplers.size()));
+          _samplers.size())};
 
   for (sge::renderer::texture::stage const stage : fcppt::make_int_range_count(count))
   {

@@ -10,7 +10,7 @@
 #include <sge/opengl/state/ffp/fog/make_actors.hpp>
 #include <sge/opengl/state/ffp/fog/object.hpp>
 #include <sge/renderer/state/ffp/fog/default.hpp>
-#include <sge/renderer/state/ffp/fog/parameters.hpp>
+#include <sge/renderer/state/ffp/fog/parameters.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

@@ -59,7 +59,7 @@ private:
 
   sge::opengl::target::context &context_;
 
-  bool active_;
+  bool active_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   sge::renderer::target::viewport viewport_;
 

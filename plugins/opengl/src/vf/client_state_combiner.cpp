@@ -5,7 +5,7 @@
 
 #include <sge/opengl/disable_client_state.hpp>
 #include <sge/opengl/enable_client_state.hpp>
-#include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>

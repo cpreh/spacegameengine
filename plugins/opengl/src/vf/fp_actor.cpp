@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
-#include <sge/opengl/vf/client_state_combiner.hpp>
+#include <sge/opengl/vf/client_state_combiner.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/fp_actor.hpp>
 #include <sge/opengl/vf/pointer.hpp>

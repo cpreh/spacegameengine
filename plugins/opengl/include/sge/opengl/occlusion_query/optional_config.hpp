@@ -7,7 +7,7 @@
 #define SGE_OPENGL_OCCLUSION_QUERY_OPTIONAL_CONFIG_HPP_INCLUDED
 
 #include <sge/opengl/occlusion_query/config.hpp>
-#include <sge/opengl/occlusion_query/optional_config_fwd.hpp>
+#include <sge/opengl/occlusion_query/optional_config_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

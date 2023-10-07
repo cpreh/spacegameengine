@@ -3,12 +3,14 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/ext.hpp>
+#include <sge/opengl/ext.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/convert/to_gl_enum.hpp>
 #include <sge/opengl/state/ffp/sampler/actor_vector.hpp>
 #include <sge/opengl/state/ffp/sampler/make_actors.hpp>
 #include <sge/opengl/state/ffp/sampler/make_one_op.hpp>
 #include <sge/opengl/state/ffp/sampler/set_one.hpp>
+#include <sge/opengl/texture/funcs/env_arg.hpp>
+#include <sge/opengl/texture/funcs/env_int_value.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters.hpp>
 #include <fcppt/container/join.hpp>

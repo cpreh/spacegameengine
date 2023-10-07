@@ -7,7 +7,7 @@
 #define SGE_OPENGL_TEXTURE_CUBE_BASIC_HPP_INCLUDED
 
 #include <sge/opengl/texture/basic.hpp>
-#include <sge/opengl/texture/cube_basic_fwd.hpp>
+#include <sge/opengl/texture/cube_basic_fwd.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/cube_types.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

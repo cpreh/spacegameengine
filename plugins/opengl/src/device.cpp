@@ -8,16 +8,16 @@
 #include <sge/opengl/get_device_caps.hpp>
 #include <sge/opengl/init_multi_sampling.hpp>
 #include <sge/opengl/init_srgb.hpp>
-#include <sge/opengl/backend/context.hpp>
+#include <sge/opengl/backend/context.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/backend/current.hpp>
-#include <sge/opengl/backend/system.hpp>
+#include <sge/opengl/backend/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/backend/system_ref.hpp>
 #include <sge/opengl/fbo/create_depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/create_target.hpp>
 #include <sge/opengl/index/create_buffer.hpp>
 #include <sge/opengl/occlusion_query/create.hpp>
-#include <sge/opengl/platform/device_state.hpp>
-#include <sge/opengl/platform/system.hpp>
+#include <sge/opengl/platform/device_state.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/opengl/platform/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/platform/system_ref.hpp>
 #include <sge/opengl/render_context/create.hpp>
 #include <sge/opengl/render_context/end.hpp>
@@ -49,7 +49,7 @@
 #include <sge/renderer/context/core_unique_ptr.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_unique_ptr.hpp>
 #include <sge/renderer/display_mode/container.hpp>
@@ -57,79 +57,79 @@
 #include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
-#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/index/buffer_parameters_fwd.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
-#include <sge/renderer/occlusion_query/object.hpp>
+#include <sge/renderer/occlusion_query/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/occlusion_query/object_unique_ptr.hpp>
-#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters_fwd.hpp>
-#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
-#include <sge/renderer/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
-#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/alpha_test/object.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/clip_plane/object.hpp>
+#include <sge/renderer/state/ffp/clip_plane/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/clip_plane/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/fog/object.hpp>
+#include <sge/renderer/state/ffp/fog/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/fog/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/object.hpp>
+#include <sge/renderer/state/ffp/lighting/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/light/object.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/lighting/material/object.hpp>
+#include <sge/renderer/state/ffp/lighting/material/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/misc/object.hpp>
+#include <sge/renderer/state/ffp/misc/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/object.hpp>
+#include <sge/renderer/state/ffp/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
 #include <sge/renderer/target/base_ref.hpp>
-#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/offscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
 #include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/texture/cube.hpp>
+#include <sge/renderer/texture/cube.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <sge/renderer/texture/cube_unique_ptr.hpp>
-#include <sge/renderer/texture/depth_stencil.hpp>
+#include <sge/renderer/texture/depth_stencil.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_unique_ptr.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
-#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/volume.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
 #include <awl/system/object.hpp>
 #include <awl/system/event/processor.hpp>
-#include <awl/timer/object.hpp>
-#include <awl/visual/object.hpp>
+#include <awl/timer/object.hpp> // NOLINT(misc-include-cleaner)
+#include <awl/visual/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/window/object.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
@@ -152,9 +152,9 @@
 #include <sge/opengl/cg/program/optimal_options.hpp>
 #include <sge/opengl/cg/program/transform_vertex.hpp>
 #include <sge/opengl/cg/texture/load.hpp>
-#include <sge/renderer/cg/loaded_program.hpp>
+#include <sge/renderer/cg/loaded_program.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
-#include <sge/renderer/cg/loaded_texture.hpp>
+#include <sge/renderer/cg/loaded_texture.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/texture/base_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>

@@ -8,7 +8,7 @@
 #include <sge/opengl/xrandr/display_modes.hpp>
 #include <sge/opengl/xrandr/extension.hpp>
 #include <sge/opengl/xrandr/input_mask.hpp>
-#include <sge/opengl/xrandr/resolution.hpp>
+#include <sge/opengl/xrandr/resolution.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/xrandr/resolution_unique_ptr.hpp>
 #include <sge/opengl/xrandr/select_input.hpp>
 #include <sge/opengl/xrandr/state.hpp>
@@ -18,7 +18,7 @@
 #include <sge/renderer/display_mode/object_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/window/event_function.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/x11/default_screen.hpp>
 #include <awl/backends/x11/window/base.hpp>
@@ -26,7 +26,7 @@
 #include <awl/backends/x11/window/event/generic.hpp>
 #include <awl/backends/x11/window/event/type.hpp>
 #include <awl/event/container.hpp>
-#include <awl/window/object.hpp>
+#include <awl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/window/event/base.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -37,9 +37,9 @@
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/randr.h>
+#include <X11/X.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::opengl::xrandr::state::state(

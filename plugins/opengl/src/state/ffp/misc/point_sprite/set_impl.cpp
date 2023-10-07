@@ -8,7 +8,7 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/config.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/state/ffp/misc/point_sprite/const_config_ref.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/set_impl.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/set_texture.hpp>
@@ -18,12 +18,12 @@
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/type_iso/strong_typedef.hpp>
+#include <fcppt/type_iso/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 
 sge::opengl::state::actor_vector sge::opengl::state::ffp::misc::point_sprite::set_impl(
     fcppt::log::object_reference const _log,

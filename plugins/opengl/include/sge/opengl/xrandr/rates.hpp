@@ -34,7 +34,7 @@ public:
   [[nodiscard]] size_type size() const;
 
 private:
-  int size_;
+  int size_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   int_type const *rates_;
 };

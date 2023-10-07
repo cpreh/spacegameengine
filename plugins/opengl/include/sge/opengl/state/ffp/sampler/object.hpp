@@ -7,7 +7,7 @@
 #define SGE_OPENGL_STATE_FFP_SAMPLER_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/state/unary_object.hpp>
-#include <sge/opengl/state/ffp/sampler/object_fwd.hpp>
+#include <sge/opengl/state/ffp/sampler/object_fwd.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/active_level_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

@@ -15,6 +15,8 @@
 #include <sge/opengl/xrandr/refresh_rate_from_mode.hpp>
 #include <sge/opengl/xrandr/screen_resources.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/display_mode/dimensions.hpp>
 #include <sge/renderer/display_mode/object.hpp>
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
@@ -26,7 +28,7 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/intersects.hpp>
-#include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/math/dim/comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/optional/map.hpp>

@@ -8,6 +8,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
+#include <EGL/eglplatform.h>
 #include <fcppt/config/external_end.hpp>
 
 EGLint sge::opengl::egl::get_config_attrib(

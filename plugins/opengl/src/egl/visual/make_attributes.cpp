@@ -14,6 +14,7 @@
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
+#include <EGL/eglplatform.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::opengl::egl::attribute_vector

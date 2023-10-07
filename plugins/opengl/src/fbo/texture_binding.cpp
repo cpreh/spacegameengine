@@ -7,7 +7,7 @@
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/texture_binding.hpp>
-#include <sge/opengl/texture/buffer_base.hpp>
+#include <sge/opengl/texture/buffer_base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/texture/buffer_base_ref.hpp>
 #include <sge/opengl/texture/id.hpp>
 

@@ -13,15 +13,15 @@
 #include <sge/opengl/egl/x11/visual.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/system/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/window/object_ref.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
+#include <awl/backends/x11/system/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/system/object_ref.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>
-#include <awl/window/object.hpp>
-#include <awl/window/object_ref.hpp>
+#include <awl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_to_const.hpp>
 #include <fcppt/text.hpp>

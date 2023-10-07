@@ -5,7 +5,7 @@
 
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/parameter/object.hpp>
-#include <sge/opengl/ext.hpp>
+#include <sge/opengl/ext.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/cg/texture/assigned_stage.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>

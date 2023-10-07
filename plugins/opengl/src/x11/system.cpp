@@ -9,11 +9,11 @@
 #include <sge/opengl/x11/device_state.hpp>
 #include <sge/opengl/x11/system.hpp>
 #include <sge/opengl/xrandr/create_system.hpp>
-#include <sge/opengl/xrandr/system.hpp>
+#include <sge/opengl/xrandr/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/x11/intern_atom.hpp>
-#include <awl/backends/x11/system/object.hpp>
+#include <awl/backends/x11/system/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/system/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -23,7 +23,8 @@
 sge::opengl::x11::system::system(
     fcppt::log::object_reference const _log,
     awl::backends::x11::system::object_ref const _awl_system)
-    : log_{_log},
+    : sge::opengl::platform::system{},
+      log_{_log},
       xrandr_system_(sge::opengl::xrandr::create_system(_log, _awl_system.get().display())),
       wm_state_{awl::backends::x11::intern_atom(_awl_system.get().display(), "_NET_WM_STATE")},
       wm_fullscreen_{

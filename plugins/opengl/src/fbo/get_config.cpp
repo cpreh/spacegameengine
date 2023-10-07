@@ -5,7 +5,7 @@
 
 #include <sge/opengl/fbo/config_fwd.hpp>
 #include <sge/opengl/fbo/const_context_ref.hpp>
-#include <sge/opengl/fbo/context.hpp>
+#include <sge/opengl/fbo/context.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/fbo/get_config.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <fcppt/text.hpp>

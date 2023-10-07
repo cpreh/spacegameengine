@@ -26,8 +26,8 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
-#include <fcppt/math/box/output.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/box/output.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 
 void sge::opengl::texture::funcs::set_rect(
     sge::opengl::texture::binding const &,

@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/cg/char_type.hpp>
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/exception.hpp>
 #include <sge/cg/context/object.hpp>
@@ -12,7 +13,6 @@
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <Cg/cg.h>
 #include <Cg/cgGL.h>
 #include <fcppt/config/external_end.hpp>
 

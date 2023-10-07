@@ -8,7 +8,6 @@
 #include <sge/opengl/fbo/const_config_ref.hpp>
 #include <sge/opengl/fbo/depth_stencil_surface.hpp>
 #include <sge/opengl/fbo/render_buffer.hpp>
-#include <sge/renderer/dim2.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_parameters.hpp>
 

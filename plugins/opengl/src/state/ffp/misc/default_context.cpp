@@ -7,11 +7,11 @@
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/context/make_id.hpp>
 #include <sge/opengl/state/ffp/misc/default_context.hpp>
-#include <sge/opengl/state/ffp/misc/default_context_parameters.hpp>
+#include <sge/opengl/state/ffp/misc/default_context_parameters.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/state/ffp/misc/make_actors.hpp>
 #include <sge/opengl/state/ffp/misc/object.hpp>
 #include <sge/renderer/state/ffp/misc/default.hpp>
-#include <sge/renderer/state/ffp/misc/parameters.hpp>
+#include <sge/renderer/state/ffp/misc/parameters.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

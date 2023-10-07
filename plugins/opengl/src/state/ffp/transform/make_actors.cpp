@@ -10,6 +10,7 @@
 #include <sge/opengl/state/ffp/transform/context.hpp>
 #include <sge/opengl/state/ffp/transform/make_actors.hpp>
 #include <sge/opengl/state/ffp/transform/set_matrix_and_mode.hpp>
+#include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <fcppt/math/matrix/transpose.hpp>
 

@@ -10,7 +10,7 @@
 #include <sge/opengl/state/ffp/sampler/make_actors.hpp>
 #include <sge/opengl/state/ffp/sampler/object.hpp>
 #include <sge/renderer/state/ffp/sampler/default.hpp>
-#include <sge/renderer/state/ffp/sampler/parameters.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

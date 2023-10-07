@@ -16,6 +16,7 @@
 #include <sge/opengl/info/major_version.hpp>
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/state/unary_object_impl.hpp>
-#include <sge/opengl/state/ffp/sampler/object.hpp>
+#include <sge/opengl/state/ffp/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/texture/active_level_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/object.hpp>
 

@@ -8,7 +8,7 @@
 #include <sge/opengl/egl/display.hpp>
 #include <sge/opengl/egl/display_unique_ptr.hpp>
 #include <sge/renderer/exception.hpp>
-#include <awl/system/object.hpp>
+#include <awl/system/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/system/object_ref.hpp>
 #include <fcppt/function_impl.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -16,6 +16,7 @@
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
+#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/join_strings.hpp>
 #include <fcppt/array/make.hpp>
@@ -28,7 +29,7 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <typeinfo>
+#include <typeinfo> // NOLINT(misc-include-cleaner)
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -50,7 +51,8 @@ using either_type = fcppt::either::object<fcppt::string, sge::opengl::egl::displ
 using function_type = fcppt::function<either_type()>;
 
 template <typename Result, typename Arg>
-using create_function = fcppt::function<fcppt::unique_ptr<Result>(fcppt::reference<Arg>)>;
+// TODO(philipp): function_impl.hpp is included?
+using create_function = fcppt::function<fcppt::unique_ptr<Result>(fcppt::reference<Arg>)>; // NOLINT(misc-include-cleaner)
 
 template <typename Result, typename Arg>
 function_type

@@ -8,7 +8,6 @@
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <fcppt/assert/unreachable.hpp>
-#include <fcppt/optional/object_impl.hpp>
 
 sge::opengl::fbo::optional_attachment_type sge::opengl::fbo::depth_stencil_format_to_attachment(
     sge::opengl::fbo::config const &_context, sge::image::ds::format const _format)

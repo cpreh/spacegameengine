@@ -7,6 +7,7 @@
 #include <sge/opengl/enable.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/state/actor.hpp>
+#include <sge/opengl/state/actor_vector.hpp>
 #include <sge/opengl/state/core/blend/alpha.hpp>
 #include <sge/opengl/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>

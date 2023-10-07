@@ -11,9 +11,9 @@
 #include <sge/opengl/glx/make_current.hpp>
 #include <sge/opengl/glx/optional_proc_address_function.hpp>
 #include <sge/renderer/exception.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/visual/object.hpp>
-#include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/base_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -22,6 +22,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
 #include <X11/X.h>
+#include <X11/Xlib.h>
 #include <X11/Xutil.h>
 #include <fcppt/config/external_end.hpp>
 
@@ -60,6 +61,7 @@ sge::opengl::backend::current_unique_ptr sge::opengl::glx::context::activate()
       fcppt::make_unique_ptr<sge::opengl::glx::current>(log_, window_, proc_address_));
 }
 
+// NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
 void sge::opengl::glx::context::deactivate(sge::opengl::backend::current_unique_ptr &&)
 {
   sge::opengl::glx::make_current(window_.get().display().get().get(), None, nullptr);

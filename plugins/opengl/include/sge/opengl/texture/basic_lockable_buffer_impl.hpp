@@ -20,7 +20,7 @@
 #include <sge/opengl/buffer/size.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
-#include <sge/opengl/texture/basic_lockable_buffer.hpp>
+#include <sge/opengl/texture/basic_lockable_buffer.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/create_lock.hpp>
 #include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/read_size.hpp>

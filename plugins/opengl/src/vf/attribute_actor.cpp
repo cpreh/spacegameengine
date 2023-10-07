@@ -6,9 +6,9 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vf/actor_parameters.hpp>
 #include <sge/opengl/vf/attribute_actor.hpp>
-#include <sge/opengl/vf/attribute_config.hpp>
+#include <sge/opengl/vf/attribute_config.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/vf/attribute_context.hpp>
-#include <sge/opengl/vf/client_state_combiner.hpp>
+#include <sge/opengl/vf/client_state_combiner.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/vf/client_state_combiner_ref.hpp>
 #include <sge/opengl/vf/extra_elements.hpp>
 #include <sge/opengl/vf/extra_format.hpp>

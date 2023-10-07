@@ -7,7 +7,7 @@
 #include <sge/renderer/exception.hpp>
 #include <awl/backends/wayland/window/object.hpp>
 #include <awl/window/dim.hpp>
-#include <awl/window/object.hpp>
+#include <awl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/window/object_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>

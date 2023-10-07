@@ -9,7 +9,7 @@
 #include <sge/opengl/sdl/make_current.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
-#include <awl/backends/sdl/window/object.hpp>
+#include <awl/backends/sdl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/sdl/window/object_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>

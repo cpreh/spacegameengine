@@ -20,6 +20,7 @@
 #include <sge/opengl/texture/multi_context.hpp>
 #include <sge/opengl/texture/optional_multi_config.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

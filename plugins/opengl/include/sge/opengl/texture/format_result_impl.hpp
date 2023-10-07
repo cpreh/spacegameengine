@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_TEXTURE_FORMAT_RESULT_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FORMAT_RESULT_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/texture/format_result_decl.hpp>
+#include <sge/opengl/texture/format_result_decl.hpp> // IWYU pragma: export
 
 template <typename SGEFormat, typename GLFormat>
 sge::opengl::texture::format_result<SGEFormat, GLFormat>::format_result(

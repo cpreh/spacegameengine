@@ -14,9 +14,6 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <ostream>
-#include <fcppt/config/external_end.hpp>
 
 namespace
 {

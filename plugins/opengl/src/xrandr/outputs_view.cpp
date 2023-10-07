@@ -5,7 +5,7 @@
 
 #include <sge/opengl/xrandr/const_screen_resources_ref.hpp>
 #include <sge/opengl/xrandr/outputs_view.hpp>
-#include <sge/opengl/xrandr/screen_resources.hpp>
+#include <sge/opengl/xrandr/screen_resources.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

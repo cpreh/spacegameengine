@@ -5,12 +5,12 @@
 
 #include <sge/opengl/xrandr/const_screen_resources_ref.hpp>
 #include <sge/opengl/xrandr/output_info.hpp>
-#include <sge/opengl/xrandr/screen_resources.hpp>
+#include <sge/opengl/xrandr/screen_resources.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/display_mode/dimensions.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>

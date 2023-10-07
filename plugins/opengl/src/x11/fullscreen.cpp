@@ -6,10 +6,12 @@
 #include <sge/opengl/x11/fullscreen.hpp>
 #include <sge/opengl/x11/fullscreen_atom.hpp>
 #include <sge/opengl/x11/state_atom.hpp>
+#include <awl/backends/x11//atom.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/basic_property_data.hpp>
 #include <awl/backends/x11/window/change_property.hpp>
 #include <awl/backends/x11/window/delete_property.hpp>
+#include <awl/backends/x11/window/property.hpp>
 #include <awl/backends/x11/window/property_data.hpp>
 #include <awl/backends/x11/window/property_mode.hpp>
 #include <awl/backends/x11/window/property_type.hpp>

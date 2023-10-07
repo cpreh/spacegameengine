@@ -7,7 +7,7 @@
 #define SGE_OPENGL_STATE_FFP_TRANSFORM_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/state/unary_object.hpp>
-#include <sge/opengl/state/ffp/transform/object_fwd.hpp>
+#include <sge/opengl/state/ffp/transform/object_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/state/ffp/transform/mode_fwd.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

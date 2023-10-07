@@ -5,7 +5,6 @@
 
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/check_state.hpp>
-#include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/no_id.hpp>
 #include <sge/opengl/texture/optional_id.hpp>
 #include <sge/opengl/texture/type.hpp>

@@ -10,7 +10,7 @@
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/target/base.hpp>
-#include <sge/opengl/target/basic.hpp>
+#include <sge/opengl/target/basic.hpp> // IWYU pragma: export
 #include <sge/opengl/target/context.hpp>
 #include <sge/opengl/target/optional_base_ref.hpp>
 #include <sge/opengl/target/scoped.hpp>

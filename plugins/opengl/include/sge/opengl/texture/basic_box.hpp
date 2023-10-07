@@ -23,6 +23,7 @@ namespace sge::opengl::texture
 {
 
 template <typename Types>
+// NOLINTNEXTLINE(cppcoreguidelines-virtual-class-destructor)
 class basic_box : public sge::opengl::texture::basic<Types>
 {
   using base_type = sge::opengl::texture::basic<Types>;

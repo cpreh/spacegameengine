@@ -3,14 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/glx/visual/attribute_container.hpp>
 #include <sge/opengl/glx/visual/choose.hpp>
 #include <sge/opengl/glx/visual/create.hpp>
 #include <sge/opengl/glx/visual/make_attributes.hpp>
 #include <sge/opengl/glx/visual/object.hpp>
 #include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <awl/backends/x11/system/object.hpp>
+#include <awl/backends/x11/system/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/system/object_ref.hpp>
 #include <awl/visual/object.hpp>
 #include <awl/visual/object_unique_ptr.hpp>

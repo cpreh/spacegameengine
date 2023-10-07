@@ -12,7 +12,6 @@
 #include <sge/opengl/convert/primitive_type.hpp>
 #include <sge/opengl/index/buffer.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/count.hpp>

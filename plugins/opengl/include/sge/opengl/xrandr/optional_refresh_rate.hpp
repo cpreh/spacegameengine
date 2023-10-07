@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_XRANDR_OPTIONAL_REFRESH_RATE_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_OPTIONAL_REFRESH_RATE_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/optional_refresh_rate_fwd.hpp>
+#include <sge/opengl/xrandr/optional_refresh_rate_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

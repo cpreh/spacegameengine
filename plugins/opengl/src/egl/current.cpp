@@ -7,6 +7,7 @@
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/egl/current.hpp>
 #include <sge/opengl/egl/swap_buffers.hpp>
+#include <sge/renderer/display_mode/vsync.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <string>

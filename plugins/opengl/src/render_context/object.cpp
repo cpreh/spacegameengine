@@ -30,7 +30,6 @@
 #include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/config.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -66,10 +65,10 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 
 #if defined(SGE_RENDERER_HAVE_CG)
 #include <sge/opengl/cg/program/activate.hpp>

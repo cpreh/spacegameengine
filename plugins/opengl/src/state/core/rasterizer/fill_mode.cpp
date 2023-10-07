@@ -10,6 +10,7 @@
 #include <sge/opengl/state/convert/fill_mode.hpp>
 #include <sge/opengl/state/core/rasterizer/fill_mode.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
+#include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
 #include <fcppt/text.hpp>
 
 sge::opengl::state::actor sge::opengl::state::core::rasterizer::fill_mode(

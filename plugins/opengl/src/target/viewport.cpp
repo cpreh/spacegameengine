@@ -7,6 +7,7 @@
 #include <sge/opengl/target/set_flipped_area.hpp>
 #include <sge/opengl/target/viewport.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/screen_unit.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/text.hpp>

@@ -10,7 +10,7 @@
 #include <sge/opengl/texture/surface_context.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
-#include <sge/renderer/texture/depth_stencil.hpp>
+#include <sge/renderer/texture/depth_stencil.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <fcppt/make_ref.hpp>
 

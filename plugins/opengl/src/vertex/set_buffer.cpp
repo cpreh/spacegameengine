@@ -11,7 +11,7 @@
 #include <sge/opengl/vertex/set_buffer.hpp>
 #include <sge/opengl/vertex/unset_buffer.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/const_buffer_ref.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/make_cref.hpp>

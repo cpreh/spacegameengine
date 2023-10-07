@@ -5,7 +5,6 @@
 
 #include <sge/opengl/platform/device_state.hpp>
 #include <sge/opengl/wayland/device_state.hpp>
-#include <sge/renderer/display_mode/container.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen_fwd.hpp>
 #include <sge/renderer/display_mode/optional_object.hpp>
 

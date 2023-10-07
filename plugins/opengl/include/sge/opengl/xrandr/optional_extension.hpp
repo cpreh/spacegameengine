@@ -7,7 +7,7 @@
 #define SGE_OPENGL_XRANDR_OPTIONAL_EXTENSION_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/extension.hpp>
-#include <sge/opengl/xrandr/optional_extension_fwd.hpp>
+#include <sge/opengl/xrandr/optional_extension_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

@@ -4,14 +4,14 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/backend/const_current_ref.hpp>
-#include <sge/opengl/backend/current.hpp>
+#include <sge/opengl/backend/current.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/opengl/info/context.hpp>
 #include <sge/opengl/info/extension_set.hpp>
 #include <sge/opengl/info/get_extensions.hpp>
 #include <sge/opengl/info/get_version.hpp>
 #include <sge/opengl/info/version.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_fwd.hpp>

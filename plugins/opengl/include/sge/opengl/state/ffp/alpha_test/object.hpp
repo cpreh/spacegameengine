@@ -7,7 +7,7 @@
 #define SGE_OPENGL_STATE_FFP_ALPHA_TEST_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/state/object.hpp>
-#include <sge/opengl/state/ffp/alpha_test/object_fwd.hpp>
+#include <sge/opengl/state/ffp/alpha_test/object_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/state/ffp/alpha_test/object.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

@@ -8,6 +8,7 @@
 #include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/delete_render_buffer.hpp>
 #include <sge/renderer/exception.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 
 void sge::opengl::fbo::delete_render_buffer(

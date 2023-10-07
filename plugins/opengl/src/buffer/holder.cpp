@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/buffer/base_ref.hpp>
 #include <sge/opengl/buffer/holder.hpp>
 #include <sge/opengl/buffer/id.hpp>

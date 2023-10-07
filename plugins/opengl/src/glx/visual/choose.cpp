@@ -12,6 +12,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>
+#include <X11/Xutil.h>
 #include <fcppt/config/external_end.hpp>
 
 awl::backends::x11::visual::info_unique_ptr sge::opengl::glx::visual::choose(

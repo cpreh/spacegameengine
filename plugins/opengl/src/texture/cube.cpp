@@ -3,13 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/image2d/traits/dimension.hpp>
+#include <sge/image2d/traits/dimension.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/context/use.hpp>
-#include <sge/opengl/texture/basic_lockable_buffer.hpp>
+#include <sge/opengl/texture/basic_lockable_buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/texture/basic_parameters.hpp>
-#include <sge/opengl/texture/buffer_surface_types.hpp>
-#include <sge/opengl/texture/color_format_types.hpp>
-#include <sge/opengl/texture/color_surface.hpp>
+#include <sge/opengl/texture/buffer_surface_types.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/opengl/texture/color_format_types.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/opengl/texture/color_surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/texture/cube.hpp>
 #include <sge/opengl/texture/cube_basic.hpp>
 #include <sge/opengl/texture/cube_config.hpp>
@@ -19,9 +19,9 @@
 #include <sge/opengl/texture/surface_config_fwd.hpp>
 #include <sge/opengl/texture/surface_context.hpp>
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/color_buffer/surface.hpp>
-#include <sge/renderer/texture/base.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/color_buffer/surface.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/texture/base.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/texture/capabilities_field.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters.hpp>
 #include <sge/renderer/texture/cube_side.hpp>
@@ -31,7 +31,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
-#include <fcppt/enum/array_impl.hpp>
+#include <fcppt/enum/array_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/enum/array_init.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

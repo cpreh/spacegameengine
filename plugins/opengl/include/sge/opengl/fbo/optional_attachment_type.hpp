@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_HPP_INCLUDED
 #define SGE_OPENGL_FBO_OPTIONAL_ATTACHMENT_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/fbo/optional_attachment_type_fwd.hpp>
+#include <sge/opengl/fbo/optional_attachment_type_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

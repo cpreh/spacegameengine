@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_XRANDR_OPTIONAL_SYSTEM_REF_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_OPTIONAL_SYSTEM_REF_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/optional_system_ref_fwd.hpp>
+#include <sge/opengl/xrandr/optional_system_ref_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/reference.hpp>
 
 #endif

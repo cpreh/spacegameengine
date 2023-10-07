@@ -5,7 +5,7 @@
 
 #include <sge/opengl/xrandr/input_mask.hpp>
 #include <sge/opengl/xrandr/select_input.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>

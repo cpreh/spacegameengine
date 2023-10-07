@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/ext.hpp>
+#include <sge/opengl/ext.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/deref_fun_ptr.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
@@ -18,6 +18,7 @@
 #include <sge/opengl/texture/volume_config.hpp>
 #include <sge/opengl/texture/volume_context.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

@@ -6,6 +6,7 @@
 #include <sge/opengl/state/convert/address_mode.hpp>
 #include <sge/opengl/state/convert/address_mode_type.hpp>
 #include <sge/opengl/state/core/sampler/actor.hpp>
+#include <sge/opengl/state/core/sampler/actor_vector.hpp>
 #include <sge/opengl/state/core/sampler/address/make_actors.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/funcs/parameter_int.hpp>

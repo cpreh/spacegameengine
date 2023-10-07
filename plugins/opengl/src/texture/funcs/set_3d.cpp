@@ -17,11 +17,12 @@
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/creation_failed.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
+#include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_void_ptr.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 
 void sge::opengl::texture::funcs::set_3d(
     sge::opengl::texture::binding const &,

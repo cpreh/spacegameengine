@@ -11,7 +11,7 @@
 #include <sge/opengl/texture/basic_box.hpp>
 #include <sge/opengl/texture/buffer_volume_types.hpp>
 #include <sge/opengl/texture/color_volume_types.hpp>
-#include <sge/opengl/texture/volume_basic_fwd.hpp>
+#include <sge/opengl/texture/volume_basic_fwd.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/volume_types.hpp>
 #include <sge/renderer/texture/basic_lockable_box.hpp>
 #include <sge/renderer/texture/volume.hpp>

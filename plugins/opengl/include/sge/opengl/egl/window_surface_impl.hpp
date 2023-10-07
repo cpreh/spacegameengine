@@ -7,7 +7,7 @@
 #define SGE_OPENGL_EGL_WINDOW_SURFACE_IMPL_HPP_INCLUDED
 
 #include <sge/opengl/egl/no_surface.hpp>
-#include <sge/opengl/egl/window_surface_decl.hpp>
+#include <sge/opengl/egl/window_surface_decl.hpp> // IWYU pragma: export
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>

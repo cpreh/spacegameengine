@@ -20,6 +20,7 @@
 #include <sge/renderer/dim3.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_box.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/make_ref.hpp>
@@ -27,8 +28,8 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_void_ptr.hpp>
-#include <fcppt/math/box/output.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/box/output.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 
 void sge::opengl::texture::funcs::set_box(
     sge::opengl::texture::binding const &,

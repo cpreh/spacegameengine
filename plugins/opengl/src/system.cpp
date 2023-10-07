@@ -6,9 +6,9 @@
 #include <sge/opengl/device.hpp>
 #include <sge/opengl/system.hpp>
 #include <sge/opengl/backend/create_system.hpp>
-#include <sge/opengl/backend/system.hpp>
+#include <sge/opengl/backend/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/platform/create_system.hpp>
-#include <sge/opengl/platform/system.hpp>
+#include <sge/opengl/platform/system.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/device/core.hpp>
 #include <sge/renderer/device/core_unique_ptr.hpp>
@@ -16,9 +16,9 @@
 #include <sge/renderer/device/ffp_unique_ptr.hpp>
 #include <sge/renderer/device/parameters.hpp>
 #include <sge/renderer/pixel_format/object_fwd.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/system/object_ref.hpp>
-#include <awl/visual/object.hpp>
+#include <awl/visual/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>

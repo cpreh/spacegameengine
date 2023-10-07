@@ -11,7 +11,7 @@
 #include <sge/opengl/texture/basic_box.hpp>
 #include <sge/opengl/texture/buffer_surface_types.hpp>
 #include <sge/opengl/texture/color_surface_types.hpp>
-#include <sge/opengl/texture/planar_basic_fwd.hpp>
+#include <sge/opengl/texture/planar_basic_fwd.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/planar_types.hpp>
 #include <sge/renderer/texture/basic_lockable_box.hpp>
 #include <sge/renderer/texture/planar.hpp>

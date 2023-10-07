@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/xrandr/configuration.hpp>
+#include <sge/opengl/xrandr/configuration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/rates.hpp>

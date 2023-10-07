@@ -5,9 +5,10 @@
 
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/volume.hpp>
+#include <sge/opengl/texture/volume_basic.hpp>
 #include <sge/opengl/texture/volume_config.hpp>
-#include <sge/opengl/texture/volume_types.hpp>
-#include <sge/renderer/texture/volume.hpp>
+#include <sge/opengl/texture/volume_types.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/texture/volume.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 
 sge::opengl::texture::volume::volume(

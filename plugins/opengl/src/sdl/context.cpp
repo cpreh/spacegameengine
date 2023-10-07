@@ -9,7 +9,7 @@
 #include <sge/opengl/sdl/context.hpp>
 #include <sge/opengl/sdl/current.hpp>
 #include <sge/renderer/exception.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -44,4 +44,5 @@ sge::opengl::backend::current_unique_ptr sge::opengl::sdl::context::activate()
       fcppt::make_unique_ptr<sge::opengl::sdl::current>(this->window_, this->context_));
 }
 
+// NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
 void sge::opengl::sdl::context::deactivate(sge::opengl::backend::current_unique_ptr &&) {}

@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/xrandr/configuration.hpp>
+#include <sge/opengl/xrandr/configuration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/current_mode.hpp>
 #include <sge/opengl/xrandr/mode.hpp>
@@ -12,6 +12,7 @@
 #include <sge/opengl/xrandr/rotation.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
+#include <X11/extensions/randr.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::opengl::xrandr::mode

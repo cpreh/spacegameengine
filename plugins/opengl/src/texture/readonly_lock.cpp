@@ -9,6 +9,7 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/read_size.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/assert/unreachable.hpp>

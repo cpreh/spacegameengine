@@ -7,7 +7,7 @@
 #define SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_OPTIONAL_CONFIG_HPP_INCLUDED
 
 #include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
-#include <sge/opengl/state/ffp/misc/point_sprite/optional_config_fwd.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/optional_config_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

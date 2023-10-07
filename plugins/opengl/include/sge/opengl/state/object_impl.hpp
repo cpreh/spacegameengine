@@ -8,7 +8,7 @@
 
 #include <sge/opengl/state/actor.hpp>
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/opengl/state/object.hpp>
+#include <sge/opengl/state/object.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

@@ -5,7 +5,7 @@
 
 #include <sge/cg/check_state.hpp>
 #include <sge/cg/profile/object.hpp>
-#include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/cg/program/object_ref.hpp>
 #include <sge/opengl/cg/program/loaded_object.hpp>
 #include <sge/renderer/exception.hpp>

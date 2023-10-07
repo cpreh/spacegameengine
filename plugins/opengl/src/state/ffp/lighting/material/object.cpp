@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/state/object_impl.hpp>
-#include <sge/opengl/state/ffp/lighting/material/object.hpp>
+#include <sge/opengl/state/ffp/lighting/material/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/material/object.hpp>
 
 template class sge::opengl::state::object<sge::renderer::state::ffp::lighting::material::object>;

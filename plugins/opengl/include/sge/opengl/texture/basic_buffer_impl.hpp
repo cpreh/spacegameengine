@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_TEXTURE_BASIC_BUFFER_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BASIC_BUFFER_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_buffer.hpp>
+#include <sge/opengl/texture/basic_buffer.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>

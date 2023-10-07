@@ -5,11 +5,12 @@
 
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_stride.hpp>
-#include <sge/image2d/rect.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/pitch.hpp>
+#include <sge/image2d/rect.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/view/flipped.hpp>
-#include <sge/image2d/view/make_const.hpp>
-#include <sge/image2d/view/pitch.hpp>
+#include <sge/image2d/view/make_const.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/view/pitch.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/convert/color_base_type.hpp>
 #include <sge/opengl/convert/color_format.hpp>
@@ -20,8 +21,8 @@
 #include <sge/renderer/pixel_pos.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/color_buffer/readable_surface.hpp>
-#include <awl/window/dim.hpp>
-#include <awl/window/object.hpp>
+#include <awl/window/dim.hpp> // NOLINT(misc-include-cleaner)
+#include <awl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/window/object_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
@@ -34,7 +35,7 @@
 #include <fcppt/math/vector/to_signed.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/nothing.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/preprocessor/ignore_dangling_reference.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

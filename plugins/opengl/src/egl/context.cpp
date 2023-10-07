@@ -8,7 +8,7 @@
 #include <sge/opengl/backend/current_unique_ptr.hpp>
 #include <sge/opengl/egl/context.hpp>
 #include <sge/opengl/egl/current.hpp>
-#include <sge/opengl/egl/surface.hpp>
+#include <sge/opengl/egl/surface.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/egl/surface_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
@@ -38,6 +38,7 @@ sge::opengl::backend::current_unique_ptr sge::opengl::egl::context::activate()
       fcppt::make_unique_ptr<sge::opengl::egl::current>(display_, surface_->get()));
 }
 
+// NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
 void sge::opengl::egl::context::deactivate(sge::opengl::backend::current_unique_ptr &&)
 {
   context_.deactivate();

@@ -31,7 +31,7 @@ public:
   static sge::opengl::context::id const static_id;
 
 private:
-  sge::opengl::texture::surface_config const config_;
+  sge::opengl::texture::surface_config const config_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

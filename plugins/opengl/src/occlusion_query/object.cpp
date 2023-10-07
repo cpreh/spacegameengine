@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/occlusion_query/begin.hpp>
-#include <sge/opengl/occlusion_query/config.hpp>
+#include <sge/opengl/occlusion_query/config.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/occlusion_query/const_config_ref.hpp>
 #include <sge/opengl/occlusion_query/end.hpp>
 #include <sge/opengl/occlusion_query/get_object_int.hpp>

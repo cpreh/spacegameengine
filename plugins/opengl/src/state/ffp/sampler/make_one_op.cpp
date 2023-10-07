@@ -7,9 +7,7 @@
 #include <sge/opengl/state/ffp/sampler/make_one_op.hpp>
 #include <sge/opengl/state/ffp/sampler/set_one_arg.hpp>
 #include <sge/opengl/state/ffp/sampler/set_one_op.hpp>
-#include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
 #include <sge/renderer/state/ffp/sampler/binary_op.hpp>
-#include <sge/renderer/state/ffp/sampler/color_op.hpp>
 #include <sge/renderer/state/ffp/sampler/pp_op_types.hpp>
 #include <sge/renderer/state/ffp/sampler/ternary_op.hpp>
 #include <sge/renderer/state/ffp/sampler/unary_op.hpp>

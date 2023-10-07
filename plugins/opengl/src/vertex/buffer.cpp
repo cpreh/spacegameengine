@@ -7,6 +7,7 @@
 #include <sge/opengl/buffer/size.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
+#include <sge/opengl/buffer/wrapper.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/vertex/buffer.hpp>

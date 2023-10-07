@@ -16,6 +16,7 @@
 #include <sge/opengl/state/core/blend/alpha_enabled.hpp>
 #include <sge/opengl/state/core/blend/context.hpp>
 #include <sge/renderer/unsupported.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/blend/alpha_enabled.hpp>
 #include <sge/renderer/state/core/blend/combined.hpp>
 #include <sge/renderer/state/core/blend/separate.hpp>

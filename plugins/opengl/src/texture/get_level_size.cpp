@@ -3,7 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/ext.hpp>
+#include <sge/opengl/ext.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>

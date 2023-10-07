@@ -7,7 +7,7 @@
 #include <sge/opengl/xrandr/get_version.hpp>
 #include <sge/opengl/xrandr/version.hpp>
 #include <sge/renderer/exception.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>

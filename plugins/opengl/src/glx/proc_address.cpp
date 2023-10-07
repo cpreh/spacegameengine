@@ -9,7 +9,6 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/optional/from_pointer.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <GL/glx.h>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 

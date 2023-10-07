@@ -20,10 +20,9 @@ class binding
 
 protected:
   binding();
-
+public:
   virtual ~binding();
 
-public:
   [[nodiscard]] virtual sge::renderer::texture::stage stage() const = 0;
 
   [[nodiscard]] virtual sge::opengl::texture::type type() const = 0;

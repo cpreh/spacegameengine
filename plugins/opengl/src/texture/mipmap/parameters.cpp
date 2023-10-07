@@ -7,6 +7,7 @@
 #include <sge/opengl/color_order.hpp>
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/texture/binding_fwd.hpp>
+#include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/const_binding_ref.hpp>
 #include <sge/opengl/texture/pp_dims.hpp>
 #include <sge/opengl/texture/mipmap/parameters.hpp>

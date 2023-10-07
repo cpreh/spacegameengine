@@ -14,10 +14,10 @@
 #include <sge/renderer/display_mode/container.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/algorithm/map_concat.hpp>
-#include <fcppt/type_iso/strong_typedef.hpp>
+#include <fcppt/type_iso/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>

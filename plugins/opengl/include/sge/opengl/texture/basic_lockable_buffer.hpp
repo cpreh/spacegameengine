@@ -33,6 +33,7 @@ namespace sge::opengl::texture
 {
 
 template <typename Types>
+// NOLINTNEXTLINE(cppcoreguidelines-virtual-class-destructor)
 class basic_lockable_buffer : public sge::opengl::texture::basic_buffer<Types>
 {
   FCPPT_NONMOVABLE(basic_lockable_buffer);

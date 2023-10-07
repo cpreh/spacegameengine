@@ -9,6 +9,7 @@
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/pp_arg_types.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <fcppt/config/external_end.hpp>

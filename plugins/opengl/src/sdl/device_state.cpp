@@ -16,7 +16,7 @@
 #include <sge/renderer/display_mode/optional_object.hpp>
 #include <sge/renderer/display_mode/pixel_size.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/text.hpp>
