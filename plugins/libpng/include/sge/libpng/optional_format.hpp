@@ -7,7 +7,7 @@
 #define SGE_LIBPNG_OPTIONAL_FORMAT_HPP_INCLUDED
 
 #include <sge/libpng/format.hpp>
-#include <sge/libpng/optional_format_fwd.hpp>
+#include <sge/libpng/optional_format_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

@@ -14,14 +14,12 @@
 #include <sge/image2d/view/size.hpp>
 #include <sge/pango/freetype/make_bitmap.hpp>
 #include <sge/pango/freetype/pixel_mode.hpp>
-#include <mizuiro/image/view_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <ft2build.h>
-#include <freetype/freetype.h>
+#include <ft2build.h> // NOLINT(misc-include-cleaner)
 #include <freetype/ftbitmap.h>
 #include <freetype/ftimage.h>
 #include <fcppt/config/external_end.hpp>

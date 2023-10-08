@@ -5,7 +5,7 @@
 
 #include <sge/font/system.hpp>
 #include <sge/font/system_unique_ptr.hpp>
-#include <sge/font/plugin/traits.hpp>
+#include <sge/font/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/pango/system.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -49,5 +49,5 @@ sge::font::system_unique_ptr create_font_system(fcppt::log::context_reference)
 
 }
 
-// NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects)
+// NOLINTNEXTLINE(cert-err58-cpp,fuchsia-statically-constructed-objects,cppcoreguidelines-avoid-non-const-global-variables)
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(info, ((sge::font::system, create_font_system)))

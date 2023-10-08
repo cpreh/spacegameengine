@@ -6,8 +6,8 @@
 #ifndef SGE_LIBPNG_ROW_VECTOR_HPP_INCLUDED
 #define SGE_LIBPNG_ROW_VECTOR_HPP_INCLUDED
 
-#include <sge/libpng/png.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <pngconf.h>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 

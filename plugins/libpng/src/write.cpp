@@ -3,6 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 #include <sge/image/color/element_count.hpp>
 #include <sge/libpng/bit_depth_from_format.hpp>
 #include <sge/libpng/byte_vector.hpp>
@@ -12,7 +15,6 @@
 #include <sge/libpng/file_rep.hpp>
 #include <sge/libpng/info.hpp>
 #include <sge/libpng/make_row_vector.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/libpng/row_vector.hpp>
 #include <sge/libpng/to_sge_format.hpp>
 #include <sge/libpng/write.hpp>
@@ -23,10 +25,12 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/config/external_begin.hpp>
+#include <fcppt/config/external_begin.hpp> // NOLINT(readability-duplicate-include)
+#include <png.h> // NOLINT(readability-duplicate-include)
+#include <pngconf.h>
 #include <climits>
 #include <iosfwd>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/config/external_end.hpp> // NOLINT(readability-duplicate-include)
 
 void sge::libpng::write(
     fcppt::log::object &_log,

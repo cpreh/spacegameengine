@@ -9,7 +9,6 @@
 #include <sge/font/align_h/extract_max_width.hpp>
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/pango/create_text_layout.hpp>
-#include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <sge/pango/convert/alignment.hpp>
 #include <sge/pango/convert/to_unit.hpp>
@@ -19,6 +18,7 @@
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <glib/gmacros.h>
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
 

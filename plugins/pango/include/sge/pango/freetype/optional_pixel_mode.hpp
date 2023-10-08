@@ -6,7 +6,7 @@
 #ifndef SGE_PANGO_FREETYPE_OPTIONAL_PIXEL_MODE_HPP_INCLUDED
 #define SGE_PANGO_FREETYPE_OPTIONAL_PIXEL_MODE_HPP_INCLUDED
 
-#include <sge/pango/freetype/optional_pixel_mode_fwd.hpp>
+#include <sge/pango/freetype/optional_pixel_mode_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

@@ -6,7 +6,6 @@
 #include <sge/font/dpi.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/pango/create_font_map.hpp>
-#include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_font_map_unique_ptr.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>

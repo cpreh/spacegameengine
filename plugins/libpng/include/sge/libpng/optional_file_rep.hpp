@@ -7,7 +7,7 @@
 #define SGE_LIBPNG_OPTIONAL_FILE_REP_HPP_INCLUDED
 
 #include <sge/libpng/file_rep.hpp>
-#include <sge/libpng/optional_file_rep_fwd.hpp>
+#include <sge/libpng/optional_file_rep_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

@@ -5,7 +5,6 @@
 
 #include <sge/image2d/file_exception.hpp>
 #include <sge/libpng/load_context.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/libpng/read_ptr.hpp>
 #include <sge/media/optional_name.hpp>
 #include <fcppt/text.hpp>
@@ -13,6 +12,8 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <pngconf.h>
 #include <ios>
 #include <istream>
 #include <utility>

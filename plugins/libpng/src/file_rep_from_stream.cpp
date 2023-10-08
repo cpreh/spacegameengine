@@ -3,6 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+// something is broken in png.h :(
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file_exception.hpp>
 #include <sge/libpng/byte_vector.hpp>
@@ -34,13 +38,15 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/math/dim/contents.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/config/external_begin.hpp>
+#include <fcppt/config/external_begin.hpp> // NOLINT(readability-duplicate-include)
+#include <png.h> // NOLINT(readability-duplicate-include)
+#include <pngconf.h>
 #include <climits>
 #include <iosfwd>
 #include <utility>
-#include <fcppt/config/external_end.hpp>
+#include <fcppt/config/external_end.hpp> // NOLINT(readability-duplicate-include)
 
 sge::libpng::optional_file_rep sge::libpng::file_rep_from_stream(
     fcppt::log::object &_log, std::istream &_stream, sge::media::optional_name const &_name)

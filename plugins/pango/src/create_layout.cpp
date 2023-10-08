@@ -8,7 +8,6 @@
 #include <sge/font/weight/unit.hpp>
 #include <sge/pango/create_layout.hpp>
 #include <sge/pango/font_description.hpp>
-#include <sge/pango/glib_deleter.hpp>
 #include <sge/pango/pango_layout_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/string.hpp>

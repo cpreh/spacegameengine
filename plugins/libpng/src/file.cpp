@@ -10,6 +10,7 @@
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/make_const.hpp>
 #include <sge/libpng/file.hpp>
+#include <sge/libpng/file_rep.hpp>
 #include <sge/libpng/to_sge_format.hpp>
 #include <sge/libpng/write.hpp>
 #include <sge/media/name.hpp>

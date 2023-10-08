@@ -9,6 +9,7 @@
 #include <sge/pango/xy_to_index.hpp>
 #include <sge/pango/convert/to_unit.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <glib/gmacros.h>
 #include <pango/pango-layout.h>
 #include <fcppt/config/external_end.hpp>
 

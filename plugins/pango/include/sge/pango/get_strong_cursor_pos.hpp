@@ -8,6 +8,7 @@
 
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
+#include <pango/pango-types.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::pango

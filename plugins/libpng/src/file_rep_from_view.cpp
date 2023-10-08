@@ -13,7 +13,6 @@
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/make.hpp>
-#include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/libpng/byte_vector.hpp>
 #include <sge/libpng/file_rep.hpp>

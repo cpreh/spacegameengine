@@ -6,7 +6,7 @@
 #ifndef SGE_PANGO_PANGO_FONT_MAP_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_PANGO_PANGO_FONT_MAP_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/pango/glib_deleter_fwd.hpp>
+#include <sge/pango/glib_deleter.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-fontmap.h>

@@ -5,11 +5,12 @@
 
 #include <sge/image/exception.hpp>
 #include <sge/libpng/info.hpp>
-#include <sge/libpng/png.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 
-sge::libpng::info::info(png_structp const _ptr // NOLINT(misc-misplaced-const)
-                        )
+sge::libpng::info::info(png_structp const _ptr) // NOLINT(misc-misplaced-const)
     : ptr_(_ptr), info_(::png_create_info_struct(_ptr))
 {
   if (info_ == nullptr)

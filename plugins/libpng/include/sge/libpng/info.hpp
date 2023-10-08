@@ -7,8 +7,10 @@
 #define SGE_LIBPNG_INFO_HPP_INCLUDED
 
 #include <sge/libpng/info_fwd.hpp>
-#include <sge/libpng/png.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::libpng
 {

@@ -10,6 +10,7 @@
 #include <sge/pango/convert/from_rect.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
+#include <pango/pango-types.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::pango::extents sge::pango::get_extents(PangoLayout &_layout)

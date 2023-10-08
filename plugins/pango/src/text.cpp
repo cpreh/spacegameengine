@@ -14,7 +14,6 @@
 #include <sge/font/rect.hpp>
 #include <sge/font/text.hpp>
 #include <sge/font/text_parameters.hpp>
-#include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
@@ -40,6 +39,9 @@
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
 #include <pango/pangoft2.h>
+#include <ft2build.h> // NOLINT(misc-include-cleaner)
+#include <freetype/freetype.h> // NOLINT(misc-include-cleaner)
+#include <freetype/ftimage.h>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
@@ -47,7 +49,8 @@ sge::pango::text::text(
     PangoLayout &_layout,
     sge::charconv::utf8_string const &_string,
     sge::font::text_parameters const &_text_parameters)
-    : layout_(sge::pango::create_text_layout(_layout, _string, _text_parameters)),
+    : sge::font::text{},
+      layout_(sge::pango::create_text_layout(_layout, _string, _text_parameters)),
       extents_(sge::pango::get_extents(*layout_)),
       indices_(sge::charconv::utf8_indices(_string))
 {

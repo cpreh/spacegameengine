@@ -3,18 +3,24 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 #include <sge/libpng/compare_gamma.hpp>
 #include <sge/libpng/format.hpp>
 #include <sge/libpng/gamma.hpp>
 #include <sge/libpng/make_format.hpp>
 #include <sge/libpng/optional_format.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/libpng/srgb_gamma.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
+#include <fcppt/config/external_begin.hpp> // NOLINT(readability-duplicate-include)
+#include <png.h> // NOLINT(readability-duplicate-include)
+#include <pngconf.h>
+#include <fcppt/config/external_end.hpp> // NOLINT(readability-duplicate-include)
 
 sge::libpng::optional_format sge::libpng::make_format(
     fcppt::log::object &_log,

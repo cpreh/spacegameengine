@@ -6,6 +6,7 @@
 #include <sge/pango/get_strong_cursor_pos.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-layout.h>
+#include <pango/pango-types.h>
 #include <fcppt/config/external_end.hpp>
 
 PangoRectangle sge::pango::get_strong_cursor_pos(PangoLayout &_layout, int const _index)

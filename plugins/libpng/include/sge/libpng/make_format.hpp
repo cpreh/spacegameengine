@@ -8,8 +8,10 @@
 
 #include <sge/libpng/gamma.hpp>
 #include <sge/libpng/optional_format.hpp>
-#include <sge/libpng/png.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <pngconf.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::libpng
 {

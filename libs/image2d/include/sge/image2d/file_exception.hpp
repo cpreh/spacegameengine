@@ -7,7 +7,7 @@
 #define SGE_IMAGE2D_FILE_EXCEPTION_HPP_INCLUDED
 
 #include <sge/image2d/exception.hpp>
-#include <sge/image2d/file_exception_fwd.hpp>
+#include <sge/image2d/file_exception_fwd.hpp> // IWYU pragma: export
 #include <sge/media/declare_file_exception.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

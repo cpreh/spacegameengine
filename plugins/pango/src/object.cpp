@@ -24,7 +24,6 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <pango/pango-fontmap.h>
-#include <pango/pango-types.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::pango::object::object(sge::font::parameters const &_parameters)

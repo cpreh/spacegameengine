@@ -8,7 +8,9 @@
 
 #include <sge/libpng/error_context.hpp>
 #include <sge/libpng/error_context_ref.hpp>
-#include <sge/libpng/png.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::libpng
 {

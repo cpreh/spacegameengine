@@ -6,7 +6,7 @@
 #ifndef SGE_LIBPNG_BYTE_VECTOR_HPP_INCLUDED
 #define SGE_LIBPNG_BYTE_VECTOR_HPP_INCLUDED
 
-#include <sge/libpng/byte_vector_fwd.hpp>
+#include <sge/libpng/byte_vector_fwd.hpp> // IWYU pragma: export
 #include <fcppt/container/raw_vector/object_impl.hpp>
 
 #endif

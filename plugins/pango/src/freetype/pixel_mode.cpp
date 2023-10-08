@@ -8,8 +8,7 @@
 #include <sge/pango/freetype/pixel_mode.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <ft2build.h>
-#include <freetype/freetype.h>
+#include <ft2build.h> // NOLINT(misc-include-cleaner)
 #include <freetype/ftimage.h>
 #include <fcppt/config/external_end.hpp>
 

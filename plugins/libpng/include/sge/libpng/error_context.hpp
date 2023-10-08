@@ -7,11 +7,13 @@
 #define SGE_LIBPNG_ERROR_CONTEXT_HPP_INCLUDED
 
 #include <sge/libpng/error_context_fwd.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/media/optional_name.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/object.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::libpng
 {

@@ -7,9 +7,11 @@
 #define SGE_LIBPNG_READ_PTR_HPP_INCLUDED
 
 #include <sge/libpng/error_context_ref.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/libpng/read_ptr_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::libpng
 {

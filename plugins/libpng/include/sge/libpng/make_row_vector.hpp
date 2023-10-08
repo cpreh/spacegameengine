@@ -8,8 +8,10 @@
 
 #include <sge/image2d/dim_fwd.hpp>
 #include <sge/libpng/bytes_per_pixel.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/libpng/row_vector.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <pngconf.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::libpng
 {

@@ -5,7 +5,7 @@
 
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/system_unique_ptr.hpp>
-#include <sge/image2d/plugin/traits.hpp>
+#include <sge/image2d/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/libpng/system.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
@@ -51,5 +51,5 @@ create_image2d_system(fcppt::log::context_reference const _log_context)
 
 }
 
-// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp,cppcoreguidelines-avoid-non-const-global-variables)
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(info, ((sge::image2d::system, create_image2d_system)))

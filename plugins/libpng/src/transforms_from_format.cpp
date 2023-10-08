@@ -4,9 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/libpng/format.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/libpng/transforms_from_format.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 int sge::libpng::transforms_from_format(sge::libpng::format const _format)
 {

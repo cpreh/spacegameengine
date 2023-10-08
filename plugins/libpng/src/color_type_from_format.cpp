@@ -5,8 +5,10 @@
 
 #include <sge/libpng/color_type_from_format.hpp>
 #include <sge/libpng/format.hpp>
-#include <sge/libpng/png.hpp>
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 int sge::libpng::color_type_from_format(sge::libpng::format const _format)
 {

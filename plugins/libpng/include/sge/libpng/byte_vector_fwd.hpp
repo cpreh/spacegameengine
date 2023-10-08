@@ -6,8 +6,10 @@
 #ifndef SGE_LIBPNG_BYTE_VECTOR_FWD_HPP_INCLUDED
 #define SGE_LIBPNG_BYTE_VECTOR_FWD_HPP_INCLUDED
 
-#include <sge/libpng/png.hpp>
 #include <fcppt/container/raw_vector/object_fwd.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <pngconf.h>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::libpng
 {

@@ -6,9 +6,11 @@
 #include <sge/image/exception.hpp>
 #include <sge/libpng/create_struct.hpp>
 #include <sge/libpng/error_context_ref.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/libpng/read_ptr.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::libpng::read_ptr::read_ptr(sge::libpng::error_context_ref const _error_context)
     : ptr_(sge::libpng::create_struct(&::png_create_read_struct, _error_context))

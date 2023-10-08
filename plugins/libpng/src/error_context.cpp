@@ -5,11 +5,9 @@
 
 #include <sge/image2d/file_exception.hpp>
 #include <sge/libpng/error_context.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/media/error_string.hpp>
 #include <sge/media/optional_name.hpp>
 #include <fcppt/from_std_string.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
@@ -18,6 +16,8 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <pngconf.h>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

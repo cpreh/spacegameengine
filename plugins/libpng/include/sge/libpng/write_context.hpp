@@ -6,11 +6,12 @@
 #ifndef SGE_LIBPNG_WRITE_CONTEXT_HPP_INCLUDED
 #define SGE_LIBPNG_WRITE_CONTEXT_HPP_INCLUDED
 
-#include <sge/libpng/png.hpp>
 #include <sge/libpng/write_ptr_fwd.hpp>
 #include <sge/media/optional_name.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <pngconf.h>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 

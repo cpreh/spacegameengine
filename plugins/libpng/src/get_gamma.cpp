@@ -8,6 +8,9 @@
 #include <sge/libpng/info.hpp>
 #include <sge/libpng/read_ptr.hpp>
 #include <sge/libpng/srgb_gamma.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::libpng::gamma
 sge::libpng::get_gamma(sge::libpng::read_ptr const &_read_ptr, sge::libpng::info const &_info)

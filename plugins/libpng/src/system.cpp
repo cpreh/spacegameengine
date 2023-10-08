@@ -7,6 +7,7 @@
 #include <sge/image2d/load_stream_result.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
+#include <sge/image2d/view/const_object.hpp>
 #include <sge/libpng/extension.hpp>
 #include <sge/libpng/file.hpp>
 #include <sge/libpng/file_rep.hpp>
@@ -17,11 +18,11 @@
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/media/check_extension.hpp>
-#include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>
@@ -31,7 +32,6 @@
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <istream>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

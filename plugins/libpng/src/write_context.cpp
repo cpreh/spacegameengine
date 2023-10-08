@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image2d/file_exception.hpp>
-#include <sge/libpng/png.hpp>
 #include <sge/libpng/write_context.hpp>
 #include <sge/libpng/write_ptr.hpp>
 #include <sge/media/optional_name.hpp>
@@ -13,6 +12,8 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <png.h>
+#include <pngconf.h>
 #include <ostream>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

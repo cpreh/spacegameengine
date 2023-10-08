@@ -8,8 +8,8 @@
 
 #include <sge/font/view_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <ft2build.h>
-#include <freetype/freetype.h>
+#include <ft2build.h> // NOLINT(misc-include-cleaner)
+#include <freetype/freetype.h> // NOLINT(misc-include-cleaner)
 #include <freetype/ftimage.h>
 #include <fcppt/config/external_end.hpp>
 

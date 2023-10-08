@@ -32,7 +32,6 @@ set(
 	plugins/libpng/include/sge/libpng/optional_file_rep_fwd.hpp
 	plugins/libpng/include/sge/libpng/optional_format.hpp
 	plugins/libpng/include/sge/libpng/optional_format_fwd.hpp
-	plugins/libpng/include/sge/libpng/png.hpp
 	plugins/libpng/include/sge/libpng/read_ptr.hpp
 	plugins/libpng/include/sge/libpng/read_ptr_fwd.hpp
 	plugins/libpng/include/sge/libpng/row_vector.hpp

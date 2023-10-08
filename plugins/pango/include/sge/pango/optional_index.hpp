@@ -7,7 +7,7 @@
 #define SGE_PANGO_OPTIONAL_INDEX_HPP_INCLUDED
 
 #include <sge/pango/index.hpp>
-#include <sge/pango/optional_index_fwd.hpp>
+#include <sge/pango/optional_index_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif
