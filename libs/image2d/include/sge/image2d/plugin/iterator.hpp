@@ -7,7 +7,7 @@
 #define SGE_IMAGE2D_PLUGIN_ITERATOR_HPP_INCLUDED
 
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/image2d/plugin/iterator_fwd.hpp>
+#include <sge/image2d/plugin/iterator_fwd.hpp> // IWYU pragma: export
 #include <sge/plugin/declare_iterator.hpp>
 
 SGE_PLUGIN_DECLARE_ITERATOR(sge::image2d::system);

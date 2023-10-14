@@ -10,7 +10,7 @@
 #include <sge/sdlinput/keyboard/translate_event.hpp>
 #include <sge/sdlinput/translate/keyboard_event.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
-#include <awl/event/base.hpp>
+#include <awl/event/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/not.hpp>

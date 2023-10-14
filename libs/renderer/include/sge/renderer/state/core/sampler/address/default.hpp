@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_CORE_SAMPLER_ADDRESS_DEFAULT_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters.hpp>
 
 namespace sge::renderer::state::core::sampler::address
 {

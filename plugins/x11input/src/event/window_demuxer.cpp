@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/x11input/event/demuxer_impl.hpp>
-#include <sge/x11input/event/window_demuxer.hpp>
+#include <sge/x11input/event/window_demuxer.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>

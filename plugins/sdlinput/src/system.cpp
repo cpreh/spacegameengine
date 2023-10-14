@@ -13,7 +13,6 @@
 #include <sge/sdlinput/processor.hpp>
 #include <sge/sdlinput/system.hpp>
 #include <sge/window/object_ref.hpp>
-#include <awl/backends/sdl/window/object.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>

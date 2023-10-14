@@ -3,8 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/image/color/predef.hpp>
-#include <sge/image/color/any/object.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -18,11 +16,11 @@
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -49,7 +47,7 @@
 #include <awl/timer/delay.hpp>
 #include <awl/timer/duration.hpp>
 #include <awl/timer/match.hpp>
-#include <awl/timer/object.hpp>
+#include <awl/timer/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/timer/setting_no_period.hpp>
 #include <awl/timer/unique_ptr.hpp>
 #include <fcppt/exception.hpp>

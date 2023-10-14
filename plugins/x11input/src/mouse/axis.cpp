@@ -13,6 +13,7 @@
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 
 fcppt::optional::object<sge::input::mouse::axis> sge::x11input::mouse::axis(
     sge::x11input::device::valuator::index const _index,

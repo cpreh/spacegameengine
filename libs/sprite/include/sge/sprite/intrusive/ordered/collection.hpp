@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/ordered/collection_decl.hpp>
+#include <sge/sprite/intrusive/ordered/collection_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/intrusive/ordered/collection_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/collection_impl.hpp>
 

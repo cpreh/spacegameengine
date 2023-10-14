@@ -17,7 +17,7 @@
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/systems/instance_decl.hpp>
+#include <sge/systems/instance_decl.hpp> // IWYU pragma: export
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/detail/has_with_audio_loader.hpp>

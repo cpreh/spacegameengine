@@ -126,6 +126,7 @@ set(
 	libs/imagecolor/include/sge/image/color/invalid_convert.hpp
 	libs/imagecolor/include/sge/image/color/invalid_copy.hpp
 	libs/imagecolor/include/sge/image/color/is_convertible.hpp
+	libs/imagecolor/include/sge/image/color/is_convertible_v.hpp
 	libs/imagecolor/include/sge/image/color/l8.hpp
 	libs/imagecolor/include/sge/image/color/l8_format.hpp
 	libs/imagecolor/include/sge/image/color/l8_fwd.hpp

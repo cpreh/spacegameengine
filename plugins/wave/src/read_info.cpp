@@ -6,6 +6,7 @@
 #include <sge/audio/bits_per_sample.hpp>
 #include <sge/audio/bytes_per_sample.hpp>
 #include <sge/audio/channel_count.hpp>
+#include <sge/audio/channel_type.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
 #include <sge/media/error_string.hpp>
@@ -21,6 +22,7 @@
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/array/comparison.hpp>
+#include <fcppt/cast/size.hpp>
 #include <fcppt/io/read.hpp>
 #include <fcppt/log/info.hpp>
 #include <fcppt/log/object_fwd.hpp>

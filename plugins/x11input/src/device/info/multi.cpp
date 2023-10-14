@@ -10,7 +10,7 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
+#include <X11/extensions/XI2.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::x11input::device::info::multi::multi(awl::backends::x11::display_ref const _display)

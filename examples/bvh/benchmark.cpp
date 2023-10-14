@@ -13,9 +13,9 @@
 #include <fcppt/main.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/strong_typedef.hpp>
-#include <fcppt/strong_typedef_input.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/strong_typedef_input.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/tree/depth.hpp>
@@ -43,7 +43,7 @@
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>
-#include <cstddef>
+#include <cstdlib>
 #include <exception>
 #include <iostream>
 #include <ostream>

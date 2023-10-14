@@ -10,7 +10,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
+#include <X11/X.h>
 #include <fcppt/config/external_end.hpp>
 
 fcppt::optional_string sge::x11input::device::info::string_from_atom(

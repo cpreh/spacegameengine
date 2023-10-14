@@ -16,7 +16,7 @@
 #include <sge/noise/sample_parameters.hpp>
 #include <sge/noise/perlin/object.hpp>
 #include <sge/noise/simplex/object.hpp>
-#include <sge/renderer/resource_flags.hpp>
+#include <sge/noise/simplex/width.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -28,10 +28,11 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
@@ -60,7 +61,6 @@
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -70,7 +70,6 @@
 #include <sge/systems/window_source.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
-#include <sge/texture/const_part_shared_ptr.hpp>
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
@@ -94,7 +93,6 @@
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/dim/fill.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/interpolation/perlin_fifth_degree.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/mpl/list/object.hpp>

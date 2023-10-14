@@ -6,6 +6,7 @@
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/projection_matrix.hpp>
+#include <sge/camera/update_duration.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
@@ -13,7 +14,7 @@
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/string.hpp>
@@ -45,9 +46,7 @@
 #include <sge/input/key/code_to_digit.hpp>
 #include <sge/input/key/digit.hpp>
 #include <sge/input/keyboard/event/key.hpp>
-#include <sge/renderer/aspect.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/scalar.hpp>
 #include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/clear/parameters.hpp>
@@ -61,18 +60,18 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
-#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/state/core/sampler/scoped_single.hpp>
 #include <sge/renderer/state/core/sampler/address/default.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/linear.hpp>
 #include <sge/renderer/state/core/sampler/filter/mipmap.hpp>
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
@@ -83,7 +82,7 @@
 #include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
@@ -93,7 +92,7 @@
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/mipmap/all_levels.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
@@ -114,6 +113,7 @@
 #include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_texture.hpp>
 #include <sge/sprite/geometry/update_one.hpp>
+#include <sge/sprite/render/range.hpp>
 #include <sge/sprite/render/range_with_options.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/repetition.hpp>
@@ -127,7 +127,6 @@
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -139,6 +138,7 @@
 #include <sge/systems/with_input.hpp>
 #include <sge/systems/with_renderer.hpp>
 #include <sge/systems/with_window.hpp>
+#include <sge/texture/part.hpp>
 #include <sge/texture/part_raw_ptr.hpp>
 #include <sge/timer/basic.hpp>
 #include <sge/timer/elapsed_and_reset.hpp>
@@ -164,22 +164,21 @@
 #include <fcppt/output_to_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
 #include <fcppt/array/get.hpp>
 #include <fcppt/array/object_impl.hpp>
+#include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/container/at_optional.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
 #include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/dim/fill.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/dim.hpp>
 #include <fcppt/math/vector/fill.hpp>
 #include <fcppt/math/vector/null.hpp>

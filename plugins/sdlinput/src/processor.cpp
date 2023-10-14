@@ -14,7 +14,7 @@
 #include <sge/sdlinput/processor.hpp>
 #include <sge/sdlinput/cursor/object.hpp>
 #include <sge/sdlinput/focus/object.hpp>
-#include <sge/sdlinput/joypad/device.hpp>
+#include <sge/sdlinput/joypad/device.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sdlinput/joypad/init.hpp>
 #include <sge/sdlinput/joypad/map.hpp>
 #include <sge/sdlinput/joypad/shared_ptr.hpp>
@@ -29,7 +29,8 @@
 #include <awl/backends/sdl/window/object.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
-#include <awl/window/object.hpp>
+#include <awl/window/object.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/make_ref.hpp>
 #include <fcppt/make_shared_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>

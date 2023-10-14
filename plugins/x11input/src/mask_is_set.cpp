@@ -9,7 +9,7 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
+#include <X11/extensions/XI2.h>
 #include <fcppt/config/external_end.hpp>
 
 bool sge::x11input::mask_is_set(unsigned char const *const _ptr, int const _mask)

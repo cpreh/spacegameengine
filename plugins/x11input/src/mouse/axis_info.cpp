@@ -7,7 +7,6 @@
 #include <sge/x11input/device/info/string_from_atom.hpp>
 #include <sge/x11input/mouse/axis_code.hpp>
 #include <sge/x11input/mouse/axis_info.hpp>
-#include <sge/x11input/mouse/axis_value.hpp>
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/config/external_begin.hpp>

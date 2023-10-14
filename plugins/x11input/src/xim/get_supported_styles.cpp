@@ -10,7 +10,7 @@
 #include <sge/x11input/xim/supported_styles_unique_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/X.h>
+#include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::x11input::xim::supported_styles_unique_ptr

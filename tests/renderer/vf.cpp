@@ -11,10 +11,10 @@
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vf/color.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
-#include <sge/renderer/vf/proxy.hpp>
+#include <sge/renderer/vf/proxy.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/vertex_size.hpp>
@@ -45,14 +45,14 @@
 #include <fcppt/cast/to_char_ptr.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/vector/static.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/record/are_equivalent.hpp>
+#include <fcppt/record/are_equivalent_v.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/object.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -99,14 +99,14 @@ TEST_CASE("renderer/vf/pos color interleaved", "[sge]")
                     static_size<3 * sizeof(float) + 4>>>);
 
   static_assert(
-      fcppt::record::are_equivalent<
+      fcppt::record::are_equivalent_v<
           sge::renderer::vf::vertex<format_part>::record_type,
           fcppt::record::object<
               fcppt::record::
                   element<sge::renderer::vf::labels::pos, fcppt::math::vector::static_<float, 3>>,
               fcppt::record::element<
                   sge::renderer::vf::labels::color,
-                  mizuiro::color::object<color_format>>>>::value);
+                  mizuiro::color::object<color_format>>>>);
 
   using format = sge::renderer::vf::format<format_part>;
 

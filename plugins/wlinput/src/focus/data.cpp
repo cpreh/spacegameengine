@@ -9,7 +9,7 @@
 #include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/container_reference.hpp>
 #include <awl/system/event/processor_ref.hpp>
-#include <awl/timer/object.hpp>
+#include <awl/timer/object.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/object_impl.hpp>

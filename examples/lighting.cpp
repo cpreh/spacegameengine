@@ -6,11 +6,10 @@
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
@@ -33,7 +32,7 @@
 #include <sge/renderer/state/ffp/lighting/diffuse_color.hpp>
 #include <sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp>
 #include <sge/renderer/state/ffp/lighting/enabled.hpp>
-#include <sge/renderer/state/ffp/lighting/object.hpp>
+#include <sge/renderer/state/ffp/lighting/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/scoped.hpp>
@@ -43,7 +42,7 @@
 #include <sge/renderer/state/ffp/lighting/light/const_object_ref_vector.hpp>
 #include <sge/renderer/state/ffp/lighting/light/constant_attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/linear_attenuation.hpp>
-#include <sge/renderer/state/ffp/lighting/light/object.hpp>
+#include <sge/renderer/state/ffp/lighting/light/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/light/parameters.hpp>
 #include <sge/renderer/state/ffp/lighting/light/point.hpp>
@@ -52,10 +51,10 @@
 #include <sge/renderer/state/ffp/lighting/light/scoped.hpp>
 #include <sge/renderer/state/ffp/lighting/light/variant.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
@@ -84,7 +83,6 @@
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -116,7 +114,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
-#include <fcppt/io/cerr.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>

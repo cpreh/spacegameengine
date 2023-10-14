@@ -6,7 +6,6 @@
 #include <sge/cg/string.hpp>
 #include <sge/cg/context/object.hpp>
 #include <sge/cg/parameter/named.hpp>
-#include <sge/cg/parameter/object.hpp>
 #include <sge/cg/profile/object.hpp>
 #include <sge/cg/profile/shader_type.hpp>
 #include <sge/cg/program/from_string_parameters.hpp>
@@ -22,9 +21,9 @@
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/cg/loaded_program.hpp>
+#include <sge/renderer/cg/loaded_program.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
-#include <sge/renderer/cg/loaded_texture.hpp>
+#include <sge/renderer/cg/loaded_texture.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/cg/scoped_program.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
@@ -40,29 +39,30 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <sge/renderer/state/ffp/misc/local_viewer.hpp>
 #include <sge/renderer/state/ffp/misc/normalize_normals.hpp>
-#include <sge/renderer/state/ffp/misc/object.hpp>
+#include <sge/renderer/state/ffp/misc/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/misc/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/misc/parameters.hpp>
 #include <sge/renderer/state/ffp/misc/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_buffer_ref_container.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/create_buffer_from_vertices.hpp>
-#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
@@ -73,6 +73,7 @@
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/texpos.hpp>
+#include <sge/renderer/vf/vector.hpp>
 #include <sge/renderer/vf/vertex.hpp>
 #include <sge/renderer/vf/dynamic/make_format.hpp>
 #include <sge/renderer/vf/labels/extra.hpp>
@@ -82,7 +83,6 @@
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -117,7 +117,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <exception>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 awl::main::exit_code example_main(awl::main::function_context const &)

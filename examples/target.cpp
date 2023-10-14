@@ -4,16 +4,19 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/config/media_path.hpp>
+#include <sge/image/color/format.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
-#include <sge/image2d/system.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/system.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -25,13 +28,14 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
 #include <sge/renderer/target/from_texture.hpp>
-#include <sge/renderer/target/offscreen.hpp>
+#include <sge/renderer/target/offscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/target/offscreen_unique_ptr.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/capabilities.hpp>
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/color_format.hpp>
@@ -39,9 +43,10 @@
 #include <sge/renderer/texture/create_planar_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/planar_parameters.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -69,7 +74,6 @@
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -84,7 +88,6 @@
 #include <sge/texture/part_raw_ref.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/dim.hpp>
 #include <sge/window/loop.hpp>
 #include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>

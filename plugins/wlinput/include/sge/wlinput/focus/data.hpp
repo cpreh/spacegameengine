@@ -54,6 +54,7 @@ struct data
   awl::event::container_reference const
       events_; // NOLINT(misc-non-private-member-variables-in-classes)
 
+  // NOLINTNEXTLINE(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
   bool entered_; // NOLINT(misc-non-private-member-variables-in-classes)
 
   sge::wlinput::focus::optional_keymap

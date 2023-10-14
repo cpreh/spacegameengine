@@ -5,7 +5,6 @@
 
 #include <sge/image/color/convert.hpp>
 #include <sge/image/color/predef.hpp>
-#include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/log/location.hpp>
@@ -21,10 +20,11 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/buffers/multi.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -49,7 +49,6 @@
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>

@@ -7,7 +7,7 @@
 #define SGE_BVH_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/bvh/construct_median_cut.hpp>
-#include <sge/bvh/object_decl.hpp>
+#include <sge/bvh/object_decl.hpp> // IWYU pragma: export
 #include <fcppt/algorithm/map.hpp>
 
 template <typename Traits>

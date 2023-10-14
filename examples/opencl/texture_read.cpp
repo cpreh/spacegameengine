@@ -4,29 +4,36 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/config/media_path.hpp>
-#include <sge/image2d/file.hpp>
 #include <sge/image2d/save_from_view.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/view/to_const.hpp>
 #include <sge/media/all_extensions.hpp>
 #include <sge/opencl/dim2.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
+#include <sge/opencl/command_queue/execution_mode.hpp>
+#include <sge/opencl/command_queue/global_dim2.hpp>
 #include <sge/opencl/command_queue/map_flags.hpp>
 #include <sge/opencl/command_queue/scoped.hpp>
 #include <sge/opencl/command_queue/scoped_planar_mapping.hpp>
-#include <sge/opencl/event/object.hpp>
+#include <sge/opencl/event/object.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/opencl/event/sequence.hpp>
+#include <sge/opencl/kernel/argument_index.hpp>
+#include <sge/opencl/kernel/name.hpp>
 #include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/memory_object/base.hpp>
+#include <sge/opencl/memory_object/flags.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
+#include <sge/opencl/memory_object/rect.hpp>
 #include <sge/opencl/memory_object/image/planar.hpp>
+#include <sge/opencl/memory_object/image/planar_pitch.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/program/file_to_source_string_sequence.hpp>
 #include <sge/opencl/program/object.hpp>
+#include <sge/opencl/program/optional_build_parameters.hpp>
 #include <sge/opencl/single_device_system/object.hpp>
 #include <sge/opencl/single_device_system/parameters.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/with_image2d.hpp>
 #include <fcppt/args_char.hpp>
@@ -41,7 +48,6 @@
 #include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/error.hpp>

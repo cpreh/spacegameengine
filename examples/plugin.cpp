@@ -5,39 +5,39 @@
 
 #include <sge/audio/loader.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/audio/loader_plugin/collection.hpp>
-#include <sge/audio/loader_plugin/context.hpp>
-#include <sge/audio/loader_plugin/iterator.hpp>
-#include <sge/audio/loader_plugin/manager.hpp>
-#include <sge/audio/player_plugin/collection.hpp>
-#include <sge/audio/player_plugin/context.hpp>
-#include <sge/audio/player_plugin/iterator.hpp>
-#include <sge/audio/player_plugin/manager.hpp>
+#include <sge/audio/loader_plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/loader_plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/loader_plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/loader_plugin/manager.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/player_plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/player_plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/player_plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/audio/player_plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/config/plugin_path.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/plugin/collection.hpp>
-#include <sge/font/plugin/context.hpp>
-#include <sge/font/plugin/iterator.hpp>
-#include <sge/font/plugin/manager.hpp>
+#include <sge/font/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/font/plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/font/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/font/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/system.hpp>
-#include <sge/image2d/plugin/collection.hpp>
-#include <sge/image2d/plugin/context.hpp>
-#include <sge/image2d/plugin/iterator.hpp>
-#include <sge/image2d/plugin/manager.hpp>
+#include <sge/image2d/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/system.hpp>
-#include <sge/input/plugin/collection.hpp>
-#include <sge/input/plugin/context.hpp>
-#include <sge/input/plugin/iterator.hpp>
-#include <sge/input/plugin/manager.hpp>
+#include <sge/input/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/input/plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/input/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/input/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/log/default_level_streams.hpp>
 #include <sge/plugin/info.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <sge/renderer/core.hpp>
-#include <sge/renderer/plugin/collection.hpp>
-#include <sge/renderer/plugin/context.hpp>
-#include <sge/renderer/plugin/iterator.hpp>
-#include <sge/renderer/plugin/manager.hpp>
+#include <sge/renderer/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/make_ref.hpp>
@@ -47,7 +47,7 @@
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/context.hpp>
@@ -59,7 +59,7 @@
 #include <exception>
 #include <iostream>
 #include <ostream>
-#include <typeinfo>
+#include <typeinfo> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_end.hpp>
 
 int main()

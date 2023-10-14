@@ -17,7 +17,6 @@
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/image/color/format.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/input/event_base.hpp>
@@ -27,7 +26,7 @@
 #include <sge/model/md3/create.hpp>
 #include <sge/model/md3/index_sequence.hpp>
 #include <sge/model/md3/load_flags_field.hpp>
-#include <sge/model/md3/loader.hpp>
+#include <sge/model/md3/loader.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/model/md3/loader_unique_ptr.hpp>
 #include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/object.hpp>
@@ -39,7 +38,7 @@
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
-#include <sge/renderer/size_type.hpp>
+#include <sge/renderer/vector3.hpp>
 #include <sge/renderer/clear/depth_buffer_value.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/core.hpp>
@@ -53,7 +52,7 @@
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/display_mode/vsync.hpp>
 #include <sge/renderer/event/render.hpp>
-#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/index/count.hpp>
@@ -67,11 +66,15 @@
 #include <sge/renderer/index/dynamic/view.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
+#include <sge/renderer/projection/far.hpp>
+#include <sge/renderer/projection/fov.hpp>
+#include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/core/blend/alpha_off.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant.hpp>
-#include <sge/renderer/state/core/blend/object.hpp>
+#include <sge/renderer/state/core/blend/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/parameters.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
@@ -80,7 +83,7 @@
 #include <sge/renderer/state/core/blend/write_green.hpp>
 #include <sge/renderer/state/core/blend/write_mask.hpp>
 #include <sge/renderer/state/core/blend/write_red.hpp>
-#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/enabled.hpp>
@@ -92,22 +95,22 @@
 #include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
 #include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
 #include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
-#include <sge/renderer/state/core/rasterizer/object.hpp>
+#include <sge/renderer/state/core/rasterizer/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/rasterizer/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/rasterizer/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
@@ -115,7 +118,7 @@
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/format.hpp>
-#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vf/normal.hpp>
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
@@ -130,7 +133,6 @@
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -147,7 +149,7 @@
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/viewport/manager.hpp>
+#include <sge/viewport/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/loop.hpp>
 #include <sge/window/loop_function.hpp>
@@ -171,7 +173,7 @@
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/algorithm/map.hpp>
@@ -199,7 +201,7 @@
 #include <fcppt/options/apply.hpp>
 #include <fcppt/options/default_help_switch.hpp>
 #include <fcppt/options/error.hpp>
-#include <fcppt/options/error_output.hpp>
+#include <fcppt/options/error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/options/long_name.hpp>
 #include <fcppt/options/make_default_value.hpp>
 #include <fcppt/options/option.hpp>
@@ -209,7 +211,7 @@
 #include <fcppt/options/result.hpp>
 #include <fcppt/options/result_of.hpp>
 #include <fcppt/options/usage.hpp>
-#include <fcppt/options/usage_output.hpp>
+#include <fcppt/options/usage_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/random/variate.hpp>
 #include <fcppt/random/distribution/basic.hpp>
 #include <fcppt/random/distribution/parameters/uniform_real.hpp>
@@ -222,7 +224,7 @@
 #include <fcppt/record/permute.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/variant/output.hpp>
+#include <fcppt/variant/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <chrono>

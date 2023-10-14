@@ -3,22 +3,22 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/audio/buffer.hpp>
+#include <sge/audio/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/buffer_unique_ptr.hpp>
-#include <sge/audio/exception.hpp>
-#include <sge/audio/file.hpp>
+#include <sge/audio/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/file_unique_ptr.hpp>
-#include <sge/audio/listener.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/load_raw_exn.hpp>
 #include <sge/audio/loader_ref.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/position.hpp>
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/vector.hpp>
 #include <sge/audio/sound/base.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/play_status.hpp>
-#include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/audio/sound/repeat.hpp>
@@ -27,16 +27,15 @@
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
 #include <sge/media/const_raw_pointer.hpp>
+#include <sge/media/const_raw_range.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/media/raw_value.hpp>
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/with_audio_loader.hpp>
@@ -45,7 +44,6 @@
 #include <sge/timer/parameters.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>
@@ -58,9 +56,7 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
 #include <chrono>
-#include <cmath>
 #include <cstdlib>
 #include <exception>
 #include <filesystem>

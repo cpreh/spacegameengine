@@ -8,7 +8,7 @@
 
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/sampler/op_fwd.hpp>
-#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters.hpp>
 
 namespace sge::renderer::state::ffp::sampler
 {

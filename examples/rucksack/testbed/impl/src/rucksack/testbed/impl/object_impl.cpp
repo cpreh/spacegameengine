@@ -5,6 +5,7 @@
 
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/convert.hpp>
+#include <sge/image/color/any/object.hpp>
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
@@ -22,28 +23,26 @@
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/testbed/impl/object_impl.hpp>
-#include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/widget/reference.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/buffers/single_impl.hpp>
-#include <sge/sprite/buffers/with_declaration_impl.hpp>
+#include <sge/sprite/buffers/option.hpp>
+#include <sge/sprite/buffers/single_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/sprite/buffers/with_declaration_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sprite/compare/default.hpp>
-#include <sge/sprite/config/float_type.hpp>
-#include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/geometry/make_random_access_range.hpp>
 #include <sge/sprite/process/all.hpp>
 #include <sge/sprite/roles/color.hpp>
 #include <sge/sprite/roles/pos.hpp>
 #include <sge/sprite/roles/size.hpp>
-#include <sge/sprite/state/object_impl.hpp>
-#include <sge/sprite/state/parameters_impl.hpp>
+#include <sge/sprite/state/object_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/sprite/state/parameters_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -61,11 +60,9 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/location.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/maybe_void.hpp>

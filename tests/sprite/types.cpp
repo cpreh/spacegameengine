@@ -44,9 +44,12 @@
 #include <fcppt/mpl/list/append.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/mpl/map/element.hpp>
-#include <fcppt/mpl/map/equal.hpp>
+#include <fcppt/mpl/map/equal_v.hpp>
 #include <fcppt/mpl/map/object.hpp>
 #include <fcppt/record/element_map.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <type_traits>
+#include <fcppt/config/external_end.hpp>
 
 namespace
 {
@@ -61,13 +64,13 @@ using simple_sprite_choices = sge::sprite::config::choices<
     fcppt::mpl::list::object<>>;
 
 static_assert(
-    fcppt::mpl::map::equal<
+    fcppt::mpl::map::equal_v<
         fcppt::record::element_map<sge::sprite::detail::make_class<simple_sprite_choices>>,
         fcppt::mpl::map::object<
             fcppt::mpl::map::
                 element<sge::sprite::roles::pos, sge::sprite::types::vector<type_choices>>,
             fcppt::mpl::map::
-                element<sge::sprite::roles::size, sge::sprite::types::dim<type_choices>>>>::value);
+                element<sge::sprite::roles::size, sge::sprite::types::dim<type_choices>>>>);
 
 static_assert(std::is_same_v<
               sge::sprite::vertex_format<simple_sprite_choices>,
@@ -82,7 +85,7 @@ using color_sprite_choices = sge::sprite::config::choices<
     sge::sprite::config::normal_size<sge::sprite::config::texture_size_option::never>,
     fcppt::mpl::list::object<sge::sprite::config::with_color<color_format>>>;
 
-static_assert(fcppt::mpl::map::equal<
+static_assert(fcppt::mpl::map::equal_v<
               fcppt::record::element_map<sge::sprite::detail::make_class<color_sprite_choices>>,
               fcppt::mpl::map::object<
                   fcppt::mpl::map::
@@ -91,7 +94,7 @@ static_assert(fcppt::mpl::map::equal<
                       element<sge::sprite::roles::size, sge::sprite::types::dim<type_choices>>,
                   fcppt::mpl::map::element<
                       sge::sprite::roles::color,
-                      sge::image::pixel::mizuiro_type<color_format>>>>::value);
+                      sge::image::pixel::mizuiro_type<color_format>>>>);
 
 static_assert(std::is_same_v<
               sge::sprite::vertex_format<color_sprite_choices>,
@@ -108,7 +111,7 @@ using texture_sprite_choices = sge::sprite::config::choices<
         sge::sprite::config::texture_coordinates::automatic,
         sge::sprite::config::texture_ownership::shared>>>;
 
-static_assert(fcppt::mpl::map::equal<
+static_assert(fcppt::mpl::map::equal_v<
               fcppt::record::element_map<sge::sprite::detail::make_class<texture_sprite_choices>>,
               fcppt::mpl::map::object<
                   fcppt::mpl::map::
@@ -116,8 +119,7 @@ static_assert(fcppt::mpl::map::equal<
                   fcppt::mpl::map::
                       element<sge::sprite::roles::size, sge::sprite::types::dim<type_choices>>,
                   fcppt::mpl::map::
-                      element<sge::sprite::roles::texture0, sge::texture::const_part_shared_ptr>>>::
-                  value);
+                      element<sge::sprite::roles::texture0, sge::texture::const_part_shared_ptr>>>);
 
 static_assert(std::is_same_v<
               sge::sprite::vertex_format<texture_sprite_choices>,
@@ -131,14 +133,14 @@ using point_sprite_choices = sge::sprite::config::choices<
     sge::sprite::config::point_size<sge::renderer::vf::index<0U>>,
     fcppt::mpl::list::object<>>;
 
-static_assert(fcppt::mpl::map::equal<
+static_assert(fcppt::mpl::map::equal_v<
               fcppt::record::element_map<sge::sprite::detail::make_class<point_sprite_choices>>,
               fcppt::mpl::map::object<
                   fcppt::mpl::map::
                       element<sge::sprite::roles::pos, sge::sprite::types::vector<type_choices>>,
                   fcppt::mpl::map::element<
                       sge::sprite::roles::point_size,
-                      sge::sprite::types::point_size<type_choices>>>>::value);
+                      sge::sprite::types::point_size<type_choices>>>>);
 
 static_assert(std::is_same_v<
               sge::sprite::vertex_format<point_sprite_choices>,
@@ -157,7 +159,7 @@ using texture_point_sprite_choices = sge::sprite::config::choices<
         sge::sprite::config::texture_ownership::shared>>>;
 
 static_assert(
-    fcppt::mpl::map::equal<
+    fcppt::mpl::map::equal_v<
         fcppt::record::element_map<sge::sprite::detail::make_class<texture_point_sprite_choices>>,
         fcppt::mpl::map::object<
             fcppt::mpl::map::
@@ -166,8 +168,7 @@ static_assert(
                 sge::sprite::roles::point_size,
                 sge::sprite::types::point_size<type_choices>>,
             fcppt::mpl::map::
-                element<sge::sprite::roles::texture0, sge::texture::const_part_shared_ptr>>>::
-        value);
+                element<sge::sprite::roles::texture0, sge::texture::const_part_shared_ptr>>>);
 
 static_assert(std::is_same_v<
               sge::sprite::vertex_format<texture_point_sprite_choices>,

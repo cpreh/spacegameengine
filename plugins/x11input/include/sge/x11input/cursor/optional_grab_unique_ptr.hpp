@@ -6,7 +6,7 @@
 #ifndef SGE_X11INPUT_CURSOR_OPTIONAL_GRAB_UNIQUE_PTR_HPP_INCLUDED
 #define SGE_X11INPUT_CURSOR_OPTIONAL_GRAB_UNIQUE_PTR_HPP_INCLUDED
 
-#include <sge/x11input/cursor/optional_grab_unique_ptr_fwd.hpp>
+#include <sge/x11input/cursor/optional_grab_unique_ptr_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

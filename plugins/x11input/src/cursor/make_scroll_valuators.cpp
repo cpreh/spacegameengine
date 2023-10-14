@@ -9,6 +9,7 @@
 #include <sge/x11input/cursor/scroll_valuator.hpp>
 #include <sge/x11input/cursor/scroll_valuator_map.hpp>
 #include <sge/x11input/device/info/class_maybe.hpp>
+#include <sge/x11input/device/valuator/any.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/make_absolute.hpp>
 #include <fcppt/make_int_range_count.hpp>

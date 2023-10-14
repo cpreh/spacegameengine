@@ -21,6 +21,7 @@
 #include <bit>
 #include <cstdint>
 #include <ios>
+#include <istream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 

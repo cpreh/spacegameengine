@@ -6,7 +6,7 @@
 #include <sge/input/exception.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/info/base.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>

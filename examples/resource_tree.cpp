@@ -6,7 +6,6 @@
 #include <sge/config/media_path.hpp>
 #include <sge/resource_tree/object.hpp>
 #include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/path_to_resource_function.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/text.hpp>

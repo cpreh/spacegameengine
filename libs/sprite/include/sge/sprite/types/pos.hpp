@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_POS_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_POS_HPP_INCLUDED
 
-#include <sge/sprite/types/pos_fwd.hpp>
+#include <sge/sprite/types/pos_fwd.hpp> // IWYU pragma: export
 #include <sge/sprite/types/basic/unit_vector.hpp>
 #include <fcppt/strong_typedef_impl.hpp>
 

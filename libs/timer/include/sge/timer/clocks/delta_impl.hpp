@@ -6,7 +6,7 @@
 #ifndef SGE_TIMER_CLOCKS_DELTA_IMPL_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_DELTA_IMPL_HPP_INCLUDED
 
-#include <sge/timer/clocks/delta_decl.hpp>
+#include <sge/timer/clocks/delta_decl.hpp> // IWYU pragma: export
 
 template <typename Duration>
 sge::timer::clocks::delta<Duration>::delta() : now_()

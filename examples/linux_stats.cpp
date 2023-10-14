@@ -5,10 +5,9 @@
 
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters.hpp>
-#include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
@@ -17,10 +16,8 @@
 #include <sge/font/align_h/variant.hpp>
 #include <sge/font/draw/static_text.hpp>
 #include <sge/graph/axis_constraint.hpp>
-#include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
 #include <sge/graph/color_schemes.hpp>
-#include <sge/graph/foreground_color.hpp>
 #include <sge/graph/object.hpp>
 #include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/graph/position.hpp>
@@ -45,11 +42,10 @@
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -77,6 +73,7 @@
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/exception.hpp>
+#include <fcppt/from_std_string.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -85,8 +82,8 @@
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/strong_typedef.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/array/object_impl.hpp>
@@ -110,7 +107,7 @@
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/default_help_switch.hpp>
 #include <fcppt/options/error.hpp>
-#include <fcppt/options/error_output.hpp>
+#include <fcppt/options/error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/options/help_text.hpp>
 #include <fcppt/options/long_name.hpp>
 #include <fcppt/options/optional_help_text.hpp>
@@ -118,14 +115,14 @@
 #include <fcppt/options/result.hpp>
 #include <fcppt/options/result_of.hpp>
 #include <fcppt/options/usage.hpp>
-#include <fcppt/options/usage_output.hpp>
+#include <fcppt/options/usage_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/record/permute.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/variant/output.hpp>
+#include <fcppt/variant/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <exception>
@@ -188,7 +185,7 @@ fcppt::optional::object<jiffies> count_jiffies()
 {
   return fcppt::optional::bind(
       fcppt::filesystem::open<std::ifstream>("/proc/stat", std::ios_base::in),
-      [](std::ifstream &&cpuinfo)
+      [](std::ifstream &&cpuinfo) // NOLINT(cppcoreguidelines-rvalue-reference-param-not-moved)
       {
         std::string first_word{};
 
@@ -254,7 +251,7 @@ fcppt::optional::object<double> count_memory()
 {
   return fcppt::optional::bind(
       fcppt::filesystem::open<std::ifstream>("/proc/meminfo", std::ios_base::in),
-      [](std::ifstream &&meminfo)
+      [](std::ifstream &&meminfo) // NOLINT(cppcoreguidelines-rvalue-reference-param-not-moved)
       {
         unsigned total{0};
         unsigned free{0};
@@ -304,7 +301,7 @@ fcppt::optional::object<std::vector<std::string>> network_devices()
 {
   return fcppt::optional::map(
       fcppt::filesystem::open<std::ifstream>("/proc/net/dev", std::ios_base::in),
-      [](std::ifstream &&netinfo)
+      [](std::ifstream &&netinfo) // NOLINT(cppcoreguidelines-rvalue-reference-param-not-moved)
       {
         // skip the first two lines
         netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -332,7 +329,7 @@ count_traffic(std::string const &_device)
 {
   return fcppt::optional::bind(
       fcppt::filesystem::open<std::ifstream>("/proc/net/dev", std::ios_base::in),
-      [&_device](std::ifstream &&netinfo)
+      [&_device](std::ifstream &&netinfo) // NOLINT(cppcoreguidelines-rvalue-reference-param-not-moved)
       {
         // skip the first two lines
         netinfo.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
@@ -351,7 +348,7 @@ count_traffic(std::string const &_device)
             return fcppt::optional::make(value);
           }
         }
-        return fcppt::optional::object<unsigned long>{};
+        return fcppt::optional::object<unsigned long>{}; // NOLINT(google-runtime-int)
       });
 }
 
@@ -487,7 +484,7 @@ awl::main::exit_code main_program(arg_type const &_args)
 
           fcppt::optional::maybe_void(
               ::count_traffic(device),
-              [&device_totals, &device](unsigned long const _traffic)
+              [&device_totals, &device](unsigned long const _traffic) // NOLINT(google-runtime-int)
               { device_totals[device] = _traffic; });
         }
         return result;

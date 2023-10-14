@@ -8,7 +8,7 @@
 #include <sge/x11input/event/select_unsafe.hpp>
 #include <sge/x11input/event/type.hpp>
 #include <sge/x11input/event/type_container.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/base.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>

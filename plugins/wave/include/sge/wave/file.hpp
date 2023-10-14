@@ -65,7 +65,7 @@ private:
 
   std::streampos data_segment_;
 
-  sge::audio::sample_count samples_read_;
+  sge::audio::sample_count samples_read_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

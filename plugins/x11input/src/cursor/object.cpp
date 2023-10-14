@@ -15,7 +15,7 @@
 #include <sge/window/object_ref.hpp>
 #include <sge/x11input/cursor/button_code.hpp>
 #include <sge/x11input/cursor/create_grab.hpp>
-#include <sge/x11input/cursor/grab.hpp>
+#include <sge/x11input/cursor/grab.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/x11input/cursor/make_scroll_valuators.hpp>
 #include <sge/x11input/cursor/object.hpp>
 #include <sge/x11input/cursor/optional_grab_unique_ptr.hpp>
@@ -23,14 +23,12 @@
 #include <sge/x11input/cursor/query_pointer.hpp>
 #include <sge/x11input/cursor/scroll_valuator.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <sge/x11input/device/valuator/index.hpp>
 #include <sge/x11input/device/valuator/pair.hpp>
 #include <sge/x11input/device/valuator/range.hpp>
-#include <sge/x11input/device/valuator/value.hpp>
 #include <sge/x11input/event/device_function.hpp>
 #include <sge/x11input/event/select.hpp>
 #include <sge/x11input/event/type_c.hpp>
-#include <sge/x11input/event/window_demuxer.hpp>
+#include <sge/x11input/event/window_demuxer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/x11input/event/window_demuxer_ref.hpp>
 #include <awl/backends/x11/cursor/object_ref.hpp>
 #include <awl/backends/x11/window/const_base_ref.hpp>
@@ -43,7 +41,6 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
@@ -55,9 +52,7 @@
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_container.hpp>
-#include <fcppt/signal/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
@@ -132,6 +127,7 @@ awl::event::container sge::x11input::cursor::object::on_event(XIDeviceEvent cons
     return fcppt::container::make<awl::event::container>(this->on_enter(_event));
   case XI_Leave:
     return fcppt::container::make<awl::event::container>(this->on_leave(_event));
+  default: break;
   }
 
   return awl::event::container{};

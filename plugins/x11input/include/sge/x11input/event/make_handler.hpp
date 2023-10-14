@@ -31,7 +31,7 @@ make_handler(sge::x11input::event::concrete_handler<Event> _function)
           {
             using event_type = sge::x11input::event::static_type<Type>;
 
-            static_assert(std::is_same<event_type, Event>::value, "Event types do not match");
+            static_assert(std::is_same_v<event_type, Event>, "Event types do not match");
 
             return _function(*fcppt::cast::from_void_ptr<Event const *>(_event.data()));
           }});

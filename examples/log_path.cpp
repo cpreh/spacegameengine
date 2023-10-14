@@ -9,7 +9,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iostream>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>
 

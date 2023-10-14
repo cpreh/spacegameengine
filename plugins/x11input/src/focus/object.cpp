@@ -20,7 +20,7 @@
 #include <sge/x11input/event/device_function.hpp>
 #include <sge/x11input/event/select.hpp>
 #include <sge/x11input/event/type_c.hpp>
-#include <sge/x11input/event/window_demuxer.hpp>
+#include <sge/x11input/event/window_demuxer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/x11input/event/window_demuxer_ref.hpp>
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
@@ -33,11 +33,12 @@
 #include <sge/x11input/xim/get_filter_events.hpp>
 #include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/Xlib.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/object_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
-#include <awl/event/connection.hpp>
+#include <awl/event/connection.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/container.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>
 #include <fcppt/identity.hpp>
@@ -54,8 +55,7 @@
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/signal/auto_connection.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
@@ -113,6 +113,7 @@ awl::event::container sge::x11input::focus::object::on_event(XIDeviceEvent const
     return fcppt::container::make<awl::event::container>(this->on_focus_in());
   case XI_FocusOut:
     return fcppt::container::make<awl::event::container>(this->on_focus_out());
+  default: break;
   }
 
   return awl::event::container{};

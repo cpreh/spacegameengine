@@ -11,6 +11,9 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/dynamic_array_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <xkbcommon/xkbcommon.h>
+#include <fcppt/config/external_end.hpp>
 
 sge::charconv::utf8_string sge::wlinput::focus::get_utf8_string(
     sge::wlinput::focus::state const &_state, sge::wlinput::focus::xkb_keycode const _keycode)

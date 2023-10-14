@@ -18,19 +18,18 @@
 #include <sge/vorbis/info.hpp>
 #include <sge/vorbis/read.hpp>
 #include <sge/vorbis/seek.hpp>
-#include <sge/vorbis/stream.hpp>
+#include <sge/vorbis/stream.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/vorbis/stream_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/container/buffer/append_from.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
-#include <istream>
+#include <istream> // NOLINT(misc-include-cleaner)
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

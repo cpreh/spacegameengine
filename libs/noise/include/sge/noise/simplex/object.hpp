@@ -6,7 +6,7 @@
 #ifndef SGE_NOISE_SIMPLEX_OBJECT_HPP_INCLUDED
 #define SGE_NOISE_SIMPLEX_OBJECT_HPP_INCLUDED
 
-#include <sge/noise/simplex/object_decl.hpp>
+#include <sge/noise/simplex/object_decl.hpp> // IWYU pragma: export
 #include <sge/noise/simplex/object_fwd.hpp>
 #include <sge/noise/simplex/object_impl.hpp>
 

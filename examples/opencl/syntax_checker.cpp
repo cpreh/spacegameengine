@@ -6,26 +6,24 @@
 #include <sge/log/default_level.hpp>
 #include <sge/log/default_level_streams.hpp>
 #include <sge/opencl/log_location.hpp>
-#include <sge/opencl/kernel/object.hpp>
 #include <sge/opencl/program/build_error.hpp>
 #include <sge/opencl/program/build_parameters.hpp>
 #include <sge/opencl/program/object.hpp>
 #include <sge/opencl/program/optional_build_parameters.hpp>
+#include <sge/opencl/program/source_string_sequence.hpp>
 #include <sge/opencl/single_device_system/object.hpp>
 #include <sge/opencl/single_device_system/parameters.hpp>
 #include <fcppt/args_char.hpp>
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
-#include <fcppt/from_std_string.hpp>
 #include <fcppt/main.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/to_std_string.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/split_string.hpp>
-#include <fcppt/config/compiler.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/filesystem/open_exn.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
@@ -50,14 +48,17 @@
 #include <fcppt/options/result_of.hpp>
 #include <fcppt/options/usage.hpp>
 #include <fcppt/options/usage_output.hpp>
-#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/xpressive/xpressive.hpp>
+#include <boost/xpressive/basic_regex.hpp>
+#include <boost/xpressive/match_results.hpp>
+#include <boost/xpressive/regex_algorithms.hpp>
+#include <boost/xpressive/regex_primitives.hpp>
 #include <cstdlib>
 #include <exception>
 #include <filesystem>
@@ -104,7 +105,7 @@ int main_program(
   {
     fcppt::io::cout() << FCPPT_TEXT("Compiling ")
                       << fcppt::filesystem::path_to_string(_target_file_name) << FCPPT_TEXT("...")
-                      << std::endl;
+                      << '\n';
 
     main_program.build(sge::opencl::program::build_parameters().options(fcppt::algorithm::fold(
         _additional_args,
@@ -129,9 +130,7 @@ int main_program(
     line_sequence const lines{fcppt::algorithm::split_string(_error.message(), '\n')};
 
     FCPPT_PP_PUSH_WARNING
-#if defined(FCPPT_CONFIG_GNU_GCC_COMPILER)
-    FCPPT_PP_DISABLE_GCC_WARNING(-Wzero-as-null-pointer-constant)
-#endif
+    FCPPT_PP_DISABLE_GNU_GCC_WARNING(-Wzero-as-null-pointer-constant)
 
     // TODO(philipp): Use fcppt::parse
     boost::xpressive::basic_regex<fcppt::string::const_iterator> const broken_error_indicator_regex{

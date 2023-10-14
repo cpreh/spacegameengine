@@ -7,7 +7,7 @@
 #define SGE_AUDIO_FILE_EXCEPTION_HPP_INCLUDED
 
 #include <sge/audio/exception.hpp>
-#include <sge/audio/file_exception_fwd.hpp>
+#include <sge/audio/file_exception_fwd.hpp> // IWYU pragma: export
 #include <sge/media/declare_file_exception.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

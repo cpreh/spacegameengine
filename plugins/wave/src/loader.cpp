@@ -27,7 +27,7 @@
 #include <fcppt/log/name.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <istream>
+#include <istream> // NOLINT(misc-include-cleaner)
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

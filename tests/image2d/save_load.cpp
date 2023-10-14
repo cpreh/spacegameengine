@@ -12,21 +12,20 @@
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
 #include <sge/image/view/wrap.hpp>
-#include <sge/image2d/dim.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/dim.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/system_unique_ptr.hpp>
 #include <sge/image2d/algorithm/compare.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/plugin/collection.hpp>
-#include <sge/image2d/plugin/context.hpp>
-#include <sge/image2d/plugin/iterator.hpp>
-#include <sge/image2d/plugin/manager.hpp>
+#include <sge/image2d/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/context.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/plugin/object.hpp>
 #include <sge/image2d/store/rgba8.hpp>
 #include <sge/image2d/view/const_object.hpp>
-#include <sge/image2d/view/format.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/size.hpp>
 #include <sge/log/default_level.hpp>
@@ -34,23 +33,22 @@
 #include <sge/media/extension.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_name.hpp>
-#include <sge/plugin/collection.hpp>
+#include <sge/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/optional_cache_ref.hpp>
 #include <fcppt/exception.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
 #include <fcppt/log/context.hpp>
 #include <fcppt/math/dim/comparison.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>

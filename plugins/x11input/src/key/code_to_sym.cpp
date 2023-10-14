@@ -9,6 +9,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
 #include <X11/XKBlib.h>
+#include <X11/Xfuncproto.h>
 #include <fcppt/config/external_end.hpp>
 
 KeySym sge::x11input::key::code_to_sym(

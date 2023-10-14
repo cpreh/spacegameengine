@@ -3,17 +3,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/audio/file.hpp>
+#include <sge/audio/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/file_unique_ptr.hpp>
 #include <sge/audio/load_exn.hpp>
-#include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/player.hpp>
 #include <sge/audio/position.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
 #include <sge/audio/vector2.hpp>
 #include <sge/audio/vector2_to_vector.hpp>
-#include <sge/audio/sound/positional.hpp>
+#include <sge/audio/sound/positional.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/sound/positional_parameters.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/audio/sound/repeat.hpp>
@@ -24,7 +23,6 @@
 #include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/with_audio_loader.hpp>
 #include <sge/systems/with_audio_player.hpp>

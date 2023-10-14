@@ -19,12 +19,12 @@
 #include <sge/x11input/device/valuator/pair.hpp>
 #include <sge/x11input/device/valuator/range.hpp>
 #include <sge/x11input/event/device_function.hpp>
-#include <sge/x11input/event/raw_demuxer.hpp>
+#include <sge/x11input/event/raw_demuxer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/x11input/event/raw_demuxer_ref.hpp>
 #include <sge/x11input/event/raw_function.hpp>
 #include <sge/x11input/event/select.hpp>
 #include <sge/x11input/event/type_c.hpp>
-#include <sge/x11input/event/window_demuxer.hpp>
+#include <sge/x11input/event/window_demuxer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/x11input/event/window_demuxer_ref.hpp>
 #include <sge/x11input/mouse/axis.hpp>
 #include <sge/x11input/mouse/axis_value.hpp>
@@ -32,7 +32,7 @@
 #include <sge/x11input/mouse/button.hpp>
 #include <sge/x11input/mouse/device.hpp>
 #include <sge/x11input/mouse/info.hpp>
-#include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
@@ -52,6 +52,7 @@
 #include <fcppt/optional/join.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
@@ -105,6 +106,7 @@ awl::event::container sge::x11input::mouse::device::on_event(XIDeviceEvent const
     return fcppt::optional::to_container<awl::event::container>(this->on_button_down(_event));
   case XI_ButtonRelease:
     return fcppt::optional::to_container<awl::event::container>(this->on_button_up(_event));
+  default: break;
   }
 
   return awl::event::container{};

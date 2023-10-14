@@ -5,7 +5,7 @@
 
 #include <sge/camera/projection_matrix.hpp>
 #include <sge/camera/update_duration.hpp>
-#include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/coordinate_system/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/ortho_freelook/object.hpp>
 #include <sge/camera/ortho_freelook/parameters.hpp>
@@ -13,12 +13,10 @@
 #include <sge/config/media_path.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/system.hpp>
 #include <sge/input/event_base.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/cursor/mode.hpp>
-#include <sge/input/cursor/object.hpp>
+#include <sge/input/cursor/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/event/key.hpp>
@@ -28,6 +26,7 @@
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
@@ -38,20 +37,20 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
-#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -77,12 +76,14 @@
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/default_options.hpp>
 #include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/options.hpp>
 #include <sge/sprite/state/parameters.hpp>
 #include <sge/sprite/state/scoped.hpp>
 #include <sge/systems/config.hpp>
+#include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
+#include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -104,12 +105,12 @@
 #include <sge/timer/clocks/standard.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
-#include <sge/window/dim.hpp>
 #include <sge/window/loop.hpp>
 #include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
 #include <awl/show_error_narrow.hpp>
+#include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
 #include <awl/main/exit_failure.hpp>
 #include <awl/main/function_context_fwd.hpp>
@@ -125,7 +126,6 @@
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>

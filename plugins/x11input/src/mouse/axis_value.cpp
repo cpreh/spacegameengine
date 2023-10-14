@@ -9,7 +9,6 @@
 #include <sge/x11input/device/valuator/value.hpp>
 #include <sge/x11input/mouse/axis_value.hpp>
 #include <sge/x11input/mouse/axis_value_accu_pair.hpp>
-#include <fcppt/preprocessor/todo.hpp>
 
 sge::x11input::mouse::axis_value_accu_pair sge::x11input::mouse::axis_value(
     sge::x11input::device::valuator::accu const _accu,

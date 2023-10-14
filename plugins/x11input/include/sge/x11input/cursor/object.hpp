@@ -97,13 +97,13 @@ private:
   // TODO(philipp): Get rid of this
   sge::input::cursor::optional_position position_;
 
-  bool first_enter_;
+  bool first_enter_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   fcppt::signal::auto_connection const event_connection_;
 
   fcppt::signal::auto_connection const paired_event_connection_;
 
-  sge::input::cursor::mode mode_;
+  sge::input::cursor::mode mode_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   sge::x11input::cursor::scroll_valuator_map scroll_valuators_;
 

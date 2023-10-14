@@ -7,7 +7,7 @@
 #define SGE_X11INPUT_DEVICE_VALUATOR_ANY_HPP_INCLUDED
 
 #include <sge/x11input/device/valuator/absolute.hpp>
-#include <sge/x11input/device/valuator/any_fwd.hpp>
+#include <sge/x11input/device/valuator/any_fwd.hpp> // IWYU pragma: export
 #include <sge/x11input/device/valuator/relative.hpp>
 #include <fcppt/variant/object_impl.hpp>
 

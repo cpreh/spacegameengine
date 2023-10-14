@@ -6,11 +6,13 @@
 #include <sge/input/cursor/mode.hpp>
 #include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/button.hpp>
 #include <sge/input/cursor/event/move.hpp>
 #include <sge/input/cursor/event/scroll.hpp>
 #include <sge/window/object_fwd.hpp>
+#include <sge/window/object_ref.hpp>
 #include <sge/wlinput/cursor/button_code.hpp>
 #include <sge/wlinput/cursor/button_state.hpp>
 #include <sge/wlinput/cursor/data.hpp>
@@ -19,7 +21,8 @@
 #include <sge/wlinput/cursor/scroll_code.hpp>
 #include <sge/wlinput/cursor/scroll_value.hpp>
 #include <awl/backends/wayland/seat_ref.hpp>
-#include <awl/backends/wayland/window/object.hpp>
+#include <awl/backends/wayland/window/object.hpp> // NOLINT(misc-include-cleaner)
+#include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container_reference.hpp>
 #include <fcppt/enable_shared_from_this_impl.hpp>

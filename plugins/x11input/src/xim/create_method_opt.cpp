@@ -7,7 +7,7 @@
 #include <sge/x11input/xim/create_method.hpp>
 #include <sge/x11input/xim/create_method_opt.hpp>
 #include <sge/x11input/xim/get_supported_styles.hpp>
-#include <sge/x11input/xim/method.hpp>
+#include <sge/x11input/xim/method.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/x11input/xim/method_unique_ptr.hpp>
 #include <sge/x11input/xim/optional_method_unique_ptr.hpp>
 #include <sge/x11input/xim/supported_styles_unique_ptr.hpp>

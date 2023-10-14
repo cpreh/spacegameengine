@@ -6,7 +6,7 @@
 #include <sge/input/exception.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/remove.hpp>
-#include <sge/sdlinput/joypad/device.hpp>
+#include <sge/sdlinput/joypad/device.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sdlinput/joypad/map.hpp>
 #include <sge/sdlinput/joypad/remove.hpp>
 #include <sge/sdlinput/joypad/shared_ptr.hpp>

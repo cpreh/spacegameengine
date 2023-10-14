@@ -5,12 +5,18 @@
 
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
+#include <sge/rucksack/axis_policy.hpp>
+#include <sge/rucksack/axis_policy2.hpp>
+#include <sge/rucksack/padding.hpp>
+#include <sge/rucksack/preferred_size.hpp>
+#include <sge/rucksack/scalar.hpp>
 #include <sge/rucksack/testbed/object.hpp>
 #include <sge/rucksack/testbed/systems.hpp>
 #include <sge/rucksack/viewport/adaptor.hpp>
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/rucksack/widget/master_and_slaves.hpp>
+#include <sge/window/title.hpp>
 #include <awl/show_error.hpp>
 #include <awl/show_error_narrow.hpp>
 #include <awl/main/exit_code.hpp>

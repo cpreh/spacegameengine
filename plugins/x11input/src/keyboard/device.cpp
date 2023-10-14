@@ -13,12 +13,12 @@
 #include <sge/x11input/event/device_function.hpp>
 #include <sge/x11input/event/select.hpp>
 #include <sge/x11input/event/type_c.hpp>
-#include <sge/x11input/event/window_demuxer.hpp>
+#include <sge/x11input/event/window_demuxer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/x11input/event/window_demuxer_ref.hpp>
 #include <sge/x11input/key/is_repeated.hpp>
 #include <sge/x11input/keyboard/device.hpp>
 #include <sge/x11input/keyboard/key_from_event.hpp>
-#include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>
@@ -67,6 +67,7 @@ awl::event::container sge::x11input::keyboard::device::on_event(XIDeviceEvent co
     return fcppt::optional::to_container<awl::event::container>(this->on_key_press(_event));
   case XI_KeyRelease:
     return fcppt::container::make<awl::event::container>(this->on_key_release(_event));
+  default: break;
   }
 
   return awl::event::container{};

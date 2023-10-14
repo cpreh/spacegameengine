@@ -65,8 +65,8 @@ T const &sge::resource_tree::detail::element<T, Rng>::get_random() const
   return fcppt::optional::to_exception(
              rng_,
              [this] {
-               return sge::resource_tree::exception(
-                   FCPPT_TEXT("No elements in ") + base_path_.string());
+               return sge::resource_tree::exception{
+                   FCPPT_TEXT("No elements in ") + base_path_.string()};
              })()
       .resource();
 }

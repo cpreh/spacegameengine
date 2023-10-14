@@ -9,12 +9,12 @@
 #include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/input/cursor/button_code.hpp>
-#include <sge/input/cursor/object.hpp>
 #include <sge/input/cursor/optional_position.hpp>
 #include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/event/button.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/event/key.hpp>
+#include <sge/renderer/screen_size.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
@@ -29,7 +29,7 @@
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/target/viewport.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -52,6 +52,7 @@
 #include <sge/sprite/roles/size.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
+#include <sge/sprite/state/parameters.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>

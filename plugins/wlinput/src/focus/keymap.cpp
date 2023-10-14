@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/input/exception.hpp>
-#include <sge/wlinput/xkb_context.hpp>
+#include <sge/wlinput/xkb_context.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/wlinput/xkb_context_ref.hpp>
 #include <sge/wlinput/focus/keymap.hpp>
 #include <fcppt/text.hpp>

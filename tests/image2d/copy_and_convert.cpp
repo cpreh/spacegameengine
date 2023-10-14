@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/channel8.hpp>
-#include <sge/image/dim.hpp>
+#include <sge/image/dim.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/init/alpha.hpp>
@@ -18,9 +18,9 @@
 #include <sge/image2d/rgb8_format.hpp>
 #include <sge/image2d/rgba8_format.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
-#include <sge/image2d/store/bgra8.hpp>
-#include <sge/image2d/store/rgb8.hpp>
-#include <sge/image2d/store/rgba8.hpp>
+#include <sge/image2d/store/bgra8.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/store/rgb8.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/image2d/store/rgba8.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/view/const_object.hpp>
 #include <sge/image2d/view/object.hpp>
 #include <mizuiro/color/compare.hpp>

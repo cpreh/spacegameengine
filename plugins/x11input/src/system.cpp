@@ -11,7 +11,7 @@
 #include <sge/input/system.hpp>
 #include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
 #include <sge/x11input/opcode.hpp>
 #include <sge/x11input/processor.hpp>
@@ -19,7 +19,7 @@
 #include <sge/x11input/xi_opcode.hpp>
 #include <sge/x11input/xi_version.hpp>
 #include <awl/backends/x11/window/object.hpp>
-#include <awl/window/object.hpp>
+#include <awl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>

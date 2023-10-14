@@ -6,7 +6,7 @@
 #ifndef SGE_NOISE_PERLIN_OBJECT_HPP_INCLUDED
 #define SGE_NOISE_PERLIN_OBJECT_HPP_INCLUDED
 
-#include <sge/noise/perlin/object_decl.hpp>
+#include <sge/noise/perlin/object_decl.hpp> // IWYU pragma: export
 #include <sge/noise/perlin/object_fwd.hpp>
 #include <sge/noise/perlin/object_impl.hpp>
 

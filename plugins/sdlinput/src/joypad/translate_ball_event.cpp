@@ -8,7 +8,7 @@
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/relative_axis.hpp>
 #include <sge/sdlinput/joypad/ball_direction.hpp>
-#include <sge/sdlinput/joypad/device.hpp>
+#include <sge/sdlinput/joypad/device.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sdlinput/joypad/from_event.hpp>
 #include <sge/sdlinput/joypad/map.hpp>
 #include <sge/sdlinput/joypad/shared_ptr.hpp>

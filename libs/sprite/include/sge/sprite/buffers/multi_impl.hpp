@@ -12,7 +12,7 @@
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/allocate.hpp>
-#include <sge/sprite/buffers/multi_decl.hpp>
+#include <sge/sprite/buffers/multi_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>

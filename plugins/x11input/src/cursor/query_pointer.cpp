@@ -4,15 +4,18 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/input/cursor/optional_position.hpp>
+#include <sge/input/cursor/position.hpp>
 #include <sge/input/cursor/position_unit.hpp>
 #include <sge/x11input/cursor/query_pointer.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <awl/backends/x11/deleter.hpp>
-#include <awl/backends/x11/display.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/base.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <X11/X.h>
+#include <X11/Xlib.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 

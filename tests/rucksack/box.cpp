@@ -4,10 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/rucksack/alignment.hpp>
+#include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/axis_policy2_comparison.hpp>
-#include <sge/rucksack/axis_policy2_output.hpp>
+#include <sge/rucksack/axis_policy2_output.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/padding.hpp>
@@ -24,9 +25,9 @@
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
 #include <fcppt/math/dim/comparison.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/vector/comparison.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/vector/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <fcppt/config/external_end.hpp>

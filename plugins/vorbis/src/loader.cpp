@@ -13,10 +13,11 @@
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
+#include <sge/media/stream_unique_ptr.hpp>
 #include <sge/vorbis/file.hpp>
 #include <sge/vorbis/loader.hpp>
 #include <sge/vorbis/open.hpp>
-#include <sge/vorbis/stream.hpp>
+#include <sge/vorbis/stream.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/vorbis/stream_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -27,7 +28,7 @@
 #include <fcppt/log/name.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <istream>
+#include <istream> // NOLINT(misc-include-cleaner)
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

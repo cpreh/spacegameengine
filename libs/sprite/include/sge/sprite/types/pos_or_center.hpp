@@ -8,7 +8,7 @@
 
 #include <sge/sprite/types/center.hpp>
 #include <sge/sprite/types/pos.hpp>
-#include <sge/sprite/types/pos_or_center_fwd.hpp>
+#include <sge/sprite/types/pos_or_center_fwd.hpp> // IWYU pragma: export
 #include <fcppt/variant/object_impl.hpp>
 
 #endif

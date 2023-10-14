@@ -5,7 +5,7 @@
 
 #include <sge/audio/loader.hpp>
 #include <sge/audio/loader_unique_ptr.hpp>
-#include <sge/audio/loader_plugin/traits.hpp>
+#include <sge/audio/loader_plugin/traits.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/description.hpp>
@@ -50,5 +50,5 @@ sge::audio::loader_unique_ptr create_audio_loader(fcppt::log::context_reference 
 
 }
 
-// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp)
+// NOLINTNEXTLINE(fuchsia-statically-constructed-objects,cert-err58-cpp,cppcoreguidelines-avoid-non-const-global-variables)
 SGE_PLUGIN_LIBRARY_MAKE_INTERFACE(info, ((sge::audio::loader, create_audio_loader)))

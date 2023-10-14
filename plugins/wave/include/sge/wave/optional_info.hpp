@@ -7,7 +7,7 @@
 #define SGE_WAVE_OPTIONAL_INFO_HPP_INCLUDED
 
 #include <sge/wave/info.hpp>
-#include <sge/wave/optional_info_fwd.hpp>
+#include <sge/wave/optional_info_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

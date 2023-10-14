@@ -5,7 +5,7 @@
 
 #include <sge/image/color/any/from_string.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image/color/any/print.hpp>
+#include <sge/image/color/any/print.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/args_char.hpp>
 #include <fcppt/args_from_second.hpp>
 #include <fcppt/exception.hpp>
@@ -28,7 +28,7 @@
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
+#include <cstdlib>
 #include <fcppt/config/external_end.hpp>
 
 FCPPT_PP_PUSH_WARNING

@@ -3,10 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/input/joypad/absolute_axis.hpp>
 #include <sge/input/joypad/axis_value.hpp>
 #include <sge/input/joypad/shared_ptr.hpp>
 #include <sge/input/joypad/event/absolute_axis.hpp>
-#include <sge/sdlinput/joypad/device.hpp>
+#include <sge/sdlinput/joypad/device.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sdlinput/joypad/from_event.hpp>
 #include <sge/sdlinput/joypad/hat_direction.hpp>
 #include <sge/sdlinput/joypad/map.hpp>

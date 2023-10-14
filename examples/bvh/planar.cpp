@@ -5,9 +5,11 @@
 
 #include <sge/bvh/dummy_node.hpp>
 #include <sge/bvh/object_impl.hpp>
+#include <sge/bvh/tree_traits.hpp>
 #include <sge/image/channel8.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/rgba8.hpp>
+#include <sge/image/color/rgba8_format.hpp>
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/color/init/alpha.hpp>
 #include <sge/image/color/init/blue.hpp>
@@ -15,10 +17,6 @@
 #include <sge/image/color/init/red.hpp>
 #include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/event/key.hpp>
-#include <sge/media/extension.hpp>
-#include <sge/media/extension_set.hpp>
-#include <sge/media/optional_extension_set.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -30,10 +28,11 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/single.hpp>
@@ -59,7 +58,6 @@
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -72,6 +70,7 @@
 #include <sge/systems/with_window.hpp>
 #include <sge/viewport/center_on_resize.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
+#include <sge/window/dim.hpp>
 #include <sge/window/loop.hpp>
 #include <sge/window/loop_function.hpp>
 #include <sge/window/title.hpp>
@@ -90,15 +89,19 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/nonmovable.hpp>
+#include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/reference_to_base.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/container/tree/depth.hpp>
-#include <fcppt/math/box/output.hpp>
+#include <fcppt/either/match.hpp>
+#include <fcppt/math/box/object.hpp>
+#include <fcppt/math/box/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -107,16 +110,15 @@
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/default_help_switch.hpp>
 #include <fcppt/options/error.hpp>
-#include <fcppt/options/error_output.hpp>
+#include <fcppt/options/error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/options/long_name.hpp>
 #include <fcppt/options/optional_help_text.hpp>
 #include <fcppt/options/parse_help.hpp>
 #include <fcppt/options/result.hpp>
 #include <fcppt/options/result_of.hpp>
 #include <fcppt/options/usage.hpp>
-#include <fcppt/options/usage_output.hpp>
+#include <fcppt/options/usage_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
-#include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/random/variate.hpp>
@@ -132,7 +134,7 @@
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/get_unsafe.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/variant/output.hpp>
+#include <fcppt/variant/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>

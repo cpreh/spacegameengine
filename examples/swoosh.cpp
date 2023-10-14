@@ -3,30 +3,27 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/audio/buffer.hpp>
+#include <sge/audio/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/buffer_unique_ptr.hpp>
-#include <sge/audio/file.hpp>
+#include <sge/audio/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/file_unique_ptr.hpp>
-#include <sge/audio/listener.hpp>
 #include <sge/audio/load_exn.hpp>
 #include <sge/audio/player.hpp>
-#include <sge/audio/sound/base.hpp>
+#include <sge/audio/scalar.hpp>
+#include <sge/audio/sound/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/audio/sound/base_unique_ptr.hpp>
 #include <sge/audio/sound/nonpositional_parameters.hpp>
 #include <sge/audio/sound/repeat.hpp>
 #include <sge/config/media_path.hpp>
-#include <sge/graph/background_color.hpp>
 #include <sge/graph/baseline.hpp>
 #include <sge/graph/color_schemes.hpp>
-#include <sge/graph/foreground_color.hpp>
 #include <sge/graph/object.hpp>
 #include <sge/graph/optional_axis_constraint.hpp>
 #include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image2d/file.hpp>
-#include <sge/image2d/system.hpp>
+#include <sge/image2d/dim.hpp>
 #include <sge/input/cursor/relative_movement/event.hpp>
 #include <sge/input/cursor/relative_movement/object.hpp>
 #include <sge/log/location.hpp>
@@ -34,9 +31,9 @@
 #include <sge/log/option_container.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
-#include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/ffp.hpp>
 #include <sge/renderer/context/scoped_ffp.hpp>
@@ -47,13 +44,13 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/create_planar_from_path.hpp>
 #include <sge/renderer/texture/emulate_srgb_from_caps.hpp>
-#include <sge/renderer/texture/planar.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/sprite/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
@@ -77,13 +74,13 @@
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object.hpp>
 #include <sge/sprite/state/parameters.hpp>
+#include <sge/systems/audio_loader.hpp>
 #include <sge/systems/audio_player_default.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
@@ -142,7 +139,8 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <boost/circular_buffer.hpp>
+#include <boost/circular_buffer.hpp> // NOLINT(misc-include-cleaner)
+#include <boost/circular_buffer_fwd.hpp>
 #include <cmath>
 #include <exception>
 #include <numeric>
@@ -178,9 +176,9 @@ private:
 
   speed_ring_buffer speed_values_;
 
-  scalar current_speed_;
+  scalar current_speed_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
-  bool speed_updated_;
+  bool speed_updated_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

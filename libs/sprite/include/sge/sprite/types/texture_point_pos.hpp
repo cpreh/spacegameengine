@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_TEXTURE_POINT_POS_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_TEXTURE_POINT_POS_HPP_INCLUDED
 
-#include <sge/sprite/types/texture_point_pos_fwd.hpp>
+#include <sge/sprite/types/texture_point_pos_fwd.hpp> // IWYU pragma: export
 #include <sge/sprite/types/basic/float_vector.hpp>
 
 #endif

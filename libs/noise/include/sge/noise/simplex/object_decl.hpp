@@ -8,6 +8,7 @@
 
 #include <sge/noise/simplex/object_fwd.hpp>
 #include <sge/noise/simplex/width.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/static_fwd.hpp>
@@ -24,7 +25,7 @@ namespace sge::noise::simplex
 template <typename Float, fcppt::math::size_type N>
 class object
 {
-  static_assert(std::is_floating_point<Float>::value, "Float must be a floating-point type");
+  static_assert(std::is_floating_point_v<Float>, "Float must be a floating-point type");
 
 public:
   using vector_type = fcppt::math::vector::static_<Float, N>;
@@ -42,7 +43,7 @@ private:
 
   using matrix = fcppt::math::matrix::static_<Float, N, N>;
 
-  using gradient_array = fcppt::array::object<vector_type, 2U * N>;
+  using gradient_array = fcppt::array::object<vector_type, fcppt::literal<std::size_t>(2U) * N>;
 
   index_container perm_;
   gradient_array gradients_;

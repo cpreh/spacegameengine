@@ -8,7 +8,7 @@
 
 #include <sge/sprite/intrusive/collection_impl.hpp>
 #include <sge/sprite/intrusive/connection_ref.hpp>
-#include <sge/sprite/intrusive/ordered/collection_decl.hpp>
+#include <sge/sprite/intrusive/ordered/collection_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/intrusive/ordered/range_impl.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>

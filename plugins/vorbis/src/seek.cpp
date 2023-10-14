@@ -10,11 +10,12 @@
 #include <sge/vorbis/stream.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vorbis/codec.h>
+#include <ogg/os_types.h> // NOLINT(misc-include-cleaner)
 #include <vorbis/vorbisfile.h>
 #include <fcppt/config/external_end.hpp>
 
 void sge::vorbis::seek(
+    // NOLINTNEXTLINE(misc-include-cleaner)
     sge::vorbis::stream &_stream, sge::media::optional_name const &_name, ogg_int64_t const _pos)
 {
   int const error{::ov_pcm_seek(_stream.get(), _pos)};

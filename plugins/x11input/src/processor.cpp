@@ -51,13 +51,15 @@
 #include <sge/x11input/xim/create_method_opt.hpp>
 #include <sge/x11input/xim/method.hpp>
 #include <awl/backends/x11/cursor/create_invisible.hpp>
-#include <awl/backends/x11/cursor/object.hpp>
+#include <awl/backends/x11/cursor/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/system/event/generic.hpp>
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/object.hpp>
 #include <awl/backends/x11/window/root.hpp>
+#include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
-#include <awl/window/object.hpp>
+#include <awl/event/optional_base_unique_ptr.hpp>
+#include <awl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
@@ -71,7 +73,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
@@ -86,8 +88,7 @@
 #include <fcppt/optional/join.hpp>
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
-#include <fcppt/optional/to_container.hpp>
+#include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -102,7 +103,8 @@ sge::x11input::processor::processor(
     fcppt::log::object_reference const _log,
     sge::window::object_ref const _window,
     sge::x11input::opcode const _opcode)
-    : log_{_log},
+    : sge::input::processor{},
+      log_{_log},
       opcode_{_opcode},
       window_{_window},
       x11_window_{fcppt::optional::to_exception(
@@ -271,6 +273,7 @@ awl::event::optional_base_unique_ptr sge::x11input::processor::add_device(XIDevi
   case XISlavePointer:
     return awl::event::optional_base_unique_ptr{fcppt::unique_ptr_to_base<awl::event::base>(
         fcppt::make_unique_ptr<sge::input::mouse::event::discover>(this->add_mouse(_info)))};
+  default: break;
   }
 
   return awl::event::optional_base_unique_ptr{};
@@ -299,6 +302,7 @@ sge::x11input::processor::remove_device(XIHierarchyInfo const &_info)
     return awl::event::optional_base_unique_ptr{fcppt::unique_ptr_to_base<awl::event::base>(
         fcppt::make_unique_ptr<sge::input::mouse::event::remove>(
             sge::x11input::device::remove(fcppt::make_ref(mice_), id)))};
+  default: break;
   }
 
   return awl::event::optional_base_unique_ptr{};

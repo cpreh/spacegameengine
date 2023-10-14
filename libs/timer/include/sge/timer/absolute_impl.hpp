@@ -6,7 +6,7 @@
 #ifndef SGE_TIMER_ABSOLUTE_IMPL_HPP_INCLUDED
 #define SGE_TIMER_ABSOLUTE_IMPL_HPP_INCLUDED
 
-#include <sge/timer/absolute_decl.hpp>
+#include <sge/timer/absolute_decl.hpp> // IWYU pragma: export
 #include <sge/timer/clocks/is_stateful.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_RUCKSACK_TESTBED_SYSTEMS_HPP_INCLUDED
 #define SGE_RUCKSACK_TESTBED_SYSTEMS_HPP_INCLUDED
 
-#include <sge/rucksack/testbed/systems_fwd.hpp>
+#include <sge/rucksack/testbed/systems_fwd.hpp> // IWYU pragma: export
 #include <sge/systems/instance.hpp>
 #include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/with_input.hpp>

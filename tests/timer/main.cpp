@@ -5,6 +5,7 @@
 
 #include <sge/timer/absolute.hpp>
 #include <sge/timer/basic.hpp>
+#include <sge/timer/difference.hpp>
 #include <sge/timer/difference_and_reset.hpp>
 #include <sge/timer/difference_fractional.hpp>
 #include <sge/timer/elapsed.hpp>

@@ -30,10 +30,9 @@
 
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters.hpp>
-#include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/unit.hpp>
@@ -52,7 +51,6 @@
 #include <sge/line_drawer/object.hpp>
 #include <sge/line_drawer/render_to_screen.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/renderer/aspect.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector2.hpp>
 #include <sge/renderer/vector3.hpp>
@@ -70,13 +68,12 @@
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/target/viewport_size.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -90,7 +87,6 @@
 #include <sge/systems/with_window.hpp>
 #include <sge/timer/frames_counter.hpp>
 #include <sge/viewport/fill_on_resize.hpp>
-#include <sge/viewport/manager.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/loop.hpp>
 #include <sge/window/loop_function.hpp>
@@ -112,7 +108,6 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/container/maybe_back.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
@@ -218,6 +213,7 @@ try
             {
               sge::renderer::vector3 const pos3{cursor_position_to_vector3(_event.position())};
 
+              // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
               lock.value().push_back(sge::line_drawer::line{
                   sge::line_drawer::line::begin_type{pos3},
                   sge::line_drawer::line::end_type{pos3},
@@ -228,6 +224,7 @@ try
             },
             [&lock](fcppt::reference<sge::line_drawer::line> const _last)
             {
+              // NOLINTNEXTLINE(hicpp-use-emplace,modernize-use-emplace)
               lock.value().push_back(sge::line_drawer::line{
                   sge::line_drawer::line::begin_type{_last.get().end()},
                   sge::line_drawer::line::end_type{_last.get().end()},

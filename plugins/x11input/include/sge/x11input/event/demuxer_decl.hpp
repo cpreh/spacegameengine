@@ -51,7 +51,7 @@ private:
 
   using signal_map = std::unordered_map<sge::x11input::device::id, signal_type>;
 
-  signal_map signals_;
+  signal_map signals_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 
 }

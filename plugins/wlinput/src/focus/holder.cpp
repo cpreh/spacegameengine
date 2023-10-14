@@ -5,7 +5,7 @@
 
 #include <sge/input/exception.hpp>
 #include <sge/wlinput/focus/holder.hpp>
-#include <awl/backends/wayland/seat.hpp>
+#include <awl/backends/wayland/seat.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/wayland/seat_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>

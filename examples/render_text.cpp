@@ -4,12 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/font/from_fcppt_string.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/rect.hpp>
 #include <sge/font/system.hpp>
-#include <sge/font/text.hpp>
+#include <sge/font/text.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/font/align_h/left.hpp>
@@ -22,6 +22,7 @@
 #include <sge/log/location.hpp>
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
+#include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/config.hpp>
 #include <sge/systems/font.hpp>
 #include <sge/systems/image2d.hpp>
@@ -36,15 +37,15 @@
 #include <fcppt/main.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size_fun.hpp>
 #include <fcppt/either/match.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/io/cout.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/log/level_input.hpp>
-#include <fcppt/log/level_output.hpp>
+#include <fcppt/log/level_input.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/log/level_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/optional/make.hpp>
 #include <fcppt/options/apply.hpp>
@@ -73,7 +74,7 @@
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/record/permute.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/variant/output.hpp>
+#include <fcppt/variant/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
 #include <exception>

@@ -5,11 +5,12 @@
 
 #include <sge/input/exception.hpp>
 #include <sge/x11input/xim/context.hpp>
-#include <awl/backends/x11/window/object.hpp>
+#include <awl/backends/x11/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/object_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 sge::x11input::xim::context::context(

@@ -7,7 +7,7 @@
 #include <sge/rucksack/testbed/object.hpp>
 #include <sge/rucksack/testbed/systems_fwd.hpp>
 #include <sge/rucksack/testbed/impl/object_impl.hpp>
-#include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/reference.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/make_unique_ptr.hpp>

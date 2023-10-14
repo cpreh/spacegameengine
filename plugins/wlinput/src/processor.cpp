@@ -40,16 +40,15 @@
 #include <awl/backends/wayland/system/seat/object.hpp>
 #include <awl/backends/wayland/window/object.hpp>
 #include <awl/event/base.hpp>
-#include <awl/event/connection.hpp>
+#include <awl/event/connection.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/container.hpp>
 #include <awl/system/object.hpp>
-#include <awl/system/event/processor.hpp>
+#include <awl/system/event/processor.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_ref.hpp>
 #include <fcppt/move_clear.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/container/join.hpp>

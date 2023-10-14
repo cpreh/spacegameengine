@@ -11,15 +11,16 @@
 #include <sge/image/color/any/object.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <sge/image2d/dim.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/load_exn.hpp>
+#include <sge/image2d/rect.hpp>
 #include <sge/image2d/save_from_view.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/algorithm/copy_and_convert.hpp>
 #include <sge/image2d/algorithm/fill.hpp>
 #include <sge/image2d/store/srgba8.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/view/object.hpp>
 #include <sge/image2d/view/sub.hpp>
 #include <sge/image2d/view/to_const.hpp>
@@ -28,7 +29,6 @@
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/with_image2d.hpp>
 #include <fcppt/args_char.hpp>
@@ -38,6 +38,7 @@
 #include <fcppt/main.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>

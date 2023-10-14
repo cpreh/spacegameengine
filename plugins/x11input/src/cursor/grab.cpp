@@ -7,14 +7,15 @@
 #include <sge/x11input/cursor/grab.hpp>
 #include <sge/x11input/cursor/grab_error_to_string.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <awl/backends/x11/display.hpp>
-#include <awl/backends/x11/cursor/object.hpp>
+#include <awl/backends/x11/display.hpp> // NOLINT(misc-include-cleaner)
+#include <awl/backends/x11/cursor/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/cursor/object_ref.hpp>
-#include <awl/backends/x11/window/base.hpp>
+#include <awl/backends/x11/window/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/x11/window/const_base_ref.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/X.h>
+#include <X11/Xlib.h>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 

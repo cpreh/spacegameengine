@@ -6,13 +6,13 @@
 #include <sge/camera/has_mutable_projection.hpp>
 #include <sge/camera/perspective_projection_from_viewport.hpp>
 #include <sge/camera/projection_matrix.hpp>
+#include <sge/camera/update_duration.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
 #include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/image/channel8.hpp>
-#include <sge/image/size_type.hpp>
 #include <sge/image/color/l8.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -23,6 +23,7 @@
 #include <sge/noise/sample.hpp>
 #include <sge/noise/sample_parameters.hpp>
 #include <sge/noise/simplex/object.hpp>
+#include <sge/noise/simplex/width.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
@@ -40,12 +41,13 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
-#include <sge/renderer/state/core/depth_stencil/object.hpp>
+#include <sge/renderer/state/core/depth_stencil/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/depth_stencil/parameters.hpp>
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
@@ -56,35 +58,33 @@
 #include <sge/renderer/state/core/depth_stencil/stencil/off.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
-#include <sge/renderer/state/core/sampler/object.hpp>
+#include <sge/renderer/state/core/sampler/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/sampler/parameters.hpp>
 #include <sge/renderer/state/core/sampler/scoped.hpp>
 #include <sge/renderer/state/core/sampler/address/mode.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_all.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/default.hpp>
-#include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/create_volume_from_view.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/scoped.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/volume.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/volume_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/off.hpp>
 #include <sge/renderer/vertex/buffer.hpp>
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/declaration_parameters.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
@@ -93,7 +93,7 @@
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/format.hpp>
 #include <sge/renderer/vf/index.hpp>
-#include <sge/renderer/vf/iterator.hpp>
+#include <sge/renderer/vf/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vf/part.hpp>
 #include <sge/renderer/vf/pos.hpp>
 #include <sge/renderer/vf/set_proxy.hpp>
@@ -107,7 +107,6 @@
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -125,7 +124,6 @@
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/window/loop.hpp>
 #include <sge/window/loop_function.hpp>
-#include <sge/window/system.hpp>
 #include <sge/window/title.hpp>
 #include <awl/event/base.hpp>
 #include <awl/main/exit_code.hpp>
@@ -147,7 +145,6 @@
 #include <fcppt/cast/static_cast_fun.hpp>
 #include <fcppt/io/cerr.hpp>
 #include <fcppt/math/deg_to_rad.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
 #include <fcppt/math/vector/map.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>

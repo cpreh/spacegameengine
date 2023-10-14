@@ -5,9 +5,9 @@
 
 #include <sge/font/from_fcppt_string.hpp>
 #include <sge/font/lit.hpp>
-#include <sge/font/metrics.hpp>
-#include <sge/font/metrics_output.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/metrics.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/font/metrics_output.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/font/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters.hpp>
 #include <sge/font/system.hpp>
@@ -33,13 +33,12 @@
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/texture/emulate_srgb.hpp>
-#include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
+#include <sge/systems/font.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>

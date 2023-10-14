@@ -5,6 +5,7 @@
 
 #include <sge/input/exception.hpp>
 #include <sge/input/focus/char_type.hpp>
+#include <sge/input/key/code.hpp>
 #include <sge/x11input/focus/char_vector.hpp>
 #include <sge/x11input/focus/looked_up_string.hpp>
 #include <sge/x11input/focus/lookup_string.hpp>
@@ -24,6 +25,7 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/extensions/XInput2.h>
 #include <utility>

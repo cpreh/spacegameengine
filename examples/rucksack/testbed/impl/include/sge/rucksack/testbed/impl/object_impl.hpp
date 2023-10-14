@@ -16,9 +16,11 @@
 #include <sge/sprite/buffers/single_decl.hpp>
 #include <sge/sprite/buffers/with_declaration_decl.hpp>
 #include <sge/sprite/config/choices.hpp>
+#include <sge/sprite/config/float_type.hpp>
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/pos.hpp>
 #include <sge/sprite/config/pos_option.hpp>
+#include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
 #include <sge/sprite/config/with_color.hpp>

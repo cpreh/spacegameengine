@@ -6,7 +6,7 @@
 #ifndef SGE_RESOURCE_TREE_OBJECT_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_OBJECT_HPP_INCLUDED
 
-#include <sge/resource_tree/object_decl.hpp>
+#include <sge/resource_tree/object_decl.hpp> // IWYU pragma: export
 #include <sge/resource_tree/object_fwd.hpp>
 #include <sge/resource_tree/object_impl.hpp>
 

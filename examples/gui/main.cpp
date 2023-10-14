@@ -5,9 +5,10 @@
 
 #include <sge/config/media_path.hpp>
 #include <sge/font/lit.hpp>
-#include <sge/font/object.hpp>
+#include <sge/font/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters.hpp>
+#include <sge/font/string.hpp>
 #include <sge/font/system.hpp>
 #include <sge/gui/click_callback.hpp>
 #include <sge/gui/context.hpp>
@@ -22,7 +23,7 @@
 #include <sge/gui/background/colored.hpp>
 #include <sge/gui/main_area/base.hpp>
 #include <sge/gui/main_area/viewport_adaptor.hpp>
-#include <sge/gui/style/base.hpp>
+#include <sge/gui/style/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/gui/style/base_unique_ptr.hpp>
 #include <sge/gui/style/create.hpp>
 #include <sge/gui/widget/base.hpp>
@@ -46,10 +47,9 @@
 #include <sge/gui/widget/unique_ptr_tree.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
-#include <sge/image2d/file.hpp>
+#include <sge/image2d/file.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/image2d/load_exn.hpp>
-#include <sge/image2d/system_fwd.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/view/const_object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/event_base.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -70,8 +70,8 @@
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/texture/planar.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/axis.hpp>
 #include <sge/systems/cursor_option_field.hpp>

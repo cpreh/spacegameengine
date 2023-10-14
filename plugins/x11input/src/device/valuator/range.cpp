@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/x11input/device/valuator/index.hpp>
-#include <sge/x11input/device/valuator/iterator.hpp>
+#include <sge/x11input/device/valuator/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/x11input/device/valuator/length.hpp>
 #include <sge/x11input/device/valuator/range.hpp>
 #include <fcppt/reference_impl.hpp>

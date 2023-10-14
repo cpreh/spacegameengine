@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_STATE_SCOPED_HPP_INCLUDED
 #define SGE_SPRITE_STATE_SCOPED_HPP_INCLUDED
 
-#include <sge/sprite/state/scoped_decl.hpp>
+#include <sge/sprite/state/scoped_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/state/scoped_fwd.hpp>
 #include <sge/sprite/state/scoped_impl.hpp>
 

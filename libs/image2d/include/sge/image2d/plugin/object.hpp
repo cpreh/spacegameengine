@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE2D_PLUGIN_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE2D_PLUGIN_OBJECT_HPP_INCLUDED
 
-#include <sge/image2d/plugin/object_fwd.hpp>
+#include <sge/image2d/plugin/object_fwd.hpp> // IWYU pragma: export
 #include <sge/image2d/plugin/traits.hpp>
 #include <sge/plugin/declare_object.hpp>
 

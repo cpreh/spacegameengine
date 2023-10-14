@@ -5,8 +5,7 @@
 
 #include <sge/charconv/utf8_file_to_fcppt_string_exn.hpp>
 #include <sge/tests/charconv/test_data.hpp>
-#include <fcppt/exception.hpp>
-#include <fcppt/text.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/end.hpp>
 #include <fcppt/config/external_begin.hpp>

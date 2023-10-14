@@ -6,7 +6,7 @@
 #ifndef SGE_TIMER_ABSOLUTE_HPP_INCLUDED
 #define SGE_TIMER_ABSOLUTE_HPP_INCLUDED
 
-#include <sge/timer/absolute_decl.hpp>
+#include <sge/timer/absolute_decl.hpp> // IWYU pragma: export
 #include <sge/timer/absolute_fwd.hpp>
 #include <sge/timer/absolute_impl.hpp>
 

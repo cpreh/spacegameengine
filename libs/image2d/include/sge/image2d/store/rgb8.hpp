@@ -9,7 +9,7 @@
 #include <sge/image/store/basic.hpp>
 #include <sge/image/store/declare_basic.hpp>
 #include <sge/image2d/rgb8_format.hpp>
-#include <sge/image2d/store/rgb8_fwd.hpp>
+#include <sge/image2d/store/rgb8_fwd.hpp> // IWYU pragma: export
 
 SGE_IMAGE_STORE_DECLARE_BASIC(sge::image2d::rgb8_format);
 

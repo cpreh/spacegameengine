@@ -6,7 +6,7 @@
 #ifndef SGE_NOISE_SAMPLE_PARAMETERS_IMPL_HPP_INCLUDED
 #define SGE_NOISE_SAMPLE_PARAMETERS_IMPL_HPP_INCLUDED
 
-#include <sge/noise/sample_parameters_decl.hpp>
+#include <sge/noise/sample_parameters_decl.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

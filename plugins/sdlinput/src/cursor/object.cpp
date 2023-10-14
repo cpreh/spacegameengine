@@ -10,8 +10,9 @@
 #include <sge/sdlinput/cursor/get_position.hpp>
 #include <sge/sdlinput/cursor/object.hpp>
 #include <sge/sdlinput/cursor/set_mode.hpp>
+#include <sge/window/object_fwd.hpp>
 #include <sge/window/object_ref.hpp>
-#include <awl/backends/sdl/window/object.hpp>
+#include <awl/backends/sdl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/sdl/window/object_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/bind.hpp>

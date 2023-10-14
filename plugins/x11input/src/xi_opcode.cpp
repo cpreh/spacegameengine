@@ -4,11 +4,12 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/x11input/opcode.hpp>
+#include <sge/x11input/optional_opcode.hpp>
 #include <sge/x11input/xi_opcode.hpp>
 #include <awl/backends/x11/display.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
+#include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::x11input::optional_opcode sge::x11input::xi_opcode(awl::backends::x11::display &_display)
@@ -17,7 +18,7 @@ sge::x11input::optional_opcode sge::x11input::xi_opcode(awl::backends::x11::disp
   int event{};
   int error{};
 
-  return ::XQueryExtension(_display.get(), "XInputExtension", &opcode, &event, &error) == True
-             ? sge::x11input::optional_opcode{sge::x11input::opcode{opcode}}
-             : sge::x11input::optional_opcode{};
+  return fcppt::optional::make_if(
+      ::XQueryExtension(_display.get(), "XInputExtension", &opcode, &event, &error) == True,
+      [&opcode] { return sge::x11input::opcode{opcode}; });
 }

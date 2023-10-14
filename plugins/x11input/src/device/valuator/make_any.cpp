@@ -23,6 +23,7 @@ sge::x11input::device::valuator::make_any(XIValuatorClassInfo const &_info)
         sge::x11input::device::valuator::make_absolute(_info)};
   case XIModeRelative:
     return sge::x11input::device::valuator::any{sge::x11input::device::valuator::relative{}};
+  default: break;
   }
 
   FCPPT_ASSERT_UNREACHABLE;

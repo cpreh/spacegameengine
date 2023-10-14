@@ -4,20 +4,24 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/is_dynamic.hpp>
 #include <sge/camera/optional_projection_matrix.hpp>
+#include <sge/camera/update_duration.hpp>
 #include <sge/camera/coordinate_system/identity.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
-#include <sge/camera/matrix_conversion/world.hpp>
 #include <sge/camera/tracking/is_looping.hpp>
 #include <sge/camera/tracking/object.hpp>
 #include <sge/camera/tracking/json/interval_exporter.hpp>
-#include <sge/camera/tracking/json/key_press_exporter.hpp>
 #include <sge/camera/tracking/json/keyframes_from_json.hpp>
 #include <sge/config/media_path.hpp>
+#include <sge/graph/axis_constraint.hpp>
+#include <sge/graph/baseline.hpp>
 #include <sge/graph/color_schemes.hpp>
 #include <sge/graph/object.hpp>
+#include <sge/graph/optional_axis_constraint.hpp>
+#include <sge/graph/position.hpp>
 #include <sge/graph/scalar.hpp>
 #include <sge/image/color/predef.hpp>
 #include <sge/image/color/any/object.hpp>
@@ -26,7 +30,9 @@
 #include <sge/media/extension_set.hpp>
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/parse/json/parse_file_exn.hpp>
-#include <sge/renderer/resource_flags_field.hpp>
+#include <sge/renderer/dim2.hpp>
+#include <sge/renderer/scalar.hpp>
+#include <sge/renderer/vector2.hpp>
 #include <sge/renderer/clear/parameters.hpp>
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/context/ffp.hpp>
@@ -38,22 +44,30 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/scenic/grid/depth_test.hpp>
+#include <sge/scenic/grid/dim.hpp>
+#include <sge/scenic/grid/distance_to_origin.hpp>
 #include <sge/scenic/grid/object.hpp>
 #include <sge/scenic/grid/orientation.hpp>
-#include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/grid/rect.hpp>
+#include <sge/scenic/grid/spacing.hpp>
+#include <sge/scenic/render_context/base.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/scenic/render_context/base_unique_ptr.hpp>
 #include <sge/scenic/scene/from_blender_file.hpp>
 #include <sge/scenic/scene/manager.hpp>
 #include <sge/scenic/scene/object.hpp>
-#include <sge/scenic/scene/prototype.hpp>
+#include <sge/scenic/scene/prefer_cg_context.hpp>
+#include <sge/scenic/scene/prototype.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/systems/cursor_option.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/image2d.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
@@ -90,17 +104,18 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
+#include <fcppt/reference.hpp>
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/either/match.hpp>
-#include <fcppt/math/matrix/output.hpp>
-#include <fcppt/math/vector/output.hpp>
+#include <fcppt/math/matrix/output.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/math/vector/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/make.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -110,7 +125,7 @@
 #include <fcppt/options/argument.hpp>
 #include <fcppt/options/default_help_switch.hpp>
 #include <fcppt/options/error.hpp>
-#include <fcppt/options/error_output.hpp>
+#include <fcppt/options/error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/options/help_text.hpp>
 #include <fcppt/options/long_name.hpp>
 #include <fcppt/options/make_default_value.hpp>
@@ -124,18 +139,19 @@
 #include <fcppt/options/result_of.hpp>
 #include <fcppt/options/switch.hpp>
 #include <fcppt/options/usage.hpp>
-#include <fcppt/options/usage_output.hpp>
+#include <fcppt/options/usage_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/make_label.hpp>
 #include <fcppt/record/object_impl.hpp>
 #include <fcppt/record/permute.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/variant/output.hpp>
+#include <fcppt/variant/output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
 #include <chrono>
 #include <exception>
+#include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
 namespace

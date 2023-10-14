@@ -14,21 +14,23 @@
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/parse_string.hpp>
 #include <sge/parse/json/start.hpp>
+#include <sge/parse/json/value.hpp>
 #include <fcppt/make_recursive.hpp>
-#include <fcppt/strong_typedef_comparison.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/catch/begin.hpp>
 #include <fcppt/catch/convert.hpp>
-#include <fcppt/catch/either.hpp>
+#include <fcppt/catch/either.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/catch/end.hpp>
-#include <fcppt/catch/optional.hpp>
-#include <fcppt/catch/recursive.hpp>
-#include <fcppt/catch/strong_typedef.hpp>
-#include <fcppt/catch/variant.hpp>
+#include <fcppt/catch/optional.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/catch/recursive.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/catch/strong_typedef.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/catch/variant.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/either/comparison.hpp>
-#include <fcppt/parse/error_output.hpp>
+#include <fcppt/parse/error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/parse/make_parse_string_success.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/catch_tostring.hpp>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 

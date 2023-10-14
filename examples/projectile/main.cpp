@@ -23,6 +23,7 @@
 #include <sge/projectile/body/angular_velocity.hpp>
 #include <sge/projectile/body/collision.hpp>
 #include <sge/projectile/body/linear_velocity.hpp>
+#include <sge/projectile/body/mass.hpp>
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/body/object_ref.hpp>
 #include <sge/projectile/body/parameters.hpp>
@@ -61,29 +62,30 @@
 #include <sge/renderer/event/render.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
+#include <sge/renderer/pixel_format/object.hpp>
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 #include <sge/renderer/projection/far.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/renderer/projection/orthogonal_viewport.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
-#include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/parameters.hpp>
 #include <sge/renderer/state/ffp/transform/scoped.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen.hpp>
-#include <sge/renderer/target/viewport.hpp>
+#include <sge/renderer/target/onscreen.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/target/viewport.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/systems/config.hpp>
 #include <sge/systems/cursor_option_field.hpp>
 #include <sge/systems/input.hpp>
 #include <sge/systems/instance.hpp>
-#include <sge/systems/list.hpp>
 #include <sge/systems/log_settings.hpp>
 #include <sge/systems/make_list.hpp>
 #include <sge/systems/original_window.hpp>
 #include <sge/systems/quit_on_escape.hpp>
 #include <sge/systems/renderer.hpp>
+#include <sge/systems/renderer_caps.hpp>
 #include <sge/systems/window.hpp>
 #include <sge/systems/window_source.hpp>
 #include <sge/systems/with_input.hpp>
@@ -118,7 +120,7 @@
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/box/center.hpp>
-#include <fcppt/math/vector/input.hpp>
+#include <fcppt/math/vector/input.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>

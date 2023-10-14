@@ -14,14 +14,14 @@ namespace sge::bresenham::detail
 {
 
 template <bool Thick, typename Callback, typename T>
-inline typename std::enable_if<Thick, bool>::type
+[[nodiscard]] inline std::enable_if_t<Thick, bool>
 thick(Callback const &_callback, T const _x, T const _y)
 {
   return _callback(_x, _y);
 }
 
 template <bool Thick, typename Callback, typename T>
-inline typename std::enable_if<!Thick, bool>::type thick(Callback const &, T, T)
+[[nodiscard]] inline std::enable_if_t<!Thick, bool> thick(Callback const &, T, T)
 {
   return true;
 }

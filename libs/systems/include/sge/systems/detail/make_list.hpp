@@ -31,7 +31,8 @@ namespace sge::systems::detail
 {
 
 template <typename Choices, typename Inits>
-sge::systems::detail::list make_list(sge::systems::list<Inits> &&_init)
+// NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
+[[nodiscard]] sge::systems::detail::list make_list(sge::systems::list<Inits> &&_init)
 {
   // Check that every subsystem that needs initialization is initialized
   static_assert(

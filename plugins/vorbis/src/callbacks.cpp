@@ -10,8 +10,10 @@
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <ogg/os_types.h> // NOLINT(misc-include-cleaner)
 #include <vorbis/vorbisfile.h>
 #include <cerrno>
+#include <cstdio>
 #include <cstddef>
 #include <ios>
 #include <istream>
@@ -51,6 +53,7 @@ std::size_t ogg_read(
   return fcppt::cast::size<std::size_t>(fcppt::cast::to_unsigned(stream.gcount())) / _size;
 }
 
+// NOLINTNEXTLINE(misc-include-cleaner)
 int ogg_seek(void *const _datasource, ogg_int64_t const _offset, int const _whence)
 {
   std::istream &stream(get_stream(_datasource));

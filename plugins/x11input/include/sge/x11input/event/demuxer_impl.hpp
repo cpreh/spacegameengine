@@ -8,7 +8,7 @@
 
 #include <sge/window/event_combiner.hpp>
 #include <sge/x11input/device/id.hpp>
-#include <sge/x11input/event/demuxer_decl.hpp>
+#include <sge/x11input/event/demuxer_decl.hpp> // IWYU pragma: export
 #include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>

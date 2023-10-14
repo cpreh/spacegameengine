@@ -6,7 +6,7 @@
 #ifndef SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 #define SGE_SYSTEMS_INSTANCE_HPP_INCLUDED
 
-#include <sge/systems/instance_decl.hpp>
+#include <sge/systems/instance_decl.hpp> // IWYU pragma: export
 #include <sge/systems/instance_fwd.hpp>
 #include <sge/systems/instance_impl.hpp>
 

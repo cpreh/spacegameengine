@@ -7,7 +7,7 @@
 #define SGE_WLINPUT_FOCUS_OPTIONAL_KEYMAP_HPP_INCLUDED
 
 #include <sge/wlinput/focus/keymap.hpp>
-#include <sge/wlinput/focus/optional_keymap_fwd.hpp>
+#include <sge/wlinput/focus/optional_keymap_fwd.hpp> // IWYU pragma: export
 #include <fcppt/optional/object_impl.hpp>
 
 #endif

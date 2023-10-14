@@ -15,7 +15,6 @@
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/wave/file.hpp>
 #include <sge/wave/info.hpp>
-#include <fcppt/format.hpp>
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
@@ -27,7 +26,6 @@
 #include <fcppt/container/buffer/to_raw_vector.hpp>
 #include <fcppt/endianness/reverse_mem.hpp>
 #include <fcppt/log/debug.hpp>
-#include <fcppt/log/info.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>

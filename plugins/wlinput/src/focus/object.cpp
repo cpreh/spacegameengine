@@ -16,7 +16,7 @@
 #include <sge/input/key/code.hpp>
 #include <sge/input/key/optional_code.hpp>
 #include <sge/input/key/pressed.hpp>
-#include <sge/window/object.hpp>
+#include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
 #include <sge/window/system.hpp>
 #include <sge/window/system_event_function.hpp>
@@ -37,17 +37,17 @@
 #include <sge/wlinput/focus/xkb_keycode.hpp>
 #include <awl/backends/posix/fd.hpp>
 #include <awl/backends/wayland/seat_ref.hpp>
-#include <awl/backends/wayland/window/object.hpp>
+#include <awl/backends/wayland/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/wayland/window/object_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/container_reference.hpp>
 #include <awl/system/object.hpp>
-#include <awl/system/event/processor.hpp>
+#include <awl/system/event/processor.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/timer/delay.hpp>
 #include <awl/timer/duration.hpp>
 #include <awl/timer/match.hpp>
-#include <awl/timer/object.hpp>
+#include <awl/timer/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/timer/period.hpp>
 #include <awl/timer/setting.hpp>
 #include <awl/timer/unique_ptr.hpp>
@@ -67,9 +67,11 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_container.hpp>
-#include <fcppt/signal/object_impl.hpp>
+#include <fcppt/signal/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
+#include <xkbcommon/xkbcommon.h>
 #include <wayland-client-protocol.h>
+#include <wayland-util.h>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 

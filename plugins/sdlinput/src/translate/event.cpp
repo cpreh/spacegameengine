@@ -24,7 +24,7 @@
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/sdl/system/event/object.hpp>
 #include <awl/backends/sdl/window/object_fwd.hpp>
-#include <awl/event/base.hpp>
+#include <awl/event/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/container.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -79,6 +79,7 @@ awl::event::container sge::sdlinput::translate::event(
     //case SDL_CONTROLLERDEVICEADDED:
     //case SDL_CONTROLLERDEVICEREMOVED:
     //case SDL_CONTROLLERDEVICEREMAPPED:
+  default: break;
   }
 
   return awl::event::container{};

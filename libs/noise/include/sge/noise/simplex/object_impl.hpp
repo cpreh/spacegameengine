@@ -6,7 +6,7 @@
 #ifndef SGE_NOISE_SIMPLEX_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_NOISE_SIMPLEX_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/noise/simplex/object_decl.hpp>
+#include <sge/noise/simplex/object_decl.hpp> // IWYU pragma: export
 #include <sge/noise/simplex/detail/mod.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/array/get.hpp>
@@ -65,15 +65,15 @@ Float sge::noise::simplex::object<Float, N>::sample(vector_type const &in)
   {
     elem = std::floor(elem);
   }
-  vector_type floored(tmp);
+  vector_type const floored(tmp);
   tmp = inv_m() * tmp;
   tmp = in - tmp;
   tmp = stretch_m() * tmp;
 
-  corner_array c = corners(tmp);
+  corner_array const c = corners(tmp);
   for (auto const &v : c)
   {
-    vector_type t(in - inv_m() * (floored + v));
+    vector_type const t(in - inv_m() * (floored + v));
     res += contrib(t, floored + v);
   }
 

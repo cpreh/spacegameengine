@@ -56,6 +56,7 @@ awl::event::container sge::sdlinput::translate::window_event(
     return fcppt::container::make<awl::event::container>(
         fcppt::unique_ptr_to_base<awl::event::base>(
             fcppt::make_unique_ptr<sge::input::focus::event::out>(_focus)));
+  default: break;
   }
 
   return awl::event::container{};

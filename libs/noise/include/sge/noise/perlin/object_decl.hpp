@@ -22,7 +22,7 @@ namespace sge::noise::perlin
 template <typename Float, fcppt::math::size_type N, typename Interpolator>
 class object
 {
-  static_assert(std::is_floating_point<Float>::value, "Float must be a floating-point type");
+  static_assert(std::is_floating_point_v<Float>, "Float must be a floating-point type");
 
 public:
   using value_type = Float;

@@ -8,7 +8,7 @@
 
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_fwd.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters.hpp>
 
 namespace sge::renderer::state::core::sampler::address
 {

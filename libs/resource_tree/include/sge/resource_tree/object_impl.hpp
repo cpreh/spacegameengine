@@ -7,7 +7,7 @@
 #define SGE_RESOURCE_TREE_OBJECT_IMPL_HPP_INCLUDED
 
 #include <sge/resource_tree/exception.hpp>
-#include <sge/resource_tree/object_decl.hpp>
+#include <sge/resource_tree/object_decl.hpp> // IWYU pragma: export
 #include <sge/resource_tree/path.hpp>
 #include <sge/resource_tree/detail/element_impl.hpp>
 #include <sge/resource_tree/detail/init.hpp>
