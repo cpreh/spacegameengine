@@ -23,7 +23,7 @@ namespace convert
 template <typename Enum>
 sge::parse::json::int_type from_enum(Enum const _enum)
 {
-  static_assert(std::is_enum<Enum>::value, "Enum must be an enum type");
+  static_assert(std::is_enum_v<Enum>, "Enum must be an enum type");
 
   return static_cast<sge::parse::json::int_type>(_enum);
 }

@@ -17,7 +17,7 @@ namespace sge::parse::json::convert
 template <typename IntType>
 sge::parse::json::int_type from_int(IntType const _value)
 {
-  static_assert(std::is_integral<IntType>::value, "IntType must be an integral type");
+  static_assert(std::is_integral_v<IntType>, "IntType must be an integral type");
 
   return static_cast<sge::parse::json::int_type>(_value);
 }
