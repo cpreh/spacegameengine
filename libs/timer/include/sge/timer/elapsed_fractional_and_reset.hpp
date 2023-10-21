@@ -18,7 +18,7 @@ namespace sge::timer
 template <typename Float, typename Clock>
 Float elapsed_fractional_and_reset(sge::timer::basic<Clock> &_timer)
 {
-  static_assert(std::is_floating_point<Float>::value, "Float must be a floating point type");
+  static_assert(std::is_floating_point_v<Float>, "Float must be a floating point type");
 
   Float const ret{sge::timer::elapsed_fractional<Float>(_timer)};
 
