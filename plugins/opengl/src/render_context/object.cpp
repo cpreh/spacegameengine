@@ -28,7 +28,7 @@
 #include <sge/opengl/vertex/set_buffer.hpp>
 #include <sge/opengl/vertex/set_declaration.hpp>
 #include <sge/opengl/vertex/unset_buffer.hpp>
-#include <sge/renderer/config.hpp>
+#include <sge/renderer/config.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/primitive_type.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>

@@ -42,7 +42,7 @@
 #include <sge/opengl/texture/create_volume.hpp>
 #include <sge/opengl/vertex/create_buffer.hpp>
 #include <sge/opengl/vertex/create_declaration.hpp>
-#include <sge/renderer/config.hpp>
+#include <sge/renderer/config.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/visual_base.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/core.hpp>
@@ -120,7 +120,7 @@
 #include <sge/renderer/vertex/buffer.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
-#include <sge/renderer/vertex/declaration.hpp>
+#include <sge/renderer/vertex/declaration.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
