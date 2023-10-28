@@ -1099,10 +1099,6 @@ add_subdirectory(
 )
 
 add_subdirectory(
-	cegui
-)
-
-add_subdirectory(
 	cg
 )
 

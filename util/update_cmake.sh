@@ -66,7 +66,6 @@ BASE_LIBS=(
 	bresenham
 	bvh
 	camera
-	cegui
 	charconv
 	core
 	cg

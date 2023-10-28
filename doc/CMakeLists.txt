@@ -276,29 +276,6 @@ set(
 	include/sge/camera/tracking/object_fwd.hpp
 	include/sge/camera/tracking/time_point.hpp
 	include/sge/camera/update_duration.hpp
-	include/sge/cegui/cursor_visibility.hpp
-	include/sge/cegui/cursor_visibility_fwd.hpp
-	include/sge/cegui/default_cursor.hpp
-	include/sge/cegui/default_focus.hpp
-	include/sge/cegui/default_font.hpp
-	include/sge/cegui/detail/system_impl_fwd.hpp
-	include/sge/cegui/duration.hpp
-	include/sge/cegui/exception.hpp
-	include/sge/cegui/from_cegui_string.hpp
-	include/sge/cegui/load_context.hpp
-	include/sge/cegui/load_context_fwd.hpp
-	include/sge/cegui/log_location.hpp
-	include/sge/cegui/syringe.hpp
-	include/sge/cegui/syringe_fwd.hpp
-	include/sge/cegui/system.hpp
-	include/sge/cegui/system_fwd.hpp
-	include/sge/cegui/to_cegui_color.hpp
-	include/sge/cegui/to_cegui_string.hpp
-	include/sge/cegui/toolbox/append_row.hpp
-	include/sge/cegui/toolbox/row.hpp
-	include/sge/cegui/toolbox/scoped_gui_sheet.hpp
-	include/sge/cegui/toolbox/scoped_layout.hpp
-	include/sge/cegui/unit.hpp
 	include/sge/cg/char_type.hpp
 	include/sge/cg/check_state.hpp
 	include/sge/cg/check_state_listing.hpp

@@ -423,17 +423,7 @@ pkg_check_modules_sge(
 )
 
 find_package(
-	CEGUI
-)
-
-find_package(
 	OpenCL
-)
-
-add_sge_lib(
-	cegui
-	"Build the cegui subsystem"
-	"${CEGUI_FOUND}"
 )
 
 add_sge_lib(

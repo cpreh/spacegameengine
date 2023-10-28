@@ -126,11 +126,6 @@ Support libraries:
 </tr>
 
 <tr>
-<td>cegui</td>
-<td>bindings for the CEGUI library</td>
-</tr>
-
-<tr>
 <td>config</td>
 <td>querying of paths related to configuration and savegames</td>
 </tr>
