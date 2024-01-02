@@ -7,6 +7,6 @@
 #define SGE_IMAGE2D_LOAD_STREAM_RESULT_HPP_INCLUDED
 
 #include <sge/image2d/load_stream_result_fwd.hpp> // IWYU pragma: export
-#include <sge/media/load_stream_result.hpp>
+#include <sge/media/load_stream_result.hpp> // IWYU pragma: keep
 
 #endif

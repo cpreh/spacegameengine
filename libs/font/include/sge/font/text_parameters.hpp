@@ -7,8 +7,7 @@
 #define SGE_FONT_TEXT_PARAMETERS_HPP_INCLUDED
 
 #include <sge/font/flags_field.hpp>
-#include <sge/font/text_parameters_fwd.hpp>
-#include <sge/font/unit.hpp>
+#include <sge/font/text_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/font/align_h/variant.hpp>
 #include <sge/font/detail/symbol.hpp>
 

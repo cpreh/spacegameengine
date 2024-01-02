@@ -6,11 +6,11 @@
 #ifndef SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
-#include <sge/image/color/impl/format_pair.hpp>
-#include <sge/image/impl/make_format_pair.hpp>
+#include <sge/image/color/format.hpp> // IWYU pragma: keep
+#include <sge/image/color/impl/format_pair.hpp> // IWYU pragma: keep
+#include <sge/image/impl/make_format_pair.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
-#include <boost/preprocessor/comma_if.hpp>
+#include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <fcppt/config/external_end.hpp>
 
 #define SGE_IMAGE_COLOR_IMPL_MAKE_FORMAT_PAIR(s, _, index, name) \

@@ -9,7 +9,7 @@
 #include <sge/plugin/object.hpp>
 #include <sge/plugin/detail/traits.hpp>
 #include <sge/plugin/impl/library/load_function.hpp>
-#include <sge/plugin/impl/library/object.hpp>
+#include <sge/plugin/impl/library/object.hpp> // IWYU pragma: keep
 #include <fcppt/make_ref.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>

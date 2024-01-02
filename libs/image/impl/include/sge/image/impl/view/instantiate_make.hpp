@@ -7,13 +7,13 @@
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/dim_fwd.hpp>
-#include <sge/image/pitch_fwd.hpp>
-#include <sge/image/raw_pointer.hpp>
-#include <sge/image/impl/view/make_impl.hpp>
-#include <sge/image/traits/image/color_tag.hpp>
-#include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/image/view/object.hpp>
+#include <sge/image/dim_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/pitch_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/raw_pointer.hpp> // IWYU pragma: keep
+#include <sge/image/impl/view/make_impl.hpp> // IWYU pragma: keep
+#include <sge/image/traits/image/color_tag.hpp> // IWYU pragma: keep
+#include <sge/image/traits/pixel/format_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/object.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE(tag) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::view::object<tag> \

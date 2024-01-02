@@ -7,7 +7,7 @@
 #define SGE_IMAGE_VIEW_DECLARE_SUB_OUT_OF_RANGE_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/image/view/sub_out_of_range.hpp>
+#include <sge/image/view/sub_out_of_range.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_VIEW_DECLARE_SUB_OUT_OF_RANGE(tag) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \

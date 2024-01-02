@@ -9,7 +9,7 @@
 namespace sge::input::joypad::ff
 {
 
-class condition;
+class condition; // IWYU pragma: export
 
 }
 

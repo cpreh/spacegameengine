@@ -6,13 +6,14 @@
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_FILL_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_FILL_IMPL_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/algorithm/fill.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/algorithm/convert_uninitialized.hpp>
 #include <sge/image/pixel/convert.hpp>
 #include <sge/image/pixel/object_fwd.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
+#include <sge/image/view/object.hpp>
 #include <mizuiro/image/algorithm/fill_c.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>

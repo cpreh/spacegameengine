@@ -9,7 +9,7 @@
 namespace sge::input::joypad::ff
 {
 
-class periodic;
+class periodic; // IWYU pragma: export
 
 }
 

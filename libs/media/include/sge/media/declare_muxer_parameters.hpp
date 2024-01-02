@@ -7,7 +7,7 @@
 #define SGE_MEDIA_DECLARE_MUXER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/media/muxer_parameters.hpp>
+#include <sge/media/muxer_parameters.hpp> // IWYU pragma: keep
 
 #define SGE_MEDIA_DECLARE_MUXER_PARAMETERS(system) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \

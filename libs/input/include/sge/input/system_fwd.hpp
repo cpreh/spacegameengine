@@ -9,7 +9,7 @@
 namespace sge::input
 {
 
-class system;
+class system; // IWYU pragma: export
 
 }
 

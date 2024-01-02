@@ -7,7 +7,7 @@
 #define SGE_PLUGIN_ITERATOR_HPP_INCLUDED
 
 #include <sge/plugin/category_array.hpp>
-#include <sge/plugin/iterator_fwd.hpp>
+#include <sge/plugin/iterator_fwd.hpp> // IWYU pragma: keep
 #include <sge/plugin/detail/iterator_base_type.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 

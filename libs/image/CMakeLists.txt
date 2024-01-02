@@ -146,8 +146,6 @@ set(
 	libs/image/include/sge/image/pixel/elements.hpp
 	libs/image/include/sge/image/pixel/mizuiro_type.hpp
 	libs/image/include/sge/image/pixel/mizuiro_type_fwd.hpp
-	libs/image/include/sge/image/pixel/mizuiro_type_tpl.hpp
-	libs/image/include/sge/image/pixel/mizuiro_type_tpl_fwd.hpp
 	libs/image/include/sge/image/pixel/object.hpp
 	libs/image/include/sge/image/pixel/object_fwd.hpp
 	libs/image/include/sge/image/pixel/object_output.hpp

@@ -10,7 +10,7 @@ namespace sge::media
 {
 
 template <typename System, typename File>
-class muxer;
+class muxer; // IWYU pragma: export
 
 }
 

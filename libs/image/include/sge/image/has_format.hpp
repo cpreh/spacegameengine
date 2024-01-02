@@ -9,9 +9,6 @@
 #include <sge/image/traits/pixel/static_formats.hpp>
 #include <fcppt/mpl/set/contains.hpp>
 #include <fcppt/mpl/set/from_list.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::image
 {

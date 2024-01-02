@@ -7,7 +7,7 @@
 #define SGE_MEDIA_IMPL_INSTANTIATE_FILE_EXCEPTION_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/media/impl/file_exception_impl.hpp>
+#include <sge/media/impl/file_exception_impl.hpp> // IWYU pragma: keep
 
 #define SGE_MEDIA_IMPL_INSTANTIATE_FILE_EXCEPTION(base) \
   template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION sge::media::file_exception<base>

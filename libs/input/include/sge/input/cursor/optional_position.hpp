@@ -7,7 +7,7 @@
 #define SGE_INPUT_CURSOR_OPTIONAL_POSITION_HPP_INCLUDED
 
 #include <sge/input/cursor/optional_position_fwd.hpp> // IWYU pragma: export
-#include <sge/input/cursor/position.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <sge/input/cursor/position.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

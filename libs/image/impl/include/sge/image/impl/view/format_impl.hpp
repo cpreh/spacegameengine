@@ -9,7 +9,9 @@
 #include <sge/image/impl/view/format_any.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image/view/const_object.hpp>
 #include <sge/image/view/format.hpp>
+#include <sge/image/view/object.hpp>
 
 template <typename Tag>
 sge::image::traits::pixel::format<sge::image::traits::image::color_tag<Tag>>

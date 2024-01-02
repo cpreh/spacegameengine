@@ -7,11 +7,11 @@
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_DATA_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/raw_pointer.hpp>
-#include <sge/image/impl/view/data_impl.hpp>
-#include <sge/image/view/const_object_fwd.hpp>
-#include <sge/image/view/object_fwd.hpp>
+#include <sge/image/const_raw_pointer.hpp> // IWYU pragma: keep
+#include <sge/image/raw_pointer.hpp> // IWYU pragma: keep
+#include <sge/image/impl/view/data_impl.hpp> // IWYU pragma: keep
+#include <sge/image/view/const_object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/object_fwd.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_DATA_BASE(tag, view_type, pointer) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION pointer sge::image::view::data<tag>( \

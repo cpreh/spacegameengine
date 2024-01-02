@@ -6,11 +6,11 @@
 #ifndef SGE_IMAGE3D_VIEW_OBJECT_HPP_INCLUDED
 #define SGE_IMAGE3D_VIEW_OBJECT_HPP_INCLUDED
 
-#include <sge/image/color/traits/static_formats.hpp>
+#include <sge/image/color/traits/static_formats.hpp> // IWYU pragma: keep
 #include <sge/image/view/declare_object.hpp>
 #include <sge/image3d/tag.hpp>
-#include <sge/image3d/traits/color_tag.hpp>
-#include <sge/image3d/traits/dimension.hpp>
+#include <sge/image3d/traits/color_tag.hpp> // IWYU pragma: keep
+#include <sge/image3d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/image3d/view/object_fwd.hpp> // IWYU pragma: export
 
 SGE_IMAGE_VIEW_DECLARE_OBJECT(sge::image3d::tag);

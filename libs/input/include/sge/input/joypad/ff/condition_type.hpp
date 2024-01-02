@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_JOYPAD_FF_CONDITION_TYPE_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_CONDITION_TYPE_HPP_INCLUDED
 
-#include <sge/input/joypad/ff/condition_type_fwd.hpp>
+#include <sge/input/joypad/ff/condition_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::input::joypad::ff
 {

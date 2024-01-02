@@ -9,8 +9,8 @@
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/cac/visitor.hpp>
-#include <sge/image/color/impl/dynamic/format/object_decl.hpp>
-#include <sge/image/color/impl/dynamic/format/object_traits.hpp>
+#include <sge/image/color/impl/dynamic/format/object_decl.hpp> // IWYU pragma: keep
+#include <sge/image/color/impl/dynamic/format/object_traits.hpp> // IWYU pragma: keep
 #include <sge/image/color/impl/dynamic/view/from_static_visitor.hpp>
 #include <sge/image/traits/image/dimension.hpp>
 #include <sge/image/view/const_object.hpp>

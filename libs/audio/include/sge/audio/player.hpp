@@ -10,7 +10,7 @@
 #include <sge/audio/file_fwd.hpp>
 #include <sge/audio/file_ref.hpp>
 #include <sge/audio/listener_fwd.hpp>
-#include <sge/audio/player_fwd.hpp>
+#include <sge/audio/player_fwd.hpp> // IWYU pragma: keep
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/detail/symbol.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>

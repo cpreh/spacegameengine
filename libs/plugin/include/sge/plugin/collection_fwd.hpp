@@ -10,7 +10,7 @@ namespace sge::plugin
 {
 
 template <typename Type>
-class collection;
+class collection; // IWYU pragma: export
 
 }
 

@@ -6,7 +6,7 @@
 #ifndef SGE_AUDIO_SOUND_PLAY_STATUS_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_PLAY_STATUS_HPP_INCLUDED
 
-#include <sge/audio/sound/play_status_fwd.hpp>
+#include <sge/audio/sound/play_status_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::audio::sound
 {

@@ -7,6 +7,6 @@
 #define SGE_AUDIO_SAMPLE_BUFFER_HPP_INCLUDED
 
 #include <sge/audio/sample_buffer_fwd.hpp> // IWYU pragma: export
-#include <fcppt/container/buffer/object_impl.hpp>
+#include <fcppt/container/buffer/object_impl.hpp> // IWYU pragma: keep
 
 #endif

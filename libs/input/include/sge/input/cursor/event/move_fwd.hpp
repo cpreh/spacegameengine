@@ -9,7 +9,7 @@
 namespace sge::input::cursor::event
 {
 
-class move;
+class move; // IWYU pragma: export
 
 }
 

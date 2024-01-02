@@ -9,7 +9,7 @@
 namespace sge::audio
 {
 
-class player;
+class player; // IWYU pragma: export
 
 }
 

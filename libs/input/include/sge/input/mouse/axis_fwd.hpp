@@ -9,7 +9,7 @@
 namespace sge::input::mouse
 {
 
-class axis;
+class axis; // IWYU pragma: export
 
 }
 

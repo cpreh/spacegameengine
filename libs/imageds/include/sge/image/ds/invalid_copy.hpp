@@ -9,7 +9,7 @@
 #include <sge/image/declare_invalid_copy.hpp>
 #include <sge/image/invalid_copy.hpp>
 #include <sge/image/ds/tag.hpp>
-#include <sge/image/ds/traits/format_fwd.hpp>
+#include <sge/image/ds/traits/format_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

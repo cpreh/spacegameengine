@@ -9,7 +9,7 @@
 namespace sge::input::focus::event
 {
 
-class text;
+class text; // IWYU pragma: export
 
 }
 

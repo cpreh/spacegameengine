@@ -12,7 +12,7 @@ namespace sge::image::color::impl::dynamic::format
 {
 
 template <typename Space, typename BaseType, mizuiro::size_type NumChannels>
-class object;
+class object; // IWYU pragma: export
 
 }
 

@@ -7,7 +7,7 @@
 #define SGE_MEDIA_FILE_EXCEPTION_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/media/file_exception_fwd.hpp>
+#include <sge/media/file_exception_fwd.hpp> // IWYU pragma: keep
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/detail/instantiate/symbol.hpp>
 #include <fcppt/string.hpp>

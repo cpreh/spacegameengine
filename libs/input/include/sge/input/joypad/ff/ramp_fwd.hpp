@@ -9,7 +9,7 @@
 namespace sge::input::joypad::ff
 {
 
-class ramp;
+class ramp; // IWYU pragma: export
 
 }
 

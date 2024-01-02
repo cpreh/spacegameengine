@@ -9,7 +9,7 @@
 namespace sge::image::ds::space
 {
 
-struct depth_stencil;
+struct depth_stencil; // IWYU pragma: export
 
 }
 

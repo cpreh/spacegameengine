@@ -8,7 +8,7 @@
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/image/exception.hpp>
-#include <sge/image/invalid_convert_fwd.hpp>
+#include <sge/image/invalid_convert_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
 

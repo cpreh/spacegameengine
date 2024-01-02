@@ -9,7 +9,7 @@
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/ff/end_magnitude.hpp>
 #include <sge/input/joypad/ff/envelope.hpp>
-#include <sge/input/joypad/ff/ramp_fwd.hpp>
+#include <sge/input/joypad/ff/ramp_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/ff/start_magnitude.hpp>
 
 namespace sge::input::joypad::ff

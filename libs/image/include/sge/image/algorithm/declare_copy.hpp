@@ -6,12 +6,12 @@
 #ifndef SGE_IMAGE_ALGORITHM_DECLARE_COPY_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_DECLARE_COPY_HPP_INCLUDED
 
-#include <sge/image/algorithm/copy.hpp>
-#include <sge/image/algorithm/may_overlap_fwd.hpp>
-#include <sge/image/algorithm/uninitialized_fwd.hpp>
+#include <sge/image/algorithm/copy.hpp> // IWYU pragma: keep
+#include <sge/image/algorithm/may_overlap_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/algorithm/uninitialized_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/view/const_object_fwd.hpp>
-#include <sge/image/view/object_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/object_fwd.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_ALGORITHM_DECLARE_COPY(tag) \
   extern template SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL void sge::image::algorithm::copy( \

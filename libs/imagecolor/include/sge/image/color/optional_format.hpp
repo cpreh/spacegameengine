@@ -6,8 +6,8 @@
 #ifndef SGE_IMAGE_COLOR_OPTIONAL_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_OPTIONAL_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format.hpp>
+#include <sge/image/color/format.hpp> // IWYU pragma: keep
 #include <sge/image/color/optional_format_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_COPY_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_COPY_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/impl/dynamic/view/color_layout.hpp>

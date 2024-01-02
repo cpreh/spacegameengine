@@ -7,6 +7,6 @@
 #define SGE_FONT_WEIGHT_OPTIONAL_UNIT_HPP_INCLUDED
 
 #include <sge/font/weight/optional_unit_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

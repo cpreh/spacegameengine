@@ -6,7 +6,7 @@
 #ifndef SGE_CHARCONV_DETAIL_PP_ENCODINGS_HPP_INCLUDED
 #define SGE_CHARCONV_DETAIL_PP_ENCODINGS_HPP_INCLUDED
 
-#include <sge/charconv/encoding.hpp>
+#include <sge/charconv/encoding.hpp> // IWYU pragma: keep
 
 #define SGE_CHARCONV_DETAIL_PP_ENCODINGS \
   (sge::charconv::encoding::utf8)(sge::charconv::encoding::utf16)(sge::charconv::encoding::utf32)( \

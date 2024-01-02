@@ -7,6 +7,6 @@
 #define SGE_INPUT_JOYPAD_FF_ATTACK_LEVEL_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/attack_level_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

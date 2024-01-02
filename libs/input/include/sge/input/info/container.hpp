@@ -7,7 +7,7 @@
 #define SGE_INPUT_INFO_CONTAINER_HPP_INCLUDED
 
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/info/container_fwd.hpp>
+#include <sge/input/info/container_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/optional/reference_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>

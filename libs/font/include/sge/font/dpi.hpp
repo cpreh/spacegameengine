@@ -7,6 +7,6 @@
 #define SGE_FONT_DPI_HPP_INCLUDED
 
 #include <sge/font/dpi_fwd.hpp> // IWYU pragma: export
-#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/dim/static.hpp> // IWYU pragma: keep
 
 #endif

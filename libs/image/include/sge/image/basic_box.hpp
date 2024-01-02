@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_BASIC_BOX_HPP_INCLUDED
 #define SGE_IMAGE_BASIC_BOX_HPP_INCLUDED
 
-#include <sge/image/basic_box_fwd.hpp>
-#include <fcppt/math/box/object_impl.hpp>
+#include <sge/image/basic_box_fwd.hpp> // IWYU pragma: export
+#include <fcppt/math/box/object_impl.hpp> // IWYU pragma: keep
 
 #endif

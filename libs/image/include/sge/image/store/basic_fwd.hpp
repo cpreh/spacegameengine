@@ -10,7 +10,7 @@ namespace sge::image::store
 {
 
 template <typename Format>
-class basic;
+class basic; // IWYU pragma: export
 
 }
 

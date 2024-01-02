@@ -9,7 +9,7 @@
 namespace sge::font
 {
 
-class object;
+class object; // IWYU pragma: export
 
 }
 

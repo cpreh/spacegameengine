@@ -7,7 +7,7 @@
 #define SGE_INPUT_JOYPAD_FF_CONSTANT_HPP_INCLUDED
 
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/ff/constant_fwd.hpp>
+#include <sge/input/joypad/ff/constant_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/ff/envelope.hpp>
 #include <sge/input/joypad/ff/magnitude.hpp>
 

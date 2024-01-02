@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_FORMAT_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_FORMAT_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/image/color/impl/dynamic/format/object_base_impl.hpp>
+#include <sge/image/color/impl/dynamic/format/object_base_impl.hpp> // IWYU pragma: keep
 #include <sge/image/color/impl/dynamic/format/object_decl.hpp> // IWYU pragma: export
 #include <mizuiro/size_type.hpp>
 

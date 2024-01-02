@@ -7,7 +7,7 @@
 #define SGE_INPUT_JOYPAD_BUTTON_INFO_HPP_INCLUDED
 
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/button_info_fwd.hpp>
+#include <sge/input/joypad/button_info_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/optional_string.hpp>
 
 namespace sge::input::joypad

@@ -9,7 +9,7 @@
 namespace sge::input::keyboard
 {
 
-class key;
+class key; // IWYU pragma: export
 
 }
 

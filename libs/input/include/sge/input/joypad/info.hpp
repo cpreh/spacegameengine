@@ -11,7 +11,7 @@
 #include <sge/input/info/unique_id.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
-#include <sge/input/joypad/info_fwd.hpp>
+#include <sge/input/joypad/info_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/relative_axis_info_container.hpp>
 #include <sge/input/joypad/ff/type_field.hpp>
 

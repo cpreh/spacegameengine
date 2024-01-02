@@ -8,7 +8,7 @@
 
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/mouse/axis_code.hpp>
-#include <sge/input/mouse/axis_fwd.hpp>
+#include <sge/input/mouse/axis_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/mouse/axis_id.hpp>
 
 namespace sge::input::mouse

@@ -6,7 +6,7 @@
 #ifndef SGE_MEDIA_MUXER_PARAMETERS_HPP_INCLUDED
 #define SGE_MEDIA_MUXER_PARAMETERS_HPP_INCLUDED
 
-#include <sge/media/muxer_parameters_fwd.hpp>
+#include <sge/media/muxer_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/media/optional_extension_set.hpp>
 #include <sge/media/detail/instantiate/symbol.hpp>
 #include <sge/plugin/collection.hpp>

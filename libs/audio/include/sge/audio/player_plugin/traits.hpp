@@ -6,6 +6,7 @@
 #ifndef SGE_AUDIO_PLAYER_PLUGIN_TRAITS_HPP_INCLUDED
 #define SGE_AUDIO_PLAYER_PLUGIN_TRAITS_HPP_INCLUDED
 
+#include <sge/audio/player_fwd.hpp>
 #include <sge/audio/player_unique_ptr.hpp>
 #include <sge/audio/detail/symbol.hpp>
 #include <sge/plugin/capabilities_fwd.hpp>

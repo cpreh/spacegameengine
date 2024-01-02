@@ -22,6 +22,7 @@
 #include <filesystem>
 #include <fstream>
 #include <ios>
+#include <istream>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

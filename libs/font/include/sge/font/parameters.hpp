@@ -10,7 +10,7 @@
 #include <sge/font/optional_dpi.hpp>
 #include <sge/font/optional_family.hpp>
 #include <sge/font/optional_ttf_size.hpp>
-#include <sge/font/parameters_fwd.hpp>
+#include <sge/font/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/font/ttf_size.hpp>
 #include <sge/font/detail/symbol.hpp>
 #include <sge/font/weight/optional_unit.hpp>

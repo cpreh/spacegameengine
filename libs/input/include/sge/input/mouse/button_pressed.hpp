@@ -7,7 +7,7 @@
 #define SGE_INPUT_MOUSE_BUTTON_PRESSED_HPP_INCLUDED
 
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::input::mouse
 {

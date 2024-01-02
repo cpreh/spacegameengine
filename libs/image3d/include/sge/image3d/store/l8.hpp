@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE3D_STORE_L8_HPP_INCLUDED
 #define SGE_IMAGE3D_STORE_L8_HPP_INCLUDED
 
-#include <sge/image/store/basic.hpp>
+#include <sge/image/store/basic.hpp> // IWYU pragma: keep
 #include <sge/image/store/declare_basic.hpp>
 #include <sge/image3d/l8_format.hpp>
 #include <sge/image3d/store/l8_fwd.hpp> // IWYU pragma: export

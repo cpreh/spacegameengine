@@ -7,6 +7,7 @@
 #include <sge/media/extension.hpp>
 #include <sge/media/optional_extension.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/optional/maybe.hpp>
 
 bool sge::media::check_extension(

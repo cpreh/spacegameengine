@@ -8,7 +8,7 @@
 
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/plugin/context_fwd.hpp> // IWYU pragma: export
-#include <sge/input/plugin/traits.hpp>
+#include <sge/input/plugin/traits.hpp> // IWYU pragma: keep
 #include <sge/plugin/declare_context.hpp>
 
 SGE_PLUGIN_DECLARE_CONTEXT(sge::input::system);

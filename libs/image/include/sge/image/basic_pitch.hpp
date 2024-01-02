@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_BASIC_PITCH_HPP_INCLUDED
 #define SGE_IMAGE_BASIC_PITCH_HPP_INCLUDED
 
-#include <sge/image/basic_pitch_fwd.hpp>
-#include <fcppt/math/dim/static.hpp>
+#include <sge/image/basic_pitch_fwd.hpp> // IWYU pragma: export
+#include <fcppt/math/dim/static.hpp> // IWYU pragma: keep
 
 #endif

@@ -7,6 +7,6 @@
 #define SGE_MEDIA_OPTIONAL_EXTENSION_SET_HPP_INCLUDED
 
 #include <sge/media/optional_extension_set_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

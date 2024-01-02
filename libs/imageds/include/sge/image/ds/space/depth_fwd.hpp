@@ -9,7 +9,7 @@
 namespace sge::image::ds::space
 {
 
-struct depth;
+struct depth; // IWYU pragma: export
 
 }
 

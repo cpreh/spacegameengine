@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_CONVERT_VISITOR_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_CONVERT_VISITOR_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 
 namespace sge::image::color::impl::dynamic::algorithm::cac
 {

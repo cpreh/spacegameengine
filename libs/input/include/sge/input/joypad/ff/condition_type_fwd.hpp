@@ -9,7 +9,7 @@
 namespace sge::input::joypad::ff
 {
 
-enum class condition_type;
+enum class condition_type; // IWYU pragma: export
 
 }
 

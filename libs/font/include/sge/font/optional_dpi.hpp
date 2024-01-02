@@ -6,8 +6,8 @@
 #ifndef SGE_FONT_OPTIONAL_DPI_HPP_INCLUDED
 #define SGE_FONT_OPTIONAL_DPI_HPP_INCLUDED
 
-#include <sge/font/dpi.hpp>
+#include <sge/font/dpi.hpp> // IWYU pragma: keep
 #include <sge/font/optional_dpi_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

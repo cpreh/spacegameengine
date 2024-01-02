@@ -8,7 +8,6 @@
 
 #include <sge/font/height.hpp>
 #include <sge/font/unit.hpp>
-#include <sge/font/vector_fwd.hpp>
 #include <sge/font/detail/symbol.hpp>
 
 namespace sge::font

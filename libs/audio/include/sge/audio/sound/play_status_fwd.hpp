@@ -9,7 +9,7 @@
 namespace sge::audio::sound
 {
 
-enum class play_status;
+enum class play_status; // IWYU pragma: export
 
 }
 

@@ -9,7 +9,7 @@
 namespace sge::input::joypad::ff
 {
 
-class envelope;
+class envelope; // IWYU pragma: export
 
 }
 

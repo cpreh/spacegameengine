@@ -7,7 +7,7 @@
 #define SGE_IMAGE_STORE_DECLARE_OBJECT_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/image/store/object.hpp>
+#include <sge/image/store/object.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_STORE_DECLARE_OBJECT(tag) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION sge::image::store::object<tag>

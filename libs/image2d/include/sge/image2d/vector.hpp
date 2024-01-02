@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE2D_VECTOR_HPP_INCLUDED
 #define SGE_IMAGE2D_VECTOR_HPP_INCLUDED
 
-#include <sge/image/basic_vector.hpp>
+#include <sge/image/basic_vector.hpp> // IWYU pragma: keep
 #include <sge/image2d/vector_fwd.hpp> // IWYU pragma: export
 
 #endif

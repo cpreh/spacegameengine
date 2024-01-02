@@ -6,8 +6,8 @@
 #ifndef SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_NONCONST_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_NONCONST_HPP_INCLUDED
 
-#include <sge/image/view/const_object_fwd.hpp>
-#include <sge/image/view/object_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/object_fwd.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_CONST_NONCONST(tag, macro) \
   macro(tag, const_object); \

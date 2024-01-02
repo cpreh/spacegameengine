@@ -9,7 +9,7 @@
 namespace sge::plugin
 {
 
-class info;
+class info; // IWYU pragma: export
 
 }
 

@@ -8,7 +8,7 @@
 
 #include <sge/font/system_fwd.hpp>
 #include <sge/font/plugin/object_fwd.hpp> // IWYU pragma: export
-#include <sge/font/plugin/traits.hpp>
+#include <sge/font/plugin/traits.hpp> // IWYU pragma: keep
 #include <sge/plugin/declare_object.hpp>
 
 SGE_PLUGIN_DECLARE_OBJECT(sge::font::system);

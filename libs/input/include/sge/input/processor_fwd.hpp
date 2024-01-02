@@ -9,7 +9,7 @@
 namespace sge::input
 {
 
-class processor;
+class processor; // IWYU pragma: export
 
 }
 

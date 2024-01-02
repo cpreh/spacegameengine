@@ -7,7 +7,7 @@
 #define SGE_IMAGE_IMPL_ALGORITHM_COPY_IMPL_HPP_INCLUDED
 
 #include <sge/image/invalid_copy.hpp>
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/algorithm/copy.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>

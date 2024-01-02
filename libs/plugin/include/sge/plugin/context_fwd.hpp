@@ -10,7 +10,7 @@ namespace sge::plugin
 {
 
 template <typename T>
-class context;
+class context; // IWYU pragma: export
 
 }
 

@@ -9,7 +9,7 @@
 namespace sge::input::joypad
 {
 
-class device;
+class device; // IWYU pragma: export
 
 }
 

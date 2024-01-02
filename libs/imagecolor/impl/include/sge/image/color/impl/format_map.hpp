@@ -6,24 +6,24 @@
 #ifndef SGE_IMAGE_COLOR_IMPL_FORMAT_MAP_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_FORMAT_MAP_HPP_INCLUDED
 
-#include <sge/image/color/a8_format.hpp>
-#include <sge/image/color/bgr32f_format.hpp>
-#include <sge/image/color/bgr8_format.hpp>
-#include <sge/image/color/bgra32f_format.hpp>
-#include <sge/image/color/bgra8_format.hpp>
-#include <sge/image/color/bgrx8_format.hpp>
-#include <sge/image/color/l8_format.hpp>
-#include <sge/image/color/la8_format.hpp>
-#include <sge/image/color/r32f_format.hpp>
-#include <sge/image/color/rgb32f_format.hpp>
-#include <sge/image/color/rgb8_format.hpp>
-#include <sge/image/color/rgba32f_format.hpp>
-#include <sge/image/color/rgba8_format.hpp>
-#include <sge/image/color/rgbx8_format.hpp>
-#include <sge/image/color/sbgr8_format.hpp>
-#include <sge/image/color/sbgra8_format.hpp>
-#include <sge/image/color/srgb8_format.hpp>
-#include <sge/image/color/srgba8_format.hpp>
+#include <sge/image/color/a8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/bgr32f_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/bgr8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/bgra32f_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/bgra8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/bgrx8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/l8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/la8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/r32f_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/rgb32f_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/rgb8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/rgba32f_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/rgba8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/rgbx8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/sbgr8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/sbgra8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/srgb8_format.hpp> // IWYU pragma: keep
+#include <sge/image/color/srgba8_format.hpp> // IWYU pragma: keep
 #include <sge/image/color/detail/pp_formats.hpp>
 #include <sge/image/color/impl/make_format_pair.hpp>
 #include <sge/image/impl/format_map.hpp>

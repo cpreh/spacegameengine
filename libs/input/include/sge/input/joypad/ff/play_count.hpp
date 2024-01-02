@@ -7,6 +7,6 @@
 #define SGE_INPUT_JOYPAD_FF_PLAY_COUNT_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/play_count_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

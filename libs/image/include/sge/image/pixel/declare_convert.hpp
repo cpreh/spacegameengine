@@ -6,11 +6,11 @@
 #ifndef SGE_IMAGE_PIXEL_DECLARE_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_PIXEL_DECLARE_CONVERT_HPP_INCLUDED
 
-#include <sge/image/enable_if_has_format.hpp>
+#include <sge/image/enable_if_has_format.hpp> // IWYU pragma: keep
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/pixel/convert.hpp>
-#include <sge/image/pixel/mizuiro_type.hpp>
-#include <sge/image/pixel/object_fwd.hpp>
+#include <sge/image/pixel/convert.hpp> // IWYU pragma: keep
+#include <sge/image/pixel/mizuiro_type.hpp> // IWYU pragma: keep
+#include <sge/image/pixel/object_fwd.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_PIXEL_DECLARE_CONVERT(tag, format) \
   extern template SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL \

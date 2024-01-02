@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_COPY_AND_CONVERT_STATIC_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_COPY_AND_CONVERT_STATIC_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/algorithm/convert_may_overlap.hpp>
@@ -18,13 +18,7 @@
 #include <mizuiro/image/algorithm/copy_and_convert.hpp>
 #include <fcppt/variant/apply.hpp>
 
-namespace sge
-{
-namespace image
-{
-namespace impl
-{
-namespace algorithm
+namespace sge::image::impl::algorithm
 {
 
 template <typename Tag>
@@ -48,9 +42,6 @@ void copy_and_convert_static(
       _dest.get());
 }
 
-}
-}
-}
 }
 
 #endif

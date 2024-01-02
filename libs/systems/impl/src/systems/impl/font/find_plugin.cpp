@@ -15,6 +15,7 @@
 #include <sge/systems/impl/font/find_plugin.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/optional/map.hpp>

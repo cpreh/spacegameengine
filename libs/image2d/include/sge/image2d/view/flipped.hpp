@@ -7,7 +7,7 @@
 #define SGE_IMAGE2D_VIEW_FLIPPED_HPP_INCLUDED
 
 #include <sge/image/view/declare_flipped.hpp>
-#include <sge/image2d/tag.hpp>
+#include <sge/image2d/tag.hpp> // IWYU pragma: keep
 #include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>

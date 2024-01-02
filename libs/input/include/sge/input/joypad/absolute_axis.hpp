@@ -7,7 +7,7 @@
 #define SGE_INPUT_JOYPAD_ABSOLUTE_AXIS_HPP_INCLUDED
 
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/absolute_axis_fwd.hpp>
+#include <sge/input/joypad/absolute_axis_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/absolute_axis_id.hpp>
 #include <sge/input/joypad/axis_code.hpp>
 

@@ -6,11 +6,11 @@
 #ifndef SGE_INPUT_JOYPAD_FF_VARIANT_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_VARIANT_HPP_INCLUDED
 
-#include <sge/input/joypad/ff/condition.hpp>
-#include <sge/input/joypad/ff/constant.hpp>
-#include <sge/input/joypad/ff/periodic.hpp>
-#include <sge/input/joypad/ff/ramp.hpp>
+#include <sge/input/joypad/ff/condition.hpp> // IWYU pragma: keep
+#include <sge/input/joypad/ff/constant.hpp> // IWYU pragma: keep
+#include <sge/input/joypad/ff/periodic.hpp> // IWYU pragma: keep
+#include <sge/input/joypad/ff/ramp.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/ff/variant_fwd.hpp> // IWYU pragma: export
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

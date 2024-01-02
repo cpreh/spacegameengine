@@ -7,8 +7,8 @@
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/impl/view/flipped_impl.hpp>
-#include <sge/image/impl/view/instantiate_const_nonconst.hpp>
+#include <sge/image/impl/view/flipped_impl.hpp> // IWYU pragma: keep
+#include <sge/image/impl/view/instantiate_const_nonconst.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_FLIPPED_BASE(tag, object_type) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::view::object_type<tag> \

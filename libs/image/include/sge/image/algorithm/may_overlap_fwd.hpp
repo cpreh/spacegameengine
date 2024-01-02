@@ -6,12 +6,10 @@
 #ifndef SGE_IMAGE_ALGORITHM_MAY_OVERLAP_FWD_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_MAY_OVERLAP_FWD_HPP_INCLUDED
 
-#include <sge/image/algorithm/may_overlap_fwd.hpp>
-
 namespace sge::image::algorithm
 {
 
-enum class may_overlap;
+enum class may_overlap; // IWYU pragma: export
 
 }
 

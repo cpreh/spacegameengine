@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_FLAGS_HPP_INCLUDED
 #define SGE_FONT_FLAGS_HPP_INCLUDED
 
-#include <sge/font/flags_fwd.hpp>
+#include <sge/font/flags_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::font
 {

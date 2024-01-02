@@ -10,6 +10,7 @@
 #include <sge/input/cursor/shared_ptr.hpp>
 #include <sge/input/cursor/event/base.hpp>
 #include <sge/input/cursor/event/discover_fwd.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::input::cursor::event

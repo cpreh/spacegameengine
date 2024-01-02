@@ -9,7 +9,7 @@
 namespace sge::input::cursor
 {
 
-class object;
+class object; // IWYU pragma: export
 
 }
 

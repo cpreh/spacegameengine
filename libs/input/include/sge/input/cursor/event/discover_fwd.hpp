@@ -9,7 +9,7 @@
 namespace sge::input::cursor::event
 {
 
-class discover;
+class discover; // IWYU pragma: export
 
 }
 

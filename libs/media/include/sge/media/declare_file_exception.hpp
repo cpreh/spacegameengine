@@ -7,7 +7,7 @@
 #define SGE_MEDIA_DECLARE_FILE_EXCEPTION_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/media/file_exception.hpp>
+#include <sge/media/file_exception.hpp> // IWYU pragma: keep
 
 #define SGE_MEDIA_DECLARE_FILE_EXCEPTION(base) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION sge::media::file_exception<base>

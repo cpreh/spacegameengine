@@ -9,7 +9,7 @@
 #include <sge/plugin/capabilities_field.hpp>
 #include <sge/plugin/description.hpp>
 #include <sge/plugin/flags_field.hpp>
-#include <sge/plugin/info_fwd.hpp>
+#include <sge/plugin/info_fwd.hpp> // IWYU pragma: keep
 #include <sge/plugin/min_core_version.hpp>
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/version.hpp>

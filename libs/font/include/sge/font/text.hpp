@@ -12,7 +12,7 @@
 #include <sge/font/optional_index_fwd.hpp>
 #include <sge/font/optional_rect_fwd.hpp>
 #include <sge/font/rect_fwd.hpp>
-#include <sge/font/text_fwd.hpp>
+#include <sge/font/text_fwd.hpp> // IWYU pragma: keep
 #include <sge/font/vector_fwd.hpp>
 #include <sge/font/view_fwd.hpp>
 #include <sge/font/detail/symbol.hpp>

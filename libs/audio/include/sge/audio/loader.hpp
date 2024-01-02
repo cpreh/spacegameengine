@@ -7,7 +7,7 @@
 #define SGE_AUDIO_LOADER_HPP_INCLUDED
 
 #include <sge/audio/load_stream_result_fwd.hpp>
-#include <sge/audio/loader_fwd.hpp>
+#include <sge/audio/loader_fwd.hpp> // IWYU pragma: keep
 #include <sge/audio/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/media/extension_set.hpp>

@@ -7,7 +7,7 @@
 #define SGE_FONT_METRICS_HPP_INCLUDED
 
 #include <sge/font/height.hpp>
-#include <sge/font/metrics_fwd.hpp>
+#include <sge/font/metrics_fwd.hpp> // IWYU pragma: keep
 #include <sge/font/detail/symbol.hpp>
 
 namespace sge::font

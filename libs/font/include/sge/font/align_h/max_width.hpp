@@ -7,6 +7,6 @@
 #define SGE_FONT_ALIGN_H_MAX_WIDTH_HPP_INCLUDED
 
 #include <sge/font/align_h/max_width_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

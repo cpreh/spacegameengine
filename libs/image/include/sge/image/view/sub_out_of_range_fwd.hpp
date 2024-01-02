@@ -10,7 +10,7 @@ namespace sge::image::view
 {
 
 template <typename Tag>
-class sub_out_of_range;
+class sub_out_of_range; // IWYU pragma: export
 
 }
 

@@ -8,7 +8,7 @@
 
 #include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/multi_loader_parameters_fwd.hpp> // IWYU pragma: export
-#include <sge/audio/loader_plugin/collection.hpp>
+#include <sge/audio/loader_plugin/collection.hpp> // IWYU pragma: keep
 #include <sge/media/declare_muxer_parameters.hpp>
 
 SGE_MEDIA_DECLARE_MUXER_PARAMETERS(sge::audio::loader);

@@ -7,7 +7,7 @@
 #define SGE_PLUGIN_DECLARE_COLLECTION_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/plugin/collection.hpp>
+#include <sge/plugin/collection.hpp> // IWYU pragma: keep
 
 #define SGE_PLUGIN_DECLARE_COLLECTION(plugin_type) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \

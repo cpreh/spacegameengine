@@ -7,11 +7,11 @@
 #define SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/impl/store/view_impl.hpp>
-#include <sge/image/store/object_fwd.hpp>
-#include <sge/image/view/const_object_fwd.hpp>
-#include <sge/image/view/object_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <sge/image/impl/store/view_impl.hpp> // IWYU pragma: keep
+#include <sge/image/store/object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/const_object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/object_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/reference_impl.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_STORE_INSTANTIATE_VIEW(tag) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::view::object<tag> \

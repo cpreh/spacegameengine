@@ -7,6 +7,6 @@
 #define SGE_FONT_OPTIONAL_TTF_SIZE_HPP_INCLUDED
 
 #include <sge/font/optional_ttf_size_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -12,7 +12,6 @@
 #include <sge/input/impl/system_ptr_vector.hpp>
 #include <sge/input/plugin/collection_fwd.hpp>
 #include <sge/input/plugin/object.hpp>
-#include <sge/plugin/manager_fwd.hpp>
 #include <sge/window/object_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>

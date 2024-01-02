@@ -9,7 +9,7 @@
 namespace sge::image2d
 {
 
-class system;
+class system; // IWYU pragma: export
 
 }
 

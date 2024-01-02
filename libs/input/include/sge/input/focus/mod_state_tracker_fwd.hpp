@@ -9,7 +9,7 @@
 namespace sge::input::focus
 {
 
-class mod_state_tracker;
+class mod_state_tracker; // IWYU pragma: export
 
 }
 

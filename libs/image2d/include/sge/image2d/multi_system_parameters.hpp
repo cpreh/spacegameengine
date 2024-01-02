@@ -8,7 +8,7 @@
 
 #include <sge/image2d/multi_system_parameters_fwd.hpp> // IWYU pragma: export
 #include <sge/image2d/system_fwd.hpp>
-#include <sge/image2d/plugin/collection.hpp>
+#include <sge/image2d/plugin/collection.hpp> // IWYU pragma: keep
 #include <sge/media/declare_muxer_parameters.hpp>
 
 SGE_MEDIA_DECLARE_MUXER_PARAMETERS(sge::image2d::system);

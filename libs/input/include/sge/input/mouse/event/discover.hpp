@@ -7,6 +7,7 @@
 #define SGE_INPUT_MOUSE_EVENT_DISCOVER_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/mouse/shared_ptr.hpp>
 #include <sge/input/mouse/event/base.hpp>
 #include <sge/input/mouse/event/discover_fwd.hpp>

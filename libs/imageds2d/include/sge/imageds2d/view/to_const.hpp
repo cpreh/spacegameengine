@@ -7,7 +7,7 @@
 #define SGE_IMAGEDS2D_VIEW_TO_CONST_HPP_INCLUDED
 
 #include <sge/image/view/declare_to_const.hpp>
-#include <sge/imageds2d/tag.hpp>
+#include <sge/imageds2d/tag.hpp> // IWYU pragma: keep
 #include <sge/imageds2d/detail/symbol.hpp>
 #include <sge/imageds2d/view/const_object_fwd.hpp>
 #include <sge/imageds2d/view/object_fwd.hpp>

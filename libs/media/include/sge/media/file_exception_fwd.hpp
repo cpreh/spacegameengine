@@ -10,7 +10,7 @@ namespace sge::media
 {
 
 template <typename Base>
-class file_exception;
+class file_exception; // IWYU pragma: export
 
 }
 

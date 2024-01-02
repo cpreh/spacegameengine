@@ -7,6 +7,7 @@
 #define SGE_INPUT_FOCUS_EVENT_DISCOVER_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
+#include <sge/input/detail/symbol.hpp>
 #include <sge/input/focus/shared_ptr.hpp>
 #include <sge/input/focus/event/base.hpp>
 #include <sge/input/focus/event/discover_fwd.hpp>

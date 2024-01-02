@@ -9,7 +9,7 @@
 namespace sge::window
 {
 
-class object;
+class object; // IWYU pragma: export
 
 }
 

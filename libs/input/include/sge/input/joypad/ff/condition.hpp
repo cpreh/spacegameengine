@@ -7,7 +7,7 @@
 #define SGE_INPUT_JOYPAD_FF_CONDITION_HPP_INCLUDED
 
 #include <sge/input/detail/symbol.hpp>
-#include <sge/input/joypad/ff/condition_fwd.hpp>
+#include <sge/input/joypad/ff/condition_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/ff/condition_type.hpp>
 #include <sge/input/joypad/ff/deadband_center.hpp>
 #include <sge/input/joypad/ff/deadband_size.hpp>

@@ -6,12 +6,12 @@
 #ifndef SGE_IMAGE2D_VIEW_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE2D_VIEW_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format_fwd.hpp>
-#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image/color/format.hpp>
+#include <sge/image/color/traits/format_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/view/declare_format.hpp>
-#include <sge/image2d/tag.hpp>
+#include <sge/image2d/tag.hpp> // IWYU pragma: keep
 #include <sge/image2d/detail/symbol.hpp>
-#include <sge/image2d/traits/color_tag.hpp>
+#include <sge/image2d/traits/color_tag.hpp> // IWYU pragma: keep
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
 

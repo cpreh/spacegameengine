@@ -9,7 +9,7 @@
 namespace sge::input::joypad
 {
 
-class absolute_axis_info;
+class absolute_axis_info; // IWYU pragma: export
 
 }
 

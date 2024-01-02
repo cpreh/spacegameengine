@@ -10,7 +10,7 @@
 #include <sge/image/color/invalid_convert.hpp>
 #include <sge/image/color/is_convertible.hpp>
 #include <sge/image/color/tag.hpp>
-#include <sge/image/color/impl/traits/format_map.hpp>
+#include <sge/image/color/impl/traits/format_map.hpp> // IWYU pragma: keep
 #include <sge/image/impl/static_to_dynamic_format.hpp>
 #include <sge/image/pixel/mizuiro_type.hpp>
 #include <mizuiro/color/object.hpp>

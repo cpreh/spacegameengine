@@ -7,7 +7,7 @@
 #define SGE_INPUT_PROCESSOR_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/input/processor_fwd.hpp>
+#include <sge/input/processor_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/cursor/container.hpp>
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/focus/container.hpp>

@@ -9,7 +9,7 @@
 namespace sge::input::key
 {
 
-enum class code;
+enum class code; // IWYU pragma: export
 
 }
 

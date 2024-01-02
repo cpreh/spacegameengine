@@ -8,14 +8,14 @@
 
 #include <sge/image/raw_pointer.hpp>
 #include <sge/image/color/format_fwd.hpp>
-#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image/color/traits/format_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/view/declare_make.hpp>
 #include <sge/image2d/dim_fwd.hpp>
 #include <sge/image2d/pitch_fwd.hpp>
-#include <sge/image2d/tag.hpp>
+#include <sge/image2d/tag.hpp> // IWYU pragma: keep
 #include <sge/image2d/detail/symbol.hpp>
-#include <sge/image2d/traits/color_tag.hpp>
-#include <sge/image2d/traits/dimension.hpp>
+#include <sge/image2d/traits/color_tag.hpp> // IWYU pragma: keep
+#include <sge/image2d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/image2d/view/object.hpp>
 
 namespace sge::image2d::view

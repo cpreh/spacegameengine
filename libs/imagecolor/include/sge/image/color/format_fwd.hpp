@@ -9,7 +9,7 @@
 namespace sge::image::color
 {
 
-enum class format;
+enum class format; // IWYU pragma: export
 
 }
 

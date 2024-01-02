@@ -8,7 +8,7 @@
 
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/impl/dynamic/format/object_base_decl.hpp>
-#include <sge/image/color/impl/dynamic/format/object_fwd.hpp>
+#include <sge/image/color/impl/dynamic/format/object_fwd.hpp> // IWYU pragma: keep
 #include <mizuiro/size_type.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>

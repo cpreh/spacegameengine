@@ -6,7 +6,7 @@
 #ifndef SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION_HPP_INCLUDED
 
-#include <sge/plugin/impl/collection_impl.hpp>
+#include <sge/plugin/impl/collection_impl.hpp> // IWYU pragma: keep
 
 #define SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION(plugin_type) \
   template class sge::plugin::collection<plugin_type>

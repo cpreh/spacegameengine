@@ -7,8 +7,8 @@
 #define SGE_PLUGIN_IMPL_INSTANTIATE_MANAGER_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/plugin/collection.hpp>
-#include <sge/plugin/impl/manager_impl.hpp>
+#include <sge/plugin/collection.hpp> // IWYU pragma: keep
+#include <sge/plugin/impl/manager_impl.hpp> // IWYU pragma: keep
 
 #define SGE_PLUGIN_IMPL_INSTANTIATE_MANAGER(plugin_type) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::plugin::collection<plugin_type> \

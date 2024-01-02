@@ -9,7 +9,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/image2d/load_stream_result_fwd.hpp>
 #include <sge/image2d/optional_file_unique_ptr_fwd.hpp>
-#include <sge/image2d/system_fwd.hpp>
+#include <sge/image2d/system_fwd.hpp> // IWYU pragma: keep
 #include <sge/image2d/detail/symbol.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/media/extension_fwd.hpp>

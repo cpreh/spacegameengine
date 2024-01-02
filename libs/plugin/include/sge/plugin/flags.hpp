@@ -6,7 +6,7 @@
 #ifndef SGE_PLUGIN_FLAGS_HPP_INCLUDED
 #define SGE_PLUGIN_FLAGS_HPP_INCLUDED
 
-#include <sge/plugin/flags_fwd.hpp>
+#include <sge/plugin/flags_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::plugin
 {

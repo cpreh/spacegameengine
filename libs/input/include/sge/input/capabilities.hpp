@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_CAPABILITIES_HPP_INCLUDED
 #define SGE_INPUT_CAPABILITIES_HPP_INCLUDED
 
-#include <sge/input/capabilities_fwd.hpp>
+#include <sge/input/capabilities_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::input
 {

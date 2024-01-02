@@ -9,7 +9,7 @@
 namespace sge::input::cursor
 {
 
-enum class scroll_code;
+enum class scroll_code; // IWYU pragma: export
 
 }
 

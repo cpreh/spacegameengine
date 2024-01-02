@@ -7,9 +7,9 @@
 #define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_CLONE_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/impl/algorithm/clone_impl.hpp>
-#include <sge/image/store/object.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image/impl/algorithm/clone_impl.hpp> // IWYU pragma: keep
+#include <sge/image/store/object.hpp> // IWYU pragma: keep
+#include <sge/image/view/const_object.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_CLONE(tag) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::store::object<tag> \

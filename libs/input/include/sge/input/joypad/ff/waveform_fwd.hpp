@@ -9,7 +9,7 @@
 namespace sge::input::joypad::ff
 {
 
-enum class waveform;
+enum class waveform; // IWYU pragma: export
 
 }
 

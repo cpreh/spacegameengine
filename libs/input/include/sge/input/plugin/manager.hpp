@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_PLUGIN_MANAGER_HPP_INCLUDED
 #define SGE_INPUT_PLUGIN_MANAGER_HPP_INCLUDED
 
-#include <sge/input/system_fwd.hpp>
+#include <sge/input/system_fwd.hpp> // IWYU pragma: keep
 #include <sge/plugin/declare_manager.hpp>
 
 SGE_PLUGIN_DECLARE_MANAGER(sge::input::system);

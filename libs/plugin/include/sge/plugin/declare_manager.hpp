@@ -6,8 +6,8 @@
 #ifndef SGE_PLUGIN_DECLARE_MANAGER_HPP_INCLUDED
 #define SGE_PLUGIN_DECLARE_MANAGER_HPP_INCLUDED
 
-#include <sge/plugin/collection.hpp>
-#include <sge/plugin/manager.hpp>
+#include <sge/plugin/collection.hpp> // IWYU pragma: keep
+#include <sge/plugin/manager.hpp> // IWYU pragma: keep
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 
 #define SGE_PLUGIN_DECLARE_MANAGER(plugin_type) \

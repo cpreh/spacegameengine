@@ -7,7 +7,7 @@
 #define SGE_INPUT_IMPL_INFO_INSTANTIATE_CONTAINER_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/input/impl/info/container_impl.hpp>
+#include <sge/input/impl/info/container_impl.hpp> // IWYU pragma: keep
 
 #define SGE_INPUT_IMPL_INFO_INSTANTIATE_CONTAINER(id_type, info_type) \
   template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \

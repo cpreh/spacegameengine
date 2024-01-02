@@ -6,8 +6,8 @@
 #ifndef SGE_CORE_CHECK_STATE_HPP_INCLUDED
 #define SGE_CORE_CHECK_STATE_HPP_INCLUDED
 
-#include <fcppt/format.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/format.hpp> // IWYU pragma: keep
+#include <fcppt/string.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
 #include <fcppt/preprocessor/file.hpp>
 #include <fcppt/preprocessor/stringize.hpp>

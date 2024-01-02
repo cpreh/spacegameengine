@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE3D_DIM_HPP_INCLUDED
 #define SGE_IMAGE3D_DIM_HPP_INCLUDED
 
-#include <sge/image/basic_dim.hpp>
+#include <sge/image/basic_dim.hpp> // IWYU pragma: keep
 #include <sge/image3d/dim_fwd.hpp> // IWYU pragma: export
 
 #endif

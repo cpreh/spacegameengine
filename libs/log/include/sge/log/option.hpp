@@ -6,7 +6,7 @@
 #ifndef SGE_LOG_OPTION_HPP_INCLUDED
 #define SGE_LOG_OPTION_HPP_INCLUDED
 
-#include <sge/log/option_fwd.hpp>
+#include <sge/log/option_fwd.hpp> // IWYU pragma: keep
 #include <sge/log/detail/symbol.hpp>
 #include <fcppt/log/level.hpp>
 #include <fcppt/log/location.hpp>

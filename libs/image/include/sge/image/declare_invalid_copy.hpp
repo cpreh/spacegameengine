@@ -7,7 +7,7 @@
 #define SGE_IMAGE_DECLARE_INVALID_COPY_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/image/invalid_copy.hpp>
+#include <sge/image/invalid_copy.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_DECLARE_INVALID_COPY(tag) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION sge::image::invalid_copy<tag>

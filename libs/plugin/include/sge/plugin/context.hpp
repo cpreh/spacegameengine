@@ -7,7 +7,7 @@
 #define SGE_PLUGIN_CONTEXT_HPP_INCLUDED
 
 #include <sge/plugin/context_base_ref.hpp>
-#include <sge/plugin/context_fwd.hpp>
+#include <sge/plugin/context_fwd.hpp> // IWYU pragma: keep
 #include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/object_fwd.hpp>
 #include <sge/plugin/detail/instantiate/symbol.hpp>

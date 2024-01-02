@@ -6,12 +6,10 @@
 #ifndef SGE_IMAGE_ALGORITHM_UNINITIALIZED_FWD_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_UNINITIALIZED_FWD_HPP_INCLUDED
 
-#include <sge/image/algorithm/uninitialized_fwd.hpp>
-
 namespace sge::image::algorithm
 {
 
-enum class uninitialized;
+enum class uninitialized; // IWYU pragma: export
 
 }
 

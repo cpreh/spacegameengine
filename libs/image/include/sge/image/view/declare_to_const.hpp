@@ -7,9 +7,9 @@
 #define SGE_IMAGE_VIEW_DECLARE_TO_CONST_HPP_INCLUDED
 
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/view/const_object_fwd.hpp>
-#include <sge/image/view/object_fwd.hpp>
-#include <sge/image/view/to_const.hpp>
+#include <sge/image/view/const_object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/to_const.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_VIEW_DECLARE_TO_CONST(tag) \
   extern template SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL sge::image::view::const_object<tag> \

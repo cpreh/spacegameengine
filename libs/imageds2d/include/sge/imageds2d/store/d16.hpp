@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGEDS2D_STORE_D16_HPP_INCLUDED
 #define SGE_IMAGEDS2D_STORE_D16_HPP_INCLUDED
 
-#include <sge/image/store/basic.hpp>
+#include <sge/image/store/basic.hpp> // IWYU pragma: keep
 #include <sge/imageds2d/store/d16_fwd.hpp> // IWYU pragma: export
 
 #endif

@@ -10,7 +10,7 @@ namespace sge::input::info
 {
 
 template <typename Id, typename Obj>
-class container;
+class container; // IWYU pragma: export
 
 }
 

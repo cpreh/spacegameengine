@@ -6,6 +6,7 @@
 #include <sge/input/key/code.hpp>
 #include <sge/input/keyboard/key.hpp>
 #include <sge/input/keyboard/key_id.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 
 sge::input::keyboard::key::key(
     sge::input::key::code const _code, sge::input::keyboard::key_id const _id)

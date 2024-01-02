@@ -9,7 +9,7 @@
 namespace sge::charconv
 {
 
-enum class encoding;
+enum class encoding; // IWYU pragma: export
 
 }
 

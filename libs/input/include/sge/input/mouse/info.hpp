@@ -10,7 +10,7 @@
 #include <sge/input/info/name.hpp>
 #include <sge/input/mouse/axis_info_container.hpp>
 #include <sge/input/mouse/button_info_container.hpp>
-#include <sge/input/mouse/info_fwd.hpp>
+#include <sge/input/mouse/info_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::input::mouse
 {

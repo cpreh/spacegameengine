@@ -9,7 +9,7 @@
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/button_id.hpp>
 #include <sge/input/joypad/ff/trigger_cooldown.hpp>
-#include <sge/input/joypad/ff/trigger_fwd.hpp>
+#include <sge/input/joypad/ff/trigger_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::input::joypad::ff
 {

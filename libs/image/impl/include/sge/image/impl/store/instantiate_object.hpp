@@ -7,7 +7,7 @@
 #define SGE_IMAGE_IMPL_STORE_INSTANTIATE_OBJECT_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/image/impl/store/object_impl.hpp>
+#include <sge/image/impl/store/object_impl.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_STORE_INSTANTIATE_OBJECT(tag) \
   template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION sge::image::store::object<tag>

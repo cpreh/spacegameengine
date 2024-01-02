@@ -9,7 +9,7 @@
 namespace sge::input::joypad
 {
 
-enum class axis_code;
+enum class axis_code; // IWYU pragma: export
 
 }
 

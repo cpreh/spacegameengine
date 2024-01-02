@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE2D_RECT_HPP_INCLUDED
 #define SGE_IMAGE2D_RECT_HPP_INCLUDED
 
-#include <sge/image/basic_box.hpp>
+#include <sge/image/basic_box.hpp> // IWYU pragma: keep
 #include <sge/image2d/rect_fwd.hpp> // IWYU pragma: export
 
 #endif

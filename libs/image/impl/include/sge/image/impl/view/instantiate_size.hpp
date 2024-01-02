@@ -7,9 +7,9 @@
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SIZE_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/dim.hpp>
-#include <sge/image/impl/view/instantiate_const_nonconst.hpp>
-#include <sge/image/impl/view/size_impl.hpp>
+#include <sge/image/dim.hpp> // IWYU pragma: keep
+#include <sge/image/impl/view/instantiate_const_nonconst.hpp> // IWYU pragma: keep
+#include <sge/image/impl/view/size_impl.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_SIZE_BASE(tag, view_type) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::dim<tag> \

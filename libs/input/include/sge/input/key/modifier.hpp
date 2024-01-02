@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_KEY_MODIFIER_HPP_INCLUDED
 #define SGE_INPUT_KEY_MODIFIER_HPP_INCLUDED
 
-#include <sge/input/key/modifier_fwd.hpp>
+#include <sge/input/key/modifier_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::input::key
 {

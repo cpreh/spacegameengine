@@ -9,7 +9,7 @@
 namespace sge::plugin
 {
 
-enum class flags;
+enum class flags; // IWYU pragma: export
 
 }
 

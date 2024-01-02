@@ -7,6 +7,6 @@
 #define SGE_INPUT_JOYPAD_FF_MILLI_DEGREES_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/milli_degrees_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

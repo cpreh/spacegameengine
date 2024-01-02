@@ -6,12 +6,12 @@
 #ifndef SGE_IMAGE_IMPL_STORE_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_STORE_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/impl/view/to_static_format.hpp>
+#include <sge/image/store/basic.hpp>
 #include <sge/image/store/object.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/image/view/to_wrapped_type.hpp>
 #include <fcppt/no_init.hpp>
 #include <fcppt/enum/to_static.hpp>
 #include <fcppt/config/external_begin.hpp>

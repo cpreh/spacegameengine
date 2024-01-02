@@ -10,23 +10,23 @@
 #include <sge/log/location.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
-#include <sge/media/load_stream_result.hpp>
-#include <sge/media/muxer_parameters.hpp>
+#include <sge/media/load_stream_result.hpp> // IWYU pragma: keep
+#include <sge/media/muxer_parameters.hpp> // IWYU pragma: keep
 #include <sge/media/optional_extension.hpp>
 #include <sge/media/optional_name.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
 #include <sge/media/impl/log_name.hpp>
 #include <sge/media/impl/detail/muxer.hpp>
-#include <sge/plugin/collection.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/iterator.hpp>
-#include <sge/plugin/object.hpp>
+#include <sge/plugin/collection.hpp> // IWYU pragma: keep
+#include <sge/plugin/context.hpp> // IWYU pragma: keep
+#include <sge/plugin/iterator.hpp> // IWYU pragma: keep
+#include <sge/plugin/object.hpp> // IWYU pragma: keep
 #include <fcppt/const.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/loop.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -43,7 +43,8 @@
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/reference.hpp>
+#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/reference.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -51,7 +52,7 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ios>
-#include <typeinfo>
+#include <typeinfo> // IWYU pragma: keep
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

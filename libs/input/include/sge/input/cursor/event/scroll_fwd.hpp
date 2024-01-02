@@ -9,7 +9,7 @@
 namespace sge::input::cursor::event
 {
 
-class scroll;
+class scroll; // IWYU pragma: export
 
 }
 

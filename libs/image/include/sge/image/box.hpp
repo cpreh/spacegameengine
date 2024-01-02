@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_BOX_HPP_INCLUDED
 #define SGE_IMAGE_BOX_HPP_INCLUDED
 
-#include <sge/image/basic_box.hpp>
-#include <sge/image/box_fwd.hpp>
+#include <sge/image/basic_box.hpp> // IWYU pragma: keep
+#include <sge/image/box_fwd.hpp> // IWYU pragma: export
 
 #endif

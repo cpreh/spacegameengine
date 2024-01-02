@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_COLOR_ANY_PRINT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_ANY_PRINT_HPP_INCLUDED
 
-#include <sge/image/color/tag.hpp>
+#include <sge/image/color/tag.hpp> // IWYU pragma: keep
 #include <sge/image/pixel/declare_object_output.hpp>
 
 SGE_IMAGE_PIXEL_DECLARE_OBJECT_OUTPUT(sge::image::color::tag);

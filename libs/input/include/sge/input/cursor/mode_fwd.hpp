@@ -9,7 +9,7 @@
 namespace sge::input::cursor
 {
 
-enum class mode;
+enum class mode; // IWYU pragma: export
 
 }
 

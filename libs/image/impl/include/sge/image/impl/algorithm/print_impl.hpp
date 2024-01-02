@@ -6,10 +6,10 @@
 #ifndef SGE_IMAGE_IMPL_ALGORITHM_PRINT_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_ALGORITHM_PRINT_IMPL_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/algorithm/print.hpp>
 #include <sge/image/view/const_object.hpp>
-#include <mizuiro/color/output.hpp>
+#include <mizuiro/color/output.hpp> // IWYU pragma: keep
 #include <mizuiro/image/algorithm/print.hpp>
 #include <fcppt/io/ostream_fwd.hpp>
 #include <fcppt/variant/apply.hpp>

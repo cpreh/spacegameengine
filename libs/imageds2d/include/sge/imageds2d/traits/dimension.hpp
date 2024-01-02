@@ -7,7 +7,6 @@
 #define SGE_IMAGEDS2D_TRAITS_DIMENSION_HPP_INCLUDED
 
 #include <sge/image/dimension_integral_c.hpp>
-#include <sge/image/ds/tag.hpp>
 #include <sge/image/traits/image/dimension_tpl_fwd.hpp>
 #include <sge/imageds2d/tag.hpp>
 

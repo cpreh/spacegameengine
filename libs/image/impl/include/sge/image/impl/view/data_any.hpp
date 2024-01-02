@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_IMPL_VIEW_DATA_ANY_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_DATA_ANY_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <fcppt/variant/apply.hpp>
 
 namespace sge::image::impl::view

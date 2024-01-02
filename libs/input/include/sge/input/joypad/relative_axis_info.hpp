@@ -8,7 +8,7 @@
 
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/axis_code.hpp>
-#include <sge/input/joypad/relative_axis_info_fwd.hpp>
+#include <sge/input/joypad/relative_axis_info_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/optional_string.hpp>
 
 namespace sge::input::joypad

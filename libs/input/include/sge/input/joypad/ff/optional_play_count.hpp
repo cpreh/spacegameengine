@@ -7,7 +7,7 @@
 #define SGE_INPUT_JOYPAD_FF_OPTIONAL_PLAY_COUNT_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/optional_play_count_fwd.hpp> // IWYU pragma: export
-#include <sge/input/joypad/ff/play_count.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <sge/input/joypad/ff/play_count.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

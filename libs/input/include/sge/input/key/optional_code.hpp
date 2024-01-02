@@ -6,8 +6,8 @@
 #ifndef SGE_INPUT_KEY_OPTIONAL_CODE_HPP_INCLUDED
 #define SGE_INPUT_KEY_OPTIONAL_CODE_HPP_INCLUDED
 
-#include <sge/input/key/code.hpp>
+#include <sge/input/key/code.hpp> // IWYU pragma: keep
 #include <sge/input/key/optional_code_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

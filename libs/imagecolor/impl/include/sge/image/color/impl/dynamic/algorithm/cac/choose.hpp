@@ -9,6 +9,7 @@
 #include <sge/image/color/invalid_convert.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/cac/function.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/cac/rgb_to_srgb.hpp>
+#include <sge/image/color/impl/dynamic/algorithm/cac/source.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/cac/srgb_to_rgb.hpp>
 #include <sge/image/color/impl/dynamic/view/color_format.hpp>
 #include <mizuiro/color/conversion/rgb_to_srgb.hpp>

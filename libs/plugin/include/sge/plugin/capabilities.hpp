@@ -6,7 +6,7 @@
 #ifndef SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
 #define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
 
-#include <sge/plugin/capabilities_fwd.hpp>
+#include <sge/plugin/capabilities_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::plugin
 {

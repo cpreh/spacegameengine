@@ -9,10 +9,10 @@
 #include <sge/image/declare_format_from_static.hpp>
 #include <sge/image/color/enable_if_has_format.hpp>
 #include <sge/image/color/format.hpp>
-#include <sge/image/color/tag.hpp>
+#include <sge/image/color/tag.hpp> // IWYU pragma: keep
 #include <sge/image/color/detail/pp_formats.hpp>
 #include <sge/image/color/detail/symbol.hpp>
-#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image/color/traits/format_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>

@@ -6,11 +6,12 @@
 #ifndef SGE_IMAGE_IMPL_VIEW_SUB_OUT_OF_RANGE_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_SUB_OUT_OF_RANGE_IMPL_HPP_INCLUDED
 
-#include <sge/image/box.hpp>
+#include <sge/image/box.hpp> // IWYU pragma: keep
+#include <sge/image/exception.hpp>
 #include <sge/image/view/sub_out_of_range.hpp>
 #include <fcppt/format.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/math/box/output.hpp>
+#include <fcppt/math/box/output.hpp> // IWYU pragma: keep
 
 template <typename Tag>
 sge::image::view::sub_out_of_range<Tag>::sub_out_of_range(box const &_outer, box const &_inner)

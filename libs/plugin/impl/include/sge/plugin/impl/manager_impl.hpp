@@ -9,7 +9,7 @@
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/manager.hpp>
 #include <sge/plugin/detail/traits.hpp>
-#include <fcppt/enum/array_impl.hpp>
+#include <fcppt/enum/array_impl.hpp> // IWYU pragma: keep
 
 template <typename Type>
 sge::plugin::collection<Type> sge::plugin::manager::collection()

@@ -7,7 +7,7 @@
 #define SGE_PLUGIN_OBJECT_HPP_INCLUDED
 
 #include <sge/plugin/loader_function.hpp>
-#include <sge/plugin/object_fwd.hpp>
+#include <sge/plugin/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/plugin/detail/instantiate/symbol.hpp>
 #include <sge/plugin/library/object_fwd.hpp>
 #include <fcppt/noncopyable.hpp>

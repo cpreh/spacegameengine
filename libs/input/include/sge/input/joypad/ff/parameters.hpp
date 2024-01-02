@@ -11,7 +11,7 @@
 #include <sge/input/joypad/ff/direction.hpp>
 #include <sge/input/joypad/ff/optional_duration.hpp>
 #include <sge/input/joypad/ff/optional_trigger.hpp>
-#include <sge/input/joypad/ff/parameters_fwd.hpp>
+#include <sge/input/joypad/ff/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/ff/variant.hpp>
 
 namespace sge::input::joypad::ff

@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE2D_STORE_RGBA8_HPP_INCLUDED
 #define SGE_IMAGE2D_STORE_RGBA8_HPP_INCLUDED
 
-#include <sge/image/store/basic.hpp>
+#include <sge/image/store/basic.hpp> // IWYU pragma: keep
 #include <sge/image/store/declare_basic.hpp>
 #include <sge/image2d/rgba8_format.hpp>
 #include <sge/image2d/store/rgba8_fwd.hpp> // IWYU pragma: export

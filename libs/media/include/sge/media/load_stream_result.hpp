@@ -6,9 +6,9 @@
 #ifndef SGE_MEDIA_LOAD_STREAM_RESULT_HPP_INCLUDED
 #define SGE_MEDIA_LOAD_STREAM_RESULT_HPP_INCLUDED
 
-#include <sge/media/load_stream_result_fwd.hpp>
-#include <sge/media/stream_unique_ptr.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/media/load_stream_result_fwd.hpp> // IWYU pragma: export
+#include <sge/media/stream_unique_ptr.hpp> // IWYU pragma: keep
+#include <fcppt/unique_ptr_impl.hpp> // IWYU pragma: keep
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

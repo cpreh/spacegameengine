@@ -9,7 +9,7 @@
 #include <sge/media/extension_fwd.hpp>
 #include <sge/media/extension_set.hpp>
 #include <sge/media/load_stream_result_fwd.hpp>
-#include <sge/media/muxer_fwd.hpp>
+#include <sge/media/muxer_fwd.hpp> // IWYU pragma: keep
 #include <sge/media/muxer_parameters_fwd.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>

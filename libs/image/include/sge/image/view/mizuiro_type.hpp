@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MIZUIRO_TYPE_HPP_INCLUDED
 
-#include <sge/image/view/mizuiro_type_fwd.hpp>
-#include <mizuiro/image/view_impl.hpp>
+#include <sge/image/view/mizuiro_type_fwd.hpp> // IWYU pragma: export
+#include <mizuiro/image/view_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -6,7 +6,7 @@
 #ifndef SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE_HPP_INCLUDED
 
-#include <sge/plugin/library/function_map.hpp>
+#include <sge/plugin/library/function_map.hpp> // IWYU pragma: keep
 #include <fcppt/config/platform.hpp>
 
 #if defined(FCPPT_CONFIG_POSIX_PLATFORM)

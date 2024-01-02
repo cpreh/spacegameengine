@@ -9,7 +9,7 @@
 #include <sge/image/algorithm/copy_and_convert.hpp>
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/algorithm/uninitialized.hpp>
-#include <sge/image/impl/config.hpp>
+#include <sge/image/impl/config.hpp> // IWYU pragma: keep
 #include <sge/image/view/const_object_fwd.hpp>
 #include <sge/image/view/object_fwd.hpp>
 

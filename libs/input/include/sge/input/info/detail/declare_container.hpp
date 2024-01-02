@@ -7,7 +7,7 @@
 #define SGE_INPUT_INFO_DETAIL_DECLARE_CONTAINER_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/input/info/container.hpp>
+#include <sge/input/info/container.hpp> // IWYU pragma: keep
 
 #define SGE_INPUT_INFO_DETAIL_DECLARE_CONTAINER(id_param, info_param) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \

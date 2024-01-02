@@ -9,7 +9,7 @@
 namespace sge::audio
 {
 
-class loader;
+class loader; // IWYU pragma: export
 
 }
 

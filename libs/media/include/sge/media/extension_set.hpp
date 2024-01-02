@@ -7,6 +7,8 @@
 #define SGE_MEDIA_EXTENSION_SET_HPP_INCLUDED
 
 #include <sge/media/extension.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_std_hash.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_set>
 #include <fcppt/config/external_end.hpp>

@@ -6,10 +6,10 @@
 #ifndef SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_DETAIL_ITERATE_FUNCTIONS_HPP_INCLUDED
 
-#include <sge/plugin/loader_function.hpp>
-#include <sge/plugin/detail/from_loader_function.hpp>
-#include <sge/plugin/library/function_base_pair.hpp>
-#include <sge/plugin/library/symbol_string.hpp>
+#include <sge/plugin/loader_function.hpp> // IWYU pragma: keep
+#include <sge/plugin/detail/from_loader_function.hpp> // IWYU pragma: keep
+#include <sge/plugin/library/function_base_pair.hpp> // IWYU pragma: keep
+#include <sge/plugin/library/symbol_string.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>

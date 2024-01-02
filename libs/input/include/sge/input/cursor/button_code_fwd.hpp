@@ -9,7 +9,7 @@
 namespace sge::input::cursor
 {
 
-enum class button_code;
+enum class button_code; // IWYU pragma: export
 
 }
 

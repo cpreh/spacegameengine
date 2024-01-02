@@ -7,7 +7,7 @@
 #define SGE_PLUGIN_IMPL_INSTANTIATE_CONTEXT_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/plugin/impl/context_impl.hpp>
+#include <sge/plugin/impl/context_impl.hpp> // IWYU pragma: keep
 
 #define SGE_PLUGIN_IMPL_INSTANTIATE_CONTEXT(plugin_type) \
   template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION sge::plugin::context<plugin_type>

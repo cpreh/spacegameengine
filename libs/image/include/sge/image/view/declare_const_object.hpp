@@ -7,7 +7,7 @@
 #define SGE_IMAGE_VIEW_DECLARE_CONST_OBJECT_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image/view/const_object.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_VIEW_DECLARE_CONST_OBJECT(tag) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION sge::image::view::const_object<tag>

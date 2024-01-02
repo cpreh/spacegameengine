@@ -7,7 +7,7 @@
 #define SGE_PLUGIN_DECLARE_ITERATOR_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/iterator.hpp> // IWYU pragma: keep
 
 #define SGE_PLUGIN_DECLARE_ITERATOR(plugin_type) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION sge::plugin::iterator<plugin_type>

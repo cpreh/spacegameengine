@@ -7,7 +7,7 @@
 #define SGE_IMAGE_VIEW_OBJECT_HPP_INCLUDED
 
 #include <sge/image/has_format.hpp>
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/view/elements.hpp>

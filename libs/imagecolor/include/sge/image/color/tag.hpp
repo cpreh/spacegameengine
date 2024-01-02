@@ -9,7 +9,7 @@
 namespace sge::image::color
 {
 
-struct tag;
+struct tag; // IWYU pragma: export
 
 }
 

@@ -6,8 +6,8 @@
 #ifndef SGE_AUDIO_SOUND_OPTIONAL_DIRECTION_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_OPTIONAL_DIRECTION_HPP_INCLUDED
 
-#include <sge/audio/vector.hpp>
+#include <sge/audio/vector.hpp> // IWYU pragma: keep
 #include <sge/audio/sound/optional_direction_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

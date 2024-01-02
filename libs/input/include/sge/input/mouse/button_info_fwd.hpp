@@ -9,7 +9,7 @@
 namespace sge::input::mouse
 {
 
-class button_info;
+class button_info; // IWYU pragma: export
 
 }
 

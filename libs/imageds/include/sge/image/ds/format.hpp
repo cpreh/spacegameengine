@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_DS_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_DS_FORMAT_HPP_INCLUDED
 
-#include <sge/image/ds/format_fwd.hpp>
+#include <sge/image/ds/format_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::image::ds
 {

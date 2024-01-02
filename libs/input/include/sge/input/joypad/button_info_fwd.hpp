@@ -9,7 +9,7 @@
 namespace sge::input::joypad
 {
 
-class button_info;
+class button_info; // IWYU pragma: export
 
 }
 

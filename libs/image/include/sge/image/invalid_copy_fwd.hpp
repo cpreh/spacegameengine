@@ -10,7 +10,7 @@ namespace sge::image
 {
 
 template <typename Tag>
-class invalid_copy;
+class invalid_copy; // IWYU pragma: export
 
 }
 

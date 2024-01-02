@@ -14,7 +14,7 @@
 #include <sge/input/key/modifier.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/shared_ptr_std_hash.hpp>
+#include <fcppt/shared_ptr_std_hash.hpp> // IWYU pragma: keep
 #include <fcppt/enum/array_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>

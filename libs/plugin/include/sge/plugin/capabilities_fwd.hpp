@@ -9,7 +9,7 @@
 namespace sge::plugin
 {
 
-enum class capabilities;
+enum class capabilities; // IWYU pragma: export
 
 }
 

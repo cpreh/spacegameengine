@@ -9,7 +9,7 @@
 #include <sge/input/detail/symbol.hpp>
 #include <sge/input/joypad/ff/attack_level.hpp>
 #include <sge/input/joypad/ff/attack_time.hpp>
-#include <sge/input/joypad/ff/envelope_fwd.hpp>
+#include <sge/input/joypad/ff/envelope_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/ff/fade_level.hpp>
 #include <sge/input/joypad/ff/fade_time.hpp>
 

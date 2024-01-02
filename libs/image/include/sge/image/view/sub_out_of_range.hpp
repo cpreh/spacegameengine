@@ -10,7 +10,7 @@
 #include <sge/image/box.hpp>
 #include <sge/image/exception.hpp>
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/view/sub_out_of_range_fwd.hpp>
+#include <sge/image/view/sub_out_of_range_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::image::view
 {

@@ -9,7 +9,7 @@
 namespace sge::audio::sound
 {
 
-enum class repeat;
+enum class repeat; // IWYU pragma: export
 
 }
 

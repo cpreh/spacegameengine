@@ -6,11 +6,11 @@
 #ifndef SGE_IMAGE_VIEW_DECLARE_SUB_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_DECLARE_SUB_HPP_INCLUDED
 
-#include <sge/image/box_fwd.hpp>
+#include <sge/image/box_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/view/const_object_fwd.hpp>
-#include <sge/image/view/object_fwd.hpp>
-#include <sge/image/view/sub.hpp>
+#include <sge/image/view/const_object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/sub.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_VIEW_DECLARE_SUB(tag) \
   extern template SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL sge::image::view::object<tag> \

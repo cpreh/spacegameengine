@@ -6,8 +6,8 @@
 #ifndef SGE_INPUT_KEY_OPTIONAL_MODIFIER_HPP_INCLUDED
 #define SGE_INPUT_KEY_OPTIONAL_MODIFIER_HPP_INCLUDED
 
-#include <sge/input/key/modifier.hpp>
+#include <sge/input/key/modifier.hpp> // IWYU pragma: keep
 #include <sge/input/key/optional_modifier_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

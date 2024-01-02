@@ -6,15 +6,15 @@
 #ifndef SGE_IMAGE_IMPL_STORE_BASIC_IMPL_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_STORE_BASIC_IMPL_HPP_INCLUDED
 
-#include <sge/image/basic_dim.hpp>
+#include <sge/image/basic_dim.hpp> // IWYU pragma: keep
 #include <sge/image/impl/from_mizuiro_dim.hpp>
 #include <sge/image/impl/to_mizuiro_dim.hpp>
-#include <sge/image/pixel/mizuiro_type.hpp>
+#include <sge/image/pixel/mizuiro_type.hpp> // IWYU pragma: keep
 #include <sge/image/store/basic.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <mizuiro/no_init.hpp>
-#include <mizuiro/image/dimension_impl.hpp>
-#include <mizuiro/image/store_impl.hpp>
+#include <mizuiro/image/dimension_impl.hpp> // IWYU pragma: keep
+#include <mizuiro/image/store_impl.hpp> // IWYU pragma: keep
 #include <fcppt/no_init.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>

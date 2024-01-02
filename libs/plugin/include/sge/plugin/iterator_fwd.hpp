@@ -10,7 +10,7 @@ namespace sge::plugin
 {
 
 template <typename T>
-class iterator;
+class iterator; // IWYU pragma: export
 
 }
 

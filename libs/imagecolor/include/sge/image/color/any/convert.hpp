@@ -7,7 +7,7 @@
 #define SGE_IMAGE_COLOR_ANY_CONVERT_HPP_INCLUDED
 
 #include <sge/image/color/enable_if_has_format.hpp>
-#include <sge/image/color/tag.hpp>
+#include <sge/image/color/tag.hpp> // IWYU pragma: keep
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/image/color/detail/pp_formats.hpp>
 #include <sge/image/color/detail/symbol.hpp>

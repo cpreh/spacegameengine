@@ -7,10 +7,10 @@
 #define SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_CONVERT_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/enable_if_has_format.hpp>
-#include <sge/image/impl/pixel/convert_impl.hpp>
-#include <sge/image/pixel/mizuiro_type.hpp>
-#include <sge/image/pixel/object_fwd.hpp>
+#include <sge/image/enable_if_has_format.hpp> // IWYU pragma: keep
+#include <sge/image/impl/pixel/convert_impl.hpp> // IWYU pragma: keep
+#include <sge/image/pixel/mizuiro_type.hpp> // IWYU pragma: keep
+#include <sge/image/pixel/object_fwd.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_CONVERT(tag, format) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \

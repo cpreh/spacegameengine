@@ -8,13 +8,13 @@
 
 #include <sge/image/const_raw_pointer.hpp>
 #include <sge/image/color/format_fwd.hpp>
-#include <sge/image/color/traits/format_fwd.hpp>
+#include <sge/image/color/traits/format_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/view/declare_make_const.hpp>
 #include <sge/image3d/dim_fwd.hpp>
 #include <sge/image3d/pitch_fwd.hpp>
 #include <sge/image3d/detail/symbol.hpp>
-#include <sge/image3d/traits/color_tag.hpp>
-#include <sge/image3d/traits/dimension.hpp>
+#include <sge/image3d/traits/color_tag.hpp> // IWYU pragma: keep
+#include <sge/image3d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/image3d/view/const_object.hpp>
 
 namespace sge::image3d::view

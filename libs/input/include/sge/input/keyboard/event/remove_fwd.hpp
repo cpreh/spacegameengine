@@ -9,7 +9,7 @@
 namespace sge::input::keyboard::event
 {
 
-class remove;
+class remove; // IWYU pragma: export
 
 }
 

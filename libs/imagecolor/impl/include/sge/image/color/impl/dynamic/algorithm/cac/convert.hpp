@@ -6,6 +6,7 @@
 #ifndef SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_CONVERT_HPP_INCLUDED
 
+#include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/cac/choose.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/cac/convert_visitor.hpp>
 #include <sge/image/color/impl/dynamic/algorithm/cac/function.hpp>

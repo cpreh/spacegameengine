@@ -6,7 +6,7 @@
 #ifndef SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR_HPP_INCLUDED
 #define SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR_HPP_INCLUDED
 
-#include <sge/plugin/impl/iterator_impl.hpp>
+#include <sge/plugin/impl/iterator_impl.hpp> // IWYU pragma: keep
 
 #define SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR(plugin_type) \
   template class sge::plugin::iterator<plugin_type>

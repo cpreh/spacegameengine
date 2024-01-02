@@ -7,9 +7,9 @@
 #define SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_OBJECT_OUTPUT_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/impl/pixel/object_output_impl.hpp>
-#include <sge/image/pixel/object.hpp>
-#include <fcppt/io/ostream_fwd.hpp>
+#include <sge/image/impl/pixel/object_output_impl.hpp> // IWYU pragma: keep
+#include <sge/image/pixel/object.hpp> // IWYU pragma: keep
+#include <fcppt/io/ostream_fwd.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_PIXEL_INSTANTIATE_OBJECT_OUTPUT(tag) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION fcppt::io::ostream & \

@@ -9,7 +9,7 @@
 namespace sge::font::align_h
 {
 
-class center;
+class center; // IWYU pragma: export
 
 }
 

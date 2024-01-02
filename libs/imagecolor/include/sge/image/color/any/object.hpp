@@ -8,9 +8,9 @@
 
 #include <sge/image/color/tag.hpp>
 #include <sge/image/color/any/object_fwd.hpp> // IWYU pragma: export
-#include <sge/image/color/traits/static_formats.hpp>
+#include <sge/image/color/traits/static_formats.hpp> // IWYU pragma: keep
 #include <sge/image/pixel/declare_object.hpp>
-#include <sge/image/pixel/object.hpp>
+#include <sge/image/pixel/object.hpp> // IWYU pragma: keep
 
 SGE_IMAGE_PIXEL_DECLARE_OBJECT(sge::image::color::tag);
 

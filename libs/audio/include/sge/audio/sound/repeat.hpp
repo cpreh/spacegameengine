@@ -6,7 +6,7 @@
 #ifndef SGE_AUDIO_SOUND_REPEAT_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_REPEAT_HPP_INCLUDED
 
-#include <sge/audio/sound/repeat_fwd.hpp>
+#include <sge/audio/sound/repeat_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::audio::sound
 {

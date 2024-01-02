@@ -13,7 +13,7 @@
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr_fwd.hpp>
-#include <sge/media/detail/muxer_fwd.hpp>
+#include <sge/media/detail/muxer_fwd.hpp> // IWYU pragma: keep
 #include <sge/plugin/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_decl.hpp>

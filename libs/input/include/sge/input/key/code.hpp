@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_KEY_CODE_HPP_INCLUDED
 #define SGE_INPUT_KEY_CODE_HPP_INCLUDED
 
-#include <sge/input/key/code_fwd.hpp>
+#include <sge/input/key/code_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::input::key
 {

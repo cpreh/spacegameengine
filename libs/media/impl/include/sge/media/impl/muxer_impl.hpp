@@ -8,15 +8,18 @@
 
 #include <sge/media/extension_fwd.hpp>
 #include <sge/media/extension_set.hpp>
-#include <sge/media/load_stream_result.hpp>
+#include <sge/media/load_stream_result.hpp> // IWYU pragma: keep
 #include <sge/media/muxer.hpp>
 #include <sge/media/optional_extension_fwd.hpp>
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/media/stream_unique_ptr.hpp>
-#include <sge/media/impl/detail/muxer_impl.hpp>
+#include <sge/media/impl/detail/muxer_impl.hpp> // IWYU pragma: keep
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/optional/reference.hpp>
+#include <fcppt/unique_ptr_impl.hpp> // IWYU pragma: keep
+#include <fcppt/optional/reference.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <utility>
+#include <fcppt/config/external_end.hpp>
 
 template <typename System, typename File>
 sge::media::muxer<System, File>::muxer(parameters const &_parameters)

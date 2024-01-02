@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_VIEW_MIZUIRO_TRAITS_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_MIZUIRO_TRAITS_HPP_INCLUDED
 
-#include <mizuiro/image/format/include/interleaved_heterogenous.hpp>
-#include <mizuiro/image/format/include/interleaved_homogenous.hpp>
+#include <mizuiro/image/format/include/interleaved_heterogenous.hpp> // IWYU pragma: export
+#include <mizuiro/image/format/include/interleaved_homogenous.hpp> // IWYU pragma: export
 
 #endif

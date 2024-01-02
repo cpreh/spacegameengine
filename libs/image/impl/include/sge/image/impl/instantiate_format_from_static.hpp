@@ -7,9 +7,9 @@
 #define SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/enable_if_has_format.hpp>
-#include <sge/image/impl/format_from_static_impl.hpp>
-#include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image/enable_if_has_format.hpp> // IWYU pragma: keep
+#include <sge/image/impl/format_from_static_impl.hpp> // IWYU pragma: keep
+#include <sge/image/traits/pixel/format_fwd.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_INSTANTIATE_FORMAT_FROM_STATIC(tag, format_arg) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \

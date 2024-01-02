@@ -9,7 +9,7 @@
 namespace sge::input::mouse::event
 {
 
-class base;
+class base; // IWYU pragma: export
 
 }
 

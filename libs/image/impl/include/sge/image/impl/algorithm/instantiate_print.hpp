@@ -7,9 +7,9 @@
 #define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_PRINT_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/impl/algorithm/print_impl.hpp>
-#include <sge/image/view/const_object.hpp>
-#include <fcppt/io/ostream_fwd.hpp>
+#include <sge/image/impl/algorithm/print_impl.hpp> // IWYU pragma: keep
+#include <sge/image/view/const_object.hpp> // IWYU pragma: keep
+#include <fcppt/io/ostream_fwd.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_ALGORITHM_INSTANTIATE_PRINT(tag) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION void sge::image::algorithm::print<tag>( \

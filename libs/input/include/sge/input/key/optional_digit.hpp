@@ -7,6 +7,6 @@
 #define SGE_INPUT_KEY_OPTIONAL_DIGIT_HPP_INCLUDED
 
 #include <sge/input/key/optional_digit_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

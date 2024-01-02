@@ -8,7 +8,7 @@
 
 #include <mizuiro/size_type.hpp>
 #include <mizuiro/color/format/homogenous_dynamic_decl.hpp>
-#include <mizuiro/color/format/include/homogenous_dynamic.hpp>
+#include <mizuiro/color/format/include/homogenous_dynamic.hpp> // IWYU pragma: keep
 
 namespace sge::image::color::impl::dynamic::format
 {

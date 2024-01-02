@@ -9,7 +9,7 @@
 namespace sge::log
 {
 
-class option;
+class option; // IWYU pragma: export
 
 }
 

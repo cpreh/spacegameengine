@@ -7,7 +7,7 @@
 #define SGE_AUDIO_POSITION_HPP_INCLUDED
 
 #include <sge/audio/position_fwd.hpp> // IWYU pragma: export
-#include <sge/audio/vector.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/audio/vector.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

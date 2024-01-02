@@ -10,7 +10,7 @@
 #include <sge/font/added_unique_ptr.hpp>
 #include <sge/font/object_unique_ptr.hpp>
 #include <sge/font/parameters_fwd.hpp>
-#include <sge/font/system_fwd.hpp>
+#include <sge/font/system_fwd.hpp> // IWYU pragma: keep
 #include <sge/font/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -8,7 +8,7 @@
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/font/metrics_fwd.hpp>
-#include <sge/font/object_fwd.hpp>
+#include <sge/font/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/font/string.hpp>
 #include <sge/font/text_parameters_fwd.hpp>
 #include <sge/font/text_unique_ptr.hpp>

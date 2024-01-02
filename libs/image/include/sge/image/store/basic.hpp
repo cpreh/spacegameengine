@@ -7,12 +7,12 @@
 #define SGE_IMAGE_STORE_BASIC_HPP_INCLUDED
 
 #include <sge/image/basic_dim_fwd.hpp>
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/pixel/mizuiro_type_fwd.hpp>
-#include <sge/image/store/basic_fwd.hpp>
+#include <sge/image/store/basic_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/view/mizuiro_access.hpp>
-#include <sge/image/view/mizuiro_traits.hpp>
+#include <sge/image/view/mizuiro_traits.hpp> // IWYU pragma: keep
 #include <sge/image/view/to_wrapped_type.hpp>
 #include <mizuiro/image/store_decl.hpp>
 #include <fcppt/function_impl.hpp>

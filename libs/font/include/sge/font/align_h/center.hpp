@@ -6,7 +6,7 @@
 #ifndef SGE_FONT_ALIGN_H_CENTER_HPP_INCLUDED
 #define SGE_FONT_ALIGN_H_CENTER_HPP_INCLUDED
 
-#include <sge/font/align_h/center_fwd.hpp>
+#include <sge/font/align_h/center_fwd.hpp> // IWYU pragma: keep
 #include <sge/font/align_h/max_width.hpp>
 #include <sge/font/detail/symbol.hpp>
 

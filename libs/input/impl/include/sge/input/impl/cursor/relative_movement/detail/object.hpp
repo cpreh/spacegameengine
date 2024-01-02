@@ -15,7 +15,7 @@
 #include <awl/event/container.hpp>
 #include <awl/window/event/base_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/shared_ptr_std_hash.hpp>
+#include <fcppt/shared_ptr_std_hash.hpp> // IWYU pragma: keep
 #include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>

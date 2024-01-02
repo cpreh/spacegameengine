@@ -19,6 +19,7 @@
 #include <sge/systems/impl/plugin_pair_decl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>

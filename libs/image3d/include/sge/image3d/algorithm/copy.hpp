@@ -9,7 +9,7 @@
 #include <sge/image/algorithm/declare_copy.hpp>
 #include <sge/image/algorithm/may_overlap_fwd.hpp>
 #include <sge/image/algorithm/uninitialized_fwd.hpp>
-#include <sge/image3d/tag.hpp>
+#include <sge/image3d/tag.hpp> // IWYU pragma: keep
 #include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/object_fwd.hpp>

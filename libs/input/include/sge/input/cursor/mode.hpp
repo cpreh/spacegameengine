@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_CURSOR_MODE_HPP_INCLUDED
 #define SGE_INPUT_CURSOR_MODE_HPP_INCLUDED
 
-#include <sge/input/cursor/mode_fwd.hpp>
+#include <sge/input/cursor/mode_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::input::cursor
 {

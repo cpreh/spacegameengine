@@ -6,9 +6,9 @@
 #ifndef SGE_IMAGE_DS_IMPL_FORMAT_MAP_HPP_INCLUDED
 #define SGE_IMAGE_DS_IMPL_FORMAT_MAP_HPP_INCLUDED
 
-#include <sge/image/ds/d16_format.hpp>
-#include <sge/image/ds/d24s8_format.hpp>
-#include <sge/image/ds/d32_format.hpp>
+#include <sge/image/ds/d16_format.hpp> // IWYU pragma: keep
+#include <sge/image/ds/d24s8_format.hpp> // IWYU pragma: keep
+#include <sge/image/ds/d32_format.hpp> // IWYU pragma: keep
 #include <sge/image/ds/impl/make_format_pair.hpp>
 #include <sge/image/impl/format_map.hpp>
 

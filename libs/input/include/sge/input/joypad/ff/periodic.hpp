@@ -11,7 +11,7 @@
 #include <sge/input/joypad/ff/magnitude.hpp>
 #include <sge/input/joypad/ff/offset.hpp>
 #include <sge/input/joypad/ff/period.hpp>
-#include <sge/input/joypad/ff/periodic_fwd.hpp>
+#include <sge/input/joypad/ff/periodic_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/ff/phase.hpp>
 #include <sge/input/joypad/ff/waveform.hpp>
 

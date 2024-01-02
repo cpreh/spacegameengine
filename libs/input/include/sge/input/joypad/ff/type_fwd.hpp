@@ -9,7 +9,7 @@
 namespace sge::input::joypad::ff
 {
 
-enum class type;
+enum class type; // IWYU pragma: export
 
 }
 

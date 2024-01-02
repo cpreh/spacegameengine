@@ -6,8 +6,8 @@
 #ifndef SGE_IMAGE_IMPL_VIEW_SUB_ANY_HPP_INCLUDED
 #define SGE_IMAGE_IMPL_VIEW_SUB_ANY_HPP_INCLUDED
 
-#include <sge/image/box.hpp>
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/box.hpp> // IWYU pragma: keep
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/impl/to_mizuiro_dim.hpp>
 #include <sge/image/view/wrap.hpp>
 #include <mizuiro/image/sub_view.hpp>

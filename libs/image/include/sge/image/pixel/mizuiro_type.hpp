@@ -6,8 +6,8 @@
 #ifndef SGE_IMAGE_PIXEL_MIZUIRO_TYPE_HPP_INCLUDED
 #define SGE_IMAGE_PIXEL_MIZUIRO_TYPE_HPP_INCLUDED
 
-#include <sge/image/mizuiro_color_traits.hpp>
+#include <sge/image/mizuiro_color_traits.hpp> // IWYU pragma: keep
 #include <sge/image/pixel/mizuiro_type_fwd.hpp> // IWYU pragma: export
-#include <mizuiro/color/object_impl.hpp>
+#include <mizuiro/color/object_impl.hpp> // IWYU pragma: keep
 
 #endif

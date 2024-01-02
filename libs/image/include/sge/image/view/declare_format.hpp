@@ -7,11 +7,11 @@
 #define SGE_IMAGE_VIEW_DECLARE_FORMAT_HPP_INCLUDED
 
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/image/color_tag.hpp>
-#include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/image/view/const_object_fwd.hpp>
-#include <sge/image/view/format.hpp>
-#include <sge/image/view/object_fwd.hpp>
+#include <sge/image/traits/image/color_tag.hpp> // IWYU pragma: keep
+#include <sge/image/traits/pixel/format_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/const_object_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/format.hpp> // IWYU pragma: keep
+#include <sge/image/view/object_fwd.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_VIEW_DECLARE_FORMAT(tag) \
   extern template SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL \

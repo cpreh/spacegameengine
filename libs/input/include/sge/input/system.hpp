@@ -9,7 +9,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/capabilities_field_fwd.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
-#include <sge/input/system_fwd.hpp>
+#include <sge/input/system_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/detail/symbol.hpp>
 #include <sge/window/object_ref.hpp>
 #include <fcppt/nonmovable.hpp>

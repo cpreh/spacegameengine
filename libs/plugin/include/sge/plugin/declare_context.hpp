@@ -7,7 +7,7 @@
 #define SGE_PLUGIN_DECLARE_CONTEXT_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/plugin/context.hpp>
+#include <sge/plugin/context.hpp> // IWYU pragma: keep
 
 #define SGE_PLUGIN_DECLARE_CONTEXT(plugin_type) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION sge::plugin::context<plugin_type>

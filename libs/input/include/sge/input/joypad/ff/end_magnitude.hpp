@@ -7,6 +7,6 @@
 #define SGE_INPUT_JOYPAD_FF_END_MAGNITUDE_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/end_magnitude_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

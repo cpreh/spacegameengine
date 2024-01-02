@@ -8,9 +8,9 @@
 
 #include <sge/image/view/declare_sub.hpp>
 #include <sge/image3d/box_fwd.hpp>
-#include <sge/image3d/tag.hpp>
+#include <sge/image3d/tag.hpp> // IWYU pragma: keep
 #include <sge/image3d/detail/symbol.hpp>
-#include <sge/image3d/traits/dimension.hpp>
+#include <sge/image3d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/image3d/view/const_object_fwd.hpp>
 #include <sge/image3d/view/object_fwd.hpp>
 

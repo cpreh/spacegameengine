@@ -9,7 +9,7 @@
 namespace sge::input::mouse
 {
 
-class device;
+class device; // IWYU pragma: export
 
 }
 

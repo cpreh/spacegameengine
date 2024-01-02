@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_ALGORITHM_UNINITIALIZED_HPP_INCLUDED
 #define SGE_IMAGE_ALGORITHM_UNINITIALIZED_HPP_INCLUDED
 
-#include <sge/image/algorithm/uninitialized_fwd.hpp>
+#include <sge/image/algorithm/uninitialized_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::image::algorithm
 {

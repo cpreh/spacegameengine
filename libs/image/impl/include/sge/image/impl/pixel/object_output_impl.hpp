@@ -8,7 +8,7 @@
 
 #include <sge/image/pixel/object.hpp>
 #include <sge/image/pixel/object_output.hpp>
-#include <sge/image/pixel/print.hpp>
+#include <sge/image/pixel/print.hpp> // IWYU pragma: keep
 #include <fcppt/io/ostream_fwd.hpp>
 #include <fcppt/variant/apply.hpp>
 

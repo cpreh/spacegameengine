@@ -6,7 +6,7 @@
 #ifndef SGE_INPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
 
-#include <sge/input/joypad/axis_code_fwd.hpp>
+#include <sge/input/joypad/axis_code_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::input::joypad
 {

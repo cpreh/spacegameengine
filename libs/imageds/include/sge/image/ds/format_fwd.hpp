@@ -9,7 +9,7 @@
 namespace sge::image::ds
 {
 
-enum class format;
+enum class format; // IWYU pragma: export
 
 }
 

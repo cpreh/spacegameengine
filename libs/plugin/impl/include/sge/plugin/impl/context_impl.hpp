@@ -10,7 +10,7 @@
 #include <sge/plugin/context_base_ref.hpp>
 #include <sge/plugin/info_fwd.hpp>
 #include <sge/plugin/object.hpp>
-#include <sge/plugin/impl/context_base.hpp>
+#include <sge/plugin/impl/context_base.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>

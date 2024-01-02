@@ -8,7 +8,7 @@
 
 #include <sge/image/enable_if_has_format.hpp>
 #include <sge/image/color/tag.hpp>
-#include <sge/image/color/traits/static_formats.hpp>
+#include <sge/image/color/traits/static_formats.hpp> // IWYU pragma: keep
 
 namespace sge::image::color
 {

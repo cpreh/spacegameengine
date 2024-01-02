@@ -6,8 +6,8 @@
 #ifndef SGE_IMAGE_DS_IMPL_MAKE_FORMAT_PAIR_HPP_INCLUDED
 #define SGE_IMAGE_DS_IMPL_MAKE_FORMAT_PAIR_HPP_INCLUDED
 
-#include <sge/image/ds/format.hpp>
-#include <sge/image/ds/impl/format_pair.hpp>
+#include <sge/image/ds/format.hpp> // IWYU pragma: export
+#include <sge/image/ds/impl/format_pair.hpp> // IWYU pragma: keep
 #include <sge/image/impl/make_format_pair.hpp>
 
 #define SGE_IMAGE_DS_IMPL_MAKE_FORMAT_PAIR(name) SGE_IMAGE_IMPL_MAKE_FORMAT_PAIR(ds, name)

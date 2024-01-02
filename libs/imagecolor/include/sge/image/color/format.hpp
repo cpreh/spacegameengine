@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/image/color/format_fwd.hpp>
+#include <sge/image/color/format_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

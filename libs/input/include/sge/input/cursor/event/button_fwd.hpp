@@ -9,7 +9,7 @@
 namespace sge::input::cursor::event
 {
 
-class button;
+class button; // IWYU pragma: export
 
 }
 

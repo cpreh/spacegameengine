@@ -8,9 +8,9 @@
 
 #include <sge/image/view/declare_size.hpp>
 #include <sge/image2d/dim.hpp>
-#include <sge/image2d/tag.hpp>
+#include <sge/image2d/tag.hpp> // IWYU pragma: keep
 #include <sge/image2d/detail/symbol.hpp>
-#include <sge/image2d/traits/dimension.hpp>
+#include <sge/image2d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/image2d/view/object_fwd.hpp>
 

@@ -19,7 +19,7 @@
 #include <fcppt/either/make_success.hpp>
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iomanip>
+#include <ios>
 #include <sstream>
 #include <string>
 #include <fcppt/config/external_end.hpp>

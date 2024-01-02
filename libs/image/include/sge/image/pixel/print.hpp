@@ -6,6 +6,6 @@
 #ifndef SGE_IMAGE_PIXEL_PRINT_HPP_INCLUDED
 #define SGE_IMAGE_PIXEL_PRINT_HPP_INCLUDED
 
-#include <mizuiro/color/output.hpp>
+#include <mizuiro/color/output.hpp> // IWYU pragma: export
 
 #endif

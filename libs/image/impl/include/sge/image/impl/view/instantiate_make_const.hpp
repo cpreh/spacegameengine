@@ -7,13 +7,13 @@
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE_CONST_HPP_INCLUDED
 
 #include <sge/core/impl/export_function_instantiation.hpp>
-#include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/dim_fwd.hpp>
-#include <sge/image/pitch_fwd.hpp>
-#include <sge/image/impl/view/make_const_impl.hpp>
-#include <sge/image/traits/image/color_tag.hpp>
-#include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/image/view/const_object.hpp>
+#include <sge/image/const_raw_pointer.hpp> // IWYU pragma: keep
+#include <sge/image/dim_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/pitch_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/impl/view/make_const_impl.hpp> // IWYU pragma: keep
+#include <sge/image/traits/image/color_tag.hpp> // IWYU pragma: keep
+#include <sge/image/traits/pixel/format_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/const_object.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_IMPL_VIEW_INSTANTIATE_MAKE_CONST(Tag) \
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION sge::image::view::const_object<Tag> \

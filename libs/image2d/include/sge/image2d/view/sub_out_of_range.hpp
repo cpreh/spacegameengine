@@ -9,7 +9,7 @@
 #include <sge/image/view/declare_sub_out_of_range.hpp>
 #include <sge/image/view/sub_out_of_range.hpp>
 #include <sge/image2d/tag.hpp>
-#include <sge/image2d/traits/dimension.hpp>
+#include <sge/image2d/traits/dimension.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

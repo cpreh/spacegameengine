@@ -9,7 +9,7 @@
 namespace sge::imageds2d
 {
 
-struct tag;
+struct tag; // IWYU pragma: export
 
 }
 

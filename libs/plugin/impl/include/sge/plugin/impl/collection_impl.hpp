@@ -8,8 +8,8 @@
 
 #include <sge/plugin/category_array.hpp>
 #include <sge/plugin/collection.hpp>
-#include <sge/plugin/context.hpp>
-#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/context.hpp> // IWYU pragma: keep
+#include <sge/plugin/iterator.hpp> // IWYU pragma: keep
 #include <fcppt/reference_impl.hpp>
 
 template <typename Type>

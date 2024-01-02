@@ -6,12 +6,12 @@
 #ifndef SGE_PLUGIN_LIBRARY_MAKE_INTERFACE_HPP_INCLUDED
 #define SGE_PLUGIN_LIBRARY_MAKE_INTERFACE_HPP_INCLUDED
 
-#include <sge/plugin/info.hpp>
-#include <sge/plugin/library/function_map.hpp>
+#include <sge/plugin/info.hpp> // IWYU pragma: keep
+#include <sge/plugin/library/function_map.hpp> // IWYU pragma: keep
 #include <sge/plugin/library/detail/interface_post.hpp>
 #include <sge/plugin/library/detail/interface_pre.hpp>
 #include <sge/plugin/library/detail/iterate_functions.hpp>
-#include <sge/plugin/library/detail/make_version_function.hpp>
+#include <sge/plugin/library/detail/make_version_function.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

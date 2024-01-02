@@ -7,7 +7,7 @@
 #define SGE_INPUT_JOYPAD_FF_OPTIONAL_TRIGGER_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/optional_trigger_fwd.hpp> // IWYU pragma: export
-#include <sge/input/joypad/ff/trigger.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <sge/input/joypad/ff/trigger.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

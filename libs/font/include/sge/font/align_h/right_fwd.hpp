@@ -9,7 +9,7 @@
 namespace sge::font::align_h
 {
 
-class right;
+class right; // IWYU pragma: export
 
 }
 

@@ -6,6 +6,7 @@
 #ifndef SGE_IMAGE_COLOR_RGBA8_FROM_HEX_STRING_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_RGBA8_FROM_HEX_STRING_HPP_INCLUDED
 
+#include <sge/image/color/rgb8.hpp>
 #include <sge/image/color/rgb8_from_hex_string.hpp>
 #include <sge/image/color/rgba8.hpp>
 #include <sge/image/color/init/alpha.hpp>

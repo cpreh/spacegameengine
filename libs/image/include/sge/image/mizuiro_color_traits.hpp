@@ -6,7 +6,7 @@
 #ifndef SGE_IMAGE_MIZUIRO_COLOR_TRAITS_HPP_INCLUDED
 #define SGE_IMAGE_MIZUIRO_COLOR_TRAITS_HPP_INCLUDED
 
-#include <mizuiro/color/format/include/heterogenous_static.hpp>
-#include <mizuiro/color/format/include/homogenous_static.hpp>
+#include <mizuiro/color/format/include/heterogenous_static.hpp> // IWYU pragma: export
+#include <mizuiro/color/format/include/homogenous_static.hpp> // IWYU pragma: export
 
 #endif

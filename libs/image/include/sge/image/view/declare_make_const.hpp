@@ -6,14 +6,14 @@
 #ifndef SGE_IMAGE_VIEW_DECLARE_MAKE_CONST_HPP_INCLUDED
 #define SGE_IMAGE_VIEW_DECLARE_MAKE_CONST_HPP_INCLUDED
 
-#include <sge/image/const_raw_pointer.hpp>
-#include <sge/image/dim_fwd.hpp>
-#include <sge/image/pitch_fwd.hpp>
+#include <sge/image/const_raw_pointer.hpp> // IWYU pragma: keep
+#include <sge/image/dim_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/pitch_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/detail/instantiate/symbol.hpp>
-#include <sge/image/traits/image/color_tag.hpp>
-#include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/image/view/const_object.hpp>
-#include <sge/image/view/make_const.hpp>
+#include <sge/image/traits/image/color_tag.hpp> // IWYU pragma: keep
+#include <sge/image/traits/pixel/format_fwd.hpp> // IWYU pragma: keep
+#include <sge/image/view/const_object.hpp> // IWYU pragma: keep
+#include <sge/image/view/make_const.hpp> // IWYU pragma: keep
 
 #define SGE_IMAGE_VIEW_DECLARE_MAKE_CONST(tag) \
   extern template SGE_IMAGE_DETAIL_INSTANTIATE_SYMBOL sge::image::view::const_object<tag> \
