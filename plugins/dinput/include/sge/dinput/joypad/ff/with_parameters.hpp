@@ -26,6 +26,7 @@
 #include <fcppt/literal.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 #include <fcppt/strong_typedef_output.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
