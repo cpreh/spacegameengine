@@ -8,6 +8,8 @@
 
 #include <awl/backends/wayland/registry_id.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
+#include <fcppt/strong_typedef_std_hash.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
