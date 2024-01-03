@@ -10,7 +10,7 @@ namespace sge::renderer::vf
 {
 
 template <typename Part, typename Constness>
-class iterator;
+class iterator; // IWYU pragma: export
 
 }
 

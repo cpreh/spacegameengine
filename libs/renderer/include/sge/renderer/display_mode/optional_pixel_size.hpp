@@ -7,7 +7,7 @@
 #define SGE_RENDERER_DISPLAY_MODE_OPTIONAL_PIXEL_SIZE_HPP_INCLUDED
 
 #include <sge/renderer/display_mode/optional_pixel_size_fwd.hpp> // IWYU pragma: export
-#include <sge/renderer/display_mode/pixel_size.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <sge/renderer/display_mode/pixel_size.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

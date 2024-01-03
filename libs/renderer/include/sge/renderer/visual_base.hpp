@@ -7,7 +7,7 @@
 #define SGE_RENDERER_VISUAL_BASE_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/visual_base_fwd.hpp>
+#include <sge/renderer/visual_base_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
 #include <fcppt/nonmovable.hpp>

@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_CLEAR_OPTIONAL_BACK_BUFFER_HPP_INCLUDED
 #define SGE_RENDERER_CLEAR_OPTIONAL_BACK_BUFFER_HPP_INCLUDED
 
-#include <sge/renderer/clear/back_buffer_value.hpp>
+#include <sge/renderer/clear/back_buffer_value.hpp> // IWYU pragma: keep
 #include <sge/renderer/clear/optional_back_buffer_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

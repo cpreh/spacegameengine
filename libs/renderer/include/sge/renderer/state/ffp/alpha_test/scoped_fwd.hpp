@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::alpha_test
 {
 
-class scoped;
+class scoped; // IWYU pragma: export
 
 }
 

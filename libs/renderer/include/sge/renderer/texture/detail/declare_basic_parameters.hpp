@@ -7,7 +7,7 @@
 #define SGE_RENDERER_TEXTURE_DETAIL_DECLARE_BASIC_PARAMETERS_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/renderer/texture/basic_parameters.hpp>
+#include <sge/renderer/texture/basic_parameters.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_TEXTURE_DETAIL_DECLARE_BASIC_PARAMETERS(dim_param, format_param) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \

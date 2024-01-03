@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::blend
 {
 
-class write_mask;
+class write_mask; // IWYU pragma: export
 
 }
 

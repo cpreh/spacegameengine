@@ -6,9 +6,9 @@
 #ifndef SGE_RENDERER_INDEX_CONST_PROXY_DECL_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_CONST_PROXY_DECL_HPP_INCLUDED
 
-#include <sge/renderer/index/const_proxy_fwd.hpp>
+#include <sge/renderer/index/const_proxy_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/const_tag.hpp>
-#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/format.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/is_format.hpp>
 #include <sge/renderer/index/pointer.hpp>
 

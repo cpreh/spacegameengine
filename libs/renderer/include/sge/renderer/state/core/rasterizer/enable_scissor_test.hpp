@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_ENABLE_SCISSOR_TEST_HPP_INCLUDED
 
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::rasterizer
 {

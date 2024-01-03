@@ -8,7 +8,7 @@
 
 #include <sge/renderer/state/core/sampler/address/mode.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::sampler::address
 {

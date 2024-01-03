@@ -10,7 +10,7 @@ namespace sge::renderer::index
 {
 
 template <typename Format, typename Constness>
-class iterator;
+class iterator; // IWYU pragma: export
 
 }
 

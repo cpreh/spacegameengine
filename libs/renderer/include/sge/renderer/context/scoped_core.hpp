@@ -8,7 +8,7 @@
 
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
-#include <sge/renderer/context/scoped_core_fwd.hpp>
+#include <sge/renderer/context/scoped_core_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/base_ref.hpp>

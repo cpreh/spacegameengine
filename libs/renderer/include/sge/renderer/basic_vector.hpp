@@ -7,6 +7,6 @@
 #define SGE_RENDERER_BASIC_VECTOR_HPP_INCLUDED
 
 #include <sge/renderer/basic_vector_fwd.hpp> // IWYU pragma: export
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/static.hpp> // IWYU pragma: keep
 
 #endif

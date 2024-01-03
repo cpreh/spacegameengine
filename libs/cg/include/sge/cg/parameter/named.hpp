@@ -7,7 +7,7 @@
 #define SGE_CG_PARAMETER_NAMED_HPP_INCLUDED
 
 #include <sge/cg/detail/symbol.hpp>
-#include <sge/cg/parameter/named_fwd.hpp>
+#include <sge/cg/parameter/named_fwd.hpp> // IWYU pragma: keep
 #include <sge/cg/parameter/object.hpp>
 
 namespace sge::cg::parameter

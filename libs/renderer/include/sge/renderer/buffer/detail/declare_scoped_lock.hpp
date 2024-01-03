@@ -7,7 +7,7 @@
 #define SGE_RENDERER_BUFFER_DETAIL_DECLARE_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/renderer/buffer/scoped_lock.hpp>
+#include <sge/renderer/buffer/scoped_lock.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_BUFFER_DETAIL_DECLARE_SCOPED_LOCK(tag) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \

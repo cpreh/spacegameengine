@@ -6,9 +6,9 @@
 #ifndef SGE_RENDERER_IMPL_BUFFER_WRITABLE_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_BUFFER_WRITABLE_IMPL_HPP_INCLUDED
 
-#include <sge/image/view/object.hpp>
-#include <sge/renderer/basic_dim.hpp>
-#include <sge/renderer/basic_lock_box.hpp>
+#include <sge/image/view/object.hpp> // IWYU pragma: keep
+#include <sge/renderer/basic_dim.hpp> // IWYU pragma: keep
+#include <sge/renderer/basic_lock_box.hpp> // IWYU pragma: keep
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/buffer/writable.hpp>
 #include <fcppt/math/vector/null.hpp>

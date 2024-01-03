@@ -7,7 +7,7 @@
 #define SGE_RENDERER_INDEX_ITERATOR_HPP_INCLUDED
 
 #include <sge/renderer/index/iterator_decl.hpp> // IWYU pragma: export
-#include <sge/renderer/index/iterator_fwd.hpp>
-#include <sge/renderer/index/iterator_impl.hpp>
+#include <sge/renderer/index/iterator_fwd.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/iterator_impl.hpp> // IWYU pragma: keep
 
 #endif

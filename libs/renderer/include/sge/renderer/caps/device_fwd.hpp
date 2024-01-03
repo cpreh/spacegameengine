@@ -9,7 +9,7 @@
 namespace sge::renderer::caps
 {
 
-class device;
+class device; // IWYU pragma: export
 
 }
 

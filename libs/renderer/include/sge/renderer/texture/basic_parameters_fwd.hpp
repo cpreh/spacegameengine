@@ -10,7 +10,7 @@ namespace sge::renderer::texture
 {
 
 template <typename Dim, typename Format>
-class basic_parameters;
+class basic_parameters; // IWYU pragma: export
 
 }
 

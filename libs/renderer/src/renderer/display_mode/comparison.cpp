@@ -5,6 +5,7 @@
 
 #include <sge/renderer/display_mode/comparison.hpp>
 #include <sge/renderer/display_mode/object.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/math/dim/comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/optional/comparison.hpp>
 

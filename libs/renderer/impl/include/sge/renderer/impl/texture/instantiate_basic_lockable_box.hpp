@@ -7,7 +7,7 @@
 #define SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_LOCKABLE_BOX_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/renderer/impl/texture/basic_lockable_box_impl.hpp>
+#include <sge/renderer/impl/texture/basic_lockable_box_impl.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_LOCKABLE_BOX(tag) \
   template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \

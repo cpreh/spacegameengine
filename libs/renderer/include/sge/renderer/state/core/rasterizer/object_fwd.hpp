@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::rasterizer
 {
 
-class object;
+class object; // IWYU pragma: export
 
 }
 

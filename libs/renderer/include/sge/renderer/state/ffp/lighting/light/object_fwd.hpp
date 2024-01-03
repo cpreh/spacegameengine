@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::lighting::light
 {
 
-class object;
+class object; // IWYU pragma: export
 
 }
 

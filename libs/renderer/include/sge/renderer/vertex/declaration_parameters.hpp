@@ -7,7 +7,7 @@
 #define SGE_RENDERER_VERTEX_DECLARATION_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/vertex/declaration_parameters_fwd.hpp>
+#include <sge/renderer/vertex/declaration_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/dynamic/format.hpp>
 
 namespace sge::renderer::vertex

@@ -10,7 +10,7 @@
 #include <sge/renderer/state/ffp/misc/enable_point_sprites.hpp>
 #include <sge/renderer/state/ffp/misc/local_viewer.hpp>
 #include <sge/renderer/state/ffp/misc/normalize_normals.hpp>
-#include <sge/renderer/state/ffp/misc/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/misc/parameters_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::ffp::misc
 {

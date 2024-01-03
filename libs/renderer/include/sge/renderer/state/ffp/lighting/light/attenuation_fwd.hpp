@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::lighting::light
 {
 
-class attenuation;
+class attenuation; // IWYU pragma: export
 
 }
 

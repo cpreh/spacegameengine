@@ -9,7 +9,7 @@
 namespace sge::renderer
 {
 
-class system;
+class system; // IWYU pragma: export
 
 }
 

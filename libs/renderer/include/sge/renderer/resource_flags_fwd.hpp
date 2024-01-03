@@ -9,7 +9,7 @@
 namespace sge::renderer
 {
 
-enum class resource_flags;
+enum class resource_flags; // IWYU pragma: export
 
 }
 

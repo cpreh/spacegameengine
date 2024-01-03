@@ -9,7 +9,7 @@
 namespace sge::renderer
 {
 
-enum class lock_mode;
+enum class lock_mode; // IWYU pragma: export
 
 }
 

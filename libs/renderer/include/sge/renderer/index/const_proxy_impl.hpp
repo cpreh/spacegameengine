@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_INDEX_CONST_PROXY_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_CONST_PROXY_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/index/const_proxy_decl.hpp>
+#include <sge/renderer/index/const_proxy_decl.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>

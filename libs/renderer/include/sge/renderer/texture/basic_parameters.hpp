@@ -8,7 +8,7 @@
 
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/texture/basic_parameters_fwd.hpp>
+#include <sge/renderer/texture/basic_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/capabilities_field.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 

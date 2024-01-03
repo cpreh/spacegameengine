@@ -8,7 +8,6 @@
 
 #include <sge/renderer/screen_size_fwd.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
 
 namespace sge::renderer::display_mode
 {

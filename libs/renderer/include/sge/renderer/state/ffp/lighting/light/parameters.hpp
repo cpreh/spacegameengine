@@ -10,7 +10,7 @@
 #include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
 #include <sge/renderer/state/ffp/lighting/diffuse_color.hpp>
 #include <sge/renderer/state/ffp/lighting/specular_color.hpp>
-#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/lighting/light/variant.hpp>
 
 namespace sge::renderer::state::ffp::lighting::light

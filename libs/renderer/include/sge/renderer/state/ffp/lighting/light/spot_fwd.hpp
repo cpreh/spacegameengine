@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::lighting::light
 {
 
-class spot;
+class spot; // IWYU pragma: export
 
 }
 

@@ -9,7 +9,7 @@
 namespace sge::renderer::occlusion_query
 {
 
-class scoped;
+class scoped; // IWYU pragma: export
 
 }
 

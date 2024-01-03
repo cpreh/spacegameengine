@@ -9,7 +9,7 @@
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/const_buffer_ref.hpp>
-#include <sge/renderer/vertex/scoped_buffer_fwd.hpp>
+#include <sge/renderer/vertex/scoped_buffer_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::renderer::vertex

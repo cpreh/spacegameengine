@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::transform
 {
 
-class scoped;
+class scoped; // IWYU pragma: export
 
 }
 

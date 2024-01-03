@@ -6,9 +6,9 @@
 #ifndef SGE_RENDERER_STATE_FFP_ALPHA_TEST_VARIANT_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_VARIANT_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/alpha_test/enabled.hpp>
-#include <sge/renderer/state/ffp/alpha_test/off.hpp>
+#include <sge/renderer/state/ffp/alpha_test/enabled.hpp> // IWYU pragma: keep
+#include <sge/renderer/state/ffp/alpha_test/off.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/alpha_test/variant_fwd.hpp> // IWYU pragma: export
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

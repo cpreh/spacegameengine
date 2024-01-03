@@ -26,6 +26,7 @@
 #include <awl/backends/x11/window/base.hpp>
 #include <awl/backends/x11/window/rect.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/math/box/intersects.hpp>
 #include <fcppt/math/dim/comparison.hpp> // NOLINT(misc-include-cleaner)

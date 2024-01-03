@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_IMPL_TEXTURE_BASIC_LOCKABLE_BOX_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_TEXTURE_BASIC_LOCKABLE_BOX_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/basic_dim.hpp>
-#include <sge/renderer/buffer/readable.hpp>
+#include <sge/renderer/basic_dim.hpp> // IWYU pragma: keep
+#include <sge/renderer/buffer/readable.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/basic_lockable_box.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>

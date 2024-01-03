@@ -6,11 +6,11 @@
 #ifndef SGE_RENDERER_VF_VERTEX_DECL_HPP_INCLUDED
 #define SGE_RENDERER_VF_VERTEX_DECL_HPP_INCLUDED
 
-#include <sge/renderer/vf/vertex_fwd.hpp>
+#include <sge/renderer/vf/vertex_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/detail/vertex.hpp>
 #include <fcppt/record/enable_vararg_ctor.hpp>
 #include <fcppt/record/label_value_type.hpp>
-#include <fcppt/record/object_impl.hpp>
+#include <fcppt/record/object_impl.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::vf
 {

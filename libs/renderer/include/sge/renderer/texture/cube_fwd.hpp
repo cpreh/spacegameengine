@@ -9,7 +9,7 @@
 namespace sge::renderer::texture
 {
 
-class cube;
+class cube; // IWYU pragma: export
 
 }
 

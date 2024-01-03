@@ -7,6 +7,6 @@
 #define SGE_RENDERER_DISPLAY_MODE_DPI_HPP_INCLUDED
 
 #include <sge/renderer/display_mode/dpi_fwd.hpp> // IWYU pragma: export
-#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/dim/static.hpp> // IWYU pragma: keep
 
 #endif

@@ -10,7 +10,7 @@ namespace sge::renderer::index
 {
 
 template <typename Format>
-class proxy;
+class proxy; // IWYU pragma: export
 
 }
 

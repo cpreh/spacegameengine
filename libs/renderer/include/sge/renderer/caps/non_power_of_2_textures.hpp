@@ -7,7 +7,7 @@
 #define SGE_RENDERER_CAPS_NON_POWER_OF_2_TEXTURES_HPP_INCLUDED
 
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::caps
 {

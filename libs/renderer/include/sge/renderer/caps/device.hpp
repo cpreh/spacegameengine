@@ -8,7 +8,7 @@
 
 #include <sge/renderer/caps/clip_plane_indices.hpp>
 #include <sge/renderer/caps/description.hpp>
-#include <sge/renderer/caps/device_fwd.hpp>
+#include <sge/renderer/caps/device_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/caps/driver_name.hpp>
 #include <sge/renderer/caps/light_indices.hpp>
 #include <sge/renderer/caps/max_anisotropy.hpp>

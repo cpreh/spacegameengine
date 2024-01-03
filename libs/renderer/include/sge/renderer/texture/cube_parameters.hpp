@@ -7,7 +7,6 @@
 #define SGE_RENDERER_TEXTURE_CUBE_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/size_type.hpp>
-#include <sge/renderer/texture/basic_parameters.hpp>
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/texture/detail/declare_basic_parameters.hpp>

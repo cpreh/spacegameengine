@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::sampler::filter
 {
 
-class parameters;
+class parameters; // IWYU pragma: export
 
 }
 

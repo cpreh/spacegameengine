@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_ENABLED_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/enabled_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/core/depth_stencil/stencil/enabled_variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/read_mask.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/ref.hpp>

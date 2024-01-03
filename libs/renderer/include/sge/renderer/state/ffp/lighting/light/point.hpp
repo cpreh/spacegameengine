@@ -8,7 +8,7 @@
 
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/light/attenuation.hpp>
-#include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/point_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/lighting/light/position.hpp>
 
 namespace sge::renderer::state::ffp::lighting::light

@@ -9,7 +9,7 @@
 namespace sge::renderer::pixel_format
 {
 
-enum class srgb;
+enum class srgb; // IWYU pragma: export
 
 }
 

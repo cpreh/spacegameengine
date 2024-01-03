@@ -10,7 +10,7 @@ namespace sge::renderer::vf
 {
 
 template <typename Format, typename Index>
-struct extra;
+struct extra; // IWYU pragma: export
 
 }
 

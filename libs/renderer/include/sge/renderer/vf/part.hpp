@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_VF_PART_HPP_INCLUDED
 #define SGE_RENDERER_VF_PART_HPP_INCLUDED
 
-#include <sge/renderer/vf/part_fwd.hpp>
+#include <sge/renderer/vf/part_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/detail/element_stride.hpp>
 #include <sge/renderer/vf/detail/partial_sums.hpp>
 #include <fcppt/mpl/lambda.hpp>

@@ -11,11 +11,11 @@
 #include <sge/renderer/buffer/detail/declare_writable.hpp>
 #include <sge/renderer/index/buffer_base_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/index/tag.hpp>
-#include <sge/renderer/index/traits/color_tag.hpp>
-#include <sge/renderer/index/traits/const_view_fwd.hpp>
-#include <sge/renderer/index/traits/dimension.hpp>
-#include <sge/renderer/index/traits/format_fwd.hpp>
-#include <sge/renderer/index/traits/view_fwd.hpp>
+#include <sge/renderer/index/traits/color_tag.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/traits/const_view_fwd.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/traits/dimension.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/traits/format_fwd.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/traits/view_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

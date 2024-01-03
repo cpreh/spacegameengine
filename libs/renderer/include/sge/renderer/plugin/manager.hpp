@@ -7,7 +7,7 @@
 #define SGE_RENDERER_PLUGIN_MANAGER_HPP_INCLUDED
 
 #include <sge/plugin/declare_manager.hpp>
-#include <sge/renderer/core_fwd.hpp>
+#include <sge/renderer/core_fwd.hpp> // IWYU pragma: keep
 
 SGE_PLUGIN_DECLARE_MANAGER(sge::renderer::core);
 

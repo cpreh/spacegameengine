@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_CLEAR_BACK_BUFFER_VALUE_HPP_INCLUDED
 #define SGE_RENDERER_CLEAR_BACK_BUFFER_VALUE_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
+#include <sge/image/color/any/object.hpp> // IWYU pragma: keep
 #include <sge/renderer/clear/back_buffer_value_fwd.hpp> // IWYU pragma: export
 
 #endif

@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/core/depth_stencil/depth/variant.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/variant.hpp>
 

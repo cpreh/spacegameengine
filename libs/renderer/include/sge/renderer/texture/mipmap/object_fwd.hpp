@@ -9,7 +9,7 @@
 namespace sge::renderer::texture::mipmap
 {
 
-class object;
+class object; // IWYU pragma: export
 
 }
 

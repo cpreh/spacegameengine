@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::blend
 {
 
-class alpha_off;
+class alpha_off; // IWYU pragma: export
 
 }
 

@@ -10,7 +10,7 @@
 #include <sge/renderer/state/core/sampler/address/mode_s.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_t.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_u.hpp>
-#include <sge/renderer/state/core/sampler/address/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/address/parameters_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::sampler::address
 {

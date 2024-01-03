@@ -11,6 +11,7 @@
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/make_int_range_count.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/config/external_begin.hpp>

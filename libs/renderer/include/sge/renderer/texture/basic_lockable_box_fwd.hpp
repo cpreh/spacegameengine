@@ -10,7 +10,7 @@ namespace sge::renderer::texture
 {
 
 template <typename Tag>
-class basic_lockable_box;
+class basic_lockable_box; // IWYU pragma: export
 
 }
 

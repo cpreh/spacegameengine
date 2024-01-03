@@ -7,7 +7,7 @@
 #define SGE_CG_PARAMETER_OBJECT_HPP_INCLUDED
 
 #include <sge/cg/detail/symbol.hpp>
-#include <sge/cg/parameter/object_fwd.hpp>
+#include <sge/cg/parameter/object_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>

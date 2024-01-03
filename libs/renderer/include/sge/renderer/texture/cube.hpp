@@ -12,7 +12,7 @@
 #include <sge/renderer/color_buffer/writable_surface_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/base.hpp>
-#include <sge/renderer/texture/cube_fwd.hpp>
+#include <sge/renderer/texture/cube_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/cube_side_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/nonmovable.hpp>

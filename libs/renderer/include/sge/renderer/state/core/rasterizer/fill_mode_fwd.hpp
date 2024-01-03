@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::rasterizer
 {
 
-enum class fill_mode;
+enum class fill_mode; // IWYU pragma: export
 
 }
 

@@ -9,7 +9,7 @@
 #include <sge/plugin/declare_object.hpp>
 #include <sge/renderer/core_fwd.hpp>
 #include <sge/renderer/plugin/object_fwd.hpp> // IWYU pragma: export
-#include <sge/renderer/plugin/traits.hpp>
+#include <sge/renderer/plugin/traits.hpp> // IWYU pragma: keep
 
 SGE_PLUGIN_DECLARE_OBJECT(sge::renderer::core);
 

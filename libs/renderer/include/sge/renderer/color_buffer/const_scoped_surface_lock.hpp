@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_COLOR_BUFFER_CONST_SCOPED_SURFACE_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_BUFFER_CONST_SCOPED_SURFACE_LOCK_HPP_INCLUDED
 
-#include <sge/image2d/traits/dimension.hpp>
-#include <sge/image2d/view/const_object.hpp>
+#include <sge/image2d/traits/dimension.hpp> // IWYU pragma: keep
+#include <sge/image2d/view/const_object.hpp> // IWYU pragma: keep
 #include <sge/renderer/buffer/detail/declare_const_scoped_lock.hpp>
 #include <sge/renderer/color_buffer/const_scoped_surface_lock_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>

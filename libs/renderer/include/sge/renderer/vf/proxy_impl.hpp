@@ -6,7 +6,8 @@
 #ifndef SGE_RENDERER_VF_PROXY_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_VF_PROXY_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/vf/proxy_decl.hpp>
+#include <sge/renderer/vf/label_value_type.hpp>
+#include <sge/renderer/vf/proxy_decl.hpp> // IWYU pragma: export
 #include <sge/renderer/vf/to_packed_type.hpp>
 #include <sge/renderer/vf/detail/copy_n.hpp>
 #include <sge/renderer/vf/detail/element_index.hpp>
@@ -16,7 +17,7 @@
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // IWYU pragma: keep
 #include <fcppt/mpl/list/at.hpp>
 #include <fcppt/mpl/set/to_list.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>

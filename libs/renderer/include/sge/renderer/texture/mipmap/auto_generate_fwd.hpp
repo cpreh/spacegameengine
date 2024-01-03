@@ -9,7 +9,7 @@
 namespace sge::renderer::texture::mipmap
 {
 
-enum class auto_generate;
+enum class auto_generate; // IWYU pragma: export
 
 }
 

@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_INDEX_DETAIL_PP_FORMATS_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DETAIL_PP_FORMATS_HPP_INCLUDED
 
-#include <sge/renderer/index/format_16.hpp>
-#include <sge/renderer/index/format_32.hpp>
+#include <sge/renderer/index/format_16.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/format_32.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_INDEX_DETAIL_PP_FORMATS \
   (sge::renderer::index::format_16)(sge::renderer::index::format_32)

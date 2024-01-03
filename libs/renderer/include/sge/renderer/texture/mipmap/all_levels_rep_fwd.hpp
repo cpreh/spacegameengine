@@ -9,7 +9,7 @@
 namespace sge::renderer::texture::mipmap
 {
 
-class all_levels_rep;
+class all_levels_rep; // IWYU pragma: export
 
 }
 

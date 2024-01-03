@@ -9,7 +9,7 @@
 namespace sge::renderer::context
 {
 
-class scoped_offscreen_target;
+class scoped_offscreen_target; // IWYU pragma: export
 
 }
 

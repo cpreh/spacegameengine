@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/display_mode/optional_fullscreen.hpp>
 #include <sge/renderer/display_mode/optional_object_fwd.hpp>
-#include <sge/renderer/display_mode/parameters_fwd.hpp>
+#include <sge/renderer/display_mode/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/display_mode/vsync.hpp>
 
 namespace sge::renderer::display_mode

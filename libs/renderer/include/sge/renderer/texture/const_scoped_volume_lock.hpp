@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_TEXTURE_CONST_SCOPED_VOLUME_LOCK_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CONST_SCOPED_VOLUME_LOCK_HPP_INCLUDED
 
-#include <sge/renderer/color_buffer/const_scoped_volume_lock.hpp>
-#include <sge/renderer/texture/const_basic_scoped_lock.hpp>
-#include <sge/renderer/texture/const_scoped_volume_lock_fwd.hpp>
+#include <sge/renderer/color_buffer/const_scoped_volume_lock.hpp> // IWYU pragma: keep
+#include <sge/renderer/texture/const_basic_scoped_lock.hpp> // IWYU pragma: keep
+#include <sge/renderer/texture/const_scoped_volume_lock_fwd.hpp> // IWYU pragma: export
 
 #endif

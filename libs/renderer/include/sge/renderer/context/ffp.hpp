@@ -8,6 +8,7 @@
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/ffp_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/alpha_test/const_optional_object_ref_fwd.hpp>
 #include <sge/renderer/state/ffp/clip_plane/const_object_ref_vector.hpp>

@@ -10,7 +10,7 @@
 #include <sge/renderer/color_buffer/readable_surface_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/onscreen_fwd.hpp>
+#include <sge/renderer/target/onscreen_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::renderer::target

@@ -11,7 +11,7 @@
 #include <sge/renderer/vf/is_part.hpp>
 #include <sge/renderer/vf/iterator_fwd.hpp>
 #include <sge/renderer/vf/pointer.hpp>
-#include <sge/renderer/vf/view_fwd.hpp>
+#include <sge/renderer/vf/view_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
 
 namespace sge::renderer::vf

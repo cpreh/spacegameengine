@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/alpha_test/variant.hpp>
 
 namespace sge::renderer::state::ffp::alpha_test

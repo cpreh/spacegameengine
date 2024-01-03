@@ -11,7 +11,7 @@
 #include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/base.hpp>
-#include <sge/renderer/texture/depth_stencil_fwd.hpp>
+#include <sge/renderer/texture/depth_stencil_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/nonmovable.hpp>
 

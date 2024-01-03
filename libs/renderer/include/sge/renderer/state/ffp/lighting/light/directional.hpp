@@ -8,7 +8,7 @@
 
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/light/direction.hpp>
-#include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/directional_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::ffp::lighting::light
 {

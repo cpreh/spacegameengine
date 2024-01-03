@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_VECTOR3_HPP_INCLUDED
 #define SGE_RENDERER_VECTOR3_HPP_INCLUDED
 
-#include <sge/renderer/basic_vector.hpp>
+#include <sge/renderer/basic_vector.hpp> // IWYU pragma: keep
 #include <sge/renderer/vector3_fwd.hpp> // IWYU pragma: export
 
 #endif

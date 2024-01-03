@@ -9,7 +9,7 @@
 namespace sge::renderer::vf::dynamic
 {
 
-class format;
+class format; // IWYU pragma: export
 
 }
 

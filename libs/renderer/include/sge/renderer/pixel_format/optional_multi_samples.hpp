@@ -7,6 +7,6 @@
 #define SGE_RENDERER_PIXEL_FORMAT_OPTIONAL_MULTI_SAMPLES_HPP_INCLUDED
 
 #include <sge/renderer/pixel_format/optional_multi_samples_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

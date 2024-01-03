@@ -9,7 +9,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/texture/base_fwd.hpp>
+#include <sge/renderer/texture/base_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/capabilities_field_fwd.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>

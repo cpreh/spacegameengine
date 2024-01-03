@@ -10,7 +10,7 @@ namespace sge::renderer::vf
 {
 
 template <typename... Elements>
-struct part;
+struct part; // IWYU pragma: export
 
 }
 

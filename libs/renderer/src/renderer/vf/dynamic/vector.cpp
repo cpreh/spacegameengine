@@ -6,6 +6,7 @@
 #include <sge/renderer/vf/dynamic/element_count.hpp>
 #include <sge/renderer/vf/dynamic/element_type.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 
 sge::renderer::vf::dynamic::vector::vector(
     sge::renderer::vf::dynamic::element_type const _element_type,

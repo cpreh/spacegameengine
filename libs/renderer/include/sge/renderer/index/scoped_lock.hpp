@@ -9,12 +9,13 @@
 #include <sge/renderer/lock_mode_fwd.hpp>
 #include <sge/renderer/buffer/scoped_lock.hpp>
 #include <sge/renderer/buffer/detail/declare_scoped_lock.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/buffer_ref.hpp>
 #include <sge/renderer/index/scoped_lock_fwd.hpp>
 #include <sge/renderer/index/tag.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
-#include <sge/renderer/index/traits/dimension.hpp>
-#include <sge/renderer/index/traits/view_fwd.hpp>
+#include <sge/renderer/index/dynamic/view.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/traits/dimension.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/traits/view_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 SGE_RENDERER_BUFFER_DETAIL_DECLARE_SCOPED_LOCK(sge::renderer::index::tag);

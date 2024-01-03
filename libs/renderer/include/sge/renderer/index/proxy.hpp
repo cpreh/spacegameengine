@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_INDEX_PROXY_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_PROXY_HPP_INCLUDED
 
-#include <sge/renderer/index/proxy_decl.hpp>
-#include <sge/renderer/index/proxy_fwd.hpp>
-#include <sge/renderer/index/proxy_impl.hpp>
+#include <sge/renderer/index/proxy_decl.hpp> // IWYU pragma: export
+#include <sge/renderer/index/proxy_fwd.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/proxy_impl.hpp> // IWYU pragma: keep
 
 #endif

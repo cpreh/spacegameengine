@@ -7,6 +7,6 @@
 #define SGE_RENDERER_TEXTURE_MIPMAP_VARIANT_HPP_INCLUDED
 
 #include <sge/renderer/texture/mipmap/variant_fwd.hpp> // IWYU pragma: export
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

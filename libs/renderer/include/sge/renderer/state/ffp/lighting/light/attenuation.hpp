@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_FFP_LIGHTING_LIGHT_ATTENUATION_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/ffp/lighting/light/attenuation_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/light/attenuation_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/lighting/light/constant_attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/linear_attenuation.hpp>
 #include <sge/renderer/state/ffp/lighting/light/quadratic_attenuation.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_VF_DETAIL_READ_WRAPPER_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_VF_DETAIL_READ_WRAPPER_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/vf/detail/read_wrapper_decl.hpp>
+#include <sge/renderer/vf/detail/read_wrapper_decl.hpp> // IWYU pragma: export
 #include <fcppt/no_init.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

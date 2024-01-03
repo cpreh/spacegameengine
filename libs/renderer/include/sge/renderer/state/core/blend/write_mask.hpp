@@ -10,7 +10,7 @@
 #include <sge/renderer/state/core/blend/write_alpha.hpp>
 #include <sge/renderer/state/core/blend/write_blue.hpp>
 #include <sge/renderer/state/core/blend/write_green.hpp>
-#include <sge/renderer/state/core/blend/write_mask_fwd.hpp>
+#include <sge/renderer/state/core/blend/write_mask_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/core/blend/write_red.hpp>
 
 namespace sge::renderer::state::core::blend

@@ -8,7 +8,7 @@
 
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
-#include <sge/renderer/context/scoped_ffp_fwd.hpp>
+#include <sge/renderer/context/scoped_ffp_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/target/base_ref.hpp>

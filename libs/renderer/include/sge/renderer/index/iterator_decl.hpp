@@ -8,10 +8,10 @@
 
 #include <sge/renderer/index/is_const_tag.hpp>
 #include <sge/renderer/index/is_format.hpp>
-#include <sge/renderer/index/iterator_fwd.hpp>
+#include <sge/renderer/index/iterator_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/pointer.hpp>
 #include <sge/renderer/index/detail/iterator_base.hpp>
-#include <fcppt/iterator/base_impl.hpp>
+#include <fcppt/iterator/base_impl.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::index
 {

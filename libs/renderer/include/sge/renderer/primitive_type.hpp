@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_PRIMITIVE_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_PRIMITIVE_TYPE_HPP_INCLUDED
 
-#include <sge/renderer/primitive_type_fwd.hpp>
+#include <sge/renderer/primitive_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer
 {

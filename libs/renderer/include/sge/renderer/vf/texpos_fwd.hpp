@@ -12,7 +12,7 @@ namespace sge::renderer::vf
 {
 
 template <typename Format, sge::renderer::vf::element_count_type NumSubElements, typename Index>
-struct texpos;
+struct texpos; // IWYU pragma: export
 
 }
 

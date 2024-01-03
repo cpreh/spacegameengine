@@ -9,7 +9,7 @@
 namespace sge::renderer::target
 {
 
-class base;
+class base; // IWYU pragma: export
 
 }
 

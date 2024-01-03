@@ -9,7 +9,7 @@
 namespace sge::renderer::context
 {
 
-class ffp;
+class ffp; // IWYU pragma: export
 
 }
 

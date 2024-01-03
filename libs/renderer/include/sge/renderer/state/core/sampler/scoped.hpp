@@ -10,7 +10,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/sampler/const_object_ref_map.hpp>
 #include <sge/renderer/state/core/sampler/const_optional_object_ref_map.hpp>
-#include <sge/renderer/state/core/sampler/scoped_fwd.hpp>
+#include <sge/renderer/state/core/sampler/scoped_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::renderer::state::core::sampler

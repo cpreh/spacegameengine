@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/fog/color.hpp>
 #include <sge/renderer/state/ffp/fog/density.hpp>
-#include <sge/renderer/state/ffp/fog/enabled_fwd.hpp>
+#include <sge/renderer/state/ffp/fog/enabled_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/fog/end.hpp>
 #include <sge/renderer/state/ffp/fog/mode.hpp>
 #include <sge/renderer/state/ffp/fog/start.hpp>

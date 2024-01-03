@@ -9,7 +9,7 @@
 namespace sge::cg::parameter
 {
 
-enum class element_type;
+enum class element_type; // IWYU pragma: export
 
 }
 

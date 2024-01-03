@@ -9,7 +9,7 @@
 namespace sge::renderer::pixel_format
 {
 
-enum class depth_stencil;
+enum class depth_stencil; // IWYU pragma: export
 
 }
 

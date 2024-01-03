@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::sampler::filter::normal
 {
 
-enum class min;
+enum class min; // IWYU pragma: export
 
 }
 

@@ -9,7 +9,7 @@
 namespace sge::renderer::vertex
 {
 
-class buffer_parameters;
+class buffer_parameters; // IWYU pragma: export
 
 }
 

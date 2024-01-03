@@ -11,6 +11,7 @@
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp>
 
 void sge::d3d9::state::ffp::sampler::set(
     IDirect3DDevice9 &_device,

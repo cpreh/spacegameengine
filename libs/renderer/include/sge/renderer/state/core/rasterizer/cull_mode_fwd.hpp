@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::rasterizer
 {
 
-enum class cull_mode;
+enum class cull_mode; // IWYU pragma: export
 
 }
 

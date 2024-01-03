@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_PART_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_MAKE_PART_HPP_INCLUDED
 
-#include <sge/renderer/vf/part.hpp>
+#include <sge/renderer/vf/part.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/dynamic/element_list.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/offset_list.hpp>
@@ -14,7 +14,7 @@
 #include <sge/renderer/vf/dynamic/detail/make_element.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // IWYU pragma: keep
 #include <fcppt/algorithm/map.hpp>
 
 namespace sge::renderer::vf::dynamic::detail

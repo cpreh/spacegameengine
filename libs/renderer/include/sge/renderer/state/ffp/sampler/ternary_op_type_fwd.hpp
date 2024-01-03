@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::sampler
 {
 
-enum class ternary_op_type;
+enum class ternary_op_type; // IWYU pragma: export
 
 }
 

@@ -10,7 +10,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object_fwd.hpp>
-#include <sge/renderer/state/ffp/transform/scoped_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/scoped_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_fwd.hpp>
 

@@ -7,7 +7,7 @@
 #define SGE_RENDERER_DEVICE_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/device/parameters_fwd.hpp>
+#include <sge/renderer/device/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/window/object_ref.hpp>
 

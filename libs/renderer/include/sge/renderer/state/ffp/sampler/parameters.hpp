@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
 #include <sge/renderer/state/ffp/sampler/color_op.hpp>
-#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/parameters_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::ffp::sampler
 {

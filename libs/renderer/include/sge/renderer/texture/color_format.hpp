@@ -8,7 +8,7 @@
 
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/texture/color_format_fwd.hpp>
+#include <sge/renderer/texture/color_format_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/emulate_srgb.hpp>
 
 namespace sge::renderer::texture

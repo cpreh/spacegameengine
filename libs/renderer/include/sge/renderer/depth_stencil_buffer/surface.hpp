@@ -6,10 +6,10 @@
 #ifndef SGE_RENDERER_DEPTH_STENCIL_BUFFER_SURFACE_HPP_INCLUDED
 #define SGE_RENDERER_DEPTH_STENCIL_BUFFER_SURFACE_HPP_INCLUDED
 
-#include <sge/image/ds/traits/format_fwd.hpp>
+#include <sge/image/ds/traits/format_fwd.hpp> // IWYU pragma: keep
 #include <sge/imageds2d/tag.hpp>
-#include <sge/imageds2d/traits/color_tag.hpp>
-#include <sge/imageds2d/traits/dimension.hpp>
+#include <sge/imageds2d/traits/color_tag.hpp> // IWYU pragma: keep
+#include <sge/imageds2d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/renderer/buffer/detail/declare_base.hpp>
 #include <sge/renderer/depth_stencil_buffer/surface_fwd.hpp> // IWYU pragma: export
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

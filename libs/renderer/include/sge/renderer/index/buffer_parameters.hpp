@@ -8,7 +8,7 @@
 
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/index/buffer_parameters_fwd.hpp>
+#include <sge/renderer/index/buffer_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/count.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>
 

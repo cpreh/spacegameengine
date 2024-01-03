@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_ARG_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_ARG_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/sampler/arg_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/arg_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::ffp::sampler
 {

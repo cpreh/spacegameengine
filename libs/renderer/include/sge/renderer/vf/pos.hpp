@@ -8,7 +8,7 @@
 
 #include <sge/renderer/is_valid_float_type.hpp>
 #include <sge/renderer/vf/element_count_type.hpp>
-#include <sge/renderer/vf/pos_fwd.hpp>
+#include <sge/renderer/vf/pos_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/labels/pos.hpp>
 

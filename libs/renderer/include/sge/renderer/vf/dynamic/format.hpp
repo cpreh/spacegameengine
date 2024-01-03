@@ -7,7 +7,7 @@
 #define SGE_RENDERER_VF_DYNAMIC_FORMAT_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/vf/dynamic/format_fwd.hpp>
+#include <sge/renderer/vf/dynamic/format_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/dynamic/part_list.hpp>
 
 namespace sge::renderer::vf::dynamic

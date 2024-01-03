@@ -8,6 +8,7 @@
 
 #include <sge/renderer/state/core/sampler/const_object_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>

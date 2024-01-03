@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/index/format_fwd.hpp>
+#include <sge/renderer/index/format_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

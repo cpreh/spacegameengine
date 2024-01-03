@@ -9,7 +9,7 @@
 namespace sge::renderer
 {
 
-class visual_base;
+class visual_base; // IWYU pragma: export
 
 }
 

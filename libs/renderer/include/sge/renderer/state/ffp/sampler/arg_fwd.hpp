@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::sampler
 {
 
-enum class arg;
+enum class arg; // IWYU pragma: export
 
 }
 

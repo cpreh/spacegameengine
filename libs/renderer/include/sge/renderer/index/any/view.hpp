@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_INDEX_ANY_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ANY_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/index/any/basic_view.hpp>
+#include <sge/renderer/index/any/basic_view.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/any/view_fwd.hpp> // IWYU pragma: export
 
 #endif

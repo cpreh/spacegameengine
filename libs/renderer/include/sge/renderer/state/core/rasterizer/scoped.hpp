@@ -9,7 +9,7 @@
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/rasterizer/object_fwd.hpp>
-#include <sge/renderer/state/core/rasterizer/scoped_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/scoped_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_fwd.hpp>
 

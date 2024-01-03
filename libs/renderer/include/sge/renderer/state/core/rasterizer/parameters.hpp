@@ -10,7 +10,7 @@
 #include <sge/renderer/state/core/rasterizer/cull_mode.hpp>
 #include <sge/renderer/state/core/rasterizer/enable_scissor_test.hpp>
 #include <sge/renderer/state/core/rasterizer/fill_mode.hpp>
-#include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp>
+#include <sge/renderer/state/core/rasterizer/parameters_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::rasterizer
 {

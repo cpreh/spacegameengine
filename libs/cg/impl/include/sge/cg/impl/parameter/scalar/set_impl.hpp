@@ -7,11 +7,11 @@
 #define SGE_CG_IMPL_PARAMETER_SCALAR_SET_IMPL_HPP_INCLUDED
 
 #include <sge/cg/check_state.hpp>
-#include <sge/cg/exception.hpp>
-#include <sge/cg/parameter/object.hpp>
+#include <sge/cg/exception.hpp> // IWYU pragma: keep
+#include <sge/cg/parameter/object.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <Cg/cg.h>
+#include <Cg/cg.h> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 #define SGE_CG_IMPL_PARAMETER_SCALAR_SET_IMPL(type, cg_name) \

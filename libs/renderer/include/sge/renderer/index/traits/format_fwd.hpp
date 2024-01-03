@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_INDEX_TRAITS_FORMAT_FWD_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_TRAITS_FORMAT_FWD_HPP_INCLUDED
 
-#include <sge/image/traits/pixel/format_fwd.hpp>
+#include <sge/image/traits/pixel/format_tpl_fwd.hpp>
 #include <sge/renderer/index/tag.hpp>
 #include <sge/renderer/index/dynamic/format_fwd.hpp>
 

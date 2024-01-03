@@ -8,7 +8,7 @@
 
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/blend/alpha_variant.hpp>
-#include <sge/renderer/state/core/blend/parameters_fwd.hpp>
+#include <sge/renderer/state/core/blend/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/core/blend/write_mask.hpp>
 
 namespace sge::renderer::state::core::blend

@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::misc
 {
 
-class parameters;
+class parameters; // IWYU pragma: export
 
 }
 

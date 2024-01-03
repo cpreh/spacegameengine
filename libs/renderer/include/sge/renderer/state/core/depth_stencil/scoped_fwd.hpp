@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::depth_stencil
 {
 
-class scoped;
+class scoped; // IWYU pragma: export
 
 }
 

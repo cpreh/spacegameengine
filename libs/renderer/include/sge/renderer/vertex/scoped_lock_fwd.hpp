@@ -9,7 +9,7 @@
 namespace sge::renderer::vertex
 {
 
-class scoped_lock;
+class scoped_lock; // IWYU pragma: export
 
 }
 

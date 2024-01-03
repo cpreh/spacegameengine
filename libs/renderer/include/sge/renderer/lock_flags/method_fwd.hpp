@@ -9,7 +9,7 @@
 namespace sge::renderer::lock_flags
 {
 
-enum class method;
+enum class method; // IWYU pragma: export
 
 }
 

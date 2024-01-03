@@ -8,7 +8,7 @@
 
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/vertex/buffer_parameters_fwd.hpp>
+#include <sge/renderer/vertex/buffer_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>

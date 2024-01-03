@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/sampler/arg1.hpp>
 #include <sge/renderer/state/ffp/sampler/arg2.hpp>
-#include <sge/renderer/state/ffp/sampler/binary_op_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/binary_op_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/sampler/binary_op_type.hpp>
 
 namespace sge::renderer::state::ffp::sampler

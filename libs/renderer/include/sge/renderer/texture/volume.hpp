@@ -7,7 +7,7 @@
 #define SGE_RENDERER_TEXTURE_VOLUME_HPP_INCLUDED
 
 #include <sge/image3d/tag.hpp>
-#include <sge/image3d/traits/dimension.hpp>
+#include <sge/image3d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/volume_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/texture/detail/declare_basic_lockable_box.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

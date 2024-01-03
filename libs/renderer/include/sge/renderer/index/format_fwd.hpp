@@ -10,7 +10,7 @@ namespace sge::renderer::index
 {
 
 template <typename Index>
-struct format;
+struct format; // IWYU pragma: export
 
 }
 

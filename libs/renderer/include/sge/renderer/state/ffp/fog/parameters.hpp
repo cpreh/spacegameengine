@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_FFP_FOG_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/ffp/fog/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/fog/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/fog/variant.hpp>
 
 namespace sge::renderer::state::ffp::fog

@@ -6,6 +6,7 @@
 #include <sge/renderer/state/core/sampler/filter/anisotropic/level.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/parameters.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 
 sge::renderer::state::core::sampler::filter::anisotropic::parameters::parameters(
     sge::renderer::state::core::sampler::filter::anisotropic::mip const _mip,

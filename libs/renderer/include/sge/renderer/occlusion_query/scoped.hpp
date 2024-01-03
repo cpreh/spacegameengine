@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/occlusion_query/object_fwd.hpp>
 #include <sge/renderer/occlusion_query/object_ref.hpp>
-#include <sge/renderer/occlusion_query/scoped_fwd.hpp>
+#include <sge/renderer/occlusion_query/scoped_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::renderer::occlusion_query

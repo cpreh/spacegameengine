@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_DISPLAY_MODE_VSYNC_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_VSYNC_HPP_INCLUDED
 
-#include <sge/renderer/display_mode/vsync_fwd.hpp>
+#include <sge/renderer/display_mode/vsync_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::display_mode
 {

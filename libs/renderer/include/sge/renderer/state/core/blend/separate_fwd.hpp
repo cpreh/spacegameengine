@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::blend
 {
 
-class separate;
+class separate; // IWYU pragma: export
 
 }
 

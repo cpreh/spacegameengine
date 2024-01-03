@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::sampler::filter::normal
 {
 
-enum class mag;
+enum class mag; // IWYU pragma: export
 
 }
 

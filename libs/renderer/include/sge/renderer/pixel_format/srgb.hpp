@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_PIXEL_FORMAT_SRGB_HPP_INCLUDED
 #define SGE_RENDERER_PIXEL_FORMAT_SRGB_HPP_INCLUDED
 
-#include <sge/renderer/pixel_format/srgb_fwd.hpp>
+#include <sge/renderer/pixel_format/srgb_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::pixel_format
 {

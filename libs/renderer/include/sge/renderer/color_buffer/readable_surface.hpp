@@ -6,12 +6,12 @@
 #ifndef SGE_RENDERER_COLOR_BUFFER_READABLE_SURFACE_HPP_INCLUDED
 #define SGE_RENDERER_COLOR_BUFFER_READABLE_SURFACE_HPP_INCLUDED
 
-#include <sge/image/color/traits/format_fwd.hpp>
-#include <sge/image2d/traits/color_tag.hpp>
-#include <sge/image2d/traits/dimension.hpp>
+#include <sge/image/color/traits/format_fwd.hpp> // IWYU pragma: keep
+#include <sge/image2d/traits/color_tag.hpp> // IWYU pragma: keep
+#include <sge/image2d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/renderer/buffer/detail/declare_readable.hpp>
 #include <sge/renderer/color_buffer/readable_surface_fwd.hpp> // IWYU pragma: export
-#include <sge/renderer/color_buffer/surface.hpp>
+#include <sge/renderer/color_buffer/surface.hpp> // IWYU pragma: keep
 #include <sge/renderer/color_buffer/tag_from_dimension.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

@@ -9,7 +9,7 @@
 namespace sge::renderer::clear
 {
 
-class parameters;
+class parameters; // IWYU pragma: export
 
 }
 

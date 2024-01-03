@@ -11,7 +11,7 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/buffer_base.hpp>
-#include <sge/renderer/vertex/buffer_fwd.hpp>
+#include <sge/renderer/vertex/buffer_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/dynamic/part_index.hpp>
 #include <fcppt/nonmovable.hpp>
 

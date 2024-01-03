@@ -8,6 +8,8 @@
 
 #include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/vector.hpp>
+#include <sge/renderer/vf/dynamic/color.hpp>
+#include <sge/renderer/vf/dynamic/vector.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_color.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_vector.hpp>
 #include <mizuiro/color/format/homogenous_static_fwd.hpp>

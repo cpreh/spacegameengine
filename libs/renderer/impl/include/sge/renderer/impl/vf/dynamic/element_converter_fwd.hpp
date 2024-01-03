@@ -9,7 +9,7 @@
 namespace sge::renderer::impl::vf::dynamic
 {
 
-class element_converter;
+class element_converter; // IWYU pragma: export
 
 }
 

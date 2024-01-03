@@ -12,7 +12,7 @@ namespace sge::renderer::vf
 {
 
 template <typename VertexFormat, typename Constness = sge::renderer::vf::nonconst_tag>
-class view;
+class view; // IWYU pragma: export
 
 }
 

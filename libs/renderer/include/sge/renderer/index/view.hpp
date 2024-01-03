@@ -10,7 +10,7 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/const_tag.hpp>
-#include <sge/renderer/index/format.hpp>
+#include <sge/renderer/index/format.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/is_const_tag.hpp>
 #include <sge/renderer/index/is_format.hpp>
 #include <sge/renderer/index/iterator_fwd.hpp>

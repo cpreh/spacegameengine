@@ -6,6 +6,7 @@
 #include <sge/renderer/vf/dynamic/extra.hpp>
 #include <sge/renderer/vf/dynamic/extra_any.hpp>
 #include <sge/renderer/vf/dynamic/index.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 #include <fcppt/variant/comparison.hpp>
 
 sge::renderer::vf::dynamic::extra::extra(

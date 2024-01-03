@@ -9,7 +9,7 @@
 namespace sge::renderer::vertex
 {
 
-class scoped_buffer;
+class scoped_buffer; // IWYU pragma: export
 
 }
 

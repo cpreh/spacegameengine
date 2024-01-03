@@ -9,7 +9,7 @@
 namespace sge::renderer::vertex
 {
 
-class declaration_parameters;
+class declaration_parameters; // IWYU pragma: export
 
 }
 

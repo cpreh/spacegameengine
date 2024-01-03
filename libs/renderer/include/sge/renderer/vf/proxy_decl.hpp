@@ -10,7 +10,7 @@
 #include <sge/renderer/vf/is_part.hpp>
 #include <sge/renderer/vf/label_value_type.hpp>
 #include <sge/renderer/vf/pointer.hpp>
-#include <sge/renderer/vf/proxy_fwd.hpp>
+#include <sge/renderer/vf/proxy_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/vertex_fwd.hpp>
 
 namespace sge::renderer::vf

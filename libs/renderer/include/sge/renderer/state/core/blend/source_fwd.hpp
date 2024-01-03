@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::blend
 {
 
-enum class source;
+enum class source; // IWYU pragma: export
 
 }
 

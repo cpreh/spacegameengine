@@ -7,11 +7,10 @@
 #define SGE_RENDERER_COLOR_BUFFER_SCOPED_VOLUME_LOCK_HPP_INCLUDED
 
 #include <sge/image3d/tag.hpp>
-#include <sge/image3d/traits/dimension.hpp>
-#include <sge/image3d/view/object.hpp>
-#include <sge/renderer/buffer/scoped_lock.hpp>
+#include <sge/image3d/traits/dimension.hpp> // IWYU pragma: keep
+#include <sge/image3d/view/object.hpp> // IWYU pragma: keep
 #include <sge/renderer/buffer/detail/declare_scoped_lock.hpp>
-#include <sge/renderer/color_buffer/scoped_volume_lock_fwd.hpp>
+#include <sge/renderer/color_buffer/scoped_volume_lock_fwd.hpp> // IWYU pragma: keep
 
 SGE_RENDERER_BUFFER_DETAIL_DECLARE_SCOPED_LOCK(sge::image3d::tag);
 

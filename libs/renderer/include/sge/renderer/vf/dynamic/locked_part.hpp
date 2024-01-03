@@ -12,7 +12,7 @@
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/first.hpp>
-#include <sge/renderer/vf/dynamic/locked_part_fwd.hpp>
+#include <sge/renderer/vf/dynamic/locked_part_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::vf::dynamic
 {

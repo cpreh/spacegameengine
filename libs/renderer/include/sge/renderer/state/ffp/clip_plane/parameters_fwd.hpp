@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::clip_plane
 {
 
-class parameters;
+class parameters; // IWYU pragma: export
 
 }
 

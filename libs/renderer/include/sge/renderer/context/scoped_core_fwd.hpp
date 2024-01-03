@@ -9,7 +9,7 @@
 namespace sge::renderer::context
 {
 
-class scoped_core;
+class scoped_core; // IWYU pragma: export
 
 }
 

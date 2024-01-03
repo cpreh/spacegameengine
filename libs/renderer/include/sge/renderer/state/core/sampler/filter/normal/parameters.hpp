@@ -10,7 +10,7 @@
 #include <sge/renderer/state/core/sampler/filter/normal/mag.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/min.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
-#include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/parameters_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::sampler::filter::normal
 {

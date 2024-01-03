@@ -9,7 +9,7 @@
 namespace sge::renderer::index::dynamic
 {
 
-enum class format;
+enum class format; // IWYU pragma: export
 
 }
 

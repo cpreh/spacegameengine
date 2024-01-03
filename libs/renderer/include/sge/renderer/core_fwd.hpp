@@ -9,7 +9,7 @@
 namespace sge::renderer
 {
 
-class core;
+class core; // IWYU pragma: export
 
 }
 

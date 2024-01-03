@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::sampler::address
 {
 
-enum class mode;
+enum class mode; // IWYU pragma: export
 
 }
 

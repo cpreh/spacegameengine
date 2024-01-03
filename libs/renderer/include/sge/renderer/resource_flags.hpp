@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_RESOURCE_FLAGS_HPP_INCLUDED
 #define SGE_RENDERER_RESOURCE_FLAGS_HPP_INCLUDED
 
-#include <sge/renderer/resource_flags_fwd.hpp>
+#include <sge/renderer/resource_flags_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer
 {

@@ -7,7 +7,7 @@
 #define SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_WRITABLE_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/renderer/impl/buffer/writable_impl.hpp>
+#include <sge/renderer/impl/buffer/writable_impl.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_WRITABLE(tag) \
   template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION sge::renderer::buffer::writable<tag>

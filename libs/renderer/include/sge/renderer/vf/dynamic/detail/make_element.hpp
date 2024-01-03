@@ -9,7 +9,6 @@
 #include <sge/renderer/vf/color_fwd.hpp>
 #include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/extra_fwd.hpp>
-#include <sge/renderer/vf/index.hpp>
 #include <sge/renderer/vf/normal_fwd.hpp>
 #include <sge/renderer/vf/pos_fwd.hpp>
 #include <sge/renderer/vf/texpos_fwd.hpp>

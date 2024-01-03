@@ -9,7 +9,7 @@
 namespace sge::renderer::display_mode
 {
 
-enum class vsync;
+enum class vsync; // IWYU pragma: export
 
 }
 

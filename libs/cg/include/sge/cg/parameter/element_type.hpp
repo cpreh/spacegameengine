@@ -6,7 +6,7 @@
 #ifndef SGE_CG_PARAMETER_ELEMENT_TYPE_HPP_INCLUDED
 #define SGE_CG_PARAMETER_ELEMENT_TYPE_HPP_INCLUDED
 
-#include <sge/cg/parameter/element_type_fwd.hpp>
+#include <sge/cg/parameter/element_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::cg::parameter
 {

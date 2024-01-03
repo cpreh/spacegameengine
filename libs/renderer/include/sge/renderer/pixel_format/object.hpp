@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
 #include <sge/renderer/pixel_format/depth_stencil.hpp>
-#include <sge/renderer/pixel_format/object_fwd.hpp>
+#include <sge/renderer/pixel_format/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/pixel_format/optional_multi_samples.hpp>
 #include <sge/renderer/pixel_format/srgb.hpp>
 

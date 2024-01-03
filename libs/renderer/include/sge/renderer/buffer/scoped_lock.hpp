@@ -8,11 +8,10 @@
 
 #include <sge/image/box_fwd.hpp>
 #include <sge/renderer/lock_mode_fwd.hpp>
-#include <sge/renderer/buffer/scoped_lock_fwd.hpp>
+#include <sge/renderer/buffer/scoped_lock_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/buffer/writable_fwd.hpp>
 #include <sge/renderer/buffer/traits/view.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/index/dynamic/view.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 

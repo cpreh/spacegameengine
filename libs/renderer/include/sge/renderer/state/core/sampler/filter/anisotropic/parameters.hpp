@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/level.hpp>
 #include <sge/renderer/state/core/sampler/filter/anisotropic/mip.hpp>
-#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/anisotropic/parameters_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::sampler::filter::anisotropic
 {

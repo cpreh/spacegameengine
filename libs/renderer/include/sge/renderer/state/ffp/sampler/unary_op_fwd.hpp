@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::sampler
 {
 
-class unary_op;
+class unary_op; // IWYU pragma: export
 
 }
 

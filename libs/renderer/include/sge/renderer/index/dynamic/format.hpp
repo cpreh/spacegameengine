@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_INDEX_DYNAMIC_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/index/dynamic/format_fwd.hpp>
+#include <sge/renderer/index/dynamic/format_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::index::dynamic
 {

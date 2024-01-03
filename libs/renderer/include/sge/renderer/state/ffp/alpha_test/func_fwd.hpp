@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::alpha_test
 {
 
-enum class func;
+enum class func; // IWYU pragma: export
 
 }
 

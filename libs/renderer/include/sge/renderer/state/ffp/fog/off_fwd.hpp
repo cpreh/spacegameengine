@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::fog
 {
 
-class off;
+class off; // IWYU pragma: export
 
 }
 

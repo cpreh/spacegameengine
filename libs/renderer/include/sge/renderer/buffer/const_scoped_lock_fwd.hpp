@@ -10,7 +10,7 @@ namespace sge::renderer::buffer
 {
 
 template <typename Tag>
-class const_scoped_lock;
+class const_scoped_lock; // IWYU pragma: export
 
 }
 

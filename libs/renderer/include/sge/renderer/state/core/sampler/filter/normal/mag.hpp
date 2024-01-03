@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_MAG_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_MAG_HPP_INCLUDED
 
-#include <sge/renderer/state/core/sampler/filter/normal/mag_fwd.hpp>
+#include <sge/renderer/state/core/sampler/filter/normal/mag_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::sampler::filter::normal
 {

@@ -7,7 +7,7 @@
 #define SGE_RENDERER_CONTEXT_SCOPED_OFFSCREEN_TARGET_HPP_INCLUDED
 
 #include <sge/renderer/context/core_ref.hpp>
-#include <sge/renderer/context/scoped_offscreen_target_fwd.hpp>
+#include <sge/renderer/context/scoped_offscreen_target_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/offscreen_ref.hpp>
 #include <fcppt/nonmovable.hpp>

@@ -5,12 +5,11 @@
 
 #ifndef SGE_RENDERER_TEXTURE_DEPTH_STENCIL_FWD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_DEPTH_STENCIL_FWD_HPP_INCLUDED
-#define SGE_RENDERER_DEPTH_STENCIL_TEXTURE_FWD_HPP_INCLUDED
 
 namespace sge::renderer::texture
 {
 
-class depth_stencil;
+class depth_stencil; // IWYU pragma: export
 
 }
 

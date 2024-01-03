@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_ENABLED_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/ffp/alpha_test/enabled_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/enabled_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/alpha_test/func.hpp>
 #include <sge/renderer/state/ffp/alpha_test/ref.hpp>
 

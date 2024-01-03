@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_STATE_FFP_FOG_MODE_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_FOG_MODE_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/fog/mode_fwd.hpp>
+#include <sge/renderer/state/ffp/fog/mode_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::ffp::fog
 {

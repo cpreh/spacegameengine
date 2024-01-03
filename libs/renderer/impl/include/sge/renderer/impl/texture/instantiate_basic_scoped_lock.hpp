@@ -7,7 +7,7 @@
 #define SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/renderer/impl/texture/basic_scoped_lock_impl.hpp>
+#include <sge/renderer/impl/texture/basic_scoped_lock_impl.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_IMPL_TEXTURE_INSTANTIATE_BASIC_SCOPED_LOCK(tag) \
   template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION \

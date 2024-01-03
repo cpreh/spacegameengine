@@ -9,7 +9,7 @@
 namespace sge::renderer::display_mode
 {
 
-class parameters;
+class parameters; // IWYU pragma: export
 
 }
 

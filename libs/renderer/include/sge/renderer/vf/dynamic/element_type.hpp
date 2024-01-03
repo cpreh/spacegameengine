@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_VF_DYNAMIC_ELEMENT_TYPE_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_ELEMENT_TYPE_HPP_INCLUDED
 
-#include <sge/renderer/vf/dynamic/element_type_fwd.hpp>
+#include <sge/renderer/vf/dynamic/element_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::vf::dynamic
 {

@@ -7,7 +7,7 @@
 #define SGE_RENDERER_TEXTURE_MIPMAP_ALL_LEVELS_REP_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp>
+#include <sge/renderer/texture/mipmap/all_levels_rep_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
 
 namespace sge::renderer::texture::mipmap

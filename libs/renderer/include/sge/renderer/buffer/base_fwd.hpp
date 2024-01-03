@@ -10,7 +10,7 @@ namespace sge::renderer::buffer
 {
 
 template <typename ImageTag>
-class base;
+class base; // IWYU pragma: export
 
 }
 

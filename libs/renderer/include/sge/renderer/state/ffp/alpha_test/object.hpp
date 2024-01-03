@@ -8,7 +8,7 @@
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/ffp/alpha_test/object_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/object_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::renderer::state::ffp::alpha_test

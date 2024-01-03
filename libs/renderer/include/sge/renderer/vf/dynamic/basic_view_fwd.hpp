@@ -10,7 +10,7 @@ namespace sge::renderer::vf::dynamic
 {
 
 template <typename Pointer>
-class basic_view;
+class basic_view; // IWYU pragma: export
 
 }
 

@@ -9,7 +9,7 @@
 namespace sge::renderer::texture
 {
 
-enum class emulate_srgb;
+enum class emulate_srgb; // IWYU pragma: export
 
 }
 

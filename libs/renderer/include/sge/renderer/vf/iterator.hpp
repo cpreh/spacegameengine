@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_VF_ITERATOR_HPP_INCLUDED
 #define SGE_RENDERER_VF_ITERATOR_HPP_INCLUDED
 
-#include <sge/renderer/vf/iterator_decl.hpp>
-#include <sge/renderer/vf/iterator_fwd.hpp>
-#include <sge/renderer/vf/iterator_impl.hpp> // IWYU pragma: export
+#include <sge/renderer/vf/iterator_decl.hpp> // IWYU pragma: export
+#include <sge/renderer/vf/iterator_fwd.hpp> // IWYU pragma: keep
+#include <sge/renderer/vf/iterator_impl.hpp> // IWYU pragma: keep
 
 #endif

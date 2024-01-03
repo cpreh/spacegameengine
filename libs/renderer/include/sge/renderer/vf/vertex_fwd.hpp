@@ -10,7 +10,7 @@ namespace sge::renderer::vf
 {
 
 template <typename Part>
-class vertex;
+class vertex; // IWYU pragma: export
 
 }
 

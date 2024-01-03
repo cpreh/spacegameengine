@@ -8,17 +8,17 @@
 
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // IWYU pragma: keep
 #include <sge/renderer/device/core_ref.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp> // IWYU pragma: keep
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
 #include <sge/renderer/vf/is_vertex.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/proxy.hpp>
+#include <sge/renderer/vf/iterator.hpp> // IWYU pragma: keep
+#include <sge/renderer/vf/proxy.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <fcppt/make_ref.hpp>

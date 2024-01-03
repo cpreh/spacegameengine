@@ -7,7 +7,7 @@
 #define SGE_RENDERER_TEXTURE_MIPMAP_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/texture/mipmap/object_fwd.hpp>
+#include <sge/renderer/texture/mipmap/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/mipmap/variant.hpp>
 
 namespace sge::renderer::texture::mipmap

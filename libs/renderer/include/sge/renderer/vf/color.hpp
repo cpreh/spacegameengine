@@ -7,7 +7,7 @@
 #define SGE_RENDERER_VF_COLOR_HPP_INCLUDED
 
 #include <sge/renderer/vf/color_base.hpp>
-#include <sge/renderer/vf/color_fwd.hpp>
+#include <sge/renderer/vf/color_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/labels/color.hpp>
 
 namespace sge::renderer::vf

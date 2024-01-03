@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::sampler::filter::anisotropic
 {
 
-class parameters;
+class parameters; // IWYU pragma: export
 
 }
 

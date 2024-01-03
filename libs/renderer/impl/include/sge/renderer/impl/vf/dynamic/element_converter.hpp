@@ -8,14 +8,14 @@
 
 #include <sge/image/color/format.hpp>
 #include <sge/renderer/raw_pointer.hpp>
-#include <sge/renderer/impl/vf/dynamic/element_converter_fwd.hpp>
+#include <sge/renderer/impl/vf/dynamic/element_converter_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/impl/vf/dynamic/lock_interval.hpp>
 #include <sge/renderer/impl/vf/dynamic/unlock.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::impl::vf::dynamic
 {

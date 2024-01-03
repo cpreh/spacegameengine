@@ -8,7 +8,7 @@
 
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/clip_plane/area.hpp>
-#include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/clip_plane/parameters_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::ffp::clip_plane
 {

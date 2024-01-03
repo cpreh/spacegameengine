@@ -7,7 +7,7 @@
 #define SGE_RENDERER_BUFFER_CONST_SCOPED_LOCK_HPP_INCLUDED
 
 #include <sge/image/box_fwd.hpp>
-#include <sge/renderer/buffer/const_scoped_lock_fwd.hpp>
+#include <sge/renderer/buffer/const_scoped_lock_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/buffer/readable_fwd.hpp>
 #include <sge/renderer/buffer/traits/const_view.hpp>
 #include <sge/renderer/detail/symbol.hpp>

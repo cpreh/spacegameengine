@@ -9,7 +9,7 @@
 namespace sge::cg::profile
 {
 
-class object;
+class object; // IWYU pragma: export
 
 }
 

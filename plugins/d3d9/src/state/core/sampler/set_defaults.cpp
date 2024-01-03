@@ -7,6 +7,7 @@
 #include <sge/d3d9/state/core/sampler/set_defaults.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/texture/stage.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp>
 
 void sge::d3d9::state::core::sampler::set_defaults(
     sge::d3d9::state::core::sampler::object const &_default,

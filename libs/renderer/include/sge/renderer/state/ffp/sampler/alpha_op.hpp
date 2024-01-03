@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_FFP_SAMPLER_ALPHA_OP_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/sampler/alpha_op_fwd.hpp> // IWYU pragma: export
-#include <sge/renderer/state/ffp/sampler/op.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/renderer/state/ffp/sampler/op.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

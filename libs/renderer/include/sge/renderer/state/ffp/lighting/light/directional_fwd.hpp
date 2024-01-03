@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::lighting::light
 {
 
-class directional;
+class directional; // IWYU pragma: export
 
 }
 

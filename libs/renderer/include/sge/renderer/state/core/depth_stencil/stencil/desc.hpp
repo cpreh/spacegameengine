@@ -8,7 +8,7 @@
 
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/depth_fail_op.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/desc_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/desc_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/core/depth_stencil/stencil/fail_op.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/pass_op.hpp>

@@ -6,6 +6,7 @@
 #include <sge/renderer/vf/dynamic/index.hpp>
 #include <sge/renderer/vf/dynamic/texpos.hpp>
 #include <sge/renderer/vf/dynamic/vector.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 
 sge::renderer::vf::dynamic::texpos::texpos(
     sge::renderer::vf::dynamic::vector const &_type, sge::renderer::vf::dynamic::index const _index)

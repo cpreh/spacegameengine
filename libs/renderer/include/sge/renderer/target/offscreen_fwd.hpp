@@ -9,7 +9,7 @@
 namespace sge::renderer::target
 {
 
-class offscreen;
+class offscreen; // IWYU pragma: export
 
 }
 

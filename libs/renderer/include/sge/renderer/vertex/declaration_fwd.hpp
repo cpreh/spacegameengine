@@ -9,7 +9,7 @@
 namespace sge::renderer::vertex
 {
 
-class declaration;
+class declaration; // IWYU pragma: export
 
 }
 

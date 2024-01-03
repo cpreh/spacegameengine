@@ -7,7 +7,7 @@
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_DECLARE_BASIC_VIEW_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/renderer/vf/dynamic/basic_view.hpp>
+#include <sge/renderer/vf/dynamic/basic_view.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_VF_DYNAMIC_DETAIL_DECLARE_BASIC_VIEW(pointer_type) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \

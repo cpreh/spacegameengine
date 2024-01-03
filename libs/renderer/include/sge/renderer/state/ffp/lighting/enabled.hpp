@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/lighting/ambient_color.hpp>
 #include <sge/renderer/state/ffp/lighting/diffuse_from_vertex.hpp>
-#include <sge/renderer/state/ffp/lighting/enabled_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/enabled_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::ffp::lighting
 {

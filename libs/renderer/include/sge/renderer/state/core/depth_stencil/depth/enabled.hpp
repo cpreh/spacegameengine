@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_DEPTH_ENABLED_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/enabled_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/write_enable.hpp>
 

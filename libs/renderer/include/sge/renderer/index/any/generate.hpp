@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_INDEX_ANY_GENERATE_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ANY_GENERATE_HPP_INCLUDED
 
-#include <sge/renderer/index/iterator.hpp>
-#include <sge/renderer/index/view.hpp>
+#include <sge/renderer/index/iterator.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/view.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/any/view.hpp>
 #include <fcppt/tag.hpp>
 #include <fcppt/variant/apply.hpp>

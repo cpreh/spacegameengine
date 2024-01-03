@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::sampler::filter::normal
 {
 
-enum class mip;
+enum class mip; // IWYU pragma: export
 
 }
 

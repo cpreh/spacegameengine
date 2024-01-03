@@ -7,7 +7,7 @@
 #define SGE_RENDERER_TEXTURE_PLANAR_HPP_INCLUDED
 
 #include <sge/image2d/tag.hpp>
-#include <sge/image2d/traits/dimension.hpp>
+#include <sge/image2d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/planar_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/texture/detail/declare_basic_lockable_box.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>

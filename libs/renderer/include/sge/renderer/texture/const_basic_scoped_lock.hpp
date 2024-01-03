@@ -12,7 +12,7 @@
 #include <sge/renderer/buffer/readable_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/basic_lockable_box_fwd.hpp>
-#include <sge/renderer/texture/const_basic_scoped_lock_fwd.hpp>
+#include <sge/renderer/texture/const_basic_scoped_lock_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_fwd.hpp>
 

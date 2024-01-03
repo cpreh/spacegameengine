@@ -9,7 +9,7 @@
 namespace sge::renderer::texture
 {
 
-class base;
+class base; // IWYU pragma: export
 
 }
 

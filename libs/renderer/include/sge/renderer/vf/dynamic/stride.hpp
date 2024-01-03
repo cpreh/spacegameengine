@@ -8,7 +8,7 @@
 
 #include <sge/renderer/vf/vertex_size.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::vf::dynamic
 {

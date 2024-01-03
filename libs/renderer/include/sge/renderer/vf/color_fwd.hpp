@@ -10,7 +10,7 @@ namespace sge::renderer::vf
 {
 
 template <typename Format>
-struct color;
+struct color; // IWYU pragma: export
 
 }
 

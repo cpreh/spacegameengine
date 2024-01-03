@@ -8,12 +8,13 @@
 
 #include <sge/renderer/buffer/const_scoped_lock.hpp>
 #include <sge/renderer/buffer/detail/declare_const_scoped_lock.hpp>
+#include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/index/const_buffer_ref.hpp>
 #include <sge/renderer/index/const_scoped_lock_fwd.hpp>
 #include <sge/renderer/index/tag.hpp>
-#include <sge/renderer/index/dynamic/const_view.hpp>
-#include <sge/renderer/index/traits/const_view_fwd.hpp>
-#include <sge/renderer/index/traits/dimension.hpp>
+#include <sge/renderer/index/dynamic/const_view.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/traits/const_view_fwd.hpp> // IWYU pragma: keep
+#include <sge/renderer/index/traits/dimension.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 SGE_RENDERER_BUFFER_DETAIL_DECLARE_CONST_SCOPED_LOCK(sge::renderer::index::tag);

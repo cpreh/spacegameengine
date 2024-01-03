@@ -9,7 +9,7 @@
 namespace sge::renderer::event
 {
 
-class base;
+class base; // IWYU pragma: export
 
 }
 

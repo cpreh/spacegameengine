@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/texture/mipmap/auto_generate.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
-#include <sge/renderer/texture/mipmap/levels_rep_fwd.hpp>
+#include <sge/renderer/texture/mipmap/levels_rep_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::texture::mipmap
 {

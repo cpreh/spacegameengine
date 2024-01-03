@@ -11,7 +11,7 @@
 #include <sge/renderer/clear/optional_back_buffer.hpp>
 #include <sge/renderer/clear/optional_depth_buffer.hpp>
 #include <sge/renderer/clear/optional_stencil_buffer.hpp>
-#include <sge/renderer/clear/parameters_fwd.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/clear/stencil_buffer_value.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 

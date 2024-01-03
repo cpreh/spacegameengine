@@ -8,7 +8,7 @@
 
 #include <sge/image/ds/format.hpp>
 #include <sge/renderer/dim2.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/detail/symbol.hpp>
 
 namespace sge::renderer::depth_stencil_buffer

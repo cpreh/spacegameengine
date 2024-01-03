@@ -11,7 +11,7 @@
 #include <sge/renderer/depth_stencil_buffer/optional_surface_ref_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/target/base.hpp>
-#include <sge/renderer/target/offscreen_fwd.hpp>
+#include <sge/renderer/target/offscreen_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/nonmovable.hpp>
 

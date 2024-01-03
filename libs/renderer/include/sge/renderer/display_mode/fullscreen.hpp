@@ -6,9 +6,9 @@
 #ifndef SGE_RENDERER_DISPLAY_MODE_FULLSCREEN_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_FULLSCREEN_HPP_INCLUDED
 
-#include <sge/renderer/display_mode/fullscreen_desktop.hpp>
+#include <sge/renderer/display_mode/fullscreen_desktop.hpp> // IWYU pragma: keep
 #include <sge/renderer/display_mode/fullscreen_fwd.hpp> // IWYU pragma: export
-#include <sge/renderer/display_mode/object.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/renderer/display_mode/object.hpp> // IWYU pragma: keep
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

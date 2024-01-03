@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_CORE_SAMPLER_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/core/sampler/parameters_fwd.hpp>
+#include <sge/renderer/state/core/sampler/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
 #include <sge/renderer/state/core/sampler/filter/parameters.hpp>
 

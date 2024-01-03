@@ -8,7 +8,7 @@
 
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/vertex/count.hpp>
-#include <sge/renderer/vf/dynamic/basic_view_fwd.hpp>
+#include <sge/renderer/vf/dynamic/basic_view_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/dynamic/const_part_ref.hpp>
 #include <sge/renderer/vf/dynamic/part_fwd.hpp>
 #include <sge/renderer/vf/dynamic/part_index.hpp>

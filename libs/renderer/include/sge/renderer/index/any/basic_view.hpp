@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_INDEX_ANY_BASIC_VIEW_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ANY_BASIC_VIEW_HPP_INCLUDED
 
-#include <sge/renderer/index/any/basic_view_fwd.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/renderer/index/any/basic_view_fwd.hpp> // IWYU pragma: export
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

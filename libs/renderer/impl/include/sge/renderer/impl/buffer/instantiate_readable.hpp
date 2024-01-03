@@ -7,7 +7,7 @@
 #define SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_READABLE_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/renderer/impl/buffer/readable_impl.hpp>
+#include <sge/renderer/impl/buffer/readable_impl.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_IMPL_BUFFER_INSTANTIATE_READABLE(tag) \
   template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION sge::renderer::buffer::readable<tag>

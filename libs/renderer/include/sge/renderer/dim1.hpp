@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_DIM1_HPP_INCLUDED
 #define SGE_RENDERER_DIM1_HPP_INCLUDED
 
-#include <sge/renderer/basic_dim.hpp>
+#include <sge/renderer/basic_dim.hpp> // IWYU pragma: keep
 #include <sge/renderer/dim1_fwd.hpp> // IWYU pragma: export
 
 #endif

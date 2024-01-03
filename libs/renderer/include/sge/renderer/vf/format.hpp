@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_VF_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/vf/format_fwd.hpp>
+#include <sge/renderer/vf/format_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/is_part.hpp>
 #include <fcppt/mpl/lambda.hpp>
 #include <fcppt/mpl/list/all_of.hpp>

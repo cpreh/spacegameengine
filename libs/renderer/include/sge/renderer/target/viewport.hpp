@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_TARGET_VIEWPORT_HPP_INCLUDED
 #define SGE_RENDERER_TARGET_VIEWPORT_HPP_INCLUDED
 
-#include <sge/renderer/pixel_rect.hpp>
+#include <sge/renderer/pixel_rect.hpp> // IWYU pragma: keep
 #include <sge/renderer/target/viewport_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

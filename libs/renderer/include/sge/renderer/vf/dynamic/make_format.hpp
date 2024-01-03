@@ -6,13 +6,13 @@
 #ifndef SGE_RENDERER_VF_DYNAMIC_MAKE_FORMAT_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_MAKE_FORMAT_HPP_INCLUDED
 
-#include <sge/renderer/vf/format.hpp>
+#include <sge/renderer/vf/format.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/dynamic/format.hpp>
 #include <sge/renderer/vf/dynamic/part_list.hpp>
 #include <sge/renderer/vf/dynamic/detail/make_part.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // IWYU pragma: keep
 #include <fcppt/algorithm/map.hpp>
 
 namespace sge::renderer::vf::dynamic

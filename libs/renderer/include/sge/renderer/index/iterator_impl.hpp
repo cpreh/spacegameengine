@@ -6,9 +6,9 @@
 #ifndef SGE_RENDERER_INDEX_ITERATOR_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_INDEX_ITERATOR_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/index/const_proxy_impl.hpp>
+#include <sge/renderer/index/const_proxy_impl.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/iterator_decl.hpp> // IWYU pragma: export
-#include <sge/renderer/index/proxy_impl.hpp>
+#include <sge/renderer/index/proxy_impl.hpp> // IWYU pragma: keep
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

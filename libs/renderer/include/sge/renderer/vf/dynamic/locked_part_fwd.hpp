@@ -9,7 +9,7 @@
 namespace sge::renderer::vf::dynamic
 {
 
-class locked_part;
+class locked_part; // IWYU pragma: export
 
 }
 

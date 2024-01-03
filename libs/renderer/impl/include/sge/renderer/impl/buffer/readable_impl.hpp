@@ -6,9 +6,9 @@
 #ifndef SGE_RENDERER_IMPL_BUFFER_READABLE_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_BUFFER_READABLE_IMPL_HPP_INCLUDED
 
-#include <sge/image/view/const_object.hpp>
-#include <sge/renderer/basic_dim.hpp>
-#include <sge/renderer/basic_lock_box.hpp>
+#include <sge/image/view/const_object.hpp> // IWYU pragma: keep
+#include <sge/renderer/basic_dim.hpp> // IWYU pragma: keep
+#include <sge/renderer/basic_lock_box.hpp> // IWYU pragma: keep
 #include <sge/renderer/buffer/readable.hpp>
 #include <fcppt/math/vector/null.hpp>
 

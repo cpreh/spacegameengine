@@ -9,7 +9,7 @@
 namespace sge::renderer::display_mode
 {
 
-struct fullscreen_desktop;
+struct fullscreen_desktop; // IWYU pragma: export
 
 }
 

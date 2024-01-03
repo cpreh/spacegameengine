@@ -11,7 +11,7 @@
 #include <sge/renderer/state/ffp/lighting/diffuse_color.hpp>
 #include <sge/renderer/state/ffp/lighting/specular_color.hpp>
 #include <sge/renderer/state/ffp/lighting/material/emissive_color.hpp>
-#include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/material/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/lighting/material/shininess.hpp>
 
 namespace sge::renderer::state::ffp::lighting::material

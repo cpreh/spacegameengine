@@ -9,7 +9,7 @@
 #include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/alpha_test/object_fwd.hpp>
-#include <sge/renderer/state/ffp/alpha_test/scoped_fwd.hpp>
+#include <sge/renderer/state/ffp/alpha_test/scoped_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_fwd.hpp>
 

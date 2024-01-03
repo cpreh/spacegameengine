@@ -7,6 +7,6 @@
 #define SGE_RENDERER_PIXEL_POS_HPP_INCLUDED
 
 #include <sge/renderer/pixel_pos_fwd.hpp> // IWYU pragma: export
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/static.hpp> // IWYU pragma: keep
 
 #endif

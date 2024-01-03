@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::lighting::material
 {
 
-class scoped;
+class scoped; // IWYU pragma: export
 
 }
 

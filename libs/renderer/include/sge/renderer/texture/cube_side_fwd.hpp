@@ -9,7 +9,7 @@
 namespace sge::renderer::texture
 {
 
-enum class cube_side;
+enum class cube_side; // IWYU pragma: export
 
 }
 

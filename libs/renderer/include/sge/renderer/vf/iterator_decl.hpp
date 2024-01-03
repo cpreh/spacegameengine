@@ -8,9 +8,9 @@
 
 #include <sge/renderer/vf/is_const_tag.hpp>
 #include <sge/renderer/vf/is_part.hpp>
-#include <sge/renderer/vf/iterator_fwd.hpp>
+#include <sge/renderer/vf/iterator_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/pointer.hpp>
-#include <sge/renderer/vf/view_fwd.hpp>
+#include <sge/renderer/vf/view_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/detail/iterator_base.hpp>
 
 namespace sge::renderer::vf

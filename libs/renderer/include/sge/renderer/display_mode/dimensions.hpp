@@ -6,7 +6,8 @@
 #ifndef SGE_RENDERER_DISPLAY_MODE_DIMENSIONS_HPP_INCLUDED
 #define SGE_RENDERER_DISPLAY_MODE_DIMENSIONS_HPP_INCLUDED
 
-#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/screen_size.hpp> // IWYU pragma: keep
 #include <sge/renderer/display_mode/dimensions_fwd.hpp> // IWYU pragma: export
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

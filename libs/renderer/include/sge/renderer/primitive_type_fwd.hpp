@@ -9,7 +9,7 @@
 namespace sge::renderer
 {
 
-enum class primitive_type;
+enum class primitive_type; // IWYU pragma: export
 
 }
 

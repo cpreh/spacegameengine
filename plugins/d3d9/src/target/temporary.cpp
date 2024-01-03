@@ -14,6 +14,8 @@
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size_fun.hpp>

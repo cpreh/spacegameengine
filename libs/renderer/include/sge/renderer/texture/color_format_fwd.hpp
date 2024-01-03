@@ -9,7 +9,7 @@
 namespace sge::renderer::texture
 {
 
-class color_format;
+class color_format; // IWYU pragma: keep
 
 }
 

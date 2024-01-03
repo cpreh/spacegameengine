@@ -7,6 +7,7 @@
 #include <sge/renderer/state/core/sampler/address/mode_t.hpp>
 #include <sge/renderer/state/core/sampler/address/mode_u.hpp>
 #include <sge/renderer/state/core/sampler/address/parameters.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

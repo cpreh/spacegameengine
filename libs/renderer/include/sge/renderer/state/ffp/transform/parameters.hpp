@@ -8,7 +8,7 @@
 
 #include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/ffp/transform/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/transform/parameters_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::ffp::transform
 {

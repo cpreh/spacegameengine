@@ -8,7 +8,7 @@
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/event/base_fwd.hpp>
+#include <sge/renderer/event/base_fwd.hpp> // IWYU pragma: keep
 #include <awl/window/reference.hpp>
 #include <awl/window/event/base.hpp>
 #include <fcppt/nonmovable.hpp>

@@ -9,7 +9,7 @@
 namespace sge::renderer::depth_stencil_buffer
 {
 
-class surface_parameters;
+class surface_parameters; // IWYU pragma: export
 
 }
 

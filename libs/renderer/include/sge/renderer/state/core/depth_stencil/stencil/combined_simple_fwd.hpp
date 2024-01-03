@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
-class combined_simple;
+class combined_simple; // IWYU pragma: export
 
 }
 

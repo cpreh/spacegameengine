@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_DEPTH_FUNC_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_DEPTH_FUNC_HPP_INCLUDED
 
-#include <sge/renderer/state/core/depth_stencil/depth/func_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/depth/func_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::depth_stencil::depth
 {

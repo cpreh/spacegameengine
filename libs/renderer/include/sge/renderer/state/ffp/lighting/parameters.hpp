@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_FFP_LIGHTING_PARAMETERS_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp>
+#include <sge/renderer/state/ffp/lighting/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/lighting/variant.hpp>
 
 namespace sge::renderer::state::ffp::lighting

@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::fog
 {
 
-enum class mode;
+enum class mode; // IWYU pragma: export
 
 }
 

@@ -6,9 +6,9 @@
 #ifndef SGE_RENDERER_IMPL_TEXTURE_CONST_BASIC_SCOPED_LOCK_IMPL_HPP_INCLUDED
 #define SGE_RENDERER_IMPL_TEXTURE_CONST_BASIC_SCOPED_LOCK_IMPL_HPP_INCLUDED
 
-#include <sge/image/view/const_object.hpp>
-#include <sge/renderer/basic_dim.hpp>
-#include <sge/renderer/basic_lock_box.hpp>
+#include <sge/image/view/const_object.hpp> // IWYU pragma: keep
+#include <sge/renderer/basic_dim.hpp> // IWYU pragma: keep
+#include <sge/renderer/basic_lock_box.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/const_basic_scoped_lock.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <fcppt/make_cref.hpp>

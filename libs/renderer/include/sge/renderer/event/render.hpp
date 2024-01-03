@@ -9,7 +9,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/event/base.hpp>
-#include <sge/renderer/event/render_fwd.hpp>
+#include <sge/renderer/event/render_fwd.hpp> // IWYU pragma: keep
 #include <awl/window/reference.hpp>
 #include <fcppt/nonmovable.hpp>
 

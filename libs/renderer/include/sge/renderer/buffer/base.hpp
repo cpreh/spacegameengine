@@ -10,7 +10,7 @@
 #include <sge/image/dim_fwd.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/renderer/buffer/base_fwd.hpp>
+#include <sge/renderer/buffer/base_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 

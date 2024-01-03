@@ -6,8 +6,8 @@
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_PP_OP_TYPES_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_PP_OP_TYPES_HPP_INCLUDED
 
-#include <sge/renderer/state/ffp/sampler/alpha_op.hpp>
-#include <sge/renderer/state/ffp/sampler/color_op.hpp>
+#include <sge/renderer/state/ffp/sampler/alpha_op.hpp> // IWYU pragma: keep
+#include <sge/renderer/state/ffp/sampler/color_op.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_STATE_FFP_SAMPLER_PP_OP_TYPES (alpha_op)(color_op)
 

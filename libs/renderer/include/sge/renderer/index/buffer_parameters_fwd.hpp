@@ -9,7 +9,7 @@
 namespace sge::renderer::index
 {
 
-class buffer_parameters;
+class buffer_parameters; // IWYU pragma: export
 
 }
 

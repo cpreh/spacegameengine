@@ -9,7 +9,7 @@
 namespace sge::cg::program
 {
 
-class from_file_parameters;
+class from_file_parameters; // IWYU pragma: export
 
 }
 

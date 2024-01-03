@@ -9,7 +9,7 @@
 namespace sge::cg::parameter
 {
 
-class named;
+class named; // IWYU pragma: export
 
 }
 

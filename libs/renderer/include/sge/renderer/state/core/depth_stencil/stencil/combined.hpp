@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_STENCIL_COMBINED_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/combined_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/combined_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/core/depth_stencil/stencil/desc.hpp>
 
 namespace sge::renderer::state::core::depth_stencil::stencil

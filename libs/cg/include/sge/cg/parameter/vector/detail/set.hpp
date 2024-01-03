@@ -8,9 +8,9 @@
 
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/parameter/detail/pp_types.hpp>
-#include <sge/cg/parameter/vector/detail/set_double.hpp>
-#include <sge/cg/parameter/vector/detail/set_float.hpp>
-#include <sge/cg/parameter/vector/detail/set_int.hpp>
+#include <sge/cg/parameter/vector/detail/set_double.hpp> // IWYU pragma: keep
+#include <sge/cg/parameter/vector/detail/set_float.hpp> // IWYU pragma: keep
+#include <sge/cg/parameter/vector/detail/set_int.hpp> // IWYU pragma: keep
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

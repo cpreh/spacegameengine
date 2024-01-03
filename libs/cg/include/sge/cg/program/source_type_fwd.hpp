@@ -9,7 +9,7 @@
 namespace sge::cg::program
 {
 
-enum class source_type;
+enum class source_type; // IWYU pragma: export
 
 }
 

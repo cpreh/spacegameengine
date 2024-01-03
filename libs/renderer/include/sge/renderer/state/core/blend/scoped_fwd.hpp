@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::blend
 {
 
-class scoped;
+class scoped; // IWYU pragma: export
 
 }
 

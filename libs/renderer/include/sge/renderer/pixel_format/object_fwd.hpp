@@ -9,7 +9,7 @@
 namespace sge::renderer::pixel_format
 {
 
-class object;
+class object; // IWYU pragma: export
 
 }
 

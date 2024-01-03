@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_TEXTURE_CUBE_SIDE_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_CUBE_SIDE_HPP_INCLUDED
 
-#include <sge/renderer/texture/cube_side_fwd.hpp>
+#include <sge/renderer/texture/cube_side_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::texture
 {

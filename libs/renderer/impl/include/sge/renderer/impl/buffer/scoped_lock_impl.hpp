@@ -8,7 +8,7 @@
 
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/buffer/scoped_lock.hpp>
-#include <sge/renderer/buffer/writable.hpp>
+#include <sge/renderer/buffer/writable.hpp> // IWYU pragma: keep
 
 template <typename Tag>
 sge::renderer::buffer::scoped_lock<Tag>::scoped_lock(

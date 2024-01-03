@@ -9,7 +9,7 @@
 namespace sge::renderer::state::ffp::lighting
 {
 
-class enabled;
+class enabled; // IWYU pragma: export
 
 }
 

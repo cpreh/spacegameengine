@@ -10,7 +10,7 @@
 #include <sge/cg/detail/symbol.hpp>
 #include <sge/cg/profile/object_fwd.hpp>
 #include <sge/cg/program/compile_options.hpp>
-#include <sge/cg/program/from_string_parameters_fwd.hpp>
+#include <sge/cg/program/from_string_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/cg/program/main_function.hpp>
 #include <sge/cg/program/source.hpp>
 #include <sge/cg/program/source_type.hpp>

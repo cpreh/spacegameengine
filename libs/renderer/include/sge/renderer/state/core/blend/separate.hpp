@@ -11,7 +11,7 @@
 #include <sge/renderer/state/core/blend/alpha_source.hpp>
 #include <sge/renderer/state/core/blend/color_dest.hpp>
 #include <sge/renderer/state/core/blend/color_source.hpp>
-#include <sge/renderer/state/core/blend/separate_fwd.hpp>
+#include <sge/renderer/state/core/blend/separate_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::blend
 {

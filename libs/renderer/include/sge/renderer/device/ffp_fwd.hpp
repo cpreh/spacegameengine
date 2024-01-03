@@ -9,7 +9,7 @@
 namespace sge::renderer::device
 {
 
-class ffp;
+class ffp; // IWYU pragma: export
 
 }
 

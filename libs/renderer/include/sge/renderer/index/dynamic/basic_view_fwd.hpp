@@ -10,7 +10,7 @@ namespace sge::renderer::index::dynamic
 {
 
 template <bool isConst>
-class basic_view;
+class basic_view; // IWYU pragma: export
 
 }
 

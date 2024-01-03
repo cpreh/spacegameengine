@@ -6,7 +6,7 @@
 #ifndef SGE_CG_PROGRAM_SOURCE_TYPE_HPP_INCLUDED
 #define SGE_CG_PROGRAM_SOURCE_TYPE_HPP_INCLUDED
 
-#include <sge/cg/program/source_type_fwd.hpp>
+#include <sge/cg/program/source_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::cg::program
 {

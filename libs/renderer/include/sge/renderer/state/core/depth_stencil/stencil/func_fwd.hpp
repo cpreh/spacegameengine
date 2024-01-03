@@ -9,7 +9,7 @@
 namespace sge::renderer::state::core::depth_stencil::stencil
 {
 
-enum class func;
+enum class func; // IWYU pragma: export
 
 }
 

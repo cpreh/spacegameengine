@@ -7,7 +7,7 @@
 #define SGE_RENDERER_VF_VECTOR_HPP_INCLUDED
 
 #include <sge/renderer/vf/element_count_type.hpp>
-#include <sge/renderer/vf/vector_fwd.hpp>
+#include <sge/renderer/vf/vector_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::vf
 {

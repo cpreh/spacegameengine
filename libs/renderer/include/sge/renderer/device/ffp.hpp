@@ -11,7 +11,7 @@
 #include <sge/renderer/context/ffp_unique_ptr.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/renderer/device/ffp_fwd.hpp>
+#include <sge/renderer/device/ffp_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/ffp/alpha_test/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/alpha_test/parameters_fwd.hpp>
 #include <sge/renderer/state/ffp/clip_plane/object_unique_ptr.hpp>

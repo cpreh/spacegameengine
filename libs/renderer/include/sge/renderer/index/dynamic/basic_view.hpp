@@ -10,7 +10,7 @@
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/index/dynamic/basic_view_fwd.hpp>
+#include <sge/renderer/index/dynamic/basic_view_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/dynamic/format.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

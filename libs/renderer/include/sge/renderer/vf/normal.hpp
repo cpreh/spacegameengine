@@ -7,7 +7,7 @@
 #define SGE_RENDERER_VF_NORMAL_HPP_INCLUDED
 
 #include <sge/renderer/is_valid_float_type.hpp>
-#include <sge/renderer/vf/normal_fwd.hpp>
+#include <sge/renderer/vf/normal_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/vector3_base.hpp>
 #include <sge/renderer/vf/labels/normal.hpp>
 

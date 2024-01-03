@@ -6,6 +6,7 @@
 #include <sge/renderer/vf/dynamic/element.hpp>
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/ordered_element.hpp>
+#include <fcppt/strong_typedef_comparison.hpp>
 
 sge::renderer::vf::dynamic::ordered_element::ordered_element(
     sge::renderer::vf::dynamic::element const &_element,

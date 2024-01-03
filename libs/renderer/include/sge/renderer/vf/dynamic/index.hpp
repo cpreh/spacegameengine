@@ -6,9 +6,9 @@
 #ifndef SGE_RENDERER_VF_DYNAMIC_INDEX_HPP_INCLUDED
 #define SGE_RENDERER_VF_DYNAMIC_INDEX_HPP_INCLUDED
 
-#include <sge/renderer/vf/index.hpp>
+#include <sge/renderer/vf/index_type.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::vf::dynamic
 {

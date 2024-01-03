@@ -10,7 +10,7 @@ namespace sge::renderer::vf
 {
 
 template <typename Format>
-struct normal;
+struct normal; // IWYU pragma: export
 
 }
 

@@ -7,7 +7,7 @@
 #define SGE_RENDERER_BUFFER_DETAIL_DECLARE_READABLE_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/renderer/buffer/readable.hpp>
+#include <sge/renderer/buffer/readable.hpp> // IWYU pragma: keep
 
 #define SGE_RENDERER_BUFFER_DETAIL_DECLARE_READABLE(tag) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION \

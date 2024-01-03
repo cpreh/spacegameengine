@@ -9,7 +9,7 @@
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/back.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/front.hpp>
-#include <sge/renderer/state/core/depth_stencil/stencil/separate_fwd.hpp>
+#include <sge/renderer/state/core/depth_stencil/stencil/separate_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::renderer::state::core::depth_stencil::stencil
 {

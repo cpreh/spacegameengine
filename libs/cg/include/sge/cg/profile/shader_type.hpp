@@ -6,7 +6,7 @@
 #ifndef SGE_CG_PROFILE_SHADER_TYPE_HPP_INCLUDED
 #define SGE_CG_PROFILE_SHADER_TYPE_HPP_INCLUDED
 
-#include <sge/cg/profile/shader_type_fwd.hpp>
+#include <sge/cg/profile/shader_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::cg::profile
 {

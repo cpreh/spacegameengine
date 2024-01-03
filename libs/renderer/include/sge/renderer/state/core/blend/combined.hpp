@@ -7,7 +7,7 @@
 #define SGE_RENDERER_STATE_CORE_BLEND_COMBINED_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/state/core/blend/combined_fwd.hpp>
+#include <sge/renderer/state/core/blend/combined_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/state/core/blend/dest.hpp>
 #include <sge/renderer/state/core/blend/source.hpp>
 

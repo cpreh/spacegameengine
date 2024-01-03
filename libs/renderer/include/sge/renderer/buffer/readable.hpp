@@ -9,7 +9,7 @@
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/image/box_fwd.hpp>
 #include <sge/renderer/buffer/base.hpp>
-#include <sge/renderer/buffer/readable_fwd.hpp>
+#include <sge/renderer/buffer/readable_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/buffer/traits/const_view.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>

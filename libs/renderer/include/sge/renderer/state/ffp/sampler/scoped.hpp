@@ -9,7 +9,7 @@
 #include <sge/renderer/context/ffp_ref.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <sge/renderer/state/ffp/sampler/const_object_ref_vector.hpp>
-#include <sge/renderer/state/ffp/sampler/scoped_fwd.hpp>
+#include <sge/renderer/state/ffp/sampler/scoped_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::renderer::state::ffp::sampler

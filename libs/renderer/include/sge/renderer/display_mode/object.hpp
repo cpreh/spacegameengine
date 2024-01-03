@@ -7,7 +7,7 @@
 #define SGE_RENDERER_DISPLAY_MODE_OBJECT_HPP_INCLUDED
 
 #include <sge/renderer/detail/symbol.hpp>
-#include <sge/renderer/display_mode/object_fwd.hpp>
+#include <sge/renderer/display_mode/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/display_mode/optional_dimensions.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
 #include <sge/renderer/display_mode/pixel_size.hpp>
