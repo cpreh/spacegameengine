@@ -12,11 +12,7 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
-namespace sge
-{
-namespace image
-{
-namespace color
+namespace sge::image::color
 {
 
 FCPPT_PP_PUSH_WARNING
@@ -26,8 +22,6 @@ using bgrx8 = sge::image::pixel::mizuiro_type<sge::image::color::bgrx8_format>;
 
 FCPPT_PP_POP_WARNING
 
-}
-}
 }
 
 #endif

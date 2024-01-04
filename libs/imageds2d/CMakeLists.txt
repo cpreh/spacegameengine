@@ -35,6 +35,7 @@ set(
 	libs/imageds2d/src/imageds2d/store/d24s8.cpp
 	libs/imageds2d/src/imageds2d/store/d32.cpp
 	libs/imageds2d/src/imageds2d/view/const_object.cpp
+	libs/imageds2d/src/imageds2d/view/data.cpp
 	libs/imageds2d/src/imageds2d/view/flipped.cpp
 	libs/imageds2d/src/imageds2d/view/format.cpp
 	libs/imageds2d/src/imageds2d/view/make.cpp

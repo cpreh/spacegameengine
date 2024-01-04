@@ -10,7 +10,7 @@ namespace sge::renderer::texture
 {
 
 template <typename Tag>
-class basic_scoped_lock;
+class basic_scoped_lock; // IWYU pragma: export
 
 }
 

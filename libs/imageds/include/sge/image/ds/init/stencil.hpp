@@ -9,20 +9,11 @@
 #include <sge/image/ds/channel/stencil.hpp>
 #include <sge/image/ds/init/detail/make.hpp>
 
-namespace sge
-{
-namespace image
-{
-namespace ds
-{
-namespace init
+namespace sge::image::ds::init
 {
 
 SGE_IMAGE_DS_INIT_DETAIL_MAKE(stencil)
 
-}
-}
-}
 }
 
 #endif

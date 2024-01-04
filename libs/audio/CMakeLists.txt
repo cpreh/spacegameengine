@@ -7,7 +7,6 @@ set(
 	libs/audio/include/sge/audio/buffer.hpp
 	libs/audio/include/sge/audio/buffer_fwd.hpp
 	libs/audio/include/sge/audio/buffer_ref.hpp
-	libs/audio/include/sge/audio/buffer_shared_ptr.hpp
 	libs/audio/include/sge/audio/buffer_unique_ptr.hpp
 	libs/audio/include/sge/audio/bytes_per_sample.hpp
 	libs/audio/include/sge/audio/channel_count.hpp
@@ -65,7 +64,6 @@ set(
 	libs/audio/include/sge/audio/player_plugin/object_fwd.hpp
 	libs/audio/include/sge/audio/player_plugin/traits.hpp
 	libs/audio/include/sge/audio/player_ref.hpp
-	libs/audio/include/sge/audio/player_shared_ptr.hpp
 	libs/audio/include/sge/audio/player_unique_ptr.hpp
 	libs/audio/include/sge/audio/position.hpp
 	libs/audio/include/sge/audio/position_fwd.hpp
@@ -80,7 +78,6 @@ set(
 	libs/audio/include/sge/audio/scalar.hpp
 	libs/audio/include/sge/audio/sound/base.hpp
 	libs/audio/include/sge/audio/sound/base_fwd.hpp
-	libs/audio/include/sge/audio/sound/base_shared_ptr.hpp
 	libs/audio/include/sge/audio/sound/base_unique_ptr.hpp
 	libs/audio/include/sge/audio/sound/do_pause.hpp
 	libs/audio/include/sge/audio/sound/nonpositional_parameters.hpp
@@ -95,7 +92,6 @@ set(
 	libs/audio/include/sge/audio/sound/positional_fwd.hpp
 	libs/audio/include/sge/audio/sound/positional_parameters.hpp
 	libs/audio/include/sge/audio/sound/positional_parameters_fwd.hpp
-	libs/audio/include/sge/audio/sound/positional_shared_ptr.hpp
 	libs/audio/include/sge/audio/sound/positional_unique_ptr.hpp
 	libs/audio/include/sge/audio/sound/repeat.hpp
 	libs/audio/include/sge/audio/sound/repeat_fwd.hpp

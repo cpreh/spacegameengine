@@ -53,7 +53,6 @@ set(
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/basic_variant.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/color_format.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/color_layout.hpp
-	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/format_channel.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/from_static.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/from_static_visitor.hpp
 	libs/imagecolor/impl/include/sge/image/color/impl/dynamic/view/image_format.hpp

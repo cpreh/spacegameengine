@@ -226,7 +226,6 @@ set(
 	libs/renderer/include/sge/renderer/index/buffer_parameters.hpp
 	libs/renderer/include/sge/renderer/index/buffer_parameters_fwd.hpp
 	libs/renderer/include/sge/renderer/index/buffer_ref.hpp
-	libs/renderer/include/sge/renderer/index/buffer_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/index/buffer_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/index/const_buffer_ref.hpp
 	libs/renderer/include/sge/renderer/index/const_proxy.hpp
@@ -727,7 +726,6 @@ set(
 	libs/renderer/include/sge/renderer/target/optional_offscreen_ref_fwd.hpp
 	libs/renderer/include/sge/renderer/target/scissor_area.hpp
 	libs/renderer/include/sge/renderer/target/scissor_area_fwd.hpp
-	libs/renderer/include/sge/renderer/target/scoped_fwd.hpp
 	libs/renderer/include/sge/renderer/target/scoped_scissor_area.hpp
 	libs/renderer/include/sge/renderer/target/surface_index.hpp
 	libs/renderer/include/sge/renderer/target/surface_index_value.hpp
@@ -807,7 +805,6 @@ set(
 	libs/renderer/include/sge/renderer/texture/planar_parameters.hpp
 	libs/renderer/include/sge/renderer/texture/planar_parameters_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/planar_ref.hpp
-	libs/renderer/include/sge/renderer/texture/planar_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/planar_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/scoped.hpp
 	libs/renderer/include/sge/renderer/texture/scoped_planar_lock.hpp
@@ -838,7 +835,6 @@ set(
 	libs/renderer/include/sge/renderer/vertex/buffer_parameters.hpp
 	libs/renderer/include/sge/renderer/vertex/buffer_parameters_fwd.hpp
 	libs/renderer/include/sge/renderer/vertex/buffer_ref.hpp
-	libs/renderer/include/sge/renderer/vertex/buffer_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/vertex/buffer_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/vertex/const_buffer_ref.hpp
 	libs/renderer/include/sge/renderer/vertex/const_buffer_ref_container.hpp
@@ -854,7 +850,6 @@ set(
 	libs/renderer/include/sge/renderer/vertex/declaration_fwd.hpp
 	libs/renderer/include/sge/renderer/vertex/declaration_parameters.hpp
 	libs/renderer/include/sge/renderer/vertex/declaration_parameters_fwd.hpp
-	libs/renderer/include/sge/renderer/vertex/declaration_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/vertex/declaration_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/vertex/first.hpp
 	libs/renderer/include/sge/renderer/vertex/scoped_buffer.hpp

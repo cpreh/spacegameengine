@@ -7,7 +7,7 @@
 #define SGE_IMAGE_VIEW_MIZUIRO_TYPE_FWD_HPP_INCLUDED
 
 #include <sge/image/view/mizuiro_access.hpp>
-#include <sge/image/view/mizuiro_traits.hpp>
+#include <sge/image/view/mizuiro_traits.hpp> // IWYU pragma: keep
 #include <mizuiro/image/view_fwd.hpp>
 
 namespace sge::image::view

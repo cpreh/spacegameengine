@@ -12,11 +12,7 @@
 #include <sge/imageds2d/view/const_object_fwd.hpp>
 #include <sge/imageds2d/view/object_fwd.hpp>
 
-namespace sge
-{
-namespace imageds2d
-{
-namespace view
+namespace sge::imageds2d::view
 {
 
 SGE_IMAGEDS2D_DETAIL_SYMBOL
@@ -25,8 +21,6 @@ sge::image::raw_pointer data(sge::imageds2d::view::object const &);
 SGE_IMAGEDS2D_DETAIL_SYMBOL
 sge::image::const_raw_pointer data(sge::imageds2d::view::const_object const &);
 
-}
-}
 }
 
 #endif
