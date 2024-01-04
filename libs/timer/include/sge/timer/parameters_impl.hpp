@@ -8,7 +8,7 @@
 
 #include <sge/timer/parameters_decl.hpp> // IWYU pragma: export
 #include <sge/timer/clocks/is_stateful.hpp>
-#include <sge/timer/clocks/parameter.hpp>
+#include <sge/timer/clocks/parameter.hpp> // IWYU pragma: keep
 
 // NOLINTNEXTLINE(cppcoreguidelines-pro-type-member-init,hicpp-member-init)
 template <typename Clock>

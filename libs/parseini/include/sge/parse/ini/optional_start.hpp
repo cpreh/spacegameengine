@@ -7,6 +7,6 @@
 #define SGE_PARSE_INI_OPTIONAL_START_HPP_INCLUDED
 
 #include <sge/parse/ini/optional_start_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

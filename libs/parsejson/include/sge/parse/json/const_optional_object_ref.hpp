@@ -7,6 +7,6 @@
 #define SGE_PARSE_JSON_CONST_OPTIONAL_OBJECT_REF_HPP_INCLUDED
 
 #include <sge/parse/json/const_optional_object_ref_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/reference.hpp>
+#include <fcppt/optional/reference.hpp> // IWYU pragma: keep
 
 #endif

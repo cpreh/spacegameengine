@@ -9,6 +9,7 @@
 #include <sge/charconv/utf8_string.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/grammar_base_fwd.hpp>
+#include <sge/parse/json/grammar_fwd.hpp>
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/start.hpp>

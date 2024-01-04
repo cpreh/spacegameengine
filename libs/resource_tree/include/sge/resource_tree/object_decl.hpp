@@ -6,6 +6,7 @@
 #ifndef SGE_RESOURCE_TREE_OBJECT_DECL_HPP_INCLUDED
 #define SGE_RESOURCE_TREE_OBJECT_DECL_HPP_INCLUDED
 
+#include <sge/resource_tree/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/resource_tree/path_fwd.hpp>
 #include <sge/resource_tree/path_to_resource_function.hpp>
 #include <sge/resource_tree/detail/element_decl.hpp>

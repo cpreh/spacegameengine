@@ -10,7 +10,7 @@
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/element_vector.hpp>
 #include <sge/parse/json/get_exn.hpp>
-#include <sge/parse/json/object.hpp>
+#include <sge/parse/json/object.hpp> // IWYU pragma: keep
 #include <sge/parse/json/convert/choose_fundamental.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>

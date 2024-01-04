@@ -7,6 +7,6 @@
 #define SGE_PARSE_JSON_VALUE_VARIANT_HPP_INCLUDED
 
 #include <sge/parse/json/value_variant_fwd.hpp> // IWYU pragma: export
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

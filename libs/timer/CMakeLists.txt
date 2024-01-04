@@ -8,10 +8,6 @@ set(
 	libs/timer/include/sge/timer/basic_decl.hpp
 	libs/timer/include/sge/timer/basic_fwd.hpp
 	libs/timer/include/sge/timer/basic_impl.hpp
-	libs/timer/include/sge/timer/clocks/adjustable.hpp
-	libs/timer/include/sge/timer/clocks/adjustable_decl.hpp
-	libs/timer/include/sge/timer/clocks/adjustable_fwd.hpp
-	libs/timer/include/sge/timer/clocks/adjustable_impl.hpp
 	libs/timer/include/sge/timer/clocks/delta.hpp
 	libs/timer/include/sge/timer/clocks/delta_decl.hpp
 	libs/timer/include/sge/timer/clocks/delta_fwd.hpp
@@ -37,7 +33,6 @@ set(
 	libs/timer/include/sge/timer/parameters_fwd.hpp
 	libs/timer/include/sge/timer/parameters_impl.hpp
 	libs/timer/include/sge/timer/remaining.hpp
-	libs/timer/include/sge/timer/remaining_fractional.hpp
 	libs/timer/include/sge/timer/reset_when_expired.hpp
 	libs/timer/include/sge/timer/scoped_frame_limiter.hpp
 	libs/timer/include/sge/timer/scoped_frame_limiter_fwd.hpp

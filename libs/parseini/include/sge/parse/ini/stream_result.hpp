@@ -6,9 +6,9 @@
 #ifndef SGE_PARSE_INI_STREAM_RESULT_HPP_INCLUDED
 #define SGE_PARSE_INI_STREAM_RESULT_HPP_INCLUDED
 
-#include <sge/parse/ini/start.hpp>
+#include <sge/parse/ini/start.hpp> // IWYU pragma: keep
 #include <sge/parse/ini/stream_result_fwd.hpp> // IWYU pragma: export
-#include <fcppt/either/object_impl.hpp>
-#include <fcppt/parse/parse_stream_error.hpp>
+#include <fcppt/either/object_impl.hpp> // IWYU pragma: keep
+#include <fcppt/parse/parse_stream_error.hpp> // IWYU pragma: keep
 
 #endif

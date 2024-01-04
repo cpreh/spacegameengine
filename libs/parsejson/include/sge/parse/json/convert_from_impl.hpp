@@ -18,6 +18,7 @@
 #include <sge/parse/json/detail/is_iterable.hpp>
 #include <sge/parse/json/detail/is_math_type.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/make_ref.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/reference.hpp>
@@ -37,7 +38,6 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
 #include <string>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

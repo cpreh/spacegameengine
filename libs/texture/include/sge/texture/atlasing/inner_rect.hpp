@@ -6,8 +6,8 @@
 #ifndef SGE_TEXTURE_ATLASING_INNER_RECT_HPP_INCLUDED
 #define SGE_TEXTURE_ATLASING_INNER_RECT_HPP_INCLUDED
 
-#include <sge/renderer/lock_rect.hpp>
+#include <sge/renderer/lock_rect.hpp> // IWYU pragma: keep
 #include <sge/texture/atlasing/inner_rect_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -10,7 +10,7 @@ namespace sge::timer::clocks
 {
 
 template <typename Duration>
-class delta;
+class delta; // IWYU pragma: export
 
 }
 

@@ -7,7 +7,7 @@
 #define SGE_TEXTURE_IMPL_INSTANTIATE_BASIC_PART_RAW_HPP_INCLUDED
 
 #include <sge/core/impl/export_class_instantiation.hpp>
-#include <sge/texture/impl/basic_part_raw_impl.hpp>
+#include <sge/texture/impl/basic_part_raw_impl.hpp> // IWYU pragma: keep
 
 #define SGE_TEXTURE_IMPL_INSTANTIATE_BASIC_PART_RAW(ref_type) \
   template class SGE_CORE_IMPL_EXPORT_CLASS_INSTANTIATION sge::texture::basic_part_raw<ref_type>

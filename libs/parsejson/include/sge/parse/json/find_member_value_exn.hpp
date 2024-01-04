@@ -11,6 +11,7 @@
 #include <sge/parse/json/get_return_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/member_not_found.hpp>
+#include <sge/parse/json/value.hpp>
 #include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>

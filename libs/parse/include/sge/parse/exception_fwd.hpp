@@ -6,14 +6,11 @@
 #ifndef SGE_PARSE_EXCEPTION_FWD_HPP_INCLUDED
 #define SGE_PARSE_EXCEPTION_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace parse
+namespace sge::parse
 {
 
-class exception;
+class exception; // IWYU pragma: export
 
-}
 }
 
 #endif

@@ -10,7 +10,7 @@ namespace sge::resource_tree::detail
 {
 
 template <typename T>
-class path_with_resource;
+class path_with_resource; // IWYU pragma: export
 
 }
 

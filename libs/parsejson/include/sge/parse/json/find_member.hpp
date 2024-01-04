@@ -10,7 +10,7 @@
 #include <sge/parse/json/find_member_return_type.hpp>
 #include <sge/parse/json/find_member_value.hpp>
 #include <sge/parse/json/get_exn.hpp>
-#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/value.hpp> // IWYU pragma: keep
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/optional/map.hpp>
 

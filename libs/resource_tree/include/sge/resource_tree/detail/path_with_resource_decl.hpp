@@ -7,7 +7,7 @@
 #define SGE_RESOURCE_TREE_DETAIL_PATH_WITH_RESOURCE_DECL_HPP_INCLUDED
 
 #include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/detail/path_with_resource_fwd.hpp>
+#include <sge/resource_tree/detail/path_with_resource_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::resource_tree::detail
 {

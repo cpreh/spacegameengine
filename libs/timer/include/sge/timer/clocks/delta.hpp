@@ -7,7 +7,7 @@
 #define SGE_TIMER_CLOCKS_DELTA_HPP_INCLUDED
 
 #include <sge/timer/clocks/delta_decl.hpp> // IWYU pragma: export
-#include <sge/timer/clocks/delta_fwd.hpp>
-#include <sge/timer/clocks/delta_impl.hpp>
+#include <sge/timer/clocks/delta_fwd.hpp> // IWYU pragma: keep
+#include <sge/timer/clocks/delta_impl.hpp> // IWYU pragma: keep
 
 #endif

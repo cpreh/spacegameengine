@@ -6,7 +6,7 @@
 #ifndef SGE_RENDERER_OPENGL_GLINCLUDE_HPP_INCLUDED
 #define SGE_RENDERER_OPENGL_GLINCLUDE_HPP_INCLUDED
 
-#include <fcppt/config/platform.hpp>
+#include <fcppt/config/platform.hpp> // IWYU pragma: keep
 #if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
 #include <fcppt/config/external_begin.hpp>
 #include <OpenGL/gl.h> // IWYU pragma: export

@@ -10,7 +10,7 @@ namespace sge::timer
 {
 
 template <typename Clock>
-class basic;
+class basic; // IWYU pragma: export
 
 }
 

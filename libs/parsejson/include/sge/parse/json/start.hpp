@@ -10,7 +10,7 @@
 #include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/object_fwd.hpp>
 #include <sge/parse/json/start_fwd.hpp>
-#include <sge/parse/json/value.hpp>
+#include <sge/parse/json/value.hpp> // IWYU pragma: keep
 #include <sge/parse/json/detail/symbol.hpp>
 
 namespace sge::parse::json

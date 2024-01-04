@@ -7,7 +7,7 @@
 #define SGE_TIMER_BASIC_IMPL_HPP_INCLUDED
 
 #include <sge/timer/basic_decl.hpp> // IWYU pragma: export
-#include <sge/timer/parameters_impl.hpp>
+#include <sge/timer/parameters_impl.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

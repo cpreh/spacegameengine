@@ -6,7 +6,7 @@
 #ifndef SGE_TIMER_CLOCKS_PARAMETER_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_PARAMETER_HPP_INCLUDED
 
-#include <sge/timer/clocks/parameter_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <sge/timer/clocks/parameter_fwd.hpp> // IWYU pragma: export
+#include <fcppt/reference_impl.hpp> // IWYU pragma: keep
 
 #endif

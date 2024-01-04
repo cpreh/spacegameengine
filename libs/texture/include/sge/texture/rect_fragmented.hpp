@@ -11,6 +11,7 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/color_format_fwd.hpp>
+#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_unique_ptr.hpp>
 #include <sge/renderer/texture/mipmap/object_fwd.hpp>
 #include <sge/texture/fragmented.hpp>

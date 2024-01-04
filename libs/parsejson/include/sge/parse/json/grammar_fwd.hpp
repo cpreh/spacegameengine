@@ -6,17 +6,11 @@
 #ifndef SGE_PARSE_JSON_GRAMMAR_FWD_HPP_INCLUDED
 #define SGE_PARSE_JSON_GRAMMAR_FWD_HPP_INCLUDED
 
-namespace sge
-{
-namespace parse
-{
-namespace json
+namespace sge::parse::json
 {
 
-class grammar;
+class grammar; // IWYU pragma: export
 
-}
-}
 }
 
 #endif

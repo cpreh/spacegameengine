@@ -7,7 +7,7 @@
 #define SGE_RESOURCE_TREE_DETAIL_ELEMENT_DECL_HPP_INCLUDED
 
 #include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/detail/element_fwd.hpp>
+#include <sge/resource_tree/detail/element_fwd.hpp> // IWYU pragma: keep
 #include <sge/resource_tree/detail/path_with_resource_decl.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/reference_fwd.hpp>

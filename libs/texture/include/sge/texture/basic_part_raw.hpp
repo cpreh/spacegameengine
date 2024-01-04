@@ -10,7 +10,7 @@
 #include <sge/image2d/view/const_object_fwd.hpp>
 #include <sge/renderer/lock_rect.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
-#include <sge/texture/basic_part_raw_fwd.hpp>
+#include <sge/texture/basic_part_raw_fwd.hpp> // IWYU pragma: keep
 #include <sge/texture/part.hpp>
 #include <sge/texture/detail/ref_store_type.hpp>
 #include <sge/texture/detail/symbol.hpp>

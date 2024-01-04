@@ -7,6 +7,6 @@
 #define SGE_TEXTURE_POS_HPP_INCLUDED
 
 #include <sge/texture/pos_fwd.hpp> // IWYU pragma: export
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/static.hpp> // IWYU pragma: keep
 
 #endif

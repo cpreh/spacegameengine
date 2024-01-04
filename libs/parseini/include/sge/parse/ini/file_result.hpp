@@ -6,8 +6,8 @@
 #ifndef SGE_PARSE_INI_FILE_RESULT_HPP_INCLUDED
 #define SGE_PARSE_INI_FILE_RESULT_HPP_INCLUDED
 
-#include <sge/parse/file_result.hpp>
+#include <sge/parse/file_result.hpp> // IWYU pragma: keep
 #include <sge/parse/ini/file_result_fwd.hpp> // IWYU pragma: export
-#include <sge/parse/ini/start.hpp>
+#include <sge/parse/ini/start.hpp> // IWYU pragma: keep
 
 #endif

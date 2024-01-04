@@ -18,14 +18,13 @@
 #include <fcppt/parse/grammar_fwd.hpp>
 #include <fcppt/parse/grammar_parse_stream.hpp>
 #include <fcppt/parse/parse_stream_error.hpp>
-#include <fcppt/parse/parse_stream_error_output.hpp>
-#include <fcppt/parse/result.hpp>
+#include <fcppt/parse/parse_stream_error_output.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fstream>
 #include <ios>
+#include <istream>
 #include <string>
-#include <utility>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::parse::impl

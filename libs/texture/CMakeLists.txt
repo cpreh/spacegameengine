@@ -44,7 +44,6 @@ set(
 	libs/texture/include/sge/texture/part_raw_ptr_fwd.hpp
 	libs/texture/include/sge/texture/part_raw_ref.hpp
 	libs/texture/include/sge/texture/part_raw_ref_fwd.hpp
-	libs/texture/include/sge/texture/part_shared_ptr.hpp
 	libs/texture/include/sge/texture/part_unique_ptr.hpp
 	libs/texture/include/sge/texture/pos.hpp
 	libs/texture/include/sge/texture/pos_fwd.hpp

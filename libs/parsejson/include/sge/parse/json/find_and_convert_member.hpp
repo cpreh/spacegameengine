@@ -11,12 +11,12 @@
 #include <sge/parse/json/exception.hpp>
 #include <sge/parse/json/find_object_exn.hpp>
 #include <sge/parse/json/invalid_get.hpp>
-#include <sge/parse/json/member_map.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/path.hpp>
 #include <sge/parse/json/path_to_string.hpp>
 #include <sge/parse/json/detail/to_fcppt_string.hpp>
 #include <fcppt/make_cref.hpp>
+#include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
 #include <fcppt/config/external_begin.hpp>

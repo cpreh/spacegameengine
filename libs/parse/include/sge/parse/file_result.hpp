@@ -6,8 +6,8 @@
 #ifndef SGE_PARSE_FILE_RESULT_HPP_INCLUDED
 #define SGE_PARSE_FILE_RESULT_HPP_INCLUDED
 
-#include <sge/parse/file_result_fwd.hpp>
-#include <fcppt/either/object_impl.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <sge/parse/file_result_fwd.hpp> // IWYU pragma: export
+#include <fcppt/either/object_impl.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

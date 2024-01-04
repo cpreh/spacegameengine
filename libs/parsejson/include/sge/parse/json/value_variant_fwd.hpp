@@ -14,7 +14,6 @@
 #include <sge/parse/json/null.hpp>
 #include <sge/parse/json/object.hpp>
 #include <sge/parse/json/object_fwd.hpp>
-#include <sge/parse/json/value_fwd.hpp>
 #include <fcppt/variant/object_fwd.hpp>
 
 namespace sge::parse::json

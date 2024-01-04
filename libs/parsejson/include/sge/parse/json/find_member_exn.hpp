@@ -12,7 +12,6 @@
 #include <sge/parse/json/get_return_type.hpp>
 #include <sge/parse/json/member_map.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

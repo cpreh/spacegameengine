@@ -9,13 +9,13 @@
 #include <sge/resource_tree/exception.hpp>
 #include <sge/resource_tree/object_decl.hpp> // IWYU pragma: export
 #include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/detail/element_impl.hpp>
+#include <sge/resource_tree/detail/element_impl.hpp> // IWYU pragma: keep
 #include <sge/resource_tree/detail/init.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>

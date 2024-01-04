@@ -11,22 +11,16 @@ set(
 	libs/parsejson/include/sge/parse/json/config/merge_command_line_parameters.hpp
 	libs/parsejson/include/sge/parse/json/config/merge_trees.hpp
 	libs/parsejson/include/sge/parse/json/config/modify_user_value.hpp
-	libs/parsejson/include/sge/parse/json/config/user_config_variable.hpp
-	libs/parsejson/include/sge/parse/json/config/user_config_variable_decl.hpp
-	libs/parsejson/include/sge/parse/json/config/user_config_variable_fwd.hpp
-	libs/parsejson/include/sge/parse/json/config/user_config_variable_impl.hpp
 	libs/parsejson/include/sge/parse/json/const_optional_object_ref.hpp
 	libs/parsejson/include/sge/parse/json/const_optional_object_ref_fwd.hpp
 	libs/parsejson/include/sge/parse/json/convert/choose_fundamental.hpp
 	libs/parsejson/include/sge/parse/json/convert/from_container.hpp
-	libs/parsejson/include/sge/parse/json/convert/from_enum.hpp
 	libs/parsejson/include/sge/parse/json/convert/from_int.hpp
 	libs/parsejson/include/sge/parse/json/convert/to_int.hpp
 	libs/parsejson/include/sge/parse/json/convert/to_static_container.hpp
 	libs/parsejson/include/sge/parse/json/convert_from.hpp
 	libs/parsejson/include/sge/parse/json/convert_from_fwd.hpp
 	libs/parsejson/include/sge/parse/json/convert_from_impl.hpp
-	libs/parsejson/include/sge/parse/json/convert_to.hpp
 	libs/parsejson/include/sge/parse/json/detail/is_iterable.hpp
 	libs/parsejson/include/sge/parse/json/detail/is_math_type.hpp
 	libs/parsejson/include/sge/parse/json/detail/to_fcppt_string.hpp

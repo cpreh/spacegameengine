@@ -8,19 +8,20 @@
 
 #include <sge/resource_tree/exception.hpp>
 #include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/detail/element_decl.hpp>
-#include <sge/resource_tree/detail/path_with_resource_impl.hpp>
+#include <sge/resource_tree/detail/element_decl.hpp> // IWYU pragma: export
+#include <sge/resource_tree/detail/path_with_resource_impl.hpp> // IWYU pragma: keep
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/optional/map.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/random/make_variate.hpp>
-#include <fcppt/random/variate_impl.hpp>
+#include <fcppt/random/variate_impl.hpp> // IWYU pragma: keep
 #include <fcppt/random/wrapper/make_uniform_container.hpp>
+#include <fcppt/random/wrapper/uniform_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

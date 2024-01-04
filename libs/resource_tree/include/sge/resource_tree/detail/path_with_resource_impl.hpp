@@ -7,7 +7,7 @@
 #define SGE_RESOURCE_TREE_DETAIL_PATH_WITH_RESOURCE_IMPL_HPP_INCLUDED
 
 #include <sge/resource_tree/path.hpp>
-#include <sge/resource_tree/detail/path_with_resource_decl.hpp>
+#include <sge/resource_tree/detail/path_with_resource_decl.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

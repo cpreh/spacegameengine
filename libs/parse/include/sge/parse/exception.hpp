@@ -8,6 +8,7 @@
 
 #include <sge/core/exception.hpp>
 #include <sge/core/detail/class_symbol.hpp>
+#include <sge/parse/exception_fwd.hpp> // IWYU pragma: keep
 #include <sge/parse/detail/symbol.hpp>
 #include <fcppt/string.hpp>
 

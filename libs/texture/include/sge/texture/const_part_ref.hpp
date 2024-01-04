@@ -7,6 +7,6 @@
 #define SGE_TEXTURE_CONST_PART_REF_HPP_INCLUDED
 
 #include <sge/texture/const_part_ref_fwd.hpp> // IWYU pragma: export
-#include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_impl.hpp> // IWYU pragma: keep
 
 #endif

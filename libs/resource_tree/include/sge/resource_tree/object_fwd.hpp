@@ -9,7 +9,7 @@
 namespace sge::resource_tree
 {
 template <typename T, typename Rng>
-class object;
+class object; // IWYU pragma: export
 }
 
 #endif

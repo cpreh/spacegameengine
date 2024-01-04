@@ -6,7 +6,7 @@
 #ifndef SGE_TIMER_CLOCKS_DELTA_DECL_HPP_INCLUDED
 #define SGE_TIMER_CLOCKS_DELTA_DECL_HPP_INCLUDED
 
-#include <sge/timer/clocks/delta_fwd.hpp>
+#include <sge/timer/clocks/delta_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <chrono>

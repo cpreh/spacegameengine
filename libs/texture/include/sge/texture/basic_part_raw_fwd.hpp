@@ -10,7 +10,7 @@ namespace sge::texture
 {
 
 template <typename Ref>
-class basic_part_raw;
+class basic_part_raw; // IWYU pragma: export
 
 }
 

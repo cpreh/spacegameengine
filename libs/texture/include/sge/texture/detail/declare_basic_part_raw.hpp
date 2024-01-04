@@ -7,7 +7,7 @@
 #define SGE_TEXTURE_DETAIL_DECLARE_BASIC_PART_RAW_HPP_INCLUDED
 
 #include <sge/core/detail/export_class_declaration.hpp>
-#include <sge/texture/basic_part_raw.hpp>
+#include <sge/texture/basic_part_raw.hpp> // IWYU pragma: keep
 
 #define SGE_TEXTURE_DETAIL_DECLARE_BASIC_PART_RAW(type) \
   extern template class SGE_CORE_DETAIL_EXPORT_CLASS_DECLARATION sge::texture::basic_part_raw<type>
