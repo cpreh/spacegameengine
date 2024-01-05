@@ -7,7 +7,7 @@
 #define SGE_SPRITE_GEOMETRY_RANDOM_ACCESS_RANGE_DECL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/random_access_range_fwd.hpp>
+#include <sge/sprite/geometry/random_access_range_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/type_traits/is_iterator_of_category.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>

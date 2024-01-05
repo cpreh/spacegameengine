@@ -7,6 +7,6 @@
 #define SGE_CONSOLE_GFX_OUTPUT_LINE_LIMIT_HPP_INCLUDED
 
 #include <sge/console/gfx/output_line_limit_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

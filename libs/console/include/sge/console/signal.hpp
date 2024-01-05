@@ -7,7 +7,7 @@
 #define SGE_CONSOLE_SIGNAL_HPP_INCLUDED
 
 #include <sge/console/signal_fwd.hpp> // IWYU pragma: export
-#include <fcppt/signal/object.hpp>
-#include <fcppt/signal/unregister/base.hpp>
+#include <fcppt/signal/object.hpp> // IWYU pragma: keep
+#include <fcppt/signal/unregister/base.hpp> // IWYU pragma: keep
 
 #endif

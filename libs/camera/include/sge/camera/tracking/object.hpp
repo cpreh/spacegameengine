@@ -15,6 +15,7 @@
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/tracking/is_looping.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
+#include <sge/camera/tracking/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/input/event_base_fwd.hpp>
 #include <fcppt/cyclic_iterator_decl.hpp>

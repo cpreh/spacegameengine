@@ -9,7 +9,7 @@
 namespace sge::sprite::state
 {
 
-struct with_transform;
+struct with_transform; // IWYU pragma: export
 
 }
 

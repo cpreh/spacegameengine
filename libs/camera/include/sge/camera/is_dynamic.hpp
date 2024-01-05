@@ -7,6 +7,7 @@
 #define SGE_CAMERA_IS_DYNAMIC_HPP_INCLUDED
 
 #include <sge/camera/base.hpp>
+#include <sge/camera/is_dynamic_fwd.hpp>
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>

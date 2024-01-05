@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_STATE_VERTEX_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_STATE_VERTEX_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/state/vertex_options_fwd.hpp>
+#include <sge/sprite/state/vertex_options_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::state
 {

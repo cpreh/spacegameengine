@@ -6,7 +6,7 @@
 #ifndef SGE_SYSTEMS_CURSOR_OPTION_HPP_INCLUDED
 #define SGE_SYSTEMS_CURSOR_OPTION_HPP_INCLUDED
 
-#include <sge/systems/cursor_option_fwd.hpp>
+#include <sge/systems/cursor_option_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::systems
 {

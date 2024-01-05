@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_WITH_INPUT_HPP_INCLUDED
 
 #include <sge/systems/input_fwd.hpp>
-#include <sge/systems/with_input_fwd.hpp>
+#include <sge/systems/with_input_fwd.hpp> // IWYU pragma: keep
 #include <sge/systems/with_window_fwd.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>

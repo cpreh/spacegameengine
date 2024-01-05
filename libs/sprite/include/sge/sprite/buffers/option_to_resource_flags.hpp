@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_BUFFERS_OPTION_TO_RESOURCE_FLAGS_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_OPTION_TO_RESOURCE_FLAGS_HPP_INCLUDED
 
-#include <sge/renderer/resource_flags_field_fwd.hpp>
+#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/sprite/buffers/option_fwd.hpp>
 #include <sge/sprite/detail/symbol.hpp>
 

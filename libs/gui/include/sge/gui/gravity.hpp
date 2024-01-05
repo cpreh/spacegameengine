@@ -6,7 +6,7 @@
 #ifndef SGE_GUI_GRAVITY_HPP_INCLUDED
 #define SGE_GUI_GRAVITY_HPP_INCLUDED
 
-#include <sge/gui/gravity_fwd.hpp>
+#include <sge/gui/gravity_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::gui
 {

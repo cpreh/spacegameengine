@@ -7,7 +7,7 @@
 #define SGE_CONSOLE_MUXING_STREAMBUF_HPP_INCLUDED
 
 #include <sge/console/muxing.hpp>
-#include <sge/console/muxing_streambuf_fwd.hpp>
+#include <sge/console/muxing_streambuf_fwd.hpp> // IWYU pragma: keep
 #include <sge/console/object_ref.hpp>
 #include <sge/console/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>

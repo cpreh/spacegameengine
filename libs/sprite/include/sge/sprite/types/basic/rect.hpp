@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_BASIC_RECT_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_RECT_HPP_INCLUDED
 
-#include <sge/sprite/types/basic/rect_fwd.hpp>
-#include <fcppt/math/box/rect.hpp>
+#include <sge/sprite/types/basic/rect_fwd.hpp> // IWYU pragma: export
+#include <fcppt/math/box/rect.hpp> // IWYU pragma: keep
 
 #endif

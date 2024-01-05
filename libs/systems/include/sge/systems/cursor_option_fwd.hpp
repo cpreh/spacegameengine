@@ -9,7 +9,7 @@
 namespace sge::systems
 {
 
-enum class cursor_option;
+enum class cursor_option; // IWYU pragma: keep
 
 }
 

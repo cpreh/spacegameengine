@@ -15,7 +15,7 @@
 #include <sge/input/keyboard/event/key_fwd.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 #include <fcppt/log/context_reference_fwd.hpp>
 #include <fcppt/log/object.hpp>
 #include <fcppt/config/external_begin.hpp>

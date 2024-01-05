@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_CONFIG_WITH_ROTATION_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_WITH_ROTATION_HPP_INCLUDED
 
-#include <sge/sprite/config/with_rotation_fwd.hpp>
+#include <sge/sprite/config/with_rotation_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/roles/rotation.hpp>
 #include <sge/sprite/types/rotation.hpp>
 #include <fcppt/mpl/list/object.hpp>

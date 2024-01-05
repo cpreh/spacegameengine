@@ -12,7 +12,7 @@ namespace sge::sprite::config
 {
 
 template <sge::sprite::config::pos_option Option>
-struct pos;
+struct pos; // IWYU pragma: export
 
 }
 

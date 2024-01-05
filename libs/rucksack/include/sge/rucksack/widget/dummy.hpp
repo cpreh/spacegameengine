@@ -11,6 +11,7 @@
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/dummy_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::rucksack::widget

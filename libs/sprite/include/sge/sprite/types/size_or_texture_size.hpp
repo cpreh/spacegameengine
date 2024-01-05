@@ -6,9 +6,9 @@
 #ifndef SGE_SPRITE_TYPES_SIZE_OR_TEXTURE_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_SIZE_OR_TEXTURE_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/types/dim.hpp>
+#include <sge/sprite/types/dim.hpp> // IWYU pragma: keep
 #include <sge/sprite/types/size_or_texture_size_fwd.hpp> // IWYU pragma: export
-#include <sge/sprite/types/texture_size.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/sprite/types/texture_size.hpp> // IWYU pragma: keep
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

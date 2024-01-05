@@ -12,8 +12,8 @@
 #include <sge/console/signal_fwd.hpp>
 #include <sge/console/detail/symbol.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/signal/object_decl.hpp>
-#include <fcppt/signal/unregister/base_decl.hpp>
+#include <fcppt/signal/object_decl.hpp> // IWYU pragma: keep
+#include <fcppt/signal/unregister/base_decl.hpp> // IWYU pragma: keep
 
 namespace sge::console
 {

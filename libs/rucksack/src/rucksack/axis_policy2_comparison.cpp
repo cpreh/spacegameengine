@@ -5,6 +5,7 @@
 
 #include <sge/rucksack/axis_policy2.hpp>
 #include <sge/rucksack/axis_policy2_comparison.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/variant/comparison.hpp>
 
 bool sge::rucksack::operator==(

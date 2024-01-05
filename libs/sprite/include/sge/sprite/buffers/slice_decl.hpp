@@ -12,7 +12,7 @@
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/offset_object.hpp>
-#include <sge/sprite/buffers/slice_fwd.hpp>
+#include <sge/sprite/buffers/slice_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/reference_impl.hpp>
 
 namespace sge::sprite::buffers

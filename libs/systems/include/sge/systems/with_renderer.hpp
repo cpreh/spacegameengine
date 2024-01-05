@@ -8,7 +8,7 @@
 
 #include <sge/systems/renderer_caps_fwd.hpp>
 #include <sge/systems/renderer_fwd.hpp>
-#include <sge/systems/with_renderer_fwd.hpp>
+#include <sge/systems/with_renderer_fwd.hpp> // IWYU pragma: keep
 #include <sge/systems/with_window_fwd.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>

@@ -9,7 +9,7 @@
 #include <sge/renderer/context/core.hpp>
 #include <sge/renderer/texture/base.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/renderer/texture/planar.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/stage.hpp>
 #include <sge/sprite/detail/apply_texture_levels.hpp>
 #include <sge/sprite/detail/config/has_texture_levels.hpp>

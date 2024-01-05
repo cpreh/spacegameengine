@@ -10,7 +10,7 @@ namespace sge::sprite::intrusive::ordered
 {
 
 template <typename Choices, typename Order, bool IsConst>
-class iterator;
+class iterator; // IWYU pragma: export
 
 }
 

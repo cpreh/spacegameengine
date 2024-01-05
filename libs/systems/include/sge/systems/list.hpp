@@ -6,8 +6,8 @@
 #ifndef SGE_SYSTEMS_LIST_HPP_INCLUDED
 #define SGE_SYSTEMS_LIST_HPP_INCLUDED
 
-#include <sge/systems/list_decl.hpp>
-#include <sge/systems/list_fwd.hpp>
-#include <sge/systems/list_impl.hpp>
+#include <sge/systems/list_decl.hpp> // IWYU pragma: export
+#include <sge/systems/list_fwd.hpp> // IWYU pragma: keep
+#include <sge/systems/list_impl.hpp> // IWYU pragma: keep
 
 #endif

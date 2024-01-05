@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_WITH_WINDOW_HPP_INCLUDED
 
 #include <sge/systems/window_fwd.hpp>
-#include <sge/systems/with_window_fwd.hpp>
+#include <sge/systems/with_window_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

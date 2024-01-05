@@ -6,18 +6,9 @@
 #ifndef SGE_CAMERA_FIRST_PERSON_ACTION_MAPPING_FWD_HPP_INCLUDED
 #define SGE_CAMERA_FIRST_PERSON_ACTION_MAPPING_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::camera::first_person::action
 {
-namespace camera
-{
-namespace first_person
-{
-namespace action
-{
-class mapping;
-}
-}
-}
+class mapping; // IWYU pragma: export
 }
 
 #endif

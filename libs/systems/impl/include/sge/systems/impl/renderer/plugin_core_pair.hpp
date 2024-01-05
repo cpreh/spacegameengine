@@ -7,8 +7,8 @@
 #define SGE_SYSTEMS_IMPL_RENDERER_PLUGIN_CORE_PAIR_HPP_INCLUDED
 
 #include <sge/renderer/core_fwd.hpp>
-#include <sge/renderer/plugin/object.hpp>
-#include <sge/systems/impl/plugin_pair_decl.hpp>
+#include <sge/renderer/plugin/object.hpp> // IWYU pragma: keep
+#include <sge/systems/impl/plugin_pair_decl.hpp> // IWYU pragma: keep
 #include <sge/systems/impl/renderer/plugin_core_pair_fwd.hpp> // IWYU pragma: export
 
 extern template class sge::systems::impl::plugin_pair<sge::renderer::core>;

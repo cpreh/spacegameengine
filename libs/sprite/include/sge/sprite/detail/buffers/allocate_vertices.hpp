@@ -7,13 +7,12 @@
 #define SGE_SPRITE_DETAIL_BUFFERS_ALLOCATE_VERTICES_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // IWYU pragma: keep
 #include <sge/renderer/device/core_ref.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp> // IWYU pragma: keep
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
-#include <sge/renderer/vertex/count.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/detail/vf/part_index.hpp>

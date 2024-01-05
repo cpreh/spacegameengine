@@ -6,8 +6,8 @@
 #ifndef SGE_SPRITE_PROJECTION_DIM_HPP_INCLUDED
 #define SGE_SPRITE_PROJECTION_DIM_HPP_INCLUDED
 
-#include <sge/renderer/screen_size.hpp>
+#include <sge/renderer/screen_size.hpp> // IWYU pragma: keep
 #include <sge/sprite/projection_dim_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

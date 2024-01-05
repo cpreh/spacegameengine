@@ -9,7 +9,7 @@
 namespace sge::sprite::config
 {
 
-enum class texture_coordinates;
+enum class texture_coordinates; // IWYU pragma: export
 
 }
 

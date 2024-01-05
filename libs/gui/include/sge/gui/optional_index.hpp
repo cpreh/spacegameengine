@@ -6,8 +6,8 @@
 #ifndef SGE_GUI_OPTIONAL_INDEX_HPP_INCLUDED
 #define SGE_GUI_OPTIONAL_INDEX_HPP_INCLUDED
 
-#include <sge/gui/index.hpp>
+#include <sge/gui/index.hpp> // IWYU pragma: keep
 #include <sge/gui/optional_index_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

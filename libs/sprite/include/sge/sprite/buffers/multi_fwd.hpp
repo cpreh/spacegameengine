@@ -10,7 +10,7 @@ namespace sge::sprite::buffers
 {
 
 template <typename Choices>
-class multi;
+class multi; // IWYU pragma: export
 
 }
 

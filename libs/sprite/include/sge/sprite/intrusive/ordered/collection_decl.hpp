@@ -8,7 +8,7 @@
 
 #include <sge/sprite/intrusive/collection_fwd.hpp>
 #include <sge/sprite/intrusive/connection_ref_fwd.hpp>
-#include <sge/sprite/intrusive/ordered/collection_fwd.hpp>
+#include <sge/sprite/intrusive/ordered/collection_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/intrusive/ordered/range_fwd.hpp>
 #include <sge/sprite/intrusive/ordered/detail/map.hpp>
 #include <fcppt/nonmovable.hpp>

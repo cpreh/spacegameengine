@@ -7,6 +7,6 @@
 #define SGE_RUCKSACK_PREFERRED_SIZE_HPP_INCLUDED
 
 #include <sge/rucksack/preferred_size_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

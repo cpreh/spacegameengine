@@ -10,7 +10,7 @@
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/buffers/multi_fwd.hpp>
+#include <sge/sprite/buffers/multi_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/slice_fwd.hpp>

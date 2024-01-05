@@ -7,7 +7,7 @@
 #define SGE_SPRITE_CONFIG_TEXTURE_LEVEL_COUNT_HPP_INCLUDED
 
 #include <sge/sprite/texture_level.hpp>
-#include <sge/sprite/config/texture_level_count_fwd.hpp>
+#include <sge/sprite/config/texture_level_count_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

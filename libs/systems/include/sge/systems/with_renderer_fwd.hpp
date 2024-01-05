@@ -12,7 +12,7 @@ namespace sge::systems
 {
 
 template <sge::systems::renderer_caps>
-struct with_renderer;
+struct with_renderer; // IWYU pragma: export
 
 }
 

@@ -9,7 +9,7 @@
 namespace sge::sprite::config
 {
 
-struct no_texture_point_size;
+struct no_texture_point_size; // IWYU pragma: export
 
 }
 

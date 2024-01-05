@@ -7,7 +7,7 @@
 #define SGE_CAMERA_OPTIONAL_PROJECTION_MATRIX_HPP_INCLUDED
 
 #include <sge/camera/optional_projection_matrix_fwd.hpp> // IWYU pragma: export
-#include <sge/camera/projection_matrix.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <sge/camera/projection_matrix.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

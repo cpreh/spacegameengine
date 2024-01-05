@@ -8,6 +8,7 @@
 
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/ortho_freelook/action/activate_pan.hpp>
+#include <sge/camera/ortho_freelook/action/mapping_fwd.hpp> // IWYU pragma: keep
 #include <sge/camera/ortho_freelook/action/zoom_in.hpp>
 #include <sge/camera/ortho_freelook/action/zoom_out.hpp>
 

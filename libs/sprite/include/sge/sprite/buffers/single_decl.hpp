@@ -12,7 +12,7 @@
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/object.hpp>
 #include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/single_fwd.hpp>
+#include <sge/sprite/buffers/single_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/buffers/slice_decl.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object_decl.hpp>

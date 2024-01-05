@@ -9,7 +9,7 @@
 namespace sge::rucksack
 {
 
-enum class axis;
+enum class axis; // IWYU pragma: export
 
 }
 

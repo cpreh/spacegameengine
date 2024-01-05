@@ -7,7 +7,7 @@
 #define SGE_SPRITE_INTRUSIVE_CONNECTION_DECL_HPP_INCLUDED
 
 #include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/intrusive/connection_fwd.hpp>
+#include <sge/sprite/intrusive/connection_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::sprite::intrusive

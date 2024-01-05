@@ -8,7 +8,7 @@
 
 #include <sge/camera/tracking/alexa/logarithm.hpp>
 #include <fcppt/math/size_type.hpp>
-#include <fcppt/math/matrix/arithmetic.hpp>
+#include <fcppt/math/matrix/arithmetic.hpp> // IWYU pragma: keep
 #include <fcppt/math/matrix/exponential_pade.hpp>
 #include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/math/matrix/static.hpp>

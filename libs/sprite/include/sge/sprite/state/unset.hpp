@@ -11,7 +11,7 @@
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::state
 {

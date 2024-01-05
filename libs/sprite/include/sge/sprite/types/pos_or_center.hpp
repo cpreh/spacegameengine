@@ -6,9 +6,9 @@
 #ifndef SGE_SPRITE_TYPES_POS_OR_CENTER_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_POS_OR_CENTER_HPP_INCLUDED
 
-#include <sge/sprite/types/center.hpp>
-#include <sge/sprite/types/pos.hpp>
+#include <sge/sprite/types/center.hpp> // IWYU pragma: keep
+#include <sge/sprite/types/pos.hpp> // IWYU pragma: keep
 #include <sge/sprite/types/pos_or_center_fwd.hpp> // IWYU pragma: export
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

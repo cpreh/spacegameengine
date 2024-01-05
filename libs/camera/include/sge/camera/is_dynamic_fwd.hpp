@@ -6,12 +6,9 @@
 #ifndef SGE_CAMERA_IS_DYNAMIC_FWD_HPP_INCLUDED
 #define SGE_CAMERA_IS_DYNAMIC_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::camera
 {
-namespace camera
-{
-class is_dynamic;
-}
+class is_dynamic; // IWYU pragma: export
 }
 
 #endif

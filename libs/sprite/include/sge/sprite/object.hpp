@@ -6,8 +6,7 @@
 #ifndef SGE_SPRITE_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_HPP_INCLUDED
 
-#include <sge/sprite/bounding_rect.hpp> // IWYU pragma: export
 #include <sge/sprite/object_decl.hpp> // IWYU pragma: export
-#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/object_impl.hpp> // IWYU pragma: keep
 
 #endif

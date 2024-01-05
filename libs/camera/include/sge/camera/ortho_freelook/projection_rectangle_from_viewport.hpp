@@ -8,6 +8,7 @@
 
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/ortho_freelook/object_fwd.hpp>
+#include <sge/camera/ortho_freelook/projection_rectangle_from_viewport_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/viewport/manager_ref.hpp>
 #include <fcppt/nonmovable.hpp>

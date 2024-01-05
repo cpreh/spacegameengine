@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_INPUT_HPP_INCLUDED
 
 #include <sge/systems/cursor_option_field.hpp>
-#include <sge/systems/input_fwd.hpp>
+#include <sge/systems/input_fwd.hpp> // IWYU pragma: keep
 #include <sge/systems/detail/symbol.hpp>
 
 namespace sge::systems

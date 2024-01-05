@@ -6,7 +6,7 @@
 #ifndef SGE_CONSOLE_IMPL_INSTANTIATE_MUXING_STREAMBUF_HPP_INCLUDED
 #define SGE_CONSOLE_IMPL_INSTANTIATE_MUXING_STREAMBUF_HPP_INCLUDED
 
-#include <sge/console/impl/muxing_streambuf_impl.hpp>
+#include <sge/console/impl/muxing_streambuf_impl.hpp> // IWYU pragma: keep
 #include <sge/core/impl/export_class_instantiation.hpp>
 
 #define SGE_CONSOLE_IMPL_INSTANTIATE_MUXING_STREAMBUF(char_type) \

@@ -7,7 +7,7 @@
 #define SGE_SPRITE_BUFFERS_MULTI_HPP_INCLUDED
 
 #include <sge/sprite/buffers/multi_decl.hpp> // IWYU pragma: export
-#include <sge/sprite/buffers/multi_fwd.hpp>
-#include <sge/sprite/buffers/multi_impl.hpp>
+#include <sge/sprite/buffers/multi_fwd.hpp> // IWYU pragma: keep
+#include <sge/sprite/buffers/multi_impl.hpp> // IWYU pragma: keep
 
 #endif

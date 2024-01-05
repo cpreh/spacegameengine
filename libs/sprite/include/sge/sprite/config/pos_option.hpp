@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_CONFIG_POS_OPTION_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_POS_OPTION_HPP_INCLUDED
 
-#include <sge/sprite/config/pos_option_fwd.hpp>
+#include <sge/sprite/config/pos_option_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::config
 {

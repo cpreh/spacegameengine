@@ -18,6 +18,7 @@
 #include <sge/camera/spherical/maximum_radius.hpp>
 #include <sge/camera/spherical/minimum_radius.hpp>
 #include <sge/camera/spherical/movement_speed.hpp>
+#include <sge/camera/spherical/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/camera/spherical/origin.hpp>
 #include <sge/camera/spherical/parameters_fwd.hpp>
 #include <sge/camera/spherical/action/mapping.hpp>

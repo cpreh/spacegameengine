@@ -13,7 +13,6 @@
 #include <sge/graph/foreground_alt_color.hpp>
 #include <sge/graph/foreground_color.hpp>
 #include <sge/graph/detail/symbol.hpp>
-#include <fcppt/noncopyable.hpp>
 
 namespace sge::graph
 {

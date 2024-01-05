@@ -7,7 +7,7 @@
 #define SGE_SPRITE_STATE_OBJECT_HPP_INCLUDED
 
 #include <sge/sprite/state/object_decl.hpp> // IWYU pragma: export
-#include <sge/sprite/state/object_fwd.hpp>
-#include <sge/sprite/state/object_impl.hpp>
+#include <sge/sprite/state/object_fwd.hpp> // IWYU pragma: keep
+#include <sge/sprite/state/object_impl.hpp> // IWYU pragma: keep
 
 #endif

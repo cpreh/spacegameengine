@@ -16,7 +16,7 @@
 #include <sge/sprite/detail/roles/index_count.hpp>
 #include <sge/sprite/detail/roles/texture.hpp>
 #include <sge/sprite/detail/roles/vertex_count.hpp>
-#include <sge/sprite/render/range_part_decl.hpp>
+#include <sge/sprite/render/range_part_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/render/texture_ref.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/config/external_begin.hpp>

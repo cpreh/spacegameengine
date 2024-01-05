@@ -6,8 +6,8 @@
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/ordered/iterator_decl.hpp>
-#include <sge/sprite/intrusive/ordered/iterator_fwd.hpp>
-#include <sge/sprite/intrusive/ordered/iterator_impl.hpp>
+#include <sge/sprite/intrusive/ordered/iterator_decl.hpp> // IWYU pragma: export
+#include <sge/sprite/intrusive/ordered/iterator_fwd.hpp> // IWYU pragma: keep
+#include <sge/sprite/intrusive/ordered/iterator_impl.hpp> // IWYU pragma: keep
 
 #endif

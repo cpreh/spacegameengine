@@ -8,7 +8,7 @@
 
 #include <sge/model/md3/load_flags_field_fwd.hpp>
 #include <sge/model/md3/impl/s16.hpp>
-#include <sge/model/md3/impl/vertex_fwd.hpp>
+#include <sge/model/md3/impl/vertex_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <istream>
 #include <fcppt/config/external_end.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_BASIC_DIM_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_DIM_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/types/basic/dim_fwd.hpp>
-#include <fcppt/math/dim/static.hpp>
+#include <sge/sprite/types/basic/dim_fwd.hpp> // IWYU pragma: export
+#include <fcppt/math/dim/static.hpp> // IWYU pragma: keep
 
 #endif

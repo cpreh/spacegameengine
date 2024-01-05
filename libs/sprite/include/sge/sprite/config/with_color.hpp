@@ -7,7 +7,7 @@
 #define SGE_SPRITE_CONFIG_WITH_COLOR_HPP_INCLUDED
 
 #include <sge/image/pixel/mizuiro_type.hpp>
-#include <sge/sprite/config/with_color_fwd.hpp>
+#include <sge/sprite/config/with_color_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/roles/color.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/record/element.hpp>

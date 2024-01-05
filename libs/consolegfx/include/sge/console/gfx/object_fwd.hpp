@@ -9,7 +9,7 @@
 namespace sge::console::gfx
 {
 
-class object;
+class object; // IWYU pragma: export
 
 }
 

@@ -12,7 +12,7 @@ namespace sge::sprite::config
 {
 
 template <sge::sprite::config::texture_size_option>
-struct normal_size;
+struct normal_size; // IWYU pragma: export
 
 }
 

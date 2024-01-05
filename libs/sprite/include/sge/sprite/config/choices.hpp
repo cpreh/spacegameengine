@@ -6,11 +6,11 @@
 #ifndef SGE_SPRITE_CONFIG_CHOICES_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_CHOICES_HPP_INCLUDED
 
-#include <sge/sprite/config/choices_fwd.hpp>
+#include <sge/sprite/config/choices_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/config/is_pos_choice.hpp>
 #include <sge/sprite/config/is_size_choice.hpp>
 #include <sge/sprite/config/is_type_choices.hpp>
-#include <fcppt/mpl/list/object_concept.hpp>
+#include <fcppt/mpl/list/object_concept.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::config
 {

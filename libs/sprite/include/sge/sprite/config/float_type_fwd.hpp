@@ -10,7 +10,7 @@ namespace sge::sprite::config
 {
 
 template <typename Type>
-struct float_type;
+struct float_type; // IWYU pragma: export
 
 }
 

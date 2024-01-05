@@ -6,15 +6,9 @@
 #ifndef SGE_CAMERA_SPHERICAL_OBJECT_FWD_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::camera::spherical
 {
-namespace camera
-{
-namespace spherical
-{
-class object;
-}
-}
+class object; // IWYU pragma: export
 }
 
 #endif

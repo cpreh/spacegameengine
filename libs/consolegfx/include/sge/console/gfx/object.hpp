@@ -6,10 +6,12 @@
 #ifndef SGE_CONSOLE_GFX_OBJECT_HPP_INCLUDED
 #define SGE_CONSOLE_GFX_OBJECT_HPP_INCLUDED
 
+#include <sge/console/object_fwd.hpp>
 #include <sge/console/object_ref.hpp>
 #include <sge/console/gfx/cursor.hpp>
 #include <sge/console/gfx/font_color.hpp>
 #include <sge/console/gfx/input_active.hpp>
+#include <sge/console/gfx/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/console/gfx/output_line_limit_fwd.hpp>
 #include <sge/console/gfx/detail/pointed_history.hpp>
 #include <sge/console/gfx/detail/symbol.hpp>

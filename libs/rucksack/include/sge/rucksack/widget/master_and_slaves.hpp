@@ -15,11 +15,10 @@
 #include <sge/rucksack/widget/base.hpp>
 #include <sge/rucksack/widget/box.hpp>
 #include <sge/rucksack/widget/enumeration.hpp>
+#include <sge/rucksack/widget/master_and_slaves_fwd.hpp> // IWYU pragma: keep
+#include <sge/rucksack/widget/optional_ref.hpp>
 #include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <vector>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::rucksack::widget
 {

@@ -6,9 +6,8 @@
 #ifndef SGE_GUI_WIDGET_MINIMUM_SIZE_HPP_INCLUDED
 #define SGE_GUI_WIDGET_MINIMUM_SIZE_HPP_INCLUDED
 
-#include <sge/gui/widget/base_fwd.hpp>
 #include <sge/gui/widget/dummy.hpp>
-#include <sge/gui/widget/minimum_size_fwd.hpp>
+#include <sge/gui/widget/minimum_size_fwd.hpp> // IWYU pragma: keep
 #include <sge/gui/widget/reference.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/minimum_size.hpp>

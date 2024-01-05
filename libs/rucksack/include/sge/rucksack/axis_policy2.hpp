@@ -8,7 +8,7 @@
 
 #include <sge/rucksack/axis_fwd.hpp>
 #include <sge/rucksack/axis_policy.hpp>
-#include <sge/rucksack/axis_policy2_fwd.hpp>
+#include <sge/rucksack/axis_policy2_fwd.hpp> // IWYU pragma: keep
 #include <sge/rucksack/detail/symbol.hpp>
 
 namespace sge::rucksack

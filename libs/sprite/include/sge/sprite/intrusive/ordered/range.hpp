@@ -6,8 +6,8 @@
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/ordered/range_decl.hpp>
-#include <sge/sprite/intrusive/ordered/range_fwd.hpp>
-#include <sge/sprite/intrusive/ordered/range_impl.hpp>
+#include <sge/sprite/intrusive/ordered/range_decl.hpp> // IWYU pragma: export
+#include <sge/sprite/intrusive/ordered/range_fwd.hpp> // IWYU pragma: keep
+#include <sge/sprite/intrusive/ordered/range_impl.hpp> // IWYU pragma: keep
 
 #endif

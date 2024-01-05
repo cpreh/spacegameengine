@@ -8,7 +8,7 @@
 
 namespace sge::camera
 {
-class has_mutable_coordinate_system;
+class has_mutable_coordinate_system; // IWYU pragma: export
 }
 
 #endif

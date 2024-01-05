@@ -8,7 +8,7 @@
 
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/intrusive/ordered/iterator_fwd.hpp>
-#include <sge/sprite/intrusive/ordered/range_fwd.hpp>
+#include <sge/sprite/intrusive/ordered/range_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/intrusive/ordered/detail/map.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

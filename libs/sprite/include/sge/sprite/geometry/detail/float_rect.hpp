@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_FLOAT_RECT_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_FLOAT_RECT_HPP_INCLUDED
 
-#include <sge/sprite/geometry/detail/float_rect_fwd.hpp>
-#include <sge/sprite/types/basic/rect.hpp>
+#include <sge/sprite/geometry/detail/float_rect_fwd.hpp> // IWYU pragma: export
+#include <sge/sprite/types/basic/rect.hpp> // IWYU pragma: keep
 
 #endif

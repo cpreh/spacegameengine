@@ -12,7 +12,6 @@
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/gui/widget/reference.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/signal/auto_connection.hpp>
 
 namespace sge::gui
 {

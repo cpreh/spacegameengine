@@ -6,7 +6,7 @@
 #ifndef SGE_MODEL_MD3_LOAD_FLAGS_HPP_INCLUDED
 #define SGE_MODEL_MD3_LOAD_FLAGS_HPP_INCLUDED
 
-#include <sge/model/md3/load_flags_fwd.hpp>
+#include <sge/model/md3/load_flags_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::model::md3
 {

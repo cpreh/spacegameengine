@@ -6,15 +6,9 @@
 #ifndef SGE_RUCKSACK_WIDGET_ENUMERATION_FWD_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_ENUMERATION_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::rucksack::widget
 {
-namespace rucksack
-{
-namespace widget
-{
-class enumeration;
-}
-}
+class enumeration; // IWYU pragma: export
 }
 
 #endif

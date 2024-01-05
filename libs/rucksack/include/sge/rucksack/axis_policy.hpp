@@ -7,8 +7,8 @@
 #define SGE_RUCKSACK_AXIS_POLICY_HPP_INCLUDED
 
 #include <sge/rucksack/axis_policy_fwd.hpp> // IWYU pragma: export
-#include <sge/rucksack/minimum_size.hpp>
-#include <sge/rucksack/preferred_size.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/rucksack/minimum_size.hpp> // IWYU pragma: keep
+#include <sge/rucksack/preferred_size.hpp> // IWYU pragma: keep
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

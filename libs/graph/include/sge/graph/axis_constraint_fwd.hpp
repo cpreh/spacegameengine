@@ -9,7 +9,7 @@
 namespace sge::graph
 {
 
-class axis_constraint;
+class axis_constraint; // IWYU pragma: export
 
 }
 

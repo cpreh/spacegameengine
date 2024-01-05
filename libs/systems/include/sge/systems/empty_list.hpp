@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_EMPTY_LIST_HPP_INCLUDED
 
 #include <sge/systems/empty_list_fwd.hpp> // IWYU pragma: export
-#include <sge/systems/list_impl.hpp>
-#include <fcppt/tuple/object_impl.hpp>
+#include <sge/systems/list_impl.hpp> // IWYU pragma: keep
+#include <fcppt/tuple/object_impl.hpp> // IWYU pragma: keep
 
 #endif

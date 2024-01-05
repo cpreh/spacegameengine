@@ -6,7 +6,7 @@
 #ifndef SGE_MODEL_MD3_POSITION_HPP_INCLUDED
 #define SGE_MODEL_MD3_POSITION_HPP_INCLUDED
 
-#include <sge/model/md3/position_fwd.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <sge/model/md3/position_fwd.hpp> // IWYU pragma: export
+#include <fcppt/math/vector/static.hpp> // IWYU pragma: keep
 
 #endif

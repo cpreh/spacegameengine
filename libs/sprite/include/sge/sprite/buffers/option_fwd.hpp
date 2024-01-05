@@ -9,7 +9,7 @@
 namespace sge::sprite::buffers
 {
 
-enum class option;
+enum class option; // IWYU pragma: export
 
 }
 

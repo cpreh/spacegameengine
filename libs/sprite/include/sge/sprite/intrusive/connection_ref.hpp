@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_INTRUSIVE_CONNECTION_REF_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_CONNECTION_REF_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/connection_ref_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <sge/sprite/intrusive/connection_ref_fwd.hpp> // IWYU pragma: export
+#include <fcppt/reference_impl.hpp> // IWYU pragma: keep
 
 #endif

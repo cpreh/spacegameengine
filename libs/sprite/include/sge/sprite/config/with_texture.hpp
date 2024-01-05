@@ -10,7 +10,7 @@
 #include <sge/sprite/config/texture_coordinates_fwd.hpp>
 #include <sge/sprite/config/texture_level_count_fwd.hpp>
 #include <sge/sprite/config/texture_ownership_fwd.hpp>
-#include <sge/sprite/config/with_texture_fwd.hpp>
+#include <sge/sprite/config/with_texture_fwd.hpp> // IWYU pragma: export
 #include <sge/sprite/detail/primitives/texture.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

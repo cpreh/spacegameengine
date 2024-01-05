@@ -10,7 +10,7 @@ namespace sge::sprite::intrusive
 {
 
 template <typename Choices>
-class collection;
+class collection; // IWYU pragma: export
 
 }
 

@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_ORDERED_ITERATOR_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/intrusive/ordered/iterator_decl.hpp>
+#include <sge/sprite/intrusive/ordered/iterator_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/intrusive/ordered/detail/iterator_empty.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>

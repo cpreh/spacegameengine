@@ -9,7 +9,7 @@
 namespace sge::systems
 {
 
-struct with_font;
+struct with_font; // IWYU pragma: export
 
 }
 

@@ -8,9 +8,7 @@
 
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/flags.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/iterator.hpp> // IWYU pragma: keep
 #include <sge/plugin/object.hpp>
 #include <sge/systems/impl/plugin_pair_decl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>

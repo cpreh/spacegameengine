@@ -7,6 +7,6 @@
 #define SGE_MODEL_OBJ_BOX_HPP_INCLUDED
 
 #include <sge/model/obj/box_fwd.hpp> // IWYU pragma: export
-#include <fcppt/math/box/object_impl.hpp>
+#include <fcppt/math/box/object_impl.hpp> // IWYU pragma: keep
 
 #endif

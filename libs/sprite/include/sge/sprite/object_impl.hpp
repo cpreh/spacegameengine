@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_OBJECT_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_OBJECT_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/color.hpp>
+#include <sge/sprite/color.hpp> // IWYU pragma: keep
 #include <sge/sprite/object_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/config/is_normal_size.hpp>
@@ -19,9 +19,8 @@
 #include <sge/sprite/detail/set_center.hpp>
 #include <sge/sprite/detail/set_pos.hpp>
 #include <sge/sprite/detail/set_size.hpp>
-#include <sge/sprite/detail/unlink.hpp>
+#include <sge/sprite/detail/unlink.hpp> // IWYU pragma: keep
 #include <sge/sprite/roles/color.hpp>
-#include <sge/sprite/roles/connection.hpp>
 #include <sge/sprite/roles/depth.hpp>
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/roles/repetition.hpp>
@@ -30,11 +29,11 @@
 #include <sge/sprite/roles/texture_coordinates.hpp>
 #include <sge/sprite/roles/texture_point_pos.hpp>
 #include <sge/sprite/roles/texture_point_size.hpp>
-#include <sge/sprite/types/center.hpp>
-#include <sge/sprite/types/pos.hpp>
-#include <sge/sprite/types/basic/dim_impl.hpp>
-#include <sge/sprite/types/basic/homogenous_pair_impl.hpp>
-#include <sge/sprite/types/basic/vector_impl.hpp>
+#include <sge/sprite/types/center.hpp> // IWYU pragma: keep
+#include <sge/sprite/types/pos.hpp> // IWYU pragma: keep
+#include <sge/sprite/types/basic/dim_impl.hpp> // IWYU pragma: keep
+#include <sge/sprite/types/basic/homogenous_pair_impl.hpp> // IWYU pragma: keep
+#include <sge/sprite/types/basic/vector_impl.hpp> // IWYU pragma: keep
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/label_value_type.hpp>
 #include <fcppt/record/set.hpp>

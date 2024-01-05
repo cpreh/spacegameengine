@@ -9,7 +9,7 @@
 namespace sge::viewport
 {
 
-class manager;
+class manager; // IWYU pragma: export
 
 }
 

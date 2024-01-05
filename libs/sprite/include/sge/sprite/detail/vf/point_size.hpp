@@ -5,7 +5,6 @@
 
 #ifndef SGE_SPRITE_DETAIL_VF_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_VF_POINT_SIZE_HPP_INCLUDED
-#define SGE_SPRITE_DETAIL_VF_UNSPECIFIED_DIM_HPP_INCLUDED
 
 #include <sge/renderer/vf/extra.hpp>
 #include <sge/renderer/vf/vector.hpp>

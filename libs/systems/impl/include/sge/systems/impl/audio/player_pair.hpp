@@ -6,8 +6,9 @@
 #ifndef SGE_SYSTEMS_IMPL_AUDIO_PLAYER_PAIR_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_AUDIO_PLAYER_PAIR_HPP_INCLUDED
 
-#include <sge/audio/player_plugin/object.hpp>
-#include <sge/systems/impl/plugin_pair_decl.hpp>
+#include <sge/audio/player_fwd.hpp>
+#include <sge/audio/player_plugin/object.hpp> // IWYU pragma: keep
+#include <sge/systems/impl/plugin_pair_decl.hpp> // IWYU pragma: keep
 #include <sge/systems/impl/audio/player_pair_fwd.hpp> // IWYU pragma: export
 
 extern template class sge::systems::impl::plugin_pair<sge::audio::player>;

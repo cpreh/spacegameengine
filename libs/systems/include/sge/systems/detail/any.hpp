@@ -6,15 +6,15 @@
 #ifndef SGE_SYSTEMS_DETAIL_ANY_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ANY_HPP_INCLUDED
 
-#include <sge/systems/audio_loader.hpp>
-#include <sge/systems/audio_player.hpp>
-#include <sge/systems/config.hpp>
-#include <sge/systems/font.hpp>
-#include <sge/systems/image2d.hpp>
-#include <sge/systems/input.hpp>
-#include <sge/systems/window.hpp>
+#include <sge/systems/audio_loader.hpp> // IWYU pragma: keep
+#include <sge/systems/audio_player.hpp> // IWYU pragma: keep
+#include <sge/systems/config.hpp> // IWYU pragma: keep
+#include <sge/systems/font.hpp> // IWYU pragma: keep
+#include <sge/systems/image2d.hpp> // IWYU pragma: keep
+#include <sge/systems/input.hpp> // IWYU pragma: keep
+#include <sge/systems/window.hpp> // IWYU pragma: keep
 #include <sge/systems/detail/any_fwd.hpp> // IWYU pragma: export
-#include <sge/systems/detail/renderer.hpp>
-#include <fcppt/variant/object_impl.hpp>
+#include <sge/systems/detail/renderer.hpp> // IWYU pragma: keep
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

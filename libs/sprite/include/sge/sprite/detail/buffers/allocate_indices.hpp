@@ -7,9 +7,9 @@
 #define SGE_SPRITE_DETAIL_BUFFERS_ALLOCATE_INDICES_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // IWYU pragma: keep
 #include <sge/renderer/device/core_ref.hpp>
-#include <sge/renderer/index/buffer.hpp>
+#include <sge/renderer/index/buffer.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/buffer_parameters.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/index/dynamic/format.hpp>

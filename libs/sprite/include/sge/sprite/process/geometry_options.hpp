@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_PROCESS_GEOMETRY_OPTIONS_HPP_INCLUDED
 #define SGE_SPRITE_PROCESS_GEOMETRY_OPTIONS_HPP_INCLUDED
 
-#include <sge/sprite/process/geometry_options_fwd.hpp>
+#include <sge/sprite/process/geometry_options_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::process
 {

@@ -12,7 +12,7 @@ namespace sge::sprite::config
 {
 
 template <sge::sprite::texture_level Count>
-struct texture_level_count;
+struct texture_level_count; // IWYU pragma: export
 
 }
 

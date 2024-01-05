@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_IMPL_PLUGIN_PAIR_DECL_HPP_INCLUDED
 
 #include <sge/plugin/object.hpp>
-#include <sge/systems/impl/plugin_pair_fwd.hpp>
+#include <sge/systems/impl/plugin_pair_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 

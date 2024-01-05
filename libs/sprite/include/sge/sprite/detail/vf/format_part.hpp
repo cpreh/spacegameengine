@@ -10,7 +10,6 @@
 #include <sge/sprite/config/is_with_color.hpp>
 #include <sge/sprite/config/is_with_texture.hpp>
 #include <sge/sprite/config/is_with_texture_point_size.hpp>
-#include <sge/sprite/config/normal_size_fwd.hpp>
 #include <sge/sprite/detail/vf/color_types.hpp>
 #include <sge/sprite/detail/vf/point_size_extra.hpp>
 #include <sge/sprite/detail/vf/pos.hpp>

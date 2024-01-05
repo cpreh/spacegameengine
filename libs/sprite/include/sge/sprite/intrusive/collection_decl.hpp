@@ -8,7 +8,7 @@
 
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/object_decl.hpp>
-#include <sge/sprite/intrusive/collection_fwd.hpp>
+#include <sge/sprite/intrusive/collection_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/intrusive/connection_ref_fwd.hpp>
 #include <sge/sprite/intrusive/range_fwd.hpp>
 #include <sge/sprite/intrusive/detail/connection_decl.hpp>

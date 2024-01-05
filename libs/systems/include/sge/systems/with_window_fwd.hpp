@@ -9,7 +9,7 @@
 namespace sge::systems
 {
 
-struct with_window;
+struct with_window; // IWYU pragma: export
 
 }
 

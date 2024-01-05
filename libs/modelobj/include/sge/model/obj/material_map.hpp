@@ -8,6 +8,7 @@
 
 #include <sge/model/obj/identifier.hpp>
 #include <sge/model/obj/material/object.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>

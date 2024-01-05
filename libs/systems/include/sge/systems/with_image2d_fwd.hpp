@@ -9,7 +9,7 @@
 namespace sge::systems
 {
 
-struct with_image2d;
+struct with_image2d; // IWYU pragma: export
 
 }
 

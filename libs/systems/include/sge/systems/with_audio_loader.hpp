@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_WITH_AUDIO_LOADER_HPP_INCLUDED
 
 #include <sge/systems/audio_loader_fwd.hpp>
-#include <sge/systems/with_audio_loader_fwd.hpp>
+#include <sge/systems/with_audio_loader_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

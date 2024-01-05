@@ -8,7 +8,7 @@
 
 #include <sge/systems/detail/any_list.hpp>
 #include <sge/systems/detail/any_map.hpp>
-#include <sge/systems/detail/list_fwd.hpp>
+#include <sge/systems/detail/list_fwd.hpp> // IWYU pragma: keep
 #include <sge/systems/detail/symbol.hpp>
 
 namespace sge::systems::detail

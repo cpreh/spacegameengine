@@ -12,7 +12,7 @@
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/detail/render/range_part_object.hpp>
-#include <sge/sprite/render/range_part_fwd.hpp>
+#include <sge/sprite/render/range_part_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/render/texture_ref_fwd.hpp>
 
 namespace sge::sprite::render

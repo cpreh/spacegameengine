@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_CONFIG_NO_TEXTURE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_NO_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/config/no_texture_point_size_fwd.hpp>
+#include <sge/sprite/config/no_texture_point_size_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

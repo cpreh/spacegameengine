@@ -6,6 +6,7 @@
 #ifndef SGE_SYSTEMS_IMPL_AUDIO_LOADER_HPP_INCLUDED
 #define SGE_SYSTEMS_IMPL_AUDIO_LOADER_HPP_INCLUDED
 
+#include <sge/audio/loader_fwd.hpp>
 #include <sge/audio/multi_loader_fwd.hpp>
 #include <sge/audio/loader_plugin/collection_fwd.hpp>
 #include <sge/systems/audio_loader_fwd.hpp>

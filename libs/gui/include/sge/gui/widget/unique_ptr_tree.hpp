@@ -7,6 +7,6 @@
 #define SGE_GUI_WIDGET_UNIQUE_PTR_TREE_HPP_INCLUDED
 
 #include <sge/gui/widget/unique_ptr_tree_fwd.hpp> // IWYU pragma: export
-#include <fcppt/container/tree/object_impl.hpp>
+#include <fcppt/container/tree/object_impl.hpp> // IWYU pragma: keep
 
 #endif

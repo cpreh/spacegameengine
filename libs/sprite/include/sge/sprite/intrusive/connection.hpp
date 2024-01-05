@@ -7,6 +7,6 @@
 #define SGE_SPRITE_INTRUSIVE_CONNECTION_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/connection_decl.hpp> // IWYU pragma: export
-#include <sge/sprite/intrusive/connection_fwd.hpp>
+#include <sge/sprite/intrusive/connection_fwd.hpp> // IWYU pragma: keep
 
 #endif

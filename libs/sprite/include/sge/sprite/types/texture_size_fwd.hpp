@@ -9,7 +9,7 @@
 namespace sge::sprite::types
 {
 
-struct texture_size;
+struct texture_size; // IWYU pragma: export
 
 }
 

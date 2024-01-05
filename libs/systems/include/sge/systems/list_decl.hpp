@@ -6,7 +6,7 @@
 #ifndef SGE_SYSTEMS_LIST_DECL_HPP_INCLUDED
 #define SGE_SYSTEMS_LIST_DECL_HPP_INCLUDED
 
-#include <sge/systems/list_fwd.hpp>
+#include <sge/systems/list_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/tuple/push_back_result.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

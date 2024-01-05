@@ -9,7 +9,7 @@
 namespace sge::systems::detail
 {
 
-enum class any_key;
+enum class any_key; // IWYU pragma: export
 
 }
 

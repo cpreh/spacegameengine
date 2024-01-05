@@ -7,7 +7,6 @@
 #define SGE_SPRITE_INTRUSIVE_DETAIL_CONNECTION_DECL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/intrusive/connection_decl.hpp>
 #include <sge/sprite/intrusive/detail/list.hpp>
 #include <fcppt/nonmovable.hpp>

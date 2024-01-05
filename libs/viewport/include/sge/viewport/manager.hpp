@@ -10,7 +10,7 @@
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/viewport/manage_callback.hpp>
-#include <sge/viewport/manager_fwd.hpp>
+#include <sge/viewport/manager_fwd.hpp> // IWYU pragma: keep
 #include <sge/viewport/optional_resize_callback_fwd.hpp>
 #include <sge/viewport/detail/manager_impl_fwd.hpp>
 #include <sge/viewport/detail/symbol.hpp>

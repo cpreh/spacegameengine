@@ -8,7 +8,7 @@
 
 #include <sge/font/unit.hpp>
 #include <sge/font/vector.hpp>
-#include <sge/font/bitmap/impl/char_metric_fwd.hpp>
+#include <sge/font/bitmap/impl/char_metric_fwd.hpp> // IWYU pragma: keep
 #include <sge/font/bitmap/impl/const_view.hpp>
 
 namespace sge::font::bitmap::impl

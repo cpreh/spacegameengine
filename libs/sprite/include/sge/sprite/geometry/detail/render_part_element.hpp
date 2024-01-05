@@ -7,7 +7,6 @@
 #define SGE_SPRITE_GEOMETRY_DETAIL_RENDER_PART_ELEMENT_HPP_INCLUDED
 
 #include <sge/renderer/index/first.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/deref_texture.hpp>

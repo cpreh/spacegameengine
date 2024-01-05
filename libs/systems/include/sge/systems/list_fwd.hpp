@@ -10,7 +10,7 @@ namespace sge::systems
 {
 
 template <typename Inits>
-class list;
+class list; // IWYU pragma: export
 
 }
 

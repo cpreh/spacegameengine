@@ -9,8 +9,8 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_segment.hpp>
 #include <sge/renderer/vertex/scoped_lock.hpp>
-#include <sge/renderer/vf/iterator.hpp>
-#include <sge/renderer/vf/vertex.hpp>
+#include <sge/renderer/vf/iterator.hpp> // IWYU pragma: keep
+#include <sge/renderer/vf/vertex.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/view.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/slice_impl.hpp>

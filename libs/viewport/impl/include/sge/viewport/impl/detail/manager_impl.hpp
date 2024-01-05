@@ -10,6 +10,7 @@
 #include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/target/viewport_fwd.hpp>
 #include <sge/viewport/manage_callback.hpp>
+#include <sge/viewport/manage_function.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 #include <sge/viewport/detail/manager_impl_fwd.hpp>
 #include <sge/window/object_ref.hpp>

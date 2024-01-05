@@ -7,7 +7,7 @@
 #define SGE_SPRITE_PROCESS_OPTIONS_HPP_INCLUDED
 
 #include <sge/sprite/process/geometry_options_fwd.hpp>
-#include <sge/sprite/process/options_fwd.hpp>
+#include <sge/sprite/process/options_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

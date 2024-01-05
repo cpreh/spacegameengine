@@ -7,6 +7,6 @@
 #define SGE_SYSTEMS_CURSOR_OPTION_FIELD_HPP_INCLUDED
 
 #include <sge/systems/cursor_option_field_fwd.hpp> // IWYU pragma: export
-#include <fcppt/container/bitfield/object.hpp>
+#include <fcppt/container/bitfield/object.hpp> // IWYU pragma: keep
 
 #endif

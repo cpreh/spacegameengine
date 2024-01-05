@@ -6,13 +6,13 @@
 #ifndef SGE_SPRITE_STATE_CHOICES_FWD_HPP_INCLUDED
 #define SGE_SPRITE_STATE_CHOICES_FWD_HPP_INCLUDED
 
-#include <fcppt/mpl/list/object_concept.hpp>
+#include <fcppt/mpl/list/object_concept.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::state
 {
 
 template <fcppt::mpl::list::object_concept OptionalElements>
-struct choices;
+struct choices; // IWYU pragma: export
 
 }
 

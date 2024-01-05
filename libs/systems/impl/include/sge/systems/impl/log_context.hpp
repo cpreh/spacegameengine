@@ -10,6 +10,7 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/log/context_fwd.hpp>
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/variant/object_impl.hpp>
 

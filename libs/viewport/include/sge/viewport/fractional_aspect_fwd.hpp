@@ -9,7 +9,7 @@
 namespace sge::viewport
 {
 
-class fractional_aspect;
+class fractional_aspect; // IWYU pragma: export
 
 }
 

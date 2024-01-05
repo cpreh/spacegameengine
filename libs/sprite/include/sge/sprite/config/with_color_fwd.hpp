@@ -10,7 +10,7 @@ namespace sge::sprite::config
 {
 
 template <typename ColorFormat>
-struct with_color;
+struct with_color; // IWYU pragma: export
 
 }
 

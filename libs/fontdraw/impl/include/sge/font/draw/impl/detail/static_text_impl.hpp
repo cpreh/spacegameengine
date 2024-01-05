@@ -10,6 +10,7 @@
 #include <sge/font/object_ref.hpp>
 #include <sge/font/rect_fwd.hpp>
 #include <sge/font/string.hpp>
+#include <sge/font/text_fwd.hpp>
 #include <sge/font/text_parameters.hpp>
 #include <sge/font/text_unique_ptr.hpp>
 #include <sge/font/unit.hpp>

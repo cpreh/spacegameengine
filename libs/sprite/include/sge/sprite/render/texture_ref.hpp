@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_RENDER_TEXTURE_REF_HPP_INCLUDED
 #define SGE_SPRITE_RENDER_TEXTURE_REF_HPP_INCLUDED
 
-#include <sge/sprite/render/texture_ref_fwd.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <sge/sprite/render/texture_ref_fwd.hpp> // IWYU pragma: export
+#include <fcppt/reference_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -10,7 +10,7 @@ namespace sge::sprite::buffers
 {
 
 template <typename Buffers>
-class with_declaration;
+class with_declaration; // IWYU pragma: export
 
 }
 

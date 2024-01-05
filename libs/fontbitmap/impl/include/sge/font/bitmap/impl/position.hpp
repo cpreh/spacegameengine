@@ -8,7 +8,7 @@
 
 #include <sge/font/vector.hpp>
 #include <sge/font/bitmap/impl/char_metric_fwd.hpp>
-#include <sge/font/bitmap/impl/position_fwd.hpp>
+#include <sge/font/bitmap/impl/position_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/reference_impl.hpp>
 
 namespace sge::font::bitmap::impl

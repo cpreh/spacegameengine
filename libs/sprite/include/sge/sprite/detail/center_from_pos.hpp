@@ -10,8 +10,8 @@
 #include <sge/sprite/types/pos.hpp>
 #include <sge/sprite/types/vector.hpp>
 #include <fcppt/literal.hpp>
-#include <fcppt/math/dim/arithmetic.hpp>
-#include <fcppt/math/vector/dim.hpp>
+#include <fcppt/math/dim/arithmetic.hpp> // IWYU pragma: keep
+#include <fcppt/math/vector/dim.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::detail
 {

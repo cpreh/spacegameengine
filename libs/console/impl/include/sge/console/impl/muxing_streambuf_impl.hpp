@@ -7,8 +7,8 @@
 #define SGE_CONSOLE_IMPL_MUXING_STREAMBUF_IMPL_HPP_INCLUDED
 
 #include <sge/console/muxing.hpp>
-#include <sge/console/muxing_streambuf.hpp>
-#include <sge/console/object.hpp>
+#include <sge/console/muxing_streambuf.hpp> // IWYU pragma: export
+#include <sge/console/object.hpp> // IWYU pragma: keep
 #include <sge/console/object_ref.hpp>
 #include <sge/console/impl/from_string.hpp>
 #include <fcppt/reference_impl.hpp>

@@ -7,8 +7,8 @@
 #define SGE_SPRITE_INTRUSIVE_ORDERED_RANGE_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/intrusive/ordered/iterator_impl.hpp>
-#include <sge/sprite/intrusive/ordered/range_decl.hpp>
+#include <sge/sprite/intrusive/ordered/iterator_impl.hpp> // IWYU pragma: keep
+#include <sge/sprite/intrusive/ordered/range_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/intrusive/ordered/detail/range_size.hpp>
 
 template <typename Choices, typename Order, bool IsConst>

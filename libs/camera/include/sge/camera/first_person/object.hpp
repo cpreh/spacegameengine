@@ -16,6 +16,7 @@
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/first_person/mouse_speed_multiplier.hpp>
 #include <sge/camera/first_person/movement_speed.hpp>
+#include <sge/camera/first_person/object_fwd.hpp>
 #include <sge/camera/first_person/parameters_fwd.hpp>
 #include <sge/camera/first_person/action/mapping.hpp>
 #include <sge/core/detail/class_symbol.hpp>

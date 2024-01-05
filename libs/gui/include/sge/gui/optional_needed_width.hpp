@@ -6,8 +6,8 @@
 #ifndef SGE_GUI_OPTIONAL_NEEDED_WIDTH_HPP_INCLUDED
 #define SGE_GUI_OPTIONAL_NEEDED_WIDTH_HPP_INCLUDED
 
-#include <sge/gui/needed_width.hpp>
+#include <sge/gui/needed_width.hpp> // IWYU pragma: keep
 #include <sge/gui/optional_needed_width_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

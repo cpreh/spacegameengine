@@ -6,7 +6,6 @@
 #ifndef SGE_SPRITE_DETAIL_BUFFERS_OBJECT_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_BUFFERS_OBJECT_HPP_INCLUDED
 
-#include <sge/renderer/index/buffer.hpp>
 #include <sge/renderer/index/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/sprite/buffers/roles/index_buffer.hpp>

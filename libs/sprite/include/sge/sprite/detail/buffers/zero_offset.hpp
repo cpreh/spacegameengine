@@ -10,6 +10,8 @@
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
+#include <sge/renderer/index/first.hpp>
+#include <sge/renderer/vertex/first.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

@@ -6,18 +6,9 @@
 #ifndef SGE_MODEL_OBJ_MATERIAL_OBJECT_FWD_HPP_INCLUDED
 #define SGE_MODEL_OBJ_MATERIAL_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::model::obj::material
 {
-namespace model
-{
-namespace obj
-{
-namespace material
-{
-class object;
-}
-}
-}
+class object; // IWYU pragma: export
 }
 
 #endif

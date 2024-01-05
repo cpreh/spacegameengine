@@ -21,7 +21,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <type_traits>
-#include <typeinfo>
+#include <typeinfo> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::console::callback::detail

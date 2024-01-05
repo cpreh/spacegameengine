@@ -9,7 +9,7 @@
 namespace sge::rucksack
 {
 
-class axis_policy2;
+class axis_policy2; // IWYU pragma: export
 
 }
 

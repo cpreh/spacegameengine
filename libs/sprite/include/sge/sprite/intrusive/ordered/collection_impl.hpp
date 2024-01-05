@@ -7,9 +7,9 @@
 #define SGE_SPRITE_INTRUSIVE_ORDERED_COLLECTION_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/intrusive/collection_impl.hpp>
-#include <sge/sprite/intrusive/connection_ref.hpp>
+#include <sge/sprite/intrusive/connection_ref.hpp> // IWYU pragma: keep
 #include <sge/sprite/intrusive/ordered/collection_decl.hpp> // IWYU pragma: export
-#include <sge/sprite/intrusive/ordered/range_impl.hpp>
+#include <sge/sprite/intrusive/ordered/range_impl.hpp> // IWYU pragma: keep
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/container/get_or_insert.hpp>

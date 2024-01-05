@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_BASIC_HOMOGENOUS_PAIR_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_HOMOGENOUS_PAIR_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/types/basic/homogenous_pair_fwd.hpp>
-#include <fcppt/tuple/object_impl.hpp>
+#include <sge/sprite/types/basic/homogenous_pair_fwd.hpp> // IWYU pragma: export
+#include <fcppt/tuple/object_impl.hpp> // IWYU pragma: keep
 
 #endif

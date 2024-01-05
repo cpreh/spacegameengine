@@ -12,6 +12,7 @@
 #include <sge/model/obj/material/diffuse_color.hpp>
 #include <sge/model/obj/material/diffuse_texture_path.hpp>
 #include <sge/model/obj/material/emissive_color.hpp>
+#include <sge/model/obj/material/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/model/obj/material/shininess.hpp>
 #include <sge/model/obj/material/specular_color.hpp>
 #include <sge/model/obj/material/specular_texture_path.hpp>

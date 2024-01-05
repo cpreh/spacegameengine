@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_IMAGE2D_HPP_INCLUDED
 
 #include <sge/media/optional_extension_set.hpp>
-#include <sge/systems/image2d_fwd.hpp>
+#include <sge/systems/image2d_fwd.hpp> // IWYU pragma: keep
 #include <sge/systems/detail/symbol.hpp>
 
 namespace sge::systems

@@ -8,13 +8,11 @@
 
 #include <sge/core/detail/class_symbol.hpp>
 #include <sge/model/md3/index_sequence.hpp>
-#include <sge/model/md3/normal_sequence.hpp>
 #include <sge/model/md3/object_fwd.hpp>
 #include <sge/model/md3/optional_normal_sequence.hpp>
 #include <sge/model/md3/optional_texcoord_sequence.hpp>
 #include <sge/model/md3/part_name_sequence.hpp>
 #include <sge/model/md3/string.hpp>
-#include <sge/model/md3/texcoord_sequence.hpp>
 #include <sge/model/md3/vertex_sequence.hpp>
 #include <sge/model/md3/detail/symbol.hpp>
 #include <fcppt/nonmovable.hpp>

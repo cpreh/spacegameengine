@@ -10,7 +10,7 @@ namespace sge::sprite::render
 {
 
 template <typename Choices>
-class range;
+class range; // IWYU pragma: export
 
 }
 

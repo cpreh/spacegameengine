@@ -7,7 +7,7 @@
 #define SGE_SPRITE_CONFIG_TYPE_CHOICES_HPP_INCLUDED
 
 #include <sge/sprite/config/float_type_fwd.hpp>
-#include <sge/sprite/config/type_choices_fwd.hpp>
+#include <sge/sprite/config/type_choices_fwd.hpp> // IWYU pragma: export
 #include <sge/sprite/config/unit_type_fwd.hpp>
 
 namespace sge::sprite::config

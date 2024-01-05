@@ -10,7 +10,7 @@ namespace sge::sprite
 {
 
 template <typename Choices>
-class object;
+class object; // IWYU pragma: export
 
 }
 

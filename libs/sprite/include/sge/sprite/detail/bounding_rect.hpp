@@ -3,15 +3,13 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef SGE_SPRITE_BOUNDING_RECT_HPP_INCLUDED
-#define SGE_SPRITE_BOUNDING_RECT_HPP_INCLUDED
+#ifndef SGE_SPRITE_DETAIL_BOUNDING_RECT_HPP_INCLUDED
+#define SGE_SPRITE_DETAIL_BOUNDING_RECT_HPP_INCLUDED
 
-#include <sge/sprite/object_fwd.hpp>
-#include <sge/sprite/types/dim.hpp>
-#include <sge/sprite/types/rect_fwd.hpp>
-#include <sge/sprite/types/vector.hpp>
+#include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/types/rect.hpp>
 
-namespace sge::sprite
+namespace sge::sprite::detail
 {
 
 template <typename Choices>

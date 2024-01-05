@@ -8,9 +8,8 @@
 
 #include <sge/plugin/collection.hpp>
 #include <sge/plugin/context.hpp>
-#include <sge/plugin/flags.hpp>
-#include <sge/plugin/info.hpp>
-#include <sge/plugin/iterator.hpp>
+#include <sge/plugin/info.hpp> // IWYU pragma: keep
+#include <sge/plugin/iterator.hpp> // IWYU pragma: keep
 #include <sge/plugin/name.hpp>
 #include <sge/plugin/object.hpp>
 #include <sge/systems/exception.hpp>
@@ -19,7 +18,7 @@
 #include <sge/systems/impl/plugin_pair_decl.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/strong_typedef_comparison.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
@@ -29,7 +28,7 @@
 #include <fcppt/optional/object_impl.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <typeinfo>
+#include <typeinfo> // IWYU pragma: keep
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

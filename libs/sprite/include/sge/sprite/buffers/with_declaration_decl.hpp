@@ -11,7 +11,7 @@
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/sprite/count.hpp>
 #include <sge/sprite/buffers/option.hpp>
-#include <sge/sprite/buffers/with_declaration_fwd.hpp>
+#include <sge/sprite/buffers/with_declaration_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::sprite::buffers

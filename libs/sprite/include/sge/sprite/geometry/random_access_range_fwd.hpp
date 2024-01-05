@@ -10,7 +10,7 @@ namespace sge::sprite::geometry
 {
 
 template <typename Iterator>
-class random_access_range;
+class random_access_range; // IWYU pragma: export
 
 }
 

@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_BUFFERS_WITH_DECLARATION_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_WITH_DECLARATION_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/device/core.hpp>
+#include <sge/renderer/device/core.hpp> // IWYU pragma: keep
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/declaration.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>

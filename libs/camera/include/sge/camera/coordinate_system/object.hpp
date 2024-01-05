@@ -7,7 +7,7 @@
 #define SGE_CAMERA_COORDINATE_SYSTEM_OBJECT_HPP_INCLUDED
 
 #include <sge/camera/coordinate_system/forward.hpp>
-#include <sge/camera/coordinate_system/object_fwd.hpp>
+#include <sge/camera/coordinate_system/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/camera/coordinate_system/position.hpp>
 #include <sge/camera/coordinate_system/right.hpp>
 #include <sge/camera/coordinate_system/up.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_SYSTEMS_RENDERER_CAPS_HPP_INCLUDED
 #define SGE_SYSTEMS_RENDERER_CAPS_HPP_INCLUDED
 
-#include <sge/systems/renderer_caps_fwd.hpp>
+#include <sge/systems/renderer_caps_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::systems
 {

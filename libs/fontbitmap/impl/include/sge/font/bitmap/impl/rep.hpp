@@ -8,7 +8,7 @@
 
 #include <sge/font/rect.hpp>
 #include <sge/font/bitmap/impl/line_vector.hpp>
-#include <sge/font/bitmap/impl/rep_fwd.hpp>
+#include <sge/font/bitmap/impl/rep_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::font::bitmap::impl
 {

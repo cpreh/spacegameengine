@@ -6,7 +6,6 @@
 #ifndef SGE_SPRITE_BUFFERS_MULTI_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_MULTI_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
@@ -15,11 +14,11 @@
 #include <sge/sprite/buffers/multi_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
-#include <sge/sprite/buffers/slice_impl.hpp>
+#include <sge/sprite/buffers/slice_impl.hpp> // IWYU pragma: keep
 #include <sge/sprite/buffers/zero_offset.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/unique_ptr_impl.hpp> // IWYU pragma: keep
 
 template <typename Choices>
 sge::sprite::buffers::multi<Choices>::multi(

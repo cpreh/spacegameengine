@@ -10,7 +10,7 @@
 #include <sge/renderer/index/first.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/first.hpp>
-#include <sge/sprite/buffers/slice_decl.hpp>
+#include <sge/sprite/buffers/slice_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/buffers/roles/first_index.hpp>
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/buffers/roles/index_buffer.hpp>

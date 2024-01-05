@@ -9,7 +9,7 @@
 #include <sge/renderer/vf/color_base.hpp>
 #include <sge/renderer/vf/element_count_type.hpp>
 #include <sge/renderer/vf/extra_base.hpp>
-#include <sge/renderer/vf/extra_fwd.hpp> // IWYU pragma: keep
+#include <sge/renderer/vf/extra_fwd.hpp> // IWYU pragma: export
 #include <sge/renderer/vf/vector_base.hpp>
 #include <sge/renderer/vf/vector_fwd.hpp>
 #include <mizuiro/color/format/homogenous_static_fwd.hpp>

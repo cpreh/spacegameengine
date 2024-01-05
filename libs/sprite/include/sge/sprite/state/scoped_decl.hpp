@@ -10,7 +10,7 @@
 #include <sge/sprite/state/options_decl.hpp>
 #include <sge/sprite/state/render_context.hpp>
 #include <sge/sprite/state/render_device.hpp>
-#include <sge/sprite/state/scoped_fwd.hpp>
+#include <sge/sprite/state/scoped_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 

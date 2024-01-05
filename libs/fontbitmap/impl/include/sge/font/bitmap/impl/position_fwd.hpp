@@ -9,7 +9,7 @@
 namespace sge::font::bitmap::impl
 {
 
-class position;
+class position; // IWYU pragma: export
 
 }
 

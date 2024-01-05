@@ -6,11 +6,11 @@
 #ifndef SGE_GRAPH_AXIS_CONSTRAINT_HPP_INCLUDED
 #define SGE_GRAPH_AXIS_CONSTRAINT_HPP_INCLUDED
 
-#include <sge/graph/axis_constraint_fwd.hpp>
+#include <sge/graph/axis_constraint_fwd.hpp> // IWYU pragma: keep
 #include <sge/graph/scalar.hpp>
 #include <sge/graph/detail/symbol.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef_impl.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::graph
 {

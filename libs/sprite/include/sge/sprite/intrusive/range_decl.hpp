@@ -7,7 +7,7 @@
 #define SGE_SPRITE_INTRUSIVE_RANGE_DECL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/intrusive/range_fwd.hpp>
+#include <sge/sprite/intrusive/range_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/intrusive/detail/list.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>

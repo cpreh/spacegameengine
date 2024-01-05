@@ -10,7 +10,7 @@ namespace sge::sprite::config
 {
 
 template <bool CustomTexturePoint>
-struct custom_texture_point_pos;
+struct custom_texture_point_pos; // IWYU pragma: export
 
 }
 

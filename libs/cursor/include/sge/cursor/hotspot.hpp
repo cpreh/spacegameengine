@@ -7,7 +7,7 @@
 #define SGE_CURSOR_HOTSPOT_HPP_INCLUDED
 
 #include <sge/cursor/hotspot_fwd.hpp> // IWYU pragma: export
-#include <sge/texture/pos.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/texture/pos.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

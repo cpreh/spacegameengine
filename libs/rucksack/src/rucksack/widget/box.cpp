@@ -30,6 +30,7 @@
 #include <fcppt/not.hpp>
 #include <fcppt/reference_comparison.hpp>
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/remove_if.hpp>

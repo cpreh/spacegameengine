@@ -10,7 +10,7 @@ namespace sge::sprite::buffers
 {
 
 template <typename Choices>
-class single;
+class single; // IWYU pragma: export
 
 }
 

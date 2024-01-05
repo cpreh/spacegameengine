@@ -9,7 +9,7 @@
 namespace sge::systems
 {
 
-struct with_audio_loader;
+struct with_audio_loader; // IWYU pragma: export
 
 }
 

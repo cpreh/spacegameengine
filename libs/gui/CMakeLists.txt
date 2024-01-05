@@ -97,7 +97,6 @@ set(
 	libs/gui/include/sge/gui/widget/bar_fwd.hpp
 	libs/gui/include/sge/gui/widget/base.hpp
 	libs/gui/include/sge/gui/widget/base_fwd.hpp
-	libs/gui/include/sge/gui/widget/base_unique_ptr.hpp
 	libs/gui/include/sge/gui/widget/box_container.hpp
 	libs/gui/include/sge/gui/widget/box_container_fwd.hpp
 	libs/gui/include/sge/gui/widget/button.hpp
@@ -148,7 +147,6 @@ set(
 	libs/gui/include/sge/gui/widget/unique_ptr.hpp
 	libs/gui/include/sge/gui/widget/unique_ptr_tree.hpp
 	libs/gui/include/sge/gui/widget/unique_ptr_tree_fwd.hpp
-	libs/gui/include/sge/gui/widget/unique_ptr_tree_vector.hpp
 	libs/gui/include/sge/gui/widget/unique_ptr_vector.hpp
 	libs/gui/src/gui/background/base.cpp
 	libs/gui/src/gui/background/colored.cpp

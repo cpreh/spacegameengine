@@ -8,17 +8,13 @@
 
 #include <sge/gui/context_ref.hpp>
 #include <sge/gui/detail/symbol.hpp>
-#include <sge/gui/widget/box_container_fwd.hpp>
+#include <sge/gui/widget/box_container_fwd.hpp> // IWYU pragma: keep
 #include <sge/gui/widget/container.hpp>
-#include <sge/gui/widget/reference.hpp>
 #include <sge/gui/widget/reference_alignment_pair_fwd.hpp>
 #include <sge/gui/widget/reference_alignment_vector.hpp>
-#include <sge/rucksack/alignment_fwd.hpp>
 #include <sge/rucksack/axis_fwd.hpp>
-#include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/box.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/strong_typedef.hpp>
 
 namespace sge::gui::widget
 {

@@ -7,6 +7,6 @@
 #define SGE_MODEL_MD3_OPTIONAL_NORMAL_SEQUENCE_HPP_INCLUDED
 
 #include <sge/model/md3/optional_normal_sequence_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

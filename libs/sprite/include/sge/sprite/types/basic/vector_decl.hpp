@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_BASIC_VECTOR_DECL_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_VECTOR_DECL_HPP_INCLUDED
 
-#include <sge/sprite/types/basic/vector_fwd.hpp>
-#include <fcppt/math/vector/static_decl.hpp>
+#include <sge/sprite/types/basic/vector_fwd.hpp> // IWYU pragma: export
+#include <fcppt/math/vector/static_decl.hpp> // IWYU pragma: keep
 
 #endif

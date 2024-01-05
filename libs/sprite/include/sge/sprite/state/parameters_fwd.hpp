@@ -10,7 +10,7 @@ namespace sge::sprite::state
 {
 
 template <typename StateChoices>
-class parameters;
+class parameters; // IWYU pragma: export
 
 }
 

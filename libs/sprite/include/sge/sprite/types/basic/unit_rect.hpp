@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_BASIC_UNIT_RECT_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_UNIT_RECT_HPP_INCLUDED
 
-#include <sge/sprite/types/basic/rect.hpp>
-#include <sge/sprite/types/basic/unit_rect_fwd.hpp>
+#include <sge/sprite/types/basic/rect.hpp> // IWYU pragma: keep
+#include <sge/sprite/types/basic/unit_rect_fwd.hpp> // IWYU pragma: export
 
 #endif

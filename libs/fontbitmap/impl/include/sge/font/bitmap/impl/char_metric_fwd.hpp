@@ -9,7 +9,7 @@
 namespace sge::font::bitmap::impl
 {
 
-class char_metric;
+class char_metric; // IWYU pragma: export
 
 }
 

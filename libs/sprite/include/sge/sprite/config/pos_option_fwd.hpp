@@ -9,7 +9,7 @@
 namespace sge::sprite::config
 {
 
-enum class pos_option;
+enum class pos_option; // IWYU pragma: export
 
 }
 

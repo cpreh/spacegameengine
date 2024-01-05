@@ -7,6 +7,6 @@
 #define SGE_MODEL_MD3_OPTIONAL_TEXCOORD_SEQUENCE_HPP_INCLUDED
 
 #include <sge/model/md3/optional_texcoord_sequence_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

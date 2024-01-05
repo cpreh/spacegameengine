@@ -10,7 +10,7 @@ namespace sge::sprite::intrusive::ordered
 {
 
 template <typename Choices, typename Order, bool IsConst>
-class range;
+class range; // IWYU pragma: export
 
 }
 

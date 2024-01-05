@@ -9,7 +9,7 @@
 namespace sge::gui::widget
 {
 
-class edit;
+class edit; // IWYU pragma: export
 
 }
 

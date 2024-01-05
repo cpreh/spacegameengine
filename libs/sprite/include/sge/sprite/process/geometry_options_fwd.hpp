@@ -9,7 +9,7 @@
 namespace sge::sprite::process
 {
 
-enum class geometry_options;
+enum class geometry_options; // IWYU pragma: export
 
 }
 

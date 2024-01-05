@@ -6,17 +6,13 @@
 #ifndef SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_CUSTOM_TEXTURE_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/config/custom_texture_point_size_fwd.hpp>
-#include <fcppt/mpl/list/object_concept.hpp>
+#include <sge/sprite/config/custom_texture_point_size_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/mpl/list/object_concept.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
-namespace sge
-{
-namespace sprite
-{
-namespace config
+namespace sge::sprite::config
 {
 
 template <fcppt::mpl::list::object_concept AttributeNames>
@@ -27,8 +23,6 @@ struct custom_texture_point_size
   using attribute_indices = AttributeNames;
 };
 
-}
-}
 }
 
 #endif

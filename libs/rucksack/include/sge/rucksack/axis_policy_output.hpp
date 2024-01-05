@@ -9,7 +9,7 @@
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/minimum_size.hpp>
 #include <sge/rucksack/preferred_size.hpp>
-#include <fcppt/strong_typedef_output.hpp>
+#include <fcppt/strong_typedef_output.hpp> // IWYU pragma: keep
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>

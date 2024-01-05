@@ -9,7 +9,7 @@
 namespace sge::systems
 {
 
-enum class renderer_caps;
+enum class renderer_caps; // IWYU pragma: export
 
 }
 

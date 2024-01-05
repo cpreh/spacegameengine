@@ -9,7 +9,7 @@
 namespace sge::gui::widget
 {
 
-class box_container;
+class box_container; // IWYU pragma: export
 
 }
 

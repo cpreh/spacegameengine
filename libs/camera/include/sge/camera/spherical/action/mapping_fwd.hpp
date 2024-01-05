@@ -6,18 +6,9 @@
 #ifndef SGE_CAMERA_SPHERICAL_ACTION_MAPPING_FWD_HPP_INCLUDED
 #define SGE_CAMERA_SPHERICAL_ACTION_MAPPING_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::camera::spherical::action
 {
-namespace camera
-{
-namespace spherical
-{
-namespace action
-{
-class mapping;
-}
-}
-}
+class mapping; // IWYU pragma: export
 }
 
 #endif

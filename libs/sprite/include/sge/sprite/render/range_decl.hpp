@@ -7,7 +7,7 @@
 #define SGE_SPRITE_RENDER_RANGE_DECL_HPP_INCLUDED
 
 #include <sge/sprite/detail/render/range_object.hpp>
-#include <sge/sprite/render/range_fwd.hpp>
+#include <sge/sprite/render/range_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/render/range_part_decl.hpp>
 #include <sge/sprite/render/range_part_vector.hpp>
 #include <fcppt/noncopyable.hpp>

@@ -9,7 +9,7 @@
 #include <sge/sprite/object_fwd.hpp>
 #include <sge/sprite/detail/unlink.hpp>
 #include <sge/sprite/detail/config/is_intrusive.hpp>
-#include <sge/sprite/intrusive/detail/object_base_hook.hpp>
+#include <sge/sprite/intrusive/detail/object_base_hook.hpp> // IWYU pragma: keep
 #include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

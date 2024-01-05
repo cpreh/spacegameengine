@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_DETAIL_RENDER_UNSET_TEXTURE_STAGE_HPP_INCLUDED
 #define SGE_SPRITE_DETAIL_RENDER_UNSET_TEXTURE_STAGE_HPP_INCLUDED
 
-#include <sge/renderer/context/core.hpp>
+#include <sge/renderer/context/core.hpp> // IWYU pragma: keep
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>

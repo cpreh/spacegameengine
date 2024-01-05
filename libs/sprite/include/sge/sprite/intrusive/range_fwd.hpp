@@ -10,7 +10,7 @@ namespace sge::sprite::intrusive
 {
 
 template <typename Choices, bool IsConst>
-class range;
+class range; // IWYU pragma: export
 
 }
 

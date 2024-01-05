@@ -6,15 +6,9 @@
 #ifndef SGE_RUCKSACK_WIDGET_MASTER_AND_SLAVES_FWD_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_MASTER_AND_SLAVES_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::rucksack::widget
 {
-namespace rucksack
-{
-namespace widget
-{
-class master_and_slaves;
-}
-}
+class master_and_slaves; // IWYU pragma: export
 }
 
 #endif

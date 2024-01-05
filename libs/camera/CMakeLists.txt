@@ -110,7 +110,6 @@ set(
 	libs/camera/include/sge/camera/tracking/keyframe_sequence.hpp
 	libs/camera/include/sge/camera/tracking/object.hpp
 	libs/camera/include/sge/camera/tracking/object_fwd.hpp
-	libs/camera/include/sge/camera/tracking/time_point.hpp
 	libs/camera/include/sge/camera/update_duration.hpp
 	libs/camera/src/camera/base.cpp
 	libs/camera/src/camera/coordinate_system/identity.cpp

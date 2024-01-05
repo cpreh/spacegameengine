@@ -9,7 +9,7 @@
 #include <sge/font/string.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/widget/reference.hpp>
-#include <sge/gui/widget/reference_name_pair_fwd.hpp>
+#include <sge/gui/widget/reference_name_pair_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::gui::widget
 {

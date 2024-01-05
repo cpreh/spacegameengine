@@ -14,7 +14,7 @@ namespace sge::console
 {
 
 template <typename Char, typename Traits = std::char_traits<Char>>
-class muxing_streambuf;
+class muxing_streambuf; // IWYU pragma: export
 
 }
 

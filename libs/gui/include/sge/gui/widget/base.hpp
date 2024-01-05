@@ -12,7 +12,7 @@
 #include <sge/gui/get_focus_fwd.hpp>
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
-#include <sge/gui/widget/base_fwd.hpp>
+#include <sge/gui/widget/base_fwd.hpp> // IWYU pragma: keep
 #include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref.hpp>
 #include <sge/input/key/code_fwd.hpp>

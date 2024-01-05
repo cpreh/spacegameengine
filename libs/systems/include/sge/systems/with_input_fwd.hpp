@@ -9,7 +9,7 @@
 namespace sge::systems
 {
 
-struct with_input;
+struct with_input; // IWYU pragma: export
 
 }
 

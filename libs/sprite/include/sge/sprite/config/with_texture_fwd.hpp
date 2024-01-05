@@ -16,7 +16,7 @@ template <
     typename TextureLevels,
     sge::sprite::config::texture_coordinates,
     sge::sprite::config::texture_ownership>
-struct with_texture;
+struct with_texture; // IWYU pragma: export
 
 }
 

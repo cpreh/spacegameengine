@@ -14,7 +14,7 @@
 #include <sge/model/md3/impl/transformed_vertex_vector.hpp>
 #include <sge/model/md3/impl/triangle_vector.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>

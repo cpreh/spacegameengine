@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_CONFIG_TEXTURE_SIZE_OPTION_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_TEXTURE_SIZE_OPTION_HPP_INCLUDED
 
-#include <sge/sprite/config/texture_size_option_fwd.hpp>
+#include <sge/sprite/config/texture_size_option_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::config
 {

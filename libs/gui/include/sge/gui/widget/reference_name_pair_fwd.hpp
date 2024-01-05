@@ -9,7 +9,7 @@
 namespace sge::gui::widget
 {
 
-class reference_name_pair;
+class reference_name_pair; // IWYU pragma: export
 
 }
 

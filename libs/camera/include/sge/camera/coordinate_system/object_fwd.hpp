@@ -8,7 +8,7 @@
 
 namespace sge::camera::coordinate_system
 {
-class object;
+class object; // IWYU pragma: export
 }
 
 #endif

@@ -7,7 +7,7 @@
 #define SGE_CAMERA_PROJECTION_MATRIX_HPP_INCLUDED
 
 #include <sge/camera/projection_matrix_fwd.hpp> // IWYU pragma: export
-#include <sge/renderer/matrix4.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/renderer/matrix4.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

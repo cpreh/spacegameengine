@@ -6,11 +6,11 @@
 #ifndef SGE_VIEWPORT_FRACTIONAL_ASPECT_HPP_INCLUDED
 #define SGE_VIEWPORT_FRACTIONAL_ASPECT_HPP_INCLUDED
 
-#include <sge/viewport/fractional_aspect_fwd.hpp>
+#include <sge/viewport/fractional_aspect_fwd.hpp> // IWYU pragma: keep
 #include <sge/viewport/detail/symbol.hpp>
 #include <sge/window/unit.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef_impl.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::viewport
 {

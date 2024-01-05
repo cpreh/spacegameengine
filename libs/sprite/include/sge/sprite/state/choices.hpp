@@ -6,8 +6,8 @@
 #ifndef SGE_SPRITE_STATE_CHOICES_HPP_INCLUDED
 #define SGE_SPRITE_STATE_CHOICES_HPP_INCLUDED
 
-#include <sge/sprite/state/choices_fwd.hpp>
-#include <fcppt/mpl/list/object_concept.hpp>
+#include <sge/sprite/state/choices_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/mpl/list/object_concept.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::state
 {

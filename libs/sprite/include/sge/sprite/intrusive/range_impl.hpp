@@ -7,7 +7,7 @@
 #define SGE_SPRITE_INTRUSIVE_RANGE_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/intrusive/range_decl.hpp>
+#include <sge/sprite/intrusive/range_decl.hpp> // IWYU pragma: export
 
 template <typename Choices, bool IsConst>
 sge::sprite::intrusive::range<Choices, IsConst>::range(

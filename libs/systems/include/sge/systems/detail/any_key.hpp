@@ -6,7 +6,7 @@
 #ifndef SGE_SYSTEMS_DETAIL_ANY_KEY_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ANY_KEY_HPP_INCLUDED
 
-#include <sge/systems/detail/any_key_fwd.hpp>
+#include <sge/systems/detail/any_key_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::systems::detail
 {

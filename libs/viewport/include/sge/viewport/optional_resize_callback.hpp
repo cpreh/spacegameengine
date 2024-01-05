@@ -7,6 +7,6 @@
 #define SGE_VIEWPORT_OPTIONAL_RESIZE_CALLBACK_HPP_INCLUDED
 
 #include <sge/viewport/optional_resize_callback_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

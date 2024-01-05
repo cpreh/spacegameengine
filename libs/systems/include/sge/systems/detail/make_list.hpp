@@ -13,7 +13,7 @@
 #include <sge/systems/detail/list.hpp>
 #include <sge/systems/detail/make_defaults.hpp>
 #include <sge/systems/detail/make_list_element.hpp>
-#include <fcppt/algorithm/loop_break_tuple.hpp>
+#include <fcppt/algorithm/loop_break_tuple.hpp> // IWYU pragma: keep
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/container/join.hpp>
 #include <fcppt/mpl/bind.hpp>

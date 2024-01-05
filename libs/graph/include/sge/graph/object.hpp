@@ -39,7 +39,8 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/circular_buffer.hpp>
+#include <boost/circular_buffer.hpp> // IWYU pragma: keep
+#include <boost/circular_buffer_fwd.hpp>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::graph

@@ -23,6 +23,7 @@
 #include <sge/renderer/scalar.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/math/clamp.hpp>

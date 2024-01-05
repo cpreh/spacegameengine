@@ -19,12 +19,13 @@
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/style/const_reference.hpp>
 #include <sge/gui/widget/base.hpp>
-#include <sge/gui/widget/edit_fwd.hpp>
+#include <sge/gui/widget/edit_fwd.hpp> // IWYU pragma: keep
 #include <sge/gui/widget/optional_focus_ref.hpp>
 #include <sge/gui/widget/optional_ref_fwd.hpp>
 #include <sge/input/key/code_fwd.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_ref.hpp>
+#include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <sge/timer/basic_decl.hpp>

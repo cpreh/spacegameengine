@@ -7,7 +7,7 @@
 #define SGE_SPRITE_CONFIG_POS_HPP_INCLUDED
 
 #include <sge/sprite/config/pos_choice.hpp>
-#include <sge/sprite/config/pos_fwd.hpp>
+#include <sge/sprite/config/pos_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/config/pos_option.hpp>
 #include <sge/sprite/detail/primitives/pos.hpp>
 #include <fcppt/config/external_begin.hpp>

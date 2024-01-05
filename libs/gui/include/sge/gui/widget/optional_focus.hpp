@@ -7,7 +7,7 @@
 #define SGE_GUI_WIDGET_OPTIONAL_FOCUS_HPP_INCLUDED
 
 #include <sge/gui/widget/optional_focus_fwd.hpp> // IWYU pragma: export
-#include <sge/gui/widget/optional_ref.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/gui/widget/optional_ref.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

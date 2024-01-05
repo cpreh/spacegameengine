@@ -7,6 +7,6 @@
 #define SGE_SPRITE_TYPES_DIM_HPP_INCLUDED
 
 #include <sge/sprite/types/dim_fwd.hpp> // IWYU pragma: export
-#include <sge/sprite/types/basic/unit_dim.hpp>
+#include <sge/sprite/types/basic/unit_dim.hpp> // IWYU pragma: keep
 
 #endif

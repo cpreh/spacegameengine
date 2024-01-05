@@ -17,7 +17,7 @@
 #include <sge/renderer/system_fwd.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/ffp_fwd.hpp>
-#include <sge/systems/instance_fwd.hpp>
+#include <sge/systems/instance_fwd.hpp> // IWYU pragma: keep
 #include <sge/systems/list_fwd.hpp>
 #include <sge/systems/detail/assert_dependencies.hpp>
 #include <sge/systems/detail/instance.hpp>

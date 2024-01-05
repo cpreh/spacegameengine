@@ -1,6 +1,5 @@
 set(
 	SGE_SPRITE_FILES
-	libs/sprite/include/sge/sprite/bounding_rect.hpp
 	libs/sprite/include/sge/sprite/buffers/allocate.hpp
 	libs/sprite/include/sge/sprite/buffers/index_count.hpp
 	libs/sprite/include/sge/sprite/buffers/multi.hpp
@@ -98,6 +97,7 @@ set(
 	libs/sprite/include/sge/sprite/detail/apply_texture_levels.hpp
 	libs/sprite/include/sge/sprite/detail/assign_post.hpp
 	libs/sprite/include/sge/sprite/detail/assign_pre.hpp
+	libs/sprite/include/sge/sprite/detail/bounding_rect.hpp
 	libs/sprite/include/sge/sprite/detail/buffers/allocate.hpp
 	libs/sprite/include/sge/sprite/detail/buffers/allocate_indices.hpp
 	libs/sprite/include/sge/sprite/detail/buffers/allocate_vertices.hpp
@@ -127,7 +127,6 @@ set(
 	libs/sprite/include/sge/sprite/detail/config/is_intrusive.hpp
 	libs/sprite/include/sge/sprite/detail/config/lazy_head.hpp
 	libs/sprite/include/sge/sprite/detail/config/needs_index_buffer.hpp
-	libs/sprite/include/sge/sprite/detail/config/needs_use_center.hpp
 	libs/sprite/include/sge/sprite/detail/config/texture_levels.hpp
 	libs/sprite/include/sge/sprite/detail/config/texture_ref.hpp
 	libs/sprite/include/sge/sprite/detail/destroy.hpp
@@ -218,7 +217,6 @@ set(
 	libs/sprite/include/sge/sprite/geometry/detail/render_part_element.hpp
 	libs/sprite/include/sge/sprite/geometry/detail/vertices_per_sprite.hpp
 	libs/sprite/include/sge/sprite/geometry/fill.hpp
-	libs/sprite/include/sge/sprite/geometry/is_random_access_range.hpp
 	libs/sprite/include/sge/sprite/geometry/make_random_access_range.hpp
 	libs/sprite/include/sge/sprite/geometry/make_single_range.hpp
 	libs/sprite/include/sge/sprite/geometry/random_access_range_decl.hpp
@@ -343,7 +341,6 @@ set(
 	libs/sprite/include/sge/sprite/state/detail/parameters_init.hpp
 	libs/sprite/include/sge/sprite/state/detail/set_one.hpp
 	libs/sprite/include/sge/sprite/state/detail/unset_one.hpp
-	libs/sprite/include/sge/sprite/state/is_with_transform.hpp
 	libs/sprite/include/sge/sprite/state/no_choices.hpp
 	libs/sprite/include/sge/sprite/state/object.hpp
 	libs/sprite/include/sge/sprite/state/object_decl.hpp

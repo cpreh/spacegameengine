@@ -9,7 +9,7 @@
 namespace sge::model::md3::impl
 {
 
-class vertex;
+class vertex; // IWYU pragma: export
 
 }
 

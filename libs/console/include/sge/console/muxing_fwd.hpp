@@ -9,7 +9,7 @@
 namespace sge::console
 {
 
-enum class muxing;
+enum class muxing; // IWYU pragma: export
 
 }
 

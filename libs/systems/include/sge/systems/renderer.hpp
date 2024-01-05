@@ -10,9 +10,8 @@
 #include <sge/renderer/caps/system_field.hpp>
 #include <sge/renderer/display_mode/parameters.hpp>
 #include <sge/renderer/pixel_format/object.hpp>
-#include <sge/renderer/target/viewport.hpp>
 #include <sge/systems/optional_name.hpp>
-#include <sge/systems/renderer_fwd.hpp>
+#include <sge/systems/renderer_fwd.hpp> // IWYU pragma: keep
 #include <sge/systems/detail/symbol.hpp>
 #include <sge/viewport/optional_resize_callback.hpp>
 

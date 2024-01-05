@@ -9,9 +9,9 @@
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/sprite/deref_texture.hpp>
 #include <sge/sprite/object_impl.hpp>
-#include <sge/texture/part.hpp>
+#include <sge/texture/part.hpp> // IWYU pragma: keep
 #include <fcppt/make_cref.hpp>
-#include <fcppt/reference_comparison.hpp>
+#include <fcppt/reference_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/reference_impl.hpp>
 
 namespace sge::sprite::compare::detail

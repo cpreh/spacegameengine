@@ -6,7 +6,7 @@
 #ifndef SGE_RUCKSACK_ALIGNMENT_HPP_INCLUDED
 #define SGE_RUCKSACK_ALIGNMENT_HPP_INCLUDED
 
-#include <sge/rucksack/alignment_fwd.hpp>
+#include <sge/rucksack/alignment_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::rucksack
 {

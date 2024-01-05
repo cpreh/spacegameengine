@@ -8,9 +8,7 @@
 
 namespace sge::rucksack::widget
 {
-
-class reference_alignment;
-
+class reference_alignment; // IWYU pragma: export
 }
 
 #endif

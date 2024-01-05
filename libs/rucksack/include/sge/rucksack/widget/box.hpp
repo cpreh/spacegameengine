@@ -15,6 +15,7 @@
 #include <sge/rucksack/vector.hpp>
 #include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/box_fwd.hpp> // IWYU pragma: keep
 #include <sge/rucksack/widget/reference.hpp>
 #include <sge/rucksack/widget/reference_alignment_container.hpp>
 #include <fcppt/nonmovable.hpp>

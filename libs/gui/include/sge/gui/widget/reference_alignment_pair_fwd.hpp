@@ -9,7 +9,7 @@
 namespace sge::gui::widget
 {
 
-class reference_alignment_pair;
+class reference_alignment_pair; // IWYU pragma: export
 
 }
 

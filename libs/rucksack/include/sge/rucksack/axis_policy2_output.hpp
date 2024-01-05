@@ -7,7 +7,7 @@
 #define SGE_RUCKSACK_AXIS_POLICY2_OUTPUT_HPP_INCLUDED
 
 #include <sge/rucksack/axis_policy2.hpp>
-#include <sge/rucksack/axis_policy_output.hpp>
+#include <sge/rucksack/axis_policy_output.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <ostream>
 #include <fcppt/config/external_end.hpp>

@@ -7,7 +7,7 @@
 #define SGE_SPRITE_TYPES_TEXTURE_COORDINATES_HPP_INCLUDED
 
 #include <sge/sprite/types/texture_coordinates_fwd.hpp> // IWYU pragma: export
-#include <sge/sprite/types/basic/float_vector.hpp>
-#include <sge/sprite/types/basic/homogenous_pair_impl.hpp>
+#include <sge/sprite/types/basic/float_vector.hpp> // IWYU pragma: keep
+#include <sge/sprite/types/basic/homogenous_pair_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -7,6 +7,6 @@
 #define SGE_MODEL_MD3_LOAD_FLAGS_FIELD_HPP_INCLUDED
 
 #include <sge/model/md3/load_flags_field_fwd.hpp> // IWYU pragma: export
-#include <fcppt/container/bitfield/object.hpp>
+#include <fcppt/container/bitfield/object.hpp> // IWYU pragma: keep
 
 #endif

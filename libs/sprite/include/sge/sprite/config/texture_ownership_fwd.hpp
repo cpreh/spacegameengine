@@ -9,7 +9,7 @@
 namespace sge::sprite::config
 {
 
-enum class texture_ownership;
+enum class texture_ownership; // IWYU pragma: export
 
 }
 

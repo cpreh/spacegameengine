@@ -9,7 +9,7 @@
 namespace sge::sprite::config
 {
 
-struct with_rotation;
+struct with_rotation; // IWYU pragma: export
 
 }
 

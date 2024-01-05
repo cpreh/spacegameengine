@@ -9,7 +9,7 @@
 #include <sge/rucksack/alignment.hpp>
 #include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/reference.hpp>
-#include <sge/rucksack/widget/reference_alignment_fwd.hpp>
+#include <sge/rucksack/widget/reference_alignment_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::rucksack::widget
 {

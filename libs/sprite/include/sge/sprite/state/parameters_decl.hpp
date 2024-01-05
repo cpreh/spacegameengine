@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_STATE_PARAMETERS_DECL_HPP_INCLUDED
 #define SGE_SPRITE_STATE_PARAMETERS_DECL_HPP_INCLUDED
 
-#include <sge/sprite/state/parameters_fwd.hpp>
+#include <sge/sprite/state/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/state/detail/parameters_class.hpp>
 #include <fcppt/record/label_value_type.hpp>
 

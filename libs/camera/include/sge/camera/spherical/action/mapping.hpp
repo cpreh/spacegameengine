@@ -13,6 +13,7 @@
 #include <sge/camera/spherical/action/increase_azimuth.hpp>
 #include <sge/camera/spherical/action/increase_inclination.hpp>
 #include <sge/camera/spherical/action/increase_radius.hpp>
+#include <sge/camera/spherical/action/mapping_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::camera::spherical::action
 {

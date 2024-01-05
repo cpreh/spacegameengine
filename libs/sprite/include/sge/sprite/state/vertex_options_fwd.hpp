@@ -9,7 +9,7 @@
 namespace sge::sprite::state
 {
 
-enum class vertex_options;
+enum class vertex_options; // IWYU pragma: export
 
 }
 

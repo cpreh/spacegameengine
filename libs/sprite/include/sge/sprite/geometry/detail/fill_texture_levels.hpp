@@ -13,6 +13,7 @@
 #include <sge/sprite/detail/config/has_texture_levels.hpp>
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <sge/sprite/geometry/detail/fill_texture_level.hpp>
+#include <fcppt/not.hpp>
 #include <fcppt/type_traits/implication.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

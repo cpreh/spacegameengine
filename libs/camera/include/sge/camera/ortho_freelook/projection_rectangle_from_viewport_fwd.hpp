@@ -6,15 +6,9 @@
 #ifndef SGE_CAMERA_ORTHO_FREELOOK_PROJECTION_RECTANGLE_FROM_VIEWPORT_FWD_HPP_INCLUDED
 #define SGE_CAMERA_ORTHO_FREELOOK_PROJECTION_RECTANGLE_FROM_VIEWPORT_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::camera::ortho_freelook
 {
-namespace camera
-{
-namespace ortho_freelook
-{
-class projection_rectangle_from_viewport;
-}
-}
+class projection_rectangle_from_viewport; // IWYU pragma: export
 }
 
 #endif

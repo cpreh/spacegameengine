@@ -11,10 +11,9 @@
 #include <sge/camera/first_person/action/down.hpp>
 #include <sge/camera/first_person/action/forward.hpp>
 #include <sge/camera/first_person/action/left.hpp>
+#include <sge/camera/first_person/action/mapping_fwd.hpp> // IWYU pragma: keep
 #include <sge/camera/first_person/action/right.hpp>
 #include <sge/camera/first_person/action/up.hpp>
-#include <sge/core/detail/class_symbol.hpp>
-#include <fcppt/optional/object_impl.hpp>
 
 namespace sge::camera::first_person::action
 {

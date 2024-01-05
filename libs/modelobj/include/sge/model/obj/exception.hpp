@@ -14,7 +14,7 @@
 namespace sge::model::obj
 {
 
-class exception : public sge::core::exception
+class SGE_CORE_DETAIL_CLASS_SYMBOL exception : public sge::core::exception
 {
 public:
   SGE_MODEL_OBJ_DETAIL_SYMBOL

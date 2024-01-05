@@ -7,7 +7,7 @@
 #define SGE_SPRITE_TYPES_CENTER_HPP_INCLUDED
 
 #include <sge/sprite/types/center_fwd.hpp> // IWYU pragma: export
-#include <sge/sprite/types/basic/unit_vector.hpp>
-#include <fcppt/strong_typedef_impl.hpp>
+#include <sge/sprite/types/basic/unit_vector.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

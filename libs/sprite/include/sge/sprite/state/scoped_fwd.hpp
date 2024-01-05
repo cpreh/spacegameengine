@@ -10,7 +10,7 @@ namespace sge::sprite::state
 {
 
 template <typename StateChoices>
-class scoped;
+class scoped; // IWYU pragma: export
 
 }
 

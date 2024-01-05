@@ -6,8 +6,8 @@
 #ifndef SGE_SPRITE_OPTIONAL_MATRIX_HPP_INCLUDED
 #define SGE_SPRITE_OPTIONAL_MATRIX_HPP_INCLUDED
 
-#include <sge/sprite/matrix.hpp>
+#include <sge/sprite/matrix.hpp> // IWYU pragma: keep
 #include <sge/sprite/optional_matrix_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

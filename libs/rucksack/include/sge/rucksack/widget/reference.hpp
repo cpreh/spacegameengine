@@ -7,6 +7,6 @@
 #define SGE_RUCKSACK_WIDGET_REFERENCE_HPP_INCLUDED
 
 #include <sge/rucksack/widget/reference_fwd.hpp> // IWYU pragma: export
-#include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_impl.hpp> // IWYU pragma: keep
 
 #endif

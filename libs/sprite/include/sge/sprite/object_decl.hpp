@@ -7,7 +7,7 @@
 #define SGE_SPRITE_OBJECT_DECL_HPP_INCLUDED
 
 #include <sge/sprite/color_fwd.hpp>
-#include <sge/sprite/object_fwd.hpp>
+#include <sge/sprite/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/texture.hpp>
 #include <sge/sprite/texture_level.hpp>
 #include <sge/sprite/detail/make_class.hpp>
@@ -26,11 +26,11 @@
 #include <sge/sprite/types/texture_point_pos_fwd.hpp>
 #include <sge/sprite/types/texture_point_size.hpp>
 #include <sge/sprite/types/vector_fwd.hpp>
-#include <sge/sprite/types/basic/dim_decl.hpp>
+#include <sge/sprite/types/basic/dim_decl.hpp> // IWYU pragma: keep
 #include <sge/sprite/types/basic/float.hpp>
-#include <sge/sprite/types/basic/homogenous_pair_decl.hpp>
+#include <sge/sprite/types/basic/homogenous_pair_decl.hpp> // IWYU pragma: keep
 #include <sge/sprite/types/basic/unit.hpp>
-#include <sge/sprite/types/basic/vector_decl.hpp>
+#include <sge/sprite/types/basic/vector_decl.hpp> // IWYU pragma: keep
 #include <fcppt/record/enable_vararg_ctor.hpp>
 #include <fcppt/record/label_value_type.hpp>
 

@@ -9,7 +9,7 @@
 namespace sge::sprite::config
 {
 
-struct intrusive;
+struct intrusive; // IWYU pragma: export
 
 }
 

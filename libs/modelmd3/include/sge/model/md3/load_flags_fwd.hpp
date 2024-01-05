@@ -9,7 +9,7 @@
 namespace sge::model::md3
 {
 
-enum class load_flags;
+enum class load_flags; // IWYU pragma: export
 
 }
 

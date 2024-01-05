@@ -7,7 +7,7 @@
 #define SGE_GUI_FILL_COLOR_HPP_INCLUDED
 
 #include <sge/gui/fill_color_fwd.hpp> // IWYU pragma: export
-#include <sge/image/color/any/object.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <sge/image/color/any/object.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -12,7 +12,6 @@
 #include <sge/sprite/process/options.hpp>
 #include <sge/sprite/state/default_options.hpp>
 #include <sge/sprite/state/object_fwd.hpp>
-#include <sge/sprite/state/render_context.hpp>
 
 namespace sge::sprite::process
 {

@@ -12,7 +12,7 @@ namespace sge::sprite::process
 {
 
 template <sge::sprite::process::geometry_options>
-struct options;
+struct options; // IWYU pragma: export
 
 }
 

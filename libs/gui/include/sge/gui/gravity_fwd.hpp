@@ -9,7 +9,7 @@
 namespace sge::gui
 {
 
-enum class gravity;
+enum class gravity; // IWYU pragma: export
 
 }
 

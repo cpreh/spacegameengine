@@ -8,7 +8,7 @@
 
 #include <sge/systems/renderer.hpp>
 #include <sge/systems/renderer_caps.hpp>
-#include <sge/systems/detail/renderer_fwd.hpp>
+#include <sge/systems/detail/renderer_fwd.hpp> // IWYU pragma: keep
 #include <sge/systems/detail/symbol.hpp>
 
 namespace sge::systems::detail

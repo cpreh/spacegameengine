@@ -7,6 +7,6 @@
 #define SGE_MODEL_MD3_TEXCOORD_HPP_INCLUDED
 
 #include <sge/model/md3/texcoord_fwd.hpp> // IWYU pragma: export
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/static.hpp> // IWYU pragma: keep
 
 #endif

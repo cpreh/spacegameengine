@@ -10,6 +10,7 @@
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/tracking/keyframe_sequence.hpp>
+#include <sge/camera/tracking/json/interval_exporter_fwd.hpp> // IWYU pragma: keep
 #include <sge/timer/basic.hpp>
 #include <sge/timer/clocks/standard.hpp>
 #include <fcppt/nonmovable.hpp>

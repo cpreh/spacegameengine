@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_CONFIG_INTRUSIVE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_INTRUSIVE_HPP_INCLUDED
 
-#include <sge/sprite/config/intrusive_fwd.hpp>
+#include <sge/sprite/config/intrusive_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/intrusive/connection_ref.hpp>
 #include <sge/sprite/roles/connection.hpp>
 #include <fcppt/mpl/list/object.hpp>

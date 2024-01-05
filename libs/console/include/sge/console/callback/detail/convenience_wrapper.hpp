@@ -7,15 +7,15 @@
 #define SGE_CONSOLE_CALLBACK_DETAIL_CONVENIENCE_WRAPPER_HPP_INCLUDED
 
 #include <sge/console/arg_list.hpp>
-#include <sge/console/object.hpp>
+#include <sge/console/object.hpp> // IWYU pragma: keep
+#include <sge/console/object_ref.hpp>
 #include <sge/console/callback/detail/conversion_visitor.hpp>
 #include <sge/font/lit.hpp>
 #include <sge/font/string.hpp>
 #include <fcppt/function_impl.hpp>
-#include <fcppt/algorithm/loop.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
-#include <fcppt/algorithm/loop_break_tuple.hpp>
-#include <fcppt/algorithm/map_tuple.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // IWYU pragma: keep
+#include <fcppt/algorithm/loop_break_tuple.hpp> // IWYU pragma: keep
+#include <fcppt/algorithm/map_tuple.hpp> // IWYU pragma: keep
 #include <fcppt/array/from_range.hpp>
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/mpl/function_args.hpp>

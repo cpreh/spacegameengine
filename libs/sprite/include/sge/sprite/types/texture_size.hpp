@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_TEXTURE_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_TEXTURE_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/types/texture_size_fwd.hpp>
+#include <sge/sprite/types/texture_size_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::types
 {

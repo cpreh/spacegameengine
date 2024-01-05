@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_POINT_SIZE_HPP_INCLUDED
 
-#include <sge/sprite/config/point_size_fwd.hpp>
+#include <sge/sprite/config/point_size_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/config/size_choice.hpp>
 #include <sge/sprite/roles/point_size.hpp>
 #include <sge/sprite/types/point_size.hpp>

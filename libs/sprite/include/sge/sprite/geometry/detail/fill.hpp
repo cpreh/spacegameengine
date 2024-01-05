@@ -10,6 +10,7 @@
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <sge/sprite/geometry/detail/fill_indices.hpp>
 #include <sge/sprite/geometry/detail/fill_vertices.hpp>
+#include <sge/sprite/render/range.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

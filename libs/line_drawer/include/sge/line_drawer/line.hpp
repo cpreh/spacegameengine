@@ -8,11 +8,10 @@
 
 #include <sge/image/color/any/object_fwd.hpp>
 #include <sge/line_drawer/color.hpp>
-#include <sge/line_drawer/color_format.hpp>
 #include <sge/line_drawer/detail/symbol.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef_impl.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::line_drawer
 {

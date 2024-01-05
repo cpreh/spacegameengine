@@ -7,7 +7,7 @@
 #define SGE_SPRITE_STATE_OPTIONS_DECL_HPP_INCLUDED
 
 #include <sge/sprite/projection_dim_fwd.hpp>
-#include <sge/sprite/state/options_fwd.hpp>
+#include <sge/sprite/state/options_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/state/vertex_options.hpp>
 #include <sge/sprite/state/detail/options_class.hpp>
 #include <fcppt/record/label_value_type.hpp>

@@ -7,7 +7,7 @@
 #define SGE_SPRITE_GEOMETRY_RANDOM_ACCESS_RANGE_IMPL_HPP_INCLUDED
 
 #include <sge/sprite/count.hpp>
-#include <sge/sprite/geometry/random_access_range_decl.hpp>
+#include <sge/sprite/geometry/random_access_range_decl.hpp> // IWYU pragma: export
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>

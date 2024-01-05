@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_CONFIG_FLOAT_TYPE_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_FLOAT_TYPE_HPP_INCLUDED
 
-#include <sge/sprite/config/float_type_fwd.hpp>
+#include <sge/sprite/config/float_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::config
 {

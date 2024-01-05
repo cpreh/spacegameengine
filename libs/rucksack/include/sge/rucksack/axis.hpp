@@ -6,7 +6,7 @@
 #ifndef SGE_RUCKSACK_AXIS_HPP_INCLUDED
 #define SGE_RUCKSACK_AXIS_HPP_INCLUDED
 
-#include <sge/rucksack/axis_fwd.hpp>
+#include <sge/rucksack/axis_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::rucksack
 {

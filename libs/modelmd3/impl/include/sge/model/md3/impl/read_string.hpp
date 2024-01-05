@@ -7,7 +7,7 @@
 #define SGE_MODEL_MD3_IMPL_READ_STRING_HPP_INCLUDED
 
 #include <sge/model/md3/string.hpp>
-#include <sge/model/md3/impl/max_qpath.hpp>
+#include <sge/model/md3/impl/max_qpath.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>

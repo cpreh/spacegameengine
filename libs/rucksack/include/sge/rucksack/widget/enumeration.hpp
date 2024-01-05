@@ -10,7 +10,9 @@
 #include <sge/rucksack/dim.hpp>
 #include <sge/rucksack/padding.hpp>
 #include <sge/rucksack/vector.hpp>
+#include <sge/rucksack/detail/symbol.hpp>
 #include <sge/rucksack/widget/base.hpp>
+#include <sge/rucksack/widget/enumeration_fwd.hpp> // IWYU pragma: keep
 #include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>

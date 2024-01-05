@@ -6,12 +6,12 @@
 #ifndef SGE_SPRITE_INTRUSIVE_COLLECTION_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_INTRUSIVE_COLLECTION_IMPL_HPP_INCLUDED
 
-#include <sge/sprite/object_impl.hpp>
-#include <sge/sprite/intrusive/collection_decl.hpp>
+#include <sge/sprite/object_impl.hpp> // IWYU pragma: keep
+#include <sge/sprite/intrusive/collection_decl.hpp> // IWYU pragma: export
 #include <sge/sprite/intrusive/connection_fwd.hpp>
-#include <sge/sprite/intrusive/connection_ref.hpp>
-#include <sge/sprite/intrusive/range_impl.hpp>
-#include <sge/sprite/intrusive/detail/connection_impl.hpp>
+#include <sge/sprite/intrusive/connection_ref.hpp> // IWYU pragma: keep
+#include <sge/sprite/intrusive/range_impl.hpp> // IWYU pragma: keep
+#include <sge/sprite/intrusive/detail/connection_impl.hpp> // IWYU pragma: keep
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_to_base.hpp>

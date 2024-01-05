@@ -9,7 +9,7 @@
 namespace sge::sprite::config
 {
 
-enum class texture_size_option;
+enum class texture_size_option; // IWYU pragma: export
 
 }
 

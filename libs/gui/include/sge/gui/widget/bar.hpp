@@ -11,7 +11,7 @@
 #include <sge/gui/detail/symbol.hpp>
 #include <sge/gui/renderer/base_fwd.hpp>
 #include <sge/gui/style/const_reference.hpp>
-#include <sge/gui/widget/bar_fwd.hpp>
+#include <sge/gui/widget/bar_fwd.hpp> // IWYU pragma: keep
 #include <sge/gui/widget/base.hpp>
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/rucksack/axis.hpp>
@@ -19,7 +19,6 @@
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/dummy.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/strong_typedef.hpp>
 
 namespace sge::gui::widget
 {

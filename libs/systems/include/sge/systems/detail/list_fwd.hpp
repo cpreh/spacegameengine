@@ -9,7 +9,7 @@
 namespace sge::systems::detail
 {
 
-class list;
+class list; // IWYU pragma: keep
 
 }
 

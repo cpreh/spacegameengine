@@ -10,7 +10,7 @@ namespace sge::systems
 {
 
 template <typename... Choices>
-class instance;
+class instance; // IWYU pragma: export
 
 }
 

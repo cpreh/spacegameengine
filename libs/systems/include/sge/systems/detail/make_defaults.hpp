@@ -10,7 +10,7 @@
 #include <sge/systems/detail/extract_needs_init.hpp>
 #include <sge/systems/detail/extract_parameter_type.hpp>
 #include <sge/systems/detail/make_default_element.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // IWYU pragma: keep
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/mpl/bind.hpp>
 #include <fcppt/mpl/constant.hpp>

@@ -9,7 +9,7 @@
 namespace sge::gui::widget
 {
 
-class minimum_size;
+class minimum_size; // IWYU pragma: export
 
 }
 

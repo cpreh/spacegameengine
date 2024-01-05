@@ -6,17 +6,9 @@
 #ifndef SGE_RUCKSACK_WIDGET_BOX_FWD_HPP_INCLUDED
 #define SGE_RUCKSACK_WIDGET_BOX_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::rucksack::widget
 {
-namespace rucksack
-{
-namespace widget
-{
-
-class base;
-
-}
-}
+class box; // IWYU pragma: export
 }
 
 #endif

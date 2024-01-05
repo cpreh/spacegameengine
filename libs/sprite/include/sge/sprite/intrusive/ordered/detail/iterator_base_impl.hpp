@@ -11,7 +11,6 @@
 #include <fcppt/config/external_begin.hpp>
 #include <boost/iterator/iterator_facade.hpp>
 #include <iterator>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::intrusive::ordered::detail

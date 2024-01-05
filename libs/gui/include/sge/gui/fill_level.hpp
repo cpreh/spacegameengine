@@ -7,6 +7,6 @@
 #define SGE_GUI_FILL_LEVEL_HPP_INCLUDED
 
 #include <sge/gui/fill_level_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

@@ -10,7 +10,7 @@ namespace sge::sprite::config
 {
 
 template <typename Index>
-struct point_size;
+struct point_size; // IWYU pragma: export
 
 }
 

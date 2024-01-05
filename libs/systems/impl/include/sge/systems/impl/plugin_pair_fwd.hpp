@@ -10,7 +10,7 @@ namespace sge::systems::impl
 {
 
 template <typename System>
-class plugin_pair;
+class plugin_pair; // IWYU pragma: export
 
 }
 

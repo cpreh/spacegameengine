@@ -6,7 +6,7 @@
 #ifndef SGE_CONSOLE_MUXING_HPP_INCLUDED
 #define SGE_CONSOLE_MUXING_HPP_INCLUDED
 
-#include <sge/console/muxing_fwd.hpp>
+#include <sge/console/muxing_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::console
 {

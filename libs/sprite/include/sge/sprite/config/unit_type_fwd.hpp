@@ -10,7 +10,7 @@ namespace sge::sprite::config
 {
 
 template <typename Type>
-struct unit_type;
+struct unit_type; // IWYU pragma: export
 
 }
 

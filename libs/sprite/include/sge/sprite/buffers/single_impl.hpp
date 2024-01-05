@@ -6,9 +6,8 @@
 #ifndef SGE_SPRITE_BUFFERS_SINGLE_IMPL_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_SINGLE_IMPL_HPP_INCLUDED
 
-#include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/device/core_ref.hpp>
-#include <sge/renderer/vertex/buffer.hpp>
+#include <sge/renderer/vertex/buffer.hpp> // IWYU pragma: keep
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/sprite/count.hpp>
@@ -16,14 +15,14 @@
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
 #include <sge/sprite/buffers/single_decl.hpp> // IWYU pragma: export
-#include <sge/sprite/buffers/slice_impl.hpp>
+#include <sge/sprite/buffers/slice_impl.hpp> // IWYU pragma: keep
 #include <sge/sprite/buffers/vertex_count.hpp>
 #include <sge/sprite/buffers/zero_offset.hpp>
 #include <sge/sprite/buffers/roles/vertex_buffer.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 #include <fcppt/record/get.hpp>
 
 template <typename Choices>

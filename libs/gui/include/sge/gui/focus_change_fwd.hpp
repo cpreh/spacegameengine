@@ -9,7 +9,7 @@
 namespace sge::gui
 {
 
-enum class focus_change;
+enum class focus_change; // IWYU pragma: export
 
 }
 

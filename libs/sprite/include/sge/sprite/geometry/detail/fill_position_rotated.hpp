@@ -8,8 +8,8 @@
 
 #include <sge/renderer/vf/set_proxy.hpp>
 #include <sge/renderer/vf/labels/pos.hpp>
-#include <sge/sprite/bounding_rect.hpp>
 #include <sge/sprite/object_impl.hpp>
+#include <sge/sprite/detail/bounding_rect.hpp>
 #include <sge/sprite/geometry/detail/float_rect.hpp>
 #include <sge/sprite/geometry/detail/make_position.hpp>
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
@@ -21,8 +21,8 @@
 #include <fcppt/math/box/structure_cast.hpp>
 #include <fcppt/math/matrix/row.hpp>
 #include <fcppt/math/matrix/static.hpp>
-#include <fcppt/math/matrix/vector.hpp>
-#include <fcppt/math/vector/arithmetic.hpp>
+#include <fcppt/math/matrix/vector.hpp> // IWYU pragma: keep
+#include <fcppt/math/vector/arithmetic.hpp> // IWYU pragma: keep
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
@@ -46,7 +46,7 @@ void fill_position_rotated(Iterator _iterator, sge::sprite::object<Choices> cons
   using float_rect = sge::sprite::geometry::detail::float_rect<type_choices>;
 
   auto const rbs(fcppt::math::box::structure_cast<float_rect, fcppt::cast::static_cast_fun>(
-      sge::sprite::bounding_rect(_sprite)));
+      sge::sprite::detail::bounding_rect(_sprite)));
 
   using position_array = fcppt::array::
       object<pos2, sge::sprite::geometry::detail::vertices_per_sprite<Choices>::value>;

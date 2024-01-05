@@ -6,7 +6,6 @@
 #ifndef SGE_SPRITE_GEOMETRY_DETAIL_INDEX_ARRAY_HPP_INCLUDED
 #define SGE_SPRITE_GEOMETRY_DETAIL_INDEX_ARRAY_HPP_INCLUDED
 
-#include <sge/sprite/detail/symbol.hpp>
 #include <sge/sprite/geometry/detail/index_array_type.hpp>
 
 namespace sge::sprite::geometry::detail

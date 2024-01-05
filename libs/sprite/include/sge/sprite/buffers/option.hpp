@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_BUFFERS_OPTION_HPP_INCLUDED
 #define SGE_SPRITE_BUFFERS_OPTION_HPP_INCLUDED
 
-#include <sge/sprite/buffers/option_fwd.hpp>
+#include <sge/sprite/buffers/option_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::sprite::buffers
 {

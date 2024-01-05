@@ -7,7 +7,7 @@
 #define SGE_SYSTEMS_WITH_FONT_HPP_INCLUDED
 
 #include <sge/systems/font_fwd.hpp>
-#include <sge/systems/with_font_fwd.hpp>
+#include <sge/systems/with_font_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>

@@ -6,9 +6,9 @@
 #ifndef SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
 #define SGE_CONSOLE_MUXING_FCPPT_STREAMBUF_HPP_INCLUDED
 
-#include <sge/console/muxing_narrow_streambuf.hpp>
+#include <sge/console/muxing_narrow_streambuf.hpp> // IWYU pragma: keep
 #include <sge/console/muxing_streambuf.hpp>
-#include <sge/console/muxing_wide_streambuf.hpp>
+#include <sge/console/muxing_wide_streambuf.hpp> // IWYU pragma: keep
 #include <fcppt/char_type.hpp>
 
 namespace sge::console

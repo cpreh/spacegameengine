@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_TYPES_BASIC_FLOAT_VECTOR_HPP_INCLUDED
 #define SGE_SPRITE_TYPES_BASIC_FLOAT_VECTOR_HPP_INCLUDED
 
-#include <sge/sprite/types/basic/float_vector_fwd.hpp>
-#include <sge/sprite/types/basic/vector_impl.hpp>
+#include <sge/sprite/types/basic/float_vector_fwd.hpp> // IWYU pragma: export
+#include <sge/sprite/types/basic/vector_impl.hpp> // IWYU pragma: keep
 
 #endif

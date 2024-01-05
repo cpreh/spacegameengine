@@ -9,10 +9,11 @@
 #include <sge/renderer/context/ffp_fwd.hpp>
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp>
+#include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/optional_object_unique_ptr_fwd.hpp>
 #include <sge/sprite/optional_projection_dim.hpp>
 #include <sge/sprite/detail/symbol.hpp>
-#include <sge/sprite/state/with_transform_fwd.hpp>
+#include <sge/sprite/state/with_transform_fwd.hpp> // IWYU pragma: keep
 #include <sge/sprite/state/roles/projection_dim.hpp>
 #include <sge/sprite/state/roles/transform.hpp>
 #include <fcppt/reference_fwd.hpp>

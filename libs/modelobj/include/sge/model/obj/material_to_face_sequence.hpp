@@ -8,6 +8,7 @@
 
 #include <sge/model/obj/face_sequence.hpp>
 #include <sge/model/obj/identifier.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <map>
 #include <fcppt/config/external_end.hpp>

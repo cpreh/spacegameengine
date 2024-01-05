@@ -9,7 +9,7 @@
 namespace sge::rucksack
 {
 
-enum class alignment;
+enum class alignment; // IWYU pragma: export
 
 }
 

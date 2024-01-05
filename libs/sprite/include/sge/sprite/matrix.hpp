@@ -6,7 +6,7 @@
 #ifndef SGE_SPRITE_MATRIX_HPP_INCLUDED
 #define SGE_SPRITE_MATRIX_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/matrix4.hpp> // IWYU pragma: keep
 #include <sge/sprite/matrix_fwd.hpp> // IWYU pragma: export
 
 #endif
