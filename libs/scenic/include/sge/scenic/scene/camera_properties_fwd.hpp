@@ -6,15 +6,9 @@
 #ifndef SGE_SCENIC_SCENE_CAMERA_PROPERTIES_FWD_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_CAMERA_PROPERTIES_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::scenic::scene
 {
-namespace scenic
-{
-namespace scene
-{
-class camera_properties;
-}
-}
+class camera_properties; // IWYU pragma: export
 }
 
 #endif

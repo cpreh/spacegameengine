@@ -8,7 +8,7 @@
 
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/light/direction.hpp>
-#include <sge/scenic/render_context/light/directional_fwd.hpp>
+#include <sge/scenic/render_context/light/directional_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::scenic::render_context::light
 {

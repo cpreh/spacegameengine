@@ -13,6 +13,7 @@
 #include <sge/scenic/render_context/material/shininess.hpp>
 #include <sge/scenic/render_context/material/specular_texture.hpp>
 #include <fcppt/reference_comparison.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/optional/comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>

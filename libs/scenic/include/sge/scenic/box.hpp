@@ -7,7 +7,7 @@
 #define SGE_SCENIC_BOX_HPP_INCLUDED
 
 #include <sge/renderer/scalar.hpp>
-#include <fcppt/math/box/object_fwd.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 
 namespace sge::scenic
 {

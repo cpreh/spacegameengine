@@ -6,15 +6,9 @@
 #ifndef SGE_SCENIC_GRID_OBJECT_FWD_HPP_INCLUDED
 #define SGE_SCENIC_GRID_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::scenic::grid
 {
-namespace scenic
-{
-namespace grid
-{
-class object;
-}
-}
+class object; // IWYU pragma: export
 }
 
 #endif

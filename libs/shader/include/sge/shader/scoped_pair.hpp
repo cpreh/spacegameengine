@@ -7,7 +7,6 @@
 #define SGE_SHADER_SCOPED_PAIR_HPP_INCLUDED
 
 #include <sge/renderer/cg/scoped_program.hpp>
-#include <sge/renderer/cg/scoped_texture.hpp>
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/shader/pair_fwd.hpp>
 #include <sge/shader/detail/symbol.hpp>

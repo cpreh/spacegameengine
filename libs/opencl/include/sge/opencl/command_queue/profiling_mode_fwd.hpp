@@ -9,7 +9,7 @@
 namespace sge::opencl::command_queue
 {
 
-enum class profiling_mode;
+enum class profiling_mode; // IWYU pragma: export
 
 }
 

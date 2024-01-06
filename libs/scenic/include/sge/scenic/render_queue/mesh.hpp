@@ -7,9 +7,11 @@
 #define SGE_SCENIC_RENDER_QUEUE_MESH_HPP_INCLUDED
 
 #include <sge/renderer/matrix4.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/index/buffer_ref.hpp>
 #include <sge/scenic/index_buffer_range.hpp>
 #include <sge/scenic/render_queue/index_type.hpp>
+#include <sge/scenic/render_queue/mesh_fwd.hpp> // IWYU pragma: keep
 #include <sge/scenic/render_queue/sort_index.hpp>
 
 namespace sge::scenic::render_queue

@@ -7,7 +7,7 @@
 #define SGE_SCENIC_RENDER_CONTEXT_LIGHT_ATTENUATION_HPP_INCLUDED
 
 #include <sge/scenic/detail/symbol.hpp>
-#include <sge/scenic/render_context/light/attenuation_fwd.hpp>
+#include <sge/scenic/render_context/light/attenuation_fwd.hpp> // IWYU pragma: keep
 #include <sge/scenic/render_context/light/constant_attenuation.hpp>
 #include <sge/scenic/render_context/light/linear_attenuation.hpp>
 #include <sge/scenic/render_context/light/quadratic_attenuation.hpp>

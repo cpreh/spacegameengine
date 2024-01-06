@@ -7,12 +7,12 @@
 #define SGE_SCENIC_SCENE_ENTITY_HPP_INCLUDED
 
 #include <sge/scenic/detail/symbol.hpp>
+#include <sge/scenic/scene/entity_fwd.hpp> // IWYU pragma: keep
 #include <sge/scenic/scene/mesh_path.hpp>
 #include <sge/scenic/scene/position.hpp>
 #include <sge/scenic/scene/rotation.hpp>
 #include <sge/scenic/scene/scale.hpp>
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 namespace sge::scenic::scene
 {

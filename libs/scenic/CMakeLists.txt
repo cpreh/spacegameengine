@@ -52,8 +52,6 @@ set(
 	libs/scenic/include/sge/scenic/render_context/light/direction_fwd.hpp
 	libs/scenic/include/sge/scenic/render_context/light/directional.hpp
 	libs/scenic/include/sge/scenic/render_context/light/directional_fwd.hpp
-	libs/scenic/include/sge/scenic/render_context/light/index.hpp
-	libs/scenic/include/sge/scenic/render_context/light/index_value.hpp
 	libs/scenic/include/sge/scenic/render_context/light/linear_attenuation.hpp
 	libs/scenic/include/sge/scenic/render_context/light/object.hpp
 	libs/scenic/include/sge/scenic/render_context/light/object_fwd.hpp
@@ -85,7 +83,6 @@ set(
 	libs/scenic/include/sge/scenic/render_queue/state_change_count.hpp
 	libs/scenic/include/sge/scenic/scene/camera_properties.hpp
 	libs/scenic/include/sge/scenic/scene/camera_properties_fwd.hpp
-	libs/scenic/include/sge/scenic/scene/diffuse_texture_path.hpp
 	libs/scenic/include/sge/scenic/scene/entity.hpp
 	libs/scenic/include/sge/scenic/scene/entity_fwd.hpp
 	libs/scenic/include/sge/scenic/scene/entity_sequence.hpp
@@ -98,7 +95,6 @@ set(
 	libs/scenic/include/sge/scenic/scene/material/diffuse_color.hpp
 	libs/scenic/include/sge/scenic/scene/material/diffuse_texture_path.hpp
 	libs/scenic/include/sge/scenic/scene/material/emissive_color.hpp
-	libs/scenic/include/sge/scenic/scene/material/file_sequence.hpp
 	libs/scenic/include/sge/scenic/scene/material/from_obj_material.hpp
 	libs/scenic/include/sge/scenic/scene/material/object.hpp
 	libs/scenic/include/sge/scenic/scene/material/object_fwd.hpp
@@ -118,7 +114,6 @@ set(
 	libs/scenic/include/sge/scenic/scene/prototype_unique_ptr.hpp
 	libs/scenic/include/sge/scenic/scene/rotation.hpp
 	libs/scenic/include/sge/scenic/scene/scale.hpp
-	libs/scenic/include/sge/scenic/scene/specular_texture_path.hpp
 	libs/scenic/include/sge/scenic/texture_manager.hpp
 	libs/scenic/include/sge/scenic/texture_manager_fwd.hpp
 	libs/scenic/include/sge/scenic/texture_manager_ref.hpp

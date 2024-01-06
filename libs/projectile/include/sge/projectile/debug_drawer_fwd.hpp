@@ -6,12 +6,9 @@
 #ifndef SGE_PROJECTILE_DEBUG_DRAWER_FWD_HPP_INCLUDED
 #define SGE_PROJECTILE_DEBUG_DRAWER_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::projectile
 {
-namespace projectile
-{
-class debug_drawer;
-}
+class debug_drawer; // IWYU pragma: export
 }
 
 #endif

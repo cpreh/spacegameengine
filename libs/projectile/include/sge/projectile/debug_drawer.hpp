@@ -6,6 +6,7 @@
 #ifndef SGE_PROJECTILE_DEBUG_DRAWER_HPP_INCLUDED
 #define SGE_PROJECTILE_DEBUG_DRAWER_HPP_INCLUDED
 
+#include <sge/projectile/debug_drawer_fwd.hpp> // IWYU pragma: keep
 #include <sge/projectile/world_ref.hpp>
 #include <sge/projectile/detail/debug_drawer_impl_fwd.hpp>
 #include <sge/projectile/detail/symbol.hpp>

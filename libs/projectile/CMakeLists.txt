@@ -23,15 +23,12 @@ set(
 	libs/projectile/include/sge/projectile/body/angular_velocity.hpp
 	libs/projectile/include/sge/projectile/body/collision.hpp
 	libs/projectile/include/sge/projectile/body/collision_fn.hpp
-	libs/projectile/include/sge/projectile/body/const_optional_object_ref.hpp
-	libs/projectile/include/sge/projectile/body/const_optional_object_ref_fwd.hpp
 	libs/projectile/include/sge/projectile/body/detail/motion_state_fwd.hpp
 	libs/projectile/include/sge/projectile/body/linear_velocity.hpp
 	libs/projectile/include/sge/projectile/body/mass.hpp
 	libs/projectile/include/sge/projectile/body/object.hpp
 	libs/projectile/include/sge/projectile/body/object_fwd.hpp
 	libs/projectile/include/sge/projectile/body/object_ref.hpp
-	libs/projectile/include/sge/projectile/body/object_unique_ptr.hpp
 	libs/projectile/include/sge/projectile/body/parameters.hpp
 	libs/projectile/include/sge/projectile/body/parameters_fwd.hpp
 	libs/projectile/include/sge/projectile/body/position.hpp

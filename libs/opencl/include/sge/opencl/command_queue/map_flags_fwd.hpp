@@ -9,7 +9,7 @@
 namespace sge::opencl::command_queue
 {
 
-enum class map_flags;
+enum class map_flags; // IWYU pragma: export
 
 }
 

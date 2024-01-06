@@ -7,7 +7,7 @@
 #define SGE_SHADER_PARAMETER_IS_PROJECTION_MATRIX_HPP_INCLUDED
 
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::shader::parameter
 {

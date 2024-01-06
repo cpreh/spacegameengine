@@ -9,7 +9,7 @@
 #include <sge/projectile/log_fwd.hpp>
 #include <sge/projectile/body/angular_velocity.hpp>
 #include <sge/projectile/body/linear_velocity.hpp>
-#include <sge/projectile/body/parameters_fwd.hpp>
+#include <sge/projectile/body/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/projectile/body/position.hpp>
 #include <sge/projectile/body/rotation.hpp>
 #include <sge/projectile/body/user_data.hpp>

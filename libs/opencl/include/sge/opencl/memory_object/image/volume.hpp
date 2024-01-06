@@ -11,7 +11,9 @@
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/memory_object/base.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
+#include <sge/opencl/memory_object/image/volume_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/volume_ref.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
 #include <fcppt/config/external_end.hpp>

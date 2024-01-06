@@ -7,10 +7,10 @@
 #define SGE_SHADER_PARAMETER_SCALAR_IMPL_HPP_INCLUDED
 
 #include <sge/cg/parameter/scalar/set.hpp>
-#include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object.hpp> // IWYU pragma: keep
 #include <sge/cg/program/object_ref.hpp>
 #include <sge/shader/parameter/name.hpp>
-#include <sge/shader/parameter/scalar_decl.hpp>
+#include <sge/shader/parameter/scalar_decl.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>

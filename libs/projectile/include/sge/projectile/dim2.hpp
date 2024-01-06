@@ -7,6 +7,6 @@
 #define SGE_PROJECTILE_DIM2_HPP_INCLUDED
 
 #include <sge/projectile/dim2_fwd.hpp> // IWYU pragma: export
-#include <fcppt/math/dim/static.hpp>
+#include <fcppt/math/dim/static.hpp> // IWYU pragma: keep
 
 #endif

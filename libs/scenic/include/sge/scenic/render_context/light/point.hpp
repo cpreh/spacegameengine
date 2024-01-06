@@ -8,9 +8,8 @@
 
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/light/attenuation.hpp>
-#include <sge/scenic/render_context/light/point_fwd.hpp>
+#include <sge/scenic/render_context/light/point_fwd.hpp> // IWYU pragma: keep
 #include <sge/scenic/render_context/light/position.hpp>
-#include <fcppt/math/vector/object_impl.hpp>
 
 namespace sge::scenic::render_context::light
 {

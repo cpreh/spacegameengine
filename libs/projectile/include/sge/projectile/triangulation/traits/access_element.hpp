@@ -7,7 +7,7 @@
 #define SGE_PROJECTILE_TRIANGULATION_TRAITS_ACCESS_ELEMENT_HPP_INCLUDED
 
 #include <sge/projectile/triangulation/default_tag.hpp>
-#include <sge/projectile/triangulation/traits/access_element_fwd.hpp>
+#include <sge/projectile/triangulation/traits/access_element_fwd.hpp> // IWYU pragma: export
 
 namespace sge::projectile::triangulation::traits
 {

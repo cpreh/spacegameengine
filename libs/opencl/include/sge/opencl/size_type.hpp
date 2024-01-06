@@ -6,7 +6,6 @@
 #ifndef SGE_OPENCL_SIZE_TYPE_HPP_INCLUDED
 #define SGE_OPENCL_SIZE_TYPE_HPP_INCLUDED
 
-#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>

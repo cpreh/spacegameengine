@@ -9,7 +9,7 @@
 namespace sge::scenic::impl::number_multiplexer
 {
 template <typename T>
-class number_multiplexer;
+class number_multiplexer; // IWYU pragma: export
 }
 
 #endif

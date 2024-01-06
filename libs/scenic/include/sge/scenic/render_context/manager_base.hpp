@@ -10,6 +10,7 @@
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/base_unique_ptr.hpp>
+#include <sge/scenic/render_context/manager_base_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::scenic::render_context
@@ -23,7 +24,7 @@ public:
   [[nodiscard]] virtual sge::scenic::render_context::base_unique_ptr
       create_context(sge::renderer::context::core_ref) = 0;
 
-  virtual ~manager_base();
+  SGE_SCENIC_DETAIL_SYMBOL virtual ~manager_base();
 
 protected:
   manager_base();

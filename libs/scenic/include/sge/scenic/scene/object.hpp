@@ -11,14 +11,17 @@
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/base_fwd.hpp>
 #include <sge/scenic/render_queue/object_fwd.hpp>
-#include <sge/scenic/scene/entity_sequence.hpp>
+#include <sge/scenic/scene/entity_fwd.hpp>
+#include <sge/scenic/scene/identifier.hpp>
 #include <sge/scenic/scene/manager_ref.hpp>
 #include <sge/scenic/scene/mesh_path.hpp>
+#include <sge/scenic/scene/object_fwd.hpp>
 #include <sge/scenic/scene/prototype_unique_ptr.hpp>
 #include <sge/scenic/scene/material/object.hpp>
 #include <sge/scenic/scene/mesh/object_fwd.hpp>
 #include <sge/viewport/manager_ref.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/log/context_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <map>

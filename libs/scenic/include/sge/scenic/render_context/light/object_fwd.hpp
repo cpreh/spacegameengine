@@ -8,7 +8,7 @@
 
 namespace sge::scenic::render_context::light
 {
-class object;
+class object; // IWYU pragma: export
 }
 
 #endif

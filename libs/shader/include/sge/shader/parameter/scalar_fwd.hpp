@@ -9,7 +9,7 @@
 namespace sge::shader::parameter
 {
 template <typename ValueType>
-class scalar;
+class scalar; // IWYU pragma: export
 }
 
 #endif

@@ -8,7 +8,7 @@
 
 namespace sge::projectile::body
 {
-class object;
+class object; // IWYU pragma: export
 }
 
 #endif

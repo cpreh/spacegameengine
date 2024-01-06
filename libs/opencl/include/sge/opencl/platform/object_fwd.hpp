@@ -8,7 +8,7 @@
 
 namespace sge::opencl::platform
 {
-class object;
+class object; // IWYU pragma: export
 }
 
 #endif

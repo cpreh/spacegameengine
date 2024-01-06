@@ -6,6 +6,7 @@
 #ifndef SGE_POSTPROCESSING_CONTEXT_HPP_INCLUDED
 #define SGE_POSTPROCESSING_CONTEXT_HPP_INCLUDED
 
+#include <sge/postprocessing/context_fwd.hpp> // IWYU pragma: keep
 #include <sge/postprocessing/fullscreen_quad.hpp>
 #include <sge/postprocessing/detail/symbol.hpp>
 #include <sge/renderer/context/scoped_core_unique_ptr.hpp>
@@ -19,7 +20,6 @@
 #include <sge/shader/context_ref.hpp>
 #include <sge/shader/pair.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>
-#include <sge/shader/parameter/vector.hpp>
 #include <sge/viewport/manager_ref.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/object_decl.hpp>

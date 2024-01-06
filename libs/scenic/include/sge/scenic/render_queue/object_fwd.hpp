@@ -8,7 +8,7 @@
 
 namespace sge::scenic::render_queue
 {
-class object;
+class object; // IWYU pragma: export
 }
 
 #endif

@@ -6,7 +6,7 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_TRANSFORM_MATRIX_TYPE_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_TRANSFORM_MATRIX_TYPE_HPP_INCLUDED
 
-#include <sge/scenic/render_context/transform_matrix_type_fwd.hpp>
+#include <sge/scenic/render_context/transform_matrix_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::scenic::render_context
 {

@@ -6,12 +6,9 @@
 #ifndef SGE_SHADER_EXCEPTION_FWD_HPP_INCLUDED
 #define SGE_SHADER_EXCEPTION_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::shader
 {
-namespace shader
-{
-class exception;
-}
+class exception; // IWYU pragma: export
 }
 
 #endif

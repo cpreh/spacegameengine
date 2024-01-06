@@ -8,7 +8,7 @@
 
 namespace sge::scenic::render_context::light
 {
-class attenuation;
+class attenuation; // IWYU pragma: export
 }
 
 #endif

@@ -7,7 +7,6 @@
 #define SGE_PROJECTILE_SHAPE_TRIANGLE_MESH_HPP_INCLUDED
 
 #include <sge/projectile/log_fwd.hpp>
-#include <sge/projectile/scalar.hpp>
 #include <sge/projectile/detail/symbol.hpp>
 #include <sge/projectile/shape/base.hpp>
 #include <sge/projectile/shape/triangle_sequence.hpp>

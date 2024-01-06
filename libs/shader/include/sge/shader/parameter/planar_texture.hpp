@@ -8,11 +8,14 @@
 
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object_ref.hpp>
+#include <sge/renderer/cg/loaded_texture_fwd.hpp>
 #include <sge/renderer/cg/loaded_texture_unique_ptr.hpp>
 #include <sge/renderer/cg/scoped_texture.hpp>
+#include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/texture/stage.hpp>
 #include <sge/shader/pair_ref.hpp>
 #include <sge/shader/detail/symbol.hpp>
 #include <sge/shader/parameter/name.hpp>

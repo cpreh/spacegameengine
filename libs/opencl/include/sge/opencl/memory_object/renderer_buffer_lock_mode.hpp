@@ -6,7 +6,7 @@
 #ifndef SGE_OPENCL_MEMORY_OBJECT_RENDERER_BUFFER_LOCK_MODE_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_RENDERER_BUFFER_LOCK_MODE_HPP_INCLUDED
 
-#include <sge/opencl/memory_object/renderer_buffer_lock_mode_fwd.hpp>
+#include <sge/opencl/memory_object/renderer_buffer_lock_mode_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::opencl::memory_object
 {

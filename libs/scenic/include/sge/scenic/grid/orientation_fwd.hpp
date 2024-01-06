@@ -9,7 +9,7 @@
 namespace sge::scenic::grid
 {
 
-enum class orientation;
+enum class orientation; // IWYU pragma: export
 
 }
 

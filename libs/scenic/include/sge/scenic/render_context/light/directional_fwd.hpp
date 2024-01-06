@@ -8,7 +8,7 @@
 
 namespace sge::scenic::render_context::light
 {
-class directional;
+class directional; // IWYU pragma: export
 }
 
 #endif

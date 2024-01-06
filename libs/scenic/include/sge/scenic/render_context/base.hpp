@@ -43,7 +43,7 @@ public:
 
   virtual sge::renderer::target::base &target() = 0;
 
-  virtual ~base();
+  SGE_SCENIC_DETAIL_SYMBOL virtual ~base();
 
 protected:
   base();

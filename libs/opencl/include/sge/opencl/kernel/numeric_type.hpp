@@ -6,7 +6,6 @@
 #ifndef SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 #define SGE_OPENCL_KERNEL_NUMERIC_TYPE_HPP_INCLUDED
 
-#include <fcppt/config/gcc_version_at_least.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/mpl/list/unique.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -21,10 +20,8 @@ namespace sge::opencl::kernel
 {
 
 FCPPT_PP_PUSH_WARNING
-#if FCPPT_CONFIG_GCC_VERSION_AT_LEAST(6, 0)
 // Alignment does not matter here
 FCPPT_PP_DISABLE_GCC_WARNING(-Wignored-attributes)
-#endif
 
 using numeric_type = fcppt::variant::from_list<fcppt::mpl::list::unique<fcppt::mpl::list::object<
     cl_char,

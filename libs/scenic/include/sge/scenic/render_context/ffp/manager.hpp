@@ -10,6 +10,7 @@
 #include <sge/renderer/device/ffp_ref.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/scenic/detail/symbol.hpp>
+#include <sge/scenic/render_context/base_unique_ptr.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/ffp/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>

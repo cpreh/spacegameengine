@@ -8,11 +8,12 @@
 
 #include <sge/opencl/context/error_callback.hpp>
 #include <sge/opencl/context/optional_error_callback.hpp>
-#include <sge/opencl/context/parameters_fwd.hpp>
+#include <sge/opencl/context/parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/device/object_ref_sequence.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
 #include <sge/opencl/platform/object_ref.hpp>
+#include <sge/renderer/device/core_fwd.hpp>
 #include <sge/renderer/device/core_ref.hpp>
 #include <fcppt/optional/reference.hpp>
 

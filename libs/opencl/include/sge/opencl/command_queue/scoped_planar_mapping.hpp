@@ -15,7 +15,6 @@
 #include <sge/opencl/memory_object/rect.hpp>
 #include <sge/opencl/memory_object/image/planar_ref.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
 #include <cstddef>

@@ -11,7 +11,7 @@
 namespace sge::shader::parameter
 {
 template <typename ValueType, fcppt::math::size_type M, fcppt::math::size_type N>
-class matrix;
+class matrix; // IWYU pragma: export
 }
 
 #endif

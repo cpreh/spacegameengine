@@ -8,17 +8,17 @@
 
 #include <sge/opencl/system_fwd.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
-#include <sge/opencl/context/parameters_fwd.hpp>
 #include <sge/opencl/detail/symbol.hpp>
-#include <sge/opencl/device/object.hpp>
 #include <sge/opencl/device/object_sequence.hpp>
 #include <sge/opencl/platform/extension_sequence.hpp>
+#include <sge/opencl/platform/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/opencl/platform/profile_type_fwd.hpp>
 #include <sge/opencl/platform/version.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/noncopyable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
+#include <string>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::platform
@@ -55,8 +55,10 @@ public:
   SGE_OPENCL_DETAIL_SYMBOL
   ~object();
 
+  SGE_OPENCL_DETAIL_SYMBOL
   object(object &&) noexcept;
 
+  SGE_OPENCL_DETAIL_SYMBOL
   object &operator=(object &&) noexcept;
 
 private:

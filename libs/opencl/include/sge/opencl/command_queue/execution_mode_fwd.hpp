@@ -9,7 +9,7 @@
 namespace sge::opencl::command_queue
 {
 
-enum class execution_mode;
+enum class execution_mode; // IWYU pragma: export
 
 }
 

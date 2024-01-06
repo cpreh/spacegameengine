@@ -10,7 +10,7 @@ namespace sge::projectile::triangulation::traits
 {
 
 template <typename Vertex, typename Tag>
-struct scalar;
+struct scalar; // IWYU pragma: export
 
 }
 

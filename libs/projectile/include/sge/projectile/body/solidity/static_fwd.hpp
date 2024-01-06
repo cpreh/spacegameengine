@@ -9,7 +9,7 @@
 namespace sge::projectile::body::solidity
 {
 
-class static_;
+class static_; // IWYU pragma: export
 
 }
 

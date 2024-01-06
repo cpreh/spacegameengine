@@ -9,7 +9,7 @@
 namespace sge::opencl::memory_object
 {
 
-enum class renderer_buffer_lock_mode;
+enum class renderer_buffer_lock_mode; // IWYU pragma: export
 
 }
 

@@ -6,15 +6,9 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_MANAGER_BASE_FWD_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_MANAGER_BASE_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::scenic::render_context
 {
-namespace scenic
-{
-namespace render_context
-{
-class manager_base;
-}
-}
+class manager_base; // IWYU pragma: export
 }
 
 #endif

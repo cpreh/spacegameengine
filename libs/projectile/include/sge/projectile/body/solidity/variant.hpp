@@ -6,10 +6,10 @@
 #ifndef SGE_PROJECTILE_BODY_SOLIDITY_VARIANT_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_SOLIDITY_VARIANT_HPP_INCLUDED
 
-#include <sge/projectile/body/solidity/nonsolid.hpp>
-#include <sge/projectile/body/solidity/solid.hpp>
-#include <sge/projectile/body/solidity/static.hpp>
+#include <sge/projectile/body/solidity/nonsolid.hpp> // IWYU pragma: keep
+#include <sge/projectile/body/solidity/solid.hpp> // IWYU pragma: keep
+#include <sge/projectile/body/solidity/static.hpp> // IWYU pragma: keep
 #include <sge/projectile/body/solidity/variant_fwd.hpp> // IWYU pragma: export
-#include <fcppt/variant/object_impl.hpp>
+#include <fcppt/variant/object_impl.hpp> // IWYU pragma: keep
 
 #endif

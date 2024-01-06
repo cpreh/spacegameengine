@@ -7,10 +7,10 @@
 #define SGE_SHADER_PARAMETER_VECTOR_IMPL_HPP_INCLUDED
 
 #include <sge/cg/parameter/vector/set.hpp>
-#include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object.hpp> // IWYU pragma: keep
 #include <sge/cg/program/object_ref.hpp>
 #include <sge/shader/parameter/name.hpp>
-#include <sge/shader/parameter/vector_decl.hpp>
+#include <sge/shader/parameter/vector_decl.hpp> // IWYU pragma: export
 #include <fcppt/math/size_type.hpp>
 
 template <typename ValueType, fcppt::math::size_type N>

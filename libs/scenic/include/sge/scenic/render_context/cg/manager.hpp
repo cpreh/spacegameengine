@@ -6,7 +6,6 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_CG_MANAGER_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_CG_MANAGER_HPP_INCLUDED
 
-#include <sge/renderer/matrix4.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/context/core_ref.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
@@ -15,6 +14,7 @@
 #include <sge/renderer/state/core/sampler/object_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/scenic/detail/symbol.hpp>
+#include <sge/scenic/render_context/base_unique_ptr.hpp>
 #include <sge/scenic/render_context/manager_base.hpp>
 #include <sge/scenic/render_context/cg/object_fwd.hpp>
 #include <sge/scenic/render_context/cg/light/count.hpp>

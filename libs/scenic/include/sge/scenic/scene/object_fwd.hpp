@@ -6,15 +6,9 @@
 #ifndef SGE_SCENIC_SCENE_OBJECT_FWD_HPP_INCLUDED
 #define SGE_SCENIC_SCENE_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::scenic::scene
 {
-namespace scenic
-{
-namespace scene
-{
-class object;
-}
-}
+class object; // IWYU pragma: export
 }
 
 #endif

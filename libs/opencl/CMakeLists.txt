@@ -117,9 +117,6 @@ set(
 	libs/opencl/include/sge/opencl/size_type.hpp
 	libs/opencl/include/sge/opencl/system.hpp
 	libs/opencl/include/sge/opencl/system_fwd.hpp
-	libs/opencl/include/sge/opencl/vector1.hpp
-	libs/opencl/include/sge/opencl/vector2.hpp
-	libs/opencl/include/sge/opencl/vector3.hpp
 	libs/opencl/src/opencl/command_queue/enqueue_kernel.cpp
 	libs/opencl/src/opencl/command_queue/map_flags_to_native.cpp
 	libs/opencl/src/opencl/command_queue/object.cpp

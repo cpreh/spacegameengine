@@ -6,7 +6,7 @@
 #ifndef SGE_PROJECTILE_BODY_SOLIDITY_NONSOLID_HPP_INCLUDED
 #define SGE_PROJECTILE_BODY_SOLIDITY_NONSOLID_HPP_INCLUDED
 
-#include <sge/projectile/body/solidity/nonsolid_fwd.hpp>
+#include <sge/projectile/body/solidity/nonsolid_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::projectile::body::solidity
 {

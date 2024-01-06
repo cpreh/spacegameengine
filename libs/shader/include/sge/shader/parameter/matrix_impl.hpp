@@ -7,13 +7,15 @@
 #define SGE_SHADER_PARAMETER_MATRIX_IMPL_HPP_INCLUDED
 
 #include <sge/cg/parameter/matrix/set.hpp>
-#include <sge/cg/program/object.hpp>
+#include <sge/cg/program/object.hpp> // IWYU pragma: keep
 #include <sge/cg/program/object_ref.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/device/core.hpp>
-#include <sge/shader/parameter/matrix_decl.hpp>
-#include <fcppt/text.hpp>
+#include <sge/shader/parameter/is_projection_matrix.hpp>
+#include <sge/shader/parameter/matrix_decl.hpp> // IWYU pragma: export
+#include <sge/shader/parameter/name.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/arithmetic.hpp>
 #include <fcppt/math/matrix/scaling.hpp>
 #include <fcppt/math/matrix/translation.hpp>

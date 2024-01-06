@@ -6,12 +6,9 @@
 #ifndef SGE_POSTPROCESSING_CONTEXT_FWD_HPP_INCLUDED
 #define SGE_POSTPROCESSING_CONTEXT_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::postprocessing
 {
-namespace postprocessing
-{
-class context;
-}
+class context; // IWYU pragma: export
 }
 
 #endif

@@ -9,12 +9,11 @@
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/ambient_color.hpp>
 #include <sge/scenic/render_context/fog/optional_properties.hpp>
-#include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/scene/camera_properties.hpp>
 #include <sge/scenic/scene/entity_sequence.hpp>
+#include <sge/scenic/scene/prototype_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/optional/object.hpp>
 
 namespace sge::scenic::scene
 {

@@ -8,7 +8,7 @@
 
 namespace sge::scenic::scene::mesh
 {
-class object;
+class object; // IWYU pragma: export
 }
 
 #endif

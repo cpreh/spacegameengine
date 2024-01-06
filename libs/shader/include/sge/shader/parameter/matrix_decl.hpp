@@ -10,9 +10,10 @@
 #include <sge/cg/program/object_ref.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <sge/shader/parameter/is_projection_matrix.hpp>
-#include <sge/shader/parameter/matrix_fwd.hpp>
+#include <sge/shader/parameter/matrix_fwd.hpp> // IWYU pragma: keep
 #include <sge/shader/parameter/name.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/math/matrix/static_fwd.hpp>
 
 namespace sge::shader::parameter

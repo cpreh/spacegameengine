@@ -11,6 +11,7 @@
 #include <sge/renderer/projection/fov.hpp>
 #include <sge/renderer/projection/near.hpp>
 #include <sge/scenic/detail/symbol.hpp>
+#include <sge/scenic/scene/camera_properties_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::scenic::scene
 {

@@ -9,7 +9,7 @@
 #include <sge/cg/parameter/named.hpp>
 #include <sge/cg/program/object_ref.hpp>
 #include <sge/shader/parameter/name.hpp>
-#include <sge/shader/parameter/vector_fwd.hpp>
+#include <sge/shader/parameter/vector_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/static_fwd.hpp>

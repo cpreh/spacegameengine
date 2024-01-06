@@ -9,7 +9,7 @@
 namespace sge::scenic::render_context
 {
 
-enum class transform_matrix_type;
+enum class transform_matrix_type; // IWYU pragma: export
 
 }
 

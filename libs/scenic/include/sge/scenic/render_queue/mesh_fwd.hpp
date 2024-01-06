@@ -6,15 +6,9 @@
 #ifndef SGE_SCENIC_RENDER_QUEUE_MESH_FWD_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_QUEUE_MESH_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::scenic::render_queue
 {
-namespace scenic
-{
-namespace render_queue
-{
-class mesh;
-}
-}
+class mesh; // IWYU pragma: export
 }
 
 #endif

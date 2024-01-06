@@ -6,7 +6,7 @@
 #ifndef SGE_OPENCL_MEMORY_OBJECT_RECT_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_RECT_HPP_INCLUDED
 
-#include <fcppt/math/box/object_fwd.hpp>
+#include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
 #include <fcppt/config/external_end.hpp>

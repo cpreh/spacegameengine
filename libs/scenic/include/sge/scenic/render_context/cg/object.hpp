@@ -13,21 +13,20 @@
 #include <sge/renderer/state/core/depth_stencil/scoped.hpp>
 #include <sge/renderer/state/core/rasterizer/scoped.hpp>
 #include <sge/renderer/state/core/sampler/scoped.hpp>
-#include <sge/renderer/texture/planar_fwd.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/scenic/index_buffer_range_fwd.hpp>
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/base.hpp>
-#include <sge/scenic/render_context/optional_planar_texture.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/cg/manager_fwd.hpp>
+#include <sge/scenic/render_context/fog/optional_properties.hpp>
 #include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/render_context/material/object_fwd.hpp>
 #include <sge/shader/scoped_pair.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
-#include <fcppt/math/matrix/object_impl.hpp>
 #include <fcppt/optional/reference.hpp>
 
 namespace sge::scenic::render_context::cg

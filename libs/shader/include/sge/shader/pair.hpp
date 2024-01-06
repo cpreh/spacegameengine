@@ -7,11 +7,13 @@
 #define SGE_SHADER_PAIR_HPP_INCLUDED
 
 #include <sge/cg/program/object.hpp>
+#include <sge/renderer/cg/loaded_program_fwd.hpp>
 #include <sge/renderer/cg/loaded_program_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_fwd.hpp>
 #include <sge/shader/context_fwd.hpp>
 #include <sge/shader/context_ref.hpp>
 #include <sge/shader/optional_cflags.hpp>
+#include <sge/shader/pair_fwd.hpp>
 #include <sge/shader/pixel_program_path.hpp>
 #include <sge/shader/pixel_program_stream.hpp>
 #include <sge/shader/scoped_pair_fwd.hpp>

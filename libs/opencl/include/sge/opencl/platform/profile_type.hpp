@@ -6,7 +6,7 @@
 #ifndef SGE_OPENCL_PLATFORM_PROFILE_TYPE_HPP_INCLUDED
 #define SGE_OPENCL_PLATFORM_PROFILE_TYPE_HPP_INCLUDED
 
-#include <sge/opencl/platform/profile_type_fwd.hpp>
+#include <sge/opencl/platform/profile_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::opencl::platform
 {

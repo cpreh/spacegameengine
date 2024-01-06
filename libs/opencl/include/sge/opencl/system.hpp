@@ -6,8 +6,8 @@
 #ifndef SGE_OPENCL_SYSTEM_HPP_INCLUDED
 #define SGE_OPENCL_SYSTEM_HPP_INCLUDED
 
+#include <sge/opencl/system_fwd.hpp> // IWYU pragma: keep
 #include <sge/opencl/detail/symbol.hpp>
-#include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/platform/object_sequence.hpp>
 #include <fcppt/nonmovable.hpp>
 

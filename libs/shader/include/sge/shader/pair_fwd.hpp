@@ -9,7 +9,7 @@
 namespace sge::shader
 {
 
-class pair;
+class pair; // IWYU pragma: export
 
 }
 

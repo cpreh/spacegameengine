@@ -10,12 +10,12 @@
 #include <sge/opencl/error_information_string.hpp>
 #include <sge/opencl/system_fwd.hpp>
 #include <sge/opencl/command_queue/object_fwd.hpp>
-#include <sge/opencl/command_queue/profiling_mode.hpp>
 #include <sge/opencl/context/object_fwd.hpp>
 #include <sge/opencl/context/optional_error_callback.hpp>
 #include <sge/opencl/detail/symbol.hpp>
 #include <sge/opencl/device/object_fwd.hpp>
 #include <sge/opencl/platform/object_fwd.hpp>
+#include <sge/opencl/single_device_system/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/opencl/single_device_system/parameters_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>

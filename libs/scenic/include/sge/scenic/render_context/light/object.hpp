@@ -6,14 +6,12 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_LIGHT_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_LIGHT_OBJECT_HPP_INCLUDED
 
-#include <sge/image/color/any/object.hpp>
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/ambient_color.hpp>
 #include <sge/scenic/render_context/diffuse_color.hpp>
 #include <sge/scenic/render_context/specular_color.hpp>
-#include <sge/scenic/render_context/light/object_fwd.hpp>
+#include <sge/scenic/render_context/light/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/scenic/render_context/light/variant.hpp>
-#include <fcppt/variant/object_impl.hpp>
 
 namespace sge::scenic::render_context::light
 {

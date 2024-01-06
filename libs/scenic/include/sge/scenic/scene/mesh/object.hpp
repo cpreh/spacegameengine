@@ -14,9 +14,10 @@
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
 #include <sge/scenic/box.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/scene/mesh/material_to_index_buffer_range.hpp>
+#include <sge/scenic/scene/mesh/object_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/noncopyable.hpp>
-#include <fcppt/math/box/object_impl.hpp>
 
 namespace sge::scenic::scene::mesh
 {

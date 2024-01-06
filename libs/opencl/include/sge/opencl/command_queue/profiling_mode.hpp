@@ -6,7 +6,7 @@
 #ifndef SGE_OPENCL_COMMAND_QUEUE_PROFILING_MODE_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_PROFILING_MODE_HPP_INCLUDED
 
-#include <sge/opencl/command_queue/profiling_mode_fwd.hpp>
+#include <sge/opencl/command_queue/profiling_mode_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::opencl::command_queue
 {

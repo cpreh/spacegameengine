@@ -6,7 +6,9 @@
 #ifndef SGE_SCENIC_RENDER_CONTEXT_FFP_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_CONTEXT_FFP_OBJECT_HPP_INCLUDED
 
+#include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/context/ffp_ref.hpp>
+#include <sge/renderer/index/buffer_fwd.hpp>
 #include <sge/renderer/state/core/blend/object_unique_ptr.hpp>
 #include <sge/renderer/state/core/blend/scoped.hpp>
 #include <sge/renderer/state/core/depth_stencil/object_unique_ptr.hpp>
@@ -19,16 +21,23 @@
 #include <sge/renderer/state/ffp/lighting/light/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/transform/object_unique_ptr.hpp>
+#include <sge/renderer/target/base_fwd.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/scoped_buffer_fwd.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
 #include <sge/scenic/detail/symbol.hpp>
+#include <sge/scenic/index_buffer_range_fwd.hpp>
 #include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/ffp/manager_fwd.hpp>
+#include <sge/scenic/render_context/fog/optional_properties.hpp>
+#include <sge/scenic/render_context/light/sequence.hpp>
+#include <sge/scenic/render_context/material/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

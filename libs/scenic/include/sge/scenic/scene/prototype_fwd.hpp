@@ -8,7 +8,7 @@
 
 namespace sge::scenic::scene
 {
-class prototype;
+class prototype; // IWYU pragma: export
 }
 
 #endif

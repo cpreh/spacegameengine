@@ -9,10 +9,12 @@
 #include <sge/projectile/scalar.hpp>
 #include <sge/projectile/vector2_fwd.hpp>
 #include <sge/projectile/world_fwd.hpp>
+#include <sge/projectile/body/object_fwd.hpp>
 #include <sge/projectile/body/parameters_fwd.hpp>
 #include <sge/projectile/body/position_change.hpp>
 #include <sge/projectile/body/position_change_fn.hpp>
 #include <sge/projectile/body/rotation_change.hpp>
+#include <sge/projectile/body/rotation_change_fn.hpp>
 #include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/body/detail/motion_state_fwd.hpp>
 #include <sge/projectile/detail/symbol.hpp>

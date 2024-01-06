@@ -6,15 +6,9 @@
 #ifndef SGE_OPENCL_SINGLE_DEVICE_SYSTEM_OBJECT_FWD_HPP_INCLUDED
 #define SGE_OPENCL_SINGLE_DEVICE_SYSTEM_OBJECT_FWD_HPP_INCLUDED
 
-namespace sge
+namespace sge::opencl::single_device_system
 {
-namespace opencl
-{
-namespace single_device_system
-{
-class object;
-}
-}
+class object; // IWYU pragma: export
 }
 
 #endif

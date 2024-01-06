@@ -9,7 +9,7 @@
 namespace sge::scenic::scene
 {
 
-class manager;
+class manager; // IWYU pragma: export
 
 }
 

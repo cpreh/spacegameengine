@@ -6,8 +6,8 @@
 #ifndef SGE_SHADER_PARAMETER_SCALAR_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_SCALAR_HPP_INCLUDED
 
-#include <sge/shader/parameter/scalar_decl.hpp>
-#include <sge/shader/parameter/scalar_fwd.hpp>
-#include <sge/shader/parameter/scalar_impl.hpp>
+#include <sge/shader/parameter/scalar_decl.hpp> // IWYU pragma: export
+#include <sge/shader/parameter/scalar_fwd.hpp> // IWYU pragma: keep
+#include <sge/shader/parameter/scalar_impl.hpp> // IWYU pragma: keep
 
 #endif

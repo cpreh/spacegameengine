@@ -9,7 +9,7 @@
 namespace sge::opencl::platform
 {
 
-enum class profile_type;
+enum class profile_type; // IWYU pragma: export
 
 }
 

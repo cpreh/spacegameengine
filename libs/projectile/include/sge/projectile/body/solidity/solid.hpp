@@ -7,7 +7,7 @@
 #define SGE_PROJECTILE_BODY_SOLIDITY_SOLID_HPP_INCLUDED
 
 #include <sge/projectile/body/mass.hpp>
-#include <sge/projectile/body/solidity/solid_fwd.hpp>
+#include <sge/projectile/body/solidity/solid_fwd.hpp> // IWYU pragma: keep
 #include <sge/projectile/detail/symbol.hpp>
 
 namespace sge::projectile::body::solidity

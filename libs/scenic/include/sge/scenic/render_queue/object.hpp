@@ -6,14 +6,17 @@
 #ifndef SGE_SCENIC_RENDER_QUEUE_OBJECT_HPP_INCLUDED
 #define SGE_SCENIC_RENDER_QUEUE_OBJECT_HPP_INCLUDED
 
+#include <sge/renderer/matrix4_fwd.hpp>
 #include <sge/renderer/index/buffer_ref.hpp>
 #include <sge/renderer/vertex/buffer_fwd.hpp>
 #include <sge/renderer/vertex/buffer_ref.hpp>
+#include <sge/scenic/index_buffer_range_fwd.hpp>
 #include <sge/scenic/texture_manager_ref.hpp>
 #include <sge/scenic/render_context/base_fwd.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/scenic/render_queue/index_type.hpp>
 #include <sge/scenic/render_queue/mesh.hpp>
+#include <sge/scenic/render_queue/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/scenic/render_queue/state_change_count.hpp>
 #include <sge/scenic/scene/material/object_fwd.hpp>
 #include <fcppt/nonmovable.hpp>

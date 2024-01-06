@@ -29,6 +29,7 @@
 #include <sge/scenic/scene/material/object.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <iterator>

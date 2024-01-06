@@ -6,8 +6,8 @@
 #ifndef SGE_SHADER_PARAMETER_VECTOR_HPP_INCLUDED
 #define SGE_SHADER_PARAMETER_VECTOR_HPP_INCLUDED
 
-#include <sge/shader/parameter/vector_decl.hpp>
-#include <sge/shader/parameter/vector_fwd.hpp>
-#include <sge/shader/parameter/vector_impl.hpp>
+#include <sge/shader/parameter/vector_decl.hpp> // IWYU pragma: export
+#include <sge/shader/parameter/vector_fwd.hpp> // IWYU pragma: keep
+#include <sge/shader/parameter/vector_impl.hpp> // IWYU pragma: keep
 
 #endif

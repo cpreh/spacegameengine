@@ -14,6 +14,7 @@
 #include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/grid/depth_test.hpp>
 #include <sge/scenic/grid/distance_to_origin.hpp>
+#include <sge/scenic/grid/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/scenic/grid/orientation_fwd.hpp>
 #include <sge/scenic/grid/rect.hpp>
 #include <sge/scenic/grid/spacing.hpp>

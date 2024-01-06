@@ -8,7 +8,7 @@
 
 namespace sge::opencl::context
 {
-class parameters;
+class parameters; // IWYU pragma: export
 }
 
 #endif

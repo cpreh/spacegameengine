@@ -6,6 +6,7 @@
 #ifndef SGE_POSTPROCESSING_FULLSCREEN_QUAD_HPP_INCLUDED
 #define SGE_POSTPROCESSING_FULLSCREEN_QUAD_HPP_INCLUDED
 
+#include <sge/postprocessing/fullscreen_quad_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/device/core_ref.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>

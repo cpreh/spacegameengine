@@ -8,7 +8,7 @@
 
 namespace sge::opencl
 {
-class system;
+class system; // IWYU pragma: export
 }
 
 #endif

@@ -8,7 +8,6 @@ set(
 	libs/shader/include/sge/shader/istream_ref.hpp
 	libs/shader/include/sge/shader/load_edited_string.hpp
 	libs/shader/include/sge/shader/optional_cflags.hpp
-	libs/shader/include/sge/shader/optional_context_ref.hpp
 	libs/shader/include/sge/shader/pair.hpp
 	libs/shader/include/sge/shader/pair_fwd.hpp
 	libs/shader/include/sge/shader/pair_ref.hpp
@@ -28,12 +27,10 @@ set(
 	libs/shader/include/sge/shader/parameter/vector_decl.hpp
 	libs/shader/include/sge/shader/parameter/vector_fwd.hpp
 	libs/shader/include/sge/shader/parameter/vector_impl.hpp
-	libs/shader/include/sge/shader/pixel_profile.hpp
 	libs/shader/include/sge/shader/pixel_program_path.hpp
 	libs/shader/include/sge/shader/pixel_program_stream.hpp
 	libs/shader/include/sge/shader/scoped_pair.hpp
 	libs/shader/include/sge/shader/scoped_pair_fwd.hpp
-	libs/shader/include/sge/shader/vertex_profile.hpp
 	libs/shader/include/sge/shader/vertex_program_path.hpp
 	libs/shader/include/sge/shader/vertex_program_stream.hpp
 	libs/shader/src/shader/context.cpp

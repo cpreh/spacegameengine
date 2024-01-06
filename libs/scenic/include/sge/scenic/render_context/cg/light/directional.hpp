@@ -7,6 +7,7 @@
 #define SGE_SCENIC_RENDER_CONTEXT_CG_LIGHT_DIRECTIONAL_HPP_INCLUDED
 
 #include <sge/cg/program/object_ref.hpp>
+#include <sge/renderer/scalar.hpp>
 #include <sge/scenic/render_context/ambient_color.hpp>
 #include <sge/scenic/render_context/diffuse_color.hpp>
 #include <sge/scenic/render_context/specular_color.hpp>

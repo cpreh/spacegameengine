@@ -7,7 +7,7 @@
 #define SGE_PROJECTILE_TRIANGULATION_TRAITS_INSERT_RESULT_HPP_INCLUDED
 
 #include <sge/projectile/triangulation/default_tag.hpp>
-#include <sge/projectile/triangulation/traits/insert_result_fwd.hpp>
+#include <sge/projectile/triangulation/traits/insert_result_fwd.hpp> // IWYU pragma: export
 
 namespace sge::projectile::triangulation::traits
 {
