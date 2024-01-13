@@ -6,11 +6,9 @@
 #ifndef SGE_OPENGL_TEXTURE_CUBE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CUBE_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/opengl/texture/cube_basic_fwd.hpp>
+#include <sge/opengl/texture/cube_basic.hpp>
 #include <sge/opengl/texture/cube_config_fwd.hpp>
-#include <sge/opengl/texture/cube_types.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/texture/cube.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>

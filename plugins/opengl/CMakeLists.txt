@@ -63,7 +63,6 @@ set(
 	plugins/opengl/include/sge/opengl/context/base.hpp
 	plugins/opengl/include/sge/opengl/context/base_fwd.hpp
 	plugins/opengl/include/sge/opengl/context/base_unique_ptr.hpp
-	plugins/opengl/include/sge/opengl/context/container_fwd.hpp
 	plugins/opengl/include/sge/opengl/context/dummy_parameter.hpp
 	plugins/opengl/include/sge/opengl/context/dummy_parameter_fwd.hpp
 	plugins/opengl/include/sge/opengl/context/has_parameter.hpp

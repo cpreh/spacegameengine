@@ -8,6 +8,8 @@
 
 #include <sge/opengl/extension_set.hpp>
 #include <sge/opengl/info/extension.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_std_hash.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::info
 {

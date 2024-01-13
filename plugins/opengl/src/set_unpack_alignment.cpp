@@ -11,6 +11,7 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 
 void sge::opengl::set_unpack_alignment(
     sge::opengl::context::object &_context, sge::opengl::unpack_alignment const _alignment)

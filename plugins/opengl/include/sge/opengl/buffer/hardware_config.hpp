@@ -9,7 +9,7 @@
 #include <sge/opengl/ext.hpp>
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/fun_ref_value_type.hpp>
-#include <sge/opengl/buffer/hardware_config_fwd.hpp>
+#include <sge/opengl/buffer/hardware_config_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/buffer/is_native.hpp>
 #include <fcppt/optional/reference.hpp>
 

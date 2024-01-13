@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-class multi_config;
+class multi_config; // IWYU pragma: export
 
 }
 

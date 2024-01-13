@@ -7,6 +7,6 @@
 #define SGE_OPENGL_TARGET_OPTIONAL_BASE_REF_HPP_INCLUDED
 
 #include <sge/opengl/target/optional_base_ref_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/reference.hpp>
+#include <fcppt/optional/reference.hpp> // IWYU pragma: keep
 
 #endif

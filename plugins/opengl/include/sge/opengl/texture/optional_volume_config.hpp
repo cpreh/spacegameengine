@@ -7,7 +7,7 @@
 #define SGE_OPENGL_TEXTURE_OPTIONAL_VOLUME_CONFIG_HPP_INCLUDED
 
 #include <sge/opengl/texture/optional_volume_config_fwd.hpp> // IWYU pragma: export
-#include <sge/opengl/texture/volume_config.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <sge/opengl/texture/volume_config.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

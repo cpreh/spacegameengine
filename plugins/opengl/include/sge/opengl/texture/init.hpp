@@ -16,7 +16,7 @@
 #include <sge/opengl/texture/check_dim.hpp>
 #include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/opengl/texture/extend_size.hpp>
-#include <sge/opengl/texture/format_result_impl.hpp>
+#include <sge/opengl/texture/format_result_impl.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/id.hpp>
 #include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -25,20 +25,22 @@
 #include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/texture/capabilities.hpp>
-#include <sge/renderer/texture/capabilities_field.hpp>
+#include <sge/renderer/texture/capabilities_field.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp> // IWYU pragma: keep
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/type_iso/strong_typedef.hpp>
+#include <fcppt/container/bitfield/operators.hpp> // IWYU pragma: keep
+#include <fcppt/type_iso/strong_typedef.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

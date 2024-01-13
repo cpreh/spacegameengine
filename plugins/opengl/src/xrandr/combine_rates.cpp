@@ -6,7 +6,7 @@
 #include <sge/opengl/xrandr/combine_rates.hpp>
 #include <sge/renderer/display_mode/optional_refresh_rate.hpp>
 #include <sge/renderer/display_mode/refresh_rate.hpp>
-#include <fcppt/strong_typedef_comparison.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/optional/combine.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>

@@ -6,13 +6,13 @@
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_SURFACE_HPP_INCLUDED
 
-#include <sge/image/ds/traits/format_fwd.hpp>
-#include <sge/imageds2d/traits/color_tag.hpp>
-#include <sge/imageds2d/traits/dimension.hpp>
+#include <sge/image/ds/traits/format_fwd.hpp> // IWYU pragma: keep
+#include <sge/imageds2d/traits/color_tag.hpp> // IWYU pragma: keep
+#include <sge/imageds2d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/basic_buffer.hpp>
-#include <sge/opengl/texture/depth_stencil_surface_fwd.hpp>
+#include <sge/opengl/texture/depth_stencil_surface_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/depth_stencil_surface_types.hpp>
-#include <sge/renderer/depth_stencil_buffer/surface.hpp>
+#include <sge/renderer/depth_stencil_buffer/surface.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

@@ -27,7 +27,6 @@ set(
 	plugins/pango/include/sge/pango/logical_rect.hpp
 	plugins/pango/include/sge/pango/logical_rect_fwd.hpp
 	plugins/pango/include/sge/pango/make_metrics.hpp
-	plugins/pango/include/sge/pango/no_multi_line.hpp
 	plugins/pango/include/sge/pango/object.hpp
 	plugins/pango/include/sge/pango/optional_index.hpp
 	plugins/pango/include/sge/pango/optional_index_fwd.hpp

@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-struct color_format_types;
+struct color_format_types; // IWYU pragma: export
 
 }
 

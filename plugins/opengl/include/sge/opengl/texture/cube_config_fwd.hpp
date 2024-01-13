@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-class cube_config;
+class cube_config; // IWYU pragma: export
 
 }
 

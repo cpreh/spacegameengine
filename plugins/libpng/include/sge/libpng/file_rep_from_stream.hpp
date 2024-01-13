@@ -8,7 +8,7 @@
 
 #include <sge/libpng/optional_file_rep.hpp>
 #include <sge/media/optional_name_fwd.hpp>
-#include <fcppt/log/object_reference.hpp>
+#include <fcppt/log/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iosfwd>
 #include <fcppt/config/external_end.hpp>

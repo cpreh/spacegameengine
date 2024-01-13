@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_MODE_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/mode_fwd.hpp>
+#include <sge/opengl/xrandr/mode_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/xrandr/mode_index.hpp>
 #include <sge/opengl/xrandr/refresh_rate.hpp>
 #include <sge/opengl/xrandr/rotation.hpp>

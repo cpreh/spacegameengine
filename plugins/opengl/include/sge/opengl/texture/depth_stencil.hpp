@@ -6,14 +6,9 @@
 #ifndef SGE_OPENGL_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_DEPTH_STENCIL_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_box.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/opengl/texture/buffer_surface_types.hpp>
 #include <sge/opengl/texture/depth_stencil_basic.hpp>
-#include <sge/opengl/texture/depth_stencil_fwd.hpp>
-#include <sge/opengl/texture/depth_stencil_surface_types.hpp>
-#include <sge/opengl/texture/depth_stencil_types.hpp>
-#include <sge/renderer/texture/depth_stencil.hpp>
+#include <sge/opengl/texture/depth_stencil_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 

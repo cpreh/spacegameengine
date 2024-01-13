@@ -10,7 +10,7 @@ namespace sge::evdev::device
 {
 
 template <typename Id, typename Info>
-class basic_info;
+class basic_info; // IWYU pragma: export
 
 }
 

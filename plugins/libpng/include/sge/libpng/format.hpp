@@ -6,7 +6,7 @@
 #ifndef SGE_LIBPNG_FORMAT_HPP_INCLUDED
 #define SGE_LIBPNG_FORMAT_HPP_INCLUDED
 
-#include <sge/libpng/format_fwd.hpp>
+#include <sge/libpng/format_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::libpng
 {

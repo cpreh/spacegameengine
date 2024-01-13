@@ -7,7 +7,7 @@
 #define SGE_OPENGL_TEXTURE_CUBE_TYPES_HPP_INCLUDED
 
 #include <sge/opengl/texture/color_surface_types_fwd.hpp>
-#include <sge/opengl/texture/cube_types_fwd.hpp>
+#include <sge/opengl/texture/cube_types_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/cube_fwd.hpp>
 #include <sge/renderer/texture/cube_parameters_fwd.hpp>
 #include <fcppt/string.hpp>

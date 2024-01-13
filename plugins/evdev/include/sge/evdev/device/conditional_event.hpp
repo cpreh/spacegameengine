@@ -8,7 +8,7 @@
 
 #include <sge/evdev/device/event.hpp>
 #include <sge/evdev/device/event_type.hpp>
-#include <awl/event/base.hpp>
+#include <awl/event/base.hpp> // IWYU pragma: keep
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>

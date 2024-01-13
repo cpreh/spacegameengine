@@ -17,7 +17,7 @@ namespace sge::libpng
 
 template <typename Function>
 png_structp create_struct(
-    Function const _function, fcppt::reference<sge::libpng::error_context> const _error_context)
+    Function const _function, sge::libpng::error_context_ref const _error_context)
 {
   return _function(
       PNG_LIBPNG_VER_STRING,

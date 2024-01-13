@@ -9,7 +9,7 @@
 namespace sge::opengl::state::core::depth_stencil::stencil
 {
 
-class config;
+class config; // IWYU pragma: export
 
 }
 

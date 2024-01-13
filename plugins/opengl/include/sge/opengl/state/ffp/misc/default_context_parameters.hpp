@@ -7,7 +7,7 @@
 #define SGE_OPENGL_STATE_FFP_MISC_DEFAULT_CONTEXT_PARAMETERS_HPP_INCLUDED
 
 #include <sge/opengl/context/object_ref.hpp>
-#include <sge/opengl/state/ffp/misc/default_context_parameters_fwd.hpp>
+#include <sge/opengl/state/ffp/misc/default_context_parameters_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/log/object_reference.hpp>
 
 namespace sge::opengl::state::ffp::misc

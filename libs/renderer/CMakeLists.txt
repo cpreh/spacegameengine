@@ -736,8 +736,6 @@ set(
 	libs/renderer/include/sge/renderer/texture/base.hpp
 	libs/renderer/include/sge/renderer/texture/base_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/base_ref.hpp
-	libs/renderer/include/sge/renderer/texture/base_shared_ptr.hpp
-	libs/renderer/include/sge/renderer/texture/base_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/basic_lockable_box.hpp
 	libs/renderer/include/sge/renderer/texture/basic_lockable_box_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/basic_parameters.hpp
@@ -819,7 +817,6 @@ set(
 	libs/renderer/include/sge/renderer/texture/volume_parameters.hpp
 	libs/renderer/include/sge/renderer/texture/volume_parameters_fwd.hpp
 	libs/renderer/include/sge/renderer/texture/volume_ref.hpp
-	libs/renderer/include/sge/renderer/texture/volume_shared_ptr.hpp
 	libs/renderer/include/sge/renderer/texture/volume_unique_ptr.hpp
 	libs/renderer/include/sge/renderer/unsupported.hpp
 	libs/renderer/include/sge/renderer/vector2.hpp

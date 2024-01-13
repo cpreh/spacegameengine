@@ -9,7 +9,7 @@
 namespace sge::opengl::vf
 {
 
-class actor_parameters;
+class actor_parameters; // IWYU pragma: export
 
 }
 

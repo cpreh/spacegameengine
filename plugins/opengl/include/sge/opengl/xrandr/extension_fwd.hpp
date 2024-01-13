@@ -9,7 +9,7 @@
 namespace sge::opengl::xrandr
 {
 
-class extension;
+class extension; // IWYU pragma: export
 
 }
 

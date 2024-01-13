@@ -6,10 +6,11 @@
 #ifndef SGE_OPENGL_TEXTURE_MULTI_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_MULTI_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/ext.hpp>
+#include <sge/opengl/ext.hpp> // IWYU pragma: keep
 #include <sge/opengl/fun_ref.hpp>
-#include <sge/opengl/texture/multi_config_fwd.hpp>
+#include <sge/opengl/texture/multi_config_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/caps/texture_stages.hpp>
+#include <sge/renderer/opengl/glinclude.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::texture
 {

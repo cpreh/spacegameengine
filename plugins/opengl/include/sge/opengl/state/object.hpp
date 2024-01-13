@@ -7,7 +7,7 @@
 #define SGE_OPENGL_STATE_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/state/actor_vector.hpp>
-#include <sge/opengl/state/object_fwd.hpp>
+#include <sge/opengl/state/object_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 
 namespace sge::opengl::state

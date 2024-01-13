@@ -8,11 +8,11 @@
 
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_box.hpp>
-#include <sge/opengl/texture/buffer_surface_types.hpp>
+#include <sge/opengl/texture/buffer_surface_types.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/depth_stencil_basic_fwd.hpp> // IWYU pragma: export
-#include <sge/opengl/texture/depth_stencil_surface_types.hpp>
+#include <sge/opengl/texture/depth_stencil_surface_types.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/depth_stencil_types.hpp>
-#include <sge/renderer/texture/depth_stencil.hpp>
+#include <sge/renderer/texture/depth_stencil.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

@@ -8,8 +8,8 @@
 
 #include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <ft2build.h>
-#include <freetype/freetype.h>
+#include <ft2build.h> // IWYU pragma: keep
+#include <freetype/freetype.h> // IWYU pragma: keep
 #include <freetype/ftimage.h>
 #include <fcppt/config/external_end.hpp>
 

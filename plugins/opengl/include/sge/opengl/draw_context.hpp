@@ -6,12 +6,13 @@
 #ifndef SGE_OPENGL_DRAW_CONTEXT_HPP_INCLUDED
 #define SGE_OPENGL_DRAW_CONTEXT_HPP_INCLUDED
 
-#include <sge/opengl/ext.hpp>
+#include <sge/opengl/ext.hpp> // IWYU pragma: keep
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/fun_ref_value_type.hpp>
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/info/context_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/optional/reference.hpp>
 

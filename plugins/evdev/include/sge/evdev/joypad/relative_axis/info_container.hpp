@@ -10,7 +10,7 @@
 #include <sge/evdev/joypad/relative_axis/info_container_fwd.hpp> // IWYU pragma: export
 #include <sge/input/joypad/relative_axis_id.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
-#include <sge/input/joypad/relative_axis_info_container.hpp>
+#include <sge/input/joypad/relative_axis_info_container.hpp> // IWYU pragma: keep
 
 extern template class sge::evdev::device::
     basic_info<sge::input::joypad::relative_axis_id, sge::input::joypad::relative_axis_info>;

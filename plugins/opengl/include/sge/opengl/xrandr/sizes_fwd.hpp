@@ -9,7 +9,7 @@
 namespace sge::opengl::xrandr
 {
 
-class sizes;
+class sizes; // IWYU pragma: export
 
 }
 

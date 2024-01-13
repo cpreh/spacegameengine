@@ -16,6 +16,7 @@
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_void_ptr.hpp>
 #include <fcppt/optional/comparison.hpp>

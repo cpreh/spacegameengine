@@ -6,8 +6,8 @@
 #ifndef SGE_PANGO_INK_RECT_HPP_INCLUDED
 #define SGE_PANGO_INK_RECT_HPP_INCLUDED
 
-#include <sge/font/rect.hpp>
+#include <sge/font/rect.hpp> // IWYU pragma: keep
 #include <sge/pango/ink_rect_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

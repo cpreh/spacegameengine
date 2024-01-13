@@ -10,8 +10,7 @@
 #include <sge/evdev/device/event_type.hpp>
 #include <sge/evdev/device/event_type_value.hpp>
 #include <sge/evdev/device/read_bits_result.hpp>
-#include <fcppt/make_int_range_count.hpp>
-#include <fcppt/make_literal_strong_typedef.hpp>
+#include <fcppt/make_literal_strong_typedef.hpp> // IWYU pragma: keep
 #include <fcppt/strong_typedef_construct_cast.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/cast/size_fun.hpp>

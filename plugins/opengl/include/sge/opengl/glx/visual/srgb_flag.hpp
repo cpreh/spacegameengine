@@ -7,6 +7,6 @@
 #define SGE_OPENGL_GLX_VISUAL_SRGB_FLAG_HPP_INCLUDED
 
 #include <sge/opengl/glx/visual/srgb_flag_fwd.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 #endif

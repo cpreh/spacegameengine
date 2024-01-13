@@ -9,7 +9,7 @@
 namespace sge::opengl::glx
 {
 
-class swap_functions;
+class swap_functions; // IWYU pragma: export
 
 }
 

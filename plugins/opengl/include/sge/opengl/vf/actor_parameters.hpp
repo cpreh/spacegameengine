@@ -8,7 +8,7 @@
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/object_ref.hpp>
-#include <sge/opengl/vf/actor_parameters_fwd.hpp>
+#include <sge/opengl/vf/actor_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/dynamic/offset.hpp>
 #include <sge/renderer/vf/dynamic/stride.hpp>
 

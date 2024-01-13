@@ -9,7 +9,7 @@
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/base.hpp>
-#include <sge/opengl/texture/basic_fwd.hpp>
+#include <sge/opengl/texture/basic_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/resource_flags_field.hpp>

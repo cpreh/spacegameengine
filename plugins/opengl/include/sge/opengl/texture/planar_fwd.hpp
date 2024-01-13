@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-class planar;
+class planar; // IWYU pragma: export
 
 }
 

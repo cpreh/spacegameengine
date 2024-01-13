@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_STATE_UNARY_OBJECT_HPP_INCLUDED
 #define SGE_OPENGL_STATE_UNARY_OBJECT_HPP_INCLUDED
 
-#include <sge/opengl/state/unary_object_fwd.hpp>
+#include <sge/opengl/state/unary_object_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/function_impl.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>

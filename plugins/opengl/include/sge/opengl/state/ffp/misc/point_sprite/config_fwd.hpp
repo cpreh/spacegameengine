@@ -9,7 +9,7 @@
 namespace sge::opengl::state::ffp::misc::point_sprite
 {
 
-class config;
+class config; // IWYU pragma: export
 
 }
 

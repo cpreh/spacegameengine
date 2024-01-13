@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_TEXTURE_CUBE_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_CUBE_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/texture/cube_config_fwd.hpp>
+#include <sge/opengl/texture/cube_config_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/cube_side_array.hpp>
 #include <sge/opengl/texture/type.hpp>
 

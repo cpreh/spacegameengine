@@ -9,7 +9,7 @@
 namespace sge::evdev::joypad::button
 {
 
-enum class code;
+enum class code; // IWYU pragma: export
 
 }
 

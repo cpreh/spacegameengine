@@ -11,6 +11,7 @@
 #include <sge/evdev/inotify/reader_fwd.hpp>
 #include <sge/evdev/inotify/watch.hpp>
 #include <awl/backends/posix/fd.hpp>
+#include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>

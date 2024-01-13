@@ -7,8 +7,7 @@
 #define SGE_OPENGL_GLX_SWAP_FUNCTIONS_HPP_INCLUDED
 
 #include <sge/opengl/glx/proc_address_function.hpp>
-#include <sge/opengl/glx/swap_functions_fwd.hpp>
-#include <fcppt/noncopyable.hpp>
+#include <sge/opengl/glx/swap_functions_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/optional/reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h>

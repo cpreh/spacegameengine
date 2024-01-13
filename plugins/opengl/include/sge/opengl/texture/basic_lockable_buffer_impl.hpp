@@ -22,13 +22,10 @@
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/basic_lockable_buffer.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/create_lock.hpp>
-#include <sge/opengl/texture/is_render_target.hpp>
 #include <sge/opengl/texture/read_size.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
 #include <sge/opengl/texture/write_size.hpp>
 #include <sge/opengl/texture/funcs/get_image.hpp>
-#include <sge/opengl/texture/mipmap/create.hpp>
-#include <sge/opengl/texture/mipmap/parameters.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
@@ -37,21 +34,21 @@
 #include <sge/renderer/lock_flags/write.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/format.hpp>
-#include <fcppt/reference_impl.hpp>
+#include <fcppt/reference_impl.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/math/box/object_impl.hpp>
-#include <fcppt/math/box/output.hpp>
-#include <fcppt/math/dim/comparison.hpp>
+#include <fcppt/math/box/object_impl.hpp> // IWYU pragma: keep
+#include <fcppt/math/box/output.hpp> // IWYU pragma: keep
+#include <fcppt/math/dim/comparison.hpp> // IWYU pragma: keep
 #include <fcppt/math/dim/contents.hpp>
 #include <fcppt/math/dim/null.hpp>
-#include <fcppt/math/dim/object_impl.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/object_impl.hpp> // IWYU pragma: keep
+#include <fcppt/math/dim/output.hpp> // IWYU pragma: keep
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/maybe.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/ignore_dangling_reference.hpp>

@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <fcppt/config/external_begin.hpp>
-#include <wayland-egl-core.h>
+#include <wayland-egl-core.h> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 #define SGE_OPENGL_EGL_WAYLAND_DISPLAY_CPP_EGL_CORE_ON_TOP
 #include <sge/opengl/egl/display.hpp>

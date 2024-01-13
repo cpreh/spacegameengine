@@ -13,6 +13,7 @@
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/cast/to_char_ptr.hpp>

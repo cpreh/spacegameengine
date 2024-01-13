@@ -8,7 +8,7 @@
 
 #include <sge/opengl/egl/major_version.hpp>
 #include <sge/opengl/egl/minor_version.hpp>
-#include <sge/opengl/egl/version_fwd.hpp>
+#include <sge/opengl/egl/version_fwd.hpp> // IWYU pragma: keep
 
 #undef major
 #undef minor

@@ -9,7 +9,7 @@
 namespace sge::evdev::inotify
 {
 
-class event;
+class event; // IWYU pragma: export
 
 }
 

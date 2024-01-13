@@ -9,7 +9,7 @@
 namespace sge::opengl::state::core::sampler::filter
 {
 
-class anisotropy_config;
+class anisotropy_config; // IWYU pragma: export
 
 }
 

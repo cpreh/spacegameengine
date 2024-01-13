@@ -8,13 +8,13 @@
 
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
-#include <sge/opengl/texture/basic_buffer_fwd.hpp>
+#include <sge/opengl/texture/basic_buffer_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/config_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_fwd.hpp>
-#include <fcppt/math/dim/static_decl.hpp>
+#include <fcppt/math/dim/static_decl.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::texture
 {

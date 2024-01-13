@@ -14,6 +14,7 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
+#include <iosfwd>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::libpng

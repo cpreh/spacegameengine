@@ -13,8 +13,7 @@
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/basic_buffer.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
-#include <sge/opengl/texture/basic_fwd.hpp>
-#include <sge/opengl/texture/buffer_base.hpp>
+#include <sge/opengl/texture/basic_lockable_buffer_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/opengl/texture/lock_base.hpp>
 #include <sge/opengl/texture/type.hpp>
@@ -23,11 +22,11 @@
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/reference_decl.hpp>
+#include <fcppt/reference_decl.hpp> // IWYU pragma: keep
 #include <fcppt/unique_ptr_decl.hpp>
 #include <fcppt/log/object_reference.hpp>
-#include <fcppt/math/box/object_decl.hpp>
-#include <fcppt/optional/object_decl.hpp>
+#include <fcppt/math/box/object_decl.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_decl.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::texture
 {

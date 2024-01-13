@@ -14,7 +14,6 @@
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/math/box/object_decl.hpp>
 
 namespace sge::opengl::target
 {

@@ -7,7 +7,7 @@
 #define SGE_OPENGL_TEXTURE_BASIC_BOX_HPP_INCLUDED
 
 #include <sge/opengl/texture/basic.hpp>
-#include <sge/opengl/texture/basic_box_fwd.hpp>
+#include <sge/opengl/texture/basic_box_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
 #include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/opengl/texture/type.hpp>

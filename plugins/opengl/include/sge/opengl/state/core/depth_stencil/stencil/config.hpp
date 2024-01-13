@@ -8,7 +8,7 @@
 
 #include <sge/opengl/ext.hpp>
 #include <sge/opengl/fun_ref.hpp>
-#include <sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp>
+#include <sge/opengl/state/core/depth_stencil/stencil/config_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::state::core::depth_stencil::stencil
 {

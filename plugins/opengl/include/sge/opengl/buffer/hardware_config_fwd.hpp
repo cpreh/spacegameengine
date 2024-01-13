@@ -9,7 +9,7 @@
 namespace sge::opengl::buffer
 {
 
-class hardware_config;
+class hardware_config; // IWYU pragma: export
 
 }
 

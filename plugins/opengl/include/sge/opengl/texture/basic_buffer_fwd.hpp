@@ -10,7 +10,7 @@ namespace sge::opengl::texture
 {
 
 template <typename Types>
-class basic_buffer; // NOLINT(fuchsia-multiple-inheritance)
+class basic_buffer; // NOLINT(fuchsia-multiple-inheritance) // IWYU pragma: export
 
 }
 

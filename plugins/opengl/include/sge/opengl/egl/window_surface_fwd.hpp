@@ -10,7 +10,7 @@ namespace sge::opengl::egl
 {
 
 template <typename NativeWindow>
-class window_surface;
+class window_surface; // IWYU pragma: export
 
 }
 

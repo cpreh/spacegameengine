@@ -9,6 +9,7 @@
 #include <sge/renderer/basic_dim.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp> // IWYU pragma: keep
 #include <fcppt/use.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/dim/at.hpp>

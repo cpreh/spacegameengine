@@ -6,7 +6,7 @@
 #ifndef SGE_PANGO_GLIB_DELETER_HPP_INCLUDED
 #define SGE_PANGO_GLIB_DELETER_HPP_INCLUDED
 
-#include <sge/pango/glib_deleter_fwd.hpp>
+#include <sge/pango/glib_deleter_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <glib.h>
 #include <fcppt/config/external_end.hpp>

@@ -9,7 +9,7 @@
 namespace sge::opengl::state::core::blend
 {
 
-class config;
+class config; // IWYU pragma: export
 
 }
 

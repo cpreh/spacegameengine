@@ -8,7 +8,7 @@
 
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/object_ref.hpp>
-#include <sge/opengl/texture/basic_parameters_fwd.hpp>
+#include <sge/opengl/texture/basic_parameters_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/object_reference.hpp>
 

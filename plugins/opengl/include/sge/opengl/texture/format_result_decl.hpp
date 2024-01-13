@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_TEXTURE_FORMAT_RESULT_DECL_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_FORMAT_RESULT_DECL_HPP_INCLUDED
 
-#include <sge/opengl/texture/format_result_fwd.hpp>
+#include <sge/opengl/texture/format_result_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::texture
 {

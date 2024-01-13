@@ -6,7 +6,7 @@
 #ifndef SGE_EVDEV_DEVICE_BASIC_INFO_DECL_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_BASIC_INFO_DECL_HPP_INCLUDED
 
-#include <sge/evdev/device/basic_info_fwd.hpp>
+#include <sge/evdev/device/basic_info_fwd.hpp> // IWYU pragma: keep
 #include <sge/evdev/device/event_map.hpp>
 #include <sge/input/info/container.hpp>
 

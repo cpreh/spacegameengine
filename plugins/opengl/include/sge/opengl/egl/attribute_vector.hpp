@@ -7,7 +7,7 @@
 #define SGE_OPENGL_EGL_ATTRIBUTE_VECTOR_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <EGL/egl.h>
+#include <EGL/eglplatform.h>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 

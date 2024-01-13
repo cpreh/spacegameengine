@@ -10,7 +10,6 @@
 #include <sge/opengl/buffer/base_fwd.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id_fwd.hpp>
-#include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/nonmovable.hpp>
 

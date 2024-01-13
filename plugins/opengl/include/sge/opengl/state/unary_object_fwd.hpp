@@ -10,7 +10,7 @@ namespace sge::opengl::state
 {
 
 template <typename Base, typename Parameter>
-class unary_object;
+class unary_object; // IWYU pragma: export
 
 }
 

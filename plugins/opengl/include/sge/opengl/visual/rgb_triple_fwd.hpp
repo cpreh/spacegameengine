@@ -9,7 +9,7 @@
 namespace sge::opengl::visual
 {
 
-class rgb_triple;
+class rgb_triple; // IWYU pragma: export
 
 }
 

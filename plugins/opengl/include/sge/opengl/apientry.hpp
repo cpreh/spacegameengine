@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_APIENTRY_HPP_INCLUDED
 #define SGE_OPENGL_APIENTRY_HPP_INCLUDED
 
-#include <sge/opengl/ext.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 #define SGE_OPENGL_APIENTRY APIENTRY
 

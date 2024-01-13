@@ -9,7 +9,7 @@
 namespace sge::opengl::info
 {
 
-class version;
+class version; // IWYU pragma: export
 
 }
 

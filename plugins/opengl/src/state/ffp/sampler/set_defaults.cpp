@@ -16,8 +16,8 @@
 #include <fcppt/make_int_range_count.hpp>
 #include <fcppt/make_literal_strong_typedef.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/make_ref.hpp>
-#include <fcppt/strong_typedef_arithmetic.hpp>
-#include <fcppt/strong_typedef_comparison.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 

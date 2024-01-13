@@ -9,7 +9,7 @@
 namespace sge::opengl::occlusion_query
 {
 
-class config;
+class config; // IWYU pragma: export
 
 }
 

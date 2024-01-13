@@ -9,7 +9,8 @@
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
 #include <sge/opengl/fbo/id.hpp>
-#include <sge/opengl/fbo/last_context_fwd.hpp>
+#include <sge/opengl/fbo/last_context_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/nonmovable.hpp>
 
 namespace sge::opengl::fbo
 {

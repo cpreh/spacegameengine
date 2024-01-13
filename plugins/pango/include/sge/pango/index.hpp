@@ -6,9 +6,9 @@
 #ifndef SGE_PANGO_INDEX_HPP_INCLUDED
 #define SGE_PANGO_INDEX_HPP_INCLUDED
 
-#include <sge/pango/index_fwd.hpp>
+#include <sge/pango/index_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::pango
 {

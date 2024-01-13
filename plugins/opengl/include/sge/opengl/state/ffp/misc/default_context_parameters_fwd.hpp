@@ -9,7 +9,7 @@
 namespace sge::opengl::state::ffp::misc
 {
 
-class default_context_parameters;
+class default_context_parameters; // IWYU pragma: export
 
 }
 

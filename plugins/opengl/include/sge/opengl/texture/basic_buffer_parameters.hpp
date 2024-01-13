@@ -11,7 +11,7 @@
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/context/object_ref.hpp>
-#include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp>
+#include <sge/opengl/texture/basic_buffer_parameters_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/binding_fwd.hpp>
 #include <sge/opengl/texture/buffer_type.hpp>
 #include <sge/opengl/texture/const_binding_ref.hpp>

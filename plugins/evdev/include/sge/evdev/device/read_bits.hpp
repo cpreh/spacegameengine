@@ -12,7 +12,6 @@
 #include <fcppt/no_init.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
-#include <fcppt/container/bitfield/object_impl.hpp>
 #include <fcppt/enum/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>

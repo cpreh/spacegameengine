@@ -7,6 +7,7 @@
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <tuple>
 #include <fcppt/config/external_end.hpp>

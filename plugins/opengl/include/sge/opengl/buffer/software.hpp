@@ -6,6 +6,7 @@
 #ifndef SGE_OPENGL_BUFFER_SOFTWARE_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_SOFTWARE_HPP_INCLUDED
 
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
@@ -13,6 +14,8 @@
 #include <sge/renderer/raw_pointer.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_std_hash.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>

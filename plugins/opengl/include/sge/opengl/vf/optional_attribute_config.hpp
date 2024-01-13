@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_VF_OPTIONAL_ATTRIBUTE_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_VF_OPTIONAL_ATTRIBUTE_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/vf/attribute_config.hpp>
+#include <sge/opengl/vf/attribute_config.hpp> // IWYU pragma: keep
 #include <sge/opengl/vf/optional_attribute_config_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

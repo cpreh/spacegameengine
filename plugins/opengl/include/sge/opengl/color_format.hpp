@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_COLOR_FORMAT_HPP_INCLUDED
 #define SGE_OPENGL_COLOR_FORMAT_HPP_INCLUDED
 
-#include <sge/opengl/color_format_fwd.hpp>
+#include <sge/opengl/color_format_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::opengl
 {

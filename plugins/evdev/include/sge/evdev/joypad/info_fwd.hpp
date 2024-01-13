@@ -9,7 +9,7 @@
 namespace sge::evdev::joypad
 {
 
-class info;
+class info; // IWYU pragma: export
 
 }
 

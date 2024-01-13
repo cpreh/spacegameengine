@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_CONTEXT_ID_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_ID_HPP_INCLUDED
 
-#include <sge/opengl/context/id_fwd.hpp>
+#include <sge/opengl/context/id_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::context
 {

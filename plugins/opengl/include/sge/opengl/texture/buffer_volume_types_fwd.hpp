@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-struct buffer_volume_types;
+struct buffer_volume_types; // IWYU pragma: export
 
 }
 

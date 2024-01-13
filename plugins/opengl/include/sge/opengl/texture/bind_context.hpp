@@ -8,8 +8,7 @@
 
 #include <sge/opengl/context/base.hpp>
 #include <sge/opengl/context/id.hpp>
-#include <sge/opengl/texture/base_fwd.hpp>
-#include <sge/opengl/texture/bind_context_fwd.hpp>
+#include <sge/opengl/texture/bind_context_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/const_optional_base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/nonmovable.hpp>

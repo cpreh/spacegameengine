@@ -9,7 +9,7 @@
 namespace sge::evdev::device
 {
 
-class event;
+class event; // IWYU pragma: export
 
 }
 

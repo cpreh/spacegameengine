@@ -19,6 +19,7 @@
 #include <sge/window/object_ref.hpp>
 #include <awl/backends/posix/event_fwd.hpp>
 #include <awl/backends/posix/processor_ref.hpp>
+#include <awl/event/base_fwd.hpp>
 #include <awl/event/connection_unique_ptr.hpp>
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>

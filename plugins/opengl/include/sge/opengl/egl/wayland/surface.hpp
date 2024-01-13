@@ -7,7 +7,7 @@
 #define SGE_OPENGL_EGL_WAYLAND_SURFACE_HPP_INCLUDED
 
 #include <fcppt/config/external_begin.hpp>
-#include <wayland-egl-core.h>
+#include <wayland-egl-core.h> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 #define SGE_OPENGL_EGL_WAYLAND_SURFACE_HPP_EGL_CORE_ON_TOP
 #include <sge/opengl/egl/surface.hpp>
@@ -17,6 +17,7 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
+#include <EGL/eglplatform.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::opengl::egl::wayland

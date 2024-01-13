@@ -9,7 +9,7 @@
 namespace sge::pango
 {
 
-class index;
+class index; // IWYU pragma: export
 
 }
 

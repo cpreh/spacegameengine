@@ -9,7 +9,7 @@
 namespace sge::opengl::fbo
 {
 
-class last_context;
+class last_context; // IWYU pragma: export
 
 }
 

@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-struct planar_types;
+struct planar_types; // IWYU pragma: export
 
 }
 

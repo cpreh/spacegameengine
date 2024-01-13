@@ -10,7 +10,7 @@ namespace sge::opengl::state
 {
 
 template <typename Base>
-class object;
+class object; // IWYU pragma: export
 
 }
 

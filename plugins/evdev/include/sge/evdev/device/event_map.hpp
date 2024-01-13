@@ -7,7 +7,8 @@
 #define SGE_EVDEV_DEVICE_EVENT_MAP_HPP_INCLUDED
 
 #include <sge/evdev/device/event_type.hpp>
-#include <fcppt/strong_typedef_std_hash.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_std_hash.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>

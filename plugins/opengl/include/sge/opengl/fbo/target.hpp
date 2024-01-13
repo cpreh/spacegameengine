@@ -7,7 +7,6 @@
 #define SGE_OPENGL_FBO_TARGET_HPP_INCLUDED
 
 #include <sge/opengl/context/object_ref.hpp>
-#include <sge/opengl/fbo/attachment_fwd.hpp>
 #include <sge/opengl/fbo/attachment_type.hpp>
 #include <sge/opengl/fbo/attachment_unique_ptr.hpp>
 #include <sge/opengl/fbo/config_fwd.hpp>
@@ -24,10 +23,10 @@
 #include <sge/renderer/target/offscreen.hpp>
 #include <sge/renderer/target/surface_index.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/strong_typedef_std_hash.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_std_hash.hpp> // IWYU pragma: keep
 #include <fcppt/optional/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <memory>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>
 

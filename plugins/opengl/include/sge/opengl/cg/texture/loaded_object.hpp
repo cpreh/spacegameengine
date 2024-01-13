@@ -10,7 +10,6 @@
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/texture/base_fwd.hpp>
 #include <sge/opengl/texture/bind_context_fwd.hpp>
-#include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/cg/loaded_texture.hpp>
 #include <sge/renderer/texture/base_ref.hpp>
 #include <sge/renderer/texture/stage.hpp>

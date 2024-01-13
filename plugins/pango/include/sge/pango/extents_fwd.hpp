@@ -9,7 +9,7 @@
 namespace sge::pango
 {
 
-class extents;
+class extents; // IWYU pragma: export
 
 }
 

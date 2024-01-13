@@ -8,7 +8,7 @@
 
 #include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
-#include <sge/opengl/xrandr/rates_fwd.hpp>
+#include <sge/opengl/xrandr/rates_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/xrandr/refresh_rate_type.hpp>
 
 namespace sge::opengl::xrandr

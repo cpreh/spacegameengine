@@ -8,7 +8,7 @@
 
 #include <sge/opengl/ext.hpp>
 #include <sge/opengl/fun_ref.hpp>
-#include <sge/opengl/occlusion_query/config_fwd.hpp>
+#include <sge/opengl/occlusion_query/config_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::occlusion_query

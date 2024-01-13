@@ -9,7 +9,7 @@
 namespace sge::opengl::context
 {
 
-class dummy_parameter;
+class dummy_parameter; // IWYU pragma: export
 
 }
 

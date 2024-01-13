@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_CONTEXT_DUMMY_PARAMETER_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_DUMMY_PARAMETER_HPP_INCLUDED
 
-#include <sge/opengl/context/dummy_parameter_fwd.hpp>
+#include <sge/opengl/context/dummy_parameter_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::context
 {

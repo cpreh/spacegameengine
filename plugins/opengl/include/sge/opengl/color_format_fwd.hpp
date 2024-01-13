@@ -9,7 +9,7 @@
 namespace sge::opengl
 {
 
-enum class color_format;
+enum class color_format; // IWYU pragma: export
 
 }
 

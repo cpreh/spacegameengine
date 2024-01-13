@@ -11,6 +11,7 @@
 #include <sge/opengl/vf/client_state.hpp>
 #include <sge/opengl/vf/client_state_combiner_fwd.hpp>
 #include <sge/opengl/vf/context_fwd.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/texture/stage.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/reference_impl.hpp>

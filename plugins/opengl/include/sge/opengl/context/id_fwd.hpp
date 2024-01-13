@@ -9,7 +9,7 @@
 namespace sge::opengl::context
 {
 
-class id;
+class id; // IWYU pragma: export
 
 }
 

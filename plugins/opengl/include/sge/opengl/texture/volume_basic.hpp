@@ -6,15 +6,15 @@
 #ifndef SGE_OPENGL_TEXTURE_VOLUME_BASIC_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_VOLUME_BASIC_HPP_INCLUDED
 
-#include <sge/image3d/traits/dimension.hpp>
+#include <sge/image3d/traits/dimension.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/basic_box.hpp>
-#include <sge/opengl/texture/buffer_volume_types.hpp>
-#include <sge/opengl/texture/color_volume_types.hpp>
+#include <sge/opengl/texture/buffer_volume_types.hpp> // IWYU pragma: keep
+#include <sge/opengl/texture/color_volume_types.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/volume_basic_fwd.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/volume_types.hpp>
-#include <sge/renderer/texture/basic_lockable_box.hpp>
-#include <sge/renderer/texture/volume.hpp>
+#include <sge/renderer/texture/basic_lockable_box.hpp> // IWYU pragma: keep
+#include <sge/renderer/texture/volume.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

@@ -9,7 +9,7 @@
 namespace sge::opengl::vf
 {
 
-class attribute_config;
+class attribute_config; // IWYU pragma: export
 
 }
 

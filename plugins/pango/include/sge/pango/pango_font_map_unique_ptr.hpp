@@ -9,7 +9,7 @@
 #include <sge/pango/glib_deleter.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <pango/pango-fontmap.h>
+#include <pango/pango-types.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::pango

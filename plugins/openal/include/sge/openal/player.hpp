@@ -13,6 +13,7 @@
 #include <sge/audio/player.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/sound/base_unique_ptr.hpp>
+#include <sge/audio/sound/nonpositional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
 #include <sge/openal/context.hpp>

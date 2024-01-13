@@ -9,7 +9,7 @@
 namespace sge::libpng
 {
 
-enum class format;
+enum class format; // IWYU pragma: export
 
 }
 

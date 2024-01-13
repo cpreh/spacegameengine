@@ -10,7 +10,7 @@ namespace sge::opengl::texture
 {
 
 template <typename Types>
-class basic;
+class basic; // IWYU pragma: export
 
 }
 

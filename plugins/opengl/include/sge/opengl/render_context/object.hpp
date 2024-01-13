@@ -9,7 +9,6 @@
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/target/scoped.hpp>
 #include <sge/renderer/config.hpp>
-#include <sge/renderer/primitive_count.hpp>
 #include <sge/renderer/primitive_type_fwd.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/ffp.hpp>

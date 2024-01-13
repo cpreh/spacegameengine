@@ -14,7 +14,7 @@
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/to_array.hpp>
 #include <fcppt/math/dim/fill.hpp>
-#include <fcppt/math/dim/output.hpp>
+#include <fcppt/math/dim/output.hpp> // IWYU pragma: keep
 #include <fcppt/math/dim/static.hpp>
 
 namespace sge::opengl::texture

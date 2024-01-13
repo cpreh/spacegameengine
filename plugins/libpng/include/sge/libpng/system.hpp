@@ -6,6 +6,7 @@
 #ifndef SGE_LIBPNG_SYSTEM_HPP_INCLUDED
 #define SGE_LIBPNG_SYSTEM_HPP_INCLUDED
 
+#include <sge/image2d/load_stream_result.hpp>
 #include <sge/image2d/optional_file_unique_ptr.hpp>
 #include <sge/image2d/system.hpp>
 #include <sge/image2d/view/const_object_fwd.hpp>

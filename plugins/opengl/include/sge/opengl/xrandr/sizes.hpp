@@ -8,7 +8,7 @@
 
 #include <sge/opengl/xrandr/const_configuration_ref.hpp>
 #include <sge/opengl/xrandr/mode_index.hpp>
-#include <sge/opengl/xrandr/sizes_fwd.hpp>
+#include <sge/opengl/xrandr/sizes_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>

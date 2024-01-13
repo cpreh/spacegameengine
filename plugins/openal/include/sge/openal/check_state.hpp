@@ -7,7 +7,7 @@
 #define SGE_OPENAL_CHECK_STATE_HPP_INCLUDED
 
 #include <sge/core/check_state.hpp>
-#include <sge/openal/error_string.hpp>
+#include <sge/openal/error_string.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <al.h>
 #include <fcppt/config/external_end.hpp>

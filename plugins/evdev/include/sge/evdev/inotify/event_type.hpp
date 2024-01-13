@@ -6,7 +6,7 @@
 #ifndef SGE_EVDEV_INOTIFY_EVENT_TYPE_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_EVENT_TYPE_HPP_INCLUDED
 
-#include <sge/evdev/inotify/event_type_fwd.hpp>
+#include <sge/evdev/inotify/event_type_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::evdev::inotify
 {

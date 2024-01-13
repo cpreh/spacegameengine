@@ -7,7 +7,7 @@
 #define SGE_OPENGL_TEXTURE_VOLUME_TYPES_HPP_INCLUDED
 
 #include <sge/opengl/texture/color_volume_types_fwd.hpp>
-#include <sge/opengl/texture/volume_types_fwd.hpp>
+#include <sge/opengl/texture/volume_types_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/volume_fwd.hpp>
 #include <sge/renderer/texture/volume_parameters_fwd.hpp>
 #include <fcppt/string.hpp>

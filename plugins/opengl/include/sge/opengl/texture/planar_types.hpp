@@ -7,7 +7,7 @@
 #define SGE_OPENGL_TEXTURE_PLANAR_TYPES_HPP_INCLUDED
 
 #include <sge/opengl/texture/color_surface_types_fwd.hpp>
-#include <sge/opengl/texture/planar_types_fwd.hpp>
+#include <sge/opengl/texture/planar_types_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <fcppt/string.hpp>

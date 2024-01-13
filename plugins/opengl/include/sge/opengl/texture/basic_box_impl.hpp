@@ -12,6 +12,7 @@
 #include <sge/opengl/texture/config_fwd.hpp>
 #include <sge/opengl/texture/init.hpp>
 #include <sge/opengl/texture/scoped_work_binding.hpp>
+#include <sge/opengl/texture/type.hpp>
 #include <sge/renderer/texture/mipmap/level.hpp>
 #include <sge/renderer/texture/mipmap/level_count.hpp>
 #include <fcppt/make_cref.hpp>

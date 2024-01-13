@@ -6,7 +6,6 @@
 #ifndef SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
 #define SGE_OPENGL_VF_ATTRIBUTE_ACTOR_HPP_INCLUDED
 
-#include <sge/opengl/context/object_fwd.hpp>
 #include <sge/opengl/vf/actor_parameters_fwd.hpp>
 #include <sge/opengl/vf/attribute_config_fwd.hpp>
 #include <sge/opengl/vf/client_state_combiner_ref.hpp>

@@ -9,7 +9,7 @@
 namespace sge::evdev::joypad::relative_axis
 {
 
-enum class code;
+enum class code; // IWYU pragma: export
 
 }
 

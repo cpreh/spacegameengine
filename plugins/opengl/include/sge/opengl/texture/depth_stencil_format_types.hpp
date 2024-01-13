@@ -10,7 +10,7 @@
 #include <sge/opengl/texture/convert_base_type_function.hpp>
 #include <sge/opengl/texture/convert_internal_format_function.hpp>
 #include <sge/opengl/texture/convert_order_function.hpp>
-#include <sge/opengl/texture/depth_stencil_format_types_fwd.hpp>
+#include <sge/opengl/texture/depth_stencil_format_types_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/format_result_fwd.hpp>
 
 namespace sge::opengl::texture

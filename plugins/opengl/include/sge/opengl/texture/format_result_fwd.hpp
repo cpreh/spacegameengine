@@ -10,7 +10,7 @@ namespace sge::opengl::texture
 {
 
 template <typename SGEFormat, typename GLFormat>
-class format_result;
+class format_result; // IWYU pragma: export
 
 }
 

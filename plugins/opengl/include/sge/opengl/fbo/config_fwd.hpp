@@ -9,7 +9,7 @@
 namespace sge::opengl::fbo
 {
 
-class config;
+class config; // IWYU pragma: export
 
 }
 

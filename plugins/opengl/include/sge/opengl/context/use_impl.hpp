@@ -6,9 +6,8 @@
 #ifndef SGE_OPENGL_CONTEXT_USE_IMPL_HPP_INCLUDED
 #define SGE_OPENGL_CONTEXT_USE_IMPL_HPP_INCLUDED
 
-#include <sge/opengl/context/base_fwd.hpp>
 #include <sge/opengl/context/make_object.hpp>
-#include <sge/opengl/context/object.hpp>
+#include <sge/opengl/context/object.hpp> // IWYU pragma: keep
 #include <sge/opengl/context/object_ref.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/cast/static_downcast.hpp>

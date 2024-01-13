@@ -6,10 +6,10 @@
 #ifndef SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_STATE_FFP_MISC_POINT_SPRITE_CONFIG_HPP_INCLUDED
 
-#include <sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp>
+#include <sge/opengl/state/ffp/misc/point_sprite/config_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::state::ffp::misc::point_sprite
 {

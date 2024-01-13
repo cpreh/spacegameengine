@@ -7,7 +7,7 @@
 #define SGE_OPENGL_GLX_VISUAL_OPTIONAL_SRGB_FLAG_HPP_INCLUDED
 
 #include <sge/opengl/glx/visual/optional_srgb_flag_fwd.hpp> // IWYU pragma: export
-#include <sge/opengl/glx/visual/srgb_flag.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <sge/opengl/glx/visual/srgb_flag.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

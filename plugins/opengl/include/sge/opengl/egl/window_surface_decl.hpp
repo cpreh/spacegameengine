@@ -6,10 +6,11 @@
 #ifndef SGE_OPENGL_EGL_WINDOW_SURFACE_DECL_HPP_INCLUDED
 #define SGE_OPENGL_EGL_WINDOW_SURFACE_DECL_HPP_INCLUDED
 
-#include <sge/opengl/egl/window_surface_fwd.hpp>
+#include <sge/opengl/egl/window_surface_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
+#include <EGL/eglplatform.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::opengl::egl

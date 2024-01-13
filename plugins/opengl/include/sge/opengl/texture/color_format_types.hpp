@@ -8,7 +8,7 @@
 
 #include <sge/image/color/format_fwd.hpp>
 #include <sge/opengl/color_format_fwd.hpp>
-#include <sge/opengl/texture/color_format_types_fwd.hpp>
+#include <sge/opengl/texture/color_format_types_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/convert_base_type_function.hpp>
 #include <sge/opengl/texture/convert_internal_format_function.hpp>
 #include <sge/opengl/texture/convert_order_function.hpp>

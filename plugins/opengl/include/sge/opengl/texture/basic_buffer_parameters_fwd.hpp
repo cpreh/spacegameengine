@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-class basic_buffer_parameters;
+class basic_buffer_parameters; // IWYU pragma: export
 
 }
 

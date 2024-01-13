@@ -6,6 +6,7 @@
 #ifndef SGE_OPENGL_BUFFER_MAKE_HARDWARE_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_MAKE_HARDWARE_HPP_INCLUDED
 
+#include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/base_unique_ptr.hpp>
 #include <sge/opengl/buffer/const_hardware_config_ref.hpp>
 #include <sge/opengl/buffer/hardware.hpp>

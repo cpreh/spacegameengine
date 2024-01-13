@@ -16,9 +16,6 @@
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/object_reference.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <EGL/egl.h>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::opengl::egl
 {

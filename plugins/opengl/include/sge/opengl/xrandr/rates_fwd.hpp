@@ -9,7 +9,7 @@
 namespace sge::opengl::xrandr
 {
 
-class rates;
+class rates; // IWYU pragma: export
 
 }
 

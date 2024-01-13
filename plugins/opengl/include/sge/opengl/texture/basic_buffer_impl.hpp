@@ -10,8 +10,8 @@
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/buffer_base.hpp>
 #include <sge/opengl/texture/get_level_size.hpp>
-#include <fcppt/reference_impl.hpp>
-#include <fcppt/math/dim/static_impl.hpp>
+#include <fcppt/reference_impl.hpp> // IWYU pragma: keep
+#include <fcppt/math/dim/static_impl.hpp> // IWYU pragma: keep
 
 template <typename Types>
 sge::opengl::texture::basic_buffer<Types>::basic_buffer(

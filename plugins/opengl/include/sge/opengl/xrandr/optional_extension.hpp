@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_XRANDR_OPTIONAL_EXTENSION_HPP_INCLUDED
 #define SGE_OPENGL_XRANDR_OPTIONAL_EXTENSION_HPP_INCLUDED
 
-#include <sge/opengl/xrandr/extension.hpp>
+#include <sge/opengl/xrandr/extension.hpp> // IWYU pragma: keep
 #include <sge/opengl/xrandr/optional_extension_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

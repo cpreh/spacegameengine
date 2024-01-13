@@ -8,7 +8,7 @@
 
 #include <sge/opengl/xrandr/version_fwd.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef_impl.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 #include <fcppt/io/ostream_fwd.hpp>
 
 #undef major

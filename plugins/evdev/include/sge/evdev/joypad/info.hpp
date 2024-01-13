@@ -7,7 +7,7 @@
 #define SGE_EVDEV_JOYPAD_INFO_HPP_INCLUDED
 
 #include <sge/evdev/joypad/event_map.hpp>
-#include <sge/evdev/joypad/info_fwd.hpp>
+#include <sge/evdev/joypad/info_fwd.hpp> // IWYU pragma: keep
 #include <sge/input/joypad/info.hpp>
 
 namespace sge::evdev::joypad

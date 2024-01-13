@@ -7,6 +7,6 @@
 #define SGE_OPENGL_TEXTURE_CUBE_SIDE_ARRAY_HPP_INCLUDED
 
 #include <sge/opengl/texture/cube_side_array_fwd.hpp> // IWYU pragma: export
-#include <fcppt/enum/array_impl.hpp>
+#include <fcppt/enum/array_impl.hpp> // IWYU pragma: keep
 
 #endif

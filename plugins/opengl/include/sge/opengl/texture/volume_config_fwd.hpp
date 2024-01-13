@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-class volume_config;
+class volume_config; // IWYU pragma: export
 
 }
 

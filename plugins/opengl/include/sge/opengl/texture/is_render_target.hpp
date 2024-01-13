@@ -7,7 +7,7 @@
 #define SGE_OPENGL_TEXTURE_IS_RENDER_TARGET_HPP_INCLUDED
 
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::texture
 {

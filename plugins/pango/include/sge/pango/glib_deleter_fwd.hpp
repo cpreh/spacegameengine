@@ -9,7 +9,7 @@
 namespace sge::pango
 {
 
-struct glib_deleter;
+struct glib_deleter; // IWYU pragma: export
 
 }
 

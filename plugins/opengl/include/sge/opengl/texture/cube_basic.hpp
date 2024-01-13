@@ -9,7 +9,7 @@
 #include <sge/opengl/texture/basic.hpp>
 #include <sge/opengl/texture/cube_basic_fwd.hpp> // IWYU pragma: export
 #include <sge/opengl/texture/cube_types.hpp>
-#include <sge/renderer/texture/cube.hpp>
+#include <sge/renderer/texture/cube.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

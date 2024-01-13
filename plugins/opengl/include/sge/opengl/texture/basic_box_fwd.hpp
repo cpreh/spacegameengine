@@ -10,7 +10,7 @@ namespace sge::opengl::texture
 {
 
 template <typename Types>
-class basic_box; // NOLINT(cppcoreguidelines-virtual-class-destructor)
+class basic_box; // NOLINT(cppcoreguidelines-virtual-class-destructor) // IWYU pragma: keep
 
 }
 

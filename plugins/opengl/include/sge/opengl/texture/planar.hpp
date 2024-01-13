@@ -6,14 +6,9 @@
 #ifndef SGE_OPENGL_TEXTURE_PLANAR_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_PLANAR_HPP_INCLUDED
 
-#include <sge/opengl/texture/basic_box.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/opengl/texture/buffer_surface_types.hpp>
-#include <sge/opengl/texture/color_surface_types.hpp>
 #include <sge/opengl/texture/planar_basic.hpp>
-#include <sge/opengl/texture/planar_fwd.hpp>
-#include <sge/opengl/texture/planar_types.hpp>
-#include <sge/renderer/texture/planar.hpp>
+#include <sge/opengl/texture/planar_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
 

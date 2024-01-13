@@ -16,6 +16,7 @@
 #include <sge/opengl/target/scoped.hpp>
 #include <sge/opengl/target/set_scissor_area.hpp>
 #include <sge/opengl/target/viewport.hpp>
+#include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/target/scissor_area.hpp>
 #include <sge/renderer/target/viewport.hpp>
 #include <fcppt/make_ref.hpp>

@@ -6,8 +6,8 @@
 #ifndef SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE_HPP_INCLUDED
 #define SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE_HPP_INCLUDED
 
-#include <fcppt/from_std_string.hpp>
-#include <fcppt/optional_string.hpp>
+#include <fcppt/from_std_string.hpp> // IWYU pragma: keep
+#include <fcppt/optional_string.hpp> // IWYU pragma: keep
 
 #define SGE_EVDEV_DEVICE_CODE_TO_STRING_CASE(value) \
   case value: \

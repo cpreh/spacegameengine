@@ -6,7 +6,7 @@
 #ifndef SGE_EVDEV_INOTIFY_EVENT_HPP_INCLUDED
 #define SGE_EVDEV_INOTIFY_EVENT_HPP_INCLUDED
 
-#include <sge/evdev/inotify/event_fwd.hpp>
+#include <sge/evdev/inotify/event_fwd.hpp> // IWYU pragma: keep
 #include <sge/evdev/inotify/event_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>

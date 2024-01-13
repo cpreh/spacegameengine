@@ -13,6 +13,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <exception>
 #include <EGL/egl.h>
+#include <EGL/eglplatform.h>
 #include <fcppt/config/external_end.hpp>
 
 template <typename NativeWindow>

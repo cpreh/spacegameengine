@@ -7,7 +7,6 @@
 #define SGE_OPENGL_XRANDR_MODES_VIEW_HPP_INCLUDED
 
 #include <sge/opengl/xrandr/const_screen_resources_ref.hpp>
-#include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>

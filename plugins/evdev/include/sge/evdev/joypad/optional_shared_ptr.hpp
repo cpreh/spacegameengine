@@ -7,6 +7,6 @@
 #define SGE_EVDEV_JOYPAD_OPTIONAL_SHARED_PTR_HPP_INCLUDED
 
 #include <sge/evdev/joypad/optional_shared_ptr_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

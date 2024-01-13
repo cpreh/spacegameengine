@@ -6,7 +6,7 @@
 #ifndef SGE_PANGO_EXTENTS_HPP_INCLUDED
 #define SGE_PANGO_EXTENTS_HPP_INCLUDED
 
-#include <sge/pango/extents_fwd.hpp>
+#include <sge/pango/extents_fwd.hpp> // IWYU pragma: keep
 #include <sge/pango/ink_rect.hpp>
 #include <sge/pango/logical_rect.hpp>
 

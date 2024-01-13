@@ -7,6 +7,6 @@
 #define SGE_OPENGL_OPTIONAL_ENUM_HPP_INCLUDED
 
 #include <sge/opengl/optional_enum_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

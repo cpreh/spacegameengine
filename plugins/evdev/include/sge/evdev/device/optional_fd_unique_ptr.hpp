@@ -7,6 +7,6 @@
 #define SGE_EVDEV_DEVICE_OPTIONAL_FD_UNIQUE_PTR_HPP_INCLUDED
 
 #include <sge/evdev/device/optional_fd_unique_ptr_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

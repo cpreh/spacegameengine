@@ -7,6 +7,6 @@
 #define SGE_OPENAL_VECTOR3_HPP_INCLUDED
 
 #include <sge/openal/vector3_fwd.hpp> // IWYU pragma: export
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/static.hpp> // IWYU pragma: keep
 
 #endif

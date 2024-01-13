@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-class bind_context;
+class bind_context; // IWYU pragma: export
 
 }
 

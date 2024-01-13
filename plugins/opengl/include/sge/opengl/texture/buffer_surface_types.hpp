@@ -6,7 +6,7 @@
 #ifndef SGE_OPENGL_TEXTURE_BUFFER_SURFACE_TYPES_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_BUFFER_SURFACE_TYPES_HPP_INCLUDED
 
-#include <sge/opengl/texture/buffer_surface_types_fwd.hpp>
+#include <sge/opengl/texture/buffer_surface_types_fwd.hpp> // IWYU pragma: keep
 #include <sge/opengl/texture/init_function.hpp>
 #include <sge/opengl/texture/sub_function.hpp>
 #include <sge/renderer/size_type.hpp>

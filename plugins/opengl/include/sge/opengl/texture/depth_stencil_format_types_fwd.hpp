@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-struct depth_stencil_format_types;
+struct depth_stencil_format_types; // IWYU pragma: export
 
 }
 

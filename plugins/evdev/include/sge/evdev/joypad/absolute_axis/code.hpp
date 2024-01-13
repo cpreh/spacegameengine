@@ -6,7 +6,7 @@
 #ifndef SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_CODE_HPP_INCLUDED
 #define SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_CODE_HPP_INCLUDED
 
-#include <sge/evdev/joypad/absolute_axis/code_fwd.hpp>
+#include <sge/evdev/joypad/absolute_axis/code_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input-event-codes.h>
 #include <fcppt/config/external_end.hpp>

@@ -9,7 +9,7 @@
 namespace sge::opengl::texture
 {
 
-struct buffer_surface_types;
+struct buffer_surface_types; // IWYU pragma: export
 
 }
 

@@ -7,6 +7,6 @@
 #define SGE_OPENGL_GLX_OPTIONAL_PROC_ADDRESS_FUNCTION_HPP_INCLUDED
 
 #include <sge/opengl/glx/optional_proc_address_function_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/reference.hpp>
+#include <fcppt/optional/reference.hpp> // IWYU pragma: keep
 
 #endif
