@@ -7,7 +7,7 @@
 #define SGE_X11INPUT_DEVICE_VALUATOR_RANGE_HPP_INCLUDED
 
 #include <sge/x11input/device/valuator/iterator.hpp>
-#include <sge/x11input/device/valuator/range_fwd.hpp>
+#include <sge/x11input/device/valuator/range_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>

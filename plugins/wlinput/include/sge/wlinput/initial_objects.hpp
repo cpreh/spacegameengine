@@ -9,7 +9,7 @@
 #include <sge/wlinput/create_function.hpp>
 #include <sge/wlinput/map.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
-#include <awl/backends/wayland/system/seat/object.hpp>
+#include <awl/backends/wayland/system/seat/object.hpp> // IWYU pragma: keep
 #include <awl/backends/wayland/system/seat/set.hpp>
 #include <awl/backends/wayland/system/seat/shared_ptr.hpp>
 #include <fcppt/make_ref.hpp>

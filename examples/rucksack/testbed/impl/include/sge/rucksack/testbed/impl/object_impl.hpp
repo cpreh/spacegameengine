@@ -30,8 +30,6 @@
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/reference_impl.hpp>
-#include <fcppt/string.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>

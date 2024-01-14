@@ -10,8 +10,8 @@
 #include <sge/wlinput/create_function.hpp>
 #include <sge/wlinput/map.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
-#include <awl/backends/wayland/system/seat/caps_field.hpp>
-#include <awl/backends/wayland/system/seat/object.hpp>
+#include <awl/backends/wayland/system/seat/caps_field.hpp> // IWYU pragma: keep
+#include <awl/backends/wayland/system/seat/object.hpp> // IWYU pragma: keep
 #include <awl/backends/wayland/system/seat/object_ref.hpp>
 #include <awl/event/base.hpp>
 #include <awl/event/base_unique_ptr.hpp>

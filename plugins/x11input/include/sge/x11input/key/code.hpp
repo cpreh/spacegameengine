@@ -7,7 +7,7 @@
 #define SGE_X11INPUT_KEY_CODE_HPP_INCLUDED
 
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::x11input::key
 {

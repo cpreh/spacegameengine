@@ -7,7 +7,7 @@
 #define SGE_X11INPUT_EVENT_WINDOW_DEMUXER_HPP_INCLUDED
 
 #include <sge/x11input/event/demuxer_decl.hpp>
-#include <sge/x11input/event/window_demuxer_fwd.hpp>
+#include <sge/x11input/event/window_demuxer_fwd.hpp> // IWYU pragma: export
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>

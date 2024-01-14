@@ -10,7 +10,7 @@
 #include <sge/audio/channel_count.hpp>
 #include <sge/audio/sample_count.hpp>
 #include <sge/audio/sample_rate.hpp>
-#include <sge/wave/info_fwd.hpp>
+#include <sge/wave/info_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <bit>
 #include <fcppt/config/external_end.hpp>

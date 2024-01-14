@@ -8,6 +8,8 @@
 
 #include <sge/x11input/cursor/scroll_valuator.hpp>
 #include <sge/x11input/device/valuator/index.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_std_hash.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <unordered_map>
 #include <fcppt/config/external_end.hpp>

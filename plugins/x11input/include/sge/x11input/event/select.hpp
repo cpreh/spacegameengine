@@ -6,6 +6,7 @@
 #ifndef SGE_X11INPUT_EVENT_SELECT_HPP_INCLUDED
 #define SGE_X11INPUT_EVENT_SELECT_HPP_INCLUDED
 
+#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/event/demuxer_decl.hpp>
 #include <sge/x11input/event/select_unsafe.hpp>
 #include <sge/x11input/event/static_type.hpp>
@@ -13,7 +14,7 @@
 #include <sge/x11input/event/type_container.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/algorithm/loop_break_mpl.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // IWYU pragma: keep
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/mpl/bind.hpp>
 #include <fcppt/mpl/constant.hpp>

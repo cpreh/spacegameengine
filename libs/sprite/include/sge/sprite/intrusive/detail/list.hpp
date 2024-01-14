@@ -8,6 +8,7 @@
 
 #include <sge/sprite/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <boost/intrusive/intrusive_fwd.hpp>
 #include <boost/intrusive/list.hpp>
 #include <fcppt/config/external_end.hpp>
 

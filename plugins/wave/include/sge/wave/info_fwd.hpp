@@ -9,7 +9,7 @@
 namespace sge::wave
 {
 
-class info;
+class info; // IWYU pragma: export
 
 }
 

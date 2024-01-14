@@ -12,6 +12,7 @@
 #include <sge/x11input/device/valuator/relative.hpp>
 #include <sge/x11input/device/valuator/update_accu.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp> // IWYU pragma: keep
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>

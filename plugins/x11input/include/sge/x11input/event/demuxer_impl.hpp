@@ -9,10 +9,11 @@
 #include <sge/window/event_combiner.hpp>
 #include <sge/x11input/device/id.hpp>
 #include <sge/x11input/event/demuxer_decl.hpp> // IWYU pragma: export
+#include <awl/backends/x11/window/base_fwd.hpp>
 #include <awl/backends/x11/window/const_base_ref.hpp>
-#include <awl/event/base.hpp>
+#include <awl/event/base.hpp> // IWYU pragma: keep
 #include <awl/event/container.hpp>
-#include <fcppt/function_impl.hpp>
+#include <fcppt/function_impl.hpp> // IWYU pragma: keep
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/find_opt_mapped.hpp>
@@ -23,8 +24,8 @@
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_impl.hpp>
-#include <fcppt/signal/unregister/base_impl.hpp>
+#include <fcppt/signal/object_impl.hpp> // IWYU pragma: keep
+#include <fcppt/signal/unregister/base_impl.hpp> // IWYU pragma: keep
 #include <fcppt/signal/unregister/function.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <utility>

@@ -113,7 +113,7 @@
 #include <fcppt/array/make.hpp>
 #include <fcppt/cast/dynamic.hpp>
 #include <fcppt/log/level.hpp>
-#include <fcppt/math/vector/static.hpp>
+#include <fcppt/math/vector/static.hpp> // IWYU pragma: keep
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>

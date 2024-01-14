@@ -7,6 +7,6 @@
 #define SGE_WAVE_OPTIONAL_HEADER_HPP_INCLUDED
 
 #include <sge/wave/optional_header_fwd.hpp> // IWYU pragma: export
-#include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

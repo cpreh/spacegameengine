@@ -11,7 +11,6 @@
 #include <sge/rucksack/testbed/systems_fwd.hpp>
 #include <sge/rucksack/testbed/detail/symbol.hpp>
 #include <sge/rucksack/widget/reference.hpp>
-#include <sge/systems/instance_fwd.hpp>
 #include <sge/window/title.hpp>
 #include <awl/main/exit_code.hpp>
 #include <fcppt/nonmovable.hpp>

@@ -9,7 +9,7 @@
 namespace sge::sdlinput::joypad
 {
 
-enum class hat_direction;
+enum class hat_direction; // IWYU pragma: export
 
 }
 

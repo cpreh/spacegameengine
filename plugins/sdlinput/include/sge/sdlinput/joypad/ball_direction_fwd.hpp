@@ -9,7 +9,7 @@
 namespace sge::sdlinput::joypad
 {
 
-enum class ball_direction;
+enum class ball_direction; // IWYU pragma: export
 
 }
 

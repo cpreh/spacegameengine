@@ -10,7 +10,7 @@ namespace sge::x11input::event
 {
 
 template <typename Event>
-class demuxer;
+class demuxer; // IWYU pragma: export
 
 }
 

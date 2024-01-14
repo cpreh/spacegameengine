@@ -7,6 +7,6 @@
 #define SGE_X11INPUT_FOCUS_CHAR_VECTOR_HPP_INCLUDED
 
 #include <sge/x11input/focus/char_vector_fwd.hpp> // IWYU pragma: export
-#include <fcppt/container/raw_vector/object.hpp>
+#include <fcppt/container/raw_vector/object.hpp> // IWYU pragma: keep
 
 #endif

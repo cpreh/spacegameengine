@@ -12,6 +12,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
+#include <cstddef>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 

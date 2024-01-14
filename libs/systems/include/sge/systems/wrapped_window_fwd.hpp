@@ -9,7 +9,7 @@
 namespace sge::systems
 {
 
-class wrapped_window;
+class wrapped_window; // IWYU pragma: export
 
 }
 

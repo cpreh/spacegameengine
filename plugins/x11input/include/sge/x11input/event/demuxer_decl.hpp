@@ -7,13 +7,14 @@
 #define SGE_X11INPUT_EVENT_DEMUXER_DECL_HPP_INCLUDED
 
 #include <sge/x11input/device/id.hpp>
-#include <sge/x11input/event/demuxer_fwd.hpp>
+#include <sge/x11input/event/demuxer_fwd.hpp> // IWYU pragma: keep
 #include <awl/backends/x11/window/base_fwd.hpp>
 #include <awl/backends/x11/window/const_base_ref.hpp>
 #include <awl/event/container.hpp>
 #include <fcppt/function_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/strong_typedef_std_hash.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_std_hash.hpp> // IWYU pragma: keep
 #include <fcppt/signal/auto_connection_fwd.hpp>
 #include <fcppt/signal/object_decl.hpp>
 #include <fcppt/signal/unregister/base_decl.hpp>

@@ -6,7 +6,7 @@
 #ifndef SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
 #define SGE_SYSTEMS_WRAPPED_WINDOW_HPP_INCLUDED
 
-#include <sge/systems/wrapped_window_fwd.hpp>
+#include <sge/systems/wrapped_window_fwd.hpp> // IWYU pragma: keep
 #include <sge/systems/detail/symbol.hpp>
 #include <awl/system/reference.hpp>
 #include <awl/window/reference.hpp>

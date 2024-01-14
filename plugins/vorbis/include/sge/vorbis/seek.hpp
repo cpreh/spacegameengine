@@ -9,12 +9,13 @@
 #include <sge/media/optional_name_fwd.hpp>
 #include <sge/vorbis/stream_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <vorbis/codec.h>
+#include <ogg/os_types.h> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::vorbis
 {
 
+// NOLINTNEXTLINE(misc-include-cleaner)
 void seek(sge::vorbis::stream &, sge::media::optional_name const &, ogg_int64_t);
 
 }

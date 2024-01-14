@@ -9,7 +9,7 @@
 namespace sge::x11input::cursor
 {
 
-class scroll_valuator;
+class scroll_valuator; // IWYU pragma: export
 
 }
 

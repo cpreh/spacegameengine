@@ -8,11 +8,9 @@ set(
 	plugins/x11input/include/sge/x11input/cursor/grab_error_to_string.hpp
 	plugins/x11input/include/sge/x11input/cursor/grab_fwd.hpp
 	plugins/x11input/include/sge/x11input/cursor/grab_unique_ptr.hpp
-	plugins/x11input/include/sge/x11input/cursor/info_fwd.hpp
 	plugins/x11input/include/sge/x11input/cursor/make_scroll_valuators.hpp
 	plugins/x11input/include/sge/x11input/cursor/object.hpp
 	plugins/x11input/include/sge/x11input/cursor/object_fwd.hpp
-	plugins/x11input/include/sge/x11input/cursor/object_unique_ptr.hpp
 	plugins/x11input/include/sge/x11input/cursor/optional_grab_unique_ptr.hpp
 	plugins/x11input/include/sge/x11input/cursor/optional_grab_unique_ptr_fwd.hpp
 	plugins/x11input/include/sge/x11input/cursor/position.hpp
@@ -36,10 +34,7 @@ set(
 	plugins/x11input/include/sge/x11input/device/info/string_from_atom.hpp
 	plugins/x11input/include/sge/x11input/device/insert.hpp
 	plugins/x11input/include/sge/x11input/device/map.hpp
-	plugins/x11input/include/sge/x11input/device/optional_id.hpp
-	plugins/x11input/include/sge/x11input/device/optional_id_fwd.hpp
 	plugins/x11input/include/sge/x11input/device/remove.hpp
-	plugins/x11input/include/sge/x11input/device/use.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/absolute.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/absolute_fwd.hpp
 	plugins/x11input/include/sge/x11input/device/valuator/accu.hpp
@@ -96,7 +91,6 @@ set(
 	plugins/x11input/include/sge/x11input/focus/lookup_string.hpp
 	plugins/x11input/include/sge/x11input/focus/object.hpp
 	plugins/x11input/include/sge/x11input/focus/object_fwd.hpp
-	plugins/x11input/include/sge/x11input/focus/object_unique_ptr.hpp
 	plugins/x11input/include/sge/x11input/focus/translate_event.hpp
 	plugins/x11input/include/sge/x11input/key/code.hpp
 	plugins/x11input/include/sge/x11input/key/code_from_event.hpp
@@ -107,12 +101,9 @@ set(
 	plugins/x11input/include/sge/x11input/key/translate_sym.hpp
 	plugins/x11input/include/sge/x11input/keyboard/device.hpp
 	plugins/x11input/include/sge/x11input/keyboard/device_fwd.hpp
-	plugins/x11input/include/sge/x11input/keyboard/device_unique_ptr.hpp
 	plugins/x11input/include/sge/x11input/keyboard/key_from_event.hpp
 	plugins/x11input/include/sge/x11input/keyboard/key_id.hpp
-	plugins/x11input/include/sge/x11input/mask_c.hpp
 	plugins/x11input/include/sge/x11input/mask_is_set.hpp
-	plugins/x11input/include/sge/x11input/mask_type.hpp
 	plugins/x11input/include/sge/x11input/mouse/axis.hpp
 	plugins/x11input/include/sge/x11input/mouse/axis_code.hpp
 	plugins/x11input/include/sge/x11input/mouse/axis_info.hpp
@@ -123,7 +114,6 @@ set(
 	plugins/x11input/include/sge/x11input/mouse/button_infos.hpp
 	plugins/x11input/include/sge/x11input/mouse/device.hpp
 	plugins/x11input/include/sge/x11input/mouse/device_fwd.hpp
-	plugins/x11input/include/sge/x11input/mouse/device_unique_ptr.hpp
 	plugins/x11input/include/sge/x11input/mouse/info.hpp
 	plugins/x11input/include/sge/x11input/mouse/make_axis_infos.hpp
 	plugins/x11input/include/sge/x11input/mouse/make_button_infos.hpp

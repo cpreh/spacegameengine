@@ -23,6 +23,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_comparison.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/reference_to_base.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/algorithm/remove_if.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/math/box/contains_point.hpp>

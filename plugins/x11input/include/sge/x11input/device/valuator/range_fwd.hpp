@@ -9,7 +9,7 @@
 namespace sge::x11input::device::valuator
 {
 
-class range;
+class range; // IWYU pragma: export
 
 }
 

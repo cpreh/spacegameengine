@@ -10,6 +10,8 @@
 #include <sge/x11input/device/valuator/length.hpp>
 #include <sge/x11input/device/valuator/pair.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>

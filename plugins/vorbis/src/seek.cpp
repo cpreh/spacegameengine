@@ -10,7 +10,7 @@
 #include <sge/vorbis/stream.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <ogg/os_types.h> // NOLINT(misc-include-cleaner)
+#include <ogg/os_types.h> // IWYU pragma: keep
 #include <vorbis/vorbisfile.h>
 #include <fcppt/config/external_end.hpp>
 

@@ -7,7 +7,7 @@
 #define SGE_X11INPUT_DEVICE_VALUATOR_PAIR_HPP_INCLUDED
 
 #include <sge/x11input/device/valuator/index.hpp>
-#include <sge/x11input/device/valuator/pair_fwd.hpp>
+#include <sge/x11input/device/valuator/pair_fwd.hpp> // IWYU pragma: keep
 #include <sge/x11input/device/valuator/value.hpp>
 
 namespace sge::x11input::device::valuator

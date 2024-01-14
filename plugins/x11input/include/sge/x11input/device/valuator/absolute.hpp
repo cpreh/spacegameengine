@@ -6,7 +6,7 @@
 #ifndef SGE_X11INPUT_DEVICE_VALUATOR_ABSOLUTE_HPP_INCLUDED
 #define SGE_X11INPUT_DEVICE_VALUATOR_ABSOLUTE_HPP_INCLUDED
 
-#include <sge/x11input/device/valuator/absolute_fwd.hpp>
+#include <sge/x11input/device/valuator/absolute_fwd.hpp> // IWYU pragma: keep
 #include <sge/x11input/device/valuator/value.hpp>
 
 namespace sge::x11input::device::valuator

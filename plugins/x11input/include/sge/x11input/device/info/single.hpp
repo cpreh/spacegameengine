@@ -11,9 +11,6 @@
 #include <sge/x11input/device/info/multi.hpp>
 #include <awl/backends/x11/display_ref.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XInput2.h>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::x11input::device::info
 {

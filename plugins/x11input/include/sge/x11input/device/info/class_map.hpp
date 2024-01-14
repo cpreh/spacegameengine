@@ -10,7 +10,7 @@
 #include <fcppt/mpl/map/object.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
-#include <X11/extensions/XInput2.h>
+#include <X11/extensions/XInput2.h> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::x11input::device::info

@@ -7,7 +7,7 @@
 #define SGE_WLINPUT_FOCUS_XKB_KEYCODE_HPP_INCLUDED
 
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <xkbcommon/xkbcommon.h>
 #include <fcppt/config/external_end.hpp>

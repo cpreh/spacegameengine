@@ -7,7 +7,7 @@
 #define SGE_WLINPUT_FOCUS_OPTIONAL_STATE_HPP_INCLUDED
 
 #include <sge/wlinput/focus/optional_state_fwd.hpp> // IWYU pragma: export
-#include <sge/wlinput/focus/state.hpp>
-#include <fcppt/optional/object_impl.hpp>
+#include <sge/wlinput/focus/state.hpp> // IWYU pragma: keep
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 #endif

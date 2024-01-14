@@ -7,10 +7,10 @@
 #define SGE_RUCKSACK_TESTBED_SYSTEMS_HPP_INCLUDED
 
 #include <sge/rucksack/testbed/systems_fwd.hpp> // IWYU pragma: export
-#include <sge/systems/instance.hpp>
-#include <sge/systems/renderer_caps.hpp>
-#include <sge/systems/with_input.hpp>
-#include <sge/systems/with_renderer.hpp>
-#include <sge/systems/with_window.hpp>
+#include <sge/systems/instance.hpp> // IWYU pragma: keep
+#include <sge/systems/renderer_caps.hpp> // IWYU pragma: keep
+#include <sge/systems/with_input.hpp> // IWYU pragma: keep
+#include <sge/systems/with_renderer.hpp> // IWYU pragma: keep
+#include <sge/systems/with_window.hpp> // IWYU pragma: keep
 
 #endif

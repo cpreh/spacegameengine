@@ -21,7 +21,7 @@
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/XI2.h>
+#include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::x11input::keyboard

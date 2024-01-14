@@ -7,9 +7,6 @@
 #define SGE_SDLINPUT_TRANSLATE_PRESSED_HPP_INCLUDED
 
 #include <sge/sdlinput/translate/pressed_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <cstdint>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sdlinput::translate
 {

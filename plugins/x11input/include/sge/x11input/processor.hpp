@@ -23,7 +23,6 @@
 #include <sge/window/object_fwd.hpp>
 #include <sge/window/object_ref.hpp>
 #include <sge/x11input/opcode.hpp>
-#include <sge/x11input/device/id.hpp>
 #include <sge/x11input/device/map.hpp>
 #include <sge/x11input/event/handler.hpp>
 #include <sge/x11input/event/raw_demuxer.hpp>
@@ -38,11 +37,11 @@
 #include <awl/event/container.hpp>
 #include <awl/event/optional_base_unique_ptr_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
-#include <fcppt/strong_typedef_std_hash.hpp>
+#include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_std_hash.hpp> // IWYU pragma: keep
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/object_fwd.hpp>
 #include <fcppt/signal/auto_connection.hpp>
-#include <fcppt/signal/object_decl.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <unordered_map>

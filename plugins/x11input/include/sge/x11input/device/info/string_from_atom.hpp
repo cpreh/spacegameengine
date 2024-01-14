@@ -9,7 +9,7 @@
 #include <awl/backends/x11/display_fwd.hpp>
 #include <fcppt/optional_string_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/Xlib.h>
+#include <X11/X.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::x11input::device::info

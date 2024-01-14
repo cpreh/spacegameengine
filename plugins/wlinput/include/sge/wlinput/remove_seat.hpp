@@ -8,12 +8,12 @@
 
 #include <sge/wlinput/map.hpp>
 #include <awl/backends/wayland/system/seat/caps.hpp>
-#include <awl/backends/wayland/system/seat/caps_field.hpp>
+#include <awl/backends/wayland/system/seat/caps_field.hpp> // IWYU pragma: keep
 #include <awl/backends/wayland/system/seat/object.hpp>
 #include <awl/event/base.hpp>
+#include <awl/event/base_unique_ptr.hpp>
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/make_unique_ptr.hpp>
-#include <fcppt/shared_ptr_impl.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/bitfield/operators.hpp>

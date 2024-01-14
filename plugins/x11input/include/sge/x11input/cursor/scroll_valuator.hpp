@@ -8,7 +8,7 @@
 
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/input/cursor/scroll_value.hpp>
-#include <sge/x11input/cursor/scroll_valuator_fwd.hpp>
+#include <sge/x11input/cursor/scroll_valuator_fwd.hpp> // IWYU pragma: keep
 #include <sge/x11input/device/valuator/any.hpp>
 #include <sge/x11input/device/valuator/value.hpp>
 

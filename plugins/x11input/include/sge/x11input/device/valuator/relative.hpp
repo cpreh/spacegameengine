@@ -7,7 +7,7 @@
 #define SGE_X11INPUT_DEVICE_VALUATOR_RELATIVE_HPP_INCLUDED
 
 #include <sge/x11input/device/valuator/accu.hpp>
-#include <sge/x11input/device/valuator/relative_fwd.hpp>
+#include <sge/x11input/device/valuator/relative_fwd.hpp> // IWYU pragma: keep
 
 namespace sge::x11input::device::valuator
 {

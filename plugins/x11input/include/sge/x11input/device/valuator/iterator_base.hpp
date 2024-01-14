@@ -11,7 +11,7 @@
 #include <fcppt/iterator/base_impl.hpp>
 #include <fcppt/iterator/types.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstdlib>
+#include <cstddef>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 
