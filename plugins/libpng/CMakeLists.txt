@@ -1,9 +1,11 @@
 set(
 	SGE_LIBPNG_FILES
+	plugins/libpng/include/sge/libpng/bit_depth.hpp
 	plugins/libpng/include/sge/libpng/bit_depth_from_format.hpp
 	plugins/libpng/include/sge/libpng/byte_vector.hpp
 	plugins/libpng/include/sge/libpng/byte_vector_fwd.hpp
 	plugins/libpng/include/sge/libpng/bytes_per_pixel.hpp
+	plugins/libpng/include/sge/libpng/color_type.hpp
 	plugins/libpng/include/sge/libpng/color_type_from_format.hpp
 	plugins/libpng/include/sge/libpng/compare_gamma.hpp
 	plugins/libpng/include/sge/libpng/create_struct.hpp

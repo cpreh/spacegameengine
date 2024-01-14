@@ -6,26 +6,27 @@
 #include <fcppt/config/external_begin.hpp>
 #include <png.h>
 #include <fcppt/config/external_end.hpp>
+#include <sge/libpng/bit_depth.hpp>
+#include <sge/libpng/color_type.hpp>
 #include <sge/libpng/compare_gamma.hpp>
 #include <sge/libpng/format.hpp>
 #include <sge/libpng/gamma.hpp>
 #include <sge/libpng/make_format.hpp>
 #include <sge/libpng/optional_format.hpp>
 #include <sge/libpng/srgb_gamma.hpp>
-#include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/strong_typedef_output.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/config/external_begin.hpp> // NOLINT(readability-duplicate-include)
 #include <png.h> // NOLINT(readability-duplicate-include)
-#include <pngconf.h>
 #include <fcppt/config/external_end.hpp> // NOLINT(readability-duplicate-include)
 
 sge::libpng::optional_format sge::libpng::make_format(
     fcppt::log::object &_log,
-    png_byte const _color_type,
-    png_byte const _bit_depth,
+    sge::libpng::color_type const _color_type,
+    sge::libpng::bit_depth const _bit_depth,
     sge::libpng::gamma const _gamma)
 {
   // For now, we assume that all png images have a gamma of 2.2 (or
@@ -44,13 +45,13 @@ sge::libpng::optional_format sge::libpng::make_format(
     return sge::libpng::optional_format();
   }
 
-  if (_bit_depth != 8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  if (_bit_depth.get() != 8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
   )
   {
     return sge::libpng::optional_format();
   }
 
-  switch (_color_type)
+  switch (_color_type.get())
   {
   case PNG_COLOR_TYPE_GRAY:
     return sge::libpng::optional_format(sge::libpng::format::l8);

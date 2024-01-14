@@ -9,8 +9,10 @@
 #include <fcppt/config/external_end.hpp>
 #include <sge/image2d/dim.hpp>
 #include <sge/image2d/file_exception.hpp>
+#include <sge/libpng/bit_depth.hpp>
 #include <sge/libpng/byte_vector.hpp>
 #include <sge/libpng/bytes_per_pixel.hpp>
+#include <sge/libpng/color_type.hpp>
 #include <sge/libpng/error_context.hpp>
 #include <sge/libpng/file_rep.hpp>
 #include <sge/libpng/file_rep_from_stream.hpp>
@@ -69,11 +71,11 @@ sge::libpng::optional_file_rep sge::libpng::file_rep_from_stream(
 
   png_byte const channels(::png_get_channels(read_ptr.ptr(), info.get()));
 
-  png_byte const bpp(::png_get_bit_depth(read_ptr.ptr(), info.get()));
+  sge::libpng::bit_depth const bpp{::png_get_bit_depth(read_ptr.ptr(), info.get())};
 
-  png_byte const color_type(::png_get_color_type(read_ptr.ptr(), info.get()));
+  sge::libpng::color_type const color_type{::png_get_color_type(read_ptr.ptr(), info.get())};
 
-  if ((bpp % CHAR_BIT) != 0)
+  if ((bpp.get() % CHAR_BIT) != 0)
   {
     throw sge::image2d::file_exception(
         _name, FCPPT_TEXT("A png file has a bit depth that's not a multiple of a byte's size!"));
@@ -82,10 +84,10 @@ sge::libpng::optional_file_rep sge::libpng::file_rep_from_stream(
   FCPPT_LOG_DEBUG(
       _log,
       fcppt::log::out << FCPPT_TEXT("png: dimensions: ") << size << FCPPT_TEXT(", bit depth: ")
-                      << fcppt::cast::promote_int(bpp) << FCPPT_TEXT(", channels: ")
+                      << fcppt::cast::promote_int(bpp.get()) << FCPPT_TEXT(", channels: ")
                       << fcppt::cast::promote_int(channels))
 
-  switch (color_type)
+  switch (color_type.get())
   {
   case PNG_COLOR_TYPE_PALETTE: // NOLINT(hicpp-signed-bitwise)
     FCPPT_LOG_INFO(
@@ -95,7 +97,7 @@ sge::libpng::optional_file_rep sge::libpng::file_rep_from_stream(
 
     return sge::libpng::optional_file_rep();
   case PNG_COLOR_TYPE_GRAY:
-    if (bpp < 8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+    if (bpp.get() < 8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
     )
     {
       ::png_set_expand_gray_1_2_4_to_8(read_ptr.ptr());
@@ -110,14 +112,14 @@ sge::libpng::optional_file_rep sge::libpng::file_rep_from_stream(
     ::png_set_tRNS_to_alpha(read_ptr.ptr());
   }
 
-  if (bpp == 16 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+  if (bpp.get() == 16 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
   )
   {
     ::png_set_strip_16(read_ptr.ptr());
   }
 
   sge::libpng::bytes_per_pixel const bytes_per_pixel(
-      fcppt::cast::to_unsigned((bpp / CHAR_BIT) * channels));
+      fcppt::cast::to_unsigned((bpp.get() / CHAR_BIT) * channels));
 
   sge::libpng::byte_vector bytes(fcppt::container::buffer::to_raw_vector(
       fcppt::container::buffer::read_from<
@@ -143,7 +145,7 @@ sge::libpng::optional_file_rep sge::libpng::file_rep_from_stream(
             _log,
             fcppt::log::out << sge::media::error_string(
                                    _name, FCPPT_TEXT("Unsupported bits per pixel."))
-                            << FCPPT_TEXT(" Depth is ") << fcppt::cast::promote_int(bpp))
+                            << FCPPT_TEXT(" Depth is ") << fcppt::cast::promote_int(bpp.get()))
 
         return sge::libpng::optional_file_rep();
       },
