@@ -3,10 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/ext.hpp>
 #include <sge/opengl/buffer/base.hpp>
+#include <sge/opengl/buffer/first.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
+#include <sge/opengl/buffer/size.hpp>
 #include <sge/opengl/buffer/software.hpp>
 #include <sge/renderer/const_raw_pointer.hpp>
 #include <sge/renderer/exception.hpp>
@@ -68,10 +69,10 @@ GLvoid *sge::opengl::buffer::software::map_buffer(GLenum)
   return this->buffer_object(this->bound_buffer());
 }
 
-GLvoid *
-sge::opengl::buffer::software::map_buffer_range(GLbitfield, GLintptr const _first, GLsizeiptr)
+GLvoid *sge::opengl::buffer::software::map_buffer_range(
+    GLbitfield, sge::opengl::buffer::first const _first, sge::opengl::buffer::size)
 {
-  return this->buffer_object(this->bound_buffer()) + _first;
+  return this->buffer_object(this->bound_buffer()) + _first.get();
 }
 
 bool sge::opengl::buffer::software::map_buffer_range_supported() const { return true; }
@@ -83,24 +84,26 @@ void sge::opengl::buffer::software::unmap_buffer()
 }
 
 void sge::opengl::buffer::software::buffer_data(
-    GLsizeiptr const _size, void const *const _data, GLenum)
+    sge::opengl::buffer::size const _size, void const *const _data, GLenum)
 {
-  sge::renderer::raw_pointer &buffer(this->buffer_object(this->bound_buffer()));
+  sge::renderer::raw_pointer &buffer{this->buffer_object(this->bound_buffer())};
 
   // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
   delete[] buffer;
 
   // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
-  buffer = new sge::renderer::raw_value[fcppt::cast::to_unsigned(_size)];
+  buffer = new sge::renderer::raw_value[fcppt::cast::to_unsigned(_size.get())];
 
   if (_data != nullptr)
   {
-    this->buffer_sub_data(0, _size, _data);
+    this->buffer_sub_data(sge::opengl::buffer::first{0}, _size, _data);
   }
 }
 
 void sge::opengl::buffer::software::buffer_sub_data(
-    GLintptr const _first, GLsizeiptr const _size, void const *const _data)
+    sge::opengl::buffer::first const _first,
+    sge::opengl::buffer::size const _size,
+    void const *const _data)
 {
   if (_data == nullptr)
   {
@@ -108,16 +111,17 @@ void sge::opengl::buffer::software::buffer_sub_data(
   }
 
   std::copy_n(
-      fcppt::cast::to_char_ptr<sge::renderer::const_raw_pointer>(_data) + _first,
-      _size,
+      fcppt::cast::to_char_ptr<sge::renderer::const_raw_pointer>(_data) + _first.get(),
+      _size.get(),
       this->buffer_object(this->bound_buffer()));
 }
 
-void *sge::opengl::buffer::software::buffer_offset(GLintptr const _offset) const
+void *sge::opengl::buffer::software::buffer_offset(sge::opengl::buffer::first const _offset) const
 {
   return
       // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-      const_cast<sge::renderer::raw_pointer>(this->buffer_object(this->bound_buffer()) + _offset);
+      const_cast<sge::renderer::raw_pointer>(
+          this->buffer_object(this->bound_buffer()) + _offset.get());
 }
 
 bool sge::opengl::buffer::software::native() const { return false; }

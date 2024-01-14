@@ -7,8 +7,9 @@
 #include <sge/renderer/opengl/glinclude.hpp>
 
 sge::opengl::state::core::sampler::filter::anisotropy_config::anisotropy_config(
-    GLenum const _anisotropy_flag, GLenum const _max_anisotropy_flag)
-    : anisotropy_flag_(_anisotropy_flag), max_anisotropy_flag_(_max_anisotropy_flag)
+    anisotropy_flag_type const _anisotropy_flag,
+    max_anisotropy_flag_type const _max_anisotropy_flag)
+    : anisotropy_flag_{_anisotropy_flag.get()}, max_anisotropy_flag_{_max_anisotropy_flag.get()}
 {
 }
 

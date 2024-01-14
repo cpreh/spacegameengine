@@ -11,6 +11,8 @@
 #include <sge/opengl/texture/multi_config_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/opengl/glinclude.hpp> // IWYU pragma: keep
+#include <fcppt/declare_strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::texture
 {
@@ -26,7 +28,11 @@ public:
 
   using gl_client_active_texture = sge::opengl::fun_ref<gl_client_active_texture_proc>;
 
-  multi_config(gl_active_texture, gl_client_active_texture, sge::renderer::caps::texture_stages);
+  FCPPT_DECLARE_STRONG_TYPEDEF(gl_active_texture, active_texture_type);
+  FCPPT_DECLARE_STRONG_TYPEDEF(gl_client_active_texture, client_active_texture_type);
+
+  multi_config(
+      active_texture_type, client_active_texture_type, sge::renderer::caps::texture_stages);
 
   [[nodiscard]] gl_active_texture active_texture() const;
 

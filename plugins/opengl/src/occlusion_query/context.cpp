@@ -28,8 +28,8 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::occlusion_query::context::context(sge::opengl::info::context const &_info)
-    : sge::opengl::context::base(),
-      config_(
+    : sge::opengl::context::base{},
+      config_{
           sge::opengl::info::version_at_least(
               _info.version(),
               sge::opengl::info::major_version{1U},
@@ -54,10 +54,13 @@ sge::opengl::occlusion_query::context::context(sge::opengl::info::context const 
                     sge::opengl::deref_fun_ptr(
                         sge::opengl::info::cast_function<PFNGLGETQUERYOBJECTUIVPROC>(
                             _info.load_function("glGetQueryObjectuiv"))),
-                    sge::opengl::convert::to_gl_enum<GL_SAMPLES_PASSED>(),
-                    sge::opengl::convert::to_gl_enum<GL_QUERY_RESULT_AVAILABLE>(),
-                    sge::opengl::convert::to_gl_enum<GL_QUERY_RESULT>()}}
-              : sge::opengl::occlusion_query::optional_config{})
+                    sge::opengl::occlusion_query::config::samples_target_type{
+                        sge::opengl::convert::to_gl_enum<GL_SAMPLES_PASSED>()},
+                    sge::opengl::occlusion_query::config::query_result_available_type{
+                        sge::opengl::convert::to_gl_enum<GL_QUERY_RESULT_AVAILABLE>()},
+                    sge::opengl::occlusion_query::config::query_result_type{
+                        sge::opengl::convert::to_gl_enum<GL_QUERY_RESULT>()}}}
+              : sge::opengl::occlusion_query::optional_config{}}
 {
 }
 

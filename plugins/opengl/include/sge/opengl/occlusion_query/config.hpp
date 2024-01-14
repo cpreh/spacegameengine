@@ -10,6 +10,8 @@
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/occlusion_query/config_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/opengl/glinclude.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::occlusion_query
 {
@@ -29,6 +31,10 @@ public:
 
   using gl_get_query_object_uiv = sge::opengl::fun_ref<PFNGLGETQUERYOBJECTUIVPROC>;
 
+  FCPPT_DECLARE_STRONG_TYPEDEF(GLenum, samples_target_type);
+  FCPPT_DECLARE_STRONG_TYPEDEF(GLenum, query_result_available_type);
+  FCPPT_DECLARE_STRONG_TYPEDEF(GLenum, query_result_type);
+
   config(
       gl_gen_queries,
       gl_delete_queries,
@@ -36,9 +42,9 @@ public:
       gl_end_query,
       gl_get_query_object_iv,
       gl_get_query_object_uiv,
-      GLenum samples_target_,
-      GLenum query_result_available_,
-      GLenum query_result_);
+      samples_target_type,
+      query_result_available_type,
+      query_result_type);
 
   [[nodiscard]] gl_gen_queries gen_queries() const;
 

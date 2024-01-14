@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/buffer/object.hpp>
-#include <sge/opengl/buffer/size.hpp>
+#include <sge/opengl/buffer/size_type.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
@@ -39,7 +39,7 @@ sge::opengl::index::buffer::buffer(
           fcppt::make_ref(
               sge::opengl::context::use<sge::opengl::buffer::vbo_context>(_context, _context)
                   .index_buffer()),
-          sge::opengl::buffer::size{_parameters.count().get()},
+          sge::opengl::buffer::size_type{_parameters.count().get()},
           sge::opengl::buffer::stride{
               sge::renderer::index::dynamic::format_stride(format_)},
           _parameters.flags(),

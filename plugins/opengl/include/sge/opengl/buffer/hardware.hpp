@@ -6,11 +6,12 @@
 #ifndef SGE_OPENGL_BUFFER_HARDWARE_HPP_INCLUDED
 #define SGE_OPENGL_BUFFER_HARDWARE_HPP_INCLUDED
 
-#include <sge/opengl/ext.hpp>
 #include <sge/opengl/buffer/base.hpp>
 #include <sge/opengl/buffer/const_hardware_config_ref.hpp>
+#include <sge/opengl/buffer/first.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
+#include <sge/opengl/buffer/size.hpp>
 #include <sge/opengl/buffer/type.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/nonmovable.hpp>
@@ -36,18 +37,19 @@ private:
 
   [[nodiscard]] GLvoid *map_buffer(GLenum flags) override;
 
-  [[nodiscard]] GLvoid *
-  map_buffer_range(GLbitfield flags, GLintptr first, GLsizeiptr size) override;
+  [[nodiscard]] GLvoid *map_buffer_range(
+      GLbitfield flags, sge::opengl::buffer::first, sge::opengl::buffer::size) override;
 
   [[nodiscard]] bool map_buffer_range_supported() const override;
 
   void unmap_buffer() override;
 
-  void buffer_data(GLsizeiptr size, GLvoid const *data, GLenum flags) override;
+  void buffer_data(sge::opengl::buffer::size, GLvoid const *data, GLenum flags) override;
 
-  void buffer_sub_data(GLintptr first, GLsizeiptr size, GLvoid const *data) override;
+  void buffer_sub_data(
+      sge::opengl::buffer::first, sge::opengl::buffer::size, GLvoid const *data) override;
 
-  [[nodiscard]] void *buffer_offset(GLintptr offset) const override;
+  [[nodiscard]] void *buffer_offset(sge::opengl::buffer::first) const override;
 
   [[nodiscard]] bool native() const override;
 

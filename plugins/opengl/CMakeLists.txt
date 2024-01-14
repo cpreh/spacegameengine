@@ -24,6 +24,7 @@ set(
 	plugins/opengl/include/sge/opengl/buffer/base_unique_ptr.hpp
 	plugins/opengl/include/sge/opengl/buffer/const_hardware_config_ref.hpp
 	plugins/opengl/include/sge/opengl/buffer/context.hpp
+	plugins/opengl/include/sge/opengl/buffer/first.hpp
 	plugins/opengl/include/sge/opengl/buffer/hardware.hpp
 	plugins/opengl/include/sge/opengl/buffer/hardware_config.hpp
 	plugins/opengl/include/sge/opengl/buffer/hardware_config_fwd.hpp
@@ -42,6 +43,7 @@ set(
 	plugins/opengl/include/sge/opengl/buffer/pbo_context.hpp
 	plugins/opengl/include/sge/opengl/buffer/range_lock_method.hpp
 	plugins/opengl/include/sge/opengl/buffer/size.hpp
+	plugins/opengl/include/sge/opengl/buffer/size_type.hpp
 	plugins/opengl/include/sge/opengl/buffer/software.hpp
 	plugins/opengl/include/sge/opengl/buffer/stride.hpp
 	plugins/opengl/include/sge/opengl/buffer/type.hpp

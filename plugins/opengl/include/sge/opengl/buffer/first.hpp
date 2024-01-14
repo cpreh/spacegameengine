@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef SGE_OPENGL_BUFFER_SIZE_HPP_INCLUDED
-#define SGE_OPENGL_BUFFER_SIZE_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_FIRST_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_FIRST_HPP_INCLUDED
 
 #include <sge/opengl/ext.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
@@ -13,7 +13,7 @@
 namespace sge::opengl::buffer
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(GLsizeiptr, size);
+FCPPT_DECLARE_STRONG_TYPEDEF(GLintptr, first);
 
 }
 

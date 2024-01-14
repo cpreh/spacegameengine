@@ -6,14 +6,14 @@
 #ifndef SGE_OPENGL_TEXTURE_WRITE_SIZE_HPP_INCLUDED
 #define SGE_OPENGL_TEXTURE_WRITE_SIZE_HPP_INCLUDED
 
-#include <sge/opengl/buffer/size.hpp>
+#include <sge/opengl/buffer/size_type.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::texture
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(sge::opengl::buffer::size, write_size);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::opengl::buffer::size_type, write_size);
 
 }
 

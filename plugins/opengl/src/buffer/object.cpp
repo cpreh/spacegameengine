@@ -3,21 +3,23 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opengl/ext.hpp>
 #include <sge/opengl/buffer/base.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/opengl/buffer/base_ref.hpp>
+#include <sge/opengl/buffer/first.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/normal_lock_method.hpp>
 #include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/optional_id.hpp>
 #include <sge/opengl/buffer/range_lock_method.hpp>
 #include <sge/opengl/buffer/size.hpp>
+#include <sge/opengl/buffer/size_type.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/convert/resource_flags.hpp>
 #include <sge/renderer/exception.hpp>
 #include <sge/renderer/resource_flags.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/read.hpp>
-#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/size.hpp>
@@ -29,7 +31,7 @@
 
 sge::opengl::buffer::object::object(
     sge::opengl::buffer::base_ref const _base,
-    sge::opengl::buffer::size const _size,
+    sge::opengl::buffer::size_type const _size,
     sge::opengl::buffer::stride const _stride,
     sge::renderer::resource_flags_field const &_flags,
     const_pointer const _src)
@@ -52,7 +54,7 @@ sge::opengl::buffer::object::object(
   this->bind();
 
   base_.get().buffer_data(
-      fcppt::cast::size<GLsizei>(fcppt::cast::to_signed(new_size)),
+      sge::opengl::buffer::size{fcppt::cast::size<GLsizeiptr>(fcppt::cast::to_signed(new_size))},
       _src,
       sge::opengl::convert::resource_flags(this->flags()));
 }
@@ -104,8 +106,10 @@ void sge::opengl::buffer::object::lock(
   {
     dest_ = fcppt::cast::from_void_ptr<pointer>(base_.get().map_buffer_range(
         sge::opengl::buffer::range_lock_method(_lockflags),
-        fcppt::cast::size<GLsizei>(fcppt::cast::to_signed(_first * this->stride())),
-        fcppt::cast::size<GLsizei>(fcppt::cast::to_signed(_count * this->stride()))));
+        sge::opengl::buffer::first{
+            fcppt::cast::size<GLintptr>(fcppt::cast::to_signed(_first * this->stride()))},
+        sge::opengl::buffer::size{
+            fcppt::cast::size<GLsizeiptr>(fcppt::cast::to_signed(_count * this->stride()))}));
 
     lock_offset_ = 0;
   }
@@ -149,8 +153,10 @@ void sge::opengl::buffer::object::sub_data(
   this->bind();
 
   base_.get().buffer_sub_data(
-      fcppt::cast::size<GLsizei>(fcppt::cast::to_signed(_first * this->stride())),
-      fcppt::cast::size<GLsizei>(fcppt::cast::to_signed(_count * this->stride())),
+      sge::opengl::buffer::first{
+          fcppt::cast::size<GLintptr>(fcppt::cast::to_signed(_first * this->stride()))},
+      sge::opengl::buffer::size{
+          fcppt::cast::size<GLsizeiptr>(fcppt::cast::to_signed(_count * this->stride()))},
       _data);
 }
 
@@ -214,8 +220,8 @@ sge::opengl::buffer::object::buffer_offset(size_type const _sz) const
 
   this->bind();
 
-  return fcppt::cast::from_void_ptr<pointer>(base_.get().buffer_offset(
-      fcppt::cast::size<GLsizei>(fcppt::cast::to_signed(_sz * this->stride()))));
+  return fcppt::cast::from_void_ptr<pointer>(base_.get().buffer_offset(sge::opengl::buffer::first{
+      fcppt::cast::size<GLintptr>(fcppt::cast::to_signed(_sz * this->stride()))}));
 }
 
 sge::opengl::buffer::object::pointer sge::opengl::buffer::object::raw_buffer() const

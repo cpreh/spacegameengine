@@ -13,18 +13,18 @@ sge::opengl::occlusion_query::config::config(
     gl_end_query _end_query,
     gl_get_query_object_iv _get_query_object_iv,
     gl_get_query_object_uiv _get_query_object_uiv,
-    GLenum const _samples_target,
-    GLenum const _query_result_available,
-    GLenum const _query_result)
-    : gen_queries_(_gen_queries),
-      delete_queries_(_delete_queries),
-      begin_query_(_begin_query),
-      end_query_(_end_query),
-      get_query_object_iv_(_get_query_object_iv),
-      get_query_object_uiv_(_get_query_object_uiv),
-      samples_target_(_samples_target),
-      query_result_available_(_query_result_available),
-      query_result_(_query_result)
+    samples_target_type const _samples_target,
+    query_result_available_type const _query_result_available,
+    query_result_type const _query_result)
+    : gen_queries_{_gen_queries},
+      delete_queries_{_delete_queries},
+      begin_query_{_begin_query},
+      end_query_{_end_query},
+      get_query_object_iv_{_get_query_object_iv},
+      get_query_object_uiv_{_get_query_object_uiv},
+      samples_target_{_samples_target.get()},
+      query_result_available_{_query_result_available.get()},
+      query_result_{_query_result.get()}
 {
 }
 

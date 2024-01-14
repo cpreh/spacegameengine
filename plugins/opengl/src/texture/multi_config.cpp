@@ -7,12 +7,12 @@
 #include <sge/renderer/caps/texture_stages.hpp>
 
 sge::opengl::texture::multi_config::multi_config(
-    gl_active_texture _active_texture,
-    gl_client_active_texture _client_active_texture,
+    active_texture_type const _active_texture,
+    client_active_texture_type const _client_active_texture,
     sge::renderer::caps::texture_stages const _max_level)
-    : active_texture_(_active_texture),
-      client_active_texture_(_client_active_texture),
-      max_level_(_max_level)
+    : active_texture_{_active_texture.get()},
+      client_active_texture_{_client_active_texture.get()},
+      max_level_{_max_level}
 {
 }
 

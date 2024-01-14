@@ -3,17 +3,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef SGE_OPENGL_BUFFER_SIZE_HPP_INCLUDED
-#define SGE_OPENGL_BUFFER_SIZE_HPP_INCLUDED
+#ifndef SGE_OPENGL_BUFFER_SIZE_TYPE_HPP_INCLUDED
+#define SGE_OPENGL_BUFFER_SIZE_TYPE_HPP_INCLUDED
 
-#include <sge/opengl/ext.hpp>
+#include <sge/renderer/size_type.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::buffer
 {
 
-FCPPT_DECLARE_STRONG_TYPEDEF(GLsizeiptr, size);
+FCPPT_DECLARE_STRONG_TYPEDEF(sge::renderer::size_type, size_type);
 
 }
 

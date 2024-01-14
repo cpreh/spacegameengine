@@ -9,6 +9,7 @@
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/text.hpp>
+#include <fcppt/optional/maybe_void.hpp>
 
 sge::opengl::fbo::config::config(
     gl_gen_framebuffers _gen_framebuffers,
@@ -21,53 +22,59 @@ sge::opengl::fbo::config::config(
     gl_bind_renderbuffer _bind_renderbuffer,
     gl_renderbuffer_storage _renderbuffer_storage,
     gl_framebuffer_renderbuffer _framebuffer_renderbuffer,
-    GLenum const _framebuffer_target,
-    GLenum const _color_attachment,
-    GLenum const _fbo_complete,
-    GLenum const _fbo_undefined,
-    GLenum const _fbo_incomplete_attachment,
-    GLenum const _fbo_incomplete_missing_attachment,
-    GLenum const _fbo_incomplete_draw_buffer,
-    GLenum const _fbo_incomplete_read_buffer,
-    GLenum const _fbo_unsupported,
-    GLenum const _fbo_incomplete_multisample,
-    GLenum const _fbo_incomplete_layer_targets,
-    GLenum const _renderbuffer_target,
-    sge::opengl::fbo::attachment_type const _depth_attachment,
-    sge::opengl::fbo::optional_attachment_type const _depth_stencil_attachment)
-    : gen_framebuffers_(_gen_framebuffers),
-      delete_framebuffers_(_delete_framebuffers),
-      bind_framebuffer_(_bind_framebuffer),
-      framebuffer_texture_2d_(_framebuffer_texture_2d),
-      check_framebuffer_status_(_check_framebuffer_status),
-      gen_renderbuffers_(_gen_renderbuffers),
-      delete_renderbuffers_(_delete_renderbuffers),
-      bind_renderbuffer_(_bind_renderbuffer),
-      renderbuffer_storage_(_renderbuffer_storage),
-      framebuffer_renderbuffer_(_framebuffer_renderbuffer),
-      framebuffer_target_(_framebuffer_target),
-      color_attachment_(_color_attachment),
-      framebuffer_complete_(_fbo_complete),
+    target_type const _framebuffer_target,
+    color_attachment_type const _color_attachment,
+    fbo_complete_type const _fbo_complete,
+    fbo_undefined_type const _fbo_undefined,
+    fbo_incomplete_attachment_type const _fbo_incomplete_attachment,
+    fbo_incomplete_missing_attachment_type const _fbo_incomplete_missing_attachment,
+    fbo_incomplete_draw_buffer_type const _fbo_incomplete_draw_buffer,
+    fbo_incomplete_read_buffer_type const _fbo_incomplete_read_buffer,
+    fbo_unsupported_type const _fbo_unsupported,
+    fbo_incomplete_multisample_type const _fbo_incomplete_multisample,
+    fbo_incomplete_layer_targets_type const _fbo_incomplete_layer_targets,
+    renderbuffer_target_type const _renderbuffer_target,
+    depth_attachment_type const _depth_attachment,
+    depth_stencil_attachment_type const _depth_stencil_attachment)
+    : gen_framebuffers_{_gen_framebuffers},
+      delete_framebuffers_{_delete_framebuffers},
+      bind_framebuffer_{_bind_framebuffer},
+      framebuffer_texture_2d_{_framebuffer_texture_2d},
+      check_framebuffer_status_{_check_framebuffer_status},
+      gen_renderbuffers_{_gen_renderbuffers},
+      delete_renderbuffers_{_delete_renderbuffers},
+      bind_renderbuffer_{_bind_renderbuffer},
+      renderbuffer_storage_{_renderbuffer_storage},
+      framebuffer_renderbuffer_{_framebuffer_renderbuffer},
+      framebuffer_target_{_framebuffer_target.get()},
+      color_attachment_{_color_attachment.get()},
+      framebuffer_complete_{_fbo_complete.get()},
       error_strings_{
-          sge::opengl::fbo::error_string_map::value_type{_fbo_undefined, FCPPT_TEXT("undefined")},
           sge::opengl::fbo::error_string_map::value_type{
-              _fbo_incomplete_attachment, FCPPT_TEXT("incomplete attachment")},
+              _fbo_incomplete_attachment.get(), FCPPT_TEXT("incomplete attachment")},
           sge::opengl::fbo::error_string_map::value_type{
-              _fbo_incomplete_missing_attachment, FCPPT_TEXT("incomplete missing attachment")},
+              _fbo_incomplete_missing_attachment.get(), FCPPT_TEXT("incomplete missing attachment")},
           sge::opengl::fbo::error_string_map::value_type{
-              _fbo_incomplete_draw_buffer, FCPPT_TEXT("incomplete draw buffer")},
+              _fbo_incomplete_draw_buffer.get(), FCPPT_TEXT("incomplete draw buffer")},
           sge::opengl::fbo::error_string_map::value_type{
-              _fbo_incomplete_read_buffer, FCPPT_TEXT("incomplete read buffer")},
+              _fbo_incomplete_read_buffer.get(), FCPPT_TEXT("incomplete read buffer")},
           sge::opengl::fbo::error_string_map::value_type{
-              _fbo_unsupported, FCPPT_TEXT("unsupported")},
+              _fbo_unsupported.get(), FCPPT_TEXT("unsupported")},
           sge::opengl::fbo::error_string_map::value_type{
-              _fbo_incomplete_multisample, FCPPT_TEXT("incomplete multisample")},
+              _fbo_incomplete_multisample.get(), FCPPT_TEXT("incomplete multisample")},
           sge::opengl::fbo::error_string_map::value_type{
-              _fbo_incomplete_layer_targets, FCPPT_TEXT("incomplete layer targets")}},
-      renderbuffer_target_(_renderbuffer_target),
-      depth_attachment_(_depth_attachment),
-      depth_stencil_attachment_(_depth_stencil_attachment)
+              _fbo_incomplete_layer_targets.get(), FCPPT_TEXT("incomplete layer targets")}},
+      renderbuffer_target_{_renderbuffer_target.get()},
+      depth_attachment_{_depth_attachment.get()},
+      depth_stencil_attachment_{_depth_stencil_attachment.get()}
 {
+  fcppt::optional::maybe_void(
+      _fbo_undefined.get(),
+      [this](GLenum const _value)
+      {
+        error_strings_.insert(
+            sge::opengl::fbo::error_string_map::value_type{_value, FCPPT_TEXT("undefined")});
+      });
 }
 
 sge::opengl::fbo::config::gl_gen_framebuffers sge::opengl::fbo::config::gen_framebuffers() const

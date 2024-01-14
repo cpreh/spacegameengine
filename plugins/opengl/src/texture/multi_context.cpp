@@ -38,13 +38,15 @@ sge::opengl::texture::multi_context::multi_context(sge::opengl::info::context co
               sge::opengl::info::major_version{1U},
               sge::opengl::info::minor_version{3U})
               ? sge::opengl::texture::optional_multi_config(sge::opengl::texture::multi_config(
-                    sge::opengl::deref_fun_ptr(
-                        sge::opengl::info::cast_function<PFNGLACTIVETEXTUREPROC>(
-                            _info.load_function("glActiveTexture"))),
-                    sge::opengl::deref_fun_ptr(
-                        sge::opengl::info::cast_function<
-                            sge::opengl::texture::multi_config::gl_client_active_texture_proc>(
-                            _info.load_function("glClientActiveTexture"))),
+                    sge::opengl::texture::multi_config::active_texture_type{
+                        sge::opengl::deref_fun_ptr(
+                            sge::opengl::info::cast_function<PFNGLACTIVETEXTUREPROC>(
+                                _info.load_function("glActiveTexture")))},
+                    sge::opengl::texture::multi_config::client_active_texture_type{
+                        sge::opengl::deref_fun_ptr(
+                            sge::opengl::info::cast_function<
+                                sge::opengl::texture::multi_config::gl_client_active_texture_proc>(
+                                _info.load_function("glClientActiveTexture")))},
                     fcppt::strong_typedef_construct_cast<
                         sge::renderer::caps::texture_stages,
                         fcppt::cast::static_cast_fun>(std::min(
@@ -53,13 +55,15 @@ sge::opengl::texture::multi_context::multi_context(sge::opengl::info::context co
           : sge::opengl::info::extension_supported(
                 _info.extensions(), sge::opengl::info::extension{"GL_ARB_multitexture"})
               ? sge::opengl::texture::optional_multi_config(sge::opengl::texture::multi_config(
-                    sge::opengl::deref_fun_ptr(
-                        sge::opengl::info::cast_function<PFNGLACTIVETEXTUREPROC>(
-                            _info.load_function("glActiveTextureARB"))),
-                    sge::opengl::deref_fun_ptr(
-                        sge::opengl::info::cast_function<
-                            sge::opengl::texture::multi_config::gl_client_active_texture_proc>(
-                            _info.load_function("glClientActiveTextureARB"))),
+                    sge::opengl::texture::multi_config::active_texture_type{
+                        sge::opengl::deref_fun_ptr(
+                            sge::opengl::info::cast_function<PFNGLACTIVETEXTUREPROC>(
+                                _info.load_function("glActiveTextureARB")))},
+                    sge::opengl::texture::multi_config::client_active_texture_type{
+                        sge::opengl::deref_fun_ptr(
+                            sge::opengl::info::cast_function<
+                                sge::opengl::texture::multi_config::gl_client_active_texture_proc>(
+                                _info.load_function("glClientActiveTextureARB")))},
                     fcppt::strong_typedef_construct_cast<
                         sge::renderer::caps::texture_stages,
                         fcppt::cast::static_cast_fun>(std::min(

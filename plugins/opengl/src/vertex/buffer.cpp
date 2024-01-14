@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/buffer/object.hpp>
-#include <sge/opengl/buffer/size.hpp>
+#include <sge/opengl/buffer/size_type.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
@@ -45,7 +45,7 @@ sge::opengl::vertex::buffer::buffer(
           fcppt::make_ref(
               sge::opengl::context::use<sge::opengl::buffer::vbo_context>(_context, _context)
                   .vertex_buffer()),
-          sge::opengl::buffer::size{_size.get()},
+          sge::opengl::buffer::size_type{_size.get()},
           sge::opengl::buffer::stride{_format_part.stride().get()},
           _flags,
           nullptr)

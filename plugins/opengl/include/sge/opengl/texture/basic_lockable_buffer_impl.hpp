@@ -17,7 +17,7 @@
 #include <sge/opengl/range_check.hpp>
 #include <sge/opengl/set_unpack_alignment.hpp>
 #include <sge/opengl/stride_to_unpack_alignment.hpp>
-#include <sge/opengl/buffer/size.hpp>
+#include <sge/opengl/buffer/size_type.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/texture/basic_buffer_parameters.hpp>
 #include <sge/opengl/texture/basic_lockable_buffer.hpp> // IWYU pragma: export
@@ -185,9 +185,9 @@ void sge::opengl::texture::basic_lockable_buffer<Types>::lock_me(
           this->context_,
           _method,
           sge::opengl::texture::read_size{
-              sge::opengl::buffer::size{fcppt::math::dim::contents(this->size())}},
+              sge::opengl::buffer::size_type{fcppt::math::dim::contents(this->size())}},
           sge::opengl::texture::write_size{
-              sge::opengl::buffer::size{fcppt::math::dim::contents(_lock_area.size())}},
+              sge::opengl::buffer::size_type{fcppt::math::dim::contents(_lock_area.size())}},
           sge::opengl::buffer::stride{this->stride_},
           this->resource_flags_))};
   FCPPT_PP_POP_WARNING

@@ -20,15 +20,24 @@
 
 sge::opengl::state::core::sampler::filter::anisotropy_context::anisotropy_context(
     sge::opengl::info::context const &_info)
-    : sge::opengl::context::base(),
-      config_(
+    : sge::opengl::context::base{},
+      config_{
           sge::opengl::info::extension_supported(
               _info.extensions(), sge::opengl::info::extension{"GL_EXT_texture_filter_anisotropic"})
-              ? sge::opengl::state::core::sampler::filter::optional_anisotropy_config(
-                    sge::opengl::state::core::sampler::filter::anisotropy_config(
-                        sge::opengl::convert::to_gl_enum<GL_TEXTURE_MAX_ANISOTROPY_EXT>(),
-                        sge::opengl::convert::to_gl_enum<GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT>()))
-              : sge::opengl::state::core::sampler::filter::optional_anisotropy_config())
+              ? sge::opengl::state::core::sampler::filter::
+                    optional_anisotropy_config{sge::opengl::state::core::sampler::filter::
+                                                   anisotropy_config{
+                                                       sge::opengl::state::core::sampler::filter::
+                                                           anisotropy_config::anisotropy_flag_type{
+                                                               sge::opengl::convert::to_gl_enum<
+                                                                   GL_TEXTURE_MAX_ANISOTROPY_EXT>()},
+                                                       sge::opengl::state::core::
+                                                           sampler::filter::anisotropy_config::max_anisotropy_flag_type{
+                                                               sge::
+                                                                   opengl::convert::
+                                                                       to_gl_enum<
+                                                                           GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT>()}}}
+              : sge::opengl::state::core::sampler::filter::optional_anisotropy_config{}}
 {
 }
 

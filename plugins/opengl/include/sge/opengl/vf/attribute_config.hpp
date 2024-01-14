@@ -9,6 +9,8 @@
 #include <sge/opengl/ext.hpp>
 #include <sge/opengl/fun_ref.hpp>
 #include <sge/opengl/vf/attribute_config_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/declare_strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::opengl::vf
 {
@@ -22,8 +24,11 @@ public:
 
   using gl_disable_vertex_attrib_array = sge::opengl::fun_ref<PFNGLDISABLEVERTEXATTRIBARRAYPROC>;
 
+  FCPPT_DECLARE_STRONG_TYPEDEF(gl_enable_vertex_attrib_array, enable_vertex_attrib_array_type);
+  FCPPT_DECLARE_STRONG_TYPEDEF(gl_disable_vertex_attrib_array, disable_vertex_attrib_array_type);
+
   attribute_config(
-      gl_vertex_attrib_pointer, gl_enable_vertex_attrib_array, gl_disable_vertex_attrib_array);
+      gl_vertex_attrib_pointer, enable_vertex_attrib_array_type, disable_vertex_attrib_array_type);
 
   [[nodiscard]] gl_vertex_attrib_pointer vertex_attrib_pointer() const;
 
