@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opengl/buffer/object.hpp>
 #include <sge/opengl/buffer/pbo_context.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/context/object_ref.hpp>
@@ -12,6 +13,7 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 #include <fcppt/assert/unreachable.hpp>
 
 sge::opengl::texture::readonly_lock::readonly_lock(
@@ -32,7 +34,13 @@ sge::opengl::texture::readonly_lock::readonly_lock(
 
 sge::opengl::texture::readonly_lock::~readonly_lock() = default;
 
-void sge::opengl::texture::readonly_lock::lock() { buffer_.lock(this->method()); }
+void sge::opengl::texture::readonly_lock::lock()
+{
+  buffer_.lock(
+      this->method(),
+      sge::opengl::buffer::object::optional_first_pos{},
+      sge::opengl::buffer::object::optional_count{});
+}
 
 void sge::opengl::texture::readonly_lock::unlock() { buffer_.unlock(); }
 

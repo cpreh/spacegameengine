@@ -3,8 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opengl/buffer/count.hpp>
+#include <sge/opengl/buffer/first_pos.hpp>
 #include <sge/opengl/buffer/object.hpp>
-#include <sge/opengl/buffer/size_type.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
@@ -29,6 +30,7 @@
 #include <sge/renderer/vf/dynamic/view.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/optional/make.hpp>
 
 sge::opengl::vertex::buffer::buffer(
     sge::opengl::context::object_ref const _context,
@@ -45,7 +47,7 @@ sge::opengl::vertex::buffer::buffer(
           fcppt::make_ref(
               sge::opengl::context::use<sge::opengl::buffer::vbo_context>(_context, _context)
                   .vertex_buffer()),
-          sge::opengl::buffer::size_type{_size.get()},
+          sge::opengl::buffer::count{_size.get()},
           sge::opengl::buffer::stride{_format_part.stride().get()},
           _flags,
           nullptr)
@@ -58,7 +60,7 @@ void sge::opengl::vertex::buffer::use(sge::opengl::vf::part const &_format_part)
 {
   buffer_.bind();
 
-  _format_part.use_me(buffer_.buffer_offset(0));
+  _format_part.use_me(buffer_.buffer_offset(sge::opengl::buffer::first_pos{0U}));
 }
 
 void sge::opengl::vertex::buffer::unuse( // NOLINT(readability-convert-member-functions-to-static)
@@ -86,7 +88,10 @@ View sge::opengl::vertex::buffer::do_lock(
     sge::renderer::lock_flags::method const _method,
     sge::renderer::lock_segment const &_segment) const
 {
-  buffer_.lock(_method, _segment.pos().x(), _segment.size().w());
+  buffer_.lock(
+      _method,
+      fcppt::optional::make(sge::opengl::buffer::first_pos{_segment.pos().x()}),
+      fcppt::optional::make(sge::opengl::buffer::count{_segment.size().w()}));
 
   converter_.lock(sge::renderer::vf::dynamic::locked_part(buffer_.data(), _segment, _method));
 

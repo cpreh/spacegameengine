@@ -7,17 +7,19 @@
 #define SGE_OPENGL_BUFFER_OBJECT_HPP_INCLUDED
 
 #include <sge/opengl/buffer/base_ref.hpp>
+#include <sge/opengl/buffer/count.hpp>
+#include <sge/opengl/buffer/first_pos.hpp>
 #include <sge/opengl/buffer/holder.hpp>
 #include <sge/opengl/buffer/id.hpp>
 #include <sge/opengl/buffer/object_fwd.hpp>
 #include <sge/opengl/buffer/optional_id_fwd.hpp>
-#include <sge/opengl/buffer/size_type.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/renderer/raw_value.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/size_type.hpp>
 #include <sge/renderer/lock_flags/method_fwd.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/optional/object_fwd.hpp>
 
 namespace sge::opengl::buffer
 {
@@ -37,22 +39,24 @@ public:
 
   using lock_flag_type = sge::renderer::lock_flags::method;
 
+  using optional_first_pos = fcppt::optional::object<sge::opengl::buffer::first_pos>;
+
+  using optional_count = fcppt::optional::object<sge::opengl::buffer::count>;
+
   object(
       sge::opengl::buffer::base_ref,
-      sge::opengl::buffer::size_type,
+      sge::opengl::buffer::count,
       sge::opengl::buffer::stride,
       sge::renderer::resource_flags_field const &,
       const_pointer src);
 
   ~object();
 
-  static constexpr size_type const npos = static_cast<size_type>(-1);
-
-  void lock(lock_flag_type const &, size_type first = 0, size_type count = npos);
+  void lock(lock_flag_type const &, optional_first_pos, optional_count);
 
   void unlock();
 
-  void sub_data(const_pointer data, size_type first, size_type count);
+  void sub_data(const_pointer data, sge::opengl::buffer::first_pos, sge::opengl::buffer::count);
 
   [[nodiscard]] size_type size() const;
 
@@ -70,7 +74,7 @@ public:
 
   void bind() const;
 
-  [[nodiscard]] pointer buffer_offset(size_type offset) const;
+  [[nodiscard]] pointer buffer_offset(sge::opengl::buffer::first_pos) const;
 
   [[nodiscard]] pointer raw_buffer() const;
 

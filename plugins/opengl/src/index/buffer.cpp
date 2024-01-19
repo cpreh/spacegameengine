@@ -3,8 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opengl/buffer/count.hpp>
+#include <sge/opengl/buffer/first_pos.hpp>
 #include <sge/opengl/buffer/object.hpp>
-#include <sge/opengl/buffer/size_type.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/buffer/vbo_context.hpp>
 #include <sge/opengl/buffer/wrapper.hpp>
@@ -27,6 +28,7 @@
 #include <sge/renderer/lock_flags/method.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/optional/make.hpp>
 
 sge::opengl::index::buffer::buffer(
     sge::opengl::context::object_ref const _context,
@@ -39,7 +41,7 @@ sge::opengl::index::buffer::buffer(
           fcppt::make_ref(
               sge::opengl::context::use<sge::opengl::buffer::vbo_context>(_context, _context)
                   .index_buffer()),
-          sge::opengl::buffer::size_type{_parameters.count().get()},
+          sge::opengl::buffer::count{_parameters.count().get()},
           sge::opengl::buffer::stride{
               sge::renderer::index::dynamic::format_stride(format_)},
           _parameters.flags(),
@@ -53,7 +55,7 @@ GLenum sge::opengl::index::buffer::gl_format() const { return gl_format_; }
 
 GLvoid *sge::opengl::index::buffer::buffer_offset(sge::renderer::index::first const _size) const
 {
-  return buffer_.buffer_offset(_size.get());
+  return buffer_.buffer_offset(sge::opengl::buffer::first_pos{_size.get()});
 }
 
 void sge::opengl::index::buffer::bind() const { buffer_.bind(); }
@@ -77,7 +79,10 @@ View sge::opengl::index::buffer::do_lock(
     sge::renderer::lock_flags::method const _method,
     sge::renderer::lock_segment const &_segment) const
 {
-  buffer_.lock(_method, _segment.pos().x(), _segment.size().w());
+  buffer_.lock(
+      _method,
+      fcppt::optional::make(sge::opengl::buffer::first_pos{_segment.pos().x()}),
+      fcppt::optional::make(sge::opengl::buffer::count{_segment.size().w()}));
 
   return View(
       buffer_.data(),
