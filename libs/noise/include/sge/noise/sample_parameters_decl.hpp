@@ -7,7 +7,7 @@
 #define SGE_NOISE_SAMPLE_PARAMETERS_DECL_HPP_INCLUDED
 
 #include <fcppt/declare_strong_typedef.hpp>
-#include <fcppt/strong_typedef.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 
 namespace sge::noise
 {

@@ -25,6 +25,8 @@
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
 #include <sge/sprite/render/range_impl.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/strong_typedef_arithmetic.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_assignment.hpp> // IWYU pragma: keep
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
