@@ -7,7 +7,7 @@
 #define SGE_RENDERER_DEVICE_CORE_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/config.hpp>
+#include <sge/renderer/config.hpp> // IWYU pragma: keep
 #include <sge/renderer/caps/device_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>

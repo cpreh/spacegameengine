@@ -7,7 +7,7 @@
 #define SGE_RENDERER_CONTEXT_CORE_HPP_INCLUDED
 
 #include <sge/core/detail/class_symbol.hpp>
-#include <sge/renderer/config.hpp>
+#include <sge/renderer/config.hpp> // IWYU pragma: keep
 #include <sge/renderer/primitive_type_fwd.hpp>
 #include <sge/renderer/clear/parameters_fwd.hpp>
 #include <sge/renderer/context/core_fwd.hpp> // IWYU pragma: keep

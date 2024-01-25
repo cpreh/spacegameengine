@@ -14,7 +14,7 @@
 #include <sge/opengl/platform/device_state_fwd.hpp>
 #include <sge/opengl/platform/system_ref.hpp>
 #include <sge/opengl/texture/basic_parameters_fwd.hpp>
-#include <sge/renderer/config.hpp>
+#include <sge/renderer/config.hpp> // IWYU pragma: keep
 #include <sge/renderer/caps/device.hpp>
 #include <sge/renderer/context/core_fwd.hpp>
 #include <sge/renderer/context/core_unique_ptr.hpp>
