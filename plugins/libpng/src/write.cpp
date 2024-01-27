@@ -64,6 +64,7 @@ void sge::libpng::write(
       fcppt::cast::to_unsigned(sge::libpng::bit_depth_from_format(_rep.format())) / CHAR_BIT);
 
   sge::libpng::row_vector row_ptrs(sge::libpng::make_row_vector(
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
       _rep.size(), const_cast<png_bytep>(_rep.bytes().data()), bytes_per_pixel));
 
   // FIXME: Use transforms here!
