@@ -18,9 +18,9 @@ struct insert_result<Container, Vertex, sge::projectile::triangulation::default_
   static void
   execute(Container &_container, Vertex const &_v1, Vertex const &_v2, Vertex const &_v3)
   {
-    typename Container::value_type result{_v1, _v2, _v3};
+    using value_type = typename Container::value_type;
 
-    _container.insert(_container.end(), result);
+    _container.insert(_container.end(), value_type{_v1, _v2, _v3});
   }
 };
 

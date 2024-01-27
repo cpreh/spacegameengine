@@ -6,9 +6,15 @@
 #ifndef SGE_PROJECTILE_TRIANGULATION_DETAIL_SNIP_HPP_INCLUDED
 #define SGE_PROJECTILE_TRIANGULATION_DETAIL_SNIP_HPP_INCLUDED
 
+#include <sge/projectile/triangulation/detail/cur_vertex_tag.hpp>
+#include <sge/projectile/triangulation/detail/next_vertex_tag.hpp>
+#include <sge/projectile/triangulation/detail/num_vertices_tag.hpp>
 #include <sge/projectile/triangulation/detail/point_inside_triangle.hpp>
+#include <sge/projectile/triangulation/detail/prev_vertex_tag.hpp>
 #include <sge/projectile/triangulation/traits/access_element.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
+#include <fcppt/strong_typedef_impl.hpp>
+#include <fcppt/array/object_impl.hpp>
 
 namespace sge::projectile::triangulation::detail
 {
@@ -16,10 +22,18 @@ namespace sge::projectile::triangulation::detail
 template <typename Tag, typename PointContainer, typename IndexContainer>
 [[nodiscard]] bool snip(
     PointContainer const &_contour,
-    typename PointContainer::size_type const _prev_vertex,
-    typename PointContainer::size_type const _cur_vertex,
-    typename PointContainer::size_type const _next_vertex,
-    typename PointContainer::size_type const _num_vertices,
+    fcppt::strong_typedef<
+        typename PointContainer::size_type,
+        sge::projectile::triangulation::detail::prev_vertex_tag> const _prev_vertex,
+    fcppt::strong_typedef<
+        typename PointContainer::size_type,
+        sge::projectile::triangulation::detail::cur_vertex_tag> const _cur_vertex,
+    fcppt::strong_typedef<
+        typename PointContainer::size_type,
+        sge::projectile::triangulation::detail::next_vertex_tag> const _next_vertex,
+    fcppt::strong_typedef<
+        typename PointContainer::size_type,
+        sge::projectile::triangulation::detail::num_vertices_tag> const _num_vertices,
     IndexContainer const &_indices,
     typename sge::projectile::triangulation::traits::
         scalar<typename PointContainer::value_type, Tag>::type const _epsilon)
@@ -32,9 +46,9 @@ template <typename Tag, typename PointContainer, typename IndexContainer>
 
   using scalar = typename sge::projectile::triangulation::traits::scalar<vertex, Tag>::type;
 
-  vertex const v1(_contour[_indices[_prev_vertex]]);
-  vertex const v2(_contour[_indices[_cur_vertex]]);
-  vertex const v3(_contour[_indices[_next_vertex]]);
+  vertex const v1(_contour[_indices[_prev_vertex.get()]]);
+  vertex const v2(_contour[_indices[_cur_vertex.get()]]);
+  vertex const v3(_contour[_indices[_next_vertex.get()]]);
 
   scalar const v10(access_element::execute(v1, 0));
   scalar const v11(access_element::execute(v1, 1));
@@ -48,15 +62,16 @@ template <typename Tag, typename PointContainer, typename IndexContainer>
     return false;
   }
 
-  for (size_type index(0U); index < _num_vertices; ++index)
+  for (size_type index(0U); index < _num_vertices.get(); ++index)
   {
-    if ((index == _prev_vertex) || (index == _cur_vertex) || (index == _next_vertex))
+    if ((index == _prev_vertex.get()) || (index == _cur_vertex.get()) ||
+        (index == _next_vertex.get()))
     {
       continue;
     }
 
     if (sge::projectile::triangulation::detail::point_inside_triangle<Tag>(
-            v1, v2, v3, _contour[_indices[index]]))
+            fcppt::array::object<vertex,3U>{v1, v2, v3}, _contour[_indices[index]]))
     {
       return false;
     }

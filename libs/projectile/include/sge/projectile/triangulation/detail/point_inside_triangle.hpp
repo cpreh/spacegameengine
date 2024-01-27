@@ -8,24 +8,30 @@
 
 #include <sge/projectile/triangulation/traits/access_element.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
+#include <fcppt/array/get.hpp>
+#include <fcppt/array/object_impl.hpp>
 
 namespace sge::projectile::triangulation::detail
 {
 
 template <typename Tag, typename Vertex>
 bool point_inside_triangle(
-    Vertex const &_v1, Vertex const &_v2, Vertex const &_v3, Vertex const &_point)
+    fcppt::array::object<Vertex, 3U> const &_triangle, Vertex const &_point)
 {
+  Vertex const v1{fcppt::array::get<0U>(_triangle)};
+  Vertex const v2{fcppt::array::get<1U>(_triangle)};
+  Vertex const v3{fcppt::array::get<2U>(_triangle)};
+
   using access_element = sge::projectile::triangulation::traits::access_element<Vertex, Tag>;
 
   using scalar = typename sge::projectile::triangulation::traits::scalar<Vertex, Tag>::type;
 
-  scalar const v10(access_element::execute(_v1, 0));
-  scalar const v11(access_element::execute(_v1, 1));
-  scalar const v20(access_element::execute(_v2, 0));
-  scalar const v21(access_element::execute(_v2, 1));
-  scalar const v30(access_element::execute(_v3, 0));
-  scalar const v31(access_element::execute(_v3, 1));
+  scalar const v10(access_element::execute(v1, 0));
+  scalar const v11(access_element::execute(v1, 1));
+  scalar const v20(access_element::execute(v2, 0));
+  scalar const v21(access_element::execute(v2, 1));
+  scalar const v30(access_element::execute(v3, 0));
+  scalar const v31(access_element::execute(v3, 1));
   scalar const p0(access_element::execute(_point, 0));
   scalar const p1(access_element::execute(_point, 1));
   scalar const ax(v30 - v20);

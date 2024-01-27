@@ -8,9 +8,14 @@
 
 #include <sge/core/exception.hpp>
 #include <sge/projectile/triangulation/detail/area.hpp>
+#include <sge/projectile/triangulation/detail/cur_vertex_tag.hpp>
+#include <sge/projectile/triangulation/detail/next_vertex_tag.hpp>
+#include <sge/projectile/triangulation/detail/num_vertices_tag.hpp>
+#include <sge/projectile/triangulation/detail/prev_vertex_tag.hpp>
 #include <sge/projectile/triangulation/detail/snip.hpp>
 #include <sge/projectile/triangulation/traits/insert_result.hpp>
 #include <sge/projectile/triangulation/traits/scalar.hpp>
+#include <fcppt/make_strong_typedef.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <numeric>
@@ -86,7 +91,17 @@ ResultContainer triangulate(
     }
 
     if (sge::projectile::triangulation::detail::snip<Tag>(
-            _contour, prev_vertex, cur_vertex, next_vertex, num_vertices, indices, _epsilon))
+            _contour,
+            fcppt::make_strong_typedef<sge::projectile::triangulation::detail::prev_vertex_tag>(
+                prev_vertex),
+            fcppt::make_strong_typedef<sge::projectile::triangulation::detail::cur_vertex_tag>(
+                cur_vertex),
+            fcppt::make_strong_typedef<sge::projectile::triangulation::detail::next_vertex_tag>(
+                next_vertex),
+            fcppt::make_strong_typedef<sge::projectile::triangulation::detail::num_vertices_tag>(
+                num_vertices),
+            indices,
+            _epsilon))
     {
       sge::projectile::triangulation::traits::insert_result<ResultContainer, vertex, Tag>::execute(
           result,
