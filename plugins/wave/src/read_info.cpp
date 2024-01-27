@@ -127,7 +127,7 @@ sge::wave::optional_info sge::wave::read_info(
 
   return fcppt::optional::apply(
       [endianness](
-          std::uint16_t const _channels,
+          std::uint16_t const _channels, // NOLINT(bugprone-easily-swappable-parameters)
           std::uint32_t const _sample_rate,
           std::uint16_t const _bits_per_sample,
           std::uint32_t const _data_size)

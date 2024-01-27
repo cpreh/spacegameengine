@@ -81,7 +81,7 @@ namespace
 void keyboard_keymap(
     void *const _data,
     wl_keyboard *,
-    std::uint32_t const _format,
+    std::uint32_t const _format, // NOLINT(bugprone-easily-swappable-parameters)
     std::int32_t const _fd,
     std::uint32_t const _size)
 {
