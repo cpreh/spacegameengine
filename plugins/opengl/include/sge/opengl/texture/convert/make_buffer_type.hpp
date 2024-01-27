@@ -7,12 +7,17 @@
 #define SGE_OPENGL_TEXTURE_CONVERT_MAKE_BUFFER_TYPE_HPP_INCLUDED
 
 #include <sge/opengl/texture/buffer_type.hpp>
+#include <fcppt/strong_typedef_construct_cast.hpp>
+#include <fcppt/cast/static_cast_fun.hpp>
 
 namespace sge::opengl::texture::convert
 {
 
-sge::opengl::texture::buffer_type make_buffer_type(int type) noexcept;
-
+template <int Type>
+inline constexpr sge::opengl::texture::buffer_type make_buffer_type{
+    fcppt::strong_typedef_construct_cast<
+        sge::opengl::texture::buffer_type,
+        fcppt::cast::static_cast_fun>(Type)};
 }
 
 #endif

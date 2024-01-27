@@ -94,7 +94,11 @@ set(
 	libs/projectile/include/sge/projectile/triangle.hpp
 	libs/projectile/include/sge/projectile/triangulation/default_tag.hpp
 	libs/projectile/include/sge/projectile/triangulation/detail/area.hpp
+	libs/projectile/include/sge/projectile/triangulation/detail/cur_vertex_tag.hpp
+	libs/projectile/include/sge/projectile/triangulation/detail/next_vertex_tag.hpp
+	libs/projectile/include/sge/projectile/triangulation/detail/num_vertices_tag.hpp
 	libs/projectile/include/sge/projectile/triangulation/detail/point_inside_triangle.hpp
+	libs/projectile/include/sge/projectile/triangulation/detail/prev_vertex_tag.hpp
 	libs/projectile/include/sge/projectile/triangulation/detail/snip.hpp
 	libs/projectile/include/sge/projectile/triangulation/traits/access_element.hpp
 	libs/projectile/include/sge/projectile/triangulation/traits/access_element_fwd.hpp
