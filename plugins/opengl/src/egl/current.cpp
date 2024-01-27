@@ -13,11 +13,8 @@
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
-sge::opengl::egl::current::current(
-    EGLDisplay const _display, // NOLINT(misc-misplaced-const)
-    EGLSurface const _surface // NOLINT(misc-misplaced-const)
-    )
-    : sge::opengl::backend::current(), display_{_display}, surface_{_surface}
+sge::opengl::egl::current::current(display_type const _display, surface_type const _surface)
+    : sge::opengl::backend::current(), display_{_display.get()}, surface_{_surface.get()}
 {
 }
 

@@ -9,7 +9,9 @@
 #include <sge/opengl/backend/current.hpp>
 #include <sge/opengl/backend/fun_ptr.hpp>
 #include <sge/renderer/display_mode/vsync_fwd.hpp>
+#include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <EGL/egl.h>
 #include <string>
@@ -23,7 +25,10 @@ class current : public sge::opengl::backend::current
   FCPPT_NONMOVABLE(current);
 
 public:
-  current(EGLDisplay, EGLSurface);
+  FCPPT_DECLARE_STRONG_TYPEDEF(EGLDisplay, display_type);
+  FCPPT_DECLARE_STRONG_TYPEDEF(EGLSurface, surface_type);
+
+  current(display_type, surface_type);
 
   ~current() override;
 

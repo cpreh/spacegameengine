@@ -32,14 +32,16 @@ sge::opengl::egl::context::~context() = default;
 
 sge::opengl::backend::current_unique_ptr sge::opengl::egl::context::activate()
 {
-  context_.activate(surface_->get());
+  this->context_.activate(this->surface_->get());
 
   return fcppt::unique_ptr_to_base<sge::opengl::backend::current>(
-      fcppt::make_unique_ptr<sge::opengl::egl::current>(display_, surface_->get()));
+      fcppt::make_unique_ptr<sge::opengl::egl::current>(
+          sge::opengl::egl::current::display_type{this->display_},
+          sge::opengl::egl::current::surface_type{this->surface_->get()}));
 }
 
 // NOLINTNEXTLINE(cppcoreguidelines-rvalue-reference-param-not-moved)
 void sge::opengl::egl::context::deactivate(sge::opengl::backend::current_unique_ptr &&)
 {
-  context_.deactivate();
+  this->context_.deactivate();
 }
