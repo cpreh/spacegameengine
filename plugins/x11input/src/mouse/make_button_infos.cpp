@@ -14,10 +14,10 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
-#include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <fcppt/config/external_end.hpp>

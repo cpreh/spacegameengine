@@ -5,8 +5,8 @@
 
 #include <sge/scenic/render_context/light/attenuation.hpp>
 #include <sge/scenic/render_context/light/constant_attenuation.hpp>
-#include <sge/scenic/render_context/light/quadratic_attenuation.hpp>
 #include <sge/scenic/render_context/light/linear_attenuation.hpp>
+#include <sge/scenic/render_context/light/quadratic_attenuation.hpp>
 
 sge::scenic::render_context::light::attenuation::attenuation(
     sge::scenic::render_context::light::constant_attenuation const &_constant_attenuation,

@@ -9,8 +9,8 @@
 #include <sge/sprite/count.hpp> // IWYU pragma: keep
 #include <sge/sprite/object_decl.hpp> // IWYU pragma: keep
 #include <sge/sprite/intrusive/detail/connection_decl.hpp> // IWYU pragma: export
-#include <fcppt/strong_typedef_arithmetic.hpp>
 #include <fcppt/reference_impl.hpp> // IWYU pragma: keep
+#include <fcppt/strong_typedef_arithmetic.hpp>
 
 template <typename Choices>
 sge::sprite::intrusive::detail::connection<Choices>::connection(

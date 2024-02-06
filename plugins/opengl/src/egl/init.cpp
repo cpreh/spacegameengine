@@ -7,8 +7,8 @@
 #include <sge/opengl/egl/initialize.hpp>
 #include <sge/opengl/egl/version.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <exception>
 #include <EGL/egl.h>
+#include <exception>
 #include <fcppt/config/external_end.hpp>
 
 sge::opengl::egl::init::init(EGLDisplay const _display // NOLINT(misc-misplaced-const)

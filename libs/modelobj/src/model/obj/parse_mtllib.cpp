@@ -15,6 +15,7 @@
 #include <sge/model/obj/identifier.hpp>
 #include <sge/model/obj/material_map.hpp>
 #include <sge/model/obj/parse_mtllib.hpp>
+#include <sge/model/obj/impl/log_name.hpp>
 #include <sge/model/obj/material/ambient_color.hpp>
 #include <sge/model/obj/material/diffuse_color.hpp>
 #include <sge/model/obj/material/diffuse_texture_path.hpp>
@@ -23,7 +24,6 @@
 #include <sge/model/obj/material/shininess.hpp>
 #include <sge/model/obj/material/specular_color.hpp>
 #include <sge/model/obj/material/specular_texture_path.hpp>
-#include <sge/model/obj/impl/log_name.hpp>
 #include <sge/renderer/scalar.hpp>
 #include <sge/renderer/vector3.hpp>
 #include <fcppt/declare_strong_typedef.hpp>

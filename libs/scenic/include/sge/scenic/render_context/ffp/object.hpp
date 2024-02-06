@@ -26,8 +26,8 @@
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/scoped_buffer_fwd.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>
-#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/index_buffer_range_fwd.hpp>
+#include <sge/scenic/detail/symbol.hpp>
 #include <sge/scenic/render_context/base.hpp>
 #include <sge/scenic/render_context/transform_matrix_type.hpp>
 #include <sge/scenic/render_context/ffp/manager_fwd.hpp>

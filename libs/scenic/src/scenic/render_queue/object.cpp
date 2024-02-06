@@ -12,8 +12,8 @@
 #include <sge/scenic/texture_manager.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/scenic/texture_manager_ref.hpp>
 #include <sge/scenic/render_context/ambient_color.hpp>
-#include <sge/scenic/render_context/diffuse_color.hpp>
 #include <sge/scenic/render_context/base.hpp>
+#include <sge/scenic/render_context/diffuse_color.hpp>
 #include <sge/scenic/render_context/emissive_color.hpp>
 #include <sge/scenic/render_context/optional_planar_texture.hpp>
 #include <sge/scenic/render_context/specular_color.hpp>

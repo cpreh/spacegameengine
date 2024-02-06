@@ -18,8 +18,8 @@
 #include <sge/renderer/vertex/count.hpp>
 #include <sge/renderer/vertex/create_buffer_from_vertices.hpp>
 #include <sge/renderer/vertex/declaration.hpp> // NOLINT(misc-include-cleaner)
-#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/declaration_parameters.hpp>
+#include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <sge/renderer/vertex/first.hpp>
 #include <sge/renderer/vertex/scoped_buffer.hpp>
 #include <sge/renderer/vertex/scoped_declaration.hpp>

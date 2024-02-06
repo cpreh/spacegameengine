@@ -20,9 +20,9 @@
 #include <sge/sprite/config/normal_size.hpp>
 #include <sge/sprite/config/pos.hpp>
 #include <sge/sprite/config/pos_option.hpp>
-#include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/texture_size_option.hpp>
 #include <sge/sprite/config/type_choices.hpp>
+#include <sge/sprite/config/unit_type.hpp>
 #include <sge/sprite/config/with_color.hpp>
 #include <sge/sprite/state/all_choices.hpp>
 #include <sge/sprite/state/object_decl.hpp>

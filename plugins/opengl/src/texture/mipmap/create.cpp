@@ -13,8 +13,8 @@
 #include <sge/renderer/texture/mipmap/levels_rep.hpp>
 #include <sge/renderer/texture/mipmap/object.hpp>
 #include <sge/renderer/texture/mipmap/off_rep.hpp>
-#include <fcppt/math/size_type.hpp>
 #include <fcppt/log/object_fwd.hpp>
+#include <fcppt/math/size_type.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>

@@ -13,8 +13,8 @@
 #include <ogg/os_types.h> // NOLINT(misc-include-cleaner)
 #include <vorbis/vorbisfile.h>
 #include <cerrno>
-#include <cstdio>
 #include <cstddef>
+#include <cstdio>
 #include <ios>
 #include <istream>
 #include <fcppt/config/external_end.hpp>

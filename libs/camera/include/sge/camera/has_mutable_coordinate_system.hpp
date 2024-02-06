@@ -8,8 +8,8 @@
 
 #include <sge/camera/base.hpp>
 #include <sge/camera/has_mutable_coordinate_system_fwd.hpp>
-#include <sge/camera/detail/symbol.hpp>
 #include <sge/camera/coordinate_system/object_fwd.hpp>
+#include <sge/camera/detail/symbol.hpp>
 #include <sge/core/detail/class_symbol.hpp>
 #include <fcppt/nonmovable.hpp>
 

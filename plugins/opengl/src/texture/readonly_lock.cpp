@@ -13,8 +13,8 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 #include <fcppt/assert/unreachable.hpp>
+#include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 sge::opengl::texture::readonly_lock::readonly_lock(
     sge::opengl::context::object_ref const _context,

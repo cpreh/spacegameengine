@@ -3,8 +3,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/opengl/buffer/pbo_context.hpp>
 #include <sge/opengl/buffer/object.hpp>
+#include <sge/opengl/buffer/pbo_context.hpp>
 #include <sge/opengl/buffer/stride.hpp>
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use.hpp>

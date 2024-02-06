@@ -7,8 +7,8 @@
 #define SGE_OPENGL_STATE_FFP_LIGHTING_LIGHT_COLOR_HPP_INCLUDED
 
 #include <sge/image/color/any/object_fwd.hpp>
-#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/opengl/state/index_actor.hpp>
+#include <sge/renderer/opengl/glinclude.hpp>
 
 namespace sge::opengl::state::ffp::lighting::light
 {

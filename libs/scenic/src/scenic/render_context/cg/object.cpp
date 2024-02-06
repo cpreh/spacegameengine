@@ -31,8 +31,8 @@
 #include <sge/scenic/render_context/fog/properties.hpp>
 #include <sge/scenic/render_context/light/direction.hpp>
 #include <sge/scenic/render_context/light/directional.hpp>
-#include <sge/scenic/render_context/light/point.hpp>
 #include <sge/scenic/render_context/light/object.hpp>
+#include <sge/scenic/render_context/light/point.hpp>
 #include <sge/scenic/render_context/light/sequence.hpp>
 #include <sge/scenic/render_context/material/object.hpp>
 #include <sge/shader/parameter/planar_texture.hpp>

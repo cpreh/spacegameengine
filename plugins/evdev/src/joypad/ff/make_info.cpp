@@ -14,8 +14,8 @@
 #include <fcppt/cast/int_to_enum.hpp>
 #include <fcppt/container/bitfield/init.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <linux/input.h>
 #include <linux/input-event-codes.h>
+#include <linux/input.h>
 #include <fcppt/config/external_end.hpp>
 
 namespace

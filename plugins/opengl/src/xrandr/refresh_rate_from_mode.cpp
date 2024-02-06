@@ -14,8 +14,8 @@
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/Xrandr.h>
-#include <cstdint>
 #include <cmath>
+#include <cstdint>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 

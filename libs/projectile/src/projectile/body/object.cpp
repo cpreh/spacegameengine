@@ -13,13 +13,13 @@
 #include <sge/projectile/body/rotation_change.hpp>
 #include <sge/projectile/body/user_data.hpp>
 #include <sge/projectile/body/solidity/variant.hpp>
-#include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <sge/projectile/impl/bullet_to_vector2.hpp>
 #include <sge/projectile/impl/vector2_to_bullet.hpp>
 #include <sge/projectile/impl/body/detail/motion_state.hpp>
 #include <sge/projectile/impl/body/solidity/extract_mass.hpp>
 #include <sge/projectile/impl/body/solidity/is_solid.hpp>
 #include <sge/projectile/shape/base.hpp>
+#include <sge/projectile/shape/shared_base_ptr.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/text.hpp>

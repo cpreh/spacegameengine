@@ -39,8 +39,8 @@
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/randr.h>
 #include <X11/X.h>
+#include <X11/extensions/randr.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::opengl::xrandr::state::state(

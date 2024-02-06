@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/plugin/impl/library/error.hpp>
-#include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/platform.hpp>
+#include <fcppt/optional/make_if.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <awl/backends/windows/format_message.hpp>
 #include <awl/backends/windows/windows.hpp>

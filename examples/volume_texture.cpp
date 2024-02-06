@@ -152,8 +152,8 @@
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <example_main.hpp>
-#include <cstddef>
 #include <chrono>
+#include <cstddef>
 #include <exception>
 #include <iostream>
 #include <ostream>

@@ -28,9 +28,9 @@
 #include <fcppt/math/box/object_impl.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <cstddef>
 #include <CL/cl.h>
 #include <CL/cl_platform.h>
+#include <cstddef>
 #include <fcppt/config/external_end.hpp>
 
 sge::opencl::command_queue::scoped_planar_mapping::scoped_planar_mapping(

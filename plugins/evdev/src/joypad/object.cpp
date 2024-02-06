@@ -31,8 +31,8 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <linux/input.h>
 #include <linux/input-event-codes.h>
+#include <linux/input.h>
 #include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>

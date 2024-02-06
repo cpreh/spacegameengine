@@ -11,8 +11,8 @@
 #include <sge/opengl/texture/read_size.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
 #include <sge/opengl/texture/readwrite_lock.hpp>
-#include <sge/opengl/texture/writeonly_lock.hpp>
 #include <sge/opengl/texture/write_size.hpp>
+#include <sge/opengl/texture/writeonly_lock.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_unique_ptr.hpp>

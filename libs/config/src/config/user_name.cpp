@@ -14,10 +14,10 @@
 #include <fcppt/container/dynamic_array.hpp>
 #include <fcppt/error/strerrno.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <string>
 #include <pwd.h>
 #include <unistd.h>
 #include <sys/types.h> // NOLINT(misc-include-cleaner)
+#include <string>
 #include <fcppt/config/external_end.hpp>
 #elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <sge/config/exception.hpp>

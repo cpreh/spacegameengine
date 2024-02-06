@@ -6,8 +6,8 @@
 #ifndef SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONFIG_HPP_INCLUDED
 #define SGE_OPENGL_STATE_CORE_SAMPLER_FILTER_ANISOTROPY_CONFIG_HPP_INCLUDED
 
-#include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/opengl/state/core/sampler/filter/anisotropy_config_fwd.hpp> // IWYU pragma: keep
+#include <sge/renderer/opengl/glinclude.hpp>
 #include <fcppt/declare_strong_typedef.hpp>
 #include <fcppt/strong_typedef_impl.hpp> // IWYU pragma: keep
 

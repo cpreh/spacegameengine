@@ -17,8 +17,8 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
-#include <CL/cl_platform.h>
 #include <CL/cl_gl.h>
+#include <CL/cl_platform.h>
 #include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>

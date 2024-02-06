@@ -4,8 +4,8 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/camera/spherical/coordinate_system/azimuth.hpp>
-#include <sge/camera/spherical/coordinate_system/inclination.hpp>
 #include <sge/camera/spherical/coordinate_system/homogenous.hpp>
+#include <sge/camera/spherical/coordinate_system/inclination.hpp>
 #include <sge/camera/spherical/coordinate_system/object.hpp>
 #include <sge/camera/spherical/coordinate_system/radius.hpp>
 #include <sge/renderer/scalar.hpp>

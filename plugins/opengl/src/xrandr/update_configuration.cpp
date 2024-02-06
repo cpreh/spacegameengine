@@ -6,8 +6,8 @@
 #include <sge/opengl/xrandr/update_configuration.hpp>
 #include <awl/backends/x11/window/event/object.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <X11/extensions/Xrandr.h>
 #include <X11/Xlib.h>
+#include <X11/extensions/Xrandr.h>
 #include <fcppt/config/external_end.hpp>
 
 bool sge::opengl::xrandr::update_configuration(

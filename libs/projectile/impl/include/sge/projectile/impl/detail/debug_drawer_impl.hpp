@@ -19,8 +19,8 @@
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/CollisionDispatch/btCollisionWorld.h>
 #include <LinearMath/btIDebugDraw.h>
-#include <LinearMath/btVector3.h>
 #include <LinearMath/btScalar.h>
+#include <LinearMath/btVector3.h>
 #include <fcppt/config/external_end.hpp>
 
 class btCollisionWorld;

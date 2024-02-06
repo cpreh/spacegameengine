@@ -11,9 +11,9 @@
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/optional/from.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/filesystem/path_to_string.hpp>
+#include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
 #if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
 #include <exception>

@@ -37,11 +37,11 @@
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <pango/pango-layout.h>
-#include <pango/pangoft2.h>
 #include <ft2build.h> // NOLINT(misc-include-cleaner)
 #include <freetype/freetype.h> // NOLINT(misc-include-cleaner)
 #include <freetype/ftimage.h>
+#include <pango/pango-layout.h>
+#include <pango/pangoft2.h>
 #include <iterator>
 #include <fcppt/config/external_end.hpp>
 

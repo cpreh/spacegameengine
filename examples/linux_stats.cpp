@@ -99,9 +99,9 @@
 #include <fcppt/math/dim/structure_cast.hpp>
 #include <fcppt/optional/bind.hpp>
 #include <fcppt/optional/make.hpp>
+#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/maybe_void_multi.hpp>
-#include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object.hpp>
 #include <fcppt/options/apply.hpp>
 #include <fcppt/options/argument.hpp>

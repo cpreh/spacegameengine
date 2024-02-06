@@ -6,8 +6,8 @@
 #include <sge/log/option.hpp>
 #include <sge/log/option_container.hpp>
 #include <sge/opencl/binary_error_data.hpp>
-#include <sge/opencl/error_information_string.hpp>
 #include <sge/opencl/dim1.hpp>
+#include <sge/opencl/error_information_string.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/system.hpp>
 #include <sge/opencl/command_queue/enqueue_kernel.hpp>
@@ -32,8 +32,8 @@
 #include <sge/opencl/memory_object/buffer.hpp>
 #include <sge/opencl/memory_object/renderer_buffer_lock_mode.hpp>
 #include <sge/opencl/memory_object/scoped_objects.hpp>
-#include <sge/opencl/memory_object/image/format_sequence.hpp>
 #include <sge/opencl/memory_object/image/format_output.hpp>
+#include <sge/opencl/memory_object/image/format_sequence.hpp>
 #include <sge/opencl/platform/object.hpp>
 #include <sge/opencl/platform/object_sequence.hpp>
 #include <sge/opencl/platform/profile_type.hpp>
@@ -102,9 +102,9 @@
 #include <fcppt/log/level.hpp>
 #include <fcppt/math/vector/output.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <boost/algorithm/string/join.hpp>
 #include <CL/cl.h>
 #include <CL/cl_platform.h>
+#include <boost/algorithm/string/join.hpp>
 #include <cstdlib>
 #include <exception>
 #include <ios>

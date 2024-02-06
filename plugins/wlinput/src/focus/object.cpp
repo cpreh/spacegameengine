@@ -69,9 +69,9 @@
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/signal/object_impl.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
-#include <xkbcommon/xkbcommon.h>
 #include <wayland-client-protocol.h>
 #include <wayland-util.h>
+#include <xkbcommon/xkbcommon.h>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
 

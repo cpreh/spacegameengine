@@ -6,10 +6,10 @@
 #include <sge/camera/spherical/action/decrease_azimuth.hpp>
 #include <sge/camera/spherical/action/decrease_inclination.hpp>
 #include <sge/camera/spherical/action/decrease_radius.hpp>
-#include <sge/camera/spherical/action/mapping.hpp>
 #include <sge/camera/spherical/action/increase_azimuth.hpp>
 #include <sge/camera/spherical/action/increase_inclination.hpp>
 #include <sge/camera/spherical/action/increase_radius.hpp>
+#include <sge/camera/spherical/action/mapping.hpp>
 
 sge::camera::spherical::action::mapping::mapping(
     sge::camera::spherical::action::increase_azimuth const &_increase_azimuth,

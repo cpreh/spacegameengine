@@ -12,11 +12,11 @@
 #include <fcppt/text.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <ctime>
 #include <unistd.h>
-#include <linux/input.h>
 #include <linux/input-event-codes.h>
+#include <linux/input.h>
 #include <sys/time.h> // NOLINT(misc-include-cleaner)
+#include <ctime>
 #include <fcppt/config/external_end.hpp>
 
 void sge::evdev::joypad::ff::write_event(

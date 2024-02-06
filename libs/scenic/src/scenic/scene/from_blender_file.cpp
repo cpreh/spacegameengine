@@ -43,11 +43,11 @@
 #include <sge/scenic/render_context/light/constant_attenuation.hpp>
 #include <sge/scenic/render_context/light/direction.hpp>
 #include <sge/scenic/render_context/light/directional.hpp>
-#include <sge/scenic/render_context/light/quadratic_attenuation.hpp>
 #include <sge/scenic/render_context/light/linear_attenuation.hpp>
 #include <sge/scenic/render_context/light/object.hpp>
 #include <sge/scenic/render_context/light/point.hpp>
 #include <sge/scenic/render_context/light/position.hpp>
+#include <sge/scenic/render_context/light/quadratic_attenuation.hpp>
 #include <sge/scenic/render_context/light/variant.hpp>
 #include <sge/scenic/scene/camera_properties.hpp>
 #include <sge/scenic/scene/entity.hpp>

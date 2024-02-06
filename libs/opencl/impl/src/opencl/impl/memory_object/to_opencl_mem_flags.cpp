@@ -3,9 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <sge/opencl/memory_object/flags.hpp>
 #include <sge/opencl/memory_object/flags_field.hpp>
-#include <sge/opencl/impl/memory_object/to_opencl_mem_flags.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>

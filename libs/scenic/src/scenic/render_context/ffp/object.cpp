@@ -62,10 +62,10 @@
 #include <sge/renderer/state/ffp/lighting/light/variant.hpp>
 #include <sge/renderer/state/ffp/lighting/material/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/lighting/material/emissive_color.hpp>
-#include <sge/renderer/state/ffp/lighting/material/shininess.hpp>
 #include <sge/renderer/state/ffp/lighting/material/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/state/ffp/lighting/material/object_unique_ptr.hpp>
 #include <sge/renderer/state/ffp/lighting/material/parameters.hpp>
+#include <sge/renderer/state/ffp/lighting/material/shininess.hpp>
 #include <sge/renderer/state/ffp/transform/const_optional_object_ref.hpp>
 #include <sge/renderer/state/ffp/transform/mode.hpp>
 #include <sge/renderer/state/ffp/transform/object.hpp> // NOLINT(misc-include-cleaner)

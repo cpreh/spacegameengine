@@ -11,11 +11,11 @@
 #include <fcppt/either/to_exception.hpp>
 #include <fcppt/parse/char.hpp>
 #include <fcppt/parse/literal.hpp>
-#include <fcppt/parse/uint.hpp>
 #include <fcppt/parse/parse_string.hpp>
 #include <fcppt/parse/parse_string_error.hpp>
 #include <fcppt/parse/parse_string_error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/parse/string.hpp>
+#include <fcppt/parse/uint.hpp>
 #include <fcppt/parse/operators/repetition.hpp>
 #include <fcppt/parse/operators/sequence.hpp>
 #include <fcppt/tuple/get.hpp>

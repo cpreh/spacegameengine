@@ -17,8 +17,8 @@
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fstream>
-#include <istream>
 #include <ios>
+#include <istream>
 #include <fcppt/config/external_end.hpp>
 
 sge::model::md3::impl::loader::loader(fcppt::log::context_reference const _log_context)

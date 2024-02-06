@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/egl/wayland/window.hpp>
-#include <awl/event/container.hpp>
 #include <sge/window/event_function.hpp>
 #include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
+#include <awl/event/container.hpp>
 #include <awl/window/event/base.hpp>
 #include <awl/window/event/resize.hpp>
 #include <fcppt/make_ref.hpp>
