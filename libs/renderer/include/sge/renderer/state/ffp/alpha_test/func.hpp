@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_FUNC_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/alpha_test/func_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::ffp::alpha_test
 {
 
-enum class func
+enum class func : std::uint8_t
 {
   never,
   less,

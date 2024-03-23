@@ -7,6 +7,9 @@
 #define SGE_RENDERER_PRIMITIVE_TYPE_HPP_INCLUDED
 
 #include <sge/renderer/primitive_type_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer
 {
@@ -16,7 +19,7 @@ namespace sge::renderer
 
 \ingroup sge_renderer
 */
-enum class primitive_type
+enum class primitive_type : std::uint8_t
 {
   /**
 	\brief Vertices describe points

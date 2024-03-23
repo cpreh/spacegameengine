@@ -6,10 +6,14 @@
 #ifndef SGE_INPUT_JOYPAD_AXIS_CODE_FWD_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_AXIS_CODE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::input::joypad
 {
 
-enum class axis_code; // IWYU pragma: export
+enum class axis_code : std::uint8_t; // IWYU pragma: export
 
 }
 

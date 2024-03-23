@@ -7,11 +7,14 @@
 #define SGE_INPUT_JOYPAD_FF_TYPE_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/type_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::input::joypad::ff
 {
 
-enum class type
+enum class type : std::uint8_t
 {
   constant,
   spring,

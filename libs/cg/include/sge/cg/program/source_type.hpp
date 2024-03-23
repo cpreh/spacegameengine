@@ -7,11 +7,14 @@
 #define SGE_CG_PROGRAM_SOURCE_TYPE_HPP_INCLUDED
 
 #include <sge/cg/program/source_type_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::cg::program
 {
 
-enum class source_type
+enum class source_type : std::uint8_t
 {
   text,
   binary

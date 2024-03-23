@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_DEPTH_FUNC_HPP_INCLUDED
 
 #include <sge/renderer/state/core/depth_stencil/depth/func_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::core::depth_stencil::depth
 {
 
-enum class func
+enum class func : std::uint8_t
 {
   never,
   less,

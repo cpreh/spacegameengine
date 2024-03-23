@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_MAG_HPP_INCLUDED
 
 #include <sge/renderer/state/core/sampler/filter/normal/mag_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::core::sampler::filter::normal
 {
 
-enum class mag
+enum class mag : std::uint8_t
 {
   point,
   linear

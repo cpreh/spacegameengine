@@ -12,7 +12,7 @@
 namespace sge::renderer::impl
 {
 
-inline constexpr sge::renderer::scalar epsilon()
+constexpr sge::renderer::scalar epsilon()
 {
   return fcppt::literal<sge::renderer::scalar>(
       0.001 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)

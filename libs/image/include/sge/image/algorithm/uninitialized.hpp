@@ -7,11 +7,14 @@
 #define SGE_IMAGE_ALGORITHM_UNINITIALIZED_HPP_INCLUDED
 
 #include <sge/image/algorithm/uninitialized_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::image::algorithm
 {
 
-enum class uninitialized
+enum class uninitialized : std::uint8_t
 {
   no,
   yes

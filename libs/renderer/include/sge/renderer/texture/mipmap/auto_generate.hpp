@@ -7,11 +7,14 @@
 #define SGE_RENDERER_TEXTURE_MIPMAP_AUTO_GENERATE_HPP_INCLUDED
 
 #include <sge/renderer/texture/mipmap/auto_generate_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::texture::mipmap
 {
 
-enum class auto_generate
+enum class auto_generate : std::uint8_t
 {
   yes,
   no

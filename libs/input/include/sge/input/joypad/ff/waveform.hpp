@@ -7,11 +7,14 @@
 #define SGE_INPUT_JOYPAD_FF_WAVEFORM_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/waveform_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::input::joypad::ff
 {
 
-enum class waveform
+enum class waveform : std::uint8_t
 {
   square,
   triangle,

@@ -30,11 +30,9 @@ public:
   {
   }
 
-  using result_type = void;
-
   template <typename Source, typename Dest>
-  std::enable_if_t<std::is_same_v<typename Source::format, typename Dest::format>, result_type>
-  operator()(Source const &_source, Dest const &_dest) const
+  void operator()(Source const &_source, Dest const &_dest) const
+    requires(std::is_same_v<typename Source::format, typename Dest::format>)
   {
     if (sge::image::color::impl::dynamic::algorithm::cac::permutate_compare(
             sge::image::color::impl::dynamic::view::color_layout(_source),
@@ -50,14 +48,11 @@ public:
   }
 
   template <typename Source, typename Dest>
-  std::enable_if_t<
-      fcppt::not_(std::is_same_v<typename Source::format, typename Dest::format>),
-      result_type>
-  operator()(Source const &_source, Dest const &_dest) const
+  void operator()(Source const &_source, Dest const &_dest) const
+    requires(fcppt::not_(std::is_same_v<typename Source::format, typename Dest::format>))
   {
     sge::image::color::impl::dynamic::algorithm::cac::convert(_source, _dest, uninitialized_);
   }
-
 private:
   sge::image::algorithm::may_overlap overlap_;
 

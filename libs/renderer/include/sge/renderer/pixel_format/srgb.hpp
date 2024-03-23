@@ -7,11 +7,14 @@
 #define SGE_RENDERER_PIXEL_FORMAT_SRGB_HPP_INCLUDED
 
 #include <sge/renderer/pixel_format/srgb_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::pixel_format
 {
 
-enum class srgb
+enum class srgb : std::uint8_t
 {
   /**
 	\brief Don't do gamma correction

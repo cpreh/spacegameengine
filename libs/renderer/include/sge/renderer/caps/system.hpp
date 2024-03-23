@@ -7,6 +7,9 @@
 #define SGE_RENDERER_CAPS_SYSTEM_HPP_INCLUDED
 
 #include <sge/renderer/caps/system_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::caps
 {
@@ -16,7 +19,7 @@ namespace sge::renderer::caps
 
 \ingroup sge_renderer
 */
-enum class system
+enum class system : std::uint8_t
 {
   /**
 	\brief The renderer is capable of the fixed function pipeline

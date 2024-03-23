@@ -7,11 +7,14 @@
 #define SGE_RENDERER_VF_DYNAMIC_ELEMENT_TYPE_HPP_INCLUDED
 
 #include <sge/renderer/vf/dynamic/element_type_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::vf::dynamic
 {
 
-enum class element_type
+enum class element_type : std::uint8_t
 {
   float_,
   double_,

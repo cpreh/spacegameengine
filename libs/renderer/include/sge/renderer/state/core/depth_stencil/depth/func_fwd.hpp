@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_DEPTH_FUNC_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_DEPTH_STENCIL_DEPTH_FUNC_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::state::core::depth_stencil::depth
 {
 
-enum class func; // IWYU pragma: export
+enum class func : std::uint8_t; // IWYU pragma: export
 
 }
 

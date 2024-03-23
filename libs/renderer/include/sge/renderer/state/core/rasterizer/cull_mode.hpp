@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_CULL_MODE_HPP_INCLUDED
 
 #include <sge/renderer/state/core/rasterizer/cull_mode_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::core::rasterizer
 {
 
-enum class cull_mode
+enum class cull_mode : std::uint8_t
 {
   off,
   clockwise,

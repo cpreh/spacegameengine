@@ -5,13 +5,18 @@
 
 #include <sge/cg/impl/parameter/convert_element_type.hpp>
 #include <sge/cg/parameter/element_type.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h>
 #include <fcppt/config/external_end.hpp>
 
 CGtype sge::cg::impl::parameter::convert_element_type(sge::cg::parameter::element_type const _type)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_type)
   {
   case sge::cg::parameter::element_type::double_:
@@ -143,6 +148,7 @@ CGtype sge::cg::impl::parameter::convert_element_type(sge::cg::parameter::elemen
   case sge::cg::parameter::element_type::int4x4:
     return CG_INT4x4;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_type);
 }

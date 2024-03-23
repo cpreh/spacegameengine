@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_FILL_MODE_HPP_INCLUDED
 
 #include <sge/renderer/state/core/rasterizer/fill_mode_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::core::rasterizer
 {
 
-enum class fill_mode
+enum class fill_mode : std::uint8_t
 {
   line,
   solid

@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_TEXTURE_MIPMAP_AUTO_GENERATE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_TEXTURE_MIPMAP_AUTO_GENERATE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::texture::mipmap
 {
 
-enum class auto_generate; // IWYU pragma: export
+enum class auto_generate : std::uint8_t; // IWYU pragma: export
 
 }
 

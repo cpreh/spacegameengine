@@ -50,14 +50,15 @@ struct compare_element
 	}*/
 
   template <typename T>
-  std::enable_if_t<std::is_integral_v<T>, bool> operator()(T const _value1, T const _value2) const
+  bool operator()(T const _value1, T const _value2) const
+    requires(std::is_integral_v<T>)
   {
     return _value1 == _value2;
   }
 
   template <typename T>
-  std::enable_if_t<std::is_floating_point_v<T>, bool>
-  operator()(T const _value1, T const _value2) const
+  bool operator()(T const _value1, T const _value2) const
+    requires(std::is_floating_point_v<T>)
   {
     T const epsilon{fcppt::literal<T>(0.00001)};
 

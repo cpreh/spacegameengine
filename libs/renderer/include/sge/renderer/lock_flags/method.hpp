@@ -7,11 +7,14 @@
 #define SGE_RENDERER_LOCK_FLAGS_METHOD_HPP_INCLUDED
 
 #include <sge/renderer/lock_flags/method_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::lock_flags
 {
 
-enum class method
+enum class method : std::uint8_t
 {
   read,
   write,

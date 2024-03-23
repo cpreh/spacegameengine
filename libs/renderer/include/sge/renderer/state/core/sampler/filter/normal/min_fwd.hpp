@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_MIN_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_SAMPLER_FILTER_NORMAL_MIN_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::state::core::sampler::filter::normal
 {
 
-enum class min; // IWYU pragma: export
+enum class min : std::uint8_t; // IWYU pragma: export
 
 }
 

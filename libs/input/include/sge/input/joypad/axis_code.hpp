@@ -7,11 +7,14 @@
 #define SGE_INPUT_JOYPAD_AXIS_CODE_HPP_INCLUDED
 
 #include <sge/input/joypad/axis_code_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::input::joypad
 {
 
-enum class axis_code
+enum class axis_code : std::uint8_t
 {
   // TODO(philipp)
   x,

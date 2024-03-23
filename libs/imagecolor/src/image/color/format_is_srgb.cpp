@@ -5,10 +5,15 @@
 
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_is_srgb.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 bool sge::image::color::format_is_srgb(sge::image::color::format const _format)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
   case sge::image::color::format::a8:
@@ -32,6 +37,7 @@ bool sge::image::color::format_is_srgb(sge::image::color::format const _format)
   case sge::image::color::format::sbgra8:
     return true;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_format);
 }

@@ -6,7 +6,10 @@
 #include <sge/image/color/format.hpp>
 #include <sge/image/color/format_to_string.hpp>
 #include <fcppt/string.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/preprocessor/stringize.hpp>
 
 fcppt::string sge::image::color::format_to_string(sge::image::color::format const _format)
@@ -15,6 +18,8 @@ fcppt::string sge::image::color::format_to_string(sge::image::color::format cons
   case sge::image::color::format::fmt: \
     return FCPPT_PP_STRINGIZE(fmt)
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
     SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(a8);
@@ -36,6 +41,7 @@ fcppt::string sge::image::color::format_to_string(sge::image::color::format cons
     SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(sbgr8);
     SGE_IMAGE_COLOR_FORMAT_TO_STRING_CASE(sbgra8);
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_format);
 }

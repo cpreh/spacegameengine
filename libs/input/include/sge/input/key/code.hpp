@@ -7,6 +7,9 @@
 #define SGE_INPUT_KEY_CODE_HPP_INCLUDED
 
 #include <sge/input/key/code_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::input::key
 {
@@ -14,7 +17,7 @@ namespace sge::input::key
 // TODO(philipp): Split this into focus/keyboard
 // Focus should only use semantic keys, e.g. insert.
 // Keyboard should distinguish individual keys, e.g. insert, num_insert.
-enum class code
+enum class code : std::uint8_t
 {
   escape,
   return_,

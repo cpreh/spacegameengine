@@ -7,7 +7,10 @@
 #include <sge/input/cursor/button_code_to_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 fcppt::string sge::input::cursor::button_code_to_string(sge::input::cursor::button_code const _code)
 {
@@ -15,6 +18,8 @@ fcppt::string sge::input::cursor::button_code_to_string(sge::input::cursor::butt
   case sge::input::cursor::button_code::name: \
     return FCPPT_TEXT(#name);
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_code)
   {
     MAKE_CASE(left)
@@ -22,6 +27,7 @@ fcppt::string sge::input::cursor::button_code_to_string(sge::input::cursor::butt
     MAKE_CASE(middle)
     MAKE_CASE(unknown)
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_code);
 }

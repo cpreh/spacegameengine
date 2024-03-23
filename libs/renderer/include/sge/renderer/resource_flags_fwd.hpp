@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_RESOURCE_FLAGS_FWD_HPP_INCLUDED
 #define SGE_RENDERER_RESOURCE_FLAGS_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer
 {
 
-enum class resource_flags; // IWYU pragma: export
+enum class resource_flags : std::uint8_t; // IWYU pragma: export
 
 }
 

@@ -6,10 +6,14 @@
 #ifndef SGE_IMAGE_COLOR_FORMAT_FWD_HPP_INCLUDED
 #define SGE_IMAGE_COLOR_FORMAT_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::image::color
 {
 
-enum class format; // IWYU pragma: export
+enum class format : std::uint8_t; // IWYU pragma: export
 
 }
 

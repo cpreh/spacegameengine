@@ -7,11 +7,14 @@
 #define SGE_RENDERER_TEXTURE_EMULATE_SRGB_HPP_INCLUDED
 
 #include <sge/renderer/texture/emulate_srgb_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::texture
 {
 
-enum class emulate_srgb
+enum class emulate_srgb : std::uint8_t
 {
   /**
 	\brief srgb color formats will be created as srgb textures

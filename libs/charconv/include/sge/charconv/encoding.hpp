@@ -7,11 +7,14 @@
 #define SGE_CHARCONV_ENCODING_HPP_INCLUDED
 
 #include <sge/charconv/encoding_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::charconv
 {
 
-enum class encoding
+enum class encoding : std::uint8_t
 {
   utf8,
   utf16,

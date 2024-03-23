@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_UNARY_OP_TYPE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_UNARY_OP_TYPE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::state::ffp::sampler
 {
 
-enum class unary_op_type; // IWYU pragma: export
+enum class unary_op_type : std::uint8_t; // IWYU pragma: export
 
 }
 

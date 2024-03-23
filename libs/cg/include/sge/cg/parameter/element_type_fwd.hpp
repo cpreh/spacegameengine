@@ -6,10 +6,14 @@
 #ifndef SGE_CG_PARAMETER_ELEMENT_TYPE_FWD_HPP_INCLUDED
 #define SGE_CG_PARAMETER_ELEMENT_TYPE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::cg::parameter
 {
 
-enum class element_type; // IWYU pragma: export
+enum class element_type : std::uint8_t; // IWYU pragma: export
 
 }
 

@@ -7,11 +7,14 @@
 #define SGE_AUDIO_SOUND_PLAY_STATUS_HPP_INCLUDED
 
 #include <sge/audio/sound/play_status_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::audio::sound
 {
 
-enum class play_status
+enum class play_status : std::uint8_t
 {
   stopped,
   playing,

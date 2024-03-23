@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_STATE_FFP_ALPHA_TEST_FUNC_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_ALPHA_TEST_FUNC_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::state::ffp::alpha_test
 {
 
-enum class func; // IWYU pragma: export
+enum class func : std::uint8_t; // IWYU pragma: export
 
 }
 

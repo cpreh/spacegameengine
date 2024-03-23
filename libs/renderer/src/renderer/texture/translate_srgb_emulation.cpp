@@ -7,18 +7,23 @@
 #include <sge/renderer/texture/color_format.hpp>
 #include <sge/renderer/texture/emulate_srgb.hpp>
 #include <sge/renderer/texture/translate_srgb_emulation.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::image::color::format sge::renderer::texture::translate_srgb_emulation(
     sge::renderer::texture::color_format const &_color_format)
 {
-  sge::image::color::format const format(_color_format.format());
+  sge::image::color::format const format{_color_format.format()};
 
   if (_color_format.emulate_srgb() == sge::renderer::texture::emulate_srgb::no)
   {
     return format;
   }
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (format)
   {
   case sge::image::color::format::a8:
@@ -45,6 +50,7 @@ sge::image::color::format sge::renderer::texture::translate_srgb_emulation(
   case sge::image::color::format::sbgra8:
     return sge::image::color::format::bgra8;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(format);
 }

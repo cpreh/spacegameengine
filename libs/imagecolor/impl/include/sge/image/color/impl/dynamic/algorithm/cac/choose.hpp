@@ -17,19 +17,16 @@
 #include <mizuiro/color/conversion/srgb_to_rgb.hpp>
 #include <mizuiro/color/format/same_spaces.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::image::color::impl::dynamic::algorithm::cac
 {
 
 template <typename SourceFormat, typename DestFormat>
-inline std::enable_if_t<
-    mizuiro::color::format::
-        same_spaces<typename SourceFormat::color_format, typename DestFormat::color_format>::value,
-    sge::image::color::impl::dynamic::algorithm::cac::function<SourceFormat, DestFormat>>
+inline sge::image::color::impl::dynamic::algorithm::cac::function<SourceFormat, DestFormat>
 choose(SourceFormat const &, DestFormat const &)
+  requires(mizuiro::color::format::same_spaces<
+           typename SourceFormat::color_format,
+           typename DestFormat::color_format>::value)
 {
   return &mizuiro::color::conversion::same_to_same<
       typename DestFormat::color_format,
@@ -37,10 +34,10 @@ choose(SourceFormat const &, DestFormat const &)
 }
 
 template <typename SourceFormat, typename DestFormat>
-inline std::enable_if_t<
-    sge::image::color::impl::dynamic::algorithm::cac::rgb_to_srgb<SourceFormat, DestFormat>::value,
-    sge::image::color::impl::dynamic::algorithm::cac::function<SourceFormat, DestFormat>>
+inline sge::image::color::impl::dynamic::algorithm::cac::function<SourceFormat, DestFormat>
 choose(SourceFormat const &, DestFormat const &)
+  requires(sge::image::color::impl::dynamic::algorithm::cac::rgb_to_srgb<SourceFormat, DestFormat>::
+               value)
 {
   return &mizuiro::color::conversion::rgb_to_srgb<
       typename DestFormat::color_format,
@@ -48,10 +45,10 @@ choose(SourceFormat const &, DestFormat const &)
 }
 
 template <typename SourceFormat, typename DestFormat>
-inline std::enable_if_t<
-    sge::image::color::impl::dynamic::algorithm::cac::srgb_to_rgb<SourceFormat, DestFormat>::value,
-    sge::image::color::impl::dynamic::algorithm::cac::function<SourceFormat, DestFormat>>
+inline sge::image::color::impl::dynamic::algorithm::cac::function<SourceFormat, DestFormat>
 choose(SourceFormat const &, DestFormat const &)
+  requires(sge::image::color::impl::dynamic::algorithm::cac::srgb_to_rgb<SourceFormat, DestFormat>::
+               value)
 {
   return &mizuiro::color::conversion::srgb_to_rgb<
       typename DestFormat::color_format,
@@ -59,23 +56,21 @@ choose(SourceFormat const &, DestFormat const &)
 }
 
 template <typename SourceFormat, typename DestFormat>
-inline std::enable_if_t<
-    fcppt::not_(
-        mizuiro::color::format::same_spaces<
-            typename SourceFormat::color_format,
-            typename DestFormat::color_format>::value ||
-        sge::image::color::impl::dynamic::algorithm::cac::rgb_to_srgb<SourceFormat, DestFormat>::
-            value ||
-        sge::image::color::impl::dynamic::algorithm::cac::srgb_to_rgb<SourceFormat, DestFormat>::
-            value),
-    sge::image::color::impl::dynamic::algorithm::cac::function<SourceFormat, DestFormat>>
+inline sge::image::color::impl::dynamic::algorithm::cac::function<SourceFormat, DestFormat>
 choose(SourceFormat const &_source, DestFormat const &_dest)
+  requires(fcppt::not_(
+      mizuiro::color::format::same_spaces<
+          typename SourceFormat::color_format,
+          typename DestFormat::color_format>::value ||
+      sge::image::color::impl::dynamic::algorithm::cac::rgb_to_srgb<SourceFormat, DestFormat>::
+          value ||
+      sge::image::color::impl::dynamic::algorithm::cac::srgb_to_rgb<SourceFormat, DestFormat>::
+          value))
 {
   throw sge::image::color::invalid_convert{
       sge::image::color::impl::dynamic::view::color_format(_source).color_format,
       sge::image::color::impl::dynamic::view::color_format(_dest).color_format};
 }
-
 }
 
 #endif

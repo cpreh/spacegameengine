@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_STATE_CORE_RASTERIZER_FILL_MODE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_FILL_MODE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::state::core::rasterizer
 {
 
-enum class fill_mode; // IWYU pragma: export
+enum class fill_mode : std::uint8_t; // IWYU pragma: export
 
 }
 

@@ -7,11 +7,14 @@
 #define SGE_FONT_FLAGS_HPP_INCLUDED
 
 #include <sge/font/flags_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::font
 {
 
-enum class flags
+enum class flags : std::uint8_t
 {
   no_multi_line,
   no_word_wrap,

@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_STATE_FFP_SAMPLER_ARG_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_FFP_SAMPLER_ARG_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::state::ffp::sampler
 {
 
-enum class arg; // IWYU pragma: export
+enum class arg : std::uint8_t; // IWYU pragma: export
 
 }
 

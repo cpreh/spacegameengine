@@ -7,6 +7,9 @@
 #define SGE_RENDERER_LOCK_MODE_HPP_INCLUDED
 
 #include <sge/renderer/lock_mode_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer
 {
@@ -16,7 +19,7 @@ namespace sge::renderer
 
 \ingroup sge_renderer
 */
-enum class lock_mode
+enum class lock_mode : std::uint8_t
 {
   /**
 	\brief Locks a resource for writing only

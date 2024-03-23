@@ -7,11 +7,14 @@
 #define SGE_CG_PARAMETER_ELEMENT_TYPE_HPP_INCLUDED
 
 #include <sge/cg/parameter/element_type_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::cg::parameter
 {
 
-enum class element_type
+enum class element_type : std::uint8_t
 {
   double_,
   double1,

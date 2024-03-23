@@ -7,11 +7,14 @@
 #define SGE_RENDERER_INDEX_DYNAMIC_FORMAT_HPP_INCLUDED
 
 #include <sge/renderer/index/dynamic/format_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::index::dynamic
 {
 
-enum class format
+enum class format : std::uint8_t
 {
   i16,
   i32,

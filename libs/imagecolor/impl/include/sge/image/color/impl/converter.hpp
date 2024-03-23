@@ -16,9 +16,6 @@
 #include <mizuiro/color/object.hpp>
 #include <mizuiro/color/format/argument.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::image::color::impl
 {
@@ -26,25 +23,22 @@ namespace sge::image::color::impl
 struct converter
 {
   template <typename DestFormat, typename Source>
-  static std::enable_if_t<
-      sge::image::color::is_convertible<typename Source::format, DestFormat>::value,
-      sge::image::pixel::mizuiro_type<DestFormat>>
-  execute(
+  static sge::image::pixel::mizuiro_type<DestFormat> execute(
       Source const &_source,
       typename mizuiro::color::object<DestFormat>::format_store_type const & =
           mizuiro::color::format::argument<DestFormat>::get())
+    requires(sge::image::color::is_convertible<typename Source::format, DestFormat>::value)
   {
     return sge::image::color::convert<DestFormat>(_source);
   }
 
   template <typename DestFormat, typename Source>
-  static std::enable_if_t<
-      fcppt::not_(sge::image::color::is_convertible<typename Source::format, DestFormat>::value),
-      sge::image::pixel::mizuiro_type<DestFormat>>
-  execute(
+  static sge::image::pixel::mizuiro_type<DestFormat> execute(
       Source const &,
       typename mizuiro::color::object<DestFormat>::format_store_type const & =
           mizuiro::color::format::argument<DestFormat>::get())
+    requires(
+        fcppt::not_(sge::image::color::is_convertible<typename Source::format, DestFormat>::value))
   {
     throw sge::image::color::invalid_convert{
         sge::image::impl::

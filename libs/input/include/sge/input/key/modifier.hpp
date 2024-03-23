@@ -7,11 +7,14 @@
 #define SGE_INPUT_KEY_MODIFIER_HPP_INCLUDED
 
 #include <sge/input/key/modifier_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::input::key
 {
 
-enum class modifier
+enum class modifier : std::uint8_t
 {
   control,
   alt,

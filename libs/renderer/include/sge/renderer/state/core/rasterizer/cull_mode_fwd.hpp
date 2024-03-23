@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_STATE_CORE_RASTERIZER_CULL_MODE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_RASTERIZER_CULL_MODE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::state::core::rasterizer
 {
 
-enum class cull_mode; // IWYU pragma: export
+enum class cull_mode : std::uint8_t; // IWYU pragma: export
 
 }
 

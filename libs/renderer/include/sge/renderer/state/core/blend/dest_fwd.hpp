@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_STATE_CORE_BLEND_DEST_FWD_HPP_INCLUDED
 #define SGE_RENDERER_STATE_CORE_BLEND_DEST_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::state::core::blend
 {
 
-enum class dest; // IWYU pragma: export
+enum class dest : std::uint8_t; // IWYU pragma: export
 
 }
 

@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_FFP_FOG_MODE_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/fog/mode_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::ffp::fog
 {
 
-enum class mode
+enum class mode : std::uint8_t
 {
   linear,
   exp,

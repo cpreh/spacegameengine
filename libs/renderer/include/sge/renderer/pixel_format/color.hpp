@@ -7,11 +7,14 @@
 #define SGE_RENDERER_PIXEL_FORMAT_COLOR_HPP_INCLUDED
 
 #include <sge/renderer/pixel_format/color_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::pixel_format
 {
 
-enum class color
+enum class color : std::uint8_t
 {
   /**
 	\brief A bit depth of 16 bits

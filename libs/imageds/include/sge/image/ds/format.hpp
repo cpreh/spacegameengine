@@ -7,11 +7,14 @@
 #define SGE_IMAGE_DS_FORMAT_HPP_INCLUDED
 
 #include <sge/image/ds/format_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::image::ds
 {
 
-enum class format
+enum class format : std::uint8_t
 {
   d16,
   d32,

@@ -7,6 +7,9 @@
 #define SGE_RENDERER_RESOURCE_FLAGS_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer
 {
@@ -16,7 +19,7 @@ namespace sge::renderer
 
 \ingroup sge_renderer
 */
-enum class resource_flags
+enum class resource_flags : std::uint8_t
 {
   /**
 	\brief Makes the resource dynamic

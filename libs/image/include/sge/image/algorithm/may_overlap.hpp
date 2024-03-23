@@ -7,11 +7,14 @@
 #define SGE_IMAGE_ALGORITHM_MAY_OVERLAP_HPP_INCLUDED
 
 #include <sge/image/algorithm/may_overlap_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::image::algorithm
 {
 
-enum class may_overlap
+enum class may_overlap : std::uint8_t
 {
   no,
   yes

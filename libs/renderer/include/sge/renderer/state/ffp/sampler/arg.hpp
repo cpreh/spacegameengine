@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_FFP_SAMPLER_ARG_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/sampler/arg_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::ffp::sampler
 {
 
-enum class arg
+enum class arg : std::uint8_t
 {
   previous,
   texture,

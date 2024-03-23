@@ -7,7 +7,10 @@
 #include <sge/input/capabilities_to_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 fcppt::string sge::input::capabilities_to_string(sge::input::capabilities const _capabilities)
 {
@@ -15,6 +18,8 @@ fcppt::string sge::input::capabilities_to_string(sge::input::capabilities const 
   case sge::input::capabilities::name: \
     return FCPPT_TEXT(#name)
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_capabilities)
   {
     SGE_INPUT_CAPABILITIES_TO_STRING_CASE(cursor);
@@ -23,8 +28,7 @@ fcppt::string sge::input::capabilities_to_string(sge::input::capabilities const 
     SGE_INPUT_CAPABILITIES_TO_STRING_CASE(joypad);
     SGE_INPUT_CAPABILITIES_TO_STRING_CASE(mouse);
   }
+  FCPPT_PP_POP_WARNING
 
-#undef SGE_INPUT_CAPABILITIES_TO_STRING_CASE
-
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_capabilities);
 }

@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_CORE_BLEND_SOURCE_HPP_INCLUDED
 
 #include <sge/renderer/state/core/blend/source_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::core::blend
 {
 
-enum class source
+enum class source : std::uint8_t
 {
   zero,
   one,

@@ -7,11 +7,14 @@
 #define SGE_RENDERER_PIXEL_FORMAT_DEPTH_STENCIL_HPP_INCLUDED
 
 #include <sge/renderer/pixel_format/depth_stencil_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::pixel_format
 {
 
-enum class depth_stencil
+enum class depth_stencil : std::uint8_t
 {
   /**
 	\brief No depth buffer and no stencil buffer

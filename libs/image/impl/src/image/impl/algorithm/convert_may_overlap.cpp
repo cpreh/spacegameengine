@@ -6,11 +6,16 @@
 #include <sge/image/algorithm/may_overlap.hpp>
 #include <sge/image/impl/algorithm/convert_may_overlap.hpp>
 #include <mizuiro/image/algorithm/may_overlap.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 mizuiro::image::algorithm::may_overlap sge::image::impl::algorithm::convert_may_overlap(
     sge::image::algorithm::may_overlap const _may_overlap)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_may_overlap)
   {
   case sge::image::algorithm::may_overlap::no:
@@ -18,6 +23,7 @@ mizuiro::image::algorithm::may_overlap sge::image::impl::algorithm::convert_may_
   case sge::image::algorithm::may_overlap::yes:
     return mizuiro::image::algorithm::may_overlap::yes;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_may_overlap);
 }

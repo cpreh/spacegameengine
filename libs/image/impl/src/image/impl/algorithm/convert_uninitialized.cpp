@@ -6,11 +6,16 @@
 #include <sge/image/algorithm/uninitialized.hpp>
 #include <sge/image/impl/algorithm/convert_uninitialized.hpp>
 #include <mizuiro/image/algorithm/uninitialized.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 mizuiro::image::algorithm::uninitialized sge::image::impl::algorithm::convert_uninitialized(
     sge::image::algorithm::uninitialized const _uninitialized)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_uninitialized)
   {
   case sge::image::algorithm::uninitialized::no:
@@ -18,6 +23,7 @@ mizuiro::image::algorithm::uninitialized sge::image::impl::algorithm::convert_un
   case sge::image::algorithm::uninitialized::yes:
     return mizuiro::image::algorithm::uninitialized::yes;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_uninitialized);
 }

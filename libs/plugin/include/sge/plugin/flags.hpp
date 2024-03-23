@@ -7,11 +7,14 @@
 #define SGE_PLUGIN_FLAGS_HPP_INCLUDED
 
 #include <sge/plugin/flags_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::plugin
 {
 
-enum class flags
+enum class flags : std::uint8_t
 {
   /**
 	\brief This plugin must be unloaded after everything else has been

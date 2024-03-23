@@ -6,10 +6,14 @@
 #ifndef SGE_INPUT_JOYPAD_FF_TYPE_FWD_HPP_INCLUDED
 #define SGE_INPUT_JOYPAD_FF_TYPE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::input::joypad::ff
 {
 
-enum class type; // IWYU pragma: export
+enum class type : std::uint8_t; // IWYU pragma: export
 
 }
 

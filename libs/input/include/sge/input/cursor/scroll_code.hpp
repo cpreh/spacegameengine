@@ -7,11 +7,14 @@
 #define SGE_INPUT_CURSOR_SCROLL_CODE_HPP_INCLUDED
 
 #include <sge/input/cursor/scroll_code_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::input::cursor
 {
 
-enum class scroll_code
+enum class scroll_code : std::uint8_t
 {
   vertical,
   horizontal

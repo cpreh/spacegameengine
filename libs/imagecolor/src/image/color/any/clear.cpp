@@ -18,12 +18,17 @@
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/luminance.hpp>
 #include <sge/image/color/init/red.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::image::color::any::object
 sge::image::color::any::clear(sge::image::color::format const _format)
 {
   // TODO(philipp): Make this more generic
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
   case sge::image::color::format::a8:
@@ -60,6 +65,7 @@ sge::image::color::any::clear(sge::image::color::format const _format)
         (sge::image::color::init::red() %= 0.)(sge::image::color::init::green() %= 0.)(
             sge::image::color::init::blue() %= 0.)(sge::image::color::init::alpha() %= 0.)));
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_format);
 }

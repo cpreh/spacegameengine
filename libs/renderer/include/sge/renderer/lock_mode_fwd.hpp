@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_LOCK_MODE_FWD_HPP_INCLUDED
 #define SGE_RENDERER_LOCK_MODE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer
 {
 
-enum class lock_mode; // IWYU pragma: export
+enum class lock_mode : std::uint8_t; // IWYU pragma: export
 
 }
 

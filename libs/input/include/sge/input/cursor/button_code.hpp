@@ -7,11 +7,14 @@
 #define SGE_INPUT_CURSOR_BUTTON_CODE_HPP_INCLUDED
 
 #include <sge/input/cursor/button_code_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::input::cursor
 {
 
-enum class button_code
+enum class button_code : std::uint8_t
 {
   left,
   right,

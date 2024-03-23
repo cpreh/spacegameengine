@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_FFP_TRANSFORM_MODE_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/transform/mode_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::ffp::transform
 {
 
-enum class mode
+enum class mode : std::uint8_t
 {
   /**
 	\brief The world matrix

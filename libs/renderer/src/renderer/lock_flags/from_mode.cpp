@@ -6,11 +6,16 @@
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/lock_flags/from_mode.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::renderer::lock_flags::method
 sge::renderer::lock_flags::from_mode(sge::renderer::lock_mode const _mode)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_mode)
   {
   case sge::renderer::lock_mode::writeonly:
@@ -19,5 +24,7 @@ sge::renderer::lock_flags::from_mode(sge::renderer::lock_mode const _mode)
     return sge::renderer::lock_flags::method::readwrite;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_PP_POP_WARNING
+
+  throw fcppt::enum_::make_invalid(_mode);
 }

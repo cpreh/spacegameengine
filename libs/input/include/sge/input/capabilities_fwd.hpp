@@ -6,10 +6,14 @@
 #ifndef SGE_INPUT_CAPABILITIES_FWD_HPP_INCLUDED
 #define SGE_INPUT_CAPABILITIES_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::input
 {
 
-enum class capabilities; // IWYU pragma: export
+enum class capabilities : std::uint8_t; // IWYU pragma: export
 
 }
 

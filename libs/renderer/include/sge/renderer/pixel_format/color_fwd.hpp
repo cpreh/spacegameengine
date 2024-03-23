@@ -6,10 +6,14 @@
 #ifndef SGE_RENDERER_PIXEL_FORMAT_COLOR_FWD_HPP_INCLUDED
 #define SGE_RENDERER_PIXEL_FORMAT_COLOR_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::renderer::pixel_format
 {
 
-enum class color; // IWYU pragma: export
+enum class color : std::uint8_t; // IWYU pragma: export
 
 }
 

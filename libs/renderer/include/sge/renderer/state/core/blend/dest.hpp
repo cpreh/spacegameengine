@@ -7,11 +7,14 @@
 #define SGE_RENDERER_STATE_CORE_BLEND_DEST_HPP_INCLUDED
 
 #include <sge/renderer/state/core/blend/dest_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::state::core::blend
 {
 
-enum class dest
+enum class dest : std::uint8_t
 {
   zero,
   one,

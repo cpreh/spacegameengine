@@ -7,7 +7,10 @@
 #include <sge/input/key/code_to_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 fcppt::string sge::input::key::code_to_string(sge::input::key::code const _code)
 {
@@ -15,6 +18,8 @@ fcppt::string sge::input::key::code_to_string(sge::input::key::code const _code)
   case sge::input::key::code::name: \
     return FCPPT_TEXT(#name);
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_code)
   {
     MAKE_CASE(escape)
@@ -142,6 +147,7 @@ fcppt::string sge::input::key::code_to_string(sge::input::key::code const _code)
     MAKE_CASE(yen)
     MAKE_CASE(unknown)
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_code);
 }
