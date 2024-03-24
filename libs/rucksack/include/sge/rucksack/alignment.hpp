@@ -7,11 +7,14 @@
 #define SGE_RUCKSACK_ALIGNMENT_HPP_INCLUDED
 
 #include <sge/rucksack/alignment_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::rucksack
 {
 
-enum class alignment
+enum class alignment : std::uint8_t
 {
   left_or_top,
   center,

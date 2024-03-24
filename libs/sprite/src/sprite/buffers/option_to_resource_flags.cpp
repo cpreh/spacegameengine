@@ -7,11 +7,16 @@
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/sprite/buffers/option.hpp>
 #include <sge/sprite/buffers/option_to_resource_flags.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::renderer::resource_flags_field
 sge::sprite::buffers::option_to_resource_flags(sge::sprite::buffers::option const _options)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_options)
   {
   case sge::sprite::buffers::option::static_:
@@ -19,6 +24,7 @@ sge::sprite::buffers::option_to_resource_flags(sge::sprite::buffers::option cons
   case sge::sprite::buffers::option::dynamic:
     return sge::renderer::resource_flags_field{sge::renderer::resource_flags::dynamic};
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_options);
 }

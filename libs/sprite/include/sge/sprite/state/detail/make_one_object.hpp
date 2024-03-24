@@ -56,10 +56,8 @@ private:
 
 public:
   template <typename Type, typename Role>
-  std::enable_if_t<
-      state_for_role<Role>::persistent::value,
-      typename state_for_role<Role>::state_type>
-  operator()(fcppt::record::element<Role, Type>) const
+  typename state_for_role<Role>::state_type operator()(fcppt::record::element<Role, Type>) const
+    requires(state_for_role<Role>::persistent::value)
   {
     return state_for_role<Role>::make(
         fcppt::reference_to_base<
@@ -68,10 +66,9 @@ public:
   }
 
   template <typename Type, typename Role>
-  std::enable_if_t<
-      fcppt::not_(state_for_role<Role>::persistent::value),
-      fcppt::optional::object<typename state_for_role<Role>::state_type>>
+  fcppt::optional::object<typename state_for_role<Role>::state_type>
   operator()(fcppt::record::element<Role, Type>) const
+    requires(fcppt::not_(state_for_role<Role>::persistent::value))
   {
     return fcppt::optional::object<typename state_for_role<Role>::state_type>();
   }

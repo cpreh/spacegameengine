@@ -15,16 +15,14 @@
 #include <sge/sprite/geometry/detail/fill_texture_level.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/type_traits/implication.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::geometry::detail
 {
 
 template <typename Iterator, typename Choices>
-inline std::enable_if_t<sge::sprite::detail::config::has_texture_levels<Choices>::value, void>
+inline void
 fill_texture_levels(Iterator const &_iterator, sge::sprite::object<Choices> const &_sprite)
+requires(sge::sprite::detail::config::has_texture_levels<Choices>::value)
 {
   static_assert(
       fcppt::type_traits::implication<
@@ -37,9 +35,8 @@ fill_texture_levels(Iterator const &_iterator, sge::sprite::object<Choices> cons
 }
 
 template <typename Iterator, typename Choices>
-inline std::
-    enable_if_t<fcppt::not_(sge::sprite::detail::config::has_texture_levels<Choices>::value), void>
-    fill_texture_levels(Iterator const &, sge::sprite::object<Choices> const &)
+inline void fill_texture_levels(Iterator const &, sge::sprite::object<Choices> const &)
+  requires(fcppt::not_(sge::sprite::detail::config::has_texture_levels<Choices>::value))
 {
 }
 

@@ -7,11 +7,14 @@
 #define SGE_SYSTEMS_RENDERER_CAPS_HPP_INCLUDED
 
 #include <sge/systems/renderer_caps_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::systems
 {
 
-enum class renderer_caps
+enum class renderer_caps : std::uint8_t
 {
   core,
   ffp

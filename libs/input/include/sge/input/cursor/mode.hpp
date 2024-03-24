@@ -7,11 +7,14 @@
 #define SGE_INPUT_CURSOR_MODE_HPP_INCLUDED
 
 #include <sge/input/cursor/mode_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::input::cursor
 {
 
-enum class mode
+enum class mode : std::uint8_t
 {
   exclusive,
   normal

@@ -11,16 +11,13 @@
 #include <sge/sprite/detail/config/is_intrusive.hpp>
 #include <sge/sprite/intrusive/detail/object_base_hook.hpp> // IWYU pragma: keep
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::detail
 {
 
 template <typename Choices>
-std::enable_if_t<sge::sprite::detail::config::is_intrusive<Choices>::value, void>
-assign_pre(sge::sprite::object<Choices> &_this, sge::sprite::object<Choices> const &_other)
+void assign_pre(sge::sprite::object<Choices> &_this, sge::sprite::object<Choices> const &_other)
+  requires(sge::sprite::detail::config::is_intrusive<Choices>::value)
 {
   sge::sprite::detail::unlink(_this);
 
@@ -28,8 +25,8 @@ assign_pre(sge::sprite::object<Choices> &_this, sge::sprite::object<Choices> con
 }
 
 template <typename Choices>
-std::enable_if_t<fcppt::not_(sge::sprite::detail::config::is_intrusive<Choices>::value), void>
-assign_pre(sge::sprite::object<Choices> &, sge::sprite::object<Choices> const &)
+void assign_pre(sge::sprite::object<Choices> &, sge::sprite::object<Choices> const &)
+  requires(fcppt::not_(sge::sprite::detail::config::is_intrusive<Choices>::value))
 {
 }
 

@@ -17,18 +17,16 @@
 #include <fcppt/not.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cmath>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::geometry::detail
 {
 
 template <typename Iterator, typename Choices>
-inline std::enable_if_t<
-    sge::sprite::detail::config::has_rotation<Choices>::value &&
-        sge::sprite::detail::config::has_normal_size<Choices>::value,
-    void>
-fill_position(Iterator const _iterator, sge::sprite::object<Choices> const &_sprite)
+inline void fill_position(Iterator const _iterator, sge::sprite::object<Choices> const &_sprite)
+  requires(
+      sge::sprite::detail::config::has_rotation<Choices>::value &&
+      sge::sprite::detail::config::has_normal_size<Choices>::value)
 {
   if (std::abs(_sprite.rotation()) <
       fcppt::literal<typename sge::sprite::object<Choices>::rotation_type>(
@@ -44,22 +42,20 @@ fill_position(Iterator const _iterator, sge::sprite::object<Choices> const &_spr
 }
 
 template <typename Iterator, typename Choices>
-inline std::enable_if_t<
-    fcppt::not_(sge::sprite::detail::config::has_rotation<Choices>::value) &&
-        sge::sprite::detail::config::has_normal_size<Choices>::value,
-    void>
-fill_position(Iterator const _iterator, sge::sprite::object<Choices> const &_sprite)
+inline void fill_position(Iterator const _iterator, sge::sprite::object<Choices> const &_sprite)
+  requires(
+      fcppt::not_(sge::sprite::detail::config::has_rotation<Choices>::value) &&
+      sge::sprite::detail::config::has_normal_size<Choices>::value)
 {
   sge::sprite::geometry::detail::fill_position_unrotated(_iterator, _sprite);
 }
 
 template <typename Iterator, typename Choices>
-inline std::enable_if_t<sge::sprite::detail::config::has_point_size<Choices>::value>
-fill_position(Iterator const _iterator, sge::sprite::object<Choices> const &_sprite)
+inline void fill_position(Iterator const _iterator, sge::sprite::object<Choices> const &_sprite)
+  requires(sge::sprite::detail::config::has_point_size<Choices>::value)
 {
   sge::sprite::geometry::detail::fill_position_points(_iterator, _sprite);
 }
-
 }
 
 #endif

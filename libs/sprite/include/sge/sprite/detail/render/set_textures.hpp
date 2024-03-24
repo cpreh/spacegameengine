@@ -19,20 +19,15 @@
 #include <fcppt/reference_to_base.hpp>
 #include <fcppt/tag_type.hpp>
 #include <fcppt/use.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::detail::render
 {
 
 template <typename Choices>
-std::enable_if_t<
-    sge::sprite::detail::config::has_texture_levels<Choices>::value,
-    void>
-set_textures(
+void set_textures(
     sge::renderer::context::core &_render_context, // NOLINT(google-runtime-references)
     sge::sprite::render::range_part<Choices> const &_range)
+  requires(sge::sprite::detail::config::has_texture_levels<Choices>::value)
 {
   sge::sprite::detail::apply_texture_levels<sge::sprite::detail::config::texture_levels<Choices>>(
       [&_render_context, &_range](auto const &_level)
@@ -50,15 +45,12 @@ set_textures(
 }
 
 template <typename Choices>
-std::enable_if_t<
-    fcppt::not_(sge::sprite::detail::config::has_texture_levels<Choices>::value),
-    void>
-set_textures(
+inline void set_textures(
     sge::renderer::context::core &, // NOLINT(google-runtime-references)
     sge::sprite::render::range_part<Choices> const &)
+  requires(fcppt::not_(sge::sprite::detail::config::has_texture_levels<Choices>::value))
 {
 }
-
 }
 
 #endif

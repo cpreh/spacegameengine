@@ -10,26 +10,22 @@
 #include <sge/sprite/detail/config/is_intrusive.hpp>
 #include <sge/sprite/roles/connection.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::detail
 {
 
 template <typename Choices>
-std::enable_if_t<sge::sprite::detail::config::is_intrusive<Choices>::value, void>
-assign_post(sge::sprite::object<Choices> &_this)
+void assign_post(sge::sprite::object<Choices> &_this)
+  requires(sge::sprite::detail::config::is_intrusive<Choices>::value)
 {
   _this.template get<sge::sprite::roles::connection>().get().add(_this);
 }
 
 template <typename Choices>
-std::enable_if_t<fcppt::not_(sge::sprite::detail::config::is_intrusive<Choices>::value), void>
-assign_post(sge::sprite::object<Choices> &)
+void assign_post(sge::sprite::object<Choices> &)
+  requires(fcppt::not_(sge::sprite::detail::config::is_intrusive<Choices>::value))
 {
 }
-
 }
 
 #endif

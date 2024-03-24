@@ -6,10 +6,14 @@
 #ifndef SGE_SYSTEMS_DETAIL_ANY_KEY_FWD_HPP_INCLUDED
 #define SGE_SYSTEMS_DETAIL_ANY_KEY_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::systems::detail
 {
 
-enum class any_key; // IWYU pragma: export
+enum class any_key : std::uint8_t; // IWYU pragma: export
 
 }
 

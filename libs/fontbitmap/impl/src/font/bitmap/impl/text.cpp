@@ -44,6 +44,9 @@
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/math/vector/structure_cast.hpp>
 #include <fcppt/math/vector/to_unsigned.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/match.hpp>
 
 sge::font::bitmap::impl::text::text(
@@ -180,6 +183,8 @@ void sge::font::bitmap::impl::text::iterate(Function const &_function) const
 
     for (sge::font::bitmap::impl::char_metric_ref const &metric : line.char_metrics())
     {
+      FCPPT_PP_PUSH_WARNING
+      FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
       switch (_function(sge::font::bitmap::impl::position{sge::font::vector{left, top}, metric}))
       {
       case fcppt::loop::break_:
@@ -187,6 +192,7 @@ void sge::font::bitmap::impl::text::iterate(Function const &_function) const
       case fcppt::loop::continue_:
         break;
       }
+      FCPPT_PP_POP_WARNING
 
       left += metric.get().x_advance();
     }

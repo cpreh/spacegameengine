@@ -11,17 +11,14 @@
 #include <sge/sprite/geometry/detail/fill_texture_point_pos.hpp>
 #include <sge/sprite/geometry/detail/fill_texture_point_size.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::geometry::detail
 {
 
 template <typename Level, typename Iterator, typename Choices>
-inline std::enable_if_t<sge::sprite::detail::config::has_texture_point_size<Choices>::value, void>
-fill_texture_point(
+inline void fill_texture_point(
     Level const &_level, Iterator const _iterator, sge::sprite::object<Choices> const &_sprite)
+  requires(sge::sprite::detail::config::has_texture_point_size<Choices>::value)
 {
   sge::sprite::geometry::detail::fill_texture_point_pos(_level, _iterator, _sprite);
 
@@ -29,10 +26,8 @@ fill_texture_point(
 }
 
 template <typename Level, typename Iterator, typename Choices>
-inline std::enable_if_t<
-    fcppt::not_(sge::sprite::detail::config::has_texture_point_size<Choices>::value),
-    void>
-fill_texture_point(Level const &, Iterator, sge::sprite::object<Choices> const &)
+inline void fill_texture_point(Level const &, Iterator, sge::sprite::object<Choices> const &)
+  requires(fcppt::not_(sge::sprite::detail::config::has_texture_point_size<Choices>::value))
 {
 }
 

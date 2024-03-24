@@ -6,10 +6,14 @@
 #ifndef SGE_SYSTEMS_CURSOR_OPTION_FWD_HPP_INCLUDED
 #define SGE_SYSTEMS_CURSOR_OPTION_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::systems
 {
 
-enum class cursor_option; // IWYU pragma: keep
+enum class cursor_option : std::uint8_t; // IWYU pragma: keep
 
 }
 

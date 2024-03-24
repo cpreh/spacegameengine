@@ -7,11 +7,14 @@
 #define SGE_CONSOLE_MUXING_HPP_INCLUDED
 
 #include <sge/console/muxing_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::console
 {
 
-enum class muxing
+enum class muxing : std::uint8_t
 {
   enabled,
   disabled

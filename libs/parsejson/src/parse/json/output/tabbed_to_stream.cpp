@@ -132,9 +132,6 @@ private:
 void sge::parse::json::output::tabbed_to_stream(
     std::ostream &_stream, sge::parse::json::start const &_start)
 {
-  return fcppt::variant::apply(
-      [&_stream](auto const &_value) {
-        output_visitor{_stream, 0U}(_value);
-      },
-      _start.variant);
+  fcppt::variant::apply(
+      [&_stream](auto const &_value) { output_visitor{_stream, 0U}(_value); }, _start.variant);
 }

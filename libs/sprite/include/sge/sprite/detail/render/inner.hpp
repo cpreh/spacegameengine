@@ -14,21 +14,16 @@
 #include <sge/sprite/render/range_part_impl.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/record/get.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::detail::render
 {
 
 template <typename Choices>
-inline std::enable_if_t<
-    sge::sprite::detail::config::needs_index_buffer<Choices>::value,
-    void>
-inner(
+inline void inner(
     sge::renderer::context::core &_render_context, // NOLINT(google-runtime-references)
     sge::sprite::detail::render::range_object<Choices> const &_range,
     sge::sprite::render::range_part<Choices> const &_range_part)
+  requires(sge::sprite::detail::config::needs_index_buffer<Choices>::value)
 {
   _render_context.render_indexed(
       *fcppt::record::get<sge::sprite::buffers::roles::index_buffer>(_range),
@@ -40,20 +35,17 @@ inner(
 }
 
 template <typename Choices>
-inline std::enable_if_t<
-    fcppt::not_(sge::sprite::detail::config::needs_index_buffer<Choices>::value),
-    void>
-inner(
+inline void inner(
     sge::renderer::context::core &_render_context, // NOLINT(google-runtime-references)
     sge::sprite::detail::render::range_object<Choices> const &,
     sge::sprite::render::range_part<Choices> const &_range_part)
+  requires(fcppt::not_(sge::sprite::detail::config::needs_index_buffer<Choices>::value))
 {
   _render_context.render_nonindexed(
       _range_part.first_vertex(),
       _range_part.vertex_count(),
       sge::renderer::primitive_type::point_list);
 }
-
 }
 
 #endif

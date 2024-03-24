@@ -20,7 +20,7 @@ inline sge::renderer::vf::detail::read_wrapper<T, Enable>::read_wrapper() : valu
 namespace sge::renderer::vf::detail
 {
 template <typename T, typename Enable>
-inline read_wrapper<T, Enable>::~read_wrapper() = default;
+read_wrapper<T, Enable>::~read_wrapper() = default;
 }
 
 template <typename T, typename Enable>
@@ -41,7 +41,7 @@ inline sge::renderer::vf::detail::read_wrapper<
 namespace sge::renderer::vf::detail
 {
 template <typename T>
-inline read_wrapper<T, std::enable_if_t<std::is_fundamental_v<T>>>::~read_wrapper() = default;
+read_wrapper<T, std::enable_if_t<std::is_fundamental_v<T>>>::~read_wrapper() = default;
 }
 
 template <typename T>

@@ -11,33 +11,25 @@
 #include <sge/sprite/detail/config/texture_levels.hpp>
 #include <sge/sprite/detail/render/unset_texture_stages.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::detail::render
 {
 
 template <typename Choices>
-std::enable_if_t<
-    sge::sprite::detail::config::has_texture_levels<Choices>::value,
-    void>
-unset_textures(sge::renderer::context::core &_render_context // NOLINT(google-runtime-references)
-)
+void unset_textures(
+    sge::renderer::context::core &_render_context // NOLINT(google-runtime-references)
+    )
+  requires(sge::sprite::detail::config::has_texture_levels<Choices>::value)
 {
   sge::sprite::detail::render::unset_texture_stages<
       sge::sprite::detail::config::texture_levels<Choices>>(_render_context);
 }
 
 template <typename Choices>
-std::enable_if_t<
-    fcppt::not_(sge::sprite::detail::config::has_texture_levels<Choices>::value),
-    void>
-unset_textures(sge::renderer::context::core & // NOLINT(google-runtime-references)
-               ) // NOLINT(google-runtime-references)
+inline void unset_textures(sge::renderer::context::core &) // NOLINT(google-runtime-references)
+  requires(fcppt::not_(sge::sprite::detail::config::has_texture_levels<Choices>::value))
 {
 }
-
 }
 
 #endif

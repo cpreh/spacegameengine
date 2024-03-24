@@ -7,11 +7,14 @@
 #define SGE_MODEL_MD3_LOAD_FLAGS_HPP_INCLUDED
 
 #include <sge/model/md3/load_flags_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::model::md3
 {
 
-enum class load_flags
+enum class load_flags : std::uint8_t
 {
   switch_yz,
   fcppt_maximum = switch_yz

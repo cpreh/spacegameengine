@@ -7,11 +7,14 @@
 #define SGE_SPRITE_PROCESS_GEOMETRY_OPTIONS_HPP_INCLUDED
 
 #include <sge/sprite/process/geometry_options_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::process
 {
 
-enum class geometry_options
+enum class geometry_options : std::uint8_t
 {
   /**
 	\brief Use \link sge::sprite::geometry::update \endlink

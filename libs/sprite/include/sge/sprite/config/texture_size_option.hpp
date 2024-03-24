@@ -7,11 +7,14 @@
 #define SGE_SPRITE_CONFIG_TEXTURE_SIZE_OPTION_HPP_INCLUDED
 
 #include <sge/sprite/config/texture_size_option_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::config
 {
 
-enum class texture_size_option
+enum class texture_size_option : std::uint8_t
 {
   never,
   always,

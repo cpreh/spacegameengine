@@ -7,11 +7,14 @@
 #define SGE_SYSTEMS_DETAIL_ANY_KEY_HPP_INCLUDED
 
 #include <sge/systems/detail/any_key_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::systems::detail
 {
 
-enum class any_key
+enum class any_key : std::uint8_t
 {
   config,
   window,

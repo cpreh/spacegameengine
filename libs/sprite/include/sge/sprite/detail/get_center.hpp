@@ -16,18 +16,14 @@
 #include <sge/sprite/types/vector.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/variant/match.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::detail
 {
 
 template <typename Choices, typename Elements>
-inline std::enable_if_t<
-    Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos,
-    sge::sprite::types::vector<typename Choices::type_choices>>
+inline sge::sprite::types::vector<typename Choices::type_choices>
 get_center(Elements const &_elements)
+  requires(Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos)
 {
   return sge::sprite::detail::center_from_pos<Choices>(
       _elements,
@@ -36,19 +32,17 @@ get_center(Elements const &_elements)
 }
 
 template <typename Choices, typename Elements>
-inline std::enable_if_t<
-    Choices::pos_choice::option::value == sge::sprite::config::pos_option::center,
-    sge::sprite::types::vector<typename Choices::type_choices>>
+inline sge::sprite::types::vector<typename Choices::type_choices>
 get_center(Elements const &_elements)
+  requires(Choices::pos_choice::option::value == sge::sprite::config::pos_option::center)
 {
   return fcppt::record::get<sge::sprite::roles::center>(_elements);
 }
 
 template <typename Choices, typename Elements>
-inline std::enable_if_t<
-    Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos_or_center,
-    sge::sprite::types::vector<typename Choices::type_choices>>
+inline sge::sprite::types::vector<typename Choices::type_choices>
 get_center(Elements const &_elements)
+  requires(Choices::pos_choice::option::value == sge::sprite::config::pos_option::pos_or_center)
 {
   return fcppt::variant::match(
       fcppt::record::get<sge::sprite::roles::pos_or_center>(_elements),
@@ -57,7 +51,6 @@ get_center(Elements const &_elements)
       [](sge::sprite::types::center<typename Choices::type_choices> const _center)
       { return _center.get(); });
 }
-
 }
 
 #endif

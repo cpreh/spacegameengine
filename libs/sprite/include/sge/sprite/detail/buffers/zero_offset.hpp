@@ -13,18 +13,13 @@
 #include <sge/sprite/buffers/roles/first_vertex.hpp>
 #include <sge/sprite/detail/config/needs_index_buffer.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::detail::buffers
 {
 
 template <typename Choices>
-inline std::enable_if_t<
-    sge::sprite::detail::config::needs_index_buffer<Choices>::value,
-    sge::sprite::buffers::offset_object<Choices>>
-zero_offset()
+inline sge::sprite::buffers::offset_object<Choices> zero_offset()
+  requires(sge::sprite::detail::config::needs_index_buffer<Choices>::value)
 {
   return sge::sprite::buffers::offset_object<Choices>(
       sge::sprite::buffers::roles::first_vertex{} = sge::renderer::vertex::first{0U},
@@ -32,15 +27,12 @@ zero_offset()
 }
 
 template <typename Choices>
-inline std::enable_if_t<
-    fcppt::not_(sge::sprite::detail::config::needs_index_buffer<Choices>::value),
-    sge::sprite::buffers::offset_object<Choices>>
-zero_offset()
+inline sge::sprite::buffers::offset_object<Choices> zero_offset()
+  requires(fcppt::not_(sge::sprite::detail::config::needs_index_buffer<Choices>::value))
 {
   return sge::sprite::buffers::offset_object<Choices>(
       sge::sprite::buffers::roles::first_vertex{} = sge::renderer::vertex::first{0U});
 }
-
 }
 
 #endif

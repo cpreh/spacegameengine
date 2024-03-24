@@ -6,10 +6,14 @@
 #ifndef SGE_SPRITE_CONFIG_TEXTURE_COORDINATES_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_TEXTURE_COORDINATES_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::sprite::config
 {
 
-enum class texture_coordinates; // IWYU pragma: export
+enum class texture_coordinates : std::uint8_t; // IWYU pragma: export
 
 }
 

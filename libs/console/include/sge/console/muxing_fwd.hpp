@@ -6,10 +6,14 @@
 #ifndef SGE_CONSOLE_MUXING_FWD_HPP_INCLUDED
 #define SGE_CONSOLE_MUXING_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::console
 {
 
-enum class muxing; // IWYU pragma: export
+enum class muxing : std::uint8_t; // IWYU pragma: export
 
 }
 

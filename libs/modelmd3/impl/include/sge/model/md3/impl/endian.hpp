@@ -13,7 +13,7 @@
 namespace sge::model::md3::impl
 {
 
-inline constexpr std::endian endian() { return std::endian::little; }
+constexpr std::endian endian() { return std::endian::little; }
 
 }
 

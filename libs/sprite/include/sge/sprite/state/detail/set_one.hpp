@@ -19,9 +19,6 @@
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/record/get.hpp>
 #include <fcppt/record/set.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::state::detail
 {
@@ -51,7 +48,8 @@ public:
   }
 
   template <typename Type>
-  std::enable_if_t<Type::persistent::value, void> operator()(fcppt::tag<Type>) const
+  void operator()(fcppt::tag<Type>) const
+    requires(Type::persistent::value)
   {
     // TODO(philipp): Move this somewhere else
     if (!fcppt::record::get<typename Type::role>(options_.get()))
@@ -65,7 +63,8 @@ public:
   }
 
   template <typename Type>
-  std::enable_if_t<fcppt::not_(Type::persistent::value), void> operator()(fcppt::tag<Type>) const
+  void operator()(fcppt::tag<Type>) const
+    requires(fcppt::not_(Type::persistent::value))
   {
     if (!fcppt::record::get<typename Type::role>(options_.get()))
     {

@@ -13,16 +13,13 @@
 #include <sge/sprite/detail/config/has_point_size.hpp>
 #include <sge/sprite/detail/vf/point_size.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::geometry::detail
 {
 
 template <typename Iterator, typename Choices>
-inline std::enable_if_t<sge::sprite::detail::config::has_point_size<Choices>::value, void>
-fill_point_size(Iterator const _iterator, sge::sprite::object<Choices> const &_sprite)
+inline void fill_point_size(Iterator const _iterator, sge::sprite::object<Choices> const &_sprite)
+  requires(sge::sprite::detail::config::has_point_size<Choices>::value)
 {
   using point_size = sge::sprite::detail::vf::point_size<Choices>;
 
@@ -34,9 +31,8 @@ fill_point_size(Iterator const _iterator, sge::sprite::object<Choices> const &_s
 }
 
 template <typename Iterator, typename Choices>
-inline std::
-    enable_if_t<fcppt::not_(sge::sprite::detail::config::has_point_size<Choices>::value), void>
-    fill_point_size(Iterator, sge::sprite::object<Choices> const &)
+inline void fill_point_size(Iterator, sge::sprite::object<Choices> const &)
+  requires(fcppt::not_(sge::sprite::detail::config::has_point_size<Choices>::value))
 {
 }
 

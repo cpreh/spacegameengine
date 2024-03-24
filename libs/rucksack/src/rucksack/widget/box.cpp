@@ -34,11 +34,14 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/remove_if.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/enum/make_invalid.hpp>
 #include <fcppt/math/dim/null.hpp>
 #include <fcppt/math/vector/null.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/variant/holds_type.hpp>
 #include <fcppt/variant/match.hpp>
@@ -256,9 +259,11 @@ void sge::rucksack::widget::box::relayout()
 
     widget.position(this->major_axis(), current_major_position);
 
-    auto const make_minor_position(
+    auto const make_minor_position{
         [&widget, this](sge::rucksack::alignment const _alignment)
         {
+          FCPPT_PP_PUSH_WARNING
+          FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
           switch (_alignment)
           {
           case sge::rucksack::alignment::left_or_top:
@@ -270,9 +275,10 @@ void sge::rucksack::widget::box::relayout()
             return this->position(this->minor_axis()) + this->size(this->minor_axis()) -
                    widget.size(this->minor_axis());
           }
+          FCPPT_PP_POP_WARNING
 
-          FCPPT_ASSERT_UNREACHABLE;
-        });
+          throw fcppt::enum_::make_invalid(_alignment);
+        }};
 
     widget.position(this->minor_axis(), make_minor_position(widget_pair.second));
 

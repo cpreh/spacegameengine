@@ -6,10 +6,14 @@
 #ifndef SGE_SPRITE_CONFIG_TEXTURE_OWNERSHIP_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_TEXTURE_OWNERSHIP_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::sprite::config
 {
 
-enum class texture_ownership; // IWYU pragma: export
+enum class texture_ownership : std::uint8_t; // IWYU pragma: export
 
 }
 

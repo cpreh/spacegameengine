@@ -7,11 +7,14 @@
 #define SGE_SPRITE_CONFIG_POS_OPTION_HPP_INCLUDED
 
 #include <sge/sprite/config/pos_option_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::config
 {
 
-enum class pos_option
+enum class pos_option : std::uint8_t
 {
   pos,
   center,

@@ -7,11 +7,14 @@
 #define SGE_SPRITE_STATE_VERTEX_OPTIONS_HPP_INCLUDED
 
 #include <sge/sprite/state/vertex_options_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::state
 {
 
-enum class vertex_options
+enum class vertex_options : std::uint8_t
 {
   declaration_and_buffer,
   declaration,

@@ -6,7 +6,10 @@
 #include <sge/rucksack/axis.hpp>
 #include <sge/rucksack/axis_policy.hpp>
 #include <sge/rucksack/axis_policy2.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::rucksack::axis_policy2::axis_policy2(
     sge::rucksack::axis_policy const &_x, sge::rucksack::axis_policy const &_y)
@@ -21,6 +24,8 @@ sge::rucksack::axis_policy const &sge::rucksack::axis_policy2::y() const { retur
 sge::rucksack::axis_policy const &
 sge::rucksack::axis_policy2::operator[](sge::rucksack::axis const _axis) const
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_axis)
   {
   case sge::rucksack::axis::x:
@@ -28,6 +33,7 @@ sge::rucksack::axis_policy2::operator[](sge::rucksack::axis const _axis) const
   case sge::rucksack::axis::y:
     return y_;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_axis);
 }

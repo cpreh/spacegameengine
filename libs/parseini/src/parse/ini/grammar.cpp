@@ -16,7 +16,7 @@
 #include <fcppt/parse/as_struct.hpp>
 #include <fcppt/parse/char_set.hpp>
 #include <fcppt/parse/construct.hpp>
-#include <fcppt/parse/grammar_impl.hpp>
+#include <fcppt/parse/grammar_impl.hpp> // IWYU pragma: keep
 #include <fcppt/parse/literal.hpp>
 #include <fcppt/parse/make_ignore.hpp>
 #include <fcppt/parse/make_lexeme.hpp>

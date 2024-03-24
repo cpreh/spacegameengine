@@ -6,10 +6,14 @@
 #ifndef SGE_MODEL_MD3_LOAD_FLAGS_FWD_HPP_INCLUDED
 #define SGE_MODEL_MD3_LOAD_FLAGS_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::model::md3
 {
 
-enum class load_flags; // IWYU pragma: export
+enum class load_flags : std::uint8_t; // IWYU pragma: export
 
 }
 

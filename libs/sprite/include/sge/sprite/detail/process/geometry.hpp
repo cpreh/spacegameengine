@@ -11,9 +11,6 @@
 #include <sge/sprite/geometry/update.hpp>
 #include <sge/sprite/process/geometry_options.hpp>
 #include <sge/sprite/render/range_impl.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::detail::process
 {
@@ -24,12 +21,11 @@ template <
     typename Range,
     typename Buffers,
     typename Compare>
-inline std::enable_if_t<
-    sge::sprite::detail::process::is_same_geometry_options<
-        Options,
-        sge::sprite::process::geometry_options::sort_and_update>::value,
-    sge::sprite::render::range<Choices>>
+inline sge::sprite::render::range<Choices>
 geometry(Range const &_range, Buffers &_buffers, Compare const &_compare)
+  requires(sge::sprite::detail::process::is_same_geometry_options<
+           Options,
+           sge::sprite::process::geometry_options::sort_and_update>::value)
 {
   return sge::sprite::geometry::sort_and_update(_range, _compare, _buffers);
 }
@@ -40,15 +36,14 @@ template <
     typename Range,
     typename Buffers,
     typename Compare>
-inline std::enable_if_t<
-    sge::sprite::detail::process::
-        is_same_geometry_options<Options, sge::sprite::process::geometry_options::update>::value,
-    sge::sprite::render::range<Choices>>
+inline sge::sprite::render::range<Choices>
 geometry(Range const &_range, Buffers &_buffers, Compare const &_compare)
+  requires(sge::sprite::detail::process::is_same_geometry_options<
+           Options,
+           sge::sprite::process::geometry_options::update>::value)
 {
   return sge::sprite::geometry::update(_range, _compare, _buffers);
 }
-
 }
 
 #endif

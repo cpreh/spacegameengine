@@ -7,11 +7,14 @@
 #define SGE_SPRITE_BUFFERS_OPTION_HPP_INCLUDED
 
 #include <sge/sprite/buffers/option_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::buffers
 {
 
-enum class option
+enum class option : std::uint8_t
 {
   dynamic,
   static_

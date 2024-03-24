@@ -6,10 +6,14 @@
 #ifndef SGE_SYSTEMS_RENDERER_CAPS_FWD_HPP_INCLUDED
 #define SGE_SYSTEMS_RENDERER_CAPS_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::systems
 {
 
-enum class renderer_caps; // IWYU pragma: export
+enum class renderer_caps : std::uint8_t; // IWYU pragma: export
 
 }
 

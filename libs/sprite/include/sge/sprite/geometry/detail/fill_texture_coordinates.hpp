@@ -24,32 +24,28 @@ namespace sge::sprite::geometry::detail
 {
 
 template <typename Level, typename Iterator, typename Choices>
-inline std::enable_if_t<
-    std::conjunction_v<
-        sge::sprite::detail::config::has_texture_coordinates<Choices>,
-        sge::sprite::detail::config::has_normal_size<Choices>>,
-    void>
-fill_texture_coordinates(
+inline void fill_texture_coordinates(
     Level const &,
     Iterator const &_iterator,
     sge::sprite::object<Choices> const &_sprite,
     sge::texture::part const &)
+  requires(std::conjunction_v<
+           sge::sprite::detail::config::has_texture_coordinates<Choices>,
+           sge::sprite::detail::config::has_normal_size<Choices>>)
 {
   sge::sprite::geometry::detail::fill_texture_coordinates_rect<Level, Choices>(
       _iterator, _sprite.template texture_coordinates_level<Level::value>());
 }
 
 template <typename Level, typename Iterator, typename Choices>
-inline std::enable_if_t<
-    std::conjunction_v<
-        sge::sprite::detail::config::has_repetition<Choices>,
-        sge::sprite::detail::config::has_normal_size<Choices>>,
-    void>
-fill_texture_coordinates(
+inline void fill_texture_coordinates(
     Level const &,
     Iterator const &_iterator,
     sge::sprite::object<Choices> const &_sprite,
     sge::texture::part const &_texture)
+  requires(std::conjunction_v<
+           sge::sprite::detail::config::has_repetition<Choices>,
+           sge::sprite::detail::config::has_normal_size<Choices>>)
 {
   sge::sprite::geometry::detail::fill_texture_coordinates_rect<Level, Choices>(
       _iterator,
@@ -59,18 +55,16 @@ fill_texture_coordinates(
 }
 
 template <typename Level, typename Iterator, typename Choices>
-inline std::enable_if_t<
-    std::conjunction_v<
-        sge::sprite::detail::config::has_normal_size<Choices>,
-        std::negation<std::disjunction<
-            sge::sprite::detail::config::has_repetition<Choices>,
-            sge::sprite::detail::config::has_texture_coordinates<Choices>>>>,
-    void>
-fill_texture_coordinates(
+inline void fill_texture_coordinates(
     Level const &,
     Iterator const &_iterator,
     sge::sprite::object<Choices> const &,
     sge::texture::part const &_texture)
+  requires(std::conjunction_v<
+           sge::sprite::detail::config::has_normal_size<Choices>,
+           std::negation<std::disjunction<
+               sge::sprite::detail::config::has_repetition<Choices>,
+               sge::sprite::detail::config::has_texture_coordinates<Choices>>>>)
 {
   sge::sprite::geometry::detail::fill_texture_coordinates_rect<Level, Choices>(
       _iterator,
@@ -78,7 +72,6 @@ fill_texture_coordinates(
           sge::renderer::lock_rect_to_coords<typename Choices::type_choices::float_type>(
               _texture.area(), _texture.texture().size())));
 }
-
 }
 
 #endif

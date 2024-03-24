@@ -13,16 +13,13 @@
 #include <sge/sprite/geometry/detail/vertices_per_sprite.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/algorithm/repeat.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::geometry::detail
 {
 
 template <typename Iterator, typename Choices>
-inline std::enable_if_t<sge::sprite::detail::config::has_color<Choices>::value, void>
-fill_color(Iterator _iterator, sge::sprite::object<Choices> const &_sprite)
+inline void fill_color(Iterator _iterator, sge::sprite::object<Choices> const &_sprite)
+  requires(sge::sprite::detail::config::has_color<Choices>::value)
 {
   fcppt::algorithm::repeat(
       sge::sprite::geometry::detail::vertices_per_sprite<Choices>::value,
@@ -36,11 +33,10 @@ fill_color(Iterator _iterator, sge::sprite::object<Choices> const &_sprite)
 }
 
 template <typename Iterator, typename Choices>
-inline std::enable_if_t<fcppt::not_(sge::sprite::detail::config::has_color<Choices>::value), void>
-fill_color(Iterator, sge::sprite::object<Choices> const &)
+inline void fill_color(Iterator, sge::sprite::object<Choices> const &)
+  requires(fcppt::not_(sge::sprite::detail::config::has_color<Choices>::value))
 {
 }
-
 }
 
 #endif

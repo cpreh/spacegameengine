@@ -20,8 +20,7 @@ struct nothing
   using is_trivial = std::true_type;
 
   template <typename Choices>
-  inline bool
-  operator()(sge::sprite::object<Choices> const &, sge::sprite::object<Choices> const &) const
+  bool operator()(sge::sprite::object<Choices> const &, sge::sprite::object<Choices> const &) const
   {
     return false;
   }

@@ -6,10 +6,14 @@
 #ifndef SGE_SPRITE_CONFIG_POS_OPTION_FWD_HPP_INCLUDED
 #define SGE_SPRITE_CONFIG_POS_OPTION_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::sprite::config
 {
 
-enum class pos_option; // IWYU pragma: export
+enum class pos_option : std::uint8_t; // IWYU pragma: export
 
 }
 

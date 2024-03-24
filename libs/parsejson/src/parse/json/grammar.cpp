@@ -22,7 +22,7 @@
 #include <fcppt/parse/construct.hpp>
 #include <fcppt/parse/convert_const.hpp>
 #include <fcppt/parse/float.hpp>
-#include <fcppt/parse/grammar_impl.hpp>
+#include <fcppt/parse/grammar_impl.hpp> // IWYU pragma: keep
 #include <fcppt/parse/int.hpp>
 #include <fcppt/parse/list.hpp>
 #include <fcppt/parse/make_convert_if.hpp>

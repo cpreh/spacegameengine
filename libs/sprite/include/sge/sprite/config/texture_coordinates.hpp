@@ -7,11 +7,14 @@
 #define SGE_SPRITE_CONFIG_TEXTURE_COORDINATES_HPP_INCLUDED
 
 #include <sge/sprite/config/texture_coordinates_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::config
 {
 
-enum class texture_coordinates
+enum class texture_coordinates : std::uint8_t
 {
   automatic,
   repetition,

@@ -12,21 +12,16 @@
 #include <sge/sprite/geometry/detail/fill_vertices.hpp>
 #include <sge/sprite/render/range.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::sprite::geometry::detail
 {
 
 template <typename Range, typename Compare, typename Choices>
-inline std::enable_if_t<
-    sge::sprite::detail::config::needs_index_buffer<Choices>::value,
-    sge::sprite::render::range<Choices>>
-fill(
+inline sge::sprite::render::range<Choices> fill(
     Range const &_range,
     Compare const &_compare,
     sge::sprite::buffers::slice<Choices> const &_slice)
+  requires(sge::sprite::detail::config::needs_index_buffer<Choices>::value)
 {
   sge::sprite::geometry::detail::fill_indices<Choices>(_range.size(), _slice);
 
@@ -34,17 +29,14 @@ fill(
 }
 
 template <typename Range, typename Compare, typename Choices>
-inline std::enable_if_t<
-    fcppt::not_(sge::sprite::detail::config::needs_index_buffer<Choices>::value),
-    sge::sprite::render::range<Choices>>
-fill(
+inline sge::sprite::render::range<Choices> fill(
     Range const &_range,
     Compare const &_compare,
     sge::sprite::buffers::slice<Choices> const &_slice)
+  requires(fcppt::not_(sge::sprite::detail::config::needs_index_buffer<Choices>::value))
 {
   return sge::sprite::geometry::detail::fill_vertices(_range, _compare, _slice);
 }
-
 }
 
 #endif

@@ -40,6 +40,7 @@
 #include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -167,6 +168,8 @@ void sge::camera::first_person::object::mouse_axis_event(
       mouse_speed_multiplier_.get() *
       fcppt::cast::int_to_float<sge::renderer::scalar>(_mouse_axis_event.value())};
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_mouse_axis_event.get().code())
   {
   case sge::input::mouse::axis_code::x:
@@ -180,6 +183,7 @@ void sge::camera::first_person::object::mouse_axis_event(
   case sge::input::mouse::axis_code::wheel:
     break;
   }
+  FCPPT_PP_POP_WARNING
 }
 
 void sge::camera::first_person::object::rotate_on_x(sge::renderer::scalar const _scaled_axis_value)
