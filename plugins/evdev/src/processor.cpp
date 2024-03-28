@@ -47,6 +47,9 @@
 #include <fcppt/optional/from.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <vector>
@@ -134,6 +137,8 @@ sge::evdev::processor::inotify_event(sge::evdev::inotify::event const &_event)
 {
   std::filesystem::path const file_path(this->path_ / _event.filename());
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_event.event_type())
   {
   case sge::evdev::inotify::event_type::add:
@@ -145,6 +150,7 @@ sge::evdev::processor::inotify_event(sge::evdev::inotify::event const &_event)
     return sge::evdev::joypad::attrib(
         this->log_.get(), this->window_, this->processor_, this->joypads_, file_path);
   }
+  FCPPT_PP_POP_WARNING
 
   return awl::event::optional_base_unique_ptr{};
 }

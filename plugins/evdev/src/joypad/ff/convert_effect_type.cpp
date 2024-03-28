@@ -10,9 +10,12 @@
 #include <sge/input/joypad/ff/periodic_fwd.hpp>
 #include <sge/input/joypad/ff/ramp_fwd.hpp>
 #include <sge/input/joypad/ff/variant.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
@@ -29,7 +32,11 @@ sge::evdev::joypad::ff::convert_effect_type(sge::input::joypad::ff::variant cons
       [](sge::input::joypad::ff::periodic const &) { return FF_PERIODIC; },
       [](sge::input::joypad::ff::condition const &_condition)
       {
-        switch (_condition.type())
+        sge::input::joypad::ff::condition_type const type{_condition.type()};
+
+        FCPPT_PP_PUSH_WARNING
+        FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
+        switch (type)
         {
         case sge::input::joypad::ff::condition_type::spring:
           return FF_SPRING;
@@ -40,7 +47,8 @@ sge::evdev::joypad::ff::convert_effect_type(sge::input::joypad::ff::variant cons
         case sge::input::joypad::ff::condition_type::friction:
           return FF_FRICTION;
         }
+        FCPPT_PP_POP_WARNING
 
-        FCPPT_ASSERT_UNREACHABLE;
+        throw fcppt::enum_::make_invalid(type);
       })));
 }

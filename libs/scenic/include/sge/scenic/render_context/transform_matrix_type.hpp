@@ -7,11 +7,14 @@
 #define SGE_SCENIC_RENDER_CONTEXT_TRANSFORM_MATRIX_TYPE_HPP_INCLUDED
 
 #include <sge/scenic/render_context/transform_matrix_type_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::scenic::render_context
 {
 
-enum class transform_matrix_type
+enum class transform_matrix_type : std::uint8_t
 {
   projection,
   world

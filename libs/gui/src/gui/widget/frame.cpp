@@ -54,7 +54,7 @@ sge::gui::get_focus sge::gui::widget::frame::on_click(sge::rucksack::vector cons
 
 void sge::gui::widget::frame::on_key(sge::input::key::code const _key)
 {
-  return child_.get().on_key(_key);
+  child_.get().on_key(_key);
 }
 
 void sge::gui::widget::frame::on_char(sge::font::char_type const _char)

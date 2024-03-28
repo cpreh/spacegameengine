@@ -5,7 +5,10 @@
 
 #include <sge/evdev/joypad/ff/convert_waveform.hpp>
 #include <sge/input/joypad/ff/waveform.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input.h>
 #include <cstdint>
@@ -14,6 +17,8 @@
 std::uint16_t
 sge::evdev::joypad::ff::convert_waveform(sge::input::joypad::ff::waveform const _waveform)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_waveform)
   {
   case sge::input::joypad::ff::waveform::square:
@@ -27,6 +32,7 @@ sge::evdev::joypad::ff::convert_waveform(sge::input::joypad::ff::waveform const 
   case sge::input::joypad::ff::waveform::saw_down:
     return FF_SAW_DOWN;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_waveform);
 }

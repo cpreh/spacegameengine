@@ -7,11 +7,14 @@
 #define SGE_GUI_GRAVITY_HPP_INCLUDED
 
 #include <sge/gui/gravity_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::gui
 {
 
-enum class gravity
+enum class gravity : std::uint8_t
 {
   north_west,
   south_west,

@@ -6,10 +6,14 @@
 #ifndef SGE_OPENCL_MEMORY_OBJECT_FLAGS_FWD_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_FLAGS_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::opencl::memory_object
 {
 
-enum class flags; // IWYU pragma: export
+enum class flags : std::uint8_t; // IWYU pragma: export
 
 }
 

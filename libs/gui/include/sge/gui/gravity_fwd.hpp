@@ -6,10 +6,14 @@
 #ifndef SGE_GUI_GRAVITY_FWD_HPP_INCLUDED
 #define SGE_GUI_GRAVITY_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::gui
 {
 
-enum class gravity; // IWYU pragma: export
+enum class gravity : std::uint8_t; // IWYU pragma: export
 
 }
 

@@ -7,11 +7,14 @@
 #define SGE_OPENCL_COMMAND_QUEUE_EXECUTION_MODE_HPP_INCLUDED
 
 #include <sge/opencl/command_queue/execution_mode_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::command_queue
 {
 
-enum class execution_mode
+enum class execution_mode : std::uint8_t
 {
   in_order,
   out_of_order

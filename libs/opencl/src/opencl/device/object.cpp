@@ -30,15 +30,15 @@ namespace
 using buffer_type = fcppt::container::buffer::object<char>;
 
 template <typename Dest>
-[[nodiscard]] std::enable_if_t<std::is_same_v<Dest, std::string>, std::string>
-copy_to_result(buffer_type const &_source)
+[[nodiscard]] std::string copy_to_result(buffer_type const &_source)
+  requires(std::is_same_v<Dest, std::string>)
 {
   return std::string(_source.begin(), std::prev(_source.end()));
 }
 
 template <typename Dest>
-[[nodiscard]] std::enable_if_t<std::is_fundamental_v<Dest>, Dest>
-copy_to_result(buffer_type const &_source)
+[[nodiscard]] Dest copy_to_result(buffer_type const &_source)
+  requires(std::is_fundamental_v<Dest>)
 {
   Dest dest{};
 

@@ -6,10 +6,14 @@
 #ifndef SGE_OPENCL_MEMORY_OBJECT_RENDERER_BUFFER_LOCK_MODE_FWD_HPP_INCLUDED
 #define SGE_OPENCL_MEMORY_OBJECT_RENDERER_BUFFER_LOCK_MODE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::opencl::memory_object
 {
 
-enum class renderer_buffer_lock_mode; // IWYU pragma: export
+enum class renderer_buffer_lock_mode : std::uint8_t; // IWYU pragma: export
 
 }
 

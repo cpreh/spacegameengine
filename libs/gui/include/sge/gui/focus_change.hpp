@@ -7,11 +7,14 @@
 #define SGE_GUI_FOCUS_CHANGE_HPP_INCLUDED
 
 #include <sge/gui/focus_change_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::gui
 {
 
-enum class focus_change
+enum class focus_change : std::uint8_t
 {
   gained,
   lost

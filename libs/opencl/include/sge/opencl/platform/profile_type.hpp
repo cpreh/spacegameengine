@@ -7,11 +7,14 @@
 #define SGE_OPENCL_PLATFORM_PROFILE_TYPE_HPP_INCLUDED
 
 #include <sge/opencl/platform/profile_type_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::platform
 {
 
-enum class profile_type
+enum class profile_type : std::uint8_t
 {
   full,
   embedded

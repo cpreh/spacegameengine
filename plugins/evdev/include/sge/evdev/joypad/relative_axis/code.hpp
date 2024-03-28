@@ -9,12 +9,13 @@
 #include <sge/evdev/joypad/relative_axis/code_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input-event-codes.h>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::evdev::joypad::relative_axis
 {
 
-enum class code
+enum class code : std::uint8_t
 {
   fcppt_maximum = REL_MAX
 };

@@ -20,25 +20,21 @@ namespace sge::sprite::compare
 
 struct default_
 {
-  using result_type = bool;
-
   template <typename Choices>
   using is_trivial = std::negation<sge::sprite::detail::config::has_texture<Choices>>;
 
   template <typename Choices>
-  inline std::enable_if_t<sge::sprite::detail::config::has_texture<Choices>::value, result_type>
-  operator()(
+  bool operator()(
       sge::sprite::object<Choices> const &_left, sge::sprite::object<Choices> const &_right) const
+    requires(sge::sprite::detail::config::has_texture<Choices>::value)
   {
     return sge::sprite::compare::textures()(_left, _right);
   }
 
   template <typename Choices>
-  inline std::enable_if_t<
-      fcppt::not_(sge::sprite::detail::config::has_texture<Choices>::value),
-      result_type>
-  operator()(
+  bool operator()(
       sge::sprite::object<Choices> const &_left, sge::sprite::object<Choices> const &_right) const
+    requires(fcppt::not_(sge::sprite::detail::config::has_texture<Choices>::value))
   {
     return sge::sprite::compare::nothing()(_left, _right);
   }

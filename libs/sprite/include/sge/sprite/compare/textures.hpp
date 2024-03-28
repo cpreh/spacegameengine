@@ -22,12 +22,10 @@ struct textures
   template <typename Choices>
   using is_trivial = std::false_type;
 
-  using result_type = bool;
-
   template <typename Choices>
-  inline std::enable_if_t<sge::sprite::detail::config::has_texture<Choices>::value, result_type>
-  operator()(
+  bool operator()(
       sge::sprite::object<Choices> const &_left, sge::sprite::object<Choices> const &_right) const
+    requires(sge::sprite::detail::config::has_texture<Choices>::value)
   {
     return sge::sprite::compare::detail::textures<
         sge::sprite::detail::config::texture_levels<Choices>::value>::execute(_left, _right);

@@ -10,12 +10,16 @@
 #include <sge/evdev/joypad/ff/make_info.hpp>
 #include <sge/input/joypad/ff/type.hpp>
 #include <sge/input/joypad/ff/type_field.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/int_to_enum.hpp>
+#include <fcppt/enum/make_invalid.hpp>
 #include <fcppt/container/bitfield/init.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input-event-codes.h>
 #include <linux/input.h>
+#include <cstdint>
 #include <fcppt/config/external_end.hpp>
 
 namespace
@@ -23,6 +27,8 @@ namespace
 
 sge::evdev::device::event_type_value to_linux_effect(sge::input::joypad::ff::type const _type)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_type)
   {
   case sge::input::joypad::ff::type::constant:
@@ -48,11 +54,12 @@ sge::evdev::device::event_type_value to_linux_effect(sge::input::joypad::ff::typ
   case sge::input::joypad::ff::type::custom:
     return FF_CUSTOM;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_type);
 }
 
-enum class ff_type
+enum class ff_type : std::uint8_t
 {
   fcppt_maximum = FF_MAX
 };
@@ -61,8 +68,8 @@ enum class ff_type
 
 sge::input::joypad::ff::type_field sge::evdev::joypad::ff::make_info(sge::evdev::device::fd &_fd)
 {
-  sge::evdev::device::read_bits_result<ff_type> const result(
-      sge::evdev::device::read_bits<ff_type>(_fd, EV_FF));
+  sge::evdev::device::read_bits_result<ff_type> const result{
+      sge::evdev::device::read_bits<ff_type>(_fd, EV_FF)};
 
   return fcppt::container::bitfield::init<sge::input::joypad::ff::type_field>(
       [&result](sge::input::joypad::ff::type const _value)

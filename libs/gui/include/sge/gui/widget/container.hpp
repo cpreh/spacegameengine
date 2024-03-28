@@ -22,6 +22,9 @@
 #include <sge/rucksack/widget/base_fwd.hpp>
 #include <sge/rucksack/widget/reference.hpp>
 #include <fcppt/nonmovable.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::gui::widget
 {
@@ -75,7 +78,7 @@ private:
 
   void unregister(sge::gui::widget::base const &) override;
 
-  enum class foreach_result
+  enum class foreach_result : std::uint8_t
   {
     abort,
     continue_

@@ -7,11 +7,14 @@
 #define SGE_OPENCL_COMMAND_QUEUE_PROFILING_MODE_HPP_INCLUDED
 
 #include <sge/opencl/command_queue/profiling_mode_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::command_queue
 {
 
-enum class profiling_mode
+enum class profiling_mode : std::uint8_t
 {
   enabled,
   disabled

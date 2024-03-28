@@ -6,10 +6,14 @@
 #ifndef SGE_GUI_FOCUS_CHANGE_FWD_HPP_INCLUDED
 #define SGE_GUI_FOCUS_CHANGE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::gui
 {
 
-enum class focus_change; // IWYU pragma: export
+enum class focus_change : std::uint8_t; // IWYU pragma: export
 
 }
 

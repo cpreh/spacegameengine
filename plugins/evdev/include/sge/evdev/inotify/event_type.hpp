@@ -7,11 +7,14 @@
 #define SGE_EVDEV_INOTIFY_EVENT_TYPE_HPP_INCLUDED
 
 #include <sge/evdev/inotify/event_type_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::evdev::inotify
 {
 
-enum class event_type
+enum class event_type : std::uint8_t
 {
   add,
   remove,

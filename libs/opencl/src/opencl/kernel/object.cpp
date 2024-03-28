@@ -106,6 +106,8 @@ void sge::opencl::kernel::object::argument(
               FCPPT_TEXT(" returned CL_INVALID_ARG_SIZE. ")
                   FCPPT_TEXT("This could mean that you mixed up the ordering or the exact types ")
                       FCPPT_TEXT("of the kernel's arguments.")};
+        default:
+          break;
         }
 
         sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clSetKernelArg(numeric type)"));

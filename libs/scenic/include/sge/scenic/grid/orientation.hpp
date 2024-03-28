@@ -7,11 +7,14 @@
 #define SGE_SCENIC_GRID_ORIENTATION_HPP_INCLUDED
 
 #include <sge/scenic/grid/orientation_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::scenic::grid
 {
 
-enum class orientation
+enum class orientation : std::uint8_t
 {
   xz,
   xy,

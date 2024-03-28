@@ -6,10 +6,14 @@
 #ifndef SGE_AUDIO_SOUND_REPEAT_FWD_HPP_INCLUDED
 #define SGE_AUDIO_SOUND_REPEAT_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::audio::sound
 {
 
-enum class repeat; // IWYU pragma: export
+enum class repeat : std::uint8_t; // IWYU pragma: export
 
 }
 

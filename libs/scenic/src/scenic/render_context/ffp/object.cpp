@@ -99,6 +99,7 @@
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/optional/assign.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/ignore_dangling_reference.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -209,6 +210,8 @@ void sge::scenic::render_context::ffp::object::transform(
     sge::scenic::render_context::transform_matrix_type const _type,
     sge::renderer::matrix4 const &_matrix)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_type)
   {
   case sge::scenic::render_context::transform_matrix_type::projection:
@@ -248,6 +251,7 @@ void sge::scenic::render_context::ffp::object::transform(
     break;
   }
   }
+  FCPPT_PP_POP_WARNING
 }
 
 void sge::scenic::render_context::ffp::object::material(

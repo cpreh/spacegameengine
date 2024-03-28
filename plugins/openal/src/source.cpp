@@ -27,10 +27,14 @@
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
+#include <fcppt/enum/make_invalid.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/math/rad_to_deg.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/optional/from.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <al.h>
 #include <fcppt/config/external_end.hpp>
@@ -85,7 +89,11 @@ void sge::openal::source::play(sge::audio::sound::repeat const _repeat)
 
 void sge::openal::source::toggle_pause()
 {
-  switch (this->status())
+  sge::audio::sound::play_status const cur_status{this->status()};
+
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
+  switch (cur_status)
   {
   case sge::audio::sound::play_status::stopped:
     return;
@@ -96,8 +104,9 @@ void sge::openal::source::toggle_pause()
     sge::openal::funcs::source_pause(this->source_id());
     return;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(cur_status);
 }
 
 sge::audio::sound::play_status sge::openal::source::status() const

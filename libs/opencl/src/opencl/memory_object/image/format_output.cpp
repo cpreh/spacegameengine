@@ -3,7 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opencl/exception.hpp>
 #include <sge/opencl/memory_object/image/format_output.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
 #include <ostream>
@@ -28,6 +30,8 @@ void sge::opencl::memory_object::image::format_output(std::ostream &s, cl_image_
     SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HELPER(CL_RGBA);
     SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HELPER(CL_ARGB);
     SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HELPER(CL_BGRA);
+    default:
+      throw sge::opencl::exception{FCPPT_TEXT("Invalid image channel order.")};
   }
 
   s << " ";
@@ -49,5 +53,7 @@ void sge::opencl::memory_object::image::format_output(std::ostream &s, cl_image_
     SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HELPER(CL_UNSIGNED_INT32);
     SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HELPER(CL_HALF_FLOAT);
     SGE_OPENCL_MEMORY_OBJECT_IMAGE_FORMAT_OUTPUT_HELPER(CL_FLOAT);
+    default:
+      throw sge::opencl::exception{FCPPT_TEXT("Invalid image channel data type.")};
   }
 }

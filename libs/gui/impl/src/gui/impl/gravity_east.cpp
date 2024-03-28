@@ -5,10 +5,15 @@
 
 #include <sge/gui/gravity.hpp>
 #include <sge/gui/impl/gravity_east.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 bool sge::gui::impl::gravity_east(sge::gui::gravity const _gravity)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_gravity)
   {
   case sge::gui::gravity::north_west:
@@ -18,6 +23,7 @@ bool sge::gui::impl::gravity_east(sge::gui::gravity const _gravity)
   case sge::gui::gravity::north_east:
     return true;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_gravity);
 }

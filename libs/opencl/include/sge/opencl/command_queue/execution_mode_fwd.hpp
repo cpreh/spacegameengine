@@ -6,10 +6,14 @@
 #ifndef SGE_OPENCL_COMMAND_QUEUE_EXECUTION_MODE_FWD_HPP_INCLUDED
 #define SGE_OPENCL_COMMAND_QUEUE_EXECUTION_MODE_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::opencl::command_queue
 {
 
-enum class execution_mode; // IWYU pragma: export
+enum class execution_mode : std::uint8_t; // IWYU pragma: export
 
 }
 

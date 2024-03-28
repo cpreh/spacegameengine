@@ -33,7 +33,8 @@ bool compare_floats(float const _a, float const _b)
 struct compare_channels
 {
   template <typename T>
-  std::enable_if_t<std::is_integral_v<T>, bool> operator()(T const _a, T const _b) const
+  bool operator()(T const _a, T const _b) const
+    requires(std::is_integral_v<T>)
   {
     return _a == _b;
   }

@@ -7,11 +7,14 @@
 #define SGE_AUDIO_SOUND_REPEAT_HPP_INCLUDED
 
 #include <sge/audio/sound/repeat_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::audio::sound
 {
 
-enum class repeat
+enum class repeat : std::uint8_t
 {
   once,
   loop

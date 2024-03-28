@@ -7,11 +7,14 @@
 #define SGE_OPENCL_MEMORY_OBJECT_FLAGS_HPP_INCLUDED
 
 #include <sge/opencl/memory_object/flags_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl::memory_object
 {
 
-enum class flags
+enum class flags : std::uint8_t
 {
   read,
   write,

@@ -49,6 +49,9 @@
 #include <fcppt/math/vector/push_back.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/to_optional.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstddef>
@@ -90,6 +93,8 @@ void sge::scenic::render_context::cg::object::transform(
     sge::scenic::render_context::transform_matrix_type const _matrix_mode,
     sge::renderer::matrix4 const &_matrix)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_matrix_mode)
   {
   case sge::scenic::render_context::transform_matrix_type::world:
@@ -108,6 +113,7 @@ void sge::scenic::render_context::cg::object::transform(
     manager_.get().world_projection_matrix_.set(current_projection_ * current_world_);
     break;
   }
+  FCPPT_PP_POP_WARNING
 }
 
 void sge::scenic::render_context::cg::object::material(

@@ -5,7 +5,10 @@
 
 #include <sge/image/color/format.hpp>
 #include <sge/opencl/memory_object/image/sge_color_format_to_opencl.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
 #include <fcppt/config/external_end.hpp>
@@ -25,6 +28,8 @@ cl_image_format make_cl_image_format(cl_channel_order const _order, cl_channel_t
 cl_image_format
 sge::opencl::memory_object::image::sge_color_format_to_opencl(sge::image::color::format const f)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (f)
   {
   case sge::image::color::format::a8:
@@ -57,6 +62,7 @@ sge::opencl::memory_object::image::sge_color_format_to_opencl(sge::image::color:
   case sge::image::color::format::bgra32f:
     return make_cl_image_format(CL_RGBA, CL_FLOAT);
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(f);
 }
