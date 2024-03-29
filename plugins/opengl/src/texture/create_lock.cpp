@@ -17,7 +17,10 @@
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::opengl::texture::lock_base_unique_ptr sge::opengl::texture::create_lock(
     sge::opengl::context::object_ref const _context,
@@ -27,6 +30,8 @@ sge::opengl::texture::lock_base_unique_ptr sge::opengl::texture::create_lock(
     sge::opengl::buffer::stride const _stride,
     sge::renderer::resource_flags_field const &_flags)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_method)
   {
   case sge::renderer::lock_flags::method::read:
@@ -42,6 +47,7 @@ sge::opengl::texture::lock_base_unique_ptr sge::opengl::texture::create_lock(
         fcppt::make_unique_ptr<sge::opengl::texture::readwrite_lock>(
             _context, _read_size, _write_size, _stride, _flags));
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_method);
 }
