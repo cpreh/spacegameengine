@@ -35,8 +35,8 @@ void sge::opengl::texture::activate(
 {
   sge::opengl::texture::active_level const active_level(_log, _context, _stage);
 
-  sge::opengl::texture::bind_context &bind_context(
-      sge::opengl::context::use<sge::opengl::texture::bind_context>(fcppt::make_ref(_context)));
+  auto &bind_context{
+      sge::opengl::context::use<sge::opengl::texture::bind_context>(fcppt::make_ref(_context))};
 
   fcppt::optional::maybe_void(
       sge::opengl::texture::get_stage_type(_context, _stage),

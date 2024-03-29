@@ -7,11 +7,14 @@
 #define SGE_RENDERER_TEXTURE_CUBE_SIDE_HPP_INCLUDED
 
 #include <sge/renderer/texture/cube_side_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::texture
 {
 
-enum class cube_side
+enum class cube_side : std::uint8_t
 {
   front,
   back,

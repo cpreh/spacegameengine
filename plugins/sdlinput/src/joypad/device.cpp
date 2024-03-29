@@ -35,6 +35,9 @@
 #include <fcppt/optional/make.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_joystick.h>
 #include <cstdint>
@@ -85,6 +88,8 @@ fcppt::optional::object<sge::input::joypad::relative_axis> sge::sdlinput::joypad
   auto const ball_mult{
       [_direction]() -> fcppt::optional::object<sge::input::info::id>
       {
+        FCPPT_PP_PUSH_WARNING
+        FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
         switch (_direction)
         {
         case sge::sdlinput::joypad::ball_direction::x:
@@ -92,6 +97,7 @@ fcppt::optional::object<sge::input::joypad::relative_axis> sge::sdlinput::joypad
         case sge::sdlinput::joypad::ball_direction::y:
           return fcppt::optional::make(fcppt::literal<sge::input::info::id>(1U));
         }
+        FCPPT_PP_POP_WARNING
 
         return fcppt::optional::object<sge::input::info::id>{};
       }};
@@ -117,6 +123,8 @@ fcppt::optional::object<sge::input::joypad::absolute_axis> sge::sdlinput::joypad
   auto const hat_mult{
       [_direction]() -> fcppt::optional::object<sge::input::info::id>
       {
+        FCPPT_PP_PUSH_WARNING
+        FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
         switch (_direction)
         {
         case sge::sdlinput::joypad::hat_direction::x:
@@ -124,6 +132,7 @@ fcppt::optional::object<sge::input::joypad::absolute_axis> sge::sdlinput::joypad
         case sge::sdlinput::joypad::hat_direction::y:
           return fcppt::optional::make(fcppt::literal<sge::input::info::id>(1U));
         }
+        FCPPT_PP_POP_WARNING
 
         return fcppt::optional::object<sge::input::info::id>{};
       }};

@@ -19,19 +19,15 @@ namespace sge::systems::detail
 {
 
 template <typename Choices, typename Type>
-std::enable_if_t<
-    std::negation_v<std::is_same<std::remove_cvref_t<Type>, sge::systems::renderer>>,
-    sge::systems::detail::any>
-make_list_element_impl(Type &&_value)
+inline sge::systems::detail::any make_list_element_impl(Type &&_value)
+  requires(std::negation_v<std::is_same<std::remove_cvref_t<Type>, sge::systems::renderer>>)
 {
   return sge::systems::detail::any{std::forward<Type>(_value)};
 }
 
 template <typename Choices, typename Type>
-inline std::enable_if_t<
-    std::is_same_v<std::remove_cvref_t<Type>, sge::systems::renderer>,
-    sge::systems::detail::any>
-make_list_element_impl(Type &&_value)
+inline sge::systems::detail::any make_list_element_impl(Type &&_value)
+  requires(std::is_same_v<std::remove_cvref_t<Type>, sge::systems::renderer>)
 {
   return sge::systems::detail::any{sge::systems::detail::renderer{
       std::forward<Type>(_value), sge::systems::detail::renderer_caps<Choices>::value}};

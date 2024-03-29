@@ -12,7 +12,10 @@
 #include <awl/backends/sdl/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/backends/sdl/window/object_ref.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
 #include <string>
@@ -50,9 +53,11 @@ void sge::opengl::sdl::current::end_rendering()
 void sge::opengl::sdl::current::vsync(sge::renderer::display_mode::vsync const /*_vsync*/
 )
 {
-  auto const convert_mode(
+  auto const convert_mode{
       [](sge::renderer::display_mode::vsync const _mode)
       {
+        FCPPT_PP_PUSH_WARNING
+        FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
         switch (_mode)
         {
         case sge::renderer::display_mode::vsync::on:
@@ -60,9 +65,10 @@ void sge::opengl::sdl::current::vsync(sge::renderer::display_mode::vsync const /
         case sge::renderer::display_mode::vsync::off:
           return 0;
         }
+        FCPPT_PP_POP_WARNING
 
-        FCPPT_ASSERT_UNREACHABLE;
-      });
+        throw fcppt::enum_::make_invalid(_mode);
+      }};
 
   if (SDL_GL_SetSwapInterval(convert_mode(sge::renderer::display_mode::vsync::off
                                           //				_vsync

@@ -6,11 +6,16 @@
 #include <sge/opengl/state/convert/source_blend_func.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/blend/source.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 GLenum sge::opengl::state::convert::source_blend_func(
     sge::renderer::state::core::blend::source const _func)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_func)
   {
   case sge::renderer::state::core::blend::source::zero:
@@ -32,6 +37,7 @@ GLenum sge::opengl::state::convert::source_blend_func(
   case sge::renderer::state::core::blend::source::src_alpha_sat:
     return GL_SRC_ALPHA_SATURATE;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_func);
 }

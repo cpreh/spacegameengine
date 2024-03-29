@@ -426,7 +426,7 @@ void handle_events(
         fcppt::variant::match(
             _variant,
             [&_console_gfx, &_renderer_device](fcppt::reference<sge::renderer::event::render const>)
-            { return draw(_renderer_device, _console_gfx); },
+            { draw(_renderer_device, _console_gfx); },
             &cursor_discover,
             &cursor_remove,
             &cursor_button,

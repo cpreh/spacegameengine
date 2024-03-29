@@ -6,7 +6,10 @@
 #include <sge/image/color/format.hpp>
 #include <sge/opengl/color_format.hpp>
 #include <sge/opengl/texture/best_color_format.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::opengl::color_format
 sge::opengl::texture::best_color_format(sge::image::color::format const _format)
@@ -15,6 +18,8 @@ sge::opengl::texture::best_color_format(sge::image::color::format const _format)
   case sge::image::color::format::name: \
     return sge::opengl::color_format::name
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
     SGE_OPENGL_CONVERT_FORMAT(a8);
@@ -41,6 +46,7 @@ sge::opengl::texture::best_color_format(sge::image::color::format const _format)
   case sge::image::color::format::bgrx8:
     return sge::opengl::color_format::bgr8;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_format);
 }

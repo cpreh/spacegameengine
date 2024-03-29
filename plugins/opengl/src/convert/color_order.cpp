@@ -9,10 +9,15 @@
 #include <sge/opengl/convert/color_order.hpp>
 #include <sge/opengl/convert/make_color_order.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::opengl::color_order sge::opengl::convert::color_order(sge::opengl::color_format const _format)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
   case sge::opengl::color_format::a8:
@@ -40,6 +45,7 @@ sge::opengl::color_order sge::opengl::convert::color_order(sge::opengl::color_fo
   case sge::opengl::color_format::bgra32f:
     return sge::opengl::convert::make_color_order<GL_BGRA>();
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_format);
 }

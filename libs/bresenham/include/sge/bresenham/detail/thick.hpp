@@ -6,22 +6,19 @@
 #ifndef SGE_BRESENHAM_DETAIL_THICK_HPP_INCLUDED
 #define SGE_BRESENHAM_DETAIL_THICK_HPP_INCLUDED
 
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
-
 namespace sge::bresenham::detail
 {
 
 template <bool Thick, typename Callback, typename T>
-[[nodiscard]] inline std::enable_if_t<Thick, bool>
-thick(Callback const &_callback, T const _x, T const _y)
+[[nodiscard]] inline bool thick(Callback const &_callback, T const _x, T const _y)
+  requires(Thick)
 {
   return _callback(_x, _y);
 }
 
 template <bool Thick, typename Callback, typename T>
-[[nodiscard]] inline std::enable_if_t<!Thick, bool> thick(Callback const &, T, T)
+[[nodiscard]] inline bool thick(Callback const &, T, T)
+  requires(!Thick)
 {
   return true;
 }

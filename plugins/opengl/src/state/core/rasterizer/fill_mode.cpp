@@ -19,7 +19,7 @@ sge::opengl::state::actor sge::opengl::state::core::rasterizer::fill_mode(
   return sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
       [_mode]
       {
-        return sge::opengl::call(
+        sge::opengl::call(
             ::glPolygonMode,
             sge::opengl::convert::to_gl_enum<GL_FRONT_AND_BACK>(),
             sge::opengl::state::convert::fill_mode(_mode));

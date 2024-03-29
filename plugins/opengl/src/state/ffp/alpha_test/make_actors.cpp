@@ -26,16 +26,16 @@ sge::opengl::state::actor_vector sge::opengl::state::ffp::alpha_test::make_actor
       [](sge::renderer::state::ffp::alpha_test::off const &)
       {
         return sge::opengl::state::actor_vector{
-            sge::opengl::state::actor{[] { return sge::opengl::disable(GL_ALPHA_TEST); }}};
+            sge::opengl::state::actor{[] { sge::opengl::disable(GL_ALPHA_TEST); }}};
       },
       [](sge::renderer::state::ffp::alpha_test::enabled const &_enabled)
       {
         return sge::opengl::state::actor_vector{
-            sge::opengl::state::actor{[] { return sge::opengl::enable(GL_ALPHA_TEST); }},
+            sge::opengl::state::actor{[] { sge::opengl::enable(GL_ALPHA_TEST); }},
             sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
                 [_enabled]
                 {
-                  return sge::opengl::call(
+                  sge::opengl::call(
                       ::glAlphaFunc,
                       sge::opengl::state::convert::alpha_func(_enabled.func()),
                       _enabled.ref().get());

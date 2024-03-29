@@ -98,6 +98,9 @@
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/dynamic_cast.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -186,6 +189,8 @@ try
                   fcppt::cast::size<sge::input::mouse::axis_value>(_pos) + _diff);
             });
 
+        FCPPT_PP_PUSH_WARNING
+        FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
         switch (_event.code())
         {
         case sge::input::mouse::axis_code::x:
@@ -198,6 +203,7 @@ try
         case sge::input::mouse::axis_code::unknown:
           break;
         }
+        FCPPT_PP_POP_WARNING
       });
 
   auto const draw(

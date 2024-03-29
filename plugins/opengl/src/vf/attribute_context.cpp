@@ -18,13 +18,14 @@
 #include <sge/opengl/vf/attribute_config.hpp>
 #include <sge/opengl/vf/attribute_context.hpp>
 #include <sge/opengl/vf/optional_attribute_config.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 
 sge::opengl::vf::attribute_context::attribute_context(sge::opengl::info::context const &_info)
     : sge::opengl::context::base(),
-      config_(
+      config_{
           sge::opengl::info::version_at_least(
               _info.version(),
               sge::opengl::info::major_version{2U},
@@ -41,21 +42,24 @@ sge::opengl::vf::attribute_context::attribute_context(sge::opengl::info::context
                         sge::opengl::deref_fun_ptr(
                             sge::opengl::info::cast_function<PFNGLDISABLEVERTEXATTRIBARRAYPROC>(
                                 _info.load_function("glDisableVertexAttribArray")))}))
-          : sge::opengl::info::extension_supported(
-                _info.extensions(), sge::opengl::info::extension{"GL_ARB_vertex_shader"})
-              ? sge::opengl::vf::optional_attribute_config(sge::opengl::vf::attribute_config(
-                    sge::opengl::deref_fun_ptr(
-                        sge::opengl::info::cast_function<PFNGLVERTEXATTRIBPOINTERPROC>(
-                            _info.load_function("glVertexAttribPointerARB"))),
-                    sge::opengl::vf::attribute_config::enable_vertex_attrib_array_type{
-                        sge::opengl::deref_fun_ptr(
-                            sge::opengl::info::cast_function<PFNGLENABLEVERTEXATTRIBARRAYPROC>(
-                                _info.load_function("glEnableVertexAttribArrayARB")))},
-                    sge::opengl::vf::attribute_config::disable_vertex_attrib_array_type{
-                        sge::opengl::deref_fun_ptr(
-                            sge::opengl::info::cast_function<PFNGLDISABLEVERTEXATTRIBARRAYPROC>(
-                                _info.load_function("glDisableVertexAttribArrayARB")))}))
-              : sge::opengl::vf::optional_attribute_config())
+              : fcppt::optional::make_if(
+                    sge::opengl::info::extension_supported(
+                        _info.extensions(), sge::opengl::info::extension{"GL_ARB_vertex_shader"}),
+                    [&_info]
+                    {
+                      return sge::opengl::vf::attribute_config{
+                          sge::opengl::deref_fun_ptr(
+                              sge::opengl::info::cast_function<PFNGLVERTEXATTRIBPOINTERPROC>(
+                                  _info.load_function("glVertexAttribPointerARB"))),
+                          sge::opengl::vf::attribute_config::enable_vertex_attrib_array_type{
+                              sge::opengl::deref_fun_ptr(sge::opengl::info::cast_function<
+                                                         PFNGLENABLEVERTEXATTRIBARRAYPROC>(
+                                  _info.load_function("glEnableVertexAttribArrayARB")))},
+                          sge::opengl::vf::attribute_config::disable_vertex_attrib_array_type{
+                              sge::opengl::deref_fun_ptr(sge::opengl::info::cast_function<
+                                                         PFNGLDISABLEVERTEXATTRIBARRAYPROC>(
+                                  _info.load_function("glDisableVertexAttribArrayARB")))}};
+                    })}
 {
 }
 

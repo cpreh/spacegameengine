@@ -17,6 +17,7 @@
 #include <sge/opengl/state/ffp/misc/point_sprite/config.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/context.hpp>
 #include <sge/opengl/state/ffp/misc/point_sprite/optional_config.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -24,7 +25,7 @@
 sge::opengl::state::ffp::misc::point_sprite::context::context(
     sge::opengl::info::context const &_info)
     : sge::opengl::context::base(),
-      config_(
+      config_{
           sge::opengl::info::version_at_least(
               _info.version(),
               sge::opengl::info::major_version{2U},
@@ -40,19 +41,22 @@ sge::opengl::state::ffp::misc::point_sprite::context::context(
                         sge::opengl::state::ffp::misc::point_sprite::config::
                             coord_replace_flag_type(
                                 sge::opengl::convert::to_gl_enum<GL_COORD_REPLACE>())))
-          : sge::opengl::info::extension_supported(
-                _info.extensions(), sge::opengl::info::extension{"ARB_point_sprite"})
-              ? sge::opengl::state::ffp::misc::point_sprite::optional_config(
-                    sge::opengl::state::ffp::misc::point_sprite::config(
-                        sge::opengl::state::ffp::misc::point_sprite::config::point_sprite_flag_type(
-                            sge::opengl::convert::to_gl_enum<GL_POINT_SPRITE_ARB>()),
-                        sge::opengl::state::ffp::misc::point_sprite::config::
-                            vertex_shader_size_flag_type(sge::opengl::convert::to_gl_enum<
-                                                         GL_VERTEX_PROGRAM_POINT_SIZE_ARB>()),
-                        sge::opengl::state::ffp::misc::point_sprite::config::
-                            coord_replace_flag_type(
-                                sge::opengl::convert::to_gl_enum<GL_COORD_REPLACE_ARB>())))
-              : sge::opengl::state::ffp::misc::point_sprite::optional_config())
+              : fcppt::optional::make_if(
+                    sge::opengl::info::extension_supported(
+                        _info.extensions(), sge::opengl::info::extension{"ARB_point_sprite"}),
+                    []
+                    {
+                      return sge::opengl::state::ffp::misc::point_sprite::config{
+                          sge::opengl::state::ffp::misc::point_sprite::config::
+                              point_sprite_flag_type(
+                                  sge::opengl::convert::to_gl_enum<GL_POINT_SPRITE_ARB>()),
+                          sge::opengl::state::ffp::misc::point_sprite::config::
+                              vertex_shader_size_flag_type(sge::opengl::convert::to_gl_enum<
+                                                           GL_VERTEX_PROGRAM_POINT_SIZE_ARB>()),
+                          sge::opengl::state::ffp::misc::point_sprite::config::
+                              coord_replace_flag_type(
+                                  sge::opengl::convert::to_gl_enum<GL_COORD_REPLACE_ARB>())};
+                    })}
 {
 }
 

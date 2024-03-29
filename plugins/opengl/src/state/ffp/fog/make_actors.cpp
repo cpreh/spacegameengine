@@ -29,16 +29,16 @@ sge::opengl::state::actor_vector sge::opengl::state::ffp::fog::make_actors(
       [](sge::renderer::state::ffp::fog::off const &)
       {
         return sge::opengl::state::actor_vector{
-            sge::opengl::state::actor{[] { return sge::opengl::disable(GL_FOG); }}};
+            sge::opengl::state::actor{[] { sge::opengl::disable(GL_FOG); }}};
       },
       [](sge::renderer::state::ffp::fog::enabled const &_enabled)
       {
         return sge::opengl::state::actor_vector{
-            sge::opengl::state::actor{[] { return sge::opengl::enable(GL_FOG); }},
+            sge::opengl::state::actor{[] { sge::opengl::enable(GL_FOG); }},
             sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
                 [_enabled]
                 {
-                  return sge::opengl::call(
+                  sge::opengl::call(
                       ::glFogi,
                       sge::opengl::convert::to_gl_enum<GL_FOG_MODE>(),
                       sge::opengl::state::convert::fog_mode(_enabled.mode()));

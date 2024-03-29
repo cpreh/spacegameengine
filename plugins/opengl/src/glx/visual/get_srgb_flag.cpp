@@ -9,6 +9,7 @@
 #include <sge/opengl/glx/visual/get_srgb_flag.hpp>
 #include <sge/opengl/glx/visual/optional_srgb_flag.hpp>
 #include <sge/opengl/glx/visual/srgb_flag.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <GL/glx.h> // NOLINT(misc-include-cleaner)
 #include <GL/glxext.h>
@@ -21,9 +22,10 @@ sge::opengl::glx::visual::get_srgb_flag(sge::opengl::glx::extension_set const &_
              _extensions, sge::opengl::glx::extension{"GLX_EXT_framebuffer_sRGB"})
              ? sge::opengl::glx::visual::optional_srgb_flag{sge::opengl::glx::visual::srgb_flag{
                    GLX_FRAMEBUFFER_SRGB_CAPABLE_EXT}}
-         : sge::opengl::glx::extension_supported(
-               _extensions, sge::opengl::glx::extension{"GLX_ARB_framebuffer_sRGB"})
-             ? sge::opengl::glx::visual::optional_srgb_flag{sge::opengl::glx::visual::srgb_flag{
-                   GLX_FRAMEBUFFER_SRGB_CAPABLE_ARB}}
-             : sge::opengl::glx::visual::optional_srgb_flag{};
+             : fcppt::optional::make_if(
+                   sge::opengl::glx::extension_supported(
+                       _extensions, sge::opengl::glx::extension{"GLX_ARB_framebuffer_sRGB"}),
+                   [] {
+                     return sge::opengl::glx::visual::srgb_flag{GLX_FRAMEBUFFER_SRGB_CAPABLE_ARB};
+                   });
 }

@@ -7,11 +7,16 @@
 #include <sge/opengl/fbo/config.hpp>
 #include <sge/opengl/fbo/depth_stencil_format_to_attachment.hpp>
 #include <sge/opengl/fbo/optional_attachment_type.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::opengl::fbo::optional_attachment_type sge::opengl::fbo::depth_stencil_format_to_attachment(
     sge::opengl::fbo::config const &_context, sge::image::ds::format const _format)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
   case sge::image::ds::format::d16:
@@ -20,6 +25,7 @@ sge::opengl::fbo::optional_attachment_type sge::opengl::fbo::depth_stencil_forma
   case sge::image::ds::format::d24s8:
     return _context.depth_stencil_attachment();
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_format);
 }

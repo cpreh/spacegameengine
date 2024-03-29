@@ -11,23 +11,21 @@
 #include <sge/opengl/context/object_ref.hpp>
 #include <sge/opengl/context/use_impl.hpp>
 #include <fcppt/not.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::opengl::context
 {
 
 template <typename Type>
-inline std::enable_if_t<fcppt::not_(sge::opengl::context::has_parameter<Type>::value), Type &>
-use(sge::opengl::context::object_ref const _object)
+inline Type &use(sge::opengl::context::object_ref const _object)
+  requires(fcppt::not_(sge::opengl::context::has_parameter<Type>::value))
 {
   return sge::opengl::context::use_impl<Type>(_object, sge::opengl::context::dummy_parameter());
 }
 
 template <typename Type>
-inline std::enable_if_t<sge::opengl::context::has_parameter<Type>::value, Type &>
+inline Type &
 use(sge::opengl::context::object_ref const _object, typename Type::parameter _parameter)
+  requires(sge::opengl::context::has_parameter<Type>::value)
 {
   return sge::opengl::context::use_impl<Type>(_object, _parameter);
 }

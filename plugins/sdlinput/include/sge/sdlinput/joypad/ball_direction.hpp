@@ -7,11 +7,14 @@
 #define SGE_SDLINPUT_JOYPAD_BALL_DIRECTION_HPP_INCLUDED
 
 #include <sge/sdlinput/joypad/ball_direction_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::sdlinput::joypad
 {
 
-enum class ball_direction
+enum class ball_direction : std::uint8_t
 {
   x,
   y

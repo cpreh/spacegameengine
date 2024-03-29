@@ -30,7 +30,7 @@ sge::opengl::state::actor_vector sge::opengl::state::ffp::lighting::make_actors(
       [](sge::renderer::state::ffp::lighting::off const &)
       {
         return sge::opengl::state::actor_vector{sge::opengl::state::actor{
-            [] { return sge::opengl::disable(sge::opengl::convert::to_gl_enum<GL_LIGHTING>()); }}};
+            [] { sge::opengl::disable(sge::opengl::convert::to_gl_enum<GL_LIGHTING>()); }}};
       },
       [](sge::renderer::state::ffp::lighting::enabled const &_enabled)
       {
@@ -40,7 +40,7 @@ sge::opengl::state::actor_vector sge::opengl::state::ffp::lighting::make_actors(
 
         return sge::opengl::state::actor_vector{
             sge::opengl::state::actor{[] {
-              return sge::opengl::enable(sge::opengl::convert::to_gl_enum<GL_LIGHTING>());
+              sge::opengl::enable(sge::opengl::convert::to_gl_enum<GL_LIGHTING>());
             }},
             sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
                 [ambient]

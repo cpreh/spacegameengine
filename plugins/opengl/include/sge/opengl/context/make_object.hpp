@@ -13,32 +13,24 @@
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/not.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::opengl::context
 {
 
 template <typename Type>
-std::enable_if_t<
-    sge::opengl::context::has_parameter<Type>::value,
-    sge::opengl::context::base_unique_ptr>
-make_object(typename Type::parameter &_parameter)
+sge::opengl::context::base_unique_ptr make_object(typename Type::parameter &_parameter)
+  requires(sge::opengl::context::has_parameter<Type>::value)
 {
   return fcppt::unique_ptr_to_base<sge::opengl::context::base>(
       fcppt::make_unique_ptr<Type>(_parameter));
 }
 
 template <typename Type>
-std::enable_if_t<
-    fcppt::not_(sge::opengl::context::has_parameter<Type>::value),
-    sge::opengl::context::base_unique_ptr>
-make_object(sge::opengl::context::dummy_parameter const &)
+sge::opengl::context::base_unique_ptr make_object(sge::opengl::context::dummy_parameter const &)
+  requires(fcppt::not_(sge::opengl::context::has_parameter<Type>::value))
 {
   return fcppt::unique_ptr_to_base<sge::opengl::context::base>(fcppt::make_unique_ptr<Type>());
 }
-
 }
 
 #endif

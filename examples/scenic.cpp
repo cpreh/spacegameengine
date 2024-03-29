@@ -329,9 +329,9 @@ awl::main::exit_code main_program(options_record const &_options)
        &sys,
        &test_scene]
       {
-        sge::camera::update_duration const difference_since_last_frame(
+        auto const difference_since_last_frame{
             std::chrono::duration_cast<sge::camera::update_duration>(
-                sge::timer::elapsed_and_reset(camera_timer)));
+                sge::timer::elapsed_and_reset(camera_timer))};
 
         dynamic_cast<sge::camera::is_dynamic &>(*camera).update(difference_since_last_frame);
 

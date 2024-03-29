@@ -8,11 +8,16 @@
 #include <sge/opengl/internal_color_format.hpp>
 #include <sge/opengl/convert/internal_color_format.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::opengl::internal_color_format
 sge::opengl::convert::internal_color_format(sge::opengl::color_format const _format)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
   case sge::opengl::color_format::a8:
@@ -43,6 +48,7 @@ sge::opengl::convert::internal_color_format(sge::opengl::color_format const _for
   case sge::opengl::color_format::sbgra8:
     return sge::opengl::internal_color_format(GL_SRGB8_ALPHA8);
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_format);
 }

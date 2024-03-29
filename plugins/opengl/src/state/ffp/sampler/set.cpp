@@ -41,14 +41,14 @@ void sge::opengl::state::ffp::sampler::set(
         .set(active_level);
   }
 
-  sge::opengl::state::ffp::sampler::object const &default_state(
+  sge::opengl::state::ffp::sampler::object const &default_state{
       sge::opengl::context::use<sge::opengl::state::ffp::sampler::default_context>(
           fcppt::make_ref(_context))
-          .default_state());
+          .default_state()};
 
-  sge::opengl::state::ffp::sampler::context &context(
+  auto &context{
       sge::opengl::context::use<sge::opengl::state::ffp::sampler::context>(
-          fcppt::make_ref(_context)));
+          fcppt::make_ref(_context))};
 
   for (sge::renderer::texture::stage const stage : fcppt::make_int_range(count, context.stages()))
   {

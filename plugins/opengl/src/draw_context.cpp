@@ -16,6 +16,8 @@
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
+#include <fcppt/cond.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -26,20 +28,29 @@ FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::draw_context::draw_context(sge::opengl::info::context const &_info)
     : sge::opengl::context::base(),
-      draw_range_elements_(
+      draw_range_elements_{fcppt::cond(
           sge::opengl::info::version_at_least(
               _info.version(),
               sge::opengl::info::major_version{1U},
-              sge::opengl::info::minor_version{2U})
-              ? optional_draw_range_elements(sge::opengl::deref_fun_ptr(
-                    sge::opengl::info::cast_function<PFNGLDRAWRANGEELEMENTSPROC>(
-                        _info.load_function("glDrawRangeElements"))))
-          : sge::opengl::info::extension_supported(
-                _info.extensions(), sge::opengl::info::extension{"GL_EXT_draw_range_elements"})
-              ? optional_draw_range_elements(sge::opengl::deref_fun_ptr(
-                    sge::opengl::info::cast_function<PFNGLDRAWRANGEELEMENTSPROC>(
-                        _info.load_function("glDrawRangeElementsEXT"))))
-              : optional_draw_range_elements())
+              sge::opengl::info::minor_version{2U}),
+          [&_info]
+          {
+            return optional_draw_range_elements{sge::opengl::deref_fun_ptr(
+                sge::opengl::info::cast_function<PFNGLDRAWRANGEELEMENTSPROC>(
+                    _info.load_function("glDrawRangeElements")))};
+          },
+          [&_info]
+          {
+            return fcppt::optional::make_if(
+                sge::opengl::info::extension_supported(
+                    _info.extensions(), sge::opengl::info::extension{"GL_EXT_draw_range_elements"}),
+                [&_info]
+                {
+                  return sge::opengl::deref_fun_ptr(
+                      sge::opengl::info::cast_function<PFNGLDRAWRANGEELEMENTSPROC>(
+                          _info.load_function("glDrawRangeElementsEXT")));
+                });
+          })}
 {
 }
 

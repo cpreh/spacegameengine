@@ -7,7 +7,10 @@
 #include <sge/input/cursor/mode.hpp>
 #include <sge/sdlinput/cursor/set_mode.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_mouse.h>
 #include <SDL_stdinc.h>
@@ -18,6 +21,8 @@ namespace
 
 SDL_bool convert_mode(sge::input::cursor::mode const _mode)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_mode)
   {
   case sge::input::cursor::mode::normal:
@@ -25,8 +30,9 @@ SDL_bool convert_mode(sge::input::cursor::mode const _mode)
   case sge::input::cursor::mode::exclusive:
     return SDL_TRUE;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_mode);
 }
 
 }

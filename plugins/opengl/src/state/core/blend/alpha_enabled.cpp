@@ -35,7 +35,7 @@ sge::opengl::state::actor sge::opengl::state::core::blend::alpha_enabled(
         return sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
             [_combined]
             {
-              return sge::opengl::call(
+              sge::opengl::call(
                   ::glBlendFunc,
                   sge::opengl::state::convert::source_blend_func(_combined.source()),
                   sge::opengl::state::convert::dest_blend_func(_combined.dest()));
@@ -59,7 +59,7 @@ sge::opengl::state::actor sge::opengl::state::core::blend::alpha_enabled(
         return sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
             [_separate, func]
             {
-              return sge::opengl::call_fun_ref(
+              sge::opengl::call_fun_ref(
                   func,
                   sge::opengl::state::convert::source_blend_func(_separate.color_source().get()),
                   sge::opengl::state::convert::dest_blend_func(_separate.color_dest().get()),

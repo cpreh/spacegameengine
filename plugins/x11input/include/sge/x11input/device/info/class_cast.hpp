@@ -20,13 +20,11 @@ namespace sge::x11input::device::info
 {
 
 template <typename Result>
-std::enable_if_t<
-    fcppt::mpl::list::contains<
-        fcppt::mpl::list::
-            object<XIButtonClassInfo, XIValuatorClassInfo, XIKeyClassInfo, XIScrollClassInfo>,
-        std::remove_cvref_t<Result>>::value,
-    Result>
-class_cast(XIAnyClassInfo const &_info)
+Result class_cast(XIAnyClassInfo const &_info)
+  requires(fcppt::mpl::list::contains<
+           fcppt::mpl::list::
+               object<XIButtonClassInfo, XIValuatorClassInfo, XIKeyClassInfo, XIScrollClassInfo>,
+           std::remove_cvref_t<Result>>::value)
 {
   FCPPT_PP_PUSH_WARNING
   FCPPT_PP_DISABLE_GCC_WARNING(-Wstrict-aliasing)
@@ -37,7 +35,6 @@ class_cast(XIAnyClassInfo const &_info)
 
   FCPPT_PP_POP_WARNING
 }
-
 }
 
 #endif

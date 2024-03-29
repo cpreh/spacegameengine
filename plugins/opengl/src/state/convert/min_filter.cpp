@@ -7,12 +7,17 @@
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/min.hpp>
 #include <sge/renderer/state/core/sampler/filter/normal/mip.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 GLenum sge::opengl::state::convert::min_filter(
     sge::renderer::state::core::sampler::filter::normal::min const _min,
     sge::renderer::state::core::sampler::filter::normal::mip const _mip)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_min)
   {
   case sge::renderer::state::core::sampler::filter::normal::min::point:
@@ -25,8 +30,7 @@ GLenum sge::opengl::state::convert::min_filter(
     case sge::renderer::state::core::sampler::filter::normal::mip::linear:
       return GL_NEAREST_MIPMAP_LINEAR;
     }
-
-    FCPPT_ASSERT_UNREACHABLE;
+    throw fcppt::enum_::make_invalid(_mip);
   case sge::renderer::state::core::sampler::filter::normal::min::linear:
     switch (_mip)
     {
@@ -37,9 +41,9 @@ GLenum sge::opengl::state::convert::min_filter(
     case sge::renderer::state::core::sampler::filter::normal::mip::linear:
       return GL_LINEAR_MIPMAP_LINEAR;
     }
-
-    FCPPT_ASSERT_UNREACHABLE;
+    throw fcppt::enum_::make_invalid(_mip);
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_min);
 }

@@ -20,8 +20,8 @@
 void sge::opengl::vertex::unset_buffer(
     sge::opengl::context::object &_context, sge::renderer::vertex::buffer const &_buffer)
 {
-  sge::opengl::vertex::context &context(
-      sge::opengl::context::use<sge::opengl::vertex::context>(fcppt::make_ref(_context)));
+  auto &context{
+      sge::opengl::context::use<sge::opengl::vertex::context>(fcppt::make_ref(_context))};
 
   sge::renderer::vf::dynamic::part_index const index(_buffer.format_part_index());
 

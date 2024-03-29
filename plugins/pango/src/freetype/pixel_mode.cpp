@@ -6,7 +6,10 @@
 #include <sge/image/color/format.hpp>
 #include <sge/pango/freetype/optional_pixel_mode.hpp>
 #include <sge/pango/freetype/pixel_mode.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ft2build.h> // NOLINT(misc-include-cleaner)
 #include <freetype/ftimage.h>
@@ -15,6 +18,8 @@
 sge::pango::freetype::optional_pixel_mode
 sge::pango::freetype::pixel_mode(sge::image::color::format const _format)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
   case sge::image::color::format::a8:
@@ -40,5 +45,7 @@ sge::pango::freetype::pixel_mode(sge::image::color::format const _format)
     return sge::pango::freetype::optional_pixel_mode{};
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_PP_POP_WARNING
+
+  throw fcppt::enum_::make_invalid(_format);
 }

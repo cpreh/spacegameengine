@@ -27,14 +27,14 @@ sge::opengl::state::actor_vector sge::opengl::state::ffp::misc::make_actors(
       sge::opengl::state::actor_vector{
           sge::opengl::state::actor{[normalize_normals = _parameters.normalize_normals()]
                                     {
-                                      return sge::opengl::enable_bool(
+                                      sge::opengl::enable_bool(
                                           sge::opengl::convert::to_gl_enum<GL_NORMALIZE>(),
                                           normalize_normals.get());
                                     }},
           sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
               [local_viewer = _parameters.local_viewer()]
               {
-                return sge::opengl::call(
+                sge::opengl::call(
                     ::glLightModeli,
                     sge::opengl::convert::to_gl_enum<GL_LIGHT_MODEL_LOCAL_VIEWER>(),
                     local_viewer.get() ? 1 : 0);

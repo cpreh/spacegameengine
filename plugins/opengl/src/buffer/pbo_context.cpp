@@ -22,6 +22,7 @@
 #include <sge/opengl/info/major_version.hpp>
 #include <sge/opengl/info/minor_version.hpp>
 #include <sge/opengl/info/version_at_least.hpp>
+#include <fcppt/cond.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/array/get.hpp>
 #include <fcppt/optional/maybe.hpp>
@@ -34,34 +35,37 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wold-style-cast)
 
 sge::opengl::buffer::pbo_context::pbo_context(sge::opengl::context::object_ref const _context)
-    : sge::opengl::context::base(),
-      buffers_(fcppt::optional::maybe( // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
+    : sge::opengl::context::base{},
+      buffers_{fcppt::optional::maybe( // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
           sge::opengl::context::use<sge::opengl::buffer::context>(_context, _context.get().info())
               .hardware_config(),
           [] { return sge::opengl::buffer::make_software<buffer_array>(); },
           [&_context](sge::opengl::buffer::hardware_config const &_config)
           {
-            sge::opengl::info::context const &info(_context.get().info());
+            sge::opengl::info::context const &info{_context.get().info()};
 
-            return sge::opengl::info::
-                           version_at_least( // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
-                               info.version(),
-                               sge::opengl::info::major_version{2U},
-                               sge::opengl::info::minor_version{1U})
-                       ? sge::opengl::buffer::make_hardware(
-                             fcppt::make_cref(_config),
-                             GL_PIXEL_PACK_BUFFER,
-                             GL_PIXEL_UNPACK_BUFFER)
-                   : sge::opengl::info::
-                           extension_supported( // NOLINT(clang-analyzer-cplusplus.NewDeleteLeaks)
-                               info.extensions(),
-                               sge::opengl::info::extension{"GL_ARB_pixel_buffer_object"})
-                       ? sge::opengl::buffer::make_hardware(
-                             fcppt::make_cref(_config),
-                             GL_PIXEL_PACK_BUFFER_ARB,
-                             GL_PIXEL_UNPACK_BUFFER_ARB)
-                       : sge::opengl::buffer::make_software<buffer_array>();
-          }))
+            return fcppt::cond(
+                sge::opengl::info::version_at_least(
+                    info.version(),
+                    sge::opengl::info::major_version{2U},
+                    sge::opengl::info::minor_version{1U}),
+                [&_config]
+                {
+                  return sge::opengl::buffer::make_hardware(
+                      fcppt::make_cref(_config), GL_PIXEL_PACK_BUFFER, GL_PIXEL_UNPACK_BUFFER);
+                },
+                [&info, &_config]
+                {
+                  return sge::opengl::info::extension_supported(
+                             info.extensions(),
+                             sge::opengl::info::extension{"GL_ARB_pixel_buffer_object"})
+                             ? sge::opengl::buffer::make_hardware(
+                                   fcppt::make_cref(_config),
+                                   GL_PIXEL_PACK_BUFFER_ARB,
+                                   GL_PIXEL_UNPACK_BUFFER_ARB)
+                             : sge::opengl::buffer::make_software<buffer_array>();
+                });
+          })}
 {
 }
 

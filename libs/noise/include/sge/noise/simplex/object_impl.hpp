@@ -89,8 +89,7 @@ std::size_t sge::noise::simplex::object<Float, N>::index(vector_type const &vec)
   {
     auto t = static_cast<long>(elem); // NOLINT(google-runtime-int)
     res = perm_[sge::noise::simplex::detail::mod(
-        static_cast<long>(res) + // NOLINT(google-runtime-int)
-            static_cast<long>(t), // NOLINT(google-runtime-int)
+        static_cast<long>(res) + t, // NOLINT(google-runtime-int)
         perm_.size())];
   }
   return res;

@@ -20,6 +20,7 @@
 #include <sge/opengl/texture/convert/make_buffer_type.hpp>
 #include <sge/opengl/texture/convert/make_type.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -51,18 +52,23 @@ FCPPT_PP_POP_WARNING
 
 sge::opengl::texture::cube_context::cube_context(sge::opengl::info::context const &_info)
     : sge::opengl::context::base(),
-      config_(
+      config_{
           sge::opengl::info::version_at_least(
               _info.version(),
               sge::opengl::info::major_version{1U},
               sge::opengl::info::minor_version{0U})
-              ? sge::opengl::texture::optional_cube_config(sge::opengl::texture::cube_config(
-                    sge::opengl::texture::convert::make_type(GL_TEXTURE_CUBE_MAP), ::normal_sides))
-          : sge::opengl::info::extension_supported(
-                _info.extensions(), sge::opengl::info::extension{"GL_ARB_texture_cube_map"})
-              ? sge::opengl::texture::optional_cube_config(sge::opengl::texture::cube_config(
-                    sge::opengl::texture::convert::make_type(GL_TEXTURE_CUBE_MAP_ARB), ::arb_sides))
-              : sge::opengl::texture::optional_cube_config())
+              ? sge::opengl::texture::optional_cube_config{sge::opengl::texture::cube_config{
+                    sge::opengl::texture::convert::make_type(GL_TEXTURE_CUBE_MAP), ::normal_sides}}
+              : fcppt::optional::make_if(
+                    sge::opengl::info::extension_supported(
+                        _info.extensions(),
+                        sge::opengl::info::extension{"GL_ARB_texture_cube_map"}),
+                    []
+                    {
+                      return sge::opengl::texture::cube_config{
+                          sge::opengl::texture::convert::make_type(GL_TEXTURE_CUBE_MAP_ARB),
+                          ::arb_sides};
+                    })}
 {
 }
 

@@ -7,7 +7,10 @@
 #include <sge/libpng/format.hpp>
 #include <sge/libpng/from_sge_format.hpp>
 #include <sge/libpng/optional_format.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::libpng::optional_format sge::libpng::from_sge_format(sge::image::color::format const _format)
 {
@@ -15,6 +18,8 @@ sge::libpng::optional_format sge::libpng::from_sge_format(sge::image::color::for
   case sge::image::color::format::cur_format: \
     return sge::libpng::optional_format { sge::libpng::format::cur_format }
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
     SGE_LIBPNG_CONVERT_FORMAT(l8);
@@ -41,6 +46,7 @@ sge::libpng::optional_format sge::libpng::from_sge_format(sge::image::color::for
   case sge::image::color::format::bgra32f:
     return sge::libpng::optional_format{};
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_format);
 }

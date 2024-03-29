@@ -59,8 +59,8 @@ void sge::opengl::draw_elements(
   sge::opengl::draw_context const &context(sge::opengl::context::use<sge::opengl::draw_context>(
       fcppt::make_ref(_context), _context.info()));
 
-  sge::opengl::index::buffer const &gl_index_buffer(
-      fcppt::cast::static_downcast<sge::opengl::index::buffer const &>(_index_buffer));
+  auto const &gl_index_buffer{
+      fcppt::cast::static_downcast<sge::opengl::index::buffer const &>(_index_buffer)};
 
   gl_index_buffer.bind();
 

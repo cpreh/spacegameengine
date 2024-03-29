@@ -6,10 +6,15 @@
 #include <sge/opengl/vf/convert_element_type.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/vf/dynamic/element_type.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 GLenum sge::opengl::vf::convert_element_type(sge::renderer::vf::dynamic::element_type const _type)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_type)
   {
   case sge::renderer::vf::dynamic::element_type::float_:
@@ -30,5 +35,7 @@ GLenum sge::opengl::vf::convert_element_type(sge::renderer::vf::dynamic::element
     return GL_UNSIGNED_INT;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  FCPPT_PP_POP_WARNING
+
+  throw fcppt::enum_::make_invalid(_type);
 }

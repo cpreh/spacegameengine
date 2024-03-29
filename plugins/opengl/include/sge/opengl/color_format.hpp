@@ -7,11 +7,14 @@
 #define SGE_OPENGL_COLOR_FORMAT_HPP_INCLUDED
 
 #include <sge/opengl/color_format_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opengl
 {
 
-enum class color_format
+enum class color_format : std::uint8_t
 {
   a8,
   l8,

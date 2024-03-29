@@ -16,8 +16,8 @@
 void sge::opengl::set_unpack_alignment(
     sge::opengl::context::object &_context, sge::opengl::unpack_alignment const _alignment)
 {
-  sge::opengl::pixel_store_context &context(
-      sge::opengl::context::use<sge::opengl::pixel_store_context>(fcppt::make_ref(_context)));
+  auto &context{
+      sge::opengl::context::use<sge::opengl::pixel_store_context>(fcppt::make_ref(_context))};
 
   if (context.unpack_alignment() == _alignment)
   {

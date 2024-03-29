@@ -17,7 +17,7 @@ sge::opengl::state::actor sge::opengl::state::core::depth_stencil::depth::write_
 {
   return sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
       [_write_enable] {
-        return sge::opengl::call(
+        sge::opengl::call(
             ::glDepthMask, sge::opengl::convert::to_gl_bool(_write_enable.get()));
       },
       FCPPT_TEXT("glDepthMask"));

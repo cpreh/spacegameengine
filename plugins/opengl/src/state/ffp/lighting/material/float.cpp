@@ -14,6 +14,6 @@ sge::opengl::state::actor sge::opengl::state::ffp::lighting::material::float_(
     GLenum const _face, GLenum const _what, GLfloat const _value)
 {
   return sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
-      [_face, _what, _value] { return sge::opengl::call(::glMaterialf, _face, _what, _value); },
+      [_face, _what, _value] { sge::opengl::call(::glMaterialf, _face, _what, _value); },
       FCPPT_TEXT("glMaterialf"));
 }

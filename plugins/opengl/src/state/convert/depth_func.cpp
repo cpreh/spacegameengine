@@ -6,11 +6,16 @@
 #include <sge/opengl/state/convert/depth_func.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/depth_stencil/depth/func.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 GLenum sge::opengl::state::convert::depth_func(
     sge::renderer::state::core::depth_stencil::depth::func const _func)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_func)
   {
   case sge::renderer::state::core::depth_stencil::depth::func::never:
@@ -30,6 +35,7 @@ GLenum sge::opengl::state::convert::depth_func(
   case sge::renderer::state::core::depth_stencil::depth::func::always:
     return GL_ALWAYS;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_func);
 }

@@ -7,11 +7,14 @@
 #define SGE_LIBPNG_FORMAT_HPP_INCLUDED
 
 #include <sge/libpng/format_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::libpng
 {
 
-enum class format
+enum class format : std::uint8_t
 {
   l8,
   la8,

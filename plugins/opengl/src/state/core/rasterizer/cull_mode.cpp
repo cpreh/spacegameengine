@@ -20,12 +20,12 @@ sge::opengl::state::actor_vector sge::opengl::state::core::rasterizer::cull_mode
 {
   return _mode == sge::renderer::state::core::rasterizer::cull_mode::off
              ? sge::opengl::state::actor_vector{sge::opengl::state::actor{
-                   [] { return sge::opengl::disable(GL_CULL_FACE); }}}
+                   [] { sge::opengl::disable(GL_CULL_FACE); }}}
              : sge::opengl::state::actor_vector{
-                   sge::opengl::state::actor{[] { return sge::opengl::enable(GL_CULL_FACE); }},
+                   sge::opengl::state::actor{[] { sge::opengl::enable(GL_CULL_FACE); }},
                    sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
                        [_mode] {
-                         return sge::opengl::call(
+                         sge::opengl::call(
                              ::glCullFace, sge::opengl::state::convert::cull_mode(_mode));
                        },
                        FCPPT_TEXT("glCullFace"))};

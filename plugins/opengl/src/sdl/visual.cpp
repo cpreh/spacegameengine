@@ -22,6 +22,9 @@
 #include <fcppt/cast/enum_to_underlying.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/optional/maybe_void.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_video.h>
 #include <fcppt/config/external_end.hpp>
@@ -89,6 +92,8 @@ void sge::opengl::sdl::visual::apply() const
   {
     auto const set_srgb([] { return set_attribute_maybe(SDL_GL_FRAMEBUFFER_SRGB_CAPABLE, 1); });
 
+    FCPPT_PP_PUSH_WARNING
+    FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
     switch (this->pixel_format_.srgb())
     {
     case sge::renderer::pixel_format::srgb::no:
@@ -104,5 +109,7 @@ void sge::opengl::sdl::visual::apply() const
       set_srgb();
       break;
     }
+    FCPPT_PP_POP_WARNING
+
   }
 }

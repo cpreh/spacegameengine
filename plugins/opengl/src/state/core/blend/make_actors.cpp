@@ -26,7 +26,7 @@ sge::opengl::state::actor_vector sge::opengl::state::core::blend::make_actors(
           sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
               [write_mask = _parameters.write_mask()]
               {
-                return sge::opengl::call(
+                sge::opengl::call(
                     ::glColorMask,
                     sge::opengl::convert::to_gl_bool(write_mask.write_red().get()),
                     sge::opengl::convert::to_gl_bool(write_mask.write_green().get()),

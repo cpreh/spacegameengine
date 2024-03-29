@@ -39,7 +39,7 @@ sge::opengl::state::actor_vector sge::opengl::state::core::depth_stencil::depth:
             sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
                 [_enabled]
                 {
-                  return sge::opengl::call(
+                  sge::opengl::call(
                       ::glDepthFunc, sge::opengl::state::convert::depth_func(_enabled.func()));
                 },
                 FCPPT_TEXT("glDepthFunc")),

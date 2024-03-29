@@ -7,11 +7,16 @@
 #include <sge/opengl/state/convert/stencil_op.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/core/depth_stencil/stencil/op.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 GLenum sge::opengl::state::convert::stencil_op(
     sge::renderer::state::core::depth_stencil::stencil::op const _value)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_value)
   {
   case sge::renderer::state::core::depth_stencil::stencil::op::keep:
@@ -31,6 +36,7 @@ GLenum sge::opengl::state::convert::stencil_op(
   case sge::renderer::state::core::depth_stencil::stencil::op::invert:
     return GL_INVERT;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_value);
 }

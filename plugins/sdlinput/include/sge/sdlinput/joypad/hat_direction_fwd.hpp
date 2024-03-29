@@ -6,10 +6,14 @@
 #ifndef SGE_SDLINPUT_JOYPAD_HAT_DIRECTION_FWD_HPP_INCLUDED
 #define SGE_SDLINPUT_JOYPAD_HAT_DIRECTION_FWD_HPP_INCLUDED
 
+#include <fcppt/config/external_begin.hpp>
+#include <cstdint>
+#include <fcppt/config/external_end.hpp>
+
 namespace sge::sdlinput::joypad
 {
 
-enum class hat_direction; // IWYU pragma: export
+enum class hat_direction : std::uint8_t; // IWYU pragma: export
 
 }
 

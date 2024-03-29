@@ -47,7 +47,7 @@ sge::opengl::state::actor_vector sge::opengl::state::core::depth_stencil::stenci
             sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
                 [_ref, _read_mask, func = _combined.desc().func()]
                 {
-                  return sge::opengl::call(
+                  sge::opengl::call(
                       ::glStencilFunc,
                       sge::opengl::state::convert::stencil_func(func),
                       fcppt::cast::to_signed(_ref.get()),
@@ -59,7 +59,7 @@ sge::opengl::state::actor_vector sge::opengl::state::core::depth_stencil::stenci
                  depth_fail_op = _combined.desc().depth_fail_op(),
                  pass_op = _combined.desc().pass_op()]
                 {
-                  return sge::opengl::call(
+                  sge::opengl::call(
                       ::glStencilOp,
                       sge::opengl::state::convert::stencil_op(fail_op.get()),
                       sge::opengl::state::convert::stencil_op(depth_fail_op.get()),

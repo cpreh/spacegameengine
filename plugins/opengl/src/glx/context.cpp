@@ -23,7 +23,6 @@
 #include <GL/glx.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>
-#include <X11/Xutil.h>
 #include <fcppt/config/external_end.hpp>
 
 sge::opengl::glx::context::context(
@@ -35,11 +34,7 @@ sge::opengl::glx::context::context(
       window_(_window),
       proc_address_(_proc_address),
       context_(::glXCreateContext(
-          window_.get().display().get().get(),
-          // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
-          const_cast<XVisualInfo *>(window_.get().x11_visual().info()),
-          nullptr,
-          True))
+          window_.get().display().get().get(), window_.get().x11_visual().info(), nullptr, True))
 {
   if (context_ == nullptr)
   {

@@ -23,7 +23,7 @@ sge::rucksack::testbed::object::object(sge::window::title &&_str)
 void sge::rucksack::testbed::object::add_widget(
     sge::rucksack::widget::reference const _widget, sge::image::color::any::object const &_color)
 {
-  return impl_->add_widget(_widget, _color);
+  impl_->add_widget(_widget, _color);
 }
 
 awl::main::exit_code sge::rucksack::testbed::object::run() { return impl_->run(); }

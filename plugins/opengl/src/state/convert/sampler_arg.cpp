@@ -7,11 +7,16 @@
 #include <sge/opengl/state/convert/sampler_arg.hpp>
 #include <sge/renderer/opengl/glinclude.hpp>
 #include <sge/renderer/state/ffp/sampler/arg.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 GLenum
 sge::opengl::state::convert::sampler_arg(sge::renderer::state::ffp::sampler::arg const _value)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_value)
   {
   case sge::renderer::state::ffp::sampler::arg::previous:
@@ -24,6 +29,7 @@ sge::opengl::state::convert::sampler_arg(sge::renderer::state::ffp::sampler::arg
   case sge::renderer::state::ffp::sampler::arg::vertex_color:
     return GL_PRIMARY_COLOR;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_value);
 }

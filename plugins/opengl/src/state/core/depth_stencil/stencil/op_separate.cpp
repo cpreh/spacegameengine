@@ -25,7 +25,7 @@ sge::opengl::state::actor sge::opengl::state::core::depth_stencil::stencil::op_s
   return sge::opengl::state::wrap_error_handler<sge::opengl::state::actor>(
       [&_config, _side, _fail_op, _depth_fail_op, _pass_op]
       {
-        return sge::opengl::call_fun_ref(
+        sge::opengl::call_fun_ref(
             _config.stencil_op_separate(),
             _side,
             sge::opengl::state::convert::stencil_op(_fail_op.get()),
