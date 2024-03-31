@@ -10,10 +10,11 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/read_size.hpp>
 #include <sge/opengl/texture/readonly_lock.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 sge::opengl::texture::readonly_lock::readonly_lock(
@@ -55,7 +56,7 @@ sge::opengl::texture::readonly_lock::pointer sge::opengl::texture::readonly_lock
 
 sge::opengl::texture::readonly_lock::pointer sge::opengl::texture::readonly_lock::write_pointer()
 {
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::renderer::exception{FCPPT_TEXT("opengl::texture::readonly_lock::write_pointer called!")};
 }
 
 sge::opengl::texture::readonly_lock::pointer
@@ -67,7 +68,7 @@ sge::opengl::texture::readonly_lock::read_view_pointer()
 sge::opengl::texture::readonly_lock::pointer
 sge::opengl::texture::readonly_lock::write_view_pointer()
 {
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::renderer::exception{FCPPT_TEXT("opengl::texture::readonly_lock::write_view_pointer called!")};
 }
 
 sge::renderer::lock_flags::method sge::opengl::texture::readonly_lock::method() const

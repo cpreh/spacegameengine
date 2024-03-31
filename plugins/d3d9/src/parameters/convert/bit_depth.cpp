@@ -5,8 +5,9 @@
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/parameters/convert/bit_depth.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/pixel_format/color.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 
 D3DFORMAT
 sge::d3d9::parameters::convert::bit_depth(sge::renderer::pixel_format::color const _type)
@@ -20,5 +21,5 @@ sge::d3d9::parameters::convert::bit_depth(sge::renderer::pixel_format::color con
     return D3DFMT_X8R8G8B8;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::renderer::exception{FCPPT_TEXT("Unsupported bit_depth in D3D9!")};
 }

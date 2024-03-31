@@ -6,10 +6,15 @@
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/to_depth_stencil_format.hpp>
 #include <sge/image/ds/format.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 sge::image::ds::format sge::d3d9::convert::to_depth_stencil_format(D3DFORMAT const _format)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_format)
   {
   case D3DFMT_D16:
@@ -21,6 +26,7 @@ sge::image::ds::format sge::d3d9::convert::to_depth_stencil_format(D3DFORMAT con
   default:
     break;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_format);
 }

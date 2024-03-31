@@ -6,11 +6,16 @@
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/fog_mode.hpp>
 #include <sge/renderer/state/ffp/fog/mode.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 D3DFOGMODE
 sge::d3d9::state::convert::fog_mode(sge::renderer::state::ffp::fog::mode const _type)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_type)
   {
   case sge::renderer::state::ffp::fog::mode::linear:
@@ -20,6 +25,7 @@ sge::d3d9::state::convert::fog_mode(sge::renderer::state::ffp::fog::mode const _
   case sge::renderer::state::ffp::fog::mode::exp2:
     return D3DFOG_EXP2;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_type);
 }

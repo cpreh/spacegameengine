@@ -4,8 +4,9 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/image/color/format.hpp>
+#include <sge/opencl/exception.hpp>
 #include <sge/opencl/memory_object/image/opencl_color_format_to_sge.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
 #include <fcppt/config/external_end.hpp>
@@ -61,5 +62,5 @@ sge::opencl::memory_object::image::opencl_color_format_to_sge(cl_image_format co
     return sge::image::color::format::bgra32f;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::opencl::exception{FCPPT_TEXT("Invalid cl_image_format!")};
 }

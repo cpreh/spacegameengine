@@ -3,9 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/input/exception.hpp>
 #include <sge/input/cursor/scroll_code.hpp>
 #include <sge/x11input/cursor/scroll_code.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <fcppt/config/external_end.hpp>
@@ -22,5 +23,5 @@ sge::input::cursor::scroll_code sge::x11input::cursor::scroll_code(int const _sc
     break;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::input::exception{FCPPT_TEXT("Invalid cursor scroll code in x11input!")};
 }

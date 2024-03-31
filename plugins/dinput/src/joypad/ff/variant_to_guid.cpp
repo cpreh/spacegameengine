@@ -12,7 +12,10 @@
 #include <sge/input/joypad/ff/ramp_fwd.hpp>
 #include <sge/input/joypad/ff/variant.hpp>
 #include <sge/input/joypad/ff/waveform.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/match.hpp>
 
 REFGUID
@@ -24,7 +27,11 @@ sge::dinput::joypad::ff::variant_to_guid(sge::input::joypad::ff::variant const &
       [](sge::input::joypad::ff::ramp const &) -> REFGUID { return GUID_RampForce; },
       [](sge::input::joypad::ff::periodic const &_periodic) -> REFGUID
       {
-        switch (_periodic.waveform())
+        sge::input::joypad::ff::waveform const waveform{_periodic.waveform()};
+
+        FCPPT_PP_PUSH_WARNING
+        FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
+        switch (waveform)
         {
         case sge::input::joypad::ff::waveform::square:
           return GUID_Square;
@@ -37,12 +44,17 @@ sge::dinput::joypad::ff::variant_to_guid(sge::input::joypad::ff::variant const &
         case sge::input::joypad::ff::waveform::saw_down:
           return GUID_SawtoothDown;
         }
+        FCPPT_PP_POP_WARNING
 
-        FCPPT_ASSERT_UNREACHABLE;
+        throw fcppt::enum_::make_invalid(waveform);
       },
       [](sge::input::joypad::ff::condition const &_condition) -> REFGUID
       {
-        switch (_condition.type())
+        sge::input::joypad::ff::condition_type const type{_condition.type()};
+
+        FCPPT_PP_PUSH_WARNING
+        FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
+        switch(type)
         {
         case sge::input::joypad::ff::condition_type::spring:
           return GUID_Spring;
@@ -53,7 +65,8 @@ sge::dinput::joypad::ff::variant_to_guid(sge::input::joypad::ff::variant const &
         case sge::input::joypad::ff::condition_type::friction:
           return GUID_Friction;
         }
+        FCPPT_PP_POP_WARNING
 
-        FCPPT_ASSERT_UNREACHABLE;
+        throw fcppt::enum_::make_invalid(type);
       });
 }

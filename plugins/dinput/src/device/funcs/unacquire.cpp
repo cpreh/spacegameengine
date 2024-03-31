@@ -5,7 +5,8 @@
 
 #include <sge/dinput/di.hpp>
 #include <sge/dinput/device/funcs/unacquire.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
 
 bool sge::dinput::device::funcs::unacquire(IDirectInputDevice8 &_device)
 {
@@ -17,5 +18,5 @@ bool sge::dinput::device::funcs::unacquire(IDirectInputDevice8 &_device)
     return false;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::input::exception{FCPPT_TEXT("Invalid return value in IDirectInputDevice8::Unacquire!")};
 }

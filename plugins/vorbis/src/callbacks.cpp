@@ -3,8 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/audio/exception.hpp>
 #include <sge/vorbis/callbacks.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -79,7 +80,7 @@ int ogg_seek(void *const _datasource, ogg_int64_t const _offset, int const _when
           break;
         }
 
-        FCPPT_ASSERT_UNREACHABLE;
+        throw sge::audio::exception{FCPPT_TEXT("Invalid seek dir in vorbis!")};
       }());
 
   return 0;

@@ -10,7 +10,6 @@
 #include <sge/cg/exception.hpp> // IWYU pragma: keep
 #include <sge/cg/parameter/object.hpp> // IWYU pragma: keep
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/math/size_type.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <Cg/cg.h> // IWYU pragma: keep
@@ -34,7 +33,7 @@
       SGE_CG_IMPL_PARAMETER_VECTOR_SET_IMPL_CASE(cg_name, 3); \
       SGE_CG_IMPL_PARAMETER_VECTOR_SET_IMPL_CASE(cg_name, 4); \
     default: \
-      FCPPT_ASSERT_UNREACHABLE; \
+      throw sge::cg::exception{FCPPT_TEXT("Invalid size in cgSetParameter.")}; \
     } \
 \
     SGE_CG_CHECK_STATE(FCPPT_TEXT("cgSetParameter failed"), sge::cg::exception) \

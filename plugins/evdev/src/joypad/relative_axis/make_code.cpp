@@ -6,8 +6,9 @@
 #include <sge/evdev/device/event_type_value.hpp>
 #include <sge/evdev/joypad/relative_axis/code.hpp>
 #include <sge/evdev/joypad/relative_axis/make_code.hpp>
+#include <sge/input/exception.hpp>
 #include <sge/input/joypad/axis_code.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/enum_to_int.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input-event-codes.h>
@@ -35,5 +36,5 @@ sge::evdev::joypad::relative_axis::make_code(sge::evdev::joypad::relative_axis::
     return sge::input::joypad::axis_code::unknown;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::input::exception{FCPPT_TEXT("Invalid relative axis code in evdev!")};
 }

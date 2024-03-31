@@ -6,11 +6,16 @@
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/convert/primitive_type.hpp>
 #include <sge/renderer/primitive_type.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 D3DPRIMITIVETYPE
 sge::d3d9::convert::primitive_type(sge::renderer::primitive_type const _primitive_type)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_primitive_type)
   {
   case sge::renderer::primitive_type::point_list:
@@ -26,6 +31,7 @@ sge::d3d9::convert::primitive_type(sge::renderer::primitive_type const _primitiv
   case sge::renderer::primitive_type::triangle_fan:
     return D3DPT_TRIANGLEFAN;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_primitive_type);
 }

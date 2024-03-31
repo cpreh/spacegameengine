@@ -15,13 +15,14 @@
 #include <sge/dinput/joypad/make_button_info.hpp>
 #include <sge/dinput/joypad/make_relative_axis_info.hpp>
 #include <sge/dinput/joypad/relative_axis_map.hpp>
+#include <sge/input/exception.hpp>
 #include <sge/input/joypad/absolute_axis_info.hpp>
 #include <sge/input/joypad/absolute_axis_info_container.hpp>
 #include <sge/input/joypad/button_info.hpp>
 #include <sge/input/joypad/button_info_container.hpp>
 #include <sge/input/joypad/relative_axis_info.hpp>
 #include <sge/input/joypad/relative_axis_info_container.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -101,7 +102,7 @@ void sge::dinput::joypad::enumerator::dispatch(DIDEVICEOBJECTINSTANCE const &_da
           _data, relative_axis_map_, relative_axis_, &sge::dinput::joypad::make_relative_axis_info);
       break;
     default:
-      FCPPT_ASSERT_UNREACHABLE;
+      throw sge::input::exception{FCPPT_TEXT("Invalid DIPROP_AXISMODE!")};
     }
     FCPPT_PP_POP_WARNING
   }

@@ -10,10 +10,11 @@
 #include <sge/opengl/context/use.hpp>
 #include <sge/opengl/texture/write_size.hpp>
 #include <sge/opengl/texture/writeonly_lock.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/resource_flags_field.hpp>
 #include <sge/renderer/lock_flags/method.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/optional/object_impl.hpp> // IWYU pragma: keep
 
 sge::opengl::texture::writeonly_lock::writeonly_lock(
@@ -50,7 +51,7 @@ void sge::opengl::texture::writeonly_lock::post_copy() {}
 
 sge::opengl::texture::writeonly_lock::pointer sge::opengl::texture::writeonly_lock::read_pointer()
 {
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::renderer::exception{FCPPT_TEXT("opengl::texture::writeonly_lock::read_pointer called!")};
 }
 
 sge::opengl::texture::writeonly_lock::pointer sge::opengl::texture::writeonly_lock::write_pointer()
@@ -61,7 +62,7 @@ sge::opengl::texture::writeonly_lock::pointer sge::opengl::texture::writeonly_lo
 sge::opengl::texture::writeonly_lock::pointer
 sge::opengl::texture::writeonly_lock::read_view_pointer()
 {
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::renderer::exception{FCPPT_TEXT("opengl::texture::writeonly_lock::read_view_pointer called!")};
 }
 
 sge::opengl::texture::writeonly_lock::pointer

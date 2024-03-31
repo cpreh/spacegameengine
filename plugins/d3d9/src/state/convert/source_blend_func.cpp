@@ -6,11 +6,16 @@
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/state/convert/source_blend_func.hpp>
 #include <sge/renderer/state/core/blend/source.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
 D3DBLEND
 sge::d3d9::state::convert::source_blend_func(sge::renderer::state::core::blend::source const _type)
 {
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_type)
   {
   case sge::renderer::state::core::blend::source::zero:
@@ -32,6 +37,7 @@ sge::d3d9::state::convert::source_blend_func(sge::renderer::state::core::blend::
   case sge::renderer::state::core::blend::source::src_alpha_sat:
     return D3DBLEND_SRCALPHASAT;
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_type);
 }

@@ -3,8 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/input/exception.hpp>
 #include <sge/x11input/focus/translate_event.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/cast/float_to_int.hpp>
 #include <fcppt/cast/to_unsigned.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -29,7 +30,7 @@ XKeyEvent sge::x11input::focus::translate_event(XIDeviceEvent const &_event)
           break;
         }
 
-        FCPPT_ASSERT_UNREACHABLE;
+        throw sge::input::exception{FCPPT_TEXT("Invalid focus button state in x11input!")};
       }(_event.evtype),
       _event.serial,
       _event.send_event,

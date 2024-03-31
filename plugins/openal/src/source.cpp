@@ -3,6 +3,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/audio/exception.hpp>
 #include <sge/audio/position.hpp>
 #include <sge/audio/scalar.hpp>
 #include <sge/audio/vector.hpp>
@@ -24,6 +25,7 @@
 #include <sge/openal/funcs/source_play.hpp>
 #include <sge/openal/funcs/source_stop.hpp>
 #include <fcppt/const.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
@@ -123,7 +125,7 @@ sge::audio::sound::play_status sge::openal::source::status() const
   default: break;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::audio::exception{FCPPT_TEXT("Invalid AL_SOURCE_STATE!")};
 }
 
 void sge::openal::source::stop()

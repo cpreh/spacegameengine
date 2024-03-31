@@ -11,13 +11,18 @@
 #include <sge/d3d9/cg/profile/vertex.hpp>
 #include <sge/renderer/unsupported.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/enum/make_invalid.hpp>
+#include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 
-sge::cg::profile::object const
+sge::cg::profile::object
 sge::d3d9::cg::profile::create(IDirect3DDevice9 &_device, sge::cg::profile::shader_type const _type)
 {
   sge::d3d9::cg::scoped_device const context(_device);
 
+  FCPPT_PP_PUSH_WARNING
+  FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
   switch (_type)
   {
   case sge::cg::profile::shader_type::vertex:
@@ -28,6 +33,7 @@ sge::d3d9::cg::profile::create(IDirect3DDevice9 &_device, sge::cg::profile::shad
     throw sge::renderer::unsupported(
         FCPPT_TEXT("D3D9 Cg geometry shader"), FCPPT_TEXT("D3D10"), FCPPT_TEXT(""));
   }
+  FCPPT_PP_POP_WARNING
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw fcppt::enum_::make_invalid(_type);
 }

@@ -5,7 +5,8 @@
 
 #include <sge/evdev/inotify/convert_event_type.hpp>
 #include <sge/evdev/inotify/event_type.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/input/exception.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <sys/inotify.h>
 #include <cstdint>
@@ -31,5 +32,5 @@ sge::evdev::inotify::event_type sge::evdev::inotify::convert_event_type(std::uin
     return sge::evdev::inotify::event_type::attrib;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::input::exception{FCPPT_TEXT("Invalid inotify mask!")};
 }

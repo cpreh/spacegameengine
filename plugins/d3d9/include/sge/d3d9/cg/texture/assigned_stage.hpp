@@ -11,21 +11,12 @@
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/texture/stage.hpp>
 
-namespace sge
-{
-namespace d3d9
-{
-namespace cg
-{
-namespace texture
+namespace sge::d3d9::cg::texture
 {
 
-sge::renderer::texture::stage const assigned_stage(
+sge::renderer::texture::stage assigned_stage(
     IDirect3DDevice9 &, sge::d3d9::texture::base const &, sge::renderer::caps::texture_stages);
 
-}
-}
-}
 }
 
 #endif

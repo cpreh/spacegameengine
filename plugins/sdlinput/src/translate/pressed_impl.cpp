@@ -3,8 +3,9 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/input/exception.hpp>
 #include <sge/sdlinput/translate/pressed_impl.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <SDL_events.h>
 #include <cstdint>
@@ -22,5 +23,5 @@ bool sge::sdlinput::translate::pressed_impl(std::uint8_t const _state)
     break;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::input::exception{FCPPT_TEXT("Invalid pressed state in sdlinput!")};
 }

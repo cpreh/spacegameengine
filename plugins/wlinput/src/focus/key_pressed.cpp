@@ -3,9 +3,10 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/input/exception.hpp>
 #include <sge/input/key/pressed.hpp>
 #include <sge/wlinput/focus/key_pressed.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <wayland-client-protocol.h>
 #include <cstdint>
@@ -23,5 +24,5 @@ sge::input::key::pressed sge::wlinput::focus::key_pressed(std::uint32_t const _v
     break;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::input::exception{FCPPT_TEXT("Invalid key pressed state in wlinput!")};
 }

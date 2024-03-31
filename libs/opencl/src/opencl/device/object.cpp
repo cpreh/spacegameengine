@@ -3,11 +3,11 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/opencl/exception.hpp>
 #include <sge/opencl/device/object.hpp>
 #include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/buffer/object.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
@@ -94,7 +94,7 @@ std::string device_type_to_string(cl_device_type const dt)
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_DEVICE_TYPE_ALL); // NOLINT(hicpp-signed-bitwise)
     default: break;
   }
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::opencl::exception{FCPPT_TEXT("Invalid cl_device_type!")};
 }
 
 std::string device_fp_config_to_string(cl_device_fp_config const dt)
@@ -185,7 +185,7 @@ std::string device_mem_cache_type_to_string(cl_device_mem_cache_type const dt)
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_READ_WRITE_CACHE);
     default: break;
   }
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::opencl::exception{FCPPT_TEXT("Invalid cl_device_mem_cache_type!")};
 }
 
 std::string device_local_mem_type_to_string(cl_device_local_mem_type const dt)
@@ -197,7 +197,7 @@ std::string device_local_mem_type_to_string(cl_device_local_mem_type const dt)
     SGE_OPENCL_DEVICE_OUTPUT_CONSTANT(CL_GLOBAL);
     default: break;
   }
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::opencl::exception{FCPPT_TEXT("Invalid cl_device_local_mem_type!")};
 }
 
 std::string command_queue_properties_to_string(cl_command_queue_properties const dt)

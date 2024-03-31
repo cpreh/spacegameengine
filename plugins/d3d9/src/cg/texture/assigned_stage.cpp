@@ -8,19 +8,25 @@
 #include <sge/d3d9/com/compare_ptr.hpp>
 #include <sge/d3d9/devicefuncs/get_texture.hpp>
 #include <sge/d3d9/texture/base.hpp>
+#include <sge/renderer/exception.hpp>
 #include <sge/renderer/caps/texture_stages.hpp>
 #include <sge/renderer/texture/stage.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 
-sge::renderer::texture::stage const sge::d3d9::cg::texture::assigned_stage(
+sge::renderer::texture::stage sge::d3d9::cg::texture::assigned_stage(
     IDirect3DDevice9 &_device,
     sge::d3d9::texture::base const &_texture,
     sge::renderer::caps::texture_stages const _max_stages)
 {
+  // TODO(philipp): int_range
   for (sge::renderer::texture::stage stage(0u); stage.get() < _max_stages.get(); ++stage)
+  {
     if (sge::d3d9::com::compare_ptr(
             sge::d3d9::devicefuncs::get_texture(_device, stage).get(), &_texture.get()))
+    {
       return stage;
+    }
+  }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::renderer::exception{FCPPT_TEXT("Unable to find assigned_stage in d3d9::cg!")};
 }

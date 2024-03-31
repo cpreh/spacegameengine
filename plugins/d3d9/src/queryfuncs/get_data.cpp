@@ -5,7 +5,8 @@
 
 #include <sge/d3d9/d3dinclude.hpp>
 #include <sge/d3d9/queryfuncs/get_data.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <sge/renderer/exception.hpp>
+#include <fcppt/text.hpp>
 
 bool sge::d3d9::queryfuncs::get_data(
     IDirect3DQuery9 &_query, void *const _data, DWORD const _count, DWORD const _flags)
@@ -19,5 +20,5 @@ bool sge::d3d9::queryfuncs::get_data(
     return false;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::renderer::exception{FCPPT_TEXT("Invalid return value in IDirect3DQuery9::GetData!")};
 }

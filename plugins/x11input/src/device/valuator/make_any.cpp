@@ -3,11 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <sge/input/exception.hpp>
 #include <sge/x11input/device/valuator/any.hpp>
 #include <sge/x11input/device/valuator/make_absolute.hpp>
 #include <sge/x11input/device/valuator/make_any.hpp>
 #include <sge/x11input/device/valuator/relative.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
 #include <X11/extensions/XInput2.h>
@@ -26,5 +27,5 @@ sge::x11input::device::valuator::make_any(XIValuatorClassInfo const &_info)
   default: break;
   }
 
-  FCPPT_ASSERT_UNREACHABLE;
+  throw sge::input::exception{FCPPT_TEXT("Invalid valuator mode in x11input!")};
 }

@@ -6,16 +6,15 @@
 #ifndef SGE_GDIFONT_COLORS_TO_MAX_VISITOR_HPP_INCLUDED
 #define SGE_GDIFONT_COLORS_TO_MAX_VISITOR_HPP_INCLUDED
 
+#include <sge/font/exception.hpp>
 #include <sge/gdifont/a8_view.hpp>
 #include <sge/gdifont/alpha_to_max.hpp>
 #include <mizuiro/image/algorithm/for_each.hpp>
 #include <mizuiro/image/algorithm/make_iterator_identity.hpp>
 #include <mizuiro/image/algorithm/uninitialized.hpp>
-#include <fcppt/assert/unreachable.hpp>
+#include <fcppt/text.hpp>
 
-namespace sge
-{
-namespace gdifont
+namespace sge::gdifont
 {
 
 struct colors_to_max_visitor
@@ -26,7 +25,7 @@ struct colors_to_max_visitor
   result_type operator()(View const &) const
   {
     // TOOD: Maybe we have to support a generic version here
-    FCPPT_ASSERT_UNREACHABLE;
+    throw sge::font::exception{FCPPT_TEXT("Unsupported view type in gdifont::colors_to_max_visitor!")};
   }
 
   result_type operator()(sge::gdifont::a8_view const &_view) const
@@ -39,7 +38,6 @@ struct colors_to_max_visitor
   }
 };
 
-}
 }
 
 #endif
