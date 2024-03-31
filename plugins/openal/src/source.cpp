@@ -26,7 +26,6 @@
 #include <sge/openal/funcs/source_stop.hpp>
 #include <fcppt/const.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/assert/unreachable.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/enum/make_invalid.hpp>
