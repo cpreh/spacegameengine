@@ -31,7 +31,7 @@
 #include <sge/sprite/types/basic/homogenous_pair_decl.hpp> // IWYU pragma: keep
 #include <sge/sprite/types/basic/unit.hpp>
 #include <sge/sprite/types/basic/vector_decl.hpp> // IWYU pragma: keep
-#include <fcppt/record/enable_vararg_ctor.hpp>
+#include <fcppt/record/is_vararg_ctor.hpp>
 #include <fcppt/record/label_value_type.hpp>
 
 namespace sge::sprite
@@ -85,8 +85,9 @@ public:
 
   using connection_type = sge::sprite::intrusive::connection<choices>;
 
-  template <typename... Args, typename = fcppt::record::enable_vararg_ctor<Args...>>
-  explicit object(Args &&...);
+  template <typename... Args>
+  explicit object(Args &&...)
+    requires(fcppt::record::is_vararg_ctor<Args...>::value);
 
   object(object const &);
 

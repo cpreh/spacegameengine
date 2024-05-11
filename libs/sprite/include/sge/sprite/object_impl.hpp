@@ -35,6 +35,7 @@
 #include <sge/sprite/types/basic/homogenous_pair_impl.hpp> // IWYU pragma: keep
 #include <sge/sprite/types/basic/vector_impl.hpp> // IWYU pragma: keep
 #include <fcppt/record/get.hpp>
+#include <fcppt/record/is_vararg_ctor.hpp>
 #include <fcppt/record/label_value_type.hpp>
 #include <fcppt/record/set.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,8 +43,10 @@
 #include <fcppt/config/external_end.hpp>
 
 template <typename Choices>
-template <typename... Args, typename>
-sge::sprite::object<Choices>::object(Args &&..._args) : elements_{std::forward<Args>(_args)...}
+template <typename... Args>
+sge::sprite::object<Choices>::object(Args &&..._args)
+  requires(fcppt::record::is_vararg_ctor<Args...>::value)
+    : elements_{std::forward<Args>(_args)...}
 {
   sge::sprite::detail::assign_post(*this);
 }

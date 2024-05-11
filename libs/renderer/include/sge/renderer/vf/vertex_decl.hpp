@@ -8,7 +8,7 @@
 
 #include <sge/renderer/vf/vertex_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/vf/detail/vertex.hpp>
-#include <fcppt/record/enable_vararg_ctor.hpp>
+#include <fcppt/record/is_vararg_ctor.hpp>
 #include <fcppt/record/label_value_type.hpp>
 #include <fcppt/record/object_impl.hpp> // IWYU pragma: keep
 
@@ -23,8 +23,9 @@ public:
 
   using record_type = typename sge::renderer::vf::detail::vertex<Part>::type;
 
-  template <typename... Args, typename = fcppt::record::enable_vararg_ctor<Args...>>
-  explicit vertex(Args &&...);
+  template <typename... Args>
+  explicit vertex(Args &&...)
+    requires(fcppt::record::is_vararg_ctor<Args...>::value);
 
   template <typename Label>
   [[nodiscard]] fcppt::record::label_value_type<record_type, Label> const &get() const;

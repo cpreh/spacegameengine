@@ -8,6 +8,7 @@
 
 #include <sge/renderer/vf/vertex_decl.hpp> // IWYU pragma: export
 #include <fcppt/record/get.hpp>
+#include <fcppt/record/is_vararg_ctor.hpp>
 #include <fcppt/record/label_value_type.hpp>
 #include <fcppt/record/set.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -15,8 +16,10 @@
 #include <fcppt/config/external_end.hpp>
 
 template <typename Part>
-template <typename... Args, typename>
-sge::renderer::vf::vertex<Part>::vertex(Args &&..._args) : elements_{std::forward<Args>(_args)...}
+template <typename... Args>
+sge::renderer::vf::vertex<Part>::vertex(Args &&..._args)
+  requires(fcppt::record::is_vararg_ctor<Args...>::value)
+    : elements_{std::forward<Args>(_args)...}
 {
 }
 
