@@ -12,7 +12,6 @@
 #include <sge/camera/tracking/json/keyframes_to_json.hpp>
 #include <sge/input/event_base.hpp>
 #include <sge/input/keyboard/event/key.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/parse/json/array_or_object.hpp>
 #include <sge/parse/json/start.hpp>
@@ -43,7 +42,7 @@ sge::camera::tracking::json::key_press_exporter::key_press_exporter(
     sge::camera::update_duration const &_duration,
     keyframe_keypress const &_keyframe_keypress,
     export_keypress const &_export_keypress)
-    : log_{_log_context, sge::log::location(), sge::log::default_parameters(sge::camera::impl::log_name())},
+    : log_{_log_context, sge::log::location(), sge::camera::impl::log_name()},
       camera_{_camera},
       target_path_{std::move(_target_path)},
       duration_{_duration},

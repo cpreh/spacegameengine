@@ -25,7 +25,6 @@
 #include <sge/image2d/file_unique_ptr.hpp>
 #include <sge/image2d/system_ref.hpp>
 #include <sge/image2d/view/format.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/parse/json/array.hpp>
 #include <sge/parse/json/find_member_exn.hpp>
 #include <sge/parse/json/find_member_value_exn.hpp>
@@ -63,7 +62,7 @@ sge::font::bitmap::impl::object::object(
     std::filesystem::path const &_path,
     sge::image2d::system_ref const _image_system,
     sge::parse::json::start const &_start)
-    : log_{_log_context, sge::font::log_location(), sge::log::default_parameters(sge::font::bitmap::impl::log_name())},
+    : log_{_log_context, sge::font::log_location(), sge::font::bitmap::impl::log_name()},
       line_height_(sge::parse::json::convert::to_int<sge::font::unit>(
           sge::parse::json::find_member_value_exn(
               fcppt::make_cref(_start.object().members), "line_height")

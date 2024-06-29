@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/log/default_parameters.hpp>
 #include <sge/projectile/log.hpp>
 #include <sge/projectile/log_location.hpp>
 #include <fcppt/text.hpp>
@@ -12,19 +11,15 @@
 #include <fcppt/log/object.hpp>
 
 sge::projectile::log::log(fcppt::log::context_reference const _log_context)
-    : world_log_{_log_context, sge::projectile::log_location(), sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("world")})},
+    : world_log_{_log_context, sge::projectile::log_location(), fcppt::log::name{FCPPT_TEXT("world")}},
       body_log_{
-          _log_context,
-          sge::projectile::log_location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("body")})},
+          _log_context, sge::projectile::log_location(), fcppt::log::name{FCPPT_TEXT("body")}},
       ghost_log_{
-          _log_context,
-          sge::projectile::log_location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("ghost")})},
+          _log_context, sge::projectile::log_location(), fcppt::log::name{FCPPT_TEXT("ghost")}},
       triangle_log_{
           _log_context,
           sge::projectile::log_location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("triangle_mesh")})}
+          fcppt::log::name{FCPPT_TEXT("triangle_mesh")}}
 {
 }
 

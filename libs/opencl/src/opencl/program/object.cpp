@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/log/default_parameters.hpp>
 #include <sge/opencl/exception.hpp>
 #include <sge/opencl/log_location.hpp>
 #include <sge/opencl/context/object.hpp> // NOLINT(misc-include-cleaner)
@@ -136,7 +135,7 @@ sge::opencl::program::object::~object()
 }
 
 sge::opencl::program::object::object(fcppt::log::context_reference const _log_context)
-    : log_{_log_context, sge::opencl::log_location(), sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("program::object")})},
+    : log_{_log_context, sge::opencl::log_location(), fcppt::log::name{FCPPT_TEXT("program::object")}},
       // TODO(philipp): Direct initialization
       program_(nullptr),
       notification_callback_()

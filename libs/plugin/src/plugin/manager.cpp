@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/plugin/capabilities.hpp>
 #include <sge/plugin/category_array.hpp>
@@ -40,7 +39,7 @@ sge::plugin::manager::manager(
     fcppt::log::context_reference const _log_context,
     std::filesystem::path const &_path,
     sge::plugin::optional_cache_ref const &_cache)
-    : log_{_log_context, sge::log::location(), sge::log::default_parameters(sge::plugin::impl::log_name())},
+    : log_{_log_context, sge::log::location(), sge::plugin::impl::log_name()},
       plugins_(
           [this, &_path, &_cache]
           {

@@ -6,7 +6,6 @@
 #ifndef SGE_MEDIA_IMPL_DETAIL_MUXER_IMPL_HPP_INCLUDED
 #define SGE_MEDIA_IMPL_DETAIL_MUXER_IMPL_HPP_INCLUDED
 
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/media/extension.hpp>
 #include <sge/media/extension_set.hpp>
@@ -61,7 +60,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 
 template <typename System, typename File>
 sge::media::detail::muxer<System, File>::muxer(parameters const &_parameters)
-    : log_{_parameters.log_context(), sge::log::location(), sge::log::default_parameters(sge::media::impl::log_name())},
+    : log_{_parameters.log_context(), sge::log::location(), sge::media::impl::log_name()},
       plugins_(fcppt::algorithm::map_optional<plugin_system_pair_container>(
           _parameters.collection(),
           [this, &_parameters](sge::plugin::context<System> const &_context)

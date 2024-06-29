@@ -500,6 +500,7 @@ set(
 	plugins/opengl/include/sge/opengl/texture/const_optional_base_ref.hpp
 	plugins/opengl/include/sge/opengl/texture/const_optional_base_ref_fwd.hpp
 	plugins/opengl/include/sge/opengl/texture/convert/level.hpp
+	plugins/opengl/include/sge/opengl/texture/convert/make_buffer_type.hpp
 	plugins/opengl/include/sge/opengl/texture/convert/make_type.hpp
 	plugins/opengl/include/sge/opengl/texture/convert_base_type_function.hpp
 	plugins/opengl/include/sge/opengl/texture/convert_internal_format_function.hpp

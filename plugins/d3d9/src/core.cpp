@@ -5,7 +5,6 @@
 
 #include <sge/d3d9/core.hpp>
 #include <sge/d3d9/system.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/renderer/core.hpp>
 #include <sge/renderer/system.hpp>
@@ -21,10 +20,7 @@
 
 sge::d3d9::core::core(fcppt::log::context_reference const _log_context)
     : sge::renderer::core(),
-      log_{
-          _log_context,
-          sge::log::location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("d3d9")})}
+      log_{_log_context, sge::log::location(), fcppt::log::name{FCPPT_TEXT("d3d9")}}
 {
 }
 

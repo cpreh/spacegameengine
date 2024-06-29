@@ -4,7 +4,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/charconv/utf8_string.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/model/obj/box.hpp>
 #include <sge/model/obj/exception.hpp>
@@ -122,7 +121,7 @@ parse_face_vertex(line_count const _current_line, std::istream &_stream)
 
 sge::model::obj::prototype::prototype(
     fcppt::log::context_reference const _log_context, std::filesystem::path const &_filename)
-    : log_{_log_context, sge::log::location(), sge::log::default_parameters(sge::model::obj::impl::log_name())},
+    : log_{_log_context, sge::log::location(), sge::model::obj::impl::log_name()},
       vertex_coordinates_(),
       texture_coordinates_(),
       normals_(),

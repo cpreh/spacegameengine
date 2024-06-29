@@ -11,7 +11,6 @@
 #include <sge/image/color/init/red.hpp>
 #include <sge/line_drawer/line.hpp>
 #include <sge/line_drawer/scoped_lock.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/projectile/log_location.hpp>
 #include <sge/projectile/world.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/projectile/world_ref.hpp>
@@ -52,7 +51,7 @@ sge::projectile::detail::debug_drawer_impl::debug_drawer_impl(
       log_{
           _log_context,
           sge::projectile::log_location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("debug_drawer_impl")})},
+          fcppt::log::name{FCPPT_TEXT("debug_drawer_impl")}},
       world_(*_world.get().world_),
       debug_mode_(btIDebugDraw::DBG_NoDebug), // should be zero
       line_drawer_(_renderer),

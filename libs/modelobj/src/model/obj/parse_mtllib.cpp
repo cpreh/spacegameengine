@@ -9,7 +9,6 @@
 #include <sge/image/color/init/blue.hpp>
 #include <sge/image/color/init/green.hpp>
 #include <sge/image/color/init/red.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/model/obj/exception.hpp>
 #include <sge/model/obj/identifier.hpp>
@@ -61,7 +60,7 @@ class parser
 
 public:
   parser(fcppt::log::context_reference const _log_context, std::filesystem::path const &_filename)
-      : log_{_log_context, sge::log::location(), sge::log::default_parameters(sge::model::obj::impl::log_name())},
+      : log_{_log_context, sge::log::location(), sge::model::obj::impl::log_name()},
         parent_path_(_filename.parent_path()),
         result_(),
         current_line_(0U),

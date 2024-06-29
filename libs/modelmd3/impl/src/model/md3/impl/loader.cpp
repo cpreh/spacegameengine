@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/model/md3/load_flags_field.hpp>
 #include <sge/model/md3/object.hpp>
@@ -22,10 +21,7 @@
 #include <fcppt/config/external_end.hpp>
 
 sge::model::md3::impl::loader::loader(fcppt::log::context_reference const _log_context)
-    : log_{
-          _log_context,
-          sge::log::location(),
-          sge::log::default_parameters(sge::model::md3::impl::log_name())}
+    : log_{_log_context, sge::log::location(), sge::model::md3::impl::log_name()}
 {
 }
 

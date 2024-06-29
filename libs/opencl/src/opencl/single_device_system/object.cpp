@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/log/default_parameters.hpp>
 #include <sge/opencl/binary_error_data.hpp>
 #include <sge/opencl/error_information_string.hpp>
 #include <sge/opencl/exception.hpp>
@@ -98,7 +97,7 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 sge::opencl::single_device_system::object::object(
     fcppt::log::context_reference const _log_context,
     single_device_system::parameters const &_params)
-    : log_{_log_context, sge::opencl::log_location(), sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("single_device_system::object")})},
+    : log_{_log_context, sge::opencl::log_location(), fcppt::log::name{FCPPT_TEXT("single_device_system::object")}},
       system_(fcppt::make_unique_ptr<sge::opencl::system>()),
       platform_(
           &choose_platform(log_, fcppt::make_ref(system_->platforms()), _params.prefers_gpu())),

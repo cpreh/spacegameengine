@@ -19,7 +19,6 @@
 #include <sge/audio/sound/positional.hpp>
 #include <sge/audio/sound/positional_parameters_fwd.hpp>
 #include <sge/audio/sound/positional_unique_ptr.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/openal/buffer.hpp>
 #include <sge/openal/player.hpp>
@@ -40,7 +39,7 @@
 #include <fcppt/config/external_end.hpp>
 
 sge::openal::player::player(fcppt::log::context_reference const _log_context)
-    : log_{_log_context, sge::log::location(), sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("openal")})},
+    : log_{_log_context, sge::log::location(), fcppt::log::name{FCPPT_TEXT("openal")}},
       device_(nullptr),
       context_(fcppt::make_ref(device_)),
       current_context_(fcppt::make_ref(log_), fcppt::make_ref(context_)),

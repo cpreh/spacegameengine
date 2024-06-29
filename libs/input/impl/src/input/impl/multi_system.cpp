@@ -17,7 +17,6 @@
 #include <sge/input/plugin/iterator.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/plugin/object.hpp>
 #include <sge/input/plugin/traits.hpp> // NOLINT(misc-include-cleaner)
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/window/object_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
@@ -31,10 +30,7 @@ sge::input::impl::multi_system::multi_system(
     fcppt::log::context_reference const _log_context,
     sge::input::plugin::collection const &_collection)
     : sge::input::system(),
-      log_{
-          _log_context,
-          sge::log::location(),
-          sge::log::default_parameters(sge::input::impl::log_name())},
+      log_{_log_context, sge::log::location(), sge::input::impl::log_name()},
       plugins_(fcppt::algorithm::map<sge::input::impl::multi_system::plugin_vector>(
           _collection,
           [](sge::input::plugin::context const &_context) { return _context.load(); })),

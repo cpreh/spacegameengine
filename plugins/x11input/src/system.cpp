@@ -9,7 +9,6 @@
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/window/object.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/window/object_ref.hpp>
@@ -34,10 +33,7 @@
 
 sge::x11input::system::system(fcppt::log::context_reference const _log_context)
     : sge::input::system(),
-      log_{
-          _log_context,
-          sge::log::location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("x11input")})}
+      log_{_log_context, sge::log::location(), fcppt::log::name{FCPPT_TEXT("x11input")}}
 {
 }
 

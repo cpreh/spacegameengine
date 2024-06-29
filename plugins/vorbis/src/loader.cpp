@@ -6,7 +6,6 @@
 #include <sge/audio/file.hpp>
 #include <sge/audio/load_stream_result.hpp>
 #include <sge/audio/loader.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/media/check_extension.hpp>
 #include <sge/media/extension.hpp>
@@ -44,10 +43,7 @@ sge::media::extension extension()
 
 sge::vorbis::loader::loader(fcppt::log::context_reference const _log_context)
     : sge::audio::loader(),
-      log_{
-          _log_context,
-          sge::log::location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("vorbis")})}
+      log_{_log_context, sge::log::location(), fcppt::log::name{FCPPT_TEXT("vorbis")}}
 {
 }
 

@@ -3,7 +3,6 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/opengl/core.hpp>
 #include <sge/opengl/system.hpp>
@@ -23,10 +22,7 @@
 
 sge::opengl::core::core(fcppt::log::context_reference const _log_context)
     : sge::renderer::core(),
-      log_{
-          _log_context,
-          sge::log::location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("opengl")})}
+      log_{_log_context, sge::log::location(), fcppt::log::name{FCPPT_TEXT("opengl")}}
 {
 }
 

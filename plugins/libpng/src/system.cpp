@@ -15,7 +15,6 @@
 #include <sge/libpng/file_rep_from_view.hpp>
 #include <sge/libpng/is_png.hpp>
 #include <sge/libpng/system.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/media/check_extension.hpp>
 #include <sge/media/extension.hpp>
@@ -37,10 +36,7 @@
 
 sge::libpng::system::system(fcppt::log::context_reference const _log_context)
     : sge::image2d::system(),
-      log_{
-          _log_context,
-          sge::log::location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("libpng")})}
+      log_{_log_context, sge::log::location(), fcppt::log::name{FCPPT_TEXT("libpng")}}
 {
 }
 

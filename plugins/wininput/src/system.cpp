@@ -7,7 +7,6 @@
 #include <sge/input/capabilities_field.hpp>
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/window/object_ref.hpp>
 #include <sge/wininput/processor.hpp>
@@ -20,10 +19,7 @@
 #include <fcppt/log/name.hpp>
 
 sge::wininput::system::system(fcppt::log::context_reference const _log_context)
-    : log_{
-          _log_context,
-          sge::log::location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("wininput")})}
+    : log_{_log_context, sge::log::location(), fcppt::log::name{FCPPT_TEXT("wininput")}}
 {
 }
 

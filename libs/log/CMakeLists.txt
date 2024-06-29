@@ -3,7 +3,6 @@ set(
 	libs/log/include/sge/log/apply_options.hpp
 	libs/log/include/sge/log/default_level.hpp
 	libs/log/include/sge/log/default_level_streams.hpp
-	libs/log/include/sge/log/default_parameters.hpp
 	libs/log/include/sge/log/location.hpp
 	libs/log/include/sge/log/option.hpp
 	libs/log/include/sge/log/option_container.hpp
@@ -11,7 +10,6 @@ set(
 	libs/log/src/log/apply_options.cpp
 	libs/log/src/log/default_level.cpp
 	libs/log/src/log/default_level_streams.cpp
-	libs/log/src/log/default_parameters.cpp
 	libs/log/src/log/location.cpp
 	libs/log/src/log/option.cpp
 )

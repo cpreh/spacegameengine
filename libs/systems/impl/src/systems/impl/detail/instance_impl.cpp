@@ -19,7 +19,6 @@
 #include <sge/input/system_fwd.hpp>
 #include <sge/input/plugin/collection.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/input/plugin/manager.hpp> // NOLINT(misc-include-cleaner)
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
 #include <sge/plugin/manager.hpp>
@@ -75,10 +74,7 @@ sge::systems::detail::instance_impl::instance_impl(
     sge::systems::plugin_path const &_plugin_path,
     sge::systems::optional_log_context_ref const &_log_context)
     : log_context_{_log_context},
-      log_{
-          this->log_context(),
-          sge::log::location(),
-          sge::log::default_parameters(sge::systems::impl::log_name())},
+      log_{this->log_context(), sge::log::location(), sge::systems::impl::log_name()},
       plugin_cache_(),
       plugin_manager_(
           this->log_context(),
