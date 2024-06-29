@@ -8,7 +8,6 @@
 #include <sge/input/processor.hpp>
 #include <sge/input/processor_unique_ptr.hpp>
 #include <sge/input/system.hpp>
-#include <sge/log/default_parameters.hpp>
 #include <sge/log/location.hpp>
 #include <sge/window/object_ref.hpp>
 #include <sge/wlinput/processor.hpp>
@@ -22,10 +21,7 @@
 
 sge::wlinput::system::system(fcppt::log::context_reference const _log_context)
     : sge::input::system(),
-      log_{
-          _log_context,
-          sge::log::location(),
-          sge::log::default_parameters(fcppt::log::name{FCPPT_TEXT("wlinput")})}
+      log_{_log_context, sge::log::location(), fcppt::log::name{FCPPT_TEXT("wlinput")}}
 {
 }
 
