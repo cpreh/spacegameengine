@@ -35,12 +35,7 @@ set(
 	libs/charconv/src/charconv/utf8_string_to_fcppt.cpp
 )
 
-find_package(
-	Boost
-	REQUIRED
-	COMPONENTS
-	locale
-)
+find_package(Boost 1.70.0 CONFIG REQUIRED COMPONENTS locale)
 
 add_sge_base_library(
 	charconv

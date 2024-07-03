@@ -85,10 +85,7 @@ option(
 	OFF
 )
 
-find_package(
-	Boost
-	REQUIRED
-)
+find_package(Boost 1.70.0 CONFIG REQUIRED)
 
 set(
 	MEDIA_INSTALL_DIR
