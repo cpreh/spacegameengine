@@ -1,25 +1,10 @@
-set(
-	SGE_LOG_FILES
-	libs/log/include/sge/log/apply_options.hpp
-	libs/log/include/sge/log/default_level.hpp
-	libs/log/include/sge/log/default_level_streams.hpp
-	libs/log/include/sge/log/location.hpp
-	libs/log/include/sge/log/option.hpp
-	libs/log/include/sge/log/option_container.hpp
-	libs/log/include/sge/log/option_fwd.hpp
-	libs/log/src/log/apply_options.cpp
-	libs/log/src/log/default_level.cpp
-	libs/log/src/log/default_level_streams.cpp
-	libs/log/src/log/location.cpp
-	libs/log/src/log/option.cpp
-)
+fcppt_utils_load_source_files(libs/log/files.txt SGE_LOG_FILES)
 
 add_sge_base_library(
-	log
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${fcppt_log_TARGET}
-	TRANSITIVE_ADDITIONAL_DEPS
-		fcppt_core_interface
-		fcppt_log_interface
-)
+  log
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  ${fcppt_log_TARGET}
+  TRANSITIVE_ADDITIONAL_DEPS
+  fcppt_core_interface
+  fcppt_log_interface)

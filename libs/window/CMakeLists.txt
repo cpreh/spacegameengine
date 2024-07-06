@@ -1,43 +1,12 @@
-set(
-	SGE_WINDOW_FILES
-	libs/window/include/sge/window/default_class_name.hpp
-	libs/window/include/sge/window/dim.hpp
-	libs/window/include/sge/window/dim_fwd.hpp
-	libs/window/include/sge/window/event_combiner.hpp
-	libs/window/include/sge/window/event_function.hpp
-	libs/window/include/sge/window/event_function_type.hpp
-	libs/window/include/sge/window/loop.hpp
-	libs/window/include/sge/window/loop_function.hpp
-	libs/window/include/sge/window/object.hpp
-	libs/window/include/sge/window/object_fwd.hpp
-	libs/window/include/sge/window/object_ref.hpp
-	libs/window/include/sge/window/optional_dim.hpp
-	libs/window/include/sge/window/optional_dim_fwd.hpp
-	libs/window/include/sge/window/system.hpp
-	libs/window/include/sge/window/system_event_function.hpp
-	libs/window/include/sge/window/system_event_function_type.hpp
-	libs/window/include/sge/window/system_fwd.hpp
-	libs/window/include/sge/window/system_ref.hpp
-	libs/window/include/sge/window/title.hpp
-	libs/window/include/sge/window/unit.hpp
-	libs/window/src/window/default_class_name.cpp
-	libs/window/src/window/event_combiner.cpp
-	libs/window/src/window/loop.cpp
-	libs/window/src/window/object.cpp
-	libs/window/src/window/system.cpp
-)
+fcppt_utils_load_source_files(libs/window/files.txt SGE_WINDOW_FILES)
 
-find_package(
-	awl
-	REQUIRED
-)
+find_package(awl REQUIRED)
 
 add_sge_base_library(
-	window
-	ADDITIONAL_DEPS
-		${awl_TARGET}
-		${fcppt_core_TARGET}
-	TRANSITIVE_ADDITIONAL_DEPS
-		awl_interface
-		fcppt_core_interface
-)
+  window
+  ADDITIONAL_DEPS
+  ${awl_TARGET}
+  ${fcppt_core_TARGET}
+  TRANSITIVE_ADDITIONAL_DEPS
+  awl_interface
+  fcppt_core_interface)

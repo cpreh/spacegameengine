@@ -1,27 +1,24 @@
-set(
-	SGE_RUCKSACKTESTBED_FILES
-	examples/rucksack/testbed/impl/include/sge/rucksack/testbed/impl/object_impl.hpp
-	examples/rucksack/testbed/impl/src/rucksack/testbed/impl/object_impl.cpp
-	examples/rucksack/testbed/include/sge/rucksack/testbed/object.hpp
-	examples/rucksack/testbed/include/sge/rucksack/testbed/object_impl_fwd.hpp
-	examples/rucksack/testbed/include/sge/rucksack/testbed/systems.hpp
-	examples/rucksack/testbed/include/sge/rucksack/testbed/systems_fwd.hpp
-	examples/rucksack/testbed/src/object.cpp
-)
+set(SGE_RUCKSACKTESTBED_FILES
+    examples/rucksack/testbed/impl/include/sge/rucksack/testbed/impl/object_impl.hpp
+    examples/rucksack/testbed/impl/src/rucksack/testbed/impl/object_impl.cpp
+    examples/rucksack/testbed/include/sge/rucksack/testbed/object.hpp
+    examples/rucksack/testbed/include/sge/rucksack/testbed/object_impl_fwd.hpp
+    examples/rucksack/testbed/include/sge/rucksack/testbed/systems.hpp
+    examples/rucksack/testbed/include/sge/rucksack/testbed/systems_fwd.hpp
+    examples/rucksack/testbed/src/object.cpp)
 
 add_sge_example_library(
-	"rucksack/testbed"
-	HAS_IMPL_DIR
-	SGE_DEPS
-		sgeimagecolor
-		sgelog
-		sgerenderer
-		sgerucksack
-		sgesprite
-		sgesystems
-		sgeviewport
-		sgewindow
-	ADDITIONAL_DEPS
-		${awl_TARGET}
-		${fcppt_core_TARGET}
-)
+  "rucksack/testbed"
+  HAS_IMPL_DIR
+  SGE_DEPS
+  sgeimagecolor
+  sgelog
+  sgerenderer
+  sgerucksack
+  sgesprite
+  sgesystems
+  sgeviewport
+  sgewindow
+  ADDITIONAL_DEPS
+  ${awl_TARGET}
+  ${fcppt_core_TARGET})

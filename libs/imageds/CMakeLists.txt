@@ -1,67 +1,22 @@
-set(
-	SGE_IMAGEDS_FILES
-	libs/imageds/impl/include/sge/image/ds/impl/format_map.hpp
-	libs/imageds/impl/include/sge/image/ds/impl/format_pair.hpp
-	libs/imageds/impl/include/sge/image/ds/impl/make_format_pair.hpp
-	libs/imageds/impl/include/sge/image/ds/impl/traits/format_map.hpp
-	libs/imageds/include/sge/image/ds/channel/depth.hpp
-	libs/imageds/include/sge/image/ds/channel/depth_fwd.hpp
-	libs/imageds/include/sge/image/ds/channel/stencil.hpp
-	libs/imageds/include/sge/image/ds/channel/stencil_fwd.hpp
-	libs/imageds/include/sge/image/ds/d16_format.hpp
-	libs/imageds/include/sge/image/ds/d24s8_format.hpp
-	libs/imageds/include/sge/image/ds/d32_format.hpp
-	libs/imageds/include/sge/image/ds/format.hpp
-	libs/imageds/include/sge/image/ds/format_fwd.hpp
-	libs/imageds/include/sge/image/ds/format_stride.hpp
-	libs/imageds/include/sge/image/ds/format_to_string.hpp
-	libs/imageds/include/sge/image/ds/init/depth.hpp
-	libs/imageds/include/sge/image/ds/init/detail/make.hpp
-	libs/imageds/include/sge/image/ds/init/stencil.hpp
-	libs/imageds/include/sge/image/ds/invalid_copy.hpp
-	libs/imageds/include/sge/image/ds/layout/depth.hpp
-	libs/imageds/include/sge/image/ds/layout/depth_stencil.hpp
-	libs/imageds/include/sge/image/ds/space/depth.hpp
-	libs/imageds/include/sge/image/ds/space/depth_fwd.hpp
-	libs/imageds/include/sge/image/ds/space/depth_stencil.hpp
-	libs/imageds/include/sge/image/ds/space/depth_stencil_fwd.hpp
-	libs/imageds/include/sge/image/ds/static_formats.hpp
-	libs/imageds/include/sge/image/ds/tag.hpp
-	libs/imageds/include/sge/image/ds/traits/format_fwd.hpp
-	libs/imageds/include/sge/image/ds/traits/format_stride.hpp
-	libs/imageds/include/sge/image/ds/traits/format_to_string.hpp
-	libs/imageds/include/sge/image/ds/traits/static_formats.hpp
-	libs/imageds/include/sge/image/ds/view/d16_format.hpp
-	libs/imageds/include/sge/image/ds/view/d24s8_format.hpp
-	libs/imageds/include/sge/image/ds/view/d32_format.hpp
-	libs/imageds/src/image/ds/format_stride.cpp
-	libs/imageds/src/image/ds/format_to_string.cpp
-	libs/imageds/src/image/ds/invalid_copy.cpp
-	libs/imageds/src/image/ds/traits/format_stride.cpp
-	libs/imageds/src/image/ds/traits/format_to_string.cpp
-)
+fcppt_utils_load_source_files(libs/imageds/files.txt SGE_IMAGEDS_FILES)
 
-find_package(
-	mizuiro
-	REQUIRED
-)
+find_package(mizuiro REQUIRED)
 
 add_sge_base_library(
-	"image/ds"
-	HAS_IMPL_DIR
-	SGE_DEPS
-		sgeimage
-	TRANSITIVE_SGE_DEPS
-		sgeimage_interface
-	USE_IMPL_INCLUDE_OF
-		core
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-	TRANSITIVE_ADDITIONAL_DEPS
-		mizuiro_interface
-		fcppt_core_interface
-	COMPILE_DEFINITIONS
-		${IMAGE_DEFINITIONS}
-	IMPLEMENT_FROM
-		image
-)
+  "image/ds"
+  HAS_IMPL_DIR
+  SGE_DEPS
+  sgeimage
+  TRANSITIVE_SGE_DEPS
+  sgeimage_interface
+  USE_IMPL_INCLUDE_OF
+  core
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  TRANSITIVE_ADDITIONAL_DEPS
+  mizuiro_interface
+  fcppt_core_interface
+  COMPILE_DEFINITIONS
+  ${IMAGE_DEFINITIONS}
+  IMPLEMENT_FROM
+  image)

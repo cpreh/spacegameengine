@@ -1,41 +1,22 @@
-set(
-	SGE_CONSOLEGFX_FILES
-	libs/consolegfx/include/sge/console/gfx/cursor.hpp
-	libs/consolegfx/include/sge/console/gfx/cursor_fwd.hpp
-	libs/consolegfx/include/sge/console/gfx/detail/pointed_history.hpp
-	libs/consolegfx/include/sge/console/gfx/exception.hpp
-	libs/consolegfx/include/sge/console/gfx/font_color.hpp
-	libs/consolegfx/include/sge/console/gfx/font_color_fwd.hpp
-	libs/consolegfx/include/sge/console/gfx/input_active.hpp
-	libs/consolegfx/include/sge/console/gfx/object.hpp
-	libs/consolegfx/include/sge/console/gfx/object_fwd.hpp
-	libs/consolegfx/include/sge/console/gfx/object_ref.hpp
-	libs/consolegfx/include/sge/console/gfx/output_line_limit.hpp
-	libs/consolegfx/include/sge/console/gfx/output_line_limit_fwd.hpp
-	libs/consolegfx/src/console/gfx/cursor.cpp
-	libs/consolegfx/src/console/gfx/detail/pointed_history.cpp
-	libs/consolegfx/src/console/gfx/exception.cpp
-	libs/consolegfx/src/console/gfx/object.cpp
-)
+fcppt_utils_load_source_files(libs/consolegfx/files.txt SGE_CONSOLEGFX_FILES)
 
 add_sge_base_library(
-	"console/gfx"
-	SGE_DEPS
-		sgeconsole
-		sgecore
-		sgefont
-		sgefontdraw
-		sgeimagecolor
-		sgeinput
-		sgerenderer
-	TRANSITIVE_SGE_DEPS
-		sgeconsole_interface
-		sgefont_interface
-		sgeimagecolor_interface
-		sgeinput_interface
-		sgerenderer_interface
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-	TRANSITIVE_ADDITIONAL_DEPS
-		fcppt_core_interface
-)
+  "console/gfx"
+  SGE_DEPS
+  sgeconsole
+  sgecore
+  sgefont
+  sgefontdraw
+  sgeimagecolor
+  sgeinput
+  sgerenderer
+  TRANSITIVE_SGE_DEPS
+  sgeconsole_interface
+  sgefont_interface
+  sgeimagecolor_interface
+  sgeinput_interface
+  sgerenderer_interface
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  TRANSITIVE_ADDITIONAL_DEPS
+  fcppt_core_interface)

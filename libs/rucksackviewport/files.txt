@@ -1,0 +1,3 @@
+libs/rucksackviewport/include/sge/rucksack/viewport/adaptor_fwd.hpp
+libs/rucksackviewport/include/sge/rucksack/viewport/adaptor.hpp
+libs/rucksackviewport/src/rucksack/viewport/adaptor.cpp

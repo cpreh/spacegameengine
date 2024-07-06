@@ -1,39 +1,13 @@
-set(
-	SGE_VORBIS_FILES
-	plugins/vorbis/include/sge/vorbis/callbacks.hpp
-	plugins/vorbis/include/sge/vorbis/error_string.hpp
-	plugins/vorbis/include/sge/vorbis/file.hpp
-	plugins/vorbis/include/sge/vorbis/info.hpp
-	plugins/vorbis/include/sge/vorbis/loader.hpp
-	plugins/vorbis/include/sge/vorbis/open.hpp
-	plugins/vorbis/include/sge/vorbis/optional_stream_unique_ptr.hpp
-	plugins/vorbis/include/sge/vorbis/optional_stream_unique_ptr_fwd.hpp
-	plugins/vorbis/include/sge/vorbis/read.hpp
-	plugins/vorbis/include/sge/vorbis/seek.hpp
-	plugins/vorbis/include/sge/vorbis/stream.hpp
-	plugins/vorbis/include/sge/vorbis/stream_fwd.hpp
-	plugins/vorbis/include/sge/vorbis/stream_unique_ptr.hpp
-	plugins/vorbis/src/callbacks.cpp
-	plugins/vorbis/src/error_string.cpp
-	plugins/vorbis/src/exports.cpp
-	plugins/vorbis/src/file.cpp
-	plugins/vorbis/src/info.cpp
-	plugins/vorbis/src/loader.cpp
-	plugins/vorbis/src/open.cpp
-	plugins/vorbis/src/read.cpp
-	plugins/vorbis/src/seek.cpp
-	plugins/vorbis/src/stream.cpp
-)
+fcppt_utils_load_source_files(plugins/vorbis/files.txt SGE_VORBIS_FILES)
 
 add_sge_plugin(
-	vorbis
-	SGE_DEPS
-		sgeaudio
-		sgelog
-		sgemedia
-		sgeplugin
-	ADDITIONAL_DEPS
-		${fcppt_filesystem_TARGET}
-		${fcppt_log_TARGET}
-		PkgConfig::VORBIS
-)
+  vorbis
+  SGE_DEPS
+  sgeaudio
+  sgelog
+  sgemedia
+  sgeplugin
+  ADDITIONAL_DEPS
+  ${fcppt_filesystem_TARGET}
+  ${fcppt_log_TARGET}
+  PkgConfig::VORBIS)

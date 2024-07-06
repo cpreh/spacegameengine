@@ -1,21 +1,4 @@
-set(
-	SGE_AUDIO_NULL_FILES
-	plugins/audio_null/include/sge/audio_null/buffer.hpp
-	plugins/audio_null/include/sge/audio_null/listener.hpp
-	plugins/audio_null/include/sge/audio_null/player.hpp
-	plugins/audio_null/include/sge/audio_null/positional.hpp
-	plugins/audio_null/src/buffer.cpp
-	plugins/audio_null/src/exports.cpp
-	plugins/audio_null/src/listener.cpp
-	plugins/audio_null/src/player.cpp
-	plugins/audio_null/src/positional.cpp
-)
+fcppt_utils_load_source_files(plugins/audio_null/files.txt SGE_AUDIO_NULL_FILES)
 
-add_sge_plugin(
-	audio_null
-	SGE_DEPS
-		sgeaudio
-		sgeplugin
-	ADDITIONAL_DEPS
-		${fcppt_log_TARGET}
-)
+add_sge_plugin(audio_null SGE_DEPS sgeaudio sgeplugin ADDITIONAL_DEPS
+               ${fcppt_log_TARGET})

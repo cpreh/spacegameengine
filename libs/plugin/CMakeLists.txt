@@ -1,164 +1,37 @@
-set(
-	SGE_PLUGIN_FILES
-	libs/plugin/impl/include/sge/plugin/impl/address_name.hpp
-	libs/plugin/impl/include/sge/plugin/impl/collection_impl.hpp
-	libs/plugin/impl/include/sge/plugin/impl/context_base.hpp
-	libs/plugin/impl/include/sge/plugin/impl/context_impl.hpp
-	libs/plugin/impl/include/sge/plugin/impl/detail/from_loader_function.hpp
-	libs/plugin/impl/include/sge/plugin/impl/instantiate_collection.hpp
-	libs/plugin/impl/include/sge/plugin/impl/instantiate_context.hpp
-	libs/plugin/impl/include/sge/plugin/impl/instantiate_from_loader_function.hpp
-	libs/plugin/impl/include/sge/plugin/impl/instantiate_iterator.hpp
-	libs/plugin/impl/include/sge/plugin/impl/instantiate_manager.hpp
-	libs/plugin/impl/include/sge/plugin/impl/instantiate_object.hpp
-	libs/plugin/impl/include/sge/plugin/impl/iterator_impl.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/cast_function_unsafe.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/error.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/from_function_base_unsafe.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/is_function_ptr.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/load_function.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/load_function_base.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/loaded_symbol.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/object.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/to_function_base_unsafe.hpp
-	libs/plugin/impl/include/sge/plugin/impl/library/version_function_name.hpp
-	libs/plugin/impl/include/sge/plugin/impl/load_info.hpp
-	libs/plugin/impl/include/sge/plugin/impl/load_plugins.hpp
-	libs/plugin/impl/include/sge/plugin/impl/log_name.hpp
-	libs/plugin/impl/include/sge/plugin/impl/manager_impl.hpp
-	libs/plugin/impl/include/sge/plugin/impl/object_impl.hpp
-	libs/plugin/impl/src/plugin/impl/library/error.cpp
-	libs/plugin/impl/src/plugin/impl/library/load_function_base.cpp
-	libs/plugin/impl/src/plugin/impl/library/version_function_name.cpp
-	libs/plugin/impl/src/plugin/impl/load_info.cpp
-	libs/plugin/impl/src/plugin/impl/load_plugins.cpp
-	libs/plugin/impl/src/plugin/impl/log_name.cpp
-	libs/plugin/include/sge/plugin/cache.hpp
-	libs/plugin/include/sge/plugin/cache_fwd.hpp
-	libs/plugin/include/sge/plugin/capabilities.hpp
-	libs/plugin/include/sge/plugin/capabilities_field.hpp
-	libs/plugin/include/sge/plugin/capabilities_field_fwd.hpp
-	libs/plugin/include/sge/plugin/capabilities_fwd.hpp
-	libs/plugin/include/sge/plugin/category_array.hpp
-	libs/plugin/include/sge/plugin/collection.hpp
-	libs/plugin/include/sge/plugin/collection_fwd.hpp
-	libs/plugin/include/sge/plugin/context.hpp
-	libs/plugin/include/sge/plugin/context_base_fwd.hpp
-	libs/plugin/include/sge/plugin/context_base_ref.hpp
-	libs/plugin/include/sge/plugin/context_base_unique_ptr.hpp
-	libs/plugin/include/sge/plugin/context_fwd.hpp
-	libs/plugin/include/sge/plugin/declare_collection.hpp
-	libs/plugin/include/sge/plugin/declare_context.hpp
-	libs/plugin/include/sge/plugin/declare_iterator.hpp
-	libs/plugin/include/sge/plugin/declare_manager.hpp
-	libs/plugin/include/sge/plugin/declare_object.hpp
-	libs/plugin/include/sge/plugin/description.hpp
-	libs/plugin/include/sge/plugin/detail/address_name.hpp
-	libs/plugin/include/sge/plugin/detail/context_base_vector.hpp
-	libs/plugin/include/sge/plugin/detail/from_loader_function.hpp
-	libs/plugin/include/sge/plugin/detail/iterator_base_type.hpp
-	libs/plugin/include/sge/plugin/detail/loader_function.hpp
-	libs/plugin/include/sge/plugin/detail/loader_function_tpl.hpp
-	libs/plugin/include/sge/plugin/detail/traits.hpp
-	libs/plugin/include/sge/plugin/exception.hpp
-	libs/plugin/include/sge/plugin/file_extension.hpp
-	libs/plugin/include/sge/plugin/flags.hpp
-	libs/plugin/include/sge/plugin/flags_field.hpp
-	libs/plugin/include/sge/plugin/flags_field_fwd.hpp
-	libs/plugin/include/sge/plugin/flags_fwd.hpp
-	libs/plugin/include/sge/plugin/info.hpp
-	libs/plugin/include/sge/plugin/info_fwd.hpp
-	libs/plugin/include/sge/plugin/iterator.hpp
-	libs/plugin/include/sge/plugin/iterator_fwd.hpp
-	libs/plugin/include/sge/plugin/library/detail/interface_post.hpp
-	libs/plugin/include/sge/plugin/library/detail/interface_pre.hpp
-	libs/plugin/include/sge/plugin/library/detail/iterate_functions.hpp
-	libs/plugin/include/sge/plugin/library/detail/make_version_function.hpp
-	libs/plugin/include/sge/plugin/library/detail/version_function.hpp
-	libs/plugin/include/sge/plugin/library/exception.hpp
-	libs/plugin/include/sge/plugin/library/function_base.hpp
-	libs/plugin/include/sge/plugin/library/function_base_pair.hpp
-	libs/plugin/include/sge/plugin/library/function_map.hpp
-	libs/plugin/include/sge/plugin/library/make_interface.hpp
-	libs/plugin/include/sge/plugin/library/object_fwd.hpp
-	libs/plugin/include/sge/plugin/library/object_shared_ptr.hpp
-	libs/plugin/include/sge/plugin/library/symbol_string.hpp
-	libs/plugin/include/sge/plugin/loader_function.hpp
-	libs/plugin/include/sge/plugin/log_location.hpp
-	libs/plugin/include/sge/plugin/manager.hpp
-	libs/plugin/include/sge/plugin/manager_fwd.hpp
-	libs/plugin/include/sge/plugin/min_core_version.hpp
-	libs/plugin/include/sge/plugin/name.hpp
-	libs/plugin/include/sge/plugin/object.hpp
-	libs/plugin/include/sge/plugin/object_fwd.hpp
-	libs/plugin/include/sge/plugin/optional_cache_ref.hpp
-	libs/plugin/include/sge/plugin/optional_cache_ref_fwd.hpp
-	libs/plugin/include/sge/plugin/version.hpp
-	libs/plugin/src/plugin/cache.cpp
-	libs/plugin/src/plugin/context_base.cpp
-	libs/plugin/src/plugin/exception.cpp
-	libs/plugin/src/plugin/file_extension.cpp
-	libs/plugin/src/plugin/info.cpp
-	libs/plugin/src/plugin/library/detail/make_version_function.cpp
-	libs/plugin/src/plugin/library/exception.cpp
-	libs/plugin/src/plugin/library/function_map.cpp
-	libs/plugin/src/plugin/library/object.cpp
-	libs/plugin/src/plugin/log_location.cpp
-	libs/plugin/src/plugin/manager.cpp
-)
+fcppt_utils_load_source_files(libs/plugin/files.txt SGE_PLUGIN_FILES)
 
-sge_generate_instantiate_symbol_header(
-	plugin
-)
+sge_generate_instantiate_symbol_header(plugin)
 
 # TODO: Remove awl dependency here
-if(
-	WIN32
-)
-	find_package(
-		awl
-		REQUIRED
-	)
+if(WIN32)
+  find_package(awl REQUIRED)
 
-	set(
-		SGE_PLUGIN_ADDITIONAL_LIBS
-		"${awl_TARGET}"
-	)
+  set(SGE_PLUGIN_ADDITIONAL_LIBS "${awl_TARGET}")
 
-	set(
-		SGE_PLUGIN_TRANSITIVE_ADDITIONAL_LIBS
-		awl_interface
-	)
+  set(SGE_PLUGIN_TRANSITIVE_ADDITIONAL_LIBS awl_interface)
 else()
-	find_library(
-		POSIX_DL_LIBRARY
-		NAMES dl
-	)
+  find_library(POSIX_DL_LIBRARY NAMES dl)
 
-	set(
-		SGE_PLUGIN_ADDITIONAL_LIBS
-		"${POSIX_DL_LIBRARY}"
-	)
+  set(SGE_PLUGIN_ADDITIONAL_LIBS "${POSIX_DL_LIBRARY}")
 endif()
 
 add_sge_base_library(
-	plugin
-	HAS_IMPL_DIR
-	SGE_DEPS
-		sgecore
-		sgelog
-	TRANSITIVE_SGE_DEPS
-		sgecore
-	USE_IMPL_INCLUDE_OF
-		core
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${fcppt_filesystem_TARGET}
-		${fcppt_log_TARGET}
-		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
-		${SGE_PLUGIN_ADDITIONAL_LIBS}
-	TRANSITIVE_ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		fcppt_log_interface
-		${SGE_PLUGIN_TRANSITIVE_ADDITIONAL_LIBS}
-)
+  plugin
+  HAS_IMPL_DIR
+  SGE_DEPS
+  sgecore
+  sgelog
+  TRANSITIVE_SGE_DEPS
+  sgecore
+  USE_IMPL_INCLUDE_OF
+  core
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  ${fcppt_filesystem_TARGET}
+  ${fcppt_log_TARGET}
+  ${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
+  ${SGE_PLUGIN_ADDITIONAL_LIBS}
+  TRANSITIVE_ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  fcppt_log_interface
+  ${SGE_PLUGIN_TRANSITIVE_ADDITIONAL_LIBS})

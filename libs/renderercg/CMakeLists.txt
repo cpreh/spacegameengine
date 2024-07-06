@@ -1,31 +1,12 @@
-set(
-	SGE_RENDERERCG_FILES
-	libs/renderercg/include/sge/renderer/cg/const_loaded_program_ref.hpp
-	libs/renderercg/include/sge/renderer/cg/const_loaded_texture_ref.hpp
-	libs/renderercg/include/sge/renderer/cg/loaded_program.hpp
-	libs/renderercg/include/sge/renderer/cg/loaded_program_fwd.hpp
-	libs/renderercg/include/sge/renderer/cg/loaded_program_unique_ptr.hpp
-	libs/renderercg/include/sge/renderer/cg/loaded_texture.hpp
-	libs/renderercg/include/sge/renderer/cg/loaded_texture_fwd.hpp
-	libs/renderercg/include/sge/renderer/cg/loaded_texture_unique_ptr.hpp
-	libs/renderercg/include/sge/renderer/cg/scoped_program.hpp
-	libs/renderercg/include/sge/renderer/cg/scoped_program_fwd.hpp
-	libs/renderercg/include/sge/renderer/cg/scoped_texture.hpp
-	libs/renderercg/include/sge/renderer/cg/scoped_texture_fwd.hpp
-	libs/renderercg/src/renderer/cg/loaded_program.cpp
-	libs/renderercg/src/renderer/cg/loaded_texture.cpp
-	libs/renderercg/src/renderer/cg/scoped_program.cpp
-	libs/renderercg/src/renderer/cg/scoped_texture.cpp
-)
+fcppt_utils_load_source_files(libs/renderercg/files.txt SGE_RENDERERCG_FILES)
 
 add_sge_base_library(
-	"renderer/cg"
-	SGE_DEPS
-		sgerenderer
-	TRANSITIVE_SGE_DEPS
-		sgerenderer_interface
-	ADDITIONAL_DEPS
-		fcppt_core_interface
-	TRANSITIVE_ADDITIONAL_DEPS
-		fcppt_core_interface
-)
+  "renderer/cg"
+  SGE_DEPS
+  sgerenderer
+  TRANSITIVE_SGE_DEPS
+  sgerenderer_interface
+  ADDITIONAL_DEPS
+  fcppt_core_interface
+  TRANSITIVE_ADDITIONAL_DEPS
+  fcppt_core_interface)

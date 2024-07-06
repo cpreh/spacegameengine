@@ -1,13 +1,3 @@
-set(
-	SGE_BRESENHAM_FILES
-	libs/bresenham/include/sge/bresenham/detail/impl.hpp
-	libs/bresenham/include/sge/bresenham/detail/thick.hpp
-	libs/bresenham/include/sge/bresenham/normal.hpp
-	libs/bresenham/include/sge/bresenham/thick.hpp
-)
+fcppt_utils_load_source_files(libs/bresenham/files.txt SGE_BRESENHAM_FILES)
 
-add_sge_dummy_library(
-	bresenham
-	TRANSITIVE_ADDITIONAL_DEPS
-		fcppt_core_interface
-)
+add_sge_dummy_library(bresenham TRANSITIVE_ADDITIONAL_DEPS fcppt_core_interface)

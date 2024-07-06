@@ -1,34 +1,12 @@
-set(
-	SGE_WAVE_FILES
-	plugins/wave/include/sge/wave/extract_header.hpp
-	plugins/wave/include/sge/wave/file.hpp
-	plugins/wave/include/sge/wave/header.hpp
-	plugins/wave/include/sge/wave/ignore_chunks_until.hpp
-	plugins/wave/include/sge/wave/info.hpp
-	plugins/wave/include/sge/wave/info_fwd.hpp
-	plugins/wave/include/sge/wave/loader.hpp
-	plugins/wave/include/sge/wave/optional_header.hpp
-	plugins/wave/include/sge/wave/optional_header_fwd.hpp
-	plugins/wave/include/sge/wave/optional_info.hpp
-	plugins/wave/include/sge/wave/optional_info_fwd.hpp
-	plugins/wave/include/sge/wave/read_info.hpp
-	plugins/wave/src/exports.cpp
-	plugins/wave/src/extract_header.cpp
-	plugins/wave/src/file.cpp
-	plugins/wave/src/ignore_chunks_until.cpp
-	plugins/wave/src/info.cpp
-	plugins/wave/src/loader.cpp
-	plugins/wave/src/read_info.cpp
-)
+fcppt_utils_load_source_files(plugins/wave/files.txt SGE_WAVE_FILES)
 
 add_sge_plugin(
-	wave
-	SGE_DEPS
-		sgeaudio
-		sgelog
-		sgemedia
-		sgeplugin
-	ADDITIONAL_DEPS
-		${fcppt_filesystem_TARGET}
-		${fcppt_log_TARGET}
-)
+  wave
+  SGE_DEPS
+  sgeaudio
+  sgelog
+  sgemedia
+  sgeplugin
+  ADDITIONAL_DEPS
+  ${fcppt_filesystem_TARGET}
+  ${fcppt_log_TARGET})

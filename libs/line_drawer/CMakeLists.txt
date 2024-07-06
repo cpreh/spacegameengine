@@ -1,37 +1,16 @@
-set(
-	SGE_LINE_DRAWER_FILES
-	libs/line_drawer/impl/include/sge/line_drawer/impl/vf/color.hpp
-	libs/line_drawer/impl/include/sge/line_drawer/impl/vf/format.hpp
-	libs/line_drawer/impl/include/sge/line_drawer/impl/vf/part.hpp
-	libs/line_drawer/impl/include/sge/line_drawer/impl/vf/position.hpp
-	libs/line_drawer/impl/include/sge/line_drawer/impl/vf/vertex_view.hpp
-	libs/line_drawer/include/sge/line_drawer/color.hpp
-	libs/line_drawer/include/sge/line_drawer/color_format.hpp
-	libs/line_drawer/include/sge/line_drawer/line.hpp
-	libs/line_drawer/include/sge/line_drawer/line_sequence.hpp
-	libs/line_drawer/include/sge/line_drawer/object.hpp
-	libs/line_drawer/include/sge/line_drawer/object_fwd.hpp
-	libs/line_drawer/include/sge/line_drawer/render_to_screen.hpp
-	libs/line_drawer/include/sge/line_drawer/scoped_lock.hpp
-	libs/line_drawer/include/sge/line_drawer/scoped_lock_fwd.hpp
-	libs/line_drawer/src/line_drawer/line.cpp
-	libs/line_drawer/src/line_drawer/object.cpp
-	libs/line_drawer/src/line_drawer/render_to_screen.cpp
-	libs/line_drawer/src/line_drawer/scoped_lock.cpp
-)
+fcppt_utils_load_source_files(libs/line_drawer/files.txt SGE_LINE_DRAWER_FILES)
 
 add_sge_base_library(
-	line_drawer
-	HAS_IMPL_DIR
-	SGE_DEPS
-		sgecore
-		sgeimagecolor
-		sgerenderer
-	TRANSITIVE_SGE_DEPS
-		sgeimagecolor_interface
-		sgerenderer_interface
-	ADDITIONAL_DEPS
-		fcppt_core_interface
-	TRANSITIVE_ADDITIONAL_DEPS
-		fcppt_core_interface
-)
+  line_drawer
+  HAS_IMPL_DIR
+  SGE_DEPS
+  sgecore
+  sgeimagecolor
+  sgerenderer
+  TRANSITIVE_SGE_DEPS
+  sgeimagecolor_interface
+  sgerenderer_interface
+  ADDITIONAL_DEPS
+  fcppt_core_interface
+  TRANSITIVE_ADDITIONAL_DEPS
+  fcppt_core_interface)

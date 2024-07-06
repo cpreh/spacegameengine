@@ -1,0 +1,8 @@
+plugins/opengl/backends/egl_x11/include/sge/opengl/egl/x11/create_visual_info.hpp
+plugins/opengl/backends/egl_x11/include/sge/opengl/egl/x11/display.hpp
+plugins/opengl/backends/egl_x11/include/sge/opengl/egl/x11/surface.hpp
+plugins/opengl/backends/egl_x11/include/sge/opengl/egl/x11/visual.hpp
+plugins/opengl/backends/egl_x11/src/egl/x11/create_visual_info.cpp
+plugins/opengl/backends/egl_x11/src/egl/x11/display.cpp
+plugins/opengl/backends/egl_x11/src/egl/x11/surface.cpp
+plugins/opengl/backends/egl_x11/src/egl/x11/visual.cpp

@@ -1,71 +1,23 @@
-set(
-	SGE_IMAGEDS2D_FILES
-	libs/imageds2d/include/sge/imageds2d/algorithm/copy.hpp
-	libs/imageds2d/include/sge/imageds2d/algorithm/invalid_copy.hpp
-	libs/imageds2d/include/sge/imageds2d/d16_format.hpp
-	libs/imageds2d/include/sge/imageds2d/d24s8_format.hpp
-	libs/imageds2d/include/sge/imageds2d/d32_format.hpp
-	libs/imageds2d/include/sge/imageds2d/dim.hpp
-	libs/imageds2d/include/sge/imageds2d/dim_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/pitch.hpp
-	libs/imageds2d/include/sge/imageds2d/pitch_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/rect.hpp
-	libs/imageds2d/include/sge/imageds2d/rect_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/store/d16.hpp
-	libs/imageds2d/include/sge/imageds2d/store/d16_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/store/d24s8.hpp
-	libs/imageds2d/include/sge/imageds2d/store/d24s8_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/store/d32.hpp
-	libs/imageds2d/include/sge/imageds2d/store/d32_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/tag.hpp
-	libs/imageds2d/include/sge/imageds2d/traits/color_tag.hpp
-	libs/imageds2d/include/sge/imageds2d/traits/dimension.hpp
-	libs/imageds2d/include/sge/imageds2d/view/const_object.hpp
-	libs/imageds2d/include/sge/imageds2d/view/const_object_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/view/data.hpp
-	libs/imageds2d/include/sge/imageds2d/view/flipped.hpp
-	libs/imageds2d/include/sge/imageds2d/view/format.hpp
-	libs/imageds2d/include/sge/imageds2d/view/make.hpp
-	libs/imageds2d/include/sge/imageds2d/view/object.hpp
-	libs/imageds2d/include/sge/imageds2d/view/object_fwd.hpp
-	libs/imageds2d/include/sge/imageds2d/view/sub.hpp
-	libs/imageds2d/include/sge/imageds2d/view/to_const.hpp
-	libs/imageds2d/src/imageds2d/algorithm/copy.cpp
-	libs/imageds2d/src/imageds2d/store/d16.cpp
-	libs/imageds2d/src/imageds2d/store/d24s8.cpp
-	libs/imageds2d/src/imageds2d/store/d32.cpp
-	libs/imageds2d/src/imageds2d/view/const_object.cpp
-	libs/imageds2d/src/imageds2d/view/data.cpp
-	libs/imageds2d/src/imageds2d/view/flipped.cpp
-	libs/imageds2d/src/imageds2d/view/format.cpp
-	libs/imageds2d/src/imageds2d/view/make.cpp
-	libs/imageds2d/src/imageds2d/view/object.cpp
-	libs/imageds2d/src/imageds2d/view/sub.cpp
-	libs/imageds2d/src/imageds2d/view/to_const.cpp
-)
+fcppt_utils_load_source_files(libs/imageds2d/files.txt SGE_IMAGEDS2D_FILES)
 
-find_package(
-	mizuiro
-	REQUIRED
-)
+find_package(mizuiro REQUIRED)
 
 add_sge_base_library(
-	imageds2d
-	SGE_DEPS
-		sgeimage
-		sgeimageds
-	TRANSITIVE_SGE_DEPS
-		sgeimage_interface
-		sgeimageds_interface
-	USE_IMPL_INCLUDE_OF
-		core
-	ADDITIONAL_DEPS
-		fcppt_core_interface
-	TRANSITIVE_ADDITIONAL_DEPS
-		fcppt_core_interface
-		mizuiro_interface
-	IMPLEMENT_FROM
-		image
-	USE_IMPL_INCLUDE_OF
-		imageds
-)
+  imageds2d
+  SGE_DEPS
+  sgeimage
+  sgeimageds
+  TRANSITIVE_SGE_DEPS
+  sgeimage_interface
+  sgeimageds_interface
+  USE_IMPL_INCLUDE_OF
+  core
+  ADDITIONAL_DEPS
+  fcppt_core_interface
+  TRANSITIVE_ADDITIONAL_DEPS
+  fcppt_core_interface
+  mizuiro_interface
+  IMPLEMENT_FROM
+  image
+  USE_IMPL_INCLUDE_OF
+  imageds)

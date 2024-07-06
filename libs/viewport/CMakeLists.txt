@@ -1,55 +1,19 @@
-set(
-	SGE_VIEWPORT_FILES
-	libs/viewport/impl/include/sge/viewport/impl/center.hpp
-	libs/viewport/impl/include/sge/viewport/impl/detail/manager_impl.hpp
-	libs/viewport/impl/include/sge/viewport/impl/maintain_aspect_function.hpp
-	libs/viewport/impl/src/viewport/impl/center.cpp
-	libs/viewport/impl/src/viewport/impl/detail/manager_impl.cpp
-	libs/viewport/impl/src/viewport/impl/maintain_aspect_function.cpp
-	libs/viewport/include/sge/viewport/aspect_from_screen_size.hpp
-	libs/viewport/include/sge/viewport/center_on_resize.hpp
-	libs/viewport/include/sge/viewport/detail/manager_impl_fwd.hpp
-	libs/viewport/include/sge/viewport/exception.hpp
-	libs/viewport/include/sge/viewport/fill_on_resize.hpp
-	libs/viewport/include/sge/viewport/fractional_aspect.hpp
-	libs/viewport/include/sge/viewport/fractional_aspect_fwd.hpp
-	libs/viewport/include/sge/viewport/maintain_aspect.hpp
-	libs/viewport/include/sge/viewport/manage_callback.hpp
-	libs/viewport/include/sge/viewport/manage_function.hpp
-	libs/viewport/include/sge/viewport/manager.hpp
-	libs/viewport/include/sge/viewport/manager_fwd.hpp
-	libs/viewport/include/sge/viewport/manager_ref.hpp
-	libs/viewport/include/sge/viewport/optional_resize_callback.hpp
-	libs/viewport/include/sge/viewport/optional_resize_callback_fwd.hpp
-	libs/viewport/include/sge/viewport/resize_callback.hpp
-	libs/viewport/include/sge/viewport/resize_function.hpp
-	libs/viewport/src/viewport/aspect_from_screen_size.cpp
-	libs/viewport/src/viewport/center_on_resize.cpp
-	libs/viewport/src/viewport/exception.cpp
-	libs/viewport/src/viewport/fill_on_resize.cpp
-	libs/viewport/src/viewport/fractional_aspect.cpp
-	libs/viewport/src/viewport/maintain_aspect.cpp
-	libs/viewport/src/viewport/manager.cpp
-)
+fcppt_utils_load_source_files(libs/viewport/files.txt SGE_VIEWPORT_FILES)
 
-find_package(
-	awl
-	REQUIRED
-)
+find_package(awl REQUIRED)
 
 add_sge_base_library(
-	viewport
-	HAS_IMPL_DIR
-	SGE_DEPS
-		sgerenderer
-		sgewindow
-	TRANSITIVE_SGE_DEPS
-		sgerenderer_interface
-		sgewindow_interface
-	ADDITIONAL_DEPS
-		${awl_TARGET}
-		${fcppt_core_TARGET}
-	TRANSITIVE_ADDITIONAL_DEPS
-		awl_interface
-		fcppt_core_interface
-)
+  viewport
+  HAS_IMPL_DIR
+  SGE_DEPS
+  sgerenderer
+  sgewindow
+  TRANSITIVE_SGE_DEPS
+  sgerenderer_interface
+  sgewindow_interface
+  ADDITIONAL_DEPS
+  ${awl_TARGET}
+  ${fcppt_core_TARGET}
+  TRANSITIVE_ADDITIONAL_DEPS
+  awl_interface
+  fcppt_core_interface)

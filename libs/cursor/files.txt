@@ -1,0 +1,8 @@
+libs/cursor/impl/include/sge/cursor/impl/detail/object.hpp
+libs/cursor/impl/src/cursor/impl/detail/object.cpp
+libs/cursor/include/sge/cursor/detail/object_fwd.hpp
+libs/cursor/include/sge/cursor/hotspot_fwd.hpp
+libs/cursor/include/sge/cursor/hotspot.hpp
+libs/cursor/include/sge/cursor/object_fwd.hpp
+libs/cursor/include/sge/cursor/object.hpp
+libs/cursor/src/cursor/object.cpp

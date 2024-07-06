@@ -1,36 +1,21 @@
-set(
-	SGE_PARSE_FILES
-	libs/parse/impl/include/sge/parse/impl/file_error_string.hpp
-	libs/parse/impl/include/sge/parse/impl/output/to_file.hpp
-	libs/parse/impl/include/sge/parse/impl/parse_file.hpp
-	libs/parse/impl/include/sge/parse/impl/parse_file_exn.hpp
-	libs/parse/impl/src/parse/impl/file_error_string.cpp
-	libs/parse/include/sge/parse/exception.hpp
-	libs/parse/include/sge/parse/exception_fwd.hpp
-	libs/parse/include/sge/parse/file_result.hpp
-	libs/parse/include/sge/parse/file_result_fwd.hpp
-	libs/parse/src/parse/exception.cpp
-)
+fcppt_utils_load_source_files(libs/parse/files.txt SGE_PARSE_FILES)
 
-sge_generate_instantiate_symbol_header(
-	parse
-)
+sge_generate_instantiate_symbol_header(parse)
 
 add_sge_base_library(
-	parse
-	HAS_IMPL_DIR
-	SGE_DEPS
-		sgecore
-	TRANSITIVE_SGE_DEPS
-		sgecore
-	USE_IMPL_INCLUDE_OF
-		core
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		fcppt_parse_interface
-		${fcppt_filesystem_TARGET}
-	TRANSITIVE_ADDITIONAL_DEPS
-		fcppt_core_interface
-		fcppt_parse_interface
-		${fcppt_filesystem_TARGET}
-)
+  parse
+  HAS_IMPL_DIR
+  SGE_DEPS
+  sgecore
+  TRANSITIVE_SGE_DEPS
+  sgecore
+  USE_IMPL_INCLUDE_OF
+  core
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  fcppt_parse_interface
+  ${fcppt_filesystem_TARGET}
+  TRANSITIVE_ADDITIONAL_DEPS
+  fcppt_core_interface
+  fcppt_parse_interface
+  ${fcppt_filesystem_TARGET})

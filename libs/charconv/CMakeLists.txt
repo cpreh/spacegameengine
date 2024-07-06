@@ -1,54 +1,18 @@
-set(
-	SGE_CHARCONV_FILES
-	libs/charconv/impl/include/sge/charconv/impl/fcppt_is_utf8.hpp
-	libs/charconv/include/sge/charconv/char_type.hpp
-	libs/charconv/include/sge/charconv/conversion_failed.hpp
-	libs/charconv/include/sge/charconv/convert.hpp
-	libs/charconv/include/sge/charconv/detail/char_type.hpp
-	libs/charconv/include/sge/charconv/detail/pp_encodings.hpp
-	libs/charconv/include/sge/charconv/encoding.hpp
-	libs/charconv/include/sge/charconv/encoding_fwd.hpp
-	libs/charconv/include/sge/charconv/encoding_to_string.hpp
-	libs/charconv/include/sge/charconv/exception.hpp
-	libs/charconv/include/sge/charconv/fcppt_string_to_utf8.hpp
-	libs/charconv/include/sge/charconv/fcppt_string_to_utf8_file.hpp
-	libs/charconv/include/sge/charconv/index.hpp
-	libs/charconv/include/sge/charconv/index_vector.hpp
-	libs/charconv/include/sge/charconv/string_type.hpp
-	libs/charconv/include/sge/charconv/utf8_bytes.hpp
-	libs/charconv/include/sge/charconv/utf8_char.hpp
-	libs/charconv/include/sge/charconv/utf8_file_to_fcppt_string.hpp
-	libs/charconv/include/sge/charconv/utf8_file_to_fcppt_string_exn.hpp
-	libs/charconv/include/sge/charconv/utf8_indices.hpp
-	libs/charconv/include/sge/charconv/utf8_string.hpp
-	libs/charconv/include/sge/charconv/utf8_string_to_fcppt.hpp
-	libs/charconv/src/charconv/conversion_failed.cpp
-	libs/charconv/src/charconv/convert.cpp
-	libs/charconv/src/charconv/encoding_to_string.cpp
-	libs/charconv/src/charconv/exception.cpp
-	libs/charconv/src/charconv/fcppt_string_to_utf8.cpp
-	libs/charconv/src/charconv/fcppt_string_to_utf8_file.cpp
-	libs/charconv/src/charconv/utf8_bytes.cpp
-	libs/charconv/src/charconv/utf8_file_to_fcppt_string.cpp
-	libs/charconv/src/charconv/utf8_file_to_fcppt_string_exn.cpp
-	libs/charconv/src/charconv/utf8_indices.cpp
-	libs/charconv/src/charconv/utf8_string_to_fcppt.cpp
-)
+fcppt_utils_load_source_files(libs/charconv/files.txt SGE_CHARCONV_FILES)
 
 find_package(Boost 1.70.0 CONFIG REQUIRED COMPONENTS locale)
 
 add_sge_base_library(
-	charconv
-	HAS_IMPL_DIR
-	SGE_DEPS
-		sgecore
-	TRANSITIVE_SGE_DEPS
-		sgecore
-	USE_IMPL_INCLUDE_OF
-		core
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${fcppt_filesystem_TARGET}
-		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
-		${Boost_LOCALE_LIBRARIES}
-)
+  charconv
+  HAS_IMPL_DIR
+  SGE_DEPS
+  sgecore
+  TRANSITIVE_SGE_DEPS
+  sgecore
+  USE_IMPL_INCLUDE_OF
+  core
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  ${fcppt_filesystem_TARGET}
+  ${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
+  ${Boost_LOCALE_LIBRARIES})

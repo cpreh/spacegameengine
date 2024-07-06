@@ -1,63 +1,59 @@
 add_sge_example(
-	cg/parameters
-	SGE_DEPS
-		sgecg
-		sgeimagecolor
-		sgerenderer
-		sgerenderercg
-		sgesystems
-		sgeviewport
-		sgewindow
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
-)
+  cg/parameters
+  SGE_DEPS
+  sgecg
+  sgeimagecolor
+  sgerenderer
+  sgerenderercg
+  sgesystems
+  sgeviewport
+  sgewindow
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  ${FCPPT_UTILS_FILESYSTEM_LIBRARIES})
 
 add_sge_example(
-	cg/pointsprites
-	SGE_DEPS
-		sgecg
-		sgeconfig
-		sgeimagecolor
-		sgemedia_interface
-		sgerenderer
-		sgerenderercg
-		sgesystems
-		sgeviewport
-		sgewindow
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
-)
+  cg/pointsprites
+  SGE_DEPS
+  sgecg
+  sgeconfig
+  sgeimagecolor
+  sgemedia_interface
+  sgerenderer
+  sgerenderercg
+  sgesystems
+  sgeviewport
+  sgewindow
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  ${FCPPT_UTILS_FILESYSTEM_LIBRARIES})
 
 add_sge_example(
-	cg/simple
-	SGE_DEPS
-		sgecg
-		sgeimagecolor
-		sgerenderer
-		sgerenderercg
-		sgesystems
-		sgeviewport
-		sgewindow
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
-)
+  cg/simple
+  SGE_DEPS
+  sgecg
+  sgeimagecolor
+  sgerenderer
+  sgerenderercg
+  sgesystems
+  sgeviewport
+  sgewindow
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  ${FCPPT_UTILS_FILESYSTEM_LIBRARIES})
 
 add_sge_example(
-	cg/texture
-	SGE_DEPS
-		sgecg
-		sgeconfig
-		sgeimagecolor
-		sgemedia_interface
-		sgerenderer
-		sgerenderercg
-		sgesystems
-		sgeviewport
-		sgewindow
-	ADDITIONAL_DEPS
-		${fcppt_core_TARGET}
-		${FCPPT_UTILS_FILESYSTEM_LIBRARIES}
-)
+  cg/texture
+  SGE_DEPS
+  sgecg
+  sgeconfig
+  sgeimagecolor
+  sgemedia_interface
+  sgerenderer
+  sgerenderercg
+  sgesystems
+  sgeviewport
+  sgewindow
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  ${FCPPT_UTILS_FILESYSTEM_LIBRARIES})

@@ -1,21 +1,10 @@
-set(
-	SGE_CORE_FILES
-	libs/core/impl/include/sge/core/impl/export_class_instantiation.hpp
-	libs/core/impl/include/sge/core/impl/export_function_instantiation.hpp
-	libs/core/impl/include/sge/core/impl/include_windows.hpp
-	libs/core/include/sge/core/check_state.hpp
-	libs/core/include/sge/core/detail/class_symbol.hpp
-	libs/core/include/sge/core/detail/export_class_declaration.hpp
-	libs/core/include/sge/core/exception.hpp
-	libs/core/src/core/exception.cpp
-)
+fcppt_utils_load_source_files(libs/core/files.txt SGE_CORE_FILES)
 
 add_sge_base_library(
-	core
-	ADDITIONAL_DEPS
-		fcppt_boost_interface
-		${fcppt_core_TARGET}
-	TRANSITIVE_ADDITIONAL_DEPS
-		fcppt_boost_interface
-		${fcppt_core_TARGET}
-)
+  core
+  ADDITIONAL_DEPS
+  fcppt_boost_interface
+  ${fcppt_core_TARGET}
+  TRANSITIVE_ADDITIONAL_DEPS
+  fcppt_boost_interface
+  ${fcppt_core_TARGET})

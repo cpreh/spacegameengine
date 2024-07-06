@@ -1,0 +1,14 @@
+plugins/opengl/backends/wayland/include/sge/opengl/egl/wayland/display.hpp
+plugins/opengl/backends/wayland/include/sge/opengl/egl/wayland/surface.hpp
+plugins/opengl/backends/wayland/include/sge/opengl/egl/wayland/visual.hpp
+plugins/opengl/backends/wayland/include/sge/opengl/egl/wayland/window_holder.hpp
+plugins/opengl/backends/wayland/include/sge/opengl/egl/wayland/window.hpp
+plugins/opengl/backends/wayland/include/sge/opengl/wayland/device_state.hpp
+plugins/opengl/backends/wayland/include/sge/opengl/wayland/system.hpp
+plugins/opengl/backends/wayland/src/egl/wayland/display.cpp
+plugins/opengl/backends/wayland/src/egl/wayland/surface.cpp
+plugins/opengl/backends/wayland/src/egl/wayland/visual.cpp
+plugins/opengl/backends/wayland/src/egl/wayland/window.cpp
+plugins/opengl/backends/wayland/src/egl/wayland/window_holder.cpp
+plugins/opengl/backends/wayland/src/wayland/device_state.cpp
+plugins/opengl/backends/wayland/src/wayland/system.cpp

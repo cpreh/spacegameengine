@@ -1,41 +1,20 @@
-set(
-	SGE_FONTDRAW_FILES
-	libs/fontdraw/impl/include/sge/font/draw/impl/detail/static_text_impl.hpp
-	libs/fontdraw/impl/src/font/draw/impl/detail/static_text_impl.cpp
-	libs/fontdraw/include/sge/font/draw/color_format.hpp
-	libs/fontdraw/include/sge/font/draw/create_ffp_sampler.hpp
-	libs/fontdraw/include/sge/font/draw/create_texture.hpp
-	libs/fontdraw/include/sge/font/draw/detail/static_text_impl_fwd.hpp
-	libs/fontdraw/include/sge/font/draw/set_matrices.hpp
-	libs/fontdraw/include/sge/font/draw/set_matrices_fwd.hpp
-	libs/fontdraw/include/sge/font/draw/set_states.hpp
-	libs/fontdraw/include/sge/font/draw/set_states_fwd.hpp
-	libs/fontdraw/include/sge/font/draw/simple.hpp
-	libs/fontdraw/include/sge/font/draw/static_text.hpp
-	libs/fontdraw/include/sge/font/draw/static_text_fwd.hpp
-	libs/fontdraw/src/font/draw/color_format.cpp
-	libs/fontdraw/src/font/draw/create_ffp_sampler.cpp
-	libs/fontdraw/src/font/draw/create_texture.cpp
-	libs/fontdraw/src/font/draw/simple.cpp
-	libs/fontdraw/src/font/draw/static_text.cpp
-)
+fcppt_utils_load_source_files(libs/fontdraw/files.txt SGE_FONTDRAW_FILES)
 
 add_sge_base_library(
-	"font/draw"
-	HAS_IMPL_DIR
-	SGE_DEPS
-		sgecore
-		sgefont
-		sgeimagecolor
-		sgeimage2d
-		sgerenderer
-		sgesprite
-		sgetexture
-	TRANSITIVE_SGE_DEPS
-		sgefont_interface
-		sgeimagecolor_interface
-		sgerenderer_interface
-		sgetexture_interface
-	ADDITIONAL_DEPS
-		fcppt_core_interface
-)
+  "font/draw"
+  HAS_IMPL_DIR
+  SGE_DEPS
+  sgecore
+  sgefont
+  sgeimagecolor
+  sgeimage2d
+  sgerenderer
+  sgesprite
+  sgetexture
+  TRANSITIVE_SGE_DEPS
+  sgefont_interface
+  sgeimagecolor_interface
+  sgerenderer_interface
+  sgetexture_interface
+  ADDITIONAL_DEPS
+  fcppt_core_interface)

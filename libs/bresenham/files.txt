@@ -1,0 +1,4 @@
+libs/bresenham/include/sge/bresenham/detail/impl.hpp
+libs/bresenham/include/sge/bresenham/detail/thick.hpp
+libs/bresenham/include/sge/bresenham/normal.hpp
+libs/bresenham/include/sge/bresenham/thick.hpp
