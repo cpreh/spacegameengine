@@ -11,7 +11,7 @@
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/pixel/elements.hpp>
 #include <sge/image/pixel/mizuiro_type_fwd.hpp>
-#include <sge/image/pixel/object_fwd.hpp>
+#include <sge/image/pixel/object_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/variant/from_list.hpp>
 
 namespace sge::image::pixel

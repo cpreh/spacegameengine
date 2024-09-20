@@ -10,7 +10,7 @@ namespace sge::image::view
 {
 
 template <typename Tag>
-class const_object;
+class const_object; // IWYU pragma: export
 
 }
 

@@ -10,7 +10,7 @@ namespace sge::image::store
 {
 
 template <typename Tag>
-class object;
+class object; // IWYU pragma: export
 
 }
 

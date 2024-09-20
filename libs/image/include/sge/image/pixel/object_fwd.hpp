@@ -10,7 +10,7 @@ namespace sge::image::pixel
 {
 
 template <typename Tag>
-class object;
+class object; // IWYU pragma: export
 
 }
 

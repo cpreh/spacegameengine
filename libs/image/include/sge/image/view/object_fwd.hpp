@@ -10,7 +10,7 @@ namespace sge::image::view
 {
 
 template <typename ElementsWrapper>
-class object;
+class object; // IWYU pragma: export
 
 }
 

@@ -11,7 +11,7 @@
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/view/const_elements.hpp>
-#include <sge/image/view/const_object_fwd.hpp>
+#include <sge/image/view/const_object_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/view/mizuiro_type_fwd.hpp>
 #include <sge/image/view/object_fwd.hpp>
 #include <mizuiro/const_tag.hpp>

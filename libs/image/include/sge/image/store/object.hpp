@@ -11,7 +11,7 @@
 #include <sge/image/detail/instantiate/symbol.hpp>
 #include <sge/image/store/basic_fwd.hpp>
 #include <sge/image/store/elements.hpp>
-#include <sge/image/store/object_fwd.hpp>
+#include <sge/image/store/object_fwd.hpp> // IWYU pragma: keep
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/traits/pixel/format_fwd.hpp>
 #include <fcppt/no_init_fwd.hpp>

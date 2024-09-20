@@ -12,7 +12,7 @@
 #include <sge/image/traits/image/color_tag.hpp>
 #include <sge/image/view/elements.hpp>
 #include <sge/image/view/mizuiro_type_fwd.hpp>
-#include <sge/image/view/object_fwd.hpp>
+#include <sge/image/view/object_fwd.hpp> // IWYU pragma: keep
 #include <mizuiro/nonconst_tag.hpp>
 #include <fcppt/variant/from_list.hpp>
 
