@@ -8,13 +8,13 @@
 
 #include <sge/model/md3/u8.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <string>
+#include <vector>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::model::md3
 {
 
-using string = std::basic_string<sge::model::md3::u8>;
+using string = std::vector<sge::model::md3::u8>;
 
 }
 
