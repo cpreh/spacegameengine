@@ -7,6 +7,7 @@
 #define SGE_FONT_FLAGS_HPP_INCLUDED
 
 #include <sge/font/flags_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -17,10 +18,11 @@ namespace sge::font
 enum class flags : std::uint8_t
 {
   no_multi_line,
-  no_word_wrap,
-  fcppt_maximum = no_word_wrap
+  no_word_wrap
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::font::flags::no_word_wrap);
 
 #endif

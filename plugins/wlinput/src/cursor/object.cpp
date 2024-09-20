@@ -147,15 +147,15 @@ void pointer_axis_discrete(
 }
 
 wl_pointer_listener const pointer_listener{
-    pointer_enter,
-    pointer_leave,
-    pointer_motion,
-    pointer_button,
-    pointer_axis,
-    pointer_frame,
-    pointer_axis_source,
-    pointer_axis_stop,
-    pointer_axis_discrete};
+    .enter = pointer_enter,
+    .leave = pointer_leave,
+    .motion = pointer_motion,
+    .button = pointer_button,
+    .axis = pointer_axis,
+    .frame = pointer_frame,
+    .axis_source = pointer_axis_source,
+    .axis_stop = pointer_axis_stop,
+    .axis_discrete = pointer_axis_discrete};
 
 }
 

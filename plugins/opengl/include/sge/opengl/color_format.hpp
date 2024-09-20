@@ -7,6 +7,7 @@
 #define SGE_OPENGL_COLOR_FORMAT_HPP_INCLUDED
 
 #include <sge/opengl/color_format_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -31,10 +32,11 @@ enum class color_format : std::uint8_t
   srgb8,
   srgba8,
   sbgr8,
-  sbgra8,
-  fcppt_maximum = sbgra8
+  sbgra8
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::opengl::color_format::sbgra8);
 
 #endif

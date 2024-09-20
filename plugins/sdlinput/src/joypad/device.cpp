@@ -107,7 +107,7 @@ fcppt::optional::object<sge::input::joypad::relative_axis> sge::sdlinput::joypad
       [this, _id](sge::input::info::id const _mult)
       {
         sge::input::joypad::relative_axis_id const axis_id{
-            _id + sge::sdlinput::joypad::num_balls(this->instance_.get()) * _mult};
+            _id + (sge::sdlinput::joypad::num_balls(this->instance_.get()) * _mult)};
 
         return fcppt::optional::map(
             this->info().relative_axes()[axis_id],
@@ -143,7 +143,7 @@ fcppt::optional::object<sge::input::joypad::absolute_axis> sge::sdlinput::joypad
       {
         sge::input::joypad::absolute_axis_id const axis_id{
             sge::sdlinput::joypad::num_axes(this->instance_.get()) + _id +
-            sge::sdlinput::joypad::num_hats(this->instance_.get()) * _mult};
+            (sge::sdlinput::joypad::num_hats(this->instance_.get()) * _mult)};
 
         return fcppt::optional::map(
             this->info().absolute_axes()[axis_id],

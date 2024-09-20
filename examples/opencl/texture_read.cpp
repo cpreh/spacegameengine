@@ -64,7 +64,6 @@
 #include <exception>
 #include <filesystem>
 #include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 namespace

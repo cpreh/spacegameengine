@@ -7,6 +7,7 @@
 #define SGE_INPUT_CAPABILITIES_HPP_INCLUDED
 
 #include <sge/input/capabilities_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -20,10 +21,11 @@ enum class capabilities : std::uint8_t
   focus,
   joypad,
   keyboard,
-  mouse,
-  fcppt_maximum = mouse
+  mouse
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::input::capabilities::mouse);
 
 #endif

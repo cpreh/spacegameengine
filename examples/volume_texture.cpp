@@ -156,7 +156,6 @@
 #include <cstddef>
 #include <exception>
 #include <iostream>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 namespace
@@ -385,7 +384,7 @@ try
           ),
       sge::camera::coordinate_system::identity()));
 
-  sge::camera::perspective_projection_from_viewport camera_viewport_connection(
+  sge::camera::perspective_projection_from_viewport const camera_viewport_connection(
       fcppt::reference_to_base<sge::camera::has_mutable_projection>(fcppt::make_ref(camera)),
       fcppt::make_ref(sys.viewport_manager()),
       sge::renderer::projection::near(

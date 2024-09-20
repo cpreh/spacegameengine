@@ -22,14 +22,13 @@ ff_effect sge::evdev::joypad::ff::convert_effect(
     sge::input::joypad::ff::parameters const &_parameters)
 {
   return ff_effect{
-      sge::evdev::joypad::ff::convert_effect_type(_parameters.variant()),
-      // ID
-      fcppt::literal<std::int16_t>(-1),
-      fcppt::cast::size<std::uint16_t>(
+      .type = sge::evdev::joypad::ff::convert_effect_type(_parameters.variant()),
+      .id = fcppt::literal<std::int16_t>(-1),
+      .direction = fcppt::cast::size<std::uint16_t>(
           _parameters.direction().get().get() /
           1000U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
           ),
-      sge::evdev::joypad::ff::convert_trigger(_buttons, _parameters.trigger()),
-      sge::evdev::joypad::ff::convert_replay(_parameters.duration(), _parameters.delay()),
-      sge::evdev::joypad::ff::convert_variant(_parameters.variant())};
+      .trigger = sge::evdev::joypad::ff::convert_trigger(_buttons, _parameters.trigger()),
+      .replay = sge::evdev::joypad::ff::convert_replay(_parameters.duration(), _parameters.delay()),
+      .u = sge::evdev::joypad::ff::convert_variant(_parameters.variant())};
 }

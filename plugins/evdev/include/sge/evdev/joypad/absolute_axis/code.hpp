@@ -7,6 +7,7 @@
 #define SGE_EVDEV_JOYPAD_ABSOLUTE_AXIS_CODE_HPP_INCLUDED
 
 #include <sge/evdev/joypad/absolute_axis/code_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input-event-codes.h>
 #include <cstdint>
@@ -17,9 +18,11 @@ namespace sge::evdev::joypad::absolute_axis
 
 enum class code : std::uint8_t
 {
-  fcppt_maximum = ABS_MAX
+  dummy = ABS_MAX
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::evdev::joypad::absolute_axis::code::dummy);
 
 #endif

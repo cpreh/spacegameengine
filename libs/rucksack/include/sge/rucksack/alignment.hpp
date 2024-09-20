@@ -7,6 +7,7 @@
 #define SGE_RUCKSACK_ALIGNMENT_HPP_INCLUDED
 
 #include <sge/rucksack/alignment_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -18,10 +19,11 @@ enum class alignment : std::uint8_t
 {
   left_or_top,
   center,
-  right_or_bottom,
-  fcppt_maximum = right_or_bottom
+  right_or_bottom
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::rucksack::alignment::right_or_bottom);
 
 #endif

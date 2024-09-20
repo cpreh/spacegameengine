@@ -7,6 +7,7 @@
 #define SGE_INPUT_JOYPAD_FF_TYPE_HPP_INCLUDED
 
 #include <sge/input/joypad/ff/type_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -26,10 +27,11 @@ enum class type : std::uint8_t
   sine,
   saw_up,
   saw_down,
-  custom,
-  fcppt_maximum = custom
+  custom
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::input::joypad::ff::type::custom);
 
 #endif

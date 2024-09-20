@@ -16,6 +16,6 @@ ff_constant_effect
 sge::evdev::joypad::ff::convert_constant(sge::input::joypad::ff::constant const &_constant)
 {
   return ff_constant_effect{
-      fcppt::cast::size<std::int16_t>(_constant.magnitude().get()),
-      sge::evdev::joypad::ff::convert_envelope(_constant.envelope())};
+      .level = fcppt::cast::size<std::int16_t>(_constant.magnitude().get()),
+      .envelope = sge::evdev::joypad::ff::convert_envelope(_constant.envelope())};
 }

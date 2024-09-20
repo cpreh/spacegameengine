@@ -190,14 +190,14 @@ try
           ));
 
   // TODO(philipp): muxing_fcppt_streambuf?
-  sge::console::muxing_narrow_streambuf stdout_streambuf(
+  sge::console::muxing_narrow_streambuf const stdout_streambuf(
       fcppt::make_ref(std::cout), fcppt::make_ref(object), sge::console::muxing::enabled);
 
   std::cout << "Test for console muxer (cout).\n";
 
   std::cout << "You should see this message in the console and in the terminal (if available)\n";
 
-  sge::console::muxing_narrow_streambuf stderr_streambuf(
+  sge::console::muxing_narrow_streambuf const stderr_streambuf(
       fcppt::make_ref(std::cerr), fcppt::make_ref(object), sge::console::muxing::disabled);
 
   std::cerr << "Test for console muxer (cerr).\n";

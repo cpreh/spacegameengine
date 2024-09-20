@@ -21,7 +21,7 @@ TEST_CASE("charconv flake_config", "[sge]")
   fcppt::string const result(sge::charconv::utf8_file_to_fcppt_string_exn(
       std::filesystem::path(SGE_TESTS_CHARCONV_TEST_DATA) / "config.json"));
 
-  CHECK_FALSE(result.empty());
+  CHECK_FALSE(result.empty()); // NOLINT(clang-analyzer-optin.core.EnumCastOutOfRange)
 }
 
 // NOLINTEND(misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)

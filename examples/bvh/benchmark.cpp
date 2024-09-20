@@ -83,9 +83,9 @@ void example_main(rectangle_count const _rectangle_count)
               ),
           real_distribution::param_type::sup(
               total_bounding_box.h() -
-              total_bounding_box.h() /
+              (total_bounding_box.h() /
                   8.0F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-              ))};
+              )))};
   real_variate size_rng{
       fcppt::make_ref(generator),
       real_distribution(

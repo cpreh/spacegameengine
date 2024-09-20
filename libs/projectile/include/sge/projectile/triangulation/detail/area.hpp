@@ -33,8 +33,8 @@ typename sge::projectile::triangulation::traits::scalar<typename PointContainer:
   {
     result = static_cast<scalar>(
         result +
-        access_element::execute(_contour[p1], 0) * access_element::execute(_contour[p2], 1) -
-        access_element::execute(_contour[p2], 0) * access_element::execute(_contour[p1], 1));
+        (access_element::execute(_contour[p1], 0) * access_element::execute(_contour[p2], 1)) -
+        (access_element::execute(_contour[p2], 0) * access_element::execute(_contour[p1], 1)));
   }
 
   return static_cast<scalar>(result / static_cast<scalar>(2));

@@ -7,6 +7,7 @@
 #define SGE_SYSTEMS_CURSOR_OPTION_HPP_INCLUDED
 
 #include <sge/systems/cursor_option_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -16,10 +17,11 @@ namespace sge::systems
 
 enum class cursor_option : std::uint8_t
 {
-  exclusive,
-  fcppt_maximum = exclusive
+  exclusive
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::systems::cursor_option::exclusive);
 
 #endif

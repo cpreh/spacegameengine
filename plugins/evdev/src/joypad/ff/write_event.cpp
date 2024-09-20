@@ -25,11 +25,14 @@ void sge::evdev::joypad::ff::write_event(
     sge::evdev::device::event_value const _value)
 {
   input_event const event{
-      // NOLINTNEXTLINE(misc-include-cleaner)
-      timeval{fcppt::literal<std::time_t>(0), fcppt::literal<suseconds_t>(0)},
-      EV_FF,
-      fcppt::cast::to_unsigned(_id.get()),
-      _value};
+      .time =
+          // NOLINTNEXTLINE(misc-include-cleaner)
+          timeval{
+              // NOLINTNEXTLINE(misc-include-cleaner)
+              .tv_sec = fcppt::literal<std::time_t>(0), .tv_usec = fcppt::literal<suseconds_t>(0)},
+      .type = EV_FF,
+      .code = fcppt::cast::to_unsigned(_id.get()),
+      .value = _value};
 
   if (::write(_fd.get().get(), &event, sizeof(event)) == -1)
   {

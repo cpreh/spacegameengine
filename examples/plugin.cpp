@@ -58,7 +58,6 @@
 #include <cstdlib>
 #include <exception>
 #include <iostream>
-#include <ostream>
 #include <typeinfo> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_end.hpp>
 

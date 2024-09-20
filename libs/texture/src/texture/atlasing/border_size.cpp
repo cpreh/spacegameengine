@@ -9,5 +9,5 @@
 
 sge::renderer::size_type sge::texture::atlasing::border_size(sge::renderer::size_type const _size)
 {
-  return _size + 2U * sge::texture::atlasing::gap();
+  return _size + (2U * sge::texture::atlasing::gap());
 }

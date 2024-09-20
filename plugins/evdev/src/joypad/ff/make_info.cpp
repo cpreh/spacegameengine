@@ -11,6 +11,7 @@
 #include <sge/input/joypad/ff/type.hpp>
 #include <sge/input/joypad/ff/type_field.hpp>
 #include <fcppt/cast/int_to_enum.hpp>
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/enum/make_invalid.hpp>
 #include <fcppt/container/bitfield/init.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
@@ -61,10 +62,12 @@ sge::evdev::device::event_type_value to_linux_effect(sge::input::joypad::ff::typ
 
 enum class ff_type : std::uint8_t
 {
-  fcppt_maximum = FF_MAX
+  dummy = FF_MAX
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(ff_type::dummy);
 
 sge::input::joypad::ff::type_field sge::evdev::joypad::ff::make_info(sge::evdev::device::fd &_fd)
 {

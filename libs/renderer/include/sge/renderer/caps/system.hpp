@@ -7,6 +7,7 @@
 #define SGE_RENDERER_CAPS_SYSTEM_HPP_INCLUDED
 
 #include <sge/renderer/caps/system_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -33,10 +34,11 @@ enum class system : std::uint8_t
 	Renderer buffers and textures can be cast to interfaces from
 	sge::renderer::opengl.
 	*/
-  opengl,
-  fcppt_maximum = opengl
+  opengl
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::renderer::caps::system::opengl);
 
 #endif

@@ -382,7 +382,7 @@ try
           sge::systems::config().log_settings(sge::systems::log_settings(sge::log::option_container{
               sge::log::option{sge::projectile::log_location(), fcppt::log::level::debug}}))));
 
-  sge::projectile::log log{sys.log_context()};
+  sge::projectile::log const log{sys.log_context()};
 
   sge::projectile::world world{log};
 
@@ -422,7 +422,7 @@ try
 
   std::istringstream polygon_stream("((42,296),(253,162),(12,23),(420,22),(420,310))");
 
-  body second_body(
+  body const second_body(
       log,
       fcppt::make_ref(world),
       fcppt::make_ref(second_group),
@@ -447,7 +447,7 @@ try
               20.F // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
               )));
 
-  body_following_ghost first_ghost{
+  body_following_ghost const first_ghost{
       log,
       fcppt::make_ref(world),
       fcppt::make_ref(first_body.get()),

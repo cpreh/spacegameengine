@@ -15,10 +15,10 @@ ff_condition_effect
 sge::evdev::joypad::ff::convert_condition(sge::input::joypad::ff::condition const &_condition)
 {
   return ff_condition_effect{
-      fcppt::cast::size<std::uint16_t>(_condition.right_saturation().get()),
-      fcppt::cast::size<std::uint16_t>(_condition.left_saturation().get()),
-      fcppt::cast::size<std::int16_t>(_condition.right_coefficient().get()),
-      fcppt::cast::size<std::int16_t>(_condition.left_coefficient().get()),
-      fcppt::cast::size<std::uint16_t>(_condition.deadband_size().get()),
-      fcppt::cast::size<std::int16_t>(_condition.deadband_center().get())};
+      .right_saturation = fcppt::cast::size<std::uint16_t>(_condition.right_saturation().get()),
+      .left_saturation = fcppt::cast::size<std::uint16_t>(_condition.left_saturation().get()),
+      .right_coeff = fcppt::cast::size<std::int16_t>(_condition.right_coefficient().get()),
+      .left_coeff = fcppt::cast::size<std::int16_t>(_condition.left_coefficient().get()),
+      .deadband = fcppt::cast::size<std::uint16_t>(_condition.deadband_size().get()),
+      .center = fcppt::cast::size<std::int16_t>(_condition.deadband_center().get())};
 }

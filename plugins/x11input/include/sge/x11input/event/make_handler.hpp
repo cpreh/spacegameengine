@@ -27,13 +27,13 @@ make_handler(sge::x11input::event::concrete_handler<Event> _function)
   return std::make_pair(
       sge::x11input::event::type{Type::value},
       sge::x11input::event::handler{
-          [_function](awl::backends::x11::system::event::generic const &_event)
+          [func = std::move(_function)](awl::backends::x11::system::event::generic const &_event)
           {
             using event_type = sge::x11input::event::static_type<Type>;
 
             static_assert(std::is_same_v<event_type, Event>, "Event types do not match");
 
-            return _function(*fcppt::cast::from_void_ptr<Event const *>(_event.data()));
+            return func(*fcppt::cast::from_void_ptr<Event const *>(_event.data()));
           }});
 }
 

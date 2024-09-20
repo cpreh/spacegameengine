@@ -7,6 +7,7 @@
 #define SGE_IMAGE_DS_FORMAT_HPP_INCLUDED
 
 #include <sge/image/ds/format_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -18,10 +19,11 @@ enum class format : std::uint8_t
 {
   d16,
   d32,
-  d24s8,
-  fcppt_maximum = d24s8
+  d24s8
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::image::ds::format::d24s8);
 
 #endif

@@ -8,9 +8,6 @@
 #include <sge/config/log_path.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/io/cout.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <ostream>
-#include <fcppt/config/external_end.hpp>
 
 int main()
 {

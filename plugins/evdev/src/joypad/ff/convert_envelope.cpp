@@ -16,8 +16,8 @@ ff_envelope
 sge::evdev::joypad::ff::convert_envelope(sge::input::joypad::ff::envelope const &_envelope)
 {
   return ff_envelope{
-      sge::evdev::joypad::ff::convert_duration(_envelope.attack_time().get()),
-      fcppt::cast::size<std::uint16_t>(_envelope.attack_level().get()),
-      sge::evdev::joypad::ff::convert_duration(_envelope.fade_time().get()),
-      fcppt::cast::size<std::uint16_t>(_envelope.fade_level().get())};
+      .attack_length = sge::evdev::joypad::ff::convert_duration(_envelope.attack_time().get()),
+      .attack_level = fcppt::cast::size<std::uint16_t>(_envelope.attack_level().get()),
+      .fade_length = sge::evdev::joypad::ff::convert_duration(_envelope.fade_time().get()),
+      .fade_level = fcppt::cast::size<std::uint16_t>(_envelope.fade_level().get())};
 }

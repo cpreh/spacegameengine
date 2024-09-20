@@ -7,6 +7,7 @@
 #define SGE_RENDERER_RESOURCE_FLAGS_HPP_INCLUDED
 
 #include <sge/renderer/resource_flags_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -39,10 +40,11 @@ enum class resource_flags : std::uint8_t
 	so that data can be read from it. A readable resource might be slower
 	to render, slower to lock or unlock or might require more memory.
 	*/
-  readable,
-  fcppt_maximum = readable
+  readable
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::renderer::resource_flags::readable);
 
 #endif

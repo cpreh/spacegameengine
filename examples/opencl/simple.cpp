@@ -394,7 +394,7 @@ try
   fcppt::io::cout() << FCPPT_TEXT("Done, now enqueueing kernel and running it\n");
 
   {
-    sge::opencl::memory_object::scoped_objects scoped_vb(
+    sge::opencl::memory_object::scoped_objects const scoped_vb(
         fcppt::make_ref(main_queue),
         sge::opencl::memory_object::base_ref_sequence{
             fcppt::reference_to_base<sge::opencl::memory_object::base>(fcppt::make_ref(cl_vb))});

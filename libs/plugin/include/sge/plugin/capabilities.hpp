@@ -7,6 +7,7 @@
 #define SGE_PLUGIN_CAPABILITIES_HPP_INCLUDED
 
 #include <sge/plugin/capabilities_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -21,10 +22,11 @@ enum class capabilities : std::uint8_t
   image2d_system,
   audio_player,
   font,
-  audio_loader,
-  fcppt_maximum = audio_loader
+  audio_loader
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::plugin::capabilities::audio_loader);
 
 #endif

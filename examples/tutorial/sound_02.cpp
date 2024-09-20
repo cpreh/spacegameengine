@@ -43,7 +43,6 @@
 #include <exception>
 #include <iostream>
 #include <numbers>
-#include <ostream>
 #include <fcppt/config/external_end.hpp>
 
 int main()
@@ -65,7 +64,7 @@ try
 
   sound->play(sge::audio::sound::repeat::loop);
 
-  sge::timer::basic<sge::timer::clocks::standard> frame_timer(
+  sge::timer::basic<sge::timer::clocks::standard> const frame_timer(
       sge::timer::parameters<sge::timer::clocks::standard>(std::chrono::seconds(1)));
 
   sge::audio::scalar const rpm(fcppt::literal<sge::audio::scalar>(1));

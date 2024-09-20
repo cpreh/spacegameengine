@@ -90,29 +90,29 @@ void sge::camera::spherical::object::update(sge::camera::update_duration const _
 {
   velocity_.azimuth(
       sge::camera::spherical::coordinate_system::azimuth(
-          1.0F - (1.0F - damping_factor_.get().azimuth().get()) * _time_delta.count()) *
+          1.0F - ((1.0F - damping_factor_.get().azimuth().get()) * _time_delta.count())) *
       (velocity_.azimuth() +
-       acceleration_factor_.get().azimuth() * acceleration_.azimuth() *
-           sge::camera::spherical::coordinate_system::azimuth(_time_delta.count())));
+       (acceleration_factor_.get().azimuth() * acceleration_.azimuth() *
+           sge::camera::spherical::coordinate_system::azimuth(_time_delta.count()))));
 
   velocity_.inclination(
       sge::camera::spherical::coordinate_system::inclination(
-          1.0F - (1.0F - damping_factor_.get().inclination().get()) * _time_delta.count()) *
+          1.0F - ((1.0F - damping_factor_.get().inclination().get()) * _time_delta.count())) *
       (velocity_.inclination() +
-       acceleration_factor_.get().inclination() * acceleration_.inclination() *
-           sge::camera::spherical::coordinate_system::inclination(_time_delta.count())));
+       (acceleration_factor_.get().inclination() * acceleration_.inclination() *
+           sge::camera::spherical::coordinate_system::inclination(_time_delta.count()))));
 
   velocity_.radius(
       sge::camera::spherical::coordinate_system::radius(
-          1.0F - (1.0F - damping_factor_.get().radius().get()) * _time_delta.count()) *
+          1.0F - ((1.0F - damping_factor_.get().radius().get()) * _time_delta.count())) *
       (velocity_.radius() +
-       acceleration_factor_.get().radius() * acceleration_.radius() *
-           sge::camera::spherical::coordinate_system::radius(_time_delta.count())));
+       (acceleration_factor_.get().radius() * acceleration_.radius() *
+           sge::camera::spherical::coordinate_system::radius(_time_delta.count()))));
 
   fcppt::optional::maybe_void(
       fcppt::math::clamp(
           coordinate_system_.radius().get() +
-              _time_delta.count() * movement_speed_.get().radius().get() * velocity_.radius().get(),
+              (_time_delta.count() * movement_speed_.get().radius().get() * velocity_.radius().get()),
           minimum_radius_.get(),
           maximum_radius_.get()),
       [this](sge::renderer::scalar const _radius) {
@@ -121,15 +121,15 @@ void sge::camera::spherical::object::update(sge::camera::update_duration const _
 
   coordinate_system_.azimuth(sge::camera::spherical::coordinate_system::azimuth(
       coordinate_system_.azimuth().get() +
-      _time_delta.count() * movement_speed_.get().azimuth().get() * velocity_.azimuth().get()));
+      (_time_delta.count() * movement_speed_.get().azimuth().get() * velocity_.azimuth().get())));
 
   constexpr sge::renderer::scalar const inclination_epsilon{0.01F};
 
   fcppt::optional::maybe_void(
       fcppt::math::clamp(
-          coordinate_system_.inclination().get() + _time_delta.count() *
+          coordinate_system_.inclination().get() + (_time_delta.count() *
                                                        movement_speed_.get().inclination().get() *
-                                                       velocity_.inclination().get(),
+                                                       velocity_.inclination().get()),
           -std::numbers::pi_v<sge::renderer::scalar> + inclination_epsilon,
           -inclination_epsilon),
       [this](sge::renderer::scalar const _inclination)

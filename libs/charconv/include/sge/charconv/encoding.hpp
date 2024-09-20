@@ -7,6 +7,7 @@
 #define SGE_CHARCONV_ENCODING_HPP_INCLUDED
 
 #include <sge/charconv/encoding_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -19,10 +20,11 @@ enum class encoding : std::uint8_t
   utf8,
   utf16,
   utf32,
-  wchar,
-  fcppt_maximum = wchar
+  wchar
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::charconv::encoding::wchar);
 
 #endif

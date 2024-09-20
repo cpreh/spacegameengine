@@ -7,6 +7,7 @@
 #define SGE_RENDERER_STATE_FFP_TRANSFORM_MODE_HPP_INCLUDED
 
 #include <sge/renderer/state/ffp/transform/mode_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -34,13 +35,11 @@ enum class mode : std::uint8_t
 
 	The texture matrix describes how texture coordinates are transformed.
 	*/
-  texture,
-  /**
-	\brief The maximum element
-	*/
-  fcppt_maximum = texture
+  texture
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::renderer::state::ffp::transform::mode::texture);
 
 #endif

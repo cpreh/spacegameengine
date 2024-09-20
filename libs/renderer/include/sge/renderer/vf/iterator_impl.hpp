@@ -31,7 +31,7 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 template <typename Part, typename Constness>
 void sge::renderer::vf::iterator<Part, Constness>::increment()
 {
-  this->data_ += this->stride();
+  this->data_ += iterator::stride();
 }
 
 template <typename Part, typename Constness>
@@ -51,7 +51,7 @@ template <typename Part, typename Constness>
 sge::renderer::vf::iterator<Part, Constness> &
 sge::renderer::vf::iterator<Part, Constness>::operator+=(difference_type const _diff)
 {
-  this->data_ += this->stride() * _diff;
+  this->data_ += iterator::stride() * _diff;
 
   return *this;
 }

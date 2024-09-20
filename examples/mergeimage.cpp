@@ -67,7 +67,6 @@
 #include <filesystem>
 #include <iostream>
 #include <iterator>
-#include <ostream>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 

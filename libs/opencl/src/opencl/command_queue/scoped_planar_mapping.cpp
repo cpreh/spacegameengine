@@ -86,7 +86,7 @@ sge::image2d::view::object sge::opencl::command_queue::scoped_planar_mapping::vi
       fcppt::math::dim::structure_cast<sge::image2d::dim, fcppt::cast::size_fun>(rect_.size()),
       sge_image_format_,
       image2d::pitch(static_cast<image2d::pitch::value_type>(
-          pitch_ - rect_.size().w() * sge::image::color::format_stride(sge_image_format_))));
+          pitch_ - (rect_.size().w() * sge::image::color::format_stride(sge_image_format_)))));
 }
 
 sge::opencl::command_queue::scoped_planar_mapping::~scoped_planar_mapping()

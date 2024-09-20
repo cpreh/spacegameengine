@@ -7,6 +7,7 @@
 #define SGE_RUCKSACK_AXIS_HPP_INCLUDED
 
 #include <sge/rucksack/axis_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -17,10 +18,11 @@ namespace sge::rucksack
 enum class axis : std::uint8_t
 {
   x,
-  y,
-  fcppt_maximum = y
+  y
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::rucksack::axis::y);
 
 #endif

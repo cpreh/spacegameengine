@@ -52,7 +52,7 @@ sge::noise::simplex::object<Float, N>::object(sge::noise::simplex::width const &
     tmp.get_unsafe(i) = static_cast<Float>(1);
     gradients_.get_unsafe(2U * i) = tmp;
     tmp.get_unsafe(i) = static_cast<Float>(-1);
-    gradients_.get_unsafe(2U * i + 1U) = tmp;
+    gradients_.get_unsafe((2U * i) + 1U) = tmp;
   }
 }
 
@@ -73,7 +73,7 @@ Float sge::noise::simplex::object<Float, N>::sample(vector_type const &in)
   corner_array const c = corners(tmp);
   for (auto const &v : c)
   {
-    vector_type const t(in - inv_m() * (floored + v));
+    vector_type const t(in - (inv_m() * (floored + v)));
     res += contrib(t, floored + v);
   }
 

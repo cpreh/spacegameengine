@@ -19,12 +19,12 @@ ff_periodic_effect
 sge::evdev::joypad::ff::convert_periodic(sge::input::joypad::ff::periodic const &_periodic)
 {
   return ff_periodic_effect{
-      sge::evdev::joypad::ff::convert_waveform(_periodic.waveform()),
-      sge::evdev::joypad::ff::convert_duration(_periodic.period().get()),
-      fcppt::cast::size<std::int16_t>(_periodic.magnitude().get()),
-      fcppt::cast::size<std::int16_t>(_periodic.offset().get()),
-      fcppt::cast::size<std::uint16_t>(_periodic.phase().get()),
-      sge::evdev::joypad::ff::convert_envelope(_periodic.envelope()),
-      fcppt::literal<std::uint32_t>(0),
-      nullptr};
+      .waveform = sge::evdev::joypad::ff::convert_waveform(_periodic.waveform()),
+      .period = sge::evdev::joypad::ff::convert_duration(_periodic.period().get()),
+      .magnitude = fcppt::cast::size<std::int16_t>(_periodic.magnitude().get()),
+      .offset = fcppt::cast::size<std::int16_t>(_periodic.offset().get()),
+      .phase = fcppt::cast::size<std::uint16_t>(_periodic.phase().get()),
+      .envelope = sge::evdev::joypad::ff::convert_envelope(_periodic.envelope()),
+      .custom_len = fcppt::literal<std::uint32_t>(0),
+      .custom_data = nullptr};
 }

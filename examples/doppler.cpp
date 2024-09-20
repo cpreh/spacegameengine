@@ -285,7 +285,7 @@ try
             });
       });
 
-  sge::input::cursor::relative_movement::object rel_movement{
+  sge::input::cursor::relative_movement::object const rel_movement{
       fcppt::make_ref(sys.input_processor())};
 
   auto const on_rel_move(

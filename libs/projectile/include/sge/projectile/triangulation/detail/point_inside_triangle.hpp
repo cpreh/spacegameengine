@@ -46,9 +46,9 @@ bool point_inside_triangle(
   scalar const bpy(p1 - v21);
   scalar const cpx(p0 - v30);
   scalar const cpy(p1 - v31);
-  scalar const a_cross_bp(ax * bpy - ay * bpx);
-  scalar const c_cross_ap(cx * apy - cy * apx);
-  scalar const b_cross_cp(bx * cpy - by * cpx);
+  scalar const a_cross_bp((ax * bpy) - (ay * bpx));
+  scalar const c_cross_ap((cx * apy) - (cy * apx));
+  scalar const b_cross_cp((bx * cpy) - (by * cpx));
   auto const zero(static_cast<scalar>(0));
 
   return a_cross_bp >= zero && b_cross_cp >= zero && c_cross_ap >= zero;

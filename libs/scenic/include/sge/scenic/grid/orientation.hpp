@@ -7,6 +7,7 @@
 #define SGE_SCENIC_GRID_ORIENTATION_HPP_INCLUDED
 
 #include <sge/scenic/grid/orientation_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -18,10 +19,11 @@ enum class orientation : std::uint8_t
 {
   xz,
   xy,
-  yz,
-  fcppt_maximum = yz
+  yz
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::scenic::grid::orientation::yz);
 
 #endif

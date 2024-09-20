@@ -96,7 +96,7 @@ TEST_CASE("renderer/vf/pos color interleaved", "[sge]")
                 fcppt::mpl::list::object<
                     static_size<0>,
                     static_size<3 * sizeof(float)>,
-                    static_size<3 * sizeof(float) + 4>>>);
+                    static_size<(3 * sizeof(float)) + 4>>>);
 
   static_assert(
       fcppt::record::are_equivalent_v<
@@ -113,7 +113,7 @@ TEST_CASE("renderer/vf/pos color interleaved", "[sge]")
   sge::renderer::vf::dynamic::format const dynamic_format{
       sge::renderer::vf::dynamic::make_format<format>()};
 
-  sge::renderer::vf::dynamic::stride const stride{3 * sizeof(float) + 4};
+  sge::renderer::vf::dynamic::stride const stride{(3 * sizeof(float)) + 4};
 
   CHECK(
       dynamic_format.parts() ==

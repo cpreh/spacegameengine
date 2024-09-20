@@ -33,7 +33,7 @@ namespace
 
 template <typename Char, typename CharTraits>
 fcppt::either::object<fcppt::string, sge::image::color::any::object>
-rgb8_from_hex_string(std::basic_string<Char, CharTraits> _string)
+rgb8_from_hex_string(std::basic_string<Char, CharTraits> const &_string)
 {
   using string = std::basic_string<Char, CharTraits>;
 

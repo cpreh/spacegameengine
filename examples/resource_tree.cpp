@@ -42,7 +42,7 @@ try
 
   using resource_tree = sge::resource_tree::object<resource, random_generator>;
 
-  resource_tree tree(
+  resource_tree const tree(
       sge::config::media_path(),
       resource_tree::path_to_resource_function(path_to_resource),
       fcppt::make_ref(generator));

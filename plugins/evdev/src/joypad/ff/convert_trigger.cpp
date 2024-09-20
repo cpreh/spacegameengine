@@ -26,13 +26,15 @@ ff_trigger sge::evdev::joypad::ff::convert_trigger(
       []
       {
         // TODO(philipp): What to put here?
-        return ff_trigger{fcppt::literal<std::uint16_t>(0), fcppt::literal<std::uint16_t>(0)};
+        return ff_trigger{
+            .button = fcppt::literal<std::uint16_t>(0),
+            .interval = fcppt::literal<std::uint16_t>(0)};
       },
       [&_buttons](sge::input::joypad::ff::trigger const &_trigger)
       {
         return ff_trigger{
-            sge::evdev::joypad::ff::find_button(_buttons, _trigger.button()).get(),
-            fcppt::optional::maybe(
+            .button = sge::evdev::joypad::ff::find_button(_buttons, _trigger.button()).get(),
+            .interval = fcppt::optional::maybe(
                 _trigger.cooldown().get(),
                 []
                 {

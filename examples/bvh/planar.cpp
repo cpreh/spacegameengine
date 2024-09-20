@@ -431,10 +431,10 @@ awl::main::exit_code main_program(arg_type const &_args)
                   )),
           real_distribution::param_type::sup(
               fcppt::cast::int_to_float<sge::renderer::scalar>(window_dim.h()) -
-              fcppt::cast::int_to_float<sge::renderer::scalar>(window_dim.h()) /
+              (fcppt::cast::int_to_float<sge::renderer::scalar>(window_dim.h()) /
                   fcppt::literal<sge::renderer::scalar>(
                       8 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                      ))));
+                      )))));
   real_variate size_rng(
       fcppt::make_ref(generator),
       real_distribution(

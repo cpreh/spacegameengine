@@ -238,12 +238,12 @@ void keyboard_repeat_info(
 }
 
 wl_keyboard_listener const keyboard_listener{
-    keyboard_keymap,
-    keyboard_enter,
-    keyboard_leave,
-    keyboard_key,
-    keyboard_modifiers,
-    keyboard_repeat_info};
+    .keymap = keyboard_keymap,
+    .enter = keyboard_enter,
+    .leave = keyboard_leave,
+    .key = keyboard_key,
+    .modifiers = keyboard_modifiers,
+    .repeat_info = keyboard_repeat_info};
 
 }
 

@@ -20,7 +20,7 @@ ff_replay sge::evdev::joypad::ff::convert_replay(
     sge::input::joypad::ff::delay const _delay)
 {
   return ff_replay{
-      fcppt::optional::maybe(
+      .length = fcppt::optional::maybe(
           _opt_duration,
           []
           {
@@ -29,5 +29,5 @@ ff_replay sge::evdev::joypad::ff::convert_replay(
           },
           [](sge::input::joypad::ff::duration const _duration)
           { return sge::evdev::joypad::ff::convert_duration(_duration); }),
-      sge::evdev::joypad::ff::convert_duration(_delay.get())};
+      .delay = sge::evdev::joypad::ff::convert_duration(_delay.get())};
 }

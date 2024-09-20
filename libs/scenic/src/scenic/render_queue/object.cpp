@@ -40,7 +40,7 @@ namespace
 
 template <typename StateSequence>
 [[nodiscard]] sge::scenic::render_queue::index_type change_context_state(
-    fcppt::reference<StateSequence> const _states, typename StateSequence::value_type _state)
+    fcppt::reference<StateSequence> const _states, typename StateSequence::value_type const &_state)
 {
   // TODO(philipp): find_opt
   auto it = std::find(_states.get().cbegin(), _states.get().cend(), _state);

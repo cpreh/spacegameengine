@@ -115,8 +115,6 @@ sge::opencl::event::object_unique_ptr enqueue_kernel_templatized(
       _command_queue, _kernel, _global_dim.get(), fcppt::optional::make(_local_dim.get()), _events);
 }
 
-}
-
 template <typename GlobalDim>
 sge::opencl::event::object_unique_ptr enqueue_kernel_templatized(
     sge::opencl::command_queue::object_ref const _command_queue,
@@ -130,6 +128,8 @@ sge::opencl::event::object_unique_ptr enqueue_kernel_templatized(
       _global_dim.get(),
       fcppt::optional::object<typename GlobalDim::value_type>(),
       _events);
+}
+
 }
 
 sge::opencl::event::object_unique_ptr sge::opencl::command_queue::enqueue_kernel(

@@ -28,7 +28,7 @@ sge::shader::parameter::scalar<ValueType>::scalar(
 template <typename ValueType>
 void sge::shader::parameter::scalar<ValueType>::set(value_type const _scalar)
 {
-  using promoted_type = std::conditional_t<std::is_same<value_type, bool>::value, int, value_type>;
+  using promoted_type = std::conditional_t<std::is_same_v<value_type, bool>, int, value_type>;
 
   sge::cg::parameter::scalar::set(parameter_.object(), static_cast<promoted_type>(_scalar));
 }

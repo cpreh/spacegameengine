@@ -577,7 +577,7 @@ void focus_out(fcppt::reference<sge::input::focus::event::out const> const _even
 
 void joypad_new(sge::input::joypad::device const &_joypad)
 {
-  sge::input::joypad::info const info(_joypad.info());
+  sge::input::joypad::info const &info{_joypad.info()};
 
   fcppt::io::cout() << FCPPT_TEXT("joypad_discover: ") << &_joypad << FCPPT_TEXT(", ")
                     << info.name() << FCPPT_TEXT(", ") << info.unique_id() << FCPPT_TEXT('\n');
@@ -706,7 +706,7 @@ void keyboard_key(fcppt::reference<sge::input::keyboard::event::key const> const
 
 void mouse_new(sge::input::mouse::device const &_mouse)
 {
-  sge::input::mouse::info const info(_mouse.info());
+  sge::input::mouse::info const &info{_mouse.info()};
 
   fcppt::io::cout() << FCPPT_TEXT("mouse_discover: ") << &_mouse << FCPPT_TEXT(", ") << info.name()
                     << FCPPT_TEXT('\n');

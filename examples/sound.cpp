@@ -65,7 +65,6 @@
 #include <iostream>
 #include <iterator>
 #include <limits>
-#include <ostream>
 #include <string>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
@@ -307,7 +306,7 @@ try
       0.F,
       0.F));
 
-  sge::timer::basic<sge::timer::clocks::standard> frame_timer(
+  sge::timer::basic<sge::timer::clocks::standard> const frame_timer(
       sge::timer::parameters<sge::timer::clocks::standard>(std::chrono::seconds(
           10 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
           )));

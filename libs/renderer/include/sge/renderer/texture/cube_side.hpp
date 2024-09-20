@@ -7,6 +7,7 @@
 #define SGE_RENDERER_TEXTURE_CUBE_SIDE_HPP_INCLUDED
 
 #include <sge/renderer/texture/cube_side_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -21,10 +22,11 @@ enum class cube_side : std::uint8_t
   left,
   right,
   top,
-  bottom,
-  fcppt_maximum = bottom
+  bottom
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::renderer::texture::cube_side::bottom);
 
 #endif

@@ -15,7 +15,7 @@
 ff_ramp_effect sge::evdev::joypad::ff::convert_ramp(sge::input::joypad::ff::ramp const &_ramp)
 {
   return ff_ramp_effect{
-      fcppt::cast::size<std::int16_t>(_ramp.start_magnitude().get()),
-      fcppt::cast::size<std::int16_t>(_ramp.end_magnitude().get()),
-      sge::evdev::joypad::ff::convert_envelope(_ramp.envelope())};
+      .start_level = fcppt::cast::size<std::int16_t>(_ramp.start_magnitude().get()),
+      .end_level = fcppt::cast::size<std::int16_t>(_ramp.end_magnitude().get()),
+      .envelope = sge::evdev::joypad::ff::convert_envelope(_ramp.envelope())};
 }

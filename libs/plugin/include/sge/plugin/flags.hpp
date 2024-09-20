@@ -7,6 +7,7 @@
 #define SGE_PLUGIN_FLAGS_HPP_INCLUDED
 
 #include <sge/plugin/flags_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -24,10 +25,11 @@ enum class flags : std::uint8_t
 	has no cleanup function. If x11input gets unloaded before the display,
 	then closing the display will crash.
 	*/
-  delayed_unload,
-  fcppt_maximum = delayed_unload
+  delayed_unload
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::plugin::flags::delayed_unload);
 
 #endif

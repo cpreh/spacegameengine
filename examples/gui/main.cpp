@@ -233,11 +233,11 @@ try
                     { return sge::gui::widget::reference(*_widget); })});
       });
 
-  sge::gui::widget::unique_ptr_tree tree1_widgets(make_tree(SGE_FONT_LIT("Toplevel 1")));
+  sge::gui::widget::unique_ptr_tree const tree1_widgets(make_tree(SGE_FONT_LIT("Toplevel 1")));
 
   sge::gui::widget::tree_unique_ptr tree1(make_widget_tree(tree1_widgets));
 
-  sge::gui::widget::unique_ptr_tree tree2_widgets(make_tree(SGE_FONT_LIT("Toplevel 2")));
+  sge::gui::widget::unique_ptr_tree const tree2_widgets(make_tree(SGE_FONT_LIT("Toplevel 2")));
 
   sge::gui::widget::tree_unique_ptr tree2(make_widget_tree(tree2_widgets));
 

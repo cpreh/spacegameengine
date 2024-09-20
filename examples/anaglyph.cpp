@@ -609,11 +609,11 @@ sge::camera::coordinate_system::object move_eye_position(
 
   matrix3 const rotation_matrix{
       fcppt::math::matrix::row(
-          cosx + x * x * cosxc, x * y * cosxc - z * sinx, x * z * cosxc + y * sinx),
+          cosx + (x * x * cosxc), (x * y * cosxc) - (z * sinx), (x * z * cosxc) + (y * sinx)),
       fcppt::math::matrix::row(
-          x * y * cosxc + z * sinx, cosx + y * y * cosxc, y * z * cosxc - x * sinx),
+          (x * y * cosxc) + (z * sinx), cosx + (y * y * cosxc), (y * z * cosxc) - (x * sinx)),
       fcppt::math::matrix::row(
-          x * z * cosxc - y * sinx, y * z * cosxc + x * sinx, cosx + z * z * cosxc)};
+          (x * z * cosxc) - (y * sinx), (y * z * cosxc) + (x * sinx), cosx + (z * z * cosxc))};
 
   _result.right(sge::camera::coordinate_system::right(rotation_matrix * _result.right().get()));
 

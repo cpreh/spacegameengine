@@ -17,7 +17,6 @@
 #include <fcppt/cast/to_signed.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <algorithm>
 #include <ios>
 #include <istream>
 #include <fcppt/config/external_end.hpp>

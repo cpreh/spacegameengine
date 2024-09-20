@@ -7,6 +7,7 @@
 #define SGE_EVDEV_JOYPAD_BUTTON_CODE_HPP_INCLUDED
 
 #include <sge/evdev/joypad/button/code_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <linux/input-event-codes.h>
 #include <cstdint>
@@ -17,9 +18,11 @@ namespace sge::evdev::joypad::button
 
 enum class code : std::uint16_t
 {
-  fcppt_maximum = KEY_MAX
+  dummy = KEY_MAX
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::evdev::joypad::button::code::dummy);
 
 #endif

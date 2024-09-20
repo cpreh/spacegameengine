@@ -65,7 +65,7 @@ void sge::renderer::impl::vf::dynamic::element_converter::convert(
   }
 
   sge::renderer::raw_pointer const begin(
-      _data + (_interval.lower() - _pos.get()) * stride_.get() + offset_.get());
+      _data + ((_interval.lower() - _pos.get()) * stride_.get()) + offset_.get());
 
   sge::image2d::dim const dim(1U, _interval.upper() - _interval.lower());
 

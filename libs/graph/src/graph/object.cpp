@@ -105,16 +105,16 @@ void bresenham(
   int_type y = y0;
   int_type const ystep = (y0 < y1) ? 1 : -1;
 
-  double const length = static_cast<double>(x1 - x0) * static_cast<double>(x1 - x0) +
-                        static_cast<double>(y1 - y0) * static_cast<double>(y1 - y0);
+  double const length = (static_cast<double>(x1 - x0) * static_cast<double>(x1 - x0)) +
+                        (static_cast<double>(y1 - y0) * static_cast<double>(y1 - y0));
 
   for (int_type x = x0; x <= x1; ++x)
   {
-    double const pos = static_cast<double>(x - x0) * static_cast<double>(x - x0) +
-                       static_cast<double>(y - y0) * static_cast<double>(y - y0);
+    double const pos = (static_cast<double>(x - x0) * static_cast<double>(x - x0)) +
+                       (static_cast<double>(y - y0) * static_cast<double>(y - y0));
     double const t = std::sqrt(pos / length);
 
-    Color c = t * c1 + (1.0 - t) * c0;
+    Color c = (t * c1) + ((1.0 - t) * c0);
 
     if (steep)
     {

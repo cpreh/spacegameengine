@@ -270,7 +270,7 @@ void sge::rucksack::widget::box::relayout()
             return this->position(this->minor_axis());
           case sge::rucksack::alignment::center:
             return this->position(this->minor_axis()) +
-                   (this->size(this->minor_axis()) - widget.size(this->minor_axis())) / 2;
+                   ((this->size(this->minor_axis()) - widget.size(this->minor_axis())) / 2);
           case sge::rucksack::alignment::right_or_bottom:
             return this->position(this->minor_axis()) + this->size(this->minor_axis()) -
                    widget.size(this->minor_axis());

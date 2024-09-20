@@ -7,6 +7,7 @@
 #define SGE_OPENCL_MEMORY_OBJECT_FLAGS_HPP_INCLUDED
 
 #include <sge/opencl/memory_object/flags_fwd.hpp> // IWYU pragma: keep
+#include <fcppt/enum/define_max_value.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdint>
 #include <fcppt/config/external_end.hpp>
@@ -18,10 +19,11 @@ enum class flags : std::uint8_t
 {
   read,
   write,
-  alloc_host_ptr,
-  fcppt_maximum = alloc_host_ptr
+  alloc_host_ptr
 };
 
 }
+
+FCPPT_ENUM_DEFINE_MAX_VALUE(sge::opencl::memory_object::flags::alloc_host_ptr);
 
 #endif
