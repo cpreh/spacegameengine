@@ -39,9 +39,8 @@ public:
 
   [[nodiscard]] bool operator<(sge::scenic::render_queue::mesh const &_other) const
   {
-    return sort_index_ < _other.sort_index_;
+    return this->sort_index_ < _other.sort_index_;
   }
-
 private:
   sge::scenic::render_queue::index_type material_;
   sge::scenic::render_queue::index_type vertex_buffer_;

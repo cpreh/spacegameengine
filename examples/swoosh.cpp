@@ -120,6 +120,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/unique_ptr_to_const.hpp>
+#include <fcppt/algorithm/fold.hpp>
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/int_to_float.hpp>
 #include <fcppt/cast/int_to_float_fun.hpp>
@@ -143,7 +144,7 @@
 #include <boost/circular_buffer_fwd.hpp>
 #include <cmath>
 #include <exception>
-#include <numeric>
+#include <functional>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -226,7 +227,7 @@ void cursor_speed_tracker::update()
 
 cursor_speed_tracker::scalar cursor_speed_tracker::current_speed() const
 {
-  return std::accumulate(speed_values_.begin(), speed_values_.end(), fcppt::literal<scalar>(0)) /
+  return fcppt::algorithm::fold(this->speed_values_, fcppt::literal<scalar>(0), std::plus{}) /
          fcppt::cast::int_to_float<scalar>(speed_values_.size());
 }
 

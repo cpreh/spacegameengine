@@ -106,7 +106,7 @@ path_vector sort_paths(std::filesystem::path const &_path)
   path_vector ret{
       std::filesystem::directory_iterator(_path), std::filesystem::directory_iterator()};
 
-  std::sort(ret.begin(), ret.end());
+  std::ranges::sort(ret);
 
   return ret;
 }

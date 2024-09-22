@@ -45,6 +45,5 @@ bool sge::model::obj::face_vertex::operator==(face_vertex const &_other) const
 
 bool sge::model::obj::face_vertex::operator<(face_vertex const &_other) const
 {
-  return std::lexicographical_compare(
-      indices_.begin(), indices_.end(), _other.indices_.begin(), _other.indices_.end());
+  return std::ranges::lexicographical_compare(this->indices_, _other.indices_);
 }
