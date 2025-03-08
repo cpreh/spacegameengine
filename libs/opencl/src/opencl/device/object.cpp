@@ -11,6 +11,7 @@
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/buffer/object.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage_in_libc_call.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -42,7 +43,10 @@ template <typename Dest>
 {
   Dest dest{};
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE_IN_LIBC_CALL
   std::memcpy(&dest, _source.read_data(), _source.read_size());
+FCPPT_PP_POP_WARNING
 
   return dest;
 }

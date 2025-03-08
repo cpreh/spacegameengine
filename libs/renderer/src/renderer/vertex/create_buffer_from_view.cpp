@@ -5,9 +5,9 @@
 
 #include <sge/renderer/lock_mode.hpp>
 #include <sge/renderer/resource_flags_field_fwd.hpp>
-#include <sge/renderer/device/core.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/device/core.hpp> // IWYU pragma: keep
 #include <sge/renderer/device/core_ref.hpp>
-#include <sge/renderer/vertex/buffer.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/renderer/vertex/buffer.hpp> // IWYU pragma: keep
 #include <sge/renderer/vertex/buffer_parameters.hpp>
 #include <sge/renderer/vertex/buffer_unique_ptr.hpp>
 #include <sge/renderer/vertex/const_declaration_ref.hpp>
@@ -17,6 +17,9 @@
 #include <sge/renderer/vf/dynamic/const_view.hpp>
 #include <sge/renderer/vf/dynamic/part.hpp>
 #include <fcppt/make_ref.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage_in_libc_call.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
@@ -37,7 +40,10 @@ sge::renderer::vertex::buffer_unique_ptr sge::renderer::vertex::create_buffer_fr
   sge::renderer::vertex::scoped_lock const lock(
       fcppt::make_ref(*buffer), sge::renderer::lock_mode::writeonly);
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE_IN_LIBC_CALL
   std::memcpy(lock.value().data(), _view.data(), _view.part().stride().get() * _view.size().get());
+FCPPT_PP_POP_WARNING
 
   return buffer;
 }

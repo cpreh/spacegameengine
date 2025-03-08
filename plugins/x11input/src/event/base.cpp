@@ -5,6 +5,9 @@
 
 #include <sge/x11input/event/base.hpp>
 #include <awl/backends/x11/system/event/generic.hpp>
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage_in_libc_call.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XInput2.h>
 #include <cstring>
@@ -15,7 +18,10 @@ XIEvent sge::x11input::event::base(awl::backends::x11::system::event::generic co
   // Copy the head of the event to avoid strict-aliasing problems
   XIEvent result;
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE_IN_LIBC_CALL
   std::memcpy(&result, _event.data(), sizeof(XIEvent));
+FCPPT_PP_POP_WARNING
 
   return result;
 }

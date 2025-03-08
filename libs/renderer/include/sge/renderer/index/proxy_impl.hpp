@@ -8,6 +8,9 @@
 
 #include <sge/renderer/index/const_proxy_impl.hpp> // IWYU pragma: keep
 #include <sge/renderer/index/proxy_decl.hpp> // IWYU pragma: export
+#include <fcppt/preprocessor/ignore_unsafe_buffer_usage_in_libc_call.hpp>
+#include <fcppt/preprocessor/pop_warning.hpp>
+#include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstring>
 #include <fcppt/config/external_end.hpp>
@@ -29,7 +32,10 @@ sge::renderer::index::proxy<Format>::operator=(value_type const _value)
 template <typename Format>
 void sge::renderer::index::proxy<Format>::set(value_type const _value)
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE_IN_LIBC_CALL
   std::memcpy(this->data_, &_value, sizeof(value_type));
+FCPPT_PP_POP_WARNING
 }
 
 template <typename Format>

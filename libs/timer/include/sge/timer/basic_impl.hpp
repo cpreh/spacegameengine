@@ -8,6 +8,7 @@
 
 #include <sge/timer/basic_decl.hpp> // IWYU pragma: export
 #include <sge/timer/parameters_impl.hpp> // IWYU pragma: keep
+#include <fcppt/preprocessor/disable_clang_warning.hpp>
 #include <fcppt/preprocessor/disable_vc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -94,7 +95,10 @@ void sge::timer::basic<Clock>::interval(duration const _interval)
 template <typename Clock>
 typename sge::timer::basic<Clock>::time_point sge::timer::basic<Clock>::now() const
 {
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_CLANG_WARNING(-Wunused-result)
   return this->clock_base().now();
+FCPPT_PP_POP_WARNING
 }
 
 template <typename Clock>
