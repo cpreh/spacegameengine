@@ -148,13 +148,7 @@ void sge::console::gfx::cursor::complete_word(
       upper_bound(search_string),
       [start_pos, &search_string, this](fcppt::reference<sge::font::string const> const _string)
       {
-        auto const is_prefix_of(
-            [](sge::font::string const &_search, sge::font::string const &_whole) {
-              return _search.size() <= _whole.size() &&
-                     _whole.substr(0U, _search.size()) == _search;
-            });
-
-        if (!search_string.empty() && is_prefix_of(search_string, _string.get()))
+        if (!search_string.empty() && _string->starts_with(search_string))
         {
           line_.replace(start_pos, search_string.size(), _string.get());
 
