@@ -1,7 +1,5 @@
 libs/scenic/src/scenic/grid/object.cpp:112:3: warning: Variable 'x' with floating point type 'sge::renderer::scalar' should not be used as a loop counter [clang-analyzer-security.FloatLoopCounter]
-libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/set_bits.hpp:12:27: warning: 2 adjacent parameters of 'set_bits' of similar type ('const T') are easily swapped by mistake [bugprone-easily-swappable-parameters]
 libs/scenic/src/scenic/render_queue/object.cpp:118:3: warning: use a boost version of this algorithm [boost-use-ranges]
-libs/opencl/src/opencl/program/object.cpp:165:7: warning: multilevel pointer conversion from '_cl_device_id **' to 'void *', please use explicit cast [bugprone-multi-level-implicit-pointer-conversion]
 libs/projectile/src/projectile/group/object.cpp:20:16: warning: narrowing conversion from 'int' to signed type 'sge::projectile::group::id' (aka 'short') is implementation-defined [bugprone-narrowing-conversions,cppcoreguidelines-narrowing-conversions]
 plugins/opengl/backends/wayland/src/egl/wayland/display.cpp:9:9: warning: macro is not used [clang-diagnostic-unused-macros]
 plugins/opengl/backends/wayland/src/egl/wayland/surface.cpp:9:9: warning: macro is not used [clang-diagnostic-unused-macros]

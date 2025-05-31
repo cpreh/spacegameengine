@@ -4289,10 +4289,14 @@ libs/rucksack/src/rucksack/widget/reference_alignment.cpp
 libs/rucksackviewport/include/sge/rucksack/viewport/adaptor_fwd.hpp
 libs/rucksackviewport/include/sge/rucksack/viewport/adaptor.hpp
 libs/rucksackviewport/src/rucksack/viewport/adaptor.cpp
+libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/begin.hpp
+libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/input.hpp
 libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/object_decl.hpp
 libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/object_fwd.hpp
 libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/object_impl.hpp
 libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/set_bits.hpp
+libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/size.hpp
+libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/value.hpp
 libs/scenic/impl/include/sge/scenic/impl/render_context/cg/any_color_to_vector4.hpp
 libs/scenic/impl/src/scenic/impl/render_context/cg/any_color_to_vector4.cpp
 libs/scenic/include/sge/scenic/box.hpp
