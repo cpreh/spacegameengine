@@ -1,5 +1,7 @@
+libs/camera/impl/include/sge/camera/impl/direction_from_booleans.hpp
 libs/camera/impl/include/sge/camera/impl/log_name.hpp
 libs/camera/impl/include/sge/camera/impl/set_pressed_if_appropriate.hpp
+libs/camera/impl/src/camera/impl/direction_from_booleans.cpp
 libs/camera/impl/src/camera/impl/log_name.cpp
 libs/camera/impl/src/camera/impl/set_pressed_if_appropriate.cpp
 libs/camera/include/sge/camera/base_fwd.hpp

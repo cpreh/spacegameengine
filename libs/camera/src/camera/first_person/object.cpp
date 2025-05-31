@@ -16,6 +16,7 @@
 #include <sge/camera/coordinate_system/up.hpp>
 #include <sge/camera/first_person/object.hpp>
 #include <sge/camera/first_person/parameters.hpp>
+#include <sge/camera/impl/direction_from_booleans.hpp>
 #include <sge/camera/impl/set_pressed_if_appropriate.hpp>
 #include <sge/input/event_base.hpp>
 #include <sge/input/keyboard/event/key.hpp>
@@ -127,11 +128,6 @@ sge::camera::first_person::object::~object() = default;
 namespace
 {
 
-sge::renderer::scalar direction_from_booleans(bool const _left, bool const _right)
-{
-  return _left && !_right ? -1.0F : _right && !_left ? 1.0F : 0.0F;
-}
-
 }
 
 void sge::camera::first_person::object::key_event(
@@ -156,9 +152,9 @@ void sge::camera::first_person::object::key_event(
       fcppt::make_ref(backward_pressed_), action_mapping_.backward().get(), _key_event);
 
   directions_ = sge::renderer::vector3{
-      direction_from_booleans(right_pressed_, left_pressed_),
-      direction_from_booleans(up_pressed_, down_pressed_),
-      direction_from_booleans(forward_pressed_, backward_pressed_)};
+      sge::camera::impl::direction_from_booleans(right_pressed_, left_pressed_),
+      sge::camera::impl::direction_from_booleans(up_pressed_, down_pressed_),
+      sge::camera::impl::direction_from_booleans(forward_pressed_, backward_pressed_)};
 }
 
 void sge::camera::first_person::object::mouse_axis_event(

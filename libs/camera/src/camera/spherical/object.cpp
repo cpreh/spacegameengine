@@ -10,6 +10,7 @@
 #include <sge/camera/optional_projection_matrix.hpp>
 #include <sge/camera/update_duration.hpp>
 #include <sge/camera/coordinate_system/object.hpp>
+#include <sge/camera/impl/direction_from_booleans.hpp>
 #include <sge/camera/impl/set_pressed_if_appropriate.hpp>
 #include <sge/camera/spherical/object.hpp>
 #include <sge/camera/spherical/parameters.hpp>
@@ -149,16 +150,6 @@ void sge::camera::spherical::object::process_event(sge::input::event_base const 
 
 sge::camera::spherical::object::~object() = default;
 
-namespace
-{
-
-sge::renderer::scalar direction_from_booleans(bool const _left, bool const _right)
-{
-  return _left && !_right ? -1.0F : _right && !_left ? 1.0F : 0.0F;
-}
-
-}
-
 void sge::camera::spherical::object::key_event(sge::input::keyboard::event::key const &_key_event)
 {
   sge::camera::impl::set_pressed_if_appropriate(
@@ -191,12 +182,18 @@ void sge::camera::spherical::object::key_event(sge::input::keyboard::event::key 
       action_mapping_.decrease_radius().get(),
       _key_event);
 
-  acceleration_.azimuth(sge::camera::spherical::coordinate_system::azimuth(
-      direction_from_booleans(increase_azimuth_pressed_, decrease_azimuth_pressed_)));
+  acceleration_.azimuth(
+      sge::camera::spherical::coordinate_system::azimuth(
+          sge::camera::impl::direction_from_booleans(
+              increase_azimuth_pressed_, decrease_azimuth_pressed_)));
 
-  acceleration_.inclination(sge::camera::spherical::coordinate_system::inclination(
-      direction_from_booleans(increase_inclination_pressed_, decrease_inclination_pressed_)));
+  acceleration_.inclination(
+      sge::camera::spherical::coordinate_system::inclination(
+          sge::camera::impl::direction_from_booleans(
+              increase_inclination_pressed_, decrease_inclination_pressed_)));
 
-  acceleration_.radius(sge::camera::spherical::coordinate_system::radius(
-      direction_from_booleans(increase_radius_pressed_, decrease_radius_pressed_)));
+  acceleration_.radius(
+      sge::camera::spherical::coordinate_system::radius(
+          sge::camera::impl::direction_from_booleans(
+              increase_radius_pressed_, decrease_radius_pressed_)));
 }

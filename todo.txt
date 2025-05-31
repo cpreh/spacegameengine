@@ -1,5 +1,3 @@
-libs/camera/src/camera/first_person/object.cpp:132:37: warning: conditional operator is used as sub-expression of parent conditional operator, refrain from using nested conditional operators [readability-avoid-nested-conditional-operator]
-libs/camera/src/camera/spherical/object.cpp:157:37: warning: conditional operator is used as sub-expression of parent conditional operator, refrain from using nested conditional operators [readability-avoid-nested-conditional-operator]
 libs/scenic/src/scenic/grid/object.cpp:112:3: warning: Variable 'x' with floating point type 'sge::renderer::scalar' should not be used as a loop counter [clang-analyzer-security.FloatLoopCounter]
 libs/scenic/impl/include/sge/scenic/impl/number_multiplexer/set_bits.hpp:12:27: warning: 2 adjacent parameters of 'set_bits' of similar type ('const T') are easily swapped by mistake [bugprone-easily-swappable-parameters]
 libs/scenic/src/scenic/render_queue/object.cpp:118:3: warning: use a boost version of this algorithm [boost-use-ranges]
@@ -11,4 +9,3 @@ plugins/opengl/backends/wayland/src/egl/wayland/surface.cpp:9:9: warning: macro 
 plugins/wlinput/src/cursor/object.cpp:158:43: warning: missing field 'axis_value120' initializer [clang-diagnostic-missing-designated-field-initializers]
 plugins/x11input/src/focus/translate_event.cpp:49:13: warning: use of a signed integer operand with a binary bitwise operator [hicpp-signed-bitwise]
 libs/noise/include/sge/noise/simplex/object_impl.hpp:39:3: warning: use a boost version of this algorithm [boost-use-ranges]
-plugins/libpng/src/make_row_vector.cpp:33:69: warning: '*' has higher precedence than '+'; add parentheses to explicitly specify the order of operations [readability-math-missing-parentheses]
