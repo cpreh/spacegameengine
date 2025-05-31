@@ -22,6 +22,7 @@
 #include <fcppt/text.hpp>
 #include <fcppt/algorithm/map.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_void_ptr.hpp>
 #include <fcppt/container/data.hpp>
 #include <fcppt/container/buffer/object.hpp>
 #include <fcppt/container/buffer/to_raw_vector.hpp>
@@ -162,7 +163,7 @@ sge::opencl::program::object::device_id_vector sge::opencl::program::object::pro
       program_,
       CL_PROGRAM_DEVICES,
       static_cast<std::size_t>(sizeof(cl_device_id) * devices.write_size()),
-      devices.write_data(),
+      fcppt::cast::to_void_ptr(devices.write_data()),
       nullptr);
 
   devices.written(devices.write_size());

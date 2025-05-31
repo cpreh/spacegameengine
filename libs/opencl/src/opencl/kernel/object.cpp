@@ -21,6 +21,7 @@
 #include <fcppt/strong_typedef_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/cast/to_void_ptr.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
@@ -77,8 +78,11 @@ void sge::opencl::kernel::object::argument(
 
   cl_mem mem_ptr = _memory.get().impl();
 
-  cl_int const error_code =
-      clSetKernelArg(kernel_, static_cast<cl_uint>(index.get()), sizeof(cl_mem), &mem_ptr);
+  cl_int const error_code = clSetKernelArg(
+      kernel_,
+      static_cast<cl_uint>(index.get()),
+      sizeof(cl_mem),
+      fcppt::cast::to_void_ptr(&mem_ptr));
 
   opencl::impl::handle_error(error_code, FCPPT_TEXT("clSetKernelArg(memory object)"));
 }
