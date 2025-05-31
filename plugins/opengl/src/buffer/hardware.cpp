@@ -132,7 +132,7 @@ void sge::opengl::buffer::hardware::buffer_sub_data(
 void *sge::opengl::buffer::hardware::buffer_offset(sge::opengl::buffer::first const _offset) const
 {
   return
-      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast)
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-type-reinterpret-cast,performance-no-int-to-ptr)
       reinterpret_cast<void *>(_offset.get());
 }
 
