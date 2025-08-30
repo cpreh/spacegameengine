@@ -31,6 +31,7 @@
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <istream>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
