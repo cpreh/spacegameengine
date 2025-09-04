@@ -13,7 +13,7 @@
 #include <sge/image/view/const_object_fwd.hpp>
 #include <sge/image/view/object_fwd.hpp>
 
-#if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
+#ifdef SGE_IMAGE_STATIC_COPY_AND_CONVERT
 #include <sge/image/impl/algorithm/copy_and_convert_static.hpp>
 #else
 #include <sge/image/impl/algorithm/copy_and_convert_dynamic.hpp>
@@ -27,7 +27,7 @@ void sge::image::algorithm::copy_and_convert(
     sge::image::algorithm::uninitialized const _uninitialized)
 {
   // TODO(philipp): automatically use the static version if the dynamic one is not specialized
-#if defined(SGE_IMAGE_STATIC_COPY_AND_CONVERT)
+#ifdef SGE_IMAGE_STATIC_COPY_AND_CONVERT
   sge::image::impl::algorithm::copy_and_convert_static<Tag>(_src, _dest, _overlap, _uninitialized);
 #else
   sge::image::impl::algorithm::copy_and_convert_dynamic<Tag>(_src, _dest, _overlap, _uninitialized);

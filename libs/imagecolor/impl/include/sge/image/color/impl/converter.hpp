@@ -33,6 +33,7 @@ struct converter
   }
 
   template <typename DestFormat, typename Source>
+  [[noreturn]]
   static sge::image::pixel::mizuiro_type<DestFormat> execute(
       Source const &,
       typename mizuiro::color::object<DestFormat>::format_store_type const & =

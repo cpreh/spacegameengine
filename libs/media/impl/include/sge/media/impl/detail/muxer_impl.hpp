@@ -40,6 +40,7 @@
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/log/debug.hpp>
 #include <fcppt/log/out.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp>
@@ -61,61 +62,64 @@ FCPPT_PP_DISABLE_VC_WARNING(4355)
 template <typename System, typename File>
 sge::media::detail::muxer<System, File>::muxer(parameters const &_parameters)
     : log_{_parameters.log_context(), sge::log::location(), sge::media::impl::log_name()},
-      plugins_(fcppt::algorithm::map_optional<plugin_system_pair_container>(
-          _parameters.collection(),
-          [this, &_parameters](sge::plugin::context<System> const &_context)
-          {
-            plugin_type plugin(_context.load());
+      plugins_{
+          fcppt::algorithm::map_optional<plugin_system_pair_container>(
+              _parameters.collection(),
+              [this, &_parameters](sge::plugin::context<System> const &_context)
+              {
+                plugin_type plugin{_context.load()};
 
-            system_unique_ptr system_instance(plugin.get()(_parameters.log_context()));
+                system_unique_ptr system_instance{plugin.get()(_parameters.log_context())};
 
-            using optional_plugin_system_pair = fcppt::optional::object<plugin_system_pair>;
+                using optional_plugin_system_pair = fcppt::optional::object<plugin_system_pair>;
 
-            FCPPT_PP_PUSH_WARNING
-            FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
-            optional_plugin_system_pair result(
-                fcppt::optional::maybe(
-                    _parameters.extensions(),
-                    fcppt::const_(true),
-                    [&system_instance](sge::media::extension_set const &_extensions) {
-                      return !fcppt::container::set_intersection(
-                                  _extensions, system_instance->extensions())
-                                  .empty();
-                    })
-                    ? optional_plugin_system_pair(
-                          std::make_pair(std::move(plugin), std::move(system_instance)))
-                    : optional_plugin_system_pair());
-            FCPPT_PP_POP_WARNING
+                FCPPT_PP_PUSH_WARNING
+                FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
+                optional_plugin_system_pair result{fcppt::optional::make_if(
+                    fcppt::optional::maybe(
+                        _parameters.extensions(),
+                        fcppt::const_(true),
+                        [&system_instance](sge::media::extension_set const &_extensions)
+                        {
+                          return !fcppt::container::set_intersection(
+                                      _extensions, system_instance->extensions())
+                                      .empty();
+                        }),
+                    [&plugin, &system_instance]
+                    { return std::make_pair(std::move(plugin), std::move(system_instance)); })};
+                FCPPT_PP_POP_WARNING
 
-            if (!result.has_value())
-              FCPPT_LOG_DEBUG(
-                  this->log_,
-                  fcppt::log::out << FCPPT_TEXT("System ")
-                                  << fcppt::from_std_string(
-                                         fcppt::type_name_from_info(typeid(system)))
-                                  << FCPPT_TEXT(" didn't find plugin ")
-                                  << fcppt::filesystem::path_to_string(_context.path())
-                                  << FCPPT_TEXT(" to be useful."))
+                if (!result.has_value())
+                {
+                  FCPPT_LOG_DEBUG(
+                      this->log_,
+                      fcppt::log::out
+                          << FCPPT_TEXT("System ")
+                          << fcppt::from_std_string(fcppt::type_name_from_info(typeid(system)))
+                          << FCPPT_TEXT(" didn't find plugin ")
+                          << fcppt::filesystem::path_to_string(_context.path())
+                          << FCPPT_TEXT(" to be useful."))
+                }
 
-            return result;
-          })),
-      extensions_(fcppt::algorithm::fold(
+                return std::move(result);
+              })},
+      extensions_{fcppt::algorithm::fold(
           this->plugins_,
           sge::media::extension_set(),
           [](plugin_system_pair const &_plugin, sge::media::extension_set const &_state)
-          {
-            return fcppt::container::set_union(_plugin.second->extensions(), _state);
-          })){
+          { return fcppt::container::set_union(_plugin.second->extensions(), _state); })}
+{
           FCPPT_LOG_DEBUG(
               this->log_,
               fcppt::log::out << FCPPT_TEXT("Available extensions for system ")
                               << fcppt::from_std_string(fcppt::type_name_from_info(typeid(system)))
                               << FCPPT_TEXT(" are ") << fcppt::container::output(this->extensions_)
-                              << FCPPT_TEXT('.'))}
+                              << FCPPT_TEXT('.'))
+}
 
-      FCPPT_PP_POP_WARNING
+FCPPT_PP_POP_WARNING
 
-      namespace sge::media::detail
+namespace sge::media::detail
 {
   template <typename System, typename File>
   muxer<System, File>::~muxer() = default;

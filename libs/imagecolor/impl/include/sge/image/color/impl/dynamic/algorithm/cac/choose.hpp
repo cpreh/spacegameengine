@@ -56,6 +56,7 @@ choose(SourceFormat const &, DestFormat const &)
 }
 
 template <typename SourceFormat, typename DestFormat>
+[[noreturn]]
 inline sge::image::color::impl::dynamic::algorithm::cac::function<SourceFormat, DestFormat>
 choose(SourceFormat const &_source, DestFormat const &_dest)
   requires(fcppt::not_(

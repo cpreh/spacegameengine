@@ -10,9 +10,9 @@
 #include <sge/plugin/library/symbol_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/config/platform.hpp>
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <sge/plugin/impl/library/cast_function_unsafe.hpp>
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
 #include <fcppt/cast/from_void_ptr.hpp>
 #endif
 
@@ -22,13 +22,13 @@ sge::plugin::library::function_base sge::plugin::impl::library::load_function_ba
 {
   sge::plugin::library::symbol_string const map_name{"sge_plugin_functions"};
 
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   using map_function = sge::plugin::library::function_map const *(*)();
 
   return sge::plugin::impl::library::cast_function_unsafe<map_function>(
              _object.get().load(map_name))()
       ->function(_name);
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
   return fcppt::cast::from_void_ptr<sge::plugin::library::function_map *>(
              _object.get().load(map_name))
       ->function(_name);

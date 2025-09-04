@@ -8,10 +8,10 @@
 #include <fcppt/string.hpp>
 #include <fcppt/config/platform.hpp>
 #include <fcppt/optional/make_if.hpp>
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <awl/backends/windows/format_message.hpp>
 #include <awl/backends/windows/windows.hpp>
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <dlfcn.h>
@@ -22,12 +22,12 @@
 
 fcppt::optional_string sge::plugin::impl::library::error()
 {
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#ifdef FCPPT_CONFIG_POSIX_PLATFORM
   char const *const err{dlerror()}; // NOLINT(concurrency-mt-unsafe)
 
   return fcppt::optional::make_if(
       err != nullptr, [err]() -> fcppt::string { return fcppt::from_std_string(err); });
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   DWORD const err{::GetLastError()};
 
   return fcppt::optional::make_if(

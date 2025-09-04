@@ -16,7 +16,7 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/unique_ptr_decl.hpp>
 #endif
@@ -43,13 +43,13 @@ public:
 private:
   std::filesystem::path const name_;
 
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   HMODULE const handle_;
 
   struct destroyer;
 
   fcppt::unique_ptr<destroyer> const destroyer_;
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
   void *const handle_;
 #else
 #error "Don't know how to implement plugin::library!"

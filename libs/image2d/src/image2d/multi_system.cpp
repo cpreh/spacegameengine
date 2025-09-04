@@ -28,7 +28,7 @@
 #include <fcppt/config/external_end.hpp>
 
 sge::image2d::multi_system::multi_system(sge::image2d::multi_system_parameters const &_params)
-    : sge::image2d::system(), muxer_(_params)
+    : sge::image2d::system{}, muxer_{_params}
 {
 }
 

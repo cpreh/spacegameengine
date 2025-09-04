@@ -11,11 +11,11 @@
 fcppt::string sge::plugin::file_extension()
 {
   return
-#if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
+#ifdef FCPPT_CONFIG_DARWIN_PLATFORM
       FCPPT_TEXT("dylib")
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
       FCPPT_TEXT("so")
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
       FCPPT_TEXT("dll")
 #else
 #error "Don't know which plugin extension to use!"

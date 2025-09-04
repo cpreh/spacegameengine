@@ -15,28 +15,28 @@
 #include <fcppt/filesystem/path_to_string.hpp>
 #include <fcppt/optional/from.hpp>
 #include <fcppt/config/external_begin.hpp>
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <exception>
 #include <vector>
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
 #include <dlfcn.h>
 #endif
 #include <filesystem>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <awl/backends/windows/windows.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
 #include <fcppt/optional/maybe_void.hpp>
 #else
 #error "Implement me!"
 #endif
 
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 namespace
 {
 
@@ -77,10 +77,10 @@ public:
 
 sge::plugin::library::object::object(std::filesystem::path &&_name)
     : name_(std::move(_name)),
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
       handle_(::LoadLibrary(fcppt::filesystem::path_to_string(name_).c_str())),
       destroyer_(fcppt::make_unique_ptr<destroyer>())
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
       handle_(::dlopen(name_.string().c_str(), RTLD_NOW))
 #endif
 {
@@ -101,7 +101,7 @@ sge::plugin::library::object::~object()
     return;
   }
 
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   // NOTE: We can't free the library here,
   // because an exception might be propagating that
   // has been thrown from a DLL.
@@ -115,7 +115,7 @@ sge::plugin::library::object::~object()
   {
     free_library(handle_);
   }
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
   ::dlclose(handle_);
 #endif
 }
@@ -125,7 +125,7 @@ std::filesystem::path const &sge::plugin::library::object::name() const { return
 sge::plugin::impl::library::loaded_symbol
 sge::plugin::library::object::load(sge::plugin::library::symbol_string const &_fun)
 {
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   FARPROC const ret{::GetProcAddress(this->handle_, _fun.c_str())};
 
   if (ret == nullptr)
@@ -136,15 +136,16 @@ sge::plugin::library::object::load(sge::plugin::library::symbol_string const &_f
   };
 
   return ret;
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
   // NOLINTNEXTLINE(concurrency-mt-unsafe)
   ::dlerror(); // clear last error
 
+  // NOLINTNEXTLINE(misc-const-correctness)
   void *const ret{::dlsym(this->handle_, _fun.c_str())};
 
   fcppt::optional::maybe_void(
       sge::plugin::impl::library::error(),
-      [&_fun, this](fcppt::string &&_error)
+      [&_fun, this] [[noreturn]] (fcppt::string &&_error)
       {
         throw sge::plugin::library::exception{
             fcppt::from_std_string(_fun) + FCPPT_TEXT(" not found in library ") +

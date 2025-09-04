@@ -7,16 +7,16 @@
 #define SGE_PLUGIN_IMPL_LIBRARY_LOADED_SYMBOL_HPP_INCLUDED
 
 #include <fcppt/config/platform.hpp>
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <sge/core/impl/include_windows.hpp>
 #endif
 
 namespace sge::plugin::impl::library
 {
 
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#ifdef FCPPT_CONFIG_POSIX_PLATFORM
 using loaded_symbol = void *;
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 using loaded_symbol = FARPROC;
 #else
 #error "Don't know what a library's symbol is!"
