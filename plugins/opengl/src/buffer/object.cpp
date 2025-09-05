@@ -188,6 +188,7 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
         FCPPT_TEXT("ogl_buffer used but the buffer has not been locked!")};
   }
 
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   return this->dest_ + this->lock_offset_;
 
 FCPPT_PP_POP_WARNING

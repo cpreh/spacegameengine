@@ -29,18 +29,18 @@
 #include <utility>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
-#if defined(SGE_OPENGL_HAVE_SDL)
+#ifdef SGE_OPENGL_HAVE_SDL
 #include <sge/opengl/sdl/backend_system.hpp>
 #include <awl/backends/sdl/system/object.hpp>
 #endif
-#if defined(SGE_OPENGL_HAVE_EGL)
+#ifdef SGE_OPENGL_HAVE_EGL
 #include <sge/opengl/egl/system.hpp>
 #endif
-#if defined(SGE_OPENGL_HAVE_GLX)
+#ifdef SGE_OPENGL_HAVE_GLX
 #include <sge/opengl/glx/system.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #endif
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <sge/opengl/wgl/system.hpp>
 #endif
 
@@ -56,7 +56,7 @@ create_function_exn_vector create_functions_exn()
 {
   return create_function_exn_vector
   {
-#if defined(SGE_OPENGL_HAVE_SDL)
+#ifdef SGE_OPENGL_HAVE_SDL
     create_function_exn{
         [](fcppt::log::object_reference, awl::system::object_ref const _awl_system)
         {
@@ -70,7 +70,7 @@ create_function_exn_vector create_functions_exn()
                       })));
         }},
 #endif
-#if defined(SGE_OPENGL_HAVE_EGL)
+#ifdef SGE_OPENGL_HAVE_EGL
         create_function_exn{
             [](fcppt::log::object_reference const _log, awl::system::object_ref const _awl_system)
             {
@@ -78,7 +78,7 @@ create_function_exn_vector create_functions_exn()
                   fcppt::make_unique_ptr<sge::opengl::egl::system>(_log, _awl_system));
             }},
 #endif
-#if defined(SGE_OPENGL_HAVE_GLX)
+#ifdef SGE_OPENGL_HAVE_GLX
         create_function_exn{
             [](fcppt::log::object_reference const _log, awl::system::object_ref const _awl_system)
             {
@@ -94,7 +94,7 @@ create_function_exn_vector create_functions_exn()
                           })));
             }},
 #endif
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
         create_function_exn{
             [](fcppt::log::object_reference, awl::system::object_ref const _awl_system)
             {
@@ -104,7 +104,7 @@ create_function_exn_vector create_functions_exn()
 #endif
         create_function_exn
     {
-      [](fcppt::log::object_reference,
+      [] [[noreturn]] (fcppt::log::object_reference,
          awl::system::object_ref) -> sge::opengl::backend::system_unique_ptr
       { throw sge::renderer::exception{fcppt::string{FCPPT_TEXT("All possibilities exhausted.")}}; }
     }

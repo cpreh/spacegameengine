@@ -33,11 +33,11 @@
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
-#if defined(SGE_OPENGL_HAVE_X11)
+#ifdef SGE_OPENGL_HAVE_X11
 #include <sge/opengl/egl/x11/display.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #endif
-#if defined(SGE_OPENGL_HAVE_WAYLAND)
+#ifdef SGE_OPENGL_HAVE_WAYLAND
 #include <sge/opengl/egl/wayland/display.hpp>
 #include <awl/backends/wayland/system/object.hpp>
 #endif
@@ -82,7 +82,7 @@ sge::opengl::egl::display_unique_ptr sge::opengl::egl::create_display(
 {
   return fcppt::either::to_exception(
       fcppt::either::first_success(fcppt::array::make(
-#if defined(SGE_OPENGL_HAVE_X11)
+#ifdef SGE_OPENGL_HAVE_X11
           try_create(
               _awl_system,
               create_function<sge::opengl::egl::x11::display, awl::backends::x11::system::object>{
@@ -90,7 +90,7 @@ sge::opengl::egl::display_unique_ptr sge::opengl::egl::create_display(
                     return fcppt::make_unique_ptr<sge::opengl::egl::x11::display>(_log, _system);
                   }}),
 #endif
-#if defined(SGE_OPENGL_HAVE_WAYLAND)
+#ifdef SGE_OPENGL_HAVE_WAYLAND
           try_create(
               _awl_system,
               create_function<

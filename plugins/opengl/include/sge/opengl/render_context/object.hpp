@@ -44,7 +44,7 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/object_decl.hpp>
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
 #include <sge/renderer/cg/const_loaded_program_ref.hpp>
 #include <sge/renderer/cg/const_loaded_texture_ref.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
@@ -135,7 +135,7 @@ private:
       sge::renderer::state::ffp::transform::mode,
       sge::renderer::state::ffp::transform::const_optional_object_ref const &) override;
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
   void set_cg_program(sge::renderer::cg::const_loaded_program_ref) override;
 
   void unset_cg_program(sge::renderer::cg::loaded_program const &) override;

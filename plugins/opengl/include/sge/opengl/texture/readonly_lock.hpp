@@ -41,11 +41,11 @@ public:
 
   [[nodiscard]] pointer read_pointer() override;
 
-  [[nodiscard]] pointer write_pointer() override;
+  [[noreturn]] [[nodiscard]] pointer write_pointer() override;
 
   [[nodiscard]] pointer read_view_pointer() override;
 
-  [[nodiscard]] pointer write_view_pointer() override;
+  [[noreturn]] [[nodiscard]] pointer write_view_pointer() override;
 
 private:
   [[nodiscard]] sge::renderer::lock_flags::method method() const override;

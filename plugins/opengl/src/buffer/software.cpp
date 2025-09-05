@@ -72,6 +72,7 @@ GLvoid *sge::opengl::buffer::software::map_buffer(GLenum)
 GLvoid *sge::opengl::buffer::software::map_buffer_range(
     GLbitfield, sge::opengl::buffer::first const _first, sge::opengl::buffer::size)
 {
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   return this->buffer_object(this->bound_buffer()) + _first.get();
 }
 
@@ -111,6 +112,7 @@ void sge::opengl::buffer::software::buffer_sub_data(
   }
 
   std::copy_n(
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
       fcppt::cast::to_char_ptr<sge::renderer::const_raw_pointer>(_data) + _first.get(),
       _size.get(),
       this->buffer_object(this->bound_buffer()));
@@ -121,6 +123,7 @@ void *sge::opengl::buffer::software::buffer_offset(sge::opengl::buffer::first co
   return
       // NOLINTNEXTLINE(cppcoreguidelines-pro-type-const-cast)
       const_cast<sge::renderer::raw_pointer>(
+          // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
           this->buffer_object(this->bound_buffer()) + _offset.get());
 }
 

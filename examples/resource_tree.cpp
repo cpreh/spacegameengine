@@ -16,7 +16,9 @@
 #include <fcppt/random/generator/seed_from_chrono.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
+#include <exception>
 #include <filesystem>
+#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 namespace
@@ -56,6 +58,12 @@ try
 catch (fcppt::exception const &_error)
 {
   fcppt::io::cerr() << _error.string() << FCPPT_TEXT('\n');
+
+  return EXIT_FAILURE;
+}
+catch (std::exception const &_error)
+{
+  std::cerr << _error.what() << '\n';
 
   return EXIT_FAILURE;
 }

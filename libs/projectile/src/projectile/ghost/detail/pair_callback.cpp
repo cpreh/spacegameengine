@@ -7,6 +7,7 @@
 #include <sge/projectile/body/object.hpp>
 #include <sge/projectile/ghost/object.hpp>
 #include <sge/projectile/impl/ghost/detail/pair_callback.hpp>
+#include <fcppt/cast/from_void_ptr.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <BulletCollision/BroadphaseCollision/btBroadphaseProxy.h>
@@ -49,8 +50,8 @@ btBroadphasePair *sge::projectile::ghost::detail::pair_callback::addOverlappingP
       }
       void *user_pointer1 = col_obj1->getUserPointer();
 
-      static_cast<object *>(user_pointer0)
-          ->enter_internal(*static_cast<body::object const *>(user_pointer1));
+      fcppt::cast::from_void_ptr<object *>(user_pointer0)
+          ->enter_internal(*fcppt::cast::from_void_ptr<body::object const *>(user_pointer1));
     }
     ghost0->addOverlappingObjectInternal(proxy1, proxy0);
   }
@@ -74,8 +75,8 @@ btBroadphasePair *sge::projectile::ghost::detail::pair_callback::addOverlappingP
       }
       void *user_pointer0 = col_obj0->getUserPointer();
 
-      static_cast<object *>(user_pointer1)
-          ->enter_internal(*static_cast<body::object const *>(user_pointer0));
+      fcppt::cast::from_void_ptr<object *>(user_pointer1)
+          ->enter_internal(*fcppt::cast::from_void_ptr<body::object const *>(user_pointer0));
     }
 
     ghost1->addOverlappingObjectInternal(proxy0, proxy1);
@@ -114,8 +115,8 @@ void *sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
       }
       void *user_pointer1 = col_obj1->getUserPointer();
 
-      static_cast<object *>(user_pointer0)
-          ->exit_internal(*static_cast<body::object const *>(user_pointer1));
+      fcppt::cast::from_void_ptr<object *>(user_pointer0)
+          ->exit_internal(*fcppt::cast::from_void_ptr<body::object const *>(user_pointer1));
     }
     ghost0->removeOverlappingObjectInternal(proxy1, dispatcher, proxy0);
   }
@@ -139,8 +140,8 @@ void *sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
       }
       void *user_pointer0 = col_obj0->getUserPointer();
 
-      static_cast<object *>(user_pointer1)
-          ->exit_internal(*static_cast<body::object const *>(user_pointer0));
+      fcppt::cast::from_void_ptr<object *>(user_pointer1)
+          ->exit_internal(*fcppt::cast::from_void_ptr<body::object const *>(user_pointer0));
     }
     ghost1->removeOverlappingObjectInternal(proxy0, dispatcher, proxy1);
   }
@@ -148,6 +149,7 @@ void *sge::projectile::ghost::detail::pair_callback::removeOverlappingPair(
   return nullptr;
 }
 
+[[noreturn]]
 void sge::projectile::ghost::detail::pair_callback::removeOverlappingPairsContainingProxy(
     btBroadphaseProxy *, btDispatcher *)
 {

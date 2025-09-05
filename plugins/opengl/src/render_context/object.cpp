@@ -70,7 +70,7 @@
 #include <fcppt/optional/maybe.hpp>
 #include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
 #include <sge/opengl/cg/program/activate.hpp>
 #include <sge/opengl/cg/program/deactivate.hpp>
 #include <sge/opengl/cg/texture/disable.hpp>
@@ -263,7 +263,7 @@ void sge::opengl::render_context::object::transform(
   sge::opengl::state::ffp::transform::set(context_.get(), _mode, _state);
 }
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
 void sge::opengl::render_context::object::set_cg_program(
     sge::renderer::cg::const_loaded_program_ref const _program)
 {

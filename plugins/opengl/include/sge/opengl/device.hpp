@@ -79,7 +79,7 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/signal/auto_connection.hpp>
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/profile/object_fwd.hpp>
@@ -157,7 +157,7 @@ private:
   [[nodiscard]] sge::renderer::state::core::sampler::object_unique_ptr
   create_sampler_state(sge::renderer::state::core::sampler::parameters const &) override;
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
   [[nodiscard]] sge::cg::profile::object create_cg_profile(sge::cg::profile::shader_type) override;
 
   [[nodiscard]] sge::cg::program::compile_options

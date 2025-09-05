@@ -85,7 +85,7 @@ awl::event::optional_base_unique_ptr change_caps(
 
               _map.get().erase(_iterator);
 
-              return result;
+              return std::move(result);
             });
       });
 

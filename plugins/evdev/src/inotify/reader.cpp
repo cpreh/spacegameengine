@@ -20,7 +20,7 @@
 #include <unistd.h>
 #include <linux/limits.h>
 #include <sys/inotify.h>
-#include <sys/types.h>
+#include <sys/types.h> // NOLINT(misc-include-cleaner)
 #include <cstddef>
 #include <cstring>
 #include <filesystem>
@@ -44,6 +44,7 @@ sge::evdev::inotify::event_container sge::evdev::inotify::reader::on_event()
 
   buffer_array buffer{fcppt::no_init{}};
 
+  // NOLINTNEXTLINE(misc-include-cleaner)
   ssize_t const ret{::read(this->object_.fd().get(), buffer.data(), buffer.size())};
 
   if(ret == -1)

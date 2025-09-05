@@ -11,7 +11,7 @@
 #include <sge/opengl/error_string.hpp> // IWYU pragma: keep
 #include <sge/renderer/opengl/glinclude.hpp>
 
-#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+#ifdef SGE_OPENGL_CHECK_STATE_ALWAYS
 #define SGE_OPENGL_CHECK_STATE(message, exception) \
   SGE_CORE_CHECK_STATE( \
       exception, message, GLenum, ::glGetError(), GL_NO_ERROR, sge::opengl::error_string)

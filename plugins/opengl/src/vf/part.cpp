@@ -53,6 +53,7 @@ void sge::opengl::vf::part::use_me(sge::opengl::vf::pointer const _src) const
   {
     (*actor)(
         fcppt::make_ref(states),
+        // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
         fcppt::cast::from_void_ptr<unsigned char const *>(_src) + actor->offset().get());
   }
 }

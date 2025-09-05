@@ -30,6 +30,7 @@ sge::libpng::row_vector sge::libpng::make_row_vector(
   return fcppt::algorithm::map<sge::libpng::row_vector>(
       fcppt::make_int_range_count(_size.h()),
       [_data, // NOLINT(misc-misplaced-const)
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
        stride](sge::image::size_type const _index) { return _data + (_index * stride); });
 }
 

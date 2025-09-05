@@ -5,7 +5,7 @@
 
 #include <sge/opengl/check_state_always.hpp>
 #include <sge/opengl/check_state_once.hpp>
-#if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+#ifndef SGE_OPENGL_CHECK_STATE_ALWAYS
 #include <sge/opengl/call.hpp>
 #include <sge/opengl/error_string.hpp>
 #include <sge/renderer/exception.hpp>
@@ -16,7 +16,7 @@
 
 void sge::opengl::check_state_once()
 {
-#if !defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+#ifndef SGE_OPENGL_CHECK_STATE_ALWAYS
   GLenum ret(GL_NO_ERROR);
 
   fcppt::string errors{};

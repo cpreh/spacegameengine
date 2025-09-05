@@ -8,7 +8,7 @@
 
 #include <sge/opengl/check_state_always.hpp>
 #include <fcppt/string.hpp>
-#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+#ifdef SGE_OPENGL_CHECK_STATE_ALWAYS
 #include <sge/opengl/check_state.hpp>
 #include <sge/renderer/exception.hpp>
 #include <fcppt/text.hpp>
@@ -18,14 +18,14 @@ namespace sge::opengl::state
 {
 
 inline void check_error(
-#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+#ifdef SGE_OPENGL_CHECK_STATE_ALWAYS
     fcppt::string const &_what
 #else
     fcppt::string const &
 #endif
 )
 {
-#if defined(SGE_OPENGL_CHECK_STATE_ALWAYS)
+#ifdef SGE_OPENGL_CHECK_STATE_ALWAYS
   SGE_OPENGL_CHECK_STATE(_what + FCPPT_TEXT(" failed!"), sge::renderer::exception)
 #endif
 }

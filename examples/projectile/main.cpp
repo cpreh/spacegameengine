@@ -185,7 +185,7 @@ Container container_from_stream(std::basic_istream<Ch, Traits> &s)
     s >> c;
   }
 
-  return result;
+  return std::move(result);
 }
 
 class body

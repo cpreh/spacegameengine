@@ -15,7 +15,7 @@
 
 template <typename Part, typename Constness>
 sge::renderer::vf::view<Part, Constness>::view(dynamic_view_type const &_view)
-    : data_(_view.data()), size_(_view.size())
+    : data_{_view.data()}, size_{_view.size()}
 {
 }
 
@@ -23,7 +23,7 @@ template <typename Part, typename Constness>
 template <typename OtherView>
 sge::renderer::vf::view<Part, Constness>::view(
     sge::renderer::vf::dynamic::basic_view<OtherView> const &_view)
-    : data_(_view.data()), size_(_view.size())
+    : data_{_view.data()}, size_{_view.size()}
 {
 }
 
@@ -31,7 +31,7 @@ template <typename Part, typename Constness>
 typename sge::renderer::vf::view<Part, Constness>::iterator
 sge::renderer::vf::view<Part, Constness>::begin() const
 {
-  return iterator(data_);
+  return iterator{this->data_};
 }
 
 template <typename Part, typename Constness>
@@ -41,7 +41,8 @@ sge::renderer::vf::view<Part, Constness>::end() const
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
-  return iterator(data_ + size_.get());
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
+  return iterator{this->data_ + size_.get()};
 
 FCPPT_PP_POP_WARNING
 }

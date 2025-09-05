@@ -99,6 +99,7 @@ private:
   // have addRigidBody with group and mask parameter.
   fcppt::unique_ptr<btDiscreteDynamicsWorld> const world_;
   fcppt::unique_ptr<sge::projectile::ghost::detail::pair_callback> const ghost_pair_callback_;
+  // NOLINTNEXTLINE(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
   sge::projectile::group::id next_group_id_;
 
   // for group

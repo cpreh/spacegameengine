@@ -26,6 +26,7 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 sge::opengl::xrandr::modes_view::const_iterator sge::opengl::xrandr::modes_view::end() const
 {
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   return this->begin() + resources_.get().get_ref().nmode;
 }
 

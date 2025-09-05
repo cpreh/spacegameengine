@@ -17,6 +17,7 @@ ALCcontext *sge::openal::funcs::alc_create_context(fcppt::reference<ALCdevice> c
 {
   fcppt::array::object<ALCint, 1U> const attributes{0};
 
+  // NOLINTNEXTLINE(misc-const-correctness)
   ALCcontext *const result(::alcCreateContext(&_device.get(), attributes.data()));
 
   SGE_OPENAL_CHECK_ALC_STATE(

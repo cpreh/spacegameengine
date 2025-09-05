@@ -249,6 +249,7 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 void sge::projectile::world::internal_tick_callback(btScalar /* time_step */)
 {
   for (
+      // NOLINTNEXTLINE(misc-const-correctness)
       btPersistentManifold **
           current_manifold = world_->getDispatcher()->getInternalManifoldPointer(),
         **manifold_end =

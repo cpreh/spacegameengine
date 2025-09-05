@@ -39,11 +39,11 @@ public:
 
   void post_copy() override;
 
-  [[nodiscard]] pointer read_pointer() override;
+  [[noreturn]] [[nodiscard]] pointer read_pointer() override;
 
   [[nodiscard]] pointer write_pointer() override;
 
-  [[nodiscard]] pointer read_view_pointer() override;
+  [[noreturn]] [[nodiscard]] pointer read_view_pointer() override;
 
   [[nodiscard]] pointer write_view_pointer() override;
 

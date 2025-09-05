@@ -139,7 +139,7 @@
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/optional/maybe_void.hpp>
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/profile/object.hpp>
@@ -297,7 +297,7 @@ sge::renderer::state::core::sampler::object_unique_ptr sge::opengl::device::crea
   return sge::opengl::state::core::sampler::create(fcppt::make_ref(context_), _parameters);
 }
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
 sge::cg::profile::object
 sge::opengl::device::create_cg_profile(sge::cg::profile::shader_type const _shader_type)
 {

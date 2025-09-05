@@ -70,6 +70,7 @@ void sge::opengl::buffer::hardware::bind_buffer(sge::opengl::buffer::optional_id
 
 GLvoid *sge::opengl::buffer::hardware::map_buffer(GLenum const _flags)
 {
+  // NOLINTNEXTLINE(misc-const-correctness)
   GLvoid *const ret{fcppt::cast::to_void_ptr(
       sge::opengl::call_fun_ref(this->config_.get().map_buffer(), this->type_.get(), _flags))};
 
@@ -83,6 +84,7 @@ GLvoid *sge::opengl::buffer::hardware::map_buffer_range(
     sge::opengl::buffer::first const _first,
     sge::opengl::buffer::size const _size)
 {
+  // NOLINTNEXTLINE(misc-const-correctness)
   GLvoid *const ret{sge::opengl::call_fun_ref(
       fcppt::optional::to_exception(
           this->config_.get().map_buffer_range(),

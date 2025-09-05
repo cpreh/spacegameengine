@@ -33,6 +33,7 @@ sge::opengl::xrandr::sizes::iterator sge::opengl::xrandr::sizes::end() const
 XRRScreenSize const &
 sge::opengl::xrandr::sizes::operator[](sge::opengl::xrandr::mode_index const _index) const
 {
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   return *(this->begin() + _index.get());
 }
 

@@ -8,13 +8,13 @@
 
 #include <fcppt/config/platform.hpp>
 
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#ifdef FCPPT_CONFIG_POSIX_PLATFORM
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_POST \
 ); \
   }
 
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 
 #include <sge/plugin/library/function_map.hpp>
 #include <fcppt/symbol/export.hpp>

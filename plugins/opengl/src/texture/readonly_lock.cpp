@@ -54,6 +54,7 @@ sge::opengl::texture::readonly_lock::pointer sge::opengl::texture::readonly_lock
   return buffer_.raw_buffer();
 }
 
+[[noreturn]]
 sge::opengl::texture::readonly_lock::pointer sge::opengl::texture::readonly_lock::write_pointer()
 {
   throw sge::renderer::exception{FCPPT_TEXT("opengl::texture::readonly_lock::write_pointer called!")};
@@ -65,6 +66,7 @@ sge::opengl::texture::readonly_lock::read_view_pointer()
   return buffer_.data();
 }
 
+[[noreturn]]
 sge::opengl::texture::readonly_lock::pointer
 sge::opengl::texture::readonly_lock::write_view_pointer()
 {

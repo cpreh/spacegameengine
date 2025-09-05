@@ -15,7 +15,7 @@
 
 vorbis_info sge::vorbis::info(sge::vorbis::stream &_stream, sge::media::optional_name const &_name)
 {
-  vorbis_info *const info(::ov_info(_stream.get(), -1));
+  vorbis_info const *const info{::ov_info(_stream.get(), -1)};
 
   if (info == nullptr)
   {

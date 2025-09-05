@@ -65,8 +65,8 @@
 // TODO(philipp)
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wfloat-equal)
-#include <fcppt/catch/begin.hpp>
-#include <fcppt/catch/end.hpp>
+#include <fcppt/catch/begin.hpp> // NOLINT(readability-duplicate-include)
+#include <fcppt/catch/end.hpp> // NOLINT(readability-duplicate-include)
 #include <fcppt/math/vector/comparison.hpp>
 FCPPT_PP_POP_WARNING
 

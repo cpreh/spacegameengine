@@ -33,6 +33,7 @@ private:
   [[nodiscard]] void *
   removeOverlappingPair(btBroadphaseProxy *, btBroadphaseProxy *, btDispatcher *) override;
 
+  [[noreturn]]
   void removeOverlappingPairsContainingProxy(btBroadphaseProxy *, btDispatcher *) override;
 };
 

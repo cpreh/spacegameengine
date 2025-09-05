@@ -9,7 +9,7 @@
 #include <sge/plugin/library/function_map.hpp> // IWYU pragma: keep
 #include <fcppt/config/platform.hpp>
 
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#ifdef FCPPT_CONFIG_POSIX_PLATFORM
 #include <fcppt/symbol/export.hpp>
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
@@ -18,7 +18,7 @@
     FCPPT_SYMBOL_EXPORT \
 sge::plugin::library::function_map sge_plugin_functions(
 
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 
 #define SGE_PLUGIN_LIBRARY_DETAIL_INTERFACE_PRE \
   namespace \

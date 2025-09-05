@@ -49,6 +49,7 @@ void sge::opengl::texture::writeonly_lock::pre_unlock() {}
 
 void sge::opengl::texture::writeonly_lock::post_copy() {}
 
+[[noreturn]]
 sge::opengl::texture::writeonly_lock::pointer sge::opengl::texture::writeonly_lock::read_pointer()
 {
   throw sge::renderer::exception{FCPPT_TEXT("opengl::texture::writeonly_lock::read_pointer called!")};
@@ -59,6 +60,7 @@ sge::opengl::texture::writeonly_lock::pointer sge::opengl::texture::writeonly_lo
   return buffer_.raw_buffer();
 }
 
+[[noreturn]]
 sge::opengl::texture::writeonly_lock::pointer
 sge::opengl::texture::writeonly_lock::read_view_pointer()
 {

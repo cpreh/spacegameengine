@@ -17,7 +17,7 @@
 sge::opengl::glx::extension_set
 sge::opengl::glx::get_extensions(awl::backends::x11::display_ref const _display)
 {
-#if defined(GLX_VERSION_1_1)
+#ifdef GLX_VERSION_1_1
   const char *const result(::glXQueryExtensionsString(
       _display.get().get(), awl::backends::x11::default_screen(_display).get()));
 

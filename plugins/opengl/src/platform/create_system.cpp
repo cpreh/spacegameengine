@@ -34,19 +34,19 @@
 #include <fcppt/config/external_end.hpp>
 
 #include <fcppt/config/platform.hpp> // NOLINT(misc-include-cleaner)
-#if defined(SGE_OPENGL_HAVE_SDL)
+#ifdef SGE_OPENGL_HAVE_SDL
 #include <sge/opengl/sdl/platform_system.hpp>
 #include <awl/backends/sdl/system/object.hpp>
 #endif
-#if defined(SGE_OPENGL_HAVE_X11)
+#ifdef SGE_OPENGL_HAVE_X11
 #include <sge/opengl/x11/system.hpp>
 #include <awl/backends/x11/system/object.hpp>
 #endif
-#if defined(SGE_OPENGL_HAVE_WAYLAND)
+#ifdef SGE_OPENGL_HAVE_WAYLAND
 #include <sge/opengl/wayland/system.hpp>
 #include <awl/backends/wayland/system/object.hpp>
 #endif
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <sge/opengl/windows/system.hpp>
 #endif
 
@@ -66,7 +66,7 @@ using either_type = fcppt::either::object<fcppt::string, sge::opengl::platform::
 
 using function_type = fcppt::function<either_type()>;
 
-#if defined(SGE_OPENGL_NEED_TRY_CREATE)
+#ifdef SGE_OPENGL_NEED_TRY_CREATE
 
 template <typename Result, typename Arg>
 // TODO(philipp): Why is fcppt::function a problem here?
@@ -99,13 +99,13 @@ try_create(awl::system::object_ref const _awl_system, create_function<Result, Ar
 }
 
 sge::opengl::platform::system_unique_ptr sge::opengl::platform::create_system(
-#if defined(SGE_OPENGL_NEED_LOG)
+#ifdef SGE_OPENGL_NEED_LOG
     fcppt::log::object_reference const _log
 #else
     fcppt::log::object_reference
 #endif
     ,
-#if defined(SGE_OPENGL_NEED_SYSTEM)
+#ifdef SGE_OPENGL_NEED_SYSTEM
     awl::system::object_ref const _awl_system
 #else
     awl::system::object_ref
@@ -114,7 +114,7 @@ sge::opengl::platform::system_unique_ptr sge::opengl::platform::create_system(
 {
   return fcppt::either::to_exception(
       fcppt::either::first_success(fcppt::array::make(
-#if defined(SGE_OPENGL_HAVE_SDL)
+#ifdef SGE_OPENGL_HAVE_SDL
           try_create<sge::opengl::sdl::platform_system, awl::backends::sdl::system::object>(
               _awl_system,
               create_function<
@@ -123,21 +123,21 @@ sge::opengl::platform::system_unique_ptr sge::opengl::platform::create_system(
                   [](fcppt::reference<awl::backends::sdl::system::object> const _system)
                   { return fcppt::make_unique_ptr<sge::opengl::sdl::platform_system>(_system); }}),
 #endif
-#if defined(SGE_OPENGL_HAVE_X11)
+#ifdef SGE_OPENGL_HAVE_X11
           try_create(
               _awl_system,
               create_function<sge::opengl::x11::system, awl::backends::x11::system::object>{
                   [_log](fcppt::reference<awl::backends::x11::system::object> const _system)
                   { return fcppt::make_unique_ptr<sge::opengl::x11::system>(_log, _system); }}),
 #endif
-#if defined(SGE_OPENGL_HAVE_WAYLAND)
+#ifdef SGE_OPENGL_HAVE_WAYLAND
           try_create<sge::opengl::wayland::system, awl::backends::wayland::system::object>(
               _awl_system,
               create_function<sge::opengl::wayland::system, awl::backends::wayland::system::object>{
                   [](fcppt::reference<awl::backends::wayland::system::object> const _system)
                   { return fcppt::make_unique_ptr<sge::opengl::wayland::system>(_system); }}),
 #endif
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
           function_type{[_log]
                         {
                           return either_type{
