@@ -21,6 +21,7 @@
 #include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
+#include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -55,7 +56,10 @@ awl::event::optional_base_unique_ptr remove_seat(
 
               _map.erase(_iterator);
 
+FCPPT_PP_PUSH_WARNING
+FCPPT_PP_DISABLE_GNU_GCC_WARNING(-Wpessimizing-move)
               return std::move(event);
+FCPPT_PP_POP_WARNING
             });
       });
 
