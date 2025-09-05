@@ -12,23 +12,23 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#ifdef FCPPT_CONFIG_POSIX_PLATFORM
 #include <sge/config/getenv.hpp>
 #include <sge/config/homedir.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/optional/maybe.hpp>
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <sge/config/impl/getenv_exn.hpp>
 #endif
 
 std::filesystem::path sge::config::config_path(sge::config::app_name const &_app_name)
 {
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   return sge::config::impl::try_create_path(
       std::filesystem::path(sge::config::impl::getenv_exn(FCPPT_TEXT("APPDATA"))) /
       _app_name.get());
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
   fcppt::optional_string const xdg_config_path(sge::config::getenv(FCPPT_TEXT("XDG_CONFIG_HOME")));
 
   std::filesystem::path const path(fcppt::optional::maybe(

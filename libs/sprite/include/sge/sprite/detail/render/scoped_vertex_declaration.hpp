@@ -32,6 +32,7 @@ public:
 private:
   sge::renderer::context::core_ref const render_context_;
 
+  // NOLINTNEXTLINE(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
   bool const set_declaration_;
 };
 

@@ -31,6 +31,7 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 template <typename Part, typename Constness>
 void sge::renderer::vf::iterator<Part, Constness>::increment()
 {
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   this->data_ += iterator::stride();
 }
 
@@ -51,6 +52,7 @@ template <typename Part, typename Constness>
 sge::renderer::vf::iterator<Part, Constness> &
 sge::renderer::vf::iterator<Part, Constness>::operator+=(difference_type const _diff)
 {
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   this->data_ += iterator::stride() * _diff;
 
   return *this;

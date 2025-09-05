@@ -38,6 +38,7 @@ public:
   template <typename Type>
   Type operator()(fcppt::tag<Type>) const
   {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
     Type const ret(fcppt::cast::size<Type>(*ptr_++ + index_));
 
     // TODO(philipp): cyclic_iterator

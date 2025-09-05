@@ -58,7 +58,9 @@ private:
   material_sequence materials_;
   vertex_buffer_sequence vertex_buffers_;
   mesh_sequence meshes_;
+  // NOLINTNEXTLINE(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
   index_type current_material_;
+  // NOLINTNEXTLINE(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
   index_type current_vertex_buffer_;
 };
 

@@ -33,6 +33,7 @@ template <typename Format, typename Constness>
 sge::renderer::index::iterator<Format, Constness> &
 sge::renderer::index::iterator<Format, Constness>::operator+=(difference_type const _diff)
 {
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   this->data_ += _diff * fcppt::cast::to_signed(sizeof(value_type));
 
   return *this;

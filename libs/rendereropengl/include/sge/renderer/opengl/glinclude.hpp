@@ -7,16 +7,16 @@
 #define SGE_RENDERER_OPENGL_GLINCLUDE_HPP_INCLUDED
 
 #include <fcppt/config/platform.hpp> // IWYU pragma: keep
-#if defined(FCPPT_CONFIG_DARWIN_PLATFORM)
+#ifdef FCPPT_CONFIG_DARWIN_PLATFORM
 #include <fcppt/config/external_begin.hpp>
 #include <OpenGL/gl.h> // IWYU pragma: export
 #include <fcppt/config/external_end.hpp>
 #else
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
-#if !defined(WIN32_LEAN_AND_MEAN)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
+#ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
-#if !defined(NOMINMAX)
+#ifndef NOMINMAX
 #define NOMINMAX
 #endif
 #include <fcppt/config/external_begin.hpp>

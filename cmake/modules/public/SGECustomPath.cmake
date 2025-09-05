@@ -7,7 +7,7 @@ file(
 #cmakedefine SGE_CONFIG_LOCAL_BUILD
 #cmakedefine SGE_CONFIG_WINDOWS_LOCAL_PACKAGE
 
-#if defined(SGE_CONFIG_WINDOWS_LOCAL_PACKAGE)
+#ifdef SGE_CONFIG_WINDOWS_LOCAL_PACKAGE
 #include <sge/config/app_path.hpp>
 #endif
 
@@ -31,13 +31,13 @@ std::filesystem::path
 build_@SGE_CONFIG_PATH_NAME@_path()
 {
 	return
-#if defined(SGE_CONFIG_WINDOWS_LOCAL_PACKAGE)
+#ifdef SGE_CONFIG_WINDOWS_LOCAL_PACKAGE
 		sge::config::app_path()
 		/
 		\"@SGE_CONFIG_LIBRARY_NAME@\"
 		/
 		\"@SGE_CONFIG_PATH_NAME@\"
-#elif defined(SGE_CONFIG_LOCAL_BUILD)
+#elifdef SGE_CONFIG_LOCAL_BUILD
 		SGE_CONFIG_TEXT_WRAPPER(
 			\"@SGE_CONFIG_BUILD_PATH@\"
 		)

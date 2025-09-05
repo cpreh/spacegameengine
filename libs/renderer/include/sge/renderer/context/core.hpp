@@ -30,7 +30,7 @@
 #include <sge/renderer/vertex/first.hpp>
 #include <fcppt/nonmovable.hpp>
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
 #include <sge/renderer/cg/const_loaded_program_ref.hpp>
 #include <sge/renderer/cg/const_loaded_texture_ref.hpp>
 #include <sge/renderer/cg/loaded_program_fwd.hpp>
@@ -283,7 +283,7 @@ public:
   virtual void
   sampler_state(sge::renderer::state::core::sampler::const_optional_object_ref_map const &) = 0;
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
   virtual void set_cg_program(sge::renderer::cg::const_loaded_program_ref) = 0;
 
   virtual void unset_cg_program(sge::renderer::cg::loaded_program const &) = 0;

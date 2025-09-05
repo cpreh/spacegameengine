@@ -13,9 +13,9 @@
 
 std::filesystem::path sge::config::homedir()
 {
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#ifdef FCPPT_CONFIG_POSIX_PLATFORM
   return sge::config::impl::getenv_exn(FCPPT_TEXT("HOME"));
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   return sge::config::impl::getenv_exn(FCPPT_TEXT("USERPROFILE"));
 #else
 #error "Don't know how to get the homedir"

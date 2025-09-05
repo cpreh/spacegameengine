@@ -9,8 +9,8 @@
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/cast/size.hpp>
+#include <fcppt/container/output.hpp>
 #include <fcppt/container/buffer/object.hpp>
-#include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage_in_libc_call.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
 #include <fcppt/preprocessor/push_warning.hpp>
@@ -249,26 +249,7 @@ std::string max_work_item_sizes_to_string(cl_device_id const device // NOLINT(mi
 
   sge::opencl::impl::handle_error(error_code, FCPPT_TEXT("clGetDeviceInfo(option value)"));
 
-FCPPT_PP_PUSH_WARNING
-FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
-
-  std::string result{};
-  // TODO(philipp): Refactor this
-  result += '(';
-  for (size_vector::const_iterator it = sizes.begin(); it != sizes.end(); ++it)
-  {
-    result += fcppt::output_to_std_string(*it);
-
-    if (it != std::prev(sizes.end()))
-    {
-      result += ", ";
-    }
-  }
-  result += ')';
-
-FCPPT_PP_POP_WARNING
-
-  return result;
+  return fcppt::output_to_std_string(fcppt::container::output(sizes));
 }
 }
 

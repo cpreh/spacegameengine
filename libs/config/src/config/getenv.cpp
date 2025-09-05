@@ -8,7 +8,7 @@
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/platform.hpp> // NOLINT(misc-include-cleaner)
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <sge/core/impl/include_windows.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/cast/size.hpp>
@@ -28,7 +28,7 @@
 
 fcppt::optional_string sge::config::getenv(fcppt::string const &_name)
 {
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   using buffer_type = fcppt::container::buffer::object<fcppt::char_type>;
 
   return fcppt::optional::map(

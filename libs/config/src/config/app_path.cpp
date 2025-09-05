@@ -11,7 +11,7 @@
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
 
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <sge/core/impl/include_windows.hpp>
 #include <fcppt/char_type.hpp>
 #include <fcppt/cast/size.hpp>
@@ -23,7 +23,7 @@
 
 std::filesystem::path sge::config::app_path()
 {
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   using buffer_type = fcppt::container::raw_vector::object<fcppt::char_type>;
 
   buffer_type const buf{fcppt::container::buffer::to_raw_vector(
@@ -42,7 +42,7 @@ std::filesystem::path sge::config::app_path()
           }))};
 
   return std::filesystem::path(fcppt::string{buf.data(), buf.data_end()}).parent_path();
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
   std::filesystem::path const self("/proc/self/exe");
 
   if (!std::filesystem::exists(self))

@@ -65,6 +65,7 @@ void sge::renderer::vf::proxy<Part, Constness>::set(
   sge::renderer::vf::detail::copy_n(
       sge::renderer::vf::detail::raw_data(_value),
       sge::renderer::vf::detail::element_stride<element>::value,
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
       this->data_ + offset::value);
 }
 
@@ -84,6 +85,7 @@ sge::renderer::vf::proxy<Part, Constness>::get() const
   sge::renderer::vf::detail::read_wrapper<packed_type> ret{};
 
   sge::renderer::vf::detail::copy_n(
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
       this->data_ + offset::value,
       sge::renderer::vf::detail::element_stride<element>::value,
       sge::renderer::vf::detail::raw_data(ret.get()));

@@ -8,7 +8,7 @@
 #include <sge/charconv/impl/fcppt_is_utf8.hpp>
 #include <fcppt/optional_string.hpp>
 #include <fcppt/string.hpp>
-#if !defined(SGE_CHARCONV_IMPL_FCPPT_IS_UTF8)
+#ifndef SGE_CHARCONV_IMPL_FCPPT_IS_UTF8
 #include <sge/charconv/convert.hpp>
 #include <sge/charconv/encoding.hpp>
 #include <fcppt/from_std_wstring.hpp>
@@ -17,7 +17,7 @@
 fcppt::optional_string
 sge::charconv::utf8_string_to_fcppt(sge::charconv::utf8_string const &_string)
 {
-#if defined(SGE_CHARCONV_IMPL_FCPPT_IS_UTF8)
+#ifdef SGE_CHARCONV_IMPL_FCPPT_IS_UTF8
   return fcppt::optional_string{fcppt::string{_string.begin(), _string.end()}};
 #else
   return fcppt::from_std_wstring(

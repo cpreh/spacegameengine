@@ -6,7 +6,7 @@
 #include <sge/config/user_name.hpp>
 #include <fcppt/string.hpp>
 #include <fcppt/config/platform.hpp>
-#if defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#ifdef FCPPT_CONFIG_POSIX_PLATFORM
 #include <sge/config/exception.hpp>
 #include <fcppt/from_std_string.hpp>
 #include <fcppt/text.hpp>
@@ -19,7 +19,7 @@
 #include <sys/types.h> // NOLINT(misc-include-cleaner)
 #include <string>
 #include <fcppt/config/external_end.hpp>
-#elif defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <sge/config/exception.hpp>
 #include <awl/backends/windows/format_message.hpp>
 #include <fcppt/char_type.hpp>
@@ -34,7 +34,7 @@
 
 fcppt::string sge::config::user_name()
 {
-#if defined(FCPPT_CONFIG_WINDOWS_PLATFORM)
+#ifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   using raw_character_sequence = fcppt::array::object<fcppt::char_type, UNLEN + 1>;
 
   raw_character_sequence raw_characters{fcppt::no_init{}};
@@ -49,7 +49,7 @@ fcppt::string sge::config::user_name()
   }
 
   return fcppt::string(raw_characters.data());
-#elif defined(FCPPT_CONFIG_POSIX_PLATFORM)
+#elifdef FCPPT_CONFIG_POSIX_PLATFORM
   long const bufsize{// NOLINT(google-runtime-int)
                      sysconf(_SC_GETPW_R_SIZE_MAX)};
 
@@ -65,6 +65,7 @@ fcppt::string sge::config::user_name()
   struct passwd pwd
   {
   };
+  // NOLINTNEXTLINE(misc-const-correctness)
   struct passwd *result{nullptr};
 
   int const error_code{getpwuid_r(getuid(), &pwd, buf.data(), buf.size(), &result)};

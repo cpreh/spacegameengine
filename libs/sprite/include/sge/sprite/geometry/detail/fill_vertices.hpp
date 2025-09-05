@@ -83,6 +83,7 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
   sge::sprite::count cur_count(0U);
 
   // TODO(philipp): Simplify this!
+  // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-pointer-arithmetic)
   for (iterator cur(begin); cur != end; ++cur)
   {
     iterator const next(std::next(cur));

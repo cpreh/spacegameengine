@@ -46,7 +46,7 @@
 #include <sge/renderer/vertex/declaration_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
 #include <sge/cg/context/object_fwd.hpp>
 #include <sge/cg/parameter/object_fwd.hpp>
 #include <sge/cg/profile/object_fwd.hpp>
@@ -270,7 +270,7 @@ public:
   [[nodiscard]] virtual sge::renderer::state::core::sampler::object_unique_ptr
   create_sampler_state(sge::renderer::state::core::sampler::parameters const &) = 0;
 
-#if defined(SGE_RENDERER_HAVE_CG)
+#ifdef SGE_RENDERER_HAVE_CG
   [[nodiscard]] virtual sge::cg::profile::object
       create_cg_profile(sge::cg::profile::shader_type) = 0;
 

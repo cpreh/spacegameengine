@@ -39,6 +39,7 @@ private:
 
   sge::renderer::vertex::const_buffer_ref const vertex_buffer_;
 
+  // NOLINTNEXTLINE(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
   bool const set_buffer_;
 };
 
