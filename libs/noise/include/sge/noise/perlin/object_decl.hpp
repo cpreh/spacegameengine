@@ -11,7 +11,6 @@
 #include <fcppt/container/grid/object_impl.hpp>
 #include <fcppt/math/size_type.hpp>
 #include <fcppt/math/vector/static_fwd.hpp>
-#include <fcppt/preprocessor/pure.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
@@ -36,7 +35,7 @@ public:
   template <typename Rng>
   object(dim const &, fcppt::reference<Rng>);
 
-  [[nodiscard]] value_type sample(vector_type) const FCPPT_PP_PURE;
+  [[nodiscard]] value_type sample(vector_type) const;
 
 private:
   grid_type gradients_;
