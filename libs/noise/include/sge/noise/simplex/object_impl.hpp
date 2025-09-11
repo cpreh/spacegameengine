@@ -36,7 +36,7 @@ sge::noise::simplex::object<Float, N>::object(sge::noise::simplex::width const &
       gradients_(fcppt::array::init<gradient_array>(
           [](auto) { return fcppt::math::vector::null<vector_type>(); }))
 {
-  std::iota(perm_.begin(), perm_.end(), static_cast<index_type>(0));
+  std::ranges::iota(this->perm_, static_cast<index_type>(0));
 
   {
     using generator_type = fcppt::random::generator::mt19937;

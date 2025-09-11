@@ -5,4 +5,3 @@ plugins/opengl/backends/wayland/src/egl/wayland/display.cpp:9:9: warning: macro 
 plugins/opengl/backends/wayland/src/egl/wayland/surface.cpp:9:9: warning: macro is not used [clang-diagnostic-unused-macros]
 plugins/wlinput/src/cursor/object.cpp:158:43: warning: missing field 'axis_value120' initializer [clang-diagnostic-missing-designated-field-initializers]
 plugins/x11input/src/focus/translate_event.cpp:49:13: warning: use of a signed integer operand with a binary bitwise operator [hicpp-signed-bitwise]
-libs/noise/include/sge/noise/simplex/object_impl.hpp:39:3: warning: use a boost version of this algorithm [boost-use-ranges]
