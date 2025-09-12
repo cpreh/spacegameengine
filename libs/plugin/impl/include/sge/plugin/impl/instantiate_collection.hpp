@@ -8,7 +8,7 @@
 
 #include <sge/plugin/impl/collection_impl.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
-#include <ranges>
+#include <ranges> // IWYU pragma: keep
 #include <fcppt/config/external_end.hpp>
 
 #define SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION(plugin_type) \
