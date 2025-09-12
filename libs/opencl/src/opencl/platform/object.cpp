@@ -12,7 +12,6 @@
 #include <sge/opencl/platform/version.hpp>
 #include <sge/renderer/device/core_fwd.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/contains_if.hpp>
 #include <fcppt/algorithm/split_string.hpp>
 #include <fcppt/container/dynamic_array.hpp>
@@ -20,6 +19,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
 #include <CL/cl_platform.h>
+#include <algorithm>
 #include <cstddef>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -91,7 +91,7 @@ sge::opencl::platform::extension_sequence sge::opencl::platform::object::extensi
 bool sge::opencl::platform::object::supports_memory_sharing_with(
     sge::renderer::device::core const &) const
 {
-  return fcppt::algorithm::contains(this->extensions(), "cl_khr_gl_sharing");
+  return std::ranges::contains(this->extensions(), "cl_khr_gl_sharing");
 }
 
 bool sge::opencl::platform::object::has_gpu() const

@@ -10,15 +10,17 @@
 #include <sge/renderer/vf/dynamic/color_format_vector.hpp>
 #include <sge/renderer/vf/dynamic/matching_color_format.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/optional/to_exception.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <algorithm>
+#include <fcppt/config/external_end.hpp>
 
 sge::image::color::format sge::renderer::vf::dynamic::matching_color_format(
     sge::image::color::format const _format,
     sge::renderer::vf::dynamic::color_format_vector const &_formats)
 {
-  return fcppt::algorithm::contains(_formats, _format)
+  return std::ranges::contains(_formats, _format)
              ? _format
              : *fcppt::optional::to_exception(
                    fcppt::algorithm::find_if_opt(

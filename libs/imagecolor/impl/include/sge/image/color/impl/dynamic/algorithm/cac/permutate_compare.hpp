@@ -7,7 +7,9 @@
 #define SGE_IMAGE_COLOR_IMPL_DYNAMIC_ALGORITHM_CAC_PERMUTATE_COMPARE_HPP_INCLUDED
 
 #include <fcppt/algorithm/all_of.hpp>
-#include <fcppt/algorithm/contains.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <algorithm>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::image::color::impl::dynamic::algorithm::cac
 {
@@ -17,7 +19,7 @@ bool permutate_compare(Layout const &_layout1, Layout const &_layout2)
 {
   return fcppt::algorithm::all_of(
       _layout1,
-      [&_layout2](auto const &_elem) { return fcppt::algorithm::contains(_layout2, _elem); });
+      [&_layout2](auto const &_elem) { return std::ranges::contains(_layout2, _elem); });
 }
 
 }

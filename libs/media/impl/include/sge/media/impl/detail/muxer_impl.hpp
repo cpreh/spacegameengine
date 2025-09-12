@@ -29,7 +29,6 @@
 #include <fcppt/text.hpp>
 #include <fcppt/type_name_from_info.hpp>
 #include <fcppt/unique_ptr_impl.hpp>
-#include <fcppt/algorithm/contains.hpp>
 #include <fcppt/algorithm/find_if_opt.hpp>
 #include <fcppt/algorithm/fold.hpp>
 #include <fcppt/algorithm/fold_break.hpp>
@@ -51,6 +50,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/variant/match.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <algorithm>
 #include <ios>
 #include <typeinfo> // IWYU pragma: keep
 #include <utility>
@@ -160,7 +160,7 @@ sge::media::detail::muxer<System, File>::mux_extension(
       fcppt::algorithm::find_if_opt(
           plugins_,
           [&_extension](plugin_system_pair const &_plugin)
-          { return fcppt::algorithm::contains(_plugin.second->extensions(), _extension); }),
+          { return std::ranges::contains(_plugin.second->extensions(), _extension); }),
       [](auto const _iterator) { return fcppt::make_ref(*_iterator->second); });
 }
 

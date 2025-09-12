@@ -17,7 +17,6 @@
 #include <fcppt/output_to_std_string.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/text.hpp>
-#include <fcppt/algorithm/contains.hpp>
 #include <fcppt/variant/apply.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/format.hpp> // NOLINT(misc-include-cleaner)
@@ -81,7 +80,7 @@ public:
 
   void operator()(std::string const &_string) const
   {
-    if (fcppt::algorithm::contains(_string, '\"'))
+    if (_string.contains('\"'))
     {
       throw sge::parse::exception(FCPPT_TEXT("quoted strings are unsupported"));
     }
