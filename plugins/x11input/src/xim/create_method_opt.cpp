@@ -16,7 +16,6 @@
 #include <fcppt/algorithm/contains_if.hpp>
 #include <fcppt/bit/mask_c.hpp>
 #include <fcppt/bit/test.hpp>
-#include <fcppt/iterator/make_range.hpp>
 #include <fcppt/log/error.hpp>
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
@@ -25,6 +24,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/Xlib.h>
+#include <ranges>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -41,10 +41,10 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
       sge::x11input::xim::get_supported_styles(*result)};
 
   if (fcppt::algorithm::contains_if(
-          fcppt::iterator::make_range(
+          std::ranges::subrange{
               styles->supported_styles,
               styles->supported_styles + // NOLINT(cppcoreguidelines-pro-bounds-pointer-arithmetic)
-                  styles->count_styles),
+                  styles->count_styles},
           [](XIMStyle const &_style)
           {
             return fcppt::bit::test(_style, fcppt::bit::mask_c<XIMStyle, XIMPreeditNothing>()) &&

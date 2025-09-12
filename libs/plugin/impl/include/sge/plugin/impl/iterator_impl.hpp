@@ -11,6 +11,12 @@
 #include <sge/plugin/iterator.hpp>
 
 template <typename Type>
+sge::plugin::iterator<Type>::iterator()
+    : it_{}
+{
+}
+
+template <typename Type>
 sge::plugin::iterator<Type>::iterator(sge::plugin::category_array::const_iterator const _it)
     : it_{_it}
 {

@@ -30,6 +30,10 @@ public:
 
   using iterator_category = typename base_type::iterator_category;
 
+  // Required for std::ranges::input_range
+  SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
+  iterator();
+
   SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL
   explicit iterator(sge::plugin::category_array::const_iterator);
 

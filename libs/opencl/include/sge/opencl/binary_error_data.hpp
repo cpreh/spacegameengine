@@ -6,12 +6,14 @@
 #ifndef SGE_OPENCL_BINARY_ERROR_DATA_HPP_INCLUDED
 #define SGE_OPENCL_BINARY_ERROR_DATA_HPP_INCLUDED
 
-#include <fcppt/iterator/range_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ranges>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::opencl
 {
 
-using binary_error_data = fcppt::iterator::range<unsigned char const *>;
+using binary_error_data = std::ranges::subrange<unsigned char const *>;
 
 }
 

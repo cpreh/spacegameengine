@@ -7,8 +7,12 @@
 #define SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION_HPP_INCLUDED
 
 #include <sge/plugin/impl/collection_impl.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <ranges>
+#include <fcppt/config/external_end.hpp>
 
 #define SGE_PLUGIN_IMPL_INSTANTIATE_COLLECTION(plugin_type) \
-  template class sge::plugin::collection<plugin_type>
+  template class sge::plugin::collection<plugin_type>; \
+  static_assert(std::ranges::input_range<sge::plugin::collection<plugin_type>>)
 
 #endif

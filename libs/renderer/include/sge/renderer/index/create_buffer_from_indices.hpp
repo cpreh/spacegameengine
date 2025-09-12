@@ -21,11 +21,9 @@
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/range_element_type.hpp>
-#include <fcppt/range/begin.hpp>
-#include <fcppt/range/end.hpp>
-#include <fcppt/range/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <ranges>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -45,15 +43,15 @@ sge::renderer::index::buffer_unique_ptr create_buffer_from_indices(
   sge::renderer::index::buffer_unique_ptr buffer(
       _device.get().create_index_buffer(sge::renderer::index::buffer_parameters(
           sge::renderer::index::dynamic::make_format<format>(),
-          sge::renderer::index::count(fcppt::range::size(_range)),
+          sge::renderer::index::count{std::ranges::size(_range)},
           _resource_flags)));
 
   sge::renderer::index::scoped_lock const lock{
       fcppt::make_ref(*buffer), sge::renderer::lock_mode::writeonly};
 
   std::copy(
-      fcppt::range::begin(_range),
-      fcppt::range::end(_range),
+      std::ranges::begin(_range),
+      std::ranges::end(_range),
       sge::renderer::index::iterator<format, sge::renderer::index::nonconst_tag>{
           lock.value().data()});
 

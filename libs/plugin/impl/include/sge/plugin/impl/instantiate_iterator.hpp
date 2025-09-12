@@ -7,8 +7,12 @@
 #define SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR_HPP_INCLUDED
 
 #include <sge/plugin/impl/iterator_impl.hpp> // IWYU pragma: keep
+#include <fcppt/config/external_begin.hpp>
+#include <ranges>
+#include <fcppt/config/external_end.hpp>
 
 #define SGE_PLUGIN_IMPL_INSTANTIATE_ITERATOR(plugin_type) \
-  template class sge::plugin::iterator<plugin_type>
+  template class sge::plugin::iterator<plugin_type>; \
+  static_assert(std::input_iterator<sge::plugin::iterator<plugin_type>>)
 
 #endif

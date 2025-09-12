@@ -40,7 +40,6 @@
 #include <fcppt/cast/dynamic_fun.hpp>
 #include <fcppt/cast/size.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/iterator/make_range.hpp>
 #include <fcppt/math/vector/arithmetic.hpp>
 #include <fcppt/math/vector/null.hpp>
 #include <fcppt/mpl/list/object.hpp>
@@ -54,6 +53,7 @@
 #include <fcppt/config/external_begin.hpp>
 #include <cctype>
 #include <locale>
+#include <ranges>
 #include <utility>
 #include <fcppt/config/external_end.hpp>
 
@@ -101,7 +101,7 @@ void sge::console::gfx::object::render(
   }
 
   for (auto const &element :
-       fcppt::iterator::make_range(output_lines_.point(), output_lines_.end()))
+       std::ranges::subrange{output_lines_.point(), output_lines_.end()})
   {
     current_y = this->render_line(_render_context, element, current_y);
 

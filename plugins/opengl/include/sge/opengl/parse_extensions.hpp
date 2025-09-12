@@ -8,9 +8,9 @@
 
 #include <sge/opengl/extension_set.hpp>
 #include <fcppt/algorithm/map.hpp>
-#include <fcppt/iterator/make_range.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <iterator>
+#include <ranges>
 #include <sstream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
@@ -26,7 +26,7 @@ sge::opengl::extension_set<Type> parse_extensions(std::string const &_extensions
   using iterator = std::istream_iterator<std::string>;
 
   return fcppt::algorithm::map<sge::opengl::extension_set<Type>>(
-      fcppt::iterator::make_range(iterator(stream), iterator()),
+      std::ranges::subrange{iterator{stream}, iterator{}},
       [](std::string const &_element) { return Type(_element); });
 }
 

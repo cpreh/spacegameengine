@@ -23,11 +23,9 @@
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/algorithm/range_element_type.hpp>
-#include <fcppt/range/begin.hpp>
-#include <fcppt/range/end.hpp>
-#include <fcppt/range/size.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
+#include <ranges>
 #include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
@@ -51,7 +49,7 @@ sge::renderer::vertex::buffer_unique_ptr create_buffer_from_vertices(
       _device.get().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(
           _vertex_declaration,
           sge::renderer::vf::dynamic::make_part_index<Format, format_part>(),
-          sge::renderer::vertex::count(fcppt::range::size(_vertices)),
+          sge::renderer::vertex::count{std::ranges::size(_vertices)},
           _resource_flags))};
 
   sge::renderer::vertex::scoped_lock const lock{
@@ -61,7 +59,8 @@ sge::renderer::vertex::buffer_unique_ptr create_buffer_from_vertices(
 
   view const dest{lock.value()};
 
-  std::copy(fcppt::range::begin(_vertices), fcppt::range::end(_vertices), dest.begin());
+  // TODO(philipp): Use ranges
+  std::copy(std::ranges::begin(_vertices), std::ranges::end(_vertices), dest.begin());
 
   return buffer;
 }

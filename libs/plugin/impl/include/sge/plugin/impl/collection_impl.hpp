@@ -41,19 +41,19 @@ collection<Type>::~collection() = default;
 template <typename Type>
 typename sge::plugin::collection<Type>::iterator sge::plugin::collection<Type>::begin() const
 {
-  return iterator(plugins_.get().begin());
+  return iterator{this->plugins_.get().begin()};
 }
 
 template <typename Type>
 typename sge::plugin::collection<Type>::iterator sge::plugin::collection<Type>::end() const
 {
-  return iterator(plugins_.get().end());
+  return iterator{this->plugins_.get().end()};
 }
 
 template <typename Type>
 typename sge::plugin::collection<Type>::size_type sge::plugin::collection<Type>::size() const
 {
-  return plugins_.get().size();
+  return this->plugins_.get().size();
 }
 
 #endif

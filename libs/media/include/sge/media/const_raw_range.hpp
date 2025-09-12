@@ -7,12 +7,14 @@
 #define SGE_MEDIA_CONST_RAW_RANGE_HPP_INCLUDED
 
 #include <sge/media/const_raw_pointer.hpp>
-#include <fcppt/iterator/range_impl.hpp>
+#include <fcppt/config/external_begin.hpp>
+#include <ranges>
+#include <fcppt/config/external_end.hpp>
 
 namespace sge::media
 {
 
-using const_raw_range = fcppt::iterator::range<sge::media::const_raw_pointer>;
+using const_raw_range = std::ranges::subrange<sge::media::const_raw_pointer>;
 
 }
 
