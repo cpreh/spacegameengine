@@ -20,11 +20,9 @@
 #include <sge/renderer/index/scoped_lock.hpp>
 #include <sge/renderer/index/dynamic/make_format.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/algorithm/range_element_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <ranges>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::index
@@ -36,7 +34,7 @@ sge::renderer::index::buffer_unique_ptr create_buffer_from_indices(
     sge::renderer::resource_flags_field const &_resource_flags,
     Range const &_range)
 {
-  using index_type = std::remove_cvref_t<fcppt::algorithm::range_element_type<Range>>;
+  using index_type = std::ranges::range_value_t<Range>;
 
   using format = sge::renderer::index::format<index_type>;
 

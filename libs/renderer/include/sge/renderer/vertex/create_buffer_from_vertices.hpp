@@ -22,11 +22,9 @@
 #include <sge/renderer/vf/view.hpp>
 #include <sge/renderer/vf/dynamic/make_part_index.hpp>
 #include <fcppt/make_ref.hpp>
-#include <fcppt/algorithm/range_element_type.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <algorithm>
 #include <ranges>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer::vertex
@@ -39,7 +37,7 @@ sge::renderer::vertex::buffer_unique_ptr create_buffer_from_vertices(
     sge::renderer::resource_flags_field const &_resource_flags,
     Range const &_vertices)
 {
-  using vertex_type = std::remove_cvref_t<fcppt::algorithm::range_element_type<Range>>;
+  using vertex_type = std::ranges::range_value_t<Range>;
 
   static_assert(sge::renderer::vf::is_vertex<vertex_type>::value);
 
