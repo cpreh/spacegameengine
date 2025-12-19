@@ -115,6 +115,15 @@ add_sge_test(
   CATCH_CONFIG_ENABLE_TUPLE_STRINGMAKER)
 
 add_sge_test(
+  parse/ini_typed
+  SGE_DEPS
+  sgeparse
+  sgeparseini
+  ADDITIONAL_DEPS
+  ${fcppt_core_TARGET}
+  fcppt_catch_interface)
+
+add_sge_test(
   renderer/vf
   SGE_DEPS
   sgeimagecolor
