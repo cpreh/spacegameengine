@@ -6,7 +6,7 @@
 #ifndef SGE_PARSE_INI_TYPED_ENTRY_DECL_HPP_INCLUDED
 #define SGE_PARSE_INI_TYPED_ENTRY_DECL_HPP_INCLUDED
 
-#include <sge/parse/ini/typed/entry_error_fwd.hpp>
+#include <sge/parse/ini/typed/entry_type_error_fwd.hpp>
 #include <sge/parse/ini/typed/entry_fwd.hpp> // IWYU pragma: keep
 #include <sge/parse/ini/typed/required.hpp>
 #include <fcppt/either/object_fwd.hpp>
@@ -28,8 +28,11 @@ public:
   using result_type = Type;
 
   [[nodiscard]]
-  fcppt::either::object<sge::parse::ini::typed::entry_error, result_type>
+  fcppt::either::object<sge::parse::ini::typed::entry_type_error, result_type>
   parse(std::string const &) const;
+
+  [[nodiscard]]
+  std::string const &name() const;
 private:
   std::string name_;
 };

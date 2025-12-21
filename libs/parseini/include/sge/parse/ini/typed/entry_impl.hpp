@@ -9,7 +9,7 @@
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/value.hpp>
 #include <sge/parse/ini/typed/entry_decl.hpp>
-#include <sge/parse/ini/typed/entry_error.hpp>
+#include <sge/parse/ini/typed/entry_type_error.hpp>
 #include <sge/parse/ini/typed/required.hpp>
 #include <fcppt/extract_from_string.hpp>
 #include <fcppt/either/from_optional.hpp>
@@ -27,7 +27,7 @@ sge::parse::ini::typed::entry<Type, Required>::entry(std::string &&_name) : name
 
 template <typename Type, sge::parse::ini::typed::required Required>
 fcppt::either::object<
-    sge::parse::ini::typed::entry_error,
+    sge::parse::ini::typed::entry_type_error,
     typename sge::parse::ini::typed::entry<Type, Required>::result_type>
 sge::parse::ini::typed::entry<Type, Required>::parse(std::string const &_value) const
 {
@@ -35,11 +35,17 @@ sge::parse::ini::typed::entry<Type, Required>::parse(std::string const &_value) 
       fcppt::extract_from_string<result_type>(_value),
       [this, &_value]
       {
-        return sge::parse::ini::typed::entry_error{
+        return sge::parse::ini::typed::entry_type_error{
             typeid(result_type),
             sge::parse::ini::entry_name{this->name_},
             sge::parse::ini::value{_value}};
       });
+}
+
+template <typename Type, sge::parse::ini::typed::required Required>
+std::string const &sge::parse::ini::typed::entry<Type, Required>::name() const
+{
+  return this->name_;
 }
 
 #endif
