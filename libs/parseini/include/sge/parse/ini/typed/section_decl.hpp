@@ -12,8 +12,8 @@
 #include <sge/parse/ini/typed/is_entry.hpp>
 #include <sge/parse/ini/typed/section_error_fwd.hpp>
 #include <sge/parse/ini/typed/section_fwd.hpp> // IWYU pragma: keep
+#include <sge/parse/ini/typed/section_result_fwd.hpp>
 #include <sge/parse/ini/typed/result_type.hpp>
-#include <sge/parse/ini/typed/unused_keys.hpp>
 #include <fcppt/deref_type.hpp>
 #include <fcppt/reference_fwd.hpp>
 #include <fcppt/either/object_fwd.hpp>
@@ -23,14 +23,11 @@
 #include <fcppt/mpl/list/all_of_v.hpp>
 #include <fcppt/mpl/list/map.hpp>
 #include <fcppt/optional/object_fwd.hpp>
-#include <fcppt/record/disjoint_product.hpp>
-#include <fcppt/record/element.hpp>
 #include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/element_vector.hpp>
 #include <fcppt/record/is_object.hpp>
 #include <fcppt/record/label_value_type.hpp>
 #include <fcppt/record/map_elements.hpp>
-#include <fcppt/record/object_fwd.hpp>
 #include <fcppt/tuple/object_fwd.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <set>
@@ -63,11 +60,6 @@ class section
               fcppt::mpl::lambda<fcppt::deref_type>,
               fcppt::mpl::lambda<fcppt::record::element_to_type>>>>;
 
-  using inner_result = fcppt::record::map_elements<
-      Entries,
-      fcppt::mpl::bind<
-          fcppt::mpl::lambda<section::make_result_type>,
-          fcppt::mpl::lambda<fcppt::record::element_to_type>>>;
 public:
   static constexpr bool is_optional =
       fcppt::mpl::list::all_of_v<parser_types, fcppt::mpl::lambda<section::make_is_optional>>;
@@ -79,11 +71,13 @@ public:
 
   section(std::string &&, Entries &&);
 
-  using result_type = fcppt::record::disjoint_product<
-      inner_result,
-      fcppt::record::object<fcppt::record::element<
-          sge::parse::ini::typed::unused_keys,
-          fcppt::tuple::object<std::string, std::set<std::string>>>>>;
+  using inner_result = fcppt::record::map_elements<
+      Entries,
+      fcppt::mpl::bind<
+          fcppt::mpl::lambda<section::make_result_type>,
+          fcppt::mpl::lambda<fcppt::record::element_to_type>>>;
+
+  using result_type = sge::parse::ini::typed::section_result<inner_result>;
 
   [[nodiscard]]
   fcppt::either::object<sge::parse::ini::typed::section_error, result_type>

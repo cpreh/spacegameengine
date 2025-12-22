@@ -54,7 +54,12 @@ libs/parseini/include/sge/parse/ini/typed/section_error.hpp
 libs/parseini/include/sge/parse/ini/typed/section_fwd.hpp
 libs/parseini/include/sge/parse/ini/typed/section.hpp
 libs/parseini/include/sge/parse/ini/typed/section_impl.hpp
-libs/parseini/include/sge/parse/ini/typed/unused_keys.hpp
+libs/parseini/include/sge/parse/ini/typed/section_result_decl.hpp
+libs/parseini/include/sge/parse/ini/typed/section_result_fwd.hpp
+libs/parseini/include/sge/parse/ini/typed/section_result.hpp
+libs/parseini/include/sge/parse/ini/typed/section_result_impl.hpp
+libs/parseini/include/sge/parse/ini/typed/unused_entries_fwd.hpp
+libs/parseini/include/sge/parse/ini/typed/unused_entries.hpp
 libs/parseini/include/sge/parse/ini/value.hpp
 libs/parseini/src/parse/ini/entry.cpp
 libs/parseini/src/parse/ini/entry_name_equal.cpp
@@ -75,3 +80,4 @@ libs/parseini/src/parse/ini/start.cpp
 libs/parseini/src/parse/ini/typed/entry_error.cpp
 libs/parseini/src/parse/ini/typed/entry_type_error.cpp
 libs/parseini/src/parse/ini/typed/section_error.cpp
+libs/parseini/src/parse/ini/typed/unused_entries.cpp

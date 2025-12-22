@@ -3,14 +3,12 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef SGE_PARSE_INI_TYPED_UNUSED_KEYS_HPP_INCLUDED
-#define SGE_PARSE_INI_TYPED_UNUSED_KEYS_HPP_INCLUDED
-
-#include <fcppt/record/make_label.hpp>
+#ifndef SGE_PARSE_INI_TYPED_UNUSED_ENTRIES_FWD_HPP_INCLUDED
+#define SGE_PARSE_INI_TYPED_UNUSED_ENTRIES_FWD_HPP_INCLUDED
 
 namespace sge::parse::ini::typed
 {
-FCPPT_RECORD_MAKE_LABEL(unused_keys);
+struct unused_entries;
 }
 
 #endif

@@ -14,6 +14,8 @@
 #include <sge/parse/ini/typed/result_type.hpp>
 #include <sge/parse/ini/typed/section_decl.hpp>
 #include <sge/parse/ini/typed/section_error.hpp>
+#include <sge/parse/ini/typed/section_result_impl.hpp> // IWYU pragma: keep
+#include <sge/parse/ini/typed/unused_entries.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
 #include <fcppt/use.hpp>
@@ -36,13 +38,12 @@
 #include <fcppt/mpl/bind.hpp>
 #include <fcppt/mpl/constant.hpp>
 #include <fcppt/mpl/lambda.hpp>
+#include <fcppt/optional/make_if.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/element_to_type.hpp>
 #include <fcppt/record/init.hpp>
 #include <fcppt/record/label_value_type.hpp>
-#include <fcppt/record/make.hpp>
 #include <fcppt/record/map_elements.hpp>
-#include <fcppt/record/multiply_disjoint.hpp>
 #include <fcppt/tuple/get.hpp>
 #include <fcppt/tuple/make.hpp>
 #include <fcppt/tuple/object_impl.hpp>
@@ -137,13 +138,18 @@ sge::parse::ini::typed::section<Entries>::run_parsers(string_map const &_map) co
             }),
         [&used, &_map, this](inner_result &&_result)
         {
-          return fcppt::record::multiply_disjoint(
+          std::set<std::string> unused_entries{fcppt::container::set_difference(
+              fcppt::container::key_set<std::set<std::string>>(_map), used)};
+
+          return result_type{
               std::move(_result),
-              fcppt::record::make(
-                  sge::parse::ini::typed::unused_keys{} = fcppt::tuple::make(
-                      this->name_,
-                      fcppt::container::set_difference(
-                          fcppt::container::key_set<std::set<std::string>>(_map), used))));
+              fcppt::optional::make_if(
+                  !unused_entries.empty(),
+                  [&unused_entries, this]
+                  {
+                    return sge::parse::ini::typed::unused_entries{
+                        sge::parse::ini::section_name{this->name_}, std::move(unused_entries)};
+                  })};
         });
 }
 
