@@ -20,7 +20,7 @@
 #include <fcppt/reference_fwd.hpp>
 #include <fcppt/log/object_reference.hpp>
 #include <fcppt/config/external_begin.hpp>
-#include <iosfwd>
+#include <ios>
 #include <fcppt/config/external_end.hpp>
 
 namespace sge::wave
