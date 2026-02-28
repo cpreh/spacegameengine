@@ -41,7 +41,7 @@ sge::wlinput::map<Type> initial_objects(
             _seat->caps() & Caps,
             [&_create_function, &_seat]
             {
-              using value_type = typename result_type::value_type;
+              using value_type = result_type::value_type;
 
               return value_type{_seat->name(), _create_function(fcppt::make_ref(_seat->get()))};
             });

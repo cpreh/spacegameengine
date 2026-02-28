@@ -67,6 +67,7 @@ sge::opengl::texture::cube::cube(
                       _parameters,
                       fcppt::make_cref(surface_config),
                       _config.cube_texture_type(),
+                      // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
                       _config.cube_sides()[_side],
                       this->id());
                 });
@@ -98,5 +99,6 @@ sge::renderer::texture::mipmap::level_count sge::opengl::texture::cube::levels()
 {
   return fcppt::strong_typedef_construct_cast<
       sge::renderer::texture::mipmap::level_count,
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
       fcppt::cast::size_fun>(sides_[sge::renderer::texture::cube_side::front].size());
 }

@@ -25,18 +25,19 @@ sge::x11input::cursor::grab::grab(
     awl::backends::x11::cursor::object_ref const _cursor)
     : window_(_window), id_(_id)
 {
-  XIEventMask mask{id_.get(), 0, nullptr};
+  XIEventMask mask{.deviceid = id_.get(), .mask_len = 0, .mask = nullptr};
 
-  Status const ret(::XIGrabDevice(
-      _window.get().display().get().get(),
-      _id.get(),
-      _window.get().get(),
-      CurrentTime,
-      _cursor.get().get(),
-      GrabModeAsync,
-      GrabModeAsync,
-      True,
-      &mask));
+  Status const ret(
+      ::XIGrabDevice(
+          _window.get().display().get().get(),
+          _id.get(),
+          _window.get().get(),
+          CurrentTime,
+          _cursor.get().get(),
+          GrabModeAsync,
+          GrabModeAsync,
+          True,
+          &mask));
 
   if (ret != GrabSuccess)
   {

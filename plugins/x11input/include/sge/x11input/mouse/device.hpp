@@ -30,7 +30,7 @@
 namespace sge::x11input::mouse
 {
 
-class device // NOLINT(fuchsia-multiple-inheritance)
+class device // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::input::mouse::device,
       public fcppt::enable_shared_from_this<sge::x11input::mouse::device>
 {
@@ -47,11 +47,11 @@ public:
 
   ~device() override;
 
-private:
   [[nodiscard]] sge::window::object &window() const override;
 
   [[nodiscard]] sge::input::mouse::info const &info() const override;
 
+private:
   [[nodiscard]] awl::event::container on_event(XIDeviceEvent const &);
 
   [[nodiscard]] awl::event::container on_raw_event(XIRawEvent const &);

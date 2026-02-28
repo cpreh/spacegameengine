@@ -13,7 +13,7 @@ namespace sge::image::color::impl::dynamic::view
 {
 
 template <typename View>
-typename View::format::color_format::channel_array const &color_layout(View const &_view)
+View::format::color_format::channel_array const &color_layout(View const &_view)
 {
   return sge::image::color::impl::dynamic::view::color_format(
              sge::image::color::impl::dynamic::view::image_format(_view))

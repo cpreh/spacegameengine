@@ -22,7 +22,7 @@ template <typename Choices>
 class range_part
 {
 public:
-  using range_part_object = typename sge::sprite::detail::render::range_part_object<Choices>::type;
+  using range_part_object = sge::sprite::detail::render::range_part_object<Choices>::type;
 
   explicit range_part(range_part_object);
 

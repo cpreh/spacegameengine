@@ -12,7 +12,7 @@ namespace sge::sprite::geometry::detail
 {
 
 template <typename Choices>
-using pos_packed_type = typename sge::sprite::detail::vf::pos<Choices>::packed_type;
+using pos_packed_type = sge::sprite::detail::vf::pos<Choices>::packed_type;
 
 }
 

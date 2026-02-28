@@ -24,9 +24,9 @@ public:
 
   ~wrapped() override;
 
-private:
   [[nodiscard]] sge::window::object &get() const override;
 
+private:
   mutable sge::window::object window_;
 };
 

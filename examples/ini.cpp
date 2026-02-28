@@ -15,11 +15,13 @@
 #include <fcppt/parse/parse_string_error_output.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
+#include <exception>
 #include <iostream>
 #include <string>
 #include <fcppt/config/external_end.hpp>
 
 int main()
+try
 {
   return fcppt::either::match(
       sge::parse::ini::parse_string(
@@ -38,4 +40,10 @@ int main()
 
         return EXIT_SUCCESS;
       });
+}
+catch (std::exception const &_error)
+{
+  std::cerr << _error.what() << '\n';
+
+  return EXIT_FAILURE;
 }

@@ -28,9 +28,9 @@ public:
 
   using vertex_type = sge::renderer::vf::vertex<Part>;
 
-  using elements = typename Part::elements;
+  using elements = Part::elements;
 
-  using offsets = typename Part::offsets;
+  using offsets = Part::offsets;
 
   explicit proxy(pointer);
 

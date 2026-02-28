@@ -33,7 +33,6 @@ public:
 
   ~object() override;
 
-private:
   [[nodiscard]] sge::font::text_unique_ptr
   create_text(sge::font::string const &, sge::font::text_parameters const &) override;
 
@@ -41,6 +40,7 @@ private:
 
   [[nodiscard]] sge::font::metrics metrics() const override;
 
+private:
   using font_map_unique_ptr = fcppt::unique_ptr<PangoFontMap, sge::pango::glib_deleter>;
 
   font_map_unique_ptr const font_map_;

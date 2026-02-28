@@ -26,13 +26,13 @@ void sge::bvh::object<Traits>::insert(leaf_sequence const &_leaves)
   sge::bvh::construct_median_cut<traits>(
       fcppt::algorithm::map<typename traits::leaf_wrapper_sequence>(
           leaves_,
-          [](typename leaf_sequence::value_type &_leaf)
+          [](leaf_sequence::value_type &_leaf)
           { return typename traits::leaf_wrapper(_leaf); }),
       representation_);
 }
 
 template <typename Traits>
-typename sge::bvh::object<Traits>::tree_representation const &
+sge::bvh::object<Traits>::tree_representation const &
 sge::bvh::object<Traits>::representation() const
 {
   return representation_;

@@ -49,7 +49,7 @@ muxing_streambuf<Char, Traits>::~muxing_streambuf()
 }
 
 template <typename Char, typename Traits>
-typename sge::console::muxing_streambuf<Char, Traits>::int_type
+sge::console::muxing_streambuf<Char, Traits>::int_type
 sge::console::muxing_streambuf<Char, Traits>::overflow(int_type const _char)
 {
   if (in_progress_)

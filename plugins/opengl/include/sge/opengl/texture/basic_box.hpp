@@ -31,7 +31,7 @@ class basic_box : public sge::opengl::texture::basic<Types>
   FCPPT_NONMOVABLE(basic_box);
 
 public:
-  using parameters_type = typename Types::parameters;
+  using parameters_type = Types::parameters;
 
   basic_box(
       sge::opengl::texture::basic_parameters const &,
@@ -42,18 +42,18 @@ public:
   ~basic_box() override;
 
 private:
-  using nonconst_buffer = typename base_type::nonconst_buffer;
+  using nonconst_buffer = base_type::nonconst_buffer;
 
-  using const_buffer = typename base_type::const_buffer;
+  using const_buffer = base_type::const_buffer;
 
-  using dim = typename base_type::dim;
-
+  using dim = base_type::dim;
+public:
   [[nodiscard]] nonconst_buffer &level(sge::renderer::texture::mipmap::level) override;
 
   [[nodiscard]] const_buffer const &level(sge::renderer::texture::mipmap::level) const override;
 
   [[nodiscard]] sge::renderer::texture::mipmap::level_count levels() const override;
-
+private:
   using color_buffer_unique_ptr = fcppt::unique_ptr<nonconst_buffer>;
 
   using buffer_vector = std::vector<color_buffer_unique_ptr>;

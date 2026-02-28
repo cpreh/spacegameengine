@@ -110,7 +110,6 @@ public:
 
   ~device() override;
 
-private:
   sge::renderer::context::core_unique_ptr begin_rendering(sge::renderer::target::base_ref) override;
 
   void end_rendering(sge::renderer::context::core &) override;
@@ -214,6 +213,7 @@ private:
 
   [[nodiscard]] sge::renderer::display_mode::container display_modes() const override;
 
+private:
   [[nodiscard]] sge::opengl::texture::basic_parameters texture_parameters();
 
   using platform_device_state_unique_ptr = fcppt::unique_ptr<sge::opengl::platform::device_state>;

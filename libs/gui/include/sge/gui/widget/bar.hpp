@@ -41,11 +41,11 @@ public:
   SGE_GUI_DETAIL_SYMBOL
   void value(sge::gui::fill_level);
 
-private:
   void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
 
   [[nodiscard]] sge::rucksack::widget::base &layout() override;
 
+private:
   sge::gui::style::const_reference const style_;
 
   sge::rucksack::axis const axis_;

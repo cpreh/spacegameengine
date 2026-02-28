@@ -24,7 +24,7 @@
 namespace sge::wlinput::cursor
 {
 
-class object // NOLINT(fuchsia-multiple-inheritance)
+class object // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::input::cursor::object,
       public fcppt::enable_shared_from_this<sge::wlinput::cursor::object>
 {

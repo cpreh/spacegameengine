@@ -12,7 +12,7 @@ namespace sge::plugin::detail
 {
 
 template <typename Type>
-using loader_function = typename sge::plugin::detail::loader_function_tpl<Type>::type;
+using loader_function = sge::plugin::detail::loader_function_tpl<Type>::type;
 
 }
 

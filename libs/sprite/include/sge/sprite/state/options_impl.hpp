@@ -73,7 +73,7 @@ sge::sprite::state::options<StateChoices> &sge::sprite::state::options<StateChoi
 }
 
 template <typename StateChoices>
-typename sge::sprite::state::options<StateChoices>::elements_type const &
+sge::sprite::state::options<StateChoices>::elements_type const &
 sge::sprite::state::options<StateChoices>::elements() const
 {
   return elements_;

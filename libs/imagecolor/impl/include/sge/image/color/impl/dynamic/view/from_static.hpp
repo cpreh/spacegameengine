@@ -33,7 +33,7 @@ from_static(View const &_view)
               typename View::format::color_format>>,
       typename View::constness>;
 
-  using dest_format = typename dest_type::format;
+  using dest_format = dest_type::format;
 
   return dest_type(
       _view.size(),

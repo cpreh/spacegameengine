@@ -32,7 +32,6 @@ public:
 
   ~current() override;
 
-private:
   [[nodiscard]] sge::opengl::backend::fun_ptr load_function(std::string const &) const override;
 
   void begin_rendering() override;
@@ -41,6 +40,7 @@ private:
 
   void vsync(sge::renderer::display_mode::vsync) override;
 
+private:
   EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 
   EGLSurface const surface_; // NOLINT(misc-misplaced-const)

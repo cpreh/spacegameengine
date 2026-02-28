@@ -38,7 +38,7 @@ sge::resource_tree::detail::element<T, Rng> add_directory(
 {
   using element_type = sge::resource_tree::detail::element<T, Rng>;
 
-  using resource_container = typename element_type::resource_container;
+  using resource_container = element_type::resource_container;
 
   auto resources(fcppt::algorithm::map_optional<resource_container>(
       fcppt::either::to_exception(

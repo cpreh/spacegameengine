@@ -15,7 +15,7 @@ namespace sge::systems::detail
 {
 
 template <typename Choices>
-using renderer_caps = typename fcppt::mpl::list::at<
+using renderer_caps = fcppt::mpl::list::at<
     Choices,
     fcppt::mpl::list::
         index_of_if<Choices, fcppt::mpl::lambda<sge::systems::detail::is_with_renderer>>>::caps;

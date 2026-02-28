@@ -15,7 +15,7 @@ namespace sge::opengl
 {
 
 template <typename Ref, typename = std::enable_if_t<fcppt::is_reference<Ref>::value>>
-using fun_ref_value_type = typename Ref::type;
+using fun_ref_value_type = Ref::type;
 
 }
 

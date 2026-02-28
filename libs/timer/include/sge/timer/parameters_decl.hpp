@@ -21,7 +21,7 @@ class parameters final : sge::timer::clocks::detail::wrapper<Clock>
 public:
   using clock_type = Clock;
 
-  using duration = typename clock_type::duration;
+  using duration = clock_type::duration;
 
   using clock_parameter = sge::timer::clocks::parameter<Clock>;
 

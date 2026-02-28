@@ -36,13 +36,13 @@ absolute<Clock>::~absolute() = default;
 }
 
 template <typename Clock>
-typename sge::timer::absolute<Clock>::time_point sge::timer::absolute<Clock>::now() const
+sge::timer::absolute<Clock>::time_point sge::timer::absolute<Clock>::now() const
 {
   return this->clock_base().now();
 }
 
 template <typename Clock>
-typename sge::timer::absolute<Clock>::time_point sge::timer::absolute<Clock>::last_time() const
+sge::timer::absolute<Clock>::time_point sge::timer::absolute<Clock>::last_time() const
 {
   return last_time_;
 }

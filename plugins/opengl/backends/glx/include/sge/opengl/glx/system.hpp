@@ -30,12 +30,12 @@ public:
 
   ~system() override;
 
-private:
   awl::visual::object_unique_ptr
   create_visual(sge::renderer::pixel_format::object const &) override;
 
   sge::opengl::backend::context_unique_ptr create_context(sge::window::object_ref) override;
 
+private:
   fcppt::log::object_reference const log_;
 
   awl::backends::x11::system::object_ref const awl_system_;

@@ -14,7 +14,7 @@
 #include <fcppt/preprocessor/push_warning.hpp>
 
 template <typename Part, typename Constness>
-typename sge::renderer::vf::iterator<Part, Constness>::difference_type
+sge::renderer::vf::iterator<Part, Constness>::difference_type
 sge::renderer::vf::iterator<Part, Constness>::stride()
 {
   return fcppt::cast::to_signed(Part::stride::value);
@@ -42,7 +42,7 @@ bool sge::renderer::vf::iterator<Part, Constness>::equal(iterator const &_other)
 }
 
 template <typename Part, typename Constness>
-typename sge::renderer::vf::iterator<Part, Constness>::vertex_type
+sge::renderer::vf::iterator<Part, Constness>::vertex_type
 sge::renderer::vf::iterator<Part, Constness>::dereference() const
 {
   return vertex_type(this->data_);

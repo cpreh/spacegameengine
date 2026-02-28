@@ -32,7 +32,6 @@ public:
 
   ~display() override;
 
-private:
   [[nodiscard]] EGLDisplay get() const override;
 
   [[nodiscard]] awl::visual::object_unique_ptr create_visual(
@@ -41,6 +40,7 @@ private:
   [[nodiscard]] sge::opengl::egl::surface_unique_ptr
       create_surface(EGLConfig, sge::window::object_ref) override;
 
+private:
   fcppt::log::object_reference const log_;
 
   awl::backends::x11::display_ref const x11_display_;

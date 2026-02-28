@@ -22,14 +22,14 @@ namespace sge::opengl::texture
 {
 
 template <typename Types>
-class basic // NOLINT(fuchsia-multiple-inheritance)
+class basic // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public Types::base,
       public sge::opengl::texture::base
 {
   FCPPT_NONMOVABLE(basic);
 
 protected:
-  using parameters_type = typename Types::parameters;
+  using parameters_type = Types::parameters;
 
   basic(
       sge::opengl::texture::basic_parameters const &,
@@ -39,19 +39,22 @@ public:
   ~basic() override;
 
 protected:
-  using base_type = typename Types::base;
+  using base_type = Types::base;
 
+public:
   [[nodiscard]] sge::renderer::resource_flags_field resource_flags() const override;
 
   [[nodiscard]] sge::renderer::texture::capabilities_field capabilities() const override;
 
   [[nodiscard]] sge::renderer::texture::mipmap::object mipmap() const override;
 
+protected:
   [[nodiscard]] sge::opengl::context::object &context() const;
 
-private:
+public:
   void generate_mipmaps() override;
 
+private:
   fcppt::log::object_reference const log_;
 
   sge::opengl::context::object_ref const context_;

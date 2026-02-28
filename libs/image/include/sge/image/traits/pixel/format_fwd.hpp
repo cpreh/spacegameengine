@@ -12,7 +12,7 @@ namespace sge::image::traits::pixel
 {
 
 template <typename Tag>
-using format = typename sge::image::traits::pixel::format_tpl<Tag>::type;
+using format = sge::image::traits::pixel::format_tpl<Tag>::type;
 
 }
 

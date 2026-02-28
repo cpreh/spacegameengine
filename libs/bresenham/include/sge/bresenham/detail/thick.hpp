@@ -11,7 +11,7 @@ namespace sge::bresenham::detail
 
 template <bool Thick, typename Callback, typename T>
 [[nodiscard]] inline bool thick(Callback const &_callback, T const _x, T const _y)
-  requires(Thick)
+  requires Thick
 {
   return _callback(_x, _y);
 }

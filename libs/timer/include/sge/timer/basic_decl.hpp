@@ -32,9 +32,9 @@ public:
 
   using parameters = sge::timer::parameters<clock_type>;
 
-  using time_point = typename clock_type::time_point;
+  using time_point = clock_type::time_point;
 
-  using duration = typename clock_type::duration;
+  using duration = clock_type::duration;
 
   explicit basic(parameters const &);
 

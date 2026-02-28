@@ -27,8 +27,8 @@ fill_position_points(Iterator const _iterator, sge::sprite::object<Choices> cons
       sge::sprite::geometry::detail::make_position<Choices>(
           vector_float(
               // TODO(philipp)
-              static_cast<typename vector_float::value_type>(_sprite.x()),
-              static_cast<typename vector_float::value_type>(_sprite.y())),
+              static_cast<vector_float::value_type>(_sprite.x()),
+              static_cast<vector_float::value_type>(_sprite.y())),
           _sprite));
 }
 

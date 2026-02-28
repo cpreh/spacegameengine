@@ -33,7 +33,7 @@
 namespace sge::x11input::cursor
 {
 
-class object // NOLINT(fuchsia-multiple-inheritance)
+class object // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::input::cursor::object,
       public fcppt::enable_shared_from_this<object>
 {
@@ -50,13 +50,13 @@ public:
 
   ~object() override;
 
-private:
   [[nodiscard]] sge::window::object &window() const override;
 
   [[nodiscard]] sge::input::cursor::optional_position position() const override;
 
   void mode(sge::input::cursor::mode) override;
 
+private:
   [[nodiscard]] awl::event::container on_event(XIDeviceEvent const &);
 
   [[nodiscard]] awl::event::container on_paired_event(XIDeviceEvent const &);

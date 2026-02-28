@@ -13,7 +13,7 @@ namespace sge::sprite::detail::vf
 
 template <typename Object>
 using format_part_from_object =
-    typename sge::sprite::detail::vf::format_part<typename Object::choices>::type;
+    sge::sprite::detail::vf::format_part<typename Object::choices>::type;
 
 }
 

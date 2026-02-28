@@ -21,7 +21,7 @@ class proxy
 public:
   static_assert(sge::renderer::index::is_format<Format>::value);
 
-  using value_type = typename Format::index_type;
+  using value_type = Format::index_type;
 
   using pointer = sge::renderer::index::pointer<sge::renderer::index::nonconst_tag>;
 

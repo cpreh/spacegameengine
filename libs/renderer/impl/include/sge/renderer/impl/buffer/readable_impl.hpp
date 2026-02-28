@@ -24,7 +24,7 @@ readable<Tag>::~readable() = default;
 }
 
 template <typename Tag>
-typename sge::renderer::buffer::readable<Tag>::const_view
+sge::renderer::buffer::readable<Tag>::const_view
 sge::renderer::buffer::readable<Tag>::lock_c() const
 {
   return this->lock_c(

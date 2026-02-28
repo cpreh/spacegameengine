@@ -25,7 +25,7 @@ struct converter
   template <typename DestFormat, typename Source>
   static sge::image::pixel::mizuiro_type<DestFormat> execute(
       Source const &_source,
-      typename mizuiro::color::object<DestFormat>::format_store_type const & =
+      mizuiro::color::object<DestFormat>::format_store_type const & =
           mizuiro::color::format::argument<DestFormat>::get())
     requires(sge::image::color::is_convertible<typename Source::format, DestFormat>::value)
   {
@@ -36,7 +36,7 @@ struct converter
   [[noreturn]]
   static sge::image::pixel::mizuiro_type<DestFormat> execute(
       Source const &,
-      typename mizuiro::color::object<DestFormat>::format_store_type const & =
+      mizuiro::color::object<DestFormat>::format_store_type const & =
           mizuiro::color::format::argument<DestFormat>::get())
     requires(
         fcppt::not_(sge::image::color::is_convertible<typename Source::format, DestFormat>::value))

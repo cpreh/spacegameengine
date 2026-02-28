@@ -79,7 +79,7 @@ void sge::timer::basic<Clock>::active(bool const _active)
 }
 
 template <typename Clock>
-typename sge::timer::basic<Clock>::duration sge::timer::basic<Clock>::interval() const
+sge::timer::basic<Clock>::duration sge::timer::basic<Clock>::interval() const
 {
   return interval_;
 }
@@ -93,7 +93,7 @@ void sge::timer::basic<Clock>::interval(duration const _interval)
 }
 
 template <typename Clock>
-typename sge::timer::basic<Clock>::time_point sge::timer::basic<Clock>::now() const
+sge::timer::basic<Clock>::time_point sge::timer::basic<Clock>::now() const
 {
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wunused-result)
@@ -102,7 +102,7 @@ FCPPT_PP_POP_WARNING
 }
 
 template <typename Clock>
-typename sge::timer::basic<Clock>::time_point sge::timer::basic<Clock>::last_time() const
+sge::timer::basic<Clock>::time_point sge::timer::basic<Clock>::last_time() const
 {
   return last_time_;
 }

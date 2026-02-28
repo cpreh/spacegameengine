@@ -23,7 +23,7 @@ namespace sge::sprite::geometry::detail
 template <typename Iterator, typename Choices>
 void fill_position_unrotated(Iterator _iterator, sge::sprite::object<Choices> const &_sprite)
 {
-  using type_choices = typename Choices::type_choices;
+  using type_choices = Choices::type_choices;
 
   using float_rect = sge::sprite::geometry::detail::float_rect<type_choices>;
 

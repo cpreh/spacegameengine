@@ -10,7 +10,7 @@ namespace sge::systems::detail
 {
 
 template <typename Type>
-using extract_parameter_type = typename Type::parameter_type;
+using extract_parameter_type = Type::parameter_type;
 
 }
 

@@ -26,7 +26,7 @@ void sge::timer::clocks::delta<Duration>::update(duration const &_delta)
 }
 
 template <typename Duration>
-typename sge::timer::clocks::delta<Duration>::time_point
+sge::timer::clocks::delta<Duration>::time_point
 sge::timer::clocks::delta<Duration>::now() const
 {
   return now_;

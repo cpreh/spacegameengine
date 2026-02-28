@@ -87,7 +87,7 @@ basic_lockable_buffer<Types>::~basic_lockable_buffer() = default;
 }
 
 template <typename Types>
-typename sge::opengl::texture::basic_lockable_buffer<Types>::view
+sge::opengl::texture::basic_lockable_buffer<Types>::view
 sge::opengl::texture::basic_lockable_buffer<Types>::lock(
     lock_area const &_area, sge::renderer::lock_mode const _mode)
 {
@@ -97,7 +97,7 @@ sge::opengl::texture::basic_lockable_buffer<Types>::lock(
 }
 
 template <typename Types>
-typename sge::opengl::texture::basic_lockable_buffer<Types>::const_view
+sge::opengl::texture::basic_lockable_buffer<Types>::const_view
 sge::opengl::texture::basic_lockable_buffer<Types>::lock_c(lock_area const &_area) const
 {
   this->lock_me(_area, sge::renderer::lock_flags::method::read);
@@ -214,7 +214,7 @@ void sge::opengl::texture::basic_lockable_buffer<Types>::lock_me(
 }
 
 template <typename Types>
-typename sge::opengl::texture::basic_lockable_buffer<Types>::view
+sge::opengl::texture::basic_lockable_buffer<Types>::view
 sge::opengl::texture::basic_lockable_buffer<Types>::lock_view()
 {
   lock_unique_ptr const &cur_lock{fcppt::optional::to_exception(
@@ -244,7 +244,7 @@ sge::opengl::texture::basic_lockable_buffer<Types>::lock_view()
 }
 
 template <typename Types>
-typename sge::opengl::texture::basic_lockable_buffer<Types>::const_view
+sge::opengl::texture::basic_lockable_buffer<Types>::const_view
 sge::opengl::texture::basic_lockable_buffer<Types>::lock_view() const
 {
   return sge::image::view::to_const<image_tag>(
@@ -253,7 +253,7 @@ sge::opengl::texture::basic_lockable_buffer<Types>::lock_view() const
 }
 
 template <typename Types>
-typename sge::opengl::texture::basic_lockable_buffer<Types>::dim
+sge::opengl::texture::basic_lockable_buffer<Types>::dim
 sge::opengl::texture::basic_lockable_buffer<Types>::lock_dim() const
 {
   return fcppt::optional::maybe(

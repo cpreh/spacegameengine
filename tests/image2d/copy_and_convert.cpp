@@ -32,7 +32,7 @@
 #include <fcppt/config/external_end.hpp>
 
 FCPPT_CATCH_BEGIN
-// NOLINTBEGIN(clang-analyzer-optin.core.EnumCastOutOfRange,misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
+// NOLINTBEGIN(bugprone-throwing-static-initialization,clang-analyzer-optin.core.EnumCastOutOfRange,misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 
 namespace
 {
@@ -56,7 +56,7 @@ void test_conversion(ColorInitSource const &_source, ColorInitDest const &_dest)
   dest_store const dest{
       source.size(),
       typename dest_store::init_function{
-          [&source](typename dest_store::view_type const &_dest_view)
+          [&source](dest_store::view_type const &_dest_view)
           {
             sge::image2d::algorithm::copy_and_convert(
                 sge::image2d::view::const_object(source.const_wrapped_view()),
@@ -115,5 +115,5 @@ TEST_CASE("rgb_to_rgba", "[sge]")
   );
 }
 
-// NOLINTEND(clang-analyzer-optin.core.EnumCastOutOfRange,misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
+// NOLINTEND(bugprone-throwing-static-initialization,clang-analyzer-optin.core.EnumCastOutOfRange,misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)
 FCPPT_CATCH_END

@@ -48,7 +48,7 @@ public:
   [[nodiscard]] SGE_TEXTURE_DETAIL_SYMBOL bool repeatable() const override;
 
 private:
-  using store_type = typename sge::texture::detail::ref_store_type<Ref>::type;
+  using store_type = sge::texture::detail::ref_store_type<Ref>::type;
 
   store_type texture_;
 

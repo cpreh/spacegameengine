@@ -24,7 +24,7 @@ bool point_inside_triangle(
 
   using access_element = sge::projectile::triangulation::traits::access_element<Vertex, Tag>;
 
-  using scalar = typename sge::projectile::triangulation::traits::scalar<Vertex, Tag>::type;
+  using scalar = sge::projectile::triangulation::traits::scalar<Vertex, Tag>::type;
 
   scalar const v10(access_element::execute(v1, 0));
   scalar const v11(access_element::execute(v1, 1));

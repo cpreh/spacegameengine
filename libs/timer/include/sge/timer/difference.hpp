@@ -10,7 +10,7 @@ namespace sge::timer
 {
 
 template <typename Timer>
-inline typename Timer::duration difference(Timer const &_timer)
+inline Timer::duration difference(Timer const &_timer)
 {
   return _timer.now() - _timer.last_time();
 }

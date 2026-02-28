@@ -30,7 +30,7 @@ public:
 
   using vector_type = fcppt::math::vector::static_<value_type, N>;
 
-  using dim = typename grid_type::dim;
+  using dim = grid_type::dim;
 
   template <typename Rng>
   object(dim const &, fcppt::reference<Rng>);

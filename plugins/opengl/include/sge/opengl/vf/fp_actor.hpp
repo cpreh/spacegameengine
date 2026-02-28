@@ -30,8 +30,10 @@ private:
   void
   operator()(sge::opengl::vf::client_state_combiner_ref, sge::opengl::vf::pointer) const override;
 
+public:
   void unuse(sge::opengl::vf::client_state_combiner_ref) const override;
 
+private:
   virtual void on_use(sge::opengl::vf::pointer) const = 0;
 
   GLenum const client_state_;

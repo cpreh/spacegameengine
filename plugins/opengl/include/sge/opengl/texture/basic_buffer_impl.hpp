@@ -37,14 +37,14 @@ basic_buffer<Types>::~basic_buffer() = default;
 }
 
 template <typename Types>
-typename sge::opengl::texture::basic_buffer<Types>::dim
+sge::opengl::texture::basic_buffer<Types>::dim
 sge::opengl::texture::basic_buffer<Types>::size() const
 {
   return size_;
 }
 
 template <typename Types>
-typename sge::opengl::texture::basic_buffer<Types>::format_type
+sge::opengl::texture::basic_buffer<Types>::format_type
 sge::opengl::texture::basic_buffer<Types>::format() const
 {
   return format_;

@@ -32,11 +32,11 @@ public:
 
   ~context() override;
 
-private:
   [[nodiscard]] sge::opengl::backend::current_unique_ptr activate() override;
 
   void deactivate(sge::opengl::backend::current_unique_ptr &&) override;
 
+private:
   fcppt::log::object_reference const log_;
 
   awl::backends::x11::window::base_ref const window_;

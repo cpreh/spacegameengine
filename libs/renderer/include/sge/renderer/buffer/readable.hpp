@@ -33,13 +33,13 @@ public:
 
   using base_type = sge::renderer::buffer::base<ImageTag>;
 
-  using image_tag = typename base_type::image_tag;
+  using image_tag = base_type::image_tag;
 
-  using dim = typename base_type::dim;
+  using dim = base_type::dim;
 
-  using format_tag = typename base_type::format_tag;
+  using format_tag = base_type::format_tag;
 
-  using format_type = typename base_type::format_type;
+  using format_type = base_type::format_type;
 
   /**
 	\brief The lock area type

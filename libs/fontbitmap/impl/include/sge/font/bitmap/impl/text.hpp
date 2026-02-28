@@ -40,7 +40,6 @@ public:
 
   ~text() override;
 
-private:
   void render(sge::font::view const &) override;
 
   [[nodiscard]] sge::font::rect rect() const override;
@@ -51,6 +50,7 @@ private:
 
   [[nodiscard]] sge::font::optional_index pos_to_index(sge::font::vector) const override;
 
+private:
   template <typename Function>
   void iterate(Function const &) const;
 

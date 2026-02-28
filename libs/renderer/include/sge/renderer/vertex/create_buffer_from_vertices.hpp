@@ -41,7 +41,7 @@ sge::renderer::vertex::buffer_unique_ptr create_buffer_from_vertices(
 
   static_assert(sge::renderer::vf::is_vertex<vertex_type>::value);
 
-  using format_part = typename vertex_type::format_part;
+  using format_part = vertex_type::format_part;
 
   sge::renderer::vertex::buffer_unique_ptr buffer{
       _device.get().create_vertex_buffer(sge::renderer::vertex::buffer_parameters(

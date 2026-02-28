@@ -39,7 +39,7 @@ multi<Choices>::~multi() = default;
 }
 
 template <typename Choices>
-typename sge::sprite::buffers::multi<Choices>::slice_type
+sge::sprite::buffers::multi<Choices>::slice_type
 sge::sprite::buffers::multi<Choices>::allocate(sge::sprite::count const _num_sprites)
 {
   buffers_.push_back(fcppt::make_unique_ptr<buffers_object>(sge::sprite::buffers::allocate<Choices>(

@@ -31,7 +31,7 @@
 namespace sge::camera::spherical
 {
 
-// NOLINTNEXTLINE(fuchsia-multiple-inheritance)
+// NOLINTNEXTLINE(fuchsia-multiple-inheritance,misc-multiple-inheritance)
 class SGE_CORE_DETAIL_CLASS_SYMBOL object : public virtual sge::camera::base,
                                             public sge::camera::is_dynamic,
                                             public sge::camera::has_mutable_projection

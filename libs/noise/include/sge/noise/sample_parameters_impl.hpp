@@ -25,28 +25,28 @@ sge::noise::sample_parameters<Noise>::sample_parameters(
 }
 
 template <typename Noise>
-typename sge::noise::sample_parameters<Noise>::position_type
+sge::noise::sample_parameters<Noise>::position_type
 sge::noise::sample_parameters<Noise>::position() const
 {
   return position_;
 }
 
 template <typename Noise>
-typename sge::noise::sample_parameters<Noise>::frequency_type
+sge::noise::sample_parameters<Noise>::frequency_type
 sge::noise::sample_parameters<Noise>::frequency() const
 {
   return frequency_;
 }
 
 template <typename Noise>
-typename sge::noise::sample_parameters<Noise>::amplitude_type
+sge::noise::sample_parameters<Noise>::amplitude_type
 sge::noise::sample_parameters<Noise>::amplitude() const
 {
   return amplitude_;
 }
 
 template <typename Noise>
-typename sge::noise::sample_parameters<Noise>::octaves_type
+sge::noise::sample_parameters<Noise>::octaves_type
 sge::noise::sample_parameters<Noise>::octaves() const
 {
   return octaves_;

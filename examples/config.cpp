@@ -12,6 +12,8 @@
 #include <fcppt/io/cout.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <cstdlib>
+#include <exception>
+#include <iostream>
 #include <fcppt/config/external_end.hpp>
 
 int main()
@@ -22,10 +24,18 @@ try
                     << FCPPT_TEXT('\n');
 
   fcppt::io::cout() << FCPPT_TEXT("User name: ") << sge::config::user_name() << FCPPT_TEXT('\n');
+
+  return EXIT_SUCCESS;
 }
 catch (fcppt::exception const &_exception)
 {
   fcppt::io::cerr() << _exception.string() << FCPPT_TEXT('\n');
+
+  return EXIT_FAILURE;
+}
+catch (std::exception const &_error)
+{
+  std::cerr << _error.what() << '\n';
 
   return EXIT_FAILURE;
 }

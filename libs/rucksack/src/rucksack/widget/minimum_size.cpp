@@ -46,6 +46,7 @@ sge::rucksack::axis_policy2 sge::rucksack::widget::minimum_size::axis_policy() c
       [this](sge::rucksack::axis const _axis)
       {
         return sge::rucksack::axis_policy{sge::rucksack::preferred_size{
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             sge::rucksack::impl::extract_size(child_.get().axis_policy()[_axis])}};
       }});
 }

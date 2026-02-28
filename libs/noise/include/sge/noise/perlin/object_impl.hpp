@@ -33,7 +33,7 @@ sge::noise::perlin::object<Float, N, Interpolator>::object(
             using uniform_real_distribution = fcppt::random::distribution::basic<
                 fcppt::random::distribution::parameters::uniform_real<value_type>>;
 
-            using distribution_parameters = typename uniform_real_distribution::param_type;
+            using distribution_parameters = uniform_real_distribution::param_type;
 
             using variate = fcppt::random::variate<Rng, uniform_real_distribution>;
 
@@ -43,7 +43,7 @@ sge::noise::perlin::object<Float, N, Interpolator>::object(
                     typename distribution_parameters::min{fcppt::literal<value_type>(-1)},
                     typename distribution_parameters::sup{fcppt::literal<value_type>(1)}}};
 
-            return grid_type{_size, [&v](typename grid_type::pos) { return v(); }};
+            return grid_type{_size, [&v](grid_type::pos) { return v(); }};
           }())
 {
   if (fcppt::math::dim::contents(_size) == 0U)
@@ -53,7 +53,7 @@ sge::noise::perlin::object<Float, N, Interpolator>::object(
 }
 
 template <typename Float, fcppt::math::size_type N, typename Interpolator>
-typename sge::noise::perlin::object<Float, N, Interpolator>::value_type
+sge::noise::perlin::object<Float, N, Interpolator>::value_type
 sge::noise::perlin::object<Float, N, Interpolator>::sample(vector_type const _v) const
 {
   return fcppt::container::grid::interpolate(

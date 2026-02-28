@@ -13,9 +13,8 @@ namespace sge::sprite::detail::config
 {
 
 template <typename Choices>
-using texture_levels = typename fcppt::mpl::list::front<
+using texture_levels = fcppt::mpl::list::front<
     typename sge::sprite::detail::config::find_texture_config<Choices>::type>::texture_levels;
-
 }
 
 #endif

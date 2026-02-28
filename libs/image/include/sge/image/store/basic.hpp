@@ -27,15 +27,15 @@ class basic
 public:
   using internal_type = mizuiro::image::store<Format, sge::image::view::mizuiro_access>;
 
-  using pointer = typename internal_type::pointer;
+  using pointer = internal_type::pointer;
 
-  using const_pointer = typename internal_type::const_pointer;
+  using const_pointer = internal_type::const_pointer;
 
   using dim = sge::image::basic_dim<Format::dim::static_size>;
 
-  using view_type = typename internal_type::view_type;
+  using view_type = internal_type::view_type;
 
-  using const_view_type = typename internal_type::const_view_type;
+  using const_view_type = internal_type::const_view_type;
 
   using wrapped_view_type = sge::image::view::to_wrapped_type<view_type>;
 

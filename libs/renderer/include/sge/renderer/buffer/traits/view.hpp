@@ -12,7 +12,7 @@ namespace sge::renderer::buffer::traits
 {
 
 template <typename Tag>
-using view = typename sge::renderer::buffer::traits::view_tpl<Tag>::type;
+using view = sge::renderer::buffer::traits::view_tpl<Tag>::type;
 
 }
 

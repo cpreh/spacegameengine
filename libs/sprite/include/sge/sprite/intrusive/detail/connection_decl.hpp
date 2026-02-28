@@ -33,7 +33,7 @@ public:
 
   using base = sge::sprite::intrusive::connection<Choices>;
 
-  using object = typename base::object;
+  using object = base::object;
 
   void add(object &) override;
 

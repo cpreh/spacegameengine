@@ -12,7 +12,7 @@ namespace sge::sprite::state::detail
 {
 
 template <typename StateChoices>
-using object_class = typename sge::sprite::state::detail::object_class_impl<StateChoices>::type;
+using object_class = sge::sprite::state::detail::object_class_impl<StateChoices>::type;
 
 }
 

@@ -42,7 +42,7 @@ class muxing_streambuf : std::basic_streambuf<Char, Traits>
 public:
   using streambuf_base = std::basic_streambuf<Char, Traits>;
 
-  using int_type = typename streambuf_base::int_type;
+  using int_type = streambuf_base::int_type;
 
   SGE_CONSOLE_DETAIL_SYMBOL
   muxing_streambuf(

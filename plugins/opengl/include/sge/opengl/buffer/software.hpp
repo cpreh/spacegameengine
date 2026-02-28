@@ -33,7 +33,6 @@ public:
 
   ~software() override;
 
-private:
   [[nodiscard]] sge::opengl::buffer::id gen_buffer() override;
 
   void delete_buffer(sge::opengl::buffer::id) override;
@@ -58,6 +57,7 @@ private:
 
   [[nodiscard]] bool native() const override;
 
+private:
   [[nodiscard]] sge::opengl::buffer::id bound_buffer() const;
 
   using buffer_map = std::unordered_map<sge::opengl::buffer::id, sge::renderer::raw_pointer>;

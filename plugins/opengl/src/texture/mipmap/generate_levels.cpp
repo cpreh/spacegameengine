@@ -33,7 +33,7 @@ void sge::opengl::texture::mipmap::generate_levels(
     sge::opengl::texture::mipmap::parameters<Size> const &_parameters,
     sge::renderer::texture::mipmap::level_count const _levels)
 {
-  using dim = typename sge::opengl::texture::mipmap::parameters<Size>::dim;
+  using dim = sge::opengl::texture::mipmap::parameters<Size>::dim;
 
   sge::renderer::texture::mipmap::level level(1U);
 

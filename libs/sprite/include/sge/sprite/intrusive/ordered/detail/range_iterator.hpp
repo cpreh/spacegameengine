@@ -13,7 +13,7 @@ namespace sge::sprite::intrusive::ordered::detail
 
 template <typename Choices, bool IsConst>
 using range_iterator =
-    typename sge::sprite::intrusive::ordered::detail::range_iterator_impl<Choices, IsConst>::type;
+    sge::sprite::intrusive::ordered::detail::range_iterator_impl<Choices, IsConst>::type;
 
 }
 

@@ -172,7 +172,7 @@ rgb32f_from_string(std::basic_string<Char, CharTraits> _string)
   {
     ss.ignore();
 
-    if (!ss.str().substr(static_cast<typename string::size_type>(ss.tellg())).empty())
+    if (!ss.str().substr(static_cast<string::size_type>(ss.tellg())).empty())
     {
       return fcppt::either::make_failure<sge::image::color::any::object>(fcppt::string{
           FCPPT_TEXT("Invalid floating point color string (trailing characters), cannot convert")});
@@ -207,7 +207,7 @@ rgb32f_from_string(std::basic_string<Char, CharTraits> _string)
 
   ss.ignore();
 
-  if (!ss.str().substr(static_cast<typename string::size_type>(ss.tellg())).empty())
+  if (!ss.str().substr(static_cast<string::size_type>(ss.tellg())).empty())
   {
     return fcppt::either::make_failure<sge::image::color::any::object>(fcppt::string{
         FCPPT_TEXT("Invalid floating point color string (trailing characters), cannot convert")});

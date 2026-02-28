@@ -12,7 +12,7 @@ namespace sge::image::impl::traits
 {
 
 template <typename Tag>
-using static_converter = typename sge::image::impl::traits::static_converter_tpl<Tag>::type;
+using static_converter = sge::image::impl::traits::static_converter_tpl<Tag>::type;
 
 }
 

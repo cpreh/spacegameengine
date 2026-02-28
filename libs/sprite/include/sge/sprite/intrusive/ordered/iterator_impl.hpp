@@ -47,7 +47,7 @@ void sge::sprite::intrusive::ordered::iterator<Choices, Order, IsConst>::increme
 }
 
 template <typename Choices, typename Order, bool IsConst>
-typename sge::sprite::intrusive::ordered::iterator<Choices, Order, IsConst>::reference
+sge::sprite::intrusive::ordered::iterator<Choices, Order, IsConst>::reference
 sge::sprite::intrusive::ordered::iterator<Choices, Order, IsConst>::dereference() const
 {
   return *inner_iterator_;

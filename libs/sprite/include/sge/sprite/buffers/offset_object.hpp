@@ -12,7 +12,7 @@ namespace sge::sprite::buffers
 {
 
 template <typename Choices>
-using offset_object = typename sge::sprite::detail::buffers::offset_object<Choices>::type;
+using offset_object = sge::sprite::detail::buffers::offset_object<Choices>::type;
 
 }
 

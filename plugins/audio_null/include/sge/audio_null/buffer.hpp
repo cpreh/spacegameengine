@@ -25,7 +25,6 @@ public:
 
   ~buffer() override;
 
-private:
   [[nodiscard]] sge::audio::sound::positional_unique_ptr
   create_positional(sge::audio::sound::positional_parameters const &) override;
 

@@ -39,14 +39,14 @@ range<Choices>::~range() = default;
 }
 
 template <typename Choices>
-typename sge::sprite::render::range<Choices>::optional_object const &
+sge::sprite::render::range<Choices>::optional_object const &
 sge::sprite::render::range<Choices>::object() const
 {
   return object_;
 }
 
 template <typename Choices>
-typename sge::sprite::render::range<Choices>::range_part_vector const &
+sge::sprite::render::range<Choices>::range_part_vector const &
 sge::sprite::render::range<Choices>::parts() const
 {
   return range_parts_;

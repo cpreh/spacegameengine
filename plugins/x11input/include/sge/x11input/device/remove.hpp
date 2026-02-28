@@ -23,7 +23,7 @@ fcppt::shared_ptr<Type> remove(
     fcppt::reference<sge::x11input::device::map<Type>> const _map,
     sge::x11input::device::id const _id)
 {
-  using iterator_type = typename sge::x11input::device::map<Type>::iterator;
+  using iterator_type = sge::x11input::device::map<Type>::iterator;
 
   iterator_type const iterator{fcppt::optional::to_exception(
       fcppt::container::find_opt_iterator(_map.get(), _id),

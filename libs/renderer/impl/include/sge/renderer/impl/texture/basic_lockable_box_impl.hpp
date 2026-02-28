@@ -25,7 +25,7 @@ basic_lockable_box<Tag>::~basic_lockable_box() = default;
 }
 
 template <typename Tag>
-typename sge::renderer::texture::basic_lockable_box<Tag>::dim
+sge::renderer::texture::basic_lockable_box<Tag>::dim
 sge::renderer::texture::basic_lockable_box<Tag>::size() const
 {
   return this->level(sge::renderer::texture::mipmap::level(0U)).size();

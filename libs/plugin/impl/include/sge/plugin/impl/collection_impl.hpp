@@ -39,19 +39,19 @@ collection<Type>::~collection() = default;
 }
 
 template <typename Type>
-typename sge::plugin::collection<Type>::iterator sge::plugin::collection<Type>::begin() const
+sge::plugin::collection<Type>::iterator sge::plugin::collection<Type>::begin() const
 {
   return iterator{this->plugins_.get().begin()};
 }
 
 template <typename Type>
-typename sge::plugin::collection<Type>::iterator sge::plugin::collection<Type>::end() const
+sge::plugin::collection<Type>::iterator sge::plugin::collection<Type>::end() const
 {
   return iterator{this->plugins_.get().end()};
 }
 
 template <typename Type>
-typename sge::plugin::collection<Type>::size_type sge::plugin::collection<Type>::size() const
+sge::plugin::collection<Type>::size_type sge::plugin::collection<Type>::size() const
 {
   return this->plugins_.get().size();
 }

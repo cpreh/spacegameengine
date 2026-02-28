@@ -49,6 +49,7 @@ private:
 
   void on_unbind() override;
 
+public:
   void end_rendering() override;
 
   void color_surface(
@@ -58,6 +59,7 @@ private:
   void
   depth_stencil_surface(sge::renderer::depth_stencil_buffer::optional_surface_ref const &) override;
 
+private:
   [[nodiscard]] sge::renderer::screen_unit height() const override;
 
   [[nodiscard]] sge::opengl::fbo::attachment_unique_ptr create_texture_binding(

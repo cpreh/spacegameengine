@@ -14,7 +14,7 @@
 namespace sge::parse::ini::typed
 {
 template <typename Parser>
-using result_type = typename std::remove_cvref_t<fcppt::deref_type<Parser>>::result_type;
+using result_type = std::remove_cvref_t<fcppt::deref_type<Parser>>::result_type;
 }
 
 #endif

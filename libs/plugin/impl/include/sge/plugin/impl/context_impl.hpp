@@ -40,7 +40,7 @@ context<Type>::~context() = default;
 }
 
 template <typename Type>
-typename sge::plugin::context<Type>::object sge::plugin::context<Type>::load() const
+sge::plugin::context<Type>::object sge::plugin::context<Type>::load() const
 {
   return sge::plugin::object<Type>(context_base_.get().load());
 }

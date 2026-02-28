@@ -33,7 +33,7 @@ void sge::image::algorithm::fill(
             _view_inner,
             sge::image::pixel::convert<
                 sge::image::traits::image::color_tag<Tag>,
-                typename std::decay<decltype(_view_inner)>::type::format::color_format>(_value),
+                typename std::decay_t<decltype(_view_inner)>::format::color_format>(_value),
             sge::image::impl::algorithm::convert_uninitialized(_uninitialized));
       },
       _view.get());

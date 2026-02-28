@@ -31,7 +31,7 @@ fcppt::log::context_reference sge::media::muxer_parameters<System>::log_context(
 }
 
 template <typename System>
-typename sge::media::muxer_parameters<System>::collection_type const &
+sge::media::muxer_parameters<System>::collection_type const &
 sge::media::muxer_parameters<System>::collection() const
 {
   return collection_;

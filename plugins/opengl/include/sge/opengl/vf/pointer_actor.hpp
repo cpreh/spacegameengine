@@ -25,8 +25,10 @@ public:
 protected:
   explicit pointer_actor(sge::opengl::vf::actor_parameters const &);
 
+public:
   [[nodiscard]] sge::renderer::vf::dynamic::offset offset() const override;
 
+protected:
   [[nodiscard]] sge::renderer::vf::dynamic::stride stride() const;
 
 private:

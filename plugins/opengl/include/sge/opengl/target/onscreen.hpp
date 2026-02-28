@@ -37,10 +37,12 @@ private:
 
   void on_unbind() override;
 
+public:
   void end_rendering() override;
 
   [[nodiscard]] sge::renderer::color_buffer::readable_surface const &surface() const override;
 
+private:
   [[nodiscard]] sge::renderer::screen_unit height() const override;
 
   using color_surface_unique_ptr = fcppt::unique_ptr<sge::renderer::color_buffer::readable_surface>;

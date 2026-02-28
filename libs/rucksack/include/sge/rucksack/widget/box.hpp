@@ -126,7 +126,8 @@ public:
 
   SGE_RUCKSACK_DETAIL_SYMBOL
   ~box() override;
-
+protected:
+  void child_destroyed(sge::rucksack::widget::base &) override;
 private:
   void insert_child(iterator, sge::rucksack::widget::reference, sge::rucksack::alignment);
 
@@ -146,8 +147,6 @@ private:
 
   [[nodiscard]] sge::rucksack::axis minor_axis() const;
 
-  void child_destroyed(sge::rucksack::widget::base & // NOLINT(google-runtime-references)
-                       ) override;
 };
 
 }

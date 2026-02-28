@@ -17,7 +17,7 @@ sge::renderer::index::const_proxy<Format>::const_proxy(pointer const _data) : da
 }
 
 template <typename Format>
-typename sge::renderer::index::const_proxy<Format>::value_type
+sge::renderer::index::const_proxy<Format>::value_type
 sge::renderer::index::const_proxy<Format>::get() const
 {
   value_type ret;

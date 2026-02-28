@@ -25,7 +25,6 @@ public:
 
   ~object() override;
 
-private:
   void begin() override;
 
   void end() override;
@@ -33,6 +32,7 @@ private:
   [[nodiscard]] sge::renderer::occlusion_query::optional_pixel_count
       result(sge::renderer::occlusion_query::blocking_wait) const override;
 
+private:
   sge::opengl::occlusion_query::const_config_ref const config_;
 
   sge::opengl::occlusion_query::holder const holder_;

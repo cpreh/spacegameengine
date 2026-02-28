@@ -20,22 +20,22 @@ namespace sge::opengl::texture
 {
 
 template <typename Types>
-class basic_buffer // NOLINT(fuchsia-multiple-inheritance)
+class basic_buffer // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public Types::base,
       public sge::opengl::texture::buffer_base
 {
   FCPPT_NONMOVABLE(basic_buffer);
 
 public:
-  using base_type = typename Types::base;
+  using base_type = Types::base;
 
-  using image_tag = typename base_type::image_tag;
+  using image_tag = base_type::image_tag;
 
   using color_tag = sge::image::traits::image::color_tag<image_tag>;
 
   using format_type = sge::image::traits::pixel::format<color_tag>;
 
-  using dim = typename base_type::dim;
+  using dim = base_type::dim;
 
   using config_type = sge::opengl::texture::config<dim::static_size::value>;
 

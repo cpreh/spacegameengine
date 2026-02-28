@@ -82,10 +82,10 @@ void bresenham(
 {
   using int_type = std::make_signed_t<typename View::dim::value_type>;
 
-  auto x0 = static_cast<int_type>(start[0]);
-  auto y0 = static_cast<int_type>(start[1]);
-  auto x1 = static_cast<int_type>(end[0]);
-  auto y1 = static_cast<int_type>(end[1]);
+  auto x0 = static_cast<int_type>(start[0]); // NOLINT(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
+  auto y0 = static_cast<int_type>(start[1]); // NOLINT(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
+  auto x1 = static_cast<int_type>(end[0]); // NOLINT(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
+  auto y1 = static_cast<int_type>(end[1]); // NOLINT(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
 
   bool const steep = std::abs(y1 - y0) > std::abs(x1 - x0);
   if (steep)
@@ -119,14 +119,14 @@ void bresenham(
     if (steep)
     {
       v[typename View::dim(
-          static_cast<typename View::dim::value_type>(y),
-          static_cast<typename View::dim::value_type>(x))] = c;
+          static_cast<View::dim::value_type>(y),
+          static_cast<View::dim::value_type>(x))] = c;
     }
     else
     {
       v[typename View::dim(
-          static_cast<typename View::dim::value_type>(x),
-          static_cast<typename View::dim::value_type>(y))] = c;
+          static_cast<View::dim::value_type>(x),
+          static_cast<View::dim::value_type>(y))] = c;
     }
     error -= deltay;
     if (error < 0)

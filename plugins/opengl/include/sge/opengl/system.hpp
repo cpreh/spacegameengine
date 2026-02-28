@@ -31,7 +31,6 @@ public:
 
   ~system() override;
 
-private:
   [[nodiscard]] sge::renderer::device::core_unique_ptr
   create_core_renderer(sge::renderer::device::parameters const &) override;
 
@@ -41,6 +40,7 @@ private:
   [[nodiscard]] awl::visual::object_unique_ptr
   create_visual(sge::renderer::pixel_format::object const &) override;
 
+private:
   using platform_system_unique_ptr = fcppt::unique_ptr<sge::opengl::platform::system>;
 
   fcppt::log::object_reference const log_;

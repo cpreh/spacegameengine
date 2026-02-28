@@ -13,17 +13,16 @@ namespace sge::projectile::triangulation::detail
 {
 
 template <typename Tag, typename PointContainer>
-typename sge::projectile::triangulation::traits::scalar<typename PointContainer::value_type, Tag>::
-    type
-    area(PointContainer const &_contour)
+sge::projectile::triangulation::traits::scalar<typename PointContainer::value_type, Tag>::type
+area(PointContainer const &_contour)
 {
-  using size_type = typename PointContainer::size_type;
+  using size_type = PointContainer::size_type;
 
-  using vertex = typename PointContainer::value_type;
+  using vertex = PointContainer::value_type;
 
   using access_element = sge::projectile::triangulation::traits::access_element<vertex, Tag>;
 
-  using scalar = typename sge::projectile::triangulation::traits::scalar<vertex, Tag>::type;
+  using scalar = sge::projectile::triangulation::traits::scalar<vertex, Tag>::type;
 
   auto result(static_cast<scalar>(0));
 
@@ -39,7 +38,6 @@ typename sge::projectile::triangulation::traits::scalar<typename PointContainer:
 
   return static_cast<scalar>(result / static_cast<scalar>(2));
 }
-
 }
 
 #endif

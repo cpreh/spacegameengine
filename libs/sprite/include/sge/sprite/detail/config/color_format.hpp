@@ -26,7 +26,7 @@ private:
       find_if<typename Choices::optional_elements, sge::sprite::config::is_with_color>;
 
   template <typename Type>
-  using get_color_format = typename Type::color_format;
+  using get_color_format = Type::color_format;
 
 public:
   // TODO(philipp): Make a function for this

@@ -12,9 +12,8 @@ namespace sge::sprite::intrusive::ordered::detail
 {
 
 template <typename Choices, typename Order, bool IsConst>
-using iterator_base = typename sge::sprite::intrusive::ordered::detail::
-    iterator_base_impl<Choices, Order, IsConst>::type;
-
+using iterator_base =
+    sge::sprite::intrusive::ordered::detail::iterator_base_impl<Choices, Order, IsConst>::type;
 }
 
 #endif

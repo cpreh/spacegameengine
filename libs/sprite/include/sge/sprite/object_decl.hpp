@@ -43,11 +43,11 @@ class object final : public sge::sprite::detail::object_base<Choices>
 public:
   using element_type = sge::sprite::detail::make_class<Choices>;
 
-  using all_types = typename element_type::all_types;
+  using all_types = element_type::all_types;
 
   using choices = Choices;
 
-  using type_choices = typename Choices::type_choices;
+  using type_choices = Choices::type_choices;
 
   using unit = sge::sprite::types::basic::unit<type_choices>;
 

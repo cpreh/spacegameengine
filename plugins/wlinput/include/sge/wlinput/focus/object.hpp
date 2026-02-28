@@ -26,7 +26,7 @@
 namespace sge::wlinput::focus
 {
 
-class object // NOLINT(fuchsia-multiple-inheritance)
+class object // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::input::focus::object,
       public fcppt::enable_shared_from_this<sge::wlinput::focus::object>
 {

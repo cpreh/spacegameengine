@@ -17,7 +17,7 @@ struct needs_ffp
 {
 private:
   template <typename Type>
-  using extract = typename Type::needs_ffp;
+  using extract = Type::needs_ffp;
 
 public:
   using type = fcppt::mpl::list::

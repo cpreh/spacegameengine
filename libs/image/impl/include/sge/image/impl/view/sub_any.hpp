@@ -28,7 +28,7 @@ View sub_any(View const &_view, Box const &_box)
       {
         using source_type = std::decay_t<decltype(_src)>;
 
-        using bound_type = typename source_type::bound_type;
+        using bound_type = source_type::bound_type;
 
         return View(sge::image::view::wrap(mizuiro::image::sub_view(
             _src,

@@ -71,7 +71,7 @@ fcppt::signal::auto_connection sge::x11input::event::demuxer<Event>::on_event(
               {
                 fcppt::optional::maybe_void(
                     fcppt::container::find_opt_iterator(signals_, _id),
-                    [this](typename signal_map::iterator const _it)
+                    [this](signal_map::iterator const _it)
                     {
                       if (_it->second.empty())
                       {

@@ -39,7 +39,6 @@ public:
 
   ~object() override;
 
-private:
   [[nodiscard]] sge::model::md3::index_sequence
   indices(sge::model::md3::string const &) const override;
 
@@ -54,6 +53,7 @@ private:
 
   [[nodiscard]] sge::model::md3::part_name_sequence part_names() const override;
 
+private:
   std::size_t vertices_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   std::size_t indices_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)

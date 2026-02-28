@@ -12,7 +12,7 @@ namespace sge::image::traits::pixel
 {
 
 template <typename Format>
-using static_formats = typename sge::image::traits::pixel::static_formats_tpl<Format>::type;
+using static_formats = sge::image::traits::pixel::static_formats_tpl<Format>::type;
 
 }
 

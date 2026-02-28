@@ -30,7 +30,6 @@ public:
 
   [[nodiscard]] bool result() const;
 
-private:
   [[nodiscard]] bool needsCollision(btBroadphaseProxy *) const override;
 
   [[nodiscard]] btScalar addSingleResult(
@@ -42,6 +41,7 @@ private:
       int partId1,
       int index1) override;
 
+private:
   bool result_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 };
 

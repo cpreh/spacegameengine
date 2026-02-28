@@ -25,7 +25,6 @@ public:
 
   ~system() override;
 
-private:
   [[nodiscard]] sge::opengl::platform::device_state_unique_ptr create_device_state(
       sge::renderer::display_mode::optional_fullscreen const &, sge::window::object_ref) override;
 };

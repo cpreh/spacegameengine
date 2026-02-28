@@ -31,9 +31,9 @@ public:
 
   ~original() override;
 
-private:
   [[nodiscard]] sge::window::object &get() const override;
 
+private:
   awl::visual::object_unique_ptr const awl_visual_;
 
   awl::cursor::object_unique_ptr const awl_cursor_;

@@ -41,6 +41,7 @@ public:
 
   void update() override;
 
+protected:
   void do_play() override;
 
 private:

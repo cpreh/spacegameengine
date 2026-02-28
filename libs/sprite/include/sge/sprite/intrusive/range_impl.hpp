@@ -17,14 +17,14 @@ sge::sprite::intrusive::range<Choices, IsConst>::range(
 }
 
 template <typename Choices, bool IsConst>
-typename sge::sprite::intrusive::range<Choices, IsConst>::iterator
+sge::sprite::intrusive::range<Choices, IsConst>::iterator
 sge::sprite::intrusive::range<Choices, IsConst>::begin() const
 {
   return list_.get().begin();
 }
 
 template <typename Choices, bool IsConst>
-typename sge::sprite::intrusive::range<Choices, IsConst>::iterator
+sge::sprite::intrusive::range<Choices, IsConst>::iterator
 sge::sprite::intrusive::range<Choices, IsConst>::end() const
 {
   return list_.get().end();

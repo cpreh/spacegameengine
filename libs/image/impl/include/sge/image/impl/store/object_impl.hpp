@@ -53,13 +53,13 @@ object<Tag>::~object() = default;
 }
 
 template <typename Tag>
-typename sge::image::store::object<Tag>::variant &sge::image::store::object<Tag>::get()
+sge::image::store::object<Tag>::variant &sge::image::store::object<Tag>::get()
 {
   return variant_;
 }
 
 template <typename Tag>
-typename sge::image::store::object<Tag>::variant const &sge::image::store::object<Tag>::get() const
+sge::image::store::object<Tag>::variant const &sge::image::store::object<Tag>::get() const
 {
   return variant_;
 }

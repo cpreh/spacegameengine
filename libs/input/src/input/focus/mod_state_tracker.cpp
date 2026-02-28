@@ -82,6 +82,7 @@ void sge::input::focus::mod_state_tracker::event(sge::input::focus::event::base 
                   sge::input::key::to_modifier(_key_event.get().get().code()),
                   [false_array, focus, _key_event, this](sge::input::key::modifier const _mod)
                   {
+                    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
                     fcppt::container::get_or_insert(
                         this->map_,
                         focus,
@@ -108,6 +109,7 @@ sge::input::focus::mod_state_tracker::mod_state(sge::input::focus::shared_ptr co
             sge::input::key::mod_state::null(),
             [&_pressed](
                 sge::input::key::modifier const _mod, sge::input::key::mod_state const _state)
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             { return _pressed.get()[_mod].get() ? _state | _mod : _state; });
       });
 }

@@ -37,14 +37,14 @@ sge::image::view::sub_out_of_range<Tag> &
 sge::image::view::sub_out_of_range<Tag>::operator=(sub_out_of_range const &) = default;
 
 template <typename Tag>
-typename sge::image::view::sub_out_of_range<Tag>::box const &
+sge::image::view::sub_out_of_range<Tag>::box const &
 sge::image::view::sub_out_of_range<Tag>::outer() const
 {
   return outer_;
 }
 
 template <typename Tag>
-typename sge::image::view::sub_out_of_range<Tag>::box const &
+sge::image::view::sub_out_of_range<Tag>::box const &
 sge::image::view::sub_out_of_range<Tag>::inner() const
 {
   return inner_;

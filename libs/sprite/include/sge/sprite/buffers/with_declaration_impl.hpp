@@ -34,21 +34,21 @@ with_declaration<Buffers>::~with_declaration() = default;
 }
 
 template <typename Buffers>
-typename sge::sprite::buffers::with_declaration<Buffers>::slice_type
+sge::sprite::buffers::with_declaration<Buffers>::slice_type
 sge::sprite::buffers::with_declaration<Buffers>::allocate(sge::sprite::count const _count)
 {
   return buffers_.allocate(_count);
 }
 
 template <typename Buffers>
-typename sge::sprite::buffers::with_declaration<Buffers>::buffers_type &
+sge::sprite::buffers::with_declaration<Buffers>::buffers_type &
 sge::sprite::buffers::with_declaration<Buffers>::impl()
 {
   return buffers_;
 }
 
 template <typename Buffers>
-typename sge::sprite::buffers::with_declaration<Buffers>::buffers_type const &
+sge::sprite::buffers::with_declaration<Buffers>::buffers_type const &
 sge::sprite::buffers::with_declaration<Buffers>::impl() const
 {
   return buffers_;

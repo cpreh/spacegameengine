@@ -34,7 +34,7 @@ muxer<System, File>::~muxer() = default;
 }
 
 template <typename System, typename File>
-typename sge::media::muxer<System, File>::load_stream_result
+sge::media::muxer<System, File>::load_stream_result
 sge::media::muxer<System, File>::mux_stream(
     sge::media::stream_unique_ptr &&_stream,
     sge::media::optional_extension const &_extension,
@@ -44,7 +44,7 @@ sge::media::muxer<System, File>::mux_stream(
 }
 
 template <typename System, typename File>
-typename sge::media::muxer<System, File>::optional_system_ref
+sge::media::muxer<System, File>::optional_system_ref
 sge::media::muxer<System, File>::mux_extension(sge::media::extension const &_extension) const
 {
   return impl_->mux_extension(_extension);

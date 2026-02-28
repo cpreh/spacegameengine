@@ -28,7 +28,7 @@ class grammar : public sge::parse::ini::grammar_base
 public:
   grammar();
 
-  ~grammar();
+  ~grammar(); // NOLINT(bugprone-derived-method-shadowing-base-method)
 
 private:
   base_type<sge::parse::ini::entry> entry_;

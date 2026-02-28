@@ -16,9 +16,9 @@ namespace sge::sprite::config
 template <typename Unit, typename Float>
 struct type_choices<sge::sprite::config::unit_type<Unit>, sge::sprite::config::float_type<Float>>
 {
-  using unit_type = typename sge::sprite::config::unit_type<Unit>::type;
+  using unit_type = sge::sprite::config::unit_type<Unit>::type;
 
-  using float_type = typename sge::sprite::config::float_type<Float>::type;
+  using float_type = sge::sprite::config::float_type<Float>::type;
 };
 
 }

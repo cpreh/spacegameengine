@@ -26,7 +26,7 @@ private:
   using with_texture_point_size =
       sge::sprite::detail::config::find_with_texture_point_size<Choices>;
 
-  using point_size = typename with_texture_point_size::point_size;
+  using point_size = with_texture_point_size::point_size;
 
   template <typename Level>
   using make_size = sge::renderer::vf::extra<

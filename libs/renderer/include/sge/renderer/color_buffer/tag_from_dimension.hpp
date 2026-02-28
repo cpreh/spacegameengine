@@ -13,7 +13,7 @@ namespace sge::renderer::color_buffer
 {
 
 template <sge::image::size_type Dim>
-using tag_from_dimension = typename sge::renderer::color_buffer::tag_from_dimension_tpl<Dim>::type;
+using tag_from_dimension = sge::renderer::color_buffer::tag_from_dimension_tpl<Dim>::type;
 
 }
 

@@ -22,6 +22,7 @@ from_mizuiro_dim(mizuiro::image::dimension<N, T> const &_src)
 {
   return fcppt::math::dim::init<
       fcppt::math::dim::static_<T, fcppt::cast::size<fcppt::math::size_type>(N)>>(
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
       [&_src](fcppt::math::size_type const _index) { return _src[_index]; });
 }
 

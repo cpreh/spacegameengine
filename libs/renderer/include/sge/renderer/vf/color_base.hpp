@@ -15,7 +15,7 @@ namespace sge::renderer::vf
 template <typename Format>
 struct color_base
 {
-  using subelement_type = typename Format::channel_type;
+  using subelement_type = Format::channel_type;
 
   using packed_type = mizuiro::color::object<Format>;
 

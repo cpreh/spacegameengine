@@ -18,7 +18,7 @@ sge::renderer::index::dynamic::basic_view<IsConst>::basic_view(
 }
 
 template <bool IsConst>
-typename sge::renderer::index::dynamic::basic_view<IsConst>::pointer
+sge::renderer::index::dynamic::basic_view<IsConst>::pointer
 sge::renderer::index::dynamic::basic_view<IsConst>::data() const
 {
   return data_;

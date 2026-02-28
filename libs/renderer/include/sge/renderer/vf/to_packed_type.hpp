@@ -10,7 +10,7 @@ namespace sge::renderer::vf
 {
 
 template <typename Type>
-using to_packed_type = typename Type::packed_type;
+using to_packed_type = Type::packed_type;
 
 }
 

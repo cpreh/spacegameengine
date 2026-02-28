@@ -21,9 +21,9 @@ class delta
   FCPPT_NONMOVABLE(delta);
 
 public:
-  using rep = typename Duration::rep;
+  using rep = Duration::rep;
 
-  using period = typename Duration::period;
+  using period = Duration::period;
 
   using duration = Duration;
 

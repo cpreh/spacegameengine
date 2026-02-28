@@ -59,7 +59,6 @@ public:
 
   [[nodiscard]] SGE_GUI_DETAIL_SYMBOL sge::rucksack::widget::base &layout() override;
 
-private:
   void on_update(sge::gui::duration) override;
 
   void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
@@ -75,6 +74,7 @@ private:
   [[nodiscard]] sge::gui::widget::optional_ref
       on_tab(sge::gui::widget::optional_focus_ref) override;
 
+private:
   void text_changed();
 
   [[nodiscard]] sge::font::draw::static_text make_static_text();

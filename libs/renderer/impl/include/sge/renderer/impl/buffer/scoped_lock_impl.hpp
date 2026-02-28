@@ -25,7 +25,7 @@ sge::renderer::buffer::scoped_lock<Tag>::scoped_lock(
 }
 
 template <typename Tag>
-typename sge::renderer::buffer::scoped_lock<Tag>::view
+sge::renderer::buffer::scoped_lock<Tag>::view
 sge::renderer::buffer::scoped_lock<Tag>::value() const
 {
   return view_;

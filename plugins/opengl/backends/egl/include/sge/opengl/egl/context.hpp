@@ -27,11 +27,11 @@ public:
 
   ~context() override;
 
-private:
   [[nodiscard]] sge::opengl::backend::current_unique_ptr activate() override;
 
   void deactivate(sge::opengl::backend::current_unique_ptr &&) override;
 
+private:
   EGLDisplay const display_; // NOLINT(misc-misplaced-const)
 
   sge::opengl::egl::surface_unique_ptr const surface_;

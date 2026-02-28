@@ -30,7 +30,7 @@ public:
 
 private:
   sge::projectile::body::object_ref const body_;
-
+public:
   void getWorldTransform(btTransform &) const override;
 
   void setWorldTransform(btTransform const &) override;

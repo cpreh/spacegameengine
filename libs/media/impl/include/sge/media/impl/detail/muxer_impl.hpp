@@ -126,7 +126,7 @@ namespace sge::media::detail
 }
 
 template <typename System, typename File>
-typename sge::media::detail::muxer<System, File>::load_stream_result
+sge::media::detail::muxer<System, File>::load_stream_result
 sge::media::detail::muxer<System, File>::mux_stream(
     sge::media::stream_unique_ptr &&_stream,
     sge::media::optional_extension const &_opt_extension,
@@ -152,7 +152,7 @@ sge::media::detail::muxer<System, File>::mux_stream(
 }
 
 template <typename System, typename File>
-typename sge::media::detail::muxer<System, File>::optional_system_ref
+sge::media::detail::muxer<System, File>::optional_system_ref
 sge::media::detail::muxer<System, File>::mux_extension(
     sge::media::extension const &_extension) const
 {
@@ -171,7 +171,7 @@ sge::media::extension_set sge::media::detail::muxer<System, File>::extensions() 
 }
 
 template <typename System, typename File>
-typename sge::media::detail::muxer<System, File>::load_stream_result
+sge::media::detail::muxer<System, File>::load_stream_result
 sge::media::detail::muxer<System, File>::mux_stream_try_all(
     sge::media::stream_unique_ptr &&_stream, sge::media::optional_name const &_name) const
 {

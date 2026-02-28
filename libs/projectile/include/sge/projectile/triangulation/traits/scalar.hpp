@@ -15,7 +15,7 @@ namespace sge::projectile::triangulation::traits
 template <typename Vertex>
 struct scalar<Vertex, sge::projectile::triangulation::default_tag>
 {
-  using type = typename Vertex::value_type;
+  using type = Vertex::value_type;
 };
 
 }

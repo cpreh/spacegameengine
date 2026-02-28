@@ -272,9 +272,9 @@ public:
         [](sge::renderer::vector3 const &_vec)
         {
           return sge::image::color::any::object{
-              sge::image::color::rgb32f{(sge::image::color::init::red() %= (_vec).x())(
+              sge::image::color::rgb32f{(sge::image::color::init::red() %= _vec.x())(
                   sge::image::color::init::green() %=
-                  (_vec).y())(sge::image::color::init::blue() %= (_vec).z())}};
+                  _vec.y())(sge::image::color::init::blue() %= _vec.z())}};
         });
 
     result_.insert(std::make_pair(

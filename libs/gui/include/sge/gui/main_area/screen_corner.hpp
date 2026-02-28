@@ -42,9 +42,9 @@ public:
   SGE_GUI_DETAIL_SYMBOL
   void relayout() override;
 
-private:
   sge::gui::widget::base &widget() override;
 
+private:
   sge::gui::widget::reference const widget_;
 
   sge::gui::widget::minimum_size minimum_size_;

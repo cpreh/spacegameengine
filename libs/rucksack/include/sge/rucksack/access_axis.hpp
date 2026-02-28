@@ -14,7 +14,7 @@ namespace sge::rucksack
 {
 
 template <typename Value>
-typename Value::value_type access_axis(Value const &_value, sge::rucksack::axis const _axis)
+Value::value_type access_axis(Value const &_value, sge::rucksack::axis const _axis)
 {
   static_assert(Value::static_size::value == fcppt::enum_::size<sge::rucksack::axis>::value);
 

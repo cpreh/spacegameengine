@@ -44,7 +44,7 @@ single<Choices>::~single() = default;
 }
 
 template <typename Choices>
-typename sge::sprite::buffers::single<Choices>::slice_type
+sge::sprite::buffers::single<Choices>::slice_type
 sge::sprite::buffers::single<Choices>::allocate(sge::sprite::count const _num_sprites)
 {
   return slice_type(

@@ -20,14 +20,14 @@ sge::sprite::intrusive::ordered::range<Choices, Order, IsConst>::range(
 }
 
 template <typename Choices, typename Order, bool IsConst>
-typename sge::sprite::intrusive::ordered::range<Choices, Order, IsConst>::iterator
+sge::sprite::intrusive::ordered::range<Choices, Order, IsConst>::iterator
 sge::sprite::intrusive::ordered::range<Choices, Order, IsConst>::begin() const
 {
   return iterator(ordered_map_.get().begin(), ordered_map_.get().end());
 }
 
 template <typename Choices, typename Order, bool IsConst>
-typename sge::sprite::intrusive::ordered::range<Choices, Order, IsConst>::iterator
+sge::sprite::intrusive::ordered::range<Choices, Order, IsConst>::iterator
 sge::sprite::intrusive::ordered::range<Choices, Order, IsConst>::end() const
 {
   return iterator(ordered_map_.get().end(), ordered_map_.get().end());

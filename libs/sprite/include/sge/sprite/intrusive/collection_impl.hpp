@@ -29,7 +29,7 @@ collection<Choices>::~collection() = default;
 }
 
 template <typename Choices>
-typename sge::sprite::intrusive::collection<Choices>::connection_ref
+sge::sprite::intrusive::collection<Choices>::connection_ref
 sge::sprite::intrusive::collection<Choices>::connection()
 {
   return fcppt::reference_to_base<sge::sprite::intrusive::connection<Choices>>(
@@ -37,14 +37,14 @@ sge::sprite::intrusive::collection<Choices>::connection()
 }
 
 template <typename Choices>
-typename sge::sprite::intrusive::collection<Choices>::range_type
+sge::sprite::intrusive::collection<Choices>::range_type
 sge::sprite::intrusive::collection<Choices>::range()
 {
   return range_type(fcppt::make_ref(sprites_), count_);
 }
 
 template <typename Choices>
-typename sge::sprite::intrusive::collection<Choices>::const_range_type
+sge::sprite::intrusive::collection<Choices>::const_range_type
 sge::sprite::intrusive::collection<Choices>::range() const
 {
   return const_range_type(fcppt::make_cref(sprites_), count_);

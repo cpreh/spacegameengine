@@ -35,6 +35,7 @@ sge::renderer::vf::dynamic::part::part(
                 [&_elements,
                  &_offsets](sge::renderer::vf::dynamic::element_list::size_type const _index) {
                   return sge::renderer::vf::dynamic::ordered_element(
+                      // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
                       _elements[_index], _offsets[_index]);
                 });
           }()),

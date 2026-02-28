@@ -74,9 +74,9 @@ sge::renderer::vector3 permute_vector_according_to_orientation(
     sge::scenic::grid::orientation const _orientation, sge::renderer::vector3 const &_input)
 {
   return sge::renderer::vector3(
-      _input.get_unsafe(fcppt::array::get<0>(axis_mappings[_orientation])),
-      _input.get_unsafe(fcppt::array::get<1>(axis_mappings[_orientation])),
-      _input.get_unsafe(fcppt::array::get<2>(axis_mappings[_orientation])));
+      _input.get_unsafe(fcppt::array::get<0>(axis_mappings[_orientation])), // NOLINT(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
+      _input.get_unsafe(fcppt::array::get<1>(axis_mappings[_orientation])), // NOLINT(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
+      _input.get_unsafe(fcppt::array::get<2>(axis_mappings[_orientation]))); // NOLINT(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
 }
 }
 

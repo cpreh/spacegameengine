@@ -47,9 +47,9 @@ public:
 
   [[noreturn]] [[nodiscard]] pointer write_view_pointer() override;
 
-private:
   [[nodiscard]] sge::renderer::lock_flags::method method() const override;
 
+private:
   sge::opengl::buffer::object buffer_;
 };
 

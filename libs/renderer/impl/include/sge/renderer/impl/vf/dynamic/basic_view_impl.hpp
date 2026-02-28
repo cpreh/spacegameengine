@@ -22,14 +22,14 @@ sge::renderer::vf::dynamic::basic_view<Pointer>::basic_view(
 }
 
 template <typename Pointer>
-typename sge::renderer::vf::dynamic::basic_view<Pointer>::pointer
+sge::renderer::vf::dynamic::basic_view<Pointer>::pointer
 sge::renderer::vf::dynamic::basic_view<Pointer>::data() const
 {
   return data_;
 }
 
 template <typename Pointer>
-typename sge::renderer::vf::dynamic::basic_view<Pointer>::size_type
+sge::renderer::vf::dynamic::basic_view<Pointer>::size_type
 sge::renderer::vf::dynamic::basic_view<Pointer>::size() const
 {
   return size_;

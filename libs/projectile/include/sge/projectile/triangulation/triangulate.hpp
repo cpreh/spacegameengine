@@ -31,11 +31,11 @@ ResultContainer triangulate(
     typename sge::projectile::triangulation::traits::
         scalar<typename ContourContainer::value_type, Tag>::type const _epsilon)
 {
-  using size_type = typename ContourContainer::size_type;
+  using size_type = ContourContainer::size_type;
 
-  using vertex = typename ContourContainer::value_type;
+  using vertex = ContourContainer::value_type;
 
-  using scalar = typename sge::projectile::triangulation::traits::scalar<vertex, Tag>::type;
+  using scalar = sge::projectile::triangulation::traits::scalar<vertex, Tag>::type;
 
   if (_contour.size() < static_cast<size_type>(3))
   {

@@ -51,7 +51,7 @@ sge::renderer::index::first sge::sprite::buffers::slice<Choices>::first_index() 
 }
 
 template <typename Choices>
-typename sge::sprite::buffers::slice<Choices>::object const &
+sge::sprite::buffers::slice<Choices>::object const &
 sge::sprite::buffers::slice<Choices>::buffer_object() const
 {
   return object_.get();

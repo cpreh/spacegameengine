@@ -29,9 +29,9 @@ public:
 
   using buffers_type = Buffers;
 
-  using choices = typename buffers_type::choices;
+  using choices = buffers_type::choices;
 
-  using slice_type = typename buffers_type::slice_type;
+  using slice_type = buffers_type::slice_type;
 
   [[nodiscard]] slice_type allocate(sge::sprite::count);
 

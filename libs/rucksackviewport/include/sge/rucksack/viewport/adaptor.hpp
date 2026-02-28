@@ -67,7 +67,8 @@ public:
 
   SGE_RUCKSACK_VIEWPORT_DETAIL_SYMBOL
   ~adaptor() override;
-
+protected:
+  void child_destroyed(sge::rucksack::widget::base &) override;
 private:
   sge::renderer::target::base &target_;
 
@@ -79,8 +80,6 @@ private:
 
   void resize_child();
 
-  void child_destroyed(sge::rucksack::widget::base & // NOLINT(google-runtime-references)
-                       ) override;
 };
 
 }

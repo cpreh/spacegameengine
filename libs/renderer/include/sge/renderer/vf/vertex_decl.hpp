@@ -21,7 +21,7 @@ class vertex
 public:
   using format_part = Part;
 
-  using record_type = typename sge::renderer::vf::detail::vertex<Part>::type;
+  using record_type = sge::renderer::vf::detail::vertex<Part>::type;
 
   template <typename... Args>
   explicit vertex(Args &&...)

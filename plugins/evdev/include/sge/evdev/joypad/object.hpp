@@ -28,7 +28,7 @@
 namespace sge::evdev::joypad
 {
 
-class object // NOLINT(fuchsia-multiple-inheritance)
+class object // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::input::joypad::device,
       public sge::evdev::device::object,
       public fcppt::enable_shared_from_this<sge::evdev::joypad::object>
@@ -45,16 +45,16 @@ public:
 
   ~object() override;
 
-private:
   sge::window::object &window() const override;
 
   sge::input::joypad::info const &info() const override;
-
+private:
   awl::event::optional_base_unique_ptr process_event(sge::evdev::device::event const &) override;
-
+public:
   sge::input::joypad::ff::effect_unique_ptr
   create_ff_effect(sge::input::joypad::ff::parameters const &) override;
 
+private:
   sge::window::object_ref const window_;
 
   sge::evdev::joypad::info const info_;

@@ -13,7 +13,7 @@ namespace sge::opengl::texture
 {
 
 template <fcppt::math::size_type Size>
-using config = typename sge::opengl::texture::config_impl<Size>::type;
+using config = sge::opengl::texture::config_impl<Size>::type;
 
 }
 

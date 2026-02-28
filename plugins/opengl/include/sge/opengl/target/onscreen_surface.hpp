@@ -27,7 +27,6 @@ public:
 
   ~onscreen_surface() override;
 
-private:
   [[nodiscard]] sge::renderer::color_buffer::readable_surface::const_view
   lock_c(sge::renderer::color_buffer::readable_surface::lock_area const &) const override;
 
@@ -39,6 +38,7 @@ private:
 
   [[nodiscard]] sge::image::color::format format() const override;
 
+private:
   awl::window::object_ref const window_;
 
   using buffer_type = fcppt::container::buffer::object<sge::renderer::raw_value>;

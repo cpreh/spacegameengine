@@ -10,7 +10,7 @@ namespace sge::sprite::types::basic
 {
 
 template <typename TypeChoices>
-using unit = typename TypeChoices::unit_type;
+using unit = TypeChoices::unit_type;
 
 }
 

@@ -27,7 +27,7 @@ inline void fill_point_size(Iterator const _iterator, sge::sprite::object<Choice
       *_iterator,
       sge::renderer::vf::labels::extra<point_size::index::value>{},
       sge::renderer::vf::to_packed_type<point_size>(
-          static_cast<typename Choices::type_choices::float_type>(_sprite.point_size())));
+          static_cast<Choices::type_choices::float_type>(_sprite.point_size())));
 }
 
 template <typename Iterator, typename Choices>

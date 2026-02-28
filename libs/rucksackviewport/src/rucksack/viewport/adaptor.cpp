@@ -121,6 +121,11 @@ sge::rucksack::viewport::adaptor::~adaptor()
       { _child.get().parent(sge::rucksack::widget::optional_ref()); });
 }
 
+void sge::rucksack::viewport::adaptor::child_destroyed(sge::rucksack::widget::base &)
+{
+  child_ = sge::rucksack::widget::optional_ref();
+}
+
 void sge::rucksack::viewport::adaptor::manage_callback()
 {
   if (child_.has_value())
@@ -141,9 +146,4 @@ void sge::rucksack::viewport::adaptor::resize_child()
 
         _child->relayout();
       });
-}
-
-void sge::rucksack::viewport::adaptor::child_destroyed(sge::rucksack::widget::base &)
-{
-  child_ = sge::rucksack::widget::optional_ref();
 }

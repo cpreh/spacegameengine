@@ -28,7 +28,6 @@ public:
 
   ~hardware() override;
 
-private:
   [[nodiscard]] sge::opengl::buffer::id gen_buffer() override;
 
   void delete_buffer(sge::opengl::buffer::id) override;
@@ -53,6 +52,7 @@ private:
 
   [[nodiscard]] bool native() const override;
 
+private:
   sge::opengl::buffer::type const type_;
 
   sge::opengl::buffer::const_hardware_config_ref const config_;

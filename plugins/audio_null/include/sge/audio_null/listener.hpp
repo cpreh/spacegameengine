@@ -23,7 +23,6 @@ public:
 
   ~listener() override;
 
-private:
   void position(sge::audio::vector const &) override;
 
   void linear_velocity(sge::audio::vector const &) override;

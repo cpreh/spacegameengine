@@ -56,9 +56,9 @@ public:
 private:
   fcppt::reference<index_array_type const> indices_;
 
-  mutable typename index_array_type::value_type index_;
+  mutable index_array_type::value_type index_;
 
-  mutable typename index_array_type::const_iterator ptr_;
+  mutable index_array_type::const_iterator ptr_;
 };
 
 FCPPT_PP_POP_WARNING

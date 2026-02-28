@@ -12,7 +12,7 @@ namespace sge::sprite::detail::config
 {
 
 template <typename Elements, template <typename> class Predicate>
-using find_if = typename sge::sprite::detail::config::find_if_impl<Elements, Predicate>::type;
+using find_if = sge::sprite::detail::config::find_if_impl<Elements, Predicate>::type;
 
 }
 

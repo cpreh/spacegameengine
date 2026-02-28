@@ -20,7 +20,7 @@
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_CLANG_WARNING(-Wweak-template-vtables)
 
-extern template class // NOLINT(fuchsia-multiple-inheritance)
+extern template class // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     sge::opengl::texture::basic<sge::opengl::texture::depth_stencil_types>;
 
 extern template class sge::opengl::texture::basic_box<sge::opengl::texture::depth_stencil_types>;

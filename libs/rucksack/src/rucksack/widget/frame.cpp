@@ -62,6 +62,7 @@ sge::rucksack::axis_policy2 sge::rucksack::widget::frame::axis_policy() const
         sge::rucksack::scalar const extra(sge::rucksack::access_axis(this->extra_size(), _axis));
 
         return fcppt::variant::match(
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             child_.get().axis_policy()[_axis],
             [extra](sge::rucksack::minimum_size const _sz)
             { return sge::rucksack::axis_policy{sge::rucksack::minimum_size{_sz.get() + extra}}; },

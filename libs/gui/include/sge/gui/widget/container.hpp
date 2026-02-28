@@ -64,7 +64,7 @@ private:
 
   sge::gui::widget::reference_vector::iterator
       erase_widget(sge::gui::widget::reference_vector::iterator);
-
+public:
   void on_update(sge::gui::duration) override;
 
   void on_draw(
@@ -75,7 +75,7 @@ private:
   sge::gui::get_focus on_click(sge::rucksack::vector const &) override;
 
   sge::gui::widget::optional_ref on_tab(sge::gui::widget::optional_focus_ref) override;
-
+private:
   void unregister(sge::gui::widget::base const &) override;
 
   enum class foreach_result : std::uint8_t

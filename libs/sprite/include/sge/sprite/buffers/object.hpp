@@ -12,7 +12,7 @@ namespace sge::sprite::buffers
 {
 
 template <typename Choices>
-using object = typename sge::sprite::detail::buffers::object<Choices>::type;
+using object = sge::sprite::detail::buffers::object<Choices>::type;
 
 }
 

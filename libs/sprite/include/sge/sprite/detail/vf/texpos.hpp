@@ -12,7 +12,7 @@ namespace sge::sprite::detail::vf
 {
 
 template <typename Choices>
-using texpos = typename sge::sprite::detail::vf::texpos_impl<Choices>::type;
+using texpos = sge::sprite::detail::vf::texpos_impl<Choices>::type;
 
 }
 

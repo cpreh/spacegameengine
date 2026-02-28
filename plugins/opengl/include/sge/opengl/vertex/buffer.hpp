@@ -29,7 +29,7 @@
 namespace sge::opengl::vertex
 {
 
-class buffer // NOLINT(fuchsia-multiple-inheritance)
+class buffer // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::renderer::vertex::buffer,
       public sge::opengl::buffer::wrapper
 {
@@ -49,15 +49,16 @@ public:
 
   void unuse(sge::opengl::vf::part const &) const;
 
-private:
   sge::renderer::vf::dynamic::view
   lock(sge::renderer::lock_segment const &, sge::renderer::lock_mode) override;
 
   sge::renderer::vf::dynamic::const_view lock_c(sge::renderer::lock_segment const &) const override;
 
+private:
   template <typename View>
   View do_lock(sge::renderer::lock_flags::method, sge::renderer::lock_segment const &) const;
 
+public:
   void unlock() const override;
 
   sge::renderer::dim1 size() const override;
@@ -68,8 +69,10 @@ private:
 
   sge::renderer::vf::dynamic::part_index format_part_index() const override;
 
+protected:
   sge::opengl::buffer::object const &get() const override;
 
+private:
   sge::renderer::vf::dynamic::part_index const part_index_;
 
   sge::renderer::vf::dynamic::part const format_part_;

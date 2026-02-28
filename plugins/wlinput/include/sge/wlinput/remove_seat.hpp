@@ -49,7 +49,7 @@ awl::event::optional_base_unique_ptr remove_seat(
       {
         return fcppt::optional::map(
             fcppt::container::find_opt_iterator(_map, _seat.name()),
-            [&_map](typename object_map::iterator const _iterator)
+            [&_map](object_map::iterator const _iterator)
             {
               awl::event::base_unique_ptr event{fcppt::unique_ptr_to_base<awl::event::base>(
                   fcppt::make_unique_ptr<RemoveEvent>(BasePtr{_iterator->second}))};

@@ -81,6 +81,7 @@ sge::parse::ini::typed::section<Entries>::parse(sge::parse::ini::entry_vector co
 template <typename Entries>
 fcppt::tuple::object<
     std::vector<sge::parse::ini::typed::duplicate_entry>,
+    // NOLINTNEXTLINE(readability-redundant-typename)
     typename sge::parse::ini::typed::section<Entries>::string_map>
 sge::parse::ini::typed::section<Entries>::make_map(sge::parse::ini::entry_vector const &_entries)
 {

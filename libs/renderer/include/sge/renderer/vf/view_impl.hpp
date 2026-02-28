@@ -28,14 +28,14 @@ sge::renderer::vf::view<Part, Constness>::view(
 }
 
 template <typename Part, typename Constness>
-typename sge::renderer::vf::view<Part, Constness>::iterator
+sge::renderer::vf::view<Part, Constness>::iterator
 sge::renderer::vf::view<Part, Constness>::begin() const
 {
   return iterator{this->data_};
 }
 
 template <typename Part, typename Constness>
-typename sge::renderer::vf::view<Part, Constness>::iterator
+sge::renderer::vf::view<Part, Constness>::iterator
 sge::renderer::vf::view<Part, Constness>::end() const
 {
 FCPPT_PP_PUSH_WARNING

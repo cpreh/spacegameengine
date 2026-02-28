@@ -23,7 +23,7 @@ sge::renderer::index::iterator<Format, Constness>::iterator(pointer const _data)
 }
 
 template <typename Format, typename Constness>
-typename sge::renderer::index::iterator<Format, Constness>::pointer
+sge::renderer::index::iterator<Format, Constness>::pointer
 sge::renderer::index::iterator<Format, Constness>::data() const
 {
   return this->data_;
@@ -52,7 +52,7 @@ bool sge::renderer::index::iterator<Format, Constness>::equal(iterator const &_o
 }
 
 template <typename Format, typename Constness>
-typename sge::renderer::index::iterator<Format, Constness>::reference
+sge::renderer::index::iterator<Format, Constness>::reference
 sge::renderer::index::iterator<Format, Constness>::dereference() const
 {
   return reference(this->data_);

@@ -39,7 +39,7 @@ FCPPT_PP_POP_WARNING
 }
 
 template <typename Format>
-typename sge::renderer::index::proxy<Format>::value_type
+sge::renderer::index::proxy<Format>::value_type
 sge::renderer::index::proxy<Format>::get() const
 {
   return sge::renderer::index::const_proxy<Format>(this->data_).get();

@@ -26,11 +26,11 @@ public:
 
   ~core() override;
 
-private:
   [[nodiscard]] sge::renderer::system_unique_ptr create_system(sge::window::system_ref) override;
 
   [[nodiscard]] sge::renderer::caps::system_field caps() const override;
 
+private:
   fcppt::log::object log_;
 };
 

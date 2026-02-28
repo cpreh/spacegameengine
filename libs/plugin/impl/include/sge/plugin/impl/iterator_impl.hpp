@@ -35,7 +35,7 @@ bool sge::plugin::iterator<Type>::equal(iterator const &_other) const
 }
 
 template <typename Type>
-typename sge::plugin::iterator<Type>::reference sge::plugin::iterator<Type>::dereference() const
+sge::plugin::iterator<Type>::reference sge::plugin::iterator<Type>::dereference() const
 {
   return sge::plugin::context<Type>(*it_);
 }

@@ -49,15 +49,15 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
   using result_type = sge::sprite::render::range<Choices>;
 
-  using iterator = typename Range::iterator;
+  using iterator = Range::iterator;
 
   iterator const begin(_range.begin());
 
   iterator const end(_range.end());
 
-  using object_type = typename std::iterator_traits<iterator>::value_type;
+  using object_type = std::iterator_traits<iterator>::value_type;
 
-  using choices = typename object_type::choices;
+  using choices = object_type::choices;
 
   sge::renderer::vertex::scoped_lock const vblock(
       fcppt::make_ref(_slice.vertex_buffer()),
@@ -74,7 +74,7 @@ FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
   typename vertex_view::iterator vb_it(vertices.begin());
 
-  using range_part_vector = typename result_type::range_part_vector;
+  using range_part_vector = result_type::range_part_vector;
 
   range_part_vector result;
 

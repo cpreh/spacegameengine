@@ -25,7 +25,7 @@ writable<Tag>::~writable() = default;
 }
 
 template <typename Tag>
-typename sge::renderer::buffer::writable<Tag>::view
+sge::renderer::buffer::writable<Tag>::view
 sge::renderer::buffer::writable<Tag>::lock(sge::renderer::lock_mode const _mode)
 {
   return this->lock(

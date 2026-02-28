@@ -27,7 +27,7 @@ sge::image::traits::pixel::format<ColorTag> format_any(View const &_view)
 
         return sge::image::impl::static_to_dynamic_format<
             ColorTag,
-            typename std::decay<decltype(_src)>::type::format::color_format>::value;
+            typename std::decay_t<decltype(_src)>::format::color_format>::value;
       },
       _view.get());
 }

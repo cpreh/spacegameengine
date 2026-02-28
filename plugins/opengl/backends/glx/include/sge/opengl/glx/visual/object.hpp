@@ -15,7 +15,7 @@
 namespace sge::opengl::glx::visual
 {
 
-class object // NOLINT(fuchsia-multiple-inheritance)
+class object // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public awl::backends::x11::visual::wrapped,
       public sge::renderer::visual_base
 {

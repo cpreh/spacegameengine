@@ -33,9 +33,9 @@ public:
 
   [[nodiscard]] SGE_GUI_DETAIL_SYMBOL sge::rucksack::widget::base &layout() override;
 
-private:
   void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
 
+private:
   sge::gui::style::const_reference const style_;
 
   sge::texture::const_part_ref const texture_;

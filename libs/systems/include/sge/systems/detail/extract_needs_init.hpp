@@ -10,7 +10,7 @@ namespace sge::systems::detail
 {
 
 template <typename Type>
-using extract_needs_init = typename Type::needs_init;
+using extract_needs_init = Type::needs_init;
 
 }
 

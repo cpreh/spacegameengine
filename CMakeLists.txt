@@ -23,7 +23,8 @@ list(
   "-fuchsia-default-arguments-calls"
   "-fuchsia-default-arguments-declarations"
   "-fuchsia-virtual-inheritance"
-  "-misc-misplaced-const")
+  "-misc-misplaced-const"
+  "-portability-template-virtual-member-function")
 
 set(FCPPT_UTILS_CLANG_TIDY_WHITELIST "fcppt" "awl" "mizuiro" "sge")
 

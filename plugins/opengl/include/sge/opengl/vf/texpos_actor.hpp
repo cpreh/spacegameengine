@@ -36,8 +36,10 @@ private:
   void
   operator()(sge::opengl::vf::client_state_combiner_ref, sge::opengl::vf::pointer) const override;
 
+public:
   void unuse(sge::opengl::vf::client_state_combiner_ref) const override;
 
+private:
   fcppt::log::object_reference const log_;
 
   sge::opengl::context::object_ref const context_;

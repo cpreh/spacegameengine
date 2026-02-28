@@ -68,7 +68,6 @@ public:
 
   void end_rendering();
 
-private:
   sge::renderer::target::base &target() override;
 
   void clear(sge::renderer::clear::parameters const &) override;
@@ -146,6 +145,7 @@ private:
   void unset_cg_texture(sge::renderer::cg::loaded_texture const &) override;
 #endif
 
+private:
   fcppt::log::object_reference const log_;
 
   sge::opengl::context::object_ref const context_;

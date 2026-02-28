@@ -10,7 +10,7 @@ namespace sge::sprite::types::basic
 {
 
 template <typename TypeChoices>
-using float_ = typename TypeChoices::float_type;
+using float_ = TypeChoices::float_type;
 
 }
 

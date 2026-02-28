@@ -39,11 +39,11 @@ public:
 
   ~device_state() override;
 
-private:
   [[nodiscard]] sge::renderer::display_mode::optional_object display_mode() const override;
 
   void fullscreen(sge::renderer::display_mode::optional_fullscreen const &) override;
 
+private:
   void do_fullscreen(sge::renderer::display_mode::optional_fullscreen const &);
 
   using xrandr_state_unique_ptr = fcppt::unique_ptr<sge::opengl::xrandr::state>;

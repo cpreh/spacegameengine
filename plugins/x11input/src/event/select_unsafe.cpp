@@ -60,9 +60,9 @@ void sge::x11input::event::select_unsafe(
   }
 
   XIEventMask mask{
-      _device.get(),
-      fcppt::cast::size<int>(fcppt::cast::to_signed(mask_data.size())),
-      mask_data.data()};
+      .deviceid = _device.get(),
+      .mask_len = fcppt::cast::size<int>(fcppt::cast::to_signed(mask_data.size())),
+      .mask = mask_data.data()};
 
   if (::XISelectEvents(_window.display().get().get(), _window.get(), &mask, 1) != 0)
   {

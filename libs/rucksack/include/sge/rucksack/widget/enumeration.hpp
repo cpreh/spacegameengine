@@ -55,7 +55,8 @@ public:
 
   SGE_RUCKSACK_DETAIL_SYMBOL
   ~enumeration() override;
-
+protected:
+  void child_destroyed(sge::rucksack::widget::base &) override;
 private:
   using child_information = std::vector<sge::rucksack::widget::reference>;
 
@@ -66,9 +67,6 @@ private:
   sge::rucksack::vector position_;
 
   sge::rucksack::dim size_;
-
-  void child_destroyed(sge::rucksack::widget::base & // NOLINT(google-runtime-references)
-                       ) override;
 };
 
 }

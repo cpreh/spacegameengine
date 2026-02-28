@@ -34,7 +34,6 @@ public:
 
   ~current() override;
 
-private:
   [[nodiscard]] sge::opengl::backend::fun_ptr load_function(std::string const &) const override;
 
   void begin_rendering() override;
@@ -43,6 +42,7 @@ private:
 
   void vsync(sge::renderer::display_mode::vsync) override;
 
+private:
   fcppt::log::object_reference const log_;
 
   awl::backends::x11::window::base_ref const window_;

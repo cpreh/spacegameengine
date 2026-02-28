@@ -28,7 +28,6 @@ public:
 
   ~stateless() override;
 
-private:
   void fill_rect(
       sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
       sge::rucksack::rect const &,
@@ -48,6 +47,7 @@ private:
       sge::renderer::context::ffp &, // NOLINT(google-runtime-references)
       sge::font::draw::static_text const &) override;
 
+private:
   sge::renderer::device::core_ref const renderer_;
 };
 

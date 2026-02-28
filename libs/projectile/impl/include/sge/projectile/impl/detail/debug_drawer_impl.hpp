@@ -60,7 +60,7 @@ private:
   using optional_scoped_lock_unique_ptr = fcppt::optional::object<scoped_lock_unique_ptr>;
 
   optional_scoped_lock_unique_ptr scoped_lock_;
-
+public:
   void drawLine(btVector3 const &from, btVector3 const &to, btVector3 const &color) override;
 
   void drawLine(

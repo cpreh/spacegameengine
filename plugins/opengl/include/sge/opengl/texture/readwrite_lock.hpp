@@ -34,7 +34,6 @@ public:
 
   ~readwrite_lock() override;
 
-private:
   void lock() override;
 
   void unlock() override;
@@ -53,6 +52,7 @@ private:
 
   [[nodiscard]] sge::renderer::lock_flags::method method() const override;
 
+private:
   sge::opengl::texture::readonly_lock read_lock_;
 
   sge::opengl::texture::writeonly_lock write_lock_;

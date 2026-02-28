@@ -38,7 +38,6 @@ public:
 
   ~processor() override;
 
-private:
   [[nodiscard]] sge::window::object &window() const override;
 
   [[nodiscard]] sge::input::cursor::container cursors() const override;
@@ -53,6 +52,7 @@ private:
 
   [[nodiscard]] awl::event::container on_event(awl::event::base const &);
 
+private:
   sge::window::object_ref const window_;
 
   fcppt::log::object_reference const log_;

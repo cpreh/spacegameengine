@@ -61,8 +61,8 @@ struct texture<
     sge::sprite::config::texture_coordinates::automatic,
     Ownership>
 {
-  using type = typename sge::sprite::detail::primitives::
-      texture_ptr<Choices, TextureLevels, Ownership>::type;
+  using type =
+      sge::sprite::detail::primitives::texture_ptr<Choices, TextureLevels, Ownership>::type;
 };
 
 }

@@ -23,9 +23,9 @@ class object
 public:
   using traits = Traits;
 
-  using leaf_sequence = typename traits::leaf_sequence;
+  using leaf_sequence = traits::leaf_sequence;
 
-  using tree_representation = typename traits::tree_representation;
+  using tree_representation = traits::tree_representation;
 
   object();
 

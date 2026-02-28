@@ -31,9 +31,9 @@ public:
   SGE_GUI_DETAIL_SYMBOL
   void relayout() override;
 
-private:
   sge::gui::widget::base &widget() override;
 
+private:
   void do_relayout();
 
   sge::gui::widget::reference const widget_;

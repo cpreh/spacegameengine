@@ -59,14 +59,14 @@ basic_box<Types>::~basic_box() = default;
 }
 
 template <typename Types>
-typename sge::opengl::texture::basic_box<Types>::nonconst_buffer &
+sge::opengl::texture::basic_box<Types>::nonconst_buffer &
 sge::opengl::texture::basic_box<Types>::level(sge::renderer::texture::mipmap::level const _level)
 {
   return *levels_[_level.get()];
 }
 
 template <typename Types>
-typename sge::opengl::texture::basic_box<Types>::const_buffer const &
+sge::opengl::texture::basic_box<Types>::const_buffer const &
 sge::opengl::texture::basic_box<Types>::level(
     sge::renderer::texture::mipmap::level const _level) const
 {

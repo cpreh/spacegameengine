@@ -96,7 +96,7 @@ std::size_t sge::noise::simplex::object<Float, N>::index(vector_type const &vec)
 }
 
 template <typename Float, fcppt::math::size_type N>
-typename sge::noise::simplex::object<Float, N>::corner_array
+sge::noise::simplex::object<Float, N>::corner_array
 sge::noise::simplex::object<Float, N>::corners(vector_type point)
 {
   // TODO(philipp): Initialize this directly!
@@ -142,7 +142,7 @@ Float sge::noise::simplex::object<Float, N>::inv_factor()
 }
 
 template <typename Float, fcppt::math::size_type N>
-typename sge::noise::simplex::object<Float, N>::matrix
+sge::noise::simplex::object<Float, N>::matrix
 sge::noise::simplex::object<Float, N>::stretch_m()
 {
   matrix tmp{fcppt::no_init()};
@@ -158,7 +158,7 @@ sge::noise::simplex::object<Float, N>::stretch_m()
 }
 
 template <typename Float, fcppt::math::size_type N>
-typename sge::noise::simplex::object<Float, N>::matrix
+sge::noise::simplex::object<Float, N>::matrix
 sge::noise::simplex::object<Float, N>::inv_m()
 {
   matrix tmp{fcppt::no_init()};

@@ -19,7 +19,7 @@
 namespace sge::opengl::egl::x11
 {
 
-class visual // NOLINT(fuchsia-multiple-inheritance)
+class visual // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::opengl::egl::visual::base,
       public awl::backends::x11::visual::wrapped
 {

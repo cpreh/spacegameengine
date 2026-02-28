@@ -34,7 +34,7 @@ object<Tag>::~object() = default;
 }
 
 template <typename Tag>
-typename sge::image::view::object<Tag>::variant const &sge::image::view::object<Tag>::get() const
+sge::image::view::object<Tag>::variant const &sge::image::view::object<Tag>::get() const
 {
   return variant_;
 }

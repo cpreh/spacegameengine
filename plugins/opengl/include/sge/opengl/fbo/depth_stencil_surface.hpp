@@ -31,11 +31,11 @@ public:
 
   [[nodiscard]] sge::opengl::fbo::render_buffer const &render_buffer() const;
 
-private:
   [[nodiscard]] dim size() const override;
 
   [[nodiscard]] sge::image::ds::format format() const override;
 
+private:
   sge::opengl::fbo::render_buffer const render_buffer_;
 
   dim const dim_;

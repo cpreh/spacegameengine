@@ -18,7 +18,7 @@
 namespace sge::opengl::egl::wayland
 {
 
-class visual // NOLINT(fuchsia-multiple-inheritance)
+class visual // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::opengl::egl::visual::base,
       public awl::backends::wayland::visual::null_object
 {

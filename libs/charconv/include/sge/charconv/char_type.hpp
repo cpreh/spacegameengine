@@ -13,7 +13,7 @@ namespace sge::charconv
 {
 
 template <sge::charconv::encoding Encoding>
-using char_type = typename sge::charconv::detail::char_type<Encoding>::type;
+using char_type = sge::charconv::detail::char_type<Encoding>::type;
 
 }
 

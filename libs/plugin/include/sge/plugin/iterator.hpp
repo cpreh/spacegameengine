@@ -20,15 +20,15 @@ class iterator final : public sge::plugin::detail::iterator_base_type<T>
 public:
   using base_type = sge::plugin::detail::iterator_base_type<T>;
 
-  using value_type = typename base_type::value_type;
+  using value_type = base_type::value_type;
 
-  using reference = typename base_type::reference;
+  using reference = base_type::reference;
 
-  using pointer = typename base_type::pointer;
+  using pointer = base_type::pointer;
 
-  using difference_type = typename base_type::difference_type;
+  using difference_type = base_type::difference_type;
 
-  using iterator_category = typename base_type::iterator_category;
+  using iterator_category = base_type::iterator_category;
 
   // Required for std::ranges::input_range
   SGE_PLUGIN_DETAIL_INSTANTIATE_SYMBOL

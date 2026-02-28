@@ -26,7 +26,6 @@ public:
 
   ~pair_callback() override;
 
-private:
   [[nodiscard]] btBroadphasePair *
   addOverlappingPair(btBroadphaseProxy *, btBroadphaseProxy *) override;
 

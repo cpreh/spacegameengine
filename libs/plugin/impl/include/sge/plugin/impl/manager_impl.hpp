@@ -15,6 +15,7 @@ template <typename Type>
 sge::plugin::collection<Type> sge::plugin::manager::collection()
 {
   return sge::plugin::collection<Type>(
+      // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
       categories_[sge::plugin::detail::traits<Type>::plugin_type()]);
 }
 

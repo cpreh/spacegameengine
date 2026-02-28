@@ -37,7 +37,6 @@ public:
 
   ~cube() override;
 
-private:
   [[nodiscard]] sge::renderer::size_type border_size() const override;
 
   [[nodiscard]] sge::renderer::texture::cube::nonconst_buffer &
@@ -48,6 +47,7 @@ private:
 
   [[nodiscard]] sge::renderer::texture::mipmap::level_count levels() const override;
 
+private:
   sge::renderer::size_type const size_;
 
   using buffer_unique_ptr = fcppt::unique_ptr<sge::renderer::texture::cube::nonconst_buffer>;

@@ -13,7 +13,7 @@ namespace sge::timer
 {
 
 template <typename Clock>
-typename Clock::duration elapsed(sge::timer::basic<Clock> const &_timer)
+Clock::duration elapsed(sge::timer::basic<Clock> const &_timer)
 {
   if (!_timer.active())
   {

@@ -27,9 +27,9 @@ public:
 
   ~surface() override;
 
-private:
   [[nodiscard]] EGLSurface get() const override;
 
+private:
   sge::opengl::egl::window_surface<EGLNativeWindowType> const surface_;
 };
 

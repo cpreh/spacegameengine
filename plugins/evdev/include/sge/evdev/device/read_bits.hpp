@@ -28,7 +28,7 @@ sge::evdev::device::read_bits_result<Enum> read_bits(
 {
   using result_type = sge::evdev::device::read_bits_result<Enum>;
 
-  using array_type = typename result_type::array_type;
+  using array_type = result_type::array_type;
 
   array_type result{fcppt::no_init{}};
 

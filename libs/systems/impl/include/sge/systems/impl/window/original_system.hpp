@@ -24,9 +24,9 @@ public:
 
   ~original_system() override;
 
-private:
   [[nodiscard]] sge::window::system &get() override;
 
+private:
   awl::system::object_unique_ptr const awl_system_;
 
   sge::window::system system_;

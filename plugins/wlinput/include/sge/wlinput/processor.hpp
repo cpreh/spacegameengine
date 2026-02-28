@@ -44,7 +44,6 @@ public:
 
   ~processor() override;
 
-private:
   [[nodiscard]] sge::window::object &window() const override;
 
   [[nodiscard]] sge::input::cursor::container cursors() const override;
@@ -57,6 +56,7 @@ private:
 
   [[nodiscard]] sge::input::mouse::container mice() const override;
 
+private:
   [[nodiscard]] awl::event::container on_event(awl::event::base const &);
 
   [[nodiscard]] awl::event::container display_event();

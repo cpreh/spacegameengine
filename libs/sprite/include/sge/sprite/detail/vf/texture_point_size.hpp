@@ -12,7 +12,7 @@ namespace sge::sprite::detail::vf
 {
 
 template <typename Choices>
-using texture_point_size = typename sge::sprite::detail::vf::texture_point_size_impl<Choices>::type;
+using texture_point_size = sge::sprite::detail::vf::texture_point_size_impl<Choices>::type;
 
 }
 

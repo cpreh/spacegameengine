@@ -33,7 +33,7 @@ sge::renderer::texture::basic_scoped_lock<Tag>::basic_scoped_lock(
 }
 
 template <typename Tag>
-typename sge::renderer::texture::basic_scoped_lock<Tag>::view
+sge::renderer::texture::basic_scoped_lock<Tag>::view
 sge::renderer::texture::basic_scoped_lock<Tag>::value() const
 {
   return lock_.value();

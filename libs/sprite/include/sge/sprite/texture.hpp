@@ -12,7 +12,7 @@ namespace sge::sprite
 {
 
 template <typename Choices>
-using texture = typename sge::sprite::detail::config::texture_ref<Choices>::type;
+using texture = sge::sprite::detail::config::texture_ref<Choices>::type;
 
 }
 

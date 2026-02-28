@@ -12,7 +12,7 @@ namespace sge::image::traits::image
 {
 
 template <typename Tag>
-using dimension = typename sge::image::traits::image::dimension_tpl<Tag>::type;
+using dimension = sge::image::traits::image::dimension_tpl<Tag>::type;
 
 }
 

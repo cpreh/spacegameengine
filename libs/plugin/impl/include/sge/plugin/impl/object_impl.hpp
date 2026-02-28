@@ -36,7 +36,7 @@ object<Type>::~object() = default;
 }
 
 template <typename Type>
-typename sge::plugin::object<Type>::loader_function sge::plugin::object<Type>::get() const
+sge::plugin::object<Type>::loader_function sge::plugin::object<Type>::get() const
 {
   return loader_;
 }

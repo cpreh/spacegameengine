@@ -15,8 +15,8 @@ namespace sge::projectile::triangulation::traits
 template <typename Vertex>
 struct access_element<Vertex, sge::projectile::triangulation::default_tag>
 {
-  static typename Vertex::value_type
-  execute(Vertex const &_vertex, typename Vertex::size_type const _index)
+  static Vertex::value_type
+  execute(Vertex const &_vertex, Vertex::size_type const _index)
   {
     return _vertex.get_unsafe(_index);
   }

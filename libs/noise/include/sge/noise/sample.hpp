@@ -17,10 +17,10 @@ namespace sge::noise
 {
 
 template <typename Noise>
-typename Noise::value_type
+Noise::value_type
 sample(fcppt::reference<Noise> const _noise, sample_parameters<Noise> const &_parameters)
 {
-  using result_type = typename Noise::value_type;
+  using result_type = Noise::value_type;
 
   double sum = 0.0;
 

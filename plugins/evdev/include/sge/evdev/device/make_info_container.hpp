@@ -28,18 +28,19 @@ sge::evdev::device::basic_info<Id, Info> make_info_container(
 {
   using basic_info = sge::evdev::device::basic_info<Id, Info>;
 
-  using info_container = typename basic_info::info_container;
+  using info_container = basic_info::info_container;
 
-  using result_vector = typename info_container::vector;
+  using result_vector = info_container::vector;
 
   result_vector ids{};
 
-  using result_map = typename basic_info::event_map_type;
+  using result_map = basic_info::event_map_type;
 
   result_map event_map{};
 
   for (Enum const index : fcppt::enum_::make_range<Enum>())
   {
+    // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
     if (_bits[index])
     {
       event_map.insert(std::make_pair(

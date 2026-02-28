@@ -13,7 +13,7 @@ namespace sge::sprite::detail::config
 
 template <typename Choices>
 using has_custom_texture_point_pos =
-    typename sge::sprite::detail::config::find_with_texture_point_size<Choices>::point_pos::type;
+    sge::sprite::detail::config::find_with_texture_point_size<Choices>::point_pos::type;
 
 }
 

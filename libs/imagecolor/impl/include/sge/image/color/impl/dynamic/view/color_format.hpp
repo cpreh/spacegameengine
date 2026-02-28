@@ -10,7 +10,7 @@ namespace sge::image::color::impl::dynamic::view
 {
 
 template <typename ImageFormat>
-typename ImageFormat::color_format const &color_format(ImageFormat const &_format)
+ImageFormat::color_format const &color_format(ImageFormat const &_format)
 {
   return _format.format_store().get();
 }

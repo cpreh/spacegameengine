@@ -27,7 +27,7 @@
 namespace sge::x11input::keyboard
 {
 
-class device // NOLINT(fuchsia-multiple-inheritance)
+class device // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::input::keyboard::device,
       public fcppt::enable_shared_from_this<sge::x11input::keyboard::device>
 {
@@ -42,9 +42,9 @@ public:
 
   ~device() override;
 
-private:
   [[nodiscard]] sge::window::object &window() const override;
 
+private:
   [[nodiscard]] awl::event::container on_event(XIDeviceEvent const &);
 
   [[nodiscard]] awl::event::optional_base_unique_ptr on_key_press(XIDeviceEvent const &);

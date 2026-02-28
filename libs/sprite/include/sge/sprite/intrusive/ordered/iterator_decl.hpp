@@ -38,15 +38,15 @@ class iterator final
       conditional_t<IsConst, typename ordered_map::const_iterator, typename ordered_map::iterator>;
 
 public:
-  using value_type = typename base::value_type;
+  using value_type = base::value_type;
 
-  using reference = typename base::reference;
+  using reference = base::reference;
 
-  using pointer = typename base::pointer;
+  using pointer = base::pointer;
 
-  using difference_type = typename base::difference_type;
+  using difference_type = base::difference_type;
 
-  using iterator_category = typename base::iterator_category;
+  using iterator_category = base::iterator_category;
 
   iterator(ordered_map_iterator current, ordered_map_iterator end);
 

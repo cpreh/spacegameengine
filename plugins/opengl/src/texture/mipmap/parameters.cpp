@@ -51,7 +51,7 @@ sge::opengl::texture::buffer_type sge::opengl::texture::mipmap::parameters<Dim>:
 }
 
 template <fcppt::math::size_type Dim>
-typename sge::opengl::texture::mipmap::parameters<Dim>::config_type const &
+sge::opengl::texture::mipmap::parameters<Dim>::config_type const &
 sge::opengl::texture::mipmap::parameters<Dim>::config() const
 {
   return config_.get();
@@ -77,14 +77,14 @@ sge::opengl::texture::mipmap::parameters<Dim>::internal_format() const
 }
 
 template <fcppt::math::size_type Dim>
-typename sge::opengl::texture::mipmap::parameters<Dim>::dim const &
+sge::opengl::texture::mipmap::parameters<Dim>::dim const &
 sge::opengl::texture::mipmap::parameters<Dim>::size() const
 {
   return size_;
 }
 
 template <fcppt::math::size_type Dim>
-typename sge::opengl::texture::mipmap::parameters<Dim>::init_function_type
+sge::opengl::texture::mipmap::parameters<Dim>::init_function_type
 sge::opengl::texture::mipmap::parameters<Dim>::init_function() const
 {
   return init_function_;

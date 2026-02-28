@@ -26,15 +26,15 @@ class iterator final : public sge::renderer::index::detail::iterator_base<Format
   static_assert(sge::renderer::index::is_const_tag<Constness>::value);
 
 public:
-  using value_type = typename base::value_type;
+  using value_type = base::value_type;
 
-  using reference = typename base::reference;
+  using reference = base::reference;
 
   using pointer = sge::renderer::index::pointer<Constness>;
 
-  using difference_type = typename base::difference_type;
+  using difference_type = base::difference_type;
 
-  using iterator_category = typename base::iterator_category;
+  using iterator_category = base::iterator_category;
 
   explicit iterator(pointer);
 

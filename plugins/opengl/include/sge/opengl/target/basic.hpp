@@ -19,7 +19,7 @@ namespace sge::opengl::target
 {
 
 template <typename Base>
-class basic // NOLINT(fuchsia-multiple-inheritance)
+class basic // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public Base,
       public sge::opengl::target::base
 {
@@ -31,7 +31,6 @@ protected:
 public:
   ~basic() override;
 
-private:
   void bind() override;
 
   void unbind() override;
@@ -46,6 +45,7 @@ private:
 
   void clear(sge::renderer::clear::parameters const &) override;
 
+private:
   void set_viewport();
 
   void set_scissor_area();

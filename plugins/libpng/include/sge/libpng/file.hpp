@@ -29,7 +29,6 @@ public:
 
   ~file() override;
 
-private:
   [[nodiscard]] sge::image2d::view::const_object view() const override;
 
   [[nodiscard]] sge::image2d::dim size() const override;
@@ -38,6 +37,7 @@ private:
 
   void save_stream(std::ostream &) const override;
 
+private:
   fcppt::log::object_reference const log_;
 
   sge::libpng::file_rep const rep_;

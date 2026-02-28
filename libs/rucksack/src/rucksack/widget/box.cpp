@@ -129,7 +129,9 @@ sge::rucksack::axis_policy2 sge::rucksack::widget::box::axis_policy() const
                   std::remove_const_t<decltype(_p2)>>{
                   _p1.get() + _p2.get() + this->padding_.get()}};
             },
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             _pair.first.get().axis_policy()[this->major_axis()],
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             _prev[this->major_axis()])};
 
         sge::rucksack::axis_policy const minor{fcppt::variant::apply(
@@ -139,7 +141,9 @@ sge::rucksack::axis_policy2 sge::rucksack::widget::box::axis_policy() const
                   std::remove_const_t<decltype(_p1)>,
                   std::remove_const_t<decltype(_p2)>>{std::max(_p1.get(), _p2.get())}};
             },
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             _pair.first.get().axis_policy()[this->minor_axis()],
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             _prev[this->minor_axis()])};
 
         return sge::rucksack::make_axis_policy(sge::rucksack::axis_policy_function{
@@ -201,6 +205,7 @@ void sge::rucksack::widget::box::relayout()
       [this](child_pair const &_child, info const &_info)
       {
         sge::rucksack::axis_policy const policy{
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             _child.first.get().axis_policy()[this->major_axis()]};
 
         return info(
@@ -244,6 +249,7 @@ void sge::rucksack::widget::box::relayout()
     widget.size(
         this->major_axis(),
         fcppt::variant::match(
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             widget.axis_policy()[this->major_axis()],
             [extra_size](sge::rucksack::minimum_size const _min)
             { return _min.get() + extra_size; },
@@ -252,6 +258,7 @@ void sge::rucksack::widget::box::relayout()
     widget.size(
         this->minor_axis(),
         fcppt::variant::match(
+            // NOLINTNEXTLINE(cppcoreguidelines-pro-bounds-avoid-unchecked-container-access)
             widget.axis_policy()[this->minor_axis()],
             [this](sge::rucksack::minimum_size const _min)
             { return std::max(_min.get(), this->size(this->minor_axis())); },
@@ -338,6 +345,16 @@ sge::rucksack::widget::box::~box()
   }
 }
 
+void sge::rucksack::widget::box::child_destroyed(sge::rucksack::widget::base &_child)
+{
+  if (fcppt::not_(fcppt::algorithm::remove_if(
+          children_,
+          [&_child](child_pair const &_pair) { return _pair.first == fcppt::make_ref(_child); })))
+  {
+    throw sge::rucksack::exception{FCPPT_TEXT("Failed to remove a child widget!")};
+  }
+}
+
 void sge::rucksack::widget::box::insert_child(
     iterator const _pos,
     sge::rucksack::widget::reference const _widget,
@@ -361,14 +378,4 @@ sge::rucksack::axis sge::rucksack::widget::box::major_axis() const { return axis
 sge::rucksack::axis sge::rucksack::widget::box::minor_axis() const
 {
   return sge::rucksack::impl::flip_axis(axis_);
-}
-
-void sge::rucksack::widget::box::child_destroyed(sge::rucksack::widget::base &_child)
-{
-  if (fcppt::not_(fcppt::algorithm::remove_if(
-          children_,
-          [&_child](child_pair const &_pair) { return _pair.first == fcppt::make_ref(_child); })))
-  {
-    throw sge::rucksack::exception{FCPPT_TEXT("Failed to remove a child widget!")};
-  }
 }

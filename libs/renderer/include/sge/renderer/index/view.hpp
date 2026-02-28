@@ -37,7 +37,7 @@ public:
 
   using format_type = Format;
 
-  using value_type = typename format_type::index_type;
+  using value_type = format_type::index_type;
 
   using pointer = sge::renderer::index::pointer<Constness>;
 

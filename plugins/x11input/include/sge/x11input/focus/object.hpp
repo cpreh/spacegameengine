@@ -34,7 +34,7 @@
 namespace sge::x11input::focus
 {
 
-class object // NOLINT(fuchsia-multiple-inheritance)
+class object // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inheritance)
     : public sge::input::focus::object,
       public fcppt::enable_shared_from_this<sge::x11input::focus::object>
 {
@@ -51,9 +51,9 @@ public:
 
   ~object() override;
 
-private:
   [[nodiscard]] sge::window::object &window() const override;
 
+private:
   [[nodiscard]] awl::event::container on_event(XIDeviceEvent const &);
 
   [[nodiscard]] awl::event::container on_key_press(XIDeviceEvent const &);

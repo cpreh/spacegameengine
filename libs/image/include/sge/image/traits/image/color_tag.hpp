@@ -12,7 +12,7 @@ namespace sge::image::traits::image
 {
 
 template <typename Tag>
-using color_tag = typename sge::image::traits::image::color_tag_tpl<Tag>::type;
+using color_tag = sge::image::traits::image::color_tag_tpl<Tag>::type;
 
 }
 

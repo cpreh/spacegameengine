@@ -84,7 +84,7 @@ public:
 
     fcppt::optional::maybe_void(
         fcppt::record::get<typename Type::role>(objects_.get()),
-        [this](typename Type::state_type const &_state)
+        [this](Type::state_type const &_state)
         { Type::set(render_context_.get(), fcppt::make_cref(*_state)); });
   }
 

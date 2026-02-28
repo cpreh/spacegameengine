@@ -33,8 +33,10 @@ private:
   void
   operator()(sge::opengl::vf::client_state_combiner_ref, sge::opengl::vf::pointer) const override;
 
+public:
   void unuse(sge::opengl::vf::client_state_combiner_ref) const override;
 
+private:
   fcppt::reference<sge::opengl::vf::attribute_config const> const attribute_config_;
 
   GLint const elements_;

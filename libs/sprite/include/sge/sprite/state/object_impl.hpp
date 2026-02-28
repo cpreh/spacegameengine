@@ -27,21 +27,21 @@ object<StateChoices>::~object() = default;
 }
 
 template <typename StateChoices>
-typename sge::sprite::state::object<StateChoices>::elements_type &
+sge::sprite::state::object<StateChoices>::elements_type &
 sge::sprite::state::object<StateChoices>::elements()
 {
   return elements_;
 }
 
 template <typename StateChoices>
-typename sge::sprite::state::object<StateChoices>::elements_type const &
+sge::sprite::state::object<StateChoices>::elements_type const &
 sge::sprite::state::object<StateChoices>::elements() const
 {
   return elements_;
 }
 
 template <typename StateChoices>
-typename sge::sprite::state::object<StateChoices>::render_device &
+sge::sprite::state::object<StateChoices>::render_device &
 sge::sprite::state::object<StateChoices>::renderer() const
 {
   return renderer_.get();

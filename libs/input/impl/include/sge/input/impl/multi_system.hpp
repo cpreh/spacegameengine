@@ -32,11 +32,11 @@ public:
 
   ~multi_system() override;
 
-private:
   [[nodiscard]] sge::input::processor_unique_ptr create_processor(sge::window::object_ref) override;
 
   [[nodiscard]] sge::input::capabilities_field capabilities() const override;
 
+private:
   fcppt::log::object log_;
 
   using plugin_vector = std::vector<sge::input::plugin::object>;

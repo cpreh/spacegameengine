@@ -39,7 +39,7 @@ bool sge::input::info::container<Id, Obj>::empty() const
 }
 
 template <typename Id, typename Obj>
-typename sge::input::info::container<Id, Obj>::vector const &
+sge::input::info::container<Id, Obj>::vector const &
 sge::input::info::container<Id, Obj>::get() const
 {
   return vector_;

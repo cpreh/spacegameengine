@@ -23,9 +23,9 @@ public:
 
   ~wrapped_system() override;
 
-private:
   [[nodiscard]] sge::window::system &get() override;
 
+private:
   sge::window::system system_;
 };
 

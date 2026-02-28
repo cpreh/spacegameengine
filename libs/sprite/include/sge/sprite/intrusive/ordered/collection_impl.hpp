@@ -26,7 +26,7 @@ collection<Choices, Order>::~collection() = default;
 }
 
 template <typename Choices, typename Order>
-typename sge::sprite::intrusive::ordered::collection<Choices, Order>::collection_base &
+sge::sprite::intrusive::ordered::collection<Choices, Order>::collection_base &
 sge::sprite::intrusive::ordered::collection<Choices, Order>::get(order const &_order)
 {
   return *fcppt::container::get_or_insert(
@@ -36,20 +36,20 @@ sge::sprite::intrusive::ordered::collection<Choices, Order>::get(order const &_o
 }
 
 template <typename Choices, typename Order>
-typename sge::sprite::intrusive::ordered::collection<Choices, Order>::connection_ref
+sge::sprite::intrusive::ordered::collection<Choices, Order>::connection_ref
 sge::sprite::intrusive::ordered::collection<Choices, Order>::connection(order const &_order)
 {
   return this->get(_order).connection();
 }
 template <typename Choices, typename Order>
-typename sge::sprite::intrusive::ordered::collection<Choices, Order>::range_type
+sge::sprite::intrusive::ordered::collection<Choices, Order>::range_type
 sge::sprite::intrusive::ordered::collection<Choices, Order>::range()
 {
   return range_type(fcppt::make_ref(collections_));
 }
 
 template <typename Choices, typename Order>
-typename sge::sprite::intrusive::ordered::collection<Choices, Order>::const_range_type
+sge::sprite::intrusive::ordered::collection<Choices, Order>::const_range_type
 sge::sprite::intrusive::ordered::collection<Choices, Order>::range() const
 {
   return const_range_type(fcppt::make_ref(collections_));

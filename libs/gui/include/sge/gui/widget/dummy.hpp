@@ -24,7 +24,6 @@ public:
 
   ~dummy() override;
 
-private:
   void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
 };
 

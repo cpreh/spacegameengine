@@ -26,15 +26,15 @@ class iterator final : public sge::renderer::vf::detail::iterator_base<Part, Con
   static_assert(sge::renderer::vf::is_const_tag<Constness>::value);
 
 public:
-  using value_type = typename base::value_type;
+  using value_type = base::value_type;
 
-  using reference = typename base::reference;
+  using reference = base::reference;
 
-  using pointer = typename base::pointer;
+  using pointer = base::pointer;
 
-  using difference_type = typename base::difference_type;
+  using difference_type = base::difference_type;
 
-  using iterator_category = typename base::iterator_category;
+  using iterator_category = base::iterator_category;
 
   using vertex_type = value_type;
 

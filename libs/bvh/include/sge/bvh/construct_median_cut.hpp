@@ -35,7 +35,7 @@ public:
   template <typename LeafWrapper>
   bool operator()(LeafWrapper const &_left, LeafWrapper const &_right) const
   {
-    using leaf = typename LeafWrapper::leaf;
+    using leaf = LeafWrapper::leaf;
 
     return fcppt::math::box::center(sge::bvh::traits::box<leaf>::extract_box(_left.value()))
                .get_unsafe(axis_) <
@@ -86,19 +86,19 @@ void construct_median_cut(
       _leaves.begin(),
       std::next(
           _leaves.begin(),
-          static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
+          static_cast<Traits::leaf_wrapper_sequence::difference_type>(
               _leaves.size() / 2U)),
       _leaves.end(),
       comparator);
 
   typename Traits::leaf_wrapper const &median(*std::next(
       _leaves.begin(),
-      static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(_leaves.size() / 2U)));
+      static_cast<Traits::leaf_wrapper_sequence::difference_type>(_leaves.size() / 2U)));
 
   std::partition(
       _leaves.begin(),
       _leaves.end(),
-      [median, &comparator](typename Traits::leaf_wrapper const &_value)
+      [median, &comparator](Traits::leaf_wrapper const &_value)
       { return comparator(_value, median); });
 
   /*
@@ -169,7 +169,7 @@ void construct_median_cut(
           _leaves.begin(),
           std::next(
               _leaves.begin(),
-              static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
+              static_cast<Traits::leaf_wrapper_sequence::difference_type>(
                   _leaves.size() / 2U))),
       _tree.front().get_unsafe().get());
 
@@ -177,7 +177,7 @@ void construct_median_cut(
       typename Traits::leaf_wrapper_sequence(
           std::next(
               _leaves.begin(),
-              static_cast<typename Traits::leaf_wrapper_sequence::difference_type>(
+              static_cast<Traits::leaf_wrapper_sequence::difference_type>(
                   _leaves.size() / 2U)),
           _leaves.end()),
       *std::next(_tree.begin()));

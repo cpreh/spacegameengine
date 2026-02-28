@@ -27,7 +27,6 @@ public:
 
   ~system() override;
 
-private:
   [[nodiscard]] sge::font::object_unique_ptr create_font(sge::font::parameters const &) override;
 
   [[nodiscard]] sge::font::added_unique_ptr add_font(std::filesystem::path const &) override;

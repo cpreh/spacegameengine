@@ -13,7 +13,7 @@ namespace sge::sprite::detail::config
 {
 
 template <typename Choices>
-using has_texture_point_size = typename sge::sprite::detail::config::contains_if<
+using has_texture_point_size = sge::sprite::detail::config::contains_if<
     typename Choices::optional_elements,
     sge::sprite::config::is_with_texture_point_size>::type;
 

@@ -23,14 +23,14 @@ sge::sprite::geometry::random_access_range<Iterator>::random_access_range(
 }
 
 template <typename Iterator>
-typename sge::sprite::geometry::random_access_range<Iterator>::iterator
+sge::sprite::geometry::random_access_range<Iterator>::iterator
 sge::sprite::geometry::random_access_range<Iterator>::begin() const
 {
   return begin_;
 }
 
 template <typename Iterator>
-typename sge::sprite::geometry::random_access_range<Iterator>::iterator
+sge::sprite::geometry::random_access_range<Iterator>::iterator
 sge::sprite::geometry::random_access_range<Iterator>::end() const
 {
   return end_;

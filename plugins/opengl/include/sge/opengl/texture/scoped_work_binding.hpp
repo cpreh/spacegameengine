@@ -34,13 +34,14 @@ public:
 
   ~scoped_work_binding() override;
 
-private:
   [[nodiscard]] sge::renderer::texture::stage stage() const override;
-
+private:
   static sge::renderer::texture::stage get_stage();
 
+public:
   [[nodiscard]] sge::opengl::texture::type type() const override;
 
+private:
   void bind(sge::opengl::texture::optional_id, sge::opengl::texture::type);
 
   sge::opengl::texture::active_level const active_level_;

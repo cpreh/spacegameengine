@@ -30,7 +30,6 @@ public:
 
   ~simple() override;
 
-private:
   [[nodiscard]] sge::rucksack::dim button_spacing() const override;
 
   void draw_button(
@@ -77,6 +76,7 @@ private:
 
   [[nodiscard]] sge::gui::text_color text_color() const override;
 
+private:
   [[nodiscard]] static sge::rucksack::dim spacing();
 };
 

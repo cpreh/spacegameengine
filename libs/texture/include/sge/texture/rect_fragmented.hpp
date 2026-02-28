@@ -38,7 +38,6 @@ public:
   SGE_TEXTURE_DETAIL_SYMBOL
   ~rect_fragmented() override;
 
-private:
   [[nodiscard]] sge::texture::optional_part_unique_ptr
   consume_fragment(sge::renderer::dim2 const &) override;
 
@@ -52,6 +51,7 @@ private:
 
   [[nodiscard]] bool empty() const override;
 
+private:
   sge::renderer::size_type cur_x_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)
 
   sge::renderer::size_type cur_y_; // NOLINT(cppcoreguidelines-use-default-member-init,modernize-use-default-member-init)

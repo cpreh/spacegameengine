@@ -26,7 +26,6 @@ public:
 
   ~positional() override;
 
-private:
   void play(sge::audio::sound::repeat) override;
 
   void toggle_pause() override;

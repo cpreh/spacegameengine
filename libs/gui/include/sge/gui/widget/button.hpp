@@ -56,11 +56,11 @@ public:
 
   [[nodiscard]] SGE_GUI_DETAIL_SYMBOL sge::rucksack::widget::base &layout() override;
 
-private:
   void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
 
   [[nodiscard]] sge::gui::get_focus on_click(sge::rucksack::vector const &) override;
 
+private:
   [[nodiscard]] sge::font::draw::static_text make_static_text(sge::font::string const &);
 
   sge::gui::style::const_reference const style_;

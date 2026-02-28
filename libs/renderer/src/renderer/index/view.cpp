@@ -41,7 +41,7 @@ sge::renderer::index::view<Format, Constness>::view(dynamic_view_type const &_vi
 }
 
 template <typename Format, typename Constness>
-typename sge::renderer::index::view<Format, Constness>::pointer
+sge::renderer::index::view<Format, Constness>::pointer
 sge::renderer::index::view<Format, Constness>::data() const
 {
   return this->data_;
@@ -54,14 +54,14 @@ sge::renderer::size_type sge::renderer::index::view<Format, Constness>::size() c
 }
 
 template <typename Format, typename Constness>
-typename sge::renderer::index::view<Format, Constness>::iterator
+sge::renderer::index::view<Format, Constness>::iterator
 sge::renderer::index::view<Format, Constness>::begin() const
 {
   return iterator(this->data());
 }
 
 template <typename Format, typename Constness>
-typename sge::renderer::index::view<Format, Constness>::iterator
+sge::renderer::index::view<Format, Constness>::iterator
 sge::renderer::index::view<Format, Constness>::end() const
 {
   return this->begin() + fcppt::cast::to_signed(this->size());

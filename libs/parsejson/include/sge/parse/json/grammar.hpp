@@ -27,7 +27,7 @@ class grammar : public sge::parse::json::grammar_base
 public:
   grammar();
 
-  ~grammar();
+  ~grammar(); // NOLINT(bugprone-derived-method-shadowing-base-method)
 
 private:
   base_type<sge::parse::json::null> null_;

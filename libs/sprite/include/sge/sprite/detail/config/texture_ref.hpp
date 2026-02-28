@@ -24,9 +24,9 @@ struct texture_ref
 private:
   template <typename Element>
   using obtain_ref_type =
-      typename sge::sprite::detail::primitives::texture_ref_type<Element::ownership::value>::type;
+      sge::sprite::detail::primitives::texture_ref_type<Element::ownership::value>::type;
 
-  using texture_list = typename sge::sprite::detail::config::find_texture_config<Choices>::type;
+  using texture_list = sge::sprite::detail::config::find_texture_config<Choices>::type;
 
 public:
   using type = fcppt::mpl::apply<fcppt::mpl::if_<

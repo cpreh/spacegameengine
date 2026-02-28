@@ -56,7 +56,7 @@ private:
 
 public:
   template <typename Type, typename Role>
-  typename state_for_role<Role>::state_type operator()(fcppt::record::element<Role, Type>) const
+  state_for_role<Role>::state_type operator()(fcppt::record::element<Role, Type>) const
     requires(state_for_role<Role>::persistent::value)
   {
     return state_for_role<Role>::make(

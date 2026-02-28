@@ -29,10 +29,10 @@ public:
 
   ~system() override;
 
-private:
   sge::opengl::platform::device_state_unique_ptr create_device_state(
       sge::renderer::display_mode::optional_fullscreen const &, sge::window::object_ref) override;
 
+private:
   fcppt::log::object_reference const log_;
 
   sge::opengl::xrandr::optional_system_unique_ptr const xrandr_system_;

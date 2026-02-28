@@ -18,7 +18,7 @@ namespace
 
 cl_image_format make_cl_image_format(cl_channel_order const _order, cl_channel_type const _type)
 {
-  cl_image_format const ret = {_order, _type};
+  cl_image_format const ret = {.image_channel_order = _order, .image_channel_data_type = _type};
 
   return ret;
 }

@@ -288,7 +288,7 @@ create_noise_texture(sge::renderer::device::core_ref const _device)
             sge::image::color::init::luminance() = static_cast<sge::image::channel8>(
                 256.0F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                 (0.5F + // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                 0.5F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+                 (0.5F * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                      sge::noise::sample(
                          fcppt::make_ref(noise_generator),
                          param_type(
@@ -308,7 +308,7 @@ create_noise_texture(sge::renderer::device::core_ref const _device)
                                  ),
                              param_type::octaves_type(
                                  6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                                 ))))));
+                                 )))))));
       });
 
   store_type const store{

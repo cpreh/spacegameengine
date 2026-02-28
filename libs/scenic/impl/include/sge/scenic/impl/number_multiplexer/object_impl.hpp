@@ -44,7 +44,7 @@ sge::scenic::impl::number_multiplexer::object<T>::append(
 }
 
 template <typename T>
-typename sge::scenic::impl::number_multiplexer::object<T>::value_type
+sge::scenic::impl::number_multiplexer::object<T>::value_type
 sge::scenic::impl::number_multiplexer::object<T>::value() const
 {
   return value_;

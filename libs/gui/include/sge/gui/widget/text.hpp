@@ -50,9 +50,9 @@ public:
 
   [[nodiscard]] SGE_GUI_DETAIL_SYMBOL sge::rucksack::widget::base &layout() override;
 
-private:
   void on_draw(sge::gui::renderer::base &, sge::renderer::context::ffp &) override;
 
+private:
   [[nodiscard]] sge::rucksack::axis_policy horizontal_policy() const;
 
   sge::gui::style::const_reference const style_;

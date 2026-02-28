@@ -28,9 +28,9 @@ public:
   SGE_GUI_DETAIL_SYMBOL
   ~expander() override;
 
-private:
   [[nodiscard]] sge::rucksack::widget::base &layout() override;
 
+private:
   sge::rucksack::widget::dummy layout_;
 };
 

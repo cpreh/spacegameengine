@@ -10,7 +10,7 @@ namespace sge::renderer::vf
 {
 
 template <typename Type>
-using to_label = typename Type::label;
+using to_label = Type::label;
 
 }
 

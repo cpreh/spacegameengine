@@ -89,9 +89,9 @@ struct convert_from_impl<Result, std::enable_if_t<fcppt::math::matrix::is_matrix
             .get()
             .elements);
 
-    using outer_size = typename Result::static_rows;
+    using outer_size = Result::static_rows;
 
-    using inner_size = typename Result::static_columns;
+    using inner_size = Result::static_columns;
 
     if (outer_array.size() != outer_size::value)
     {

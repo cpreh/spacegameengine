@@ -44,7 +44,7 @@ private:
       std::filesystem::path const &,
       sge::image2d::system_ref,
       sge::parse::json::start const &);
-
+public:
   [[nodiscard]] sge::font::text_unique_ptr
   create_text(sge::font::string const &, sge::font::text_parameters const &) override;
 
@@ -52,6 +52,7 @@ private:
 
   [[nodiscard]] sge::font::metrics metrics() const override;
 
+private:
   fcppt::log::object log_;
 
   sge::font::bitmap::impl::line_height const line_height_;

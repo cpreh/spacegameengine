@@ -73,7 +73,7 @@ T const &sge::resource_tree::detail::element<T, Rng>::get_random() const
 }
 
 template <typename T, typename Rng>
-typename sge::resource_tree::detail::element<T, Rng>::optional_type
+sge::resource_tree::detail::element<T, Rng>::optional_type
 sge::resource_tree::detail::element<T, Rng>::get_opt(sge::resource_tree::path const &_path) const
 {
   return fcppt::algorithm::find_by_opt<fcppt::reference<T const>>(

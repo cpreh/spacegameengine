@@ -26,7 +26,7 @@
 namespace sge::opengl::index
 {
 
-// NOLINTNEXTLINE(fuchsia-multiple-inheritance)
+// NOLINTNEXTLINE(fuchsia-multiple-inheritance,misc-multiple-inheritance)
 class buffer : public sge::renderer::index::buffer, public sge::opengl::buffer::wrapper
 {
   FCPPT_NONMOVABLE(buffer);
@@ -42,17 +42,18 @@ public:
 
   void bind() const;
 
-private:
   [[nodiscard]] sge::renderer::index::dynamic::view
   lock(sge::renderer::lock_segment const &, sge::renderer::lock_mode) override;
 
   [[nodiscard]] sge::renderer::index::dynamic::const_view
   lock_c(sge::renderer::lock_segment const &) const override;
 
+private:
   template <typename View>
   [[nodiscard]] View
   do_lock(sge::renderer::lock_flags::method, sge::renderer::lock_segment const &) const;
 
+public:
   void unlock() const override;
 
   [[nodiscard]] sge::renderer::dim1 size() const override;
@@ -61,8 +62,10 @@ private:
 
   [[nodiscard]] sge::renderer::index::dynamic::format format() const override;
 
+protected:
   [[nodiscard]] sge::opengl::buffer::object const &get() const override;
 
+private:
   sge::renderer::index::dynamic::format const format_;
 
   GLenum const gl_format_;

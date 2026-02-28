@@ -79,7 +79,7 @@ awl::event::optional_base_unique_ptr change_caps(
       {
         return fcppt::optional::map(
             fcppt::container::find_opt_iterator(_map.get(), _seat.get().name()),
-            [&_map](typename object_map::iterator const _iterator)
+            [&_map](object_map::iterator const _iterator)
             {
               awl::event::base_unique_ptr result{fcppt::unique_ptr_to_base<awl::event::base>(
                   fcppt::make_unique_ptr<Remove>(BasePtr{_iterator->second}))};

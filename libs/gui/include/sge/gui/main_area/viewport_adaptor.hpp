@@ -33,9 +33,9 @@ public:
   SGE_GUI_DETAIL_SYMBOL
   void relayout() override;
 
-private:
   sge::gui::widget::base &widget() override;
 
+private:
   sge::gui::widget::reference const widget_;
 
   sge::rucksack::viewport::adaptor impl_;

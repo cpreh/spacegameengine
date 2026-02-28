@@ -97,7 +97,11 @@ ogg_tell(void *const _datasource)
 
 ov_callbacks sge::vorbis::callbacks()
 {
-  ov_callbacks const callbacks = {&ogg_read, &ogg_seek, nullptr, &ogg_tell};
+  ov_callbacks const callbacks = {
+      .read_func = &ogg_read,
+      .seek_func = &ogg_seek,
+      .close_func = nullptr,
+      .tell_func = &ogg_tell};
 
   return callbacks;
 }

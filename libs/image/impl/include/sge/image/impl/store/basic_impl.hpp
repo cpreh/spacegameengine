@@ -65,54 +65,54 @@ basic<Format>::~basic() = default;
 }
 
 template <typename Format>
-typename sge::image::store::basic<Format>::pointer sge::image::store::basic<Format>::data()
+sge::image::store::basic<Format>::pointer sge::image::store::basic<Format>::data()
 {
   return internal_.data();
 }
 
 template <typename Format>
-typename sge::image::store::basic<Format>::const_pointer
+sge::image::store::basic<Format>::const_pointer
 sge::image::store::basic<Format>::data() const
 {
   return internal_.data();
 }
 
 template <typename Format>
-typename sge::image::store::basic<Format>::view_type sge::image::store::basic<Format>::view()
+sge::image::store::basic<Format>::view_type sge::image::store::basic<Format>::view()
 {
   return internal_.view();
 }
 
 template <typename Format>
-typename sge::image::store::basic<Format>::const_view_type
+sge::image::store::basic<Format>::const_view_type
 sge::image::store::basic<Format>::view() const
 {
   return internal_.view();
 }
 
 template <typename Format>
-typename sge::image::store::basic<Format>::wrapped_view_type
+sge::image::store::basic<Format>::wrapped_view_type
 sge::image::store::basic<Format>::wrapped_view()
 {
   return sge::image::view::wrap(internal_.view());
 }
 
 template <typename Format>
-typename sge::image::store::basic<Format>::const_wrapped_view_type
+sge::image::store::basic<Format>::const_wrapped_view_type
 sge::image::store::basic<Format>::wrapped_view() const
 {
   return sge::image::view::wrap(internal_.view());
 }
 
 template <typename Format>
-typename sge::image::store::basic<Format>::const_wrapped_view_type
+sge::image::store::basic<Format>::const_wrapped_view_type
 sge::image::store::basic<Format>::const_wrapped_view() const
 {
   return this->wrapped_view();
 }
 
 template <typename Format>
-typename sge::image::store::basic<Format>::dim sge::image::store::basic<Format>::size() const
+sge::image::store::basic<Format>::dim sge::image::store::basic<Format>::size() const
 {
   return sge::image::impl::from_mizuiro_dim(internal_.size());
 }

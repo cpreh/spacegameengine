@@ -157,7 +157,7 @@ void fill_texture(sge::image2d::store::l8::view_type _view)
           static_cast<sge::image::channel8>(
               256.0 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
               (0.5 + // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-               0.5 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
+               (0.5 * // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
                    sge::noise::sample(
                        fcppt::make_ref(noise_generator),
                        param_type(
@@ -172,7 +172,7 @@ void fill_texture(sge::image2d::store::l8::view_type _view)
                                ),
                            param_type::octaves_type(
                                6U // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
-                               ))))));
+                               )))))));
     }
   }
 }

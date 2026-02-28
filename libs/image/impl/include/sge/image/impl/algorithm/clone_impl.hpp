@@ -24,7 +24,7 @@ sge::image::algorithm::clone(sge::image::view::const_object<Tag> const &_view)
       [](auto const &_inner_view)
       {
         return sge::image::store::object<Tag>{
-            sge::image::store::basic<typename std::decay<decltype(_inner_view)>::type::format>(
+            sge::image::store::basic<typename std::decay_t<decltype(_inner_view)>::format>(
                 mizuiro::image::algorithm::clone(_inner_view))};
       },
       _view.get());

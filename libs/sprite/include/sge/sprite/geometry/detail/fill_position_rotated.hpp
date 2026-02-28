@@ -34,7 +34,7 @@ namespace sge::sprite::geometry::detail
 template <typename Iterator, typename Choices>
 void fill_position_rotated(Iterator _iterator, sge::sprite::object<Choices> const &_sprite)
 {
-  using type_choices = typename Choices::type_choices;
+  using type_choices = Choices::type_choices;
 
   using funit = sge::sprite::types::basic::float_<type_choices>;
 

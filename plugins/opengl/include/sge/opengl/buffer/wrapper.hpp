@@ -24,8 +24,7 @@ public:
   ~wrapper() override = 0;
 protected:
   [[nodiscard]] virtual sge::opengl::buffer::object const &get() const = 0;
-
-private:
+public:
   [[nodiscard]] sge::renderer::opengl::buffer::id id() const override;
 
   [[nodiscard]] bool native() const override;

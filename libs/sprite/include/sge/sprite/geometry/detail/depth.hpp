@@ -15,14 +15,14 @@ namespace sge::sprite::geometry::detail
 {
 
 template <typename Choices>
-inline typename Choices::type_choices::float_type depth(sge::sprite::object<Choices> const &_sprite)
+inline Choices::type_choices::float_type depth(sge::sprite::object<Choices> const &_sprite)
   requires(sge::sprite::detail::config::has_depth<Choices>::value)
 {
   return _sprite.z();
 }
 
 template <typename Choices>
-inline typename Choices::type_choices::float_type depth(sge::sprite::object<Choices> const &)
+inline Choices::type_choices::float_type depth(sge::sprite::object<Choices> const &)
   requires(fcppt::not_(sge::sprite::detail::config::has_depth<Choices>::value))
 {
   return fcppt::literal<typename Choices::type_choices::float_type>(0);

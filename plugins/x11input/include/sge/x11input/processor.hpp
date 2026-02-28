@@ -59,7 +59,6 @@ public:
 
   ~processor() override;
 
-private:
   [[nodiscard]] sge::window::object &window() const override;
 
   [[nodiscard]] sge::input::cursor::container cursors() const override;
@@ -72,6 +71,7 @@ private:
 
   [[nodiscard]] sge::input::mouse::container mice() const override;
 
+private:
   using optional_event_container = fcppt::optional::object<awl::event::container>;
 
   [[nodiscard]] awl::event::container system_event(awl::event::base const &);

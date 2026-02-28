@@ -68,7 +68,7 @@ std::vector<fcppt::unique_ptr<typename Types::buffer_types::base>> init(
   sge::opengl::texture::check_dim(
       _basic_parameters.log(), size, Types::buffer_types::dim_types::min_size(), Types::name());
 
-  using format_result_type = typename Types::buffer_types::format_types::format_result;
+  using format_result_type = Types::buffer_types::format_types::format_result;
 
   format_result_type const format{
       Types::buffer_types::format_types::translate_format(_parameters.format())};
@@ -113,7 +113,7 @@ std::vector<fcppt::unique_ptr<typename Types::buffer_types::base>> init(
   sge::opengl::texture::is_render_target const is_target(
       _parameters.capabilities() & sge::renderer::texture::capabilities::render_target);
 
-  using gl_buffer = typename Types::buffer_types::gl_buffer;
+  using gl_buffer = Types::buffer_types::gl_buffer;
 
   using level_container = std::vector<fcppt::unique_ptr<typename Types::buffer_types::base>>;
 
