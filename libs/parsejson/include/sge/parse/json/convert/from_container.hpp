@@ -21,10 +21,10 @@ sge::parse::json::array from_container(Container const &_container)
 {
   return sge::parse::json::array(fcppt::algorithm::map<sge::parse::json::element_vector>(
       _container,
-      [](typename Container::const_reference _element)
+      [](Container::const_reference _element)
       {
         return fcppt::make_recursive(sge::parse::json::make_value(
-            static_cast<typename sge::parse::json::convert::choose_fundamental<
+            static_cast<sge::parse::json::convert::choose_fundamental<
                 typename Container::value_type>::type>(_element)));
       }));
 }

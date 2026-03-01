@@ -36,8 +36,8 @@ Container to_static_container(sge::parse::json::array const &_array)
   for (sge::parse::json::element_vector::size_type const index :
        fcppt::make_int_range_count(_array.elements.size()))
   {
-    result.get_unsafe(static_cast<typename Container::size_type>(index)) =
-        static_cast<typename Container::value_type>(
+    result.get_unsafe(static_cast<Container::size_type>(index)) =
+        static_cast<Container::value_type>(
             sge::parse::json::get_exn<typename sge::parse::json::convert::choose_fundamental<
                 typename Container::value_type>::type>(
                 fcppt::make_cref(_array.elements[index].get()))
