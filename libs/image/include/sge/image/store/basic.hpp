@@ -41,6 +41,7 @@ public:
 
   using const_wrapped_view_type = sge::image::view::to_wrapped_type<const_view_type>;
 
+  // NOLINTNEXTLINE(readability-redundant-typename)
   using mizuiro_color = sge::image::pixel::mizuiro_type<typename Format::color_format>;
 
   using init_function = fcppt::function<void(view_type const &)>;
