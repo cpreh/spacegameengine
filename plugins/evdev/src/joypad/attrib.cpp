@@ -12,8 +12,7 @@
 #include <awl/event/base.hpp> // NOLINT(misc-include-cleaner)
 #include <awl/event/optional_base_unique_ptr.hpp>
 #include <fcppt/log/object_fwd.hpp>
-#include <fcppt/optional/join.hpp>
-#include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/return_if.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <filesystem>
 #include <fcppt/config/external_end.hpp>
@@ -25,8 +24,8 @@ awl::event::optional_base_unique_ptr sge::evdev::joypad::attrib(
     sge::evdev::joypad::map &_map,
     std::filesystem::path const &_path)
 {
-  return fcppt::optional::join(fcppt::optional::make_if(
+  return fcppt::optional::return_if(
       !sge::evdev::joypad::find_path(_map, _path).has_value(),
       [&_log, _window, &_processor, &_map, &_path]
-      { return sge::evdev::joypad::add(_log, _window, _processor, _map, _path); }));
+      { return sge::evdev::joypad::add(_log, _window, _processor, _map, _path); });
 }

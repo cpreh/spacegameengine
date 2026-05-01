@@ -24,8 +24,8 @@
 #include <fcppt/log/object_fwd.hpp>
 #include <fcppt/log/out.hpp>
 #include <fcppt/optional/bind.hpp>
-#include <fcppt/optional/join.hpp>
 #include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/return_if.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <boost/algorithm/string/predicate.hpp>
 #include <filesystem>
@@ -82,9 +82,9 @@ sge::evdev::joypad::optional_shared_ptr sge::evdev::joypad::create(
     awl::backends::posix::processor_ref const _processor,
     std::filesystem::path const &_path)
 {
-  return fcppt::optional::join(fcppt::optional::make_if(
+  return fcppt::optional::return_if(
       fcppt::not_(std::filesystem::is_directory(_path)) &&
           boost::algorithm::starts_with(_path.filename().string(), "event"),
       [&_log, _window, &_processor, &_path]
-      { return try_create(_log, _window, _processor, _path); }));
+      { return try_create(_log, _window, _processor, _path); });
 }

@@ -49,10 +49,9 @@
 #include <fcppt/log/warning.hpp>
 #include <fcppt/mpl/list/object.hpp>
 #include <fcppt/optional/cat.hpp>
-#include <fcppt/optional/join.hpp>
-#include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp>
+#include <fcppt/optional/return_if.hpp>
 #include <fcppt/optional/to_container.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <X11/extensions/XI2.h>
@@ -167,7 +166,7 @@ sge::x11input::mouse::device::on_button_up(XIDeviceEvent const &_event)
 awl::event::optional_base_unique_ptr sge::x11input::mouse::device::button_event(
     XIDeviceEvent const &_event, sge::input::mouse::button_pressed const _pressed)
 {
-  return fcppt::optional::join(fcppt::optional::make_if(
+  return fcppt::optional::return_if(
       (_event.flags // NOLINT(hicpp-signed-bitwise)
        & XIPointerEmulated // NOLINT(hicpp-signed-bitwise)
        ) == 0,
@@ -193,5 +192,5 @@ awl::event::optional_base_unique_ptr sge::x11input::mouse::device::button_event(
                       _button,
                       _pressed));
             });
-      }));
+      });
 }

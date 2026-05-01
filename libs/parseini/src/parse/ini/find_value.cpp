@@ -15,8 +15,8 @@
 #include <sge/parse/ini/value.hpp>
 #include <fcppt/make_cref.hpp>
 #include <fcppt/algorithm/find_by_opt.hpp>
-#include <fcppt/optional/join.hpp>
 #include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/return_if.hpp>
 
 sge::parse::ini::optional_value sge::parse::ini::find_value(
     sge::parse::ini::start const &_start,
@@ -27,7 +27,7 @@ sge::parse::ini::optional_value sge::parse::ini::find_value(
       _start.sections,
       [&_section_name, &_entry_name](sge::parse::ini::section const &_section)
       {
-        return fcppt::optional::join(fcppt::optional::make_if(
+        return fcppt::optional::return_if(
             sge::parse::ini::section_name_equal{fcppt::make_cref(_section_name)}(_section),
             [&_section, &_entry_name]
             {
@@ -39,6 +39,6 @@ sge::parse::ini::optional_value sge::parse::ini::find_value(
                         sge::parse::ini::entry_name_equal{fcppt::make_cref(_entry_name)}(_entry),
                         [&_entry] { return sge::parse::ini::value{_entry.value}; });
                   });
-            }));
+            });
       });
 }

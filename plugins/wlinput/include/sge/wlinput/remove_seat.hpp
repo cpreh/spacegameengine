@@ -17,9 +17,8 @@
 #include <fcppt/unique_ptr_to_base.hpp>
 #include <fcppt/container/find_opt_iterator.hpp>
 #include <fcppt/container/bitfield/operators.hpp>
-#include <fcppt/optional/join.hpp>
-#include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
+#include <fcppt/optional/return_if.hpp>
 #include <fcppt/preprocessor/disable_gcc_warning.hpp>
 #include <fcppt/preprocessor/disable_gnu_gcc_warning.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -65,7 +64,7 @@ FCPPT_PP_POP_WARNING
 
   FCPPT_PP_POP_WARNING
 
-  return fcppt::optional::join(fcppt::optional::make_if(_seat.caps() & Caps, make_event));
+  return fcppt::optional::return_if(_seat.caps() & Caps, make_event);
 }
 
 }

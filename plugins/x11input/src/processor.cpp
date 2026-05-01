@@ -85,10 +85,9 @@
 #include <fcppt/optional/cat.hpp>
 #include <fcppt/optional/deref.hpp>
 #include <fcppt/optional/from.hpp>
-#include <fcppt/optional/join.hpp>
-#include <fcppt/optional/make_if.hpp>
 #include <fcppt/optional/map.hpp>
 #include <fcppt/optional/object_impl.hpp> // NOLINT(misc-include-cleaner)
+#include <fcppt/optional/return_if.hpp>
 #include <fcppt/optional/to_exception.hpp>
 #include <fcppt/preprocessor/ignore_unsafe_buffer_usage.hpp>
 #include <fcppt/preprocessor/pop_warning.hpp>
@@ -194,9 +193,9 @@ awl::event::container sge::x11input::processor::system_event(awl::event::base co
           [this](fcppt::reference<awl::backends::x11::system::event::generic const> const
                      _generic_event)
           {
-            return fcppt::optional::join(fcppt::optional::make_if(
+            return fcppt::optional::return_if(
                 _generic_event.get().get().extension == this->opcode_.get(),
-                [&_generic_event, this] { return this->extension_event(_generic_event.get()); }));
+                [&_generic_event, this] { return this->extension_event(_generic_event.get()); });
           }),
       [] { return awl::event::container{}; });
 }
