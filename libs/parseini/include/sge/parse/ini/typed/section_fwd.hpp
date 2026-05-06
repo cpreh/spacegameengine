@@ -8,7 +8,7 @@
 
 namespace sge::parse::ini::typed
 {
-template<typename Record>
+template<typename Entries>
 class section;
 }
 

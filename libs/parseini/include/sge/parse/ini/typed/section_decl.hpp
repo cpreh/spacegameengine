@@ -82,6 +82,9 @@ public:
   [[nodiscard]]
   fcppt::either::object<sge::parse::ini::typed::section_error, result_type>
   parse(sge::parse::ini::entry_vector const &) const;
+
+  [[nodiscard]]
+  std::string const &name() const;
 private:
   using string_map = std::unordered_map<std::string, std::string>;
 

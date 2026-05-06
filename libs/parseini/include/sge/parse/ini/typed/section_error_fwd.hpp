@@ -8,9 +8,7 @@
 
 namespace sge::parse::ini::typed
 {
-
 struct section_error;
-
 }
 
 #endif

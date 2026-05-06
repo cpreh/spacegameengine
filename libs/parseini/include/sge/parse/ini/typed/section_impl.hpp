@@ -79,6 +79,12 @@ sge::parse::ini::typed::section<Entries>::parse(sge::parse::ini::entry_vector co
 }
 
 template <typename Entries>
+std::string const &sge::parse::ini::typed::section<Entries>::name() const
+{
+  return this->name_;
+}
+
+template <typename Entries>
 fcppt::tuple::object<
     std::vector<sge::parse::ini::typed::duplicate_entry>,
     // NOLINTNEXTLINE(readability-redundant-typename)
