@@ -110,6 +110,7 @@ void sge::systems::detail::instance_impl::init_renderer_system(
   renderer_system_ =
       optional_renderer_system{fcppt::make_unique_ptr<sge::systems::impl::renderer::system>(
           this->log_context(),
+          this->log_,
           plugin_manager_.collection<sge::renderer::core>(),
           _parameters,
           _config,

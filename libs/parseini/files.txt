@@ -66,6 +66,7 @@ libs/parseini/include/sge/parse/ini/typed/section_start_error.hpp
 libs/parseini/include/sge/parse/ini/typed/start_decl.hpp
 libs/parseini/include/sge/parse/ini/typed/start_error_fwd.hpp
 libs/parseini/include/sge/parse/ini/typed/start_error.hpp
+libs/parseini/include/sge/parse/ini/typed/start_error_output.hpp
 libs/parseini/include/sge/parse/ini/typed/start_fwd.hpp
 libs/parseini/include/sge/parse/ini/typed/start.hpp
 libs/parseini/include/sge/parse/ini/typed/start_impl.hpp
@@ -99,5 +100,6 @@ libs/parseini/src/parse/ini/typed/entry_type_error.cpp
 libs/parseini/src/parse/ini/typed/section_error.cpp
 libs/parseini/src/parse/ini/typed/section_start_error.cpp
 libs/parseini/src/parse/ini/typed/start_error.cpp
+libs/parseini/src/parse/ini/typed/start_error_output.cpp
 libs/parseini/src/parse/ini/typed/unused_entries.cpp
 libs/parseini/src/parse/ini/typed/unused_sections.cpp

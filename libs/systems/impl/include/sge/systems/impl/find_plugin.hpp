@@ -66,11 +66,11 @@ sge::systems::impl::plugin_pair<System> find_plugin(
 
                   using plugin_type = sge::plugin::object<System>;
 
-                  plugin_type plugin(_element.load());
+                  plugin_type plugin{_element.load()};
 
                   using system_unique_ptr = fcppt::unique_ptr<System>;
 
-                  system_unique_ptr system(plugin.get()(_log_context));
+                  system_unique_ptr system{plugin.get()(_log_context)};
 
                   if (_test_function(*system))
                   {

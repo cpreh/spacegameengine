@@ -2603,6 +2603,7 @@ libs/parseini/include/sge/parse/ini/typed/section_start_error.hpp
 libs/parseini/include/sge/parse/ini/typed/start_decl.hpp
 libs/parseini/include/sge/parse/ini/typed/start_error_fwd.hpp
 libs/parseini/include/sge/parse/ini/typed/start_error.hpp
+libs/parseini/include/sge/parse/ini/typed/start_error_output.hpp
 libs/parseini/include/sge/parse/ini/typed/start_fwd.hpp
 libs/parseini/include/sge/parse/ini/typed/start.hpp
 libs/parseini/include/sge/parse/ini/typed/start_impl.hpp
@@ -2636,6 +2637,7 @@ libs/parseini/src/parse/ini/typed/entry_type_error.cpp
 libs/parseini/src/parse/ini/typed/section_error.cpp
 libs/parseini/src/parse/ini/typed/section_start_error.cpp
 libs/parseini/src/parse/ini/typed/start_error.cpp
+libs/parseini/src/parse/ini/typed/start_error_output.cpp
 libs/parseini/src/parse/ini/typed/unused_entries.cpp
 libs/parseini/src/parse/ini/typed/unused_sections.cpp
 libs/parsejson/impl/include/sge/parse/json/impl/make_members.hpp
@@ -5003,7 +5005,7 @@ libs/systems/impl/include/sge/systems/impl/input/object_unique_ptr.hpp
 libs/systems/impl/include/sge/systems/impl/log_context.hpp
 libs/systems/impl/include/sge/systems/impl/log_name.hpp
 libs/systems/impl/include/sge/systems/impl/make_any_key.hpp
-libs/systems/impl/include/sge/systems/impl/merge_config_strings.hpp
+libs/systems/impl/include/sge/systems/impl/parse_plugin_name.hpp
 libs/systems/impl/include/sge/systems/impl/plugin_pair_decl.hpp
 libs/systems/impl/include/sge/systems/impl/plugin_pair_fwd.hpp
 libs/systems/impl/include/sge/systems/impl/plugin_pair_impl.hpp
@@ -5058,7 +5060,7 @@ libs/systems/impl/src/systems/impl/input/object.cpp
 libs/systems/impl/src/systems/impl/log_context.cpp
 libs/systems/impl/src/systems/impl/log_name.cpp
 libs/systems/impl/src/systems/impl/make_any_key.cpp
-libs/systems/impl/src/systems/impl/merge_config_strings.cpp
+libs/systems/impl/src/systems/impl/parse_plugin_name.cpp
 libs/systems/impl/src/systems/impl/renderer/create_device.cpp
 libs/systems/impl/src/systems/impl/renderer/device.cpp
 libs/systems/impl/src/systems/impl/renderer/find_plugin.cpp

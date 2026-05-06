@@ -9,6 +9,7 @@
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/section.hpp>
 #include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/typed/duplicate_section.hpp>
 #include <sge/parse/ini/typed/missing_section_error.hpp>
 #include <sge/parse/ini/typed/result_type.hpp>
@@ -66,10 +67,10 @@ template <typename Sections>
 fcppt::either::object<
     sge::parse::ini::typed::start_error,
     typename sge::parse::ini::typed::start<Sections>::result_type>
-sge::parse::ini::typed::start<Sections>::parse(sge::parse::ini::section_vector const &_sections) const
+sge::parse::ini::typed::start<Sections>::parse(sge::parse::ini::start const &_start) const
 {
   fcppt::tuple::object<std::vector<sge::parse::ini::typed::duplicate_section>, section_map> const
-      sections{start::make_map(_sections)};
+      sections{start::make_map(_start.sections)};
 
   std::vector<sge::parse::ini::typed::duplicate_section> const &duplicates{
       fcppt::tuple::get<0U>(sections)};

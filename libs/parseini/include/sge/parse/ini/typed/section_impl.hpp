@@ -8,6 +8,7 @@
 
 #include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/entry_vector.hpp>
+#include <sge/parse/ini/section_name.hpp>
 #include <sge/parse/ini/typed/duplicate_entry.hpp>
 #include <sge/parse/ini/typed/entry_error.hpp>
 #include <sge/parse/ini/typed/entry_type_error.hpp>
@@ -75,6 +76,7 @@ sge::parse::ini::typed::section<Entries>::parse(sge::parse::ini::entry_vector co
   return duplicates.empty()
              ? this->run_parsers(fcppt::tuple::get<1U>(entry_map))
              : fcppt::either::make_failure<result_type>(sge::parse::ini::typed::section_error{
+                   sge::parse::ini::section_name{this->name_},
                    sge::parse::ini::typed::section_error::variant{duplicates}});
 }
 
@@ -138,9 +140,10 @@ sge::parse::ini::typed::section<Entries>::run_parsers(string_map const &_map) co
                     [&_map, &used, this]<typename Label, fcppt::either::object_concept Type>(
                         fcppt::record::element<Label, Type> const &)
                     { return this->parse_one(_map, fcppt::make_ref(used), Label{}); })),
-            [](std::vector<sge::parse::ini::typed::entry_error> &&_error)
+            [this](std::vector<sge::parse::ini::typed::entry_error> &&_error)
             {
               return sge::parse::ini::typed::section_error{
+                  sge::parse::ini::section_name{this->name_},
                   sge::parse::ini::typed::section_error::variant{std::move(_error)}};
             }),
         [&used, &_map, this](inner_result &&_result)

@@ -19,6 +19,7 @@
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/nonmovable.hpp>
 #include <fcppt/log/context_reference_fwd.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 namespace sge::systems::impl::renderer
 {
@@ -30,6 +31,7 @@ class system
 public:
   system(
       fcppt::log::context_reference,
+      fcppt::log::object &,
       sge::renderer::plugin::collection const &,
       sge::systems::detail::renderer const &,
       sge::parse::ini::optional_start const &,

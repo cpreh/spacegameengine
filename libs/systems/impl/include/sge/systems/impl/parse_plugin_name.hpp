@@ -3,18 +3,20 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef SGE_SYSTEMS_IMPL_MERGE_CONFIG_STRINGS_HPP_INCLUDED
-#define SGE_SYSTEMS_IMPL_MERGE_CONFIG_STRINGS_HPP_INCLUDED
+#ifndef SGE_SYSTEMS_IMPL_PARSE_PLUGIN_NAME_HPP_INCLUDED
+#define SGE_SYSTEMS_IMPL_PARSE_PLUGIN_NAME_HPP_INCLUDED
 
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/optional_start_fwd.hpp>
-#include <sge/systems/optional_name_fwd.hpp>
+#include <sge/systems/optional_name.hpp>
+#include <fcppt/log/object_fwd.hpp>
 
 namespace sge::systems::impl
 {
 
-sge::systems::optional_name merge_config_strings(
-    sge::systems::optional_name const &,
+[[nodiscard]]
+sge::systems::optional_name parse_plugin_name(
+    fcppt::log::object &,
     sge::parse::ini::optional_start const &,
     sge::parse::ini::entry_name const &);
 

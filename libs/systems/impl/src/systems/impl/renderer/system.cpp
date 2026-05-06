@@ -9,32 +9,40 @@
 #include <sge/renderer/system.hpp>
 #include <sge/renderer/plugin/collection_fwd.hpp>
 #include <sge/systems/detail/renderer.hpp>
-#include <sge/systems/impl/merge_config_strings.hpp>
+#include <sge/systems/impl/parse_plugin_name.hpp>
 #include <sge/systems/impl/renderer/find_plugin.hpp>
 #include <sge/systems/impl/renderer/system.hpp>
 #include <sge/systems/impl/window/system.hpp>
-#include <sge/window/system.hpp> // NOLINT(misc-include-cleaner)
-#include <awl/visual/object.hpp> // NOLINT(misc-include-cleaner)
+#include <sge/window/system.hpp> // IWYU pragma: keep
+#include <awl/visual/object.hpp> // IWYU pragma: keep
 #include <awl/visual/object_unique_ptr.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/log/context_reference.hpp>
+#include <fcppt/log/object_fwd.hpp>
+#include <fcppt/optional/alternative.hpp>
 
 sge::systems::impl::renderer::system::system(
     fcppt::log::context_reference const _log_context,
+    fcppt::log::object &_log,
     sge::renderer::plugin::collection const &_collection,
     sge::systems::detail::renderer const &_parameters,
     sge::parse::ini::optional_start const &_config,
     sge::systems::impl::window::system const &_window_system)
-    : pixel_format_(_parameters.parameters().pixel_format()),
-      plugin_core_pair_(sge::systems::impl::renderer::find_plugin(
+    : pixel_format_{_parameters.parameters().pixel_format()},
+      plugin_core_pair_{sge::systems::impl::renderer::find_plugin(
           _log_context,
           _collection,
-          sge::systems::impl::merge_config_strings(
-              _parameters.parameters().name(), _config, sge::parse::ini::entry_name("renderer")),
+          fcppt::optional::alternative(
+              _parameters.parameters().name(),
+              [&_log, &_config]
+              {
+                return sge::systems::impl::parse_plugin_name(
+                    _log, _config, sge::parse::ini::entry_name("renderer"));
+              }),
           _parameters.parameters().caps(),
-          _parameters.caps())),
-      renderer_system_(
-          plugin_core_pair_.system().create_system(fcppt::make_ref(_window_system.get())))
+          _parameters.caps())},
+      renderer_system_{
+          plugin_core_pair_.system().create_system(fcppt::make_ref(_window_system.get()))}
 {
 }
 
@@ -47,10 +55,10 @@ awl::visual::object_unique_ptr sge::systems::impl::renderer::system::create_visu
 
 sge::renderer::core &sge::systems::impl::renderer::system::core() const
 {
-  return plugin_core_pair_.system();
+  return this->plugin_core_pair_.system();
 }
 
 sge::renderer::system &sge::systems::impl::renderer::system::get() const
 {
-  return *renderer_system_;
+  return *this->renderer_system_;
 }

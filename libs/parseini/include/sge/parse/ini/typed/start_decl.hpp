@@ -8,6 +8,7 @@
 
 #include <sge/parse/ini/entry_vector.hpp>
 #include <sge/parse/ini/section_vector.hpp>
+#include <sge/parse/ini/start_fwd.hpp>
 #include <sge/parse/ini/typed/duplicate_section.hpp>
 #include <sge/parse/ini/typed/is_section.hpp>
 #include <sge/parse/ini/typed/section_start_error_fwd.hpp>
@@ -79,7 +80,7 @@ public:
 
   [[nodiscard]]
   fcppt::either::object<sge::parse::ini::typed::start_error, result_type>
-  parse(sge::parse::ini::section_vector const &) const;
+  parse(sge::parse::ini::start const &) const;
 private:
   using section_map = std::unordered_map<std::string, sge::parse::ini::entry_vector>;
 

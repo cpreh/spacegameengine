@@ -6,12 +6,14 @@
 #ifndef SGE_PARSE_INI_TYPED_SECTION_ERROR_HPP_INCLUDED
 #define SGE_PARSE_INI_TYPED_SECTION_ERROR_HPP_INCLUDED
 
+#include <sge/parse/ini/section_name.hpp>
 #include <sge/parse/ini/detail/symbol.hpp>
 #include <sge/parse/ini/typed/duplicate_entry.hpp>
 #include <sge/parse/ini/typed/entry_error.hpp>
 #include <sge/parse/ini/typed/section_error_fwd.hpp> // IWYU pragma: keep
 #include <fcppt/variant/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
+#include <string>
 #include <vector>
 #include <fcppt/config/external_end.hpp>
 
@@ -25,7 +27,9 @@ struct section_error
       std::vector<sge::parse::ini::typed::entry_error>>;
 
   SGE_PARSE_INI_DETAIL_SYMBOL
-  explicit section_error(variant &&);
+  section_error(sge::parse::ini::section_name &&, variant &&);
+
+  std::string name_; // NOLINT(misc-non-private-member-variables-in-classes)
 
   variant variant_; // NOLINT(misc-non-private-member-variables-in-classes)
 

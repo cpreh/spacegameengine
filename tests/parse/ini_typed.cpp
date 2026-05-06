@@ -5,6 +5,7 @@
 
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/section_name.hpp>
+#include <sge/parse/ini/start.hpp>
 #include <sge/parse/ini/value.hpp>
 #include <sge/parse/ini/typed/entry.hpp>
 #include <sge/parse/ini/typed/entry_type_error.hpp>
@@ -102,13 +103,13 @@ TEST_CASE("parse_ini_typed_start", "[sge]")
 
   CHECK(
       start.parse(
-          sge::parse::ini::section_vector{sge::parse::ini::section{
+          sge::parse::ini::start{sge::parse::ini::section_vector{sge::parse::ini::section{
               sge::parse::ini::section_name{"main"},
               sge::parse::ini::entry_vector{
                   sge::parse::ini::entry{
                       sge::parse::ini::entry_name{"test1"}, sge::parse::ini::value{"42"}},
                   sge::parse::ini::entry{
-                      sge::parse::ini::entry_name{"test2"}, sge::parse::ini::value{"abc"}}}}}) ==
+                      sge::parse::ini::entry_name{"test2"}, sge::parse::ini::value{"abc"}}}}}}) ==
       fcppt::either::make_success<sge::parse::ini::typed::start_error>(
           sge::parse::ini::typed::start_result{
               fcppt::record::make(
