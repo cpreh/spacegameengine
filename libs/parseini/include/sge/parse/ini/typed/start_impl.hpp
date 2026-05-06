@@ -69,13 +69,13 @@ fcppt::either::object<
 sge::parse::ini::typed::start<Sections>::parse(sge::parse::ini::section_vector const &_sections) const
 {
   fcppt::tuple::object<std::vector<sge::parse::ini::typed::duplicate_section>, section_map> const
-      section_map{start::make_map(_sections)};
+      sections{start::make_map(_sections)};
 
   std::vector<sge::parse::ini::typed::duplicate_section> const &duplicates{
-      fcppt::tuple::get<0U>(section_map)};
+      fcppt::tuple::get<0U>(sections)};
 
   return duplicates.empty()
-             ? this->run_parsers(fcppt::tuple::get<1U>(section_map))
+             ? this->run_parsers(fcppt::tuple::get<1U>(sections))
              : fcppt::either::make_failure<result_type>(sge::parse::ini::typed::start_error{
                    sge::parse::ini::typed::start_error::variant{duplicates}});
 }
