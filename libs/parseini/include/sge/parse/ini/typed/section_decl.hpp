@@ -7,6 +7,7 @@
 #define SGE_PARSE_INI_TYPED_SECTION_DECL_HPP_INCLUDED
 
 #include <sge/parse/ini/entry_vector.hpp>
+#include <sge/parse/ini/section_fwd.hpp>
 #include <sge/parse/ini/typed/duplicate_entry.hpp>
 #include <sge/parse/ini/typed/entry_error_fwd.hpp>
 #include <sge/parse/ini/typed/is_entry.hpp>
@@ -82,6 +83,9 @@ public:
   [[nodiscard]]
   fcppt::either::object<sge::parse::ini::typed::section_error, result_type>
   parse(sge::parse::ini::entry_vector const &) const;
+
+  [[nodiscard]]
+  sge::parse::ini::section save(inner_result const &) const;
 
   [[nodiscard]]
   std::string const &name() const;

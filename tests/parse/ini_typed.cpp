@@ -49,12 +49,17 @@ TEST_CASE("parse_ini_typed_element", "[sge]")
       entry.parse("abc") ==
       fcppt::either::make_failure<int>(sge::parse::ini::typed::entry_type_error{
           typeid(int), sge::parse::ini::entry_name{"test"}, sge::parse::ini::value{"abc"}}));
+
+  CHECK(
+      entry.save(42) ==
+      sge::parse::ini::entry{sge::parse::ini::entry_name{"test"}, sge::parse::ini::value{"42"}});
 }
 
 TEST_CASE("parse_ini_typed_section", "[sge]")
 {
   FCPPT_RECORD_MAKE_LABEL(label1);
   FCPPT_RECORD_MAKE_LABEL(label2);
+  FCPPT_RECORD_MAKE_LABEL(label3);
 
   sge::parse::ini::typed::section const section{
       "main",
@@ -63,7 +68,9 @@ TEST_CASE("parse_ini_typed_section", "[sge]")
               sge::parse::ini::typed::entry<int, sge::parse::ini::typed::required::yes>{"test1"},
           label2{} =
               sge::parse::ini::typed::entry<std::string, sge::parse::ini::typed::required::yes>{
-                  "test2"})};
+                  "test2"},
+          label3{} =
+              sge::parse::ini::typed::entry<int, sge::parse::ini::typed::required::no>{"test3"})};
 
   CHECK(
       section.parse(
@@ -74,8 +81,25 @@ TEST_CASE("parse_ini_typed_section", "[sge]")
                   sge::parse::ini::entry_name{"test2"}, sge::parse::ini::value{"abc"}}}) ==
       fcppt::either::make_success<sge::parse::ini::typed::section_error>(
           sge::parse::ini::typed::section_result{
-              fcppt::record::make(label1{} = 42, label2{} = std::string{"abc"}),
+              fcppt::record::make(
+                  label1{} = 42,
+                  label2{} = std::string{"abc"},
+                  label3{} = fcppt::optional::object<int>{}),
               fcppt::optional::object<sge::parse::ini::typed::unused_entries>{}}));
+
+  CHECK(
+      section.save(
+          fcppt::record::make(
+              label1{} = 42,
+              label2{} = std::string{"abc"},
+              label3{} = fcppt::optional::object<int>{})) ==
+      sge::parse::ini::section{
+          sge::parse::ini::section_name{"main"},
+          sge::parse::ini::entry_vector{
+              sge::parse::ini::entry{
+                  sge::parse::ini::entry_name{"test1"}, sge::parse::ini::value{"42"}},
+              sge::parse::ini::entry{
+                  sge::parse::ini::entry_name{"test2"}, sge::parse::ini::value{"abc"}}}});
 }
 
 TEST_CASE("parse_ini_typed_start", "[sge]")

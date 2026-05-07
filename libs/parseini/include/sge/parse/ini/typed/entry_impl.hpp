@@ -6,12 +6,14 @@
 #ifndef SGE_PARSE_INI_TYPED_ENTRY_IMPL_HPP_INCLUDED
 #define SGE_PARSE_INI_TYPED_ENTRY_IMPL_HPP_INCLUDED
 
+#include <sge/parse/ini/entry.hpp>
 #include <sge/parse/ini/entry_name.hpp>
 #include <sge/parse/ini/value.hpp>
 #include <sge/parse/ini/typed/entry_decl.hpp>
 #include <sge/parse/ini/typed/entry_type_error.hpp>
 #include <sge/parse/ini/typed/required.hpp>
 #include <fcppt/extract_from_string.hpp>
+#include <fcppt/output_to_std_string.hpp>
 #include <fcppt/either/from_optional.hpp>
 #include <fcppt/either/object_impl.hpp>
 #include <fcppt/config/external_begin.hpp>
@@ -40,6 +42,15 @@ sge::parse::ini::typed::entry<Type, Required>::parse(std::string const &_value) 
             sge::parse::ini::entry_name{this->name_},
             sge::parse::ini::value{_value}};
       });
+}
+
+template <typename Type, sge::parse::ini::typed::required Required>
+sge::parse::ini::entry
+sge::parse::ini::typed::entry<Type, Required>::save(result_type const &_value) const
+{
+  return sge::parse::ini::entry{
+      sge::parse::ini::entry_name{this->name()},
+      sge::parse::ini::value{fcppt::output_to_std_string(_value)}};
 }
 
 template <typename Type, sge::parse::ini::typed::required Required>
