@@ -11,6 +11,7 @@
 #include <sge/parse/ini/start_fwd.hpp>
 #include <sge/parse/ini/typed/duplicate_section.hpp>
 #include <sge/parse/ini/typed/is_section.hpp>
+#include <sge/parse/ini/typed/save_type.hpp>
 #include <sge/parse/ini/typed/section_start_error_fwd.hpp>
 #include <sge/parse/ini/typed/start_error_fwd.hpp>
 #include <sge/parse/ini/typed/start_fwd.hpp> // IWYU pragma: keep
@@ -19,6 +20,7 @@
 #include <fcppt/deref_type.hpp>
 #include <fcppt/reference_fwd.hpp>
 #include <fcppt/either/object_fwd.hpp>
+#include <fcppt/mpl/apply.hpp>
 #include <fcppt/mpl/bind.hpp>
 #include <fcppt/mpl/if.hpp>
 #include <fcppt/mpl/lambda.hpp>
@@ -46,13 +48,27 @@ template <typename Sections>
 class start
 {
   template <typename Parser>
-  using make_is_optional = std::bool_constant<Parser::is_optional>;
+  using make_is_optional =
+      std::bool_constant<std::remove_cvref_t<fcppt::deref_type<Parser>>::is_optional>;
+
+  template <typename Lambda, typename Parser>
+  using make_type_impl = fcppt::mpl::if_<
+      start::make_is_optional<Parser>,
+      fcppt::optional::object<fcppt::mpl::apply<Lambda, Parser>>,
+      fcppt::mpl::apply<Lambda, Parser>>;
 
   template <typename Parser>
-  using make_result_type = fcppt::mpl::if_<
-      start::make_is_optional<Parser>,
-      fcppt::optional::object<sge::parse::ini::typed::result_type<Parser>>,
-      sge::parse::ini::typed::result_type<Parser>>;
+  using make_result_type =
+      start::make_type_impl<fcppt::mpl::lambda<sge::parse::ini::typed::result_type>, Parser>;
+
+  template <typename Parser>
+  using make_save_type =
+      start::make_type_impl<fcppt::mpl::lambda<sge::parse::ini::typed::save_type>, Parser>;
+
+  template <typename Lambda>
+  using make_inner = fcppt::record::map_elements<
+      Sections,
+      fcppt::mpl::bind<Lambda, fcppt::mpl::lambda<fcppt::record::element_to_type>>>;
 
   using parser_types = fcppt::mpl::list::map<
       fcppt::record::element_vector<Sections>,
@@ -62,25 +78,29 @@ class start
               fcppt::mpl::lambda<fcppt::deref_type>,
               fcppt::mpl::lambda<fcppt::record::element_to_type>>>>;
 
+  template <typename Parser>
+  using is_section_parser =
+      sge::parse::ini::typed::is_section<std::remove_cvref_t<fcppt::deref_type<Parser>>>;
 public:
   static_assert(fcppt::record::is_object<Sections>::value);
 
-  static_assert(fcppt::mpl::list::
-                    all_of_v<parser_types, fcppt::mpl::lambda<sge::parse::ini::typed::is_section>>);
+  static_assert(
+      fcppt::mpl::list::all_of_v<parser_types, fcppt::mpl::lambda<start::is_section_parser>>);
 
   explicit start(Sections &&);
 
-  using inner_result = fcppt::record::map_elements<
-      Sections,
-      fcppt::mpl::bind<
-          fcppt::mpl::lambda<start::make_result_type>,
-          fcppt::mpl::lambda<fcppt::record::element_to_type>>>;
+  using inner_result = start::make_inner<fcppt::mpl::lambda<start::make_result_type>>;
 
   using result_type = sge::parse::ini::typed::start_result<inner_result>;
+
+  using save_type = start::make_inner<fcppt::mpl::lambda<start::make_save_type>>;
 
   [[nodiscard]]
   fcppt::either::object<sge::parse::ini::typed::start_error, result_type>
   parse(sge::parse::ini::start const &) const;
+
+  [[nodiscard]]
+  sge::parse::ini::start save(save_type const &) const;
 private:
   using section_map = std::unordered_map<std::string, sge::parse::ini::entry_vector>;
 

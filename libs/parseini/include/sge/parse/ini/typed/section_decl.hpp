@@ -45,7 +45,8 @@ template <typename Entries>
 class section
 {
   template <typename Parser>
-  using make_is_optional = std::bool_constant<Parser::is_optional>;
+  using make_is_optional =
+      std::bool_constant<std::remove_cvref_t<fcppt::deref_type<Parser>>::is_optional>;
 
   template <typename Parser>
   using make_result_type = fcppt::mpl::if_<
@@ -61,14 +62,17 @@ class section
               fcppt::mpl::lambda<fcppt::deref_type>,
               fcppt::mpl::lambda<fcppt::record::element_to_type>>>>;
 
+  template <typename Parser>
+  using is_entry_parser =
+      sge::parse::ini::typed::is_entry<std::remove_cvref_t<fcppt::deref_type<Parser>>>;
 public:
   static constexpr bool is_optional =
       fcppt::mpl::list::all_of_v<parser_types, fcppt::mpl::lambda<section::make_is_optional>>;
 
   static_assert(fcppt::record::is_object<Entries>::value);
 
-  static_assert(fcppt::mpl::list::
-                    all_of_v<parser_types, fcppt::mpl::lambda<sge::parse::ini::typed::is_entry>>);
+  static_assert(
+      fcppt::mpl::list::all_of_v<parser_types, fcppt::mpl::lambda<section::is_entry_parser>>);
 
   section(std::string &&, Entries &&);
 
@@ -80,12 +84,14 @@ public:
 
   using result_type = sge::parse::ini::typed::section_result<inner_result>;
 
+  using save_type = inner_result;
+
   [[nodiscard]]
   fcppt::either::object<sge::parse::ini::typed::section_error, result_type>
   parse(sge::parse::ini::entry_vector const &) const;
 
   [[nodiscard]]
-  sge::parse::ini::section save(inner_result const &) const;
+  sge::parse::ini::section save(save_type const &) const;
 
   [[nodiscard]]
   std::string const &name() const;

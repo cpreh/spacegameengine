@@ -2588,6 +2588,7 @@ libs/parseini/include/sge/parse/ini/typed/missing_section_error.hpp
 libs/parseini/include/sge/parse/ini/typed/required_fwd.hpp
 libs/parseini/include/sge/parse/ini/typed/required.hpp
 libs/parseini/include/sge/parse/ini/typed/result_type.hpp
+libs/parseini/include/sge/parse/ini/typed/save_type.hpp
 libs/parseini/include/sge/parse/ini/typed/section_decl.hpp
 libs/parseini/include/sge/parse/ini/typed/section_error_fwd.hpp
 libs/parseini/include/sge/parse/ini/typed/section_error.hpp

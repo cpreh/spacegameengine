@@ -28,7 +28,7 @@
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/make.hpp>
 #include <fcppt/record/make_label.hpp>
-#include <fcppt/record/object.hpp>
+#include <fcppt/record/object_impl.hpp>
 #include <fcppt/tuple/comparison.hpp> // IWYU pragma: keep
 #include <fcppt/config/external_begin.hpp>
 #include <catch2/catch_test_macros.hpp>
@@ -145,6 +145,20 @@ TEST_CASE("parse_ini_typed_start", "[sge]")
                       sge::parse::ini::typed::section_result<fcppt::record::object<
                           fcppt::record::element<label1, fcppt::optional::object<int>>>>>{}),
               fcppt::optional::object<sge::parse::ini::typed::unused_sections>{}}));
+
+  CHECK(
+      start.save(
+          fcppt::record::make(
+              section1{} = fcppt::record::make(label1{} = 42, label2{} = std::string{"abc"}),
+              section2{} = fcppt::optional::object<fcppt::record::object<
+                  fcppt::record::element<label1, fcppt::optional::object<int>>>>{})) ==
+      sge::parse::ini::start{sge::parse::ini::section_vector{sge::parse::ini::section{
+          sge::parse::ini::section_name{"main"},
+          sge::parse::ini::entry_vector{
+              sge::parse::ini::entry{
+                  sge::parse::ini::entry_name{"test1"}, sge::parse::ini::value{"42"}},
+              sge::parse::ini::entry{
+                  sge::parse::ini::entry_name{"test2"}, sge::parse::ini::value{"abc"}}}}}});
 }
 
 // NOLINTEND(bugprone-throwing-static-initialization,clang-analyzer-optin.core.EnumCastOutOfRange,misc-const-correctness,cert-err58-cpp,fuchsia-statically-constructed-objects,misc-use-anonymous-namespace,cppcoreguidelines-avoid-do-while)

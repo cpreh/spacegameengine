@@ -15,6 +15,8 @@ namespace sge::parse::ini::typed
 template<typename Record>
 struct start_result
 {
+  using result_type = Record;
+
   start_result(Record &&, fcppt::optional::object<sge::parse::ini::typed::unused_sections> &&);
 
   Record result; // NOLINT(misc-non-private-member-variables-in-classes)

@@ -90,7 +90,7 @@ sge::parse::ini::typed::section<Entries>::parse(sge::parse::ini::entry_vector co
 
 template <typename Entries>
 sge::parse::ini::section
-sge::parse::ini::typed::section<Entries>::save(inner_result const &_value) const
+sge::parse::ini::typed::section<Entries>::save(save_type const &_value) const
 {
   return sge::parse::ini::section{
       sge::parse::ini::section_name{this->name()},

@@ -13,6 +13,7 @@
 #include <sge/parse/ini/typed/duplicate_section.hpp>
 #include <sge/parse/ini/typed/missing_section_error.hpp>
 #include <sge/parse/ini/typed/result_type.hpp>
+#include <sge/parse/ini/typed/save_type.hpp>
 #include <sge/parse/ini/typed/section_error.hpp>
 #include <sge/parse/ini/typed/section_start_error.hpp>
 #include <sge/parse/ini/typed/start_decl.hpp>
@@ -21,9 +22,12 @@
 #include <sge/parse/ini/typed/unused_sections.hpp>
 #include <fcppt/make_ref.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/tag.hpp>
 #include <fcppt/use.hpp>
 #include <fcppt/algorithm/fold.hpp>
+#include <fcppt/algorithm/loop_break_mpl.hpp> // IWYU pragma: keep
 #include <fcppt/algorithm/loop_break_record.hpp> // IWYU pragma: keep
+#include <fcppt/algorithm/map_optional.hpp>
 #include <fcppt/algorithm/map_record.hpp> // IWYU pragma: keep
 #include <fcppt/container/get_or_insert_result.hpp>
 #include <fcppt/container/get_or_insert_with_result.hpp>
@@ -41,9 +45,14 @@
 #include <fcppt/mpl/bind.hpp>
 #include <fcppt/mpl/constant.hpp>
 #include <fcppt/mpl/lambda.hpp>
+#include <fcppt/optional/make.hpp>
 #include <fcppt/optional/make_if.hpp>
+#include <fcppt/optional/map.hpp>
+#include <fcppt/optional/object_impl.hpp>
 #include <fcppt/record/element.hpp>
 #include <fcppt/record/element_to_type.hpp>
+#include <fcppt/record/element_vector.hpp>
+#include <fcppt/record/get.hpp>
 #include <fcppt/record/init.hpp>
 #include <fcppt/record/label_value_type.hpp>
 #include <fcppt/record/map_elements.hpp>
@@ -79,6 +88,34 @@ sge::parse::ini::typed::start<Sections>::parse(sge::parse::ini::start const &_st
              ? this->run_parsers(fcppt::tuple::get<1U>(sections))
              : fcppt::either::make_failure<result_type>(sge::parse::ini::typed::start_error{
                    sge::parse::ini::typed::start_error::variant{duplicates}});
+}
+
+template <typename Sections>
+sge::parse::ini::start
+sge::parse::ini::typed::start<Sections>::save(save_type const &_value) const
+{
+  return sge::parse::ini::start{
+      fcppt::algorithm::map_optional<sge::parse::ini::section_vector>(
+          fcppt::record::element_vector<Sections>{},
+          [this, &_value]<typename L, typename T>
+          (fcppt::tag<fcppt::record::element<L, T>>)
+              -> fcppt::optional::object<sge::parse::ini::section>
+          {
+            T const &parser{fcppt::record::get<L>(this->sections_)};
+
+            if constexpr (make_is_optional<T>::value)
+            {
+              return fcppt::optional::map(
+                  fcppt::record::get<L>(_value),
+                  [&parser](sge::parse::ini::typed::save_type<T> const &_inner)
+                      -> sge::parse::ini::section { return fcppt::deref(parser).save(_inner); });
+            }
+            else
+            {
+              return fcppt::optional::make(
+                  fcppt::deref(parser).save(fcppt::record::get<L>(_value)));
+            }
+          })};
 }
 
 template <typename Sections>
