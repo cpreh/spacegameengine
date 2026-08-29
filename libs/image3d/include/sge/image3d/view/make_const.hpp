@@ -12,6 +12,7 @@
 #include <sge/image/view/declare_make_const.hpp>
 #include <sge/image3d/dim_fwd.hpp>
 #include <sge/image3d/pitch_fwd.hpp>
+#include <sge/image3d/tag.hpp> // IWYU pragma: keep
 #include <sge/image3d/detail/symbol.hpp>
 #include <sge/image3d/traits/color_tag.hpp> // IWYU pragma: keep
 #include <sge/image3d/traits/dimension.hpp> // IWYU pragma: keep
