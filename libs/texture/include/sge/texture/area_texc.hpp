@@ -25,8 +25,7 @@ area_texc(sge::texture::part const &, fcppt::math::vector::static_<T, 2> const &
   extern template SGE_TEXTURE_DETAIL_SYMBOL \
   fcppt::math::box::rect<floattype> \
   sge::texture::area_texc<floattype>( \
-      sge::texture::part const &, fcppt::math::vector::static_<floattype, 2> const &) \
-  requires(sge::renderer::is_valid_float_type<floattype>::value)
+      sge::texture::part const &, fcppt::math::vector::static_<floattype, 2> const &)
 
 SGE_TEXTURE_DETAIL_DECLARE_AREA_TEXC(float);
 

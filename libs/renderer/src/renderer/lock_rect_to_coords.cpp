@@ -40,8 +40,7 @@ fcppt::math::box::rect<Ret> sge::renderer::lock_rect_to_coords(
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
   fcppt::math::box::rect<floattype> \
   sge::renderer::lock_rect_to_coords<floattype>( \
-      sge::renderer::lock_rect const &, sge::renderer::dim2 const &) \
-      requires(sge::renderer::is_valid_float_type<floattype>::value)
+      sge::renderer::lock_rect const &, sge::renderer::dim2 const &)
 
 SGE_RENDERER_INSTANTIATE_LOCK_RECT_TO_COORDS(float);
 

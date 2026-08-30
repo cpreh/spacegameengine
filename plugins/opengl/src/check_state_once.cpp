@@ -23,7 +23,7 @@ void sge::opengl::check_state_once()
 
   while ((ret = sge::opengl::call(::glGetError)) != GL_NO_ERROR)
   {
-    errors += sge::opengl::error_string(ret) + FCPPT_TEXT(", ");
+    errors += fcppt::string{sge::opengl::error_string(ret)} + FCPPT_TEXT(", ");
   }
 
   if (ret != GL_NO_ERROR)

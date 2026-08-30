@@ -41,7 +41,6 @@ lock_rect_to_coords(sge::renderer::lock_rect const &area, sge::renderer::dim2 co
   fcppt::math::box::rect<floattype> \
   sge::renderer::lock_rect_to_coords<floattype>( \
       sge::renderer::lock_rect const &, sge::renderer::dim2 const &) \
-      requires(sge::renderer::is_valid_float_type<floattype>::value)
 
 SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(float);
 

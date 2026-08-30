@@ -54,8 +54,7 @@ fcppt::math::box::rect<T> sge::texture::area_texc(
   template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
   fcppt::math::box::rect<floattype> \
   sge::texture::area_texc<floattype>( \
-      sge::texture::part const &, fcppt::math::vector::static_<floattype, 2> const &) \
-      requires(sge::renderer::is_valid_float_type<floattype>::value)
+      sge::texture::part const &, fcppt::math::vector::static_<floattype, 2> const &)
 
 SGE_TEXTURE_INSTANTIATE_AREA_TEXC(float);
 
