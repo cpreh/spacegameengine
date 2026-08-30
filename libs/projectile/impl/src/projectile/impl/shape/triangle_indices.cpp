@@ -12,7 +12,7 @@
 #include <fcppt/log/out.hpp>
 
 sge::projectile::shape::detail::index_container sge::projectile::impl::shape::triangle_indices(
-    fcppt::log::object &_log, sge::projectile::shape::triangle_sequence const &_triangles)
+    fcppt::log::object const &_log, sge::projectile::shape::triangle_sequence const &_triangles)
 {
   sge::projectile::shape::detail::index_container indices(
       // Since we have to extrude each triangle separately (well,

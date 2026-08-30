@@ -11,7 +11,7 @@
 namespace sge::imageds2d::algorithm
 {
 
-using invalid_copy = sge::image::ds::invalid_copy;
+using sge::image::ds::invalid_copy;
 
 }
 

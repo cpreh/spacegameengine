@@ -193,11 +193,12 @@ FCPPT_RECORD_MAKE_LABEL(path_label);
 FCPPT_PP_PUSH_WARNING
 FCPPT_PP_DISABLE_GCC_WARNING(-Wmissing-declarations)
 
+// NOLINTNEXTLINE(misc-const-correctness)
 int FCPPT_MAIN(int argc, fcppt::args_char **argv)
 try
 {
-  auto const parser(fcppt::options::argument<path_label, fcppt::string>{
-      fcppt::options::long_name{FCPPT_TEXT("path")}, fcppt::options::optional_help_text{}});
+  auto const parser{fcppt::options::argument<path_label, fcppt::string>{
+      fcppt::options::long_name{FCPPT_TEXT("path")}, fcppt::options::optional_help_text{}}};
 
   using result_type = fcppt::options::result_of<decltype(parser)>;
 

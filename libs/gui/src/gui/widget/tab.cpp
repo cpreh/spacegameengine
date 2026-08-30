@@ -71,7 +71,7 @@ sge::gui::widget::tab::tab(
                         _name,
                         sge::gui::optional_needed_width()),
                     click_connection_(this->click(sge::gui::click_callback{
-                        [_widget, _self]()
+                        [_widget, _self]
                         {
                           _self.get().replace(
                               1U,

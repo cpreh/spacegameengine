@@ -19,7 +19,7 @@ namespace sge::opengl
 {
 
 void draw_elements(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     sge::opengl::context::object &, // NOLINT(google-runtime-references)
     sge::renderer::index::buffer const &,
     sge::renderer::vertex::first,

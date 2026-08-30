@@ -7,12 +7,12 @@
 #define SGE_OPENGL_ERROR_STRING_HPP_INCLUDED
 
 #include <sge/renderer/opengl/glinclude.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 
 namespace sge::opengl
 {
 
-fcppt::string error_string(GLenum);
+fcppt::string_view error_string(GLenum);
 
 }
 

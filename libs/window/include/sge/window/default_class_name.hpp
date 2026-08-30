@@ -7,13 +7,13 @@
 #define SGE_WINDOW_DEFAULT_CLASS_NAME_HPP_INCLUDED
 
 #include <sge/window/detail/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 
 namespace sge::window
 {
 
 SGE_WINDOW_DETAIL_SYMBOL
-fcppt::string default_class_name();
+fcppt::string_view default_class_name();
 
 }
 

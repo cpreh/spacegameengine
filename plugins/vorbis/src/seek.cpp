@@ -8,6 +8,7 @@
 #include <sge/vorbis/error_string.hpp>
 #include <sge/vorbis/seek.hpp>
 #include <sge/vorbis/stream.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <ogg/os_types.h> // IWYU pragma: keep
@@ -23,6 +24,8 @@ void sge::vorbis::seek(
   if (error != 0)
   {
     throw sge::audio::file_exception{
-        _name, FCPPT_TEXT("vorbis: couldn't reset file: ") + sge::vorbis::error_string(error)};
+        _name,
+        FCPPT_TEXT("vorbis: couldn't reset file: ") +
+            fcppt::string{sge::vorbis::error_string(error)}};
   }
 }

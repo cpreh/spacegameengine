@@ -22,7 +22,7 @@ struct index_array
 }
 
 template <typename Choices>
-typename sge::sprite::geometry::detail::index_array<Choices>::array const
+sge::sprite::geometry::detail::index_array<Choices>::array const
     sge::sprite::geometry::detail::index_array<Choices>::value{0U, 1U, 2U, 0U, 2U, 3U};
 
 #endif

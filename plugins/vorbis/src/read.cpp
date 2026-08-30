@@ -31,7 +31,7 @@ constexpr int const vorbis_endian{std::endian::native == std::endian::little ? 0
 }
 
 std::size_t sge::vorbis::read(
-    fcppt::log::object &_log,
+    fcppt::log::object const &_log,
     sge::vorbis::stream &_stream,
     sge::media::optional_name const &_name,
     sge::audio::raw_pointer const _data,

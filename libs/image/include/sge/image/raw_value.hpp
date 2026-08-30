@@ -11,7 +11,7 @@
 namespace sge::image
 {
 
-using raw_value = mizuiro::raw_value;
+using mizuiro::raw_value;
 
 }
 

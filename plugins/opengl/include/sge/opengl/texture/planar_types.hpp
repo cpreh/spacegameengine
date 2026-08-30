@@ -10,7 +10,7 @@
 #include <sge/opengl/texture/planar_types_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/planar_fwd.hpp>
 #include <sge/renderer/texture/planar_parameters_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 
 namespace sge::opengl::texture
 {
@@ -23,7 +23,7 @@ struct planar_types
 
   using buffer_types = sge::opengl::texture::color_surface_types;
 
-  [[nodiscard]] static fcppt::string name();
+  [[nodiscard]] static fcppt::string_view name();
 };
 
 }

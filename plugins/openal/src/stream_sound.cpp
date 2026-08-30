@@ -168,8 +168,8 @@ bool sge::openal::stream_sound::fill_buffer(sge::openal::buffer_id const _buffer
 {
   using optional_sample_container = fcppt::optional::object<sge::audio::sample_container>;
 
-  auto const next_samples(
-      [this]() -> optional_sample_container
+  auto const next_samples{
+      [this] -> optional_sample_container
       {
         sge::audio::sample_buffer data{0U};
 
@@ -197,7 +197,7 @@ bool sge::openal::stream_sound::fill_buffer(sge::openal::buffer_id const _buffer
         }
 
         return fcppt::optional::make(fcppt::container::buffer::to_raw_vector(std::move(data)));
-      });
+      }};
 
   return fcppt::optional::maybe(
       next_samples(),

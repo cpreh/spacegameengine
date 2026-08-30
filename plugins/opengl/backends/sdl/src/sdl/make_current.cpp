@@ -12,7 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 void sge::opengl::sdl::make_current(
-    awl::backends::sdl::window::object &_window,
+    awl::backends::sdl::window::object const &_window,
     SDL_GLContext const _context // NOLINT(misc-misplaced-const)
 )
 {

@@ -20,7 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 sge::evdev::device::optional_fd_unique_ptr
-sge::evdev::device::create_fd(fcppt::log::object &_log, std::filesystem::path const &_path)
+sge::evdev::device::create_fd(fcppt::log::object const &_log, std::filesystem::path const &_path)
 {
   sge::evdev::device::fd_unique_ptr ret(fcppt::make_unique_ptr<sge::evdev::device::fd>(_path));
 

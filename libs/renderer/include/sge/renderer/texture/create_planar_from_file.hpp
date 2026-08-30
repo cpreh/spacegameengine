@@ -20,7 +20,7 @@ namespace sge::renderer::texture
 SGE_RENDERER_DETAIL_SYMBOL
 sge::renderer::texture::planar_unique_ptr create_planar_from_file(
     sge::renderer::device::core_ref,
-    sge::image2d::file &, // NOLINT(google-runtime-references)
+    sge::image2d::file const &,
     sge::renderer::texture::mipmap::object const &,
     sge::renderer::resource_flags_field const &,
     sge::renderer::texture::emulate_srgb);

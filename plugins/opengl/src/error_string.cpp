@@ -6,10 +6,10 @@
 #include <sge/opengl/error_string.hpp>
 #include <sge/opengl/ext.hpp> // NOLINT(misc-include-cleaner)
 #include <sge/renderer/opengl/glinclude.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 #include <fcppt/text.hpp>
 
-fcppt::string sge::opengl::error_string(GLenum const _what)
+fcppt::string_view sge::opengl::error_string(GLenum const _what)
 {
   switch (_what)
   {

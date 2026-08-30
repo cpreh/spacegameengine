@@ -42,11 +42,11 @@ public:
   ~basic_box() override;
 
 private:
-  using nonconst_buffer = base_type::nonconst_buffer;
+  using typename base_type::nonconst_buffer;
 
-  using const_buffer = base_type::const_buffer;
+  using typename base_type::const_buffer;
 
-  using dim = base_type::dim;
+  using typename base_type::dim;
 public:
   [[nodiscard]] nonconst_buffer &level(sge::renderer::texture::mipmap::level) override;
 

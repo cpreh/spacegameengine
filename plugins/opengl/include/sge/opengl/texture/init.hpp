@@ -34,6 +34,7 @@
 #include <fcppt/make_ref.hpp>
 #include <fcppt/make_unique_ptr.hpp>
 #include <fcppt/reference_impl.hpp>
+#include <fcppt/string.hpp>
 #include <fcppt/strong_typedef_arithmetic.hpp> // IWYU pragma: keep
 #include <fcppt/strong_typedef_comparison.hpp> // IWYU pragma: keep
 #include <fcppt/unique_ptr_impl.hpp>
@@ -66,7 +67,10 @@ std::vector<fcppt::unique_ptr<typename Types::buffer_types::base>> init(
   extended_dim const size(sge::opengl::texture::extend_size(_parameters.size()));
 
   sge::opengl::texture::check_dim(
-      _basic_parameters.log(), size, Types::buffer_types::dim_types::min_size(), Types::name());
+      _basic_parameters.log(),
+      size,
+      Types::buffer_types::dim_types::min_size(),
+      fcppt::string{Types::name()});
 
   using format_result_type = Types::buffer_types::format_types::format_result;
 

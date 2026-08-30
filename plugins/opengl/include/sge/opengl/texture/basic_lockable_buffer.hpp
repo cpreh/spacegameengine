@@ -40,13 +40,13 @@ class basic_lockable_buffer : public sge::opengl::texture::basic_buffer<Types>
 public:
   using gl_base = sge::opengl::texture::basic_buffer<Types>;
 
-  using image_tag = gl_base::image_tag;
+  using typename gl_base::image_tag;
 
-  using color_tag = gl_base::color_tag;
+  using typename gl_base::color_tag;
 
-  using format_type = gl_base::format_type;
+  using typename gl_base::format_type;
 
-  using dim = gl_base::dim;
+  using typename gl_base::dim;
 
   using config_type = sge::opengl::texture::config<dim::static_size::value>;
 
@@ -61,13 +61,13 @@ public:
 
   using const_pointer = sge::opengl::texture::lock_base::const_pointer;
 
-  using base_type = gl_base::base_type;
+  using typename gl_base::base_type;
 
-  using lock_area = base_type::lock_area;
+  using typename base_type::lock_area;
 
-  using view = base_type::view;
+  using typename base_type::view;
 
-  using const_view = base_type::const_view;
+  using typename base_type::const_view;
 
   view lock(lock_area const &, sge::renderer::lock_mode) override;
 

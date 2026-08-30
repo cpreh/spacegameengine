@@ -18,7 +18,7 @@ namespace sge::vorbis
 {
 
 std::size_t read(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     sge::vorbis::stream &, // NOLINT(google-runtime-references)
     sge::media::optional_name const &,
     sge::audio::raw_pointer,

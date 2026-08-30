@@ -95,13 +95,13 @@ try
       20 // NOLINT(cppcoreguidelines-avoid-magic-numbers,readability-magic-numbers)
       >;
 
-  auto sprites(fcppt::array::init<dummy_sprite_sequence>(
+  auto const sprites{fcppt::array::init<dummy_sprite_sequence>(
       [&size_rng_w, &size_rng_h](auto)
       {
         return fcppt::make_unique_ptr<sge::rucksack::widget::dummy>(sge::rucksack::axis_policy2(
             sge::rucksack::axis_policy(sge::rucksack::preferred_size(size_rng_w())),
             sge::rucksack::axis_policy(sge::rucksack::preferred_size(size_rng_h()))));
-      }));
+      })};
 
   for (auto const &dummy : sprites)
   {

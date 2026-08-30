@@ -36,7 +36,7 @@ FCPPT_PP_PUSH_WARNING
 FCPPT_PP_IGNORE_UNSAFE_BUFFER_USAGE
 
 void set_property(
-    awl::backends::x11::window::base &_window, // NOLINT(google-runtime-references)
+    awl::backends::x11::window::base const &_window,
     sge::opengl::x11::state_atom const _wm_state,
     sge::opengl::x11::fullscreen_atom const _wm_fullscreen,
     bool const _value)
@@ -71,7 +71,7 @@ void set_property(
 }
 
 void send_event(
-    awl::backends::x11::window::base &_window, // NOLINT(google-runtime-references)
+    awl::backends::x11::window::base const &_window, // NOLINT(google-runtime-references)
     sge::opengl::x11::state_atom const _wm_state,
     bool const _value)
 {
@@ -101,7 +101,7 @@ FCPPT_PP_POP_WARNING
 }
 
 void sge::opengl::x11::fullscreen(
-    awl::backends::x11::window::base &_window,
+    awl::backends::x11::window::base const &_window,
     sge::opengl::x11::state_atom const _wm_state,
     sge::opengl::x11::fullscreen_atom const _wm_fullscreen,
     bool const _value)

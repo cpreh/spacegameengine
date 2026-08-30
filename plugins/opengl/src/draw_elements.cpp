@@ -30,7 +30,7 @@
 #include <fcppt/optional/maybe.hpp>
 
 void sge::opengl::draw_elements(
-    fcppt::log::object &_log,
+    fcppt::log::object const &_log,
     sge::opengl::context::object &_context,
     sge::renderer::index::buffer const &_index_buffer,
     sge::renderer::vertex::first const _first_vertex,

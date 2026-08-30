@@ -44,7 +44,7 @@
 
 std::pair<sge::image2d::file_unique_ptr, sge::font::bitmap::impl::char_map>
 sge::font::bitmap::impl::load_one_file(
-    fcppt::log::object &_log,
+    fcppt::log::object const &_log,
     std::filesystem::path const &_stem,
     sge::parse::json::object const &_object,
     sge::image2d::system_ref const _image_system)

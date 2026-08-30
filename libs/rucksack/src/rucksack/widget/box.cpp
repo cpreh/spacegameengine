@@ -339,7 +339,7 @@ void sge::rucksack::widget::box::replace_children(
 
 sge::rucksack::widget::box::~box()
 {
-  for (auto &child : children_)
+  for (auto const &child : children_)
   {
     child.first.get().parent(sge::rucksack::widget::optional_ref());
   }

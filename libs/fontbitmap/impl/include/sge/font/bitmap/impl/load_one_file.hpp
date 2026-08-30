@@ -23,7 +23,7 @@ std::pair<
     sge::image2d::file_unique_ptr,
     sge::font::bitmap::impl::char_map>
 load_one_file(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     std::filesystem::path const &stem,
     sge::parse::json::object const &,
     sge::image2d::system_ref);

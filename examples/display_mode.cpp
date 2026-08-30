@@ -79,8 +79,8 @@ try
 
   fcppt::io::cout() << FCPPT_TEXT('\n');
 
-  auto const print_display_mode(
-      [&sys]()
+  auto const print_display_mode{
+      [&sys]
       {
         fcppt::optional::maybe(
             sys.renderer_device_core().display_mode(),
@@ -95,7 +95,7 @@ try
             });
 
         sys.window_system().quit(awl::main::exit_success());
-      });
+      }};
 
   return sge::window::loop(
       sys.window_system(),

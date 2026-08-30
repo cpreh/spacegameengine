@@ -306,7 +306,7 @@ compiled_model::compiled_model(
           _renderer,
           _vd,
           _model,
-          [&_model]() -> sge::model::md3::string
+          [&_model] -> sge::model::md3::string
           {
             sge::model::md3::part_name_sequence const parts(_model.part_names());
 

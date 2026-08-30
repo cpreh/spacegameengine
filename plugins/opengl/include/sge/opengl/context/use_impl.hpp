@@ -23,7 +23,7 @@ template <typename Type, typename Parameter>
   return fcppt::cast::static_downcast<Type &>(
       fcppt::optional::from(
           _object.get().get(Type::static_id),
-          [&_object, &_parameter]()
+          [&_object, &_parameter]
           {
             return fcppt::make_ref(_object.get().insert(
                 Type::static_id, sge::opengl::context::make_object<Type>(_parameter)));

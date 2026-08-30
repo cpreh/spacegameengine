@@ -53,8 +53,8 @@ awl::event::optional_base_unique_ptr change_caps(
   FCPPT_PP_PUSH_WARNING
   FCPPT_PP_DISABLE_GCC_WARNING(-Wattributes)
 
-  auto const add_cap(
-      [&_create_function, &_map, &_seat]() -> awl::event::optional_base_unique_ptr
+  auto const add_cap{
+      [&_create_function, &_map, &_seat] -> awl::event::optional_base_unique_ptr
       {
         return fcppt::optional::make_if(
             _map.get().count(_seat.get().name()) == 0U,
@@ -72,10 +72,10 @@ awl::event::optional_base_unique_ptr change_caps(
               return fcppt::unique_ptr_to_base<awl::event::base>(
                   fcppt::make_unique_ptr<Discover>(BasePtr{result.first->second}));
             });
-      });
+      }};
 
-  auto const remove_cap(
-      [&_map, &_seat]() -> awl::event::optional_base_unique_ptr
+  auto const remove_cap{
+      [&_map, &_seat] -> awl::event::optional_base_unique_ptr
       {
         return fcppt::optional::map(
             fcppt::container::find_opt_iterator(_map.get(), _seat.get().name()),
@@ -91,7 +91,7 @@ FCPPT_PP_DISABLE_GNU_GCC_WARNING(-Wpessimizing-move)
               return std::move(result);
 FCPPT_PP_POP_WARNING
             });
-      });
+      }};
 
   FCPPT_PP_POP_WARNING
 

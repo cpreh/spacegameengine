@@ -66,7 +66,7 @@ sge::opencl::context::parameters construct_context_parameters(
 }
 
 sge::opencl::platform::object &choose_platform(
-    fcppt::log::object &_log, // NOLINT(google-runtime-references)
+    fcppt::log::object const &_log,
     fcppt::reference<sge::opencl::platform::object_sequence> const objects,
     bool const prefer_gpu)
 {

@@ -12,7 +12,7 @@
 #include <X11/Xlib.h>
 #include <fcppt/config/external_end.hpp>
 
-sge::x11input::optional_opcode sge::x11input::xi_opcode(awl::backends::x11::display &_display)
+sge::x11input::optional_opcode sge::x11input::xi_opcode(awl::backends::x11::display const &_display)
 {
   int opcode{};
   int event{};

@@ -20,7 +20,7 @@
 #include <fcppt/log/warning.hpp>
 
 void sge::opengl::draw_arrays(
-    fcppt::log::object &_log,
+    fcppt::log::object const &_log,
     sge::renderer::vertex::first const _first_vertex,
     sge::renderer::vertex::count const _num_vertices,
     sge::renderer::primitive_type const _primitive_type)

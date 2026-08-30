@@ -24,7 +24,7 @@ void sge::opengl::state::ffp::transform::set(
 {
   fcppt::optional::maybe(
       _object,
-      [&_context]()
+      [&_context]
       {
         return fcppt::make_cref(
             sge::opengl::context::use<sge::opengl::state::ffp::transform::default_context>(

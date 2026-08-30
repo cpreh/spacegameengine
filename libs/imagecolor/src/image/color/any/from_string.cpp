@@ -110,9 +110,9 @@ rgb8_from_hex_string(std::basic_string<Char, CharTraits> const &_string)
 namespace
 {
 
-char widen_if_necessary(std::istringstream &, char const _c) { return _c; }
+char widen_if_necessary(std::istringstream const &, char const _c) { return _c; }
 
-wchar_t widen_if_necessary(std::wistringstream &_ss, char const _c) { return _ss.widen(_c); }
+wchar_t widen_if_necessary(std::wistringstream const &_ss, char const _c) { return _ss.widen(_c); }
 
 template <typename Char, typename CharTraits>
 fcppt::either::object<fcppt::string, sge::image::color::any::object>
@@ -239,7 +239,7 @@ from_string_impl(std::basic_string<Char, CharTraits> const &_string)
   // a few lines below. Isn't there a global widen function?
   using stringstream_type = std::basic_istringstream<Char, CharTraits>;
 
-  stringstream_type ss{};
+  stringstream_type const ss{};
 
   // Hex color?
   if (_string[0] == widen_if_necessary(ss, '#'))

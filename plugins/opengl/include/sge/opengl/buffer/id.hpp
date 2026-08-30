@@ -11,7 +11,7 @@
 namespace sge::opengl::buffer
 {
 
-using id = sge::renderer::opengl::buffer::id;
+using sge::renderer::opengl::buffer::id;
 
 }
 

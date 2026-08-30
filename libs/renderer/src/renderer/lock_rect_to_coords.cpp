@@ -14,23 +14,20 @@
 #include <fcppt/math/dim/arithmetic.hpp> // NOLINT(misc-include-cleaner)
 #include <fcppt/math/dim/static.hpp>
 #include <fcppt/math/dim/structure_cast.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 template <typename Ret>
-std::enable_if_t<sge::renderer::is_valid_float_type<Ret>::value, fcppt::math::box::rect<Ret>>
-sge::renderer::lock_rect_to_coords(
+fcppt::math::box::rect<Ret> sge::renderer::lock_rect_to_coords(
     sge::renderer::lock_rect const &_rect, sge::renderer::dim2 const &_dim)
+  requires(sge::renderer::is_valid_float_type<Ret>::value)
 {
   using ret_type = fcppt::math::box::rect<Ret>;
 
-  auto const srect(
-      fcppt::math::box::structure_cast<ret_type, fcppt::cast::int_to_float_fun>(_rect));
+  auto const srect{
+      fcppt::math::box::structure_cast<ret_type, fcppt::cast::int_to_float_fun>(_rect)};
 
   using sdim_type = fcppt::math::dim::static_<Ret, 2>;
 
-  auto const sdim(fcppt::math::dim::structure_cast<sdim_type, fcppt::cast::int_to_float_fun>(_dim));
+  auto const sdim{fcppt::math::dim::structure_cast<sdim_type, fcppt::cast::int_to_float_fun>(_dim)};
 
   return
       // TODO(philipp): Make a function in fcppt::math::box for this
@@ -40,11 +37,11 @@ sge::renderer::lock_rect_to_coords(
 }
 
 #define SGE_RENDERER_INSTANTIATE_LOCK_RECT_TO_COORDS(floattype) \
-  template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION std::enable_if_t< \
-      sge::renderer::is_valid_float_type<floattype>::value, \
-      fcppt::math::box::rect<floattype>> \
+  template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
+  fcppt::math::box::rect<floattype> \
   sge::renderer::lock_rect_to_coords<floattype>( \
-      sge::renderer::lock_rect const &, sge::renderer::dim2 const &)
+      sge::renderer::lock_rect const &, sge::renderer::dim2 const &) \
+      requires(sge::renderer::is_valid_float_type<floattype>::value)
 
 SGE_RENDERER_INSTANTIATE_LOCK_RECT_TO_COORDS(float);
 

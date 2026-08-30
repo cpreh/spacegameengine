@@ -16,7 +16,7 @@ namespace sge::evdev::device
 {
 
 sge::evdev::device::optional_fd_unique_ptr create_fd(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     std::filesystem::path const &);
 
 }

@@ -11,9 +11,6 @@
 #include <sge/renderer/lock_rect_fwd.hpp>
 #include <sge/renderer/detail/symbol.hpp>
 #include <fcppt/math/box/rect.hpp>
-#include <fcppt/config/external_begin.hpp>
-#include <type_traits>
-#include <fcppt/config/external_end.hpp>
 
 namespace sge::renderer
 {
@@ -34,18 +31,17 @@ Calculates the texture coordinates for \a area using the texture size \a size.
 \warning The behaviour is undefined if \a area lies outside of \a size
 */
 template <typename Ret>
-SGE_RENDERER_DETAIL_SYMBOL
-    std::enable_if_t<sge::renderer::is_valid_float_type<Ret>::value, fcppt::math::box::rect<Ret>>
-    lock_rect_to_coords(sge::renderer::lock_rect const &area, sge::renderer::dim2 const &size);
-
+SGE_RENDERER_DETAIL_SYMBOL fcppt::math::box::rect<Ret>
+lock_rect_to_coords(sge::renderer::lock_rect const &area, sge::renderer::dim2 const &size)
+  requires(sge::renderer::is_valid_float_type<Ret>::value);
 }
 
 #define SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(floattype) \
-  extern template SGE_RENDERER_DETAIL_SYMBOL std::enable_if_t< \
-      sge::renderer::is_valid_float_type<floattype>::value, \
-      fcppt::math::box::rect<floattype>> \
+  extern template SGE_RENDERER_DETAIL_SYMBOL \
+  fcppt::math::box::rect<floattype> \
   sge::renderer::lock_rect_to_coords<floattype>( \
-      sge::renderer::lock_rect const &, sge::renderer::dim2 const &)
+      sge::renderer::lock_rect const &, sge::renderer::dim2 const &) \
+      requires(sge::renderer::is_valid_float_type<floattype>::value)
 
 SGE_RENDERER_DETAIL_DECLARE_LOCK_RECT_TO_COORDS(float);
 

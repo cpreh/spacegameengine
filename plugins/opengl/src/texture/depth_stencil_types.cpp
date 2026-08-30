@@ -4,10 +4,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/texture/depth_stencil_types.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 #include <fcppt/text.hpp>
 
-fcppt::string sge::opengl::texture::depth_stencil_types::name()
+fcppt::string_view sge::opengl::texture::depth_stencil_types::name()
 {
   return FCPPT_TEXT("depth stencil texture");
 }

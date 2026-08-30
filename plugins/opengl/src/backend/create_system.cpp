@@ -124,11 +124,11 @@ create_functions(fcppt::log::object_reference const _log, awl::system::object_re
       [&_log, &_awl_system](create_function_exn &&_function)
       {
         return create_function{
-            [_log, _awl_system, function = std::move(_function)]()
+            [_log, _awl_system, function = std::move(_function)]
                 -> fcppt::either::object<fcppt::string, sge::opengl::backend::system_unique_ptr>
             {
               return fcppt::either::try_call<fcppt::exception>(
-                  [&function, &_log, &_awl_system]() { return function(_log, _awl_system); },
+                  [&function, &_log, &_awl_system] { return function(_log, _awl_system); },
                   [](fcppt::exception const &_error) -> fcppt::string { return _error.string(); });
             }};
       });

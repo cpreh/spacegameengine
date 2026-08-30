@@ -67,7 +67,7 @@ fcppt::signal::auto_connection sge::x11input::event::demuxer<Event>::on_event(
       .connect(
           std::move(_function),
           fcppt::signal::unregister::function{
-              [this, _id]()
+              [this, _id]
               {
                 fcppt::optional::maybe_void(
                     fcppt::container::find_opt_iterator(signals_, _id),

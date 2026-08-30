@@ -26,12 +26,12 @@ fcppt::optional_string sge::plugin::impl::library::error()
   char const *const err{dlerror()}; // NOLINT(concurrency-mt-unsafe)
 
   return fcppt::optional::make_if(
-      err != nullptr, [err]() -> fcppt::string { return fcppt::from_std_string(err); });
+      err != nullptr, [err] -> fcppt::string { return fcppt::from_std_string(err); });
 #elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
   DWORD const err{::GetLastError()};
 
   return fcppt::optional::make_if(
       err != ERROR_SUCCESS,
-      [err]() -> fcppt::string { return awl::backends::windows::format_message(err); });
+      [err] -> fcppt::string { return awl::backends::windows::format_message(err); });
 #endif
 }

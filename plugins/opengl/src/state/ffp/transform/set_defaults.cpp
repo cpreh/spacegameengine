@@ -12,7 +12,7 @@
 
 void sge::opengl::state::ffp::transform::set_defaults(sge::opengl::context::object &_context)
 {
-  for (auto mode : fcppt::enum_::make_range<sge::renderer::state::ffp::transform::mode>())
+  for (auto const mode : fcppt::enum_::make_range<sge::renderer::state::ffp::transform::mode>())
   {
     sge::opengl::state::ffp::transform::set(
         _context, mode, sge::renderer::state::ffp::transform::const_optional_object_ref());

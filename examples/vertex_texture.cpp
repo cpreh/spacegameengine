@@ -160,7 +160,7 @@ try
                   sge::renderer::vf::labels::pos{} = vec3(1.F, -1.F, 0.F),
                   sge::renderer::vf::labels::texpos<0>{} = vec2(1.F, 1.F)}))};
 
-  using i16 = sge::renderer::index::i16;
+  using sge::renderer::index::i16;
 
   sge::renderer::index::buffer_unique_ptr const index_buffer{
       sge::renderer::index::create_buffer_from_indices(

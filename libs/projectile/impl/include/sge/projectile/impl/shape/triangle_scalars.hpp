@@ -14,7 +14,7 @@ namespace sge::projectile::impl::shape
 {
 
 sge::projectile::shape::detail::scalar_container triangle_scalars(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     sge::projectile::shape::triangle_sequence const &);
 
 }

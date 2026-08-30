@@ -21,7 +21,7 @@ void set_or_default_single(
 {
   fcppt::optional::maybe(
       _state,
-      [&_context]() { return fcppt::make_cref(_context.default_state()); },
+      [&_context] { return fcppt::make_cref(_context.default_state()); },
       [](fcppt::reference<State const> const _value)
       { return fcppt::make_cref(fcppt::cast::static_downcast<GLState const &>(_value.get())); })
       .get()

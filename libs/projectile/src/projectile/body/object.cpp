@@ -48,8 +48,8 @@ namespace
 {
 
 btVector3 inertia_for_shape(
-    fcppt::log::object &_log, // NOLINT(google-runtime-references)
-    btCollisionShape &shape, // NOLINT(google-runtime-references)
+    fcppt::log::object const &_log,
+    btCollisionShape const &shape,
     sge::projectile::body::solidity::variant const &solidity)
 {
   btVector3 inertia(0, 0, 0);

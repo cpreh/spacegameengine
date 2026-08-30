@@ -4,11 +4,11 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/plugin/file_extension.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/platform.hpp>
 
-fcppt::string sge::plugin::file_extension()
+fcppt::string_view sge::plugin::file_extension()
 {
   return
 #ifdef FCPPT_CONFIG_DARWIN_PLATFORM

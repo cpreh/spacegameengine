@@ -16,8 +16,7 @@ namespace sge::opengl::sdl
 {
 
 fcppt::optional::object<SDL_DisplayMode>
-get_window_display_mode(awl::backends::sdl::window::object & // NOLINT(google-runtime-references)
-); // NOLINT(google-runtime-references)
+get_window_display_mode(awl::backends::sdl::window::object const &);
 
 }
 

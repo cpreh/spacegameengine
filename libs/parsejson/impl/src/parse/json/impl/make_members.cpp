@@ -47,7 +47,7 @@ sge::parse::json::member_map make_members_impl(sge::parse::json::impl::member_ve
                     fcppt::tuple::get<0>(_element), std::move(fcppt::tuple::get<1>(_element))})))
         {
           throw // NOLINT(hicpp-exception-baseclass)
-              double_insert{// NOLINT(hicpp-exception-baseclass)
+              double_insert{// NOLINT(hicpp-exception-baseclass,bugprone-std-exception-baseclass)
                             std::move(fcppt::tuple::get<0>(_element))};
         }
 

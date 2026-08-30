@@ -102,15 +102,13 @@ awl::event::container sge::opengl::xrandr::state::on_event(awl::window::event::b
       {
         awl::backends::x11::window::event::type const type{_x11_event.get().event().get().type};
 
-        if (type ==
-                awl::backends::x11::window::event::type{
-                    this->extension_.event_base().get() + RRScreenChangeNotify} ||
-            type == awl::backends::x11::window::event::type{ConfigureNotify})
+        if ((type ==
+                 awl::backends::x11::window::event::type{
+                     this->extension_.event_base().get() + RRScreenChangeNotify} ||
+             type == awl::backends::x11::window::event::type{ConfigureNotify}) &&
+            sge::opengl::xrandr::update_configuration(_x11_event.get().event()))
         {
-          if (sge::opengl::xrandr::update_configuration(_x11_event.get().event()))
-          {
-            this->update();
-          }
+          this->update();
         }
       });
 

@@ -11,7 +11,7 @@
 namespace sge::image
 {
 
-using difference_type = mizuiro::difference_type;
+using mizuiro::difference_type;
 
 }
 

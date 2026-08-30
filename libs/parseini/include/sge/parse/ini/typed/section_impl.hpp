@@ -217,7 +217,7 @@ sge::parse::ini::typed::section<Entries>::parse_one(
 
   return fcppt::optional::maybe(
       fcppt::container::find_opt_mapped(_map, name),
-      [&name]() -> fcppt::either::object<sge::parse::ini::typed::entry_error, parser_result>
+      [&name] -> fcppt::either::object<sge::parse::ini::typed::entry_error, parser_result>
       {
         FCPPT_USE(name);
         if constexpr (optional_entry)

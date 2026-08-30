@@ -49,7 +49,7 @@ int do_lookup(
 }
 
 sge::x11input::focus::looked_up_string sge::x11input::focus::lookup_string(
-    fcppt::log::object &_log,
+    fcppt::log::object const &_log,
     sge::x11input::xim::context const &_input_context,
     XIDeviceEvent const &_event)
 {

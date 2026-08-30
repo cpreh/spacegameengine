@@ -10,7 +10,7 @@
 #include <sge/opengl/texture/depth_stencil_types_fwd.hpp> // IWYU pragma: keep
 #include <sge/renderer/texture/depth_stencil_fwd.hpp>
 #include <sge/renderer/texture/depth_stencil_parameters_fwd.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 
 namespace sge::opengl::texture
 {
@@ -23,7 +23,7 @@ struct depth_stencil_types
 
   using buffer_types = sge::opengl::texture::depth_stencil_surface_types;
 
-  [[nodiscard]] static fcppt::string name();
+  [[nodiscard]] static fcppt::string_view name();
 };
 
 }

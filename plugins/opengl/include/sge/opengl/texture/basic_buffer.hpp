@@ -29,13 +29,13 @@ class basic_buffer // NOLINT(fuchsia-multiple-inheritance,misc-multiple-inherita
 public:
   using base_type = Types::base;
 
-  using image_tag = base_type::image_tag;
+  using typename base_type::image_tag;
 
   using color_tag = sge::image::traits::image::color_tag<image_tag>;
 
   using format_type = sge::image::traits::pixel::format<color_tag>;
 
-  using dim = base_type::dim;
+  using typename base_type::dim;
 
   using config_type = sge::opengl::texture::config<dim::static_size::value>;
 

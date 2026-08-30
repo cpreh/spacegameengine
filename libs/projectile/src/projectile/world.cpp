@@ -71,7 +71,7 @@ bool is_ghost(void const *const obj)
 // manifolds. The rules are simple
 // - we reject collisions where a ghost is involved (ghosts are by definition aabb overlap only, no narrow phase!)
 // - just because a manifold is created doesn't mean the two objects collide, we have to inspect getNumContacts
-bool is_collision_manifold(btPersistentManifold *manifold)
+bool is_collision_manifold(btPersistentManifold const *const manifold)
 {
   return manifold->getNumContacts() != 0 && !is_ghost(manifold->getBody0()) &&
          !is_ghost(manifold->getBody1());

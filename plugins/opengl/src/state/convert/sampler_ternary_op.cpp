@@ -17,6 +17,7 @@ GLenum sge::opengl::state::convert::sampler_ternary_op(
 {
   FCPPT_PP_PUSH_WARNING
   FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
+  // NOLINTNEXTLINE(readability-trivial-switch)
   switch (_op)
   {
   case sge::renderer::state::ffp::sampler::ternary_op_type::interpolate:

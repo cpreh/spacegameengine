@@ -4,13 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/openal/alc_error_string.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <alc.h>
 #include <fcppt/config/external_end.hpp>
 
-fcppt::string sge::openal::alc_error_string(ALCenum const _error)
+fcppt::string_view sge::openal::alc_error_string(ALCenum const _error)
 {
   switch (_error)
   {

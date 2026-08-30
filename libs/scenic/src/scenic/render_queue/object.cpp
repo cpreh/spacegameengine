@@ -52,7 +52,7 @@ template <typename StateSequence>
     it = std::prev(_states.get().end());
   }
 
-  auto begin(_states.get().cbegin());
+  auto const begin{_states.get().cbegin()};
 
   return static_cast<sge::scenic::render_queue::index_type>(std::distance(begin, it));
 }

@@ -15,7 +15,7 @@ namespace sge::opengl
 {
 
 void draw_arrays(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     sge::renderer::vertex::first,
     sge::renderer::vertex::count,
     sge::renderer::primitive_type);

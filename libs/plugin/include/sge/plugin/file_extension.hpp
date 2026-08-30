@@ -7,13 +7,13 @@
 #define SGE_PLUGIN_FILE_EXTENSION_HPP_INCLUDED
 
 #include <sge/plugin/detail/symbol.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 
 namespace sge::plugin
 {
 
 SGE_PLUGIN_DETAIL_SYMBOL
-fcppt::string file_extension();
+fcppt::string_view file_extension();
 
 }
 

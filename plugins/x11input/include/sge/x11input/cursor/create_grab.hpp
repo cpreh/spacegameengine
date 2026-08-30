@@ -16,7 +16,7 @@ namespace sge::x11input::cursor
 {
 
 sge::x11input::cursor::optional_grab_unique_ptr create_grab(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     awl::backends::x11::window::const_base_ref,
     sge::x11input::device::id,
     awl::backends::x11::cursor::object_ref);

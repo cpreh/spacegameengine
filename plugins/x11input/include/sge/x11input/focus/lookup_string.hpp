@@ -17,7 +17,7 @@ namespace sge::x11input::focus
 {
 
 sge::x11input::focus::looked_up_string lookup_string(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     sge::x11input::xim::context const &,
     XIDeviceEvent const &);
 

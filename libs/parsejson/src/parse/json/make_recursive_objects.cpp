@@ -38,7 +38,7 @@ object_reference create_or_navigate_path(
 {
   return fcppt::optional::maybe(
       sge::parse::json::find_member_value(fcppt::make_ref(_old.get().members), _new_member),
-      [&_old, &_new_member]() -> object_reference
+      [&_old, &_new_member] -> object_reference
       {
         std::pair<sge::parse::json::member_map::iterator, bool> const insert_ret{
             _old.get().members.insert(sge::parse::json::member(

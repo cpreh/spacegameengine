@@ -16,7 +16,7 @@
 
 sge::systems::original_window::original_window(sge::window::title &&_title)
     : title_{std::move(_title)},
-      class_name_{sge::window::default_class_name()},
+      class_name_{fcppt::string{sge::window::default_class_name()}},
       dim_{},
       hide_cursor_{false}
 {

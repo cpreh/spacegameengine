@@ -11,7 +11,7 @@
 namespace sge::opengl::texture
 {
 
-using id = sge::renderer::opengl::texture::id;
+using sge::renderer::opengl::texture::id;
 
 }
 

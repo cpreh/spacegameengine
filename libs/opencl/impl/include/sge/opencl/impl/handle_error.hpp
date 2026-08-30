@@ -6,7 +6,7 @@
 #ifndef SGE_OPENCL_IMPL_HANDLE_ERROR_HPP_INCLUDED
 #define SGE_OPENCL_IMPL_HANDLE_ERROR_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl_platform.h>
 #include <fcppt/config/external_end.hpp>
@@ -14,7 +14,7 @@
 namespace sge::opencl::impl
 {
 
-void handle_error(cl_int, fcppt::string const &);
+void handle_error(cl_int, fcppt::string_view);
 
 }
 

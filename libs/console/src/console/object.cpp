@@ -90,7 +90,7 @@ sge::console::object::insert(sge::console::callback::parameters &&_params)
       .signal()
       .connect(
           sge::console::callback::function{std::move(_params.function())},
-          fcppt::signal::unregister::function{[this, name = std::move(_params.name())]()
+          fcppt::signal::unregister::function{[this, name = std::move(_params.name())]
                                               { this->remove_function(name); }});
 }
 

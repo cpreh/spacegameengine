@@ -87,7 +87,7 @@ std::size_t sge::noise::simplex::object<Float, N>::index(vector_type const &vec)
   auto res = static_cast<std::size_t>(0);
   for (auto const elem : fcppt::math::to_array(vec))
   {
-    auto t = static_cast<long>(elem); // NOLINT(google-runtime-int)
+    auto const t = static_cast<long>(elem); // NOLINT(google-runtime-int)
     res = perm_[sge::noise::simplex::detail::mod(
         static_cast<long>(res) + t, // NOLINT(google-runtime-int)
         perm_.size())];

@@ -27,7 +27,7 @@ sge::renderer::texture::planar &
 sge::scenic::texture_manager::texture_for_path(std::filesystem::path const &_path)
 {
   // TODO(philipp): get_or_insert
-  auto it = path_to_texture_.find(_path);
+  auto const it{path_to_texture_.find(_path)};
 
   if (it != path_to_texture_.end())
   {

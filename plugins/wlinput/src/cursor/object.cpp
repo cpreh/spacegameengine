@@ -44,7 +44,7 @@ void pointer_enter(
     void *const _data,
     wl_pointer *,
     std::uint32_t,
-    wl_surface *const _surface,
+    wl_surface *const _surface, // NOLINT(misc-const-correctness)
     wl_fixed_t const _surface_x,
     wl_fixed_t const _surface_y)
 {
@@ -62,6 +62,7 @@ void pointer_enter(
   }
 }
 
+// NOLINTNEXTLINE(misc-const-correctness)
 void pointer_leave(void *const _data, wl_pointer *, std::uint32_t, wl_surface *const _surface)
 {
   sge::wlinput::cursor::data &data(

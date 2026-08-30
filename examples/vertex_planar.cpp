@@ -106,7 +106,7 @@ try
 
   using pos3_type = sge::renderer::vf::pos<float, 3>;
 
-  using bgra8_format = sge::image::color::bgra8_format;
+  using sge::image::color::bgra8_format;
 
   using color_type = sge::renderer::vf::color<bgra8_format>;
 

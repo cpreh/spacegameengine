@@ -86,7 +86,7 @@ fcppt::optional::object<sge::input::joypad::relative_axis> sge::sdlinput::joypad
     std::uint8_t const _id, sge::sdlinput::joypad::ball_direction const _direction) const
 {
   auto const ball_mult{
-      [_direction]() -> fcppt::optional::object<sge::input::info::id>
+      [_direction] -> fcppt::optional::object<sge::input::info::id>
       {
         FCPPT_PP_PUSH_WARNING
         FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)
@@ -121,7 +121,7 @@ fcppt::optional::object<sge::input::joypad::absolute_axis> sge::sdlinput::joypad
     std::uint8_t const _id, sge::sdlinput::joypad::hat_direction const _direction) const
 {
   auto const hat_mult{
-      [_direction]() -> fcppt::optional::object<sge::input::info::id>
+      [_direction] -> fcppt::optional::object<sge::input::info::id>
       {
         FCPPT_PP_PUSH_WARNING
         FCPPT_PP_DISABLE_GCC_WARNING(-Wswitch-default)

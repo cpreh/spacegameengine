@@ -7,6 +7,7 @@
 #include <sge/opencl/impl/handle_error.hpp>
 #include <fcppt/output_to_fcppt_string.hpp>
 #include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <CL/cl.h>
@@ -129,12 +130,12 @@ fcppt::string error_code_to_string(cl_int const code)
 }
 }
 
-void sge::opencl::impl::handle_error(cl_int const error_code, fcppt::string const &function_name)
+void sge::opencl::impl::handle_error(cl_int const error_code, fcppt::string_view const function_name)
 {
   if (error_code != CL_SUCCESS)
   {
     throw sge::opencl::exception(
-        FCPPT_TEXT("Function ") + function_name + FCPPT_TEXT(": ") +
+        FCPPT_TEXT("Function ") + fcppt::string{function_name} + FCPPT_TEXT(": ") +
         error_code_to_string(error_code));
   }
 }

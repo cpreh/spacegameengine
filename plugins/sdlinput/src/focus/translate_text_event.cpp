@@ -32,5 +32,5 @@ awl::event::container sge::sdlinput::focus::translate_text_event(
 
   return fcppt::container::make<awl::event::container>(fcppt::unique_ptr_to_base<awl::event::base>(
       fcppt::make_unique_ptr<sge::input::focus::event::text>(
-          _focus, fcppt::widen(std::string{std::data(_event.text)}))));
+          _focus, fcppt::widen(std::data(_event.text)))));
 }

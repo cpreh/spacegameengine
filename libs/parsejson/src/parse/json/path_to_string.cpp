@@ -17,7 +17,7 @@ sge::charconv::utf8_string sge::parse::json::path_to_string(sge::parse::json::pa
     result += *i;
     if (i != --_path.get().end())
     {
-      result += "/";
+      result += '/';
     }
   }
 

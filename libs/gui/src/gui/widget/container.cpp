@@ -166,7 +166,7 @@ sge::gui::get_focus sge::gui::widget::container::on_click(sge::rucksack::vector 
 sge::gui::widget::optional_ref
 sge::gui::widget::container::on_tab(sge::gui::widget::optional_focus_ref const _focus)
 {
-  for (auto &ref : widgets_)
+  for (auto const &ref : widgets_)
   {
     sge::gui::widget::optional_ref const result(ref.get().on_tab(_focus));
 
@@ -201,7 +201,7 @@ void sge::gui::widget::container::unregister(sge::gui::widget::base const &_widg
 template <typename Function>
 void sge::gui::widget::container::foreach_widget(Function const &_function)
 {
-  for (auto &ref : widgets_)
+  for (auto const &ref : widgets_)
   {
     if (_function(ref.get()) == sge::gui::widget::container::foreach_result::abort)
     {

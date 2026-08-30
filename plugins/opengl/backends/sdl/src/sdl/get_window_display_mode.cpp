@@ -12,7 +12,7 @@
 #include <fcppt/config/external_end.hpp>
 
 fcppt::optional::object<SDL_DisplayMode>
-sge::opengl::sdl::get_window_display_mode(awl::backends::sdl::window::object &_window)
+sge::opengl::sdl::get_window_display_mode(awl::backends::sdl::window::object const &_window)
 {
   SDL_DisplayMode result{};
 

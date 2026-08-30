@@ -33,15 +33,15 @@ public:
 
   using base = sge::renderer::buffer::readable<ImageTag>;
 
-  using image_tag = base::image_tag;
+  using typename base::image_tag;
 
-  using dim = base::dim;
+  using typename base::dim;
 
-  using format_tag = base::format_tag;
+  using typename base::format_tag;
 
-  using format_type = base::format_type;
+  using typename base::format_type;
 
-  using lock_area = base::lock_area;
+  using typename base::lock_area;
 
   /**
 	\brief The view type

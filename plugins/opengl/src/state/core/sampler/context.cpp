@@ -63,7 +63,7 @@ sge::opengl::state::core::sampler::context::get(sge::renderer::texture::stage co
   return fcppt::optional::from(
              fcppt::optional::join(
                  fcppt::optional::copy_value(fcppt::container::find_opt_mapped(objects_, _stage))),
-             [this]() { return fcppt::make_cref(*defaults_); })
+             [this] { return fcppt::make_cref(*defaults_); })
       .get();
 }
 

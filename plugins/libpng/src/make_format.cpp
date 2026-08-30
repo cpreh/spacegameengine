@@ -24,7 +24,7 @@
 #include <fcppt/config/external_end.hpp> // NOLINT(readability-duplicate-include)
 
 sge::libpng::optional_format sge::libpng::make_format(
-    fcppt::log::object &_log,
+    fcppt::log::object const &_log,
     sge::libpng::color_type const _color_type,
     sge::libpng::bit_depth const _bit_depth,
     sge::libpng::gamma const _gamma)

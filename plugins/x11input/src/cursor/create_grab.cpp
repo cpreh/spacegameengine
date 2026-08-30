@@ -16,7 +16,7 @@
 #include <fcppt/log/out.hpp>
 
 sge::x11input::cursor::optional_grab_unique_ptr sge::x11input::cursor::create_grab(
-    fcppt::log::object &_log,
+    fcppt::log::object const &_log,
     awl::backends::x11::window::const_base_ref const _window,
     sge::x11input::device::id const _id,
     awl::backends::x11::cursor::object_ref const _cursor)

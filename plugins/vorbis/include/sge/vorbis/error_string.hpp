@@ -6,12 +6,12 @@
 #ifndef SGE_VORBIS_ERROR_STRING_HPP_INCLUDED
 #define SGE_VORBIS_ERROR_STRING_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 
 namespace sge::vorbis
 {
 
-fcppt::string error_string(int);
+fcppt::string_view error_string(int);
 
 }
 

@@ -4,13 +4,13 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/vorbis/error_string.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <vorbis/codec.h>
 #include <fcppt/config/external_end.hpp>
 
-fcppt::string sge::vorbis::error_string(int const _code)
+fcppt::string_view sge::vorbis::error_string(int const _code)
 {
   switch (_code)
   {

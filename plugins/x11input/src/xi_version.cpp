@@ -11,7 +11,7 @@
 #include <fcppt/config/external_end.hpp>
 
 bool sge::x11input::xi_version(
-    awl::backends::x11::display &_display, int const _major, int const _minor)
+    awl::backends::x11::display const &_display, int const _major, int const _minor)
 {
   // BadRequest will be generated if the
   // server doesn't support XI2 at all.

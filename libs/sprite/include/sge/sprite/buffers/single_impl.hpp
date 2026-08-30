@@ -50,7 +50,7 @@ sge::sprite::buffers::single<Choices>::allocate(sge::sprite::count const _num_sp
   return slice_type(
       fcppt::optional::maybe(
           buffers_object_,
-          [this, _num_sprites]()
+          [this, _num_sprites]
           {
             return fcppt::make_cref(fcppt::optional::assign(
                 buffers_object_,

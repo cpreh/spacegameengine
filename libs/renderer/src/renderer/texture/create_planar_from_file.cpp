@@ -16,7 +16,7 @@
 
 sge::renderer::texture::planar_unique_ptr sge::renderer::texture::create_planar_from_file(
     sge::renderer::device::core_ref const _renderer,
-    sge::image2d::file &_file,
+    sge::image2d::file const &_file,
     sge::renderer::texture::mipmap::object const &_filter,
     sge::renderer::resource_flags_field const &_flags,
     sge::renderer::texture::emulate_srgb const _emulate_srgb)

@@ -16,7 +16,7 @@ namespace sge::opengl::egl::visual
 {
 
 EGLConfig choose_config(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     EGLDisplay,
     sge::opengl::egl::attribute_vector const &);
 

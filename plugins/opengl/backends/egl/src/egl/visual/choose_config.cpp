@@ -16,7 +16,7 @@
 #include <fcppt/config/external_end.hpp>
 
 EGLConfig sge::opengl::egl::visual::choose_config(
-    fcppt::log::object &_log,
+    fcppt::log::object const &_log,
     EGLDisplay const _display, // NOLINT(misc-misplaced-const)
     sge::opengl::egl::attribute_vector const &_attributes)
 {

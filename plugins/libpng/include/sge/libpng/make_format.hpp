@@ -16,7 +16,7 @@ namespace sge::libpng
 {
 
 sge::libpng::optional_format make_format(
-    fcppt::log::object &, // NOLINT(google-runtime-references)
+    fcppt::log::object const &,
     sge::libpng::color_type,
     sge::libpng::bit_depth,
     sge::libpng::gamma);

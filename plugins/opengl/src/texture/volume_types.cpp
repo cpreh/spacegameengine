@@ -4,7 +4,7 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <sge/opengl/texture/volume_types.hpp>
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 #include <fcppt/text.hpp>
 
-fcppt::string sge::opengl::texture::volume_types::name() { return FCPPT_TEXT("volume texture"); }
+fcppt::string_view sge::opengl::texture::volume_types::name() { return FCPPT_TEXT("volume texture"); }

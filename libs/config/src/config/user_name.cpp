@@ -17,7 +17,7 @@
 #include <pwd.h>
 #include <unistd.h>
 #include <sys/types.h> // NOLINT(misc-include-cleaner)
-#include <string>
+#include <string_view>
 #include <fcppt/config/external_end.hpp>
 #elifdef FCPPT_CONFIG_WINDOWS_PLATFORM
 #include <sge/config/exception.hpp>
@@ -76,7 +76,7 @@ fcppt::string sge::config::user_name()
         FCPPT_TEXT("Couldn't determine user name: ") + fcppt::error::strerrno()};
   }
 
-  return fcppt::from_std_string(std::string(pwd.pw_name));
+  return fcppt::from_std_string(std::string_view{pwd.pw_name});
 #else
 #error "don't know how to find a config path"
 #endif

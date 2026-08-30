@@ -6,7 +6,7 @@
 #ifndef SGE_OPENAL_ERROR_STRING_HPP_INCLUDED
 #define SGE_OPENAL_ERROR_STRING_HPP_INCLUDED
 
-#include <fcppt/string.hpp>
+#include <fcppt/string_view.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <al.h>
 #include <fcppt/config/external_end.hpp>
@@ -14,7 +14,7 @@
 namespace sge::openal
 {
 
-fcppt::string error_string(ALenum error);
+fcppt::string_view error_string(ALenum error);
 
 }
 

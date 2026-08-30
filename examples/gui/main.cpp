@@ -170,8 +170,8 @@ try
       SGE_FONT_LIT("Quit"),
       sge::gui::optional_needed_width());
 
-  fcppt::signal::auto_connection const quit_connection(button.click(
-      sge::gui::click_callback{[&sys]() { sys.window_system().quit(awl::main::exit_success()); }}));
+  fcppt::signal::auto_connection const quit_connection{button.click(
+      sge::gui::click_callback{[&sys] { sys.window_system().quit(awl::main::exit_success()); }})};
 
   sge::gui::widget::edit edit(
       fcppt::make_cref(*style),

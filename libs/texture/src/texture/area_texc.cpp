@@ -21,13 +21,12 @@
 #include <fcppt/math/vector/to_dim.hpp>
 #include <fcppt/config/external_begin.hpp>
 #include <limits>
-#include <type_traits>
 #include <fcppt/config/external_end.hpp>
 
 template <typename T>
-std::enable_if_t<sge::renderer::is_valid_float_type<T>::value, fcppt::math::box::rect<T>>
-sge::texture::area_texc(
+fcppt::math::box::rect<T> sge::texture::area_texc(
     sge::texture::part const &_part, fcppt::math::vector::static_<T, 2> const &_repeat)
+  requires(sge::renderer::is_valid_float_type<T>::value)
 {
   using vector_type = fcppt::math::vector::static_<T, 2>;
 
@@ -52,11 +51,11 @@ sge::texture::area_texc(
 }
 
 #define SGE_TEXTURE_INSTANTIATE_AREA_TEXC(floattype) \
-  template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION std::enable_if_t< \
-      sge::renderer::is_valid_float_type<floattype>::value, \
-      fcppt::math::box::rect<floattype>> \
+  template SGE_CORE_IMPL_EXPORT_FUNCTION_INSTANTIATION \
+  fcppt::math::box::rect<floattype> \
   sge::texture::area_texc<floattype>( \
-      sge::texture::part const &, fcppt::math::vector::static_<floattype, 2> const &)
+      sge::texture::part const &, fcppt::math::vector::static_<floattype, 2> const &) \
+      requires(sge::renderer::is_valid_float_type<floattype>::value)
 
 SGE_TEXTURE_INSTANTIATE_AREA_TEXC(float);
 

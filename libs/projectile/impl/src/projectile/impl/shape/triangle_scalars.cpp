@@ -8,6 +8,7 @@
 #include <sge/projectile/impl/shape/triangle_scalars.hpp>
 #include <sge/projectile/shape/triangle_sequence.hpp>
 #include <sge/projectile/shape/detail/scalar_container.hpp>
+#include <fcppt/literal.hpp>
 #include <fcppt/text.hpp>
 #include <fcppt/array/object_impl.hpp>
 #include <fcppt/log/debug.hpp>
@@ -19,7 +20,7 @@
 #include <fcppt/config/external_end.hpp>
 
 sge::projectile::shape::detail::scalar_container sge::projectile::impl::shape::triangle_scalars(
-    fcppt::log::object &_log, sge::projectile::shape::triangle_sequence const &_triangles)
+    fcppt::log::object const &_log, sge::projectile::shape::triangle_sequence const &_triangles)
 {
   sge::projectile::shape::detail::scalar_container scalars(
       _triangles.size() * 8U * 3U *
@@ -39,8 +40,8 @@ sge::projectile::shape::detail::scalar_container sge::projectile::impl::shape::t
     using extrusion_array = fcppt::array::object<btScalar, 2>;
 
     extrusion_array const extrusion_depth{
-        static_cast<btScalar>(-sge::projectile::impl::object_extrusion_depth() / 2),
-        static_cast<btScalar>(sge::projectile::impl::object_extrusion_depth() / 2)};
+        -sge::projectile::impl::object_extrusion_depth() / fcppt::literal<btScalar>(2),
+        sge::projectile::impl::object_extrusion_depth() / fcppt::literal<btScalar>(2)};
 
     for (btScalar const current_z : extrusion_depth)
     {

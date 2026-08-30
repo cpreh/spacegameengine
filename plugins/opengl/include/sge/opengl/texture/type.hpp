@@ -11,7 +11,7 @@
 namespace sge::opengl::texture
 {
 
-using type = sge::renderer::opengl::texture::type;
+using sge::renderer::opengl::texture::type;
 
 }
 

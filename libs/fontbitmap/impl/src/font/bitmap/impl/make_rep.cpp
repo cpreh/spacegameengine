@@ -46,7 +46,7 @@
 #include <fcppt/config/external_end.hpp>
 
 sge::font::bitmap::impl::rep sge::font::bitmap::impl::make_rep(
-    fcppt::log::object &_log,
+    fcppt::log::object const &_log,
     sge::font::bitmap::impl::char_map const &_char_map,
     sge::font::bitmap::impl::line_height const _line_height,
     sge::font::string const &_string,

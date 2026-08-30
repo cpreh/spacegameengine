@@ -11,7 +11,7 @@
 namespace sge::image
 {
 
-using size_type = mizuiro::size_type;
+using mizuiro::size_type;
 
 }
 

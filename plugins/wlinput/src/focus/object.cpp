@@ -129,6 +129,7 @@ void keyboard_keymap(
 }
 
 void keyboard_enter(
+    // NOLINTNEXTLINE(misc-const-correctness)
     void *const _data, wl_keyboard *, std::uint32_t, wl_surface *const _surface, wl_array *)
 {
   sge::wlinput::focus::data &data(*fcppt::cast::from_void_ptr<sge::wlinput::focus::data *>(_data));
@@ -144,6 +145,7 @@ void keyboard_enter(
   }
 }
 
+// NOLINTNEXTLINE(misc-const-correctness)
 void keyboard_leave(void *const _data, wl_keyboard *, std::uint32_t, wl_surface *const _surface)
 {
   sge::wlinput::focus::data &data(*fcppt::cast::from_void_ptr<sge::wlinput::focus::data *>(_data));
