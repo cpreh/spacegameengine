@@ -64,6 +64,7 @@ libs/font/include/sge/font/plugin/traits.hpp
 libs/font/include/sge/font/rect_fwd.hpp
 libs/font/include/sge/font/rect.hpp
 libs/font/include/sge/font/string.hpp
+libs/font/include/sge/font/string_view.hpp
 libs/font/include/sge/font/system_fwd.hpp
 libs/font/include/sge/font/system.hpp
 libs/font/include/sge/font/system_unique_ptr.hpp
